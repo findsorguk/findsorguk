@@ -1,0 +1,83 @@
+<?php
+$this->headTitle('All images on the database');
+?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+$(function() {
+<?php
+$auth = Zend_Auth::getInstance();
+if($auth->hasIdentity()){
+$user = $auth->getIdentity();
+{
+if(in_array($user->role,array('flos','treasure','fa','admin'))) {
+?>
+$('div.image-controls').css('visibility','hidden');
+$('div.thumbnail').each(function() {
+var controls = $(this).children('div.image-controls');
+$(this).hover(
+    function() {
+    $(controls).css('visibility','visible')
+    },
+    function() {
+    $(controls).css('visibility','hidden')
+    });
+});
+<?php
+}
+}
+}
+?>
+});
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
+
+
+
+<h2>All images on the database</h2>
+<?php echo $this->form;?>
+
+<?php if ($this->results): ?>
+<div class="row-fluid ">
+    <div class="span9">
+    <ul class="thumbnails">
+<?php echo $this->partialLoop('partials/database/myimagesList.phtml',
+        $this->results);?>
+    </ul>
+    </div>
+    <div class="span3">        
+    	<?php echo $this->resultsQuantityChooser($this->paginator);?>
+        <?php echo $this->thumbnailToggler();?>
+        <?php echo $this->resultsSorter($this->paginator);?>
+		<?php echo $this->imagesFacetCreator($this->facets); ?>
+	</div>
+</div>
+
+<?php echo $this->paginationControl($this->paginator, 'Elastic',
+        'structure/pagination.phtml'); ?>
+
+<?php else:?>
+<p>You have added no images to our database.</p>
+<?php endif; ?>
+
+<?php
+$this->inlineScript()->appendFile('/js/bootstrap-modal.js', $type='text/javascript');
+$this->inlineScript()->captureStart();
+?>
+$(document).ready(function() {
+	$('#print').click(function() {
+	window.print();
+	return false;
+	});
+
+    $('.overlay').click(function(e) {
+    e.preventDefault();
+    var href = $(e.target).attr('href');
+    if (href.indexOf('#') == 0) {
+        $(href).modal('open');
+    } else {
+        $.get(href, function(data) {
+            $('<div class="modal fade" >' + data + '</div>').modal();
+        });
+    }
+});
+
+	});
+<?php $this->inlineScript()->captureEnd();?>

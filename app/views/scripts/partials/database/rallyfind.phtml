@@ -1,0 +1,13 @@
+<h4>Rally details.</h4>
+<p>This object was found at <a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies','action' => 'rally','id' => $this->id),null,true);?>" title="Details for <?php echo $this->rally_name;?>"><?php echo $this->rally_name;?></a>
+
+<?php if(isset($this->df))
+{ 
+echo ' held '.$this->niceshortdate($this->df); 
+if(isset($this->dt))
+{ 
+echo ' - '.$this->niceshortdate($this->dt);
+}
+}
+?>
+ </p>

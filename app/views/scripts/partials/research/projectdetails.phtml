@@ -1,0 +1,14 @@
+<?php $this->headTitle('Project details for: '.$this->escape($this->title));?>
+<h2><?php echo $this->escape($this->title);?></h2>
+<p><strong>Principal investigator:</strong> <?php echo $this->investigator;?><br />
+<strong>Level:</strong> <?php echo $this->type;?></p>
+<?php echo $this->description;?>
+<h3>Audit data</h3>
+<ul id="related">
+<li>Created: <?php echo $this->timeagoinwords($this->created);?></li>
+<li>Created by: <?php echo $this->namethem($this->fullname);?></li>
+<?php if(isset($this->updated)):?>
+<li>Updated: <?php echo $this->timeagoinwords($this->created);?></li>
+<li>Updated by: <?php echo $this->namethem($this->fn);?></li>
+<?php endif;?>
+</ul>

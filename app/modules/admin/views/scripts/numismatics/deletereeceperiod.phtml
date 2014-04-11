@@ -1,0 +1,16 @@
+<?php if ($this->reece) :?>
+<h2>Delete a Reece period</h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->reece->period_name); ?>'
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action'=>'deletereeceperiod'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->reece->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

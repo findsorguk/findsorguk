@@ -1,0 +1,80 @@
+<?php
+$this->headTitle('Originating medium  via Google Analytics ' . $this->timeSpanParameter());
+?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+
+<?php 
+$this->inlineScript()->appendFile('https://www.google.com/jsapi',$type = 'text/javascript');
+$this->inlineScript()->captureStart();?>
+google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Medium', 'Visitors'],
+      <?php 
+      $data = array();
+      foreach($this->results as $row){
+      	if($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_MEDIUM)->value == '(none)'){
+      		$medium = 'Direct';
+      	} else {
+      		$medium = ucfirst($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_MEDIUM)->value);
+      	}
+      	$data[] =array(
+      	'medium' => $medium,
+      	'visitors' => $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value,
+      	);
+      }
+      ?>
+      <?php 
+      foreach($data as $d){
+      	?>
+      	['<?php echo $d['medium'];?>', <?php echo $d['visitors'];?>],
+      	<?php       }
+      ?>
+        
+        ]);
+
+        var options = {
+          title: '<?php echo $this->title(); ?>',
+          legend: { position: 'right'},
+          height: '500',
+          
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart'));
+        chart.draw(data, options);
+      }
+<?php $this->inlineScript()->captureEnd();?>   
+<div id="chart" style="width: 900px; height: 500px;"></div>
+
+<table class="table table-striped">
+	<caption><?php echo $this->title();?> </caption>
+		<thead>
+		<tr>
+			<th>Medium</th>
+			<th>Visitors</th>
+			<th>Visits</th>
+			<th>Bounces</th>
+			<th>Time on site</th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php foreach($this->results as $row):
+			if($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_MEDIUM)->value == '(none)'){
+      		$medium = 'Direct';
+      	} else {
+      		$medium = ucfirst($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_MEDIUM)->value);
+      	}
+			?>
+			
+			<tr>
+				<td><?php echo $medium;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_BOUNCES)->value;?></td>
+				<td><?php echo $this->secondsToMinutes()->setSeconds($row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_AVG_TIME_ON_SITE)->value);?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+</table>

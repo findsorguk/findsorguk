@@ -1,0 +1,2755 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="bmThesaurus.xsl"?>
+<sparql xmlns='http://www.w3.org/2005/sparql-results#'>
+	<head>
+		<variable name='subject'/>
+		<variable name='label'/>
+		<variable name='scope'/>
+	</head>
+	<results>
+		<result>
+			<binding name='label'>
+				<literal>0FILL2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82368</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>. . . filled with glass micro balloons mixed to a stiff consistancy with Paraloid B72 (ethyl methacrylate copolymer) in acetone, and applied with a spatula.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>3MDSTP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82699</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>3M double sided tape 415 (polyester carrier,acrylic adhesive)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>3MGRAF</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82698</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>3M Graffiti remover (isobutanol,butyl acetate,xylene)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>3MMTP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82697</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>3M Magic Tape 810 (cellulose acetate carrier, acrylic adhesive)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AADAO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82696</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Archival Aids DAO11 solution (methyl magnesium carbonate)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ABLE</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82695</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Ablebond 342-1 (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ABRA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82694</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Abra starch (wheat starch)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ACE</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82693</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Acetone (propan-1-one/dimethyl ketone)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ADHESIVES</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82836</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AERLM</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82692</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Aerolam F board (glass fibre,epoxy laminate on aluminiun honeycombe)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AFBLOT</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82691</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Acid free blotting paper</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AKA-NAKA NURI</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82367</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>The application of a layer of red middle coating lacquer (a blend of suki-naka urushi and red iron oxide pigment)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AKEMI</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82690</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Akemi (polyester)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ALAB</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82689</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Alabastine (comp. unknown)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ALAL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82688</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Aluminium alkoxide</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ALKG</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82687</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Alkaline glycerol (sodium hydroxide, glycerol)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ALKR</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82686</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Alkaline Rochelle salts (sodium hydroxide, sodium potassium tartrate)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ALKS</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82685</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Alkaline sodium sulphite (sodium hydroxide, sodium sulphite)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ALPO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82684</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Alpolit UP223 (polyester)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AMBE</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82683</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Ambersil anti stick spray (polytetrafluoroethane,chlorofluorocarbons,organic titanate)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AMSIL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82682</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Amsil impression material (silicone rubber)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>APPMB</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82681</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Appretan MB extra (vinyl acetate copolymer dispersion)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AQPL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82680</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Aquapel E (alkyl ketene dimer)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AQWC</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x101607</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Aquarell watercolours (made up of ochre and gum arabic)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AR2005</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82679</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Araldite 2005 (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARAL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82678</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Araldite (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARALCP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82677</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Araldite colouring paste (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARALR</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82676</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Araldite Rapid (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARAY753</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82675</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Araldite AY753 (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARBO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82674</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Arbocel woodpulp (treated woodpulp)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARCAFTP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82673</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Archival Aids framing tape (acid free paper carrier ,polyvinyl acetate)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARCW2215</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82672</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Araldite CW2215 (foamed epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARDT75</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x95620</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Araldite DT075 (Epoxy Resin)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARGNTO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82671</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Argento platine (potassium polysulphide,sodium sulphide,selenium)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARIEL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82670</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Ariel automatic (anionic and non ionic synthetic surfactants,sodium tripolyphosphate)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARK</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82669</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Arklone (trichlorotrifluoroethane)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARRO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82668</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Arrowroot starch (starch)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ARSIL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82667</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Aerosil R5805 (fumed silica)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AURO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82666</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Auro paint stripping paste (potash,beeswax,ammonia,linseed &amp; turkey red oils,alcohol)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AUTMET</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82665</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Autochrome metal polish (emulsified blend of abrasives,emulsifiers &amp; mineral oil hydrocarbons)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BEDA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82664</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Bedacryl 122X (polymethacrylic ester)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BEET</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82663</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Beetle resin (polyester)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BETA30/40</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82662</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Beta bond 30/40 (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BETAFB</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82661</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Beta bond fast bond (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BETASB</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82660</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Beta bond standard bond (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BEVA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82659</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Beva 371 (polyethylene vinyl acetate)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BIOT</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82658</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Biotex (enzyme based)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BIOX</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82657</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Biox (citric acid)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BJK</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82656</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>BJK dough (Butvar B98-polyvinyl butyral,acetone,IMS,amyl acetate,xylene,water,paper dust,kaolin)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BLAN7</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82655</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Blanose 7MC (sodium carboxymethyl cellulose)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BLAU</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82654</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Blau fix spray (composition unknown)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BNDNA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82653</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Bondina H3228 (non woven polyester)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BOND</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82652</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Bonda filler SL (polyester, inert filler)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BOUN</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82651</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Bouncing putty (silicone)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BPPETJEL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82650</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>BP white petroleum jelly (hydrocarbon mixture)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BRAND_TOP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82700</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Brand</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BRAS</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82649</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Brasso (abrasives,white spirit,fatty acids,water)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BROW</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82648</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Brown bronze (composition unknown)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BTA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82647</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Benzotriazole</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BUTT</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82646</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Button polish (shellac,IMS)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>BUTV</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82645</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Butvar B98 (polyvinyl butyral)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CABO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82644</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cab-o-sil (fumed silica)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CALA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82643</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Calaton (soluble nylon)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CALG</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82642</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Calgon (sodium hexametaphosphate)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CALGPF</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82641</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Calgon phosphate free (zeolites,polycarboxylates)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CAR</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82640</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Carbolan (anthroquinone)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CARA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82639</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Caran d'Ache pencils (composition variable)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CARBO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82638</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Carbowax (polyethylene glycol)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82366</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned with *IMS*, using cotton wool swabs on a satay stick. After cleaning surface wiped with Kleenex tissue to remove the remaining solvent.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANB</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82365</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned with 50/50 distilled water and *IMS*, using cotton wool swabs on a satay stick. Followed by acetone swabbed over the surface to expel any remaining traces of water. After cleaning, surface wiped with Kleenex tissue to remove the remaining solvent.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANC</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82364</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned with distilled water and a few drops of *SYNP*, using cotton wool swabs on a satay stick. After cleaning, surface rinsed with distilled water on cotton wool swabs or a Kleenex tissue. Surface wiped with a dry Kleenex tissue to remove any remaining distilled water.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEAND</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82363</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Object covered with Kleenex tissues wetted by spraying with distilled water and a few drops of *SYNP*. The object is left for a while to let the dirt soften. Cleaned with distilled water and a few drops of *SYNP* using cotton wool swabs and a satay stick. After cleaning surface rinsed with distilled water on a cotton wool swab or Kleenex tissue. Surface wiped with a dry Kleenex tissue to remove any remaining distilled water.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANE</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82362</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned using a solution of *Ariel* in distilled water, using cotton wool swabs on satay sticks. After cleaning the surface is rinsed with distilled water applied on cotton wool swabs or Kleenex tissue. Surface wiped wth a dry tissue to remove any remaining distilled water.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANF</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82361</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned by rolling cotton wool swabs over the surface moistened with 70/30 *IMS* and distilled water. Water residue removed using either *IMS* or acetone on cotton wool swabs. Paper tissue was used to remove smears.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANG</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82360</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Surface cleaned with tap water applied on cotton wool swabs on a satay stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANH</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82359</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Surface cleaned with distilled water applied on cotton wool swabs on a satay stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANI</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82358</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Surface cleaned with a 2% solution of *SYNP* in tap water on cotton wool swabs on a satay stick.  Residue removed with tap water on cotton wool swabs.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANJ</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82357</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Surface cleaned with a solution of *ARIEL* and tap water applied on cotton wool swabs on a satay stick.  Residue removed with tap water on cotton wool swabs.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANK</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82356</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Surface cleaned with *IMS* applied on cotton wool swabs on a satay stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82355</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Surface cleaned with acetone applied on cotton wool swabs on a satay stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANM</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82354</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned by completely immersing in a solution of *ARIEL* and tap water and left to soak for .... days.  Rinsed by soaking in tap water.  Left to dry thoroughly.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANN</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82353</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cotton wool swabs soaked in *Ariel* solution in tap water applied to stained areas.  Rinsed with tap water.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82352</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cotton wool swabs soaked in hydrogen peroxide 30% w/v applied to stained areas. Object rinsed thoroughly by soaking in tap water for ......  hours to remove excess hydrogen peroxide.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82351</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Softened adhesive removed mechanically with scalpel blade.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANQ</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82350</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Break edges brushed with stencil brush and *IMS*/acetone to remove adhesive</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANR</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82349</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dry cleaned with a soft sable brush to remove surface dust.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANS</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82348</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dry cleaned with *DRAFT*rubbed over surface with soft brush or fingers and removed with vacuum cleaner.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANT</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82347</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dry cleaned with *GROOM* rolled over surface on a cocktail stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANU</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82346</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dry cleaned with *ROWPUT* rolled over surface.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANV</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82345</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned manually using a scalpel blade.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANW</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82344</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dust removed with a vacuum cleaner.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANX</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82343</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned by immersing in a solution of *SYNP* and tap water.  Rinsed in tap water and left to dry thoroughly.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANY</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82342</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Surface dust removed with soft brush, avoiding pigmented areas. Mud deposit softened with cotton wool swabs on satay sticks dampened with 50:50 solution of *IMS* and distilled water. Softened deposit loosened with scalpel blade taking care not to disturb any pigments underneath, and removed with soft brush and puffer.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCLEANZ</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82341</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dry cleaned with Mars Plastic Staedtler eraser rubbed over surface and removed with puffer.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCONS1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82340</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cracks consolidated using ...% *HMG* in acetone applied with a micropipette. Excess consolidant removed with acetone applied on a cotton wool swab on a satay stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCONS2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82339</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cracks consolidated using ...% *PARB72* in acetone applied with a ....  Excess consolidant removed with acetone applied on cotton wool swabs on a satay stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCONS3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82338</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cracks consolidated with *HXTL* applied to surface of object with a paint brush and drawn in by capillary action.  Excess adhesive removed with acetone applied on a cotton wool swab on a satay stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCONS4</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82337</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cracks consolidated with 3 parts *CGXW396* to 1 part *CGXW397* applied to the surface of the object with a paint brush and drawn in by capillary action. Excess adhesive removed with acetone applied on a cotton wool swab on a satay stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCONS5</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82336</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Consolidated small flakes using ...% *PARB72* in acetone applied with a micropipette.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCONS6</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82335</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Consolidated surface with ...% *MOWB30H* in acetone and *IMS* applied with a micropipette.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCONS7</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82334</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Consolidated surface with ...% *PARB72* in acetone/*IMS* applied with a micropipette.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CCONS8</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82333</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Consolidated lifting area with very thin sheet of *PARB72* inserted into gap. Acetone applied to soften resin and slight pressure applied to obtain adhesion.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDESAL1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82332</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Object completely immersed in tap water. Wash water changed on a daily basis. Conductivity readings taken of both the tap water and the wash water. DATE       WASH WATER      TAP WATER  measured in siemens 10-5/10-4</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDESAL2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82331</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Object completely immersed in distilled water.  Wash water changed on a daily basis.  Conductivity readings taken of both the tap water and the wash water. DATE       WASH WATER      TAP WATER measured in siemens 10-5/10-4</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDIS1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82330</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dismantled in an atmosphere of *IMS* in a glass dessicator with tissue support.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDIS2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82329</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dismantled in an atmosphere of acetone in a glass desiccator with tissue support.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDIS3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82328</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dismantled in an atmosphere of dichloromethane in a glass desiccator with tissue support.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDIS4</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82327</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dismantled by completely immersing in tap water.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDIS5</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82326</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dismantled using tap water applied to cotton wool swabs laid along joins.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDIS6</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82325</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dismantled using acetone applied to cotton wool swabs laid along joins.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDIS7</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82324</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dismantled using *IMS* applied to cotton wool swabs laid along joins.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDIS8</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82323</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dismantled using steam cleaner with distilled water directed along joins.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDIS9</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82322</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dismantled with *NITW* applied with a paint brush along joins and covered with aluminium foil to decrease evaporation.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CDRY1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82321</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Fragments left to air dry.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CELFS</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82637</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cellofas B3500 (sodium carboxymethyl cellulose)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CELLS</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82636</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cellosolve (2-ethoxyethanol)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CELSTP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82635</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>ICI white cellulose stopper (cellulose nitrate,pigments,fillers,esters)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CERAMICS_and_GLASS</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x86095</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFACE1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82320</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Loose areas of surface faced up using strips of Japanese tissue secured at either end with 20% *PARB72* in acetone.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFACE2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82319</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Acetone applied with a brush to remove the *PARB72*.  Japanese tissue then lifted from surface with tweezers and any remaining adhesive removed with acetone and a paint brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82318</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas, supported on one side with dental wax, filled with *SUPCAST* mixed with water. Cut back with scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLB</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82317</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *POLINT* mixed with water. Cut back with a scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLC</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82316</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *FEW*. Cut back with a scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLD</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82315</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *CGXW396* 100 parts to 32 parts *CGXW397* mixed with *ARSIL* and *WIND*. Cut back with scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLE</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82314</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *MARI*. Cut back with scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLF</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82313</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Small holes filled with *POLFS*.  Sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLG</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82312</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *DAVI*.  Cut back with scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLGG</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82311</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Small holes filled with *CELSTP*.  Sanded smooth with various grades of abrasive papers.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLH</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82310</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Surface fine filled with French chalk mixed with *RUSWT*.  Sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLI</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82309</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *HXTL* 3:1 resin to hardener mixed with *ARSIL* and *WIND*.  Cut back with a scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLJ</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82308</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *HXTL* 3:1 resin to hardener  with *CABO* and *WIND*. Cut back with a scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLK</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82307</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *CGXW396* 100 parts to 32 parts *CGXW397* mixed with *ARSIL* and *WIND*.  Cut back with scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82306</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with Ciba Geigy XW396 (epoxy) 100 parts to 32 parts Ciba Geigy XW397 (epoxy) mixed with *CABO* and *WIND*.  Cut back with a scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLM</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82305</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *HXTL* and *MICR*.  Cut back with a scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLN</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82304</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *CGXW396* 100 parts to 32 parts *CGXW397* and *MICR*. Cut back with a scalpel blade.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82303</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *HXTL* and glass beads.  Cut back with scalpel.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82302</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *CGXWW396* 100 parts to 32 parts *CGXW397* and glass beads.  Cut back with scalpel blade.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLQ</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82301</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Fill cut back with a scalpel blade.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLR</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82300</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Fills smoothed with various grades of abrasive papers.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLS</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82299</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *SUPCAST* mixed with water.  A seperating layer of aluminium foil applied to break edges.  Dental wax used as a support mould, held in position using masking tape.   Gapfill removed from object when hard, smoothed using a scalpel blade and various grades of abrasive paper.  Gapfill sealed with *RUSWT* applied with a brush.  Small imperfections filled using *POLFS* and sanded smooth with various grades of abrasive paper. Fill bonded into position with *HMG*. Surface painted with *RUSWT* and *IMS* and *WIND*/ and *GASIL* applied with a sable brush. Polished with micromesh abrasive paper and *PRELM* on tissue. paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLT</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82298</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Sealed broken edge with 20% *PARB72* in acetone applied with a brush. Missing areas filled with *SUPCAST* mixed with water.  Dental wax used as a support mould held in position using masking tape. Fill smoothed with a scalpel blade and various grades of abrasive paper. Surface sealed with *RUSWT* applied with a brush. Small imperfections filled with *POLFS* and smoothed with various grades of abrasive paper. Surface painted with *RUSWT* and *IMS* and *WIND* /and *GASIL* applied with a sable brush. Polished with micromesh abrasive paper and *PRELM* applied on a tissue.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLU</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82297</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *HXTL* 3:1 resin to hardener mixed with *ARSIL* and *WIND*.  Cut back with scalpel and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLV</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82296</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas filled with *PARB72* mixed with *MICR*.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CFILLW</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82295</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas packed with a paste of *MICR* in *PARB72*.  Pared with scalpel blade and sanded smooth with various grades of abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CGXW396</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82634</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Ciba Geigy XW396 (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CGXW397</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82633</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Ciba Geigy XW397 (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CHIN</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82632</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Chinese pigments (comp. variable)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CHLO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82631</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Chloramine T (sodium-p-toluene-sulpho-chloramide)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CIBA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82294</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>CGWXW 396 (epoxy) 100 parts to 32 parts *CGWXW 397*</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CIBA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82630</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cibacet (comp. unknown)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CLEAN2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82293</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned by dry brushing followed by polishing with a silk wrapped cotton wool pad moistened with white spirit or Petroleum Ether.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CMIC</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82292</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Examined closely using the microscope.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CMOD 1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82291</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing areas modelled using *MILL* and smoothed using French Chalk. Once cured, surfaces modified using various grades of abrasive papers.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CMOD2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82290</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Missing area modelled slightly smaller than required with *MILL*.  *HXTL* 3:1 resin to hardener mixed to a gel with *ARSIL* and *WIND* and applied to modelled area with cocktail stick.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CMOULD1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82289</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Moulded a profile with *DENT* softened with heat from a hot air blower/hot water.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CMOULD2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82288</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Moulded impression or profile with *PRVLS*.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CMOULD3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82287</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Moulded  impression or profile with *SLCSTIO5*.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CMOULD4</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82286</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Moulded impression or profile with *AMSIL*.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CMOULD5</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82285</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Two part mould made with *SlCST105*.  Cast made in *SUPCAST* mixed with water.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CNUMR1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82284</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Removed registration numbers from visible positions with *IMS* or acetone applied on cotton wool swabs.  Replaced on base with Rotring pen (Indian ink) sealing the surface first with 20% *PARB72*in acetone.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CNUMR2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82283</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Disguised registration numbers in visible positions using *CRYLA*, as mechanical removal with solvents proved impossible.  Replaced on base with Rotring pen (Indian ink) sealing surface first with 20% *PARB72*in acetone.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>COME</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82629</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Comet (animal glue)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CONDP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82628</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Conte a Paris drawing pencils (composition unknown)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CONPP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82627</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Conte a Paris pastel pencils (composition unknown)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CONS</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82282</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cleaned and consolidated using</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>COOM</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82626</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Coommassie (diazo)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>COPO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82625</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Coposil (silicone rubber)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CORR</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82624</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Correx (polypropylene/polyethylene copolymer,coorugated sheet</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>COSM</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82623</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cosmolloid 80H (microcrystalline wax)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPAINT1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82281</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Painted with *RUSWT* and *IMS* and *WIND*/and *GASIL*  applied with a sable brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPAINT2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82280</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Painted with *RUSPL* and *RUSTH* and *WIND* applied with a sable brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPAINT3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82279</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Painted with *ROWCRY* diluted with water applied with a sable brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPAINT4</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82278</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Painted with *RUSWT* thinned with *IMS* and *MAIM* applied with a sable brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPAINT5</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82277</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Painted with *RUSPL* and *RUSTH* with *MAIM* applied with a sable brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPOL1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82276</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Fills polished with *PRELM* on cotton wool swab or paper tissue.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPOL2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82275</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Fills polished with *SOLV* on cotton wool swabs or paper tissue.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPOL3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82274</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Polished with fine grades of Micromesh abrasive paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPOL4</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82273</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Buffed with glass bristle brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPOULT1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82272</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Poulticed with *LAPRD* mixed with distilled water.  Covered with cling film to slow down evaporation.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPOULT2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82271</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Poulticed with *LAPRD* mixed with distilled water and *IMS* covered with cling film to slow down evaporation.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPOULT3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82270</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Poulticed with *LAPRD* mixed with tap water covered with cling film to slow down evaporation.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CPOULT4</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82269</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Poulticed with acid free blotting paper soaked in water, tamped onto the surface with a stencil brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECONA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82268</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed using *HMG* . Joins supported with ......... during curing.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECONB</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82267</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed using *HXTL* mixed in the proportion of 3:1 resin to hardener. Joins supported with ........ during curing.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECONC</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82266</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed with *PARB72* 50% in acetone applied to the break edges with a brush.  Joins supported with ....... during curing.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECOND</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82265</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed using CGWXW396 (epoxy) 100 parts to 32 parts CGWXW397 (epoxy). Joins supported with ....... during curing.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECONE</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82264</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed with *SUPPXY*.  Joins supported with ......... during curing.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECONF</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82263</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed with *ARAL*.  Joins supported with ... during curing.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECONG</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82262</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed with *ARALR.   Joins supported with ... tape.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECONH</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82261</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed with *LOCENG* UV curing adhesive.  Joins supported with ... tape.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECONI</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82260</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed dry, securing with ... tape.  *HXTL* applied to joins, drawn in by cappillary action.  Excess removed with acetone on a cotton wool swab on a satay stick and a scalpel blade.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRECONJ</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82259</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Reconstructed dry securing with ... tape.  *CGXW396* 100 parts to 32 parts *CGXW397* applied to joins drawn in by capillary action.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CRYLA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82622</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cryla colours (acrylic)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CSEAL1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82258</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Plaster surface sealed with *RUSWT* and *IMS* applied by brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CSEAL2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82257</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Plaster fills sealed with *PARB72* in 50/50 Acetone /*IMS* applied by brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CSEAL3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82256</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Edges of areas to be filled sealed with 20% *PARB72* in acetone applied by brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CSTEAM</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82255</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Steam cleaned using distilled water; run off dirt and water absorbed into soft tissue paper.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CTILE1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82254</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>*Mill* pellets pressed to back of uneven tiles to create an even top surface before sticking the tiles to the metal backing plate.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CTILE2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82253</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Tiles adhered to the roughened surface of an aluminium backing plate with *AR2005* mixed with *CABO*.  Any excess around the edge of the tiles wiped off with tissue and acetone.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CTILE3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82252</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Back and sides of tiles sealed with 20% *PARB72* in acetone applied with a paint brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CTILE4</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82251</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>The tiles were removed from the frame and the brass surround. Steam cleaned using distilled water; run of dirt and water absorbed into soft tissue paper. The brass surround and the frame were then replaced. After inspection by the MLA department the tiles again removed from the frame, the brass strips surrounding the tiles were secured with *SUPPXY*. Three of the brass tacks had broken heads,the heads were secured to their pins with *MILL*, which when cured was secured with *SUPPXY*. The glass frame was cleaned with a 2% solution of *SYNP* and water. It was then replaced.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82621</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Culminal (nonionic cellulose ether)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUMDER</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82620</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cumberland Derwent coloured pencils (composition variable)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUMI</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82619</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cuminal (paracuminic acid)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.BOX</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82250</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Faced cotton-wool removed from box.  Box dusted then lined with 5mm polyethelene foam padding cut to size, Foam dividers added if required.  Any fragments of clay or ceramic unable to be aligned placed in a self-sealing bag, labelled and returned to box.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.BRUSH</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82249</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Lightly cleaned the surface with a soft sable brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.CLEAN</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82248</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dirt lodged in inscription removed using one or more of the following: cocktail stick, scalpel blade, fine pin, soft sable brush, puffer.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.CONS</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82247</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Friable areas consolidated using a solution of 10% *ParB72* in 50/50 Acetone/IMS applied using a micro-pipette.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.CONS2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82246</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Large cracks consolidated with *HMG* diluted with acetone applied by brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.CONS3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82245</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Low fired fragment edges consolidated using 10% *PARB72* in 50:50 *IMS* and acetone applied by brush before being aligned and joined using *HMG*.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.CONS4</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82244</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Large open cracks or loose flakes consolidated with 10% *PARB72* in 50:50 *IMS* and acetone applied by micropipette.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.DAMAGE</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82243</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Four trays were damaged by water leaking from the roof into 2 cupboards in ANE. Date unknown 2001? C.Walker. Some of the tablets where effected by this action, visible salts on surface of some tablets, resulting in unstable and flaking surfaces. 117438 to 117706 Conservation Research will assess the remaining water content.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FILL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82242</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>To support the fragments a detachable fill was necessary.  The tablet surfaces around the lacuna were protected with *WTMSF* and one side was sealed with *PLAS* to form an enclosure.  SUPCAST* was poured into the area and allowed to rest for approximately an hour.  Resulting cast removed, sanded using wet and dry paper under runing tap water and allowed to dry. Plaster fill sealed using 10% *PARB72* in 50:50 *IMS* and acetone.  Film removed and any specks of plaster removed with a sable brush.  Sanded detachable fill colour matched using *CRYLA* diluted with tap water.  Cast positioned and stuck to appropriate fragments using *HMG* and held with masking tape until cured.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FILL2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82241</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>To support the fragments a detachable fill was necessary.  The tablet surface around the lacuna were protected with *WTMSF* and one side was sealed with *PLAS* to form an enclosure.  *SUPCAST* was poured into the area and allowed to rest for approximately an hour.  Resulting cast removed, sanded using wet and dry paper.  Plaster fill sealed using 10% *PARB72* in 50:50 *IMS* and acetone applied by brush.  Film removed with a sable brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FIRE</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82240</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cuneiform object fired in Firing number 369 which contained 50 tablets.  Object placed in 'saggar' and positioned on refractory shelf in an electric kiln. Position recorded.  Firing programme '5' selected on the digital programmer. Firing began at 09.00 hours on 26th October 1998 soaking for 48 hours at 150 degrees then climbing to reach a maximum temperature of 740 degrees centigrade. Controlled cooling period.  Kiln opened 2nd November 1998.  Satisfactory result.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FIRE362</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82239</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cuneiform object fired with batch number 362 which contained a total of 33 tablets.  Object placed in saggar and positioned on refractory shelf in an electric kiln.  Position noted.  Firing programme '5' selected on the digital programmer.  Firing began at 08.15 on 7th July 1997 first soaking for 48 hours at 150 degrees centigrade then climbing to reach a maximum temperature of 740 degrees centigrade.  Controlled cooling period.  Kiln opened on 14th July 1997. Significant debris and cracking but tablets were in very poor condition on receipt.  Tablets in firing 362 were not desalinated.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FIRE365</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82238</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cuneiform object fired with batch 371 which contained a total of 32 tablets. Object placed in saggar and positioned on refractory shelf in an electric kiln. Position noted.  Firing programme '5' selected on the digital programmer. firing began at 09.00 on 11 August 1999 first soaking for 24 hours at 140 degrees centigrade then climbing to reach a maximum temperature of 630 degrees centigrade.  Controlled cooling period.  Kiln opened on 20 August 1999. Satisfactory result.  Tablets in firing 370 were not desalinated. #CUNE.RENU#</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FIRE366</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82237</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cuneiform object fired in Firing number 366 which contained a total of 41 tablets.  Object placed in saggar and positioned on refractory shelf in an electric kiln.  Position noted.  Firing programme '5' selected on the digital programmer.  Firing began at 14.30 on 27.4.98 first soaking for 48 hours at 150 degrees then climbing to reach a maximum temperature of 740 degrees centigrade. Controlled cooling period.  Kiln opened on 5.5.98.  Satisfactory results. Tablets in 366 were not desalinated. Tablet renumbering carried out by John Cooper using acryllic paint and sable brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FIRE370</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82236</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cuneiform object fired in Firing number 370 which contained 32 tablets. Objects placed in saggar and positioned on refractory shelf in a electric kiln. Position recorded. Firing programme '5' selected on a digital programmer. Firing on the 9.00 on the 26th July 1999 soaking for 48 hours at 150 degrees then climbing to reach a maximum temperature of 740 degrees centigrade. Controlled cooling period. Kiln opened 12 August 1998. Satisfactory results. These tablets were not desalinated.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FIRE371</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82235</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cuneiform object fired in Firing number 371 which contained 32 tablets. Objects placed in saggar and positioned on refactory shelf in a electric kiln. Position recorded . Firing programme '5' selected on a digital programmer. Firing began a 09.00 on the 11 August 1999 soaking for 24 hours at 140 degrees the climbing to reach a maximum temperature of 630 degrees centigrade. Controlled coolimng period . Kiln opened 20 August 1999. Satisfactory results. These tablets were not desalinateed.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FIRE372</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82234</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cuneiform tablets fired in Firing number 372 which contained a total of 20 tablets. Objects placed in saggar and positioned on refractory shelf in a electric kiln. Position noted. Firing programme `1' selected on a digital programmer. Firing began 01.11.99 first soaking for 24 hours at 140 degrees then climbing to reach a maximum temperature of 630 degrees centigrade. Controlled cooling period. Kiln opened on 08.11.99. Satisfactory results. Tablets in 372 were not desalinated.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.FIRE373</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82233</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Cuneiform objects fired in Firing number 373 which contained 18 tablets. Objects placed in saggars and positioned on refractory shelf in a electric kiln. Postion noted. Firing programme `5' selected on digital programmer. Firing began at 9.30 on 10.11.99 first soaking for 48 hours at 150 degreess then climbing to reach a maximum temperature of 740 degrees centigrade. Controlled cooling period. Kiln opened on 20.11.99. Satisfactory results. Tablets in 373 were not desalinated.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.JOIN</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82232</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Fragments aligned then joined using *HMG*. Fragments secured in position and placed upright in a sand tray until cured.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.JOIN2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82231</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Fragments aligned then joined using *HMG*.  Fragments secured in position (using masking tape strips) and placed upright in a sand tray until cured. (Masking tape strips removed using *IMS*).</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.MAG</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82230</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Examination, cleaning and consolidation carried out under binocular magnification X10.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.MICR</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82229</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Small support fill made from *MICR* in 30% *PARB72* in 50/50 Acetone/*IMS* and placed insitu upon prepared consolidated area.  Left unpainted.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.PAINT</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82228</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Gap fill painted using *liqacr* diluted with tap water applied by brush.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>CUNE.RENU</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82227</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Renumbered the tablet using a black rotring ink pen on two coats of *PARB72* at 20% in 50/50 IMS/Acetone.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DAGR</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82618</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Daguerreotype cleaner (thiourea,orthophosphoric acid)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DAMP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82617</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>C4 Damp Seal (composition unknown)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DAVI</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82616</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>David's P38 Isopon (polyester paste)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DAVIP40</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82615</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>David's P40 Isopon (polyester,glass fibre)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DCLN</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82226</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>The surface was dry cleaned using a fine scalpel blade, brush and vacuum.</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DEC90</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82614</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Decan 90 (composition unknown)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DEG412</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82613</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Degussa flattening agent OK412 (micronised amorphous silica)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DENT</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82612</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dental wax (petrochemical mixture)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DETL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82611</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Detarol (n-hydroxylethyl ethylenediaminetriacetic acid,trisodium salt)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DETX</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82610</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Detarex (ethylenediaminetetraacetic acid,disodium salt)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DEVCN</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82609</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Devcon (epoxy)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DICHL</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82608</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dichlorophen (di-5chloro2hydroxyphenyl-methane)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DISP</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82607</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>ICI Disperol (anthroquinone)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DOW</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82606</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dow Corning silicone release agent (comp. unknown)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DRAFT</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82605</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Draft clean (soya fibres,calcium hydroxide,magnesium silicate)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DTPA</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82604</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Diethylenetriaminepenta acetic acid pentasodium salt</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DULUX</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82603</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Dulux vinyl matt (emulsion)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DURFX</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82602</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Durafix (cellulose nitrate)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DURGLM</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82601</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Duraglit metal polish (cotton wadding,white spirit,ammonium soap,china clay,Newburgh chalk)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DURGLMO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82600</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Duraglit metal polish old formula (cotton wadding,white spirit,ammonium soap,siliceous earth)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DURGLSO</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82599</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Duraglit silver polish old formulation (cotton wadding,white spirit,siliceous earth)</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>DURLC</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/x82598</uri>
+			</binding>
+			<binding name='scope'>
+				<literal>Duralac (comp. unknown)</literal>
+			</binding>
+		</result>
+	</results>
+</sparql>

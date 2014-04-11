@@ -1,0 +1,8 @@
+<tr class="valid-<?php echo $this->valid;?>">
+<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'institutions','action' => 'institution','id' => $this->id),null,true);?>" title="View details for <?php echo $this->institution;?>"><?php echo $this->institution;?></a></td>
+<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->timeagoinwords($this->updated);?></td>
+<td><?php echo $this->namethem($this->fn);?></td>
+<td><a href="<?php echo $this->url(array('module' =>'admin','controller'=>'institutions','action'=>'edit', 'id'=> $this->id),null,true);?>" title="Edit role">Edit</a></td>
+</tr>

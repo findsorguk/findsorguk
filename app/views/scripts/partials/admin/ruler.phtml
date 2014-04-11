@@ -1,0 +1,10 @@
+<?php 
+$this->headTitle('Database details for '.$this->issuer);
+?>
+<h2>Details for <?php echo $this->issuer;?></h2>
+<p>Name: <?php echo $this->issuer;?><br />
+Date issued from: <?php echo $this->adbc($this->escape($this->date1));?><br />
+Date issued to: <?php echo $this->adbc($this->escape($this->date2));?><br />
+Ruler validity: <?php echo $this->validity($this->escape($this->valid));?>
+</p>
+<p><a href="<?php echo $this->url(array('module'=> 'admin','controller' => 'numismatics','action' => 'editruler','id' => $this->id),null,true);?>" title="Edit <?php echo $this->issuer;?>'s details">Edit these details</a></p>

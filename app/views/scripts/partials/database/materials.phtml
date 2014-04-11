@@ -1,0 +1,25 @@
+<h4>Materials and construction</h4>
+
+<p>
+<?php if(!is_null($this->mat1)) : ?>
+Primary material: <span property="pas:primaryMaterial"><?php echo $this->escape($this->mat1);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'material','id' => $this->material1),NULL,true);?>" title="View scope notes for <?php echo $this->escape($this->mat1);?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','material' => $this->material1),NULL,true);?>" title="Find all records assigned to  <?php echo $this->escape($this->mat1);?>">view all attributed records</a>]</span><br />
+<?php endif;?>
+<?php if(!is_null($this->mat2)) : ?>
+Secondary material: <span property="pas:secondaryMaterial"><?php echo $this->escape($this->mat2);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'material','id' => $this->material2),NULL,true);?>" title="View scope notes for <?php echo $this->escape($this->mat2);?>">scope notes</a>| <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','material' => $this->material2),NULL,true);?>" title="Find all records assigned to  <?php echo $this->escape($this->mat2);?>">view all attributed records</a>]</span><br />
+<?php endif;?>
+<?php if(!is_null($this->manufacture)) : ?>
+Manufacture method: <span property="pas:manufactureMethod"><?php echo $this->escape($this->manufacture);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'manufacture','id' => $this->manmethod),NULL,true);?>" title="View scope notes for <?php echo $this->escape($this->manufacture);?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','manufacture' => $this->manmethod),NULL,true);?>" title="Find all records assigned to  <?php echo $this->escape($this->manufacture);?>">view all attributed records]</a></span><br />
+<?php endif;?>
+<?php if(!is_null($this->decoration)) : ?>
+Decoration method: <span property="pas:decoration"><?php echo $this->escape($this->decoration);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'decorationmethod','id' => $this->decmethod),NULL,true);?>" title="View scope notes for <?php echo $this->escape($this->decoration);?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','decoration' => $this->decoration),NULL,true);?>" title="Find all records assigned to  <?php echo $this->escape($this->manufacture);?>">view all attributed records]</a></span><br />
+<?php endif;?>
+<?php if(!is_null($this->style)) : ?>
+Decoration style: <span property="pas:decorationStyle"><?php echo $this->escape($this->style);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'decorationstyle','id' => $this->decstyle),NULL,true);?>" title="View scope notes for <?php echo $this->escape($this->decoration);?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','decstyle' => $this->decstyle),NULL,true);?>" title="Find all records assigned to  <?php echo $this->escape($this->style);?>">view all attributed records]</a></span><br />
+<?php endif;?>
+<?php if(!is_null($this->completeness)) : ?>
+Completeness: <span property="pas:completeness"><?php echo $this->escape($this->completeness($this->completeness));?></span> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'completeness','id' => $this->completeness),NULL,true);?>" title="View scope notes for <?php echo $this->escape($this->complete);?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','complete' => $this->completeness),NULL,true);?>" title="Find all records assigned to  <?php echo $this->escape($this->complete);?>">view all attributed records]</a></span><br />
+<?php endif;?>
+<?php if(!is_null($this->surface)) : ?>
+Surface Treatment: <span property="pas:surfaceTreatment"><?php echo $this->escape($this->surface);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'surface','id' => $this->surftreat),NULL,true);?>" title="View scope notes for <?php echo $this->escape($this->surface);?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','surface' => $this->surftreat),NULL,true);?>" title="Find all records assigned to  <?php echo $this->escape($this->surface);?>">view all attributed records]</a></span>
+<?php endif;?>
+</p>

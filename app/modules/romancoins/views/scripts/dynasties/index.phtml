@@ -1,0 +1,7 @@
+<?php 
+$this->headTitle('Dynastic groupings of the Roman Empire', 'PREPEND');
+?>
+<h2>Dynastic grouping of the Roman Empire</h2>
+<ul id="related">
+<?php echo $this->partialLoop('partials/numismatics/dynasties.phtml',$this->dynasties);?>
+</ul>

@@ -1,0 +1,5 @@
+<?php if($this->hoards > 0) {
+echo $this->partial('partials/database/hoardDetail.phtml',$this->hoards['0']);
+} else {
+echo '<p>There is no hoard registered with this parameter.</p>';
+}?>

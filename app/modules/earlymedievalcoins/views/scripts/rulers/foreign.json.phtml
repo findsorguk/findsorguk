@@ -1,0 +1,11 @@
+<?php
+echo Zend_Json::prettyPrint(Zend_Json::encode( (
+    array(
+        'rulers' => array(
+    'francia' => $this->francia,
+    'islamicRulers' => $this->islamic,
+    'hibernoNorse' 	=> $this->hiberno,
+    'french'		=> $this->french
+        )
+        )) ));
+?>

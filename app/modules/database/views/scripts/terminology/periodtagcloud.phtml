@@ -1,0 +1,31 @@
+<?php
+$tag = array();
+foreach($this->objects as $o)
+{
+$tag[] = array('title' => strtolower($o['title']), 'weight' => $o['weight'], 'params' => array('url' => $this->url(array('controller' => 'database','action' => 'searchresults','objecttype' => strtolower($o['title']),'broadperiod' => $this->partial('partials/database/periodName.phtml',$this->periods['0'])),null,true)),);
+}
+$tags = array('tags' => $tag,
+			'cloudDecorator' => array(
+			'decorator' => 'HtmlCloud',
+			'options' => array(
+			'htmlTags' => array(
+			'ul' => array(
+			'id' => 'period-object-cloud')
+			)
+			//,
+			//'separator' => ', '
+			)
+			),
+			'tagDecorator' => array(
+			'decorator' => 'HtmlTag',
+			'options' => array(
+	'htmlTags' => array( 'li'),
+	'minFontSize' => 100,
+	'maxFontSize' => 200,
+	'fontSizeUnit' => '%'
+				)
+			)
+			);
+$cloud = new Zend_Tag_Cloud($tags);
+echo $cloud;
+?>

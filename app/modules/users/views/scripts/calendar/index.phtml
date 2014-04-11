@@ -1,0 +1,24 @@
+<?php
+$this->headTitle('Scheme shared calendar');
+?>
+
+<h2>Upcoming events</h2>
+<p>This calendar is driven by Google Calendar functionality. It is a serious beta experiment and so may break occasionally.<br />
+</p>
+<p><a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'calendar', 'action' => 'add'),null,true);?>" class="btn btn-success">Add a new event</a></p>
+<?php 
+foreach($this->eventFeed as $event) {
+	$eventData = array(
+		'title' => $event->title,
+		'id' => substr($event->id,strrpos($event->id,'/')+1,26),
+		'starts' => $event->when[0]->startTime,
+		'ends'   => $event->when[0]->endTime,
+		'where' => $event->where[0],
+		'updated' => $event->updated,
+		'content' => $event->content,
+		'type' => $event->extendedProperty[0],
+		'creator' => $event->extendedProperty[1]
+	);
+	echo $this->partial('partials/calendar/event.phtml',$eventData);
+}
+?>

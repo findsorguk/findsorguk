@@ -1,0 +1,11 @@
+<?php
+$paginator = $this->paginator;
+$meta = array(
+    'currentPage' => $paginator->getCurrentPageNumber(),
+    'totalResults' => $paginator->getTotalItemCount(),
+    'resultsPerPage' => $paginator->getItemCountPerPage(),
+    'totalPages' => ceil($paginator->getTotalItemCount()/$paginator->getItemCountPerPage()));
+echo Zend_Json::prettyPrint(Zend_Json::encode( ( array(
+	'meta' => $meta, 
+	'myImages' => $this->results,
+	'facets' => $this->facets) ) ) ) ;

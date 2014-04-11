@@ -1,0 +1,20 @@
+<li id="record-<?php echo $this->linkid;?>" class="record">
+<?php 
+$deletelink = $this->url(array('module' =>'database','controller' => 'images','action' => 'unlink','id' => $this->imageID, 'returnID' => $this->findID,'secuid' => $this->secuid),null,true);
+
+$string =  '<a href="'.$this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->findID),null,true).'" title="View record details">'.$this->old_findID.'</a> '.$this->objecttype . ' '. $this->broadperiod. ' : created by '. $this->fullname;
+$allowed = array('flos','fa','admin');
+
+$auth = Zend_Auth::getInstance();
+if($auth->hasIdentity())
+{
+$user = $auth->getIdentity();
+{
+if(in_array($user->role,$allowed)){
+$string .=' <a class="btn-small btn btn-warning" href="'.$deletelink.'" title="Delete the image link" class="delete">Delete link</a>';
+}
+}
+}
+echo $string;
+?>
+</li>

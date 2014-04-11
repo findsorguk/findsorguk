@@ -1,0 +1,21 @@
+<?php 
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+?>
+<li>
+<a href="<?php echo $this->url(array(
+    'module' => $module,
+    'controller' => 'mints',
+    'action' => 'mint','id' => $this->mint_id),
+        null,true);?>" title="View details for <?php echo $this->mint_name;?>">
+        <?php echo $this->escape($this->mint_name); ?></a> - <a href="
+        <?php echo $this->url(array(
+            'module' => 'database',
+            'controller' => 'search',
+            'action' => 'results',
+            'ruler' => $this->pasID,
+            'mint' => $this->mint_id),null,true);?>" title="View details for 
+        <?php echo $this->mint_name;?>"><span class="scope">view all attributed 
+                records</span></a>
+</li>

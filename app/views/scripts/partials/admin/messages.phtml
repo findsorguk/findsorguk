@@ -1,0 +1,34 @@
+<tr id="comment-<?php echo $this->comment_ID;?>" class="status-<?php echo $this->comment_approved;?>">
+<td class="author column-author" >
+<?php 
+echo $this->gravatar($this->comment_author_email,array(
+	'imgSize' => 30, 
+	'defaultImg' => 'http://finds.org.uk/assets/gravatar.png', 
+	'secure' => true),
+    array(
+    'class' => 'avatar stelae pull-left img-circle', 
+    'title' => $this->fullname . '\'s gravatar representation',
+    'rating' => 'G',
+    'width' => 30,
+    'height' => 30));
+?>
+
+
+<strong><?php echo $this->comment_author;?></strong><br/>
+<?php if(isset($this->comment_author_url)) :?><a href="<?php echo $this->comment_author_url;?>" title="<?php echo $this->comment_author_url;?>"><?php echo $this->comment_author_url;?></a><br/><?php endif;?>
+<a href="mailto:<?php echo $this->comment_author_email;?>"><?php echo $this->comment_author_email;?></a><br/>
+<?php echo $this->user_ip;?></td>
+<td class="comment column-comment"><div id="submitted-on">Submitted:<br />
+<?php echo $this->comment_date ;?></div><?php echo 
+$this->ellipsisstring(strip_tags($this->comment_content),200);?></td>
+<td><?php if($this->replied == 1) { 
+	echo 'Replied '.$this->timeagoinwords($this->updated);
+	?> 
+	<br /><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'ajax', 'action' => 'messagereply','id' => $this->id),null,true);?>" class="overlay">View reply</a>
+	<?php 
+} else { echo 'Reply needed';}?></td>
+<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'messages',
+'action' => 'reply','id' => $this->id),'default',true);?>" title="Reply to this message">Reply</a> | <a href="<?php echo $this->url(array('module' => 'admin','controller' => 'messages',
+'action' => 'delete','id' => $this->id),'default',true);?>" title="Delete this message">Delete</a>
+</td>
+</tr>

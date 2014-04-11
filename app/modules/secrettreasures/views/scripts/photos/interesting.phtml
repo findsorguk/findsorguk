@@ -1,0 +1,27 @@
+<?php 
+$this->headTitle('Archaeological images on flickr');
+$this->MetaBase('Archaeological images that we\'ve seen on flickr. This should only
+show creative commons licenced images.',
+'photos',
+'photos,archaeology,favourites,portable antiquities,flickr');
+?>
+
+<h2>Archaeology images from around the world.</h2>
+<div>
+<?php
+if($this->photos):
+?>
+<?php 
+$photos = array();
+foreach($this->photos->photo as $photo){
+	$photos[] = (array)$photo;
+}
+echo $this->partialLoop('partials/flickr/favourite.phtml',$photos);
+?> 
+</div>
+<div class="row span16">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+</div>
+<?php else:?>
+<p>There are no favourites available at the moment</p>
+<?php endif;?>

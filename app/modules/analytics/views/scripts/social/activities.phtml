@@ -1,0 +1,37 @@
+<?php $this->headTitle('Social network activity data for ' . $this->timeSpanParameter());?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+
+<?php 
+if((int)$this->results->totalResults->text > 0 ):?>
+<table class="table table-striped">
+	<caption><?php echo $this->title();?></caption>
+		<thead>
+		<tr>
+			<th>URL</th>
+			<th>Action</th>
+			<th>Endorsing url</th>
+			<th>Visitors</th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php foreach($this->results as $row):?>
+			<tr>
+				<td><?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_SOCIAL_ACTIVITY_CONTENT_URL)->value;?></td>
+				<td><?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_SOCIAL_ACTIVITY_NETWORK_ACTION)->value;?></td>
+				<td><?php $url = parse_url($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_SOCIAL_ACTIVITY_ENDORSING_URL)->value);?>
+				<?php
+				if(array_key_exists('host', $url)){ 
+				echo $url['scheme'] . '://' . $url['host'];
+				} else {
+				echo 'Not set';
+				}?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_SOCIAL_ACTIVITIES)->value;?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+</table>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>No data can be retrieved that meets these criteria.</p>
+<?php endif;?>

@@ -1,0 +1,16 @@
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">x</a>
+    <h3>Cite this record</h3>
+  </div>
+  <div class="modal-body">
+<h3>Publication citation</h3>
+<p>This record can be cited in the Harvard bibliographic style using the text below:</p>
+<?php echo $this->partialLoop('partials/database/webCiteData.phtml',$this->finds);?>
+
+<h3>Wikipedia citation</h3>
+<pre><?php echo $this->partial('partials/database/wikicite.phtml', $this->finds['0']);?></pre>
+  
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Close</a>
+  </div>

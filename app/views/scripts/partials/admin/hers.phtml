@@ -1,0 +1,5 @@
+<tr id="signup-<?php echo $this->id;?>">
+<td><?php echo $this->escape($this->name);?></td>
+<td><?php echo $this->escape($this->contact_name);?></td>
+<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'her','action' => 'edit','id' => $this->id),null,true);?>">Edit</a></td>
+</tr>

@@ -1,0 +1,8 @@
+<?php $this->headTitle('Edit a reference for a find');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jQueryLinkedSelect.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedSelect.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/publicationLinkedQuery.js',$type='text/javascript');
+
+?>
+<h2>Edit reference</h2>
+<?php echo $this->form;?>

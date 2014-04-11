@@ -1,0 +1,2 @@
+<li><a href="<?php echo $this->Url(array('module' => 'romancoins','controller' => 'emperors','action' => 'emperor', 'id'=> $this->id,'name' => $this->urlslug($this->name)),null,true);?>"><?php echo $this->name. ' '.$this->adbc($this->date_from);?></a> -
+<a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action'=> 'results','denomination' => $this->denomID ,'ruler' => $this->i),null,true);?>" title="Search database for examples"><span class="scope">view all of this denomination issued by <?php echo $this->name;?></span></a></li>

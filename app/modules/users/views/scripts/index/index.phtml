@@ -1,0 +1,20 @@
+<h2>Registered user login</h2>
+<div class="alert alert-info">
+  <h3>Following the server outage, you will need to reset your password, follow the forgotten password link below.</h3>
+</div>
+<?php 
+echo $this->form; 
+?>
+<h3>Forgotten your details?</h3>
+<p>You can retrieve your user account details using the links below:</p>
+<ul>
+<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'account','action' => 'forgotten'),NULL,TRUE);?>" title="Retrieve your password">Forgotten password</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'account','action' => 'forgotusername'),NULL,TRUE);?>" title="Retrieve your username">Forgotten username</a></li>
+</ul>
+<h3>Register for an account</h3>
+<p><a href="<?php echo $this->url(array('module' => 'users','controller' => 'account','action' => 'register'),NULL,true);?>" title="Register for a database account">Registering for an account</a> to use the Scheme's database is now very simple and has the following benefits:</p>
+<ul>
+<li>You can record your own objects</li>
+<li>Your search history is saved</li>
+<li>You can get higher level access if you are an academic involved in archaeological research</li>
+</ul>

@@ -1,0 +1,46 @@
+<?php
+Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/atom+xml');
+$feed =  new Zend_Feed_Writer_Feed();
+$feed->setTitle('News stories about the Scheme in the Guardian');
+$feed->setLink($this->serverUrl());
+$feed->setFeedLink($this->curUrl(), 'atom');
+$feed->addAuthor(array(
+    'name'  => 'The Guardian API and Daniel Pett',
+    'email' => 'info@finds.org.uk',
+    'uri'   => $this->serverUrl(),
+));
+$feed->setDateModified(time());
+$feed->addHub('http://pubsubhubbub.appspot.com/');
+ Zend_Date::setOptions(array(
+    'format_type'   => 'php'
+));
+foreach($this->hoards as $hoard){
+if(is_null($hoard['description'])){
+		$description = 'No description provided';
+	} else {
+	$description = $hoard['termdesc'];
+	}
+	if(!is_null($hoard['updated'])){
+	$updated = strtotime($hoard['updated']);
+	} else {
+		$updated = strtotime($hoard['created']);
+	}
+$entry = $feed->createEntry();
+$entry->setTitle($hoard['term']);
+$entry->setLink($this->serverUrl() . '/database/hoards/hoard/id/' . $hoard['id']);
+
+$entry->addAuthor(array(
+    'name'  => 'The Portable Antiquities Scheme',
+));
+$updated = new Zend_Date($hoard['updated'], 'YY-mm-dd hh:mm:ss');
+$created = new Zend_Date($hoard['created'], 'YY-mm-dd hh:mm:ss');
+$entry->setDateModified($updated);
+$entry->setDateCreated($created);
+
+$entry->setDescription($this->ellipsisstring($description,400));
+$entry->setContent(htmlspecialchars(strip_tags($description)));
+$feed->addEntry($entry);
+}
+
+$out = $feed->export('atom');
+echo $out;

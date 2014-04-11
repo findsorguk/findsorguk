@@ -1,0 +1,126 @@
+SetEnv APPLICATION_ENV production
+RewriteEngine on
+RewriteRule !\.(htm|html|txt|mpg|swf|js|ico|gif|JPG|zip|jpg|png|css|php|xml|mp3|kml|pdf|tif|pptx|ppt|doc|docx|mp4|mov)$ index.php
+RewriteCond %{HTTP_HOST} ^www\.(.+)
+RewriteCond %{HTTPS}s/%1 ^(on(s)|offs)/(.+)
+RewriteRule ^ http%2://%3%{REQUEST_URI} [L,R=301]
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.*)index\.php(.*)\ HTTP/ [NC]
+RewriteRule ^index\.php(.*)$ /$1 [R=301,L]
+
+#php_value session.auto_start 0
+# Disable all magic quoting.
+php_value	magic_quotes_gpc off
+php_value	magic_quotes_runtime off
+
+<IfModule mod_php5.c> 
+
+php_flag zend.ze1_compatibility_mode Off 
+php_flag zlib.output_compression ON 
+php_value zlib.output_compression_level 5
+php_value auto_prepend_file /home/beowulf/public_html/header.php
+AddHandler application/x-httpd-php .css .js
+
+</IfModule>
+
+ExpiresActive On
+ExpiresDefault A0
+ExpiresByType image/gif A2592000
+ExpiresByType image/png A2592000
+ExpiresByType image/jpg A2592000
+ExpiresByType image/jpeg A2592000
+ExpiresByType image/ico A2592000
+ExpiresByType text/css A2592000
+ExpiresByType text/javascript A2592000
+Header unset ETag
+FileETag None
+
+redirect 301 /wordpress /blogs/centralunit/
+redirect 301 /database/index.php /database/
+redirect 301 /romancoins/4thcentury.php /romancoins/reversetypes/
+redirect 301 /romancoins/biblio.php /romancoins/articles/page/romanbibliography/
+redirect 301 /vacancies/index.php /getinvolved/vacancies/
+redirect 301 /involved/regional.php /contacts/
+redirect 301 /involved/contacts.php /contacts/
+redirect 301 /news/news_lister.php /news/
+redirect 301 /news/rss_news.php /news/index/index/format/rss
+redirect 301 /news/events_rssfeed.php /events/upcoming/index/format/rss/
+redirect 301 /news/rss_vacancies.php /getinvolved/vacancies/index/format/rss/
+redirect 301 /conservation/index.php /conservation/
+redirect 301 /conservation/note2.php /conservation/advice/note2/
+redirect 301 /conservation/note1.php /conservation/advice/note1/
+redirect 301 /conservation/note3.php /conservation/advice/note3/
+redirect 301 /conservation/note4.php /conservation/advice/note4/
+redirect 301 /conservation/note5.php /conservation/advice/note5/
+redirect 301 /conservation/note6.php /conservation/advice/note6/
+redirect 301 /conservation/note7.php /conservation/advice/note7/
+redirect 301 /learning/ngr.php /getinvolved/guides/ngr/
+redirect 301 /learning/research.php /research/
+redirect 301 /medievalcoins/index.php /medievalcoins/
+redirect 301 /treasure/index.php /treasure/
+redirect 301 /romancoins/values.php /romancoins/articles/page/coinvaluesrome/
+redirect 301 /background/annual3.php /news/reports/2001-2003/
+redirect 301 /background/treasure_summary.php /treasure/advice/summary/
+redirect 301 /background/headley_trust.php /treasure/advice/headleytrustfund/
+redirect 301 /fromehoard/ /blogs/fromehoard/
+redirect 301 /fromehoard /blogs/fromehoard/
+redirect 301 /patera.htm /database/images/zoom/id/9858/
+redirect 301 /background/index.php /info/advice/aboutus/
+redirect 301 /background/links.php /getinvolved/links
+redirect 301 /counties/ /blogs/
+redirect 301 /counties /blogs/
+redirect 301 /homepage.html /
+redirect 301 /index.asp /
+redirect 301 /index.html /
+redirect 301 /involved/ /getinvolved/
+redirect 301 /medievalcoins/monarchs.php /medievalcoins/rulers/
+redirect 301 /news/events.php /events/
+redirect 301 /news/reports.php /news/reports/
+redirect 301 /finds/ /database/artefacts/
+redirect 301 /finds /database/artefacts/
+redirect 301 /finds/periods.php /database/terminology/periods/
+redirect 301 /romancoins/copies/modern.php /romancoins/articles/page/modernromancopies/
+redirect 301 /romancoins/copies/barb_radiate.php /romancoins/articles/page/contempcopies/
+redirect 301 /romancoins/articles/page/coinvaluesrome/early.php /romancoins/articles/page/coinvaluesrome/
+redirect 301 /romancoins/index.php /romancoins/
+redirect 301 /romancoins/mintmarks.php /romancoins/articles/page/officina/
+redirect 301 /treasure/treasure_summary.php /treasure/advice/summary/
+redirect 301 /treasure.php /treasure/
+redirect 301 /vacancies/ /getinvolved/vacancies/
+redirect 301 /background/links.asp /getinvolved/links/
+redirect 301 /background/links.php /getinvolved/links/
+redirect 301 /background/treasure /treasure
+redirect 301 /background/treasure_summary.asp /treasure/advice/summary/
+redirect 301 /conservation/reading.php /conservation/advice/note7
+redirect 301 /database/search/byzantinenumsimatics /database/search/byzantinenumismatics
+redirect 301 /background/treasure /treasure/
+redirect 301 /gallery/ /flickr/
+redirect 301 /involved/contact.asp /getinvolved/contactus
+redirect 301 /involved/faq.php /getinvolved/faq/
+redirect 301 /involved/faqs.asp /getinvolved/faq/
+redirect 301 /pastexplorers http://www.pastexplorers.org.uk/
+redirect 301 /pastexplorers/ http://www.pastexplorers.org.uk/
+redirect 301 /romancoins/reece.php /romancoins/reeceperiods/
+redirect 301 /romancoins/radiates.php /romancoins/denominations/
+redirect 301 /news/hawkshead.php /news/reviews/2004/
+redirect 301 /questions.html /getinvolved/faq/
+redirect 301 /village/index.html http://www.pastexplorers.org.uk/village/
+redirect 301 /finds/her.php /research/datatransfer/hers
+redirect 301 /map.xml /info/sitemap/locations/
+redirect 301 /treasure/coroners.php /contacts/coroners/
+redirect 301 /background/treasure.asp /treasure
+redirect 301 /kml/Suffolk.kml /kml/SUFFOLK.kml
+redirect 301 /background/cop.php /getinvolved/guides/codeofpractice
+redirect 301 /rallycode /getinvolved/guides/rallycode
+redirect 301 /discoveries/romansindevon /news/stories/article/id/216
+redirect 410 /documents/tmp/
+
+
+RewriteCond %{QUERY_STRING} emperorID=([^&;]*)
+RewriteRule ^romancoins/obverse.php$ http://%{SERVER_NAME}/romancoins/emperors/emperor/id/%1/ [R]
+RewriteCond %{QUERY_STRING} personID=([^&;]*)
+RewriteRule ^people/profile.php$ http://%{SERVER_NAME}/contacts/staff/profile/id/%1/ [R]
+RewriteCond %{QUERY_STRING} newsID=([^&;]*)
+RewriteRule ^news/story.php$ http://%{SERVER_NAME}/news/stories/article/id/%1/ [R]
+RewriteCond %{QUERY_STRING} id=([^&;]*)
+RewriteRule ^news/newsarticle.asp$ http://%{SERVER_NAME}/news/stories/article/id/%1/ [R]
+

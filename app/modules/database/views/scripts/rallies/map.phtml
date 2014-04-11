@@ -1,0 +1,83 @@
+<?php
+$this->googleDynamicMap(null,null,true);
+$this->headTitle('Rallies known to the Scheme displayed on map');
+$this->headMeta('This map displays all locations for rallies that the Scheme attends. These present the
+Scheme with a problem for managing the archaeological record','description');
+$this->headMeta('archaeology,metal detecting,rally,maps,locations','dc.keywords')
+->headMeta('CC NC-SA-BY','dc.rights')
+->headMeta('metal detecting rallies','dc.subject')
+->headMeta('archaeology','dc.subject')
+->headMeta($this->curUrl(),'dc.identifier')
+->headMeta('The Portable Antiquities Scheme','dc.author');
+?>
+<h2>Rallies known to the Scheme</h2>
+<div id="map">
+</div>
+<?php $this->inlineScript()->captureStart() ?>
+ $(document).ready(function() {
+  var center = new google.maps.LatLng(54.70235509327093, -3.2080078125);
+  var myOptions = {
+    zoom: 6,
+    center: center,
+    mapTypeId: google.maps.MapTypeId.SATELLITE,
+  }
+
+  var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+  var markers = new Array();
+
+	var infowindow = new google.maps.InfoWindow();
+	
+	<?php
+	$request = Zend_Controller_Front::getInstance()->getRequest();
+	$params = array('module' => 'database', 'controller' => 'ajax', 'action' => 'rallydata');
+	$params2 = array_slice($request->getParams(),3);
+	$params = array_merge($params,$params2);
+	$url = $this->serverUrl() . $this->url($params,'default',true);
+	?>
+    jQuery.get("<?php echo $url;?>", {}, function(data) {
+
+    jQuery(data).find("marker").each(function() {
+        var markerXML = jQuery(this);
+        var latlng = new google.maps.LatLng(
+            parseFloat(markerXML.attr("lat")),
+            parseFloat(markerXML.attr("lng"))
+        );
+        var title = markerXML.attr("name");
+        var content = markerXML.attr("content");
+        var marker = new google.maps.Marker({
+        	position: latlng, 
+        	map: map,  
+        	title: title,
+        	icon: "<?php echo $this->serverUrl();?>/images/logos/museum_archeological.png" });
+
+        // now that the marker is placed, assign event listener on the marker
+        // and create/assign infowindow to the event trigger.
+        markerInfoWindow(marker, markerXML.attr("content"));
+        markers.push(marker);
+    });
+	});
+
+	function markerInfoWindow(marker, information){
+	     google.maps.event.addListener(marker, 'click',
+	    function() {
+	        infowindow.close();
+	        infowindow.setContent(information);
+	        infowindow.setPosition(marker.getPosition());
+	        infowindow.open(map, marker);
+	    });
+	}
+	var center;
+
+	function calculateCenter() {
+	  center = map.getCenter();
+	}
+	google.maps.event.addDomListener(map, 'idle', function() {
+	  calculateCenter();
+	});
+	google.maps.event.addDomListener(window, 'resize', function() {
+	  map.setCenter(center);
+	});
+  
+  });
+<?php $this->inlineScript()->captureEnd() ?>

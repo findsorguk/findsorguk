@@ -1,0 +1,3 @@
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),'default',true);?>" title="View related record <?php echo $this->old_findID;?>"><?php echo $this->old_findID;?></a> <?php echo $this->broadperiod;?> <?php echo $this->objecttype;?> 
+<?php echo $this->EditReference($this->id,$this->i,$this->createdBy);?>
+</li>

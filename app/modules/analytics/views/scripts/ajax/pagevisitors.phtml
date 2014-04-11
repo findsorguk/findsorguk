@@ -1,0 +1,17 @@
+<?php
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$dom->createElement('markers');
+
+$documentNode = $dom->createElement('markers');
+$dom->appendChild($documentNode);
+
+
+foreach($this->results as $row){
+		$marker = $dom->createElement('marker');
+		$marker->setAttribute('latitude', $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_LATITUDE)->value);
+        $marker->setAttribute('longitude', $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_LONGITUDE)->value);
+        $marker->setAttribute('visitors', $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value);
+		$documentNode->appendChild( $marker );
+}
+$xmlData  = $dom->saveXML();
+echo $xmlData;

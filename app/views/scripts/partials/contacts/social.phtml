@@ -1,0 +1,6 @@
+<tr class="valid-<?php echo $this->public;?>">
+<td><?php echo $this->escape($this->account);?></td>
+<td><a href="<?php echo $this->serviceUrl.$this->escape($this->account);?>" title="View your profile"><?php echo $this->serviceUrl.$this->escape($this->account);?></a></td>
+<td><?php echo $this->escape($this->accountName);?></td>
+<td><a href="<?php echo $this->url(array('module' => 'users','controller' => 'social','action' => 'edit','id' => $this->id),null,true);?>" title="Edit details for <?php echo $this->account;?>">Edit</a> | <a href="<?php echo $this->url(array('module' => 'users','controller' => 'social','action' => 'delete','id' => $this->id),null,true);?>" title="Delete details for <?php echo $this->account;?>">Delete</a></td>
+</tr>

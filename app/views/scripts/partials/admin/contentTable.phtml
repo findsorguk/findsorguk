@@ -1,0 +1,34 @@
+<tr class="valid-<?php echo $this->publishState;?>">
+<td><?php echo $this->title;?></td>
+<td><?php echo $this->sectiontitle($this->section);?></td>
+<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->createdBy;?></td>
+<td><?php echo $this->timeagoinwords($this->updated);?></td>
+<td><?php echo $this->updatedBy;?></td>
+<td>
+<?php
+$edit = $this->Href(array(
+    'module' => 'admin',
+    'controller' => 'content',
+    'action' => 'edit',
+    'checkAcl' => true,
+    'acl'=>'Zend_Acl',
+    'attribs' => array('title' => 'Edit static content'),
+    'params' => array('id' => $this->id),
+    'content'=> 'Edit')
+    );
+$delete = $this->Href(array(
+    'module' => 'admin',
+    'controller' =>'content',
+    'action' =>'delete',
+    'checkAcl' => true,
+    'acl' => 'Zend_Acl',
+    'attribs' => array('title' => 'Delete ' . $this->title),
+    'params' => array('id' => $this->id),
+    'content' => 'Delete')
+    );
+
+echo implode(' | ', array($edit, $delete));
+?>
+</td>
+</tr>

@@ -1,0 +1,7 @@
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'users', 'action' => 'agenda', 'id' => $this->id),null,true);?>" title="View all finds and description of this agenda"><?php echo $this->escape($this->title);?></a></td>
+<td><?php echo $this->escape($this->description);?></td>
+<td><?php echo $this->count;?></td>
+<td><?php echo $this->escape($this->timeagoinwords($this->created));?></td>
+<td><a href="<?php echo $this->url(array('controller' => 'users', 'action' => 'editagenda', 'id' => $this->id),null,true);?>" title="Edit this agenda">Edit</a> | <a href="<?php echo $this->url(array('controller' => 'users', 'action' => 'deleteagenda', 'id' => $this->id),null,true);?>" title="Delete this agenda">Delete</a></td>
+</tr>

@@ -1,0 +1,4 @@
+<?php $this->headTitle('Details for '.$this->term); ?>
+<h2>Manufacture method: <?php echo $this->escape($this->term);?></h2>
+<?php echo $this->termdesc;?>
+<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','manufacture' => $this->id),null,true);?>" title="Search for all recorded examples on the Scheme's database">all recorded</a> examples on the Scheme's database.</p>

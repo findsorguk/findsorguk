@@ -1,0 +1,12 @@
+<li><?php if(!is_null($this->i)): ?>
+<img src="/images/thumbnails/<?php echo $this->i;?>.jpg" alt="Resized image of 
+<?php echo $this->old_findID;?>" style="padding:10px;border:3px solid #8B0000; 
+float:right;" /><?php endif;?>
+<a href="<?php echo $this->url(array(
+    'module' => 'database','controller' => 'artefacts','action' => 'record',
+    'id' => $this->escape($this->n)),NULL,true);?>" title="View details for 
+<?php echo $this->old_findID;?>"><?php echo $this->old_findID;?></a> : a  
+<?php echo $this->broadperiod;?> <?php echo strtolower($this->objecttype);?> 
+<?php echo ucfirst(strtolower($this->county));?><br />
+<?php echo $this->ellipsisstring($this->description,300);?>
+</li>

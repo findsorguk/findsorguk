@@ -1,0 +1,15 @@
+<?php
+$date = Zend_Date::now();
+?>
+<span class="row-fluid">
+<p>
+<?php echo $this->sur3. ', ' . substr($this->fore3,0,1) .' ('. $this->c .') <em>'.$this->old_findID.' A ' .$this->broadperiod.' '.$this->objecttype. ' </em>Webpage available at: <a href="' .$this->serverUrl()
+ .$this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),null,true).'">http://'. $_SERVER['SERVER_NAME']
+ .$this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),null,true).'</a> [Accessed: ' . $date.']';
+?>
+</p>
+<pre><?php echo  $this->sur3. ',' . substr($this->fore3,0,1) .' ('. $this->c .') '.$this->old_findID.' A ' .$this->broadperiod.' '.$this->objecttype. ' Webpage available at: '. $this->serverUrl()
+ .$this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),null,true).' [Accessed: ' . $date.']';
+?>
+</pre>
+</span>

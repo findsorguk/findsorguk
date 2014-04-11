@@ -1,0 +1,16 @@
+<?php $this->headMeta('All comments entered on our database in reverse chronological order','description');
+$this->headTitle('Published comments on our database');
+?>
+<h2>Comments on records</h2>
+<div class="row-fluid">
+<?php
+if($this->comments):?>
+	<?php echo $this->partialLoop('partials/database/commentsonfinds.phtml',$this->comments);?>
+</div>
+<div class="row-fluid">
+<?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>
+</div>
+
+<?php else:?>
+<p>There are no comments available at the moment.</p>
+<?php endif;?>

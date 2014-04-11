@@ -1,0 +1,6 @@
+<?php $this->headTitle('Details for suggested topic: '.$this->title);?>
+<h2><?php echo $this->title;?></h2>
+<p>Suggested period: <?php echo $this->temporal;?></p>
+<?php echo $this->description;?>
+<h3>Audit data</h3>
+<p>Created: <?php echo $this->fullname;?> <?php echo $this->timeagoinwords($this->created);?></p>

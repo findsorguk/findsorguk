@@ -1,0 +1,32 @@
+<tr>
+<td><?php echo $this->type;?><br />Category: <em><?php echo $this->c;?></em></td>
+<td><?php echo $this->timeagoinwords($this->escape($this->created));?></td>
+<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->timeagoinwords($this->escape($this->updated));?></td>
+<td><?php echo $this->namethem($this->fn);?>
+</td>
+<td>
+ <?php
+$edit = $this->Href(array(
+    'module' => 'admin',
+    'controller'=>'numismatics',
+    'action'=>'edittype',
+    'checkAcl'=>true,
+    'acl'=>'Zend_Acl',
+    'params' =>array('id'=>$this->id),
+    'content'=>'Edit')
+    );
+$delete = $this->Href(array(
+    'module' => 'admin',
+    'controller'=>'numismatics',
+    'action'=>'deletetype',
+    'checkAcl'=>true,
+    'acl'=>'Zend_Acl',
+    'params' =>array('id'=>$this->id),
+    'content'=>'Delete')
+    );
+
+echo implode(' | ', array($edit,$delete));
+?>
+</td>
+</tr>

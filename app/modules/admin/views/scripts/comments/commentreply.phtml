@@ -1,0 +1,14 @@
+<h2>Reply to comment</h2>
+<?php 
+$auth = Zend_Registry::get('auth');
+if($auth->hasIdentity())
+{
+$user = $auth->getIdentity();
+$this->form->comment_author->setValue($user->fullname);
+//$this->form->comment_author->disabled=true;
+$this->form->comment_author_email->setValue($user->email);
+//$this->form->comment_author_email->disabled=true;
+
+}
+echo $this->form;
+?>

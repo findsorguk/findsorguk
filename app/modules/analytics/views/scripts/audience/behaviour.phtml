@@ -1,0 +1,7 @@
+<?php $this->headTitle('Visitor behaviour sourced from Google Analytics');?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+<?php echo $this->form;?>
+<?php
+Zend_Debug::dump($this->results);
+exit;

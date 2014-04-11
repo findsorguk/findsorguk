@@ -1,0 +1,18 @@
+<?php 
+$this->headTitle('Delete map origin term');
+if ($this->origin) :?>
+<h2>Delete vacancy details for: <?php echo $this->escape($this->origin->term); ?></h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->origin->term); ?> ' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' =>'deletemaporigin'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->origin->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?><h2>An error has occured</h2>
+<p>Cannot find the requested term's details.</p>
+<?php endif;?>

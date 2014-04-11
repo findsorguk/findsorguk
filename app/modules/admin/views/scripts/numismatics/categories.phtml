@@ -1,0 +1,22 @@
+<?php
+$this->headTitle('Categories of coin produced');
+?>
+<h2>Early Medieval coin categories</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addcategory'),null,true);?>" title="Add a new medieval category to the system">Add a medieval coin category</a></p>
+<table class="table table-striped" summary="List of all available Medieval coin categories">
+<caption>All available categories</caption>
+<thead>
+<tr>
+<th>Category name</th>
+<th>Created</th>
+<th>Created by</th>
+<th>Updated</th>
+<th>Updated by</th>
+<th>Validity</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<?php echo $this->partialLoop('partials/admin/categories.phtml',$this->categories);?>
+</tbody>
+</table>

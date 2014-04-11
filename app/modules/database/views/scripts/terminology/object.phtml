@@ -1,0 +1,8 @@
+<?php echo $this->partial('partials/database/objectTermData.phtml',$this->objectdata['0']);?>
+<?php 
+
+$term = $this->objectdata['0']['term'];
+$this->headTitle('Explanation of object term '.$term);
+?>
+<?php echo $this->latestRecords('objectType:"' . $term . '"');?>
+

@@ -1,0 +1,9 @@
+<?php 
+$this->headTitle('Add a new reference for a find');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jQueryLinkedSelect.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedSelect.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/publicationLinkedQuery.js',$type='text/javascript');
+?>
+
+<h2>Add a new reference</h2>
+<?php echo $this->form;?>

@@ -1,0 +1,51 @@
+<?php if(isset($this->FileName)) {
+echo '<li>Filename: '.$this->FileName.'</li>';
+}?>
+
+<?php if(isset($this->FileSize)) {
+echo '<li>Filesize: '.$this->humanfilesize($this->FileSize).'</li>';
+}?>
+
+<?php if(isset($this->FileSize)) {
+echo '<li>Mimetype: '.$this->MimeType.'</li>';
+}?>
+
+<?php if(isset($this->COMPUTED['Height'])) {
+echo '<li>Image height: '.$this->COMPUTED['Height']. 'px</li>';
+}?>
+
+<?php if(isset($this->COMPUTED['Height'])) {
+echo '<li>Image width: '.$this->COMPUTED['Width'].' px</li>';
+}?>
+
+<?php if(isset($this->Software)) {
+echo '<li>Software used: '.$this->Software.'</li>';
+}?>
+
+<?php if(isset($this->DateTime)){
+echo '<li>Date of capture: '.$this->timeagoinwords($this->DateTime).'</li>';
+}?>
+
+<?php if(isset($this->Make)){
+echo '<li>Camera make: '.$this->Make.'</li>';
+}?>
+
+<?php if(isset($this->Make)){
+echo '<li>Camera model: '.$this->Model.'</li>';
+}?>
+
+<?php if(isset($this->MaxApertureValue)){
+echo '<li>Maximum aperture value: '. $this->MaxApertureValue.'</li>';
+}?>
+
+<?php if(isset($this->XResolution)){
+echo '<li>Horizontal resolution: '.$this->XResolution.'</li>';
+}?>
+
+<?php if(isset($this->YResolution)){
+echo '<li>Vertical resolution: '.$this->YResolution.'</li>';
+}?>
+
+<?php if(isset($this->FocalLength)){
+echo '<li>Focal length: '.$this->FocalLength.'</li>';
+}?>

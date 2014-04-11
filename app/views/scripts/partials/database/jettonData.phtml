@@ -1,0 +1,56 @@
+<h4>Jetton/ token data</h4>
+<?php 
+echo $this->JettonEditDeleteLink($this->old_findID,$this->id,$this->broadperiod,$this->secuid,$this->returnID,$this->createdBy);?>
+
+<p>
+
+<?php if(!is_null($this->ruler_id)) :?>
+Issuer: <?php echo $this->escape($this->ruler1);?><br />
+<?php endif;?>
+
+<?php if(!is_null($this->jettonClass)):?>
+Class: <?php echo $this->jettonClass;?><br />
+<?php endif;?>
+
+<?php if(!is_null($this->jettonGroup)):?>
+Group: <?php echo $this->jettonGroup;?><br />
+<?php endif;?>
+
+<?php if(!is_null($this->jettonType)):?>
+Type: <?php echo $this->jettonType;?><br />
+<?php endif;?>
+
+<?php if(!is_null($this->d)) :?>
+Denomination: <?php echo $this->escape($this->d);?> <span class="scope">[<a href="<?php echo $this->url(array('module'=>'medievalcoins','controller' => 'denominations','action'=>'denomination','id' => $this->denom),null,true);?>" title="Read scope note for <?php echo $this->d;?>">scope notes</a> |  <a href="<?php echo $this->url(array('module' => 'database','controller'=>'search','action'=>'results','denomination' => $this->denom),null,true);?>" title="view all records assigned to denomination: <?php echo $this->d;?>">view all attributed records</a>]</span><br />
+<?php endif; ?>
+
+<?php if(!is_null($this->mint_name)):?>
+Mint or issue place: <?php echo $this->escape($this->mint_name);?><br />
+<?php endif;?>
+
+<?php if(!is_null($this->obverse_description)):?>
+Obverse description: <?php echo ucfirst($this->escape($this->obverse_description));?><br />
+<?php endif;?>
+
+<?php if(!is_null($this->obverse_inscription)):?>
+Obverse inscription: <?php echo ucfirst($this->obverse_inscription);?><br />
+<?php endif;?>
+
+<?php if(!is_null($this->reverse_description)):?>
+Reverse description: <?php echo ucfirst($this->reverse_description);?><br />
+<?php endif;?>
+
+<?php if(!is_null($this->reverse_inscription)):?>
+Reverse inscription: <?php echo ucfirst($this->reverse_inscription);?><br />
+<?php endif;?>
+
+
+<?php if(!is_null($this->die_axis_name)):?>
+Die axis measurement: <?php echo $this->escape($this->die_axis_name);?><br />
+<?php endif;?>
+
+<?php if(!is_null($this->wear)):?>
+Degree of wear: <?php echo $this->escape($this->wear);?></span>
+<?php endif;?>
+</p>
+

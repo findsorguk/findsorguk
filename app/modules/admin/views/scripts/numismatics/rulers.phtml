@@ -1,0 +1,28 @@
+<?php 	$this->headTitle('All available rulers');?>
+<h2>Rulers or issuers available for use on the database</h2>
+
+<p><a class="btn btn-large btn-success" href="<?php echo $this->Url(array('module' => 'admin','controller' => 'numismatics','action' => 'addruler'),null,true);?>" title="Add a new ruler to our system">Add a new ruler</a></p>
+
+<?php if (count($this->paginator)): ?>
+<?php echo $this->form;?>
+<table class="table table-striped" summary="List of all active rulers on the Scheme's database">
+    <caption>Available rulers/issuers</caption>
+        <thead>
+            <tr>
+                <th>Issuer name</th>
+                <th>Created</th>
+                <th>Created by</th>
+                <th>Updated</th>
+                <th>Updated by</th>
+                <th>Validity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/rulerTable.phtml',$this->paginator);?>
+    </tbody>
+</table>
+<?php endif; ?>
+
+<?echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+

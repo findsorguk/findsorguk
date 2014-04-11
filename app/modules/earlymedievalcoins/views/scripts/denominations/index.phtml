@@ -1,0 +1,17 @@
+<?php 
+$this->headMeta($this->curUrl(),'dc.identifier')
+->headMeta('Early Medieval numismatics','dc.subject')
+->headMeta('numismatics,early medieval,coins,categories,Vikings,invaders','keywords')
+->headMeta('This page provides a list of coin denominations issued in the Early Medieval period','description')
+->headMeta('Daniel Pett','dc.creator')
+->headMeta('The Portable Antiquities Scheme','dc.publisher');
+$this->headTitle('Denominations issued');
+?>
+<h2>Early Medieval denominations</h2>
+
+<p>The following coins were issued during the Early Medieval period.</p>
+
+<ul id="related">
+	<?php echo $this->partialLoop('partials/numismatics/denominations.phtml',$this->denominations);?>
+</ul>
+

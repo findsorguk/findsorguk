@@ -1,0 +1,26 @@
+<div class="row-fluid">
+    <div class="span9"><?php echo $this->partialLoop('partials/content/article.phtml',$this->contents);?></div>
+    <div id="researchtable" class="span3">
+<table class="table table-striped" summary="Breakdown of research being conducted on Scheme data">
+<caption>Research project types</caption>
+<thead>
+<tr>
+<th>Level of research</th>
+<th>Number</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td>Total projects:</td>
+<td><?php $quant = array();foreach($this->research as $r) {
+$quant[] = $r['quantity'];
+}
+echo array_sum($quant);?></td>
+</tr>
+</tfoot>
+<tbody>
+<?php echo $this->partialLoop('partials/research/types.phtml',$this->research);?>
+</tbody>
+</table>
+</div>
+</div>

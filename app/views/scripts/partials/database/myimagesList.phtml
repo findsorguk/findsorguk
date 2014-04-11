@@ -1,0 +1,64 @@
+<li class="span3">
+    <div class="thumbnail" style="height:240px;" >
+<a href="/<?php echo $this->imagedir. 'medium/' . $this->filename;?>" rel="lightbox" title="Thumbnail of <?php echo $this->old_findID;?>">
+<?php
+
+$thumb = './images/thumbnails/'.$this->id.'.jpg';
+$location = './' . $this->imagedir . $this->id;
+if(file_exists($thumb)) { ?>
+
+<img class="img-polaroid" src="<?php echo $this->baseUrl().'/images/thumbnails/'.$this->id;?>.jpg"  alt="Thumbnail image of <?php echo $this->old_find;?>"/>
+<?php } else {
+//$phMagick = new phMagick($location, $thumb);
+//$phMagick->resize(100,0);
+//$phMagick->convert();
+//Zend_Debug::dump($phMagick);
+?>
+<img src="/assets/gravatar.png" width="80" height="80" class="img-circle" />
+            <p>Image unavailable<br />Error: 404</p>
+<?php
+
+}
+?>
+</a>
+        <div class="caption">
+<?php if(!is_null($this->objecttype)) {
+    echo ucfirst(strtolower($this->objecttype)) . '<br />';
+
+}?>
+<?php if(!is_null($this->old_findID)) { ?>
+<a href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts', 'action' => 'record','id' => $this->findID),null,true);?>" title="View this image's record"><?php echo $this->old_findID;?></a><br />
+<?php } ?>
+<?php if(!is_null($this->title)):?>
+<?php echo $this->escape($this->title);?><br />
+<?php endif;?>
+<?php if(!is_null($this->broadperiod)):?>
+<?php echo ucfirst(strtolower($this->broadperiod));?><br />
+<?php endif;?>
+<?php if(!is_null($this->licenseAcronym)):?>
+License terms: <?php echo $this->licenseAcronym;?><br />
+<?php endif;?>
+<span class="download"><a href="<?php echo $this->url(array('module' => 'database',
+'controller' => 'ajax',
+'action' => 'download','id' => $this->id),null,true);?>" title="Download image">Download</a></span> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'images','action' => 'image','id' => $this->id),null,true);?>" title="View image and meta data">View</a><br />
+
+<?php
+$auth = Zend_Auth::getInstance();
+if($auth->hasIdentity())
+{
+$user = $auth->getIdentity();
+{
+$allowed = array('flos','fa','admin');
+if(in_array($user->role,$allowed))
+{
+?>
+<div class="image-controls">
+<a href="<?php echo $this->url(array('module' => 'database','controller' => 'images','action' => 'edit','id' => $this->id),null,true);?>">Edit</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'images','action' => 'delete','id' => $this->id),null,true);?>" class="delete">Delete</a>
+</div>
+<?php
+}
+}
+}
+?>
+        </div></div>
+</li>

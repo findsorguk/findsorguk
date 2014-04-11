@@ -1,0 +1,18 @@
+<?php $this->headScript()->captureStart() ?>
+var map;
+var lat = <?php echo $this->latitude;?>;
+var long = <?php echo $this->longitude;?>;
+var geoXml = new GGeoXml("<?php echo $this->serverUrl();?>/geo/mints-rome-single.php?ID=30");
+window.onload = function() {  if (GBrowserIsCompatible()) {
+map = new GMap2(document.getElementById("map"));
+map.setCenter(new GLatLng( lat, long), 10,G_SATELLITE_MAP);
+map.addControl(new GMenuMapTypeControl());
+//map.addControl (new GHierarchicalMapTypeControl());
+map.addMapType(G_PHYSICAL_MAP);
+map.addControl(new GLargeMapControl());
+
+map.addOverlay(geoXml);
+
+ }}
+<?php $this->headScript()->captureEnd() ?>
+<div id="map" style="width:400px; height:400px;" ></div>

@@ -1,0 +1,16 @@
+<?php $this->mail->setSubject('A message on public record: ' . $this->old_findID );?>
+
+<p>Dear <?php echo $this->escape($this->splitName($this->name));?>,</p>
+
+<h3>Message on public find: <?php echo $this->escape($this->old_findID); ?></h3>
+
+<p>This email is sent via the Scheme database, and relates to a publicly entered record.</p>
+
+<p><strong>Request type: </strong> <?php echo $this->escape($this->type);?></p>
+
+<?php echo $this->purify($this->content);?>
+
+<p><strong>For reference:</strong> You can find my record at: <a href="<?php echo $this->serverUrl();?>/database/artefacts/record/id/<?php echo $this->id;?>"><?php echo $this->serverUrl();?>/database/artefacts/record/id/<?php echo $this->id;?></a>
+
+
+<?php echo $this->emailSignature();?>

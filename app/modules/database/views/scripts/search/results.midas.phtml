@@ -1,0 +1,10 @@
+<?php
+$doc = new DOMDocument(); 
+$params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+$params['format'] = 'xml';
+$doc->load($this->serverUrl() . $this->url($params,null,true),LIBXML_NOBLANKS);
+$xslDoc = new DOMDocument();
+$xslDoc->load($this->serverUrl() . '/xsl/midasObjectsSearch.xsl');
+$proc = new XSLTProcessor();
+$proc->importStylesheet($xslDoc);
+echo $proc->transformToXML($doc);

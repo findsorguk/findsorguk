@@ -1,0 +1,13 @@
+<tr class="valid-<?php echo $this->alumni;?>">
+<td><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'contacts','action' => 'contact','id' => $this->id),null,true);?>" title="View <?php echo $this->firstname;?> <?php echo $this->lastname;?>'s profile"><?php echo $this->firstname;?> <?php echo $this->lastname;?></a></td>
+<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'roles','action' => 'role','id' => $this->roleid),null,true);?>" title="View <?php echo $this->role;?>'s details"><?php echo $this->role;?></a></td>
+<td><?php echo $this->area;?></td>
+<td>
+<?php if ($this->alumni == 1) {
+echo 'Current staff';
+} else {
+echo 'Scheme alumni';
+}?>
+</td>
+<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts','action' => 'edit','id' => $this->id),null,true);?>" title="Edit <?php echo $this->firstname;?> <?php echo $this->lastname;?>'s contact details">Edit</a></td>
+</tr>

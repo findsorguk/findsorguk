@@ -1,0 +1,13 @@
+<tr>
+<td><a href="<?php echo $this->url(array('module' => 'database','controller' => 'heritage','action' => 'crime','id' => $this->id),NULL,true);?>" title="View details for this record"><?php echo $this->escape($this->subject);?></a></td>
+<td><?php echo $this->escape($this->term);?></td>
+<td><?php echo $this->niceshortdate($this->incidentDate);?></td>
+<td><?php echo $this->escape($this->fullname);?></td>
+<td><?php 
+echo $this->Href(array('module' => 'database','controller'=>'heritage', 'action'=>'edit','params' => array('id' => $this->id), 'checkAcl'=>true,
+'acl'=>'Zend_Acl', 'wrapper' => array(), 'content'=>'Edit','attribs' => array('title' => 'Edit a crime')));
+?> <?php 
+echo $this->Href(array('module' => 'database','controller'=>'heritage', 'action'=>'delete','params' => array('id' => $this->id), 'checkAcl'=>true,
+'acl'=>'Zend_Acl', 'wrapper' => array(), 'content'=>'Delete','attribs' => array('title' => 'Delete a crime')));
+?></td>
+</tr>

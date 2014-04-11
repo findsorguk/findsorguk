@@ -1,0 +1,7 @@
+<?php
+if (count($this->users) > 0) {
+echo $this->partialLoop('partials/users/profile.phtml',$this->users);
+echo $this->WhatYouWantToDo();
+echo $this->facebookPage();
+echo $this->newPeople();
+}

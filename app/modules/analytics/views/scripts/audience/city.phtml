@@ -1,0 +1,31 @@
+<?php
+$this->headTitle('City analytical data provided via Google Analytics ' . $this->timeSpanParameter());
+?>
+<h2><?php echo $this->title();?></h2>
+<p><?php echo $this->timeSpansGa();?></p>
+
+<p><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience', 'action' => 'map'),'default',true);?>" class="btn btn small">View top 500 locations on a map <i class="marker-geo"></i></a></p>
+<table class="table table-striped">
+	<caption><?php echo $this->title();?></caption>
+		<thead>
+		<tr>
+			<th>Continent</th>
+			<th>Visitors</th>
+			<th>Visits</th>
+			<th>Bounces</th>
+			<th>Average time on site</th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php foreach($this->results as $row):?>
+			<tr>
+				<td><?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_CITY)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_BOUNCES)->value;?></td>
+				<td><?php echo $this->secondsToMinutes()->setSeconds($row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_AVG_TIME_ON_SITE)->value);?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+</table>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>

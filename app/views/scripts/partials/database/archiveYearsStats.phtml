@@ -1,0 +1,7 @@
+<?php 
+$mod = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+$ctrllr = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+$actn = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+?>
+<li><a href="<?php echo $this->url(array('module' => $mod,'controller' => $ctrllr, 'action' => $actn,'datefrom' => $this->year.'-01-01','dateto' => $this->year.'-12-31'),null,true);?>" title="View archived records for <?php echo $this->year;?>"><?php echo $this->year;?></a></li>

@@ -1,0 +1,18 @@
+<?php 	$this->headTitle('Methods of discovery');?>
+<h2>Methods of discovery</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'addmethod'),null,true);?>" title="Add a new discovery method">Add a new discovery method</a></p>
+<table class="table table-striped" summary="List of discovery methods available">
+<thead>
+<tr>
+<th>Discovery method</th>
+<th>Created</th>
+<th>Created by</th>
+<th>Updated</th>
+<th>Updated by</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<?php echo $this->partialLoop('partials/admin/discoMethodTable.phtml',$this->methods);?>
+</tbody>
+</table>

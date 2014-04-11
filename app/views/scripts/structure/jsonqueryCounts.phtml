@@ -1,0 +1,6 @@
+<?php 
+$data = array('resultCount' => $this->totalItemCount,
+'currentPage' => $this->current,
+'viewingResults' => $this->firstItemNumber . ' - ' . $this->lastItemNumber);
+echo $this->json(array('resultCount' => $data['resultCount']));
+?>

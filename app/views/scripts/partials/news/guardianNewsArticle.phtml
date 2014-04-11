@@ -1,0 +1,25 @@
+<?php 
+ $keywords = '';
+ $tagList = '';
+  foreach($this->tags as $t){
+        if($t->webUrl !== ''){
+         $tagList .=  '<li><a href="'.$t->webUrl .'">' . $t->webTitle .'</a></li>';
+		 $keywords .= $t->webTitle .',';
+         }
+       }
+$this->headTitle($this->headline);
+$this->MetaBase($this->standfirst,'guardian news',$keywords);
+?>
+
+<h2><a href="<?php echo $this->url;?>" title="Get this article on the Guardian's site"><?php echo $this->headline;?></a></h2>
+<img src="<?php echo $this->baseUrl();?>/images/logos/guardian.gif" alt="The Guardian's logo" width="344" height="52" />
+<?php if(isset($this->image)) {?>
+<img src="<?php echo $this->image;?>" alt="Trail image for this article" class="flow"/>
+<?php }?>
+<p class="byline"><?php echo date_format(date_create($this->pubDate),'Y/m/d');?> by <?php echo $this->byline;?><br />
+Originally published in <?php echo $this->publication;?> <?php echo $this->sectionName;?></p>
+<?php echo $this->content;?>
+<ul class="keywords">
+<?php echo $tagList;?>
+</ul>
+<p>Short url: <a href="<?php echo $this->shortUrl;?>" title="Guardian's short url"><?php echo $this->shortUrl;?></a></p>

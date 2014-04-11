@@ -1,0 +1,21 @@
+<h2>IP address history</h2>
+<p>You have used the following IP addresses:</p>
+<table class="table table-striped">
+    <caption>All of your IP Address history</caption>
+    <thead>
+        <tr>
+            <th>IP address</th>
+            <th>Provider</th>
+            <th>Visit count</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach($this->ips as $i):?>
+    <tr>
+        <td><?php echo $i['ipAddress'];?></td>
+        <td><?php echo gethostbyaddr($i['ipAddress']);?></td>
+        <td><?php echo $i['count'];?> times</td>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php echo $this->paginationControl($this->ips, 'Sliding', 'structure/pagination.phtml'); ?>

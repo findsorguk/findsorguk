@@ -1,0 +1,24 @@
+<?php 
+$this->headMeta('A list of all foreign issuing rulers  during the Early Medieval period, broken down into 
+category. This expands as more are added to our database','description')
+	->headMeta('rulers,early medieval,king,queen,archbishop,coins,numismatics','dc.keywords')
+	->headMeta('Daniel Pett','dc.creator')
+	->headMeta('The Portable Antiquities Scheme','dc.publisher')
+	->headMeta('CC NC-BY-SA','dc.rights')
+	->headMeta($this->curUrl(),'dc.identifier');
+$this->headTitle("Issuing rulers of the Early Medieval period");
+?>
+
+<h2>Issuing rulers of the Early Medieval period</h2>
+<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->francia['0']) ; ?>
+<p>This period had <?php echo count($this->francia);?> issuers.</p>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->francia) ?></ul>
+<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->islamic['0']) ; ?>
+<p>This period had <?php echo count($this->islamic);?> issuers.</p>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->islamic) ?></ul>
+<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->hiberno['0']) ; ?>
+<p>This period had <?php echo count($this->hiberno);?> issuers.</p>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->hiberno) ?></ul>
+<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->french['0']) ; ?>
+<p>This period had <?php echo count($this->french);?> issuers.</p>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->french) ?></ul>

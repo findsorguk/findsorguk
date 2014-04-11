@@ -1,0 +1,7 @@
+<?php echo $this->partialLoop('partials/database/landuseList.phtml',$this->landuses);?>
+<?php if(count($this->landuses2)):?>
+<h3>Child terms</h3>
+<ul id="related">
+<?php echo $this->partialLoop('partials/database/landuseListChildren.phtml',$this->landuses2);?>
+</ul>
+<?php endif;?>

@@ -1,0 +1,23 @@
+<?php $this->headTitle('Coin die axes');?>
+<h2>Die Axes in use on the database</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array(
+'module' => 'admin',
+'controller' => 'numismatics',
+'action' => 'adddieaxis'),null,true);?>" title="Add a die axis to the system">Add a new dieaxis</a></p>
+<table class="table table-striped" summary="A list of die axis measurements in use on the database">
+    <caption>All die axes</caption>
+    <thead>
+        <tr>
+            <th>Treatment term</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Validity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/diesTable.phtml',$this->dieaxes) ;?>
+    </tbody>
+</table>

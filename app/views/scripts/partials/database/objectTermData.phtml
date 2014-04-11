@@ -1,0 +1,3 @@
+<h2>Details for: <?php echo ucfirst(strtolower($this->escape($this->term)));?></h2>
+<p><?php echo $this->scopeNote;?></p>
+<p>Search our database for <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','objecttype' => strtolower($this->term)),null,true);?>" title="Search database for <?php echo $this->term;?>">all examples recorded.</a></p>

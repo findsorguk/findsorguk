@@ -1,0 +1,52 @@
+<?php
+$site = Zend_Registry::get('config')->site;
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+$contexts = $contextSwitch->getContexts();
+
+$dom = new DomDocument("1.0", "UTF-8");
+$rulers  = $dom->createElement('response');
+
+$meta = $dom->createElement('meta');
+$rulers->appendChild($meta);
+$meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
+$formats = $dom->createElement('formats');
+$meta->appendChild($formats);	
+foreach ($contexts as $k => $v){
+$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param,'format' => $k),NULL,true)  ));
+}
+$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param),NULL,true)  ));
+$rulersElem = $dom->createElement('rulers');
+
+foreach($this->rulers as $r){
+$r = (object)$r;
+$rulerElem = $dom->createElement('ruler');
+$rulerElem->appendChild( $dom->createElement('id', $r->id));
+$rulerElem->appendChild( $dom->createElement('name', $r->issuer));
+
+$rulerElem->appendChild( $dom->createElement('region', $r->region));
+$imageElem = $dom->createElement('recentRecords');	
+$rulerElem->appendChild($imageElem);
+
+//foreach($this->data as $i){
+//$recordElem = $dom->createElement('record');
+//$imageElem->appendChild( $recordElem);
+//$recordElem->appendChild( $dom->createElement('findID', $i['old_findID']));
+//$recordElem->appendChild( $dom->createElement('label', $i['label']) );
+//$recordElem->appendChild( $dom->createElement('objectType', $i['objecttype']) );
+//$recordElem->appendChild( $dom->createElement('broadPeriod', $i['broadperiod'] ));
+//$recordElem->appendChild( $dom->createElement('url', $site . '/database/artefacts/record/id/' . $i['id']));
+//$recordElem->appendChild( $dom->createElement('thumbnail', $site . ' /images/' . $i['thumbnail'] . '.jpg'));
+//}
+$rulers->appendChild( $rulerElem );
+}
+
+$dom->appendChild( $rulers );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

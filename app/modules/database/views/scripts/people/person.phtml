@@ -1,0 +1,13 @@
+<?php echo $this->partialLoop('partials/database/personDetails.phtml',$this->peoples);?>
+<?php if(count($this->finds)) :?>
+<h3>Finds recorded with the Scheme</h3>
+
+
+<div>
+        <?php echo $this->partialLoop('partials/database/findRecordList.phtml',$this->finds);?>
+    </div>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+
+<?php else:?>
+<p>This finder has not reported any objects yet.</p>
+<?php endif;?>

@@ -1,0 +1,7 @@
+<?php if ($this->coins) :?>
+<?php 
+echo $this->partial('partials/database/deleteCoin.phtml',$this->coins['0']);?>
+
+<?php else: ?>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

@@ -1,0 +1,9 @@
+<h2>Research agenda: <?php echo $this->title;?></h2>
+<p><a href="<?php echo $this->url(array('controller' => 'users','action' => 'editagenda','id' => $this->id),null,true);?>" title="Edit this agenda">Edit this agenda</a> | <a href="<?php echo $this->url(array('controller' => 'users','action' => 'deleteagenda','id' => $this->id),null,true);?>" title="Delete this agenda from your catalogue">Delete this agenda</a></p>
+<?php echo $this->description;?>
+<p>Created <?php echo $this->timeagoinwords($this->created);?><br />
+<?php if(($this->updated) == (NULL || '0000-00-00 00:00:00'))
+{
+echo 'Updated '.$this->timeagoinwords($this->updated);
+}
+?></p>

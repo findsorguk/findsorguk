@@ -1,0 +1,20 @@
+<?php 
+$this->headTitle("Delete a calendar entry");
+if ($this->id) :?>
+<h2>Delete content</h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->title); ?>'
+</p>
+<form action="<?php echo $this->url(array(
+'module' => 'users', 'controller' => 'calendar', 'action'=>'delete')); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<h2>An error has occured</h2>
+<p>Cannot find the item you requested within the calendar.</p>
+<?php endif;?>

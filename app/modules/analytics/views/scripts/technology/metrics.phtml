@@ -1,0 +1,17 @@
+<?php
+$this->headTitle('Site speed metrics');
+?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+<h3 class="lead">Average page load speed by hostname</h3>
+<ol>
+<?php foreach($this->results as $row):?>
+<li>Hostname: <?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_HOSTNAME)->value;?> Speed in seconds: <?php echo number_format($row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_SPEED_AVG_PAGE_LOAD_TIME)->value,2);?></li>
+<?php endforeach;?>
+</ol>
+<h3  class="lead">Average domain lookup time</h3>
+<ol>
+<?php foreach($this->lookup as $row):?>
+<li>Hostname: <?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_HOSTNAME)->value;?> Speed in seconds: <?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_AVG_DOMAIN_LOOKUP_TIME)->value;?></li>
+<?php endforeach;?>
+</ol>

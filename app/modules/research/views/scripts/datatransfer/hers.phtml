@@ -1,0 +1,28 @@
+<?php
+$this->headTitle('Authorities signed up for data transfer');
+$this->MetaBase('A list of Historic Environment Record offices that have signed up to transfer our data.',
+'research',
+'historic,archaeology,antiquities,environment,data,transfer,third,party');
+
+?>
+<h2>Historic Environment Records signup</h2>
+
+
+<?php if (count($this->hers)): ?>
+
+<table class="table table-striped" summary="This table lists all the HERs that have signed up to our data transfer agreement">
+<caption>Signed up HER offices</caption>
+    <thead>
+    <tr>
+        <th>Authority</th>
+        <th>Signatory</th>
+    </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/research/hers.phtml',$this->hers);?>
+    </tbody>
+</table>
+<?php else:?>
+<p>No sign up data is available to you.</p>
+<?php endif; ?>
+<?php echo $this->paginationControl($this->hers, 'Sliding', 'structure/pagination.phtml'); ?>

@@ -1,0 +1,44 @@
+<?php 
+
+$site = $this->serverUrl();
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$contexts = $contextSwitch->getContexts();
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$moneyers  = $dom->createElement('response');
+$meta = $dom->createElement('meta');
+$moneyers->appendChild($meta);
+$meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
+$meta->appendChild( $dom->createElement('totalItems',$this->moneyers->getTotalItemCount()));
+$meta->appendChild( $dom->createElement('currentPage',$this->moneyers->getCurrentPageNumber()));
+$meta->appendChild( $dom->createElement('itemsPerPage', $this->moneyers->getItemCountPerPage()));
+$meta->appendChild( $dom->createElement('totalPages',ceil($this->moneyers->getTotalItemCount()/$this->moneyers->getItemCountPerPage())));
+
+$formats = $dom->createElement('formats');
+$meta->appendChild($formats);	
+foreach ($contexts as $k => $v){
+$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'format' => $k),NULL,true)  ));
+}
+$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action),NULL,true)  ));
+//1st item
+$moneyersElem = $dom->createElement('republicanMoneyers');
+$moneyers->appendChild($moneyersElem);
+// set it's attribute
+foreach($this->moneyers as $moneyer){
+$moneyerElem = $dom->createElement('moneyer');
+	foreach($moneyer as $k => $v){
+		$moneyerElem->appendChild( $dom->createElement($k, $v));
+	}
+
+$moneyersElem->appendChild( $moneyerElem );
+}
+
+$dom->appendChild( $moneyers );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

@@ -1,0 +1,10 @@
+ <?php 
+ $this->headTitle('Change workflow status for ' . $this->find);
+ $this->metaBase('This page allows one to change the workflow status of a record',null, 'archaeology,object');?>
+ <h3>Change Workflow status for <?php echo $this->find;?></h3>
+ <?php if(!is_null($this->from[0]['email'])):?>
+ <p>The finder has an email address associated with their finder record. If you tick the inform finder box and leave a message,
+ you can tell them about workflow change. </p>
+ <p>Their email: <?php echo $this->from[0]['email'];?><br />Their name: <?php echo $this->from[0]['name'];?></p>
+ <?php endif;?>
+ <?php echo $this->form;?>

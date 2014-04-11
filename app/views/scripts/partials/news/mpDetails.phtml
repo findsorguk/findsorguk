@@ -1,0 +1,23 @@
+<?php
+$this->headMeta('Details and finds for ' . $this->full_name
+        . '\'s constituency','description');
+$this->headTitle('Details for ' . $this->full_name);
+?>
+<h2>Details for objects found in <?php echo $this->full_name;?>'s constituency of <?php echo $this->constituency;?></h2>
+<div class="forRDFOnly">
+<p>The Portable Antiquities Scheme has recently released a new website (www.finds.org.uk), cataloguing public discovery of archaeological objects in England and Wales. This now allows
+for rapid and easy mapping of objects found by your constituents.</p>
+<h3>How to use this</h3>
+<img src="<?php echo $this->serverUrl();?>/images/logos/pasrgbsize4.jpg" style="float:right;"/>
+<p>If you have a website, it is very simple to get this map and a feed of data to embed on your site.</p>
+<p>If you would like to do this, contact the Scheme's ICT Adviser via the details below:</p>
+<p>Daniel Pett, The British Museum, Great Russell Street, London, WC1B 3DG
+
+<br />
+Telephone: 0207 323 8618 or Email: dpett@britishmuseum.org</p></div>
+<?php echo $this->politicalparty($this->party);?>
+
+<?php if(isset($this->image)):?>
+<img src="http://www.theyworkforyou.com<?php echo $this->image;?>" height="<?php echo $this->image_height;?>"
+width="<?php echo $this->image_width;?>" alt="The latest portrait image of <?php echo $this->full_name;?>" class="flow"/>
+<?php endif;?>

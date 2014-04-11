@@ -1,0 +1,98 @@
+<?php
+$this->inlineScript()->appendFile('http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry&libraries=drawing');
+?>
+
+<?php $this->inlineScript()->captureStart();?>
+var G = google.maps;
+var map;
+var rect;
+var drawingManager;
+
+$(document).ready(initialize);
+
+<?php
+	$user = new Pas_User_Details();
+	$person = $user->getPerson();
+        if($person){
+            $role = $person->role;
+        }else {
+            $role = NULL;
+        }
+	$allowed = array('admin', 'fa', 'flos', 'research', 'treasure');
+	if(in_array($role, $allowed)) {
+		$maxzoom = 18;
+		$minzoom = 1;
+	} else {
+		$maxzoom = 11;
+		$minzoom = 1;
+	}
+?>
+	var max = <?php echo $maxzoom;?>;
+	var min = <?php echo $minzoom;?>;
+
+function initialize() {
+    var center = new G.LatLng(53.2,-3.1);
+    var myOptions = {
+        zoom: 7,
+        center: center,
+        mapTypeId: G.MapTypeId.ROADMAP,
+        scrollwheel: false,
+         maxZoom: max,
+          minZoom: min
+    };
+    map = new G.Map($('#map')[0], myOptions);
+
+    drawingManager = new G.drawing.DrawingManager({
+        drawingMode: G.drawing.OverlayType.RECTANGLE,
+        drawingControl: true,
+        drawingControlOptions: {
+            position: G.ControlPosition.TOP_CENTER,
+            drawingModes: [G.drawing.OverlayType.RECTANGLE],
+        },
+        rectangleOptions: {
+            editable: true,
+            fillColor: "black",
+            fillOpacity: 0.1,
+            map: map,
+            strokeColor: "red",
+            strokeWeight: 1
+        }
+    });
+    drawingManager.setMap(map);
+
+   
+    G.event.addListener(drawingManager, 'rectanglecomplete', function(subject) {
+        if (rect) {
+            G.event.clearInstanceListeners(rect);
+            rect.setMap(null);
+        }
+        rect = subject;
+        
+        G.event.addListener(rect, 'bounds_changed', 'shapeChanged');
+        var box = rect.getBounds();
+        
+        $('#bbox').val(box.toUrlValue());
+    });
+
+}
+
+
+function trunc(x) {
+    return Math.round(x * 1000) / 1000;
+}
+
+
+
+<?php $this->inlineScript()->captureEnd();?>
+<?php $this->headTitle('Search our database via a map interface');?>
+<h2 class="lead"><?php echo $this->title();?></h2>
+<?php $this->metaBase('An interface to search the PAS database via a map', 'archaeology', 'mapping, gis,archaeology,lat/lon')?>
+<p>To use this search, you need to draw a box on the map. This will produce a red outline. Follow these steps:</p>
+<ol>
+<li>using the magnification slider and drag tools to zoom in on your chosen search area</li>  
+<li>then the red outline box tool</li>
+<li>then click on the filter button below the map</li>
+</ol>
+<div id="map"></div>
+
+<?php echo $this->form;?>

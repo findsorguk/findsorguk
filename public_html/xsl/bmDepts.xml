@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sparql xmlns='http://www.w3.org/2005/sparql-results#'>
+	<head>
+		<variable name='subject'/>
+		<variable name='label'/>
+		<variable name='note'/>
+	</head>
+	<results>
+		<result>
+			<binding name='note'>
+				<literal>Department Africa, Oceania and the Americas at The British Museum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/department/E</uri>
+			</binding>
+			<binding name='label'>
+				<literal>BM Department Africa, Oceania and the Americas</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Department Ancient Egypt and Sudan at The British Museum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/department/Y</uri>
+			</binding>
+			<binding name='label'>
+				<literal>BM Department Ancient Egypt and Sudan</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Department Asia at The British Museum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/department/A</uri>
+			</binding>
+			<binding name='label'>
+				<literal>BM Department Asia</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Department Coins and Medals at The British Museum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/department/C</uri>
+			</binding>
+			<binding name='label'>
+				<literal>BM Department Coins and Medals</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Department Greek and Roman at The British Museum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/department/G</uri>
+			</binding>
+			<binding name='label'>
+				<literal>BM Department Greek and Roman</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Department Middle East at The British Museum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/department/W</uri>
+			</binding>
+			<binding name='label'>
+				<literal>BM Department Middle East</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Department Prehistory and Europe at The British Museum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/department/H</uri>
+			</binding>
+			<binding name='label'>
+				<literal>BM Department Prehistory and Europe</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Department Prints and Drawings at The British Museum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/department/P</uri>
+			</binding>
+			<binding name='label'>
+				<literal>BM Department Prints and Drawings</literal>
+			</binding>
+		</result>
+	</results>
+</sparql>

@@ -1,0 +1,43 @@
+<div class="well sidebar-nav" >
+<?php
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+?>
+<ul id="menu1" class="menu collapsible nav nav-stacked nav-pills">
+    <li <?php if($controller == 'reports') { echo 'class="expandfirst"';};?>><a href="#">Scheme Annual reports <i class="icon-folder-open"></i></a>
+<ul>
+<?php
+echo $this->menu('news','reports','index','reps');?>
+</ul>
+</li>
+<li <?php if($controller == 'reports') { echo 'class="expandfirst"';};?>><a href="#">Treasure Reports <i class="icon-folder-open"></i></a>
+<ul><?php echo $this->TreasureReportsMenu();?></ul>
+</li>
+<li><a href="<?php echo $this->url(array('controller' => 'news','action' => 'index'),'default',true);?>"
+       title="Lastest news from the Scheme">Scheme news <i class="icon-list-alt"></i></a></li>
+<li <?php if($controller == 'reviews') { echo 'class="expandfirst"';};?>><a href="#">Commissioned reviews <i class="icon-folder-open"></i></a>
+<ul><?php
+echo $this->menu('news','reviews','index','r');?>
+</ul>
+</li>
+<li><a href="<?php echo $this->url(array('module' => 'news','controller' => 'map'),'default',true);?>" title="View most recent news stories on a map">Geographic news map <i class="icon-map-marker"></i></a></li>
+<li <?php if($controller == 'theyworkforyou') { echo 'class="expandfirst"';};?>><a href="#" >Data from theyworkforyou <i class="icon-folder-open"></i></a>
+<ul class="nav nav-pills nav-stacked menuindent">
+<li><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou'),'default',true);?>" title="View latest mentions of related terms in Parliament">Parliamentary news</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'members'),'default',true);?>" title="Parliamentarian lookup by finds and record">Finds by Member of Parliament</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'constituencies'),'default',true);?>" title="Parliamentary constituency find lookup">Finds by constituency</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'findmymp'),'default',true);?>" title="Finds by constituency by postcode">Find by postcode to constituency</a></li>
+</ul>
+</li>
+<li><a href="<?php echo $this->url(array('controller' => 'news','action' => 'guardian'),'default',true);?>" title="View articles on the Scheme from the Guardian">Scheme in the Guardian</a></li>
+</ul>
+<?php if($controller == 'theyworkforyou'):?>
+<h4>Enhanced by</h4>
+<img src="/images/logos/logo-theyworkforyou.jpg" height="80" width="66" alt="Theyworkforyou.com powered"/>
+<img src="/images/logos/geoplanet.png" alt="Yahoo geoplanet logo" height="68" width="70"/>
+<?php endif;?>
+<?php if($controller == 'guardian'):?>
+<h4>Enhanced by</h4>
+<a href="http://www.guardian.co.uk/open-platform" title="The Guardian's openplatform"><img src="http://a1.twimg.com/profile_images/190112865/dataBlog_normal.png" alt="Guardian datastore powered"
+width="48" height="48" /></a>
+<?php endif;?>
+</div>

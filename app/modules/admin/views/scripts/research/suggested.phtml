@@ -1,0 +1,26 @@
+<?php $this->headTitle('All suggested research topics');?>
+<h2>All topics for suggested research</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'research','action' => 'addsuggested'),'default',true);?>" title="Add a new research topic">Add a new topic</a></p>
+<?php if($this->suggested):?>
+<table class="table table-striped" summary="A list of all available suggested research topics">
+    <caption>Suggested research projects</caption>
+<thead>
+<tr>
+<th>Title</th>
+<th>Broadperiod</th>
+<th>Level</th>
+<th>Created</th>
+<th>Created by</th>
+<th>Updated</th>
+<th>Updated by</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<?php echo $this->partialLoop('partials/admin/suggested.phtml',$this->suggested);?>
+</tbody>
+</table>
+<?echo $this->paginationControl($this->suggested, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>No topics are currently available</p>
+<?php endif;?>

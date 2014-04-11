@@ -1,0 +1,4 @@
+<?php $this->headTitle('Details for '.$this->term.' decorative method');?>
+<h2>Decoration method: <?php echo $this->escape($this->term);?></h2>
+<?php echo $this->termdesc;?>
+<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','decoration' => $this->id),null,true);?>" title="Search database for all attributed records">all records</a> assigned to this method on our database.</p>

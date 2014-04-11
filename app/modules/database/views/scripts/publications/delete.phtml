@@ -1,0 +1,18 @@
+<?php $this->headTitle('Delete publication: '.$this->escape($this->publication->title));?>
+<?php if ($this->publication) :?>
+<h2>Delete publication data</h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->publication->title); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'database','controller' => 'publications','action'=>'delete','id'  =>$this->publication->id),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->publication->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<h2>There has been an error</h2>
+<p>Cannot find the publication that you requested.</p>
+<?php endif;?>

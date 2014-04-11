@@ -1,0 +1,14 @@
+<?php $this->headTitle('My searches');?>
+<h2>My search activity</h2>
+<?php if(count($this->quantity)):?>
+<p>You have performed <?php echo $this->quantity['0']['C'];?> searches on the database.</p>
+<?php else:?>
+<p>You have yet to search our database!</p>
+<?php endif;?>
+<?php if(count($this->tops)):?>
+<h3>Your 5 most frequent searches</h3>
+<ol id="timeline" class="statuses">
+
+<?php echo $this->partialLoop('partials/users/searchHistory.phtml', $this->tops) ?>
+</ol>
+<?php endif;?> 

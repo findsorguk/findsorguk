@@ -1,0 +1,34 @@
+<?php 
+$this->headTitle('Full details for ' . $this->niceshortdate($this->details['0']['date']));
+?>
+<h2>TVC held <?php echo $this->niceshortdate($this->details['0']['date']);?></h2>
+<p>Location: <?php echo $this->details['0']['location'];?></p>
+
+<h3>Cases assessed</h3>
+<?php if($this->cases):?>
+<ul>
+<?php foreach($this->cases as $case):?>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'treasure',
+'action'  => 'casehistory','treasureID' => $case['treasureID']),null,true);?>"><?php echo $case['treasureID'];?></a></li>
+<?php endforeach;?>
+</ul>
+<?php else:?>
+<p>No cases have been assigned to this TVC meeting yet.</p>
+<?php endif;?>
+
+
+<h3>Minutes</h3>
+<?php if($this->minutes):?>
+<?php else:?>
+<p>No minutes have been made available yet.</p>
+<?php endif;?>
+
+
+<h3>Associated documents</h3>
+<?php if($this->documents):?>
+<?php else:?>
+<p>No documents currently associated with this meeting.</p>
+<?php endif;?>
+
+<h3>Sample images of cases considered</h3>
+<?php echo $this->partialLoop('partials/database/imagesPaged.phtml', $this->images);?>

@@ -1,0 +1,288 @@
+<?php 
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+$this->jQuery()->javascriptCaptureStart(); ?>
+$(document).ready(function(){
+$("#datefrom").datepicker();
+$("#dateto").datepicker();
+  });
+<?php
+$this->jQuery()->javascriptCaptureEnd();
+ ?>
+
+<?php $this->headTitle('Statistical analysis of the database for '. $this->niceshortdate($this->escape($this->datefrom)). ' until '. $this->niceshortdate($this->escape($this->dateto)));
+$this->headMeta('This is a statistical analyis of all data recorded with us between'. $this->niceshortdate($this->escape($this->datefrom)). ' until '. $this->niceshortdate($this->escape($this->dateto)),'description');
+$this->headMeta('recorded,artefacts,archaeology','dc.keywords');
+?>
+<h2><?php echo 'Statistical analysis of the database for '.  $this->niceshortdate($this->escape($this->datefrom)). ' until '. $this->niceshortdate($this->escape($this->dateto));?></h2>
+<p>These archives can be searched to find out what was recorded on a particular day of the year. We have been recording digitally since 1998.</p>
+<ul id="yearrange">
+<?php echo $this->partialLoop('partials/database/archiveYearsStats.phtml',$this->years);?>
+</ul>
+
+<p>You can also choose your own date ranges. You must choose a date from and a date to to interrogate this properly.</p>
+<?php echo $this->form;?>
+
+<?php if($this->institution == NULL) :?>
+<h3>Finds per Institution</h3>
+<table class="table table-striped">
+<tr>
+<th>County</th>
+<th>Objects</th>
+<th>Records</th>
+</tr>
+<?php echo $this->partialLoop('partials/annual/instStats.phtml',$this->institutions);?>
+</table>
+<?php else : ?>
+
+<div id="fp">
+<h3>Finds recorded for this period</h3>
+<table class="table table-striped" summary="A tabulated account of finds recorded by period">
+<thead>
+<tr>
+<th>County</th>
+<th>Objects</th>
+<th>Records</th>
+</tr>
+</thead>
+<tbody>
+<?php echo $this->partialLoop('partials/annual/instStats.phtml',$this->instTotal);?>
+</tbody>
+</table>
+</div>
+
+<h3>Finds recorded by these <?php echo count($this->creators);?> users</h3>
+<table class="table table-striped">
+<tr>
+<th>Fullname</th>
+<th>Username</th>
+<th>Institution</th>
+<th>Objects</th>
+<th>Records</th>
+</tr>
+<?php echo $this->partialLoop('partials/annual/usersToCounty.phtml',$this->creators);?>
+<tr>
+<th></th>
+<th></th>
+<?php 
+$finds_users = array();
+$records_users = array();
+foreach($this->creators as $find)
+{
+$finds_users[] = $find['finds'];
+$records_users[] = $find['records'];
+}
+
+$findsUsersTotal = array_sum($finds_users);
+$recordsUsersTotal = array_sum($records_users);
+?>
+<th></th>
+<th><?php echo $findsUsersTotal;?>
+</th>
+<th><?php echo $recordsUsersTotal;?></th>
+
+</tr>
+</table>
+<h3>Quantities by period</h3>
+
+<table class="table table-striped">
+<tr>
+<th>Period</th>
+<th>Objects</th>
+<th>Records</th>
+</tr>
+<?php echo $this->partialLoop('partials/annual/objectperiods.phtml',$this->periods);?>
+<tr>
+<?php 
+$finds_period = array();
+$records_period = array();
+foreach($this->periods as $find)
+{
+$finds_period[] = $find['finds'];
+$records_period[] = $find['records'];
+}
+
+$findsPeriodTotal = array_sum($finds_period);
+$recordsPeriodTotal = array_sum($records_period);
+?>
+<th></th>
+<th><?php echo $findsPeriodTotal;?>
+</th>
+<th><?php echo $recordsPeriodTotal;?></th>
+
+</tr>
+</table>
+<div id="fpgraph">
+<?php echo $this->Grapher('pie','Finds by period',$this->periods);?>
+</div>
+
+
+<h3>Number of recorders per insitution</h3>
+
+<table class="table table-striped">
+<tr>
+<th>Institution</th>
+<th>Number of finders</th>
+</tr>
+<?php echo $this->partialLoop('partials/annual/finderquants.phtml',$this->finders);?>
+<tr>
+<?php 
+$finders = array();
+foreach($this->finders as $find)
+{
+$finders[] = $find['finders'];
+}
+
+$finderstotal = array_sum($finders);
+?>
+
+<th></th>
+<th><?php echo $finderstotal;?></th>
+
+</tr>
+</table>
+
+<h3>Average per month</h3>
+<table class="table table-striped">
+<tr>
+<th>Month</th>
+<th>Objects</th>
+<th>Records</th>
+</tr>
+<?php echo $this->partialLoop('partials/annual/averagemonth.phtml',$this->averages);?>
+<tr>
+<?php 
+$finds_month = array();
+$records_month = array();
+foreach($this->averages as $find)
+{
+$finds_month[] = $find['finds'];
+$records_month[] = $find['records'];
+}
+
+$findsMonthTotal = array_sum($finds_month);
+$recordsMonthTotal = array_sum($records_month);
+?>
+<th></th>
+<th><?php echo $findsMonthTotal;?>
+</th>
+<th><?php echo $recordsMonthTotal;?></th>
+
+</tr>
+</table>
+
+<h3>Year of discovery</h3>
+<table class="table table-striped">
+<tr>
+<th>Year</th>
+<th>Objects</th>
+<th>Records</th>
+</tr>
+<?php echo $this->partialLoop('partials/annual/year.phtml',$this->year);?>
+<tr>
+<?php 
+$finds_disco = array();
+$records_disco = array();
+foreach($this->year as $find)
+{
+$finds_disco[] = $find['finds'];
+$records_disco[] = $find['records'];
+}
+
+$findsDiscoTotal = array_sum($finds_disco);
+$recordsDiscoTotal = array_sum($records_disco);
+?>
+<th></th>
+<th><?php echo $findsDiscoTotal;?>
+</th>
+<th><?php echo $recordsDiscoTotal;?></th>
+
+</tr>
+</table>
+
+<h3>Discovery method</h3>
+<table class="table table-striped">
+<tr>
+<th>Discovery method</th>
+<th>Objects</th>
+<th>Records</th>
+</tr>
+<?php echo $this->partialLoop('partials/annual/discoinferno.phtml',$this->discovery);?>
+<tr>
+<?php 
+$finds_discomethod = array();
+$records_discomethod = array();
+foreach($this->discovery as $find)
+{
+$finds_discomethod[] = $find['finds'];
+$records_discomethod[] = $find['records'];
+}
+
+$findsDiscoMethodTotal = array_sum($finds_discomethod);
+$recordsDiscoMethodTotal = array_sum($records_discomethod);
+?>
+<th></th>
+<th><?php echo $findsDiscoMethodTotal;?>
+</th>
+<th><?php echo $recordsDiscoMethodTotal;?></th>
+
+</tr>
+</table>
+
+<h3>Type of landuse</h3>
+<table class="table table-striped">
+<tr>
+<th>Landuse</th>
+<th>Objects</th>
+<th>Records</th>
+</tr>
+<?php echo $this->partialLoop('partials/annual/landuse.phtml',$this->landuse);?>
+<tr>
+<?php 
+$finds_landuse = array();
+$records_landuse = array();
+foreach($this->landuse as $find)
+{
+$finds_landuse[] = $find['finds'];
+$records_landuse[] = $find['records'];
+}
+
+$findsLanduseTotal = array_sum($finds_landuse);
+$recordsLanduseTotal = array_sum($records_landuse);
+?>
+<th></th>
+<th><?php echo $findsLanduseTotal;?>
+</th>
+<th><?php echo $recordsLanduseTotal;?></th>
+
+</tr>
+</table>
+
+<h3>Findspot precision</h3>
+<table class="table table-striped">
+<tr>
+<th>Grid reference precision</th>
+<th>Objects</th>
+<th>Records</th>
+</tr>
+<?php echo $this->partialLoop('partials/annual/precision.phtml',$this->precision);?>
+<tr>
+<?php 
+$finds = array();
+$records = array();
+foreach($this->precision as $find)
+{
+$finds[] = $find['finds'];
+$records[] = $find['records'];
+}
+
+$findstotal = array_sum($finds);
+$recordstotal = array_sum($records);
+?>
+<th></th>
+<th><?php echo $findstotal;?>
+</th>
+<th><?php echo $recordstotal;?></th>
+
+</tr>
+</table>
+<?php endif;?>

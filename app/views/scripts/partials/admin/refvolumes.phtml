@@ -1,0 +1,9 @@
+<tr class="valid-<?php echo $this->valid;?>">
+<td><?php echo $this->referenceName;?></td>
+<td><?php echo $this->term;?></td>
+<td><?php echo $this->niceshortdate($this->created);?></td>
+<td><?php echo $this->fullname;?></td>
+<td><?php echo $this->niceshortdate($this->updated);?></td>
+<td><?php echo $this->fn;?></td>
+<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'editref','id' => $this->id),'default',TRUE);?>" title="Edit this reference">Edit</a></td>
+</tr>

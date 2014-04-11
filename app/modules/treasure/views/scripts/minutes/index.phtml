@@ -1,0 +1,37 @@
+<?php 
+$this->headTitle('Minutes of the Treasure Valuation Committee');
+$this->metaBase(
+	'The minutes of the Treasure valuation committee are published retrospectively here',
+	'Minutes',
+	'treasure,valuation,committee,minutes,recommendations')
+?>
+<h2>Treasure Valuation Committee minutes</h2>
+
+<p>One of the recommendations of the 2012 Review of the Treasure Valuation Committee by the DCMS was that historic minutes of the Committee's 
+meetings should be made available to the public once all of the cases discussed therein had been processed to their conclusion.  The Committee 
+was happy to accept this recommendation and asked the Secretariat to make public these minutes when possible, ensuring that personal information 
+and other sensitive information was appropriately redacted.  The Department of Portable Antiquities and Treasure has begun to prepare the minutes 
+for publication accordingly, and you can find those available by following the links below.</p>
+ 
+ <ul>
+<?php
+	$minutes = array();
+    foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/treasureMinutes/') as $fileInfo) {
+    if($fileInfo->isDot()) continue;
+    list($root, $ext) = explode('.',$fileInfo->getFilename());
+    $minutes[$fileInfo->getFilename()] = $root
+  ?>
+  <?php
+	}
+	$minutes = array_flip($minutes);
+	ksort($minutes, SORT_NUMERIC);
+	?>
+	<?php foreach($minutes as $k => $v):?>
+  <li>
+  <?php 
+   ?>
+  <a href="<?php echo $this->serverUrl();?>/documents/treasureMinutes/<?php
+    echo $v;
+    ?>"><?php echo $this->niceshortdate($k);?></a></li>
+    <?php endforeach;?>
+</ul>

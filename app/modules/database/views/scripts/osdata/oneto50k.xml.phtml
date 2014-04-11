@@ -1,0 +1,36 @@
+<?php 
+$site = $this->serverUrl();
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+$contexts = $contextSwitch->getContexts();
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$cats  = $dom->createElement('response');
+$meta = $dom->createElement('meta');
+$formats = $dom->createElement('formats');
+$meta->appendChild($formats);	
+foreach ($contexts as $k => $v){
+$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param,'format' => $k),NULL,true)  ));
+}
+$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param),NULL,true)  ));
+//1st item
+$mintsElem = $dom->createElement('osOneTo50k');
+$cats->appendChild($mintsElem);
+// set it's attribute
+foreach($this->gazetteer as $r => $v) {
+     $typeElem = $dom->createElement('antiquity');
+   foreach($v as $k => $a){
+      
+       $typeElem->appendChild( $dom->createElement($k, htmlspecialchars($a))); 
+   }
+   $mintsElem->appendChild($typeElem);
+}
+$dom->appendChild( $cats );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

@@ -1,0 +1,28 @@
+<?php
+$this->headTitle('Volunteer administration section');?>
+<h2>Administer volunteer opportunities</h2>
+<div id="toolbox">
+    <p><a class="btn btn-small btn-success" href="<?php echo $this->url(array(
+        'module' => 'admin',
+        'controller' => 'volunteers',
+        'action' => 'add'),null,true);?>" title="Add a new volunteering opp">Add a new volunteering role</a></p></div>
+
+<?php if (count($this->opps)) : ?>
+<table class="table table-striped">
+<tr>
+<th>Volunteer role title</th>
+<th>Suitable for</th>
+<th>Managed by</th>
+<th>Length of opportunity (months)</th>
+<th>Location</th>
+<th>Actions</th>
+</tr>
+
+<?php echo $this->partialLoop('partials/admin/volunteerList.phtml',$this->opps);
+?>
+</table>
+<?echo $this->paginationControl($this->opps, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<?php echo '<p>There are currently no volunteer opportunities at the Scheme.</p>';?>
+<?php endif;?>
+

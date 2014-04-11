@@ -1,0 +1,83 @@
+<?php echo '<?xml version="1.0" encoding="utf-8"?>';?>
+<?php echo $this->docType();?>
+<html
+
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:batlas="http://atlantides.org/batlas/"
+	xmlns:gml="http://www.opengis.net/gml/"
+	xmlns:nm="http://nomisma.org/id/"
+	xmlns:ov="http://open.vocab.org/terms/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2008/05/skos#"
+	xmlns:pas="<?php echo $this->serverUrl();?>/database/"
+	xmlns:google="http://rdf.data-vocabulary.org/#"
+	xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:og="http://ogp.me/ns#"
+	xmlns:fb="http://www.facebook.com/2008/fbml"
+	xml:lang="en"
+>
+<head>
+    
+	<?php echo $this->headTitle(); ?>
+	
+	<?php echo $this->headMeta(); ?>
+	
+	<?php echo $this->headLink(); ?>
+	
+	<?php echo $this->headScript(); ?>
+
+	<?php echo $this->headLink()->appendStylesheet('/css/home-custom.css', $type='screen'); ?>
+  
+  </head>
+
+  <body>
+
+
+    <!-- NAVBAR
+    ================================================== -->
+    <div class="navbar navbar-fixed-top">
+
+      <div class="navbar-inner">
+        <div class="container-fluid">
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="nav-collapse">
+			<?php echo $this->layout()->navigation ?>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	<?php echo $this->layout()->content; ?>
+
+
+      <!-- FOOTER -->
+      <footer>
+             <?php echo $this->layout()->footer; ?>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <?php echo $this->jQuery(); ?>
+    <script src="/js/bootstrap-transition.js"></script>
+    <?php echo $this->inlineScript(); ?>
+
+    <?php echo $this->layout()->analytics; ?>
+
+
+  </body>
+</html>

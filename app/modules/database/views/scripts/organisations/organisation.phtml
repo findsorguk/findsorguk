@@ -1,0 +1,9 @@
+<?php echo $this->partialLoop('partials/database/orgDetail.phtml',$this->orgs);?>
+<?php if(count($this->members)):?>
+<h3>Organisation's members</h3>
+<ul id="related">
+<?php echo $this->partialLoop('partials/database/orgLists.phtml',$this->members);?>
+</ul>
+<?php else:?>
+<p>There are no members at the moment.</p>
+<?php endif;?>

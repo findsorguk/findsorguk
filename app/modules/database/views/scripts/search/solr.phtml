@@ -1,0 +1,43 @@
+<h2>What/Where/When search</h2>
+<?php 
+$this->metaBasic();
+echo $this->form;
+?>
+<?php
+
+// display results
+if ($this->results)
+{
+  $total = (int) $this->results->response->numFound;
+  $start = min(1, $total);
+  $end = min(20, $total);
+?>
+    <div>Results <?php echo $start; ?> - <?php echo $end;?> of <?php echo $total; ?>:</div>
+    <ol>
+<?php
+  // iterate result documents
+  foreach ($this->results->response->docs as $doc)
+  {
+?>
+      <li>
+        
+<?php
+    // iterate document fields / values
+    foreach ($doc as $field => $value)
+    {
+?>
+        
+            <?php echo htmlspecialchars($field, ENT_NOQUOTES, 'utf-8'); ?>: <?php echo htmlspecialchars($value, ENT_NOQUOTES, 'utf-8'); ?><br />
+          
+<?php
+    }
+?>
+       
+      </li>
+<?php
+  }
+?>
+    </ol>
+<?php
+}
+?>

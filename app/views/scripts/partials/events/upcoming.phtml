@@ -1,0 +1,19 @@
+<tr>
+<td><?php echo $this->niceshortdate($this->escape($this->eventStartDate));?></td>
+<td><a href="<?php echo $this->url(array('module' => 'events','controller' => 'info', 'action' => 'index','id' => $this->id),'default',true);?>" title="View this event's details"><?php echo $this->eventTitle;?></a></td>
+<td><?php echo $this->escape($this->location);?></td>
+<td><?php echo $this->escape($this->type);?></td>
+<td><?php 
+$types = array('PAS' => 'Portable Antiquities Scheme',
+ 'BM' => 'British Museum','MLA' => 'MLA','HLF' => 'Heritage Lottery Fund','IFA' => 'Institute of Archaeology','CBA' => 'Council for British Archaeology','ARCH' => 'Current Archaeology');
+$search = array();
+$replace = array();
+foreach($types as $t => $v) {
+$search[] = $t;
+$replace[] = $v;
+}
+echo str_replace($search,$replace,$this->escape($this->organisation));
+?>
+
+</td>
+</tr>

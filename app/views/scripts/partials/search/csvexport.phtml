@@ -1,0 +1,13 @@
+ <?php
+ $csv_terminated = "\n";
+    $csv_separator = ",";
+    $csv_enclosed = '"';
+    $csv_escaped = "\\";
+    
+   
+	
+echo  $csv_enclosed . stripslashes(strip_tags(str_replace($csv_enclosed, $csv_escaped . $csv_enclosed, str_replace('"','',"$this->secuid")))) . $csv_enclosed . $csv_separator . $csv_enclosed . stripslashes(strip_tags(str_replace($csv_enclosed, $csv_escaped . $csv_enclosed, str_replace('"','',"$this->old_findID")))) . $csv_enclosed . $csv_separator .
+$csv_enclosed . stripslashes(strip_tags(str_replace($csv_enclosed, $csv_escaped . $csv_enclosed, str_replace('"','',"$this->broadperiod")))) . $csv_enclosed . $csv_separator . $csv_terminated = "\n";
+	
+	
+	?>

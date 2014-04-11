@@ -1,0 +1,24 @@
+<?php
+$this->headTitle('Surface treatments');
+if($this->surfaces > 0):?>
+<h2>Surface treatments</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'addsurface'),null,true);?>" title="Add a new surface treatment term">Add a new surface treatment term</a></p>
+<table class="table table-striped" summary="List of surface treatments that the Scheme uses">
+    <caption>Surface treatments</caption>
+    <thead>
+        <tr>
+            <th>Treatment term</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Validity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/surfacesTable.phtml',$this->surfaces);?>
+    </tbody>
+</table>
+
+<?php endif;?>

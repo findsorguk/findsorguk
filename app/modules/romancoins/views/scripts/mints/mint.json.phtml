@@ -1,0 +1,7 @@
+<?php
+echo Zend_Json::prettyPrint(Zend_Json::encode( ( array(
+    'romanMint' => array(
+    'details' => $this->rommints,
+	'issuingRulers' => $this->actives
+	)) ) ) );
+?>

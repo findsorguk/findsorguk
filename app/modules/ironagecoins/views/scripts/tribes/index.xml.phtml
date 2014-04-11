@@ -1,0 +1,45 @@
+<?php 
+$site = $this->serverUrl();
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+$contexts = $contextSwitch->getContexts();
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$tribes  = $dom->createElement('response');
+$meta = $dom->createElement('meta');
+$tribes->appendChild($meta);
+$meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
+$formats = $dom->createElement('formats');
+
+$meta->appendChild($formats);	
+foreach ($contexts as $k => $v){
+$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param,'format' => $k),NULL,true)  ));
+}
+$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param),NULL,true)  ));
+//1st item
+
+$tribesElem = $dom->createElement('tribes');
+$tribes->appendChild($tribesElem);
+// set it's attribute
+foreach($this->tribes as $t){
+$t = (object)$t;
+$tribeElem = $dom->createElement('tribe');
+$tribeElem->appendChild( $dom->createElement('id', $t->id));
+$tribeElem->appendChild( $dom->createElement('name', $t->tribe));
+$tribeElem->appendChild( $dom->createElement('area', $t->area));
+$tribeElem->appendChild( $dom->createElement('region', $t->region));
+$tribeElem->appendChild( $dom->createElement('url',$site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => 'tribe','id' => $t->id),NULL,true) ));
+//$infoElem->appendChild( $dom->createCDATASection('Sun Certified Java Programmer book') );
+$tribesElem->appendChild( $tribeElem );
+}
+
+$dom->appendChild( $tribes );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

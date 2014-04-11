@@ -1,0 +1,23 @@
+<?php
+$this->headTitle('Visitors analytical data provided via Google Analytics ' . $this->timeSpanParameter());
+?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+<?php echo $this->form;?>
+<table class="table table-striped">
+	<caption><?php echo $this->title();?> </caption>
+		<thead>
+		<tr>
+			<th>Date</th>
+			<th>Visitors</th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php foreach($this->results as $row):?>
+			<tr>
+				<td><?php echo $this->niceshortdate(strtotime($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_DATE)->value));?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+</table>

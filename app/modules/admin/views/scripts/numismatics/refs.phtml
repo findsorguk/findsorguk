@@ -1,0 +1,25 @@
+<?php $this->headTitle('All reference volumes for coins');?>
+<h2>A list of reference volumes for coins</h2>
+<p><a class="btn btn-success btn-large" href="<?php echo $this->url(array(
+    'module' => 'admin',
+    'controller' => 'numismatics',
+    'action' => 'addref'
+    ),NULL,TRUE);?>" title="">Add a reference volume</a></p>
+
+<table class="table table-striped" summary="A list of reference volumes">
+<caption>Reference volumes available</caption>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Period</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/refvolumes.phtml',$this->refs);?>
+    </tbody>
+</table>

@@ -1,0 +1,25 @@
+<?php $this->headTitle('Visits to the site by hour ' . $this->timeSpanParameter());?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+<?php echo $this->form;?>
+<table class="table table-striped">
+	<caption><?php echo $this->title();?></caption>
+	<thead>
+		<tr>
+			<th>Language</th>
+			<th>Number of visits</th>
+			<th>Number of visitors</th>
+			<th>Average Time on site</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($this->results as $row):?>
+		<tr>
+			<td><?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_LANGUAGE)->value;?></td>
+			<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value;?></td>
+			<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
+			<td><?php echo $this->secondsToMinutes()->setSeconds($row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_AVG_TIME_ON_SITE)->value);?></td>
+		</tr>
+<?php endforeach;?>	
+	</tbody>
+</table>

@@ -1,0 +1,24 @@
+<?php $this->headTitle('Staff roles in use on the database');?>
+<h2><?php echo $this->title();?></h2>
+<?php
+echo $this->Href(array('module' => 'admin','controller'=>'roles', 'action'=>'add', 'checkAcl'=>true,
+'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'),
+'content'=>'Add an account','attribs' => array('title' => 'Add a new role','class' => 'btn btn-large btn-danger')));
+?>
+<table class="table table-striped" summary="A list of all roles available on the database">
+<thead>
+<tr>
+<th>Role name</th>
+<th>Created</th>
+<th>Created by</th>
+<th>Updated</th>
+<th>Updated by</th>
+<th>Validity</th>
+<th>Actions</th>
+</tr>
+</thead>
+<?php echo $this->partialLoop('partials/admin/staffroles.phtml',$this->roles);?>
+
+<tbody>
+</tbody>
+</table>

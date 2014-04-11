@@ -1,0 +1,4 @@
+<tr>
+<td><?php echo $this->escape($this->interest);?></td>
+<td><a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'interests','action' => 'edit','id' => $this->id),null,true);?>" title="Edit details for this interest">Edit</a> | <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'interests','action' => 'delete','id' => $this->id),null,true);?>" title="Delete this interest">Delete</a></td>
+</tr>

@@ -1,0 +1,9 @@
+<?php
+$doc = new DOMDocument(); 
+$doc->load(str_replace('format/midas','format/xml', $this->curUrl()),LIBXML_NOBLANKS);
+$xslDoc = new DOMDocument();
+$xslDoc->load($this->serverUrl() . '/xsl/midasObjects.xsl');
+
+$proc = new XSLTProcessor();
+$proc->importStylesheet($xslDoc);
+echo $proc->transformToXML($doc);

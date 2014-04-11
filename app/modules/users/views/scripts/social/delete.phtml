@@ -1,0 +1,18 @@
+<?php 
+$this->headTitle('Delete one of your social web profiles');
+if ($this->service) :?>
+<h2>Delete: <?php echo $this->escape($this->service->account); ?> </h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->service->account); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'users','controller' => 'social','action'=>'delete'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->service->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

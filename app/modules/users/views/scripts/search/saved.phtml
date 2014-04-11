@@ -1,0 +1,11 @@
+<?php $this->headTitle('My saved searches');?>
+<h2>My saved searches</h2>
+<?php if(count($this->searches)):?>
+<ol id="timeline" class="statuses">
+
+<?php echo $this->partialLoop('partials/users/searchSaveList.phtml', $this->searches) ?>
+</ol>
+<?echo $this->paginationControl($this->searches, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>No saved searches available to you at present.</p>
+<?php endif;?> 

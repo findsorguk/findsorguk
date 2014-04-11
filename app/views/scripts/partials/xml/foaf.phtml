@@ -1,0 +1,50 @@
+<foaf:member>
+<foaf:Person>
+<foaf:name><?php echo $this->firstname;?> <?php echo $this->escape($this->lastname);?></foaf:name>
+<foaf:givenname><?php echo $this->firstname;?></foaf:givenname>
+<foaf:family_name><?php echo $this->escape($this->lastname);?></foaf:family_name>
+<foaf:mbox_sha1sum><?php echo sha1($this->email_one);?></foaf:mbox_sha1sum>
+<foaf:mbox rdf:resource="mailto:<?php echo $this->email_one;?>"/>
+<foaf:homepage rdf:resource="<?php echo $this->serverUrl();?>"/>
+<?php if(isset($this->image)) {?>
+<foaf:depiction rdf:resource="<?php echo $this->serverUrl();?>/<?php echo $this->baseUrl().'/images/staffphotos/thumbnails/'.$this->image;?>"/><?php } ?>
+<foaf:phone rdf:resource="tel:<?php echo $this->escape($this->telephone);?>"/>
+<foaf:workplaceHomepage rdf:resource="<?php echo $this->serverUrl();?>"/>
+<foaf:workInfoHomepage rdf:resource="<?php echo $this->serverUrl();?>/contacts/staff/profile/id/<?php echo $this->id;?>"/>
+
+<?php echo $this->onlineAccount($this->id);?>
+
+<based_near rdf:parseType="Resource">
+<geo:lat><?php echo $this->latitude;?></geo:lat>
+<geo:long><?php echo $this->longitude;?></geo:long>
+</based_near>
+<con:office rdf:parseType="Resource">
+<con:address rdf:parseType="Resource">
+<con:city>
+<?php echo $this->town;?>
+</con:city>
+<con:country>
+<?php echo $this->country;?>
+</con:country>
+<con:postalCode>
+<?php echo $this->postcode;?>
+</con:postalCode>
+<con:street>
+<?php echo $this->xmlconvert($this->address_1);?>
+</con:street>
+<con:street2>
+<?php echo $this->xmlconvert($this->address_2);?>
+</con:street2>
+</con:address>
+<con:phone rdf:resource="tel:<?php echo $this->tel;?>"/>
+<geo:location rdf:parseType="Resource">
+<geo:lat>
+<?php echo $this->latitude;?>
+</geo:lat>
+<geo:long>
+<?php echo $this->longitude;?>
+</geo:long>
+</geo:location>
+</con:office>
+        </foaf:Person>
+     </foaf:member>

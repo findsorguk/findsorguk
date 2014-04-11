@@ -1,0 +1,31 @@
+
+<li id="comment-<?php echo $this->id;?>" class="hentry u-<?php echo $this->comment_author;?>">
+<span class="thumb vcard author">
+<a class="tweet-url profile-pic url" href=""><?php echo $this->gravatar($this->comment_author_email,array(
+	'imgSize' => 30, 
+	'defaultImg' => 'http://finds.org.uk/assets/gravatar.png', 
+	'secure' => true),
+	array(
+	'class' => 'avatar img-circle stelae', 
+    'title' => $this->comment_author . '\'s gravatar representation',
+    'rating' => 'G',
+	'height' => 30,
+	'width' => 30));
+?>
+</a>
+</span>
+<span class="status-body">
+<strong>
+<?php echo $this->comment_author;?>
+</strong> said: 
+<span class="entry-content"><?php echo strip_tags($this->comment_content);?></span><br />
+<span class="meta entry-meta">
+<span class="published timestamp" data="{time:'<?php echo $this->df;?>'}"><?php echo $this->df;?></span>
+<span>
+upon record: 
+<a href="<?php echo $this->serverUrl();?>/database/artefacts/record/id/<?php echo $this->id;?>" title="View record"><?php echo $this->old_findID;?></a> a <?php echo $this->broadperiod . ' ' .$this->objecttype;?>
+</span>
+</span>
+
+</span>
+</li>

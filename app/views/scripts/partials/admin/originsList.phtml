@@ -1,0 +1,34 @@
+<tr class="valid-<?php echo $this->valid;?>">
+<td><?php echo $this->escape($this->term);?></td>
+<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->timeagoinwords($this->updated);?></td>
+<td><?php echo $this->namethem($this->fn);?></td>
+<td><?php echo $this->validity($this->escape($this->valid));?></td>
+<td>
+<?php
+$edit = $this->Href(array(
+    'module' => 'admin',
+    'controller' => 'terminology',
+    'action' => 'editmaporigin',
+    'checkAcl' => true,
+    'acl'=>'Zend_Acl',
+    'attribs' => array('title' => 'Edit a map source'),
+    'params' => array('id'=>$this->id),
+    'content'=> 'Edit')
+    );
+$delete = $this->Href(array(
+    'module' => 'admin',
+    'controller' =>'terminology',
+    'action' =>'deletemaporigin',
+    'checkAcl' => true,
+    'acl' => 'Zend_Acl',
+    'attribs' => array('title' => 'Delete a map source'),
+    'params' => array('id'=>$this->id),
+    'content' => 'Delete')
+    );
+
+echo implode(' | ', array($edit, $delete));
+?>
+</td>
+</tr>

@@ -1,0 +1,2 @@
+<?php echo $this->partialLoop('partials/database/activityDetail.phtml',$this->activities);?>
+<?php echo $this->activitySolrSearch('activity:"' .  $this->activities['0']['term'] . '"');?>

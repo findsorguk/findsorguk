@@ -1,0 +1,17 @@
+<?php if ($this->content) :?>
+<?php $this->headTitle('Delete '.$this->escape($this->content->title)); ?>
+<h2>Delete content</h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->content->title); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'help','action'=>'delete'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->content->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?><h2>An error has occured</h2>
+<p>Cannot find the requested content details.</p>
+<?php endif;?>

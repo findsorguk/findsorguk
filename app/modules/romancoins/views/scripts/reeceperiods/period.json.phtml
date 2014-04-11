@@ -1,0 +1,8 @@
+<?php
+echo Zend_Json::prettyPrint(Zend_Json::encode( ( array(
+    'romanReecePeriod' =>  array(
+    'details' => $this->periods,
+	'associatedEmperors' => $this->reeces,
+	'associatedReverseTypes' => $this->reverses
+)) ) ));
+?>

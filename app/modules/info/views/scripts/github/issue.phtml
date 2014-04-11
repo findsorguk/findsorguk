@@ -1,0 +1,57 @@
+<?php
+$this->headTitle('Details for issue');
+?>
+<h2><?php echo $this->issue['title'];?></h2>
+<p><?php echo $this->issue['body'];?></p>
+<p>
+State: <?php echo $this->issue['state'];?><br />
+Created: <?php echo $this->niceshortdate($this->issue['created_at']);?><br />
+Updated: <?php echo $this->niceshortdate($this->issue['updated_at']);?>
+</p>
+<h4>Who is dealing with this</h4>
+<p>
+<img src="<?php echo $this->issue['assignee']['avatar_url'];?>" height="32" width="32" class="pull-left stelae img-circle"/>
+Assigned: <a href="http://github.com/<?php echo $this->issue['assignee']['login'];?>"><?php echo $this->issue['assignee']['login'];?></a><br />
+View on Github: <a href="<?php echo $this->issue['html_url'];?>"><?php echo $this->issue['html_url'];?></a>
+</p>
+
+<?php if(sizeof($this->issue['labels']) > 0):?>
+<h4>Labels</h4>
+<ul>
+<?php foreach($this->issue['labels'] as $label):?>
+<li><span class="label label-inverse"><?php echo $label['name'];?></span></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<?php if(!is_null($this->issue['milestone'])):?>
+<h4>Issue is part of a milestone</h4>
+<p><strong><?php echo $this->issue['milestone']['title'];?></strong>: <?php echo $this->issue['milestone']['description'];?></p>
+<p>
+This milestone was created <?php echo $this->issue['milestone']['created_at'];?>.<br />
+Open issues: <?php echo $this->issue['milestone']['open_issues'];?><br />
+Closed issues: <?php echo $this->issue['milestone']['closed_issues'];?><br />
+Due on: <?php echo $this->issue['milestone']['due_on'];?>
+</p>
+<?php endif;?>
+<?php if($this->issue['comments'] > 0):?>
+<h4>Comments</h4>
+<ol>
+<?php foreach($this->comments as $comment):?>
+<li>
+<?php echo $comment['body'];?>
+	<ul>
+	<li>
+	<img src="<?php echo $comment['user']['avatar_url'];?>" height="16" width="16" class="pull-left"/>
+	Entered by: <a href="http://github.com/<?php echo $comment['user']['login'];?>"><?php echo $comment['user']['login'];?></a> @ <?php echo $this->timeagoinwords($comment['created_at']);?>
+	</li>
+	</ul>
+</li>
+<?php endforeach;?>
+</ol>
+<?php endif;?>
+<?php 
+//Zend_Debug::dump($this->issue);
+//Zend_Debug::dump($this->comments);
+//exit;
+?>

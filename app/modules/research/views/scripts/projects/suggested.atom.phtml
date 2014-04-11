@@ -1,0 +1,32 @@
+<?php
+$feedArray = array(
+
+			'title' => 'Suggested research projects on Scheme data',
+			'link' => $this->curUrl(),
+			'charset' => 'utf-8',
+			'description' => 'Latest feed of suggested research projects on Scheme data',
+			'author' => 'The Portable Antiquities Scheme',
+			'image' => Zend_Registry::get('siteurl').'/images/logos/pas.gif',
+			'email' => 'info@finds.org.uk',
+			'copyright' => 'Creative Commons Licenced',
+			'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
+			'language' => 'en',
+			'entries' => array()
+		);
+
+
+		foreach ($this->suggested as $suggest) {
+			$feedArray['entries'][] = array(
+				'title' => $suggest['title'],
+				'link' => Zend_Registry::get('siteurl').'/research/projects/topic/id/'.$suggest['id'],
+				'guid' => Zend_Registry::get('siteurl').'/research/projects/topic/id/'.$suggest['id'],
+				'description' => strip_tags($this->ellipsisstring(str_replace('£','&pound;',$suggest['description']),300)),
+				'lastUpdate' => strtotime($suggest['updated']),
+				'content' => strip_tags(str_replace('£','&pound;',$suggest['description']),''),
+				);
+		}
+		
+  		 $feed = Zend_Feed::importArray($feedArray,'atom');
+		 $feed->send();
+		
+				?>

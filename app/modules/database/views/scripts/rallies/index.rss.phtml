@@ -1,0 +1,35 @@
+<?php
+Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/rss+xml');
+
+$feed = new Zend_Feed_Writer_Feed;
+$feed->setTitle('Latest rallies known to the Scheme');
+$feed->setDescription('A list of all the latest rallies we have been told about');
+$feed->setLink($this->serverUrl());
+$feed->setFeedLink($this->curUrl(), 'rss');
+
+$feed->setDateModified(time());
+$feed->addHub('http://pubsubhubbub.appspot.com/');
+
+foreach ($this->rallies as $rally) {
+$rally = (object)$rally;
+
+$entry = $feed->createEntry();
+$entry->setTitle($rally->rally_name);
+$entry->setLink($this->serverUrl() . '/database/rallies/rally/id/'.$rally->id);
+$entry->addAuthor(array(
+    'name'  => $rally->fullname,
+    'email' => 'info@finds.org.uk',
+    'uri'   => $this->serverUrl() . '/contacts/profile/id/' . $rally->personid ,
+));
+$entry->setDateModified(time());
+$entry->setDateCreated(time());
+$entry->setDescription('Details for the rally held '. $rally->df . ' at ' . $rally->rally_name);
+$entry->setContent('All details for the rally can be accessed from this page');
+$feed->addEntry($entry);
+}
+/**
+* Render the resulting feed to Atom 1.0 and assign to $out.
+* You can substitute "atom" with "rss" to generate an RSS 2.0 feed.
+*/
+$out = $feed->export('rss');
+echo $out;

@@ -1,0 +1,22 @@
+<?php $this->headTitle('Code commits to Github');?>
+<h2><?php echo $this->title();?></h2>
+<p>This lists the last 30 commits to the code base that powers this site.</p>
+<?php 
+foreach($this->commits as $commit):
+?>
+    <div class="well">
+    <img class="pull-left stelae img-polaroid" height="48" src="<?php echo $commit['author']['avatar_url'];?>" width="48">
+    <p class="lead"><?php echo $commit['commit']['message'];?></p>
+    <p>
+    Committed by <a href="http://github.com/<?php echo $commit['commit']['committer']['name'];?>" ><?php echo $commit['commit']['committer']['name'];?></a><br/>
+    Committed on: <?php echo $this->niceshortdate($commit['commit']['author']['date']);?>
+    </p>
+    <p><a href="<?php echo $this->url(array('module' => 'info', 'controller' => 'github', 'action' => 'commit', 'sha' => $commit['parents'][0]['sha']), 'default', true);?>">View details &raquo;</a> </p>
+    <?php if($commit['comment_count'] > 0):?>
+    <span class="label">Comments entered: <?php echo $commit['comment_count'];?> <i class="icon-comment"></i></span>
+    <?php endif;?>
+    </div>
+<?php 
+endforeach;
+?>
+

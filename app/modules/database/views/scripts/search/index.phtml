@@ -1,0 +1,62 @@
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocomplete.pack.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteinitwww.js',$type='text/javascript'); 
+$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
+$this->headTitle('Perform a basic  search');
+?>
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function() {
+       // focus on the first text input field in the first field on the page
+        $("input[type='text']:first", document.forms[0]).focus();
+    });
+<?php $this->jQuery()->javascriptCaptureEnd();?>
+<h2>Search the database</h2>
+
+<div class="row-fluid">
+<?php 
+$this->metaBasic();
+echo $this->form;
+?>
+</div>
+
+<div class="row-fluid">
+<div class="span4">
+<h3>Some examples of how to search</h3>
+<p>Try some of these for example.</p>
+<ul>
+<li>ROMAN NOT coin</li>
+<li>Sompting</li>
+<li>coin AND gordian</li>
+<li> "Gordian III"</li>
+</ul>
+</div>
+
+<div class="span6">
+<h3>More complex search forms</h3>
+<ul>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'advanced'),NULL,true);?>" title="Advanced search our database" accesskey="4">Advanced search</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'ironagenumismatics'),NULL,true);?>" title="Iron age numismatic search our database">Iron Age numismatic search</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'romannumismatics'),NULL,true);?>" title="Roman numismatic search our database">Roman numismatic search</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'greekroman'),NULL,true);?>" title="Greek and roman provincial numismatic search our database">Greek &amp; Roman numismatic search</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'earlymednumismatics'),NULL,true);?>" title="Early Medieval numismatic search our database">Early medieval numismatic search</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'byzantinenumismatics'),NULL,true);?>" title="Byzantine numismatic search our database">Byzantine numismatic search</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'mednumismatics'),NULL,true);?>" title="Medieval numismatic search our database">Medieval numismatic search</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'postmednumismatics'),NULL,true);?>" title="Post medieval numismatic search our database">Post medieval numismatic search</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'spatial'),NULL,true);?>" title="Spatial search">Search via map</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'postcode'),NULL,true);?>" title="Post code search">Postcode search</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'savedsearches'),NULL,true);?>" title="All public saved searches on our database">Public saved searches</a></li>
+<?php
+$auth = Zend_Auth::getInstance();
+if($auth->hasIdentity())
+{
+$user = $auth->getIdentity();
+{?>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'savedsearches','by' => 'me'),NULL,true);?>" title="List of my saved searches">My saved searches</a></li>
+
+<?php
+}
+}
+?>
+</ul>
+</div>
+</div>

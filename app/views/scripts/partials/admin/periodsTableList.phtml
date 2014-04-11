@@ -1,0 +1,14 @@
+<?php 
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+$ctrllr = strtolower($controller);
+?>
+<tr class="valid-<?php echo $this->valid;?>">
+<td><?php echo $this->escape($this->term);?> <?php echo $this->adbc($this->fromdate);?> <?php echo $this->adbc($this->todate);?></td>
+<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->timeagoinwords($this->updated);?></td>
+<td><?php echo $this->namethem($this->fn);?></td>
+<td><?php echo $this->validity($this->valid);?></td>
+<td><a href="<?php echo $this->url(array('module' => 'admin','controller'=>$ctrllr,'action'=>'editperiod', 'id'=>$this->id),null,true);?>">Edit</a> | 
+<a href="<?php echo $this->url(array('module' => 'admin','controller'=> $ctrllr,'action'=>'deleteperiod', 'id'=>$this->id),null,true);?>">Delete</a></td>
+</tr>

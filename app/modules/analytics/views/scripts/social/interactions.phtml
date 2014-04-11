@@ -1,0 +1,28 @@
+<?php $this->headTitle('Social network interaction data for ' . $this->timeSpanParameter());?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+
+<?php 
+if((int)$this->results->totalResults->text > 0 ):?>
+<table class="table table-striped">
+	<caption><?php echo $this->title();?></caption>
+		<thead>
+		<tr>
+			<th>Network</th>
+			<th>Network action</th>
+			<th>Visitors</th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php foreach($this->results as $row):?>
+			<tr>
+				<td><?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_SOCIAL_INTERACTION_NETWORK)->value;?></td>
+				<td><?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_SOCIAL_INTERACTION_NETWORK_ACTION)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+</table>
+<?php else:?>
+<p>No data can be retrieved that meets these criteria.</p>
+<?php endif;?>

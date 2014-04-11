@@ -1,0 +1,5 @@
+<?php
+$this->headTitle('Details for van Arsdell Type:"' . $this->type->type);
+?>
+<h2>Details for <?php echo $this->type->type; ?></h2>
+<?php echo $this->latestRecords('vaType:"' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id') . '"');

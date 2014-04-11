@@ -1,0 +1,37 @@
+<?php 
+$this->headTitle('Our sets of images as seen on Flickr');
+$this->MetaBase('A collection of our sets of photos as shown on flickr and consumed within our site. It includes the mighty Staffordshire Hoard',
+'photos',
+'archaeology,museum,treasure,objects,staffordshire,hoard,frome')
+?>
+<h2>Scheme photo sets on flickr</h2>
+
+<?php
+if($this->photos):?>
+<?php if(!is_array($this->photos->photoset)):?>
+<div class="span10 well">
+<h3><?php echo $this->photos->photoset->title;?></h3>
+<p>
+<a href="<?php echo $this->FlickrImage($this->photos->photoset->farm,$this->photos->photoset->server,$this->photos->photoset->primary,$this->photos->photoset->secret,'b');?>" title="View image in larger format" rel="lightbox"><img src="http://farm<?php echo $this->photos->photoset->farm;?>.static.flickr.com/<?php echo $this->photos->photoset->server;?>/<?php echo $this->photos->photoset->primary;?>_<?php echo $this->photos->photoset->secret;?>_m.jpg" alt="Primary image for this set" style="float:right;" class="tmb" /></a>
+<?php echo $this->photos->photoset->description;?><br />
+This set contains <?php echo $this->photos->photoset->photos;?> photographs<?php if($this->photos->photoset->videos != 0) { echo ' and '.$this->photos->photoset->videos.' videos';} else { echo '.';}?> <br />
+<a href="<?php echo $this->FlickrSetUrl($this->photos->photoset->id);?>" title="View this set in context">View this set on flickr.</a> | <a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'inaset','id'=> $this->photos->photoset->id),'default',true);?>" title="View photos on our site">View all photos here</a></p>
+</div>
+<?php else:?>
+<?php foreach($this->photos->photoset as $d) :?>
+<div class="span10 well">
+<h3><?php echo $d->title;?></h3>
+<p>
+<a href="<?php echo $this->FlickrImage($d->farm,$d->server,$d->primary,$d->secret,'b');?>" title="View image in larger format" rel="lightbox"><img src="http://farm<?php echo $d->farm;?>.static.flickr.com/<?php echo $d->server;?>/<?php echo $d->primary;?>_<?php echo $d->secret;?>_m.jpg" alt="Primary image for this set" style="float:right;" /></a>
+<?php echo $d->description;?><br />
+This set contains <?php echo $d->photos;?> photographs<?php if($d->videos != 0) { echo ' and '.$d->videos.' videos';} else { echo '.';}?> <br />
+<a href="<?php echo $this->FlickrSetUrl($d->id);?>" title="View this set in context">View this set on flickr.</a> | <a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'inaset','id'=> $d->id),'default',true);?>" title="View photos on our site">View all photos here</a></p>
+</div>
+<?php endforeach;?>
+<?php endif;?>
+<div class="row span16">
+<?php echo $this->paginationControl($this->$paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+</div>
+<?php else:?>
+<p>There are no sets available at the moment</p>
+<?php endif;?>

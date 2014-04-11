@@ -1,0 +1,6 @@
+<tr>
+<td><a href="<?php echo $this->url(array('module' => 'romancoins','controller' => 'reversetypes','action' => 'type','id' => $this->id),null,true);?>" title="View details for <?php echo $this->type;?>"><?php echo $this->type;?></a></td>
+<td><?php echo $this->description;?></td>
+<td>AD <?php echo $this->gendate;?></td>
+<td><a href="<?php echo $this->url(array('module' => 'romancoins','controller' => 'reeceperiods','action' => 'period','id' => $this->i),null,true);?>">Reece <?php echo $this->period_name;?></a></td>
+</tr>

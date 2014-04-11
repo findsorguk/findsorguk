@@ -1,0 +1,25 @@
+<tr>
+<td><a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies','action' => 'rally','id' => $this->escape($this->id)),null,true);?>" title="View all details for <?php echo $this->escape($this->rally_name); ?>"><?php echo $this->escape($this->rally_name); ?></a></td>
+<td>
+<?php echo $this->niceshortdate($this->date_from);?>
+</td>
+<td>
+<?php echo $this->niceshortdate($this->date_to);?>
+</td>
+<?php
+$auth = Zend_Auth::getInstance();
+if($auth->hasIdentity()) {
+$user = $auth->getIdentity();
+$allowedAccess = array('flos','fa','admin');
+if(in_array($user->role,$allowedAccess))
+{
+?>
+
+<td><a href="<?php echo$this->url(array('module' => 'database','controller' => 'rallies','action' => 'edit','id' => $this->id),null,true);?>" title="Edit this rally's details">Edit</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies','action' => 'delete','id' => $this->id),null,true);?>" title="Edit this rally's details">Delete</a></td>
+<?php
+}
+}
+
+?>
+
+</tr>

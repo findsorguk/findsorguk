@@ -1,0 +1,36 @@
+<?php
+$this->headTitle("Reverse types of the Fourth Century AD");
+?>
+<h2>The reverse types of the 4th Century AD</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addreversetype'),null, true);?>">Add a reverse type</a></p>
+<h2>Most common reverse types</h2>
+<table class="table table-striped" summary="A list of the common reverse types">
+    <caption>The most common reverse types</caption>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Description</th>
+            <th>General date</th>
+            <th>Reece period assigned</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php echo $this->partialLoop('partials/numismatics/revtypelist.phtml',$this->reverses);?>
+    </tbody>
+</table>
+
+<h2>Lest frequently found reverses</h2>
+<table class="table table-striped" summary="A list of the uncommon reverse types">
+    <caption>The more uncommon reverse types</caption>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Description</th>
+            <th>General date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php echo $this->partialLoop('partials/numismatics/revtypelist.phtml',$this->uncommonreverses);?>
+</table>

@@ -1,0 +1,9 @@
+<?php 
+echo $this->partialLoop('partials/admin/account.phtml',$this->users);
+?>
+<?php if($this->images):?>
+<h3 style="clear:left;">Latest examples recorded</h3>
+<div id="latest">
+<?php echo $this->partialLoop('partials/database/imagesPaged.phtml',$this->images);?>
+</div>
+<?php endif;?>

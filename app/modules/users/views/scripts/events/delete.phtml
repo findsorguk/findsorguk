@@ -1,0 +1,18 @@
+<?php 
+	$this->headTitle('Delete event');
+if ($this->event) :?>
+<h2>Delete <?php echo $this->escape($this->event->eventTitle); ?></h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->event->eventTitle); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'events','action'=>'delete'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->event->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

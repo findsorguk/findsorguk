@@ -1,0 +1,12 @@
+<?php
+$config = array('auto_extract' => 0);
+$parser = ARC2::getSemHTMLParser();
+$params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+unset($params['format']);
+$url = $this->url($params,null,true);
+$parser->parse($this->serverUrl() .  $url);
+$parser->extractRDF('rdfa');
+
+$triples = $parser->getTriples();
+$rdfxml = $parser->toRDFXML($triples);
+echo $rdfxml;

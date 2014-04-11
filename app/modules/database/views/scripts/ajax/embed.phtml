@@ -1,0 +1,25 @@
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">x</a>
+    <h3>Embed this record</h3>
+      </div>
+  <div class="modal-body">
+
+	<div class="row-fluid">
+<p>Copy the text in the form fields below and you can reuse it where ever you want.</p>
+
+<pre>Url: <?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->finds[0]['id']),null,true);?>
+</pre>
+
+<pre>
+<?php echo $this->escape($this->partialLoop('partials/database/embedthumbs.phtml', $this->thumbs)); ?>
+<?php echo $this->escape($this->partialLoop('partials/database/embedDataFind.phtml', $this->finds)); ?>
+</pre>
+<hr />
+<h3>[Preview]</h3>
+<?php echo $this->partialLoop('partials/database/embedthumbs.phtml', $this->thumbs) ?>
+<?php echo $this->partialLoop('partials/database/embedPreview.phtml', $this->finds) ?>
+</div>
+  </div>
+<div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Close</a>
+  </div>

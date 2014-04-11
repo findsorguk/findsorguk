@@ -1,0 +1,173 @@
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/jQuery/confirm.js',$type = 'javascript');?>
+<?php echo $this->partial('partials/admin/ruler.phtml',$this->details['0']);?>
+<h3>Images attached</h3>
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function(){
+$('a.deleteimage').click(function(e) {
+		e.preventDefault();
+		var parent = $(this).parents("div:first");
+		$.ajax({
+			type: 'get',
+			url: '<?php echo $this->url(array('controller' => 'ajax','action' => 'deleteimageruler'),null,true);?>',
+			data: 'id=' + parent.attr('id').replace('image-',''),
+			beforeSend: function() {
+				parent.animate({'backgroundColor':'#fb6c6c'},300);
+			},
+			success: function() {
+				parent.slideUp(300,function() {
+					parent.remove();
+				});
+			}
+		});
+	});
+ });
+
+<?php $this->jQuery()->javascriptCaptureEnd();?>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'addrulerimage','rulerid' => $this->details['0']['id']),null,true);?>" title="Add an image for this ruler">Add an image</a></p>
+<?php echo $this->partialLoop('partials/admin/rulerthumbs.phtml',$this->images);?>
+
+<h3>Issuing mints</h3>
+<p><a href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'rulertomint','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new mint">Add a mint to this list</a></p>
+<?php if(count($this->mints)):?>
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function(){
+$('a.delete').click(function(e) {
+		e.preventDefault();
+		var parent = $(this).parents("tr:first");
+		$.ajax({
+			type: 'get',
+			url: '<?php echo $this->url(array('controller' => 'ajax','action' => 'deletemintruler'),null,true);?>',
+			data: 'id=' + parent.attr('id').replace('mint-',''),
+			beforeSend: function() {
+				parent.animate({'backgroundColor':'#fb6c6c'},300);
+			},
+			success: function() {
+				parent.slideUp(300,function() {
+					parent.remove();
+				});
+			}
+		});
+	});
+ });
+
+<?php $this->jQuery()->javascriptCaptureEnd();?>
+<table class="table table-striped" summary="List of issuing mints">
+<caption>List of available mints for this issuer</caption>
+    <thead>
+        <tr>
+        <th>Mint</th>
+        <th>Created</th>
+        <th>Created by</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/mintruler.phtml',$this->mints);?>
+    </tbody>
+</table>
+<?php else:?>
+<p>No mints available</p>
+<?php endif;?>
+
+<h3>Denominations issued</h3>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'rulertodenomination','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new denomination">Add a denomination to this list</a></p>
+<?php if(count($this->denoms)):?>
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function(){
+$('a.deletedenom').click(function(e) {
+		e.preventDefault();
+		var parent = $(this).parents("tr:first");
+		$.ajax({
+			type: 'get',
+			url: '<?php echo $this->url(array('controller' => 'ajax','action' => 'deletedenomruler'),null,true);?>',
+			data: 'id=' + parent.attr('id').replace('denom-',''),
+			beforeSend: function() {
+				parent.animate({'backgroundColor':'#fb6c6c'},300);
+			},
+			success: function() {
+				parent.slideUp(300,function() {
+					parent.remove();
+				});
+			}
+		});
+	});
+ });
+
+<?php $this->jQuery()->javascriptCaptureEnd();?>
+
+<table class="table table-striped" summary="List of denominations for this issuer">
+<caption>List of available denominations for this issuer</caption>
+    <thead>
+        <tr>
+            <th>Mint</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/denomruler.phtml',$this->denoms);?>
+    </tbody>
+</table>
+<?php else:?>
+<p>No denominations listed</p>
+<?php endif;?>
+
+<h3>Reverse types</h3>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'rulertoreversetype','rulerid' => $this->details['0']['id']),null,true);?>" title="Add a new reverse type">Add a reverse type to this list</a></p>
+<?php if(count($this->reverses)):?>
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function(){
+$('a.deletereverse').click(function(e) {
+		e.preventDefault();
+		var parent = $(this).parents("tr:first");
+		$.ajax({
+			type: 'get',
+			url: '<?php echo $this->url(array('controller' => 'ajax','action' => 'deletereverseruler'),null,true);?>',
+			data: 'id=' + parent.attr('id').replace('reverse-',''),
+			beforeSend: function() {
+				parent.animate({'backgroundColor':'#fb6c6c'},300);
+			},
+			success: function() {
+				parent.slideUp(300,function() {
+					parent.remove();
+				});
+			}
+		});
+	});
+ });
+
+<?php $this->jQuery()->javascriptCaptureEnd();?>
+<table class="table table-striped" summary="List of reverse types issued">
+<caption>List of available reverse types for this issuer</caption>
+    <thead>
+        <tr>
+            <th>Reverse Type</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/reverseruler.phtml',$this->reverses);?>
+    </tbody>
+</table>
+<?php else:?>
+<p>No reverse types listed</p>
+<?php endif;?>
+
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function(){
+
+$('a[class^=delete]').confirm({
+   dialogShow:'fadeIn',
+    dialogSpeed:'slow',
+    buttons: {
+      wrapper:'<button></button>',
+      separator:'  '
+    }
+  });
+ });
+
+
+<?php $this->jQuery()->javascriptCaptureEnd();?>

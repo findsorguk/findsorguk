@@ -1,0 +1,19 @@
+<?php 	$this->headTitle('Workflow stages');?>
+<h2>Workflow stages</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'addworkflow'),null,true);?>" title="Add a new workflow stage">Add a new workflow stage</a></p>
+<table class="table table-striped" summary="List of workflow stages available">
+    <caption>A list of our workflow stages</caption>
+    <thead>
+        <tr>
+        <th>Worklow title</th>
+        <th>Created</th>
+        <th>Created by</th>
+        <th>Updated</th>
+        <th>Updated by</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/workflowTable.phtml',$this->workflows);?>
+    </tbody>
+</table>

@@ -1,0 +1,27 @@
+<h2>Administer vacancies</h2>
+<div id="toolbox"><p><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'vacancies','action' => 'add'),null,true);?>" title="Add a new vacancy">Add a new vacancy</a></p></div>
+
+<div id="vacancies">
+<div id="current">
+<?php if (count($this->currentvacs)) : ?>
+<table class="table table-striped">
+<tr>
+<th>Job title</th>
+<th>Created</th>
+<th>Created by</th>
+<th>Updated</th>
+<th>Updated by</th>
+<th>Expiry date</th>
+<th>Actions</th>
+</tr>
+
+<?php echo $this->partialLoop('partials/admin/vacancyTable.phtml',$this->currentvacs); 
+?>
+</table>
+<?echo $this->paginationControl($this->currentvacs, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<?php echo '<p>There are currently no vacancies at the Scheme.</p>';?>
+<?php endif;?></div>
+
+</div>
+

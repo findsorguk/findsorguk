@@ -1,0 +1,26 @@
+<?php
+$this->headTitle('Emperor biographies');
+?>
+<h2>List of Emperor's biographies on database</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array(
+    'module' => 'admin','controller' => 'numismatics','action' => 'addemperor'),null,true);?>" title="Add a new emperor's biography">Add a new biography</a></p>
+<?php if (count($this->paginator)): ?>
+
+<table class="table table-striped" summary="List of available emperors on our website">
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Created by</th>
+        <th>Updated</th>
+        <th>Updated by</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/emperorTable.phtml',$this->paginator);?>
+    </tbody>
+</table>
+<?php endif; ?>
+
+<?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>

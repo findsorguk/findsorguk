@@ -1,0 +1,2 @@
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->escape($this->id)),null,true);?>" title="View details for <?php echo $this->escape($this->old_findID);?>">
+<?php echo $this->old_findID;?></a> - A <?php echo $this->escape($this->broadperiod);?> <?php echo $this->escape(ucfirst(strtolower($this->objecttype)));?> from <?php echo $this->escape(ucfirst(strtolower($this->county)));?></li>

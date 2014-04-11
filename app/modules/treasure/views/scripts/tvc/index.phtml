@@ -1,0 +1,26 @@
+<?php 
+$this->headTitle('A list of Treasure Valuation Committee meeting dates');?>
+<h2>Treasure Valuation Committee dates</h2>
+<?php if($this->tvcdates):?>
+<table class="table table-striped">
+<caption>All Treasure cases reported</caption>
+<thead>
+<tr>
+	<th>TVC date</th>
+	<th>Location</th>
+	<th>Number of cases</th>
+</tr>
+</thead>
+<tbody>
+<?php foreach($this->tvcdates as $d):?>
+<tr><td><a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'tvc',
+'action' => 'details','id' => $d['id']),null,true);?>" 
+title="View details for meeting"><?php echo $this->niceshortdate($d['date']);?></a></td><td><?php echo $d['location'];?></td><td><?php echo $d['total'];?></td></tr>
+<?php endforeach;?>
+</tbody>
+</table>
+
+<?php echo $this->paginationControl($this->tvcdates, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>There are no Treasure valuation dates available to you at the moment.</p>
+<?php endif;?>

@@ -1,0 +1,26 @@
+<?php
+$dom = new DomDocument("1.0", "UTF-8");
+$dom->createElement('markers');
+
+$documentNode = $dom->createElement('markers');
+$dom->appendChild($documentNode);
+foreach($this->mapping as $result){
+	
+	$url = $this->serverUrl() .  '/database/rallies/rally/id/';
+    if(!is_null($result['lng'])){
+        $title = $result['name'];
+		$content = '<a href="' . $url . $result['id'] . '">' . $title . '</a>';
+		$marker = $dom->createElement('marker');
+		$marker->setAttribute('lat', $result['lat']);
+        $marker->setAttribute('lng', $result['lng']);
+        $marker->setAttribute('title', $title);
+        $marker->setAttribute('id',$result['id']);
+        $marker->setAttribute('name', $result['name']);
+        $marker->setAttribute('datefrom', $result['df']);
+        $marker->setAttribute('dateto', $result['dt']);
+        $marker->setAttribute('content', $content);
+		$documentNode->appendChild( $marker );
+    }
+}
+$xmlData  = $dom->saveXML();
+echo $xmlData;

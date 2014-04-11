@@ -1,0 +1,17 @@
+<?php 
+$this->headTitle('All pictures tagged with '.$this->tagtitle);
+$this->MetaBase('A list of photos retrieved from the flickr api using creative commons searches on the tag ' 
+. $this->tagtitle,
+'photos',
+'photos,flickr,api,tagged,' . $this->tagtitle);
+?>
+<h2>All photos tagged with <?php echo $this->tagtitle;?></h2>
+
+<?php if(count($this->pictures)):?>
+<?php echo $this->partialLoop('partials/flickr/set.phtml',$this->pictures);?>
+<div class="row span16">
+<?php echo $this->paginationControl($this->$paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+</div>
+<?php else:?>
+<p>There are no photos available with that tag.</p>
+<?php endif;?>

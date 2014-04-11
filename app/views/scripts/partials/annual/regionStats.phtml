@@ -1,0 +1,18 @@
+<tr>
+<td>
+<?php
+if(!is_null($this->region)) { 
+echo '<a href="'.$this->url(array(
+    'module' => 'database',
+    'controller' => 'statistics',
+    'action' => 'regional',
+    'region' => $this->id),null,false).'" 
+        title="View stats for this institution">' . $this->region . '</a>';
+} else {
+echo 'No region recorded';
+}
+?>
+</td>
+<td><?php echo $this->finds;?></td>
+<td><?php echo $this->records;?></td>
+</tr>

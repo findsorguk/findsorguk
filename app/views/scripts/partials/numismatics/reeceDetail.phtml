@@ -1,0 +1,21 @@
+<?php 
+$this->headTitle('Details for ' . $this->period_name);
+$this->headMeta($this->curUrl(),'dc.identifier')
+->headMeta('Daniel Pett','dc.creator')
+->headMeta('The Portable Antiquities Scheme','dc.publisher')
+->headMeta('Full description for the Roman coin classification series: ' 
+        . $this->period_name,'description')
+->headMeta('coins,coin,roman,reece,periods,' .$this->period_name,'keywords');
+?>
+
+<?php if(!is_null($this->period_name)):?>
+<h2>Reece <?php echo $this->escape($this->period_name); ?> </h2>
+<?php endif; ?>
+
+<?php if(!is_null($this->date_range)): ?>
+<p>Date range: <?php echo $this->escape($this->date_range); ?></p>
+<?php endif; ?>
+    
+<?php if(!is_null($this->description)):?>  
+<p>Description: <?php echo $this->escape($this->description); ?>
+<?php endif; ?>

@@ -1,0 +1,15 @@
+<?php
+$this->headTitle('Search via postcode');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.validate.min.js', $type = 'javascript');
+?>
+<h2>Search our database via UK postcode</h2>
+<?php 
+echo $this->form;
+?>
+<?php $this->jQuery()->javascriptCaptureStart();?>
+jQuery.validator.addMethod("postcode", function(value, element) {
+return this.optional(element) || /[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}/i.test(value);
+}, "Please specify a valid Postcode");
+
+$('#solr').validate();
+<?php $this->jQuery()->javascriptCaptureEnd();?>

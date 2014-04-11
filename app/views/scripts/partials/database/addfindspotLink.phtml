@@ -1,0 +1,15 @@
+<?php
+$add = $this->Href(array(
+    'module' => 'database',
+    'controller'=>'findspots',
+    'action'=>'add',
+    'checkAcl'=>true,
+    'acl'=>'Zend_Acl',
+    'attribs' => array('title' => 'Add spatial details for this find'),
+    'params' =>array('id'=>$this->id),
+    'content'=>'Add a findspot for this artefact')
+    );
+
+
+echo implode(' | ', array($add));
+?>

@@ -1,0 +1,8 @@
+<?php
+$this->headTitle('Action control list');?>
+<h2>The action control list</h2>
+<ul>
+<?php foreach($this->acl['roles'] as $k => $v):?>
+<li>Parent group: <?php echo $k;?> Child group: <?php echo $v;?></li>
+<?php endforeach;?>
+</ul>

@@ -1,0 +1,203 @@
+<?php 
+if($this->total > 0 ):?>
+<?php
+foreach($this->results as $row){
+	$title = $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_PAGE_TITLE);
+	$visitors = $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS);
+    $pageViews = $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_PAGEVIEWS);
+    $uniques = $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_UNIQUE_PAGEVIEWS);
+    $average = $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_AVG_TIME_ON_PAGE);
+    $entrances = $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_ENTRANCES);
+    $exits = $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_EXIT_RATE);
+    $bounces = $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_BOUNCES);
+}
+$this->headTitle('Analysis for page titled: "' . $title . '" during time period of  ' . $this->timeSpanParameter());
+?>
+<h2 class="lead"><?php echo $this->title();?></h2>
+
+<div class="row-fluid"><a class="btn" href="<?php echo base64_decode(rawurldecode($this->path));?>">Return to page</a> 
+<a class="btn" href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'content'),'default',true);?>">Go to content overview</a>
+</div>
+<?php echo $this->timeSpansGa();?>
+
+<div class="row-fluid">
+
+<ul class="thumbnails">
+	<li class="label label-inverse">Page views: <?php echo $pageViews;?></li>
+	<li class="label label-inverse">Unique page views: <?php echo $uniques;?></li>
+	<li class="label label-inverse">Visitors: <?php echo $visitors;?></li>
+	<li class="label label-inverse">Average time on page: <?php echo $this->secondsToMinutes()->setSeconds($average); ?></li>
+	<li class="label label-inverse">Exit rate: <?php echo $exits;?> %</li>
+	<li class="label label-inverse">Bounces: <?php echo $bounces;?></li>
+</ul>
+</div>
+
+<div class="row-fluid">
+<h3 class="lead">Visitors to this page came from (sampled data)</h3>
+<div id="map"></div>
+<?php
+echo $this->googleDynamicMap(null,true,false);
+?>
+
+<?php $this->inlineScript()->captureStart();?>
+$(document).ready(function() {
+	var max = 18
+	var min = 1;
+
+
+    var osmMapType = new google.maps.ImageMapType({
+        getTileUrl: function (coord, zoom) {
+            return "http://tile.openstreetmap.org/" +
+                zoom + "/" + coord.x + "/" + coord.y + ".png";
+        },
+        tileSize: new google.maps.Size(256, 256),
+        isPng: true,
+        alt: "OpenStreetMap layer",
+        name: "OSM",
+        maxZoom: max
+    });
+
+
+
+    var myOptions = {
+          center: new google.maps.LatLng( 40.2,-3.1),
+          zoom: 2,
+          mapTypeControlOptions: {
+          mapTypeIds: [
+          google.maps.MapTypeId.TERRAIN,
+          google.maps.MapTypeId.SATELLITE,
+          google.maps.MapTypeId.ROADMAP,
+          'OSM',
+          ]
+    	  },
+    	  mapTypeControl: true,
+    	  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          scaleControl: true,
+    	  zoomControl: true,
+          mapTypeId: google.maps.MapTypeId.SATELLITE,
+          scrollwheel: false,
+          maxZoom: max,
+          minZoom: min
+        };
+
+    var map = new google.maps.Map(document.getElementById("map"),myOptions);
+        map.mapTypes.set('OSM',osmMapType);
+	var myTitle = document.createElement('div');
+		myTitle.style.color = '#444444';
+		myTitle.style.font = "12px sans-serif";
+		myTitle.innerHTML = '<p>OSM Layer &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap<\/a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA<\/a><\/p>';
+
+		var myTextDiv = document.createElement('div');
+		myTextDiv.appendChild(myTitle);
+
+		map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
+
+
+	<?php
+	$request = Zend_Controller_Front::getInstance()->getRequest();
+	$params = array('module' => 'analytics', 'controller' => 'ajax', 'action' => 'pagevisitors');
+	$params2 = array_slice($request->getParams(),3);
+	$params = array_merge($params,$params2);
+	$url = $this->serverUrl() . $this->url($params,'default',false);
+	?>
+
+
+
+	var markers = new Array();
+
+	var infowindow = new google.maps.InfoWindow();
+    jQuery.get("<?php echo $url;?>", {}, function(data) {
+    jQuery(data).find("marker").each(function() {
+        var markerXML = jQuery(this);
+        var latlng = new google.maps.LatLng(
+            parseFloat(markerXML.attr("latitude")),
+            parseFloat(markerXML.attr("longitude"))
+        );
+        var title = 'Visitors came from here!';
+        
+        var color = 'FF0000';
+        var size = '10';
+        
+        
+        var marker = new google.maps.Marker({
+        	position: latlng,
+        	map: map,
+        	icon: 'http://maps.gstatic.com/mapfiles/ridefinder-images/mm_20_orange.png'
+});
+
+        // now that the marker is placed, assign event listener on the marker
+        // and create/assign infowindow to the event trigger.
+        markerInfoWindow(marker, markerXML.attr("visitors") + ' ' + title);
+        markers.push(marker);
+    });
+
+    var markerCluster = new MarkerClusterer(map, markers,{gridSize: 20, maxZoom:12});
+	});
+
+	function markerInfoWindow(marker, information){
+	     google.maps.event.addListener(marker, 'click',
+	    function() {
+	        infowindow.close();
+	        infowindow.setContent(information);
+	        infowindow.setPosition(marker.getPosition());
+	        infowindow.open(map, marker);
+	    });
+	}
+	var center;
+
+	function calculateCenter() {
+	  center = map.getCenter();
+	}
+
+	google.maps.event.addDomListener(map, 'idle', function() {
+	  calculateCenter();
+	});
+
+	google.maps.event.addDomListener(window, 'resize', function() {
+	  map.setCenter(center);
+	});
+
+});
+
+<?php $this->inlineScript()->captureEnd();?>
+
+
+
+</div>
+
+<!-- <div class="row-fluid">
+	<div class="span12">
+	<h3 class="lead">Prior and subsequent pages visited</h3>
+	<?php 
+//	echo $this->gaContentPreviousPage()
+//					->setPath($this->path)
+//					->setLimit(10)
+//					->setTimespan($this->timeSpanParameter());
+	?>
+	<?php 
+//	echo $this->gaContentNextPage()
+//					->setPath($this->path)
+//					->setLimit(10)
+//					->setTimespan($this->timeSpanParameter());
+	?>
+	</div>
+</div> -->
+
+<?php echo $this->gaContentSearch()
+				->setPath($this->path)
+				->setLimit(10)
+				->setTimespan($this->timeSpanParameter());
+?>
+
+<?php 
+//echo $this->gaContentMetrics()
+//				->setPath($this->path)
+//				->setLimit(10)
+//				->setTimespan($this->timeSpanParameter());
+				?>
+<?php else:?>
+<?php $this->headTitle('Analysis for page titled: "' . $title . '" during time period of  ' . $this->timeSpanParameter());
+?>
+<h2>No data available</h2>
+<p>This page does not appear in Google's system at the moment, try again tomorrow.</p>
+<?php endif;?>

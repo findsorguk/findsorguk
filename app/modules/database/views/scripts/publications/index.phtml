@@ -1,0 +1,56 @@
+<?php
+$this->headTitle('Reference works cited within database records');
+$this->headMeta($this->curUrl(),'dc.identifier')
+->headMeta('The Portable Antiquities Scheme','dc.publisher')
+->headMeta('Daniel Pett','dc.creator')
+->headMeta('CC NC-BY-SA','dc.rights')
+->headMeta('A list of all reference works cited by the Portable Antiquities Scheme within the database records.','description')
+->headMeta('publications,references,archaeology,bibliography','dc.keywords');
+
+?>
+<?php $this->jQuery()->javascriptcaptureStart(); ?>
+$(function() {
+$('label.overlay').labelOver();
+});
+<?php $this->jQuery()->javascriptcaptureEnd(); ?>
+<h2>All publications</h2>
+<?php
+echo $this->Href(array(
+    'module' => 'database',
+    'controller'=>'publications',
+    'action'=>'add',
+    'checkAcl'=>true,
+    'acl'=>'Zend_Acl',
+    'params' =>array('id'=>$this->id),
+    'content'=>'Add publication',
+    'attribs'=> array('class' => 'btn btn-large btn-success'),
+    'wrapper' => array(
+        'tag' => 'p'),'
+            attribs' => array(
+                'title' => 'Add publication details',
+        )));
+?>
+<?php echo $this->form;?>
+
+<?php if ($this->results): 
+?>
+
+<table class="table table-striped" summary="A list of all publications on the Scheme's database">
+<caption>All publications listed on the Scheme's database</caption>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author/Editor</th>
+            <th>Publication year</th>
+            <th>Publication place</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php echo $this->partialLoop('partials/database/pubListTable.phtml',$this->results);?>
+    </tbody>
+</table>
+
+<?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>
+<?php endif; ?>
+

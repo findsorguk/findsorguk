@@ -1,0 +1,8 @@
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'database', 'action' => 'image', 'id' => $this->imageID),null,true);?>" title="View this image"><img src="http://www.findsdatabase.org.uk/view/thumbnails/pas/<?php echo $this->imageID;?>.jpg"></a></td>
+<td><?php echo $this->text;?></td>
+<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->timeagoinwords($this->updated);?></td>
+<td><?php echo $this->namethem($this->fn);?></td>
+<td><a href="#" title="Edit this annotation">Edit</a> | <a href="#" title="Delete this annotation">Delete</a></td>
+</tr>

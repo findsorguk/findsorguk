@@ -1,0 +1,17 @@
+<?php if ($this->emperor) :
+	$this->headTitle("Delete an Emperor");?>
+<h2>Delete <?php echo $this->emperor->name;?>'s biography.</h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->emperor->name); ?>'
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action'=>'deleteemperor'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->emperor->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

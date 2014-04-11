@@ -1,0 +1,12 @@
+<?php $this->headMeta('A list of all Byzantine or Latin Empire issuing mints that the Scheme 
+uses on its database. The background information have been enhanced from dbpedia','description');
+$this->headMeta('issuing,mints,byzantium,holy roman empire,numsimatics','dc.keywords');
+$this->headMeta('numismatics and archaeology of Byzantium','dc.subject');
+$this->headTitle('Issuing mints of the Byzantine Empire');
+?>
+
+<h2>Issuing Mints of the Byzantine period</h2>
+
+<ul id="related">
+<?php echo $this->partialLoop(('partials/numismatics/mints.phtml'),$this->mints);?>
+</ul>

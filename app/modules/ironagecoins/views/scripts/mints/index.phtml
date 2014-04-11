@@ -1,0 +1,10 @@
+<?php 	
+$this->headTitle('Issuing mints of the Iron Age');
+?>
+<h2>Issuing Iron Age mints for England and Wales</h2>
+<?php if (count($this->mints) > 0): ?>
+<ul id="related">
+<?php echo $this->partialLoop('partials/numismatics/mints.phtml', $this->mints) ?></ul>
+<?php else: ?>
+    <p class="error">There are no mints available for this period.</p>
+<?php endif; ?>

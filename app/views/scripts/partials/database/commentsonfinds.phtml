@@ -1,0 +1,18 @@
+
+<div class="well">
+   <div><ul class="thumbnails" style="float:right;">
+   <li>
+   <div class="thumbnail"><?php echo $this->FindToImage($this->id);?></div>
+   </li>
+   </ul>
+   </div>
+
+<?php echo $this->comment_author;?> wrote @ <?php echo $this->df;?>.  
+<blockquote><?php echo $this->comment_content;?></blockquote>
+
+	<p>About: <?php echo ucfirst(strtolower($this->objecttype));?>
+   <a href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record', 'id' => $this->id),null,true);?>"><?php echo $this->old_findID;?></a><br/><?php echo $this->workflow($this->secwfstage);?>
+   <?php echo ucfirst(strtolower($this->broadperiod));?>
+   <?php if(isset($this->county)) {echo ucwords(strtolower($this->county));}?></p>
+
+</div>

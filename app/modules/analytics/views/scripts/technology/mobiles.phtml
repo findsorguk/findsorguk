@@ -1,0 +1,59 @@
+<?php $this->headTitle('Mobile device data for ' . $this->timeSpanParameter());?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+
+<?php 
+if((int)$this->results->totalResults->text > 0 ):?>
+<div id="chart"></div>
+
+
+<table class="table table-striped">
+	<caption><?php echo $this->title();?></caption>
+		<thead>
+		<tr>
+			<th>Mobile brand</th>
+			<th>Visitors</th>
+			<th>Visits</th>
+			<th>Average time</th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php foreach($this->results as $row):?>
+			<tr>
+				<td><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'mobile', 'brand' => $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_MOBILE_DEVICE_BRANDING)->value),'default', true);?>"><?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_MOBILE_DEVICE_BRANDING)->value;?></a></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value;?></td>
+				<td><?php echo $this->secondsToMinutes()->setSeconds($row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_AVG_TIME_ON_SITE)->value);?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+</table>
+
+<?php 
+$this->inlineScript()->appendFile('https://www.google.com/jsapi',$type = 'text/javascript');
+$this->inlineScript()->captureStart();?>
+google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Mobile branding', 'Visitors'],
+          <?php foreach($this->results as $row):?>
+          ['<?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_MOBILE_DEVICE_BRANDING)->value;?>' , <?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?>	],
+          <?php endforeach;?>
+        ]);
+
+        var options = {
+          title: '<?php echo $this->title(); ?>',
+          legend: { position: 'right'},
+          height: '600',
+          
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart'));
+        chart.draw(data, options);
+      }
+
+<?php $this->inlineScript()->captureEnd();?>   
+<?php else:?>
+<p>No data can be retrieved that meets these criteria.</p>
+<?php endif;?>

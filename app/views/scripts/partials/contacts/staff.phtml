@@ -1,0 +1,65 @@
+<?php 
+
+$this->headTitle('Profile for ' . $this->escape($this->firstname). ' ' . $this->escape($this->lastname));
+$this->metaBase('A full profile and details for ' . $this->escape($this->firstname). 
+' ' . $this->escape($this->lastname),'Contact profile','contacts,scheme,'. $this->escape($this->firstname). ' ' . $this->escape($this->lastname) . ',archaeology');
+$this->headLink()->appendAlternate($this->baseUrl() . '/contacts/staff/profile/id/' . $this->number . '/format/foaf/', 
+	 			'application/rdf+xml', 'FOAF');
+$this->headLink()->appendAlternate($this->baseUrl().'/database/search/results/createdby/'.$this->dbaseID.'/format/atom/', 
+	 			'application/rss+xml', 'Latest recorded finds feed for '.$this->escape($this->firstname).' '.$this->escape($this->lastname));
+				
+				?>
+				
+				
+<div id="person" class="hresume" typeof="google:Person foaf:Person dc:Agent" 
+property="dc:title" content="FOAF data about the real person called <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>">
+<div class="contact vcard" >
+<h2 class="fn n" property="foaf:name">
+<span class="given-name"><?php echo $this->escape($this->firstname);?></span> 
+<span class="family-name"><?php echo $this->escape($this->lastname);?></span>
+</h2> 
+<?php echo $this->InstLogos($this->identifier);?>
+
+<p>Role: <span class="title"><?php echo $this->escape($this->staffroles);?></span> <br />
+Database records prefix: <strong><?php echo $this->escape($this->identifier);?></strong></p>
+
+<p class="adr work" >
+Address: <span property="con:address_1"><?php echo $this->escape($this->address_1);?></span>
+<br />
+<span class="org organization-name"></span>
+<span class="street-address" property="con:address_2"><?php echo $this->escape($this->address_2);?></span> 
+<span property="con:city google:locality" class="locality"><?php echo $this->escape($this->town);?></span> 
+<span class="region"><?php echo $this->escape($this->county);?></span>                    
+<span class="postal-code" property="con:postalCode"><?php echo $this->escape($this->postcode);?></span>	              
+</p>
+<span rel="foaf:based_near" class="forRDFOnly">
+<span typeof="geo:Point">
+lat:
+<span property="geo:lat"><?php echo $this->latitude;?></span>
+, long:
+<span property="geo:long"><?php echo $this->longitude;?></span>
+</span>
+</span>
+<?php if(!is_null($this->image)) {?>
+<?php list($w, $h) = getimagesize('./images/staffphotos/thumbnails/' . $this->image);?>
+
+<a href="<?php echo $this->baseUrl();?>/images/staffphotos/resized/<?php echo $this->image;?>" rel="lightbox" 
+title="Profile image of <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>">
+<img property="foaf:img google:photo" src="<?php echo $this->baseUrl(); ?>/images/staffphotos/thumbnails/<?php echo $this->image;?>" title="Image of <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>"  class="staffimage" width="<?php echo $w;?>" height="<?php echo $h;?>" alt="A profile picture chosen by <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>"/></a>            
+<?php }?>
+
+<p>Short profile:</p><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude;?>,<?php echo $this->longitude;?>&zoom=15&size=200x200&maptype=hybrid&markers=color:green|label:G|
+<?php echo $this->latitude;?>,<?php echo $this->longitude;?>&sensor=false" class="flow imgdisplay"/>
+<div class="summary" property="foaf:plan"><?php echo $this->profile;?></div>
+
+<div class="tel" >
+<p>Phone (<span class="type">work</span>): <span class="value" rel="foaf:phone" resource="tel:<?php echo $this->escape($this->telephone);?>"><?php echo $this->escape($this->telephone);?></span><br />
+Phone (<span class="type">fax</span>): <span class="value" rel="foaf:fax" resource="tel:<?php echo $this->escape($this->fax);?>"><?php echo $this->escape($this->fax);?></span></p>
+</div>
+
+<p>Email address: <a  rel="foaf:mbox" href="mailto:<?php echo $this->escape($this->email_one);?>" class="email"><?php echo $this->escape($this->email_one);?></a></p>
+
+
+</div>
+<?php echo $this->OnlineAccountHtml($this->number);?>
+</div>

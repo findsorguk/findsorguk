@@ -1,0 +1,20 @@
+<?php 
+$this->headTitle('Delete find');
+if ($this->find) :?>
+<h2>Delete <?php echo $this->escape($this->find->old_findID). ' - '.$this->escape($this->find->objecttype); ?></h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->find->objecttype); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action'=>'delete'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->find->id; ?>" />
+<input type="hidden" name="findID" value="<?php echo $this->find->old_findID; ?>" />
+
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

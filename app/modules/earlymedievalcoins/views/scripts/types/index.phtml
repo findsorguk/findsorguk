@@ -1,0 +1,31 @@
+<?php
+$this->headTitle('Early Medieval coin types ');
+$this->headMeta('The Early Medieval period for numismatics is broken down into a series of coin typologies. These
+types are closely aligned to the Fitzwilliam\'s Early Medieval coin corpus',' description')
+->headMeta('types,early medieval,coins,numsimatics,corpus,index','keywords')
+->headMeta('Daniel Pett','dc.creator')
+->headMeta('CC NC-BY-SA','dc.rights')
+->headMeta('The Portable Antiquities Scheme','dc.publisher')
+->headMeta($this->curUrl(),'dc.identifier');
+?>
+
+<h2>Early Medieval coin types</h2>
+<?php if(count($this->types)):?>
+<table class="table table-striped" summary="A list of available Early Medieval Coin types">
+<caption>Early Medieval coin types</caption>
+<thead>
+<tr>
+<th>Coin type</th>
+<th>Issuing ruler</th>
+<th>Issue date</th>
+</tr>
+</thead>
+<tbody>
+<?php echo $this->partialLoop('partials/numismatics/medtypes.phtml',$this->types);?>
+</tbody>
+</table>
+<?php echo $this->paginationControl($this->types, 'Elastic', 'structure/pagination.phtml'); ?>
+
+<?php else:?>
+<p>There are no coin types available.</p>
+<?php endif;?>

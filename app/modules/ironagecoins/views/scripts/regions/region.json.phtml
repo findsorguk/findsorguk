@@ -1,0 +1,9 @@
+<?php
+echo Zend_Json::prettyPrint(Zend_Json::encode( ( array(
+    'ironAgeRegion' => array(
+    'region' => $this->regions,
+    'associatedDenominations' => $this->denominations,
+    'associatedRulers' => $this->rulers
+        )
+    ) ) ) );
+?>

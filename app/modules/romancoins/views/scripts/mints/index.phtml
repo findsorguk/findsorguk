@@ -1,0 +1,22 @@
+<?php 
+$this->headTitle('Mints active under the Roman Empire');
+$this->headMeta('A list of all active mints under the Roman Empire','description')
+->headMeta('CC NC-SA-BY','dc.rights')
+->headMeta('The Portable Antiquities Scheme','dc.publisher')
+->headMeta('Daniel Pett','dc.creator');
+
+?>
+
+<h2>Issuing Mints of the Roman Empire</h2>
+<table class="table table-striped" summary="List of locations">
+	<caption>List of mint locations</caption>
+	<thead>
+		<tr>
+			<th>Mint name</th>
+			<th>Geo location</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php echo $this->partialLoop('partials/numismatics/mintsTableList.phtml',$this->rommints);?>
+	</tbody>
+</table>

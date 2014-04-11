@@ -1,0 +1,34 @@
+<div id="tagfind">
+<div id="tags">
+<?php 
+	$auth = Zend_Auth::getInstance();
+	if($auth->hasIdentity()) {
+	$user = $auth->getIdentity();
+	$id = $user->id;
+	} else  {
+	$id = '3';
+	}
+	$description = ' ';
+	if($this->findspots) {
+	if(!isset($this->findspots['0']['knownas'])){
+	$description .= $this->findspots['0']['parish'];
+	}
+	$description .= ', County: ';
+	$description .= $this->findspots['0']['county'];
+	$description .= ' , District: ';
+	$description .= $this->findspots['0']['district'];
+	$description .= ' , Region: ';
+	$description .= $this->findspots['0']['region'];
+	$description .= ' ,Country:  ';
+	$description .= 'United Kingdom ';
+	$description .= $this->finds['0']['description'];
+	$description .= ' ';
+	$description .= $this->finds['0']['notes'];
+	$description .= ' ';
+	$recordID = $this->finds['0']['id'];
+	$this->opencalais($recordID, $id, $description);
+	$this->placemaker($recordID, $id, $description);
+	}
+?>
+</div>
+</div>

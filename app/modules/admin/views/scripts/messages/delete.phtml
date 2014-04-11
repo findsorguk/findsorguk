@@ -1,0 +1,16 @@
+<?php 
+$this->headTitle('Delete mesaage');
+if ($this->message) :?>
+<h2>Delete quote/announcement</h2>
+<p>Are you sure that you want to delete this message?</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'messages','action'=>'delete'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->message->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

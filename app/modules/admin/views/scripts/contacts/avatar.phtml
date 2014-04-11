@@ -1,0 +1,17 @@
+<h2>Add a photo to profile</h2>
+<?php 
+	$this->headTitle('Add an image to a contact profile');
+if(count($this->errors))
+{
+echo '<ul>';
+foreach($this->errors as $key => $value)
+{
+echo '<li>';
+echo $value;
+echo '</li>';
+}
+echo '</ul>';
+}
+?>
+
+<?php echo $this->form;?>

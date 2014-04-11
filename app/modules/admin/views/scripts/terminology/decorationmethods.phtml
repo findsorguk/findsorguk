@@ -1,0 +1,23 @@
+<?php
+	$this->headTitle('Methods of decoration');
+$this->MetaBasic();?>
+<h2>Decoration methods</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'adddecorationmethod'),null,true);?>" title="Add a new decorative method">Add new decorative method</a></p>
+
+<table class="table table-striped" summary="All decorative methods available">
+<caption>Available decorative methods</caption>
+    <thead>
+        <tr>
+            <th>Denomination</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Validity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+<tbody>
+<?php echo $this->partialLoop('partials/admin/decmethodsTable.phtml',$this->decs);?>
+</tbody>
+</table>

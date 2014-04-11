@@ -1,0 +1,31 @@
+<?php
+$this->headTitle('Image and metadata for '.$this->images['0']['label']);
+?>
+
+<?php echo $this->partial('partials/database/image.phtml',$this->images['0']);?>
+
+<div id="linked">
+<h3>Linked finds for this image</h3>
+<?php if(!is_null($this->finds['0']['old_findID'])):?>
+
+<ul id="related">
+<?php echo $this->partialLoop('partials/database/linkedfinds.phtml',$this->finds);?>
+</ul>
+<?php endif;?>
+<?php 
+	$auth = Zend_Auth::getInstance();
+	if($auth->hasIdentity())
+	{
+	$user = $auth->getIdentity();
+	$role = $user->role;
+	} else {
+	$role = 'public';
+	}
+	$allowed = array('flos','fa','member','admin','treasure','flo');
+	if(in_array($role,$allowed)) {?>
+<p><a class="btn btn-success" href="<?php echo $this->url(array('module' => 'database','controller' => 'images','action' => 'link','imageID' => $this->images['0']['secuid']),null,true);?>" title="Attach this image to an artefact">Link this image to a record</a></p>
+
+<?php }?>
+
+
+</div>

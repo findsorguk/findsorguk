@@ -1,0 +1,5 @@
+<?php $this->headTitle('Details for '.$this->term);?>
+
+<h2>Material type: <?php echo $this->escape($this->term);?></h2>
+<?php echo $this->termdesc;?>
+<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','material' => $this->id),null,true);?>" title="Search database for all examples">all recorded</a> examples on the database.</p>

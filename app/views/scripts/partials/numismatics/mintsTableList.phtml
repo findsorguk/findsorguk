@@ -1,0 +1,15 @@
+<?php 
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+?>
+<tr>
+<td><a href="<?php echo $this->url(array('module' => $module,
+'controller' => $controller,'action'=>'mint', 'id' => $this->pasID),null,true);?>">
+<?php echo $this->escape($this->name);?></a>
+</td>
+<?php if(!is_null($this->latitude) && !is_null($this->longitude)):?>
+<td>Lat: <?php echo $this->latitude;?> Lon: <?php echo $this->longitude;?></td>
+<?php else:?>
+<td>Location unknown</td>
+<?php endif;?>
+</tr>

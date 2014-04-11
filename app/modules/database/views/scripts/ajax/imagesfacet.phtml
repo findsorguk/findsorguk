@@ -1,0 +1,56 @@
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">x</a>
+    <?php 
+    switch($this->facetName){
+            case 'objectType':
+                $clean = 'object type';
+                break;
+            case 'objecttype':
+                $clean = 'object type';
+                break;
+            case 'broadperiod':
+                $clean = 'broad period';
+                break;
+            case 'county':
+                $clean = 'county of origin';
+                break;
+            case 'denominationName':
+            	$clean = 'denomination';
+            	break;
+            case 'mintName':
+            	$clean = 'mint';
+            	break;
+            case 'rulerName':
+            	$clean = 'ruler/issuer';
+            	break;
+            case 'licenseAcronym':
+            	$clean = 'license applicable';
+            	break;
+            case 'materialTerm':
+            	$clean = 'material';
+            	break;
+            case 'institution':
+            	$clean = 'institution';
+            	break;		
+            default:
+                $clean = $this->facetName;
+                break;
+        }
+    ?>
+    <h3>Filter facet on <?php echo $clean;?></h3>
+      </div>
+  <div class="modal-body">
+      <div class="row-fluid">
+
+<div class="row span12">
+<?php 
+$string = $this->facetName;
+$facets = array($this->facetName => $this->data['facets'][$string]);
+echo $this->facetCreatorAjaxImages($facets);?>
+</div>
+
+  </div>
+  </div>
+<div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Close</a>
+  </div>

@@ -1,0 +1,7 @@
+<tr>
+<td><?php echo $this->escape($this->username);?></td>
+<td><?php echo $this->escape($this->fullname);?></td>
+<td><?php echo $this->role;?></td>
+<td><?php echo strip_tags($this->researchOutline);?></td>
+<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'users','action' => 'upgrade','id' => $this->id),NULL,true);?>" title="Accept and upgrade this account">Accept</a> | <a href="<?php echo $this->url(array('module' => 'admin','controller' => 'users','action' => 'reject','id' => $this->id),NULL,true);?>" title="Reject this application">Reject</a></td>
+</tr>

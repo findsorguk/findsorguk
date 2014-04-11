@@ -1,0 +1,29 @@
+<tr id="comment-<?php echo $this->id;?>" class="status-<?php echo $this->comment_approved;?>">
+<td class="author column-author" >
+<?php 
+	echo $this->gravatar($this->comment_author_email,array(
+	'defaultImg' => 'http://finds.org.uk/assets/gravatar.png', 	
+	'imgSize' => 30, 
+	'secure' => true
+	),
+	array(
+		'class' => 'avatar stelae img-circle pull-left', 
+    	'title' => $this->comment_author . '\'s gravatar representation',
+    	'rating' => 'G',
+		'width' => 30,
+		'height' => 30)
+	);
+?>
+
+<strong><?php echo $this->comment_author;?></strong><br/>
+<?php if(isset($this->comment_author_url)) :?><a href="<?php echo $this->comment_author_url;?>" title="<?php echo $this->comment_author_url;?>"><?php echo $this->comment_author_url;?></a><br/><?php endif;?>
+<a href="mailto:<?php echo $this->comment_author_email;?>"><?php echo $this->comment_author_email;?></a><br/>
+<?php echo $this->comment_author_IP;?></td>
+<td>
+<h3><a href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->comment_findID),null,true);?>">A <?php echo $this->broadperiod . ' ' .$this->objecttype .' - '.$this->old_findID;?></a></h3>
+<p>Submitted:<?php echo $this->timeagoinwords($this->created);?></p>
+<p><?php echo $this->purify($this->comment_content);?></p>
+
+</td>
+
+</tr>

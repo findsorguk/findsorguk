@@ -1,0 +1,3 @@
+<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+?>
+<li><a href="<?php echo $this->url(array('module' => 'help','controller' => $controller, 'action' => 'topic','id' => $this->id),NULL,true);?>" title="Read this help topic"><?php echo $this->title;?></a></li>

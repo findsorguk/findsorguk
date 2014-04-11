@@ -1,0 +1,48 @@
+<?php 
+$this->headTitle('Coroner\'s Profile for '. $this->escape($this->firstname). ' ' . $this->escape($this->lastname));
+$this->headLink()->appendAlternate(
+$this->url(array('module' => 'contacts','controller' => 'coroners','action' => 'profile','id' => $this->id,'format' => 'foaf'),NULL,true)
+, 'application/rdf+xml', 'FOAF');
+$this->metaBase('A description of the coroner for ' . $this->region_name,'coroner profile','coroner,' . $this->region_name);
+?>
+				
+				
+<div id="person" class="hresume" typeof="google:Person foaf:Person dc:Agent" 
+property="dc:title" content="FOAF data about the real person called <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>">
+<div class="contact vcard" >
+<h2 class="fn n" property="foaf:name">
+<span class="given-name"><?php echo $this->escape($this->firstname);?></span> 
+<span class="family-name"><?php echo $this->escape($this->lastname);?></span>
+</h2> 
+
+
+<p class="adr work" >
+Address: <span property="con:address_1"><?php echo $this->escape($this->address_1);?></span>
+<br />
+<span class="org organization-name"></span>
+<span class="street-address" property="con:address_2"><?php echo $this->escape($this->address_2);?></span> 
+<span property="con:city google:locality" class="locality"><?php echo $this->escape($this->town);?></span> 
+<span class="region"><?php echo $this->escape($this->county);?></span>                    
+<span class="postal-code" property="con:postalCode"><?php echo $this->escape($this->postcode);?></span>	              
+</p>
+<span rel="foaf:based_near" class="forRDFOnly">
+<span typeof="geo:Point">
+lat:
+<span property="geo:lat"><?php echo $this->latitude;?></span>
+, long:
+<span property="geo:long"><?php echo $this->longitude;?></span>
+</span>
+</span>
+
+<div class="tel" >
+<p>Phone (<span class="type">work</span>): <span class="value" rel="foaf:phone" resource="tel:<?php echo $this->escape($this->telephone);?>"><?php echo $this->escape($this->telephone);?></span><br />
+Phone (<span class="type">fax</span>): <span class="value" rel="foaf:fax" resource="tel:<?php echo $this->escape($this->fax);?>"><?php echo $this->escape($this->fax);?></span></p>
+</div>
+<?php if(!is_null($this->email_one)):?>
+<p>Email address: <a  rel="foaf:mbox" href="mailto:<?php echo $this->escape($this->email_one);?>" class="email"><?php echo $this->escape($this->email_one);?></a></p>
+<?php endif;?>
+</div>
+</div>
+<h3>Location map</h3>
+<img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude;?>,<?php echo $this->longitude;?>&zoom=14&size=300x300&maptype=terrain&markers=color:green|label:G|
+<?php echo $this->latitude;?>,<?php echo $this->longitude;?>&sensor=false"/>

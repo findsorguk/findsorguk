@@ -1,0 +1,43 @@
+<?php 
+$site = $this->serverUrl();
+
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$sitemap  = $dom->createElement('configdata');
+
+//1st item
+$nav = $dom->createElement('locations');
+
+
+# News section
+$news = $dom->createElement('database');
+$sitemap->appendChild($nav);
+$news->appendChild($dom->createElement('label', 'Database output'));
+$news->appendChild($dom->createElement('uri', $this->serverUrl() . '/database/sitemap/images/'));
+$nav->appendChild($news);
+$pages = $dom->createElement('pages');
+	$search = new Pas_Solr_Handler('beoimages');
+	$params['start'] = 0;
+	$params['show'] = 1000;
+	$params['format'] = 'sitemap';
+    $search->setParams($params);
+	$search->execute();
+	$paginate = $search->_createPagination();
+	$a = ceil($paginate->getTotalItemCount() / $paginate->getItemCountPerPage());
+	for ($i = 1; $i <= $a; $i++) {
+   $story = $dom->createElement( 'page' .$i);
+	$story->appendChild($dom->createElement('label', 'Scheme images page ' . $i));
+	$story->appendChild($dom->createElement('uri', $this->serverUrl() . '/database/sitemap/images/page/' . $i));
+//	$story->appendChild($dom->createElement('priority', '0.4'));
+//	$story->appendChild($dom->createElement('changefreq', 'weekly'));
+	$pages->appendChild($story);
+	}
+	
+			
+$news->appendChild( $pages );
+#end of news section
+
+$dom->appendChild( $sitemap );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

@@ -1,0 +1,163 @@
+<?php
+$config = Zend_Registry::get('config');
+$apikey = $config->webservice->googlemaps->apikey;
+$this->inlineScript()->appendFile('http://maps.googleapis.com/maps/api/js?v=3.8&sensor=true&region=GB&key=' . $apikey,$type='text/javascript');
+$this->inlineScript()->appendFile($this->serverUrl() . '/js/markerclusterer.js',$type='text/javascript');
+$this->headScript()->appendFile('http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js',$type = 'text/javascript');
+$this->headScript()->appendFile('http://isawnyu.github.com/awld-js/awld.js?autoinit', $type = 'text/javascript');
+
+?>
+
+<?php $this->inlineScript()->captureStart();?>
+$(document).ready(function() {
+
+
+
+
+    var osmMapType = new google.maps.ImageMapType({
+        getTileUrl: function (coord, zoom) {
+            return "http://tile.openstreetmap.org/" +
+                zoom + "/" + coord.x + "/" + coord.y + ".png";
+
+        },
+        tileSize: new google.maps.Size(256, 256),
+        isPng: true,
+        alt: "OpenStreetMap layer",
+        name: "OSM",
+        maxZoom: 18
+    });
+
+
+
+    var myOptions = {
+          center: new google.maps.LatLng( 53.2,-6.1),
+          zoom: 7,
+          mapTypeControlOptions: {
+          mapTypeIds: [
+          google.maps.MapTypeId.TERRAIN,
+          google.maps.MapTypeId.SATELLITE,
+          'OSM',
+          ]
+    	  },
+    	  mapTypeControl: true,
+    	  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          scaleControl: true,
+    	  zoomControl: true,
+          mapTypeId: 'OSM',
+          scrollwheel: false,
+        };
+
+    var map = new google.maps.Map(document.getElementById("map"),myOptions);
+        map.mapTypes.set('OSM',osmMapType);
+
+
+
+<?php
+
+$url = $this->serverUrl() . $this->url(array(
+    'module' => 'database',
+    'controller' => 'ajax',
+    'action' => 'mapdata2',
+    'ruler' => $this->emps[0]['pasID']),
+        'default',true);
+       ?>
+
+
+
+ 
+
+var markers = new Array();
+
+var infowindow = new google.maps.InfoWindow();
+    jQuery.get("<?php echo $url;?>", {}, function(data) {
+
+    jQuery(data).find("marker").each(function() {
+        var markerXML = jQuery(this);
+        var latlng = new google.maps.LatLng(
+            parseFloat(markerXML.attr("lat")),
+            parseFloat(markerXML.attr("lng"))
+        );
+        var marker = new google.maps.Marker({position: latlng, map: map});
+
+        // now that the marker is placed, assign event listener on the marker
+        // and create/assign infowindow to the event trigger.
+        markerInfoWindow(marker, markerXML.attr("content"));
+        markers.push(marker);
+    });
+    var markerCluster = new MarkerClusterer(map, markers);
+});
+
+function markerInfoWindow(marker, information){
+     google.maps.event.addListener(marker, 'click',
+    function() {
+        infowindow.close();
+        infowindow.setContent(information);
+        infowindow.setPosition(marker.getPosition());
+        infowindow.open(map, marker);
+    });
+}
+ $('a[data-toggle="tab"]').on('shown', function (e) {
+  e.target // activated tab
+  e.relatedTarget // previous tab
+
+  google.maps.event.trigger(map, 'resize');
+  map.setZoom( map.getZoom() );
+  var latLngBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(49.871159, -6.379880),
+    new google.maps.LatLng(55.811741, 1.768960)
+    );
+  map.fitBounds(latLngBounds);
+})
+
+});
+
+
+
+
+
+
+<?php $this->inlineScript()->captureEnd();?>
+
+<div class="awld-scope">
+<?php echo $this->partialLoop('partials/numismatics/emperor.phtml',$this->emps);?>
+</div>
+
+
+
+<div class="row-fluid">
+
+<ul id="tab" class="nav nav-tabs">
+            <li class="active"><a href="#denoms" data-toggle="tab">Denominations issued</a></li>
+            <li><a href="#mints" data-toggle="tab">Issuing mints</a></li>
+            <li><a href="#maptab" data-toggle="tab">Map</a></li>
+			<?php if(!is_null($this->emps['0']['murdoch'])):?>
+            <li><a href="#podcast" data-toggle="tab">Podcast</a></li>
+            <?php endif;?>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="denoms">
+			<h3>Denominations issued</h3>
+			<ul id="related">
+			<?php echo $this->partialLoop('partials/numismatics/denomruler.phtml',$this->denoms);?>
+			</ul>
+			</div>
+            <div class="tab-pane fade" id="mints">
+			<h3>Issuing mints</h3>
+			<ul id="related">
+			<?php echo $this->partialLoop('partials/numismatics/mintsRoman.phtml',$this->mints);?>
+			</ul>
+			</div>
+              <div class="tab-pane fade" id="maptab">
+                  <div id="map"></div>
+			</div>
+
+            <?php if(!is_null($this->emps['0']['murdoch'])):?>
+            <div class="tab-pane fade" id="podcast">
+            <a href="http://www.youtube.com/watch?v=<?php echo $this->emps['0']['murdoch'];?>">Adrian Murdoch's Emperor's of Rome</a>
+			<p>This video has been embedded from <a href="http://adrianmurdoch.typepad.com/my_weblog/" title="Adrian's blog">Adrian Murdoch's</a> series of podcasts on the Emperors of Rome.
+			Many thanks to him for allowing us to use these podcasts.</p>
+			</div>
+			<?php endif;?>
+
+			</div>
+</div>

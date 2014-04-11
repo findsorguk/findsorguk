@@ -1,0 +1,34 @@
+<?php
+$this->headTitle('System configuration');
+?>
+<h2>System configurations</h2>
+<table class="table table-striped" width="95%">
+<caption>All system config data</caption>
+<thead><tr><th>System keys</th><th>Properties</th></tr></thead>
+<tbody>
+<?php
+foreach($this->resources as $k => $v){
+?>
+<tr><th colspan="3"><?php echo $k;?></th></tr>
+<?php  foreach($v as $a => $b){ ?>
+<tr><td><?php echo $a;?></td><td  style="WORD-BREAK:BREAK-ALL;"><?php
+if(is_array($b)){
+foreach($b as $c => $d){
+	if(is_array($d)){
+		foreach($d as $e => $f){
+echo $c . ' | ' . $e . ' ' . $f . '<br />';
+		}
+
+	} else {
+echo $c . ' | ' . $d . '<br />';
+	}
+}
+} else {
+echo $b;
+} ?></td></tr>
+<?php }?>
+<?php
+}
+?>
+</tbody>
+</table>

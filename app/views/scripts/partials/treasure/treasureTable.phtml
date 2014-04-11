@@ -1,0 +1,8 @@
+<tr>
+<td><?php echo $this->treasureID;?></td>
+<td><a href="<?php echo $this->url(array('module' => 'database','controller' => 
+'artefacts','action' => 'record','id' => $this->id),null,true);?>" title="View details for 
+<?php echo $this->old_findID;?>"><?php echo $this->old_findID;?></a></td>
+<td><?php echo $this->county;?></td>
+<td><?php echo $this->niceshortdate($this->updated);?></td>
+</tr>

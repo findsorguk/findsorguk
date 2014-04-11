@@ -1,0 +1,12 @@
+<?php if($this->video_status != 1):?>
+<li>
+
+<blockquote><?php echo $this->body;?></blockquote>
+<p><?php echo $this->twfyImage($this->speaker->person_id);?>By: <a href="<?php echo $this->url(array('module' => 'news','controller' =>'theyworkforyou','action' => 'mp','id' => $this->speaker->person_id),null,true);?>" title="View this speaker's record on archaeology"><?php echo $this->speaker->title;?> <?php echo $this->speaker->first_name;?> <?php echo $this->speaker->last_name;?></a> <br />Party: <?php echo $this->speaker->party;?><br/>Constituency: <?php echo $this->speaker->constituency;?><br/>
+<?php if(isset($this->office['0']->pretty)){?>
+ <em><?php echo $this->office['0']->pretty;?></em><br />
+<?php }?>
+At: <?php echo date_format(date_create($this->hdate),'d/m/Y');?> <?php if(isset($this->htime)) {?> <?php echo $this->htime;?><?php }?><br />Comment made during: <a href="http://www.theyworkforyou.com<?php echo $this->listurl;?>" title="View original"><?php echo $this->parent->body;?></a></p>
+</li>
+
+<?php endif;?>

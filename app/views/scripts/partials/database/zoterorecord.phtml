@@ -1,0 +1,8 @@
+<?php
+$tit = $this->title(); 
+$pubDate = $this->created2;
+$desc = $this->escape(strip_tags($this->description));
+echo $this->Coins($title = $tit,$author = $this->partial('partials/database/author.phtml', $this->peoples['0']),$published = $pubDate,$description = $desc );
+//end of plugin
+$this->toolbox($this->id,$this->old_findID,$this->createdBy);
+?>

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sparql xmlns='http://www.w3.org/2005/sparql-results#'>
+	<head>
+		<variable name='subject'/>
+		<variable name='label'/>
+		<variable name='note'/>
+	</head>
+	<results>
+		<result>
+			<binding name='label'>
+				<literal>Excavated / Findspot</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/find/E</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>Found / Acquired</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/find/F</uri>
+			</binding>
+		</result>
+	</results>
+</sparql>

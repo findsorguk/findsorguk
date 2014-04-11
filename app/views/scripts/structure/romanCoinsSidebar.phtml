@@ -1,0 +1,29 @@
+<div class="well sidebar-nav" >
+<ul id="menu1" class="menu collapsible expandfirst nav nav-stacked nav-pills">
+<li><a href="#">Roman coins</a>
+<ul class="nav nav-stacked nav-pills menuindent">
+<li><a href="<?php echo $this->url(array('module'=>'romancoins'),'default', true);?>">Introduction</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'romancoins','action'=>'articles'),'default',true);?>" title="View introductory articles">General articles</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'romancoins','action'=>'emperors'),'default',true);?>" title="View our guide to Roman emperors issuing coins">Emperor guide</a></li>
+<li><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=> 'dynasties'),'default', true);?>">Dynasties</a></li>
+<li><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'denominations'),'default', true);?>">Denominations</a></li>
+<li><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'mints'),'default', true);?>">Active mints</a></li>
+<li><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'reversetypes'),'default', true);?>">Fourth Century reverses</a></li>
+<li><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'reeceperiods'),'default', true);?>">Reece Periods</a></li>
+<li><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'personifications'),'default', true);?>" title="Read about personifications found on the reverse of coins">Reverse personifications</a></li>
+<li><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'moneyers'),'default', true);?>" title="Learn more about the moneyers of Republican Rome">Republican moneyers</a></li>
+<li><a href="<?php echo $this->url(array('module'=>'database','controller'=>'search', 'action' => 'romannumismatics'),'default', true);?>" title="Search our coins">Search</a></li>
+</ul>
+</li>
+<li><a href="#">Other numismatic periods <i class="icon-folder-open"></i></a>
+<ul class="nav nav-stacked nav-pills menuindent">
+<li><a href="<?php echo $this->url(array('controller'=>'byzantinecoins','action'=>'index'),'default', true);?>">Byzantine coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'ironagecoins','action'=>'index'),'default', true);?>">Iron Age coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'earlymedievalcoins','action'=>'index'),'default', true);?>">Early Medieval coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'greekromancoins','action'=>'index'),'default', true);?>">Greek &amp; Roman coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'medievalcoins','action'=>'index'),'default', true);?>">Medieval coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'postmedievalcoins','action'=>'index'),'default', true);?>">Post Medieval  coins</a></li>
+
+</ul></li>
+</ul>
+</div>

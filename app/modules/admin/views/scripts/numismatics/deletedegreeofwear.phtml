@@ -1,0 +1,19 @@
+<?php if ($this->degree) :
+	$this->headTitle('Delete a degree of wear');
+?>
+<h2>Delete <?php echo $this->escape($this->degree->term); ?></h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->degree->term); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action'=>'deletedegreeofwear'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->degree->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<h2>An error has occurred.</h2>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

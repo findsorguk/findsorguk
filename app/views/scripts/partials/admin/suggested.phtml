@@ -1,0 +1,10 @@
+<tr>
+<td><?php echo $this->escape($this->title);?></td>
+<td><?php echo $this->temporal;?></td>
+<td><?php echo $this->type;?></td>
+<td><?php echo $this->niceshortdate($this->created);?></td>
+<td><?php echo $this->fullname;?></td>
+<td><?php echo $this->niceshortdate($this->updated);?></td>
+<td><?php echo $this->fn;?></td>
+<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'research','action' => 'editsuggested','id' => $this->id),'default',true);?>" title="Edit this topic">Edit</a> | <a href="<?php echo $this->url(array('module' => 'admin','controller' => 'research','action' => 'deletesuggested','id' => $this->id),'default',true);?>" title="Delete this topic">Delete</a></td>
+</tr>

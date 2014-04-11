@@ -1,0 +1,75 @@
+<?php 
+$this->mail->setSubject('A request for publications has been submitted by ' 
+. $this->escape($this->fullname) );
+?>
+<p>Dear <?php echo $this->fullname;?>,</p>
+<p>Thank you for requesting publications from the Scheme. Your request is as follows:</p>
+
+<?php if($this->reports):?>
+<h3>Treasure reports</h3>
+<ul>
+<?php foreach($this->reports as $k => $v):?>	
+<li>Annual report: <?php echo $v;?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<?php if($this->treasure):?>
+<h3>Treasure reports</h3>
+<ul>
+<?php foreach($this->treasure as $k => $v):?>	
+<li>Treasure report: <?php echo $v;?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<?php if($this->codes):?>
+<h3>Codes of practice</h3>
+<ul>
+<?php foreach($this->codes as $k => $v):?>	
+<li>Code: <?php echo $v;?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<?php if($this->leaflets):?>
+<h3>Leaflets</h3>
+<ul>
+<?php foreach($this->leaflets as $k => $v):?>	
+<li>Treasure report: <?php echo $v;?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<p>You have requested them to be sent to:</p>
+
+<ul>
+<?php if(!is_null($this->fullname)):?>
+<li>Name and title: <?php echo $this->escape($this->title);?> <?php echo $this->escape($this->fullname);?></li>
+<?php endif;?>
+<?php if(!is_null($this->address)):?>
+<li>Address: <?php echo $this->escape($this->address);?></li>
+<?php endif;?>
+<?php if(!is_null($this->town_city)):?>
+<li>Town or city: <?php echo $this->escape($this->town_city);?></li>
+<?php endif;?>
+<?php if(!is_null($this->county)):?>
+<li>County: <?php echo $this->escape($this->county);?></li>
+<?php endif;?>
+<?php if(!is_null($this->postcode)):?>
+<li>Postcode: <?php echo $this->escape($this->postcode);?></li>
+<?php endif;?>
+<?php if(!is_null($this->country)):?>
+<li>ISO country code: <?php echo $this->escape($this->country);?></li>
+<?php endif;?>
+<?php if(!is_null($this->tel)):?>
+<li>Telephone: <?php echo $this->escape($this->tel);?></li>
+<?php endif;?>
+<?php if(!is_null($this->email)):?>
+<li>Email address: <?php echo $this->escape($this->email);?></li>
+<?php endif;?>
+</ul>
+
+<p>Yours sincerely,</p>
+<p>The Portable Antiquities Scheme</p>
+<p>Requested from IP: <?php echo $this->ipAddress();?> using the following environment: <?php echo $this->userAgent();?></p>

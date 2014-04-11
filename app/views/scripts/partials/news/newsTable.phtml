@@ -1,0 +1,24 @@
+<div class="hnews hentry item">
+<h3><a class="url entry-title" rel="bookmark" href="<?php echo $this->url(array('module' => 'news','controller' => 'stories','action' => 'article','id' => $this->id),null,true);?>" title="Read this news story"><?php echo $this->title;?></a></h3>
+<p><span class="updated dtstamp" title="<?php
+$date = strtotime($this->d);
+echo date(DATE_ATOM,$date);?>">Published: <?php echo  $this->timeagoinwords($this->golive);?></span> Author:<span class="vcard">
+<?php if(isset($this->personID)):?>
+<a href="<?php echo $this->serverUrl();?>/contacts/staff/profile/id/<?php echo $this->personID;?>" rel="author" class="url"><span class="fn"><?php echo $this->author;?></span></a>
+<?php else:?>
+<span class="fn"><?php echo $this->author;?></span>
+    <?php endif;?> <a class="email" href="mailto:<?php echo $this->contactEmail;?>"><i class="icon-envelope"></i></a>
+</span>
+</p>
+<div class="entry-content"><?php echo $this->WordChars($this->contents);?></div>
+<?php if(isset($this->latitude)):?>
+<div class="geo forRDFOnly">
+      Lat: <span class="latitude"><?php echo $this->latitude;?></span>
+      Long: <span class="longitude"><?php echo $this->longitude;?></span>
+	  <?php if(isset($this->woeid)):?>
+      WOEID: <?php echo $this->woeid;?>
+      <?php endif;?>
+</div>
+ <?php endif;?>
+</div>
+<?php echo $this->NewsCommentCount($this->id);?>

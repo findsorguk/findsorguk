@@ -1,0 +1,13 @@
+<?php if (count($this->rulers) > 0): ?>
+<?php echo $this->partialLoop('partials/numismatics/ironageruler.phtml', $this->rulers) ?>
+<?php else: ?>
+    <p class="error">There are no entries for this ruler ID.</p>
+<?php endif; ?>
+<?php if (count($this->regions) > 0): ?>
+<h3>Region(s):</h3>
+<ul id="related"> <?php echo $this->partialLoop('partials/numismatics/geography.phtml', $this->regions) ?>
+</ul>
+<?php else: ?>
+    <p class="error">There are no specified regions for this ruler.</p>
+<?php endif; ?>
+<?php echo $this->latestRecords('ruler:' . $this->escape($this->id));?>

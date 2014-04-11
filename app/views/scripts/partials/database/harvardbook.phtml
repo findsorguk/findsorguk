@@ -1,0 +1,84 @@
+<?php
+/*
+See http://www.waikato.ac.nz/library/learning/g_harvard.shtml for citation styles.
+1	Monograph or book	
+2	Edited volume
+3	Journal
+4	Chapter
+5	Journal Article
+6	Website article	
+*/
+
+switch($this->publication_type)	
+	{
+	case (($this->publication_type) == 1): 
+		$html = '<li>'.
+		$this->authors.
+		', '.
+		$this->publication_year.
+		'. <em><a href="'.
+		$this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication','id' => $this->id),null,true).
+		'" title="View reference work\'s details">'.
+		$this->title.
+		'</a></em>  '.
+		$this->publication_place.
+		' : '.
+		$this->publisher . $this->vol_no.', pp'.$this->pp;
+		break;
+	case (($this->publication_type) == 2):
+		$html = '<li>'.
+		$this->authors.
+		', '.
+		$this->publication_year.
+		'. <em><a href="'.
+		$this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication','id' => $this->id),null,true).
+		'" title="View reference work\'s details">'.
+		$this->title.
+		'</a></em> '.
+		$this->publication_place.
+		' : '.
+		$this->publisher;
+		break;
+	case (($this->publication_type) == 3): 
+		$html = '<li>'.
+		$this->authors.
+		', '.
+		$this->publication_year.
+		'. <em><a href="'.
+		$this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication','id' => $this->id),null,true).
+		'" title="View reference work\'s details">'.
+		$this->title.
+		'</a></em> '.
+		$this->vol_no.
+		', '.
+		$this->pp;		
+		break;
+	case 4:
+		$html = $html = '<li>'.$this->authors.', in'.$this->editors.' '.$this->publication_year. '<em><a href="'.$this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication','id' => $this->id),null,true).'" title="View this reference work\'s details">'.$this->title.'</a></em>, '. $this->vol_no.', pp'.$this->pp.'.</li>';
+		break;
+	case (($this->publication_type) == 5):
+		$html = '<li>'.$this->authors.', '.$this->publication_year. '<em> <a href="'.$this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication','id' => $this->id),null,true).'" title="View this reference work\'s details">'.$this->title.'</a></em>, '. $this->vol_no.', pp'.$this->pp.'.';
+		break;
+	case (($this->publication_type) == 6):
+		$html = '<li>'.$this->authors.', '.$this->publication_year.'. <em> '.$this->title.'</em> ['.$this->medium.'] Available at: <a href="'.$this->url.'" title="View webpage referenced">'.$this->url.'</a> [Accessed '.$this->accessedDate.'].';
+		break;
+	default:
+		$html = '<li>'.
+		$this->authors.
+		', '.
+		$this->publication_year.
+		'. <em><a href="'.
+		$this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication','id' => $this->id),null,true).
+		'" title="View reference work\'s details">'.
+		$this->title.
+		'</a></em>  '.
+		$this->publication_place.
+		' : '.
+		$this->publisher;
+		break;
+
+	}
+	
+		$html .= $this->EditReference($this->i,$this->fID,$this->createdBy);
+		echo $html;
+

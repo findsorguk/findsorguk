@@ -1,0 +1,7 @@
+<tr>
+<td><a href="<?php echo $this->url(array('module' => 'database','controller' => 'organisations','action' => 'organisation','id' => $this->escape($this->id)),null,true);?>" title="View <?php echo $this->escape($this->name);?> details"><?php echo $this->escape($this->name);?></a></td> 
+<td><?php echo $this->county;?></td>
+<td><?php echo $this->fullname;?></td> 
+<td><a href="<?php echo $this->url(array('module' => 'database','controller' => 'organisations','action' => 'edit','id' => $this->id),null,true);?>" title="Edit <?php echo $this->name;?>'s details">Edit</a>
+<a href="<?php echo $this->url(array('module' => 'database','controller' => 'organisations','action' => 'delete','id' => $this->id),null,true);?>" title="Delete <?php echo $this->name;?>">Delete</a></td>
+</tr>

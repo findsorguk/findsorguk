@@ -1,0 +1,33 @@
+<?php $this->headTitle('Details for '.$this->issuer. ' ' .$this->adbc($this->date1).' - '.$this->adbc($this->date2));
+$this->headMeta($this->curUrl(),'dc.identifier')
+->headMeta('Daniel Pett','dc.creator')
+->headMeta('CC NC-BY-SA','dc.rights')
+->headMeta('The Portable Antiquities Scheme','dc.publisher');?>
+<h2><?php echo $this->issuer; ?></h2>
+
+<?php if(!is_null($this->date1)):?>
+<?php $dates = array($this->adbc($this->date1), $this->adbc($this->date2));?>
+<p>Date of reign:  <?php echo implode('-', $dates);?></p>
+<?php endif;?>
+
+<?php if(!is_null($this->styled)):?>
+<p>Styled as: <?php echo $this->styled;?></p>
+<?php endif;?>
+
+<?php if(!is_null($this->alias)):?>
+<p>Alias: <?php echo $this->alias;?></p>
+<?php endif;?>
+
+<?php if(isset($this->born)):?>
+<p>Born: <?php echo $this->adbc($this->born); ?> Died: <?php echo $this->adbc($this->died); ?></p>
+<?php endif;?>
+
+<?php echo $this->biography; ?>
+
+<p>View <a href="<?php echo $this->url(array(
+    'module' => 'database',
+    'controller' => 'search',
+    'action' => 'results',
+    'ruler' => $this->id),null, true);?>" title="">all coins recorded</a> by the scheme attributed to 
+<?php echo $this->issuer;?>.</p>
+

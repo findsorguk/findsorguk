@@ -1,0 +1,17 @@
+<?php
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+?>
+
+<li><a href="<?php echo $this->url(array(
+    'module' => $module,
+    'controller' => 'rulers',
+    'action' => 'ruler',
+    'id'=> $this->i,
+    ),null,true);?>"><?php echo $this->issuer . ' ' . $this->adbc($this->date_from);?></a> -
+<a href="<?php echo $this->url(array(
+    'module' => 'database',
+    'controller' => 'search',
+    'action'=> 'results',
+    'denomination' => $this->id ,
+    'ruler' => $this->i),null,true);?>" title="Search database for examples">
+    <span class="scope">view all of this denomination issued by <?php echo $this->issuer;?></span></a></li>

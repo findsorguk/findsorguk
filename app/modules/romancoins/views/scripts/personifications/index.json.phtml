@@ -1,0 +1,4 @@
+<?php
+$data = array_merge($this->gods, $this->virtues, $this->symbols);
+echo Zend_Json::prettyPrint(Zend_Json::encode( ( array(
+'romanReversePersonifications' => $data ) ) ) );

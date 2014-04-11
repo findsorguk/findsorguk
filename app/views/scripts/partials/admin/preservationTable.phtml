@@ -1,0 +1,33 @@
+<tr class="valid-<?php echo $this->valid;?>">
+<td><?php echo $this->escape($this->term);?></td>
+<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->timeagoinwords($this->updated);?></td>
+<td><?php echo $this->namethem($this->fn);?></td>
+<td>
+    <?php
+$edit = $this->Href(array(
+    'module' => 'admin',
+    'controller' => 'terminology',
+    'action' => 'editpreservation',
+    'checkAcl' => true,
+    'acl'=>'Zend_Acl',
+    'attribs' => array('title' => 'Edit a preservation method'),
+    'params' => array('id' => $this->id),
+    'content'=> 'Edit')
+    );
+$delete = $this->Href(array(
+    'module' => 'admin',
+    'controller' =>'terminology',
+    'action' =>'deletepreservation',
+    'checkAcl' => true,
+    'acl' => 'Zend_Acl',
+    'attribs' => array('title' => 'Delete a preservation method'),
+    'params' => array('id' => $this->id),
+    'content' => 'Delete')
+    );
+
+echo implode(' | ', array($edit, $delete));
+?>
+</td>
+</tr>

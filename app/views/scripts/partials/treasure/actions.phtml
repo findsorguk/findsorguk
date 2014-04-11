@@ -1,0 +1,9 @@
+<li><?php echo $this->action;?> - entered by <?php echo $this->enteredBy;?> <?php 
+echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=>'editaction', 
+'checkAcl'=>true,'acl'=>'Zend_Acl', 'params' => array('treasureID' => $this->id),
+'content'=>'Edit','attribs' => array('title' => 'Edit action')));
+?> | <?php 
+echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=>'deleteaction', 
+'checkAcl'=>true,'acl'=>'Zend_Acl', 'params' => array('treasureID' => $this->id),
+'content'=>'Delete','attribs' => array('title' => 'Delete action')));
+?></li>

@@ -1,0 +1,20 @@
+/* TEAM */
+Project lead, developer, designer, debugger, tester, gopher, muppet: Daniel Pett
+Twitter: @portableant
+Location: The British Museum, Great Russell Street, WC1B 3DG
+Geo: 51.519222, -0.124285 or thereabouts 9-5 M-F
+
+/* THANKS */
+Tom Elliot, Sean Gillies, Sebastian Heath, Ethan Gruber, Eric Kansa and the original people
+I learnt from Tyler Bell, Vuk Trifkovic, Andrew Larcombe and Yegor Veter.
+
+/* SITE */
+Last update: 2013/04/29
+Standards: xHTML1, CSS2, PHP5.3, MYSQL5, solr 4.2.1
+Components: jQuery, php, flash, java, solr,
+Software: Zend Studio
+
+/* COLOPHON */
+Hic sunt dracones - Here be dragons. St George is coming to get them.
+
+Shalom y'all.

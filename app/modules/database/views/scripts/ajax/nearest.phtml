@@ -1,0 +1,14 @@
+<div id="nearest">
+<h2>Artefacts found with 2km of point</h2>
+<div id="nested">
+<?php if (count($this->finds) > 0) : ?>
+<p>There are <strong><?php echo count($this->finds);?></strong> records found within <strong><?php echo $this->distance;?></strong> kilometres of:<br /> <strong><?php echo $this->lat;?>, <?php echo $this->long;?></strong></p>
+<ul id="related">
+<?php echo $this->partialLoop('partials/database/nearest2km.phtml',$this->finds);?>
+</ul>
+<?php else: ?>
+<p class="error">No records found near this point.</p>
+<?php endif;?>
+
+</div>
+</div>

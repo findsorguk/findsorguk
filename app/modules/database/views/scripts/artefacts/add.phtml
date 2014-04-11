@@ -1,0 +1,40 @@
+<?php
+	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type='text/javascript');
+	$this->headTitle('Add a new object');
+	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
+	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder.js', $type='text/javascript');
+	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryfinder.js', $type='text/javascript');
+	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type='text/javascript');
+	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
+	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
+	
+	
+	$front = Zend_Controller_Front::getInstance()->getRequest();
+	
+	$copy = $front->getParam('copy');
+	if(!is_null($copy)){
+		$this->headTitle(' copied from last record');
+	}
+?>
+
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+$(document).ready(function() {
+$("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
+$("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
+$("input[type='select']:first", document.forms[0]).focus();
+});
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
+<h2><?php echo $this->title();?></h2>
+<p><a class="btn btn-success btn-large" href="<?php echo $this->url(array(
+	'module' => 'database',
+	'controller' => 'artefacts',
+	'action' => 'add',
+	'copy' => 'last'),
+	null,true);?>"
+title="Autofill form fields from last record you created" id="populate" accesskey="c">Copy last record</a> </p>
+
+<?php
+echo $this->form;
+?>
+

@@ -1,0 +1,8 @@
+<tr>
+<td><a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'volunteering','action' => 'role','id' => $this->id),null,true);?>" title="View details for this opportunity"><?php echo $this->title;?></a></td>
+<td><?php echo $this->type;?></td>
+<td><?php echo $this->fullname;?></td>
+<td><?php echo $this->length;?></td>
+<td><?php echo $this->location;?></td>
+<td><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'volunteers', 'action' => 'edit','id' => $this->id),null,true);?>">Edit</a></td>
+</tr>

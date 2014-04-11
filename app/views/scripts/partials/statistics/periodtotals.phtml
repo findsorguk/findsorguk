@@ -1,0 +1,6 @@
+
+<tr>
+<td><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','broadperiod' => $this->broadperiod,'createdBy' => $this->id),null,true);?>" title="Search database for all objects you recorded from the <?php echo $this->broadperiod;?>"><?php echo ucwords(strtolower($this->broadperiod));?></a></td>
+<td><?php echo $this->artefacts;?></td>
+<td><?php echo $this->records;?></td>
+</tr>

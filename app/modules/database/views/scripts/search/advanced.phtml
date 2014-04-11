@@ -1,0 +1,41 @@
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/typeaheads/treasureID.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/typeaheads/otherRef.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/typeaheads/finder.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/typeaheads/primaryID.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
+
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/bootstrap-datepicker.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/jQueryLinkedSelect.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/findSpotLinkedSelect.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/findSpotLinkedQuery.js',$type='text/javascript');
+
+$this->headTitle('Advanced search the database');
+?>
+
+
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+$(document).ready(function() {
+//Reformat the selects
+$("#createdBefore").datepicker({ maxDate: '+1y'});
+$("#createdAfter").datepicker({ maxDate: '+1y' });
+$("#updatedBefore").datepicker({ maxDate: '+1y'});
+$("#updatedAfter").datepicker({ maxDate: '+1y' });
+});
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
+<h2><?php echo $this->title();?></h2>
+<p>This form allows you to perform some more advanced database searches. More specific numismatic searching can be affected from period specific forms.</p>
+<?php echo $this->form; ?>

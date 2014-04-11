@@ -1,0 +1,25 @@
+<?php echo $this->headTitle('Details for coin type: '.$this->type);
+$this->headMeta('Details and examples for medieval coin type: '.$this->type,'description')
+->headMeta('coin,numismatics,details','dc.keywords')
+->headMeta($this->curUrl(),'dc.identifier')
+->headMeta('CC NC-BY-SA','dc.rights')
+->headMeta('The Portable Antiquities Scheme','dc.publisher')
+->headMeta('Daniel Pett','dc.creator');
+?>
+
+
+<?php $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();?>
+
+<h2><?php echo $this->type;?></h2>
+<p>This type was issued by <a href="<?php echo $this->url(array(
+    'module' => $module,
+    'controller' => 'rulers',
+    'action' => 'ruler',
+    'id' => $this->i),NULL,true);?>" 
+    title="View details for <?php echo $this->ruler;?>">
+    <?php echo $this->ruler;?></a> [<?php echo $this->adbc($this->datefrom); 
+    if(isset($this->dateto)) { echo ' - '.$this->adbc($this->dateto);}?>]
+</p>
+<?php echo $this->description;?>
+<p>Category: <?php echo $this->category;?></p>
+

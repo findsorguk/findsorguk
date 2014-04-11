@@ -1,0 +1,19 @@
+<?php 	$this->headTitle('Available Iron Age regions');?>
+<h2>Available Iron Age geographies</h2>
+<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addregion'),null,true);?>" title="Add a new Iron Age region">Add a new region</a></p>
+<table class="table table-striped" summary="List of available regions">
+    <thead>
+        <tr>
+            <th>Region name</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Validity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php echo $this->partialLoop('partials/admin/iaregions.phtml',$this->regions);?>
+    </tbody>
+</table>

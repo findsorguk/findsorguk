@@ -1,0 +1,15 @@
+<?php
+$this->headTitle('Details for ' . $this->event->title);
+	$eventData = array(
+		'title' 	=> $this->event->title,
+		'id' 		=> substr($this->event->id,strrpos($this->event->id,'/')+1,26),
+		'starts' 	=> $this->event->when[0]->startTime,
+		'ends'   	=> $this->event->when[0]->endTime,
+		'where' 	=> $this->event->where[0],
+		'updated' 	=> $this->event->updated,
+		'content' 	=> $this->event->content,
+		'type'		=> $this->event->extendedProperty[0],
+		'creator'	=> $this->event->extendedProperty[1],
+	);
+	echo $this->partial('partials/calendar/event.phtml',$eventData);
+?>

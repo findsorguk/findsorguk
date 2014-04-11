@@ -1,0 +1,19 @@
+<li><?php echo $this->referenceName;?> : <?php echo $this->vol_no;?> <?php echo $this->reference;?> 
+
+<?php
+$auth = Zend_Registry::get('auth');
+if($auth->hasIdentity())
+{
+$user = $auth->getIdentity();
+{
+$allowed = array('fa','admin','flos');
+if(in_array($user->role,$allowed))
+{
+?>
+<a href="<?php echo $this->url(array('module' => 'database','controller' => 'coins','action' => 'editcoinref','id' => $this->id,'returnID' => $this->returnID),null,true);?>" title="Edit this coin reference">Edit</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'coins','action' => 'deletecoinref','id' => $this->id,'returnID' => $this->returnID),null,true);?>" title="Delete this reference">Delete</a> 
+<?php 
+}
+}
+}
+?>
+</li>

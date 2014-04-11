@@ -1,0 +1,6 @@
+<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts','action' => 'editcontact', 'id' => $this->id),null,true);?>" title="View contact details for <?php echo $this->firstname;?> <?php echo $this->lastname;?>"><?php echo $this->firstname;?> <?php echo $this->lastname;?></a> - <?php if ($this->alumni == 1) {
+echo 'Current staff';
+} else {
+echo 'Scheme alumni';
+}?> (Last updated by <?php echo $this->namethem($this->fn);?> on <?php echo $this->timeagoinwords($this->updated);?>)
+</li>

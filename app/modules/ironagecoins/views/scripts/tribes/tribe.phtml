@@ -1,0 +1,7 @@
+<?php if (count($this->tribes) > 0): ?>
+<?php echo $this->partialLoop('partials/numismatics/tribe.phtml', $this->tribes) ;?>
+<?php else: ?>
+    <p class="error">There are no entries for this tribe.</p>
+<?php endif; ?>
+
+<?php echo $this->latestRecords('tribe:' . $this->escape($this->id));?>

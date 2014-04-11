@@ -1,0 +1,4 @@
+<?php if(isset($this->image)):?>
+<?php list($w, $h) = getimagesize('./images/logos/thumbnails/'.$this->image);?>
+<li><a href="<?php echo $this->baseUrl(); ?>/images/logos/resized/<?php echo $this->escape($this->image);?>" title="Larger view of host institution logo" rel="lightbox"><img  src="<?php echo $this->baseUrl(); ?>/images/logos/thumbnails/<?php echo $this->escape($this->image);?>" alt="Institutional logo" class="instlogo" width="<?php echo $w;?>" height="<?php echo $h;?>"/></a></li>
+<?php endif;?>

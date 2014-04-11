@@ -1,0 +1,4 @@
+<?php $this->headTitle('Details for '.$this->workflowstage);?>
+<h2>Workflow stage: <?php echo $this->escape($this->workflowstage);?></h2>
+<?php echo $this->termdesc;?>
+<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','workflow' => $this->id),null,true);?>" title="Search the database for this workflow stage">all records</a> assigned to this workflow stage.</p>

@@ -1,0 +1,48 @@
+<?php 
+	$site = $this->serverUrl();
+	
+	
+	$dom 	  = new DomDocument("1.0", "UTF-8");
+	$sitemap  = $dom->createElement('configdata');
+	//1st item
+	$nav = $dom->createElement('nav');
+	
+	
+	# News section
+	$news = $dom->createElement('database');
+	$sitemap->appendChild($nav);
+	$news->appendChild($dom->createElement('label', 'Database output'));
+	$news->appendChild($dom->createElement('uri', 'default'));
+	$news->appendChild($dom->createElement('changefreq', 'daily'));
+	$news->appendChild($dom->createElement('priority', '0.9'));
+	$nav->appendChild($news);
+	$pages = $dom->createElement('pages');
+	
+	$search = new Pas_Solr_Handler('beowulf');
+	$page = Zend_Controller_Front::getInstance()->getRequest()->getParam('page');
+
+	$params['page'] = $page;
+	$params['sort'] = 'created';
+	$params['direction'] = 'asc';
+	$params['show'] = 1000;
+	$params['format'] = 'sitemap';
+    $search->setParams($params);
+	$results = $search->execute();
+	foreach ($results as $result) {
+   	$story = $dom->createElement( 'record' .$result['id']);
+	$story->appendChild($dom->createElement('label', $result['old_findID']));
+	$story->appendChild($dom->createElement('uri', $this->serverUrl() . '/database/artefacts/record/id/' . $result['id']));
+	$story->appendChild($dom->createElement('changefreq','weekly'));
+	$story->appendChild($dom->createElement('priority', '0.2'));
+	$story->appendChild($dom->createElement('lastmod', $result['updated']));
+	$pages->appendChild($story);
+	}
+	
+			
+	$news->appendChild( $pages );
+	#end of news section
+	
+	$dom->appendChild( $sitemap );
+	
+	$xmlData  = $dom->saveXML();
+	echo $xmlData;

@@ -1,0 +1,60 @@
+<h2>Scheme research publications</h2>
+
+<p>The Portable Antiquities Scheme produces period roundups for the majority of the major research journals.</p>
+<h3>Britannia</h3>
+ <ul>
+<?php
+    foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/britannia/') as $fileInfo) {
+    if($fileInfo->isDot()) continue;
+  ?>
+  <li>
+  <?php list($root, $ext) = explode('.',$fileInfo->getFilename());
+    if ( !$root ) {
+    $root = $filename;
+    }?>
+  <a href="<?php echo $this->serverUrl();?>/documents/britannia/<?php
+    echo $fileInfo->getFilename();
+    ?>"><?php echo $root;?></a></li><!--  -->
+    <?php
+}
+            ?>
+
+</ul>
+<h3>Medieval Archaeology</h3>
+ <ul>
+<?php
+    foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/medieval/') as $fileInfo) {
+    if($fileInfo->isDot()) continue;
+  ?>
+  <li>
+  <?php list($root, $ext) = explode('.',$fileInfo->getFilename());
+    if ( !$root ) {
+    $root = $filename;
+    }?>
+  <a href="<?php echo $this->serverUrl();?>/documents/medieval/<?php
+    echo $fileInfo->getFilename();
+    ?>"><?php echo $root;?></a></li><!--  -->
+    <?php
+}
+            ?>
+
+</ul>
+<h3>Post Medieval Archaeology</h3>
+ <ul>
+<?php
+    foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/postmedieval/') as $fileInfo) {
+    if($fileInfo->isDot()) continue;
+  ?>
+  <li>
+  <?php list($root, $ext) = explode('.',$fileInfo->getFilename());
+    if ( !$root ) {
+    $root = $filename;
+    }?>
+  <a href="<?php echo $this->serverUrl();?>/documents/postmedieval/<?php
+    echo $fileInfo->getFilename();
+    ?>"><?php echo $root;?></a></li><!--  -->
+    <?php
+}
+            ?>
+
+</ul>

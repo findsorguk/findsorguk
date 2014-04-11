@@ -1,0 +1,75 @@
+<?php
+$site = $this->serverUrl();
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+$contexts = $contextSwitch->getContexts();
+
+$dom = new DomDocument("1.0", "UTF-8");
+$reverses  = $dom->createElement('response');
+
+$meta = $dom->createElement('meta');
+$reverses->appendChild($meta);
+$meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
+$formats = $dom->createElement('formats');
+$meta->appendChild($formats);	
+foreach ($contexts as $k => $v){
+$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param,'format' => $k),NULL,true)  ));
+}
+$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param),NULL,true)  ));
+
+foreach($this->reverses as $r){
+$r = (object)$r;
+$typeElem = $dom->createElement('reverseType');
+$typeElem->appendChild( $dom->createElement('id', $r->id));
+$typeElem->appendChild( $dom->createElement('name', $r->period_name));
+$typeElem->appendChild( $dom->createElement('dateRange', $r->date_range));
+$empsElem = $dom->createElement('emperors');
+$typeElem->appendChild($empsElem);
+$mintsElem = $dom->createElement('mints');
+$typeElem->appendChild($mintsElem);
+$imageElem = $dom->createElement('recentRecords');	
+$typeElem->appendChild($imageElem);
+
+foreach($this->images as $i){
+$i = (object)$i;
+$recordElem = $dom->createElement('record');
+$imageElem->appendChild( $recordElem);
+$recordElem->appendChild( $dom->createElement('findID', $i->old_findID));
+$recordElem->appendChild( $dom->createElement('label', $i->label));
+$recordElem->appendChild( $dom->createElement('objectType', $i->objecttype));
+$recordElem->appendChild( $dom->createElement('broadPeriod', $i->broadperiod));
+$recordElem->appendChild( $dom->createElement('url', $site . '/database/artefacts/record/id/' . $i->id));
+$recordElem->appendChild( $dom->createElement('thumbnail', $site . ' /images/' . $i->id . '.jpg'));
+}
+
+foreach($this->mints as $m){
+$m = (object)$m;
+$mintElem = $dom->createElement('mint');
+$mintsElem->appendChild( $mintElem );
+$mintElem->appendChild( $dom->createElement('id', $m->mint_id));
+$mintElem->appendChild( $dom->createElement('mintName', $m->mint_name));
+}
+
+foreach($this->emps as $e){
+$e = (object)$e;
+$empElem = $dom->createElement('emperor');
+$empsElem->appendChild( $empElem );
+$empsElem->appendChild( $dom->createElement('id', $e->i));
+$empsElem->appendChild( $dom->createElement('name', $e->name));
+}
+
+
+$reverses->appendChild( $typeElem );
+
+
+}
+
+$dom->appendChild( $reverses );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

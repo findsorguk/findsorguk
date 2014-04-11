@@ -1,0 +1,17 @@
+<?php 
+	$this->headTitle("Delete a method of discovery");
+if ($this->method) :?>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->method->method); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action'=>'deletemethod'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->method->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

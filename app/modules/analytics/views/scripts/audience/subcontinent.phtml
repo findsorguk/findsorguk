@@ -1,0 +1,144 @@
+<?php
+$this->headTitle('Sub-Continent analytical data provided via Google Analytics ' . $this->timeSpanParameter());
+?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+<?php echo $this->form;?>
+
+<?php 
+$this->inlineScript()->appendFile('https://www.google.com/jsapi',$type = 'text/javascript');
+$this->inlineScript()->captureStart();?>
+google.load('visualization', '1', {'packages': ['geochart']});
+     google.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['Sub-Continent', 'Visitors'],
+      <?php 
+      $data = array();
+      foreach($this->results as $row){
+      	$data[] =array($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_SUB_CONTINENT)->value => $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value);
+      }
+      
+      ?>
+          <?php foreach($data as $data):
+          if(array_key_exists('(not set)', $data)) {
+      	unset($data['(not set)']);
+      }
+          ?>
+          <?php foreach($data as $k => $v):?>  
+          <?php switch($k){
+          	case 'Northern Africa':
+          		$k = '015';
+          		break;
+          	case 'Western Africa':
+          		$k = '011';
+          		break;
+          	case 'Middle Africa':
+          		$k = '017';
+          		break;
+          	case 'Eastern Africa':
+          		$k = '014';
+          		break;
+          	case 'Southern Africa':
+          		$k = '018';
+          		break;
+          	case 'Northern Europe':
+          		$k = '154';
+          		break;
+          	case 'Western Europe':
+          		$k = '155';
+          		break;
+          	case 'Eastern Europe':
+          		$k = '151';
+          		break;	
+          	case 'Southern Europe':
+          		$k = '039';
+          		break;
+          	case 'Northern America':
+          		$k = '021';
+          		break;
+          	case 'Caribbean':
+          		$k = '029';
+          		break;
+          	case 'Central America':
+          		$k = '013';
+          		break;
+          	case 'South America':
+          		$k = '005';
+          		break;
+          	case 'Central Asia':
+          		$k = '143';
+          		break;
+          	case 'Eastern Asia':
+          		$k = '030';
+          		break;
+          	case 'Southern Asia':
+          		$k = '034';
+          		break;
+          	case 'South-Eastern Asia':
+          		$k = '035';
+          		break;
+          	case 'Western Asia':
+          		$k = '145';
+          		break;
+          	case 'Australasia':
+          		$k = '053';
+          		break;
+          	case 'Melanesia':
+          		$k = '054';
+          		break;
+          	case 'Micronesian Region':
+          		$k = '057';
+          		break;
+          	case 'Polynesia':
+          		$k = '061';
+          		break;
+          }?>		
+		  ['<?php echo $k;?>' , <?php echo $v;?>],
+		  <?php endforeach;?>
+		  <?php endforeach;?>
+        ]);
+
+        var options = {
+        region : 'world',
+        displayMode : 'regions',
+        enableRegionInteractivity : true,
+        resolution : 'subcontinents',
+        legend : 'none',
+        width: '600', 
+        height: 400,
+        keepAspectRatio: true
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('chart'));
+        chart.draw(data, options);
+    };
+<?php $this->inlineScript()->captureEnd();?>   
+<h3>Distribution chart of visitors by sub-continent</h3>
+<div id="chart"></div>
+
+
+<table class="table table-striped">
+	<caption><?php echo $this->title();?></caption>
+		<thead>
+		<tr>
+			<th>Sub-Continent</th>
+			<th>Visitors</th>
+			<th>Visits</th>
+			<th>Bounces</th>
+			<th>Average time on site</th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php foreach($this->results as $row):?>
+			<tr>
+				<td><?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_SUB_CONTINENT)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_BOUNCES)->value;?></td>
+				<td><?php echo $this->secondsToMinutes()->setSeconds($row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_AVG_TIME_ON_SITE)->value);?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+</table>

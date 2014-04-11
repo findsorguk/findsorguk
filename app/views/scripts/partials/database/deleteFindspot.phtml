@@ -1,0 +1,12 @@
+<h2>Delete a findspot</h2>
+<p>Are you sure that you want to delete '<?php echo $this->escape($this->old_findspotid); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'database','controller' => 'findspots','action'=>'delete'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->id; ?>" />
+<input type="hidden" name="findID" value="<?php echo $this->findID;?>"/>
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>

@@ -1,0 +1,11 @@
+<?php $this->headTitle('My search history');?>
+<h2>My search history</h2>
+<?php if(count($this->searches)):?>
+<ol id="timeline" class="statuses">
+
+<?php echo $this->partialLoop('partials/users/searchHistory.phtml', $this->searches) ?>
+</ol>
+<?echo $this->paginationControl($this->searches, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>No search history available to you at present.</p>
+<?php endif;?> 

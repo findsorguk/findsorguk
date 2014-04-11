@@ -1,0 +1,15 @@
+<?php 
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+?>
+<li about="http://dbpedia.org/resource/<?php echo $this->issuer;?>">
+<a href="<?php echo $this->url(array('module' => $module,'controller' => 'rulers','action' => 'ruler','id' => $this->id),null,true);?>"><span property="foaf:name"><?php echo $this->issuer; ?></span></a> 
+<?php if(isset($this->date1)):?>
+[<?php echo $this->adbc($this->date1); ?> 
+<?php if(isset($this->date2)):?>
+- <?php echo $this->adbc($this->date2); ?>] 
+<?php else:?>
+]
+<?php endif;?>
+<?php endif;?>
+ -  <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'search', 'action' => 'results', 'ruler' => $this->id),null, true);?>" title="View all records on the database">view all attributed records</a>]</span></li>

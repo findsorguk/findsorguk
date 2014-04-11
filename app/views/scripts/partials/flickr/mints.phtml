@@ -1,0 +1,54 @@
+<div class="row span10 well">
+
+
+
+<div class="span7">
+
+<p><a href="http://www.flickr.com/photos/<?php echo $this->pathalias;?>" title="Go to <?php echo $this->username;?>'s profile on flickr"><img src="http://farm<?php echo $this->iconfarm;?>.static.flickr.com/<?php echo $this->iconserver;?>/buddyicons/<?php echo $this->owner;?>.jpg" height="48" width="48" alt="View <?php echo $this->username;?>'s images" style="float:left;padding:5px;"/></a> Image taken by: <?php echo $this->ownername;?><br />
+
+<?php if(isset($this->woeid)):?>
+Accuracy: <?php echo $this->accuracy;?><br />
+WOEID: <a href="<?php echo $this->url(array('module'=>'flickr','controller' => 'photos','action' => 'whereonearth','id' => $this->woeid),null,true);?>"><?php echo $this->woeid;?></a><br />
+Lat/Lon: <?php echo $this->latitude;?>, <?php echo $this->longitude;?><br />
+<?php endif;?>
+Taken: <?php echo $this->datetaken;?><br />
+<?php if($this->date_faved):?>
+Date we liked this: <?php echo date(DATE_ATOM,$this->date_faved);?><br />
+<?php endif;?>
+Licence: <?php echo $this->FlickrLicense((int)$this->license);?><br />
+Tags: <?php
+$tags = $this->tags;
+$pieces = explode(" ", $tags);
+	foreach($pieces as $t)
+	{
+	$url = 'http://www.flickr.com/photos/tags/'.$t;
+	$separator = ' ';
+	echo '<a href="'.$url.'" title="View all tagged photos on flickr with this tag">'.$t.'</a>'.$separator;
+	}?><br />
+<?php if($this->machine_tags):?>
+Machine tags: <?php echo $this->machine_tags;?><br />
+<?php endif;?>
+Media type: <?php echo $this->media;?><br />
+<?php if(isset($this->o_height)):?>
+Original image dims: <?php echo $this->o_height;?>px by <?php echo $this->o_width;?>px<br/>
+<?php endif;?>
+Views: <?php echo $this->views;?><br/>
+<a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'details',
+'id' => $this->id),'default',true);?>" title="View all details for this photo">More details &raquo;</a></p>
+</div>
+
+
+ <ul class="thumbnails span5 offset1">
+     <li >
+         <div class="thumbnail">
+        <a href="<?php echo $this->url_m;?>" rel="lightbox" title="Larger image of <?php echo $this->title;?>"><img src="<?php echo $this->url_s;?>" alt="<?php $this->title;?>" width="<?php echo $this->width_s;?>" height="<?php echo $this->height_s;?>" /></a><br />
+        <h4><?php echo $this->title;?></h4>
+        <p><a href="http://www.flickr.com/photos/<?php echo $this->pathalias;?>/<?php echo $this->id;?>" title="View this in its original context on flickr">View this on flickr</a></p>
+         </div>
+     </li>
+</ul>
+
+</div>
+
+
+

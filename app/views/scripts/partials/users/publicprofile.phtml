@@ -1,0 +1,26 @@
+<?php $this->headTitle('User account public data for '.$this->username);?>
+<h2><?php echo $this->title();?></h2>
+
+<div class="row-fluid">
+<?php
+echo $this->gravatar($this->email,array(
+		'imgSize' => 60, 
+		'defaultImg' => 'http://finds.org.uk/assets/gravatar.png',
+        'secure' => true),
+	array(
+        'class' => 'avatar img-circle stelae pull-left',
+        'title' => $this->fullname . '\'s gravatar representation',
+        'rating' => 'G',
+		'height' => 60,
+		'width' => 60));
+?>
+<p>
+Username: <?php echo $this->username;?><br />
+Last login: <?php echo $this->timeagoinwords($this->lastLogin);?><br />
+Account created: <?php echo $this->timeagoinwords($this->created);?><br />
+Number of visits: <?php echo $this->visits;?><br />
+</p>
+</div>
+
+<?php echo $this->UserRecords($this->username); ?>
+<?php echo $this->OnlineAccountHtmlPublic($this->id);?>

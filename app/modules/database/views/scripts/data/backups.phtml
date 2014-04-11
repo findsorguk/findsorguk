@@ -1,0 +1,14 @@
+<?php
+$this->headTitle('All available full data dumps');
+?>
+<h2>Daily data dumps of entire database</h2>
+<p>The below lists all available database dumps in zipped CSV format. This contains grid references and the following fields:</p>
+<blockquote>
+<p>id,objecttype,broadperiod,periodFromName,periodToName,fromdate,todate,description,notes,workflow,materialTerm,secondaryMaterialTerm,
+subsequentActionTerm,discoveryMethod,datefound1,datefound2,TID,rallyName,weight,height,diameter,thickness,diameter,length,quantity,
+finder,identifier,recorder,denominationName,rulerName,mintName,obverseDescription,obverseLegend,reverseDescription,reverseLegend,
+tribeName,reeceID,cciNumber,mintmark,abcType,categoryTerm,typeTerm,moneyerName,reverseType,regionName,county,district,parish,knownas,
+gridref,fourFigure,easting,northing,latitude,longitude,geohash,coordinates</p>
+</blockquote>
+<p>These files are hosted securely at Amazon's server farm and cost a couple of cents to download. So be wise young Jedi.</p>
+<ul><?php echo $this->amazonDataDump();?></ul>

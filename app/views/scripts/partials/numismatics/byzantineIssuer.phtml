@@ -1,0 +1,19 @@
+<?php $this->headTitle('Biographical details for '.$this->issuer,'PREPEND');?>
+<h2><?php echo $this->escape($this->issuer);?></h2>
+
+
+<?php if (!is_null($this->filename)) {?>
+<a href="<?php echo $this->url(array(
+	'controller' => 'romancoins',
+	'action' => 'zoomifyoverlay', 
+	'id' => $this->id),null,true);?>" title="View a high resolution image of <?php echo $this->issuer;?>"><img src="<?php echo $this->serverUrl();?>/images/rulers/resized/<?php echo $this->escape($this->filename);?>" class="portrait" alt="Obverse image of a coin of <?php echo $this->issuer;?>"></a>
+<?php }?>
+<p>Coins for this issuer were issued from <?php if(isset($this->date1)):?><?php echo $this->escape($this->adbc($this->date1));?> <?php if(isset($this->date2)):?>until <?php echo $this->escape($this->adbc($this->date2));?><?php endif;?>
+<?php endif;?>
+.</p>
+
+<?php echo $this->biography;?>
+
+<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','ruler' => $this->id),null, true);?>" title="Search for all coins of <?php echo $this->issuer;?>">all coins recorded</a> by the scheme attributed to <?php echo $this->issuer;?>.</p>
+
+<p>Created: <?php echo $this->timeagoinwords($this->created);?></p>

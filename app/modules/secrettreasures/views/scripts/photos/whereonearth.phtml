@@ -1,0 +1,22 @@
+<?php 
+$this->headTitle('All pictures within 500 metres of '.$this->place);
+$this->MetaBase('A list of all our photos taken within a radius of 500 metres from ' . $this->place,
+'photos',
+'photos,archaeology,museum,british,flickr,portable antiquities');
+?>
+<h2>All photos within 500 metres of <?php echo $this->place;?></h2>
+<?php 
+if(($this->pictures)):
+$photos = array();
+foreach($this->pictures->photos->photo as $photo){
+	$photos[] = (array)$photo;
+}
+
+?>
+
+<?php echo $this->partialLoop('partials/flickr/imagelist.phtml',$photos);?>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+
+<?php else:?>
+<p>There are no photos available for that place.</p>
+<?php endif;?>

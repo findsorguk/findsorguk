@@ -1,0 +1,13 @@
+<?php
+$rulers = array_merge(
+        $this->allengland,
+        $this->eastanglia,
+        $this->mercia,
+        $this->wessex,
+        $this->canterbury,
+        $this->kent,
+        $this->viking,
+        $this->northumbria,
+        $this->earlysilver,
+        $this->earlygold);
+echo Zend_Json::prettyPrint(Zend_Json::encode( ( array('rulers' => $rulers ) ) ) );

@@ -1,0 +1,22 @@
+<div class="flickr">
+<div class="flickrthumbnail">
+<?php 
+$type = '.jpg';
+$url = 'http://farm'.$this->iconfarm.'.static.flickr.com/'.$this->iconserver.'/buddyicons/'.$this->nsid.$type;
+$alturl = 'http://www.flickr.com/images/buddyicon.jpg';
+$link = 'http://www.flickr.com/groups/'.$this->nsid;
+if($this->iconfarm != 0) {
+
+?>
+<a href="<?php echo $link;?>" title="Go to <?php echo $this->name;?>'s profile on flickr"><img src="<?php echo $url;?>" height="48" width="48" alt="View <?php echo $this->name;?>'s images" /></a>
+<?php } else {?>
+<a href="<?php echo $link;?>" title="Go to this <?php echo $this->name;?>'s profile on flickr"><img src="<?php echo $alturl;?>" height="48" width="48" alt="View <?php echo $this->name;?>'s images" /></a>
+
+<?php }?>
+</div>
+<div class="details">
+<h4><a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'group','id' => $this->id),'default',true);?>" title="View this group's details"><?php echo $this->name;?></a></h4>
+<p>This group contains <?php echo $this->photos;?> photographs.</p>
+</div>
+</div>
+

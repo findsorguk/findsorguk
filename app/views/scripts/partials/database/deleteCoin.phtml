@@ -1,0 +1,11 @@
+<h2>Delete coin data attached to <?php echo $this->old_findID;?></h2>
+<p>Are you sure that you want to delete <?php echo $this->escape($this->old_findID); ?> attached coin details?</p>
+<form action="<?php echo $this->url(array('module' => 'database','controller' => 'coins','action'=>'delete'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->id; ?>" />
+<input type="hidden" name="returnID" value="<?php echo $this->returnID;?>"/>
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>

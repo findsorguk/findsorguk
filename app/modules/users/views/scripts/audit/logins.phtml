@@ -1,0 +1,24 @@
+<?php 	$this->headTitle('My login history');?>
+<h2>My login history</h2>
+<?php if($this->logins):?>
+
+
+<table class="table table-striped" summary="A list of my login history">
+<caption>Tabulated list of your logins</caption>
+<thead>
+<tr>
+<th>Login</th>
+<th>IP address</th>
+<th>User agent</th>
+<th>Userid</th>
+</tr>
+</thead>
+<tbody>
+<?php echo $this->partialLoop('partials/users/logins.phtml',$this->logins);?>
+</tbody>
+</table>
+<?php echo $this->paginationControl($this->logins, 'Sliding', 'structure/pagination.phtml'); ?>
+
+<?php else:?>
+<p>There is no login history available for you. Which is an error!</p>
+<?php endif;?>

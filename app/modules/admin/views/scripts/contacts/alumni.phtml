@@ -1,0 +1,21 @@
+<?php $this->headTitle('Manage scheme alumni');?>
+<h2>Manage contact details for alumni</h2>
+<?php if (count($this->contacts)): ?>
+<table class="table table-striped" summary="List of all valid contacts associated with the Scheme">
+    <thead>
+        <tr>
+            <th>Fullname</th>
+            <th>Role</th>
+            <th>Area covered</th>
+            <th>Employment Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php echo $this->partialLoop('partials/admin/contactListTable.phtml',$this->contacts);?>
+    </tbody>
+</table>
+<?php else:?>
+<p>There are no organisations available to you.</p>
+<?php endif; ?>
+<?php echo $this->paginationControl($this->contacts, 'Sliding', 'structure/pagination.phtml'); ?>

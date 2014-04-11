@@ -1,0 +1,18 @@
+<?php if ($this->link) :?>
+<?php $this->headTitle('Delete linked find reference');?>
+<h2>Delete reference to find</h2>
+<p>Are you sure that you want to delete this linked find?</p>
+<form action="<?php echo $this->url(array('module' => 'database','controller' => 'related','action'=>'delete'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->id; ?>" />
+<input type="hidden" name="returnID" value="<?php echo $this->returnID; ?>" />
+<input type="submit" name="del" value="Yes" class="large"/>
+<input type="submit" name="del" value="No" class="large"/>
+</div>
+</form>
+<?php else: ?>
+<?php $this->headTitle('Error deleting reference');?>
+<h2>There has been an error</h2>
+<p>Cannot find the publication that you requested.</p>
+<?php endif;?>

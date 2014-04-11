@@ -1,0 +1,10 @@
+<?php echo $this->partial('partials/admin/systemroledetails.phtml',$this->roles['0']);?>
+<?php if(count($this->members)):?>
+<h3>User accounts associated with this role</h3>
+<ul id="related">
+<?php echo $this->partialLoop('partials/admin/systemrolemembers.phtml',$this->members);?>
+</ul>
+<?php else:?>
+<p>There are no users for this role available to you.</p>
+<?php endif; ?>
+<?php echo $this->paginationControl($this->members, 'Sliding', 'structure/pagination.phtml'); ?>

@@ -1,0 +1,15 @@
+<?php
+Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type",
+        'image/png');
+$url = $this->curUrl();
+$url = str_replace('format/qrcode', '', $url);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'http://chart.apis.google.com/chart');
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'chs=300x300&cht=qr&chld=L|0&chl=' . $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;

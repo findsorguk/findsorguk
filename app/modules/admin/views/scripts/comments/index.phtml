@@ -1,0 +1,76 @@
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/confirm.js',$type = 'javascript');?>
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function(){
+$('a.delete').click(function(e) {
+		e.preventDefault();
+		var parent = $(this).parents("tr:first");
+		$.ajax({
+			type: 'get',
+			url: '<?php echo $this->url(array('controller' => 'ajax','action' => 'deletecomment'),null,true);?>',
+			data: 'id=' + parent.attr('id').replace('comment-',''),
+			beforeSend: function() {
+				parent.animate({'backgroundColor':'#fb6c6c'},300);
+			},
+			success: function() {
+				parent.slideUp(300,function() {
+					parent.remove();
+				});
+			}
+		});
+	});
+ });
+
+<?php $this->jQuery()->javascriptCaptureEnd();?>
+
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function(){
+
+$('a[class^=delete]').confirm({
+   dialogShow:'fadeIn',
+    dialogSpeed:'slow',
+    buttons: {
+      wrapper:'<button></button>',
+      separator:'  '
+    }
+  });
+ });
+
+
+<?php $this->jQuery()->javascriptCaptureEnd();?>
+<?php echo $this->commentheadtitle($this->params);?>
+
+<?php echo $this->commenttitle($this->params);?>
+
+<div class="btn-group">
+<a class="btn btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments'),'default',true);?>" title="View all comments as one table">All comments</a>
+<a class="btn btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments','action' => 'index','approval' => 'spam'),'default',true);?>" title="View all comments as one table">Spam comments</a>
+<a class="btn btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments','action' => 'index','approval' => 'moderation'),'default',true);?>" title="View all comments as one table">Pending comments</a>
+<a class="btn btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments','action' => 'index','approval' => 'approved'),'default',true);?>" title="View all comments as one table">Authorised comments</a>
+</div>
+
+<?php if(count($this->comments)):?>
+<table class="table table-striped">
+    <caption>Comments entered</caption>
+<thead>
+	<tr>
+	<th scope="col" id="author" class="manage-column column-author">Author</th>
+	<th scope="col" id="comment" class="manage-column column-comment">Comment</th>
+	<th scope="col" id="response" class="manage-column column-response">In Response To</th>
+	<th scope="col" id="type">Type</th>
+	<th scope="col">Actions</th>
+	</tr>
+
+</thead>
+
+
+<tbody id="the-comment-list" class="list:comment">
+
+<?php echo $this->partialLoop('partials/admin/allcomments.phtml', $this->comments) ?>
+
+</tbody>
+
+</table>
+<?php else:?>
+<p>No comments are listed or available to you</p>
+<?php endif;?>
+<?echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>

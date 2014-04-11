@@ -1,0 +1,60 @@
+<?php
+$this->headTitle('Profile for Emperor:  '.$this->name);
+$this->headMeta('Biographical and related data for '.$this->name,'Description');
+$this->headMeta('roman,numismatics,biography,emperor,'.$this->name.',portable antiquities','Keywords');
+if (!is_null($this->filename)) {
+list($w, $h) = getimagesize('./images/rulers/resized/'.$this->escape($this->filename));
+}
+$this->twitterCard('summary')
+     ->setTitle($this->title())
+     ->setUrl($this->curUrl())
+     ->setDescription('Biographical and related data for '.$this->name)
+     ->setImage($this->serverUrl() . './images/rulers/resized/'.$this->escape($this->filename),$w,$h)
+     ->setSiteAccount('findsorguk', 15156713)
+     ->setCreatorAccount('portableant', 12640312)
+     ->create();
+$this->headLink()->appendAlternate($this->url(array('module' => 'database','controller' => 'search','action' => 'results','ruler' => $this->pasID,'format' => 'rss'),null,true), 'application/rss+xml', 'Latest finds for '. $this->name .'- RSS Feed'); ?>
+<div about="nm:<?php echo $this->name;?>" typeof="nm:roman_emperor" property="dcterms:partof" resource="roman_numismatics">
+<h2 property="skos:prefLabel"><?php echo $this->escape($this->name);?></h2>
+<?php if(isset($this->p)):?>
+<p>Reece Period attributed: <a href="<?php echo $this->url(array('module' => 'romancoins','controller' => 'reeceperiods','action' => 'period','id'=> $this->reeceID),'default',true);?>" title="View scope notes for <?php echo $this->p;?>"><?php echo $this->escape($this->p);?></a></p>
+<?php endif;?>
+
+<?php if (!is_null($this->filename)) {
+list($w, $h) = getimagesize('./images/rulers/resized/'.$this->escape($this->filename));
+echo '<a href="'.$this->baseUrl().'/images/rulers/'.$this->escape($this->filename) 
+. '" "title="View high resolution image of '. $this->name 
+. '" rel="lightbox"><img property="foaf:depicts" src="'.$this->baseUrl().'/images/rulers/resized/'
+.$this->escape($this->filename).'" class="portrait" alt="Obverse image of a coin of '
+. $this->name.'" width="'.$w.'" height="'.$h.'" /></a>';
+}
+?>
+<p>Member of the <a href="<?php echo $this->url(array('module' => 'romancoins','controller' => 'dynasties','action' => 'dynasty', 'id' => $this->i),null,true);?>" title="View details for the <?php echo $this->dyn;?>"><?php echo $this->escape($this->dyn);?></a> dynasty.</p>
+<p>Coins for this issuer were issued from <?php echo $this->escape($this->date_from);?> until <?php echo $this->escape($this->date_to);?>.</p>
+
+<?php echo $this->biography;?>
+<?php echo $this->latestRecords('ruler:' . $this->pasID);?>
+<h3>Other resources about <?php echo $this->name;?></h3>
+<ul>
+<li>Dbpedia: <a property="skos:related"  resource="http://dbpedia.org/resource/<?php echo $this->dbpedia;?>" href="http://dbpedia.org/resource/<?php echo $this->dbpedia;?>">http://dbpedia.org/resource/<?php echo $this->dbpedia;?></a></li>
+<li>Wikipedia: <a property="skos:related"  resource="http://en.wikipedia.org/wiki/<?php echo $this->dbpedia;?>" href="http://en.wikipedia.org/wiki/<?php echo $this->dbpedia;?>">http://en.wikipedia.org/wiki/<?php echo $this->dbpedia;?></a></li>
+<?php if(!is_null($this->viaf)):?>
+<li>VIAF: <a property="skos:related"  resource="http://en.wikipedia.org/wiki/<?php echo $this->dbpedia;?>"href="http://viaf.org/viaf/<?php echo $this->viaf;?>">http://viaf.org/viaf/<?php echo $this->viaf;?></a></li>
+<?php endif;?>
+<?php if(!is_null($this->nomismaID)):?>
+<li>Nomisma: <a property="skos:related"  resource="http://nomisma.org/id/<?php echo $this->nomismaID;?>" href="http://nomisma.org/id/<?php echo $this->nomismaID;?>">http://nomisma.org/id/<?php echo $this->nomismaID;?></a></li>
+<?php endif;?>
+</ul>
+
+<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','ruler' => $this->pasID),null, true);?>" title="Search for all coins of <?php echo $this->name;?>">all coins recorded</a> by the scheme attributed to <?php echo $this->name;?>.</p>
+<div class="row-fluid">
+
+
+
+</div>
+<?php echo $this->dbPediaRulerRdf()->setUri('http://dbpedia.org/resource/' .  $this->dbpedia);?>
+<?php echo $this->sparqlEasyEmperorNotable()->setDbpediaID($this->dbpedia);?>
+<?php echo $this->sparqlEasy()->setDbpediaID($this->dbpedia);?>
+<?php echo $this->sparqlEasyEmperorBuilt()->setDbpediaID($this->dbpedia);?>
+</div>
+

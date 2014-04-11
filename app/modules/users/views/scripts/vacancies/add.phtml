@@ -1,0 +1,12 @@
+<?php 
+$this->headTitle('Add a new vacancy');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+$this->headLink()->appendStylesheet($this->baseUrl().'/css/ui.datepicker.css');?>
+<?php $this->headScript()->captureStart() ?>
+$(document).ready(function() {
+$("#live").datepicker({ maxDate: '+1y'});
+$("#expire").datepicker({ maxDate: '+1y' });
+});
+<?php $this->headScript()->captureEnd() ?>
+<h2><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

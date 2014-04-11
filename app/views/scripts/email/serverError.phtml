@@ -1,0 +1,26 @@
+<?php $this->mail->setSubject('A server error has been triggered on ' . $this->serverUrl());?>
+<p>Dear <?php echo $this->escape($this->splitName($this->name));?>,</p>
+
+<p>This email details the error that has been triggered:</p>
+
+<ul>
+<li>Exception class triggered: <?php echo $this->file;?></li>
+<li>Url that triggered problem: <?php echo $this->url;?></li>
+<li>Username: <?php echo $this->username;?></li>
+<li>IP address: <?php echo $this->ip;?></li>
+<li>Referrer: <?php echo $this->referrer;?></li>
+<li>Connection method: <?php echo $this->method;?></li>
+<li>User agent: <?php echo $this->agent;?></li>
+</ul>
+
+<h3>Details of problem</h3>
+<p>The exception reads as:</p>
+<ul>
+<li>Message: <?php echo $this->exception;?></li>
+<li>Code: <?php echo $this->code;?></li>
+<li>Type: <?php echo $this->type;?></li>
+<li>Details:<?php echo $this->exceptionDetails;?></li>
+</ul>
+
+<p>Yours,</p>
+<p>The server powered by Dan's magic elves.</p>

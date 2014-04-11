@@ -1,0 +1,29 @@
+<tr>
+<td><a href="<?php echo $this->url(array('module' => 'database','controller' => 'publications','action' => 'publication','id' => $this->id),null,true);?>"><?php echo $this->title;?></a></td>
+<td>
+<?php echo $this->authors;?>
+</td>
+<td><?php echo $this->yearPublished;?></td>
+<td><?php echo $this->placePublished;?></td>
+
+<?php
+$auth = Zend_Auth::getInstance();
+if($auth->hasIdentity())
+{
+$user = $auth->getIdentity();
+$allowed = array('fa','admin','flos');
+if(in_array($user->role,$allowed))
+ {
+echo '<td><a href="'
+. $this->url(array('module' => 'database','controller' => 'publications','action' => 'edit', 'id' => $this->id),null,true)
+.'" title="Edit '.$this->title.'\'s details">Edit</a>  <a href="'.$this->url(array('module' => 'database','controller' => 'publications', 'action' => 'delete','id' => $this->id),null,true)
+.'" title="Delete '.$this->title.'">Delete</a></td>';
+}
+}
+else
+{
+echo '<td>Export</td>';
+}
+
+?>
+</tr>

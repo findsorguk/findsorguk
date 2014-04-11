@@ -1,0 +1,6 @@
+<?php 
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+?>
+<li><a href="<?php echo $this->url(array('module' => $module,'controller'=> 'mints',
+'action'=>'mint','id' => $this->id),null,true);?>" title="Learn about the mint at <?php echo $this->escape($this->name); ?>"><?php echo $this->escape($this->name); ?></a> - [<a href="<?php echo $this->url(array('module' => 'database','controller'=>'search','action'=>'results','mint' => $this->id,'ruler' => $this->escape($this->rulerID)),null,true);?>">View all examples attributed</a>]</li>

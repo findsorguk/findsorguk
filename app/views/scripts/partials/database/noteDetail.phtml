@@ -1,0 +1,3 @@
+<h2>Find of note reason: <?php echo $this->escape($this->term);?></h2>
+<?php echo $this->termdesc;?>
+<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','note' => 1, 'reason' => $this->id),null,true);?>" title="View all records that have been denoted as <?php echo $this->term;?>">all records</a> assigned to this reason.</p>

@@ -1,0 +1,26 @@
+<tr>
+<td><a href="<?php echo $this->url(array(
+    'module' => 'database',
+    'controller' => 'people',
+    'action' => 'person',
+    'id' => $this->id),
+        null,true);?>" title="View <?php echo ucfirst($this->forename);?> 
+        <?php echo ucfirst($this->surname);?>'s details"><?php echo 
+        ucfirst($this->forename);?> <?php echo ucfirst($this->surname);?></a> 
+</td>
+<td><?php echo $this->county;?></td>
+<td><?php echo $this->organisation;?></td>
+<td><?php echo $this->activity;?></td>
+<td>[<a href="<?php echo $this->url(array(
+    'module' => 'database',
+    'controller' => 'people',
+    'action' => 'edit',
+    'id' => $this->id),null,true);?>" title="Edit <?php echo $this->forename;?> 
+    <?php echo $this->surname;?>">Edit</a> | <a href="<?php echo 
+    $this->url(array(
+    'module' => 'database',
+    'controller' => 'people',
+    'action' => 'delete',
+    'id' => $this->id),null,true);?>" title="Delete <?php echo $this->forename;?> 
+    <?php echo $this->surname;?>">Delete</a>] </td>
+</tr>

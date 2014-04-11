@@ -1,0 +1,14 @@
+<?php 
+$this->headMeta($this->curUrl(),'dc.identifier')
+->headMeta('Early Medieval numismatics','dc.subject')
+->headMeta('numismatics,early medieval,coins,categories,Vikings,invaders','keywords')
+->headMeta('The Early Medieval numismatic period is broken down into a series of categories that 
+can be used to categorise the coinage issued.','description')
+->headMeta('Daniel Pett','dc.creator')
+->headMeta('The Portable Antiquities Scheme','dc.publisher');
+$this->headTitle('Categories of coin produced');
+?>
+<h2>Early Medieval coin categories</h2>
+<ul id="related">
+	<?php echo $this->partialLoop('partials/numismatics/categories.phtml', $this->categories);?> 
+</ul>

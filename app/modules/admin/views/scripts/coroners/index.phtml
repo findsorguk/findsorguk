@@ -1,0 +1,21 @@
+<?php $this->headTitle("Manage coroners of England and Wales contact details");?>
+
+<h2>Coroners of England and Wales</h2>
+<p><a href="<?php echo $this->url(array(
+    'module' => 'admin','controller' => 'coroners','action' => 'add'),null,true);?>"
+    title="Add a new coroner" class="btn btn-large btn-warning'">Add a new coroner</a></p>
+<?php if (count($this->coroners)): ?>
+<table class="table table-striped" summary="All active coroners in England and Wales">
+<thead>
+<tr>
+<th>Coroner's name</th>
+<th>Area covered</th>
+<th>County</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<?php echo $this->partialLoop('partials/admin/coronerlist.phtml',$this->coroners);?>
+</tbody>
+</table>
+<?php endif;?><?php echo $this->paginationControl($this->coroners, 'Sliding', 'structure/pagination.phtml'); ?>

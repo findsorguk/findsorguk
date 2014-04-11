@@ -1,0 +1,9 @@
+<?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms) ;?>
+<?php if(count($this->emps)):?>
+<h3>Issued by</h3>
+<ul id="related">
+<?php echo $this->partialLoop('partials/numismatics/empDenom.phtml', $this->emps);?>
+</ul>
+<?php endif;?>
+<?php echo $this->latestRecords('denomination:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>
+<?php echo $this->coinStatsSolr(Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>

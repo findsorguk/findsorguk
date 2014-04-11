@@ -1,0 +1,9 @@
+<?php 
+$module =  Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$ctrllr = strtolower($controller);
+$actn = strtolower($action);
+?>
+<li><a href="<?php echo $this->url(array('module' => $module,'controller' => $ctrllr, 'action' => $actn,'date' => $this->year),null,true);?>" title="View archived statistics for <?php echo $this->year;?>"><?php echo $this->year;?></a></li>

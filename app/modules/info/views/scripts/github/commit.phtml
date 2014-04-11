@@ -1,0 +1,44 @@
+<?php $this->headTitle('Details for commit: ' . $this->commit['sha']);?>
+<h2><?php echo $this->title();?></h2>
+
+<p><?php echo $this->commit['message'];?></p>
+<h3>Authored by:</h3>
+<p>
+<?php foreach($this->commit['author'] as $k => $v):
+echo ucfirst($k). ': ' . $v . '<br />';
+endforeach;
+?>
+</p>
+<h3>Committed by:</h3>
+<p>
+<?php foreach($this->commit['committer'] as $k => $v):
+echo ucfirst($k) . ': ' . $v . '<br />';
+endforeach;
+?>
+</p>
+<h3>Statistics</h3>
+<p>
+<?php foreach($this->commitDetails['stats'] as $k => $v):
+echo ucfirst($k) . ': ' . $v . '<br />';
+endforeach;
+
+?>
+</p>
+<h3>Files changed</h3>
+
+<?php foreach($this->commitDetails['files'] as $commitDetail):?>
+<div class="discussion-bubble js-comment-container">
+	<p>
+	Filename: <?php echo $commitDetail['filename']?><br />
+	Changes: <?php echo $commitDetail['changes']?><br />
+	Url for file on github: <a href="<?php echo $commitDetail['blob_url'];?>"><?php echo $commitDetail['blob_url'];?></a><br />
+	Deletions: <?php echo $commitDetail['deletions']?><br />
+	Status: <?php echo $commitDetail['status']?>
+	</p>
+	<div class="well">
+		<?php echo $this->geshi($commitDetail['patch'], 'php');?>
+	</div>
+</div>
+<?php 
+endforeach;
+?>

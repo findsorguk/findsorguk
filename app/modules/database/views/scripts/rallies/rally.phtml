@@ -1,0 +1,17 @@
+<?php 
+$this->headTitle('Details for rally: ');
+echo $this->partial('partials/database/rally.phtml', $this->rallies['0']) ?>
+<h4>Attending Scheme staff</h4>
+<?php if($this->atts):?>
+<ul>
+<?php echo $this->partialLoop('partials/database/attendingFlos.phtml',$this->atts);?>
+</ul>
+<?php else:?>
+<p>No FLOs have been listed as attending so far.</p>
+<?php endif;?>
+<?php 
+echo $this->Href(array('module' => 'database','controller'=>'rallies', 'action'=>'addflo', 'checkAcl'=>true,
+'acl'=>'Zend_Acl',  'params' =>array('id'=>$this->rallies['0']['id']), 'content'=>'Add an attending finds liaison officer','attribs' => array('title' => 'Add a new attending flo'),
+'attribs' => array('class' => 'btn btn-small') ));
+?>
+<?php echo $this->latestRecords('rallyID:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>

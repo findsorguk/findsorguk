@@ -1,0 +1,19 @@
+<?php 
+$this->headTitle('Delete a person');
+if ($this->people) :?>
+<h2>Delete personal data</h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->people->fullname); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'database','controller' => 'people','action'=>'delete'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->people->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<h2>There has been an error</h2>
+<p>Cannot find the person that you requested.</p>
+<?php endif;?>

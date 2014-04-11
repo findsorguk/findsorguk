@@ -1,0 +1,92 @@
+<?php
+$this->headTitle('Full case details for ' . $this->id);
+?>
+<h2><?php echo $this->title();?></h2>
+
+<h3><?php echo count($this->cases);?> associated Portable Antiquities Numbers</h3>
+<ul>
+<?php foreach($this->cases as $c):?>
+<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 
+'artefacts','action' => 'record','id' => $c['id']),null,true);?>" title="View record's details"><?php echo $c['old_findID'];?></a>: <?php echo $c['objecttype'];?></li>
+<?php endforeach;?>
+</ul>
+<h3>Action history</h3>
+<?php 
+echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=>'action', 
+'checkAcl'=>true,'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'), 'params' => array('treasureID' => $this->id),
+'content'=>'Add an action','attribs' => array('title' => 'Add an action')));
+?>
+<?php if($this->actions):?>
+<ul>
+<?php echo $this->partialLoop('partials/treasure/actions.phtml',$this->actions);?>
+</ul>
+<?php else:?>
+<p class="fourfigure">No actions exist for this case yet.</p>
+<?php endif;?>
+
+
+<h3>Curator(s) assigned</h3>
+<?php 
+echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=> 'assigncurator', 
+'checkAcl'=>true,'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'), 'params' => array('treasureID' => $this->id),
+'content'=>'Assign a curator','attribs' => array('title' => 'Assign a curator')));
+?>
+<?php if($this->curators):?>
+<ul>
+<?php echo $this->partialLoop('partials/treasure/curators.phtml',$this->curators);?>
+</ul>
+<?php else:?>
+<p class="fourfigure">No curator assigned yet.</p>
+<?php endif;?>
+<h3>Valuations</h3>
+
+<h4>Provisional</h4>
+<?php 
+echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=> 'provisionalvalue',
+'params' => array('treasureID' => $this->id),'checkAcl'=>true,'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'), 
+'content'=>'Add a provisional valuation','attribs' => array('title' => 'Add a provisional value')));
+?>
+<?php if($this->values):?>
+<ul>
+<?php echo $this->partialLoop('partials/treasure/provisionalList.phtml',$this->values);?>
+</ul>
+<?php else:?>
+<p class="fourfigure">No valuations exist so far.</p>
+<?php endif;?>
+<h4>Final</h4>
+
+<?php if($this->finalvalues):?>
+<ul>
+<?php echo $this->partialLoop('partials/treasure/finalList.phtml',$this->finalvalues);?>
+</ul>
+<?php else:?>
+<?php 
+echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=>'final', 
+'checkAcl'=>true,'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'), 'params' => array('treasureID' => $this->id),
+'content'=>'Add the final value','attribs' => array('title' => 'Add final valuation')));
+?>
+<p class="fourfigure">No valuation exists following TVC meetings yet.</p>
+<?php endif;?>
+
+<h3>Treasure Valuation Committee history</h3>
+<p><a href="<?php 
+echo $this->url(array('module' => 'database','controller'=>'treasure', 'action'=> 'tvc','treasureID' => $this->id),null,true);
+?>">Add a TVC date</a></p>
+<?php if($this->tvcs):?>
+<ol>
+<?php foreach($this->tvcs as $tvc):?>
+<li><a href="<?php echo $this->url(
+array('module' => 'treasure','controller' => 'tvc','action' => 'details', 'id' => $tvc['id']
+),null,true);?>" title="View details for TVC"><?php echo $this->niceshortdate($tvc['date']);?> held in the <?php echo $tvc['location'];?></a></li>
+<?php endforeach;?>
+</ol>
+<?php else:?>
+<p class="fourfigure">This case hasn't been scheduled for any TVC dates yet.</p>
+<?php endif;?>
+
+<h3>Supporting documentation</h3>
+<?php 
+echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=> 'attach', 
+'checkAcl'=>true,'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'), 'params' => array('treasureID' => $this->id),
+'content'=>'Attach a document','attribs' => array('title' => 'Attach a document')));
+?>

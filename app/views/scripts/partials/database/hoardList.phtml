@@ -1,0 +1,19 @@
+<tr>
+<td>
+<?php echo $this->escape($this->t);?> hoard known as <a href="<?php echo $this->url(array('module' => 'database','controller'=>'hoards','action'=>'hoard', 'id'=>$this->id),null,true);?>" title="View summary details for <?php echo $this->escape($this->term);?>"><?php echo $this->escape($this->term);?></a> containing <?php echo $this->escape($this->q);?> artefacts.
+</td>
+<?php
+$auth = Zend_Auth::getInstance();
+if($auth->hasIdentity()) {
+$user = $auth->getIdentity();
+$allowedAccess = array('flos','fa','admin');
+if(in_array($user->role,$allowedAccess)){
+?>
+<td>
+<a href="<?php echo $this->url(array('module' => 'database','controller'=>'hoards','action'=>'edit', 'id'=>$this->id),null,true);?>" title="Edit details for <?php echo $this->escape($this->term);?>">Edit</a> | 
+<a href="<?php echo $this->url(array('module' => 'database','controller'=>'hoards','action'=>'delete', 'id'=>$this->id),null,true);?>" title="Delete details for <?php echo $this->escape($this->term);?>">Delete</a>
+</td>
+<?php
+}}
+?>
+</tr>

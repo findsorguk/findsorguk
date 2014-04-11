@@ -1,0 +1,13 @@
+<?php $this->headTitle('Zooming image of '. $this->escape($this->label));
+?>
+
+<h2>High resolution image view of <?php echo $this->escape($this->label);?> </h2>
+
+<p><a href="<?php echo $this->url(array('module' => 'databae','controller' => 'artefacts','action' => 'record','id' => $this->id),NULL,true);?>" title="Return to the object's full details">Return to object</a> | <a href="<?php echo $this->url(array('module' => 'databae','controller' => 'images','action' => 'image','id' => $this->imageID),NULL,true);?>" title="Go back to all the details for this image">Return to full image details</a></p>
+<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
+codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" width="750" height="450" id="theMovie">
+<param name="FlashVars" value="zoomifyImagePath=<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/'. $this->path;?>">
+<param name="MENU" value="FALSE">
+<param name="SRC" value="<?php echo 'http://'.$_SERVER['SERVER_NAME'];?>/ZoomifyViewer.swf">
+<embed flashvars="zoomifyImagePath=<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/'. $this->path;?>" src="<?php echo 'http://'.$_SERVER['SERVER_NAME'];?>/ZoomifyViewer.swf" menu="false" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  width="750" height="650" name="theMovie"></embed>
+</object>

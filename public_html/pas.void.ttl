@@ -1,0 +1,12 @@
+@prefix : <http://finds.org.uk/rdf/pelagios.rdf>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix void: <http://rdfs.org/ns/void#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+: a void:Dataset;
+    dcterms:description "Pleiades URIs appearing within the Portable Antiquities Scheme database";
+    dcterms:license <http://creativecommons.org/licenses/by-sa/3.0/>;
+    dcterms:subject <http://dbpedia.org/resource/Annotation>;
+    dcterms:title "Pelagios Annotations from the Portable Antiquities Scheme";
+    foaf:homepage <http://finds.org.uk/>; 
+    void:dataDump <http://finds.org.uk/rdf/pelagios.rdf> .

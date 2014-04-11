@@ -1,0 +1,18 @@
+<?php 
+	$this->headTitle("Delete a reason for an object being a find of note");
+if ($this->note) :?>
+<h2>Delete <?php echo $this->escape($this->note->term); ?></h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->note->term); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action'=>'deletenote'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->note->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

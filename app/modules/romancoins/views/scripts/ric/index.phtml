@@ -1,0 +1,19 @@
+<?php $this->headTitle('Scanned editions of RIC');?>
+<h2>Roman Imperial Coinage</h2>
+<p>Scanned editions of RIC.</p>
+<ul>
+<?php
+    foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/RIC/') as $fileInfo) {
+    	
+    if($fileInfo->isDot()) continue;
+  ?>
+  <li>
+  <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
+    if ( !$root ) {
+    $root = $filename;
+    }?>
+  <a href="<?php echo $this->serverUrl();?>/documents/RIC/<?php echo $fileInfo->getFilename();?>">Volume <?php echo $root;?></a></li>
+    <?php
+	}
+	?>
+</ul>

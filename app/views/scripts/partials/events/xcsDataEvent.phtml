@@ -1,0 +1,14 @@
+<?php
+echo (string) '<vevent>';
+echo (string) '<organizer  cn="' . $this->fullname. '">MAILTO:' . $this->email . '</organizer>';
+echo (string) '<dtstart>' . $this->eventStartDate . '</dtstart>';
+echo (string) '<dtend>' . $this->eventEndDate . '</dtend>';
+echo (string) '<location>' . $this->eventLocation . '</location>';
+echo (string) '<uid>' . $this->id. '</uid>';
+echo (string) '<dtstamp>' . date('Ymd').'T'.date('His') . '</dtstamp>';
+echo (string) '<categories>';
+echo (string) '<item>A PAS event</item>';
+echo (string) '</categories>';
+echo (string) '<description>' . strip_tags($this->eventDescription) . '</description>';
+echo (string) '<summary>' . $this->eventTitle . '</summary>';
+echo (string) '</vevent>';?>

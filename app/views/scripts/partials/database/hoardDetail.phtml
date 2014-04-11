@@ -1,0 +1,30 @@
+<h2>Hoard name: <?php echo $this->escape($this->term);?></h2>
+<?php
+$edit =  $this->Href(array(
+    'module' => 'database',
+    'controller' => 'hoards',
+    'action' => 'edit',
+    'checkAcl' => true,
+    'acl'=>'Zend_Acl',
+    'attribs' => array('title' => 'Edit a hoard'),
+    'params' => array('id' => $this->id),
+    'content'=> 'Edit')
+    );
+$delete =  $this->Href(array(
+    'module' => 'database',
+    'controller' => 'hoards',
+    'action' => 'delete',
+    'checkAcl' => true,
+    'acl'=>'Zend_Acl',
+    'attribs' => array('title' => 'Delete a hoard'),
+    'params' => array('id' => $this->id),
+    'content'=> 'Edit')
+    );
+echo implode(' | ', array($edit, $delete));
+?>
+
+  
+<p>Broadperiod attributed: <?php echo $this->t;?></p>
+<?php echo $this->termdesc;?>
+
+<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','hoard' => '1','hID' => $this->id),null,true);?>" title="Search database for all records for <?php echo $this->escape($this->term);?>">all records</a> on our database attributed to this hoard.</p>

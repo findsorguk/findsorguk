@@ -1,0 +1,6 @@
+<h2>Roman coin articles</h2>
+<ul>
+<?php foreach($this->contents as $c) {?>
+<li><a href="<?php echo $this->url(array('module' => 'romancoins','controller' => 'articles','action' => 'page','slug' => $c['slug']),'romanguides',true);?>" title="Read the full article entitile <?php echo $c['menuTitle'];?>"><?php echo $c['menuTitle'];?></a></li>
+<?php }?>
+</ul>

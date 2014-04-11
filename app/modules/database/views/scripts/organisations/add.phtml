@@ -1,0 +1,11 @@
+<?php 
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocomplete.pack.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteinitpeople1.js',$type='text/javascript'); 
+$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
+$this->headTitle('Add an organisation');
+?>
+<h2><?php echo $this->title();?></h2>
+<?php
+
+echo $this->form;
+?>

@@ -1,0 +1,2 @@
+<?php echo $this->partial('partials/users/publicprofile.phtml',$this->accountdata['0']);?>
+<?php echo $this->latestRecords('createdBy:' . $this->accountdata['0']['id']); ?>

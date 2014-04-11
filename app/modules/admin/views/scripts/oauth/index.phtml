@@ -1,0 +1,16 @@
+<h2>Oauth Tokens in the database</h2>
+
+<table class="table table-striped"><caption>Oauth tokens that exist on the database</caption>
+<tr><th>Service</th><th>Created</th><th>Expiry date</th></tr>
+
+<?php
+
+$tokens = ((object)$this->tokens);
+foreach($tokens as $t){
+?><tr><td><?php echo $t->service; ?></td>
+<td><?php echo $t->created;?> </td>
+<td><?php echo $t->expires;?> </td>
+</tr>
+<?php
+}?>
+</table>

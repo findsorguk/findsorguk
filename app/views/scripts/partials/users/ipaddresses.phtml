@@ -1,0 +1,5 @@
+<tr>
+<td><a href="<?php echo $this->url(array('module' => 'users','controller' => 'audit','action' => 'iptousers','ip' => $this->ipAddress),NULL,true);?>" title="Find all users who used this address"><?php echo $this->ipAddress;?></a></td>
+<td><?php echo gethostbyaddr($this->ipAddress);?></td>
+<td><?php echo $this->count;?></td>
+</tr>

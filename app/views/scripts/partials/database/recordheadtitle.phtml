@@ -1,0 +1,4 @@
+<?php
+$this->headTitle('Record ID: '.$this->old_findID. " - ".$this->broadperiod." ".strtolower($this->objecttype),$type = 'PREPEND');
+$this->metaBase($this->description, 'archaeological object record', implode(',',array($this->objecttype, $this->broadperiod, $this->county)));
+?>

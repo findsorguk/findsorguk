@@ -1,0 +1,94 @@
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function(){
+$('a.deleteimage').click(function(e) {
+		e.preventDefault();
+		var parent = $(this).parents("div:first");
+		$.ajax({
+			type: 'get',
+			url: '<?php echo $this->url(array('module' => 'default','controller' => 'ajax','action' => 'deleteprofileimage'),null,true);?>',
+			data: 'id=' + parent.attr('id').replace('image-',''),
+			beforeSend: function() {
+				parent.animate({'backgroundColor':'#fb6c6c'},300);
+			},
+			success: function() {
+				parent.slideUp(300,function() {
+					parent.remove();
+				});
+			}
+		});
+	});
+ });
+
+<?php $this->jQuery()->javascriptCaptureEnd();?>
+<?php $this->jQuery()->javascriptCaptureStart();?>
+$(document).ready(function(){
+
+$('a[class^=delete]').confirm({
+   dialogShow:'fadeIn',
+    dialogSpeed:'slow',
+    buttons: {
+      wrapper:'<button></button>',
+      separator:'  '
+    }  
+  });
+ });
+
+
+<?php $this->jQuery()->javascriptCaptureEnd();?>
+
+
+<?php $this->headTitle('Profile for '. $this->escape($this->firstname). ' ' . $this->escape($this->lastname));?>
+
+<div id="person" class="hresume">
+<div class="contact vcard">
+<h2 class="fn n">
+<span class="given-name"><?php echo $this->escape($this->firstname);?></span> 
+<span class="family-name"><?php echo $this->escape($this->lastname);?></span>
+</h2> 
+<p><a href="<?php echo $this->url(array('module' => 'admin','controller'=>'contacts','action'=>'editcontact', 'id'=>$this->number));?>">Edit</a> | <a href="<?php echo $this->url(array('module' => 'admin','controller'=>'contacts','action'=>'deletecontact', 'id'=>$this->number));?>">Delete</a></p>
+ <div id="image-<?php echo $this->number;?>">
+ <?php if(isset($this->image)){?>
+ <img src="<?php echo $this->baseUrl().'/images/staffphotos/thumbnails/'.$this->escape($this->image);?>" />
+ <p><a href="#" class="deleteimage">Delete this image</a></p>
+ <?php } else {?>
+ <p><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts','action' => 'addpicture','id' => $this->number ),'default',true);?>" title="Add a new image">Add a photo for <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?></a></p>
+ <?php }?>
+ </div>               
+<p>Role: <span class="title"><?php echo $this->escape($this->staffroles);?></span> <br />
+Database records prefix: <strong><?php echo $this->escape($this->identifier);?></strong></p>
+<?php if(isset($this->host)) {?>
+<img src="<?php echo $this->baseUrl(); ?>/images/logos/<?php echo $this->escape($this->host);?>" alt="<?php echo $this->escape($this->description);?>'s logo" />
+<?php }?>
+
+<p class="adr work">Address: <?php echo $this->escape($this->address_1);?><br />
+<span class="org organization-name"><?php echo $this->escape($this->description);?></span>
+<span class="street-address"><?php echo $this->escape($this->address_2);?></span> 
+<span class="locality"><?php echo $this->escape($this->town);?></span> 
+<span class="region"><?php echo $this->escape($this->county);?></span>                    
+<span class="postal-code"><?php echo $this->escape($this->postcode);?></span>	              
+</p>
+<div class="geo"><p>Geo: 
+ <span class="latitude"><?php echo $this->latitude;?></span>, 
+ <span class="longitude"><?php echo $this->longitude;?></span></p>
+</div>
+
+<p>Short profile:</p>
+<span class="summary"><?php echo $this->profile;?></span>
+
+<div class="tel">
+<dl>
+<dt>Phone (<span class="type">work</span>)</dt>
+<dd><span class="value"><?php echo $this->escape($this->telephone);?></span></dd>
+</dl>
+</div>
+<div class="tel">
+<dl>
+<dt>Phone (<span class="type">fax</span>)</dt>
+<dd><span class="value"><?php echo $this->escape($this->fax);?></span></dd>
+</dl>
+</div>
+
+<p>Email address: <a href="mailto:<?php echo $this->escape($this->email_one);?>" class="email"><?php echo $this->escape($this->email_one);?></a></p>
+
+</div>
+</div>

@@ -1,0 +1,51 @@
+<?php
+$site = $this->serverUrl();
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+$contexts = $contextSwitch->getContexts();
+
+$dom = new DomDocument("1.0", "UTF-8");
+$periods  = $dom->createElement('response');
+
+$meta = $dom->createElement('meta');
+$periods->appendChild($meta);
+$meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
+$formats = $dom->createElement('formats');
+$meta->appendChild($formats);	
+foreach ($contexts as $k => $v){
+$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param,'format' => $k),NULL,true)  ));
+}
+$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param),NULL,true)  ));
+
+foreach($this->periods as $period){
+$periodElem = $dom->createElement('period');
+	foreach($period as $k => $v){
+	$periodElem->appendChild( $dom->createElement($k, $v));
+	}
+$reverseElem = $dom->createElement('reverseTypes');
+
+
+foreach($this->reverses as $reverse){
+$revElem	= $dom->createElement('reverseType');
+
+	foreach($reverse as $k => $v ){
+		
+	$revElem->appendChild($dom->createElement($k,$v));
+	}
+	$reverseElem->appendChild( $revElem);
+}
+
+$periods->appendChild( $periodElem );
+$periods->appendChild( $reverseElem );
+
+}
+
+$dom->appendChild( $periods );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

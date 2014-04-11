@@ -1,0 +1,62 @@
+
+<?php
+
+$file = $this->f;
+$path = $this->username;
+$imagedir = $this->imagedir;
+$location = ROOT_PATH . '/public_html/' . $imagedir . $file;
+?>
+
+<?php if(file_exists($location)):?>
+
+<?php
+
+$name = substr($file, 0, strrpos($file, '.'));
+$ext = '.jpg';
+$dir = ROOT_PATH .  '/public_html/'.  $imagedir .'display/';
+?>
+<?php
+$mediumfile = ROOT_PATH .  '/public_html/' .  $imagedir. 'medium/'.strtolower($name).$ext;
+if(file_exists($mediumfile)) {
+?>
+<a href="/<?php echo $imagedir . 'medium/' . strtolower($this->f);?>" rel="lightbox" title="<?php echo $this->old_findID;?>: <?php echo $this->label;?>">
+
+<?php } else {
+$phMagick = new phMagick($location, $mediumfile);
+$phMagick->resize(0,500);
+$phMagick->convert();
+echo '<a href="/'.$imagedir . 'medium/' . strtolower($this->f).'" rel="lightbox" class="img img-polaroid" title="'. $this->old_findID.' : '.$this->label.'">';
+
+
+
+}?>
+
+<?php
+$create_mode = 0777;
+if (!is_dir($dir) ) {
+	mkdir($dir, $create_mode, true);
+	}
+$tempfile = ROOT_PATH .  '/public_html/' . $imagedir . 'medium/'. strtolower($name).$ext;
+if(file_exists($tempfile)) {
+list($w, $h) = getimagesize($tempfile);
+
+echo '<img class="img img-polaroid" src="/'. $imagedir .'medium/'.strtolower($name).$ext.'" alt="A resized image of '.$this->label.'" width="'.$w.'" height="'.$h.'" />';
+} else {
+$phMagick = new phMagick($location, $tempfile);
+$phMagick->resize(0,150);
+$phMagick->convert();
+list($w2, $h2) = getimagesize($tempfile);
+echo '<img src="/'. $imagedir .'medium/' . strtolower($name).$ext.'" alt="A resized image of '.$this->label.'" width="'.$w2.'" height="'.$h2.'" />';
+}?>
+</a><br />
+<div class="imagebar">
+<a class="btn btn-small" href="<?php echo $this->url(array('module' => 'database','controller' => 'images','action' => 'image','id' => $this->i),null,true);?>" title="View and edit image meta data">View <i class="icon-picture"></i></a> <a class="btn btn-small" href="<?php echo $this->url(array('module' => 'database','controller' => 'images','action' => 'zoom','id' => $this->i),null,true);?>" title="View high resolution zoom">Zoom <i class="icon-zoom-in"></i></a> <a class="btn btn-small" href="<?php echo $this->url(array('module' => 'database','controller' => 'ajax','action' => 'download','id' => $this->thumbnail),null,true);?>" title="Download image">Download <i class="icon-download-alt"></i></a>
+<?php
+ echo $this->ImageEditDeleteLink($this->id,$this->i,$this->secuid,$this->createdBy);
+?>
+
+</div>
+<?php else:?>
+<p><img src="/assets/gravatar.png" class="img img-circle"/><br />That image (filename: <?php echo $this->f;?>) is unavailable.</p>
+<?php endif; ?>
+

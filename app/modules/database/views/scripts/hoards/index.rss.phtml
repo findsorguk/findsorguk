@@ -1,0 +1,37 @@
+<?php
+Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/rss+xml');
+$feed =  new Zend_Feed_Writer_Feed();
+$feed->setTitle('Hoards reported to the Scheme');
+$feed->setDescription('A feed of reported and recorded hoards.');
+$feed->setLink($this->serverUrl());
+$feed->setFeedLink($this->curUrl(), 'rss');
+$feed->setLastBuildDate();
+$feed->setDateModified();
+ Zend_Date::setOptions(array(
+    'format_type'   => 'iso'
+));
+
+foreach($this->hoards as $hoard){
+	if(is_null($hoard['description'])){
+		$description = 'No description provided';
+	} else {
+	$description = $hoard['termdesc'];
+	}
+	if(!is_null($hoard['updated'])){
+	$updated = strtotime($hoard['updated']);
+	} else {
+		$updated = strtotime($hoard['created']);
+	}
+$entry = $feed->createEntry();
+$entry->setTitle($hoard['term']);
+$entry->setLink($this->serverUrl() . '/database/hoards/hoard/id/' . $hoard['id']);
+$entry->setDateCreated(new Zend_Date($hoard['created'], 'YY-mm-dd hh:mm:ss'));
+$entry->setDescription($this->ellipsisstring($description,400));
+$entry->setContent($description);
+$entry->setDateModified();
+$entry->setDateCreated(strtotime($hoard['created']));
+$feed->addEntry($entry);
+
+}
+$out = $feed->export('rss');
+echo $out;

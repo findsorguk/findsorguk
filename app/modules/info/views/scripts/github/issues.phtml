@@ -1,0 +1,37 @@
+<?php
+$this->headTitle('Open issues and bugs entered for the codebase for finds.org.uk');
+?>
+<h2><?php echo $this->title();?></h2>
+<?php foreach($this->issues as $issue):?>
+<div class="well">
+<h3><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'issue', 'number' => $issue['number']),'default',true);?>">Issue number: <?php echo $issue['number'];?></a></h3>
+<h4><?php echo $issue['title'];?></h4>
+<p><?php echo $issue['body'];?></p>
+<p>
+Created: <?php echo $this->niceshortdate($issue['created_at']);?><br />
+Updated: <?php echo $this->niceshortdate($issue['updated_at']);?>
+</p>
+<p>Assigned: <a href="http://github.com/<?php echo $issue['assignee']['login'];?>"><?php echo $issue['assignee']['login'];?></a></p>
+<?php if(sizeof($issue['labels']) > 0):?>
+<h4>Labels</h4>
+<ul>
+<?php foreach($issue['labels'] as $label):?>
+<li><span class="label label-inverse"><?php echo $label['name'];?></span></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+<?php if(!is_null($issue['milestone'])):?>
+<h4>Issue is part of a milestone</h4>
+<p><strong><?php echo $issue['milestone']['title'];?></strong>: <?php echo $issue['milestone']['description'];?></p>
+<p>
+This milestone was created <?php echo $issue['milestone']['created_at'];?>.<br />
+Open issues: <?php echo $issue['milestone']['open_issues'];?><br />
+Closed issues: <?php echo $issue['milestone']['closed_issues'];?><br />
+Due on: <?php echo $issue['milestone']['due_on'];?>
+</p>
+<?php endif;?>
+</div>
+<?php endforeach; 
+//Zend_Debug::dump($this->issues);
+//exit;
+?>

@@ -1,0 +1,25 @@
+<?php 
+if ($this->dynasty) :?>
+<?php $this->headTitle('Delete '.$this->dynasty->dynasty.' from the system');
+?>
+<h2>Delete a Dynastic listing</h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->dynasty->dynasty); ?>'
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action'=>'deletedynasty'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->dynasty->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<?php 
+$this->headTitle("Error deleting dynasty");
+
+?>
+
+<h2>An error has occurred</h2>
+<p>Cannot find the item requested.</p>
+<?php endif;?>

@@ -1,0 +1,27 @@
+<?php 	$this->headTitle('Administer quotes and announcements');
+?>
+<h2>Administer quotes &amp; announcements</h2>
+<p><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'quotes','action' => 'add'),null,true);?>"
+      class="btn btn-large btn-success" title="Add a new quote or announcement">Add quote or announcement</a></p>
+<?php if (count($this->quotes)) : ?>
+
+<table class="table table-striped" summary="A list of all quotes or announcements used on the system">
+<caption>All quotes in use</caption>
+    <thead>
+        <tr>
+            <th>Statement</th>
+            <th>Type</th>
+            <th>Expiry date</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+<tbody>
+<?php echo $this->partialLoop('partials/admin/quoteTable.phtml',$this->quotes);?>
+</tbody>
+</table>
+<?echo $this->paginationControl($this->quotes, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php endif;?>

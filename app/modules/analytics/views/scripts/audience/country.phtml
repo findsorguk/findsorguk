@@ -1,0 +1,71 @@
+<?php
+$this->headTitle('Country analytical data provided via Google Analytics ' . $this->timeSpanParameter());
+?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+<?php echo $this->form;?>
+<?php 
+$this->inlineScript()->appendFile('https://www.google.com/jsapi',$type = 'text/javascript');
+$this->inlineScript()->captureStart();?>
+google.load('visualization', '1', {'packages': ['geochart']});
+     google.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['Continent', 'Visitors'],
+      <?php 
+      $data = array();
+      foreach($this->results as $row){
+      	$data[] =array($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_COUNTRY)->value => $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value);
+      }
+      
+      ?>
+          <?php foreach($data as $data):
+          if(array_key_exists('(not set)', $data)) {
+      	unset($data['(not set)']);
+      }
+          ?>
+          <?php foreach($data as $k => $v):?>  
+		  ['<?php echo $k;?>' , <?php echo $v;?>],
+		  <?php endforeach;?>
+		  <?php endforeach;?>
+        ]);
+
+        var options = {
+        region : 'world',
+        displayMode : 'regions',
+        enableRegionInteractivity : true,
+        width: '600', 
+        height: 400,
+        keepAspectRatio: true,
+        legend: false
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('chart'));
+        chart.draw(data, options);
+    };
+<?php $this->inlineScript()->captureEnd();?>   
+<div id="chart"></div>
+<table class="table table-striped">
+	<caption><?php echo $this->title();?></caption>
+		<thead>
+		<tr>
+			<th>Continent</th>
+			<th>Visitors</th>
+			<th>Visits</th>
+			<th>Bounces</th>
+			<th>Average time on site</th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php foreach($this->results as $row):?>
+			<tr>
+				<td><?php echo $row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_COUNTRY)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value;?></td>
+				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_BOUNCES)->value;?></td>
+				<td><?php echo $this->secondsToMinutes()->setSeconds($row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_AVG_TIME_ON_SITE)->value);?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+</table>

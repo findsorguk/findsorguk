@@ -1,0 +1,101 @@
+<div class="well sidebar-nav" >
+<?php
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+
+?>
+<ul id="menu1" class="menu collapsible nav nav-stacked nav-pills">
+<li><a href="<?php echo $this->url(array('module' => 'guide'),'default',true);?>"
+title="Go to the guide's introduction">Introduction</a></li>
+<li  <?php
+$action = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+if(array_key_exists('slug',$action)){
+$slug = $action['slug'];
+} else {
+	$slug = NULL;
+}
+
+$array = array('gettingstarted','howtorecord','accesslevelsexplained');
+if(in_array($slug,$array)){ echo ' class="expandfirst"';}
+?>><a href="#">Using the database</a>
+<ul class="nav nav-pills nav-stacked  menuindent">
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'gettingstarted'),'frg',true);?>"
+title="Getting started on the database">Getting started</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'accesslevelsexplained'),'frg',true);?>"
+title="Access levels explained">What can I see?</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'howtorecord'),'frg',true);?>"
+title="How to record an object online">How you record online</a></li>
+</ul>
+</li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'gridreferences'),'frg',true);?>" title="Obtaining a grid reference">Getting grid references</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'photographingfinds'),'frg',true);?>"
+       title="Taking photographs of objects">Taking photographs <i class="icon-camera"></i></a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'imageediting'),'frg',true);?>"
+title="Editing your images">Editing digital images <i class="icon-picture"></i></a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'bibliography'),'frg',true);?>"
+title="Suggested bibliography">Bibliography/Websites</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'timeline'),'frg',true);?>"
+title="Period timeline">Timeline <i class="icon-time"></i></a></li>
+<li   <?php
+$action = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+if(array_key_exists('slug',$action)){
+$slug = $action['slug'];
+} else {
+	$slug = NULL;
+}
+
+$array = array('buckles','pins','buttons','metalvessels','coins','brooches',
+'strapends','buckles','furniturefittings','tokensandjettons','thimbles','lithics',
+'bells','weights','pottery','fingerrings','mounts','horseharnesspendants','sealmatrices');
+if(in_array($slug,$array)){ echo ' class="expandfirst"';}
+?>><a href="#">Object types</a>
+<ul class="nav nav-pills nav-stacked  menuindent">
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'bells'),'frg',true);?>"
+title="How to record bells">Bells</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'buckles'),'frg',true);?>"
+title="How to record buckles">Buckles</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'buttons'),'frg',true);?>"
+title="How to record buttons">Buttons</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'brooches'),'frg',true);?>"
+title="How to record brooches">Brooches</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'coins'),'frg',true);?>"
+title="How to record coins">Coins</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'furniturefittings'),'frg',true);?>"
+title="How to record furntiture fittings">Furniture fittings</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'lithics'),'frg',true);?>"
+title="How to record lithics">Lithics</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'metalvessels'),'frg',true);?>"
+title="How to record metal vessels">Metal vessels</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'pins'),'frg',true);?>"
+title="How to record pins">Pins</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'thimbles'),'frg',true);?>"
+title="How to record thimbles">Thimbles</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'strapends'),'frg',true);?>"
+title="How to record strap ends">Strap ends</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'tokensandjettons'),'frg',true);?>"
+title="How to record tokens">Tokens and jettons</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'thimbles'),'frg',true);?>"
+title="How to record thimbles">Thimbles</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'weights'),'frg',true);?>"
+title="How to record weights">Weights</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'pottery'),'frg',true);?>"
+title="How to record pottery">Pottery</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'fingerrings'),'frg',true);?>"
+title="How to record finger rings">Finger rings</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'mounts'),'frg',true);?>"
+title="How to record mounts">Mounts</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'horseharnesspendants'),'frg',true);?>"
+title="How to record horse harness">Horse harness</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'sealmatrices'),'frg',true);?>"
+title="How to record seals">Seals</a></li>
+</ul>
+</li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'whatistheobjectmadefrom'),'frg',true);?>"
+title="Material types and how to use them">Materials</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'manufacture'),'frg',true);?>"
+title="Manufacturing methods">Manufacture methods</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'decorative'),'frg',true);?>"
+title="Decorative methods">Decorative methods</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'recommendedequipment'),'frg',true);?>"
+title="Go to the guide's introduction">Recommended equipment</a></li>
+</ul>
+</div>

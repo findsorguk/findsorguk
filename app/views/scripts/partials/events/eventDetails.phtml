@@ -1,0 +1,10 @@
+<h3><?php echo $this->eventTitle;?></h3>
+<?php echo $this->eventDescription;?>
+<div>
+<p>Event data created on:
+<abbr class="dtstamp" title="<?php echo $this->toDateStamp($this->created);?>">
+<?php echo ucwords(strftime("%A %d %B %Y", strtotime($this->created)));?></abbr></small></p>
+</div>
+<div class="vcard">
+<p>Event data filed by: <span class="fn"><?php echo $this->fullname;?></span></p>
+</div>

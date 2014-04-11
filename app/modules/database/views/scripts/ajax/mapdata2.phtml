@@ -1,0 +1,36 @@
+<?php
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$dom->createElement('markers');
+
+$documentNode = $dom->createElement('markers');
+$dom->appendChild($documentNode);
+
+
+foreach($this->results as $result){
+
+//	Zend_Debug::dump($result);
+    if(array_key_exists('longitude', $result)){
+		$description = '';
+        if(isset($result['thumbnail'])){
+        $url = '/images/thumbnails/';
+        $description = '<img src="' . $this->serverUrl() . $url . $result['thumbnail'] . '.jpg" style="float:right;"/>';
+        }
+        $description .= '<h3>';
+        $description .= $result['old_findID'];
+        $description .= '</h3>';
+        if(array_key_exists('description', $result)){
+        $description .= $this->ellipsisstring(strip_tags($result['description']));
+        }
+        $description .= '<p>Record Url: <a href="' . $this->serverUrl() . '/database/artefacts/record/id/' . $result['id'] . '">';
+        $description .= $this->serverUrl() . '/database/artefacts/record/id/' . $result['id'] . '</a></p>';
+		$marker = $dom->createElement('marker');
+		$marker->setAttribute('lat', $result['latitude']);
+        $marker->setAttribute('lng', $result['longitude']);
+        $marker->setAttribute('content', $description);
+        $marker->setAttribute('title', $result['old_findID']);
+		$documentNode->appendChild( $marker );
+    }
+}
+$xmlData  = $dom->saveXML();
+echo $xmlData;

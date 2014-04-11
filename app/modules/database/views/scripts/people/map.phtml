@@ -1,0 +1,75 @@
+<?php
+$this->headTitle('Map of people\'s locations when recorded');
+$this->googleDynamicMap();
+?>
+<h2>A Map of people's locations</h2>
+<?php $this->inlineScript()->captureStart() ?>
+ $(document).ready(function() {
+  var center = new google.maps.LatLng(54.70235509327093, -3.2080078125);
+  var myOptions = {
+    zoom: 6,
+    center: center,
+    mapTypeId: google.maps.MapTypeId.SATELLITE
+  }
+
+  var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+  var markers = new Array();
+
+	var infowindow = new google.maps.InfoWindow();
+	
+	<?php
+	$request = Zend_Controller_Front::getInstance()->getRequest();
+	$params = array('module' => 'database', 'controller' => 'ajax', 'action' => 'people');
+	$params2 = array_slice($request->getParams(),3);
+	$params = array_merge($params,$params2);
+	$url = $this->serverUrl() . $this->url($params,'default',true);
+	?>
+    jQuery.get("<?php echo $url;?>", {}, function(data) {
+
+    jQuery(data).find("marker").each(function() {
+        var markerXML = jQuery(this);
+        var latlng = new google.maps.LatLng(
+            parseFloat(markerXML.attr("lat")),
+            parseFloat(markerXML.attr("lng"))
+        );
+        var title = markerXML.attr("title");
+        var marker = new google.maps.Marker({
+        	position: latlng, 
+        	map: map,  
+        	title: title,
+        	icon: "<?php echo $this->serverUrl();?>/images/logos/museum_archeological.png" });
+
+        // now that the marker is placed, assign event listener on the marker
+        // and create/assign infowindow to the event trigger.
+        markerInfoWindow(marker, markerXML.attr("content"));
+        markers.push(marker);
+    });
+	});
+
+	function markerInfoWindow(marker, information){
+	     google.maps.event.addListener(marker, 'click',
+	    function() {
+	        infowindow.close();
+	        infowindow.setContent(information);
+	        infowindow.setPosition(marker.getPosition());
+	        infowindow.open(map, marker);
+	    });
+	}
+	var center;
+
+	function calculateCenter() {
+	  center = map.getCenter();
+	}
+	google.maps.event.addDomListener(map, 'idle', function() {
+	  calculateCenter();
+	});
+	google.maps.event.addDomListener(window, 'resize', function() {
+	  map.setCenter(center);
+	});
+  
+  });
+<?php $this->inlineScript()->captureEnd() ?>
+<div id="map">
+<div id="loading"></div>
+</div>

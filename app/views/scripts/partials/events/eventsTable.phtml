@@ -1,0 +1,7 @@
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'events','action' => 'event','id' => $this->id),null,true);?>" title="View details for this event"><?php echo $this->eventTitle;?></a></td>
+<td><?php echo $this->description;?></td>
+<td><a href="<?php echo $this->url(array('controller' => 'users','action' => 'profile','id' => $this->i),null,true);?>" title="View <?php echo $this->fullname;?>'s profile"><?php echo $this->fullname;?></a></td>
+<td><a href="<?php echo $this->url(array('controller' => 'events','action' => 'upcoming','date' => strftime("%Y-%m-%d", strtotime($this->eventStartDate))),null,true);?>" title="View all events listed for <?php echo strftime("%A %d %B %Y", strtotime($this->eventStartDate));?> "><?php echo strftime("%A %d %B %Y", strtotime($this->eventStartDate));?></a></td>
+<td><a href="<?php echo $this->url(array('controller' => 'admin','action' => 'editevent','id' => $this->id),null,true);?>" title="Edit details for <?php echo $this->eventTitle;?>">Edit</a> | <a href="<?php echo $this->url(array('controller' => 'admin','action' =>'deleteevent','id' => $this->id),null,true);?>" title="Delete details for <?php echo $this->eventTitle;?>">Delete</a></td>
+</tr>

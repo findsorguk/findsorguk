@@ -1,0 +1,15 @@
+<?php 
+$this->headTitle('Edit a research project');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocomplete.pack.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteinitPeople.js',$type='text/javascript'); 
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
+?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+$(document).ready(function() {
+$("#startDate").datepicker({ maxDate: '+6y'});
+$("#endDate").datepicker({ maxDate: '+6y' });
+});
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->form;?>

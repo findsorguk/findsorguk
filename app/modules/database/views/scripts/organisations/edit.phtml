@@ -1,0 +1,9 @@
+<?php 
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocomplete.pack.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteinitpeople1.js',$type='text/javascript'); 
+$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css')
+?>
+<h2>Edit organisation's details</h2>
+<?php 
+$this->headTitle('Edit an organisation\'s details');
+echo $this->form ;?>

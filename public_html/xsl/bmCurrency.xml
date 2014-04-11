@@ -1,0 +1,6623 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="bmThesaurus.xsl"?>
+<sparql xmlns='http://www.w3.org/2005/sparql-results#'>
+	<head>
+		<variable name='subject'/>
+		<variable name='label'/>
+		<variable name='note'/>
+	</head>
+	<results>
+		<result>
+			<binding name='label'>
+				<literal>AE/1</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/AE/1</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AE/2</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/AE/2</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>AE/3</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/AE/3</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>At</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/At</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>Leicester real</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/Leicester-real</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>Leicester rijksdaalder</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/Leicester-rijksdaalder</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>Nomos</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/Nomos</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>abbasi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/abbasi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ackey</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ackey</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>adhani</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/adhani</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>adopengo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/adopengo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>aeger</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/aeger</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>aes grave</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/aes-grave</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>aes rude</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/aes-rude</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>aes signatum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/aes-signatum</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>afghanis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/afghanis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>agorot</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/agorot</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>akche</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/akche</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>albertin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/albertin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>albertsdaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/albertsdaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>albus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/albus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>andel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/andel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>angel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/angel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>angelot</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/angelot</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>angolares</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/angolares</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>angster</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/angster</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>anna</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/anna</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>argenteus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/argenteus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ariary</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ariary</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>arkat rupee</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/arkat-rupee</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>as</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/as</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ashrafi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ashrafi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>asper</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/asper</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>assis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/assis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>att</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/att</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>aureus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/aureus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>austral</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/austral</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>avos</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/avos</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>b(illió) pengo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/b-illi-pengo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Modern Iranian</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bahar-azadi</uri>
+			</binding>
+			<binding name='label'>
+				<literal>bahar azadi</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>baht</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/baht</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>baisa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/baisa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>balance</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/balance</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>balboa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/balboa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ban</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ban</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>barile</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/barile</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>batzen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/batzen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bauerngroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bauerngroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bausche</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bausche</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bawbee</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bawbee</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bazaruco</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bazaruco</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>belga</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/belga</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bes</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bes</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bezemstuiver</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bezemstuiver</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>biche</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/biche</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>biobol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/biobol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>birr</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/birr</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bit</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bit</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>biunx</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/biunx</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>black dogg</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/black-dogg</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>blaffert</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/blaffert</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>blamuser</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/blamuser</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>blanken</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/blanken</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bluzger</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bluzger</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bodle</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bodle</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>boehmisch</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/boehmisch</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bolivano</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bolivano</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bolivar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bolivar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>boliviano</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/boliviano</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bonnet piece</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bonnet-piece</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>botdrager</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/botdrager</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>breddalere</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/breddalere</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>briquet</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/briquet</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>britain crown</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/britain-crown</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>broad</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/broad</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>brule</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/brule</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>bu</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/bu</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>buck</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/buck</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>butken</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/butken</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>butut</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/butut</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>candareen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/candareen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>carlijn</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/carlijn</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>carlin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/carlin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>carlino</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/carlino</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>carolin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/carolin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>carolus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/carolus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>carolus florin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/carolus-florin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cash</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cash</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cedi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cedi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cent</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cent</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>centaro</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/centaro</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>centas</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/centas</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>centavo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/centavo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>centesimo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/centesimo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>centim</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/centim</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>centime</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/centime</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>centimo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/centimo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>centum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/centum</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>chaise</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/chaise</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>chakram</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/chakram</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>chalkous</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/chalkous</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>chervonets</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/chervonets</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>chhertum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/chhertum</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>A REGIO local currency started in 2003 in Prien am Chiemsee, Bavaria, Germany.</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/chiemgauer</uri>
+			</binding>
+			<binding name='label'>
+				<literal>chiemgauer</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>chon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/chon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>christian</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/christian</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>chuan</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/chuan</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cistophorus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cistophorus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>colon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/colon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>condor</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/condor</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>contorniate</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/contorniate</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>coolo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/coolo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cordoba</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cordoba</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>corona</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/corona</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>couronne</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/couronne</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>courte</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/courte</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>courte/korte</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/courte/korte</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>crown</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/crown</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cruzado</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cruzado</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cruzado novo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cruzado-novo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cruzeiro</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cruzeiro</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cruzeiro reais</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cruzeiro-reais</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cupon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cupon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Translation of guan jin yuan</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/custom-gold-unit</uri>
+			</binding>
+			<binding name='label'>
+				<literal>custom gold unit</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>cym</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/cym</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>daalder</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/daalder</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dalasi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dalasi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>daler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/daler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dam</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dam</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>daric</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/daric</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>decade</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/decade</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>decadrachm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/decadrachm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>decime</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/decime</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>decimo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/decimo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>decussis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/decussis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dem</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dem</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>demy</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/demy</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>denar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/denar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>denarius</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/denarius</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>denarius serratus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/denarius-serratus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>denaro</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/denaro</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>denier</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/denier</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>deut</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/deut</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dextans</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dextans</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>diao</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/diao</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dichalka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dichalka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dichalkous</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dichalkous</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dicken</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dicken</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>didrachm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/didrachm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dime</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dime</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dinar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dinar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dinero</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dinero</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>diobol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/diobol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dirham</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dirham</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dirhem</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dirhem</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dobla</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dobla</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dobra</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dobra</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dodrans</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dodrans</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>doit</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/doit</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dollar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dollar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dong</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dong</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>doppelassis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/doppelassis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>doppelsterling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/doppelsterling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>doppia</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/doppia</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>double</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/double</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>double crown</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/double-crown</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>double daric</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/double-daric</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>double dinar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/double-dinar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>double duit</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/double-duit</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>double litra</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/double-litra</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>doubloon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/doubloon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>doudou</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/doudou</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>drachm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/drachm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>drachma</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/drachma</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dram</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dram</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dreier</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dreier</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dreiling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dreiling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>drielander</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/drielander</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dub</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dub</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ducat</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ducat</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ducaton</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ducaton</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ducatone</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ducatone</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dud</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dud</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>duetto</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/duetto</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>duit</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/duit</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dukat</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dukat</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dukat kurant</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dukat-kurant</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>duplone</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/duplone</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dupondius</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dupondius</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>dupondius or as</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/dupondius-or-as</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>eagle</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/eagle</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ealus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ealus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ecu</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ecu</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ecu au soleil</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ecu-au-soleil</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ecu philippus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ecu-philippus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ekuele</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ekuele</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>emlangeni</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/emlangeni</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>emlani</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/emlani</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>englisch</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/englisch</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ernest</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ernest</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>escalin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/escalin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>escudo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/escudo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>escudo ouro</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/escudo-ouro</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>esterlin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/esterlin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>euro</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/euro</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>eurolega</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/eurolega</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>excelente</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/excelente</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>eyrir</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/eyrir</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fals</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fals</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>falus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/falus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fanam</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fanam</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fano</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fano</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fanon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fanon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>farthing</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/farthing</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fenigow</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fenigow</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>feninga</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/feninga</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>filler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/filler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fils</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fils</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fiorino</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fiorino</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fleece</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fleece</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>florin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/florin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>follis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/follis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>forint</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/forint</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>franc</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/franc</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>franc-a-cheval</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/franc-a-cheval</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>franc-a-pied</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/franc-a-pied</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>franchi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/franchi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>franco</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/franco</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>franga ar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/franga-ar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>frank</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/frank</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>franken</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/franken</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>frederick</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/frederick</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>friedman</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/friedman</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fuang</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fuang</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fulus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fulus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>fun</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/fun</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>funfer</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/funfer</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gadhaiya paisa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gadhaiya-paisa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>george noble</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/george-noble</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gersh</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gersh</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gigot</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gigot</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gold mark</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gold-mark</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>golde</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/golde</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>goldgulden</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/goldgulden</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gosseler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gosseler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gouden nobel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gouden-nobel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gouden reaal</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gouden-reaal</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gouden schild</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gouden-schild</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>goudgulden</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/goudgulden</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gourde</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gourde</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grados</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grados</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grand brule</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grand-brule</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grand double</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grand-double</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grand rider</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grand-rider</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>griffon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/griffon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>griven</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/griven</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>groat</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/groat</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>groot</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/groot</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gros</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gros</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gros au lion</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gros-au-lion</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gros petit</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gros-petit</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>groschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/groschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grosso</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grosso</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grosso guelfo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grosso-guelfo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grossone</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grossone</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grosspfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grosspfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grossus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grossus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grosz</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grosz</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>grote</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/grote</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>groten</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/groten</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>guan</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guan</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>guan jin yuan</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guan-jin-yuan</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>guarani</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guarani</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>guerche</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guerche</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>guilder</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guilder</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>guinea</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guinea</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>gulden</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/gulden</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>guldengroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guldengroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>guldenthaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guldenthaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>guldiner</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guldiner</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Anglo-Gallic</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/guyennois</uri>
+			</binding>
+			<binding name='label'>
+				<literal>guyennois</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>halala</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/halala</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>halbling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/halbling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>haler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/haler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>half Bahar Azadi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/half-Bahar-Azadi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Iron Age only</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/half-stater</uri>
+			</binding>
+			<binding name='label'>
+				<literal>half stater</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Iron Age only</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/half-unit</uri>
+			</binding>
+			<binding name='label'>
+				<literal>half unit</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>halfcrown</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/halfcrown</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>halfgroat</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/halfgroat</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>halfpenny</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/halfpenny</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>halier</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/halier</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>haller</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/haller</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>handheller</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/handheller</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hao</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hao</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hardhead</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hardhead</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Anglo-Gallic</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hardi</uri>
+			</binding>
+			<binding name='label'>
+				<literal>hardi</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hat piece</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hat-piece</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>heaume</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/heaume</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>heller</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/heller</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>helm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/helm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>helmgroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/helmgroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hemidrachm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hemidrachm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hemiobol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hemiobol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hemistater</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hemistater</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hemitetartemoria</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hemitetartemoria</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>heptachalca</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/heptachalca</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hexagram</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hexagram</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hohlblaffert</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hohlblaffert</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hohlheller</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hohlheller</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hohlpfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hohlpfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hohlscherf</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hohlscherf</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>holey dollar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/holey-dollar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hong kong dollar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hong-kong-dollar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>horngroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/horngroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hornpfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hornpfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hour</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hour</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hrysus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hrysus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hryvnia</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hryvnia</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hvid</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hvid</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hwan</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hwan</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>hyperpyron</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/hyperpyron</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>inti</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/inti</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>iohanna</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/iohanna</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>jaeger</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/jaeger</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>jau</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/jau</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>jawa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/jawa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>jeon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/jeon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>jiao</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/jiao</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>jin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/jin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>joe</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/joe</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>judenkopfgroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/judenkopfgroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kali fanam</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kali-fanam</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kapeek</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kapeek</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kapiekas</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kapiekas</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>karbovanets</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/karbovanets</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>karbowanez</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/karbowanez</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>karpov</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/karpov</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>karshapana</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/karshapana</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kas</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kas</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>katterfinken</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/katterfinken</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>keping</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/keping</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>key</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/key</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kina</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kina</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kip</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kip</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>klinkaert</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/klinkaert</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>koban</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/koban</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kobo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kobo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>koertling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/koertling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kollybos</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kollybos</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>koneek</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/koneek</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>konte</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/konte</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>konventionsthaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/konventionsthaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kopek</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kopek</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kopfchen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kopfchen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kopiyka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kopiyka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kopken</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kopken</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>korona</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/korona</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>koronarol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/koronarol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>korte</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/korte</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>korun</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/korun</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>koruna</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/koruna</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>koti</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/koti</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>koula</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/koula</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>krajczar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/krajczar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kran</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kran</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kreuzer</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kreuzer</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kreuzgroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kreuzgroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>krona</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/krona</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>krone</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/krone</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kroon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kroon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>krugerrand</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/krugerrand</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kumish</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kumish</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kuna</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kuna</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kupfurdente</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kupfurdente</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kurush</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kurush</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kwacha</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kwacha</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kwanzas</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kwanzas</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kwanzas reajustados</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kwanzas-reajustados</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kyat</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kyat</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>kyrmis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/kyrmis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>laari</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/laari</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lang</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lang</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lari</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lari</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>larin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/larin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lats</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lats</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>laurel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/laurel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lega</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lega</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lek</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lek</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lempira</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lempira</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>leone</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/leone</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Anglo-Gallic</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/leopard</uri>
+			</binding>
+			<binding name='label'>
+				<literal>leopard</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lepton</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lepton</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>leu</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/leu</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lev</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lev</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lev srebro</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lev-srebro</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lev zlato</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lev-zlato</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>li</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/li</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>liang</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/liang</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>liard</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/liard</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>libra</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/libra</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>libra esterlina</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/libra-esterlina</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>licente</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/licente</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>licente/lisente</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/licente/lisente</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>likuta</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/likuta</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lilangeni</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lilangeni</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lion</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lion</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lion daalder</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lion-daalder</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lion noble</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lion-noble</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lipa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lipa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lira</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lira</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lirah</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lirah</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lisente</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lisente</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lit</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lit</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>litas</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/litas</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>litra</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/litra</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>livre</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/livre</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>livre tournois</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/livre-tournois</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>loti</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/loti</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>louis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/louis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>lubischer</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/lubischer</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>luma</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/luma</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ma'ah</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ma-ah</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mace</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mace</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mach</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mach</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>macuta</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/macuta</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mahaleki</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mahaleki</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>maille</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/maille</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>makuta</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/makuta</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>manat</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/manat</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mancus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mancus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>maraka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/maraka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>maraka/marka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/maraka/marka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>marck</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/marck</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>marek</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/marek</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mariengroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mariengroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mark</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mark</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>marka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/marka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>markkaa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/markkaa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>masha</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/masha</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>matona</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/matona</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>matthiasgroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/matthiasgroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mattier</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mattier</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>me</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/me</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>melgarejo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/melgarejo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>merk</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/merk</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>metical</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/metical</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mil</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mil</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mil reis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mil-reis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>miliarensis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/miliarensis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>miliaresion</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/miliaresion</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mille</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mille</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>millieme</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/millieme</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>milliemes</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/milliemes</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>millim</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/millim</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mills</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mills</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>milpengo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/milpengo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>minim</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/minim</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mite</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mite</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>moco</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/moco</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>moeda</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/moeda</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mohar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mohar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mohur</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mohur</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>moidore</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/moidore</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>mon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/mon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>monme</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/monme</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>n shilin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/n-shilin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>naira</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/naira</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>nakfa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/nakfa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>naya paisa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/naya-paisa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>new sheqel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/new-sheqel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>new taiwan dollar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/new-taiwan-dollar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ngultrum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ngultrum</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ngwee</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ngwee</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>nickel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/nickel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>noble</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/noble</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>nomisma</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/nomisma</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>nuevo sol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/nuevo-sol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>nummus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/nummus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>obol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/obol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>octachalkous</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/octachalkous</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>octobol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/octobol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>octodrachm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/octodrachm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>offering-penny</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/offering-penny</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>onza</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/onza</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ore</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ore</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ortug</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ortug</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ostmark</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ostmark</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ouguiya</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ouguiya</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ounce</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ounce</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pa'anga</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pa-anga</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pagoda</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pagoda</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Modern Iranian</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pahlavi</uri>
+			</binding>
+			<binding name='label'>
+				<literal>pahlavi</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pai</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pai</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>paisa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/paisa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pana</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pana</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pankki</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pankki</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>paolo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/paolo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>para</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/para</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pardao</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pardao</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>parpaillot</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/parpaillot</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>patac</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/patac</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pataca</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pataca</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>patagon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/patagon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>patard</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/patard</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Anglo-Gallic</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pavillon</uri>
+			</binding>
+			<binding name='label'>
+				<literal>pavillon</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>peck</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/peck</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>peerdeken</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/peerdeken</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pengo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pengo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>penni</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/penni</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>penny</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/penny</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pentachalca</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pentachalca</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pentobol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pentobol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>perpera</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/perpera</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>peseta</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/peseta</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pesewa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pesewa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>peso</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/peso</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>peso boliviano</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/peso-boliviano</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>peso fuerte</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/peso-fuerte</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>peso nuevo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/peso-nuevo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>peso oro</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/peso-oro</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>peso uruguago</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/peso-uruguago</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pesseta</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pesseta</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>petermannchen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/petermannchen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>petit brule</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/petit-brule</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>petit denier</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/petit-denier</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pfeniga</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pfeniga</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>philippus florin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/philippus-florin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>philipsdaalder</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/philipsdaalder</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>piast</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/piast</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>piaster</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/piaster</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>piastre</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/piastre</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>piccolo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/piccolo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pice</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pice</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pie</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pie</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>piecette</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/piecette</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pieter d'or</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pieter-d-or</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pinakion</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pinakion</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pints</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pints</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>piso</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/piso</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pistareen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pistareen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pistole</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pistole</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>plack</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/plack</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>plappart</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/plappart</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>popolino</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/popolino</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>postulatsgulden</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/postulatsgulden</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Iron Age</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/potin</uri>
+			</binding>
+			<binding name='label'>
+				<literal>potin</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pound</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pound</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>praguergroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/praguergroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>proclamation jeton</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/proclamation-jeton</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>prutah</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/prutah</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>puffin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/puffin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pula</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pula</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>punkt</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/punkt</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pupia</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pupia</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>pya</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/pya</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>qepik</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/qepik</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>qian</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/qian</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>qindarka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/qindarka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>qirsh</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/qirsh</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quadrans</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quadrans</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quadrigatus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quadrigatus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quadrunx</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quadrunx</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quart</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quart</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quarter</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quarter</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='note'>
+				<literal>Iron Age only</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quarter-stater</uri>
+			</binding>
+			<binding name='label'>
+				<literal>quarter stater</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quartern</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quartern</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quarto</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quarto</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quartuncia</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quartuncia</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quattrino</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quattrino</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quattrino grosso</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quattrino-grosso</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quattrino grosso bianco</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quattrino-grosso-bianco</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quattrino lianco</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quattrino-lianco</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quetzal</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quetzal</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quinarius</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quinarius</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quincunx</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quincunx</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>quinto di scudo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/quinto-di-scudo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>qurush</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/qurush</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rabkop</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rabkop</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>raderalbus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/raderalbus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>radiate</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/radiate</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rand</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rand</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rappen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rappen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rasi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rasi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>reaal</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/reaal</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>real</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/real</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>real d'or</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/real-d-or</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>reales</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/reales</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rechenpfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rechenpfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>reduced drachm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/reduced-drachm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>reduced tetradrachm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/reduced-tetradrachm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>reichtsthaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/reichtsthaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>reis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/reis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rentenmark</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rentenmark</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rial</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rial</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rials</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rials</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>riblis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/riblis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rider</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rider</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>riel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/riel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>riffan</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/riffan</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rigsbankdaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rigsbankdaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rigsbankskilling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rigsbankskilling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rigsdaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rigsdaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rijder</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rijder</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rijksdaalder</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rijksdaalder</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>riksdaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/riksdaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ringgit</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ringgit</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rix-dollar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rix-dollar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rixdaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rixdaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>riyal</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/riyal</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rosart</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rosart</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rose noble</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rose-noble</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rose ryal</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rose-ryal</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>royalin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/royalin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rubel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rubel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rubla</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rubla</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ruble</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ruble</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rufiyaa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rufiyaa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rupee</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rupee</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rupia</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rupia</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rupiah</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rupiah</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>rupie</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/rupie</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ryal</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ryal</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>ryo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/ryo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>salung</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/salung</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>salut</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/salut</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>santeem</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/santeem</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>santim</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/santim</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>santimat</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/santimat</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>saschsenpfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/saschsenpfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sceat</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sceat</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>scellino</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/scellino</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>schauthaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/schauthaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>schildgroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/schildgroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>schilling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/schilling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>schnepfenheller</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/schnepfenheller</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>schoter</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/schoter</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>schuesselpfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/schuesselpfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>schuitken</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/schuitken</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>schutterspfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/schutterspfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>scrap</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/scrap</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>scudo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/scudo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sechser</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sechser</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sechsling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sechsling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sela</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sela</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>semis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/semis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>semissis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/semissis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>semuncia</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/semuncia</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sene</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sene</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>seniti</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/seniti</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sent</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sent</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sente</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sente</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sentimo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sentimo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sequin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sequin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sestertius</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sestertius</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sextans</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sextans</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>shagiv</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/shagiv</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>shahi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/shahi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>shekel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/shekel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sheqel</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sheqel</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>shilin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/shilin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>shilingi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/shilingi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>shilling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/shilling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sho</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sho</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>shu</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/shu</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sigli</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sigli</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sigloi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sigloi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>siglos</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/siglos</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>silbergroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/silbergroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>siliqua</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/siliqua</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sixain</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sixain</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sixpence</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sixpence</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>skar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/skar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>skilling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/skilling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>snaphaan</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/snaphaan</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>snipe-heller</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/snipe-heller</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sol de oro</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sol-de-oro</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>soldino</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/soldino</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>soldo</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/soldo</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>solidus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/solidus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>som</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/som</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>somali</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/somali</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>somoni</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/somoni</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>song pei</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/song-pei</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sortengulden</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sortengulden</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sosling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sosling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sou</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sou</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>souvereign</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/souvereign</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sovereign</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sovereign</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sovrano</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sovrano</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>speciedaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/speciedaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>spitzgroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/spitzgroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>split</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/split</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sprenger</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sprenger</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>spur ryal</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/spur-ryal</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>srang</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/srang</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>stampee</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/stampee</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>stater</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/stater</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>stavraton</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/stavraton</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sterbegroschen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sterbegroschen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sterling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sterling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>stiver</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/stiver</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>stoter</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/stoter</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>stotinka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/stotinka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>stotinov</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/stotinov</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>string</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/string</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>stuiver</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/stuiver</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>stüber</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/st-ber</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>su</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/su</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sucre</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sucre</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>suki</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/suki</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sum</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sum</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>swaren</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/swaren</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sword and sceptre piece</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sword-and-sceptre-piece</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>sword dollar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/sword-dollar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>syli</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/syli</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tael</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tael</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tahr</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tahr</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>taka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/taka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>takoe</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/takoe</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tala</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tala</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tallero</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tallero</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>talona</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/talona</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tam</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tam</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tambala</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tambala</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tamlung</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tamlung</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tanga</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tanga</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tangka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tangka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>taro</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/taro</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tenga</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tenga</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tenge</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tenge</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tennesi</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tennesi</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>teruncius</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/teruncius</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tessera</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tessera</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tessin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tessin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>testoen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/testoen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>teston</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/teston</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>testone</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/testone</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>testoon</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/testoon</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tetartemorion</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tetartemorion</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tetarteron</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tetarteron</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tetrachalkous</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tetrachalkous</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tetradrachm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tetradrachm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tetrobol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tetrobol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>thaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/thaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>thebe</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/thebe</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>thetri</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/thetri</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>thistle crown</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/thistle-crown</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>thistle dollar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/thistle-dollar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>thistle merk</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/thistle-merk</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>thistle noble</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/thistle-noble</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>threepence</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/threepence</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>thrymsa</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/thrymsa</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tical</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tical</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tien</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tien</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>timasha</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/timasha</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tiyin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tiyin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>toea</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/toea</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>toison</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/toison</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tola</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tola</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tolar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tolar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>toman</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/toman</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tongyuan</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tongyuan</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tornesello</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tornesello</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tournesion</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tournesion</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tournois</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tournois</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>trachy</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/trachy</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tremissis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tremissis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tressis</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tressis</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>trichalka</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/trichalka</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tridrachm</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tridrachm</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>triens</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/triens</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>trihemiobol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/trihemiobol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>trihemitetartemorion</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/trihemitetartemorion</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>triobol</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/triobol</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tritetartemorion</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tritetartemorion</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tugrik</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tugrik</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tuinen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tuinen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>turner</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/turner</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>turnose</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/turnose</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>twelvepenny-groat</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/twelvepenny-groat</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>twopence</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/twopence</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tyin</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tyin</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>tyiyn</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/tyiyn</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>uncertain</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/uncertain</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>uncia</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/uncia</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>unicorn</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/unicorn</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>unidad</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/unidad</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>unit</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/unit</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>unite</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/unite</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>urumyia</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/urumyia</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>valor</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/valor</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>van</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/van</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>vatu</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/vatu</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>velli fanam</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/velli-fanam</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>vereinsthaler</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/vereinsthaler</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>victoriatus</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/victoriatus</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>vierchen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/vierchen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>vierer</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/vierer</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>vierling</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/vierling</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>vinar</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/vinar</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>weisspfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/weisspfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>wen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/wen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>werk</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/werk</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>witten</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/witten</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>won</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/won</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>xian</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/xian</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>xu</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/xu</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>yang</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/yang</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>yen</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/yen</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>yuan</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/yuan</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>zaire</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/zaire</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>zecchino</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/zecchino</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>zloty</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/zloty</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>zollpfennig</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/zollpfennig</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>zuz</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/zuz</uri>
+			</binding>
+		</result>
+		<result>
+			<binding name='label'>
+				<literal>zwoelfer</literal>
+			</binding>
+			<binding name='subject'>
+				<uri>http://collection.britishmuseum.org/id/thesauri/currency/zwoelfer</uri>
+			</binding>
+		</result>
+	</results>
+</sparql>

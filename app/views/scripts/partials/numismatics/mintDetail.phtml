@@ -1,0 +1,73 @@
+<?php 
+
+$this->headTitle('Details for issuing mint located at ' . $this->name);
+$this->headMeta('Full details for issuing  mint at '. $this->name 
+        . ' describing location and recent examples. ','description')
+		->headMeta('CC NC-SA-BY','dc.rights')
+		->headMeta('The Portable Antiquities Scheme','dc.publisher')
+		->headMeta('Daniel Pett','dc.creator');
+?>
+
+<h2>The <?php echo $this->escape($this->name);?> mint</h2>
+
+<p>
+
+<?php if(!is_null($this->name)):?>
+Mint: <span property="skos:prefLabel"><?php echo $this->escape($this->name);?></span> <br />
+<?php endif;?>
+
+<?php if(!is_null($this->abbrev)):?>
+Abbreviation: <?php echo $this->abbrev;?>
+<?php endif;?>
+
+</p>
+
+<?php if(!is_null($this->description)):?>
+<span property="skos:definition"><?php echo $this->description;?></span>
+<?php endif;?>
+<h3>Related resources</h3>
+
+<ul>
+<?php if(!is_null($this->pleiadesID)):?>
+<li><a property="skos:related" resource="http://pleiades.stoa.org/places/<?php echo $this->pleiadesID;?>" href="http://pleiades.stoa.org/places/<?php echo $this->pleiadesID;?>">Pleiades</a></li>
+<?php endif;?>
+<?php if(!is_null($this->nomismaID)):?>
+<li><a property="skos:related" resource="http://nomisma.org/id/<?php echo $this->nomismaID;?>" href="http://nomisma.org/id/<?php echo $this->nomismaID;?>">Nomisma</a></li>
+<?php endif;?>
+<?php if(!is_null($this->bmID)):?>
+<li><a property="skos:related" resource="http://collection.britishmuseum.org/id/place/x<?php echo $this->bmID;?>" href="http://collection.britishmuseum.org/id/place/x<?php echo $this->bmID;?>">British Museum</a></li>
+<?php endif;?>
+<?php if(!is_null($this->dbpediaID)):?>
+<li><a property="skos:related" resource="http://wikipedia.org/wiki/<?php echo $this->dbpediaID;?>" href="http://wikipedia.org/wiki/<?php echo $this->dbpediaID;?>">Wikipedia</a></li>
+<?php endif;?>
+<?php if(!is_null($this->geonamesID)):?>
+<li><a property="skos:related" resource="http://www.geonames.org/<?php echo $this->geonamesID;?>" href="http://www.geonames.org/<?php echo $this->geonamesID;?>">Geonames</a></li>
+<?php endif;?>
+</ul>
+<h3>Data from Nomisma</h3>
+<?php echo $this->nomismaRdf()->setUri("http://nomisma.org/id/" . $this->nomismaID);?>
+
+
+<?php 
+if($this->dbpediaID){
+	echo '<h3>Data from wikipedia</h3>';
+	echo $this->dbPediaMintRdf()->setUri("http://dbpedia.org/resource/" . $this->dbpediaID );
+}?>
+<?php if($this->pleiadesID):?>
+<h3>Data from Pleiades</h3>
+<?php echo $this->pleiadesMintRdf()->setUri($this->pleiadesID ); ?>
+<?php echo $this->pelagiosAnnotations()->setPleiadesPlace($this->pleiadesID);?>
+<?php echo $this->pleiadesFlickrImages($this->pleiadesID); ?>
+
+<?php endif;?>
+
+<?php if(!is_null($this->pasID)):?>
+<p>View <a href="<?php echo $this->url(array(
+    'module'=>'database',
+    'controller' => 'search',
+    'action'=>'results', 
+    'mint'=>$this->pasID),
+        null,true);?>" title="View all records">all coins recorded</a>, 
+        which are attributed to <?php echo $this->escape($this->name);?>.
+</p>
+<?php endif;?>

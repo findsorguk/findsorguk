@@ -1,0 +1,37 @@
+<?php
+
+$date = array();
+foreach($this->emperors as $emperor){
+	if(is_null($emperor['date_to']) || $emperor['date_to'] == ''){
+		$emperor['date_to'] = $emperor['date_from'];
+	}
+	$string = strip_tags($emperor['biography']);
+//	$bio = $this->truncate($string)->toLength(100)->withPostfix(' ');
+	$url = $this->url(array('module' => 'romancoins','controller' => 'emperors', 'action' => 'emperor', 'id' => $emperor['id']),'default',true);
+	$bio = '<a href="' . $url .'">Read the full dbpedia sourced biography and numismatic data.</a>';
+	$data = array(
+	'startDate' => $emperor['date_from'], 
+	'endDate' => $emperor['date_to'],
+	'headline' => $emperor['name'],
+	'text' => $bio,
+	'asset' => array(
+	'media' => 'http://finds.org.uk/images/rulers/resized/' . $emperor['filename'],
+	'credit' => 'The Trustees of the British Museum',
+	'caption' => 'An image of a coin from the BM collection showing ' . $emperor['name']
+	)
+	);
+	$date[] = $data;
+}
+$start = array(
+	'headline' => 'Roman Emperors and their wives',
+	'type' => 'default',
+	'text' => 'The issuing authorities of the Roman Empire on a timeline',
+	'startDate' => '43',
+'asset' => array(
+	'media' => 'http://finds.org.uk/images/rulers/resized/1194932266_e7c871bad2_o.jpg',
+	'credit' => 'The Trustees of the British Museum',
+	'caption' => 'An image of a coin from the BM collection showing Augustus'
+	),
+	'date' => $date
+);
+echo Zend_Json::prettyPrint(Zend_Json::encode(array('timeline' => $start)));

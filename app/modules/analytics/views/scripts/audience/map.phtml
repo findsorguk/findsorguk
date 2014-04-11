@@ -1,0 +1,130 @@
+<?php $this->headTitle('Top 500 visitor locations mapped for ' . $this->timeSpanParameter());?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->timeSpansGa();?>
+<p>This map contains sampled data and is based off IP address collected by the analytics software.</p>
+<div id="map"></div>
+<?php
+echo $this->googleDynamicMap(null,true,false);
+?>
+
+<?php $this->inlineScript()->captureStart();?>
+$(document).ready(function() {
+	var max = 18
+	var min = 1;
+
+
+    var osmMapType = new google.maps.ImageMapType({
+        getTileUrl: function (coord, zoom) {
+            return "http://tile.openstreetmap.org/" +
+                zoom + "/" + coord.x + "/" + coord.y + ".png";
+        },
+        tileSize: new google.maps.Size(256, 256),
+        isPng: true,
+        alt: "OpenStreetMap layer",
+        name: "OSM",
+        maxZoom: max
+    });
+
+
+
+    var myOptions = {
+          center: new google.maps.LatLng( 40.2,-3.1),
+          zoom: 2,
+          mapTypeControlOptions: {
+          mapTypeIds: [
+          google.maps.MapTypeId.TERRAIN,
+          google.maps.MapTypeId.SATELLITE,
+          google.maps.MapTypeId.ROADMAP,
+          'OSM',
+          ]
+    	  },
+    	  mapTypeControl: true,
+    	  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          scaleControl: true,
+    	  zoomControl: true,
+          mapTypeId: google.maps.MapTypeId.SATELLITE,
+          scrollwheel: false,
+          maxZoom: max,
+          minZoom: min
+        };
+
+    var map = new google.maps.Map(document.getElementById("map"),myOptions);
+        map.mapTypes.set('OSM',osmMapType);
+	var myTitle = document.createElement('div');
+		myTitle.style.color = '#444444';
+		myTitle.style.font = "12px sans-serif";
+		myTitle.innerHTML = '<p>OSM Layer &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap<\/a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA<\/a><\/p>';
+
+		var myTextDiv = document.createElement('div');
+		myTextDiv.appendChild(myTitle);
+
+		map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
+
+
+	<?php
+	$request = Zend_Controller_Front::getInstance()->getRequest();
+	$params = array('module' => 'analytics', 'controller' => 'ajax', 'action' => 'markers');
+	$params2 = array_slice($request->getParams(),3);
+	$params = array_merge($params,$params2);
+	$url = $this->serverUrl() . $this->url($params,'default',false);
+	?>
+
+
+
+	var markers = new Array();
+
+	var infowindow = new google.maps.InfoWindow();
+    jQuery.get("<?php echo $url;?>", {}, function(data) {
+    jQuery(data).find("marker").each(function() {
+        var markerXML = jQuery(this);
+        var latlng = new google.maps.LatLng(
+            parseFloat(markerXML.attr("latitude")),
+            parseFloat(markerXML.attr("longitude"))
+        );
+        var title = 'Visitors came from here!';
+        
+        var color = 'FF0000';
+        var size = '10';
+        
+        
+        var marker = new google.maps.Marker({
+        	position: latlng,
+        	map: map,
+        	icon: 'http://maps.gstatic.com/mapfiles/ridefinder-images/mm_20_orange.png'
+});
+
+        // now that the marker is placed, assign event listener on the marker
+        // and create/assign infowindow to the event trigger.
+        markerInfoWindow(marker, markerXML.attr("visitors") + ' ' + title);
+        markers.push(marker);
+    });
+
+    var markerCluster = new MarkerClusterer(map, markers,{gridSize: 20, maxZoom:12});
+	});
+
+	function markerInfoWindow(marker, information){
+	     google.maps.event.addListener(marker, 'click',
+	    function() {
+	        infowindow.close();
+	        infowindow.setContent(information);
+	        infowindow.setPosition(marker.getPosition());
+	        infowindow.open(map, marker);
+	    });
+	}
+	var center;
+
+	function calculateCenter() {
+	  center = map.getCenter();
+	}
+
+	google.maps.event.addDomListener(map, 'idle', function() {
+	  calculateCenter();
+	});
+
+	google.maps.event.addDomListener(window, 'resize', function() {
+	  map.setCenter(center);
+	});
+
+});
+
+<?php $this->inlineScript()->captureEnd();?>

@@ -1,0 +1,9 @@
+<?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms) ;?>
+
+<h3>Issued by</h3>
+
+<ul id="related">
+	<?php echo $this->partialLoop('partials/numismatics/rulerDenom.phtml', $this->rulers);?>
+</ul>
+
+<?php echo $this->latestRecords('denomination:' . $this->id);?>

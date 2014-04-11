@@ -1,0 +1,14 @@
+<h2>Add jetton data</h2>
+<p><a class="btn btn-success btn-large" href="<?php echo $this->url(array(
+    'module' => 'database', 'controller' => 'coins', 'action' => 'add',
+    'copy' => 'last'),null,false);?>" title="Autofill form fields from last
+    record you created" id="populate" accesskey="c">Copy last record</a></p>
+
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/jQueryLinkedSelect.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/coinslinkedselect.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl()
+        . '/js/JQuery/tokensLinkedQuery.js',$type='text/javascript');
+echo $this->form;?>

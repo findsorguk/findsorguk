@@ -1,0 +1,21 @@
+<?php $this->headTitle('Available system roles');?>
+<h2>All available system roles</h2>
+
+<table class="table table-striped" summary="All available system roles">
+    <caption>Available system roles</caption>
+
+    <thead>
+        <tr>
+        <th>System role</th>
+        <th>Member totals</th>
+        <th>Created</th>
+        <th>Created by</th>
+        <th>Updated</th>
+        <th>Updated by</th>
+        <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/admin/systemroles.phtml',$this->roles);?>
+    </tbody>
+</table>

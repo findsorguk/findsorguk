@@ -1,0 +1,32 @@
+<tr class="valid-<?php echo $this->valid;?>">
+<td><?php echo $this->escape($this->term);?></td>
+<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->timeagoinwords($this->updated);?></td>
+<td><?php echo $this->namethem($this->fn);?></td>
+<td><?php echo $this->validity($this->valid);?></td>
+<td>
+<?php
+$edit = $this->Href(array(
+    'module' => 'admin',
+    'controller'=>'terminology',
+    'action'=>'editsurface',
+    'checkAcl'=>true,
+    'acl'=>'Zend_Acl',
+    'params' =>array('id'=>$this->id),
+    'content'=>'Edit')
+    );
+$delete = $this->Href(array(
+    'module' => 'admin',
+    'controller'=>'terminology',
+    'action'=>'deletesurface',
+    'checkAcl'=>true,
+    'acl'=>'Zend_Acl',
+    'params' =>array('id'=>$this->id),
+    'content'=>'Delete')
+    );
+
+echo implode(' | ', array($edit,$delete));
+?>
+</td>
+</tr>

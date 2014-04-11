@@ -1,0 +1,18 @@
+<?php $this->headTitle('Delete organisation '.$this->escape($this->organisation->name));?>
+<?php if ($this->organisation) :?>
+<h2>Delete organisational data</h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->organisation->name); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'database','controller' => 'organisations','action'=>'deleteorganisation'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->organisation->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<h2>There has been an error</h2>
+<p>Cannot find the organisation that you requested.</p>
+<?php endif;?>

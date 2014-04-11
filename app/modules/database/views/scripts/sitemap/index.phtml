@@ -1,0 +1,13 @@
+<?php
+$this->navigation()
+      ->sitemap()
+      ->setFormatOutput(true); // default is false
+ 
+
+$doc = new DOMDocument(); 
+$doc->loadXML($this->navigation()->sitemap());
+$xslt = $doc->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="' . $this->serverUrl() . '/xsl/sitemap.xsl"');
+$urlset = $doc->getElementsByTagName('urlset');
+$doc->insertBefore($xslt, $urlset->item(0));
+echo $doc->saveXML();
+?>

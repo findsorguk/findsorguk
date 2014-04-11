@@ -1,0 +1,53 @@
+<h3>Our recent images</h3>
+
+<?php foreach($this->recent as $r):?><a href="<?php echo $this->FlickrImage($r['farm'],$r['server'],$r['id'],$r['secret'],'b');?>" title="View image in larger format" rel="lightbox"><img src="http://farm<?php echo $r['farm'];?>.static.flickr.com/<?php echo $r['server'];?>/<?php echo $r['id'];?>_<?php echo $r['secret'];?>_s.jpg" alt="Primary image for this set" width="75" height="75" /></a><?php endforeach;?>
+
+<?php
+$cachemain = Zend_Registry::get('formcache');
+echo '<h3>Most popular tags</h3>';
+
+if(!$cachemain->start('linkscloudflickrtags')) {
+
+
+$tag = array();
+foreach($this->tags as $tagged)
+{
+$tag[] = array('title' => strtolower($tagged['tag']), 'weight' => $tagged['count'], 'params' => array('url' => $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'tagged','as' => strtolower($tagged['tag'])),'default',true)));
+}
+$tags = array('tags' => $tag,
+			'cloudDecorator' => array(
+			'decorator' => 'HtmlCloud',
+			'options' => array(
+			'htmlTags' => array(
+			'ul' => array(
+			'id' => 'period-object-cloud')
+			)
+			//,
+			//'separator' => ', '
+			)
+			),
+			'tagDecorator' => array(
+			'decorator' => 'HtmlTag',
+			'options' => array(
+	'htmlTags' => array( 'li'),
+	'minFontSize' => 100,
+	'maxFontSize' => 200,
+	'fontSizeUnit' => '%'
+				)
+			)
+			);
+$cloud = new Zend_Tag_Cloud($tags);
+echo $cloud;
+$cachemain->save($cloud); 
+}
+
+?>
+
+<h2>Our friends on flickr</h2>
+
+<?php foreach($this->contactslist as $c)
+{
+//Zend_Debug::dump($c);
+$type = '.jpg';
+echo '<img src=http://farm4.static.flickr.com/3432/buddyicons/34367748@N02.jpg" alt="'.$c['username'].'\'s icon" width="48" height="48">';
+}?>

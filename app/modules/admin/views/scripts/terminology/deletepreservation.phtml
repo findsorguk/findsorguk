@@ -1,0 +1,19 @@
+<?php 
+	$this->headTitle("Delete a preservation state");
+if ($this->preserve) :?>
+<h2>Delete a preservation state</h2>
+<p>Are you sure that you want to delete
+'<?php echo $this->escape($this->preserve->term); ?>' 
+</p>
+<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action'=>'deletepreservation'),null,true); ?>"
+method="post">
+<div>
+<input type="hidden" name="id" value="<?php echo $this->preserve->id; ?>" />
+<input type="submit" name="del" value="Yes" />
+<input type="submit" name="del" value="No" />
+</div>
+</form>
+<?php else: ?>
+<h2>There has been an error</h2>
+<p>Cannot find the person that you requested.</p>
+<?php endif;?>

@@ -1,0 +1,16 @@
+<?php 
+$this->headMeta('The Greek and Roman provincial coins that the Scheme has 
+    recorded (of which there are few) can be searched using this form','description');
+$this->headMeta('greek,roman,coins,numismatics,provinicial,search,england,wales,
+    portable antiquituies','dc.keywords');
+$this->headTitle('Greek and Roman Provincial numismatic search');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/typeaheads/treasureID.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/typeaheads/otherRef.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedSelect.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedQuery.js',$type='text/javascript');
+
+?>
+<h2><?php echo $this->title();?></h2>
+<?php echo $this->form;?>

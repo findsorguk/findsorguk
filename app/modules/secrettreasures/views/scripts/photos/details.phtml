@@ -1,0 +1,88 @@
+<?php $this->metaBase( 'An image from flickr - ' . $this->image->photo->title,'flickr photo','flickr');
+$this->headTitle($this->image->photo->title);
+?>
+<h2><?php echo $this->image->photo->title;?></h2>
+<a href="<?php echo $this->sizes->size['7']->source;?>" rel="lightbox" title="View larger version"><img src="<?php echo $this->sizes->size['6']->source;?>" width="<?php echo $this->sizes->size['6']->width;?>" 
+height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->image->photo->title;?>" /></a>
+
+<p>View on flickr: <?php echo $this->FlickrVariantSizes($this->sizes->size );?></p>
+<p><?php echo $this->image->photo->description;?></p>
+<div class="row-fluid">
+
+<ul id="tab" class="nav nav-tabs">
+            <li class="active"><a href="#meta" data-toggle="tab">Image Metadata</a></li>
+           	<?php if($this->image->photo->comments):?>
+            <li><a href="#comments" data-toggle="tab">Photo comments</a></li>
+            <?php endif;?>
+			<li><a href="#exif" data-toggle="tab">Exif data</a></li>
+			<?php if(isset($this->geo->location)):?>
+			<li><a href="#geo" data-toggle="tab">Geographical data</a></li>
+			<?php endif;?>
+          </ul>
+  <div id="myTabContent" class="tab-content">
+  
+  			<div class="tab-pane fade in active" id="meta">
+			<h3>Metadata</h3>
+			<ul>
+			<li>Views: <?php echo $this->image->photo->views;?></li>
+			<li>License: <?php echo $this->FlickrLicense((int)$this->image->photo->license);?></li>
+			<li>Taken by: <?php echo $this->image->photo->owner->realname;?></li>
+			<li>Uploaded: <?php echo $this->niceshortdate($this->image->photo->dateuploaded);?></li>
+			<li>Taken on: <?php echo $this->niceshortdate($this->image->photo->dates->taken);?></li>
+			<?php if(!is_null($this->image->photo->tags)):?>
+			<li>Tagged: <?php echo $this->flickrTagDetails($this->image->photo->tags->tag);?></li>
+			<?php endif;?>
+			<li>Image permissions: <?php echo $this->flickrPerms($this->image->photo->usage);?></li>
+			</ul>
+			</div>
+  
+            <div class="tab-pane fade " id="geo">
+			<h4>Geo location of the photo</h4>
+			<?php if(isset($this->geo->location)):?>
+			<?php 
+			$parameters = array(
+			'size' => array( '300', '300'),
+			'zoom' => 12,
+			'maptype' => 'hybrid',
+			'markers' => array (array($this->geo->location->latitude ,$this->geo->location->longitude))
+			);
+			echo $this->GoogleStaticMap($parameters);?>
+			<?php else:?>
+			<p>No geography recorded.</p>
+			<?php endif;?>
+			</div>
+            
+            
+            
+            <div class="tab-pane fade" id="comments">
+           	<?php if($this->image->photo->comments):?>
+			<h3>Comments</h3>
+			<ul>
+			<?php echo $this->FlickrPhotoComments($this->comments);?>
+			</ul>
+			<?php endif;?>
+			</div>
+			
+			<div class="tab-pane fade" id="exif">
+			<?php if($this->exif):?>
+			<h3>Exif details</h3>
+			<?php if($this->exif->camera):?>
+			<p>This image was taken with: <?php echo $this->exif->camera;?></p>
+			<?php endif;?>
+			<h4>Tags</h4>
+			<ul>
+			<?php echo $this->FlickrTagExif($this->exif->exif);?>
+			</ul>
+			<?php endif;?>
+			</div>
+			
+</div>
+</div>        
+          
+
+
+
+
+
+
+

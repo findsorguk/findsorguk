@@ -1,0 +1,12 @@
+<?php
+$this->headTitle('Activities available for use on the database');
+$this->metaBase('This page outlines the majority of activities in which finders engage when 
+discovering artefacts',
+'discovery',
+'metal detecting,fieldwalking');
+?>
+
+<h2>Primary activities</h2>
+<ul id="related">
+<?php echo $this->partialLoop('partials/database/activityList.phtml',$this->activities);?>
+</ul>

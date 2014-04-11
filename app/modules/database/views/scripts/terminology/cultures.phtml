@@ -1,0 +1,8 @@
+<?php
+$this->headTitle('Early Medieval ascribed cultures');
+?>
+<h2>Ascribed cultures</h2>
+<p>The Scheme has broken the Early Medieval period down into the following ascribed cultures to make it easier to search the database.</p>
+<ul id="related">
+<?php echo $this->partialLoop('partials/database/culture.phtml',$this->cultures);?>
+</ul>

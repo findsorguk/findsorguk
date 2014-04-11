@@ -1,0 +1,36 @@
+<?php
+$this->headTitle('All available full data dumps');
+?>
+<div class="page-header"><h1>Data dumps</h1></div>
+<p>This page allows you access to csv files (for use in Open Office,  Google Docs or Microsoft Excel. Only find in the following workflow
+stages are available to you:</p><ul><li>3 - published</li><li>4 - validation</li></ul><p>If you are a self recorder or public user,  then
+full grid references are not available to you.</p>
+<h2>Daily data dumps of entire database</h2>
+<p>The below lists all available database dumps in zipped CSV format. Data released under these downloads
+is licensed under the terms of CC-BY. If you use this data for any awesome things,  get in touch. This dump is generated
+at 6am GMT daily.</p> 
+<p>This contains grid references and the following fields:</p>
+<blockquote>
+<p>id, objecttype, broadperiod, periodFromName, periodToName, fromdate, todate, description, notes, workflow, materialTerm, 
+secondaryMaterialTerm, subsequentActionTerm, discoveryMethod, datefound1, datefound2, TID, rallyName, weight, height, diameter, 
+thickness, diameter, length, quantity, identifier, recorder, denominationName, rulerName, mintName, obverseDescription, 
+obverseLegend, reverseDescription, reverseLegend, tribeName, reeceID, cciNumber, mintmark, abcType, categoryTerm, typeTerm, 
+moneyerName, reverseType, regionName, county, district</p>
+</blockquote>
+<p>These files are hosted securely at Amazon's server farm and cost a couple of cents to download. So be wise young Jedi.</p>
+<ul><?php echo $this->amazonDataDumpPublic();?></ul>
+
+<h2>Database dump of data with associated four figure NGR</h2>
+<p>The below lists all available database dumps in zipped CSV format. Licensed under CC-BY terms. This dump is generated at 7am GMT daily.
+This contains four figure grid references,  records protected by known as are removed. The following fields are available:</p>
+<blockquote>
+<p>
+id, objecttype, broadperiod, periodFromName, periodToName, fromdate, todate, description, notes, workflow, materialTerm, 
+secondaryMaterialTerm, subsequentActionTerm, discoveryMethod, datefound1, datefound2, TID, rallyName, weight, height, 
+diameter, thickness, diameter, length, quantity, identifier, recorder, denominationName, rulerName, mintName, obverseDescription, 
+obverseLegend, reverseDescription, reverseLegend, tribeName, reeceID, cciNumber, mintmark, abcType, categoryTerm, typeTerm, 
+moneyerName, reverseType, regionName, county, district, parish, fourFigure, gridSource, fourFigureLat, fourFigureLon</p>
+</blockquote>
+<ul><?php echo $this->amazonDataDumpPublicGrids();?></ul>
+
+<?php echo $this->amazonDataDumpResearch();?>
