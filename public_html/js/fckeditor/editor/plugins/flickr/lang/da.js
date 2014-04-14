@@ -1,0 +1,1 @@
+﻿FCKLang.btnTitle			= 'Billeder fra Flickr' ;

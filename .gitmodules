@@ -1,18 +1,12 @@
-[submodule "library/REST"]
-	path = library/REST
-	url = git://github.com/codeinchaos/restful-zend-framework.git
 [submodule "library/Zend"]
 	path = library/Zend
 	url = git://github.com/zendframework/zf1.git
-[submodule "library/Solarium"]
-	path = libary/Solarium
-	url = git://github.com/basdenooijer/solarium.git
 [submodule "library/HTMLPurifier"]
-	path=" library/HTMLPurifier
+	path = library/HTMLPurifier
 	url = git://github.com/ezyang/htmlpurifier.git
-[submodule "library/geshi"]
-	path = library/geshi
-	url = git://github.com/GeSHi/geshi-1.0.git
+[submodule "library/Solarium"]
+	path = library/Solarium
+	url = git://github.com/basdenooijer/solarium.git
 [submodule "library/EasyBib"]
-	path = library/EasyBib"
+	path = library/EasyBib
 	url = git://github.com/easybib/EasyBib_Form_Decorator.git

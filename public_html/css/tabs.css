@@ -1,0 +1,35 @@
+/* CSS Document */
+.tabs-hide {
+			display: none;
+		}
+		.tabs-selected {
+			font-weight: bold;
+		}
+		hr {
+			display: none;
+		}
+		
+#sub-content li {
+		display:inline;
+		list-style:none;
+		padding:10px;
+		}
+		
+		
+
+#sub-content li a {
+margin: 1px 0 0; /* position: relative makes opacity fail for disabled tab in IE */
+    padding-left: 0;
+    color: #27537a;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap; /* required in IE 6 */    
+    outline: 0; /* prevent dotted border in Firefox */
+				font:100% Georgia, serif;
+
+	}
+#sub-content h3 {
+display:none;
+}

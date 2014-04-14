@@ -1,0 +1,63 @@
+#DirectoryIndex index.php index.html
+
+#Options +FollowSymLinks
+#Options -Indexes
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	#RewriteBase /relative/web/path/
+
+	RewriteCond %{REQUEST_FILENAME} -f [OR]
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteRule ^(.+) - [PT,L]
+
+	RewriteCond %{REQUEST_URI} !=/favicon.ico
+	RewriteRule ^(.*) index.php
+
+	RewriteCond %{HTTP:Authorization}  !^$
+	RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
+</IfModule>
+
+<IfModule mod_php5.c> 
+
+php_flag zend.ze1_compatibility_mode Off 
+
+</IfModule>
+
+
+
+#php_value register_globals 0
+redirect 301 /village/movie0.swf http://www.staffordshirehoard.org.uk/village2/movie0.swf
+redirect 301 /village/movie1.swf http://www.staffordshirehoard.org.uk/village2/movie1.swf
+redirect 301 /village/movie2.swf http://www.staffordshirehoard.org.uk/village2/movie2.swf
+redirect 301 /village/movie3.swf http://www.staffordshirehoard.org.uk/village2/movie3.swf
+redirect 301 /village/movie4.swf http://www.staffordshirehoard.org.uk/village2/movie4.swf
+redirect 301 /village/movie5.swf http://www.staffordshirehoard.org.uk/village2/movie5.swf
+redirect 301 /village/movie6.swf http://www.staffordshirehoard.org.uk/village2/movie6.swf
+redirect 301 /village/movie7.swf http://www.staffordshirehoard.org.uk/village2/movie7.swf
+redirect 301 /village/movie8.swf http://www.staffordshirehoard.org.uk/village2/movie8.swf
+redirect 301 /village/modern.swf http://www.staffordshirehoard.org.uk/village2/modern.swf
+redirect 301 /village/weaving.txt http://www.staffordshirehoard.org.uk/village2/weaving.txt
+redirect 301 /village/mod.txt http://www.staffordshirehoard.org.uk/village2/mod.txt
+redirect 301 /village/dom.txt http://www.staffordshirehoard.org.uk/village2/dom.txt
+redirect 301 /village/party.txt http://www.staffordshirehoard.org.uk/village2/party.txt
+redirect 301 /village/village.txt http://www.staffordshirehoard.org.uk/village2/village.txt
+redirect 301 /village/modText.swf http://www.staffordshirehoard.org.uk/village2/modText.swf
+redirect 301 /village/boots6a.jpg http://www.staffordshirehoard.org.uk/village2/boots6a.jpg
+redirect 301 /village/boots6b.jpg http://www.staffordshirehoard.org.uk/village2/boots6b.jpg
+redirect 301 /village/dec1.jpg http://www.staffordshirehoard.org.uk/village2/dec1.jpg
+redirect 301 /village/dec2.jpg http://www.staffordshirehoard.org.uk/village2/dec2.jpg
+redirect 301 /village/dec3a.jpg http://www.staffordshirehoard.org.uk/village2/dec3a.jpg
+redirect 301 /village/dec3b.jpg http://www.staffordshirehoard.org.uk/village2/dec3b.jpg
+redirect 301 /village/dec5.jpg http://www.staffordshirehoard.org.uk/village2/dec5.jpg
+redirect 301 /village/dec7a.jpg http://www.staffordshirehoard.org.uk/village2/dec7a.jpg
+redirect 301 /village/dec7b.jpg http://www.staffordshirehoard.org.uk/village2/dec7b.jpg
+redirect 301 /village/mod_1.jpg http://www.staffordshirehoard.org.uk/village2/mod_1.jpg
+redirect 301 /village/mod_2.jpg http://www.staffordshirehoard.org.uk/village2/mod_2.jpg
+redirect 301 /village/mod_3.jpg http://www.staffordshirehoard.org.uk/village2/mod_3.jpg
+redirect 301 /village/mod_4.jpg http://www.staffordshirehoard.org.uk/village2/mod_4.jpg
+redirect 301 /village/mod_5a.jpg http://www.staffordshirehoard.org.uk/village2/mod_5a.jpg
+redirect 301 /village/mod_5b.jpg http://www.staffordshirehoard.org.uk/village2/mod_5b.jpg
+redirect 301 /village/mod_11.jpg http://www.staffordshirehoard.org.uk/village2/mod_11.jpg
+redirect 301 /village/mod_13.jpg http://www.staffordshirehoard.org.uk/village2/mod_13.jpg
+redirect 301 /village/mod_15.jpg http://www.staffordshirehoard.org.uk/village2/mod_15.jpg

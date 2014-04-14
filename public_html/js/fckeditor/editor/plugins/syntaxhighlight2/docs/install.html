@@ -1,0 +1,89 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>SyntaxHighlight plugin 2</title>
+<link href="styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Code Syntax Highlight Plugin for FCKeditor</h1>
+<h2>Introduction</h2>
+<p>This is a dialog-based plugin to handle formatting of source code for  <a href="http://www.fckeditor.net">FCKeditor</a>. It makes use of the SyntaxHighlighter javascript library available to download from <a href="http://alexgorbatchev.com/wiki/SyntaxHighlighter" target="_blank">alexgorbatchev.com</a>. The plugin primiarily edits a &lt;pre&gt; tag with some custom attributes. Its mainly aimed at  users editing blogs or content management systems where there is a requirement to format programming languages on a website that is being edited using FCKEditor. </p>
+<p>The plugin is in the form of a tabbed dialogue box that looks like this:</p>
+<p><img src="plugin-screenshot.png" width="472" height="482"></p>
+<h3 id="contact">Author:</h3>
+<p><a href="http://www.psykoptic.com/blog/" target="_blank">Darren James</a></p>
+<h3>Version history: </h3>
+<ol>
+<li><strong>2.0</strong> 02 March 2009, latest version supporting SyntaxHighlighter 2.0.x <a href="/userfiles/files/FCKEditor-syntaxhighlight_2.0.zip">Download</a>.</li>
+<li><strong>1.0.2</strong> 02 March 2009 <a href="/userfiles/files/FCKEditor-syntaxhighlight_1.0.2.zip">Download</a>.</li>
+<li><strong>1.0.1</strong> 10 Feb 2009 .</li>
+  <li><strong>1.0</strong>: 30 Nov 2008. First version.</li>
+</ol>
+<h3>Known bugs:</h3>
+<p><del>Occasionally the dialogue box does not pickup the <strong>&lt;pre&gt;</strong> element to be edited in Firefox.</del> <br>
+Fixed in version 1.0.2 - Thanks to <strong>Sergey Gurevich</strong></p>
+<h2>Installation</h2>
+<h3>1. Copying the files</h3>
+<p>Extract the contents of the zip in you plugins directory, so it ends up like
+    this<br>
+  <img src="folder-setup.png" alt="Screenshot of installation" width="335" height="380" longdesc="#install"></p>
+
+<h3>2. Adding it to FCKeditor</h3>
+<p>Now add in your <em>fckconfig.js</em> or custom js configuration
+file the following line (remember its javascript we are dealing with so everything is case sensitive!:
+<code>FCKConfig.Plugins.Add( 'syntaxhighlight2', 'en') ;</code>
+</p>
+<h3>3. Adding it to the toolbarset</h3>
+<p>Add the button <strong>'SyntaxHighLight2'</strong> to your toolbarset:
+<code>FCKConfig.ToolbarSets[&quot;Basic&quot;] = [<br>
+  ['Bold','Italic','-','OrderedList','UnorderedList','-','Link','Unlink',
+  '-'<strong>,'SyntaxHighLight2'</strong>,'-','About']<br>
+] ;</code>
+</p>
+<h3 id="configure">4. Configure the plugin</h3>
+<p>The plugin will work 'out of the box', the plugin conmes with an example config section for fckconfig.js. You can configure a default language using the <strong>SyntaxHighlight2LangDefault</strong> parameter:</p>
+<p><code>FCKConfig.SyntaxHighlight2LangDefault = '<span class="key">csharp</span>'
+  ;</code></p>
+<p>The full list of languages and corresponding codes are:</p><ul><li><strong>c++</strong> - C++</li>
+<li><strong>csharp</strong> - C# </li>
+<li><strong>css</strong> - CSS </li>
+<li><strong>delphi </strong>- Delphi</li>
+<li><strong>java</strong> - Java </li>
+<li><strong>jscript</strong> - Java Script</li>
+<li><strong>php</strong> - PHP</li>
+<li><strong>python</strong> - Python</li>
+<li><strong>ruby</strong> - Ruby</li>
+<li><strong>sql</strong> - SQL</li>
+<li><strong>vb</strong> - VB.NET</li>
+<li><strong>xhtml</strong> - XML/HTML</li>
+</ul>
+<p>In FCKEditor <strong>&lt;pre&gt;</strong> blocks aren't really formatted by default. I suggest editing your <strong>fck_editorarea.css</strong> (or equivalant if you are using a custom CSS file) to something that highlights code blocks better. eg:</p>
+<pre>pre
+{
+    background-color: #fff;
+    font-family: "Consolas" , "Courier New" ,Courier,mono,serif;
+    font-size: 12px;
+    color: blue;
+    padding: 5px;
+    border: 1px dashed blue;
+}</pre>
+
+<h3>Configuring SyntaxHighlighter.</h3>
+<p>You <em>must</em> have SyntaxHighlighter version 2.0.x installed and working to display properly formatted code. FCKEditor does not need it, but for code to be properly formatted on your website you must have it configurated correctly. The <a href="http://alexgorbatchev.com/wiki/SyntaxHighlighter" target="_blank">project wiki here</a> is a good resouce.</p>
+<h3>5. Use it</h3>
+<p>Now empty the cache of your browser and reload the editor, the new button 
+  <img src="../images/syntaxhighlight.gif" alt="Insert formatted code block" width="16" height="16"> should
+  be ready to use.</p>
+<h3 id="configure">6. Future updates</h3>
+<p>There's some additional functionality I might add at a later date:</p>
+<ul>
+  <li>Preview tab using the SyntaxHighlighter library</li>
+  <li>More configuration options, eg, available languages, path to SyntaxHighlighter files</li>
+  <li>Dynamically adding a <strong>&lt;pre&gt;</strong> formatting style to the editor by default</li>
+</ul>
+<p>&nbsp;</p>
+</body>
+</html>
