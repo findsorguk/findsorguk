@@ -1,0 +1,13 @@
+<?php
+echo Zend_Json::prettyPrint(Zend_Json::encode( (
+    array(
+        'rulers' => array(
+    'dogesOfVenice' => $this->doges,
+    'scottishRulers' => $this->scots,
+    'lowCountriesRulers' => $this->low,
+    'contintentalImitations' => $this->imitate,
+    'portugeseRulers' => $this->portugal,
+    'shortLongImitations' => $this->shortlongs,
+    'frenchRulers' => $this->france)
+        )) ));
+?>

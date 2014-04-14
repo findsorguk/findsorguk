@@ -1,0 +1,76 @@
+<?php $this->headTitle('Bookmarked links from our Delicious account');
+$this->headLink()->appendAlternate('http://feeds.delicious.com/v2/rss/portableantiquities?count=10',
+	 			'application/rss+xml','Scheme bookmarks at Delicious');
+?>
+<h2>Bookmarked links</h2>
+<p>You can subscribe to our <a href="http://feeds.delicious.com/v2/rss/portableantiquities?count=10" title="Our bookmarks stored on Delicious">bookmark list at Delicious</a> if you use rss.</p>
+<?php
+
+	$config = Zend_Registry::get('config');
+	$cachemain = Zend_Registry::get('formcache');
+	$userid = $config->webservice->delicious->id;
+	$pwd = $config->webservice->delicious->pwd;
+	$delicious = new Zend_Service_Delicious($userid, $pwd);
+	$posts = $delicious->getAllPosts();
+
+	$links= array();
+	foreach ($posts as $post) {
+	$links[] = array(
+	'title' => $post->getTitle(),
+	'url' => $post->getUrl());
+	}
+	$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($links));
+	if(isset($this->page) && ($this->page != "")) {
+    $paginator->setCurrentPageNumber((int)$this->page);
+	}
+	$paginator->setItemCountPerPage(20)
+    	      ->setPageRange(10);
+	?>
+
+<ul>
+<?php echo $this->partialLoop('partials/getinvolved/links2.phtml',$paginator);?>
+</ul>
+<?php
+echo $this->paginationControl($paginator, 'Sliding', 'structure/pagination.phtml');
+
+?>
+
+<h3>Tag cloud</h3>
+<?php
+
+	$config = Zend_Registry::get('config');
+	$cachemain = Zend_Registry::get('formcache');
+	$userid = $config->webservice->delicious->id;
+	$pwd = $config->webservice->delicious->pwd;
+	$delicious = new Zend_Service_Delicious($userid, $pwd);
+	$tags = $delicious->getTags();
+$tag = array();
+foreach($tags as $key => $value)
+{
+$tag[] = array('title' => strtolower($key), 'weight' => $value, 'params' => array('url' => $this->url(array('module' => 'getinvolved','controller' => 'links','action' => 'link','bytag' => strtolower($key)),'default',true)));
+}
+$tags = array('tags' => $tag,
+			'cloudDecorator' => array(
+			'decorator' => 'HtmlCloud',
+			'options' => array(
+			'htmlTags' => array(
+			'ul' => array(
+			'id' => 'period-object-cloud')
+			)
+			//,
+			//'separator' => ', '
+			)
+			),
+			'tagDecorator' => array(
+			'decorator' => 'HtmlTag',
+			'options' => array(
+			'htmlTags' => array( 'li'),
+			'minFontSize' => 100,
+			'maxFontSize' => 200,
+			'fontSizeUnit' => '%'
+				)
+			)
+			);
+$cloud = new Zend_Tag_Cloud($tags);
+echo $cloud;
+?>

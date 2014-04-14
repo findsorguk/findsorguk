@@ -1,0 +1,13 @@
+<?php 
+$this->headTitle('Articles about the Scheme in the Guardian');
+$this->MetaBase('A list of all articles that refer to the Scheme, retrieved from the Guardian API',
+'Portable Antiquities Scheme',
+'guardian,api,archaeology,maev kennedy,portable antiquities');
+?>
+<h2><?php echo $this->title();?></h2>
+<?php if($this->data):?>
+<?php echo $this->partialLoop('partials/news/guardianNews.phtml',$this->data);?>
+<?php echo $this->paginationControl($this->data, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>No news has been retrieved from the Guardian's API</p>
+<?php endif;?>

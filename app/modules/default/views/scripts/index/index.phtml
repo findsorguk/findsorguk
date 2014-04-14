@@ -1,0 +1,172 @@
+<?php
+$this->headMeta('noodp','robots');
+$this->headMeta('BJ0IxlmtPbri25v9zbMgcOFDOBuZmNacd9-friMs1_E','google-site-verification');
+$this->jQuery()->addJavascriptFile('/js/bootstrap-carousel.js',$type='text/javascript');
+$this->headMeta($this->serverUrl() . '/assets/logos/axe.jpg', 'twitter:image');
+?>
+
+
+<!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+      
+       <div class="item active">
+          <img src="/assets/carousel/head.jpg" alt="The Roman head from Brackley">
+          <div class="container">
+            <div class="carousel-caption">
+              <?php echo $this->partialLoop('partials/content/articleLead.phtml',$this->contents);?>
+            </div>
+          </div>
+        </div>
+      
+        <div class="item">
+          <img src="/assets/carousel/lostchange.jpg" alt="Lost Change">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Lost Change: Mapping coins</h1>
+              <p class="lead">This new application, developed with funding from Creativeworks London and built by Tracemedia has just been launched.</p>
+			  <a class="btn btn-large btn-primary" href="http://tracemedia.co.uk/lostchange">Launch Lost Change</a>
+            </div>
+          </div>
+        </div>
+		
+        <div class="item">
+          <img src="/assets/carousel/coinsHerts.jpg" alt="The gold coin hoard from Hertfordshire">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Amazing discoveries.</h1>
+              <p class="lead">New finds are uncovered and reported daily. It is easy to get involved with the Scheme and report your discoveries.</p>
+              <a class="btn btn-large btn-primary" href="/getinvolved">Learn more</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/assets/carousel/lucyEllis.jpg" alt="Lucy Ellis with the Holy Island hoard">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>See more about what we do...</h1>
+              <p class="lead">Our images on Flickr are liberally licenced. You might find something that you can use or learn more about our mission.</p>
+              <a class="btn btn-large btn-primary" href="/flickr">Browse our flickrstream</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div><!-- /.carousel -->
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="span4">
+          <img class="img-circle" src="assets/logos/micropasts.jpg">
+          <h2>Micropasts</h2>
+          <p>A community platform for conducting, designing and funding research into our human past. The Scheme's latest partnership project in conjunction with UCL and funded by the AHRC.</p>
+          <p><a class="btn" href="http://micropasts.org">Read more &raquo;</a></p>
+        </div><!-- /.span4 -->
+      
+        <div class="span4">
+          <img class="img" src="http://www.dayofarchaeology.com/wp-content/uploads/2011/05/pasrgbsize4.jpg">
+          <h2>Search our database</h2>
+          <?php echo $this->form;?>
+          
+        </div><!-- /.span4 -->
+      
+        <div class="span4">
+          <img class="img-circle" src="assets/logos/bird.jpg">
+         <h3>Latest tweets</h3>
+    	<?php echo $this->LatestTweets();?>
+        </div><!-- /.span4 -->
+      </div><!-- /.row -->
+         
+
+	<hr class="featurette-divider">
+      
+    <div class="container marketing">
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="span4">
+          <img class="img-circle" src="assets/logos/penny.jpg">
+          <h2>Learn about coins</h2>
+          <p>
+          	<a href="<?php echo $this->url(array('module' => 'ironagecoins'),'default',true);?>" title="Learn about Iron age coins">Iron Age</a><br />
+			<a href="<?php echo $this->url(array('module' => 'romancoins'),'default',true);?>" title="Learn about Roman coins">Roman</a><br />
+			<a href="<?php echo $this->url(array('module' => 'byzantinecoins'),'default',true);?>" title="Learn about Byzantine coins">Byzantine</a><br />
+			<a href="<?php echo $this->url(array('module' => 'greekromancoins'),'default',true);?>" title="Learn about Greek and roman provincial coins">Greek &amp; Roman Provincial</a><br />
+			<a href="<?php echo $this->url(array('module' => 'earlymedievalcoins'),'default',true);?>" title="Learn about Early Medieval coins">Early Medieval</a><br />
+			<a href="<?php echo $this->url(array('module' => 'medievalcoins'),'default',true);?>" title="Learn about Medieval coins">Medieval</a><br />
+			<a href="<?php echo $this->url(array('module' => 'postmedievalcoins'),'default',true);?>" title="Learn about Post medieval coins">Post Medieval</a><br />
+			</p>
+        </div><!-- /.span4 -->
+        <div class="span4">
+          <img class="img-circle" src="assets/logos/hoard.jpg">
+          <?php echo $this->partial('partials/content/staffs.phtml', null); ?>
+          
+        </div><!-- /.span4 -->
+        <div class="span4">
+          <img class="img-circle" src="assets/logos/axe.jpg">
+        <?php echo $this->partial('partials/content/bronzeage.phtml', null); ?>
+        </div><!-- /.span4 -->
+      </div><!-- /.row -->   
+  	<hr class="featurette-divider">    
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="span4">
+          <img class="img-circle" src="assets/logos/doa.jpg">
+          <h2>Day of Archaeology</h2>
+          <p>Following on from the first two years of the Day of Archaeology project, 2013 saw the third iteration of the project. You can find out more about what over 400 archaeologists do for a career.</p>
+          <p><a class="btn" href="http://dayofarchaeology.com">Read more &raquo;</a></p>
+        </div><!-- /.span4 -->
+      
+        <div class="span4">
+          <img class="img" src="assets/logos/pastexplorers.jpg">
+          <h2>PAStexplorers</h2>
+          <p>Back in the mists of time, the Scheme commissioned a children's website and this is due to be revamped shortly. You can still use it for now.</p>
+		  <p><a class="btn" href="http://pastexplorers.org.uk">Read more &raquo;</a></p>
+        </div><!-- /.span4 -->
+      
+        <div class="span4">
+          <img class="img-circle" src="assets/logos/research.jpg">
+         <h3>Research in progress</h3>
+    	<p>The Scheme's database provides the basis of over 370 research projects and has enabled the Scheme to gain funding for several large grants - Leverhulme and AHRC funding for instance.</p>
+		<p><a class="btn" href="<?php echo $this->url(array('module' => 'research'), 'default',true);?>">Read more &raquo;</a></p>
+        </div><!-- /.span4 -->
+      </div><!-- /.row -->
+         
+
+
+      <!-- START THE FEATURETTES -->
+
+    <!--  <hr class="featurette-divider"> -->
+		<?php
+//        echo $this->partialLoop('partials/index/news.phtml',$this->news);
+        ?>
+   <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+</div>
+
+	<?php $this->jQuery()->javascriptCaptureStart()?>
+	$('.myCarousel').carousel({
+		interval: 2000
+	});
+	<?php $this->jQuery()->javascriptCaptureEnd()?>
+
+
+
+
+
+<?php $this->placeholder('searchForm')->captureStart();?>
+<?php
+echo $this->form;
+?>
+<?php $this->placeholder('searchForm')->captureEnd();
+
+

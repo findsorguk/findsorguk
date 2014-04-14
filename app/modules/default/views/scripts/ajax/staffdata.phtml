@@ -1,0 +1,18 @@
+<?php 
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$markers  = $dom->createElement('markers');
+foreach($this->contacts as $contact) {
+     $markerElem = $dom->createElement('marker');
+	 $markerElem->setAttribute('name', $contact['firstname'] . ' ' . $contact['lastname'] );
+	 $markerElem->setAttribute('lat', $contact['latitude'] );
+	 $markerElem->setAttribute('lng', $contact['longitude'] );
+	 $address = array($contact['address_1'], $contact['address_2'], $contact['county'], $contact['postcode']);
+	 $markerElem->setAttribute('address', implode(', ',$address));
+	 $markerElem->setAttribute('url', $this->serverUrl() . '/contacts/staff/profile/id/' . $contact['id']);
+	 $markers->appendChild($markerElem);
+}
+$dom->appendChild( $markers );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;
+?>

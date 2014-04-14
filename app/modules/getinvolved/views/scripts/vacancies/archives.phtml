@@ -1,0 +1,12 @@
+<?php 
+$this->headTitle('Expired advertisements for vacancies at the Scheme');
+$this->metaBase('A list of expired vacancies that the Scheme has advertised','Expired vacancies','vacancies,archive');?>
+<h2>Archived vacancies</h2>
+<?php if(count($this->archives)):?>
+<ul>
+<?php echo $this->partialLoop('partials/getinvolved/vacancyList.phtml',$this->archives); ?>
+</ul>
+<?php echo $this->paginationControl($this->archives, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>There are no archived jobs available to you.</p>
+<?php endif;?>

@@ -1,0 +1,146 @@
+<?php
+header( "Content-type: application/xml" );
+echo '<?xml version="1.0" encoding="UTF-8" ?>';
+?>
+<rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+      xmlns:foaf="http://xmlns.com/foaf/0.1/"
+      xmlns:admin="http://webns.net/mvcb/"
+	  xmlns:dc="http://purl.org/dc/elements/1.1/"
+	  xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	  xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
+	  xmlns:owl="http://www.w3.org/2002/07/owl#"
+>
+<foaf:Organization>
+<foaf:name>The British Museum</foaf:name>
+	  <foaf:nick>BM</foaf:nick>
+	  <foaf:fundedBy>DCMS</foaf:fundedBy>
+	  <foaf:mbox rdf:resource="mailto:information@britishmuseum.org"/>
+	  <foaf:workplaceHomepage rdf:resource="http://www.britishmuseum.org"/>
+	  <foaf:depiction rdf:resource="<?php echo Zend_Registry::get('siteurl');?>/images/logos/bm.gif"/>
+	  <foaf:based_near rdf:parseType="Resource">
+	<geo:lat>51.522167 </geo:lat>
+	<geo:long>-0.127031</geo:long>
+	</foaf:based_near>
+	<con:office rdf:parseType="Resource">
+	<con:address rdf:parseType="Resource">
+	<con:city>
+	London
+	</con:city>
+	<con:country>
+	United Kingdom
+	</con:country>
+	<con:postalCode>
+ 	WC1B 3DG
+ 	</con:postalCode>
+	<con:street>
+ 	The British Museum
+ 	</con:street>
+	<con:street2>
+	Great Russell Street
+	</con:street2>
+	</con:address>
+	<con:phone rdf:resource="tel:0207 323 8600"/>
+	<geo:location rdf:parseType="Resource">
+	<geo:lat>
+	51.522167
+	</geo:lat>
+	<geo:long>
+	-0.127031
+	</geo:long>
+	</geo:location>
+	</con:office>
+
+	  <foaf:holdsAccount>
+		<foaf:OnlineAccount>
+		<foaf:accountServiceHomepage dc:title="Twitter" rdf:resource="http://www.twitter.com/"/>
+		<foaf:accountProfilePage rdf:resource="http://www.twitter.com/britishmuseum"/>
+		<foaf:accountName>britishmuseum</foaf:accountName>
+		</foaf:OnlineAccount>
+		</foaf:holdsAccount>
+		<foaf:holdsAccount>
+		<foaf:OnlineAccount>
+		<foaf:accountServiceHomepage dc:title="Facebook" rdf:resource="http://www.facebook.com/"/>
+		<foaf:accountProfilePage rdf:resource="http://www.facebook.com/britishmuseum"/>
+		<foaf:accountName>britishmuseum</foaf:accountName>
+		</foaf:OnlineAccount>
+		</foaf:holdsAccount>
+		<foaf:holdsAccount>
+		<foaf:OnlineAccount>
+		<foaf:accountServiceHomepage dc:title="Flickr" rdf:resource="http://www.flickr.com/"/>
+		<foaf:accountProfilePage rdf:resource="http://www.flickr.com/photos/42774722@N03"/>
+		<foaf:accountName>42774722@N03</foaf:accountName>
+		</foaf:OnlineAccount>
+		</foaf:holdsAccount>
+</foaf:Organization>
+
+<foaf:Organization>
+      <foaf:name>The Portable Antiquities Scheme</foaf:name>
+	  <foaf:nick>PAS</foaf:nick>
+	  <foaf:fundedBy>MLA via DCMS</foaf:fundedBy>
+      <foaf:logo rdf:resource="<?php echo $this->serverUrl();?>/images/logos/pasrgbsize5.gif"/>
+	  <foaf:mbox_sha1sum><?php echo sha1('info@finds.org.uk');?></foaf:mbox_sha1sum>
+	  <foaf:mbox rdf:resource="mailto:info@finds.org.uk"/>
+	  <foaf:workplaceHomepage rdf:resource="<?php echo $this->serverUrl();?>"/>
+	  <foaf:weblog rdf:resource="<?php echo $this->serverUrl();?>/wordpress"/>
+	  <foaf:workInfoHomepage rdf:resource="http://www.britishmuseum.org/the_museum/departments/portable_antiquities_treasure.aspx"/>
+
+	<foaf:depiction rdf:resource="<?php echo $this->serverUrl();?>/images/logos/pasrgbsize5.gif"/>
+	<foaf:holdsAccount>
+	<foaf:OnlineAccount>
+	<foaf:accountServiceHomepage dc:title="Delicious" rdf:resource="http://delicious.com/"/>
+	<foaf:accountProfilePage rdf:resource="http://delicious.com/portableantiquities"/>
+	<foaf:accountName>portableantiquities</foaf:accountName>
+	</foaf:OnlineAccount>
+	</foaf:holdsAccount>
+	<foaf:holdsAccount>
+	<foaf:OnlineAccount>
+	<foaf:accountServiceHomepage dc:title="Twitter" rdf:resource="http://www.twitter.com/"/>
+	<foaf:accountProfilePage rdf:resource="http://www.twitter.com/findsorguk"/>
+	<foaf:accountName>findsorguk</foaf:accountName>
+	</foaf:OnlineAccount>
+	</foaf:holdsAccount>
+	<foaf:holdsAccount>
+	<foaf:OnlineAccount>
+	<foaf:accountServiceHomepage dc:title="Flickr" rdf:resource="http://www.flickr.com/"/>
+	<foaf:accountProfilePage rdf:resource="http://www.flickr.com/photos/finds/"/>
+	<foaf:accountName>portableantiquities</foaf:accountName>
+	</foaf:OnlineAccount>
+	</foaf:holdsAccount>
+	  <foaf:based_near rdf:parseType="Resource">
+	<geo:lat>51.522167 </geo:lat>
+	<geo:long>-0.127031</geo:long>
+	</foaf:based_near>
+	<con:office rdf:parseType="Resource">
+	<con:address rdf:parseType="Resource">
+	<con:city>
+	London
+	</con:city>
+	<con:country>
+	United Kingdom
+	</con:country>
+	<con:postalCode>
+ 	WC1B 3DG
+ 	</con:postalCode>
+	<con:street>
+ 	The Department of Portable Antiquities and Treasure, The British Museum
+ 	</con:street>
+	<con:street2>
+	Great Russell Street
+	</con:street2>
+	</con:address>
+	<con:phone rdf:resource="tel:0207 323 8611"/>
+	<geo:location rdf:parseType="Resource">
+	<geo:lat>
+	51.522167
+	</geo:lat>
+	<geo:long>
+	-0.127031
+	</geo:long>
+	</geo:location>
+	</con:office>
+	<?php echo $this->partialLoop('partials/xml/foaf.phtml',$this->staff);?>
+    </foaf:Organization>
+
+</rdf:RDF>

@@ -1,0 +1,6 @@
+<?php
+echo Zend_Json::prettyPrint(Zend_Json::encode( ( array(
+    'medievalissuer' => $this->monarchs, 'issuingMints' => $this->mints, 'issuedTypes' => $this->types, 
+	'issuedDenominations' => $this->denominations	
+) ) ) );
+?>

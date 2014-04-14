@@ -1,0 +1,41 @@
+<?php
+$this->headTitle('A list of Arts Council England accredited museums');
+$this->metaBase(
+	'A list of accredited Arts Council England museums in the UK',
+	'ACE museums',
+	'museums,accredited,treasure');
+?>
+<h2><?php echo $this->title();?></h2>
+<p>This list has been generated and enhanced from the <a href="http://www.artscouncil.org.uk/what-we-do/supporting-museums/accreditation-scheme/accreditation-statistics/">Arts Council England curated list</a>.
+This will be used within the forthcoming Treasure administration module, and each museum page will list the objects they have acquired. This will only be applicable to England and Wales.</p>
+<?php if (count($this->museums)): ?>
+<a class="btn" href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'accreditedmuseums', 'action' => 'map'), 'default', true);?>">View museums on a map <i class="icon-map-marker"></i></a> 
+<table class="table table-striped">
+	<caption>A list of accredited museums</caption>
+		<thead>
+		<tr>
+			<th>Museum Name</th>
+			<th>Accredited Status</th>
+			<th>Accreditation number</th>
+			<th>Region</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php 
+		foreach($this->museums as $museum):
+		$museum = (object)$museum;
+		$url = $this->url(array('module' => 'contacts', 'controller' => 'accreditedmuseums', 'action' => 'museum', 'id' => $museum->id ), 'default', true);
+		?>
+		
+			<tr>
+				<td><a href="<?echo $url;?>"><?php echo $museum->museumName;?></a></td>
+				<td><?php echo $museum->status;?></td>
+				<td><?php echo $museum->accreditedNumber;?></td>
+				<td><?php echo $museum->regionName;?></td>
+			</tr>
+		<?php endforeach;?>
+			<tr>
+		</tbody>
+</table>
+<?php endif;?>
+<?php echo $this->paginationControl($this->museums, 'Sliding', 'structure/pagination.phtml'); ?>

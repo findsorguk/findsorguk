@@ -1,0 +1,27 @@
+<?php
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$dom->createElement('markers');
+
+$documentNode = $dom->createElement('markers');
+$dom->appendChild($documentNode);
+
+foreach($this->coroners as $coroner){
+	
+	$url = $this->serverUrl() .  '/contacts/coroners/profile/id/';
+    if(!is_null($coroner['longitude'])){
+        $title = $coroner['firstname'] . ' ' . $coroner['lastname'];
+		$content = '<a href="' . $url . $coroner['id'] . '"><h3>' . $title . '</h3></a>';
+		$content .= '<p>Responsible for: ' . $coroner['region_name'] . '</p>';
+		
+		$marker = $dom->createElement('marker');
+		$marker->setAttribute('lat', $coroner['latitude']);
+        $marker->setAttribute('lng', $coroner['longitude']);
+        $marker->setAttribute('title', $title);
+        $marker->setAttribute('id',$coroner['id']);
+        $marker->setAttribute('content', $content);
+		$documentNode->appendChild( $marker );
+    }
+}
+$xmlData  = $dom->saveXML();
+echo $xmlData;

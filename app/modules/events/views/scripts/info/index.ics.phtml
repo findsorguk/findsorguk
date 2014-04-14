@@ -1,0 +1,15 @@
+<?php 
+header('Content-Type: text/Calendar');
+header('Content-Disposition: attachment; filename=iCalendar_dates_' . date('Y-m-d_H-m-s') . '.ics');
+echo "BEGIN:VCALENDAR\n";
+echo "PRODID:-//finds.org.uk//iCal Class MIMEDIR//EN\n";
+echo "VERSION:2.0\n";
+echo "METHOD:PUBLISH\n";
+echo "BEGIN:VEVENT\n";
+echo "ORGANIZER:MAILTO:DPETT@thebritishmuseum.ac.uk\n";
+echo $this->partialLoop('partials/events/icsData.phtml',$this->events)."\n";
+//echo "PRIORITY:5\n";
+//echo "X-MICROSOFT-CDO-IMPORTANCE:1\n";
+echo "CLASS:PUBLIC\n";
+echo "END:VEVENT\n";
+echo "END:VCALENDAR";

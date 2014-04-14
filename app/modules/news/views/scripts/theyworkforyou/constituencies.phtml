@@ -1,0 +1,16 @@
+<?php $this->headTitle('All parliamentary constituencies for 2010');
+$this->headMeta('This page lists all the parliamentary constituencies at the 2010 election');?>
+<h2>A list of parliamentary constituencies</h2>
+<?php if(count($this->data)):?>
+<ul>
+<?php foreach($this->data as $d):?>
+<?php $url = $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'finds','constituency' => $d['name']),null,true);?>
+<li>
+<a href="<?php echo $url;?>" title="View details for <?php echo $d['name'];?>"><?php echo $d['name']?></a>
+</li>
+<?php endforeach;?>
+</ul>
+<?php echo $this->paginationControl($this->data, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>No objects have been recorded in this bounding box area yet.</p>
+<?php endif;?>

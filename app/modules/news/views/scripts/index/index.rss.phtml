@@ -1,0 +1,39 @@
+<?php
+Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/rss+xml');
+
+$feed = new Zend_Feed_Writer_Feed;
+$feed->setTitle('News from the Portable Antiquities Scheme');
+$feed->setDescription('An rss feed of news stories from the Scheme');
+$feed->setLink($this->serverUrl());
+$feed->setFeedLink($this->curUrl(), 'rss');
+
+$feed->setDateModified(time());
+$feed->addHub('http://pubsubhubbub.appspot.com/');
+foreach ($this->news as $result) {
+	
+$result = (object)$result;
+$entry = $feed->createEntry();
+$entry->setTitle($result->title);
+$entry->setLink($this->serverUrl() . '/news/stories/article/id/' . $result->id);
+$entry->addAuthor(array(
+    'name'  => $result->author,
+    'email' => 'info@finds.org.uk',
+    'uri'   => $this->serverUrl() . '/contacts' ,
+));
+if($result->updated != '0000-00-00 00:00:00'){
+$entry->setDateModified(strtotime($result->updated));
+}
+$entry->setDateCreated(strtotime($result->created));
+if(!is_null($result->summary)){
+$entry->setDescription($result->summary);
+
+$entry->setContent(strip_tags($result->contents));
+}
+$feed->addEntry($entry);
+}
+/**
+* Render the resulting feed to Atom 1.0 and assign to $out.
+* You can substitute "atom" with "rss" to generate an RSS 2.0 feed.
+*/
+$out = $feed->export('rss');
+echo $out;

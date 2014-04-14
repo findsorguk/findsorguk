@@ -1,0 +1,52 @@
+<?php
+Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/atom+xml');
+$feed =  new Zend_Feed_Writer_Feed();
+$feed->setTitle('News stories about the Scheme in the Guardian');
+$feed->setLink($this->serverUrl());
+$feed->setFeedLink($this->curUrl(), 'atom');
+$feed->addAuthor(array(
+    'name'  => 'The Guardian API and Daniel Pett',
+    'email' => 'info@finds.org.uk',
+    'uri'   => $this->serverUrl(),
+));
+$feed->setDateModified(time());
+$feed->addHub('http://pubsubhubbub.appspot.com/');
+ Zend_Date::setOptions(array(
+    'format_type'   => 'php'
+));
+foreach($this->guardianStories['guardianStory'] as $e){
+
+$entry = $feed->createEntry();
+$entry->setTitle($e['headline']);
+$entry->setLink($e['url']);
+if(is_null($e['byline'])){
+	$byline = 'Guardian staff writer';
+} else {
+	$byline = $e['byline'];
+}
+$entry->addAuthor(array(
+    'name'  => $byline,
+));
+$updated = new Zend_Date($e['pubDate'], 'YY-mm-dd hh:mm:ss');
+$created = new Zend_Date($e['pubDate'], 'YY-mm-dd hh:mm:ss');
+$entry->setDateModified($updated);
+$entry->setDateCreated($created);
+if(!is_null($e['standfirst'])){
+$desc = $e['standfirst'];
+} else {
+$desc = $e['linkText'];
+}
+$len = strlen($e['content']);
+if($len == 61){
+	$content = 'Content only available on the Guardian site';
+
+} else {
+$content = strip_tags($this->ellipsisstring($e['content'],600));
+}
+$entry->setDescription(htmlspecialchars(strip_tags($desc)));
+$entry->setContent(htmlspecialchars(strip_tags($content)));
+$feed->addEntry($entry);
+}
+
+$out = $feed->export('atom');
+echo $out;

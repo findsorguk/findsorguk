@@ -1,0 +1,11 @@
+<?php 
+$this->headTitle('List of Scheme alumni');
+$this->metaBase('A list of all people who used to work for the Portable Antiquities Scheme','alumni','alumni,scheme,head office,archaeology');
+
+?>
+<h2>Scheme Alumni</h2>
+<div id="contacts">
+<ul>
+<?php echo $this->partialLoop('partials/contacts/alumniList.phtml',$this->alumni);?>
+</ul>
+</div>

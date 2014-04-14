@@ -1,0 +1,16 @@
+<h1>An error occurred</h1>
+
+<h2><?php echo $this->message ?></h2>
+
+<p><strong><?php echo $this->code;?></strong></p>
+
+<h3>Exception information:</h3>
+<p>
+<strong>Message:</strong> <?php echo $this->exception->getMessage(); $this->actionerrors()?>
+</p>
+
+<h3>Stack trace:</h3>
+<p class="errors"><?php echo $this->exception->getTraceAsString() ?></p>
+
+<h3>Request Parameters:</h3>
+<p><?php echo var_dump($this->request->getParams()) ?></p>

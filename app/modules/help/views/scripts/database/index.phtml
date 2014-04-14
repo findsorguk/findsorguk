@@ -1,0 +1,9 @@
+<h2>Help topics for our database</h2>
+<?php if($this->help):?>
+<ol>
+<?php echo $this->partialLoop('partials/help/topiclist.phtml',$this->help);?>
+</ol>
+<?echo $this->paginationControl($this->help, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>There are no help topics available at the moment.</p>
+<?php endif;?>

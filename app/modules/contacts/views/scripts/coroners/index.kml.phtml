@@ -1,0 +1,38 @@
+<?php 
+$site = $this->serverUrl();
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$response = Zend_Controller_Front::getInstance()->getResponse();
+$response->setHeader('Content-type', 'text/xml');
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+$contexts = $contextSwitch->getContexts();
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$root  = $dom->createElement('kml');
+$nameSpace = $dom->createElementNS('http://www.opengis.net/kml/2.2', 
+'kml');
+
+$dom->appendChild($nameSpace);
+
+$documentNode = $dom->createElement('Document'); 
+$nameSpace->appendChild($documentNode);
+$nameSpace->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:gx', 'http://www.google.com/kml/ext/2.2');
+$documentName = $dom->createElement('name','coroners.kml'); 
+$documentNode->appendChild($documentName);
+
+foreach($this->coroners as $c){
+	$person = $dom->createElement('Placemark');
+	$person->appendChild( $dom->createElement('name', $c['firstname'] . ' ' .$c['lastname']));
+	$person->appendChild( $dom->createElement('description', htmlspecialchars($c['region_name'])));
+	$point = $dom->createElement('Point');
+	$point->appendChild( $dom->createElement('coordinates', $c['longitude'] . ',' . $c['latitude']));
+	$person->appendChild( $point );
+	$documentNode->appendChild( $person );
+}
+
+
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

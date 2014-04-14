@@ -1,0 +1,13 @@
+<?php
+
+foreach($this->emperors as $emp){
+$empData[] = array(
+    'startDate' => $emp['date_from'],
+    'headline' => $emp['name'],
+    'text' => '',
+);
+}
+
+$data = array('timeline',$empData);
+echo Zend_Json::prettyPrint(Zend_Json::encode($data));
+?>

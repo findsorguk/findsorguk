@@ -1,0 +1,15 @@
+<?php
+
+
+$paginator = $this->coroners;
+$meta = array(
+    'currentPage' => $paginator->getCurrentPageNumber(),
+    'totalResults' => $paginator->getTotalItemCount(),
+    'resultsPerPage' => $paginator->getItemCountPerPage(),
+    'totalPages' => $paginator->getPageRange()
+        );
+$coroners = array();
+foreach($this->coroners as $coroner){
+    $coroners[] = $coroner;
+}
+echo Zend_Json::prettyPrint(Zend_Json::encode(( array('meta' => $meta, 'coroners' => $coroners))));

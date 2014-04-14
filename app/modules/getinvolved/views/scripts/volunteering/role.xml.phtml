@@ -1,0 +1,26 @@
+<?php 
+$site = $this->serverUrl();
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+$contexts = $contextSwitch->getActionContexts( $action );
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$vols  = $dom->createElement('response');
+$volsElem = $dom->createElement('volunteering');
+$vols->appendChild($volsElem);
+
+foreach($this->vols as $f){
+$volElem = $dom->createElement('role');
+foreach($f as $k => $v){
+	$volElem->appendChild( $dom->createElement($k, htmlspecialchars($v))); 
+}
+$volsElem->appendChild( $volElem );
+}
+
+$dom->appendChild( $vols );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

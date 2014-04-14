@@ -1,0 +1,11 @@
+<?php echo $this->partialLoop('partials/content/article.phtml',$this->contents);?>
+<?php if(count($this->documents)) { ?>
+<h3>Scheme publications in google doc format</h3>
+<ul>
+<?php foreach($this->documents as $d) {
+$types = explode('/',$d['type']);
+echo '<li><a href="'.$d['altlink'].'" title="View this document">'.$d['title'];
+echo '</a> - <span class="pdf">'.strtoupper($types['1']).'</span></li>';}
+?>
+</ul>
+<?php } ?>

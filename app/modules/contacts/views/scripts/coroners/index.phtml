@@ -1,0 +1,13 @@
+<?php
+$this->headTitle("Coroners of England and Wales contact details");
+$this->metaBase('A list of all coroners known to the Portable Antiquities Scheme','Coroners list','coroners,scheme,head office,archaeology');
+?>
+<div id="contacts">
+<h2>Coroners of England and Wales</h2>
+
+<?php if (count($this->coroners)): ?>
+<p>The Scheme tries to keep this list as current as possible, however we accept there may be errors and omissions.</p>
+<?php echo $this->partialLoop('partials/contacts/coronervcard.phtml',$this->coroners);?>
+<?php endif;?>
+<?php echo $this->paginationControl($this->coroners, 'Sliding', 'structure/pagination.phtml'); ?>
+</div>

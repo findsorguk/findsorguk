@@ -1,0 +1,32 @@
+<?php
+$this->headTitle('More on our flickr contact: ' . $this->details->realname );
+$this->MetaBase($this->details->realname . '\'s profile details and some photos retrieved from the flickr api',
+'photos',
+'favourites,flickr,archaeology,creative commons,' . $this->details->username
+);
+?>
+<h2>More on our flickr contact: <?php echo $this->details->realname;?></h2>
+<ul>
+<li>Username: <?php echo $this->details->username;?></li>
+<?php if(!is_null($this->details->realname)):?>
+<li>Realname: <?php echo $this->details->realname;?></li>
+<?php endif;?>
+<?php if(!is_null($this->details->location)):?>
+<li>Location: <?php echo $this->details->location;?></li>
+<?php endif;?>
+<li>Photos: <?php echo $this->details->photos->count;?></li>
+<li>Photo url: <a href="<?php echo $this->details->photosurl;?>" title="View their photos"><?php echo $this->details->photosurl;?></a></li>
+<li>First contributed to Flickr: <?php echo $this->details->photos->firstdatetaken;?></li>
+</ul>
+<img src="<?php echo $this->details->buddyiconurl;?>" alt="<?php echo $this->details->username;?>'s icon" />
+
+<h3><?php echo $this->details->username;?>'s public photos</h3>
+<?php if($this->photos):?>
+<?php foreach($this->photos as $photo):?>
+<a rel="lightbox" href="<?php echo $photo->url_m;?>" title="View larger image of <?php echo $photo->title;?>">
+<img src="<?php echo $photo->url_sq?>" width="<?php echo $photo->width_sq?>" height="<?php echo $photo->width_sq?>"
+alt="<?php echo $photo->title;?>" /></a>
+<?php endforeach;?>
+<?php else: ?>
+<p><?php echo $this->details->username;?> doesn't have any photos available.</p>
+<?php endif; ?>

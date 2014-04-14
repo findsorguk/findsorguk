@@ -1,0 +1,23 @@
+
+<?php
+if (!empty($this->messages[0])) {
+    echo '<div class="flashmessenger">';
+    echo $this->messages[0];
+    echo '</div>';
+}
+?>
+<h2>Search results</h2>
+<?php if (count($this->paginator)): ?>
+
+<ul>
+ <?php
+foreach ($this->paginator as $find)
+: ?>
+<li><a href="/redev/beowulf/database/record/id/<?php echo $find['id'];?>">
+      <?php echo $find['old_findID'];?>
+      </a></li><?php endforeach;?>
+</ul>
+
+<?php endif; ?>
+
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>

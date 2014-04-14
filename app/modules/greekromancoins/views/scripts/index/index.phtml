@@ -1,0 +1,169 @@
+<div class="row-fluid">
+
+    <div class="span6">
+    <?php
+    echo $this->partialLoop('partials/content/article.phtml',$this->content);
+    ?>
+    </div>
+    <div class="span5">
+        <h3>Latest notable coins</h3>
+    <div  id="map">
+        <?php echo $this->googleDynamicMap(null,null,true);?>
+        </div>
+    </div>
+</div>
+<div class="row fluid">
+    <div class="span12">
+<?php echo $this->latestRecords('objecttype:coin broadperiod:"GREEK AND ROMAN PROVINCIAL"');?>
+    </div>
+</div>
+<?php $this->inlineScript()->captureStart();?>
+$(document).ready(function() {
+
+
+    var nlsmap = new google.maps.ImageMapType({
+	   getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
+	   tileSize: new google.maps.Size(256, 256),
+	   isPng: false,
+	   maxZoom: 8,
+	   minZoom: 1,
+	   name: 'Historic',
+	   alt: "NLS Historic Map"
+	});
+
+
+
+    var osmMapType = new google.maps.ImageMapType({
+        getTileUrl: function (coord, zoom) {
+            return "http://tile.openstreetmap.org/" +
+                zoom + "/" + coord.x + "/" + coord.y + ".png";
+
+        },
+        tileSize: new google.maps.Size(256, 256),
+        isPng: true,
+        alt: "OpenStreetMap layer",
+        name: "OSM",
+        maxZoom: 18
+    });
+
+
+
+    var myOptions = {
+          center: new google.maps.LatLng( 53.2,-3.1),
+          zoom: 6,
+          mapTypeControlOptions: {
+          mapTypeIds: [
+
+          google.maps.MapTypeId.TERRAIN,
+          google.maps.MapTypeId.SATELLITE,
+          google.maps.MapTypeId.ROADMAP,
+          'OSM',
+          'historic'
+          ]
+    	  },
+    	  mapTypeControl: true,
+    	  style: google.maps.MapTypeControlStyle.DROPDOWN_BAR,
+          scaleControl: true,
+    	  zoomControl: true,
+          mapTypeId: 'OSM',
+          scrollwheel: false,
+        };
+
+    var map = new google.maps.Map(document.getElementById("map"),myOptions);
+        map.mapTypes.set('OSM',osmMapType);
+        map.mapTypes.set('historic',nlsmap);
+
+        var myTitle = document.createElement('h1');
+		myTitle.style.color = '#444444';
+		myTitle.style.font = "10px sans-serif";
+		myTitle.innerHTML = 'Historical maps from <a href="http://geo.nls.uk/maps/api/">NLS Maps API<\/a> | OSM &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap<\/a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA<\/a> | Google tiles &copy; Google';
+
+		var myTextDiv = document.createElement('div');
+		myTextDiv.appendChild(myTitle);
+
+		map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
+
+
+
+	  $('a[data-toggle="tab"]').on('shown', function (e) {
+	  e.target // activated tab
+	  e.relatedTarget // previous tab
+
+  	google.maps.event.trigger(map, 'resize');
+  	map.setZoom( map.getZoom() );
+  	var latLngBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(49.871159, -6.379880),
+    new google.maps.LatLng(55.811741, 1.768960)
+    );
+  	map.fitBounds(latLngBounds);
+	});
+
+	<?php
+	$request = Zend_Controller_Front::getInstance()->getRequest();
+	$params = array('module' => 'database', 'controller' => 'ajax', 'action' => 'mapdata2');
+	$params2 = array_slice($request->getParams(),3);
+	$params = array_merge($params,$params2);
+	$params['broadperiod'] = 'GREEK AND ROMAN PROVINCIAL';
+        $params['objectType'] = 'COIN';
+        $params['note'] = 1;
+        $params['show'] = 50;
+        $params['thumbnail'] = 1;
+	$url = $this->serverUrl() . $this->url($params,'default',true);
+	?>
+
+	var markers = new Array();
+
+	var infowindow = new google.maps.InfoWindow();
+    jQuery.get("<?php echo $url;?>", {}, function(data) {
+
+    jQuery(data).find("marker").each(function() {
+        var markerXML = jQuery(this);
+        var latlng = new google.maps.LatLng(
+            parseFloat(markerXML.attr("lat")),
+            parseFloat(markerXML.attr("lng"))
+        );
+        var title = markerXML.attr("title");
+        var marker = new google.maps.Marker({
+        	position: latlng,
+        	map: map,
+        	title: title,
+        	icon: "<?php echo $this->serverUrl();?>/images/logos/museum_archeological.png" });
+
+        // now that the marker is placed, assign event listener on the marker
+        // and create/assign infowindow to the event trigger.
+        markerInfoWindow(marker, markerXML.attr("content"));
+        markers.push(marker);
+    });
+	});
+
+	function markerInfoWindow(marker, information){
+	     google.maps.event.addListener(marker, 'click',
+	    function() {
+	        infowindow.close();
+	        infowindow.setContent(information);
+	        infowindow.setPosition(marker.getPosition());
+	        infowindow.open(map, marker);
+	    });
+	}
+	var center;
+
+	function calculateCenter() {
+	  center = map.getCenter();
+	}
+	google.maps.event.addDomListener(map, 'idle', function() {
+	  calculateCenter();
+	});
+	google.maps.event.addDomListener(window, 'resize', function() {
+	  map.setCenter(center);
+	});
+
+
+
+});
+
+
+
+
+
+
+<?php $this->inlineScript()->captureEnd();?>

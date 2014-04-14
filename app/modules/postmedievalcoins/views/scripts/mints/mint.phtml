@@ -1,0 +1,6 @@
+<?php echo $this->partialLoop('partials/numismatics/medMintDetail.phtml',$this->mints);?>
+<h3>Issuers</h3>
+<p>This mint was active under the following issuers:</p>
+<ul id="related">
+<?php echo $this->partialLoop('partials/numismatics/issuersMedievalMints.phtml',$this->actives);?>
+</ul>

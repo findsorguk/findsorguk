@@ -1,0 +1,40 @@
+<?php
+$this->headTitle('Details for ' . $this->museum->museumName);
+?>
+<h2><?php echo $this->title();?></h2>
+<ul><li>Accreditation Number: <?php echo $this->museum->accreditedNumber;?></li></ul>
+<?php
+if(!is_null($this->museum->lat) && !is_null($this->museum->lon)):
+$this->googleDynamicMap();
+?>
+<?php $this->inlineScript()->captureStart() ?>
+ $(document).ready(function() {
+  var center = new google.maps.LatLng(<?php echo $this->museum->lat;?>, <?php echo $this->museum->lon;?>);
+  var myOptions = {
+    zoom: 18,
+    center: center,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+
+  var map = new google.maps.Map(document.getElementById("map"), myOptions);
+	var marker = new google.maps.Marker({
+      		position: new google.maps.LatLng(<?php echo $this->museum->lat;?>, <?php echo $this->museum->lon;?>),
+      		map: map,
+      		animation: google.maps.Animation.DROP,
+      		title:"Museum location",
+      		icon: "<?php echo $this->serverUrl();?>/images/logos/museum_archeological.png" 
+  		});
+  	google.maps.event.addListener(marker, 'click', toggleBounce);
+	
+	function toggleBounce() {
+		if (marker.getAnimation() != null) {
+    		marker.setAnimation(null);
+  		} else {
+    		marker.setAnimation(google.maps.Animation.BOUNCE);
+  		}
+  		}	
+  
+  });
+<?php $this->inlineScript()->captureEnd() ?>
+<div id="map"></div>
+<?php endif;?>

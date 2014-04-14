@@ -1,0 +1,25 @@
+<?php
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$dom->createElement('markers');
+
+$documentNode = $dom->createElement('markers');
+$dom->appendChild($documentNode);
+
+foreach($this->museums as $museum){
+	$url = $this->serverUrl() .  '/contacts/accreditedmuseums/museum/id/' . $museum['id'];
+    if(!is_null($museum['lon'])){
+        $title = $museum['museumName'];
+		$content = '<h2>' . $title . '</h2>';
+		$content .= '<a href="' . $url . '">' . $url . '</a>';
+		$marker = $dom->createElement('marker');
+		$marker->setAttribute('lat', $museum['lat']);
+        $marker->setAttribute('lng', $museum['lon']);
+        $marker->setAttribute('title', $title);
+        $marker->setAttribute('id',$museum['id']);
+        $marker->setAttribute('content', $content);
+		$documentNode->appendChild( $marker );
+    }
+}
+$xmlData  = $dom->saveXML();
+echo $xmlData;

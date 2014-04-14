@@ -1,0 +1,37 @@
+<?php echo $this->headTitle(str_replace('_',' ', Zend_Controller_Front::getInstance()->getRequest()->getParam('called')));?>
+<h1 class="lead"><?php echo $this->title();?></h1>
+<?php echo $this->sparqlDbpedia(Zend_Controller_Front::getInstance()->getRequest()->getParam('called'));?>
+<?php 
+$cache = Zend_Registry::get('cache');
+$key = md5('opla' . Zend_Controller_Front::getInstance()->getRequest()->getParam('called'));
+	if (!($cache->test($key))) {
+$op = new Pas_Service_OpenPlaques_Search();
+$params = array('format' => 'json' , 'phrase' => str_replace('_',' ', Zend_Controller_Front::getInstance()->getRequest()->getParam('called')));
+$resp = $op->getData('search', $params );
+	$cache->save($resp);
+	} else {
+	$resp = $cache->load($key);
+	}
+if($resp){?>
+<h2>Blue Plaque data (via Openplaques json)</h2>
+<?php 
+foreach ($resp as $r){
+	
+if($r->person){
+	echo '<h4>Roles: ' .  $r->person->name . '</h4>';
+	foreach($r->person->roles as $role){
+		echo ucfirst($role->name) . '<br />';
+	}
+	echo '<h4>Personal connections</h4>';
+	echo '<ul>';
+	foreach($r->person->personal_connections as $connection){
+		echo '<li>Address: ' . $connection->location->name . ', ' . $connection->location->area->name . '<br />';
+		echo 'Connection:' . $connection->verb->name . '</li>';		
+	}
+	echo '</ul>';
+}
+}
+}
+?>
+
+<?php echo $this->flickrImageSearch($this->title() . ' archaeologist');?>

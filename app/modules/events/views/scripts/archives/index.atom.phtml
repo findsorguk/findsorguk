@@ -1,0 +1,35 @@
+<?php
+Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/atom+xml');
+$feed =  new Zend_Feed_Writer_Feed();
+$feed->setTitle('Archived Scheme events');
+$feed->setLink($this->serverUrl());
+$feed->setFeedLink($this->curUrl(), 'atom');
+$feed->addAuthor(array(
+    'name'  => 'Daniel Pett',
+    'email' => 'info@finds.org.uk',
+    'uri'   => $this->serverUrl(),
+));
+$feed->setDateModified(time());
+$feed->addHub('http://pubsubhubbub.appspot.com/');
+ Zend_Date::setOptions(array(
+    'format_type'   => 'php'
+));
+foreach($this->events as $e){
+$entry = $feed->createEntry();
+$entry->setTitle($e['eventTitle']);
+$entry->setLink($this->serverUrl() . '/events/info/index/id/' . $e['id']);
+$entry->addAuthor(array(
+    'name'  => $e['fullname'],
+));
+$updated = new Zend_Date($e['updated'], Zend_Date::ISO_8601);
+$created = new Zend_Date($e['created'], Zend_Date::ISO_8601);
+$entry->setDateModified($updated);
+$entry->setDateCreated($created);
+$entry->setDescription($e['eventDescription']);
+$entry->setContent($e['eventDescription']
+);
+$feed->addEntry($entry);
+}
+
+$out = $feed->export('atom');
+echo $out;

@@ -1,0 +1,39 @@
+<?php 
+$site = $this->serverUrl();
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+$contexts = $contextSwitch->getContexts();
+
+$dom 	  = new DomDocument("1.0", "UTF-8");
+$mints  = $dom->createElement('response');
+$meta = $dom->createElement('meta');
+$mints->appendChild($meta);
+$meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
+$meta->appendChild( $dom->createElement('count', count($this->mints)));
+$formats = $dom->createElement('formats');
+$meta->appendChild($formats);	
+foreach ($contexts as $k => $v){
+$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param,'format' => $k),NULL,true)  ));
+}
+$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
+'controller' => $controller,'action' => $action,'id' => $param),NULL,true)  ));
+//1st item
+$mintsElem = $dom->createElement('mints');
+$mints->appendChild($mintsElem);
+// set it's attribute
+foreach($this->mints as $mint){
+$mintElem = $dom->createElement('mint');
+foreach($mint as $k => $v){
+$mintElem->appendChild( $dom->createElement($k, $v));
+}
+$mintsElem->appendChild( $mintElem );
+}
+
+$dom->appendChild( $mints );
+
+$xmlData  = $dom->saveXML();
+echo $xmlData;

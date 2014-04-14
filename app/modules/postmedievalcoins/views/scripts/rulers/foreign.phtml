@@ -1,0 +1,26 @@
+<?php 
+$this->headMeta('A list of all foreign issuing rulers of the Post Medieval 
+    period with coins found in England and Wales','description');
+$this->headMeta('kings,doges,foreign,low countries,venice,post medieval,
+    imitations,shortlongs','dc.keywords');
+$this->headTitle('A list of all foreign post medieval issuers');?>
+
+<h2>Foreign issuing rulers of the Medieval period</h2>
+
+<h3>Issuers of Scotland</h3>
+<p>This period had <?php echo count($this->scots);?> issuers.</p>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->scots) ?></ul>
+
+<h3>Issuers of France</h3>
+<p>This period had <?php echo count($this->france);?> issuers.</p>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->france) ?></ul>
+
+
+<h3>The Doges of Venice</h3>
+<p>This period had <?php echo count($this->doges);?> issuers.</p>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->doges) ?></ul>
+
+<h3>issuers of the Post Medieval Low Countries</h3>
+<p>This period had <?php echo count($this->low);?> issuers.</p>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->low) ?></ul>
+

@@ -1,0 +1,11 @@
+<?php 
+$this->headTitle("Issuing rulers of the Greek and Roman Provincial period");
+?>
+
+<h2>Issuing rulers of the Greek and Roman Provincial period</h2>
+<?php if (count($this->greeks)): ?>
+
+<ul id="related"><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->greeks) ?></ul>
+<?php endif; ?>
+
+<?php echo $this->paginationControl($this->greeks, 'Sliding', 'structure/pagination.phtml'); ?>

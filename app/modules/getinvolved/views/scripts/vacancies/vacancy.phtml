@@ -1,0 +1,5 @@
+<?php if(count($this->vacs)):?>
+<?php echo $this->partialLoop('partials/getinvolved/vacancyDetails.phtml',$this->vacs);?>
+<?php else:?>
+<p>This vacancy does not appear to be available.</p>
+<?php endif;?>

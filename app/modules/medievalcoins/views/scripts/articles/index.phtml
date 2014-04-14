@@ -1,0 +1,13 @@
+<?php $this->headTitle('A series of articles on Medieval coins');
+$this->metaBase('A series of articles that relate to Medieval coins, encompassing inscriptions, mint and types',
+'medieval numismatics',
+'medieval,coins,inscription,reading');
+?>
+
+<h2>Medieval coin articles</h2>
+<ul>
+<?php foreach($this->contents as $c) {?>
+<li><a href="<?php echo $this->url(array('module' => 'medievalcoins','controller' => 'articles',
+'action' => 'page','slug' => $c['slug']),'medievalguides',true);?>" title="Read the full article entitled <?php echo $c['menuTitle'];?>"><?php echo $c['menuTitle'];?></a></li>
+<?php }?>
+</ul>

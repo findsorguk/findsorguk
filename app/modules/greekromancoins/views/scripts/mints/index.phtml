@@ -1,0 +1,15 @@
+<?php 
+$this->headTitle('Issuing mints of the Greek and Roman Provincial period');
+$this->headMeta('A list of all issuing mints of the Greek and Roman provincial period. 
+This comes from the SNG.','description')
+->headMeta('greek,roman,provincial,mints,issued,','dc.keywords')
+->headMeta($this->curUrl(),'dc.identifier')
+->headMeta('The Portable Antiquities Scheme and the British Museum','dc.publisher')
+->headMeta('Daniel Pett','dc.creator');
+?>
+
+<h2>Issuing Mints of the Greek and Roman Provincial period</h2>
+
+<ul id="related">
+<?php echo $this->partialLoop(('partials/numismatics/mints.phtml'),$this->greeks);?>
+</ul>

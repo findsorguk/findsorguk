@@ -1,0 +1,12 @@
+<?php 
+$this->headTitle('Annual view of upcoming Portable Antiquities Scheme events')
+->headMeta('Daniel Pett','dc.creator')
+->headMeta('The Portable Antiquities Scheme','dc.publisher')
+->headMeta($this->curUrl(),'dc.identifier')
+->headMeta('CC NC-BY-SA','dc.rights');
+?>
+
+<h2>Annual view of upcoming events</h2>
+<ul id="yearrange">
+<?php echo $this->partialLoop('partials/events/archiveYears.phtml',$this->years);?>
+</ul>

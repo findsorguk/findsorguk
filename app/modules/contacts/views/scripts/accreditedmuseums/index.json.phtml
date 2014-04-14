@@ -1,0 +1,11 @@
+<?php 
+$paginator = $this->museums;
+$results = array();
+
+foreach($this->museums as $result){
+	
+	$results[] = $result;
+}
+
+$meta = array( 'currentPage' => $paginator->getCurrentPageNumber(), 'totalResults' => $paginator->getTotalItemCount(), 'resultsPerPage' => $paginator->getItemCountPerPage());
+echo Zend_Json::prettyPrint(Zend_Json::encode(( array('meta' => $meta, 'results' => $results))));

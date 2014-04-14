@@ -1,0 +1,29 @@
+<?php
+$this->metaBase('A list of all contacts who work for the Portable Antiquities Scheme','contacts list','contacts,scheme,head office,archaeology');
+$this->headLink()->appendAlternate($this->baseUrl().'/contacts/index/index/format/foaf/',
+	 			'application/rdf+xml', 'FOAF');
+
+?>
+
+<h2>Scheme contacts</h2>
+<div id="contacts">
+
+<p>The Scheme currently employs <strong><?php echo count($this->schemes);?></strong> members of staff in the following sections. Below you can get contact details for each member of staff and also find out more about their jobs and what they have recorded in their regions.</p>
+
+
+<h2> Finds Liaison Officers</h2>
+<p>The Scheme currently employs <strong><?php echo count($this->flos);?></strong> Finds Liaison Officers.</p>
+<?php echo $this->partialLoop('partials/contacts/vcard.phtml',$this->flos);?>
+<h2>Central Unit team</h2>
+<p>The Scheme currently employs <strong><?php echo count($this->centrals);?></strong> Central Unit staff members.</p>
+<?php echo $this->partialLoop('partials/contacts/vcard.phtml',$this->centrals);?>
+
+<h2>National Finds Advisers</h2>
+<p>The Scheme currently employs <strong><?php echo count($this->advisers);?></strong> National Finds Advisers.</p>
+<?php echo $this->partialLoop('partials/contacts/vcard.phtml',$this->advisers);?>
+
+<h2>Treasure Administration team</h2>
+
+<p>The Scheme currently employs <strong><?php echo count($this->treasures);?></strong> in the Treasure team.</p>
+<?php echo $this->partialLoop('partials/contacts/vcard.phtml',$this->treasures);?>
+</div>

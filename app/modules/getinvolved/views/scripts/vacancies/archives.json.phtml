@@ -1,0 +1,15 @@
+<?php
+$paginator = $this->archives;
+$results = array();
+foreach($this->archives as $result){
+	$results[] = $result;
+}
+
+$meta = array(
+    'currentPage' => $paginator->getCurrentPageNumber(),
+    'totalResults' => $paginator->getTotalItemCount(),
+    'resultsPerPage' => $paginator->getItemCountPerPage(),
+    'totalPages' => ceil($paginator->getTotalItemCount()/$paginator->getItemCountPerPage()));
+
+echo Zend_Json::prettyPrint(Zend_Json::encode( ( array('meta' => $meta, 'archivedJobs' => $results ) ) ) );
+?>

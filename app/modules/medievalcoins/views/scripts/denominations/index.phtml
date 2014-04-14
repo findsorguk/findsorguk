@@ -1,0 +1,19 @@
+<?php 
+$this->headTitle('Denominations issued during the Medieval period');
+$this->headMeta($this->curUrl(),'dc.identifier')
+    ->headMeta('CC NC-SA-BY','dc.rights')
+    ->headMeta('Daniel Pett','dc.creator')
+    ->headMeta('The Portable Antiquities Scheme','dc.publisher')
+    ->headMeta('A list of all issued denominations for the Medieval period in England and Wales.','description')
+    ->headMeta('medieval,coins,numismatics,archaeology,medieval,england,wales','dc.keywords');
+?>
+<h2>Medieval denominations</h2>
+<p>The following coins were issued during the Medieval period.</p>
+<?php if(count($this->denominations)):?>
+<ul id="related">
+<?php echo $this->partialLoop('partials/numismatics/denominations.phtml',$this->denominations);?>
+</ul>
+<?php echo $this->paginationControl($this->denominations, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>There are no denominations available to you.</p>
+<?php endif;?>

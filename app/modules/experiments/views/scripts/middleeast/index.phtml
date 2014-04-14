@@ -1,0 +1,16 @@
+<?php $this->headTitle('Middle East social networking');?>
+<h1 class="lead"><?php echo $this->title();?></h1>
+<ul>
+<?php $url = array('module' => 'experiments','controller' => 'middleeast','action' => 'person');?>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'Flinders_Petrie')),'default',true);?>">Flinders Petrie</a></li>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'Max_Mallowan')),'default',true);?>">Max Mallowan</a></li>
+		<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'Mortimer_Wheeler')),'default',true);?>">Mortimer Wheeler</a></li>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'T._E._Lawrence')),'default',true);?>">Lawrence of Arabia</a></li>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'Honor_Frost')),'default',true);?>">Honor Frost</a></li>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'Leonard_Woolley')),'default',true);?>">Leonard Woolley</a></li>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'Arthur_Evans')),'default',true);?>">Arthur Evans</a></li>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'E._A._Wallis_Budge')),'default',true);?>">E.A. Wallis Budge</a></li>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'Frederic_G._Kenyon')),'default',true);?>">Frederic Kenyon</a></li>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'Frederick_J._Bliss')),'default',true);?>">Frederick Bliss</a></li>
+	<li><a href="<?php echo $this->url(array_merge($url,array('called' => 'V._Gordon_Childe')),'default',true);?>">Gordon Childe</a></li>
+</ul>

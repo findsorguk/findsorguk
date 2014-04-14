@@ -1,0 +1,32 @@
+<?php
+$feedArray = array(
+
+			'title' => 'Latest finds from the Scheme',
+			'link' => $this->CurUrl(),
+			'charset' => 'utf-8',
+			'description' => 'Latest rss feed of finds recorded by the Portable Antiquities Scheme',
+			'author' => 'The Portable Antiquities Scheme',
+			'image' => Zend_Registry::get('siteurl').'/images/logos/pas.gif',
+			'email' => 'info@finds.org.uk',
+			'copyright' => 'Creative Commons Licenced',
+			'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
+			'language' => 'en',
+			'entries' => array()
+		);
+
+
+		foreach ($this->finds as $find) {
+			$feedArray['entries'][] = array(
+				'title' => $find['old_findID'].' '.$find['objecttype'].' '.$find['broadperiod'],
+				'link' => Zend_Registry::get('siteurl').'/database/artefacts/record/id/'.$find['id'],
+				'guid' => Zend_Registry::get('siteurl').'/database/artefacts/record/id/'.$find['id'],
+				'description' => $this->xmlconvert($this->ellipsisstring(strip_tags($find['description']),200)),
+				'lastUpdate' => strtotime($find['updated']),
+				'content' => $this->xmlconvert(strip_tags($find['description'])),
+				);
+		}
+		
+  		 $feed = Zend_Feed::importArray($feedArray,'rss');
+		 $feed->send();
+		
+				?>

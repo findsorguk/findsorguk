@@ -1,0 +1,77 @@
+<?php echo $this->partial('partials/contacts/staff.phtml',$this->persons['0']);?>
+
+<?php if(count($this->periodtotals)): ?>
+<?php echo $this->partial('partials/contacts/searchfinds.phtml',$this->persons['0']);?>
+<?php 
+$this->inlineScript()->appendFile($this->baseUrl().'/js/bootstrap-tab.js',
+        $type='text/javascript');?>
+<?php $this->inlineScript()->captureStart(); ?>
+jQuery(document).ready(function ($) {
+$(".tabs").tabs();
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div class="row-fluid">
+
+		  <ul id="tab" class="nav nav-tabs">
+            <li class="active"><a href="#periods" data-toggle="tab">Period breakdown</a></li>
+            <li><a href="#records" data-toggle="tab">Records breakdown</a></li>
+          </ul>
+
+ 		<div id="myTabContent" class="tab-content">
+ 		
+            <div class="tab-pane fade in active" id="periods">
+			<?php if(count($this->periodtotals) > 0): ?>
+			
+			<h3>Period breakdown</h3>
+			
+			<table class="table table-striped" summary="A breakdown of finds by period total" id="periodtable">
+			<caption>A breakdown of finds by period</caption>
+			<thead>
+			<tr>
+			<th scope="col">Period</th>
+			<th scope="col">Finds</th>
+			<th scope="col">Records</th>
+			</tr>
+			</thead>
+			<tbody>
+			<?php echo $this->partialLoop('partials/statistics/periodtotals.phtml', $this->periodtotals);?>
+			</tbody>
+			</table>
+			
+			<?php
+			$data = $this->periodtotals;
+			$newdata = array();
+			foreach($data as $a) {
+			$newdata[$a['broadperiod']] =  $a['artefacts'];
+			}
+			// echo $this->Grapher('pie','Finds by period',$newdata);?>
+			
+			<?php endif;?>         
+			</div>
+			
+            <div class="tab-pane fade" id="records">
+			<?php if(count($this->findstotals) > 0):?>
+			<h3>Records breakdown</h3>
+			<table class="table table-striped" summary="A breakdown of records and finds created">
+			<caption>A breakdown of finds recorded</caption>
+			<thead>
+			<tr>
+			<th>Year</th>
+			<th>Quarter</th>
+			<th>Finds</th>
+			<th>Records</th>
+			</tr>
+			</thead>
+			<tbody>
+			<?php echo $this->partialLoop('partials/statistics/quartertotals.phtml', $this->findstotals);?>
+			</tbody>
+			</table>
+			<?php endif;?>       
+			</div>
+        
+			
+		</div>
+
+</div> <!-- End of row fluid -->
+
+<?php endif;?>

@@ -1,0 +1,32 @@
+<?php
+$feedArray = array(
+
+			'title' => 'Latest joining staff to the Scheme\'s ranks',
+			'link' => $this->CurUrl(),
+			'charset' => 'utf-8',
+			'description' => 'A feed updating you of new joiners',
+			'author' => 'The Portable Antiquities Scheme',
+			'image' => Zend_Registry::get('siteurl').'/images/logos/pas.gif',
+			'email' => 'info@finds.org.uk',
+			'copyright' => 'Creative Commons Licenced',
+			'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
+			'language' => 'en',
+			'entries' => array()
+		);
+
+
+		foreach ($this->staff as $s) {
+			$feedArray['entries'][] = array(
+				'title' => $s['firstname'].' '.$s['lastname'],
+				'link' => Zend_Registry::get('siteurl').'/contacts/staff/profile/id/'.$s['id'],
+				'guid' => Zend_Registry::get('siteurl').'/contacts/staff/profile/id/'.$s['id'],
+				'description' => strip_tags($this->ellipsisstring(str_replace('£','&pound;',$s['profile']),100)),
+				'lastUpdate' => strtotime($s['updated']),
+				'content' => strip_tags(str_replace('£','&pound;',$s['profile']),''),
+				);
+		}
+		
+  		 $feed = Zend_Feed::importArray($feedArray,'atom');
+		 $feed->send();
+		
+				?>

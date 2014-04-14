@@ -1,0 +1,32 @@
+<?php 
+$this->headTitle('An introduction to our photos');
+$this->MetaBase('The Scheme curates a large number of images on it\'s flickr profile feed. 
+They are all produced under a Creative Commons licence, feel free to use them - except for commercial use',
+'Photos',
+'flickr,photos,archaeology,numismatics,coins,museums');
+$this->jQuery()->addJavascriptFile('/js/bootstrap-carousel.js',$type='text/javascript');
+?>
+
+<h2>The Scheme on Flickr</h2>
+<?php 
+$flickr = Zend_Registry::get('config')->webservice->flickr;
+?>
+<div class="row-fluid">
+<?php 
+echo $this->flickrFront($flickr);
+?>
+<div class="row-fluid span10">
+<?php 
+echo $this->flickrContactsList($flickr);
+?>
+</div>
+<div class="row-fluid span10">
+<?php echo $this->flickrTags($flickr);?>
+</div>
+<div class="row-fluid span10">
+<?php 
+echo $this->flickrTotalViews($flickr);
+?>
+</div>
+
+</div>

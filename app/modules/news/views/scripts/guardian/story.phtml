@@ -1,0 +1,12 @@
+<?php 
+echo $this->partialLoop('partials/news/guardianNewsArticle.phtml',$this->story);
+?>
+<h3>Related Content</h3>
+<ul>
+<?php foreach($this->related as $r):
+?>
+
+<li><a href="<?php echo $this->url(array('module' => 'news','controller' => 'guardian','action' => 'story',
+'id' => urlencode($r['id'])),null,true);?>"><?php echo $r['webTitle'];?></a></li>
+<?php endforeach;?>
+</ul>

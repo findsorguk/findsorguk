@@ -1,0 +1,9 @@
+<?php
+$paginator = $this->news;
+$meta = array( 'currentPage' => $paginator->getCurrentPageNumber(), 'totalResults' => $paginator->getTotalItemCount(), 'resultsPerPage' => $paginator->getItemCountPerPage());
+$news = array();
+foreach($this->news as $new){
+    $news[] = $new;
+}
+echo Zend_Json::prettyPrint(Zend_Json::encode(( array('meta' => $meta, 'stories' => $news))));
+

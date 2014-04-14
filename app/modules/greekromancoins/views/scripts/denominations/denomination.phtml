@@ -1,0 +1,2 @@
+<?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms) ;?>
+<?php echo $this->latestRecords('denomination:'  .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>

@@ -1,0 +1,26 @@
+<?php
+
+$date = array();
+foreach($this->rulers as $emperor){
+	if(is_null($emperor['date2']) || $emperor['date2'] == ''){
+		$emperor['date2'] = $emperor['date1'];
+	}
+//	$bio = $this->ellipsisstring(strip_tags($emperor['biography']),600);
+//	$url = $this->url(array('module' => 'romancoins','controller' => 'emperors', 'action' => 'emperor', 'id' => $emperor['id']),'default',true);
+//	$bio .= '<br /><a href="' . $url .'">Read the full dbpedia sourced biography and numismatic data.</a>';
+	$data = array(
+	'startDate' => $emperor['date1'], 
+	'endDate' => $emperor['date2'],
+	'headline' => $emperor['issuer'],
+	
+	);
+	$date[] = $data;
+}
+$start = array(
+	'headline' => 'Post Medieval Kings',
+	'type' => 'default',
+	'text' => 'The issuing authorities of the Roman Empire on a timeline',
+	'startDate' => '1509',
+	'date' => $date
+);
+echo Zend_Json::prettyPrint(Zend_Json::encode(array('timeline' => $start)));

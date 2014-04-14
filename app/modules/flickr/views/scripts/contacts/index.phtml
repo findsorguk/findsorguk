@@ -1,0 +1,30 @@
+<?php 
+$this->headTitle('Our contacts on flickr');
+$this->MetaBase('The Scheme curates a large number of images on it\'s flickr profile feed. 
+They are all produced under a Creative Commons licence, feel free to use them - except for commercial use',
+'Photos',
+'flickr,photos,contacts,friends');?>
+<h2>Our contacts on Flickr</h2>
+<?php 
+if($this->contacts):?>
+<p>The Scheme has <?php echo $this->contacts->total;?> contacts on flickr, here's a bit about them.</p>
+<?php
+	foreach($this->contacts->contact as $c){
+	$type = '.jpg';
+	$url = 'http://farm'. $c->iconfarm . '.static.flickr.com/' . $c->iconserver . '/buddyicons/' . $c->nsid . $type;
+	$alturl = 'http://www.flickr.com/images/buddyicon.jpg';
+	$link = $this->url(array('module' => 'flickr','controller' => 'contacts','action' => 'known','as' => $c->username),'default',true);
+	if($c->iconfarm != 0) {
+	echo '<a href="' . $link .'" title="Go to ' . $c->username . '\'s profile on flickr" rel="friend"><img src="' . $url . '" height="48" width="48" alt="View ' 
+	. $c->username . '\'s images" /></a>';
+	} else {
+	echo '<a href="' . $link . '" title="View this ' . $c->username . '\'s profile " rel="friend"><img src="' . $alturl . '" height="48" width="48" alt="View ' 
+	. $c->username . '\'s images" /></a>';
+	}
+	}
+	echo $html;
+	?>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>There are no contacts available at the moment</p>
+<?php endif;?>
