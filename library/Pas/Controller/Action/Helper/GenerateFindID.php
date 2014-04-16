@@ -28,7 +28,7 @@ class Pas_Controller_Action_Helper_GenerateFindID
 	public function direct() {
 	if(!is_null($this->_getAccount())) {
 	list($usec, $sec) = explode(" ", microtime());
-	$suffix =  strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 8)));
+	$suffix =  strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
 	return $this->_getAccount() . '-' . $suffix;
 	} else {
 		throw new Pas_Exception_NotAuthorised('Institution missing');

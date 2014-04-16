@@ -100,7 +100,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
 	if(!is_null($this->getAccount())) {
 	$inst = $this->getAccount()->institution;
 	list($usec, $sec) = explode(" ", microtime());
-	$suffix =  strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 8)));
+	$suffix =  strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
 	$findid = $inst . '-' . $suffix;
 	return $findid;
 	} else {
