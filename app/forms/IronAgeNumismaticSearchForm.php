@@ -140,12 +140,14 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 
 	$district = new Zend_Form_Element_Select('districtID');
 	$district->setLabel('District: ')
+		->setRegisterInArrayValidator(false)
 		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose district after county'));
 
 	$parish = new Zend_Form_Element_Select('parishID');
 	$parish->setLabel('Parish: ')
+		->setRegisterInArrayValidator(false)
 		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose parish after county', 'Available districts' => null));
