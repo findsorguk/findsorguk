@@ -93,7 +93,8 @@ resources.session.save_path = APPLICATION_PATH "/session"
 resources.session.remember_me_seconds = 864000
 resources.session.gc_maxlifetime = 864000
 
-settings.application.datetime = "Europe/London"form.salt = gr8tcour1234
+settings.application.datetime = "Europe/London"
+form.salt = 
 siteurl = http://finds.org.uk
 
 solr.host = 81.29.66.140
