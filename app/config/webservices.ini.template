@@ -1,0 +1,78 @@
+[production]
+
+webservice.twitter.userid = 
+webservice.twitter.password = 
+webservice.twitter.consumerKey = 
+webservice.twitter.consumerSecret = 
+
+webservice.amazon.apikey = 
+webservice.amazon.secretkey = 
+webservice.amazon.country = UK
+webservice.amazon.AssociateTag = 
+
+webservice.amazonS3.accesskey = 
+webservice.amazonS3.secretkey = 
+webservice.amazonS3.canonicalkey = 
+webservice.amazonS3.accountID = 
+
+webservice.flickr.apikey     = 
+webservice.flickr.username   = 
+webservice.flickr.userid     = 
+webservice.flickr.secret     = 
+webservice.flickr.auth       = 
+webservice.flickr.sig        = 
+
+webservice.slideshare.apikey = 
+webservice.slideshare.secret = 
+webservice.slideshare.userid = 
+webservice.slideshare.pword  = 
+
+webservice.guardian.apikey = 
+
+webservice.googlemaps.apikey2 = 
+webservice.googlemaps.apikey2 = 
+
+webservice.googlemaps.apikey = 
+webservice.googlemaps.version = 3.8
+webservice.googlemaps.region = GB
+
+webservice.recaptcha.privatekey = 
+webservice.recaptcha.pubkey = 
+
+webservice.google.apikey = 
+
+webservice.akismet.apikey = 
+
+webservice.twfy.apikey = 
+
+webservice.brooklyn.apikey = 
+
+webservice.opencalais.apikey = 
+
+webservice.digitalnz.apikey = 
+
+webservice.google.username = 
+webservice.google.password = 
+
+webservice.ebay.username = 
+webservice.ebay.password = 
+webservice.ebay.devID = 
+webservice.ebay.appID = 
+webservice.ebay.certID = 
+
+webservice.facebook.pageid = 
+webservice.facebook.secret = 
+webservice.facebook.id = 
+webservice.facebook.fb_sig_api_key = 
+
+webservice.delicious.id = 
+webservice.delicious.pwd = 
+
+webservice.ydnkeys.consumerKey = 
+webservice.ydnkeys.consumerSecret = 
+webservice.ydnkeys.appid = 
+webservice.ydnkeys.placemakerkey = 
+
+webservice.wordpress.username = 
+webservice.wordpress.password = 
+webservice.wordpress.xmlrpc   = 
