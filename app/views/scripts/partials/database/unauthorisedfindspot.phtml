@@ -111,14 +111,14 @@ $(document).ready(function() {
 
 		map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
   		
-  		var parish = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/parishes/<?php echo strtoupper(str_replace(' ','',$this->parish));?>.kml',
+  		var parish = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/parishes/<?php echo strtoupper(str_replace(array(' ', "'"),'',$this->parish));?>.kml',
                                                  {preserveViewport: true, suppressInfoWindows: false });
 		parish.setMap(map);
-		var county = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/counties/<?php echo strtoupper(str_replace(' ','',$this->county));?>.kml',
+		var county = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/counties/<?php echo strtoupper(str_replace(array(' ', "'"),'',$this->county));?>.kml',
                                                  {preserveViewport: true, suppressInfoWindows: false });
 		county.setMap(map);
 		
-				var district = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/districts/<?php echo strtoupper(str_replace(' ','',$this->district));?>.kml',
+				var district = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/districts/<?php echo strtoupper(str_replace(array(' ', "'"),'',$this->district));?>.kml',
                                                  {preserveViewport: true, suppressInfoWindows: false });
 		district.setMap(map);
 
