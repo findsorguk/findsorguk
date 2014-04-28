@@ -15,14 +15,14 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
 	*/	
 	public function init() {	
 		$this->_helper->_acl->allow('flos',NULL);
-	    $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+		$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 	    $this->_gcal = new Pas_Calendar_Mapper();
     }
 	
 	/** Display index pages for the individual
 	*/	
 	public function indexAction() {	
-	    $this->view->eventFeed = $this->_gcal->getEventFeed();
+		this->view->eventFeed = $this->_gcal->getEventFeed();
 	}
 	
 	public function eventAction()
@@ -56,17 +56,17 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
 		$this->view->form = $form;
 		$event = $this->_gcal->getEvent($this->_getParam('id'));
 		$eventData = array(
-		'title' 	=> $event->title,
-		'id' 		=> substr($event->id,strrpos($event->id,'/')+1,26),
+		'title' 		=> $event->title,
+		'id' 			=> substr($event->id,strrpos($event->id,'/') +1, 26),
 		'startTime' 	=> date('G:i', strtotime($event->when[0]->startTime)),
 		'endTime'   	=> date('G:i', strtotime($event->when[0]->endTime)),
 		'startDate' 	=> date('Y-m-d', strtotime($event->when[0]->startTime)),
 		'endDate'   	=> date('Y-m-d', strtotime($event->when[0]->startTime)),
-		'location' 	=> $event->where[0],
-		'updated' 	=> $event->updated,
-		'content' 	=> $event->content,
-		'type'		=> $event->extendedProperty[0],
-		'creator'	=> $event->extendedProperty[1],
+		'location' 		=> $event->where[0],
+		'updated' 		=> $event->updated,
+		'content' 		=> $event->content,
+		'type'			=> $event->extendedProperty[0],
+		'creator'		=> $event->extendedProperty[1],
 		);
 		
 		$form->populate($eventData);
@@ -92,8 +92,8 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
 		if ($this->_request->isPost()) {
 		$id = $this->_request->getPost('id');
 		$del = $this->_request->getPost('del');
-		
-		if ($del == 'Yes' && $id == substr($event->id,strrpos($event->id,'/')+1,26)) {
+		//Check if delete parameter is set and that the string is correct	
+		if ($del == 'Yes' && $id == substr($event->id,strrpos($event->id,'/') +1, 26)) {
 		$event->delete();
 		}
 		$this->_flashMessenger->addMessage('That event has been deleted');
