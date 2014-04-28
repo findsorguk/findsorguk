@@ -64,7 +64,7 @@ public function __construct($options = null) {
 	$county = new Zend_Form_Element_Select('county');
 	$county->setLabel('County: ')
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Please choose a county',
 		'Valid counties' => $counties_options))
 		->addValidator('InArray', false, array(array_keys($counties_options)));
@@ -72,7 +72,7 @@ public function __construct($options = null) {
 	$country = new Zend_Form_Element_Select('country');
 	$country->SetLabel('Country: ')
 		->setRequired(true)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setValue('GB')
 		->addFilters(array('StripTags','StringTrim'))
 		->addMultiOptions(array(NULL => 'Please choose a country', 

@@ -37,7 +37,7 @@ public function __construct($options = null) {
 
 	$belongsto = new Zend_Form_Element_Select('belongsto');
 	$belongsto->setLabel('Belongs to landuse type: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL,'Choose period:' => $landuse_opts))

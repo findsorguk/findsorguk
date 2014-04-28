@@ -39,7 +39,7 @@ public function __construct($options = null) {
 
 	$denomination = new Zend_Form_Element_Select('denomination');
 	$denomination->setLabel('Denomination: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose denomination', 'Available denominations' => $denomination_options))
 		->addValidator('InArray', false, array(array_keys($denomination_options)))
 		->addValidator('Digits')
@@ -53,7 +53,7 @@ public function __construct($options = null) {
 
 	$categoryID = new Zend_Form_Element_Select('categoryID');
 	$categoryID->setLabel('Category of coin: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidators(array('NotEmpty','Digits'))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose category', 'Available categories' => $cat_options))
@@ -61,7 +61,7 @@ public function __construct($options = null) {
 
 	$ruler= new Zend_Form_Element_Select('ruler_id');
 	$ruler->setLabel('Ruler: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidators(array('NotEmpty','Digits'))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose a ruler', 'Available rulers' => $ro))
@@ -75,7 +75,7 @@ public function __construct($options = null) {
 
 	$mint_id= new Zend_Form_Element_Select('mint_id');
 	$mint_id->setLabel('Issuing mint: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(true)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose a mint', 'Available mints' => $mo))
@@ -83,7 +83,7 @@ public function __construct($options = null) {
 
 	$status = new Zend_Form_Element_Select('status');
 	$status->setLabel('Status: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(true)
 		->setValue(1)
 		->addMultiOptions(array(NULL => 'Choose coin status', 'Available statuses' => $status_options))
@@ -100,7 +100,7 @@ public function __construct($options = null) {
 
 	$degree_of_wear = new Zend_Form_Element_Select('degree_of_wear');
 	$degree_of_wear->setLabel('Degree of wear: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(true)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose degree of wear','Available options' => $wear_options))
@@ -142,7 +142,7 @@ public function __construct($options = null) {
 
 	$die_axis_measurement = new Zend_Form_Element_Select('die_axis_measurement');
 	$die_axis_measurement->setLabel('Die axis measurement: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
 		->addMultiOptions(array(NULL => 'Choose die axis','Available options' => $die_options))
 		->addValidator('InArray', false, array(array_keys($die_options)));
@@ -155,7 +155,7 @@ public function __construct($options = null) {
 
 	$type = new Zend_Form_Element_Select('typeID');
 	$type->setLabel('Coin type: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'));

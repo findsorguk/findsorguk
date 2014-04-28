@@ -22,7 +22,7 @@ class ReeceEmperorForm extends Pas_Form {
 		->setRequired(true)
 		->addValidator('Alnum',false, array('allowWhiteSpace' => true))
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(
 		NULL => 'Choose period',
 		'Available periods:' => $period_actives))

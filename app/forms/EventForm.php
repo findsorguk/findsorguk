@@ -95,7 +95,7 @@ public function __construct($options = null) {
 	$eventRegion->setLabel('Organising section: ')
 	->setRequired(true)
 	->addFilters(array('StripTags','StringTrim'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addValidator('stringLength', false, array(1,10))
 	->addValidator('inArray', false, array(array_keys($staffregions_options)))
 	->addMultiOptions(array(null => 'Please choose a region', 'Valid regions' => $staffregions_options));
@@ -103,7 +103,7 @@ public function __construct($options = null) {
 	$eventType = new Zend_Form_Element_Select('eventType');
 	$eventType->setLabel('Type of event: ')
 	->setRequired(true)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StripTags','StringTrim'))
 	->addValidator('stringLength', false, array(1,10))
 	->addValidator('inArray', false, array(array_keys($event_options)))
@@ -124,7 +124,7 @@ public function __construct($options = null) {
 	$organisation = new Zend_Form_Element_Select('organisation');
 	$organisation->setLabel('Organised by: ')
 	->setRequired(false)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->setValue('PAS')
 	->addFilters(array('StripTags','StringTrim'))
 	->addMultioptions(array(

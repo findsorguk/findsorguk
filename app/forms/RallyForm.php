@@ -37,7 +37,7 @@ public function __construct($options = null) {
 
 	$county = new Zend_Form_Element_Select('countyID');
 	$county->setLabel('County: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose a county' ,'Valid counties' => $county_options))
 		->addValidator('InArray', false, array(array_keys($county_options)))
 		->addFilters(array('StripTags','StringTrim'))
@@ -45,7 +45,7 @@ public function __construct($options = null) {
 
 	$district = new Zend_Form_Element_Select('districtID');
 	$district->setLabel('District: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags','StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose district after county'))
@@ -53,7 +53,7 @@ public function __construct($options = null) {
 
 	$parish = new Zend_Form_Element_Select('parishID');
 	$parish->setLabel('Parish: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags','StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose parish after district'))

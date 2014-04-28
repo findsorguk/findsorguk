@@ -50,7 +50,7 @@ public function __construct($options = null) {
 	$denomination->setLabel('Denomination: ')
 	->setRequired(true)
 	->addFilters(array('StripTags', 'StringTrim'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addMultiOptions(array(NULL => 'Choose denomination', 'Available options' => $denomination_options))
 	->addValidator('InArray', false, array(array_keys($denomination_options)))
 	->addValidator('Int');
@@ -65,7 +65,7 @@ public function __construct($options = null) {
 
 	$geographyID = new Zend_Form_Element_Select('geographyID');
 	$geographyID->setLabel('Geographic area: ')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StripTags', 'StringTrim'))
 	->addValidator('Digits');
 
@@ -78,7 +78,7 @@ public function __construct($options = null) {
 
 	$ruler_id= new Zend_Form_Element_Select('ruler_id');
 	$ruler_id->setLabel('Ruler: ')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StripTags', 'StringTrim'))
 	->addValidator('Digits')
 	->addMultiOptions(array(NULL => 'Choose primary ruler','Available rulers' => $ro));
@@ -92,7 +92,7 @@ public function __construct($options = null) {
 
 	$ruler2_id= new Zend_Form_Element_Select('ruler2_id');
 	$ruler2_id->setLabel('Secondary ruler: ')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StripTags', 'StringTrim'))
 	->addValidator('Int')
 	->addMultiOptions(array(NULL => 'Choose issuing secondary ruler', 'Available options' => $ro))
@@ -108,7 +108,7 @@ public function __construct($options = null) {
 	$mint_id= new Zend_Form_Element_Select('mint_id');
 	$mint_id->setLabel('Issuing mint: ')
 	->setRegisterInArrayValidator(false)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StripTags', 'StringTrim'))
 	->addValidator('Int')
 	->addMultiOptions(array(NULL => 'Choose issuing mint', 'Available options' => $mint_options))
@@ -118,7 +118,7 @@ public function __construct($options = null) {
 	$tribe->setLabel('Tribe: ')
 	->addFilters(array('StripTags', 'StringTrim'))
 	->addValidator('Int')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->setRegisterInArrayValidator(false)
 	->addMultiOptions(array(NULL => 'Choose tribe', 'Available options' => $to))
 	->addValidator('InArray', false, array(array_keys($to)));
@@ -134,7 +134,7 @@ public function __construct($options = null) {
 	$status->setLabel('Status: ')
 	->addFilters(array('StripTags', 'StringTrim'))
 	->addValidator('Int')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->setValue(1)
 	->addMultiOptions(array(NULL => 'Choose coin status', 'Available options' => $status_options))
 	->addValidator('InArray', false, array(array_keys($status_options)));
@@ -151,7 +151,7 @@ public function __construct($options = null) {
 	$degree_of_wear->setLabel('Degree of wear: ')
 	->addFilters(array('StripTags', 'StringTrim'))
 	->addValidator('Int')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addMultiOptions(array(NULL => 'Choose degree of wear', 'Available options' => $wear_options))
 	->addValidator('InArray', false, array(array_keys($wear_options)));
 
@@ -179,7 +179,7 @@ public function __construct($options = null) {
 
 	$die_axis_measurement = new Zend_Form_Element_Select('die_axis_measurement');
 	$die_axis_measurement->setLabel('Die axis measurement: ')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addMultiOptions(array(NULL => 'Choose die axis', 'Available options' => $die_options))
 	->addValidator('InArray', false, array(array_keys($die_options)));
 
@@ -193,7 +193,7 @@ public function __construct($options = null) {
 	$mack_type = new Zend_Form_Element_Select('mack_type');
 	$mack_type->setLabel('Mack Type: ')
 	->addFilters(array('StripTags', 'StringTrim'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addMultiOptions(array(NULL => 'Choose a Mack type','Valid types' => $macktypelist))
 	->addValidator('InArray', false, array(array_keys($macktypelist)));
 
@@ -203,13 +203,13 @@ public function __construct($options = null) {
 
 	$allen_type = new Zend_Form_Element_Select('allen_type');
 	$allen_type->setLabel('Allen Type: ')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StripTags', 'StringTrim'))
 	->addMultiOptions(array(NULL => 'Choose an Allen type','Valid types' => $atypelist));
 
 	$va_type = new Zend_Form_Element_Select('va_type');
 	$va_type->setLabel('Van Arsdell Number: ')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StripTags', 'StringTrim'))
 	->addMultiOptions(array(NULL => 'Choose Van Arsdell type','Valid types' => $vatypelist));
 

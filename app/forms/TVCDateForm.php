@@ -20,7 +20,7 @@ public function __construct($options = null) {
 	$date->setLabel('Date of TVC: ')
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addErrorMessage('You must choose a TVC date')
 		->addMultiOptions(array('NULL' => 'Select a TVC','Valid dates' => $list))
 		->addValidator('InArray', false, array(array_keys($list)));

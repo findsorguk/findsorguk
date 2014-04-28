@@ -18,7 +18,7 @@ public function __construct($options = null) {
 	$classID = new Zend_Form_Element_Select('classID');
 	$classID->setLabel('Publication title: ')
 		->setRequired(true)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose reference','Valid choices' => $ref_list))
 		->addValidator('InArray', false, array(array_keys($ref_list)))
 		->addFilters(array('StripTags', 'StringTrim'))

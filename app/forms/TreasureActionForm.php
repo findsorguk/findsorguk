@@ -33,7 +33,7 @@ public function __construct($options = null) {
 	$action->setLabel('Type of action taken: ')
 		->setRequired(true)
 		->addFilters(array('StringTrim', 'StripTags'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($actionlist)))
 		->addMultiOptions($actionlist);
 

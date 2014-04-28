@@ -43,7 +43,7 @@ class IronAgeRegionForm extends Pas_Form {
 	
 	$tribe = new Zend_Form_Element_Select('tribe');
 	$tribe->setLabel('Associated tribe: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultioptions(array(NULL => NULL,'Choose a tribe' => $tribes_options))

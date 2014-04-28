@@ -30,7 +30,7 @@ class AddFloRallyForm extends Pas_Form{
 	->addFilters(array('StringTrim','StripTags'))
 	->addValidator('Int')
 	->addMultiOptions(array(NULL => 'Choose attending officer', 'Our staff members' => $flos))
-	->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	$dateFrom = new ZendX_JQuery_Form_Element_DatePicker('dateFrom');
 	$dateFrom->setLabel('Attended from: ')

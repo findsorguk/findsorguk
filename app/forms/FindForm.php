@@ -125,7 +125,7 @@ public function __construct($options = null) {
 	->addFilters(array('StripTags','StringTrim'))
 	->addMultiOptions(array(NULL => 'Choose a reasoning','Available reasons' => $reason_options))
 	->addValidator('InArray', false, array(array_keys($reason_options)))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addValidator('Int');
 
 	//Find classification
@@ -179,7 +179,7 @@ public function __construct($options = null) {
 	'Available periods' => $periodword_options))
 	->addErrorMessage('You must enter a broad period.')
 	->addValidator('InArray', false, array(array_keys($periodword_options)))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	//Period from: Assigned via dropdown
 	$objdate1subperiod = new Zend_Form_Element_Select('objdate1subperiod');
@@ -200,7 +200,7 @@ public function __construct($options = null) {
 	'Available periods' => $period_options))
 	->addValidator('InArray', false, array(array_keys($period_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	$objdate1cert = new Zend_Form_Element_Radio('objdate1cert');
 	$objdate1cert->setLabel('Period from certainty: ')
@@ -229,7 +229,7 @@ public function __construct($options = null) {
 	'Available periods' => $period_options))
 	->addValidator('InArray', false, array(array_keys($period_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	$objdate2cert = new Zend_Form_Element_Radio('objdate2cert');
 	$objdate2cert->setLabel('Period to certainty: ')
@@ -279,7 +279,7 @@ public function __construct($options = null) {
 	'Available cultures' => $culture_options))
 	->addValidator('InArray', false, array(array_keys($culture_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	//Period of reuse
 	$reuse_period = new Zend_Form_Element_Select('reuse_period');
@@ -289,7 +289,7 @@ public function __construct($options = null) {
 	'Available periods' => $period_options))
 	->addValidator('InArray', false, array(array_keys($period_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));;
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));;
 
 	//Evidence of reuse
 	$reuse = new Zend_Form_Element_Text('reuse');
@@ -362,7 +362,7 @@ public function __construct($options = null) {
 	'Available materials' => $primary_options))
 	->addValidator('InArray', false, array(array_keys($primary_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 
 	//Secondary material
@@ -373,7 +373,7 @@ public function __construct($options = null) {
 	'Available materials' => $primary_options))
 	->addValidator('InArray', false, array(array_keys($primary_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 
 	//Manufacture method
@@ -384,7 +384,7 @@ public function __construct($options = null) {
 	'Available methods' => $man_options))
 	->addValidator('InArray', false, array(array_keys($man_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	//Decoration method
 	$decmethod = new Zend_Form_Element_Select('decmethod');
@@ -394,7 +394,7 @@ public function __construct($options = null) {
 	'Available methods' => $decmeth_options))
 	->addValidator('InArray', false, array(array_keys($decmeth_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 
 	//Surface treatment
@@ -405,7 +405,7 @@ public function __construct($options = null) {
 	'Available treatments' => $surface_options))
 	->addValidator('InArray', false, array(array_keys($surface_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 
 	//decoration style
@@ -416,7 +416,7 @@ public function __construct($options = null) {
 	'Available styles' => $decoration_options))
 	->addValidator('InArray', false, array(array_keys($decoration_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	//Preservation of object
 	$preservation = new Zend_Form_Element_Select('preservation');
@@ -453,7 +453,7 @@ public function __construct($options = null) {
 	'Available rallies' => $rally_options))
 	->addValidator('InArray', false, array(array_keys($rally_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 
 	## PERSONNEL INFORMATION (or personal depending on the way you see it!)
@@ -504,7 +504,7 @@ public function __construct($options = null) {
 	->addValidator('Int')
 	->addValidator('inArray', true, array(array_keys($disc_options)))
 	->addMultiOptions(array(NULL => 'Choose method of discovery','Available methods' => $disc_options))
-	->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	//Discovery circumstances
 	$disccircum = new Zend_Form_Element_Text('disccircum');
@@ -562,7 +562,7 @@ public function __construct($options = null) {
 	->setValue(1)
 	->addValidator('InArray', false, array(array_keys($actionsDD)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 
 	//Submit button

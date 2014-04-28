@@ -122,7 +122,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose reason',
             'Available reasons'  => $reason_options))
-    ->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+    ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	//Institution
 	$institution = new Zend_Form_Element_Select('institution');
@@ -131,7 +131,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose institution',
             'Available institutions' => $inst_options))
-    ->setAttribs(array('class' => 'span3 selectpicker show-menu-arrow'));
+    ->setAttribs(array('class' => 'input-medium selectpicker show-menu-arrow'));
 
 	$notes = new Zend_Form_Element_Text('notes');
 	$notes->setLabel('Notes: ')
@@ -144,7 +144,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose period from',
             'Available periods' => $periodword_options))
-     ->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+     ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	$objdate1subperiod = new Zend_Form_Element_Select('fromsubperiod');
 	$objdate1subperiod->setLabel('Sub period from: ')
@@ -154,7 +154,7 @@ class AdvancedSearchForm extends Pas_Form {
 	'2' => 'Middle','3' => 'Late')))
 	->addFilters(array('StringTrim','StripTags'))
 	->setOptions(array('separator' => ''))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 	
 	//Period from: Assigned via dropdown
 	$objdate1period = new Zend_Form_Element_Select('periodFrom');
@@ -163,7 +163,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose period from' ,
             'Available periods' => $period_options))
-     ->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+     ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	$objdate2subperiod = new Zend_Form_Element_Select('tosubperiod');
 	$objdate2subperiod->setLabel('Sub period to: ')
@@ -176,7 +176,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->setDisableTranslator(true)
 	->addFilters(array('StringTrim','StripTags'))
 	->setOptions(array('separator' => ''))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 	
 
 
@@ -187,7 +187,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose period to',
             'Available periods' => $period_options))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
      $culture = new Zend_Form_Element_Select('culture');
 	$culture->setLabel('Ascribed culture: ')
@@ -195,7 +195,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose ascribed culture',
             'Available cultures' => $culture_options))
-     ->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+     ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	$from = new Zend_Form_Element_Text('fromdate');
 	$from->setLabel('Start date: ')
@@ -218,7 +218,7 @@ class AdvancedSearchForm extends Pas_Form {
 	$workflow->setLabel('Workflow stage: ')
 	->addFilters(array('StringTrim','StripTags'))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span3 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-medium selectpicker show-menu-arrow'));
 	
 
 	if(in_array($this->_role,$this->_higherlevel)) {
@@ -274,7 +274,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
              NULL => 'Available hoards',
             'Choose a hoard' => $hoard_options))
-    ->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+    ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	$other_ref = new Zend_Form_Element_Text('otherRef');
 	$other_ref->setLabel('Other reference: ')
@@ -292,7 +292,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose method of manufacture',
             'Available methods' => $man_options))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
             
 
 	//Decoration method
@@ -303,7 +303,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose decoration method',
             'Available decorative methods' => $decmeth_options))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	//Surface treatment
 	$surftreat = new Zend_Form_Element_Select('surface');
@@ -313,7 +313,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose surface treatment',
             'Available surface treatments' => $surface_options))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	//decoration style
 	$decstyle = new Zend_Form_Element_Select('decstyle');
@@ -323,7 +323,7 @@ class AdvancedSearchForm extends Pas_Form {
             NULL => 'Choose decorative style',
             'Available decorative options' => $decoration_options))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 	
 
 	//Preservation of object
@@ -334,7 +334,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose level of preservation',
             'Available options' => $preserve_options))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
             
 
 	$county = new Zend_Form_Element_Select('countyID');
@@ -344,7 +344,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose county',
             'Available counties' => $county_options))
-	->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
             
 
 	$district = new Zend_Form_Element_Select('districtID');
@@ -352,7 +352,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(NULL => 'Choose district after county'))
 	->setRegisterInArrayValidator(false)
 	->addFilters(array('StringTrim','StripTags'))
-	->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 	
 
 	$parish = new Zend_Form_Element_Select('parishID');
@@ -360,7 +360,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->setRegisterInArrayValidator(false)
 	->addFilters(array('StringTrim','StripTags'))
 	->addMultiOptions(array(NULL => 'Choose parish after county'))
-    ->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+    ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 	
 
 	$regionID = new Zend_Form_Element_Select('regionID');
@@ -369,7 +369,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addValidator('Int')
 	->addMultiOptions(array(NULL => 'Choose a region for a wide result',
             'Choose region' => $region_options))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 	
 
 	$gridref = new Zend_Form_Element_Text('gridref');
@@ -447,7 +447,7 @@ class AdvancedSearchForm extends Pas_Form {
 	->addMultiOptions(array(
             NULL => 'Choose primary material',
             'Available options' => $primary_options))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
             
 
 	$woeid = new Zend_Form_Element_Text('woeid');

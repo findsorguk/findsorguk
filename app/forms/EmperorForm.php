@@ -35,7 +35,7 @@ parent::__construct($options);
 	$reeceID->setLabel('Reece period assigned: ')
 	->setRequired(false)
 	->addFilters(array('StripTags','StringTrim'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addMultiOptions(array(NULL => NULL,'Choose a Reece period' => $reeces_options))
 	->addValidator('InArray', false, array(array_keys($reeces_options)))
 	->addValidator('Int');
@@ -44,7 +44,7 @@ parent::__construct($options);
 	$pasID->setLabel('Database ID: ')
 	->setRequired(true)
 	->addFilters(array('StripTags','StringTrim'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addValidator('InArray', false, array(array_keys($rulers_options)))
 	->addMultiOptions(array(NULL => NULL, 'Choose a database id' => $rulers_options))
 	->addValidator('Int')
@@ -75,7 +75,7 @@ parent::__construct($options);
 	$dynasty = new Zend_Form_Element_Select('dynasty');
 	$dynasty->setLabel('Dynastic grouping: ')
 	->setRequired(true)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StripTags','StringTrim'))
 	->addValidator('InArray', false, array(array_keys($dynasties_options)))
 	->addMultiOptions(array(NULL => NULL, 'Choose a dynasty' => $dynasties_options))

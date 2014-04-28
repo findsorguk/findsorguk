@@ -82,12 +82,12 @@ class EditAccountForm extends Pas_Form
         $institution->addMultiOptions(array(
             NULL => 'Choose institution',
             'Available institutions'=> $inst_options
-            ))->setAttrib('class', 'span4 selectpicker show-menu-arrow');
+            ))->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
 
 		$canRecord = $this->addElement('checkbox', 'canRecord',array('label' => 'Allowed to record: '))->canRecord;
 
         $role = $this->addElement('select', 'role',array('label' => 'Site role: '))->role;
-        $role->addMultiOptions(array(NULL => 'Choose a role','Choose role' => $role_options))->setAttrib('class', 'span3 selectpicker show-menu-arrow');
+        $role->addMultiOptions(array(NULL => 'Choose a role','Choose role' => $role_options))->setAttrib('class', 'input-medium selectpicker show-menu-arrow');
 
         $person = $this->addElement('text', 'person',array('label' => 'Personal details attached: '))->person;
 

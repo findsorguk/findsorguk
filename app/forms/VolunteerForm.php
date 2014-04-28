@@ -47,7 +47,7 @@ class VolunteerForm extends Pas_Form {
 	$managedBy->setLabel('Managed by: ')
 		->addMultiOptions(array('Choose an author' => $authorOptions))
 		->setRequired(true)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('InArray', false, array(array_keys($authorOptions)))
 		->addErrorMessage('You must enter a manager for this project.');
@@ -57,7 +57,7 @@ class VolunteerForm extends Pas_Form {
 	$suitableFor->setLabel('Suitable for: ')
 		->addMultiOptions(array(NULL => NULL,'Choose type of research' => $projectype_list))
 		->setRequired(true)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($projectype_list)))
 		->addFilters(array('StripTags','StringTrim'))
 		->addErrorMessage('You must enter suitability for this task.');

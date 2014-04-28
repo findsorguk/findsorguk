@@ -36,7 +36,7 @@ public function __construct($options = null)
 	$period->setLabel('Period: ')
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('inArray', false, array(array_keys($period_actives)))
 		->addMultiOptions(array(NULL=> NULL,'Choose period:' => $period_actives))
 		->addErrorMessage('You must enter a period for this mint');

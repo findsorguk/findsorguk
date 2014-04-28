@@ -40,7 +40,7 @@ parent::__construct($options);
 		->addFilters(array('StripTags','StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose denomination','Available denominations' => $denomination_options))
 		->addValidator('InArray', false, array(array_keys($denomination_options)))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 
 	$denomination_qualifier = new Zend_Form_Element_Radio('denomination_qualifier');
 	$denomination_qualifier->setLabel('Denomination qualifier: ')
@@ -54,7 +54,7 @@ parent::__construct($options);
 		->addFilters(array('StripTags','StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose category', 'Available categories' => $cat_options))
 		->addValidator('InArray', false, array(array_keys($cat_options)))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 	
 	$ruler_id= new Zend_Form_Element_Select('ruler_id');
 	$ruler_id->setLabel('Ruler: ')
@@ -62,7 +62,7 @@ parent::__construct($options);
 		->addMultiOptions(array(NULL => 'Choose ruler', 'Available rulers' => $ro))
 		->addValidator('InArray', false, array(array_keys($ro)))
 		->addValidator('Digits')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 	
 	$ruler_qualifier = new Zend_Form_Element_Radio('ruler_qualifier');
 	$ruler_qualifier->setLabel('Issuer qualifier: ')
@@ -76,12 +76,12 @@ parent::__construct($options);
 		->addValidator('InArray', false, array(array_keys($mo)))
 		->addValidator('Digits')
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 	
 	$status = new Zend_Form_Element_Select('status');
 	$status->setLabel('Status: ')
 		->setValue(1)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags','StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose coin status', 'Available status options' => $status_options))
 		->addValidator('InArray', false, array(array_keys($status_options)));
@@ -98,7 +98,7 @@ parent::__construct($options);
 		->addFilters(array('StripTags','StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose coin wear','Available wear options' => $wear_options))
 		->addValidator('InArray', false, array(array_keys($wear_options)))
-		->setAttrib('class', 'span4 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
 	
 	$obverse_inscription = new Zend_Form_Element_Text('obverse_inscription');
 	$obverse_inscription->setLabel('Obverse inscription: ')
@@ -126,7 +126,7 @@ parent::__construct($options);
 		->addFilters(array('StripTags','StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose die axis', 'Available dies' => $die_options))
 		->addValidator('InArray', false, array(array_keys($die_options)))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 	
 	$die_axis_certainty = new Zend_Form_Element_Radio('die_axis_certainty');
 	$die_axis_certainty->setLabel('Die axis certainty: ')
@@ -138,7 +138,7 @@ parent::__construct($options);
 	$typeID->setLabel('Coin type: ')
 		->setRegisterInArrayValidator(false)
 		->setRequired(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags','StringTrim'));
 	
 	$rev_mm = new Zend_Form_Element_Textarea('reverse_mintmark');

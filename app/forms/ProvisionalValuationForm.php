@@ -24,7 +24,7 @@ public function __construct($options = null) {
 	$valuerID->setLabel('Valuation provided by: ')
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('StringLength', false, array(1,25))
 		->addValidator('InArray', false, array(array_keys($assigned)))
 		->addMultiOptions($assigned);

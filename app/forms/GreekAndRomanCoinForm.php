@@ -38,7 +38,7 @@ public function __construct($options = null) {
 	->addMultiOptions(array(NULL => 'Choose a denomination',
 	'Valid denominations' => $denomination_options))
 	->addFilters(array('StringTrim','StripTags'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addValidator('InArray', false, array(array_keys($denomination_options)));
 
 	$denomination_qualifier = new Zend_Form_Element_Radio('denomination_qualifier');
@@ -52,7 +52,7 @@ public function __construct($options = null) {
 	$ruler->setLabel('Ruler: ')
 	->addValidators(array('NotEmpty','Int'))
 	->addFilters(array('StringTrim','StripTags'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addMultiOptions(array(NULL => 'Choose a ruler','Valid coin issuers' => $ruler_options))
 	->addValidator('InArray', false, array(array_keys($ruler_options)));
 
@@ -65,7 +65,7 @@ public function __construct($options = null) {
 	$mint_ID= new Zend_Form_Element_Select('mint_id');
 	$mint_ID->setLabel('Issuing mint: ')
 	->addValidators(array('NotEmpty','Int'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StringTrim','StripTags'))
 	->addMultiOptions(array(NULL => 'Choose denomination', 'Available options' => $mint_options))
 	->addValidator('InArray', false, array(array_keys($mint_options)));
@@ -79,7 +79,7 @@ public function __construct($options = null) {
 	$status = new Zend_Form_Element_Select('status');
 	$status->setLabel('Status: ')
 	->setValue(1)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StringTrim','StripTags'))
 	->addMultiOptions(array(NULL => 'Choose coin status', 'Available options' => $status_options))
 	->addValidator('InArray', false, array(array_keys($status_options)));
@@ -93,7 +93,7 @@ public function __construct($options = null) {
 
 	$degree_of_wear = new Zend_Form_Element_Select('degree_of_wear');
 	$degree_of_wear->setLabel('Degree of wear: ')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addMultiOptions(array(NULL => 'Choose degree of wear', 'Available options' => $wear_options))
 	->addValidator('InArray', false, array(array_keys($wear_options)))
 	->addFilters(array('StringTrim','StripTags'));
@@ -126,7 +126,7 @@ public function __construct($options = null) {
 
 	$die_axis_measurement = new Zend_Form_Element_Select('die_axis_measurement');
 	$die_axis_measurement->setLabel('Die axis measurement: ')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addMultiOptions(array(NULL => 'Choose die axis', 'Available options' => $die_options))
 	->addValidator('InArray', false, array(array_keys($die_options)))
 	->addFilters(array('StringTrim','StripTags'));

@@ -57,7 +57,7 @@ public function __construct($options = null) {
 	$pasID = new Zend_Form_Element_Select('pasID');
 	$pasID->setLabel('Corresponding database entry: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($mints_options)))
 		->addMultiOptions($mints_options);
 

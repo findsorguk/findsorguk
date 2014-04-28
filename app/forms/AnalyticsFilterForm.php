@@ -21,7 +21,7 @@ public function __construct($options = null) {
     $segments->setLabel('Apply a segment')
     ->setRequired(false)
     ->addFilters(array('StripTags','StringTrim'))
-    ->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'))
+    ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'))
     ->addMultiOptions(array(null => 'Available segments' ,'Choose a segment' => array(
     		'allvisits' => 'All visits (default)',
     		'newvisitors' => 'New visitors',

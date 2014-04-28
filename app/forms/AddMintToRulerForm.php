@@ -19,7 +19,7 @@ public function __construct($options = null) {
 	->setRequired(true)
 	->addValidator('Int')
 	->addFilters(array('StripTags','StringTrim','StringToLower'))
-	->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	$ruler_id = new Zend_Form_Element_Hidden('ruler_id');
 	$ruler_id ->removeDecorator('label')

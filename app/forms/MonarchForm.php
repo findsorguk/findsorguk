@@ -40,7 +40,7 @@ public function __construct($options = null) {
 	$dbaseID->setLabel('Database ID: ')
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($rulers_options)))
 		->addMultiOptions(array(NULL => NULL, 'Choose Database ID' => $rulers_options));
 
@@ -79,7 +79,7 @@ public function __construct($options = null) {
 
 	$dynasty = new Zend_Form_Element_Select('dynasty');
 	$dynasty->setLabel('Dynastic grouping: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('Digits');
@@ -87,7 +87,7 @@ public function __construct($options = null) {
 	$publishState = new Zend_Form_Element_Select('publishState');
 	$publishState->setLabel('Publication status: ')
 		->setRequired(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('Digits')
 		->addMultiOptions(array(NULL => NULL, 'Set status' => array('1' => 'Draft','2' => 'Published')))

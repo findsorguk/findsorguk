@@ -98,7 +98,7 @@ public function __construct($options = null) {
 	$eventType->setLabel('Type of event: ')
 	->setRequired(true)
 	->addFilters(array('StripTags','StringTrim'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addValidator('stringLength', false, array(1,50))
 	->addValidator('inArray', false, array(array_keys($event_options)))
 	->addMultiOptions(array(null => 'Choose type of event', 'Available options' => $event_options));

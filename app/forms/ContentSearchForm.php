@@ -24,7 +24,7 @@ class ContentSearchForm extends Pas_Form {
 		
 //    $section = new Zend_Form_Element_Select('section');
 //    $section->setLabel('Section')
-//   		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+//   		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 //	    ->addMultiOptions(array(
 //		'index' => 'Home page',
 //		'info' => 'Site information',
