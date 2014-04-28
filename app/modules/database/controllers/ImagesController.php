@@ -32,7 +32,8 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	$this->_images = new Slides();
 	$this->_cache = Zend_Registry::get('cache');
 	$this->_zoomifyObject = new Pas_Zoomify_FileProcessor();
-    }
+	}
+	
 	const REDIRECT = 'database/images/';
 
 	const PATH = './images/';
@@ -243,13 +244,15 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	$updateData['imagerights'] = $form->getValue('imagerights');
 	$updateData['county'] = $form->getValue('county');
 	$updateData['period'] = $form->getValue('period');
+	$updateData['ccLicense'] = $form->getValue('ccLicense');
 	$updateData['updated'] = $this->getTimeForForms();
 	$updateData['updatedBy'] = $this->getIdentityForForms();
 	foreach ($updateData as $key => $value) {
-      if (is_null($value) || $value=="") {
-        unset($updateData[$key]);
-      }
-    }
+		if (is_null($value) || $value=="") {
+			unset($updateData[$key]);
+      		}
+    	}
+	
 	$where =  $this->_images->getAdapter()->quoteInto('imageID = ?', $this->_getParam('id'));
 	$rotate = $form->getValue('rotate');
 	$filename = $form->getValue('filename');
@@ -276,8 +279,8 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 
 	} else {
 	$phMagickMediumCreate = new phMagick($largepath.$filename, $mediumpath.$name.$ext);
-    $phMagickMediumCreate->resize(500,0);
-    $phMagickMediumCreate->rotate($rotate);
+	$phMagickMediumCreate->resize(500,0);
+	$phMagickMediumCreate->rotate($rotate);
 	$phMagickMediumCreate->convert();
 //	Zend_Debug::dump($phMagickMediumCreate);
 
@@ -290,22 +293,22 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 
 	} else {
 	$phMagickSmallCreate = new phMagick($largepath.$filename, $smallpath.$name.$ext);
-    $phMagickSmallCreate->resize(40,0);
-    $phMagickSmallCreate->rotate($rotate);
+	$phMagickSmallCreate->resize(40,0);
+	$phMagickSmallCreate->rotate($rotate);
 	$phMagickSmallCreate->convert();
 	//Zend_Debug::dump($phMagickSmallCreate);
-
 	}
+
 	//rotate display image
 	if(file_exists($displaypath.$name.$ext)) {
 	$phMagickDisplay = new phMagick($displaypath.$name.$ext, $displaypath.$name.$ext);
 	$phMagickDisplay->rotate($rotate);
-//	Zend_Debug::dump($phMagickDisplay);
+	//	Zend_Debug::dump($phMagickDisplay);
 
 	} else {
 	$phMagickDisplayCreate = new phMagick($largepath.$name.$ext, $displaypath.$name.$ext);
-    $phMagickDisplayCreate->resize(0,150);
-    $phMagickDisplayCreate->rotate($rotate);
+	$phMagickDisplayCreate->resize(0,150);
+	$phMagickDisplayCreate->rotate($rotate);
 	$phMagickDisplayCreate->convert();
 	//Zend_Debug::dump($phMagickDisplayCreate);
 	}
@@ -418,10 +421,10 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	$updateData['created'] = $this->getTimeForForms();
 	$updateData['createdBy'] = $this->getIdentityForForms();
 	foreach ($updateData as $key => $value) {
-      if (is_null($value) || $value=="") {
-        unset($updateData[$key]);
-      }
-    }
+	if (is_null($value) || $value=="") {
+        	unset($updateData[$key]);
+      		}
+	}
 	$images = new FindsImages();
 	$insert = $images->insert($updateData);
 	$findID = $form->getValue('findID');
