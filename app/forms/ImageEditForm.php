@@ -53,22 +53,22 @@ class ImageEditForm extends Pas_Form {
 		
 	$period = new Zend_Form_Element_Select('period');
 	$period->setLabel('Period: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => NULL,'Choose a period' => $period_options))
 		->addValidator('inArray', false, array(array_keys($period_options)));
 
 	$county = new Zend_Form_Element_Select('county');
 	$county->setLabel('County: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StringTrim','StripTags'))
 		->addMultiOptions(array(NULL => NULL,'Choose a county' => $county_options))
 		->addValidator('inArray', false, array(array_keys($county_options)));
 
 	$copyright = new Zend_Form_Element_Select('copyrighttext');
 	$copyright->setLabel('Image copyright: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addErrorMessage('You must enter a licence holder')
 		->addMultiOptions(array(NULL => 'Select a licence holder','Valid copyrights' => $copyList))
@@ -80,7 +80,7 @@ class ImageEditForm extends Pas_Form {
 	$licenseField->setDescription('Our philosophy is to make our content available openly, by default we set the license as
 	use by attribution to gain the best public benefit. You can choose a different license if you wish.');
 	$licenseField->setRequired(true)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setLabel('Creative Commons license:')
 		->addMultiOptions(array(NULL => 'Select a license', 'Available licenses' => $license))
 		->setValue(5)
@@ -92,7 +92,7 @@ class ImageEditForm extends Pas_Form {
 		->addMultiOptions(array('Please choose publish state' => array(
 		'digital' => 'Digital image', 'illustration' => 'Scanned illustration')))
 		->setValue('digital')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StringTrim','StripTags'));;
 
 	$rotate = new Zend_Form_Element_Radio('rotate');

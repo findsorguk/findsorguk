@@ -25,7 +25,7 @@ class SiteWideForm extends Pas_Form
 		
     $section = new Zend_Form_Element_Select('section');
     $section->setLabel('Section')
-   		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+   		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	    ->addMultiOptions(array('database' => 'Database','content' => 'Site Contents'));
 
 	$submit = new Zend_Form_Element_Submit('submit');

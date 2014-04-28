@@ -41,7 +41,7 @@ public function __construct($options = null) {
 	$county->setLabel('Filter by county')
 		->addValidator('Alpha',false, array('allowWhiteSpace' => true))
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('StringLength', false, array(1,200))
 		->addMultiOptions(array(NULL => NULL,'Choose county' => $county_options))
 		->addValidator('InArray', false, array(array_keys($county_options)));
@@ -50,7 +50,7 @@ public function __construct($options = null) {
 	$primary->setLabel('Filter by activity')
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('StringLength', false, array(1,200))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => NULL,'Choose activity' => $activities_options))
 		->addValidator('InArray', false, array(array_keys($county_options)));
 

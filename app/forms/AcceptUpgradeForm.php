@@ -35,7 +35,7 @@ public function __construct($options = null) {
                     'Available types' => $projectype_list))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addErrorMessage('You must set the level of research')
-		->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+		->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	$title = new Zend_Form_Element_Text('title');
 	$title->setLabel('Project title: ')

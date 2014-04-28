@@ -27,7 +27,7 @@ public function __construct($options = null) {
 
 	$periodID = new Zend_Form_Element_Select('periodID');
 	$periodID->setLabel('Medieval period: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addFilters(array('StringTrim', 'StripTags'))
 		->addErrorMessage('You must enter a period for this type')

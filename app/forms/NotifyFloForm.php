@@ -20,13 +20,13 @@ class NotifyFloForm extends Pas_Form {
 	
 	$flo = new Zend_Form_Element_Select('flo');
 	$flo->setLabel('Which flo is yours?: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addMultiOptions(array(null => 'Choose your FLO','Available FLOs' => $flos));
 	
 	$type = new Zend_Form_Element_Select('type');
 	$type->setLabel('Message type: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addMultiOptions(array(
 		NULL => 'Choose reason',

@@ -37,7 +37,7 @@ class HoardForm extends Pas_Form
 	$period->setLabel('Broad period attributed to: ')
 		->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL,'Choose reason' => $period_options))
 		->addValidator('inArray', false, array(array_keys($period_options)))
 		->addErrorMessage('You must choose a period');

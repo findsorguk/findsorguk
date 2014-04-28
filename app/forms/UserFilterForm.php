@@ -31,7 +31,7 @@ public function __construct($options = null) {
 	$role = new Zend_Form_Element_Select('role');
 	$role->setLabel('Filter by role')
 		->addFilters(array('StringTrim', 'StripTags'))
-		->setAttrib('class', 'span3 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-medium selectpicker show-menu-arrow')
 		->addValidator('StringLength', false, array(1,200))
 		->addMultiOptions(array(NULL => NULL,'Choose role' => array(
 		'admin' => 'Admin', 'hero' => 'HER officer', 'flos' => 'Finds Liaison',

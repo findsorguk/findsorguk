@@ -76,7 +76,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 	$workflow->setLabel('Workflow stage: ')
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 
 	if(in_array($this->_role,$this->_higherlevel)) {
 	$workflow->addMultiOptions(array(NULL => 'Choose a workflow stage',
@@ -97,7 +97,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 
 	$geographyID = new Zend_Form_Element_Select('geographyID');
 	$geographyID->setLabel('Geographic area: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose a geography',
 		'Available geographies' => $geog_options))
@@ -106,7 +106,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 
 	$rallyID =  new Zend_Form_Element_Select('rallyID');
 	$rallyID->setLabel('Found at this rally: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose a rally',
@@ -122,7 +122,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 
 	$hoardID =  new Zend_Form_Element_Select('hID');
 	$hoardID->setLabel('Part of this hoard: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose a hoard',
@@ -132,7 +132,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 
 	$county = new Zend_Form_Element_Select('countyID');
 	$county->setLabel('County: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose a county',
 		'Available counties' => $county_options))
@@ -141,20 +141,20 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 	$district = new Zend_Form_Element_Select('districtID');
 	$district->setLabel('District: ')
 		->setRegisterInArrayValidator(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose district after county'));
 
 	$parish = new Zend_Form_Element_Select('parishID');
 	$parish->setLabel('Parish: ')
 		->setRegisterInArrayValidator(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose parish after county', 'Available districts' => null));
 
 	$regionID = new Zend_Form_Element_Select('regionID');
 	$regionID->setLabel('European region: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose a region for a wide result',
 		'Available regions' => $region_options))
 		->addValidator('Int');
@@ -178,7 +178,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 	//	Denomination
 	$denomination = new Zend_Form_Element_Select('denomination');
 	$denomination->setLabel('Denomination: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
@@ -189,7 +189,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 	//Primary ruler
 	$ruler = new Zend_Form_Element_Select('ruler');
 	$ruler->setLabel('Ruler / issuer: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose primary ruler' ,
@@ -199,7 +199,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 	//Mint
 	$mint = new Zend_Form_Element_Select('mint');
 	$mint->setLabel('Issuing mint: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose issuing mint',
@@ -209,7 +209,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 	//Secondary ruler
 	$ruler2 = new Zend_Form_Element_Select('ruler2');
 	$ruler2->setLabel('Secondary ruler / issuer: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose secondary ruler',
@@ -248,7 +248,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 	//Die axis
 	$axis = new Zend_Form_Element_Select('axis');
 	$axis->setLabel('Die axis measurement: ')
-		->setAttrib('class', 'span4 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose measurement',
@@ -261,7 +261,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 	$tribe = new Zend_Form_Element_Select('tribe');
 	$tribe->setLabel('Iron Age tribe: ')
 		->setRequired(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose a tribe',
 		'Available tribes' => $tribe_options))
@@ -335,7 +335,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 
 	$institution = new Zend_Form_Element_Select('institution');
 	$institution->setLabel('Recording institution: ')
-		->setAttrib('class', 'span4 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StringTrim','StripTags'))
 		->addMultiOptions(array(NULL => 'Choose institution', 'Available institutions' => $inst_options));

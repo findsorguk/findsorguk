@@ -41,7 +41,7 @@ class WhatWhereWhenForm extends Pas_Form {
 	$broadperiod->setLabel('When: ')
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => NULL,'Choose period from' => $period_options))
 		->addValidator('InArray', false, array($period_options));
 
@@ -49,7 +49,7 @@ class WhatWhereWhenForm extends Pas_Form {
 	$county->setLabel('Where: ')
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => NULL,'Choose county' => $counties_options))
 		->addValidator('InArray', false, array($counties_options));
 

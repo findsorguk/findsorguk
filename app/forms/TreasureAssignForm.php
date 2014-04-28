@@ -22,7 +22,7 @@ public function __construct($options = null)
 	$curatorID = new Zend_Form_Element_Select('curatorID');
 	$curatorID->setLabel('Curator assigned: ')
 	->setRequired(true)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addValidator('InArray', false, array(array_keys($assigned)))
 	->addMultiOptions($assigned);
 	

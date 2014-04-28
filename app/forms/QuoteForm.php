@@ -46,7 +46,7 @@ public function __construct($options = null) {
 	$type->setLabel('Type: ')
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setValue('quote')
 		->addMultiOptions(array(NULL => 'Choose type', 'quote' => 'Quote', 
 		'announcement' => 'Announcement'));

@@ -25,7 +25,7 @@ parent::__construct($options);
 		->setRequired(true)
 		->addMultiOptions(array('Please choose a level' => NULL,
 		'Research levels' => $projectype_list))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($projectype_list)))
 		->addFilters(array('StringTrim', 'StripTags'));
 
@@ -34,7 +34,7 @@ parent::__construct($options);
 		->setRequired(true)
 		->addMultiOptions(array('Please choose a period' => NULL,
 		'Periods available' => $period_options))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($period_options)))
 		->addFilters(array('StringTrim', 'StripTags'));
 

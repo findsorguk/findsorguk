@@ -20,23 +20,23 @@ $counties = new Counties();
 	
 	$county = new Zend_Form_Element_Select('county');
 	$county->setLabel('County: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidators(array('NotEmpty'))
 		->addMultiOptions(array(NULL => NULL,'Choose county' => $county_options));
 	
 	$district = new Zend_Form_Element_Select('district');
 	$district->setLabel('District: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false);
 	
 	$parish = new Zend_Form_Element_Select('parish');
 	$parish->setLabel('Parish: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false);
 	
 	$distance = new Zend_Form_Element_Select('distance');
 	$distance->setLabel('Distance from point: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => NULL, 'Choose distance' => array(
 		'0.05' => '50 metres','0.1' => '100 metres', '0.25' => '250 metres',
 		'0.5' => '500 metres','1' => '1 kilometre','2' => '2 kilometres',

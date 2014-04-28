@@ -71,14 +71,14 @@ class ImageForm extends Pas_Form
 	$period = new Zend_Form_Element_Select('period');
 	$period->setLabel('Period: ')
 		->setRequired(true)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow required')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow required')
 		->addErrorMessage('You must enter a period for the image')
 		->addMultiOptions(array(NULL => 'Select a period', 'Valid periods' => $period_options))
 		->addValidator('inArray', false, array(array_keys($period_options)));
 
 	$county = new Zend_Form_Element_Select('county');
 	$county->setLabel('County: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow required')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow required')
 		->setRequired(true)
 		->addErrorMessage('You must enter a county of origin')
 		->addMultiOptions(array(NULL => 'Select a county of origin',
@@ -87,7 +87,7 @@ class ImageForm extends Pas_Form
 
 	$copyright = new Zend_Form_Element_Select('copyrighttext');
 	$copyright->setLabel('Image copyright: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addErrorMessage('You must enter a licence holder')
 		->addMultiOptions(array(NULL => 'Select a licence holder','Valid copyrights' => $copyList))
@@ -99,7 +99,7 @@ class ImageForm extends Pas_Form
 	$licenseField->setDescription('Our philosophy is to make our content available openly, by default we set the license as
 	use by attribution to gain the best public benefit. You can choose a different license if you wish.');
 	$licenseField->setRequired(true)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setLabel('Creative Commons license:')
 		->addMultiOptions(array(NULL => 'Select a license', 'Available licenses' => $license))
 		->setValue(5)
@@ -107,7 +107,7 @@ class ImageForm extends Pas_Form
 
 	$type = new Zend_Form_Element_Select('type');
 	$type->setLabel('Image type: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addMultiOptions(array(NULL => 'Select the type of image',
 		'Image types' => array('digital' => 'Digital image','illustration' => 'Scanned illustration')))

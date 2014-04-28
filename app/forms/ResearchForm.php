@@ -31,7 +31,7 @@ public function __construct($options = null) {
 	$level->setLabel('Level of research: ')
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => NULL,'Choose type of research' => $projectype_list))
 		->addValidator('inArray', false, array(array_keys($projectype_list)));
 

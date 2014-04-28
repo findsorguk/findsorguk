@@ -33,7 +33,7 @@ public function __construct($options = null) {
     $broadperiod = new Zend_Form_Element_Select('broadperiod');
     $broadperiod->setLabel('Filter by broadperiod')
     ->setRequired(false)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
     ->addFilters(array('StripTags','StringTrim'))
     ->addValidator('stringLength', false, array(1,200))
     ->addMultiOptions(array(NULL => NULL ,'Choose period from' => $periodword_options))

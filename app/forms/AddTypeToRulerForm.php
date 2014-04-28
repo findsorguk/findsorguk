@@ -19,7 +19,7 @@ parent::__construct($options);
 	$type->setLabel('Medieval coin type: ')
 	->setRequired(true)
 	->addFilters(array('StripTags','StringTrim'))
-	->setAttribs(array('class' => 'span6 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	$ruler_id = new Zend_Form_Element_Hidden('ruler_id');
 	$ruler_id->setRequired(true)

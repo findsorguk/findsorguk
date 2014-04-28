@@ -54,7 +54,7 @@ public function __construct($options = null) {
 
 	$denomination = new Zend_Form_Element_Select('denomination');
 	$denomination->setLabel('Denomination: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose denomination', 'Available options' => $denomination_options))
@@ -71,7 +71,7 @@ public function __construct($options = null) {
 
 	$geographyID = new Zend_Form_Element_Select('geographyID');
 	$geographyID->setLabel('Geographic area: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose geography', 'Available options' => $ia_geog))
 		->addValidator('InArray', false, array(array_keys($ia_geog)))
 		->addFilters(array('StripTags', 'StringTrim'))
@@ -86,7 +86,7 @@ public function __construct($options = null) {
 
 	$ruler_id= new Zend_Form_Element_Select('ruler_id');
 	$ruler_id->setLabel('Ruler: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Digits')
 		->addMultiOptions(array(NULL => 'Choose primary ruler', 'Available rulers' => $ro));
@@ -100,7 +100,7 @@ public function __construct($options = null) {
 
 	$ruler2_id= new Zend_Form_Element_Select('ruler2_id');
 	$ruler2_id->setLabel('Secondary ruler: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
 		->addMultiOptions(array(NULL => 'Choose issuing secondary ruler', 'Available rulers' => $ro))
@@ -115,7 +115,7 @@ public function __construct($options = null) {
 
 	$mint_id= new Zend_Form_Element_Select('mint_id');
 	$mint_id->setLabel('Issuing mint: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
@@ -124,7 +124,7 @@ public function __construct($options = null) {
 
 	$tribe= new Zend_Form_Element_Select('tribe');
 	$tribe->setLabel('Tribe: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
 		->setRegisterInArrayValidator(false)
@@ -141,7 +141,7 @@ public function __construct($options = null) {
 	$status = new Zend_Form_Element_Select('status');
 	$status->setLabel('Status: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('Int')
 		->setValue(1)
 		->addMultiOptions(array(NULL => 'Choose coin status', 'Available options' => $status_options))
@@ -157,7 +157,7 @@ public function __construct($options = null) {
 
 	$degree_of_wear = new Zend_Form_Element_Select('degree_of_wear');
 	$degree_of_wear->setLabel('Degree of wear: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Digits')
 		->addMultiOptions(array(NULL => 'Choose wear status', 'Available options' => $wear_options))
@@ -185,7 +185,7 @@ public function __construct($options = null) {
 
 	$die_axis_measurement = new Zend_Form_Element_Select('die_axis_measurement');
 	$die_axis_measurement->setLabel('Die axis measurement: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose die axis', 'Available options' => $die_options))
 		->addValidator('InArray', false, array(array_keys($die_options)));
 
@@ -199,7 +199,7 @@ public function __construct($options = null) {
 	$mack_type = new Zend_Form_Element_Select('mack_type');
 	$mack_type->setLabel('Mack Type: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose a Mack type','Valid types' => $macktypelist))
 		->addValidator('InArray', false, array(array_keys($macktypelist)));
 
@@ -210,14 +210,14 @@ public function __construct($options = null) {
 	$allen_type = new Zend_Form_Element_Select('allen_type');
 	$allen_type->setLabel('Allen Type: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose an Allen type','Valid types' => $atypelist))
 		->addValidator('InArray', false, array(array_keys($atypelist)));
 
 	$va_type = new Zend_Form_Element_Select('va_type');
 	$va_type->setLabel('Van Arsdell Number: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose Van Arsdell type','Valid types' => $vatypelist))
 		->addValidator('InArray', false, array(array_keys($vatypelist)));
 
@@ -230,7 +230,7 @@ public function __construct($options = null) {
 
 	$rudd_type = new Zend_Form_Element_Select('rudd_type');
 	$rudd_type->setLabel('Ancient British Coinage number: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim','Purifier'))
 		->addMultiOptions(array(NULL => 'Choose ABC number','Valid types' => $abclist))
 		->addValidator('InArray', false, array(array_keys($abclist)));

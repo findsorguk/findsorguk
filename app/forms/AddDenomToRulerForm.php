@@ -22,7 +22,7 @@ public function __construct($options = null){
 	->addFilters(array('StripTags','StringTrim','StringToLower'))
 	->addValidator('Int')
 	->setAttribs(array('class'=> 'textInput'))
-	->setAttribs(array('class' => 'span4 selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	$ruler_id = new Zend_Form_Element_Hidden('ruler_id');
 	$ruler_id->addValidator('Int');

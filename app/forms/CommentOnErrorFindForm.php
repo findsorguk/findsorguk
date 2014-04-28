@@ -69,7 +69,7 @@ parent::__construct($options);
 		'Data problems apparent' => 'Data problems',
 		'Other' => 'Other reason')))
 		->addErrorMessage('You must enter an error report type')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 
 	$comment_author_url = new Zend_Form_Element_Text('comment_author_url');
 	$comment_author_url->setLabel('Enter your web address: ')

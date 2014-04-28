@@ -83,7 +83,7 @@ public function __construct($options = null) {
 	$publication_type->setLabel('Publication type: ')
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL,'Choose reason' => $type_options))
 		->addValidator('InArray', false, array(array_keys($type_options)));
 

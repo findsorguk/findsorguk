@@ -38,7 +38,7 @@ public function __construct($options = null)
 	->addMultiOptions(array('Choose an author' => $authorOptions))
 	->setRequired(true)
 	->addFilters(array('StripTags','StringTrim'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addValidator('NotEmpty')
 	->addErrorMessage('You must choose an author');
 
@@ -93,13 +93,13 @@ public function __construct($options = null)
 	'bronzeage' => 'Bronze Age guide',
         'secret' => 'Britain\'s secret treasures'))
 	->setRequired(true)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addErrorMessage('You must choose a section for this to be filed under');
 
 	$parentcontent = new Zend_Form_Element_Select('parent');
 	$parentcontent->setLabel('Does this have a parent?: ')
 	->setRequired(false)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 
 	$metaKeywords = new Zend_Form_Element_Textarea('metaKeywords');
 	$metaKeywords->setLabel('Meta keywords: ')
@@ -120,7 +120,7 @@ public function __construct($options = null)
 	->addMultiOptions(array('Please choose publish state' => array('1' => 'Draft',
 	'2' => 'Admin to review', '3' => 'Published')))
 	->setValue(1)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->setRequired(true);
 
 	$slug = new Zend_Form_Element_Text('slug');

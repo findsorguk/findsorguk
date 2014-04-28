@@ -70,7 +70,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
     $workflow = new Zend_Form_Element_Select('workflow');
 	$workflow->setLabel('Workflow stage: ')
 		->setRequired(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StringTrim','StripTags'))
 		->addValidator('Int');
 
@@ -101,7 +101,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$rallyID =  new Zend_Form_Element_Select('rallyID');
 	$rallyID->setLabel('Found at this rally: ')
 		->setRequired(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StringTrim','StripTags'))
 		->addMultiOptions(array(NULL => 'Choose a rally','Available rallies' => $rally_options));
 
@@ -114,7 +114,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$hoardID =  new Zend_Form_Element_Select('hID');
 	$hoardID->setLabel('Part of this hoard: ')
 		->setRequired(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StringTrim','StripTags'))
 		->addMultiOptions(array(
 	             NULL => 'Available hoards',
@@ -124,7 +124,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$county = new Zend_Form_Element_Select('countyID');
 	$county->setLabel('County: ')
 		->addValidators(array('NotEmpty'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StringTrim','StripTags'))
 		->addMultiOptions(array(
 	            NULL => 'Choose county',
@@ -133,7 +133,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$district = new Zend_Form_Element_Select('districtID');
 	$district->setLabel('District: ')
 		->addMultiOptions(array(NULL => 'Choose district after county'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StringTrim','StripTags'))
 		->setDisableTranslator(true);
@@ -141,7 +141,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$parish = new Zend_Form_Element_Select('parishID');
 	$parish->setLabel('Parish: ')
 		->setRegisterInArrayValidator(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StringTrim','StripTags'))
 		->addMultiOptions(array(NULL => 'Choose parish after county'))
 		->setDisableTranslator(true);
@@ -149,7 +149,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$regionID = new Zend_Form_Element_Select('regionID');
 	$regionID->setLabel('European region: ')
 		->setRegisterInArrayValidator(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('Int')
 		->addMultiOptions(array(NULL => 'Choose a region for a wide result',
 	            'Choose region' => $region_options));
@@ -169,7 +169,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$denomination->setLabel('Denomination: ')
         ->setRequired(false)
         ->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
         ->addValidator('Int')
         ->addMultiOptions(array(
             NULL => 'Choose denomination type',
@@ -180,7 +180,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
         ->setRequired(false)
         ->addValidator(('Int'))
         ->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
         ->addMultiOptions(array(NULL => 'Choose an Early Medieval category',
         'Available categories' => $cat_options));
 
@@ -189,7 +189,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$type->setLabel('Coin type: ')
         ->setRequired(false)
         ->addValidator('Int')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags','StringTrim'))
 		->addMultiOptions(array(NULL => 'Choose type after choosing ruler', 'Available types' => $type_options))
 		->addValidator('InArray', false, array(array_keys($type_options)));
@@ -201,7 +201,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
         ->setRequired(false)
         ->addValidator('Int')
         ->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
         ->addMultiOptions(array(NULL => 'Choose primary ruler',
         'Available options' => $ruler_options))
         ->addValidator('InArray', false, array(array_keys($ruler_options)));
@@ -213,7 +213,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
         ->setRequired(false)
         ->addValidator('Int')
         ->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
         ->addMultiOptions(array(NULL => 'Choose issuing mint',
         'Available mints' => $mint_options));
 
@@ -255,7 +255,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$axis->setLabel('Die axis measurement: ')
 		->setRegisterInArrayValidator(false)
 		->setRequired(false)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags','StringTrim'))
                 ->addValidator('Int')
 		->addMultiOptions(array(NULL => 'Choose a die axis measurement',
@@ -276,7 +276,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$institution->setLabel('Recording institution: ')
 	->setRequired(false)
 	->addFilters(array('StringTrim','StripTags'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
         ->addValidator('Alpha',true)
 	->addMultiOptions(array(
             null => 'Choose an institution',

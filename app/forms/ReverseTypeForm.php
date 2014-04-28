@@ -45,7 +45,7 @@ public function __construct($options = null) {
 
 	$reeceID = new Zend_Form_Element_Select('reeceID');
 	$reeceID->setLabel('Reece period: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(NULL,'Choose reason' => $reeces_options))
 		->addValidator('InArray', false, array(array_keys($reeces_options)));

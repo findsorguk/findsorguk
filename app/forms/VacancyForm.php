@@ -43,7 +43,7 @@ public function __construct($options = null) {
 	
 	$regionID = new Zend_Form_Element_Select('regionID');
 	$regionID->setLabel('Location of role: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addFilters(array('StringTrim', 'StripTags'))
 		->addValidator('InArray', false, array(array_keys($staffregions_options)))
@@ -73,7 +73,7 @@ public function __construct($options = null) {
 	$status = new Zend_Form_Element_Select('status');
 	$status->SetLabel('Publish status: ')
 		->setRequired(true)
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => 'Choose a status','2' => 'Publish','1' => 'Draft'))
 		->setValue(2)
 		->addFilters(array('StringTrim', 'StripTags'))

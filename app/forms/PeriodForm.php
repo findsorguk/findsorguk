@@ -55,7 +55,7 @@ parent::__construct($options);
 
 	$parent = new Zend_Form_Element_Select('parent');
 	$parent->setLabel('Period belongs to: ')
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => NULL,'Choose period to' => $period_options))
 		->addValidator('InArray', false, array(array_keys($period_options)))
 		->addFilters(array('StripTags','StringTrim'))

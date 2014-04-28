@@ -36,7 +36,7 @@ public function __construct($options = null) {
 	->addMultiOptions(array('Choose an author' => $authorOptions))
 	->setRequired(true)
 	->addFilters(array('StringTrim','StripTags'))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addErrorMessage('You must choose an author');
 
 	$excerpt = new Zend_Form_Element_Textarea('excerpt');
@@ -61,14 +61,14 @@ public function __construct($options = null) {
 	'databasehelp' => 'Database help',
 	'help' => 'Site help',
 	))
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->setRequired(true)
 	->addErrorMessage('You must choose a section for this to be filed under');
 
 	$parentcontent = new Zend_Form_Element_Select('parent');
 	$parentcontent->setLabel('Does this have a parent?: ')
 	->setRequired(false)
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addFilters(array('StringTrim','StripTags'));
 
 	$metaKeywords = new Zend_Form_Element_Textarea('metaKeywords');
@@ -87,7 +87,7 @@ public function __construct($options = null) {
 
 	$publishState = new Zend_Form_Element_Select('publishState');
 	$publishState->setLabel('Publishing status: ')
-	->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 	->addMultiOptions(array('Please choose publish state' => array('1' => 'Draft','2' => 'Admin to review', '3' => 'Published')))->setValue(1)
 	->setRequired(true)
 	->addFilters(array('StringTrim','StripTags'));

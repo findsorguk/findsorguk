@@ -35,7 +35,7 @@ public function __construct($options = null) {
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
 		->setValue('Mr')
-		->setAttrib('class', 'span4 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow')
 		->addErrorMessage('Choose title of person')
 		->addMultiOptions(array(
 		'Mr' => 'Mr', 'Mrs' => 'Mrs', 'Miss' => 'Miss',
@@ -76,7 +76,7 @@ public function __construct($options = null) {
 	$county = new Zend_Form_Element_Select('county');
 	$county->setLabel('County: ')
 		->addValidators(array('NotEmpty'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(NULL => NULL,'Choose county' => $counties_options))
 		->addValidator('InArray', false, array(array_keys($counties_options)));
 
@@ -84,7 +84,7 @@ public function __construct($options = null) {
 	$country->SetLabel('Country: ')
 		->setRequired(true)	
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('StringLength', false, array(1,200))
 		->addValidator('InArray', false, array(array_keys($countries_options)))
 		->addMultiOptions(array(NULL => 'Please choose a country of residence',

@@ -30,19 +30,19 @@ public function __construct($options = null) {
 	$parish->setLabel('Filter by parish')
 		->addFilters(array('StringTrim', 'StripTags'))
 		->addValidator('StringLength', false, array(1, 200))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 	
 	$district = new Zend_Form_Element_Select('district');
 	$district->setLabel('Filter by district: ')
 		->addFilters(array('StringTrim', 'StripTags'))
 		->addValidator('StringLength', false, array(1, 200))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow');
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 	
 	$county = new Zend_Form_Element_Select('county');
 	$county->setLabel('Filter by county: ')
 		->setRequired(false)
 		->addFilters(array('StringTrim', 'StripTags'))
-		->setAttrib('class', 'span6 selectpicker show-menu-arrow')
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('StringLength', false, array(1, 200))
 		->addMultiOptions(array(NULL => NULL,'Choose county' => $county_options)) 
 		->addValidator('InArray', false, array(array_keys($county_options)));
