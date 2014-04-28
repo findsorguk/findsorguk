@@ -19,7 +19,7 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin
 			 ->addContext('foaf',array('suffix' => 'foaf'))
  			 ->addContext('vcf',array('suffix' => 'vcf'))
 			 ->addActionContext('profile',$contexts)
-             ->initContext();
+     		 ->initContext();
     }
 
     /** Redirect away from this page, no root access
@@ -31,7 +31,8 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin
 	/** Profile page
 	* @todo sort out the xml generated pages with proper class to generate data
 	*/
-	public function profileAction()	{
+	public function profileAction()
+	{
 		if($this->_getParam('id',false)) {
 			$id = $this->_getParam('id');
 			$staffs = new Contacts();
@@ -52,31 +53,29 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin
 	public function mapAction() {
 	}
 
-        public function findnearestAction(){
-        $postcode = new Pas_Service_Geo_PostCodeToGeo();
-        $geo = $postcode->getData('WC1B 3DG');
-        $config = $this->_helper->config()->solr->toArray();
-        $config['core'] = 'objects';
-
-        $client = new Solarium_Client(array('adapteroptions' => $config ));
-
-        // get a select query instance and a query helper instance
-
-        $select = array(
-        'query'         => '*:*',
-        'fields'        => array('*'),
-        'filterquery' => array(),
-        );
-
-        $query = $client->createSelect($select);
-
-        $helper = $query->getHelper();
-        // add a filterquery on a price range, using the helper to generate the range
-        $query->createFilterQuery('geodist')->setQuery($helper->geodist($geo['lat'], $geo['lon'], 'coordinates'));
-
-        $resultset = $client->select($query);
-        Zend_Debug::dump($resultset);
-
-        }
+	/** Find nearest staff member from solr
+	 * 
+	 */
+	public function findnearestAction()
+	{
+		$postcode = new Pas_Service_Geo_PostCodeToGeo();
+		$geo = $postcode->getData('WC1B 3DG');
+		$config = $this->_helper->config()->solr->toArray();
+		$config['core'] = 'objects';
+		$client = new Solarium_Client(array('adapteroptions' => $config ));
+		// get a select query instance and a query helper instance
+		$select = array(
+			'query' => '*:*',
+			'fields'=> array('*'),
+			'filterquery' => array(),
+		);
+		$query = $client->createSelect($select);
+		$helper = $query->getHelper();
+		// add a filterquery on a price range, using the helper to generate the range
+		$query->createFilterQuery('geodist')->setQuery($helper->geodist($geo['lat'], $geo['lon'], 'coordinates'));
+		
+		$resultset = $client->select($query);
+		Zend_Debug::dump($resultset);
+	}
 
 }
