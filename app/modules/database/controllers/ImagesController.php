@@ -10,7 +10,7 @@
 */
 class Database_ImagesController extends Pas_Controller_Action_Admin
 {
-	protected $_auth, $_images, $_cache, $_zoomifyObject;
+	protected $_auth, $_images, $_cache, $_zoomifyObject, $_arrayTools;
 	/** Set up the ACL and contexts
 	*/
 	public function init() {
@@ -32,12 +32,25 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	$this->_images = new Slides();
 	$this->_cache = Zend_Registry::get('cache');
 	$this->_zoomifyObject = new Pas_Zoomify_FileProcessor();
+	$this->_arrayTools = new Pas_ArrayFunctions();
 	}
 	
-	const REDIRECT = 'database/images/';
+	const REDIRECT 	= 'database/images/';
 
-	const PATH = './images/';
+	const PATH 		= './images/';
+	
+	const THUMB		= 'thumbnails/';
+	
+	const SMALL		= 'small/';
+	
+	const MEDIUM	= 'medium/';
 
+	const LARGE		= 'large/';
+	
+	const DISPLAY 	= 'display/';
+	
+	const EXT		= '.jpg';
+	
 	/** Retrieve the user's details
 	*/
 	private function getUserDetails()	{
@@ -48,13 +61,19 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	}
 	/** Display index page of images
 	*/
-	public function indexAction() {
-        $form = new SolrForm();
+	public function indexAction() 
+	{
+		//Set up form
+		$form = new SolrForm();
+		//Remove the thumbnail element from form
         $form->removeElement('thumbnail');
+        //Send form to view
         $this->view->form = $form;
-
-        $params = $this->array_cleanup($this->_getAllParams());
+		//Clean params
+        $params = $this->_arrayTools->array_cleanup($this->_getAllParams());
+        //Set up search handler
         $search = new Pas_Solr_Handler('beoimages');
+        //Set search fields
         $search->setFields(array(
     	'id', 'identifier', 'objecttype',
     	'title', 'broadperiod', 'imagedir',
@@ -62,147 +81,166 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
     	'county','licenseAcronym','findID',
         'institution')
         );
-
+		//Set facets
         $search->setFacets(array('licenseAcronym','broadperiod','county', 'objecttype','institution'));
-
-
+		//Form handler
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->_getParam('submit'))){
-
+		//Check if valid
         if ($form->isValid($form->getValues())) {
-        $arrayTools = new Pas_ArrayFunctions();
-        
-        $params = $arrayTools->array_cleanup($form->getValues());
-
+        //Clean params
+        $params = $this->_arrayTools->array_cleanup($form->getValues());
+		//Set up redirect
         $this->_helper->Redirector->gotoSimple('index','images','database',$params);
         } else {
+        //if failed, refill form
         $form->populate($form->getValues());
         $params = $form->getValues();
         }
         } else {
-
+		//Get the parameters if not post
         $params = $this->_getAllParams();
+        //Populate the form
         $form->populate($this->_getAllParams());
-
-
         }
-
+        //If q parameter is not set or is '', set default query
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';
         }
-
+		//Set the search params
         $search->setParams($params);
+        //Execute the search
         $search->execute();
-
+		//Process the facets
         $search->_processFacets();
+        //Send pagination to view
         $this->view->paginator = $search->_createPagination();
+        //Send results to view
         $this->view->results = $search->_processResults();
+        //Send facets to view
         $this->view->facets = $search->_processFacets();
 
 	}
 
 	/** Add a new image
 	*/
-	public function addAction()	 {
-	$help = new Help();
-	$this->view->contents = $help->fetchRow('id = 14')->toArray();
-	$form = new ImageForm();
-	$form->submit->setLabel('Submit a new image.');
-	$user = $this->getUserDetails();
-	$username = $user['username'];
-	if(is_dir(self::PATH . $username)){
-	$form->image->setDestination(self::PATH . $username);
-	} else {
-	$path = mkdir(self::PATH . $username);
-	$form->image->setDestination($path);
-	}
+	public function addAction()	 
+	{
+		//This could probably be sent to a view helper
+		//Get the help topic about image labels
+		$help = new Help();
+		//Send contents to the view 
+		$this->view->contents = $help->fetchRow('id = 14')->toArray();
+		//Get the image form
+		$form = new ImageForm();
+		//Set image form label
+		$form->submit->setLabel('Submit a new image.');
+		//Get username		
+		$username = $this->_helper->Identity()->username;
+		$path = self::PATH . $username . '/';
+		//Check if a directory and if not make directory
+		if( !is_dir( $path ) ) {
+			mkdir( $path, 775 );
+		}
+		//Set up directory
+		$form->image->setDestination($path);
+		//Send form to view
+		$this->view->form = $form;
 
-	$this->view->form = $form;
-	$savePath = self::PATH . $username . '/medium/';
-	$thumbPath = self::PATH . 'thumbnails/';
-	if ($this->_request->isPost()) {
-	$formData = $this->_request->getPost();	{
-        $upload = new Zend_File_Transfer_Adapter_Http();
-
-        if ($form->isValid($formData)) {
-        $upload = new Zend_File_Transfer_Adapter_Http();
-   	$upload->addValidator('NotExists', false,array(self::PATH . $username));
-	$filesize = $upload->getFileSize();
-	if($upload->isValid()) 	{
-	$filename = $form->getValue('image');
-	$label = $formData['label'];
-	$secuid = $this->secuid();
-	$insertData = array();
-	$insertData['filename'] = $filename;
-	$insertData['label'] = $label;
-	$insertData['county'] = $form->getValue('county');
-	$insertData['period'] = $form->getValue('period');
-	$insertData['filedate'] = $this->getTimeForForms();
-	$insertData['created'] = $this->getTimeForForms();
-	$insertData['createdBy'] = $this->getIdentityForForms();
-	$insertData['filesize'] = $filesize;
-	$insertData['imagerights'] = $form->getValue('copyrighttext');
-	$insertData['ccLicense'] = $form->getValue('ccLicense');
-	$insertData['type'] = $form->getValue('type');
-	$insertData['secuid'] = $secuid;
-	$insertData['institution'] = $this->getInstitution();
-	//$insertData['mimetype'] = $mimetype;
-	foreach ($insertData as $key => $value) {
-        if (is_null($value) || $value=="") {
-        unset($insertData[$key]);
+		//Set up save path
+		$savePath 	= $path . self::MEDIUM;
+		//Set up thumbnail path
+		$thumbPath 	= $path . self::THUMB;
+		
+		//Check if post request
+		if ($this->_request->isPost()) {
+		//get request data
+		$formData = $this->_request->getPost();	{
+		//Set up transfer
+		$upload = new Zend_File_Transfer_Adapter_Http();
+		//Check if valid
+		if ($form->isValid($formData)) {
+//		This repeats above
+		$upload = new Zend_File_Transfer_Adapter_Http();
+		//Set a validator to check if the file exists
+		$upload->addValidator('NotExists', false, array( $path ));
+		//get the filesize
+		$filesize = $upload->getFileSize();
+		//Check if upload is valid
+		if($upload->isValid()) 	{
+			//Array of values => Move this to a model
+			$filename = $form->getValue('image');
+			$label = $formData['label'];
+			$secuid = $this->secuid();
+			$insertData = array();
+			$insertData['filename'] = $filename;
+			$insertData['label'] = $label;
+			$insertData['county'] = $form->getValue('county');
+			$insertData['period'] = $form->getValue('period');
+			$insertData['filedate'] = $this->getTimeForForms();
+			$insertData['created'] = $this->getTimeForForms();
+			$insertData['createdBy'] = $this->getIdentityForForms();
+			$insertData['filesize'] = $filesize;
+			$insertData['imagerights'] = $form->getValue('copyrighttext');
+			$insertData['ccLicense'] = $form->getValue('ccLicense');
+			$insertData['type'] = $form->getValue('type');
+			$insertData['secuid'] = $secuid;
+			$insertData['institution'] = $this->getInstitution();
         }
-        }
 
-	$upload->receive();
+        //Receive the upload
+		$upload->receive();
 
-	$location = self::PATH . $username . '/' . $filename;
-	$id = $this->_images->insert($insertData);
+		
+		
+		//Insert data into images table
+		$id = $this->_images->insert($insertData);
 	
-	$largepath   = self::PATH . $username . '/';
-	$mediumpath  = self::PATH . $username . '/medium/';
-	$smallpath   = self::PATH . $username . '/small/';
-	$displaypath = self::PATH . $username.'/display/';
-	$thumbpath   = self::PATH . 'thumbnails/';
-	$name = substr($filename, 0, strrpos($filename, '.'));
-	$ext = '.jpg';
-	//create medium size
-	$phMagick = new phMagick($location, $mediumpath.$name.$ext);
-	$phMagick->resize(500,0);
-	$phMagick->convert();
-	//Very small size
-	$phMagick = new phMagick($location, $smallpath.$name.$ext);
-	$phMagick->resize(40,0);
-	$phMagick->convert();
-	//Record display size
-	$phMagick = new phMagick($location, $displaypath.$name.$ext);
-	$phMagick->resize(0,150);
-	$phMagick->convert();
+		$largepath		= $path;
+		$mediumpath		= $path . self::MEDIUM;
+		$smallpath		= $path . self::SMALL;
+		$displaypath	= $path . self::DISPLAY;;
+		$thumbpath		= $path . self::THUMB;
+		$original		= $path . $filename;
+		
+		$name = substr($filename, 0, strrpos($filename, '.'));
 
-	//Thumbnail size
-	$phMagick = new phMagick($location, $thumbpath.$id.$ext);
-	$phMagick->resize(100,100);
-	$phMagick->convert();
+		//create medium size
+		$phMagick = new phMagick($original, $mediumpath . $name . self::EXT);
+		$phMagick->resize(500,0);
+		$phMagick->convert();
+	
+		//Very small size
+		$phMagick = new phMagick($original, $smallpath . $name . self::EXT);
+		$phMagick->resize(40,0);
+		$phMagick->convert();
+	
+		//Record display size
+		$phMagick = new phMagick($original, $displaypath . $name . self::EXT);
+		$phMagick->resize(0,150);
+		$phMagick->convert();
 
-	$linkData = array();
-	$linkData['find_id'] = $this->_getParam('findID');
-	$linkData['image_id'] = $secuid;
-	$linkData['secuid'] = $this->secuid();
-	$imagelink = new FindsImages();
-	$insertedlink = $imagelink->insert($linkData);
-	//Update the solr instance
-	$this->_helper->solrUpdater->update('beoimages', $id);
-	$this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
-	$this->_flashMessenger->addMessage('The image has been resized and added!');
-	$this->_redirect('/database/artefacts/record/id/' . $this->_getParam('id'));
-	} else {
-	$this->_flashMessenger->addMessage('There is a problem with your upload. Probably that image exists.');
-	$this->view->errors = $upload->getMessages();
-	}
-	} else {
-	$form->populate($form->getValues());
-	$this->_flashMessenger->addMessage('Check your form for errors');
-	}
-	}
+		//Thumbnail size
+		$phMagick = new phMagick($original, $thumbpath . $id . self::EXT);
+		$phMagick->resize(100,100);
+		$phMagick->convert();
+
+		$linkData = array();
+		$linkData['find_id'] = $this->_getParam('findID');
+		$linkData['image_id'] = $secuid;
+		$linkData['secuid'] = $this->secuid();
+		$imagelink = new FindsImages();
+		$insertedlink = $imagelink->insert($linkData);
+		//Update the solr instance
+		$this->_helper->solrUpdater->update('beoimages', $id);
+		$this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
+		$this->_flashMessenger->addMessage('The image has been resized and added!');
+		$this->_redirect('/database/artefacts/record/id/' . $this->_getParam('id'));
+		} else {
+		$this->_flashMessenger->addMessage('There is a problem with your upload. Probably that image exists.');
+		$this->view->errors = $upload->getMessages();
+		}
+		}
 	}
 	}
 
