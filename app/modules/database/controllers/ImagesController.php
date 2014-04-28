@@ -70,7 +70,9 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 && !is_null($this->_getParam('submit'))){
 
         if ($form->isValid($form->getValues())) {
-        $params = $this->array_cleanup($form->getValues());
+        $arrayTools = new Pas_ArrayFunctions();
+        
+        $params = $arrayTools->array_cleanup($form->getValues());
 
         $this->_helper->Redirector->gotoSimple('index','images','database',$params);
         } else {
@@ -99,20 +101,6 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 
 	}
 
-
-
-
-        private function array_cleanup( $array ) {
-        $todelete = array('submit','action','controller','module','csrf');
-	foreach( $array as $key => $value ) {
-        foreach($todelete as $match){
-    	if($key == $match){
-    		unset($array[$key]);
-    	}
-        }
-        }
-        return $array;
-        }
 	/** Add a new image
 	*/
 	public function addAction()	 {
