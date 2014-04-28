@@ -66,7 +66,7 @@ Created by: <?php echo str_replace('creator=', '',$this->creator);?>
 <?php 
 $person = new Pas_User_Details();
 $user = $person->getPerson();
-if(str_replace('creator=', '',$this->creator) === $user->fullname):
+if($this->creator === $user->fullname || ($user->role == 'admin')):
 ?>
 <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'calendar', 'action' => 'edit', 'id' => $this->id),null,true);?>" class="btn btn-info btn-small">Edit</a>
 <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'calendar', 'action' => 'delete', 'id' => $this->id),null,true);?>" class="btn btn-warning btn-small">Delete</a>
