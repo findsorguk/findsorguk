@@ -223,7 +223,7 @@ $this->finds['0']['secuid'],$this->finds['0']['createdBy']);?>
 <h3>
 <?php if(count($this->comments) == 1) : ?>
 <?php echo count($this->comments);?> comment
-<?php else(count($this->comments) > 1) : ?>
+<?php elseif(count($this->comments) > 1) : ?>
 <?php echo count($this->comments);?> comments
 <?php endif;?>
 </h3>
