@@ -245,6 +245,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	$updateData['county'] = $form->getValue('county');
 	$updateData['period'] = $form->getValue('period');
 	$updateData['ccLicense'] = $form->getValue('ccLicense');
+	$updateData['type'] = $form->getValue('type');
 	$updateData['updated'] = $this->getTimeForForms();
 	$updateData['updatedBy'] = $this->getIdentityForForms();
 	foreach ($updateData as $key => $value) {
