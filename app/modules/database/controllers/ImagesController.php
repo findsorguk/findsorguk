@@ -301,7 +301,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 //	Zend_Debug::dump($phMagickDisplay);
 
 	} else {
-	$phMagickDisplayCreate = new phMagick($largepath.$name.$ext, $displaypath.$name.$ext);
+	$phMagickDisplayCreate = new phMagick($largepath.$filename, $displaypath.$name.$ext);
     $phMagickDisplayCreate->resize(0,150);
     $phMagickDisplayCreate->rotate($rotate);
 	$phMagickDisplayCreate->convert();
