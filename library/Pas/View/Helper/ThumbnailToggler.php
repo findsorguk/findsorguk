@@ -36,7 +36,7 @@ class Pas_View_Helper_ThumbnailToggler extends Zend_View_Helper_Abstract{
 	 * @access public
 	 */
 	public function thumbnailToggler() {
-	$html = '<div>Only results with images:<br>';
+	$html = '<div>Only results with images:<br />';
 	$active = 'success';
 	$off = 'inverse';
 	if(array_key_exists('thumbnail', $this->_request)){
