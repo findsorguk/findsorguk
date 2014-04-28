@@ -212,23 +212,23 @@ $this->finds['0']['secuid'],$this->finds['0']['createdBy']);?>
 <div class="row-fluid" id="commentary">
 
 <p>
-<a class="btn btn-small" href="<?php echo $this->url(array(
+<a class="btn btn-small btn-warning" href="<?php echo $this->url(array(
 	'module' => 'database',
 	'controller' => 'artefacts',
-	'action' => 'errorreport'));?>" title="Send message to the allotted National Finds Adviser">Spotted
-	a mistake? Tell us. <i class="icon-warning-sign"></i></a> <?php if(count($this->comments) <= 0) : ?>
-
-<a class="btn btn-small" href="#comment_content" id="addcomment" title="Comment on this artefact's record">Be the first to comment <i class="icon-comment"></i></a></p>
-<?php else: ?>
-<a class="btn btn-small" href="#comment_content" id="addcomment"
-title="Comment on this find">Add a new comment <i class="icon-comment"></i></a> |
-Total Comments [<?php echo count($this->comments);?>]
+	'action' => 'errorreport'));?>" title="Send message to the allotted National Finds Adviser">Report a mistake <i class="icon-warning-sign"></i></a>
 </p>
 
-<h4>Approved comments on this record</h4>
-<?php endif;?>
 <div id="comm">
-<?php if($this->comments):?>
+<?php if($this->comments) : ?>
+<h3>
+<?php if(count($this->comments) == 1) : ?>
+<?php echo count($this->comments);?> comment
+<?php else(count($this->comments) > 1) : ?>
+<?php echo count($this->comments);?> comments
+<?php endif;?>
+</h3>
+
+
 <ul>
 <?php echo $this->partialLoop('partials/database/comments.phtml', $this->comments) ;?>
 </ul>
@@ -242,7 +242,7 @@ Total Comments [<?php echo count($this->comments);?>]
 <h2>Comment on this artefact's record</h2>
 
 <div>
-<p>Data entered via this form is checked against the <a href="http://akismet.com/" title="The Aksimet anti-spam detection service">akismet</a> service to recognise spam.</p>
+<p>Your comment will be checked before being posted. We also check for spam using <a href="http://akismet.com/" title="The Aksimet anti-spam detection service">akismet</a>.</p>
 
 	<?php
 	$auth = Zend_Registry::get('auth');
