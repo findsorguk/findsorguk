@@ -1,18 +1,30 @@
 /* TEAM */
-Project lead, developer, designer, debugger, tester, gopher, muppet: Daniel Pett
+
+Project lead: Daniel Pett
 Twitter: @portableant
 Location: The British Museum, Great Russell Street, WC1B 3DG
 Geo: 51.519222, -0.124285 or thereabouts 9-5 M-F
+Email: dpett at britishmuseum.org
+Twitter: +44 207 323 8618
+Site: http://7pillarsofwisdom.co.uk
 
-/* THANKS */
+Developer and ICT Officer: Mary Chester-Kadwell
+Twitter: @omegasquirrel
+Location: The British Museum, Great Russell Street, WC1B 3DG
+Geo: 51.519222, -0.124285 or thereabouts 9-5 M-W
+E: MChester-Kadwell at britishmuseum.org
+
+
+/* THANKS FROM DAN */
 Tom Elliot, Sean Gillies, Sebastian Heath, Ethan Gruber, Eric Kansa and the original people
-I learnt from Tyler Bell, Vuk Trifkovic, Andrew Larcombe and Yegor Veter.
+I learnt from Tyler Bell, Vuk Trifkovic, Andrew Larcombe and Yegor Veter. Most importantly 
+@katekelland
 
 /* SITE */
-Last update: 2013/04/29
+Last update: 2014/04/28
 Standards: xHTML1, CSS2, PHP5.3, MYSQL5, solr 4.2.1
 Components: jQuery, php, flash, java, solr,
-Software: Zend Studio
+Software: Zend Studio, netBeans, 
 
 /* COLOPHON */
 Hic sunt dracones - Here be dragons. St George is coming to get them.
