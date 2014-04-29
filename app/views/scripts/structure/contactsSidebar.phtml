@@ -8,7 +8,7 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
 <div class="sidebar-nav col-md-3" >
 <ul  id="menu1" class="nav nav-stacked nav-pills">
 
-<li <?php if($controller == 'contacts' && $action == 'index') { echo 'class="active"';};?> >
+<li <?php if($controller == 'contacts') { echo 'class="active"';};?> >
 <a href="<?php echo $this->url(array('module'=>'contacts','controller' => 'staff'),null,true);?>" title="Find contact details for our staff"><i class="icon-user"></i>Contacts</a></li>
 
 <li <?php if($controller == 'staff' && $action == 'map') { echo 'class="active"';};?> >
