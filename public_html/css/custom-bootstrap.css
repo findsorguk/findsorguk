@@ -336,6 +336,9 @@ padding: 10px;
 .selectpicker {
 margin-left: 0px;
 }
+.sidebar-nav .nav-pills [class^="icon-"] {
+	margin-right: 5px;
+}
 
 #dims  abbr {
 text-transform: lowercase;
