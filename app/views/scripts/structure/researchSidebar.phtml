@@ -1,15 +1,17 @@
 <?php
-$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+$front = Zend_Controller_Front::getInstance()->getRequest();
 
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+$module = $front->getModuleName();
 
-$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$controller = $front->getControllerName();
+
+$action = $front->getActionName();
 ?>
 
 <div class="sidebar-nav col-md-3" >
     <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
         <li <?php if($module == 'research' && $controller == 'index') { echo 'class="active"';};?> >
-            <a href="<?php echo $this->url(array('module' => 'research','controller' => 'index'),'default',true);?>" title="Research section home">Research</a>
+            <a href="<?php echo $this->url(array('module' => 'research','controller' => 'index'),'default',true);?>" title="Research section home">Research</a></li>
         
         <li <?php if($module == 'research' && $controller == 'projects' && $action == 'index') { echo 'class="active"';};?> >
             <a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects'),'default',true);?>" title="View our research register">Research projects</a></li>
