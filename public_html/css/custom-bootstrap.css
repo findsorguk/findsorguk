@@ -340,6 +340,10 @@ margin-left: 0px;
 	margin-right: 5px;
 }
 
+#commentary .btn-warning {
+	margin-top: 10px;
+}
+
 #dims  abbr {
 text-transform: lowercase;
 }
