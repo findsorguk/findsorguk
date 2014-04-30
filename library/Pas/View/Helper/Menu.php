@@ -15,6 +15,14 @@
 class Pas_View_Helper_Menu
 	extends Zend_View_Helper_Abstract {
 
+	protected $_front, $_param;
+	
+	public function __construct()
+	{
+		$this->_front = Zend_Controller_Front::getInstance()->getRequest();
+		$this->_param = $this->_front->getParam('slug');
+	}	
+	
 	/** Display the menu
 	* @access public
 	* @return string $html
@@ -24,7 +32,12 @@ class Pas_View_Helper_Menu
 	$menus = $content->buildMenu($controller);
 	$html = '';
 	foreach($menus as $m) {
-	$html .= '<li class="menu collapsible nav nav-stacked nav-pills"><a href="';
+	$html .= '<li ';
+	if($m['slug'] == $this->_param) {
+		$html .= 'class="active"';
+		}
+	
+	$html .= '><a href="';
 	$html .= $this->view->url(array(
 		'module' => $section,
 		'controller' => $controller,

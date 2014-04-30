@@ -1,21 +1,23 @@
 <?php
-$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+$front = Zend_Controller_Front::getInstance()->getRequest();
 
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+$module = $front->getModuleName();
 
-$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+$controller = $front->getControllerName();
+
+$action = $front->getActionName();
 ?>
 
 <div class="sidebar-nav col-md-3" >
-    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
+    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible menu">
         <li <?php if($module == 'treasure' && $controller == 'index') { echo 'class="active"';};?> >
             <a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'index'),'default',true);?>" title="An introduction to the Treasure Act">Introduction</a></li>
         
-        <?php echo $this->treasuremenu();?>
+        <?php echo $this->treasureMenu();?>
         
-        <li <?php if($controller == 'reports') { echo 'class="expandfirst active"';};?> >
+        <li <?php if($controller == 'reports') { echo 'class="expandfirst "';};?> >
             <a href="#"><i class="icon-folder-open"></i>Treasure Reports</a>
-            <ul class="menuindent"><?php echo $this->TreasureReportsMenu();?></ul></li>
+            <ul class="nav nav-pills nav-stacked menuindent"><?php echo $this->TreasureReportsMenu();?></ul></li>
         
         <li <?php if($module == 'treasure' && $controller == 'cases') { echo 'class="active"';};?> >
             <a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'cases'),'default',true);?>" title="Case history">Cases</a></li>
