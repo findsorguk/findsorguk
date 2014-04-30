@@ -135,15 +135,14 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 		$form = new ImageForm();
 		//Set image form label
 		$form->submit->setLabel('Submit a new image.');
-		//Get username		
-		$username = $this->_helper->Identity()->username;
-		$path = self::PATH . $username . '/';
+		//Get imagedir		
+		$imagedir = '.' . $this->_helper->Identity()->imagedir;
 		//Check if a directory and if not make directory
-		if( !is_dir( $path ) ) {
-			mkdir( $path, 775 );
+		if( !is_dir( $imagedir ) ) {
+			mkdir( $imagedir, 775, true );
 		}
 		//Set up directory
-		$form->image->setDestination($path);
+		$form->image->setDestination( $imagedir );
 		//Send form to view
 		$this->view->form = $form;
 
@@ -156,11 +155,9 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 		if ($this->_request->isPost()) {
 		//get request data
 		$formData = $this->_request->getPost();	{
-		//Set up transfer
-		$upload = new Zend_File_Transfer_Adapter_Http();
 		//Check if valid
 		if ($form->isValid($formData)) {
-//		This repeats above
+		//This repeats above
 		$upload = new Zend_File_Transfer_Adapter_Http();
 		//Set a validator to check if the file exists
 		$upload->addValidator('NotExists', false, array( $path ));
@@ -168,69 +165,13 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 		$filesize = $upload->getFileSize();
 		//Check if upload is valid
 		if($upload->isValid()) 	{
-			//Array of values => Move this to a model
-			$filename = $form->getValue('image');
-			$label = $formData['label'];
-			$secuid = $this->secuid();
-			$insertData = array();
-			$insertData['filename'] = $filename;
-			$insertData['label'] = $label;
-			$insertData['county'] = $form->getValue('county');
-			$insertData['period'] = $form->getValue('period');
-			$insertData['filedate'] = $this->getTimeForForms();
-			$insertData['created'] = $this->getTimeForForms();
-			$insertData['createdBy'] = $this->getIdentityForForms();
-			$insertData['filesize'] = $filesize;
-			$insertData['imagerights'] = $form->getValue('copyrighttext');
-			$insertData['ccLicense'] = $form->getValue('ccLicense');
-			$insertData['type'] = $form->getValue('type');
-			$insertData['secuid'] = $secuid;
-			$insertData['institution'] = $this->getInstitution();
+			$insertData = $form->getValues();
+			$insertData['filesize'] = $upload->getFileSize();
+			//Receive the upload
+			$upload->receive();
         }
-
-        //Receive the upload
-		$upload->receive();
-
-		
-		
 		//Insert data into images table
-		$id = $this->_images->insert($insertData);
-	
-		$largepath		= $path;
-		$mediumpath		= $path . self::MEDIUM;
-		$smallpath		= $path . self::SMALL;
-		$displaypath	= $path . self::DISPLAY;;
-		$thumbpath		= $path . self::THUMB;
-		$original		= $path . $filename;
-		
-		$name = substr($filename, 0, strrpos($filename, '.'));
-
-		//create medium size
-		$phMagick = new phMagick($original, $mediumpath . $name . self::EXT);
-		$phMagick->resize(500,0);
-		$phMagick->convert();
-	
-		//Very small size
-		$phMagick = new phMagick($original, $smallpath . $name . self::EXT);
-		$phMagick->resize(40,0);
-		$phMagick->convert();
-	
-		//Record display size
-		$phMagick = new phMagick($original, $displaypath . $name . self::EXT);
-		$phMagick->resize(0,150);
-		$phMagick->convert();
-
-		//Thumbnail size
-		$phMagick = new phMagick($original, $thumbpath . $id . self::EXT);
-		$phMagick->resize(100,100);
-		$phMagick->convert();
-
-		$linkData = array();
-		$linkData['find_id'] = $this->_getParam('findID');
-		$linkData['image_id'] = $secuid;
-		$linkData['secuid'] = $this->secuid();
-		$imagelink = new FindsImages();
-		$insertedlink = $imagelink->insert($linkData);
+		$id = $this->_images->insertImage($insertData);
 		//Update the solr instance
 		$this->_helper->solrUpdater->update('beoimages', $id);
 		$this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
@@ -265,21 +206,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();
 	if ($form->isValid($formData)) {
-	$updateData = array();
-	$updateData['label'] = $form->getValue('label');
-	$updateData['imagerights'] = $form->getValue('imagerights');
-	$updateData['county'] = $form->getValue('county');
-	$updateData['period'] = $form->getValue('period');
-	$updateData['ccLicense'] = $form->getValue('ccLicense');
-	$updateData['type'] = $form->getValue('type');
-	$updateData['updated'] = $this->getTimeForForms();
-	$updateData['updatedBy'] = $this->getIdentityForForms();
-	foreach ($updateData as $key => $value) {
-		if (is_null($value) || $value=="") {
-			unset($updateData[$key]);
-      		}
-    	}
-	
+	$updateData = $form->getValues();
 	$where =  $this->_images->getAdapter()->quoteInto('imageID = ?', $this->_getParam('id'));
 	$rotate = $form->getValue('rotate');
 	$filename = $form->getValue('filename');

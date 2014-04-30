@@ -12,7 +12,7 @@
  * @since September 13 2011
  * @todo change the class to use zend_navigation
 */
-class Pas_View_Helper_Conservationmenu
+class Pas_View_Helper_ConservationMenu
 	extends Zend_View_Helper_Abstract {
 
 
@@ -20,7 +20,7 @@ class Pas_View_Helper_Conservationmenu
 	* @access public
 	* @return string $html
 	*/		
-	public function conservationmenu() {
+	public function conservationMenu() {
 	$conservation = new Content();
 	$cons = $conservation->getConservationNotes();
 	$html = '';

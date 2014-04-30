@@ -51,7 +51,7 @@ class ImageForm extends Pas_Form
 	$this->setName('imagetofind');
 
 
-	$image = new Zend_Form_Element_File('image');
+	$image = new Zend_Form_Element_File('filename');
 	$image->setLabel('Upload an image: ')
 	->setRequired(true)
 	->setAttribs(array('size' => 20, 'class' => 'required'))
@@ -85,7 +85,7 @@ class ImageForm extends Pas_Form
 			'Valid counties' => $county_options))
 		->addValidator('inArray', false, array(array_keys($county_options)));
 
-	$copyright = new Zend_Form_Element_Select('copyrighttext');
+	$copyright = new Zend_Form_Element_Select('imagerights');
 	$copyright->setLabel('Image copyright: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
@@ -121,8 +121,8 @@ class ImageForm extends Pas_Form
 	$licenseField, $submit));
 	$this->setMethod('post');
 	$this->addDisplayGroup(array(
-	'image', 'label', 'county',
-	'period', 'copyrighttext', 'ccLicense',
+	'filename', 'label', 'county',
+	'period', 'imagerights', 'ccLicense',
 	'type'),'details');
 
 
