@@ -7,25 +7,25 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
 ?>
 
 <div class="sidebar-nav col-md-3" >
-<ul  id="menu1" class="nav nav-stacked nav-pills">
-
-<li <?php if($module == 'contacts' && $controller == 'index' && $action == 'index') { echo 'class="active"';};?> >
-<a href="<?php echo $this->url(array('module'=>'contacts','controller' => 'staff'),null,true);?>" title="Find contact details for our staff"><i class="icon-user"></i>Contacts</a></li>
-
-<li <?php if($controller == 'staff' && $action == 'map') { echo 'class="active"';};?> >
-<a href="<?php echo $this->url(array('module' => 'contacts','controller'=>'staff','action'=>'map'),null,true);?>" title="View our office locations"><i class="icon-map-marker"></i>Contacts map</a></li>
-
-<li <?php if($controller == 'alumni' && $action == 'index') { echo 'class="active"';};?> >
-<a href="<?php echo $this->url(array('module' => 'contacts','controller' => 'alumni'),null,true);?>" title="View former staff details"><i class="icon-list"></i>Former staff</a></li>
-
-<li <?php if($controller == 'coroners' && $action == 'index') { echo 'class="active"';};?> >
-<a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'coroners'),null,true);?>" title="View coroners' details"><i class="icon-list"></i>Coroners</a></li>
-
-<li <?php if($controller == 'coroners' && $action == 'map') { echo 'class="active"';};?> >
-<a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'coroners','action' => 'map'),null,true);?>" title="View coroners' locations on map"><i class="icon-map-marker"></i>Coroners map</a></li>
-
-<li <?php if($controller == 'accreditedmuseums' && $action == 'index') { echo 'class="active"';};?> >
-<a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'accreditedmuseums'),null,true);?>" title="View accredited museums"><i class="icon-list"></i>Accredited museums</a></li>
-
-</ul>
+    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
+    
+        <li <?php if($module == 'contacts' && $controller == 'index' && $action == 'index') { echo 'class="active"';};?> >
+            <a href="<?php echo $this->url(array('module'=>'contacts','controller' => 'staff'),null,true);?>" title="Find contact details for our staff"><i class="icon-user"></i>Contacts</a></li>
+        
+        <li <?php if($controller == 'staff' && $action == 'map') { echo 'class="active"';};?> >
+            <a href="<?php echo $this->url(array('module' => 'contacts','controller'=>'staff','action'=>'map'),null,true);?>" title="View our office locations"><i class="icon-map-marker"></i>Contacts map</a></li>
+        
+        <li <?php if($controller == 'alumni' && $action == 'index') { echo 'class="active"';};?> >
+            <a href="<?php echo $this->url(array('module' => 'contacts','controller' => 'alumni'),null,true);?>" title="View former staff details"><i class="icon-list"></i>Former staff</a></li>
+        
+        <li <?php if($controller == 'coroners' && $action == 'index') { echo 'class="active"';};?> >
+            <a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'coroners'),null,true);?>" title="View coroners' details"><i class="icon-list"></i>Coroners</a></li>
+        
+        <li <?php if($controller == 'coroners' && $action == 'map') { echo 'class="active"';};?> >
+            <a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'coroners','action' => 'map'),null,true);?>" title="View coroners' locations on map"><i class="icon-map-marker"></i>Coroners map</a></li>
+        
+        <li <?php if($controller == 'accreditedmuseums' && $action == 'index') { echo 'class="active"';};?> >
+            <a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'accreditedmuseums'),null,true);?>" title="View accredited museums"><i class="icon-list"></i>Accredited museums</a></li>
+    
+    </ul>
 </div>
