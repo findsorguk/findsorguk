@@ -22,7 +22,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
 	/** Display index pages for the individual
 	*/	
 	public function indexAction() {	
-		this->view->eventFeed = $this->_gcal->getEventFeed();
+		$this->view->eventFeed = $this->_gcal->getEventFeed();
 	}
 	
 	public function eventAction()

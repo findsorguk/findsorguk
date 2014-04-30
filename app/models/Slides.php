@@ -178,5 +178,36 @@ class Slides extends Pas_Db_Table_Abstract {
 	{
 		
 	}
+	
+	public function insertImage ( $data )
+	{
+		
+		if(array_key_exists('csrf', $data)){
+	            unset($data['csrf']);
+	    }
+		if(empty($data['created'])){
+			$data['created'] = $this->timeCreation();
+		}
+		if(empty($data['filedate'])){
+			$data['created'] = $this->timeCreation();
+		}
+		if(empty($data['createdBy'])){
+			$data['createdBy'] = $this->userNumber();
+		}
+		$data['secuid'] = '';
+		$data['institution'] = '';
+		$linkData = array();
+		$linkData['find_id'] = $this->_getParam('findID');
+		$linkData['image_id'] = $secuid;
+		$linkData['secuid'] = $this->secuid();
+		$imagelink = new FindsImages();
+		$insertedlink = $imagelink->linkImage($linkData);
+		
+	}
+	
+	public function updateImage( $data ) 
+	{
+		
+	}
 
 }

@@ -1,11 +1,9 @@
 <?php
 
-namespace Imagecow;
-
-use Imagecow\Image;
 
 
-class Pas_Image_Magick {
+
+class Pas_Image_Remove {
 	
 	//Set up array of sizes
 	protected $_sizes; 
@@ -15,20 +13,6 @@ class Pas_Image_Magick {
 	
 	//Create original
 	protected $_original;
-	
-	//Allowed extensions
-	protected $_extensions	= array( 'jpg', 'jpeg', 'tiff', 'tif');
-	
-	//Basename of file
-	protected $_basename;
-	
-	//Allowed mime types
-	protected $_mimeTypes 	= array( 
-		'image/jpeg',
-		'image/pjpeg',
-		'image/tiff',
-		'image/x-tiff'
-	); 
 	
 	//User object
 	protected $_user;
@@ -53,9 +37,6 @@ class Pas_Image_Magick {
 	
 	const EXT	= '.jpg';
 	
-	protected $_tiffMimes = array ( 'image/tiff', 'image/x-tiff' );
-	
-	
 	public function __construct( )
 	{
 		$this->_sizes = array(
@@ -79,19 +60,7 @@ class Pas_Image_Magick {
 		$this->_basename = basename( $image );
 		return $this;	
 	}
-	
-	public function setImageNumber( $id ) {
-		if( is_int( $id ) ) {
-			$this->_imageNumber = $id;
-		} else {
-			throw new Zend_Exception ( 'No file to create', 500);
-		}
-	}
 
-	public function getImageNumber() {
-		return $this->_imageNumber();
-	}
-	
 	/** get the image
 	 * 
 	 */
@@ -99,15 +68,6 @@ class Pas_Image_Magick {
 	{
 		//Return the original name
 		return $this->_original;
-	}
-	
-	/** get the basename of the image minus extension
-	 * 
-	 */
-	public function getBasename()
-	{
-		//Return the basename
-		return $this->_basename;
 	}
 	
 	/** Get the user's path
@@ -127,24 +87,6 @@ class Pas_Image_Magick {
 		} 		
 	}
 	
-	/** Check directories exist for a user
-	 * 
-	 */
-	public function checkDirectories()
-	{
-		//For each directory in the list, check that the directory exists
-		foreach( $this->_sizes as $dir )
-		{
-			//Set up each directory path
-			$directory = $this->getUserPath() . $dir['destination'];
-			//Check if directory exists and if not create.
-			if(!is_dir( $directory ))
-			{
-				$this->_makeDirectory( $directory );
-			}
-		}
-		return $this;
-	}
 	
 	/** Create the different sizes of images
 	 * 
@@ -169,13 +111,8 @@ class Pas_Image_Magick {
 		//Loop through each size and create the image
 		foreach( $this->_sizes as $resize )
 		{
-			if($resize['destination'] == self::THUMB ) {
-				$newImage = $this->getUserPath() . $resize['destination'] 
-				. $this->getImageNumber() . self::EXT;
-			} else {
-				$newImage = $this->getUserPath() . $resize['destination'] 
-				. $this->getBasename() . self::EXT;
-			}
+			$newImage = $this->getUserPath() . $resize['destination'] 
+			. $this->getBasename() . self::EXT;
 			$image = Image::create( $destination, 'Imagick' );
 			$mime = $image->getMimeType();
 			if( in_array( $mime, $this->_mimeTypes ) )
@@ -194,47 +131,6 @@ class Pas_Image_Magick {
 	}
 	
 	
-	/** Convert tiff to jpeg
-	 * 
-	 * @param $image
-	 */
-	public function convertTiff(  )
-	{
-		//Determine path to Tiff folder
-		$tiffPath = $this->getUserPath() . self::TIFFS 
-		. $this->getBasename() . self::EXT;
-		
-		//Where we will be saving the file
-		$destination = $this->getUserPath();
-		
-		//Check if directory exists, if not then make directory
-		if( !is_dir( $tiffPath )) {
-			$this->_makeDirectory( $tiffPath );
-		} 
-		
-		//Create an instance of the image to save
-		$image = Image::create( $tiffPath, 'Imagick' );
-		
-		//Set the image to save as jpeg file
-		$image->format('jpg');
-		//Save to original folder as jpeg
-		$image->save( $destination );
-		//return to the resize function 
-		$this->resize();
-	}
 	
-	/** Make directory if does not exist
-	 * 
-	 * @param $path
-	 */
-	protected function _makeDirectory( $path )
-	{
-		//Set permission of directory
-		$permission = 0775;
-		//Make files recursive to same permission
-		$recursive = TRUE;
-		//Make the directory
-		return mkdir( $path, $permission, $recursive );	
-	}
 	
 }
