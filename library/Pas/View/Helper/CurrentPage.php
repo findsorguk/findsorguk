@@ -7,6 +7,7 @@
  * @copyright  Copyright (c) 2014 mchester-kadwell @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
+ * @example    echo $this->active('contacts', 'index', 'index');
  */
 
 class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract {
@@ -14,7 +15,7 @@ class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract {
     protected $_module;
     protected $_controller;
     protected $_action;
-  
+ 
     /** Get the current instance of module, controller and action
      *  
      */    
@@ -25,6 +26,14 @@ class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract {
         $this->_action = $front->getActionName();
     }
 
+    public function __toString() {
+        return $this->active();
+    }    
+    
+    public function currentPage() {
+        return $this;
+    }
+    
     /** Create active css class for link if current instance matches 
      *  
      */
@@ -33,9 +42,5 @@ class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract {
             return 'class="active"';
         }
     }
+    
 }
-
-/**
-* usage example
-* echo $this->active('contacts', 'index', 'index');
-* /
