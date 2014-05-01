@@ -47,7 +47,7 @@ class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract {
     public function active($module = null, $controller = null, $action = null, $param = null) {
         if($module == $this->_module && $controller == $this->_controller && $action == $this->_action) {
             return 'class="active"';
-        } elseif( $module == $this->_module && $controller == $this->_controller && $action == $this->_action && $this->_param == $param ) )  {
+        } elseif( $module == $this->_module && $controller == $this->_controller && $action == $this->_action && $this->_param == $param )   {
            return 'class="active"';
         }
     }
