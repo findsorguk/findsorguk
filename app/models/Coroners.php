@@ -35,7 +35,7 @@ class Coroners extends Pas_Db_Table_Abstract {
 		$coroners = $this->getAdapter();
 		$select = $coroners->select()->from($this->_name)->order('region_name ASC');;
 		$paginator = Zend_Paginator::factory($select);
-		$paginator->setItemCountPerPage(20)->setPageRange(10)->setCache( $this->_cache );
+		$paginator->setItemCountPerPage(20)->setPageRange(10);
 		if(isset($params['page']) && ($params['page'] != "")) {
 			$paginator->setCurrentPageNumber($params['page']);
 		}
