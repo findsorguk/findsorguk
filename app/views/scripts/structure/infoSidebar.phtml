@@ -1,23 +1,23 @@
-<div class="well sidebar-nav" >
-<ul id="menu1" class="menu collapsible nav nav-stacked nav-pills">
-<li><a href="<?php echo $this->url(array('module' => 'info'),'default',true);?>" title="Information about our site">About the site</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'accessibility'),'i',true);?>" title="Information about our site\'s accessibility">Accessibility</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'termsandconditions'),'i',true);?>" title="Read about our terms and conditions - nothing onerous">Terms of Use</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'privacy'),'i',true);?>" title="Read about our privacy policy">Privacy &amp; Cookies</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action'=> 'page','slug' => 'foi'),'i',true);?>" title="Freedom of information requests and how to submit one">Freedom of Information</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'rss'),'i',true);?>" title="Read about available RSS and Atom feeds">RSS feeds</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'oai','action' => 'index'),'default',true);?>" title="Read about our OAI server access">OAI access</a></li>
+<div class="sidebar-nav col-md-3" >
+<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+<li <?php echo $this->currentPage()->active('info','index','index');?>><a href="<?php echo $this->url(array('module' => 'info'),'default',true);?>" title="Information about our site">About the site</a></li>
+<li <?php echo $this->currentPage()->active('info','content','page', 'accessibility');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'accessibility'),'i',true);?>" title="Information about our site\'s accessibility">Accessibility</a></li>
+<li <?php echo $this->currentPage()->active('info','content','page', 'termsandconditions');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'termsandconditions'),'i',true);?>" title="Read about our terms and conditions - nothing onerous">Terms of Use</a></li>
+<li <?php echo $this->currentPage()->active('info','content','page', 'privacy');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'privacy'),'i',true);?>" title="Read about our privacy policy">Privacy &amp; Cookies</a></li>
+<li <?php echo $this->currentPage()->active('info','content','page', 'foi');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action'=> 'page','slug' => 'foi'),'i',true);?>" title="Freedom of information requests and how to submit one">Freedom of Information</a></li>
+<li <?php echo $this->currentPage()->active('info','content','page', 'rss');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'rss'),'i',true);?>" title="Read about available RSS and Atom feeds">RSS feeds</a></li>
+<li <?php echo $this->currentPage()->active('database','oai','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'oai','action' => 'index'),'default',true);?>" title="Read about our OAI server access">OAI access</a></li>
 <li <?php 
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 if($controller == 'github'):
 ?> 
 class="expandfirst" 
 <?php endif;?>
-><a href="#">Github <i class="icon-folder-open"></i></a>
+><a href="#"><i class="icon-folder-open"></i>Github</a>
 	<ul class="nav nav-pills nav-stacked  menuindent">
-		<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'index'),'default',true);?>" title="Github code changes">Code maintenance at Github</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'commits'),'default',true);?>">Commits</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'issues'),'default',true);?>">Issues</a></li>
+		<li <?php echo $this->currentPage()->active('info','github','index');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'index'),'default',true);?>" title="Github code changes">Code maintenance at Github</a></li>
+		<li <?php echo $this->currentPage()->active('info','github','commits');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'commits'),'default',true);?>">Commits</a></li>
+		<li <?php echo $this->currentPage()->active('info','github','issues');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'issues'),'default',true);?>">Issues</a></li>
 	</ul>
 </li>
 </ul>

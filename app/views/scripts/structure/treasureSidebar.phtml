@@ -1,16 +1,8 @@
-<?php
-$front = Zend_Controller_Front::getInstance()->getRequest();
-
-$module = $front->getModuleName();
-
-$controller = $front->getControllerName();
-
-$action = $front->getActionName();
-?>
+<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 
 <div class="sidebar-nav col-md-3" >
     <ul  id="menu1" class="nav nav-stacked nav-pills collapsible menu">
-        <li <?php if($module == 'treasure' && $controller == 'index') { echo 'class="active"';};?> >
+        <li <?php echo $this->currentPage()->active('treasure','index','index');?>>
             <a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'index'),'default',true);?>" title="An introduction to the Treasure Act">Introduction</a></li>
         
         <?php echo $this->treasureMenu();?>
@@ -19,10 +11,10 @@ $action = $front->getActionName();
             <a href="#"><i class="icon-folder-open"></i>Treasure Reports</a>
             <ul class="nav nav-pills nav-stacked menuindent"><?php echo $this->TreasureReportsMenu();?></ul></li>
         
-        <li <?php if($module == 'treasure' && $controller == 'cases') { echo 'class="active"';};?> >
+        <li <?php echo $this->currentPage()->active('treasure','cases','index');?>>
             <a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'cases'),'default',true);?>" title="Case history">Cases</a></li>
         
-        <li <?php if($module == 'treasure' && $controller == 'minutes') { echo 'class="active"';};?> >
+        <li <?php echo $this->currentPage()->active('treasure','minutes','index');?>>
             <a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'minutes'),'default',true);?>" title="TVC minutes">TVC Minutes</a></li>
     </ul>
 </div>
