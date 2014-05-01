@@ -9,8 +9,8 @@
 'bar-twisted-rings'
 );
 $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');?>
-<div class="well sidebar-nav" >
-<ul id="menu1" class="menu  nav nav-stacked nav-pills">
+<div class="sidebar-nav col-md-3" >
+<ul id="menu1" class="menu collapsible nav nav-pills nav-stacked">
 <li><a href="<?php echo $this->url(array('module' => 'bronzeage'),'default',true);?>">Introduction</a></li>
 <li <?php if(in_array($slug, $gold)) { echo ' class="expandfirst"';};?>><a href="#">Gold objects <i class="icon-folder-open"></i></a>
 <ul class="nav nav-stacked nav-pills menuindent">

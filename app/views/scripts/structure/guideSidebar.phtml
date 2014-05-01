@@ -1,4 +1,4 @@
-<div class="well sidebar-nav" >
+<div class="sidebar-nav col-md-3" >
 <?php
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 
@@ -26,15 +26,15 @@ title="Access levels explained">What can I see?</a></li>
 title="How to record an object online">How you record online</a></li>
 </ul>
 </li>
-<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'gridreferences'),'frg',true);?>" title="Obtaining a grid reference">Getting grid references</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'gridreferences'),'frg',true);?>" title="Obtaining a grid reference"><i class="icon-map-marker"></i>Getting grid references</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'photographingfinds'),'frg',true);?>"
-       title="Taking photographs of objects">Taking photographs <i class="icon-camera"></i></a></li>
+       title="Taking photographs of objects"><i class="icon-camera"></i>Taking photographs</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'imageediting'),'frg',true);?>"
-title="Editing your images">Editing digital images <i class="icon-picture"></i></a></li>
+title="Editing your images"><i class="icon-picture"></i>Editing digital images</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'bibliography'),'frg',true);?>"
 title="Suggested bibliography">Bibliography/Websites</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'timeline'),'frg',true);?>"
-title="Period timeline">Timeline <i class="icon-time"></i></a></li>
+title="Period timeline"><i class="icon-time"></i>Timeline</a></li>
 <li   <?php
 $action = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 if(array_key_exists('slug',$action)){

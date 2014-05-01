@@ -1,10 +1,24 @@
-<div class="well sidebar-nav" >
 <?php
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-?>
+	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
 
-<ul id="menu1" class="menu collapsible nav nav-pills nav-stacked">
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search', 'action' => 'results'),NULL,true);?>" title="All finds recorded on the database">All artefacts &amp; coins <i class="icon-list"></i></a></li>
+	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+
+	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+	function active($controllerName, $actionName) {
+	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+
+	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+	if($controllerName == $controller && $action == $actionName) {
+	return 'class="active"';
+	}
+}
+?>
+<div class="sidebar-nav col-md-3" >
+
+<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+<li  <?php echo active('search', 'results');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search', 'action' => 'results'),NULL,true);?>" title="All finds recorded on the database"><i class="icon-list"></i>All artefacts &amp; coins</a></li>
 <?php
 $auth = Zend_Auth::getInstance();
 if($auth->hasIdentity()) {
@@ -14,13 +28,13 @@ $allowedAccess = array('member','flos','hero','research','fa','admin', 'treasure
 if(in_array($user->role,$allowedAccess))
 {
 ?>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme', 'action' => 'myfinds'),null,true);?>" title="View all finds I have recorded">Finds recorded by me  <i class="icon-list"></i></a></li>
+<li <?php echo active('myscheme', 'myfinds');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme', 'action' => 'myfinds'),null,true);?>" title="View all finds I have recorded"><i class="icon-list"></i>Finds recorded by me</a></li>
 <?php if($user->role === 'member'):?>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme', 'action' => 'recordedbyflos'),null,true);?>" title="View all finds recorded by PAS staff for me">Finds recorded for me by flos</a></li>
+<li  <?php echo active('myscheme', 'recordedbyflos');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme', 'action' => 'recordedbyflos'),null,true);?>" title="View all finds recorded by PAS staff for me">Finds recorded for me by flos</a></li>
 <?php endif;?>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme', 'action' => 'myinstitution'),null,true);?>" title="View everything recorded by people with my prefix">My institution's records  <i class="icon-list"></i></a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme','action' => 'myimages'),null,true);?>">My images <i class="icon-camera"></i></a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'images'),null,true);?>">All images <i class="icon-picture"></i></a></li>
+<li <?php echo active('myscheme', 'myinstitution');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme', 'action' => 'myinstitution'),null,true);?>" title="View everything recorded by people with my prefix"><i class="icon-list"></i>My institution's records</a></li>
+<li <?php echo active('myscheme', 'myimages');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme','action' => 'myimages'),null,true);?>"><i class="icon-camera"></i>My images</a></li>
+<li <?php echo active('images', 'index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'images'),null,true);?>"><i class="icon-picture"></i>All images</a></li>
 <?php
 }
 }
@@ -28,12 +42,12 @@ if(in_array($user->role,$allowedAccess))
 else
 {
 ?>
-<li><a href="<?php echo $this->url(array('controller' => 'database','action' => 'images'),null,true);?>">All images</a></li>
+<li <?php echo active('images', 'index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'images'),null,true);?>">All images</a></li>
 <?php
 
 }
 ?>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search'),NULL,true);?>">Search database <i class="icon-search"></i></a>
+<li <?php echo active('search', 'index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search'),NULL,true);?>"><i class="icon-search"></i>Search database</a>
 </li>
 <?php
 $auth = Zend_Auth::getInstance();
@@ -59,15 +73,15 @@ $user = $auth->getIdentity();
 $allowed = array('fa','admin','flos','hero','treasure','research');
 if(in_array($user->role,$allowed)){
 }?>
-<li><a href="<?php echo $this->url(array('controller' => 'database','action' => 'smr'),NULL,true);?>"
-title="List of scheduled monuments">Scheduled monuments  <i class="icon-list"></i></a></li>
-<li><a href="<?php echo $this->url(array('controller' => 'database','action' => 'osdata'),NULL,true);?>"
-title="List of OS data">Ordnance Survey data  <i class="icon-list"></i></a></li>
+<li <?php echo active('smr', 'index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'smr'),NULL,true);?>"
+title="List of scheduled monuments"><i class="icon-list"></i>Scheduled monuments</a></li>
+<li <?php echo active('osdata', 'index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'osdata'),NULL,true);?>"
+title="List of OS data">Ordnance Survey data</a></li>
 <?php
 }
 ?>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller'=>  'publications'),NULL,true);?>" title="Reference works cited on database">Reference works cited  <i class="icon-book"></i></a></li>
-<li><a href="#">Numismatics <i class="icon-folder-open"></i></a>
+<li <?php echo active('publications', 'index');?>><a href="<?php echo $this->url(array('module' => 'database','controller'=>  'publications'),NULL,true);?>" title="Reference works cited on database"><i class="icon-book"></i>Reference works cited</a></li>
+<li><a href="#"><i class="icon-folder-open"></i>Numismatics</a>
 <ul class="nav nav-pills nav-stacked  menuindent">
 <li><a href="<?php echo $this->url(array('module' => 'ironagecoins'),NULL,true);?>" title="Iron Age coin guide">Iron Age</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'romancoins'),NULL,true);?>" title="Roman coin guide">Roman</a></li>
@@ -78,36 +92,35 @@ title="List of OS data">Ordnance Survey data  <i class="icon-list"></i></a></li>
 <li><a href="<?php echo $this->url(array('module' => 'postmedievalcoins'),NULL,true);?>" title="Learn about Post Medieval coins">Post Medieval</a></li>
 </ul>
 </li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'hoards'),null,true);?>" title="List of hoards on the database">Hoards</a></li>
+
 <li <?php if($controller == 'terminology') { echo 'class="expandfirst"';};?>>
-    <a href="#" title="Click to view controlled lists">Controlled vocabulary <i class="icon-folder-open"></i></a>
+    <a href="#" title="Click to view controlled lists"><i class="icon-folder-open"></i>Controlled vocabulary</a>
 <ul class="nav nav-pills nav-stacked  menuindent">
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'objects'),NULL,true);?>" title="Learn about object terms in use">Object terms</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology', 'action' => 'periods'),null,true);?>" title="View a list of the temporal terms we use">Periods</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology', 'action' => 'denominations'),null,true);?>" title="View a list of active denoinations">Denominations</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'mints'),null,true);?>" title="View list of active mints">Mints</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology','action' => 'rulers'),null,true);?>" title="View list of all active rulers">Rulers</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'cultures'),null,true);?>" title="View a list of all ascribed cultures in use">Ascribed cultures</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'workflows'),null,true);?>" title="View list of our workflow stages">Workflow stages</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology', 'action' => 'preservations'),null,true);?>" title="View list of active preservation states">Preservation states</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'methods'),null,true);?>" title="View a list of active discovery methods">Discovery methods</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'notes'),null,true);?>" title="View our reasoning for denoting finds of interest">Finds of note reasons</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'materials'),null,true);?>" title="View a list of active materials">Materials</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology', 'action' => 'manufactures'),null,true);?>" title="View a list of all manufacturing method terms">Methods of manufacture</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'landuses'),null,true);?>" title="View all landuses on our database">Landuses</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'surfaces'),null,true);?>" title="View all surface treatment types on our database">Surface treatments</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'activities'),null,true);?>" title="View all landuse terminology in use on our database">Primary activities</a></li>
+<li <?php echo active('terminology', 'objects');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'objects'),NULL,true);?>" title="Learn about object terms in use">Object terms</a></li>
+<li <?php echo active('terminology', 'periods');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology', 'action' => 'periods'),null,true);?>" title="View a list of the temporal terms we use">Periods</a></li>
+<li <?php echo active('terminology', 'denominations ');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology', 'action' => 'denominations'),null,true);?>" title="View a list of active denoinations">Denominations</a></li>
+<li <?php echo active('terminology', 'mints');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'mints'),null,true);?>" title="View list of active mints">Mints</a></li>
+<li <?php echo active('terminology', 'rulers');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology','action' => 'rulers'),null,true);?>" title="View list of all active rulers">Rulers</a></li>
+<li <?php echo active('terminology', 'cultures');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'cultures'),null,true);?>" title="View a list of all ascribed cultures in use">Ascribed cultures</a></li>
+<li <?php echo active('terminology', 'workflows');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'workflows'),null,true);?>" title="View list of our workflow stages">Workflow stages</a></li>
+<li <?php echo active('terminology', 'preservations');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology', 'action' => 'preservations'),null,true);?>" title="View list of active preservation states">Preservation states</a></li>
+<li <?php echo active('terminology', 'methods');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'methods'),null,true);?>" title="View a list of active discovery methods">Discovery methods</a></li>
+<li <?php echo active('terminology', 'notes');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'notes'),null,true);?>" title="View our reasoning for denoting finds of interest">Finds of note reasons</a></li>
+<li <?php echo active('terminology', 'materials');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'materials'),null,true);?>" title="View a list of active materials">Materials</a></li>
+<li <?php echo active('terminology', 'manufactures');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology', 'action' => 'manufactures'),null,true);?>" title="View a list of all manufacturing method terms">Methods of manufacture</a></li>
+<li <?php echo active('terminology', 'landuses');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'landuses'),null,true);?>" title="View all landuses on our database">Landuses</a></li>
+<li <?php echo active('terminology', 'surfaces');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'surfaces'),null,true);?>" title="View all surface treatment types on our database">Surface treatments</a></li>
+<li <?php echo active('terminology', 'activities');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'activities'),null,true);?>" title="View all landuse terminology in use on our database">Primary activities</a></li>
 
 </ul></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies'),null,true);?>" title="View list of rallies we have recorded at">Rallies</a></li>
-<!-- <li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'comments'),null,true);?>" title="View comments attached to finds">Commentary  <i class="icon-comment"></i></a></li> -->
-<li <?php if($controller == 'statistics') { echo 'class="expandfirst"';};?>><a href="#">Statistics <i class="icon-folder-open"></i></a>
+<li <?php echo active('rallies', 'index ');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies'),null,true);?>" title="View list of rallies we have recorded at">Rallies</a></li>
+<li <?php if($controller == 'statistics') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Statistics</a>
 <ul class="nav nav-pills nav-stacked  menuindent">
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics'),null,true);?>" title="Find out what was recorded daily">Archives by day</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'statistics','action' => 'annual'),null,true);?>" title="View annual archived statistics">Overall statistics</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'regional'),null,true);?>" title="View annual regional archived statistics">Regional statistics</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'institution'),null,true);?>" title="View annual institutional archived statistics">Institution statistics</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'county'),null,true);?>" title="View annual county archived statistics">County statistics</a></li>
+<li <?php echo active('statistics', 'index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics'),null,true);?>" title="Find out what was recorded daily">Archives by day</a></li>
+<li <?php echo active('statistics', 'annual');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'statistics','action' => 'annual'),null,true);?>" title="View annual archived statistics">Overall statistics</a></li>
+<li <?php echo active('statistics', 'regional');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'regional'),null,true);?>" title="View annual regional archived statistics">Regional statistics</a></li>
+<li <?php echo active('statistics', 'institution');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'institution'),null,true);?>" title="View annual institutional archived statistics">Institution statistics</a></li>
+<li <?php echo active('statistics', 'county');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'county'),null,true);?>" title="View annual county archived statistics">County statistics</a></li>
 </ul>
 </li>
 <li><a href="<?php echo $this->url(array('module' => 'guide'),null,true);?>" title="Learn more about recording">Volunteer recording guide</a></li>
