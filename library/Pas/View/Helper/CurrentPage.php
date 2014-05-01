@@ -7,7 +7,8 @@
  * @copyright  Copyright (c) 2014 mchester-kadwell @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
- * @example    echo $this->active('contacts', 'index', 'index');
+ * @author     Mary Chester-Kadwell
+ * @example    echo $this->currentPage()->active('contacts', 'index', 'index');
  */
 
 class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract {
