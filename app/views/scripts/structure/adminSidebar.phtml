@@ -1,7 +1,22 @@
-<div class="well sidebar-nav" >
 <?php
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+
+	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+function active($controllerName, $actionName) {
+	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+
+	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+	if($controllerName == $controller && $action == $actionName) {
+	return 'class="active"';
+	}
+}
 ?>
+
+<div class="sidebar-nav col-md-3" >
 <?php
 $auth = Zend_Auth::getInstance();
 if($auth->hasIdentity()) {
@@ -10,44 +25,44 @@ $allowed =  array('admin' , 'fa');
 if(in_array($user->role,$allowed)) {
 ?>
 
-<ul id="menu1" class="menu collapsible nav nav-pills nav-stacked">
-<li><a href="<?php echo $this->url(array('controller' => 'admin'),null,true);?>" title="Go to administration centre">Administration home</a></li>
-<li <?php if($controller == 'contacts' || $controller == 'coroners' || $controller == 'institutions' || $controller == 'roles') { echo 'class="expandfirst"';};?>><a href="#" title="Administer the contacts on the site">Contacts management <i class="icon-folder-open"></i></a>
+<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+<li <?php echo active('admin', 'index');?>><a href="<?php echo $this->url(array('controller' => 'admin'),null,true);?>" title="Go to administration centre">Administration home</a></li>
+<li <?php if($controller == 'contacts' || $controller == 'coroners' || $controller == 'institutions' || $controller == 'roles') { echo 'class="expandfirst"';};?>><a href="#" title="Administer the contacts on the site"><i class="icon-folder-open"></i>Contacts management</a>
 <ul class="nav nav-stacked nav-pills menuindent">
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts'),null,true);?>" title="Edit current staff">Current staff</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts', 'action' => 'alumni'),null,true);?>" title="Edit alumni">Alumni</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'coroners'),null,true);?>" title="Edit coroners">Coroners</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'institutions'),null,true);?>" title="Edit institutions">Institutions</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'roles'),null,true);?>" title="Edit staff roles">Staff roles</a></li>
+<li <?php if($controller == 'contacts' && $action == 'index') { echo 'class="active"';};?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts'),null,true);?>" title="Edit current staff">Current staff</a></li>
+<li <?php echo active('contacts', 'alumni');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts', 'action' => 'alumni'),null,true);?>" title="Edit alumni">Alumni</a></li>
+<li <?php echo active('coroners', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'coroners'),null,true);?>" title="Edit coroners">Coroners</a></li>
+<li <?php echo active('institutions', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'institutions'),null,true);?>" title="Edit institutions">Institutions</a></li>
+<li <?php echo active('roles', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'roles'),null,true);?>" title="Edit staff roles">Staff roles</a></li>
 </ul>
 </li>
 <li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'news'),null,true);?>" title="Manage news listings">News management</a></li>
 
-<li <?php if($controller == 'research') { echo 'class="expandfirst"';};?>><a href="#">Administer research <i class="icon-folder-open"></i></a>
+<li <?php if($controller == 'research') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Administer research</a>
     <ul class="nav nav-pills nav-stacked menuindent">
-        <li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'research'),null,true);?>" title="Manage research listings">Research management</a></li>
-        <li><a title="Administer suggested research" href="<?php echo $this->url(array('module' => 'admin','controller' => 'research', 'action' => 'suggested'),null,true);?>">Suggested research projects</a></li>
+        <li <?php echo active('research', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'research'),null,true);?>" title="Manage research listings">Research management</a></li>
+        <li <?php echo active('research', 'suggested');?>><a title="Administer suggested research" href="<?php echo $this->url(array('module' => 'admin','controller' => 'research', 'action' => 'suggested'),null,true);?>">Suggested research projects</a></li>
     </ul>
 </li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'her'),null,true);?>" title="Manage the list of signed up HER officers">Manage HER sign ups</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'content'),null,true);?>" title="Go to content administration centre">Content management</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'help'),null,true);?>" title="Go to help administration centre">Help topic management</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'quotes'),null,true);?>" title="Administer quotes and announcements">Quotes &amp; announcements</a></li>
-<li <?php if($controller == 'vacancies' || $controller == 'volunteers') { echo 'class="expandfirst"';};?>><a href="#">Volunteers and vacancies <i class="icon-folder-open"></i></a>
+<li <?php echo active('her', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'her'),null,true);?>" title="Manage the list of signed up HER officers">Manage HER sign ups</a></li>
+<li <?php echo active('content', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'content'),null,true);?>" title="Go to content administration centre">Content management</a></li>
+<li <?php echo active('help', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'help'),null,true);?>" title="Go to help administration centre">Help topic management</a></li>
+<li <?php echo active('quotes', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'quotes'),null,true);?>" title="Administer quotes and announcements">Quotes &amp; announcements</a></li>
+<li <?php if($controller == 'vacancies' || $controller == 'volunteers') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Volunteers and vacancies</a>
 <ul class="nav nav-pills nav-stacked menuindent">
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'vacancies'),null,true);?>" title="Administer vacancies">Vacancies management</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'volunteers'),null,true);?>" title="Administer volunteers">Volunteers management</a></li>
+<li <?php echo active('vacancies', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'vacancies'),null,true);?>" title="Administer vacancies">Vacancies management</a></li>
+<li <?php echo active('volunteers', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'volunteers'),null,true);?>" title="Administer volunteers">Volunteers management</a></li>
 </ul>
 </li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'events'),null,true);?>" title="Go to events administration centre">Event management <i class="icon-calendar"></i></a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics'),null,true);?>" title="Administer the numismatic options">Numismatics</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology'),null,true);?>" title="Administer controlled terms">Controlled terminology</a></li>
+<li <?php echo active('events', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'events'),null,true);?>" title="Go to events administration centre"><i class="icon-calendar"></i>Event management</a></li>
+<li <?php echo active('numismatics', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics'),null,true);?>" title="Administer the numismatic options">Numismatics</a></li>
+<li <?php echo active('terminology', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology'),null,true);?>" title="Administer controlled terms">Controlled terminology</a></li>
 
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'users'),null,true);?>" title="Go to user administration centre">User admin</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system'),null,true);?>" title="Change system setup">System configuration <i class="icon-cog"></i></a></li>
-<li <?php if($controller == 'comments') { echo 'class="expandfirst"';};?>><a href="#" title="Administer comments">Comments <i class="icon-folder-open"></i></a>
+<li <?php echo active('users', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'users'),null,true);?>" title="Go to user administration centre"><i class="icon-user"></i>User admin</a></li>
+<li <?php echo active('system', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system'),null,true);?>" title="Change system setup"><i class="icon-cog"></i>System configuration</a></li>
+<li <?php if($controller == 'comments') { echo 'class="expandfirst"';};?>><a href="#" title="Administer comments"><i class="icon-folder-open"></i>Comments</a>
 <ul class="nav nav-pills nav-stacked menuindent">
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments'),'default',true);?>" title="View all comments as one table">All comments</a></li>
+<li <?php echo active('comments', 'index');?>><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments'),'default',true);?>" title="View all comments as one table">All comments</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments','approval' => 'spam'),'default',true);?>" title="View all comments as one table">Spam comments</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments','approval' => 'moderation'),'default',true);?>" title="View all comments as one table">Pending comments</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments','approval' => 'approved'),'default',true);?>" title="View all comments as one table">Authorised comments</a></li>

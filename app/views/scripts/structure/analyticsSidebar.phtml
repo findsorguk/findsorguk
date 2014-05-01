@@ -1,49 +1,62 @@
-<?php 
-$front = Zend_Controller_Front::getInstance()->getRequest();
-$controller = $front->getControllerName();
+<?php
+	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+
+	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+	function active($controllerName, $actionName) {
+	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+
+	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+
+	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+	if($controllerName == $controller && $action == $actionName) {
+	return 'class="active"';
+	}
+}
 ?>
-<div class="well sidebar-nav" >
+<div class="sidebar-nav col-md-3" >
 <ul id="menu1" class="menu collapsible nav nav-pills nav-stacked">
-<li><a href="<?php echo $this->url(array('module' => 'analytics'),'default', true);?>">Headline stats</a></li>
-<li <?php if($controller == 'audience') { echo 'class="expandfirst"';};?>><a href="#">Audience <i class="icon-folder-open"></i></a>
+<li <?php echo active('index', 'index');?>><a href="<?php echo $this->url(array('module' => 'analytics'),'default', true);?>">Headline stats</a></li>
+<li <?php if($controller == 'audience') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Audience</a>
 	<ul class="nav nav-pills nav-stacked  menuindent">
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience', 'action' => 'overview'),'default', true);?>">Overview</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'map'),'default', true);?>">Visitors on a Google Map</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'continent'),'default', true);?>">Demography by continent</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'subcontinent'),'default', true);?>">Demography by subcontinent</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'country'),'default', true);?>">Demography by country</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'city'),'default', true);?>">Demography by city</a></li>
-				<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'hourly'),'default', true);?>">Hourly profiles</a></li>
+		<li <?php echo active('audience', 'overview');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience', 'action' => 'overview'),'default', true);?>">Overview</a></li>
+		<li <?php echo active('audience', 'map');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'map'),'default', true);?>">Visitors on a Google Map</a></li>
+		<li <?php echo active('audience', 'continent');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'continent'),'default', true);?>">Demography by continent</a></li>
+		<li <?php echo active('audience', 'subcontinent');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'subcontinent'),'default', true);?>">Demography by subcontinent</a></li>
+		<li <?php echo active('audience', 'country');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'country'),'default', true);?>">Demography by country</a></li>
+		<li <?php echo active('audience', 'city');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'city'),'default', true);?>">Demography by city</a></li>
+		<li <?php echo active('audience', 'hourly');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience','action' => 'hourly'),'default', true);?>">Hourly profiles</a></li>
 						
 	</ul>
 </li>
-<li <?php if($controller == 'social') { echo 'class="expandfirst"';};?>><a href="#">Social media <i class="icon-folder-open"></i></a>
+<li <?php if($controller == 'social') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Social media</a>
 	<ul class="nav nav-pills nav-stacked  menuindent">
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social', 'action' => 'interactions'),'default', true);?>">Interactions</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social','action' => 'activities'),'default', true);?>">Activities</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social','action' => 'networks'),'default', true);?>">Networks</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social','action' => 'mobiles'),'default', true);?>">Mobile use</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social','action' => 'tablets'),'default', true);?>">Tablet use</a></li>
+		<li <?php echo active('social', 'interactions');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social', 'action' => 'interactions'),'default', true);?>">Interactions</a></li>
+		<li <?php echo active('social', 'activities');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social','action' => 'activities'),'default', true);?>">Activities</a></li>
+		<li <?php echo active('social', 'networks');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social','action' => 'networks'),'default', true);?>">Networks</a></li>
+		<li <?php echo active('social', 'mobiles');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social','action' => 'mobiles'),'default', true);?>">Mobile use</a></li>
+		<li <?php echo active('social', 'tablets');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'social','action' => 'tablets'),'default', true);?>">Tablet use</a></li>
 	</ul>
 </li>
-<li <?php if($controller == 'technology') { echo 'class="expandfirst"';};?>><a href="#">Technology <i class="icon-folder-open"></i></a>
+<li <?php if($controller == 'technology') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Technology</a>
 	<ul class="nav nav-pills nav-stacked  menuindent">
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'metrics'),'default', true);?>">Site speed metrics</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'tablets'),'default', true);?>">Tablets</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'mobiles'),'default', true);?>">Mobiles</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'browsers'),'default', true);?>">Browsers</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'desktopos'),'default', true);?>">Desktop O/S</a></li>
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'mobileos'),'default', true);?>">Mobile O/S</a></li>
+		<li <?php echo active('technology', 'metrics');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'metrics'),'default', true);?>">Site speed metrics</a></li>
+		<li <?php echo active('technology', 'tablets');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'tablets'),'default', true);?>">Tablets</a></li>
+		<li <?php echo active('technology', 'mobiles');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'mobiles'),'default', true);?>">Mobiles</a></li>
+		<li <?php echo active('technology', 'browsers');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'browsers'),'default', true);?>">Browsers</a></li>
+		<li <?php echo active('technology', 'desktopos');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'desktopos'),'default', true);?>">Desktop O/S</a></li>
+		<li <?php echo active('technology', 'mobileos');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'mobileos'),'default', true);?>">Mobile O/S</a></li>
 	</ul>
 </li>
-<li <?php if($controller == 'content') { echo 'class="expandfirst"';};?>><a href="#">Content <i class="icon-folder-open"></i></a>
+<li <?php if($controller == 'content') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Content</a>
 	<ul class="nav nav-pills nav-stacked  menuindent">
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'content', 'action' => 'overview'),'default', true);?>">Overview</a></li>
+		<li <?php echo active('content', 'overview');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'content', 'action' => 'overview'),'default', true);?>">Overview</a></li>
 	</ul>
 </li>
-<li <?php if($controller == 'traffic') { echo 'class="expandfirst"';};?>><a href="#">Traffic <i class="icon-folder-open"></i></a>
+<li <?php if($controller == 'traffic') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Traffic</a>
 	<ul class="nav nav-pills nav-stacked  menuindent">
-		<li><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'traffic', 'action' => 'overview'),'default', true);?>">Overview</a></li>
+		<li <?php echo active('traffic', 'overview');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'traffic', 'action' => 'overview'),'default', true);?>">Overview</a></li>
 	</ul>
 </li>
 </ul>
