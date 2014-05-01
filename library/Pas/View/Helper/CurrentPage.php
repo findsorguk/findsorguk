@@ -8,7 +8,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  * @author     Mary Chester-Kadwell
- * @example    echo $this->currentPage()->active('contacts', 'index', 'index');
+ * @example    echo $this->currentPage()->active('contacts', 'index', 'index', 'slug');
  */
 
 class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract {
@@ -16,7 +16,7 @@ class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract {
     protected $_module;
     protected $_controller;
     protected $_action;
-    protected $_params;
+    protected $_param;
  
     /** Get the current instance of module, controller and action
      *  
