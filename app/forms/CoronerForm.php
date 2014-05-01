@@ -14,8 +14,8 @@ public function __construct($options = null)
 	$countries = new Countries();
 	$countries_options = $countries->getOptions();
 
-	$counties = new Counties();
-	$county_options = $counties->getCountyname2();
+	$counties = new OsCounties();
+	$county_options = $counties->getCountyNames();
 
 	parent::__construct($options);
 
