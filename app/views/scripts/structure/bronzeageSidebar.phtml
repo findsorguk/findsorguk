@@ -11,54 +11,54 @@
 $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');?>
 <div class="sidebar-nav col-md-3" >
 <ul id="menu1" class="menu collapsible nav nav-pills nav-stacked">
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage'),'default',true);?>">Introduction</a></li>
+<li <?php echo $this->currentPage()->active('bronzeage','index','index');?>><a href="<?php echo $this->url(array('module' => 'bronzeage'),'default',true);?>">Introduction</a></li>
 <li <?php if(in_array($slug, $gold)) { echo ' class="expandfirst"';};?>><a href="#">Gold objects <i class="icon-folder-open"></i></a>
 <ul class="nav nav-stacked nav-pills menuindent">
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'gold');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'gold'),'bronzeage',true);?>">Introduction</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'dress-fasteners');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'dress-fasteners'),'bronzeage',true);?>">Dress fasteners</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'gold-bracelets');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'gold-bracelets'),'bronzeage',true);?>">Gold bracelets</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'penannular-rings');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'penannular-rings'),'bronzeage',true);?>">Penannular rings</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'lock-rings');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'lock-rings'),'bronzeage',true);?>">Lock-Rings</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'sleeve-fasteners');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'sleeve-fasteners'),'bronzeage',true);?>">Sleeve-fasteners</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'bullae');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'bullae'),'bronzeage',true);?>">Bullae</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'gorgets');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'gorgets'),'bronzeage',true);?>">Gorgets</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'collars');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'collars'),'bronzeage',true);?>">Collars</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'torcs');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'torcs'),'bronzeage',true);?>">Torcs</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'stud-caps-on-stone-wristguards');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'stud-caps-on-stone-wristguards'),'bronzeage',true);?>">Stud caps on stone wristguards</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'basket-shaped-ornaments');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'basket-shaped-ornaments'),'bronzeage',true);?>">Basket-Shaped Ornaments</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'bronzeage');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'discs'),'bronzeage',true);?>">Discs</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'lunulae');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'lunulae'),'bronzeage',true);?>">Lunulae</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'cylindrical-armlets');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'cylindrical-armlets'),'bronzeage',true);?>">Cylindrical armlets</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'cups');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'cups'),'bronzeage',true);?>">Cups</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'capes');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'capes'),'bronzeage',true);?>">Capes</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'ribbon-torcs');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'ribbon-torcs'),'bronzeage',true);?>">Ribbon torcs</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'bar-torcs');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'bar-torcs'),'bronzeage',true);?>">Bar torcs</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'bar-bracelets');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'bar-bracelets'),'bronzeage',true);?>">Bar bracelets</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'sheet-bracelets');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'sheet-bracelets'),'bronzeage',true);?>">Sheet bracelets</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'composite-rings');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'composite-rings'),'bronzeage',true);?>">Composite rings</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'bar-twisted-rings');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'bar-twisted-rings'),'bronzeage',true);?>">Bar Twisted Rings</a></li>
 </ul>
 </li>
@@ -78,71 +78,71 @@ $other = array(
 $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');?>
 <li <?php if(in_array($slug, $other)) { echo ' class="expandfirst"';};?>><a href="#">Other metal objects <i class="icon-folder-open"></i></a>
 <ul class="nav nav-stacked nav-pills menuindent">
-<li ><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'other');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'other'),'bronzeage',true);?>">Introduction</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'bracelets');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'bracelets'),'bronzeage',true);?>">Bracelets</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'knife');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'knife'),'bronzeage',true);?>">Knives</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'beads');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'beads'),'bronzeage',true);?>">Beads</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'awl');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'awl'),'bronzeage',true);?>">Awls</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'shield');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'shield'),'bronzeage',true);?>">Shields</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'ingots');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'ingots'),'bronzeage',true);?>">Ingots</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'metal-working-debris');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'metal-working-debris'),'bronzeage',true);?>">Metal working debris</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'arrowheads');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'arrowheads'),'bronzeage',true);?>">Arrowheads</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'wheeled-vehicle-equipment');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'wheeled-vehicle-equipment'),'bronzeage',true);?>">Wheeled vehicle equipment</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'horse-fittings');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'horse-fittings'),'bronzeage',true);?>">Horse fittings</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'punches');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'punches'),'bronzeage',true);?>">Punches</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'rings');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'rings'),'bronzeage',true);?>">Rings</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'crotals');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'crotals'),'bronzeage',true);?>">Crotals</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'chapes');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'chapes'),'bronzeage',true);?>">Chapes</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'pins');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'pins'),'bronzeage',true);?>">Pins</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'flesh-hooks');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'flesh-hooks'),'bronzeage',true);?>">Flesh-hooks</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'fish-hooks');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'fish-hooks'),'bronzeage',true);?>">Fish-hooks</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'saw-blades');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'saw-blades'),'bronzeage',true);?>">Saw blades</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'anvils');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'anvils'),'bronzeage',true);?>">Anvils</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'hammers');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'hammers'),'bronzeage',true);?>">Hammers</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'gouges');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'gouges'),'bronzeage',true);?>">Gouges</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'sickles');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'sickles'),'bronzeage',true);?>">Sickles</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'razors');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'razors'),'bronzeage',true);?>">Razors</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'bronze-torcs');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'bronze-torcs'),'bronzeage',true);?>">Torcs</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'buttons-and-studs');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'buttons-and-studs'),'bronzeage',true);?>">Buttons and studs</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'vessels');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'vessels'),'bronzeage',true);?>">Vessels</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'spearheads');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'spearheads'),'bronzeage',true);?>">Spearheads</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'axes');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'axes'),'bronzeage',true);?>">Axes</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'swords');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'swords'),'bronzeage',true);?>">Swords</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'halberd');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'halberd'),'bronzeage',true);?>">Halberd</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'daggers');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'daggers'),'bronzeage',true);?>">Daggers</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
+<li <?php echo $this->currentPage()->active('bronzeage','objects','index', 'rapiers-and-dirks');?>><a href="<?php echo $this->url(array('module' => 'bronzeage','controller' => 'objects',
 'action' => 'index','slug' => 'rapiers-and-dirks'),'bronzeage',true);?>">Rapiers and dirks</a></li>
 </ul>
 </li>

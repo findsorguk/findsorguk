@@ -1,16 +1,8 @@
-<?php
-$front = Zend_Controller_Front::getInstance()->getRequest();
-
-$module = $front->getModuleName();
-
-$controller = $front->getControllerName();
-
-$action = $front->getActionName();
-?>
+<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 
 <div class="sidebar-nav col-md-3" >
     <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
-        <li <?php if($module == 'news' && $controller == 'index') { echo 'class="active"';};?> >
+        <li <?php echo $this->currentPage()->active('news','index','index');?>>
             <a href="<?php echo $this->url(array('controller' => 'news','action' => 'index'),'default',true);?>" title="Latest news from the Scheme"><i class="icon-list-alt"></i>Scheme news</a></li>
         <li <?php if($controller == 'reports') { echo 'class="expandfirst active"';};?>><a href="#"><i class="icon-folder-open"></i>Scheme Annual reports</a>
             <ul class="nav nav-pills nav-stacked menuindent"> 
@@ -22,15 +14,15 @@ $action = $front->getActionName();
         <li <?php if($controller == 'reviews') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Commissioned reviews</a>
             <ul class="nav nav-pills nav-stacked menuindent"><?php
             echo $this->menu('news','reviews','index','r');?></ul></li>
-        <li <?php if($module == 'news' && $controller == 'map') { echo 'class="active"';};?> >
+        <li <?php echo $this->currentPage()->active('news','map','index');?>>
             <a href="<?php echo $this->url(array('module' => 'news','controller' => 'map'),'default',true);?>" title="View most recent news stories on a map"><i class="icon-map-marker"></i>Geographic news map</a></li>
         <li <?php if($controller == 'theyworkforyou') { echo 'class="expandfirst"';};?>><a href="#" ><i class="icon-folder-open"></i>Data from theyworkforyou</a>
             <ul class="nav nav-pills nav-stacked menuindent">
-                <li <?php if($controller == 'theyworkforyou' && $action == 'index') { echo 'class="active"';};?>><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou'),'default',true);?>" title="View latest mentions of related terms in Parliament">Parliamentary news</a></li>
-                <li <?php if($controller == 'theyworkforyou' && $action == 'members') { echo 'class="active"';};?>><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'members'),'default',true);?>" title="Parliamentarian lookup by finds and record">Finds by Member of Parliament</a></li>
-                <li <?php if($controller == 'theyworkforyou' && $action == 'constituencies') { echo 'class="active"';};?>><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'constituencies'),'default',true);?>" title="Parliamentary constituency find lookup">Finds by constituency</a></li>
-                <li <?php if($controller == 'theyworkforyou' && $action == 'findmymp') { echo 'class="active"';};?>><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'findmymp'),'default',true);?>" title="Finds by constituency by postcode">Find by postcode to constituency</a></li></ul></li>
-        <li <?php if($module == 'news' && $controller == 'guardian') { echo 'class="active"';};?> >
+        <li <?php echo $this->currentPage()->active('news','theyworkforyou','index');?>><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou'),'default',true);?>" title="View latest mentions of related terms in Parliament">Parliamentary news</a></li>
+        <li <?php echo $this->currentPage()->active('news','theyworkforyou','members');?>><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'members'),'default',true);?>" title="Parliamentarian lookup by finds and record">Finds by Member of Parliament</a></li>
+        <li <?php echo $this->currentPage()->active('news','theyworkforyou','constituencies');?>><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'constituencies'),'default',true);?>" title="Parliamentary constituency find lookup">Finds by constituency</a></li>
+        <li <?php echo $this->currentPage()->active('news','theyworkforyou','findmymp');?>><a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'findmymp'),'default',true);?>" title="Finds by constituency by postcode">Find by postcode to constituency</a></li></ul></li>
+        <li <?php echo $this->currentPage()->active('news','guardian','index');?>>
             <a href="<?php echo $this->url(array('controller' => 'news','action' => 'guardian'),'default',true);?>" title="View articles on the Scheme from the Guardian"><i class="icon-list-alt"></i>Scheme in the Guardian</a></li>
     </ul>
     <?php if($controller == 'theyworkforyou'):?>

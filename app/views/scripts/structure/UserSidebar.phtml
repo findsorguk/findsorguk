@@ -6,36 +6,36 @@ if($auth->hasIdentity()) {
 $user = $auth->getIdentity();
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 ?>
-<div class="well sidebar-nav" >
-<ul id="menu1" class="menu collapsible nav nav-stacked nav-pills">
-<li><a href="<?php echo $this->url(array(
+<div class="sidebar-nav col-md-3" >
+<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+<li <?php echo $this->currentPage()->active('users','named','index');?>><a href="<?php echo $this->url(array(
     'module' => 'users',
     'controller' => 'named'),null,true);?>" title="View all our registered users">View all users</a></li>
-<li><a href="<?php echo $this->url(array(
+<li <?php echo $this->currentPage()->active('users','audit','logins');?>><a href="<?php echo $this->url(array(
     'module' => 'users',
     'controller' => 'audit',
     'action' => 'logins'),null,true);?>" title="When have I logged in and where from">Login history</a></li>
-<li><a href="<?php echo $this->url(array(
+<li <?php echo $this->currentPage()->active('users','audit','iphistory');?>><a href="<?php echo $this->url(array(
     'module' => 'users',
     'controller' => 'audit',
     'action' => 'iphistory'),null,true);?>" title="When have I logged in and where from">IP address history</a></li>
 <?php
 if(in_array($user->role,$allowed)) {
 ?>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'backups'),null,true);?>" title="View latest backups">Full Database CSV downloads</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'news'),null,true);?>" title="Change and update news stories you entered">Administer news</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'events'),null,true);?>" title="Change and update events you entered">Administer events</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'calendar'),null,true);?>" title="View and add events for shared calendar">Scheme shared calendar</a></li>
+<li <?php echo $this->currentPage()->active('users','backups','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'backups'),null,true);?>" title="View latest backups">Full Database CSV downloads</a></li>
+<li <?php echo $this->currentPage()->active('users','news','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'news'),null,true);?>" title="Change and update news stories you entered">Administer news</a></li>
+<li <?php echo $this->currentPage()->active('users','events','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'events'),null,true);?>" title="Change and update events you entered">Administer events</a></li>
+<li <?php echo $this->currentPage()->active('users','calendar','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'calendar'),null,true);?>" title="View and add events for shared calendar">Scheme shared calendar</a></li>
 <?php
 }
 ?>
 <?php
 if(in_array($user->role,$backups)) {
 ?>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'data'),null,true);?>" title="View latest backups">Role specific Database CSV downloads</a></li>
+<li <?php echo $this->currentPage()->active('database','data','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'data'),null,true);?>" title="View latest backups">Role specific Database CSV downloads</a></li>
 <?php }?>
 <?php if(!is_null($user->peopleID) && !is_null($user->canRecord)):?>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller'=>'configuration'),null,true);?>" title="Configure the copy last record function">Configure the copy function</a></li>
+<li <?php echo $this->currentPage()->active('users','configuration','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller'=>'configuration'),null,true);?>" title="Configure the copy last record function">Configure the copy function</a></li>
 <?php endif;?>
 <li><a href="<?php echo $this->url(array('module' => 'database','controller'=>'myscheme','action'=>'recordedbyflos'),null,true);?>" title="View finds recorded for me by the Scheme">My finds recorded by FLOs</a></li>
 
@@ -49,11 +49,11 @@ if(in_array($user->role,$backups)) {
 </ul>
 </li>
 <li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme','action' => 'myimages'),null,true);?>" title="View all images I have added">My images</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'social',),null,true);?>" title="Administer my social sites available to other users">My social web</a></li>
+<li <?php echo $this->currentPage()->active('users','social','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'social',),null,true);?>" title="Administer my social sites available to other users">My social web</a></li>
 <li <?php if($controller == 'comments') { echo 'class="expandfirst"';}?>><a href="#" title="Expand comments section">Comments</a>
 <ul class="nav nav-pills nav-stacked">
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'imade'),null,true);?>" title="View my comments">My comments</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'onmine'),null,true);?>" title="View all comments on my records">Comments on my records</a></li>
+<li <?php echo $this->currentPage()->active('users','comments','imade');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'imade'),null,true);?>" title="View my comments">My comments</a></li>
+<li <?php echo $this->currentPage()->active('users','comments','onmine');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'onmine'),null,true);?>" title="View all comments on my records">Comments on my records</a></li>
 </ul>
 </li>
 </ul>
