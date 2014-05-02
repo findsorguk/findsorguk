@@ -42,10 +42,10 @@ if(in_array($user->role,$backups)) {
 <li><a href="<?php echo $this->url(array('module' => 'database','controller'=>'myscheme','action'=>'myfinds'),null,true);?>" title="View finds I have recorded">Finds I recorded</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'database','controller'=>'myscheme','action'=>'myinstitution'),null,true);?>" title="View finds my institution has recorded">My institution's finds</a></li>
 <li <?php if($controller == 'search') { echo 'class="expandfirst"';}?>><a href="#" title="Expand search">Search</a>
-<ul>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'search'),null,true);?>" title="Facts about your searches">My search</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'search','action' => 'history'),null,true);?>" title="View your search history">History</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'search','action' => 'saved'),null,true);?>" title="View all your saved searches">Saved searches</a></li>
+<ul class="nav nav-pills nav-stacked menuindent">
+<li <?php echo $this->currentPage()->active('users','search','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'search'),null,true);?>" title="Facts about your searches">My search</a></li>
+<li <?php echo $this->currentPage()->active('users','search','history');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'search','action' => 'history'),null,true);?>" title="View your search history">History</a></li>
+<li <?php echo $this->currentPage()->active('users','search','saved');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'search','action' => 'saved'),null,true);?>" title="View all your saved searches">Saved searches</a></li>
 </ul>
 </li>
 <li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme','action' => 'myimages'),null,true);?>" title="View all images I have added">My images</a></li>

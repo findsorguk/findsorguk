@@ -1,4 +1,5 @@
-<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
+<?php 
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 
 <div class="sidebar-nav col-md-3" >
 <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
@@ -14,12 +15,12 @@ $slug = $action['slug'];
 }
 
 $array = array('gettingstarted','howtorecord','accesslevelsexplained');
-if(in_array($slug,$array)){ echo ' class="expandfirst"';}
+if(in_array($slug, $array)){ echo ' class="expandfirst"';}
 ?>><a href="#">Using the database</a>
 <ul class="nav nav-pills nav-stacked  menuindent">
-<li <?php echo $this->currentPage()->active('guide', $controller, 'torecording', 'gettingstarted');?>><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'gettingstarted'),'frg',true);?>"
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'gettingstarted'),'frg',true);?>"
 title="Getting started on the database">Getting started</a></li>
-<li <?php echo $this->currentPage()->active('guide', $controller, 'torecording', 'accesslevelsexplained');?>><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'accesslevelsexplained'),'frg',true);?>"
+<li><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'accesslevelsexplained'),'frg',true);?>"
 title="Access levels explained">What can I see?</a></li>
 <li <?php echo $this->currentPage()->active('guide', $controller, 'torecording', 'howtorecord');?>><a href="<?php echo $this->url(array('module' => 'guide','controller' => $controller,'action' => 'torecording','slug' => 'howtorecord'),'frg',true);?>"
 title="How to record an object online">How you record online</a></li>

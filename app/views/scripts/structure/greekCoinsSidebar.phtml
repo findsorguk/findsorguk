@@ -1,16 +1,14 @@
 <div class="sidebar-nav col-md-3" >
-<ul id="menu1" class="menu collapsible expandfirst nav nav-stacked nav-pills">
+<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
 <?php $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName(); ?>
-<li><a href="#">Greek and Roman Provincial coins</a>
-<ul class="nav nav-stacked nav-pills menuindent">
+
 <li <?php echo $this->currentPage()->active($module,'index','index');?>><a href="<?php echo $this->url(array('module'=> $module),NULL, true);?>" title="An introduction to Greek and Roman coins">Introduction </a></li>
 <li <?php echo $this->currentPage()->active($module,'rulers','index');?>><a href="<?php echo $this->url(array('module'=> $module,'controller'=> 'rulers'),NULL, true);?>" title="Issuing rulers of the Greek and Roman provincial period">Issuing rulers</a></li>
 <li <?php echo $this->currentPage()->active($module,'mints','index');?>><a href="<?php echo $this->url(array('module'=> $module,'controller' => 'mints'),NULL,true);?>" title="Issuing mints of the Greek and Roman Provincial period">Issuing mints</a></li>
 <li <?php echo $this->currentPage()->active($module,'denominations','index');?>><a href="<?php echo $this->url(array('module'=> $module,'controller' =>'denominations'),NULL,true);?>" title="Denominations of the Greek and Roman provincial period">Denominations</a></li>
 <li><a href="<?php echo $this->url(array('module'=> 'database','controller' =>'search','action' => 'greekroman'),NULL,true);?>" title="Search for the Greek and Roman provincial period">Search</a></li>
-</ul>
-</li>
-<li><a href="#">Other numismatic periods <i class="icon-folder-open"></i></a>
+
+<li><a href="#"><i class="icon-folder-open"></i>Other numismatic periods</a>
 <ul class="nav nav-stacked nav-pills menuindent">
 <li><a href="<?php echo $this->url(array('module'=>'ironagecoins'),NULL, true);?>" title="Learn about Iron age coins">Iron age coins</a></li>
 <li><a href="<?php echo $this->url(array('module'=>'romancoins'),NULL, true);?>" title="Learn about Roman coins">Roman coins</a></li>
