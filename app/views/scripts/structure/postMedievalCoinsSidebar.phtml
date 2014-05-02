@@ -1,7 +1,6 @@
 <div class="sidebar-nav col-md-3" >
-<ul id="menu1" class="menu collapsible expandfirst nav nav-stacked   nav-pills">
-<li><a href="#">Post Medieval coins</a>
-<ul class="nav nav-stacked nav-pills menuindent">
+<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+
 <li <?php echo $this->currentPage()->active('postmedievalcoins','index','index');?>><a href="<?php echo $this->url(array('module' => 'postmedievalcoins'),NULL,true);?>" title="An introduction to Post Medieval coins">Introduction</a></li>
 <li <?php echo $this->currentPage()->active('postmedievalcoins','rulers','index');?>><a href="<?php echo $this->url(array('module'=>'postmedievalcoins','controller'=>'rulers'),NULL, true);?>" title="View listing of rulers of England and Wales">Issuing rulers of England</a></li>
 <li <?php echo $this->currentPage()->active('postmedievalcoins','rulers','foreign');?>><a href="<?php echo $this->url(array('module'=>'postmedievalcoins','controller'=>'rulers','action' => 'foreign'),NULL, true);?>" title="View a listing of foreign issued coins found in England">Foreign issuing rulers</a></li>
@@ -10,8 +9,6 @@
 <li <?php echo $this->currentPage()->active('postmedievalcoins','categories','index');?>><a href="<?php echo $this->url(array('module'=>'postmedievalcoins','controller'=>'categories'),NULL, true);?>" title="Learn about the categories of coin">Coin categories</a></li>
 <li <?php echo $this->currentPage()->active('postmedievalcoins','types','index');?>><a href="<?php echo $this->url(array('module'=>'postmedievalcoins','controller'=>'types'),NULL, true);?>" title="Learn about coin types">Types</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'postmednumismatics'),NULL,true);?>" title="Search our database for post medieval coins">Search</a></li>
-</ul>
-</li>
 <li><a href="#"><i class="icon-folder-open"></i>Other numismatic periods</a>
 <ul class="nav nav-stacked nav-pills menuindent">
 <li><a href="<?php echo $this->url(array('module'=>'byzantinecoins'),NULL, true);?>" title="Learn about Byzantine coins">Byzantine coins</a></li>

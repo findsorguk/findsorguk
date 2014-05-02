@@ -1,8 +1,6 @@
 <div class="sidebar-nav col-md-3" >
-<ul id="menu1" class="menu collapsible expandfirst nav nav-stacked nav-pills">
+<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
 <?php $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName(); ?>
-<li><a href="#">Medieval coins</a>
-<ul class="nav nav-stacked nav-pills menuindent">
 <li <?php echo $this->currentPage()->active($module,'index','index');?>><a href="<?php echo $this->url(array('module' => $module),NULL,true);?>" title="An introduction to Medieval coins">Introduction</a></li>
 
 <li <?php echo $this->currentPage()->active($module,'rulers','index');?>><a href="<?php echo $this->url(array('module' => $module,'controller'=>'rulers'),'default', true);?>" title="View listing of rulers of England and Wales">Issuing rulers of England</a></li>
@@ -13,8 +11,6 @@
 <li <?php echo $this->currentPage()->active($module,'types','index');?>><a href="<?php echo $this->url(array('module' => $module,'controller'=> 'types'),'default', true);?>">Types</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'database','controller'=> 'search','action' => 'mednumismatics'),'default', true);?>">Search</a></li>
 <li <?php echo $this->currentPage()->active($module,'articles','index');?>><a href="<?php echo $this->url(array('module' => $module,'controller'=> 'articles','action' => 'index'),'default', true);?>">Articles</a></li>
-</ul>
-</li>
 <li><a href="#"><i class="icon-folder-open"></i>Other numismatic periods</a>
 <ul class="nav nav-pills nav-stacked menuindent">
 <li><a href="<?php echo $this->url(array('module'=>'byzantinecoins'),'default', true);?>">Byzantine coins</a></li>
@@ -23,7 +19,7 @@
 <li><a href="<?php echo $this->url(array('module'=>'greekromancoins'),'default', true);?>">Greek &amp; Roman coins</a></li>
 <li><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins'),'default', true);?>">Early Medieval coins</a></li>
 <li><a href="<?php echo $this->url(array('module'=>'postmedievalcoins'),'default', true);?>">Post Medieval  coins</a></li>
-
-</ul></li>
+</ul>
+</li>
 </ul>
 </div>

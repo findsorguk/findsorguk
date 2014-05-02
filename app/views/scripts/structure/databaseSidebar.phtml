@@ -27,7 +27,7 @@ if(in_array($user->role,$allowedAccess))
 else
 {
 ?>
-<li <?php echo $this->currentPage()->active('database','images','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'images'),null,true);?>">All images</a></li>
+<li <?php echo $this->currentPage()->active('database','images','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'images'),null,true);?>"><i class="icon-picture"></i>All images</a></li>
 <?php
 
 }

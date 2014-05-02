@@ -1,5 +1,5 @@
 <div class="sidebar-nav col-md-3" >
-<ul id="menu1" class="menu collapsible expandfirst nav nav-stacked nav-pills">
+<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
 	<li <?php echo $this->currentPage()->active('romancoins','index','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins'),'default', true);?>">Introduction</a></li>
 	<li <?php echo $this->currentPage()->active('romancoins','articles','index');?>><a href="<?php echo $this->url(array('controller'=>'romancoins','action'=>'articles'),'default',true);?>" title="View introductory articles">General articles</a></li>
 	<li <?php echo $this->currentPage()->active('romancoins','emperors','index');?>><a href="<?php echo $this->url(array('controller'=>'romancoins','action'=>'emperors'),'default',true);?>" title="View our guide to Roman emperors issuing coins">Emperor guide</a></li>
