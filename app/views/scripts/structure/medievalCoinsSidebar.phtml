@@ -5,7 +5,7 @@
 <ul class="nav nav-stacked nav-pills menuindent">
 <li <?php echo $this->currentPage()->active($module,'index','index');?>><a href="<?php echo $this->url(array('module' => $module),NULL,true);?>" title="An introduction to Medieval coins">Introduction</a></li>
 
-<li <?php echo $this->currentPage()->active($module,'index','index');?>><a href="<?php echo $this->url(array('module' => $module,'controller'=>'rulers'),'default', true);?>" title="View listing of rulers of England and Wales">Issuing rulers of England</a></li>
+<li <?php echo $this->currentPage()->active($module,'rulers','index');?>><a href="<?php echo $this->url(array('module' => $module,'controller'=>'rulers'),'default', true);?>" title="View listing of rulers of England and Wales">Issuing rulers of England</a></li>
 <li <?php echo $this->currentPage()->active($module,'rulers','foreign');?>><a href="<?php echo $this->url(array('module' => $module,'controller'=>'rulers','action' => 'foreign'),'default', true);?>">Foreign issuing rulers</a></li>
 <li <?php echo $this->currentPage()->active($module,'denominations','index');?>><a href="<?php echo $this->url(array('module' => $module,'controller'=> 'denominations'),'default', true);?>">Denominations</a></li>
 <li <?php echo $this->currentPage()->active($module,'mints','index');?>><a href="<?php echo $this->url(array('module' => $module,'controller'=>'mints'),'default', true);?>">Issuing mints</a></li>

@@ -41,12 +41,11 @@ if($auth->hasIdentity())
 $user = $auth->getIdentity();
 {
 $allowed = array('fa','admin','flos', 'treasure');
-if(in_array($user->role,$allowed))
-{
-echo '<li '.$this->currentPage()->active('database','people','index').'><a href="'.$this->url(array('controller' => 'database','action' => 'people'),NULL,true).
-'" title="List of all personal details">People</a></li><li><a href="'
-.$this->url(array('controller' => 'database','action' => 'organisations'),NULL,true).
-'" title="Contributing organisations">Organisations</a></li>';
+if(in_array($user->role,$allowed)) {
+?>
+<li <?php echo $this->currentPage()->active('database','people','index');?> ><a href="<?php echo $this->url(array('controller' => 'database','action' => 'people'),NULL,true);?>" title="List of all personal details"><i class="icon-user"></i>People</a></li>
+<li <?php echo $this->currentPage()->active('database','organisations','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'organisations'),NULL,true);?> " title="Contributing organisations"><i class="icon-user"></i>Organisations</a></li>
+<?php 
 }
 }
 }
@@ -61,7 +60,7 @@ if(in_array($user->role,$allowed)){
 <li <?php echo $this->currentPage()->active('database','smr','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'smr'),NULL,true);?>"
 title="List of scheduled monuments"><i class="icon-list"></i>Scheduled monuments</a></li>
 <li <?php echo $this->currentPage()->active('database','osdata','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'osdata'),NULL,true);?>"
-title="List of OS data">Ordnance Survey data</a></li>
+title="List of OS data"><i class="icon-map-marker"></i>Ordnance Survey data</a></li>
 <?php
 }
 ?>
@@ -98,7 +97,7 @@ title="List of OS data">Ordnance Survey data</a></li>
 <li <?php echo $this->currentPage()->active('database','terminology','activities');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'activities'),null,true);?>" title="View all landuse terminology in use on our database">Primary activities</a></li>
 
 </ul></li>
-<li <?php echo $this->currentPage()->active('database','rallies','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies'),null,true);?>" title="View list of rallies we have recorded at">Rallies</a></li>
+<li <?php echo $this->currentPage()->active('database','rallies','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies'),null,true);?>" title="View list of rallies we have recorded at"><i class="icon-map-marker"></i>Rallies</a></li>
 <li <?php if($controller == 'statistics') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Statistics</a>
 <ul class="nav nav-pills nav-stacked  menuindent">
 <li <?php echo $this->currentPage()->active('database','statistics','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics'),null,true);?>" title="Find out what was recorded daily">Archives by day</a></li>
@@ -108,7 +107,7 @@ title="List of OS data">Ordnance Survey data</a></li>
 <li <?php echo $this->currentPage()->active('database','statistics','county');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'county'),null,true);?>" title="View annual county archived statistics">County statistics</a></li>
 </ul>
 </li>
-<li><a href="<?php echo $this->url(array('module' => 'guide'),null,true);?>" title="Learn more about recording">Volunteer recording guide</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'guide'),null,true);?>" title="Learn more about recording"><i class="icon-eye-open"></i>Volunteer recording guide</a></li>
 
 </ul>
 
