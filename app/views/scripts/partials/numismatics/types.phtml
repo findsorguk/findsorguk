@@ -1,3 +1,3 @@
 <?php $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();?>
 
-<li><a href="<?php echo $this->url(array('module' => $module,'controller' => 'types','action' => 'type','id' => $this->id),NULL,true);?>" title="View details for <?php echo $this->type;?>"><?php echo $this->type;?></a> <strong>Issued:</strong>  <?php echo $this->adbc($this->datefrom);?> <?php if(isset($this->dateto)){ echo $this->adbc($this->dateto) ;}?></li>
+<li><a href="<?php echo $this->url(array('module' => $module,'controller' => 'types','action' => 'type','id' => $this->id),NULL,true);?>" title="View details for <?php echo $this->type;?>"><?php echo $this->type;?></a> <strong>Issued:</strong>  <?php echo $this->adBc($this->datefrom);?> <?php if(isset($this->dateto)){ echo $this->adBc($this->dateto) ;}?></li>
