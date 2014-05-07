@@ -1,5 +1,5 @@
 <?php $this->mail->setSubject('Your request for an upgrade has been rejected');?>
-<p>Dear <?php echo $this->escape($this->splitName($this->fullname)); ?>,</p>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->fullname)); ?>,</p>
 
 <p>RE: Account upgrade rejected</p>
 
@@ -9,7 +9,7 @@
 
 <?php echo $this->purify($this->researchOutline);?>
 
-<p>If you feel that this has been rejected unfairly, please	call 0207 323 8611 
+<p>If you feel that this has been rejected unfairly, please	call 0207 323 8611
 and speak to Roger Bland, Keeper of Portable Antiquities and Treasure.</p>
 
 <p>Yours,</p>
