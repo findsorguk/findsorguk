@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * A view helper for displaying a datestamp as atom date
  * @category   Pas
@@ -10,31 +10,66 @@
  * @author Daniel Pett
  * @since September 13 2011
  */
-class Pas_View_Helper_ToDateStamp extends Zend_View_Helper_Abstract {
-	/**
-	* Returns a UNIX timestamp, given either a UNIX timestamp or a valid strtotime() date string.
-	*
-	* @param string $date_string Datetime string
-	* @return string Formatted date string
-	* @access public
-	*/
-	public function fromString($date_string) {
-	if (is_integer($date_string) || is_numeric($date_string)) {
-	return intval($date_string);
-	} else {
-	return strtotime($date_string);
-	}
-	}
+class Pas_View_Helper_ToDateStamp extends Zend_View_Helper_Abstract
+{
+    protected $_dateString;
 
-    /** Format the date and return as unix stamp
-	* 
-	* @param string $date_string
-	*/
-	public function todatestamp($date_string) {
-	$date = $this->fromString($date_string);
+    /** Get the date string
+     *
+     * @return string
+     */
+    public function getDateString() {
+        return $this->_dateString;
+    }
+
+    /** Set the date string
+     *
+     * @param string $dateString
+     * @return \Pas_View_Helper_ToDateStamp
+     */
+    public function setDateString($dateString) {
+        $this->_dateString = $dateString;
+        return $this;
+    }
+
+
+    /** Returns a UNIX timestamp, given either a UNIX timestamp or a valid strtotime() date string
+     * @param string $date_string Datetime string
+     * @return string Formatted date string
+     * @access public
+     */
+
+    public function fromString($date_string) {
+	if (is_integer($date_string) || is_numeric($date_string)) {
+            return intval($date_string);
+	} else {
+            return strtotime($date_string);
+	}
+    }
+
+    /** The function
+     *
+     * @return \Pas_View_Helper_ToDateStamp
+     */
+    public function toDateStamp() {
+    return $this;
+    }
+
+    /** The magic method
+     *
+     * @return string
+     */
+    public function __toString() {
+        return $this->format();
+    }
+
+    /** format the date
+     *
+     * @return string
+     */
+    public function format() {
+        $date = $this->fromString($this->getDateString());
 	$ret = date('Ymd\THis\Z', $date);
 	return $ret;
-	}
-	
+    }
 }
-	
