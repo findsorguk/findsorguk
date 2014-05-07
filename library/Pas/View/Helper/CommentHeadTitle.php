@@ -1,7 +1,7 @@
 <?php
 /**
  * A view helper for displaying the correct headtitle from parameters posted
- * 
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -10,14 +10,14 @@
  * @see Zend_View_Helper_Abstract
  */
 
-class Pas_View_Helper_Commentheadtitle extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_CommentHeadTitle extends Zend_View_Helper_Abstract {
 
 	/** Create headtitle for comments section from post parameters
 	 * @access public
 	 * @param array $params
 	 * @return $string
 	 */
-	public function commentheadtitle($params) {
+	public function commentHeadTitle($params) {
 	if(isset($params['approval'])){
 	switch($params['approval']) {
 	case 'approved':

@@ -1,7 +1,7 @@
 <?php
 /**
  * A view helper for displaying the correct comments title from parameters posted
- * 
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -10,13 +10,13 @@
  * @see Zend_View_Helper_Abstract
  */
 
-class Pas_View_Helper_Commenttitle extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_CommentTitle extends Zend_View_Helper_Abstract {
 
 	/** Build the h2 title for the comments page
-	 * 
+	 *
 	 * @param array $params
 	 */
-	public function commenttitle($params) {
+	public function commentTitle($params) {
 	if(isset($params['approval'])){
 	switch($params['approval']) {
 	case 'approved':
