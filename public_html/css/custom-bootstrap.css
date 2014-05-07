@@ -114,6 +114,13 @@ ul.facetExpand li {
 	font-weight: bold;
 	color:white;
 }
+.navbar .nav > li > .active {
+	color: #fff;
+	border-style: solid;
+	border-width: 0 0 5px 0;
+	border-color: #08c;
+	padding-bottom: 7px;
+}
 #period-object-cloud li {
 	display:inline-block;
 }
