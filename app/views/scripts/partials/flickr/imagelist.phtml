@@ -34,7 +34,7 @@ $pieces = explode(" ", $tags);
 	echo '<a href="'.$url.'" title="View all tagged photos with this tag">'.$t.'</a>'.$separator;
 	}?>
 	<br /><?php endif;?>
-Created: <?php echo $this->timeagoinwords($this->datetaken);?><br />
+Created: <?php echo $this->timeAgoInWords($this->datetaken);?><br />
 <a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'details',
 'id' => $this->id),'default',true);?>" title="View all details for this photo">More details &raquo;</a></p>
 </div>

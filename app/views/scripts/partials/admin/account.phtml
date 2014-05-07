@@ -63,7 +63,7 @@ Recording institution prefix: <?php echo $this->institution;?><br />
 Attached to people profile id: <?php echo $this->personLookup()->setPerson($this->peopleID);?><br />
 <?php endif;?>
 Last login to the database: 
-<?php echo $this->timeagoinwords($this->escape($this->lastLogin));?><br />
+<?php echo $this->timeAgoInWords($this->escape($this->lastLogin));?><br />
 Number of visits: <?php echo $this->visits;?><br />
 <?php if($this->canRecord === '1'):?>
 Copyright: <?php echo $this->copyright;?><br />

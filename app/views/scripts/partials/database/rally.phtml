@@ -255,13 +255,13 @@ County: <?php echo $this->escape($this->county);?></p>
 Created by: <?php echo $this->namethem($this->escape($this->fullname));?><br />
 <?php endif;?>
 <?php if(!is_null($this->created)):?>
-Created on: <?php echo $this->escape($this->timeagoinwords($this->created));?><br />
+Created on: <?php echo $this->escape($this->timeAgoInWords($this->created));?><br />
 <?php endif;?>
 <?php if(!is_null($this->fn)):?>
 Updated: <?php echo $this->namethem($this->escape($this->fn));?><br />
 <?php endif;?>
 <?php if(!is_null($this->updated)):?>
-Updated on: <?php echo $this->escape($this->timeagoinwords($this->updated));?>
+Updated on: <?php echo $this->escape($this->timeAgoInWords($this->updated));?>
 <?php endif;?>
 </p>
 <?php if($this->finds) :?>

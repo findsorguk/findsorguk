@@ -1,7 +1,7 @@
 <tr class="valid-<?php echo $this->expiredOrLive()->setDate($this->expire);?>">
 <td><?php echo $this->escape($this->title);?><br />
 Region: <?php echo $this->escape($this->staffregions);?></td>
-<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->timeAgoInWords($this->created);?></td>
 <td><?php echo $this->namethem($this->escape($this->fullname));?></td>
 <td><?php echo $this->escape($this->updated);?></td>
 <td><?php echo $this->namethem($this->escape($this->fn));?></td>

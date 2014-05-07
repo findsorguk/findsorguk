@@ -1,6 +1,6 @@
 
 	<div class="featurette">
         <h2 class="featurette-heading"><a href="<?php echo $this->url(array('module' => 'news','controller' => 'stories','action'=> 'article','id' => $this->id),'default',true);?>" title="Read more on this story"><?php echo $this->ellipsisstring($this->title,100); ?></a></h2>
-        <h3 class="muted"><?php echo $this->timeagoinwords($this->datePublished);?></h3>
+        <h3 class="muted"><?php echo $this->timeAgoInWords($this->datePublished);?></h3>
         <p class="lead"><?php echo strip_tags($this->summary);?></p>
       </div>
