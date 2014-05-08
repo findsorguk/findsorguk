@@ -1,0 +1,11 @@
+
+<div class="sidebar-nav col-md-3" >
+    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('getinvolved','index','index');?>><a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'index'),'default',true);?>" title="How to report your finds">Report your finds</a></li>
+        
+        <?php echo $this->involvedMenu();?>        
+        
+        <li <?php echo $this->currentPage()->active('getinvolved','volunteering','index');?>><a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'volunteering'),'default',true);?>" title="Volunteer opportunities with the Scheme">Volunteer opportunities</a></li>
+        <li><a href="<?php echo $this->url(array('module' => 'guide'),null,true);?>" title="Learn more about recording"><i class="icon-eye-open"></i>Volunteer recording guide</a></li>
+    </ul>
+</div>
