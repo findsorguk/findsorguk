@@ -27,6 +27,9 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
 	//Get the fields for the coin form
 	$coins = new CopyCoin();
 	$this->view->coinFields = $coins->getConfig();
+	//Get the field for the login redirect page form
+	$redirect = new LoginRedirect();
+	$this->view->redirectUri = $redirect->getConfig();
 	}
 	
 	public function findAction()
@@ -91,6 +94,29 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
 	if ($form->isValid($formData)) {
 	$insert = $copyCoin->updateConfig($form->getValues()); 
 	$this->_flashMessenger->addMessage('Copy last record fields for coin table updated');
+	$this->_redirect('/users/configuration/');
+	} else {
+	$form->populate($values);
+	}
+	}
+	}
+
+	public function redirectAction()
+	{
+	$form = new ConfigureLoginRedirectForm();
+	$this->view->form = $form;
+	$loginRedirect = new LoginRedirect();
+	$current = $loginRedirect->getConfig();
+/*	$values = array();
+	foreach($current as $cur){
+		$values[$cur] = 1;
+	}*/
+	$form->populate($values);
+	if ($this->_request->isPost()) {
+	$formData = $this->_request->getPost();
+	if ($form->isValid($formData)) {
+	$insert = $loginRedirect->updateConfig($form->getValues()); 
+	$this->_flashMessenger->addMessage('Page after logging in updated');
 	$this->_redirect('/users/configuration/');
 	} else {
 	$form->populate($values);

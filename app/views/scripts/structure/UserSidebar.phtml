@@ -8,6 +8,9 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 ?>
 <div class="sidebar-nav col-md-3" >
 <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+<!-- <?php if(!is_null($user->peopleID) && !is_null($user->canRecord)):?> -->
+<li <?php echo $this->currentPage()->active('users','configuration','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller'=>'configuration'),null,true);?>" title="Database settings">Database settings</a></li>
+<!-- <?php endif;?> -->
 <li <?php echo $this->currentPage()->active('users','named','index');?>><a href="<?php echo $this->url(array(
     'module' => 'users',
     'controller' => 'named'),null,true);?>" title="View all our registered users">View all users</a></li>
@@ -34,9 +37,6 @@ if(in_array($user->role,$backups)) {
 ?>
 <li <?php echo $this->currentPage()->active('database','data','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'data'),null,true);?>" title="View latest backups">Role specific Database CSV downloads</a></li>
 <?php }?>
-<?php if(!is_null($user->peopleID) && !is_null($user->canRecord)):?>
-<li <?php echo $this->currentPage()->active('users','configuration','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller'=>'configuration'),null,true);?>" title="Configure the copy last record function">Configure the copy function</a></li>
-<?php endif;?>
 <li><a href="<?php echo $this->url(array('module' => 'database','controller'=>'myscheme','action'=>'recordedbyflos'),null,true);?>" title="View finds recorded for me by the Scheme">My finds recorded by FLOs</a></li>
 
 <li><a href="<?php echo $this->url(array('module' => 'database','controller'=>'myscheme','action'=>'myfinds'),null,true);?>" title="View finds I have recorded">Finds I recorded</a></li>
