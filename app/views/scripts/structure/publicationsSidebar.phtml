@@ -1,0 +1,18 @@
+<div class="sidebar-nav col-md-3" >
+    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('publications','index','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'publications'),'default',true);?>" title="Introduction to our publications">Our publications</a></li>
+        <li <?php if($controller == 'reports') { echo 'class="expandfirst active"';};?>><a href="#"><i class="icon-folder-open"></i>Scheme Annual reports</a>
+            <ul class="nav nav-pills nav-stacked menuindent">
+                <?php echo $this->menu('news','reports','index','reps');?></ul></li>
+        <li <?php if($controller == 'reports') { echo 'class="expandfirst"';};?> >
+            <a href="#"><i class="icon-folder-open"></i>Treasure Reports</a>
+                <ul class="nav nav-pills nav-stacked menuindent"><?php echo $this->TreasureReportsMenu();?></ul></li>
+        <li <?php if($controller == 'reviews') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Commissioned reviews</a>
+            <ul class="nav nav-pills nav-stacked menuindent"><?php
+            echo $this->menu('news','reviews','index','r');?></ul></li>
+        <li <?php echo $this->currentPage()->active('research','publications','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'research','controller' => 'publications'),'default',true);?>" title="Our research publication output">Research publications</a></li>
+
+    </ul>
+</div>
