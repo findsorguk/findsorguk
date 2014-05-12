@@ -55,7 +55,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract
     /** Where did data come from
      *
      */
-    const SOURCE = 'Portable Antquities Scheme database';
+    const SOURCE = 'Portable Antiquities Scheme database';
 
     /** How was it sourced
      *
@@ -72,7 +72,9 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract
      */
     const EXTENSION = '.jpg';
 
-    
+    const RIGHTS_URI = 'http://creativecommons.org/licenses/by-sa/3.0/';
+
+
     protected $_serverUrl;
 
     /**

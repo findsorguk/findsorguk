@@ -58,7 +58,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
     $update = $this->_solr->createUpdate();
     $update->addDeleteByID( $this->_getIdentifier($core) . $id);
     $update->addCommit();
-  
+
     return  $this->_solr->update($update);
     }
 

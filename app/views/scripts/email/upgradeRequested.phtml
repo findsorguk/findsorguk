@@ -1,5 +1,5 @@
 <?php $this->mail->setSubject('Account upgrade request');?>
-<p>Dear <?php echo $this->escape($this->splitName($this->name));?>,</p>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name));?>,</p>
 
 <p>Thank you for asking to be upgraded to research level on our database. This should be processed within 15 working days, and we may have to contact your referee. </p>
 
@@ -12,4 +12,3 @@
 <p>Yours,</p>
 
 <p>The Portable Antiquities Scheme.</p>
-	

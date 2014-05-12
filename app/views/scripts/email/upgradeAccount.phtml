@@ -1,6 +1,6 @@
 <?php $this->mail->setSubject('Research proposal accepted' ); ?>
-<p>Dear <?php 
-echo $this->escape($this->splitName($this->fullname)); ?>,</p>
+<p>Dear <?php
+echo $this->escape($this->splitName()->setName($this->fullname)); ?>,</p>
 
 <p>RE: Account upgraded to <?php echo $this->escape($this->role); ?></p>
 

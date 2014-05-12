@@ -22,7 +22,7 @@ echo $this->gravatar($this->comment_author_email,array(
 <?php echo $this->comment_date ;?></div><?php echo 
 $this->ellipsisstring(strip_tags($this->comment_content),200);?></td>
 <td><?php if($this->replied == 1) { 
-	echo 'Replied '.$this->timeagoinwords($this->updated);
+	echo 'Replied '.$this->timeAgoInWords($this->updated);
 	?> 
 	<br /><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'ajax', 'action' => 'messagereply','id' => $this->id),null,true);?>" class="overlay">View reply</a>
 	<?php 

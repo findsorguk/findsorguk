@@ -4,7 +4,7 @@
 <td><?php echo $this->type;?></td>
 <td><?php if($this->start != '0000'){echo $this->start;}else{echo 'N/A';}?></td>
 <td><?php if($this->finish != '0000'){echo $this->finish;}else{echo 'N/A';}?></td>
-<?php echo $this->allowedtest('<td><a href="'
+<?php echo $this->allowedTest('<td><a href="'
 .$this->url(array('module' => 'admin','controller' => 'research','action' => 'edit','id' => $this->id),null,true)
 .'" title="Edit details for '
 .$this->title
