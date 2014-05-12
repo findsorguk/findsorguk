@@ -1,44 +1,59 @@
 <?php
-$this->headTitle('Configuration for copying last records');
+$this->headTitle('Database settings');
 ?>
-<h2>My copy last record configuration</h2>
-<p>This page details how your options are configured for copying records.</p>
+<?php echo $this->title();?>
+	<p>View and change your database settings.</p>
 <div class="row span8">
-<h3>The finds form</h3>
-<blockquote >
-<?php 
-$findFields = array();
-foreach($this->findFields as $findField){
-$findFields[] = $this->fieldNamesDb($findField);
-}
-?>
-<p><?php echo implode(', ', $findFields);?></p>
-</blockquote>
-<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'find'),'default',true);?>">Change my configuration for the finds form</a></p>
+	<h3>Copy last record options</h3>
+	<h4>Finds</h4>>
+	<blockquote >
+	<?php 
+	$findFields = array();
+	foreach($this->findFields as $findField){
+		$findFields[] = $this->fieldNamesDb($findField);
+	}
+	?>
+	<p><?php echo implode(', ', $findFields);?></p>
+	</blockquote>
+	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'find'),'default',true);?>">Change finds form</a></p>
 </div>
 <div class="row span8">
-<h3>The findspots form</h3>
-<blockquote >
-<?php 
-$findSpotFields = array();
-foreach($this->findSpotFields as $findSpotField){
-$findSpotFields[] = $this->fieldNamesDb($findSpotField);
-}
-?>
-<p><?php echo implode(', ', $findSpotFields);?></p>
-</blockquote>
-<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'findspot'),'default',true);?>">Change my configuration for the find spot form</a></p>
+	<h4>Findspots</h4>>
+	<blockquote >
+	<?php 
+	$findSpotFields = array();
+	foreach($this->findSpotFields as $findSpotField){
+		$findSpotFields[] = $this->fieldNamesDb($findSpotField);
+	}
+	?>
+	<p><?php echo implode(', ', $findSpotFields);?></p>
+	</blockquote>
+	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'findspot'),'default',true);?>">Change findspot form</a></p>
 </div>
 <div class="row span8">
-<h3>The coins form</h3>
-<blockquote >
-<?php 
-$coinFields = array();
-foreach($this->coinFields as $coinField){
-$coinFields[] = $this->fieldNamesDb($coinField);
-}
-?>
-<p><?php echo implode(', ', $coinFields);?></p>
-</blockquote>
-<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'coin'),'default',true);?>">Change my configuration for the coins form</a></p>
+	<h4>Coins</h4>>
+	<blockquote >
+	<?php 
+	$coinFields = array();
+	foreach($this->coinFields as $coinField){
+		$coinFields[] = $this->fieldNamesDb($coinField);
+	}
+	?>
+	<p><?php echo implode(', ', $coinFields);?></p>
+	</blockquote>
+	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'coin'),'default',true);?>">Change coins form</a></p>
+</div>
+<div class="row span8">
+	<h3>Page after logging in</h3>
+	<h4>Page</h4>>
+	<blockquote >
+<!-- 	<?php 
+	$redirectUri = array();
+	foreach($this->redirectUri as $redirectUri){
+		$redirectUri[] = $this->fieldNamesDb($redirectUri);
+	}
+	?>
+	<p><?php echo implode(', ', $findFields);?></p>
+ -->	</blockquote>
+	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'find'),'default',true);?>">Change page</a></p>
 </div>
