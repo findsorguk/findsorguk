@@ -19,37 +19,42 @@ class LoginRedirect extends Pas_Db_Table_Abstract
 	protected $_primary = 'id';
 
 	protected $_default = array(
-
+	  '/database' => 'Simple search',
+	  '/database/search/advanced' => 'Advanced search', 
+	  '/database/myscheme/myfinds' => 'Finds recorded by me',
+	  '/database/myscheme/myinstitution' => 'My institution\'s records',
+  	  '/database/myscheme/recordedbyflos' => 'My finds recorded by FLOs',
+  	  '/users/account' => 'My account page',	
+  	  '/database/people' => 'People',
+	  '/guide' => 'Volunteer recording guide'
 	);
+
+	protected $_redirects = array( 
+	    'flos' => '/database/myscheme/myfinds',
+	    'fa' => '/database/search/advanced',
+	    'admin' => '/users/account',
+	    'member' => '/database/myscheme/recordedbyflos',
+	    'treasure' => '/database',
+	    'hero' => '/database',
+	    'reasearch' => '/database/search/advanced'
+    );
 
 	/** Get a dropdown key value pair list for uri and alias
 	* @return array
 	*/
 	public function getOptions()
 	{
-		if (!$options = $this->_cache->load('loginredirectoptions')) {
-			$select = $this->select()
-			->from($this->_name, array('uri', 'alias'))
-			->order('alias ASC');
-			$options = $this->getAdapter()->fetchPairs($select);
-			$this->_cache->save($options, 'loginredirectoptions');
-		}
-		return $options;
+    	return $this->_default;
     }
 
 	public function getConfig()
 	{
-		$redirect = $this->getAdapter();
-		$select = $redirect->select()
-		->from($this->_name, array('uri', 'alias'))
-		->where('userID = ?', (int)$this->userNumber());
-		$page = $redirect->fetchPairs($select);
-		if($page) {
-			$uri = $page['0']['uri'];
-		} else {
-			$page =  $this->_default;
-		}
-		return $page;
+		$select = $this->select()->from($this->_name, array('uri')->where('userID = ?', (int)$this->userNumber());
+  		$pageRow = $this->getAdapter()->fetchRow($select);
+  		$page = $pageRow->toArray();
+   		return $page;
+
+  		
 	}
 
 	public function updateConfig($data)
