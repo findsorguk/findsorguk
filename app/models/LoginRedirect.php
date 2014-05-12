@@ -21,14 +21,52 @@ class LoginRedirect extends Pas_Db_Table_Abstract
 	protected $_default = array(
 
 	);
-	
-	public function getConfig(){
 
+	/** Get a dropdown key value pair list for uri and alias
+	* @return array
+	*/
+	public function getOptions()
+	{
+		if (!$options = $this->_cache->load('loginredirectoptions')) {
+			$select = $this->select()
+			->from($this->_name, array('uri', 'alias'))
+			->order('alias ASC');
+			$options = $this->getAdapter()->fetchPairs($select);
+			$this->_cache->save($options, 'loginredirectoptions');
+		}
+		return $options;
+    }
+
+	public function getConfig()
+	{
+		$redirect = $this->getAdapter();
+		$select = $redirect->select()
+		->from($this->_name, array('uri', 'alias'))
+		->where('userID = ?', (int)$this->userNumber());
+		$page = $redirect->fetchPairs($select);
+		if($page) {
+			$uri = $page['0']['uri'];
+		} else {
+			$page =  $this->_default;
+		}
+		return $page;
 	}
 
-	public function updateConfig( $data ){
+	public function updateConfig($data)
+	{
+		if(array_key_exists('csrf', $data)) {
+ 		unset($data['csrf']);
+  		}
 
+		$newUri = array_keys($data);
+		$updateData['uri'] = $newUri;
+		$updateData['created'] = $this->timeCreation();
+		$updateData['createdBy'] = $this->userNumber();
+		$updateData['userID'] = $this->userNumber();
+		parent::delete('userID =' . $this->userNumber());
+		return parent::insert($updateData);	
 	}
+
 
 
 }
