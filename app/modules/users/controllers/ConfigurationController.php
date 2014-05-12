@@ -107,11 +107,8 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
 	$this->view->form = $form;
 	$loginRedirect = new LoginRedirect();
 	$current = $loginRedirect->getConfig();
-/*	$values = array();
-	foreach($current as $cur){
-		$values[$cur] = 1;
-	}*/
-	$form->populate($values);
+
+	$form->populate($current);
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();
 	if ($form->isValid($formData)) {
@@ -119,7 +116,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
 	$this->_flashMessenger->addMessage('Page after logging in updated');
 	$this->_redirect('/users/configuration/');
 	} else {
-	$form->populate($values);
+	$form->populate($current);
 	}
 	}
 	}
