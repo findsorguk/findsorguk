@@ -1,9 +1,9 @@
 <tr>
 <td><a href="<?php echo $this->url(array('module' => 'admin','controller'=>'system','action' => 'role', 'id'=> $this->id),null,true);?>" title="View <?php echo $this->role;?> role's details"><?php echo $this->role;?></a></td>
 <td><?php echo $this->count;?></td>
-<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->timeAgoInWords($this->created);?></td>
 <td><?php echo $this->namethem($this->fullname);?></td>
-<td><?php echo $this->timeagoinwords($this->updated);?></td>
+<td><?php echo $this->timeAgoInWords($this->updated);?></td>
 <td><?php echo $this->namethem($this->fn);?></td>
 <td><a href="<?php echo $this->url(array('module' => 'admin','controller'=>'system','action'=>'editsystemrole', 'id'=> $this->id),null,true);?>" title="Edit role">Edit</a></td>
 </tr>

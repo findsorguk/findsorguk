@@ -1,6 +1,6 @@
 <?php
 /**
- * A view helper for determining which contexts are available and displaying links 
+ * A view helper for determining which contexts are available and displaying links
  * to obtain them
  * @category   Pas
  * @package    Pas_View_Helper
@@ -10,13 +10,13 @@
  * @see Zend_View_Helper_Abstract
  * @uses Pas_View_Helper_Url
  * @uses Zend_View_Helper_Baseurl
- */ 
-class Pas_View_Helper_Contextsavailable extends Zend_View_Helper_Abstract {
-	
-	
+ */
+class Pas_View_Helper_ContextsAvailable extends Zend_View_Helper_Abstract {
+
+
 	protected $_response = array(
-		'atom' 	=> 'application/atom+xml', 
-		'rss' 	=> 'application/rss+xml', 
+		'atom' 	=> 'application/atom+xml',
+		'rss' 	=> 'application/rss+xml',
 		'json' 	=> 'application/json',
 		'vcf' 	=> 'text/v-card',
 		'csv' 	=> 'application/csv',
@@ -40,29 +40,29 @@ class Pas_View_Helper_Contextsavailable extends Zend_View_Helper_Abstract {
 		'kml'	=> 'application/vnd.google-earth.kml+xml'
 	);
 	/** A list of contexts can be turned into urls
-	 * 
+	 *
 	 * @param string $contexts
 	 */
-	public function contextsavailable($contexts) {
+	public function contextsAvailable($contexts) {
 	if(sizeof($contexts) > 0) {
-	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
-	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
-	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();	
-	
+	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+
 	$string = '<div id="contexts" class="row-fluid"><p>This page is available in: ';
 	foreach($contexts as $key => $value) {
-		
+
 	$url = $this->view->url(array(
 	'module' => $module,
-	'controller' => $controller, 
-	'action' => $action, 
+	'controller' => $controller,
+	'action' => $action,
 	'format' => $value),null,false);
-	$string .= '<a href="' . $url . '" title="Obtain data in ' . $value 
+	$string .= '<a href="' . $url . '" title="Obtain data in ' . $value
 	. ' representation" ';
 	if($value === 'kml'){
 		$string .= ' rel="nofollow" ';
 	}
-	$string .=  '>' . $value . '</a> ';	
+	$string .=  '>' . $value . '</a> ';
 	if(array_key_exists($value, $this->_response)){
 			$this->view->headLink()->appendAlternate($this->view->serverUrl() . $url, $this->_response[$value], 'Alternate representation as ' . $value);
 		}

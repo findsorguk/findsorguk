@@ -1,12 +1,12 @@
-<?php 
+<?php
 $this->mail->setSubject('Username retrieval from finds.org.uk');
 ?>
-<p>Dear <?php echo $this->escape($this->splitName($this->fullname));?>,</p>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->fullname));?>,</p>
 
-<p>You requested your username and this is reproduced below:</p> 
+<p>You requested your username and this is reproduced below:</p>
 
 <p><?php echo $this->username;?></p>
- 
+
 <p>If you have further problems with your account, please do contact us via email at info@finds.org.uk</p>
 
 <p>Yours sincerely,</p>

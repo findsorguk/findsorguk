@@ -1,6 +1,6 @@
 <?php $this->mail->setSubject('Your comment has been published on finds.org.uk'); ?>
 
-<p>Dear <?php echo $this->escape($this->splitName($this->escape($this->comment_author)));?></p>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->comment_author));?></p>
 
 <p>Your comment <?php
 if (!function_exists('lcfirst')) {

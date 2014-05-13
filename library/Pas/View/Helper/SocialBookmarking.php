@@ -11,13 +11,13 @@
  * @uses Pas_View_Helper_CurUrl
  * @uses Zend_View_Helper_Baseurl
  */
-class Pas_View_Helper_Socialbookmarking extends Zend_View_Helper_Abstract  {
+class Pas_View_Helper_SocialBookmarking extends Zend_View_Helper_Abstract  {
 
 	/** Create a list of social bookmarks from the database entered list
 	 * @return string $html
 	 *
 	 */
-	public function socialbookmarking() {
+	public function socialBookmarking() {
         $html = '<div id="bookmarks" class="removePrint"><p>Social Bookmarking: ';
 	$social = new Bookmarks();
 	$books = $social->getValidBookmarks();

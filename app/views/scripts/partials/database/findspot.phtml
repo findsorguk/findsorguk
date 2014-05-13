@@ -184,7 +184,7 @@ County or Unitary authority: <a href="http://data.ordnancesurvey.co.uk/doc/70000
 <?php endif;?><br />
 <?php endif;?>
 <?php if(!is_null($this->district)) :?>
-District: <a href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->districtID, 6 , '0', STR_PAD_LEFT);?>"><?php echo $this->district;?></a> 
+District: <a href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->districtID, 6 , '0', STR_PAD_LEFT);?>"><?php echo $this->district;?></a>
 <?php if(!is_null($this->districtType)):?>
  (<?php echo $this->districtType;?>)
 <?php endif;?>
@@ -204,7 +204,7 @@ Parish or ward: <a href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php ec
 Centre of parish as Grid ref: <?php echo $this->gridRef($this->centreLat,$this->centreLon);?>
 <?php endif;?>
 </p>
-<?php 
+<?php
 //echo $this->osTouchesRdf()->setUri($this->parishID);
 ?>
 </div>
@@ -213,7 +213,7 @@ Centre of parish as Grid ref: <?php echo $this->gridRef($this->centreLat,$this->
 <?php if(!is_null($this->gridref)): ?>
 <h3>Spatial coordinates</h3>
 <p>
-Grid reference: <?php echo $this->StripGrid($this->gridref);?><br />
+Grid reference: <?php echo $this->stripGrid()->setGrid($this->gridref);?><br />
 <span class="fourfigure">4 Figure: <?php echo $this->fourFigure;?></span><br />
 <?php if(!is_null($this->source)):?>
 Grid reference source: <?php echo $this->escape($this->source);?><br />
@@ -244,7 +244,7 @@ echo $this->domesdayNear($this->declat,$this->declong, 2);
 </div>
 
 <div class="row-fluid">
-<?php 
+<?php
 //echo $this->findSmrs($this->declat,$this->declong);
 ?>
 </div>

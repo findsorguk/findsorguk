@@ -11,7 +11,7 @@
 <!-- <img src="<?php echo $this->serverUrl();?>/assets/indy.jpg">
 <p><a href="http://www.flickr.com/photos/donsolo/2354816855/">Indy helps out with the egg hunt</a>: a photo by Don Solo on Flickr.</p>
  -->
-<?php 
+<?php
 $user = new Pas_User_Details();
 $person = $user->getPerson();
 if($person){
@@ -26,7 +26,7 @@ if(in_array($role,$allowed)):
     <p>
         <b>Message:</b>
 		<?php echo $this->exception->getMessage();
-		$this->actionerrors()?>
+		$this->actionErrors()?>
     </p>
 <div class="row-fluid">
 
@@ -35,20 +35,20 @@ if(in_array($role,$allowed)):
             <li><a href="#trace" data-toggle="tab">Stack trace</a></li>
             <li><a href="#compiled" data-toggle="tab">Compiled Stack trace</a></li>
           </ul>
-          
+
           <div id="myTabContent" class="tab-content">
-            
+
             <div class="tab-pane fade in active" id="request">
 			<h3>Stack trace:</h3>
-    		<p><?php echo $this->exception->getTraceAsString(); ?></p>        
+    		<p><?php echo $this->exception->getTraceAsString(); ?></p>
 			</div>
-			
+
             <div class="tab-pane fade" id="trace">
 			<h3>Issuing mints</h3>
     		<h3>Request Parameters:</h3>
-    		<p><?php var_dump($this->request->getParams()) ?></p>          
+    		<p><?php var_dump($this->request->getParams()) ?></p>
 			</div>
-            
+
             <div class="tab-pane fade" id="compiled">
             <h3>Compiled stack trace</h3>
             <ul id="related">

@@ -1,7 +1,7 @@
 <?php $this->headTitle('The '.$this->dynasty.' dynasty');?>
 <h2><?php echo $this->dynasty;?></h2>
-<p>Date in power from: <?php echo $this->adbc($this->date_from);?><br />
-Date in power until: <?php echo $this->adbc($this->date_to);?> </p>
+<p>Date in power from: <?php echo $this->adBc($this->date_from);?><br />
+Date in power until: <?php echo $this->adBc($this->date_to);?> </p>
 <?php 
 ini_set('display_errors', '0');     # don't show any errors...
 error_reporting(E_ALL | E_STRICT);  # ...but do log them		

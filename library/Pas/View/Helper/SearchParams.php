@@ -110,10 +110,10 @@ class Pas_View_Helper_SearchParams
 	foreach($params as $k => $v){
 		switch($k){
 			case 'fromdate':
-				$html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->adbc($v) . '</li>';
+				$html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->adBc($v) . '</li>';
 				break;
 			case 'todate':
-				$html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->adbc($v) . '</li>';
+				$html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->adBc($v) . '</li>';
 				break;
 			case 'updated':
 				$html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->niceshortdate($v) . '</li>';

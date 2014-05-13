@@ -1,6 +1,6 @@
 <?php
 /**
- * A basic view helper for displaying certainty for object types 
+ * A basic view helper for displaying certainty for object types
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -9,31 +9,73 @@
  * @see Zend_View_Helper_Abstract
  */
 class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract {
-	
-	/**
- 	* Check for the certainty
- 	* @param $int The certainty lookup number 
- 	*/
-	public function certainty($int){
-	$validator = new Zend_Validate_Int();
-	if($validator->isValid($int)){
-	switch ($int) {
+
+
+    protected $_validator;
+
+    protected $_certainty;
+
+    /** Construct the objects
+     *
+     * @param int $int
+     */
+    public function __construct( $int ) {
+        $this->_validator = new Zend_Validate_Int();
+        $this->_certainty = $int;
+    }
+
+    /** The class
+     *
+     * @return \Pas_View_Helper_Certainty
+     */
+    public function certainty() {
+        return $this;
+    }
+
+    /** Check the validity
+     *
+     * @return \Pas_View_Helper_Certainty
+     * @throws Zend_Exception
+     */
+    public function _checkValid() {
+        if($this->_validator->isValid($this->_certainty)){
+            return $this;
+        } else {
+            throw new Zend_Exception( 'The value supplied must be an integer');
+        }
+    }
+
+    /** Generate the html
+     *
+     * @return string
+     */
+    public function html() {
+        $this->_checkValid();
+
+        switch ($this->_certainty) {
 		case 1:
-			$cert = 'Certain';
-		break;
+                    $html = 'Certain';
+                    break;
 		case 2:
-			$cert = 'Probably';
-		break;
+                    $html = 'Probably';
+                    break;
 		case 3:
-			$cert = 'Possibly';
-		break; 
+                    $html = 'Possibly';
+                    break;
 		default:
-			return false;
-		break;
+                    $html = '';
+                    break;
 		}
-	return $cert;
-	} else {
-		return false;
-	}
-	}
+	return $html;
+
+    }
+
+    /** Magic method to return string of html
+     *
+     * @return string
+     */
+    public function __toString() {
+        return $this->html();
+    }
+
 }

@@ -1,6 +1,6 @@
 <?php $this->mail->setSubject('A message on public record: ' . $this->old_findID );?>
 
-<p>Dear <?php echo $this->escape($this->splitName($this->name));?>,</p>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name));?>,</p>
 
 <h3>Message on public find: <?php echo $this->escape($this->old_findID); ?></h3>
 

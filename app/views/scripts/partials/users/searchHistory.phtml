@@ -15,7 +15,7 @@ $url = 'http://'.$_SERVER['SERVER_NAME'].'/database/search/results/'.$query;
 You searched for: 
 <?php echo $this->SearchParamsUsers($string);?>
 <br />
-Search performed: <span class="published timestamp" data="{time:'<?php echo date('W3C',$this->date);?>'}"><?php echo $this->timeagoinwords($this->date);?></span> 
+Search performed: <span class="published timestamp" data="{time:'<?php echo date('W3C',$this->date);?>'}"><?php echo $this->timeAgoInWords($this->date);?></span> 
 <?php if(isset($this->C)):?>
 Searched for <?php echo $this->C;?> times.
 <?php endif;?>

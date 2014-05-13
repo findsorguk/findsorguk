@@ -1,8 +1,8 @@
 <?php
-class Pas_View_Helper_Staffsmenu extends Zend_View_Helper_Abstract
+class Pas_View_Helper_StaffsMenu extends Zend_View_Helper_Abstract
 {
 
-function staffsmenu()
+function staffsMenu()
 {
 	$staffs = new Content();
 	$staff = $staffs->buildMenu('staffs');
@@ -12,7 +12,7 @@ function staffsmenu()
 	echo '" title="Read more">';
 	echo $t['menuTitle'];
 	echo '</a></li>';
-	
+
 	}
 
 }

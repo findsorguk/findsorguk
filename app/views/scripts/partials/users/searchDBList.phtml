@@ -15,7 +15,7 @@ $url = $this->serverUrl() . $this->url($string, null, true);
 Search name: <?php echo strip_tags($this->title);?><br />
 Created by username: <?php echo $this->username;?><br />
 Search performed: <span class="published timestamp" data="{time:'<?php echo date('W3C',$this->created);?>'}">
-<?php echo $this->timeagoinwords($this->created);?></span> 
+<?php echo $this->timeAgoInWords($this->created);?></span> 
 <br />
 <a href="<?php echo $url;?>" title="Permanent link">Permalink to search</a> 
 </li>

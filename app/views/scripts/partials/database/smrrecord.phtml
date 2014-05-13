@@ -11,7 +11,7 @@ $this->inlineScript()->appendFile('http://maps.google.com/maps?file=api&amp;v=2.
 <p>
 <strong>Record number for county:</strong> <?php echo $this->monumentNumber;?><br />
 <?php if($this->dateScheduled != 0000-00-00):?>
-<strong>Date scheduled:</strong> <?php echo $this->timeagoinwords($this->dateScheduled);?><br/>
+<strong>Date scheduled:</strong> <?php echo $this->timeAgoInWords($this->dateScheduled);?><br/>
 <?php endif;?>
 <strong>County:</strong> <?php echo $this->county;?><br />
 <strong>District:</strong> <?php echo $this->district;?><br />

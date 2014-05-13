@@ -10,26 +10,27 @@
 * @since	  22 September 2011
 */
 
-class Acronyms
-	extends Pas_Db_Table_Abstract {
+class Acronyms extends Pas_Db_Table_Abstract {
 
     protected $_primary = 'id';
+
     protected $_name = 'abbreviations';
 
     /** Get all valid acronyms
     * @access public
     * @return array
     */
-    public function getValid() {
-    if (!$data = $this->_cache->load('acronymsSite')) {
-    $acros = $this->getAdapter();
-    $select = $acros->select()
-        ->from($this->_name, array('abbreviation','expanded'))
-	->where('valid = 1');
-    $data =  $acros->fetchPairs($select);
-    $this->_cache->save($data, 'acronymsSite');
-    }
-    return $data;
+    public function getValid()
+    {
+        if (!$data = $this->_cache->load('acronymsSite')) {
+            $acros = $this->getAdapter();
+            $select = $acros->select()
+                ->from($this->_name, array('abbreviation','expanded'))
+                ->where('valid = 1');
+            $data =  $acros->fetchPairs($select);
+            $this->_cache->save($data, 'acronymsSite');
+            }
+        return $data;
     }
 
     /** Get list of all acronyms and paginator them
@@ -37,7 +38,8 @@ class Acronyms
     * @return array
     * @param  array $params sent via controller
     */
-    public function getAllAcronyms($params)	{
+    public function getAllAcronyms($params)
+    {
     $acros = $this->getAdapter();
     $select = $acros->select()
 	->from($this->_name, array(
