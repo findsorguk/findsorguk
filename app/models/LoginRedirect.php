@@ -19,6 +19,10 @@ class LoginRedirect extends Pas_Db_Table_Abstract
 
     protected $_primary = 'id';
 
+    /** The default array of available URIs
+     * 
+     * @var array
+     */
     protected $_default = array(
         '/database' => 'Simple search',
         '/database/search/advanced' => 'Advanced search',
@@ -28,10 +32,13 @@ class LoginRedirect extends Pas_Db_Table_Abstract
         '/users/account' => 'My account page',
         '/database/people' => 'People',
         //I have changed this to recording from volunteer recording
-        '/guide' => 'Recording guide',
-        '/users/account' => 'Account page'
+        '/guide' => 'Recording guide'
         );
 
+    /** The default array of role specific uris
+     * 
+     * @var array
+     */
     protected $_redirects = array(
         'flos' => '/database/myscheme/myfinds',
         'fa' => '/database/search/advanced',
@@ -49,10 +56,16 @@ class LoginRedirect extends Pas_Db_Table_Abstract
         return $this->_default;
     }
 
+    /** Get the user's role
+     * @return string user role 
+     */
     public function getUserRole() {
         return $this->user()->role;
     }
 
+    /** Get the default uri for the user role
+     * @return array uri and label pair
+     */
     public function getDefaultUri(){
         $defaultUri = array_search($this->getUserRole(),
                    array_flip($this->_redirects));
@@ -62,6 +75,10 @@ class LoginRedirect extends Pas_Db_Table_Abstract
     }
 
 
+    /** Get the uri
+     * 
+     * @param $uri
+     */
     public function getUri( $uri ){
         if(sizeof($uri) > 0) {
         $label = array_search($uri[0]['uri'], array_flip($this->_default));
@@ -70,6 +87,9 @@ class LoginRedirect extends Pas_Db_Table_Abstract
         }
     }
 
+    /** Get the uri to return for the form and redirect
+     * 
+     */
     public function getConfig(){
         //Line flows over 80 character, so return
         $select = $this->select()->from( $this->_name, array( 'uri' ))
@@ -87,15 +107,22 @@ class LoginRedirect extends Pas_Db_Table_Abstract
     }
 
 
+    /** Update the config for each user
+     * 
+     * @param $data
+     */
     public function updateConfig( $data ) {
         if(array_key_exists('csrf', $data)) {
             unset($data['csrf']);
         }
-	$updateData['uri'] = $data['uri'];
-	$updateData['created'] = $this->timeCreation();
-	$updateData['createdBy'] = $this->userNumber();
-	$updateData['userID'] = $this->userNumber();
-	parent::delete('userID =' . $this->userNumber() );
-	return parent::insert($updateData);
-        }
+	
+        $updateData['uri'] = $data['uri'];
+		$updateData['created'] = $this->timeCreation();
+		$updateData['createdBy'] = $this->userNumber();
+		$updateData['userID'] = $this->userNumber();
+		//Delete the existing menu option
+		parent::delete('userID =' . $this->userNumber() );
+		//Insert the new option
+		return parent::insert($updateData);
+	}
 }

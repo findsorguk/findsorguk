@@ -24,7 +24,7 @@ class Pas_Controller_Action_Helper_LoginRedirect extends Zend_Controller_Action_
   * @return $string
   */
   private function _getUserRedirect() {
-    $redirects = new LoginRedirects();
+    $redirects = new LoginRedirect();
     $redirect = $redirects->getRedirect();
     $clean = array_flip($redirect);
     return $clean[0];
