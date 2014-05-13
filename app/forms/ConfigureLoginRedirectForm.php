@@ -27,7 +27,9 @@ class ConfigureLoginRedirectForm extends Pas_Form
                     'Available pages' => $loginredirect_options))
                 ->addValidator('InArray', false,
                         array(array_keys($loginredirect_options)))
-                ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
+                ->setAttribs(array(
+                    'class' => 'input-xxlarge selectpicker show-menu-arrow',
+                ));
 
         $hash = new Zend_Form_Element_Hash('csrf');
         $hash->setValue($this->_salt)->setTimeout(4800);
