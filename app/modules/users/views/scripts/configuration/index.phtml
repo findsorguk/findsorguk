@@ -1,13 +1,14 @@
 <?php
-$this->headTitle('Database settings');
+echo $this->headTitle('Database settings');
 ?>
-<?php echo $this->title();?>
+<h2><?php echo $this->title();?></h2>
+<div class="row-fluid">
 	<p>View and change your database settings.</p>
 <div class="row span8">
 	<h3>Copy last record options</h3>
-	<h4>Finds</h4>>
+	<h4>Finds</h4>
 	<blockquote >
-	<?php 
+	<?php
 	$findFields = array();
 	foreach($this->findFields as $findField){
 		$findFields[] = $this->fieldNamesDb($findField);
@@ -18,9 +19,9 @@ $this->headTitle('Database settings');
 	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'find'),'default',true);?>">Change finds form</a></p>
 </div>
 <div class="row span8">
-	<h4>Findspots</h4>>
+	<h4>Findspots</h4>
 	<blockquote >
-	<?php 
+	<?php
 	$findSpotFields = array();
 	foreach($this->findSpotFields as $findSpotField){
 		$findSpotFields[] = $this->fieldNamesDb($findSpotField);
@@ -31,9 +32,9 @@ $this->headTitle('Database settings');
 	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'findspot'),'default',true);?>">Change findspot form</a></p>
 </div>
 <div class="row span8">
-	<h4>Coins</h4>>
+	<h4>Coins</h4>
 	<blockquote >
-	<?php 
+	<?php
 	$coinFields = array();
 	foreach($this->coinFields as $coinField){
 		$coinFields[] = $this->fieldNamesDb($coinField);
@@ -45,15 +46,16 @@ $this->headTitle('Database settings');
 </div>
 <div class="row span8">
 	<h3>Page after logging in</h3>
-	<h4>Page</h4>>
 	<blockquote >
-<!-- 	<?php 
-	$redirectUri = array();
-	foreach($this->redirectUri as $redirectUri){
-		$redirectUri[] = $this->fieldNamesDb($redirectUri);
-	}
+        <?php
+
+	foreach( $this->redirectUri as $k => $v) {?>
+            <a href="<?php echo $k;?>"><?php echo $v;?></a>
+        <?php }
 	?>
-	<p><?php echo implode(', ', $findFields);?></p>
- -->	</blockquote>
-	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'find'),'default',true);?>">Change page</a></p>
+
+
+	</blockquote>
+	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'redirect'),'default',true);?>">Change page</a></p>
+</div>
 </div>

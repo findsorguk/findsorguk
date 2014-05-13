@@ -11,7 +11,7 @@
 * @since 		9 May 2014
 */
 
-class ConfigureLoginRedirectForm extends Pas_Form 
+class ConfigureLoginRedirectForm extends Pas_Form
 {
 	public function __construct($options = null)
 	{
@@ -23,15 +23,18 @@ class ConfigureLoginRedirectForm extends Pas_Form
 
 	$uri = new Zend_Form_Element_Select('uri');
 	$uri->setLabel('Page: ')
-	->setRequired(true)
-	->addMultiOptions(array(NULL => 'Please choose a page', 'Available pages' => $loginredirect_options))
-	->addValidator('InArray', false, array(array_keys($loginredirect_options)))
-	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
+                ->setRequired(true)
+                ->addMultiOptions(array(NULL => 'Please choose a page',
+                    'Available pages' => $loginredirect_options))
+                ->addValidator('InArray', false,
+                        array(array_keys($loginredirect_options)))
+                ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	$hash = new Zend_Form_Element_Hash('csrf');
 	$hash->setValue($this->_salt)->setTimeout(4800);
 
 	$submit = new Zend_Form_Element_Submit('submit');
+        $submit->setLabel('Submit configuration');
 
 	$this->addElements(array($uri, $submit, $hash));
 
@@ -40,9 +43,7 @@ class ConfigureLoginRedirectForm extends Pas_Form
 
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
-
-
-    parent::init();
+        parent::init();
 	}
 
 
