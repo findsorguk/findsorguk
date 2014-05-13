@@ -53,24 +53,36 @@ class LoginRedirect extends Pas_Db_Table_Abstract
         return $this->user()->role;
     }
 
+    public function getDefaultUri(){
+        $defaultUri = array_search($this->getUserRole(),
+                   array_flip($this->_redirects));
+        $label = array_search($defaultUri, array_flip($this->_default));
+        $uri = array($defaultUri => $label);
+        return $uri;
+    }
+
+
+    public function getUri( $uri ){
+        if(sizeof($uri) > 0) {
+        $label = array_search($uri[0]['uri'], array_flip($this->_default));
+        $uri = array($uri[0]['uri'] => $label);
+        return $uri;
+        }
+    }
+
     public function getConfig(){
         //Line flows over 80 character, so return
         $select = $this->select()->from( $this->_name, array( 'uri' ))
                 ->where('userID = ?', (int) $this->userNumber() );
 
         $uri = $this->getAdapter()->fetchAll($select);
-        $uri = array_search($this->getUserRole(),
-                   array_flip($this->_redirects));
+        $dbChoice = $this->getUri($uri);
+        if(!is_null($dbChoice)) {
+            return $dbChoice;
 
-        if(sizeof($uri) != 0){
-            $url = array_search($this->getUserRole(),
-                   array_flip($this->_redirects));
-            $label = array_search($uri, array_flip($this->_default));
-            $uri = array($uri => $label);
-            return $uri;
         } else {
+           return $this->getDefaultUri();
 
-           return $uri;
         }
     }
 
