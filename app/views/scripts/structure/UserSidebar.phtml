@@ -8,9 +8,9 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 ?>
 <div class="sidebar-nav col-md-3" >
 <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
-<!-- <?php if(!is_null($user->peopleID) && !is_null($user->canRecord)):?> -->
+<?php if(!is_null($user->peopleID) && !is_null($user->canRecord)):?>
 <li <?php echo $this->currentPage()->active('users','configuration','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller'=>'configuration'),null,true);?>" title="Database settings">Database settings</a></li>
-<!-- <?php endif;?> -->
+<?php endif;?>
 <li <?php echo $this->currentPage()->active('users','named','index');?>><a href="<?php echo $this->url(array(
     'module' => 'users',
     'controller' => 'named'),null,true);?>" title="View all our registered users">View all users</a></li>

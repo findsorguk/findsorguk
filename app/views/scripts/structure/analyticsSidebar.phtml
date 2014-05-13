@@ -2,7 +2,7 @@
 
 <div class="sidebar-nav col-md-3" >
 <ul id="menu1" class="menu collapsible nav nav-pills nav-stacked">
-<li <?php echo $this->currentPage()->active('analytics','index','index');?>></li><a href="<?php echo $this->url(array('module' => 'analytics'),'default', true);?>">Headline stats</a></li>
+<li <?php echo $this->currentPage()->active('analytics','index','index');?>><a href="<?php echo $this->url(array('module' => 'analytics'),'default', true);?>">Headline stats</a></li>
 <li <?php if($controller == 'audience') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Audience</a>
 	<ul class="nav nav-pills nav-stacked  menuindent">
 		<li <?php echo $this->currentPage()->active('analytics','audience','overview');?>><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience', 'action' => 'overview'),'default', true);?>">Overview</a></li>
