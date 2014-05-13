@@ -32,7 +32,7 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
 	$authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
 	$data = $authAdapter->getResultRowObject(NULL,'password');
 	$this->_auth->getStorage()->write($data);
-	$this->_redirect(self::REDIRECT);
+	$this->_redirect( $this->_helper->loginRedirect() );
 	} else {
 	$this->_auth->clearIdentity();
 	$this->_flashMessenger->addMessage('Sorry, there was a problem with your submission. 
