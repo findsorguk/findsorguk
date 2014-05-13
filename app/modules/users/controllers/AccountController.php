@@ -226,8 +226,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
 	$authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
 	$data = $authAdapter->getResultRowObject(NULL,'password');
 	$this->_auth->getStorage()->write($data);
-	$redirect = $this->_helper->loginRedirects();
-	$this->_redirect($redirect);
+	$this->_redirect( $this->_helper->loginRedirect() );
 	} else {
 	$this->_auth->clearIdentity();
 	$this->_flashMessenger->addMessage('Sorry, there was a problem with your submission. 
