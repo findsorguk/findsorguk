@@ -13,16 +13,15 @@
 
 class ConfigureLoginRedirectForm extends Pas_Form
 {
-	public function __construct($options = null)
-	{
+    public function __construct($options = null) {
+        parent::__construct($options);
+        $loginredirect = new LoginRedirect();
+        $loginredirect_options = $loginredirect->getOptions();
 
-	$loginredirect = new LoginRedirect();
-	$loginredirect_options = $loginredirect->getOptions();
+        $this->setName('configureLoginRedirect');
 
-	$this->setName('configureLoginRedirect');
-
-	$uri = new Zend_Form_Element_Select('uri');
-	$uri->setLabel('Page: ')
+        $uri = new Zend_Form_Element_Select('uri');
+        $uri->setLabel('Page: ')
                 ->setRequired(true)
                 ->addMultiOptions(array(NULL => 'Please choose a page',
                     'Available pages' => $loginredirect_options))
@@ -30,21 +29,21 @@ class ConfigureLoginRedirectForm extends Pas_Form
                         array(array_keys($loginredirect_options)))
                 ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
-	$hash = new Zend_Form_Element_Hash('csrf');
-	$hash->setValue($this->_salt)->setTimeout(4800);
+        $hash = new Zend_Form_Element_Hash('csrf');
+        $hash->setValue($this->_salt)->setTimeout(4800);
 
-	$submit = new Zend_Form_Element_Submit('submit');
+        $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Submit configuration');
 
-	$this->addElements(array($uri, $submit, $hash));
+        $this->addElements(array($uri, $submit, $hash));
 
-	$this->addDisplayGroup(array('uri'), 'options');
-	$this->options->setLegend('Choose page: ');
+        $this->addDisplayGroup(array('uri'), 'options');
+        $this->options->setLegend('Choose page: ');
 
-	$this->addDisplayGroup(array('submit'), 'buttons');
+        $this->addDisplayGroup(array('submit'), 'buttons');
 
         parent::init();
-	}
+    }
 
 
 }
