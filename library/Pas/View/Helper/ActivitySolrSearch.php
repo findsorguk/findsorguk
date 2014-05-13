@@ -76,5 +76,8 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract{
 	}
 	}
 	
+	public function __toString() {
+		return $this->buildHtml();
+	}
 }
 

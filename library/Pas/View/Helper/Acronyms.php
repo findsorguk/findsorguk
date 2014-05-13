@@ -16,16 +16,26 @@ class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
 
     protected $_string;
 
+    /** Set up configuration
+     * 
+     * @param $string 
+     */
     public function __construct( $string ) {
         $this->_acronyms = new Acronyms();
         $this->_string = $string;
     }
 
+    /** Get the acronyms
+     * 
+     */
     public function getAcronyms()
     {
         return $this->_acronyms->getValid();
     }
 
+    /** Get the html to render
+     * 
+     */
     public function generate()
     {
         $text = " $this->_string ";
@@ -33,8 +43,7 @@ class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
         foreach($abbrev as $acronym => $expanded) {
             $text = preg_replace( "|(?!<[^<>]*?)(?<![?.&])\b$acronym\b(?!:)(?![^<>]*?>)|msU",
 	"<abbr title=\"$expanded\">$acronym</abbr>" , $text );
-	$newText = trim($text);
-
+			$newText = trim($text);
         }
         return $newText;
     }
