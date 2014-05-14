@@ -30,7 +30,6 @@ else
 
 		<li <?php if($controller == 'database') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>More searches</a>
 			<ul class="nav nav-pills nav-stacked  menuindent">
-				<li <?php echo $this->currentPage()->active('database','search','advanced');?>><a href="<?php echo $this->url(array('module' => 'database','controller'=>  'publications'),NULL,true);?>" title="Reference works cited on database"><i class="icon-search"></i>Advanced</a></li>
 
 <?php
 }
