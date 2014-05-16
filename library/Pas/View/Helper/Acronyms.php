@@ -16,6 +16,10 @@ class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
 
     protected $_string;
 
+    /** Set up configuration
+     * 
+     * @param $string 
+     */
     public function __construct( $string ) {
         $this->_acronyms = new Acronyms();
         $this->_string = $string;
