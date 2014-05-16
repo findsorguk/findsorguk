@@ -36,6 +36,14 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
         $this->_url = $this->view->baseUrl();
     }
 
+    public function getModule() {
+		return $this->_module;
+    }
+    
+    
+    public function getController() {
+    	return $this->_controller;
+    }
     /* The view helper class
      *
      */
@@ -49,22 +57,22 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
      */
     public function _switchModule() {
 
-        switch ($module) {
-            case 'getinvolved':
-		$clean = 'Getting involved';
-		break;
+        switch ($this->getModule()) {
+        	case 'getinvolved':
+            	$clean = 'Getting involved';
+            	break;
             case 'admin':
-		$clean = 'Administration centre';
-		break;
-            case 'conservation':
+            	$clean = 'Administration centre';
+            	break;
+           	case 'conservation':
                 $clean = 'Conservation advice';
                 break;
             case 'research':
-                $clean = 'research';
-		break;
+            	$clean = 'research';
+            	break;
             case 'treasure':
-		$clean = 'Treasure Act';
-		break;
+				$clean = 'Treasure Act';
+				break;
             case 'news':
                 $clean = 'news &amp; reports';
                 break;
@@ -135,7 +143,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
      * @return string
      */
     public function _switchController(){
-        switch ($controller) {
+        switch ($this->getController()) {
             case 'error':
                 $clean = 'Error manager';
                 break;

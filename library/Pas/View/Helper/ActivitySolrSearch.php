@@ -8,7 +8,7 @@
  * @category Pas
  * @package Pas_View_Helper
  * @license GNU
- *  
+ * @copyright Daniel Pett <dpett@britishmuseum.org>
  *  
  */
 class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract 
@@ -273,7 +273,8 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
 	} else {
             $data = $this->getCache()->load( $this->getKey() );
 	}
-	return $data;
+
+	return $this->buildHtml($data);
     }
 
     /** Parse the array of docs

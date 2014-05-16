@@ -8,7 +8,7 @@
  * @copyright  	Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    	GNU
  * @see Zend_View_Helper_Abstract
- * @author  Originally TW Bell, extended for Zend by Daniel Pett
+ * @author  Daniel Pett <dpett@britishmuseum.org>
  * @version 1
  * @since   26 September 2011
  * @uses Zend_Validate_Int
