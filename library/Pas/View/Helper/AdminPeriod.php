@@ -23,20 +23,26 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
      */
     protected $_period;
 
-    /** Construct the function
-     *
-     * @param integer $period
+    /** Get the period to render
+     * @access public
+     * @return string
      */
-    public function __construct( $period ) {
-        if(is_int($period)){
+    public function getPeriod() {
+        return $this->_period;
+    }
+
+    /** Set the period
+     * @access public
+     * @param int $period
+     * @return \Pas_View_Helper_AdminPeriod
+     */
+    public function setPeriod( int $period) {
         $this->_period = $period;
-        } else {
-            throw new Zend_Exception('Value must be an integer');
-        }
+        return $this;
     }
 
     /** Base function for class
-     *
+     * @access public
      * @return \Pas_View_Helper_AdminPeriod
      */
     public function adminPeriod(){
@@ -44,12 +50,13 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
     }
 
     /** Switch function for determining the html to return
-     *
+     * @access public
+     * @param int period
      * @return string
      */
-    public function html() {
+    public function html( int $period ) {
 
-        switch($this->_period) {
+        switch( $period ) {
             case 21 :
                 $periodName = 'Roman';
                 break;
@@ -80,6 +87,6 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
       * @return string
       */
      public function __toString() {
-         return $this->html();
+         return $this->html( $this->getPeriod() );
      }
  }

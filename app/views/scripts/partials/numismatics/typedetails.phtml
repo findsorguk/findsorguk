@@ -17,8 +17,8 @@ $this->headMeta('Details and examples for medieval coin type: '.$this->type,'des
     'action' => 'ruler',
     'id' => $this->i),NULL,true);?>" 
     title="View details for <?php echo $this->ruler;?>">
-    <?php echo $this->ruler;?></a> [<?php echo $this->adBc($this->datefrom); 
-    if(isset($this->dateto)) { echo ' - '.$this->adBc($this->dateto);}?>]
+    <?php echo $this->ruler;?></a> [<?php echo $this->adBc()->setDate($this->datefrom); 
+    if(isset($this->dateto)) { echo ' - '.$this->adBc()->setDate($this->dateto);}?>]
 </p>
 <?php echo $this->description;?>
 <p>Category: <?php echo $this->category;?></p>

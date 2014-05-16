@@ -11,7 +11,7 @@
 <blockquote><?php echo $this->comment_content;?></blockquote>
 
 	<p>About: <?php echo ucfirst(strtolower($this->objecttype));?>
-   <a href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record', 'id' => $this->id),null,true);?>"><?php echo $this->old_findID;?></a><br/><?php echo $this->workflow($this->secwfstage);?>
+   <a href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record', 'id' => $this->id),null,true);?>"><?php echo $this->old_findID;?></a><br/><?php echo $this->workflow()->setWorkflow($this->secwfstage);?>
    <?php echo ucfirst(strtolower($this->broadperiod));?>
    <?php if(isset($this->county)) {echo ucwords(strtolower($this->county));}?></p>
 
