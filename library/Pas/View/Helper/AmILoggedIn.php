@@ -9,6 +9,8 @@
  * @uses Zend_View_Helper_Abstract
  * @uses Zend_View_Helper_Url
  * @uses Zend_View_Helper_HeadMeta
+ * @uses Zend_View_Helper_Escape
+ * @uses Zend_Auth
  */
 
 class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
@@ -23,14 +25,14 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
      *
      */
     public function __construct(){
-    $this->_auth = Zend_Auth::getInstance();
+        $this->_auth = Zend_Auth::getInstance();
     }
 
     /** Work out whether user logged in and render html
      *
      * @return string
      */
-    public function AmILoggedIn() {
+    public function amILoggedIn() {
         return $this;
     }
 
@@ -55,7 +57,7 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
                 'action'=>'logout'),
                     'default', true);
             $user = $this->_auth->getIdentity();
-            $fullname = $this->view->escape(ucfirst($user->fullname));
+            $fullname = $this->view->escape( ucfirst( $user->fullname ) );
             $string = '<div id="logmein">';
             $string .= '<p><a href="';
             $string .= $this->view->url(
@@ -67,26 +69,35 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
             $string .= '</a> &raquo; <a href="' . $logoutUrl;
             $string .= '">Log out</a></p><p>Assigned role: ';
             $string .= ucfirst($user->role);
-            $this->view->headMeta(ucfirst($user->fullname), 'page-user-screen_name');
+            $this->view->headMeta( ucfirst( $user->fullname ), 
+                    'page-user-screen_name');
 
             $allowed =  array('admin' , 'fa');
-            if(in_array($user->role,$allowed)) {
+            if(in_array($user->role, $allowed)) {
                 $string .= '<br /><a class="btn btn-small btn-danger" href="';
                 $string .= $this->view->url(array('module'  => 'admin'),'default',true);
                 $string .= '">Administer site</a></p>';
             }
 
             } else {
-                $loginUrl = $this->view->url(array('module' => 'users'),'default', true);
-                $register = $this->view->url(array('module' => 'users',
-                    'controller' => 'account','action'=> 'register'),'default',true);
+                $loginUrl = $this->view->url(
+                        array(
+                            'module' => 'users'
+                            ),
+                        'default', true);
+                $register = $this->view->url(
+                        array(
+                            'module' => 'users',
+                            'controller' => 'account',
+                            'action'=> 'register'),
+                        'default',true);
                 $string = '<div id="logmein">';
-                $string .= '<a href="'.$loginUrl.'" title="Login to our database">Log in</a> | <a href="';
+                $string .= '<a href="' . $loginUrl;
+                $string .= '" title="Login to our database">Log in</a> | <a href="';
                 $string .= $register . '" title="Register with us">Register</a>';
-                $this->view->headMeta('Public User','page-user-screen_name');
+                $this->view->headMeta( 'Public User', 'page-user-screen_name' );
             }
             $string .= '</div>';
             return $string;
-
-            }
+    }
 }

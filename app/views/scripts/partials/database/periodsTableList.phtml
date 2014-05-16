@@ -1,6 +1,6 @@
 <tr class="valid-<?php echo $this->valid;?>">
 <td><a href="<?php echo $this->url(array(
 'module' => 'database','controller'=>'terminology','action'=>'period', 'id'=>$this->id),null,true);?>" title="View details for the <?php echo $this->term;?> period"><?php echo $this->escape($this->term);?></a></td>
-<td><?php echo $this->adBc($this->fromdate);?></td>
-<td><?php echo $this->adBc($this->todate);?></td>
+<td><?php echo $this->adBc()->setDate($this->fromdate);?></td>
+<td><?php echo $this->adBc()->setDate($this->todate);?></td>
 </tr>

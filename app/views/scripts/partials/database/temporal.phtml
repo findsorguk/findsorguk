@@ -40,10 +40,10 @@ Ascribed Culture: <span property="pas:ascribedCulture" datatype="xsd:string">
     <?php echo $this->cult;?>">view all attributed records</a>]</span><br />
 <?php endif;?>
 <?php if((int)($this->numdate1)) : ?>
-Date from:  <?php echo $this->fromcirca;?> <span property="pas:dateFrom" content="<?php echo $this->numdate1;?>" datatype="xsd:date" ><?php echo $this->adBc($this->numdate1);?></span><br />
+Date from:  <?php echo $this->fromcirca;?> <span property="pas:dateFrom" content="<?php echo $this->numdate1;?>" datatype="xsd:date" ><?php echo $this->adBc()->setDate($this->numdate1);?></span><br />
 <?php endif;?>
 <?php if((int)($this->numdate2)) : ?>
-Date to:  <?php echo $this->tocirca;?> <span property="pas:dateTo" content="<?php echo $this->numdate2;?>" datatype="xsd:date" ><?php echo $this->adBc($this->numdate2);?></span><br />
+Date to:  <?php echo $this->tocirca;?> <span property="pas:dateTo" content="<?php echo $this->numdate2;?>" datatype="xsd:date" ><?php echo $this->adBc()->setDate($this->numdate2);?></span><br />
 <?php endif;?>
 <?php if(!is_null($this->reuse_period)) :?>
 Period of reuse: <span property="pas:periodOfReuse"><?php echo $this->escape($this->reuse_period);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module'=>'database','controller' => 'terminology','action'=>'period','id' => $this->period1),null,true);?>" title="Read scope note for <?php echo $this->term;?>">scope notes</a> |  <a href="<?php echo $this->url(array('module'=>'database','controller' => 'search','action'=>'results','periodfrom' => $this->period1),null,true);?>" title="view all records assigned to: <?php echo $this->term;?>">view all attributed records</a>]</span><br />
