@@ -15,7 +15,7 @@
 
     <?php
 	echo $this->partialLoop('partials/database/recordheadtitle.phtml',$this->finds);
-	
+
 	echo $this->partialLoop('partials/database/zoterorecord.phtml',$this->finds);
     ?>
 
@@ -133,7 +133,7 @@
 		<?php endif;?>
 		<h4>Image use policy</h4>
 		<p>Our images can be used under a <a href="https://creativecommons.org/licenses/by-sa/2.0/" >CC BY-SA licence</a> (unless stated otherwise).</p>
-		<?php 
+		<?php
 		} else {?>
 		<p>There are currently no images available.<br />
 		If you own this object please send us a picture of it.</p>
@@ -267,11 +267,11 @@ $this->finds['0']['secuid'],$this->finds['0']['createdBy']);?>
 
 <!-- Start of the Audit section -->
 <div class="row-fluid" id="audit">
-        <?php 
-        echo $this->partial('partials/database/recordaudit.phtml',$this->finds['0']); 
+        <?php
+        echo $this->partial('partials/database/recordaudit.phtml',$this->finds['0']);
         ?>
-		<?php 
-		echo $this->auditLogs($this->finds['0']['id']);
+		<?php
+		echo $this->auditLogs()->setId($this->finds['0']['id']);
 		?>
 
 

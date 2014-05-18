@@ -9,61 +9,124 @@
  * @version 1
  * @since September 29 2011
  */
-class Pas_View_Helper_ChangesCoins
-	extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_ChangesCoins extends Zend_View_Helper_Abstract
+{
 
-	const NOTHING = '<p>No changes made so far.</p>';
-	
-	protected function _getRole(){
-	$role = new Pas_User_Details();
-	return $role->getPerson()->role;
-	}
+    /** The ID to query
+     * @access protected
+     * @var int
+     */
+    protected $_id;
 
-	protected $_allowed = array('treasure', 'flos', 'fa','admin');
+    /** get the ID to query
+     * @access public
+     * @return int
+     */
+    public function getId() {
+        return $this->_id;
+    }
 
-	/** Build the html from data array
-	 * @param array $a
-	 * @return string $html
-	 */
-	public function buildHtml($a) {
-	$html = '';
-	$html .= '<li><a class="overlay" href="';
-	$html .= $this->view->url(array(
-		'module' => 'database',
-		'controller' => 'ajax',
-		'action' => 'coinaudit',
-		'id' => $a['editID']),
-		NULL,
-		true);
-	$html .= '" title="View all changes on this date">';
-	$html .= $this->view->timeagoinwords($a['created']);
-	$html .= '</a> ';
-	$html .= $a['fullname'];
-	$html .= ' edited this record.</li>';
-	return $html;
-	}
+    /** Set the ID to query
+     * @access public
+     * @param int $id
+     * @return \Pas_View_Helper_ChangesCoins
+     */
+    public function setId( int $id) {
+        $this->_id = $id;
+        return $this;
+    }
 
-	/** Query for data and display
-	* @param int $id
-	* @return string $html
-	*/
-	public function ChangesCoins($id) {
-	if(in_array($this->_getRole(), $this->_allowed)){
-	$audit = new CoinsAudit();
-	$auditdata = $audit->getChanges($id);
-	if($auditdata) {
-	$html = '<h5>Coin data audit</h5>';
-	$html .= '<ul id="related">';
-	foreach($auditdata as $a) {
-	$html .= $this->buildHtml($a);
-	}
-	$html .= '</ul>';
-	return $html;
-	} else {
-		return self::NOTHING;
-	}
-	}
+    /** The nothing returned error
+     *
+     */
+    const NOTHING = '<p>No changes made so far.</p>';
 
-}
+    /** Get the role for the user
+     * @access protected
+     * @return type
+     */
+    protected function _getRole(){
+        $role = new Pas_User_Details();
+        return $role->getPerson()->role;
 
+    }
+
+    /** Array of allowed roles
+     * @access protected
+     * @var array
+     */
+    protected $_allowed = array('treasure', 'flos', 'fa','admin', 'hero');
+
+    /** Build the html from data array
+     * @param array $a
+     * @return string $html
+     */
+    public function buildHtml($a) {
+        $html = '';
+        $html .= '<li><a class="overlay" href="';
+        $html .= $this->view->url(array(
+                'module' => 'database',
+                'controller' => 'ajax',
+                'action' => 'coinaudit',
+                'id' => $a['editID']),
+                NULL,
+                true);
+        $html .= '" title="View all changes on this date">';
+        $html .= $this->view->timeAgoInWords($a['created']);
+        $html .= '</a> ';
+        $html .= $a['fullname'];
+        $html .= ' edited this record.</li>';
+        return $html;
+    }
+
+    /** The method for the helper
+     * @access public
+     * @return \Pas_View_Helper_ChangesCoins
+     */
+    public function changesCoins() {
+        return $this;
+    }
+
+    /** Get the data from the model
+     * @access public
+     * @return string
+     */
+    public function getData() {
+        $html = '';
+        if(in_array($this->_getRole(), $this->_allowed)){
+            $audit = new CoinsAudit();
+            $auditdata = $audit->getChanges( $this->getId() );
+            if($auditdata) {
+                $html .= '<h5>Coin data audit</h5>';
+                $html .= '<ul id="related">';
+                $html .= $this->parseArray( $auditdata );
+                $html .= '</ul>';
+
+                } else {
+                    $html .= self::NOTHING;
+                }
+        }
+        return $html;
+    }
+
+    /** To string html
+     * @access public
+     * @return string
+     */
+    public function __toString() {
+        return $this->getData();
+    }
+
+    /** Parse the array
+     * @access public
+     * @param array $array
+     * @return typ
+     */
+    public function parseArray( array $array ) {
+        $html = '';
+        foreach($array as $a) {
+                    $html .= $this->buildHtml($a);
+                }
+        return $html;
+    }
 }
