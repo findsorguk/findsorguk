@@ -1,4 +1,4 @@
-<?php 
+<?php
 $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
 ?>
 
@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 	var max = <?php echo $maxzoom;?>;
 	var min = <?php echo $minzoom;?>;
-	
+
 	var imperium = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
             return "http://finds.org.uk/imperium/" +
@@ -43,7 +43,7 @@ $(document).ready(function() {
         maxZoom: 10,
 		minZoom:3
     });
-	
+
 	var osmMapType = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
             return "http://tile.openstreetmap.org/" +
@@ -56,7 +56,7 @@ $(document).ready(function() {
         name: "OSM",
         maxZoom: max
     });
-    
+
     var nlsmap = new google.maps.ImageMapType({
 	   getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
 	   tileSize: new google.maps.Size(256, 256),
@@ -72,7 +72,7 @@ $(document).ready(function() {
           zoom: 12,
 		  mapTypeControlOptions: {
           mapTypeIds: [
-          google.maps.MapTypeId.ROADMAP, 
+          google.maps.MapTypeId.ROADMAP,
           google.maps.MapTypeId.HYBRID,
           google.maps.MapTypeId.TERRAIN,
           google.maps.MapTypeId.SATELLITE,
@@ -94,13 +94,13 @@ $(document).ready(function() {
         };
         var map = new google.maps.Map(document.getElementById("map"),
             myOptions);
-            map.mapTypes.set('OSM',osmMapType); 
+            map.mapTypes.set('OSM',osmMapType);
         	map.mapTypes.set('historic',nlsmap);
         	map.mapTypes.set('Imperium',imperium);
 			map.mapTypes.set("Watercolor", new google.maps.StamenMapType("watercolor"));
 			map.mapTypes.set("Toner", new google.maps.StamenMapType("toner"));
             map.setTilt(45);
-  		
+
   		var myTitle = document.createElement('h1');
 		myTitle.style.color = '#444444';
 		myTitle.style.font = "10px sans-serif";
@@ -110,19 +110,19 @@ $(document).ready(function() {
 		myTextDiv.appendChild(myTitle);
 
 		map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
-  		
+
   		var parish = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/parishes/<?php echo strtoupper(str_replace(array(' ', "'"),'',$this->parish));?>.kml',
                                                  {preserveViewport: true, suppressInfoWindows: false });
 		parish.setMap(map);
 		var county = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/counties/<?php echo strtoupper(str_replace(array(' ', "'"),'',$this->county));?>.kml',
                                                  {preserveViewport: true, suppressInfoWindows: false });
 		county.setMap(map);
-		
+
 				var district = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/districts/<?php echo strtoupper(str_replace(array(' ', "'"),'',$this->district));?>.kml',
                                                  {preserveViewport: true, suppressInfoWindows: false });
 		district.setMap(map);
 
-<?php 
+<?php
 	$bbox = new Pas_Geo_BoundBox();
 	$d = 5;  // distance
     $path_top_right = $bbox->createPoint($this->declat ,  $this->declong, 45, $d);
@@ -130,7 +130,7 @@ $(document).ready(function() {
     $path_bottom_left = $bbox->createPoint($this->declat ,  $this->declong, 225, $d);
     $path_top_left = $bbox->createPoint($this->declat ,  $this->declong, 315, $d);
 ?>
-  		
+
   		 var latLngBounds = new google.maps.LatLngBounds(
           new google.maps.LatLng(<?php echo $path_bottom_left;?>),
           new google.maps.LatLng(<?php echo $path_top_right;?>)
@@ -243,8 +243,8 @@ Specific landuse: <?php echo $this->escape($this->landuse);?>
 <?php if(!is_null($this->gridref) && is_null($this->knownas)):?>
 <div class="row-fluid">
 <div class="span4">
-<?php 
-echo $this->domesdayNear($this->fourFigureLat,$this->fourFigureLon, 2);
+<?php
+echo $this->domesdayNear()->setLat($this->fourFigureLat)->setLon($this->fourFigureLon)->setRadius(2);
 ?>
 </div>
 </div>
