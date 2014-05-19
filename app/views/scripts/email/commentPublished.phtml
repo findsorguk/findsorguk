@@ -8,7 +8,7 @@ if (!function_exists('lcfirst')) {
         return substr_replace($string, strtolower(substr($string, 0, 1)), 0, 1);
     }
 }
-echo lcfirst($this->commentType($this->contentID, $this->comment_type));?> has now been published.</p>
+echo lcfirst($this->commentType()->setId($this->contentID)->setType($this->comment_type));?> has now been published.</p>
 
 <p>For your own reference, this is what you submitted:</p>
 
