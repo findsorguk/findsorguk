@@ -13,21 +13,67 @@
  */
 class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
 
+    /** The id to query
+     * @access protected
+     * @var int
+     */
     protected $_id;
 
+    /** The type to query
+     * @access protected
+     * @var string
+     */
     protected $_type;
 
+    /** The server 
+     * @access protected
+     * @var string
+     */
     protected $_server;
 
-    /** Construct the objects
-     *
-     * @param type $id
-     * @param type $type
+    /** Get the ID to query
+     * @access public
+     * @return type
      */
-    public function __construct( $id, $type ) {
-        $this->_id = $id;
-        $this->_type = $type;
+    public function getId() {
+        return $this->_id;
+    }
+
+    /** Get the type
+     * @access public
+     * @return type
+     */
+    public function getType() {
+        return $this->_type;
+    }
+
+    /** Get the server
+     * @access public
+     * @return type
+     */
+    public function getServer() {
         $this->_server = $this->view->serverUrl();
+        return $this->_server;
+    }
+
+    /** Set the id to query
+     * @access public
+     * @param type $id
+     * @return \Pas_View_Helper_CommentType
+     */
+    public function setId( int $id) {
+        $this->_id = $id;
+        return $this;
+    }
+
+    /** Set the type to query
+     * @access public
+     * @param string $type
+     * @return \Pas_View_Helper_CommentType
+     */
+    public function setType( string $type) {
+        $this->_type = $type;
+        return $this;
     }
 
     /** The comment type function
@@ -46,14 +92,14 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
      * @throws Pas_Exception_BadJuJu
      */
     public function getData(){
-        switch($this->_type){
+        switch($this->getType()){
             case 'findComment':
                 $finds = new Finds();
-                $data = $finds->fetchRow($finds->select()->where('id = ?', $this->_id));
+                $data = $finds->fetchRow($finds->select()->where('id = ?', $this->getId()));
                 break;
             case 'newsComment':
                 $news = new News();
-                $data = $news->fetchRow($news->select()->where('id = ?', $this->_id));
+                $data = $news->fetchRow($news->select()->where('id = ?', $this->getId()));
                 break;
             default:
                 throw New Zend_Exception('That type of comment is not a choice');
@@ -82,7 +128,7 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
                                 'id' => $id),
                             'default',
                             true);
-                    $html = '<a href="' .  $this->_server . $url  . '">Relating to find: '
+                    $html = '<a href="' .  $this->getServer() . $url  . '">Relating to find: '
                         . $data->old_findID . '</a>';
                     break;
                 case 'newsComment':
@@ -94,7 +140,7 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
                                 'id' => $id),
                             'default',
                             true);
-                    $html = '<a href="' . $this->_server . $url . '">Relating to news article: '
+                    $html = '<a href="' . $this->getServer() . $url . '">Relating to news article: '
                         . $data->title . '</a>';
                     break;
                 default:

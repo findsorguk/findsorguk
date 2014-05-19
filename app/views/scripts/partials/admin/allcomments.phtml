@@ -65,7 +65,7 @@ Submitted from: <?php echo $this->user_ip;?> using <?php echo $this->user_agent;
     'module' => 'database',
     'controller' => 'artefacts',
     'action' => 'record',
-    'id' => $this->id),null,true);?>"><?php echo $this->commentType($this->contentID, $this->comment_type);?></a>
+    'id' => $this->id),null,true);?>"><?php echo $this->commentType()->setId($this->contentID)->setType($this->comment_type);?></a>
 </td>
 <td><?php echo $t;?></td>
 <td><a class="btn btn-small" href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments','action' => 'publish','id' => $this->commentID),'default',true);?>" title="Publish comment on record: <?php echo $this->old_findID;?>">Moderate</a> <br /> <a class="btn btn-small" href="#" title="Delete this comment" class="delete">Delete</a><br />
