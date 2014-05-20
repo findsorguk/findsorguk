@@ -259,7 +259,7 @@ echo $this->findspotGeo($this->woeid,$this->declat,$this->declong);
 
 <div class="span4 noprint">
 <?php
-echo $this->yahooGeoAdjacent($this->woeid);
+echo $this->yahooGeoAdjacent()->setWoeid($this->woeid);
 ?>
 </div>
 
