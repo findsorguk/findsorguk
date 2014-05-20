@@ -13,63 +13,186 @@
  */
 class Pas_View_Helper_ContextsAvailable extends Zend_View_Helper_Abstract {
 
-
-	protected $_response = array(
-		'atom' 	=> 'application/atom+xml',
-		'rss' 	=> 'application/rss+xml',
-		'json' 	=> 'application/json',
-		'vcf' 	=> 'text/v-card',
-		'csv' 	=> 'application/csv',
-		'rdf' 	=> 'application/rdf+xml',
-		'xml' 	=> 'application/xml',
-		'midas' => 'application/xml',
-		'nuds'	=> 'application/xml',
-		'ttl'	=> 'application/x-turtle',
-		'n3'	=> 'application/rdf+n3',
-		'qrcode'=> 'image/png',
-		'zip' 	=> 'application/zip',
+    /** mime types
+     * @access protected
+     * @var array
+     */
+    protected $_response = array(
+        'atom' 	=> 'application/atom+xml',
+	'rss' 	=> 'application/rss+xml',
+	'json' 	=> 'application/json',
+	'vcf' 	=> 'text/v-card',
+	'csv' 	=> 'application/csv',
+	'rdf' 	=> 'application/rdf+xml',
+	'xml' 	=> 'application/xml',
+	'midas' => 'application/xml',
+	'nuds'	=> 'application/xml',
+	'ttl'	=> 'application/x-turtle',
+	'n3'	=> 'application/rdf+n3',
+	'qrcode'=> 'image/png',
+	'zip' 	=> 'application/zip',
         'doc' 	=> 'application/msword',
         'xls' 	=> 'application/vnd.ms-excel',
         'ppt' 	=> 'application/vnd.ms-powerpoint',
-		'pdf'	=> 'application/pdf',
+	'pdf'	=> 'application/pdf',
         'gif' 	=> 'image/gif',
         'png' 	=> 'image/png',
         'jpeg' 	=> 'image/jpg',
         'jpg' 	=> 'image/jpg',
         'php' 	=> 'text/plain',
-		'kml'	=> 'application/vnd.google-earth.kml+xml'
-	);
-	/** A list of contexts can be turned into urls
-	 *
-	 * @param string $contexts
-	 */
-	public function contextsAvailable($contexts) {
-	if(sizeof($contexts) > 0) {
-	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
-	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+	'kml'	=> 'application/vnd.google-earth.kml+xml'
+        );
 
-	$string = '<div id="contexts" class="row-fluid"><p>This page is available in: ';
-	foreach($contexts as $key => $value) {
+    /** The contexts
+     * @access protected
+     * @var array
+     */
+    protected $_contexts = array();
+    
+    /** The front controller object
+     * @access protected
+     * @var object
+     */
+    protected $_front;
+    
+    /** The module
+     * @access protected
+     * @var string
+     */
+    protected $_module;
+    
+    /** The controller
+     * @access protected
+     * @var string
+     */
+    protected $_controller;
+    
+    /** The action
+     * @access protected
+     * @var string
+     */
+    protected $_action;
+    
+    /** Get the front controller
+     * @access public
+     * @return object
+     */
+    public function getFront() {
+        $this->_front = Zend_Controller_Front::getInstance()->getRequest();
+        return $this->_front;
+    }
 
-	$url = $this->view->url(array(
-	'module' => $module,
-	'controller' => $controller,
-	'action' => $action,
-	'format' => $value),null,false);
-	$string .= '<a href="' . $url . '" title="Obtain data in ' . $value
-	. ' representation" ';
-	if($value === 'kml'){
-		$string .= ' rel="nofollow" ';
-	}
-	$string .=  '>' . $value . '</a> ';
-	if(array_key_exists($value, $this->_response)){
-			$this->view->headLink()->appendAlternate($this->view->serverUrl() . $url, $this->_response[$value], 'Alternate representation as ' . $value);
+    /** Get the module
+     * @access public
+     * @return string
+     */
+    public function getModule() {
+        $this->_module = $this->getFront()->getModuleName();
+        return $this->_module;
+    }
+
+    /** Get the controller
+     * @access public
+     * @return string
+     */
+    public function getController() {
+        $this->_controller = $this->getFront()->getControllerName();
+        return $this->_controller;
+    }
+
+    /** Get the action
+     * @access public
+     * @return string
+     */
+    public function getAction() {
+        $this->_action = $this->getFront()->getActionName();
+        return $this->_action;
+    }
+
+    /** Get the response array
+     * @access public
+     * @return array
+     */
+    public function getResponse() {
+        return $this->_response;
+    }
+
+    /** Get the context
+     * @access public
+     * @return array
+     */
+    public function getContexts() {
+        return $this->_contexts;
+    }
+
+    /** Set the context array
+     * @access public
+     * @param array $contexts
+     * @return \Pas_View_Helper_ContextsAvailable
+     */
+    public function setContexts(array $contexts) {
+        $this->_contexts = $contexts;
+        return $this;
+    }
+
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_ContextsAvailable
+     */
+    public function contextsAvailable(){
+        return $this;
+    }
+    
+    /** Build the html string
+     * @access public
+     * @return string
+     */
+    public function buildHtml() {
+        $html = '';
+        $contexts = $this->getContexts();
+        if( is_array( $contexts ) ) {
+            $html .= '<div id="contexts" class="row-fluid">';
+            $html .= '<p>This page is available in: ';
+            foreach($contexts as $key => $value) {
+                $url = $this->view->url(array(
+                    'module' => $this->getModule(),
+                    'controller' => $this->getContoller(),
+                    'action' => $this->getAction(),
+                    'format' => $value)
+                        ,null,false);
+                $html .= '<a href="';
+                $html .= $url;
+                $html .= '" title="Obtain data in ';
+                $html .= $value;
+                $html .= ' representation" ';
+                //Don't allow kml to be indexed
+                if($value === 'kml'){
+                    $html .= ' rel="nofollow" ';
+                }
+        
+                $html .=  '>';
+                $html .= $value;
+                $html .= '</a> ';
+	
+                if(array_key_exists($value, $this->_response)){
+                    $this->view->headLink()->appendAlternate(
+                            $this->view->serverUrl() . $url, 
+                            $this->_response[$value], 
+                            'Alternate representation as ' . $value
+                            );
 		}
+            }
+	
+            $html .=' representations.</p></div>';
 	}
-	$string .=' representations.</p></div>';
-	echo $string;
-	}
+        return $html;
+    }
 
-	}
+    /** The to string function
+     * @access public
+     * @return type
+     */
+    public function __toString() {
+        return $this->buildHtml();
+    }
 }

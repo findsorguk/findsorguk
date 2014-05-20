@@ -7,7 +7,7 @@ $this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
 $this->headTitle('All my Treasure cases'); 
 ?>
 <h2>All my Treasure cases recorded online</h2>
-<?php echo $this->loggedinlinks();?>
+<?php echo $this->loggedInLinks();?>
 <?php if($this->params):?>
 <?php echo $this->SearchParams($this->params);?>
 <?php endif;?>

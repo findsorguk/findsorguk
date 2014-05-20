@@ -2,13 +2,13 @@
 <p>
 Broad period: <span property="pas:broadperiod"><?php echo $this->escape($this->broadperiod);?></span><br />
 <?php if(!is_null($this->subPeriodFrom)):?>
-Subperiod from: <span property="pas:subPeriodFrom"><?php echo $this->earlyMiddleLate($this->subPeriodFrom);?></span><br />
+Subperiod from: <span property="pas:subPeriodFrom"><?php echo $this->earlyMiddleLate()->setQualifier($this->subPeriodFrom);?></span><br />
 <?php endif;?>
 <?php if(isset($this->term)):?>
 Period from: <span property="pas:periodFrom"><?php echo $this->escape($this->term);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module'=>'database','controller' => 'terminology','action'=>'period','id' => $this->period1),null,true);?>" title="Read scope note for <?php echo $this->term;?>">scope notes</a> | <a href="<?php echo $this->url(array('module'=>'database','controller' => 'search','action'=>'results','periodfrom' => $this->period1),null,true);?>" title="view all records assigned to: <?php echo $this->term;?>">view all attributed records</a>]</span><br />
 <?php endif;?>
 <?php if(!is_null($this->subPeriodTo)):?>
-Subperiod to: <span property="pas:subPeriodTo"><?php echo $this->earlyMiddleLate($this->subPeriodTo);?></span><br />
+Subperiod to: <span property="pas:subPeriodTo"><?php echo $this->earlyMiddleLate()->setQualifier($this->subPeriodTo);?></span><br />
 <?php endif;?>
 <?php if(!is_null($this->t2)) : ?>
 Period to: <span property="pas:periodTo"><?php echo $this->t2;?></span>

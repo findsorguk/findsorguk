@@ -423,7 +423,7 @@ class Pas_View_Helper_TwitterCard extends Zend_View_Helper_Abstract {
 
 		// Add an image to the array with dimensions if set
 		if ( isset( $this->image ) && isset( $this->image->url ) ) {
-			$metaData['image'] = $this->image->url;
+			$metaData['image:src'] = $this->image->url;
 			if ( isset( $this->image->width ) && isset( $this->image->height ) ) {
 				$metaData['image:width'] = $this->image->width;
 				$metaData['image:height'] = $this->image->height;
