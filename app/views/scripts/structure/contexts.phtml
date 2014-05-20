@@ -1,6 +1,6 @@
 <div class="row-fluid">
 <?php
-echo $this->contextsAvailable($this->contexts);
+echo $this->contextsAvailable()->setContexts($this->contexts);
 echo $this->socialBookmarking($this->curUrl());
 echo $this->analyticsLink();
 ?>

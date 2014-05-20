@@ -22,14 +22,32 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract {
      * @var object
      */
     protected $_validator;
-
-    /** Construct the object
-     *
-     * @param integer $int
+    
+    /** Get the id to query
+     * @access public
+     * @return int
      */
-    public function __construct( $int ) {
-        $this->_int = $int;
+    public function getInt() {
+        return $this->_int;
+    }
+    
+    /** Get the validator
+     * @access public
+     * @return object
+     */
+    public function getValidator() {
         $this->_validator = Zend_Validate_Int();
+        return $this->_validator;
+    }
+
+    /** Set the ID to query
+     * @access public
+     * @param int $int
+     * @return \Pas_View_Helper_Completeness
+     */
+    public function setInt( int $int) {
+        $this->_int = $int;
+        return $this;
     }
 
     /** The completeness function
@@ -46,7 +64,7 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract {
      */
     public function html(){
         $this->validate();
-        switch ($this->_int) {
+        switch ($this->getInt()) {
             case 1:
                 $comp = 'Fragment';
 		break;
@@ -72,7 +90,7 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract {
      * @throws Zend_Exception
      */
     public function validate(){
-        if($this->_validator->isValid($this->_int)) {
+        if($this->getValidator()->isValid($this->getInt())) {
             return $this;
         } else {
             throw new Zend_Exception('Invalid value specified');

@@ -5,13 +5,12 @@
 * @subpackage Abstract
 * @author Daniel Pett dpett @ britishmuseum.org
 * @copyright 2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
-* @since 		22 September 2011
+* @license  GNU General Public License
+* @version  1
+* @since    22 September 2011
 * 
 */
-class Bookmarks 
-	extends Pas_Db_Table_Abstract {
+class Bookmarks extends Pas_Db_Table_Abstract {
 
 	protected $_name = 'bookmarks';
 	protected $_primary = 'id';
