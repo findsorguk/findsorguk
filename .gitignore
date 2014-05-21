@@ -165,3 +165,6 @@ config.ini
 
 webservices.ini
 *.sh
+/nbproject/private/
+/nbproject/project.properties
+/nbproject/project.xml
