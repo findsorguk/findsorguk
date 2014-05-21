@@ -1,13 +1,14 @@
 <?php
-/** Controller for all the Scheme's reviews
+/** Controller for all the Scheme's commissioned reviews
 * 
 * @category   Pas
 * @package    Pas_Controller
 * @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+* @author     Daniel Pett <dpett@britishmuseum.org>
+* @copyright  Daniel Pett <dpett@britishmuseum.org>
 * @license    GNU General Public License
 */
-class News_ReviewsController extends Pas_Controller_Action_Admin {
+class Publications_ReviewsController extends Pas_Controller_Action_Admin {
 	
 	/** Initialise the ACL and contexts
 	*/ 

@@ -1,12 +1,14 @@
 <?php
-/** Controller for getting information on data transfer to HERs
+/** Controller for research publications list
+*
 * @category   Pas
 * @package    Pas_Controller
 * @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+* @author     Daniel Pett <dpett@britishmuseum.org>
+* @copyright  Daniel Pett <dpett@britishmuseum.org>
 * @license    GNU General Public License
 */
-class Research_PublicationsController extends Pas_Controller_Action_Admin
+class Publications_ResearchController extends Pas_Controller_Action_Admin
 {
 	/** Initialise the ACL and contexts
 	*/ 
@@ -14,7 +16,7 @@ class Research_PublicationsController extends Pas_Controller_Action_Admin
  	$this->_helper->_acl->allow(null);
 	}
 	
-	/** Get data for data transfer index page
+	/** Return the index page
 	*/ 
 	public function indexAction() {
     }
