@@ -71,11 +71,11 @@
 	?>
 
 	<?php
-	echo $this->coinDataDisplay(
-            $this->finds['0']['objecttype'],
-            $this->finds['0']['broadperiod'],
-            $this->coins,
-            $this->finds);
+	echo $this->coinDataDisplay()
+                ->setObjectType($this->finds['0']['objecttype'])
+                ->setBroadperiod($this->finds['0']['broadperiod'])
+                ->setCoins($this->coins)
+                ->setFinds($this->finds);
         ?>
     <!--  Start the numismatic references -->
 	<?php if(count($this->coinrefs)):?>
