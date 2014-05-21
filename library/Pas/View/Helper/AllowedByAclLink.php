@@ -10,8 +10,8 @@
  *
  * @author danielpett
  */
-class Pas_View_Helper_AllowedByAclLink extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_AllowedByAclLink extends Zend_View_Helper_Abstract
+{
   public function allowedByAclLink($title, $action, $controller=null, $module=null, $args=array(), $classes="")
   {
       $request = Zend_Controller_Front::getInstance()->getRequest();
@@ -27,11 +27,12 @@ class Pas_View_Helper_AllowedByAclLink extends Zend_View_Helper_Abstract {
         $controller,
         $action)) {
 
-      	$arg = array_merge($args,
-      		array('module'=>$module, 'controller'=>$controller, 'action'=>$action));
-      	return "<a href=" . $this->view->url($arg) . " class=" . $classes . ">" . $title . "</a>";
+          $arg = array_merge($args,
+              array('module'=>$module, 'controller'=>$controller, 'action'=>$action));
+
+          return "<a href=" . $this->view->url($arg) . " class=" . $classes . ">" . $title . "</a>";
       } else {
-      	return null;
+          return null;
       }
   }
 }

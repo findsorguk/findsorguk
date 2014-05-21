@@ -9,8 +9,8 @@
  * @see Zend_View_Helper_Abstract
  * @uses Zend_Validate_Int
  */
-class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
+{
     /** The integer value to lookup
      *
      * @var int
@@ -22,31 +22,36 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract {
      * @var object
      */
     protected $_validator;
-    
+
     /** Get the id to query
      * @access public
      * @return int
      */
-    public function getInt() {
+    public function getInt()
+    {
         return $this->_int;
     }
-    
+
     /** Get the validator
      * @access public
      * @return object
      */
-    public function getValidator() {
+    public function getValidator()
+    {
         $this->_validator = Zend_Validate_Int();
+
         return $this->_validator;
     }
 
     /** Set the ID to query
      * @access public
-     * @param int $int
+     * @param  int                           $int
      * @return \Pas_View_Helper_Completeness
      */
-    public function setInt( int $int) {
+    public function setInt(int $int)
+    {
         $this->_int = $int;
+
         return $this;
     }
 
@@ -54,7 +59,8 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract {
      *
      * @return \Pas_View_Helper_Completeness
      */
-    public function completeness() {
+    public function completeness()
+    {
         return $this;
     }
 
@@ -62,26 +68,28 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract {
      *
      * @return string
      */
-    public function html(){
+    public function html()
+    {
         $this->validate();
         switch ($this->getInt()) {
             case 1:
                 $comp = 'Fragment';
-		break;
+        break;
             case 2:
                 $comp = 'Incomplete';
-		break;
+        break;
             case 3:
-		$comp = 'Uncertain';
-		break;
+        $comp = 'Uncertain';
+        break;
             case 4:
-		$comp = 'Complete';
-		break;
+        $comp = 'Complete';
+        break;
             default:
-		$comp = 'Invalid completeness specified';
-		break;
-	}
-	return $comp;
+        $comp = 'Invalid completeness specified';
+        break;
+    }
+
+    return $comp;
     }
 
     /** Validate the value provided
@@ -89,8 +97,9 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract {
      * @return \Pas_View_Helper_Completeness
      * @throws Zend_Exception
      */
-    public function validate(){
-        if($this->getValidator()->isValid($this->getInt())) {
+    public function validate()
+    {
+        if ($this->getValidator()->isValid($this->getInt())) {
             return $this;
         } else {
             throw new Zend_Exception('Invalid value specified');
@@ -101,7 +110,8 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract {
      *
      * @return function
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->html();
     }
 }

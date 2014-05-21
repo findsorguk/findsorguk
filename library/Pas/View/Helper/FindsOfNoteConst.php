@@ -29,17 +29,20 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getConstituency() {
+    public function getConstituency()
+    {
         return $this->_constituency;
     }
 
     /** Set the constituency
      * @access public
-     * @param string $constituency
+     * @param  string                            $constituency
      * @return \Pas_View_Helper_FindsOfNoteConst
      */
-    public function setConstituency( string $constituency) {
+    public function setConstituency(string $constituency)
+    {
         $this->_constituency = $constituency;
+
         return $this;
     }
 
@@ -47,8 +50,10 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
+
         return $this->_cache;
     }
 
@@ -62,7 +67,8 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_FindsOfNoteConst
      */
-    public function findsOfNoteConst() {
+    public function findsOfNoteConst()
+    {
         return $this;
     }
 
@@ -70,38 +76,43 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getData($this->getConstituency());
     }
 
     /** Get the constituency's geometry
      * @access public
-     * @param string $constituency
+     * @param  string $constituency
      * @return object
      */
-    public function getGeometry(string $constituency) {
+    public function getGeometry(string $constituency)
+    {
         $geo = new Pas_Twfy_Geometry();
+
         return $geo->get($constituency);
     }
 
     /** Get the data for the constituency
      * @access public
-     * @param string $constituency
+     * @param  string $constituency
      * @return string
      */
-    public function getData($constituency) {
+    public function getData($constituency)
+    {
         $data = $this->getSolr($constituency);
+
         return $this->buildHtml($data);
     }
 
 
     /** Get the data from the solr index
      * @access public
-     * @param string $constituency
+     * @param  string $constituency
      * @return int
      */
-    public function getSolr($constituency){
-
+    public function getSolr($constituency)
+    {
         $geometry = $this->getGeometry($constituency);
         $bbox = array(
             $geometry->min_lat,
@@ -115,24 +126,26 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
             'filename','thumbnail','old_findID',
             'description', 'county')
         );
-	$search->setParams(array(
+    $search->setParams(array(
             'note' => '1',
             'bbox' => implode(',',$bbox)
             )
                 );
         $search->execute();
         $this->_geometry = implode(',', $bbox);
+
         return $search->getNumber();
     }
 
     /** Build the html to return
      * @access public
-     * @param int $quantity
+     * @param  int    $quantity
      * @return string
      */
-    public function buildHtml( int $quantity){
+    public function buildHtml(int $quantity)
+    {
         $html = '';
-        if($quantity > 0){
+        if ($quantity > 0) {
             $url = $this->view->url(array(
                 'module' => 'database',
                 'controller' => 'search',
@@ -147,7 +160,7 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
             $html .= $quantity;
             $html .= ' finds of note</a> in this constituency.</p>';
             }
+
         return $html;
     }
 }
-

@@ -10,7 +10,7 @@
  */
 
 class Pas_View_Helper_MetaBase
-	extends Zend_View_Helper_Abstract {
+    extends Zend_View_Helper_Abstract {
 
     /** View helper to produce metadata for the head section
      * @access public
@@ -18,7 +18,8 @@ class Pas_View_Helper_MetaBase
      * @param $subject
      * @param $keywords array
      */
-    public function metabase($description, $subject = 'archaeology', $keywords) {
+    public function metabase($description, $subject = 'archaeology', $keywords)
+    {
     $date = new Zend_Date();
     $date->add('72',Zend_Date::HOUR);
     $this->view->headMeta()
@@ -39,7 +40,7 @@ class Pas_View_Helper_MetaBase
         ->headMeta()->setProperty('twitter:site', '@findsorguk')
         ->headMeta()->setProperty('twitter:creator', '@portableant')
         ->headMeta()->setProperty('twitter:image:width', '160')
-		->headMeta()->setProperty('twitter:image:height', '160')
+        ->headMeta()->setProperty('twitter:image:height', '160')
         ->headMeta()->setProperty('dc.rights','Creative Commons BY-SA');
     $this->view->headMeta('CC BY-SA','dc.rights');
     $this->view->headRdf($this->view->curUrl(),'og:url');

@@ -22,17 +22,20 @@ class Pas_View_Helper_StripGrid extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function getGrid() {
+    public function getGrid()
+    {
         return $this->_grid;
     }
 
     /** Set the grid reference
      *
-     * @param string $grid
+     * @param  string                     $grid
      * @return \Pas_View_Helper_StripGrid
      */
-    public function setGrid($grid) {
+    public function setGrid($grid)
+    {
         $this->_grid = $grid;
+
         return $this;
     }
 
@@ -40,7 +43,8 @@ class Pas_View_Helper_StripGrid extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->clean();
     }
 
@@ -48,18 +52,21 @@ class Pas_View_Helper_StripGrid extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function clean() {
-	$gridRef = str_replace($this->_remove, $this->_replace, $this->getGrid());
-	$cleaned = strtoupper($gridRef);
-	return $cleaned;
+    public function clean()
+    {
+    $gridRef = str_replace($this->_remove, $this->_replace, $this->getGrid());
+    $cleaned = strtoupper($gridRef);
+
+    return $cleaned;
     }
 
     /** the function
      *
      * @return \Pas_View_Helper_StripGrid
      */
-    public function stripGrid(){
-	return $this;
+    public function stripGrid()
+    {
+    return $this;
     }
 
 }

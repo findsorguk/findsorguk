@@ -10,7 +10,7 @@
  */
 
 class Pas_View_Helper_MetaBaseImage
-	extends Zend_View_Helper_Abstract {
+    extends Zend_View_Helper_Abstract {
 
     /** View helper to produce metadata for the head section
      * @access public
@@ -18,7 +18,8 @@ class Pas_View_Helper_MetaBaseImage
      * @param $subject
      * @param $keywords array
      */
-    public function metaBaseImage($description, $subject = 'archaeology', $keywords, $imageUrl, $imageWidth = null, $imageHeight = null) {
+    public function metaBaseImage($description, $subject = 'archaeology', $keywords, $imageUrl, $imageWidth = null, $imageHeight = null)
+    {
     $date = new Zend_Date();
     $date->add('72',Zend_Date::HOUR);
     $this->view->headMeta()
@@ -38,11 +39,11 @@ class Pas_View_Helper_MetaBaseImage
         ->headMeta()->setProperty('twitter:card', 'photo')
         ->headMeta()->setProperty('twitter:site', '@findsorguk')
         ->headMeta()->setProperty('twitter:creator', '@portableant')
-		->headMeta()->setProperty('twitter:image', $imageUrl)
+        ->headMeta()->setProperty('twitter:image', $imageUrl)
         ->headMeta()->setProperty('dc.rights','Creative Commons BY-SA');
-        if(!is_null($imageWidth) && !is_null($imageHeight)){
+        if (!is_null($imageWidth) && !is_null($imageHeight)) {
         $this->view->headMeta()->setProperty('twitter:image:width', $imageWidth )
-		->headMeta()->setProperty('twitter:image:height', $imageHeight );
+        ->headMeta()->setProperty('twitter:image:height', $imageHeight );
         }
     $this->view->headMeta('CC BY-SA','dc.rights');
     $this->view->headRdf($this->view->curUrl(),'og:url');

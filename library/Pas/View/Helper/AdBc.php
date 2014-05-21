@@ -38,12 +38,13 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      * @var integer
      */
     protected $_date;
-    
+
     /** Get the prefix
      * @access public
      * @return type
      */
-    public function getPrefix() {
+    public function getPrefix()
+    {
         return $this->_prefix;
     }
 
@@ -51,7 +52,8 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getSuffix() {
+    public function getSuffix()
+    {
         return $this->_suffix;
     }
 
@@ -59,8 +61,10 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getValidator() {
+    public function getValidator()
+    {
         $this->_validator = new Zend_Validate_Int();
+
         return $this->_validator;
     }
 
@@ -68,57 +72,65 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getDate() {
+    public function getDate()
+    {
         return $this->_date;
     }
 
     /** set a different prefix if desired
      * @access public
-     * @param string $prefix
+     * @param  string                $prefix
      * @return \Pas_View_Helper_AdBc
      */
-    public function setPrefix( string $prefix) {
+    public function setPrefix(string $prefix)
+    {
         $this->_prefix = $prefix;
+
         return $this;
     }
 
     /** Set a different suffix
      * @access public
-     * @param string $suffix
+     * @param  string                $suffix
      * @return \Pas_View_Helper_AdBc
      */
-    public function setSuffix( string $suffix) {
+    public function setSuffix(string $suffix)
+    {
         $this->_suffix = $suffix;
+
         return $this;
     }
 
     /** Set the date to use for the class
      * @access public
-     * @param int $date
+     * @param  int                   $date
      * @return \Pas_View_Helper_AdBc
      */
-    public function setDate( int $date) {
+    public function setDate(int $date)
+    {
         $this->_date = $date;
+
         return $this;
     }
 
     /** Validate the data
      * @access public
-     * @param int $date
+     * @param  int $date
      * @return int
      */
-    public function _validate( int $date ) {
-       if($this->getValidator()->isValid($date)){
+    public function _validate(int $date)
+    {
+       if ($this->getValidator()->isValid($date)) {
              return $date;
-        }       
+        }
     }
-    
 
     /** Function for returning the correct date format
      * @access public
      * @return \Pas_View_Helper_AdBc
      */
-    public function adBc() {
+    public function adBc()
+    {
         return $this;
     }
 
@@ -126,26 +138,29 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function html() {
+    public function html()
+    {
         $html = '';
-        
+
         $date = $this->getDate();
-        if($this->_validate($date)) {
+        if ($this->_validate($date)) {
         if ($date  < 0) {
             $html .= abs($date) . ' ' . $this->getSuffix();
-        } else if ($date > 0) {
+        } elseif ($date > 0) {
             $html .= $this->getPrefix() . ' ' . abs($date);
-	} else if ($date == 0) {
+    } elseif ($date == 0) {
             $html .= '';
-	}
+    }
         }
+
         return $html;
     }
     /** Magic method
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->html();
     }
  }

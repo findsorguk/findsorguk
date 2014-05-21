@@ -17,9 +17,11 @@ class Pas_View_Helper_UserAgent extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function getUserAgent() {
+    public function getUserAgent()
+    {
         $useragent = new Zend_Http_UserAgent();
         $this->_userAgent = $useragent->getUserAgent();
+
         return $this->_userAgent;
     }
 
@@ -27,7 +29,8 @@ class Pas_View_Helper_UserAgent extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_UserAgent
      */
-    public function userAgent() {
+    public function userAgent()
+    {
         return $this;
     }
 
@@ -35,7 +38,8 @@ class Pas_View_Helper_UserAgent extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getUserAgent();
     }
 

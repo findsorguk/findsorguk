@@ -12,8 +12,8 @@
  * @uses viewHelper Pas_View_Helper
  * @uses Zend_View_Helper_PartialLoop
  */
-class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract
+{
     /** The S3 Object
      * @access protected
      * @var object
@@ -60,17 +60,20 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getBucket() {
+    public function getBucket()
+    {
         return $this->_bucket;
     }
 
     /** Set a different bucket to the default
      * @access public
-     * @param type $bucket
+     * @param  type                            $bucket
      * @return \Pas_View_Helper_AmazonDataDump
      */
-    public function setBucket($bucket) {
+    public function setBucket($bucket)
+    {
         $this->_bucket = $bucket;
+
         return $this;
     }
 
@@ -78,17 +81,20 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getCacheKey() {
+    public function getCacheKey()
+    {
         return $this->_cacheKey;
     }
 
     /** Set a different cache key
      * @access public
-     * @param type $cacheKey
+     * @param  type                            $cacheKey
      * @return \Pas_View_Helper_AmazonDataDump
      */
-    public function setCacheKey($cacheKey) {
+    public function setCacheKey($cacheKey)
+    {
         $this->_cacheKey = $cacheKey;
+
         return $this;
     }
 
@@ -96,7 +102,8 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
      * @access public
      * @return object
      */
-    public function getS3() {
+    public function getS3()
+    {
         return $this->_S3;
     }
 
@@ -104,7 +111,8 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getAwsKey() {
+    public function getAwsKey()
+    {
         return $this->_awsKey;
     }
 
@@ -112,7 +120,8 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getAwsSecret() {
+    public function getAwsSecret()
+    {
         return $this->_awsSecret;
     }
 
@@ -120,7 +129,8 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
      * @access public
      * @return object
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         return $this->_config;
     }
 
@@ -128,34 +138,40 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache()
+    {
         return $this->_cache;
     }
 
     /** Set a new AWS key
      * @access public
-     * @param string $awsKey
+     * @param  string                          $awsKey
      * @return \Pas_View_Helper_AmazonDataDump
      */
-    public function setAwsKey($awsKey) {
+    public function setAwsKey($awsKey)
+    {
         $this->_awsKey = $awsKey;
+
         return $this;
     }
 
     /** Set a different AWS secret
      * @access public
-     * @param type $awsSecret
+     * @param  type                            $awsSecret
      * @return \Pas_View_Helper_AmazonDataDump
      */
-    public function setAwsSecret($awsSecret) {
+    public function setAwsSecret($awsSecret)
+    {
         $this->_awsSecret = $awsSecret;
+
         return $this;
     }
 
     /** Construct the object
      *
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->_config = Zend_Registry::get('config');
         $this->_awsKey = $this->_config->webservice->amazonS3->accesskey;
         $this->_awsSecret = $this->_config->webservice->amazonS3->secretkey;
@@ -167,21 +183,22 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_AmazonDataDump
      */
-    public function amazonDataDump() {
+    public function amazonDataDump()
+    {
         return $this;
     }
-
 
     /** Build html for returning
      * @access protected
      * @return type
      */
-    protected function _buildHtml(){
+    protected function _buildHtml()
+    {
         $key = md5($this->getKey());
         if (!($this->getCache()->test($key))) {
             $list = $this->getS3()->getObjectsByBucket( $this->getBucket() );
             $data = array();
-            foreach($list as $name) {
+            foreach ($list as $name) {
                 $data[] = array(
                     'filename' => $name,
                     'properties' => $this->getS3()->getInfo( "findsorguk/$name" )
@@ -191,11 +208,13 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract {
             } else {
                 $data = $this->getCache()->load($key);
             }
+
         return $this->view->partialLoop( 'partials/admin/fileList.phtml', $data );
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->_buildHtml();
     }
-    
+
 }

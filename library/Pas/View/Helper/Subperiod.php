@@ -11,28 +11,30 @@
  * @since September 13 2011
  */
 
-class Pas_View_Helper_Subperiod extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_Subperiod extends Zend_View_Helper_Abstract
+{
+    /** Return the correct sub period
+     * @access public
+     * @param  integer $period
+     * @return string
+     */
+    public function subperiod($period)
+    {
+    switch ($period) {
+        case 1:
+            $cert = 'Early';
+            break;
+        case 2:
+            $cert = 'Middle';
+            break;
+        case 3:
+            $cert = 'Late';
+            break;
+        default:
+            return false;
+            break;
+    }
 
-	/** Return the correct sub period
-	 * @access public
-	 * @param integer $period
-	 * @return string
-	 */
-	public function subperiod($period){
-	switch ($period) {
-		case 1:
-			$cert = 'Early';
-			break;
-		case 2:
-			$cert = 'Middle';
-			break;
-		case 3:
-			$cert = 'Late';
-			break; 
-		default:
-			return false;
-			break;
-	}
-	return $cert;
-	}
+    return $cert;
+    }
 }

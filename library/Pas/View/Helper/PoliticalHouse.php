@@ -34,17 +34,20 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getHouse() {
+    public function getHouse()
+    {
         return $this->_house;
     }
 
     /** Set the house to query
      * @access public
-     * @param int $house
+     * @param  int                             $house
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setHouse( int $house) {
+    public function setHouse(int $house)
+    {
         $this->_house = $house;
+
         return $this;
     }
 
@@ -58,7 +61,8 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getCommons() {
+    public function getCommons()
+    {
         return $this->_commons;
     }
 
@@ -66,27 +70,32 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getLords() {
+    public function getLords()
+    {
         return $this->_lords;
     }
 
     /** set a different path for commons logo
      * @access public
-     * @param string $commons
+     * @param  string                          $commons
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setCommons( string $commons) {
+    public function setCommons(string $commons)
+    {
         $this->_commons = $commons;
+
         return $this;
     }
 
     /** Set a different path for the lords logo
      * @access public
-     * @param string $lords
+     * @param  string                          $lords
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setLords( string $lords) {
+    public function setLords(string $lords)
+    {
         $this->_lords = $lords;
+
         return $this;
     }
 
@@ -94,8 +103,10 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
+
         return $this->_cache;
     }
 
@@ -103,7 +114,8 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function politicalHouse() {
+    public function politicalHouse()
+    {
         return $this;
     }
 
@@ -111,17 +123,19 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getLogo( $this->getHouse() );
     }
 
     /** Build the image
      * @access public
-     * @param string $image
-     * @param string $house
+     * @param  string $image
+     * @param  string $house
      * @return string
      */
-    public function buildImage(string $image, string $house) {
+    public function buildImage(string $image, string $house)
+    {
         list($w, $h, $type, $attr) = getimagesize('./' . $image);
 
         $html ='';
@@ -129,21 +143,23 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
         $html .= $image;
         $html .= '" alt="Political house logo" width="';
         $html .= $w;
-	$html .= '" height="';
+    $html .= '" height="';
         $html .= $h;
         $html .= '" />';
-	return $html;
+
+    return $html;
     }
 
     /** Get the logo to display
      * @access public
-     * @param int $house
+     * @param  int      $house
      * @return function
      */
-    public function getLogo(int $house) {
+    public function getLogo(int $house)
+    {
         if (!($this->getCache()->test('house' . $house))) {
-            if(!is_null($house) || $house != ""){
-                switch ($house){
+            if (!is_null($house) || $house != "") {
+                switch ($house) {
                     case 1:
                         $houseImage = $this->buildImage($this->getCommons(),$house);
                         break;
@@ -159,8 +175,8 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
                 } else {
                     $houseImage = $this->getCache()->load('house' . $house);
                 }
+
                 return $houseImage;
     }
 
 }
-

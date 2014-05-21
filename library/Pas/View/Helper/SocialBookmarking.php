@@ -11,19 +11,22 @@
  * @uses Pas_View_Helper_CurUrl
  * @uses Zend_View_Helper_Baseurl
  */
-class Pas_View_Helper_SocialBookmarking extends Zend_View_Helper_Abstract  
+class Pas_View_Helper_SocialBookmarking extends Zend_View_Helper_Abstract
 {
 
-    public function getBookmarks() {
+    public function getBookmarks()
+    {
         $social = new Bookmarks();
+
         return $social->getValidBookmarks();
-    } 
-    
+    }
+
     /** Create a list of social bookmarks from the database entered list
     * @return string $html
     *
     */
-    public function socialBookmarking() {
+    public function socialBookmarking()
+    {
         $html = '<div id="bookmarks" class="removePrint"><p>Social Bookmarking: ';
         $books = $this->getBookmarks();
         foreach ($books as $service) {
@@ -40,6 +43,7 @@ class Pas_View_Helper_SocialBookmarking extends Zend_View_Helper_Abstract
     //        $this->view->inlineScript()->appendFile('/js/plusone.js', $type='text/javascript');
     //	$html .= '<g:plusone size="small"></g:plusone>';
         $html .= '</p></div>';
+
         return $html;
     }
 }

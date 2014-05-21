@@ -12,15 +12,15 @@
  * @uses Zend_Cache Zend Cache
  * @uses Zend_Config Zend Config
  * @uses Solarium_Client Solarium client
- * @uses Pas_Solr_MoreLikeThis 
+ * @uses Pas_Solr_MoreLikeThis
  * @uses Pas_View_Helper_Ellipsisstring
  * @uses Pas_View_Helper_Workflow
  * @uses Pas_View_Helper_WorkflowStatus
  * @uses Pas_User_Details
  * @author Daniel Pett
  */
-class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
+{
     /** The Solr instance
      * @access protected
      * @var object
@@ -44,65 +44,76 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract {
      * @var array
      */
     protected $_solrConfig;
-    
+
     /** The default query string
      * @access protected
      * @var string
      */
     protected $_query = '*:*';
-    
+
     /** Get the query
      * @access protected
      * @return string
      */
-    public function getQuery() {
+    public function getQuery()
+    {
         return $this->_query;
     }
 
     /** Set the query
      * @access public
-     * @param string $query
+     * @param  string                        $query
      * @return \Pas_View_Helper_MoreLikeThis
      */
-    public function setQuery( string $query ) {
+    public function setQuery(string $query)
+    {
         $this->_query = $query;
+
         return $this;
     }
-    
+
     /** Return the config object
      * @access public
      * @return object
-     */    
-    public function getConfig() {
+     */
+    public function getConfig()
+    {
         $this->_config = Zend_Registry::get('config');
+
         return $this->_config;
     }
-    
+
     /** Get the cache object
     /** Construct all the objects
      *
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('rulercache');
+
         return $this->_cache;
     }
-    
+
     /** Get the solr config array
      * @access public
      * @todo might need deprecating as I think this is set elsewhere
      * @return type
      */
-    public function getSolrConfig() {
+    public function getSolrConfig()
+    {
         $this->_solrConfig = $this->_config->solr->toArray();
+
         return $this->_solrConfig;
     }
-    
+
     /** Get the Solr class to use
      * @access public
      * @return type
      */
-    public function getSolr() {
+    public function getSolr()
+    {
         $this->_solr = new Pas_Solr_MoreLikeThis();
+
         return $this->_solr;
     }
 
@@ -110,88 +121,95 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract {
      * @access public
      * @return boolean
      */
-    public function getRole(){
+    public function getRole()
+    {
         $user = new Pas_User_Details();
         $person = $user->getPerson();
-        if($person){
+        if ($person) {
             $this->_role = $person->role;
         } else {
             return false;
         }
     }
-    
+
     /** Set the base string for the key
      * @access protected
      * @var string
      */
     protected $_keyBase = 'mlt';
-    
+
     /** The key string for the cache
      * @access protected
      * @var string
      */
     protected $_key;
-    
+
     /** Get the key
      * @access public
      * @return string
      */
-    public function getKey() {
+    public function getKey()
+    {
         $this->_key = md5( $this->_keyBase . $this->getQuery() . $this->getRole());
+
         return $this->_key;
     }
-    
+
     /** Set the class
      * @access public
      * @return \Pas_View_Helper_MoreLikeThis
      */
-    public function moreLikeThis() {
+    public function moreLikeThis()
+    {
         return $this;
     }
-    
+
     /** Get the data from the solr instance
      * @access public
      * @return boolean
      */
-    public function getData() {
+    public function getData()
+    {
        if (!($this->getCache()->test($this->getKey()))) {
            $mlt = $this->getSolr();
            $mlt->setFields(array('objecttype','broadperiod','description','notes'));
            $mlt->setQuery($this->getQuery());
            $solrResponse =  $mlt->executeQuery();
            $this->getCache()->save($solrResponse);
-           
+
        } else {
            $solrResponse = $this->_cache->load($this->getKey() );
        }
-       if($solrResponse){
+       if ($solrResponse) {
            return $this->buildHtml($solrResponse);
         } else {
             return false;
-        } 
+        }
     }
-    
+
     /** magic method to render string
      * @access public
      * @return type
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildHtml( $this->getData() );
     }
 
     /** Build the html
      * @access private
-     * @param array $solrResponse
+     * @param  array  $solrResponse
      * @return string
      */
-    private function buildHtml( array $solrResponse ){
+    private function buildHtml(array $solrResponse)
+    {
         $html ='<div class="row-fluid"><h3>Similar objects</h3>';
-        
-        foreach($solrResponse['results'] as $document){
-            if(($document->thumbnail)){
+
+        foreach ($solrResponse['results'] as $document) {
+            if (($document->thumbnail)) {
                 $html .= '<img class="flow img-polaroid" src="/images/thumbnails/';
                 $html .= $document->thumbnail .'.jpg"/>';
-                
+
             } else {
                 $html .= '<img class="flow img-circle" src="/assets/gravatar.png" />';
                 }
@@ -200,7 +218,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract {
                 $html .= $this->view->serverUrl();
                 $html .= '/database/artefacts/record/id/';
                 $html .= $document->id . '">';
-		$html .= $document->old_findID;
+        $html .= $document->old_findID;
                 $html .= '</a><br />Object type: ' . $document->objecttype;
                 $html .= '<br />Broadperiod: ' . $document->broadperiod;
                 $html .= '<br/>';
@@ -210,10 +228,11 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract {
                 $html .= $this->view->workflow()->setWorkflow($document->workflow);
                 $html .= '</p></div>';
                 $html .= '</div>';
-                
+
             }
             $html .= '</div>';
+
             return $html;
-            
+
             }
 }

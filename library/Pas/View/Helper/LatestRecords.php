@@ -52,17 +52,20 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getQuery() {
+    public function getQuery()
+    {
         return $this->_query;
     }
 
     /** Set the query if need be
      * @access public
-     * @param string $query
+     * @param  string                         $query
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setQuery( string $query ) {
+    public function setQuery(string $query)
+    {
         $this->_query = $query;
+
         return $this;
     }
 
@@ -70,17 +73,20 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getFields() {
+    public function getFields()
+    {
         return $this->_fields;
     }
 
     /** Set the fields for searching on
      * @access public
-     * @param string $fields
+     * @param  string                         $fields
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setFields(string $fields) {
+    public function setFields(string $fields)
+    {
         $this->_fields = $fields;
+
         return $this;
     }
 
@@ -88,18 +94,21 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getDirection() {
+    public function getDirection()
+    {
         return $this->_direction;
     }
 
     /** Set the direction of the search
      * @todo make only two options available (desc|asc)
      * @access public
-     * @param type $direction
+     * @param  type                           $direction
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setDirection(string $direction) {
+    public function setDirection(string $direction)
+    {
         $this->_direction = $direction;
+
         return $this;
     }
 
@@ -107,7 +116,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getSort() {
+    public function getSort()
+    {
         return $this->_sort;
     }
 
@@ -115,7 +125,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getStart() {
+    public function getStart()
+    {
         return $this->_start;
     }
 
@@ -123,37 +134,44 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access  public
      * @return int
      */
-    public function getLimit() {
+    public function getLimit()
+    {
         return $this->_limit;
     }
 
     /** Set the sort order
      * @access public
-     * @param string $sort
+     * @param  string                         $sort
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setSort( string $sort) {
+    public function setSort(string $sort)
+    {
         $this->_sort = $sort;
+
         return $this;
     }
 
     /** Set the start number
      *
-     * @param int $start
+     * @param  int                            $start
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setStart( int $start) {
+    public function setStart(int $start)
+    {
         $this->_start = $start;
+
         return $this;
     }
 
     /** set the limit
      *
-     * @param int $limit
+     * @param  int                            $limit
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setLimit( int $limit) {
+    public function setLimit(int $limit)
+    {
         $this->_limit = $limit;
+
         return $this;
     }
 
@@ -161,14 +179,16 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function getCacheKey() {
+    public function getCacheKey()
+    {
        return md5( $this->getQuery() . $this->getRole() );
     }
 
     /** Construct options
      *
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->_cache = Zend_Registry::get('cache');
         $this->_config = Zend_Registry::get('config');
         $this->_solrConfig = array('adapteroptions' => $this->_config->solr->toArray());
@@ -179,10 +199,11 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      *
      * @return boolean
      */
-    public function getRole() {
+    public function getRole()
+    {
         $user = new Pas_User_Details();
         $person = $user->getPerson();
-        if($person){
+        if ($person) {
             return $user->getPerson()->role;
 
         } else {
@@ -195,7 +216,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      *
      * @return array
      */
-    public function getResults() {
+    public function getResults()
+    {
         $select = array(
             'query' =>  $this->getQuery(),
             'start' =>  $this->getStart(),
@@ -204,7 +226,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
             'sort'          => array($this->getSort() => $this->getDirection()),
             'filterquery' => array(),
             );
-        if(!in_array($this->getRole(),$this->_allowed)) {
+        if (!in_array($this->getRole(),$this->_allowed)) {
             $select['filterquery']['workflow'] = array(
                 'query' => 'workflow:[3 TO 4]');
         }
@@ -215,28 +237,31 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
             $resultset = $this->_solr->select( $query );
             $data = array();
             $data['numberFound'] = $resultset->getNumFound();
-            foreach($resultset as $doc){
-	    $data['images'][] = $this->parseResults($doc);
+            foreach ($resultset as $doc) {
+        $data['images'][] = $this->parseResults($doc);
             }
             $this->_cache->save($data);
             } else {
 
                 $data = $this->_cache->load($this->getCacheKey());
             }
-	return $data;
+
+    return $data;
     }
 
     /** Parse the documents for field results
      *
-     * @param type $doc
+     * @param  type $doc
      * @return type
      */
-    public function parseResults( $doc ) {
+    public function parseResults($doc)
+    {
         $fields = array();
-        foreach($doc as $key => $value){
+        foreach ($doc as $key => $value) {
             $fields[$key] = $value;
 
         }
+
         return $fields;
     }
 
@@ -244,7 +269,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function latestRecords() {
+    public function latestRecords()
+    {
         return $this;
     }
 
@@ -253,8 +279,9 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @return string|boolean
      */
 
-    public function buildHtml(){
-        if(array_key_exists( 'images', $this->getResults() )) {
+    public function buildHtml()
+    {
+        if (array_key_exists( 'images', $this->getResults() )) {
             $html = '<h3>Latest examples recorded with images</h3>';
             $html .= '<p>We have recorded ' . number_format($data['numberFound']);
             $html .= ' examples.</p>';
@@ -274,9 +301,9 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildHtml();
     }
 
 }
-

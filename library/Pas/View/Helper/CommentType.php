@@ -11,8 +11,8 @@
  * @uses Zend_View_Helper_Url
  * @author danielpett
  */
-class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
-
+class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
+{
     /** The id to query
      * @access protected
      * @var int
@@ -25,7 +25,7 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
      */
     protected $_type;
 
-    /** The server 
+    /** The server
      * @access protected
      * @var string
      */
@@ -35,7 +35,8 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
      * @access public
      * @return type
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->_id;
     }
 
@@ -43,7 +44,8 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
      * @access public
      * @return type
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->_type;
     }
 
@@ -51,28 +53,34 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
      * @access public
      * @return type
      */
-    public function getServer() {
+    public function getServer()
+    {
         $this->_server = $this->view->serverUrl();
+
         return $this->_server;
     }
 
     /** Set the id to query
      * @access public
-     * @param type $id
+     * @param  type                         $id
      * @return \Pas_View_Helper_CommentType
      */
-    public function setId( int $id) {
+    public function setId(int $id)
+    {
         $this->_id = $id;
+
         return $this;
     }
 
     /** Set the type to query
      * @access public
-     * @param string $type
+     * @param  string                       $type
      * @return \Pas_View_Helper_CommentType
      */
-    public function setType( string $type) {
+    public function setType(string $type)
+    {
         $this->_type = $type;
+
         return $this;
     }
 
@@ -80,19 +88,21 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
      *
      * @return \Pas_View_Helper_CommentType
      */
-    public function commentType(  ){
+    public function commentType()
+    {
         return $this;
     }
 
     /** Get the data for each comment
      *
-     * @param int $id
-     * @param string $type
+     * @param  int                   $id
+     * @param  string                $type
      * @return type
      * @throws Pas_Exception_BadJuJu
      */
-    public function getData(){
-        switch($this->getType()){
+    public function getData()
+    {
+        switch ($this->getType()) {
             case 'findComment':
                 $finds = new Finds();
                 $data = $finds->fetchRow($finds->select()->where('id = ?', $this->getId()));
@@ -104,21 +114,23 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
             default:
                 throw New Zend_Exception('That type of comment is not a choice');
             }
+
         return $data;
     }
 
     /** Build the Html for rendering
      *
-     * @param object $data
-     * @param string $type
-     * @param int $id
+     * @param  object                $data
+     * @param  string                $type
+     * @param  int                   $id
      * @return string
      * @throws Pas_Exception_BadJuJu
      */
-    public function buildHtml(){
+    public function buildHtml()
+    {
         $data = $this->getData();
-        if($data instanceof Zend_Db_Table_Row){
-            switch($type){
+        if ($data instanceof Zend_Db_Table_Row) {
+            switch ($type) {
                 case 'findComment':
                     $url = $this->view->url(
                             array(
@@ -147,6 +159,7 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
                     throw new Zend_Exception('You need a comment type');
                     }
             }
+
         return $html;
     }
 
@@ -154,7 +167,8 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract{
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildHtml();
     }
 

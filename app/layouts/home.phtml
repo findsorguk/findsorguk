@@ -96,7 +96,7 @@
 
                 <?php echo $this->layout()->messages;?>
 
-                <?php echo $this->acronyms($this->layout()->content); ?>
+                <?php echo $this->acronyms()->setString($this->layout()->content); ?>
 
                 <?php echo $this->layout()->contexts; ?>
 

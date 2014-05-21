@@ -10,29 +10,32 @@
  * @copyright Daniel Pett <dpett@britishmuseum.org>
  * @license GNU
  */
-class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
+{
     /** The qualifier integer
      * @access protected
      * @var int
      */
     protected $_qualifier;
-    
+
     /** Get the qualifier number
      * @access public
      * @return int
      */
-    public function getQualifier() {
+    public function getQualifier()
+    {
         return $this->_qualifier;
     }
 
     /** Set the qualifier
      * @access public
-     * @param int $qualifier
+     * @param  int                              $qualifier
      * @return \Pas_View_Helper_EarlyMiddleLate
      */
-    public function setQualifier( int $qualifier) {
+    public function setQualifier(int $qualifier)
+    {
         $this->_qualifier = $qualifier;
+
         return $this;
     }
 
@@ -40,7 +43,8 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_EarlyMiddleLate
      */
-    public function earlyMiddleLate(){
+    public function earlyMiddleLate()
+    {
         return $this;
     }
 
@@ -48,16 +52,18 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getSwitch();
     }
     /** Switch for displaying correct period qualifier
      * @access public
-     * @param string $qualifier
+     * @param  string         $qualifier
      * @return string|boolean
      */
-    public function getSwitch() {
-        switch ( $this->getQualifier() ){
+    public function getSwitch()
+    {
+        switch ( $this->getQualifier() ) {
             case 1:
                 $string = 'Early';
                 break;
@@ -71,7 +77,7 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract {
                 $string = '';
                 break;
         }
+
         return $string;
     }
 }
-

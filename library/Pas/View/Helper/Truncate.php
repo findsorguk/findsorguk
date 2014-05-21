@@ -22,19 +22,22 @@ class Pas_View_Helper_Truncate extends Zend_View_Helper_Abstract
 
     /** Truncate the string
      *
-     * @param string $string
+     * @param  string                    $string
      * @return \Pas_View_Helper_Truncate
      */
-    public function truncate($string) {
+    public function truncate($string)
+    {
         $this->_string = trim($string);
         $this->_defaultValues();
+
         return $this;
     }
 
     /** Set default values
      *
      */
-    private function _defaultValues() {
+    private function _defaultValues()
+    {
         $this->toLength(100);
         $this->withPostfix('&#0133;');
     }
@@ -43,29 +46,34 @@ class Pas_View_Helper_Truncate extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_Truncate
      */
-    public function midword() {
+    public function midword()
+    {
         $this->_cutatspace = false;
+
         return $this;
     }
 
-
     /** To a certain length
      *
-     * @param int $int
+     * @param  int                       $int
      * @return \Pas_View_Helper_Truncate
      */
-    public function toLength($int) {
+    public function toLength($int)
+    {
         $this->_length = (int) $int;
+
         return $this;
     }
 
     /** With the postfix string
      *
-     * @param string $str
+     * @param  string                    $str
      * @return \Pas_View_Helper_Truncate
      */
-    public function withPostfix($str) {
+    public function withPostfix($str)
+    {
         $this->_postfix = $str;
+
         return $this;
     }
 
@@ -73,7 +81,8 @@ class Pas_View_Helper_Truncate extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function render() {
+    public function render()
+    {
     // Return empty string if max length < 1
         if ($this->_length < 1) {
             return '';
@@ -86,7 +95,6 @@ class Pas_View_Helper_Truncate extends Zend_View_Helper_Abstract
             return $this->_string;
 
         }
-
 
     // Return truncated string
 
@@ -105,6 +113,7 @@ class Pas_View_Helper_Truncate extends Zend_View_Helper_Abstract
                 } else {
                     $this->_string = trim(substr($this->_string, 0, $this->_length));
                 }
+
                 return $this->_string . $this->_postfix;
         }
 
@@ -112,7 +121,8 @@ class Pas_View_Helper_Truncate extends Zend_View_Helper_Abstract
          *
          * @return string
          */
-        public function __toString() {
+        public function __toString()
+        {
             return $this->render();
         }
 }

@@ -9,15 +9,16 @@
  * @see Zend_View_Helper_Abstract
  * @uses Zend_View_Helper_HeadTitle
  */
-class Pas_View_Helper_Title extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_Title extends Zend_View_Helper_Abstract
+{
     protected $_title = 'The Portable Antiquities Scheme';
 
     /** Magic method
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getTitle();
     }
 
@@ -26,9 +27,11 @@ class Pas_View_Helper_Title extends Zend_View_Helper_Abstract {
      * @return string
      *
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         $title = $this->view->headTitle();
         $this->_title = strip_tags( $title->toString() );
+
         return $this->_title;
     }
 
@@ -36,7 +39,8 @@ class Pas_View_Helper_Title extends Zend_View_Helper_Abstract {
      *
      * @return \Pas_View_Helper_Title
      */
-    public function title() {
+    public function title()
+    {
         return $this;
     }
 }

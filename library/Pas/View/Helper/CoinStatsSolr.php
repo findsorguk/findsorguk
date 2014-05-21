@@ -53,7 +53,8 @@ class Pas_View_Helper_CoinStatsSolr extends Zend_View_Helper_Abstract
      *
      * @param int $denomination
      */
-    public function __construct( $denomination ){
+    public function __construct($denomination)
+    {
         $this->_denomination = $denomination;
         $this->_cache = Zend_Registry::get('cache');
         $this->_cacheKey = md5('coinstats' . $this->_denomination);
@@ -66,7 +67,8 @@ class Pas_View_Helper_CoinStatsSolr extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_CoinStatsSolr
      */
-    public function coinStatsSolr() {
+    public function coinStatsSolr()
+    {
         return $this;
     }
 
@@ -74,41 +76,44 @@ class Pas_View_Helper_CoinStatsSolr extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function html() {
+    public function html()
+    {
         $data = $this->getSolrResults($this->_denomination);
         $html = '<h3>Statistics for coins recorded</h3>';
-	$html .= '<p>This will possibly highlight a lot of mistakes in data entry.</p>';
-	foreach($data as $key => $value){
-		$html .= '<h4>' . ucfirst($key) . '</h4><ul>';
-		if($key != 'quantity'){
-			unset($value['total']);
-		}
-		foreach($value as $k => $v){
-			$html .= '<li>' . ucfirst($k) . ': ' . number_format($v,2) . '</li>';
-		}
-		$html .= '</ul>';
-	}
-	return $html;
+    $html .= '<p>This will possibly highlight a lot of mistakes in data entry.</p>';
+    foreach ($data as $key => $value) {
+        $html .= '<h4>' . ucfirst($key) . '</h4><ul>';
+        if ($key != 'quantity') {
+            unset($value['total']);
+        }
+        foreach ($value as $k => $v) {
+            $html .= '<li>' . ucfirst($k) . ': ' . number_format($v,2) . '</li>';
+        }
+        $html .= '</ul>';
+    }
+
+    return $html;
     }
 
     /** The magic method to return the string
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->html();
     }
-
 
     /** Return the solr results
      *
      * @return type
      */
-    public function getSolrResults() {
+    public function getSolrResults()
+    {
         if (!($this->_cache->test($this->_cacheKey))) {
             $select = array(
                 'query' => 'denomination:' . $this->_denomination,
-	    );
+        );
             $query = $this->_solr->createSelect($select);
             $stats = $query->getStats();
             $stats->createField('diameter');
@@ -118,7 +123,7 @@ class Pas_View_Helper_CoinStatsSolr extends Zend_View_Helper_Abstract
             $resultset = $this->_solr->select($query);
             $data = $resultset->getStats();
             $statistics = array();
-            foreach($data as $result){
+            foreach ($data as $result) {
                 $statistics[$result->getName()] = array(
                     'total' => $result->getSum(),
                     'records' => $result->getCount(),
@@ -131,6 +136,7 @@ class Pas_View_Helper_CoinStatsSolr extends Zend_View_Helper_Abstract
             } else {
                 $statistics = $this->_cache->load($this->_cacheKey);
             }
+
             return $statistics;
-	}
+    }
 }

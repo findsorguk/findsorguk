@@ -28,18 +28,19 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
     /** Construct the objects
      *
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->_cache = Zend_Registry::get('cache');
         $this->_config = Zend_Registry::get('config');
 
     }
 
-
     /** Call Twitter service
      *
      * @return array
      */
-    private function _callTwitter() {
+    private function _callTwitter()
+    {
     if (!($this->_cache->test(md5($this->_key)))) {
         $tokens = new OauthTokens();
         $token = $tokens->fetchRow($tokens->select()->where('service = ?', 'twitterAccess'));
@@ -64,16 +65,16 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
     return $this->buildHtml($tweets);
     }
 
-
     /** Build html string
      *
-     * @param array $tweets
+     * @param  array  $tweets
      * @return string
      */
-    public function buildHtml($tweets){
+    public function buildHtml($tweets)
+    {
         $html = '';
         $html .= '<ul>';
-        foreach($tweets as $post){
+        foreach ($tweets as $post) {
             $html .= '<li><strong>'. $this->view->timeagoinwords($post->created_at);
             $html .= '</strong>';
             $html .= '<strong><a href="http://www.twitter.com/';
@@ -82,6 +83,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
             $html .= $this->view->autoLink($post->text)	. '</li>';
         }
         $html .= '</ul>';
+
         return $html;
     }
 
@@ -89,7 +91,8 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_LatestTweets
      */
-    public function latestTweets() {
+    public function latestTweets()
+    {
         return $this;
     }
 
@@ -97,7 +100,8 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function __toString(){
+    public function __toString()
+    {
         return $this->_callTwitter();
     }
 

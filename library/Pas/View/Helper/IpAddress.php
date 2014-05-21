@@ -18,8 +18,10 @@ class Pas_View_Helper_IpAddress extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function getIp() {
+    public function getIp()
+    {
         $this->_ip = Zend_Controller_Front::getInstance()->getRequest()->getClientIp();
+
         return $this->_ip;
     }
 
@@ -27,7 +29,8 @@ class Pas_View_Helper_IpAddress extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_IpAddress
      */
-    public function ipAddress() {
+    public function ipAddress()
+    {
         return $this;
     }
 
@@ -35,7 +38,8 @@ class Pas_View_Helper_IpAddress extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getIp();
     }
 }

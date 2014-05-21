@@ -9,16 +9,16 @@
  * @copyright DEJ PETT
  * @license GNU
  */
-class Pas_View_Helper_FlickrSetUrl 
-	extends Zend_View_Helper_Abstract {
-	
-	/** Create and return the url
-	 * @param int $id the Id of the photoset
-	 * @return string
-	 */
-	public function FlickrSetUrl( $id ) {
-	return "http://flickr.com/photos/finds/sets/{$id}/";
-	}
-	
+class Pas_View_Helper_FlickrSetUrl
+    extends Zend_View_Helper_Abstract {
+
+    /** Create and return the url
+     * @param  int    $id the Id of the photoset
+     * @return string
+     */
+    public function FlickrSetUrl($id)
+    {
+    return "http://flickr.com/photos/finds/sets/{$id}/";
+    }
 
 }

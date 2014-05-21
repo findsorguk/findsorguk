@@ -1,7 +1,7 @@
 <?php
 /**
  * A view helper for constructing a flickr image from an array
- * 
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -9,9 +9,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  */
-class Pas_View_Helper_FlickrImage extends Zend_View_Helper_Abstract {
-   
-	const SIZE_75PX = 's';
+class Pas_View_Helper_FlickrImage extends Zend_View_Helper_Abstract
+{
+    const SIZE_75PX = 's';
     /**
      * Thumbnail, 100px on longest side
      *
@@ -53,12 +53,14 @@ class Pas_View_Helper_FlickrImage extends Zend_View_Helper_Abstract {
      * @var string
     */
     const SIZE_ORIGINAL = 'o';
-	
- 	public function FlickrImage($farm,$server,$id,$secret,$size = self::SIZE_240PX) {
-	$type = 'jpg';
-	$sizeStr = "_$size";
-	$url = sprintf("http://farm%d.static.flickr.com/%d/%s_%s%s.jpg",
-	$farm, $server, $id, $secret, $sizeStr);
-	return $url;
+
+    public function FlickrImage($farm,$server,$id,$secret,$size = self::SIZE_240PX)
+    {
+    $type = 'jpg';
+    $sizeStr = "_$size";
+    $url = sprintf("http://farm%d.static.flickr.com/%d/%s_%s%s.jpg",
+    $farm, $server, $id, $secret, $sizeStr);
+
+    return $url;
     }
 }

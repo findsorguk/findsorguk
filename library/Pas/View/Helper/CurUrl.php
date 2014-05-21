@@ -25,28 +25,36 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
 
     protected $_requestUri;
 
-
-    public function __construct() {
+    public function __construct()
+    {
         $this->_front = Zend_Front_Controller::getInstance();
     }
 
-    public function getHttps() {
+    public function getHttps()
+    {
         $this->_https = $this->_front->getRequest('HTTPS');
+
         return $this->_https;
     }
 
-    public function getPortNumber() {
+    public function getPortNumber()
+    {
         $this->_portNumber = $this->_front->getRequest('SERVER_PORT');
+
         return $this->_portNumber;
     }
 
-    public function getUri() {
+    public function getUri()
+    {
         $this->_requestUri = $this->_front->getRequest('REQUEST_URI');
+
         return $this->_requestUri;
     }
 
-    public function getServerName () {
+    public function getServerName()
+    {
         $this->_serverName = $this->_front->getRequest('SERVER_NAME');
+
         return $this->_serverName;
     }
 
@@ -54,8 +62,10 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      *
      * @return boolean
      */
-    public function getSsl() {
+    public function getSsl()
+    {
         $this->_ssl = (isset($this->getHttps()) && $this->getHttps() == "on");
+
         return $this->_ssl;
     }
 
@@ -63,10 +73,12 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      *
      * @return int
      */
-    public function getPort() {
+    public function getPort()
+    {
         $port = (isset($this->getPortNumber()) && ((!$this->getSsl() && $this->getPortNumber() != "80")
-		|| ($this->getSsl() && $this->getPortNumber() != "443")));
-	$this->_port = ($port) ? ':' . $this->getPortNumber() : '';
+        || ($this->getSsl() && $this->getPortNumber() != "443")));
+    $this->_port = ($port) ? ':' . $this->getPortNumber() : '';
+
         return $this->_port;
     }
 
@@ -74,7 +86,8 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_CurUrl
      */
-    public function curUrl(){
+    public function curUrl()
+    {
         return $this;
     }
 
@@ -82,19 +95,22 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->createUrl();
     }
 
     /** Create the url
      * @return string
      */
-    public function createUrl() {
+    public function createUrl()
+    {
         $url = ($this->getSsl() ? 'https://' : 'http://')
                 . $this->getServerName()
                 . $this->getPort()
                 . $this->getUri();
-	return $url;
+
+    return $url;
     }
 
 }

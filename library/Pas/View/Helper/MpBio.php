@@ -13,7 +13,6 @@
  * @todo Swap the ARC2 function for easyRdf
  */
 
-
 class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
 {
     /** The sparql class
@@ -44,8 +43,10 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getArc(){
+    public function getArc()
+    {
         $this->_arc = new Arc2();
+
         return $this->_arc;
     }
 
@@ -53,8 +54,10 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
+
         return $this->_cache;
     }
 
@@ -62,10 +65,12 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getConfig(){
+    public function getConfig()
+    {
         $this->_config = array(
             'remote_store_endpoint' => 'http://dbpedia.org/sparql'
             );
+
         return $this->_config;
     }
 
@@ -73,17 +78,20 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getFullname() {
+    public function getFullname()
+    {
         return $this->_fullname;
     }
 
     /** Set the fullname to query
      * @access public
-     * @param string $fullname
+     * @param  string                 $fullname
      * @return \Pas_View_Helper_MpBio
      */
-    public function setFullname(string $fullname) {
+    public function setFullname(string $fullname)
+    {
         $this->_fullname = $fullname;
+
         return $this;
     }
 
@@ -91,7 +99,8 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_MpBio
      */
-    public function mpBio() {
+    public function mpBio()
+    {
         return $this;
     }
 
@@ -99,11 +108,13 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return null
      */
-    public function __toString(){
-        if(!is_null($this->_fullname))  {
+    public function __toString()
+    {
+        if (!is_null($this->_fullname)) {
             $data = $this->sparqlQuery($this->_fullname);
-            if(count($data)) {
+            if (count($data)) {
                 $response = $this->parseResults($data);
+
                 return $this->buildHtml($response);
             } else {
                 return NULL;
@@ -113,12 +124,12 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
             }
     }
 
-
     /** Perform Sparql
      * @access public
      * @param string $fullname
      */
-    public function sparqlQuery($fullname) {
+    public function sparqlQuery($fullname)
+    {
         $key = md5($fullname . 'mpbio');
         if (!($this->_cache->test($key))) {
         $fullname = str_replace(array('Edward Vaizey','Nicholas Clegg'),
@@ -156,6 +167,7 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
         } else {
         $rows = $this->_cache->load($key);
         }
+
         return $rows;
     }
 
@@ -163,15 +175,17 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      *
      * @param unknown_type $results
      */
-    public function parseResults($results) {
+    public function parseResults($results)
+    {
         $mpdata = array();
-        foreach($results as $r) {
+        foreach ($results as $r) {
             $mpdata['thumbnail'] = $r['thumb'];
             $mpdata['depiction'] = $r['depiction'];
             $mpdata['abstract'] = $r['abstract'];
             $mpdata['caption'] = $r['caption'];
             $mpdata['uni']= $r['uni'];
         }
+
         return $mpdata;
     }
 
@@ -179,25 +193,27 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @param $response
      */
-    public function buildHtml($response) {
+    public function buildHtml($response)
+    {
         $chunks = split('\. ',$response['abstract']);
-        foreach($chunks as $key=>$c){
+        foreach ($chunks as $key=>$c) {
         $chunks[$key] = ($key%3==0) ? ($c . '.</p><p>') : ($c.'. ');
         }
         $abs = '<p>' . join($chunks) . '</p>';
         $html = '<h3>Dbpedia sourced information</h3>';
-        if(array_key_exists('thumbnail',$response)){
+        if (array_key_exists('thumbnail',$response)) {
             list($w, $h, $type, $attr) = getimagesize($response['thumbnail']);
             $html .= '<img src="'.$response['thumbnail'] . '" alt ="Wikipedia
                 sourced picture" height="' . $h . '" width="'
             . $w . '" class="flow" />';
         }
         $html .= $abs;
-        if(array_key_exists('uni',$response)){
+        if (array_key_exists('uni',$response)) {
             $html .= '<p>Educated: '.rawurldecode(str_replace(array('_',
                 'http://dbpedia.org/resource/'), array(' ',''),$response['uni']))
                     . '</p>';
         }
+
         return $html;
     }
 

@@ -9,7 +9,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  */
-class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract 
+class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
 {
     /** The validator object
      * @access protected
@@ -22,13 +22,15 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @var string
      */
     protected $_certainty;
-    
+
     /** Get the validator
      * @access public
      * @return object
      */
-    public function getValidator() {
+    public function getValidator()
+    {
         $this->_validator = new Zend_Validate_Int();
+
         return $this->_validator;
     }
 
@@ -36,17 +38,20 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getCertainty() {
+    public function getCertainty()
+    {
         return $this->_certainty;
     }
 
     /** Set the certainty value
      * @access public
-     * @param int $certainty
+     * @param  int                        $certainty
      * @return \Pas_View_Helper_Certainty
      */
-    public function setCertainty( int $certainty) {
+    public function setCertainty(int $certainty)
+    {
         $this->_certainty = $certainty;
+
         return $this;
     }
 
@@ -54,7 +59,8 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_Certainty
      */
-    public function certainty() {
+    public function certainty()
+    {
         return $this;
     }
 
@@ -63,8 +69,9 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_Certainty
      * @throws Zend_Exception
      */
-    public function _checkValid() {
-        if($this->getValidator()->isValid($this->getCertainty())){
+    public function _checkValid()
+    {
+        if ($this->getValidator()->isValid($this->getCertainty())) {
             return $this;
         } else {
             throw new Zend_Exception( 'The value supplied must be an integer');
@@ -75,30 +82,33 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function html() {
+    public function html()
+    {
         $this->_checkValid();
         switch ($this->getCertainty()) {
-		case 1:
+        case 1:
                     $html = 'Certain';
                     break;
-		case 2:
+        case 2:
                     $html = 'Probably';
                     break;
-		case 3:
+        case 3:
                     $html = 'Possibly';
                     break;
-		default:
+        default:
                     $html = '';
                     break;
-		}
-	return $html;
+        }
+
+    return $html;
     }
 
     /** Magic method to return string of html
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->html();
     }
 }

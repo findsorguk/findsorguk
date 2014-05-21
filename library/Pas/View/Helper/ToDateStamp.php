@@ -18,40 +18,44 @@ class Pas_View_Helper_ToDateStamp extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function getDateString() {
+    public function getDateString()
+    {
         return $this->_dateString;
     }
 
     /** Set the date string
      *
-     * @param string $dateString
+     * @param  string                       $dateString
      * @return \Pas_View_Helper_ToDateStamp
      */
-    public function setDateString($dateString) {
+    public function setDateString($dateString)
+    {
         $this->_dateString = $dateString;
+
         return $this;
     }
 
-
     /** Returns a UNIX timestamp, given either a UNIX timestamp or a valid strtotime() date string
-     * @param string $date_string Datetime string
+     * @param  string $date_string Datetime string
      * @return string Formatted date string
      * @access public
      */
 
-    public function fromString($date_string) {
-	if (is_integer($date_string) || is_numeric($date_string)) {
+    public function fromString($date_string)
+    {
+    if (is_integer($date_string) || is_numeric($date_string)) {
             return intval($date_string);
-	} else {
+    } else {
             return strtotime($date_string);
-	}
+    }
     }
 
     /** The function
      *
      * @return \Pas_View_Helper_ToDateStamp
      */
-    public function toDateStamp() {
+    public function toDateStamp()
+    {
     return $this;
     }
 
@@ -59,7 +63,8 @@ class Pas_View_Helper_ToDateStamp extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->format();
     }
 
@@ -67,9 +72,11 @@ class Pas_View_Helper_ToDateStamp extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function format() {
+    public function format()
+    {
         $date = $this->fromString($this->getDateString());
-	$ret = date('Ymd\THis\Z', $date);
-	return $ret;
+    $ret = date('Ymd\THis\Z', $date);
+
+    return $ret;
     }
 }

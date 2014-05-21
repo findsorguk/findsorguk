@@ -9,15 +9,16 @@
  * @see Zend_View_Helper_Abstract
  * @uses Pas_Filter_HtmlCleaned
  */
-class Pas_View_Helper_Purify extends Zend_View_Helper_Abstract {
-	
-	/** 
-	 * Clean string for valid html
-	 * @param string $value
-	 */
-	public function purify($value)  {
-	$filter = new Pas_Filter_HtmlCleaned();
-	return $filter->filter($value);
-	}
-}
+class Pas_View_Helper_Purify extends Zend_View_Helper_Abstract
+{
+    /**
+     * Clean string for valid html
+     * @param string $value
+     */
+    public function purify($value)
+    {
+    $filter = new Pas_Filter_HtmlCleaned();
 
+    return $filter->filter($value);
+    }
+}

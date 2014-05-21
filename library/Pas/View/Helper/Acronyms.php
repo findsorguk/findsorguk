@@ -8,56 +8,60 @@
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    GNU Public
  * @see Zend_View_Helper_Abstract
+ * @author Daniel Pett <dpett at britishmuseum.org>
  */
 class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
 {
-
-    protected $_acronyms;
-
+    /** The string to show acronyms in
+     * @access protected
+     * @var string
+     */
     protected $_string;
-
-    /** Set up configuration
-     * 
-     * @param $string 
+    
+    /** Get the string to analyse
+     * @access protected
+     * @return string
      */
-    public function __construct( $string ) {
-        $this->_acronyms = new Acronyms();
+    public function getString() {
+        return $this->_string;
+    }
+
+    /** Set the string to analyse
+     * @access public
+     * @param string $string
+     * @return \Pas_View_Helper_Acronyms
+     */
+    public function setString(string $string) {
         $this->_string = $string;
-    }
-
-    /** Get the acronyms
-     * 
-     */
-    public function getAcronyms()
-    {
-        return $this->_acronyms->getValid();
-    }
-
-    /** Get the html to render
-     * 
-     */
-    public function generate()
-    {
-        $text = " $this->_string ";
-        $abbrev = $this->getAcronyms();
-        foreach($abbrev as $acronym => $expanded) {
-            $text = preg_replace( "|(?!<[^<>]*?)(?<![?.&])\b$acronym\b(?!:)(?![^<>]*?>)|msU",
-	"<abbr title=\"$expanded\">$acronym</abbr>" , $text );
-			$newText = trim($text);
-        }
-        return $newText;
-    }
-
-    /** Function to add acronyms/abbreviations
-     *
-     */
-    public function Acronyms()
-    {
         return $this;
     }
 
+    /** Get the acronyms
+     * @access public
+     * @return array Array of acronyms
+     */
+    public function getAcronyms(){
+        $acronyms = new Acronyms();
+        return $acronyms->getValid();
+    }
+
+    /** Get the html to render
+     * @access public
+     * @return string The string with acronyms in the html
+     */
+    public function generate() {
+        $text = $this->getString();
+        $abbrev = $this->getAcronyms();
+        foreach ($abbrev as $acronym => $expanded) {
+            $text = preg_replace( "|(?!<[^<>]*?)(?<![?.&])\b$acronym\b(?!:)(?![^<>]*?>)|msU",
+    "<abbr title=\"$expanded\">$acronym</abbr>" , $text );
+            $newText = trim($text);
+        }
+
+        return $newText;
+    }
     /** Magic method return string
-     *
+     * @access public
      * @return function
      */
     public function __toString() {

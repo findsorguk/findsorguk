@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
  * A view helper for displaying name or the Latin phrase
- * 
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -10,19 +10,21 @@
  * @see Zend_View_Helper_Abstract
  */
 
-class Pas_View_Helper_Namethem extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_Namethem extends Zend_View_Helper_Abstract
+{
+    /** Name the person based on string
+     * @access public
+     * @param  string $string
+     * @return string $name
+     */
+    public function namethem($string)
+    {
+    if (is_null($string)) {
+    $name = '<em>Nemo hic adest illius nominis</em>';
+    } else {
+    $name = $string;
+    }
 
-	/** Name the person based on string
-	 * @access public
-	 * @param string $string
-	 * @return string $name
-	 */
-	public function namethem($string) {
-	if(is_null($string)) {
-	$name = '<em>Nemo hic adest illius nominis</em>';
-	} else {
-	$name = $string;
-	}
-	return $name;
-	}
+    return $name;
+    }
 }

@@ -11,8 +11,8 @@
  * @uses viewHelper Zend_View_Helper_Escape
  * @uses date Zend_Date
  */
-class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract
+{
     protected $_user;
 
     protected $_timeStamp;
@@ -21,8 +21,10 @@ class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract {
      *
      * @return string
      */
-    public function getUser() {
+    public function getUser()
+    {
         $user = new Pas_User_Details();
+
         return $user->getPerson()->fullname;
     }
 
@@ -30,8 +32,10 @@ class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract {
      *
      * @return string
      */
-    public function getTimeStamp() {
+    public function getTimeStamp()
+    {
         $date = new Zend_Date();
+
         return $this->_timeStamp = $date->get(Zend_Date::W3C);
     }
 
@@ -39,7 +43,8 @@ class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getSignature();
     }
 
@@ -47,18 +52,21 @@ class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract {
      *
      * @return string
      */
-    public function getSignature() {
+    public function getSignature()
+    {
         $html = '';
         $html .= '<p>Sent by: ' . $this->view->escape( $this->getUser() ) . ' at ';
-	$html .= $this->getTimeStamp() . '</p>';
-	return $html;
+    $html .= $this->getTimeStamp() . '</p>';
+
+    return $html;
     }
 
     /** The function
      *
      * @return \Pas_View_Helper_EmailSignature
      */
-    public function emailSignature() {
+    public function emailSignature()
+    {
         return $this;
     }
 }

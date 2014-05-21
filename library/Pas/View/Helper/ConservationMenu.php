@@ -14,44 +14,47 @@
  * @since September 13 2011
  * @todo change the class to use zend_navigation
 */
-class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract
+{
     protected $_front;
-    
+
     protected $_param;
-    
-    public function getFront() {
+
+    public function getFront()
+    {
         $this->_front = Zend_Controller_Front::getInstance()->getRequest();
+
         return $this->_front;
     }
 
-    public function getParam() {
+    public function getParam()
+    {
         $this->_param = $this->_front->getParam('slug');
+
         return $this->_param;
     }
 
-   
-    
     /** Display the menu
     * @access public
     * @return string $html
-    */		
-    public function conservationMenu(){
+    */
+    public function conservationMenu()
+    {
         return $this;
     }
-
 
     /** Build the html for the menu
      * @access public
      * @return string
      */
-    public function menu() {
+    public function menu()
+    {
         $conservation = new Content();
         $cons = $conservation->getConservationNotes();
         $html = '';
-        foreach($cons as $c) {
+        foreach ($cons as $c) {
             $html .= '<li ';
-            if($c['slug'] == $this->getParam()) {
+            if ($c['slug'] == $this->getParam()) {
                 $html .= 'class="active"';
             }
             $html .= '>';
@@ -66,14 +69,16 @@ class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract {
             $html .=$c['menuTitle'];
             $html .= '</a></li>';
         }
-        return $html;		
+
+        return $html;
     }
 
     /** The to string method
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->menu();
     }
 }

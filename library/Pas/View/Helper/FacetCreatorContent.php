@@ -19,21 +19,23 @@
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  */
-class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract
+{
     /** Create the facets boxes for rendering
      * @access public
-     * @param array $facets
+     * @param  array                 $facets
      * @return string
      * @throws Pas_Exception_BadJuJu
      */
 
-    public function facetCreatorContent(array $facets){
-        if(is_array($facets)){
+    public function facetCreatorContent(array $facets)
+    {
+        if (is_array($facets)) {
         $html = '<h3>Search facets</h3>';
-        foreach($facets as $facetName => $facet){
+        foreach ($facets as $facetName => $facet) {
             $html .= $this->_processFacet($facet, $facetName);
         }
+
         return $html;
         } else {
             throw new Pas_Exception_BadJuJu('The facets sent are not an array');
@@ -42,27 +44,28 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
 
     /** Process the facet array and name
      * @access public
-     * @param array $facet
-     * @param string $facetName
+     * @param  array                 $facet
+     * @param  string                $facetName
      * @return string
      * @throws Pas_Exception_BadJuJu
      * @uses Zend_Controller_Front
      * @uses Zend_View_Helper_Url
      */
-    protected function _processFacet(array $facet, $facetName){
-        if(is_array($facet)){
+    protected function _processFacet(array $facet, $facetName)
+    {
+        if (is_array($facet)) {
         $html = '<div id="facet-' . $facetName .'">';
         $html .= '<h4>' . $this->_prettyName($facetName) . '</h4>';
         $html .= '<ul class="navpills nav-stacked nav">';
 
-//        if($facetName !== 'workflow'){
+//        if ($facetName !== 'workflow') {
 //            $facet = array_slice($facet,0,10);
 //        }
-        foreach($facet as $key => $value){
+        foreach ($facet as $key => $value) {
 
         $url = $this->view->url(array('fq' . $facetName => $key),'default',false);
         $html .= '<li>';
-        if($facetName !== 'workflow'){
+        if ($facetName !== 'workflow') {
         $html .= '<a href="' . $url . '" title="Facet query for ' . $this->facetContentSection($key);
         $html .= '">';
         $html .= $this->facetContentSection($key) . ' ('. number_format($value) .')';
@@ -79,18 +82,19 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
         $html .= '</ul>';
         $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 
-        if(isset($request['page'])){
+        if (isset($request['page'])) {
             unset($request['page']);
         }
-        if(array_key_exists($facetName,$request)){
+        if (array_key_exists($facetName,$request)) {
         $facet = $request['fq' . $facetName];
-        if(isset($facet)){
+        if (isset($facet)) {
             unset($request['fq' . $facetName]);
             $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request),'default',true)
                     . '" title="Clear the facet">Clear this facet</a></p>';
         }
         }
         $html .= '</div>';
+
         return $html;
         } else {
             throw new Pas_Exception_BadJuJu('The facet is not an array');
@@ -99,11 +103,12 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
 
     /** Create a pretty name for the facet
      * @access public
-     * @param string $name
+     * @param  string $name
      * @return string
      */
-    protected function _prettyName($name){
-        switch($name){
+    protected function _prettyName($name)
+    {
+        switch ($name) {
             case 'objectType':
                 $clean = 'Object type';
                 break;
@@ -117,11 +122,13 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
                 $clean = ucfirst($name);
                 break;
         }
+
         return $clean;
     }
 
-    protected function _workflow($key){
-        switch($key){
+    protected function _workflow($key)
+    {
+        switch ($key) {
             case '1':
                 $type = 'Quarantine';
                 break;
@@ -138,42 +145,45 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
                 $type = 'Unset workflow';
                 break;
             }
+
             return $type;
         }
-	protected $sections = array(
-	'databasehelp' => 'Database help',
-	'help' => 'Site help',
-	'getinvolved' => 'Get involved',
-	'bronzeage' => 'Bronze Age guide',
-	'ironage' => 'Iron Age guide',
-	'profiles' => 'Staff profiles',
-	'reports' => 'Annual reports',
-	'treports' => 'Treasure reports',
-	'info' => 'General information',
-	'medievalcoins' => 'Medieval coin guide',
-	'postmedievalcoins' => 'Post medieval coin guide',
-	'byzantinecoins' => 'Byzantine coin guide',
-	'earlymedievalcoins' => 'Early medieval coins',
-	'romancoins' => 'Roman coin guide',
-	'frg' => 'Finds recording guide',
-	'oai' => 'OAI documentation',
-	'staffs' => 'Staffordshire hoard symposium',
-	'ironagecoins' => 'Iron Age coin guide',
-	'greekromancoins' => 'Greek and Roman coin guide',
-	'api' => 'API documentation',
+    protected $sections = array(
+    'databasehelp' => 'Database help',
+    'help' => 'Site help',
+    'getinvolved' => 'Get involved',
+    'bronzeage' => 'Bronze Age guide',
+    'ironage' => 'Iron Age guide',
+    'profiles' => 'Staff profiles',
+    'reports' => 'Annual reports',
+    'treports' => 'Treasure reports',
+    'info' => 'General information',
+    'medievalcoins' => 'Medieval coin guide',
+    'postmedievalcoins' => 'Post medieval coin guide',
+    'byzantinecoins' => 'Byzantine coin guide',
+    'earlymedievalcoins' => 'Early medieval coins',
+    'romancoins' => 'Roman coin guide',
+    'frg' => 'Finds recording guide',
+    'oai' => 'OAI documentation',
+    'staffs' => 'Staffordshire hoard symposium',
+    'ironagecoins' => 'Iron Age coin guide',
+    'greekromancoins' => 'Greek and Roman coin guide',
+    'api' => 'API documentation',
             'secret' => 'Britain\'s Secret Treasures'
-	);
+    );
 
-	public function facetContentSection($string){
-	if(in_array($string,array_keys($this->sections))){
-	$text = " $string ";
-	foreach ($this->sections as $key => $value) {
-	$text = preg_replace( "|(?!<[^<>]*?)(?<![?.&])\b$key\b(?!:)(?![^<>]*?>)|msU",
-	$value , $text );
-	}
-	} else {
-	$text = $string;
-	}
-	return ucfirst($text);
-	}
+    public function facetContentSection($string)
+    {
+    if (in_array($string,array_keys($this->sections))) {
+    $text = " $string ";
+    foreach ($this->sections as $key => $value) {
+    $text = preg_replace( "|(?!<[^<>]*?)(?<![?.&])\b$key\b(?!:)(?![^<>]*?>)|msU",
+    $value , $text );
+    }
+    } else {
+    $text = $string;
+    }
+
+    return ucfirst($text);
+    }
 }

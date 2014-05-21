@@ -27,17 +27,20 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getPeriod() {
+    public function getPeriod()
+    {
         return $this->_period;
     }
 
     /** Set the period
      * @access public
-     * @param int $period
+     * @param  int                          $period
      * @return \Pas_View_Helper_AdminPeriod
      */
-    public function setPeriod( int $period) {
+    public function setPeriod(int $period)
+    {
         $this->_period = $period;
+
         return $this;
     }
 
@@ -45,7 +48,8 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_AdminPeriod
      */
-    public function adminPeriod(){
+    public function adminPeriod()
+    {
         return $this;
     }
 
@@ -54,9 +58,9 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
      * @param int period
      * @return string
      */
-    public function html( int $period ) {
-
-        switch( $period ) {
+    public function html(int $period)
+    {
+        switch ($period) {
             case 21 :
                 $periodName = 'Roman';
                 break;
@@ -79,6 +83,7 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
                 $periodName = 'Byzantine';
                 break;
         }
+
         return $periodName;
      }
 
@@ -86,7 +91,8 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
       *
       * @return string
       */
-     public function __toString() {
+     public function __toString()
+     {
          return $this->html( $this->getPeriod() );
      }
  }

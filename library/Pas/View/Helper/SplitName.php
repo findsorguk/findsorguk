@@ -19,17 +19,20 @@ class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->_name;
     }
 
     /** Set the name to split
      *
-     * @param string $name
+     * @param  string                     $name
      * @return \Pas_View_Helper_SplitName
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->_name = $name;
+
         return $this;
     }
 
@@ -37,7 +40,8 @@ class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_SplitName
      */
-    public function splitName() {
+    public function splitName()
+    {
         return $this;
     }
 
@@ -45,16 +49,19 @@ class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function firstName() {
+    public function firstName()
+    {
         list($first, $last) = explode(' ', $this->getName());
-	return $first;
+
+    return $first;
     }
 
     /** The magic function
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->firstName();
     }
 }
