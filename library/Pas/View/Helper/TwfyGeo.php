@@ -64,10 +64,10 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
     public function buildMap($geo, $data){
         $html = '';
         $html .= $this->view->partial('partials/news/map.phtml', get_object_vars($geo));
-        $html .= $this->view->osDataToConst($geo->name);
-        $html .= $this->view->SmrDataToConst($geo->name);
-        $html .= $this->view->findsOfNoteConst($geo->name);
-        $html .= $this->view->findsWithinConst($geo->name);
+        $html .= $this->view->osDataToConst()->setConstituency($geo->name);
+        $html .= $this->view->smrDataToConst()->setConstituency($geo->name);
+        $html .= $this->view->findsOfNoteConst()->setConstituency($geo->name);
+        $html .= $this->view->findsWithinConst()->setConstituency($geo->name);
         $html .= $this->view->mpBio()->setFullname($data->full_name);
         $html .= $this->view->politicalHouse()->setHouse($data->house);
         return $html;
