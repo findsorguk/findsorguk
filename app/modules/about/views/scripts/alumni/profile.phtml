@@ -7,7 +7,7 @@ $('#tabs').tabs({ fx: { opacity: 'toggle' } });
 });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 
-<?php echo $this->partial('partials/contacts/alumniprofile.phtml',$this->staffs['0']);?>
+<?php echo $this->partial('partials/about/alumniprofile.phtml',$this->staffs['0']);?>
 <?php if(count($this->periodtotals) > 0): ?>
 <?php echo $this->partial('partials/contacts/searchfinds.phtml',$this->staffs['0']);?>
 <?php endif;?>

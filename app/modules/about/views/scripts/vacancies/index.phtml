@@ -10,7 +10,7 @@ $this->metaBase(
 <h2>Current vacancies</h2>
 
 <ul id="related">
-<?php echo $this->partialLoop('partials/getinvolved/vacancyList.phtml',$this->vacs);
+<?php echo $this->partialLoop('partials/about/vacancyList.phtml',$this->vacs);
 ?>
 </ul>
 <?php echo $this->paginationControl($this->vacs, 'Sliding', 'structure/pagination.phtml'); ?>

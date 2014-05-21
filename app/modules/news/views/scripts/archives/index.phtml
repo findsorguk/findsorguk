@@ -5,7 +5,7 @@ $this->headMeta('A list of all our events that have expired','description');?>
 
 <?php if(count($this->events)):?><p>View events on calendar:</p>
 <ul id="yearrange">
-<?php echo $this->partialLoop('partials/events/archiveYears.phtml',$this->years);?>
+<?php echo $this->partialLoop('partials/news/archiveYears.phtml',$this->years);?>
 </ul><table class="table table-striped" summary="List of all archived scheme events">
 <caption>List of past Scheme events</caption>
 <thead>
@@ -17,7 +17,7 @@ $this->headMeta('A list of all our events that have expired','description');?>
 </tr>
 </thead>
 <tbody>
-<?php echo $this->partialLoop('partials/events/archived.phtml',$this->events);?>
+<?php echo $this->partialLoop('partials/news/archived.phtml',$this->events);?>
 </tbody>
 </table>
 <?php else:?>

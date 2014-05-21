@@ -18,7 +18,7 @@ $this->headMeta('This page lists all Scheduled Monuments or SMRs attached to '
 </tr>
 </thead>
 <tbody>
-<?php echo $this->partialLoop('partials/database/smr.phtml',$this->smrs);?>
+<?php echo $this->partialLoop('partials/datalabs/smr.phtml',$this->smrs);?>
 </tbody>
 </table>
 <?php echo $this->paginationControl($this->smrs, 'Sliding', 'structure/pagination.phtml'); ?>

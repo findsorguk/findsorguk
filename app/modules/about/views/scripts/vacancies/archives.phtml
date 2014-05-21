@@ -4,7 +4,7 @@ $this->metaBase('A list of expired vacancies that the Scheme has advertised','Ex
 <h2>Archived vacancies</h2>
 <?php if(count($this->archives)):?>
 <ul>
-<?php echo $this->partialLoop('partials/getinvolved/vacancyList.phtml',$this->archives); ?>
+<?php echo $this->partialLoop('partials/about/vacancyList.phtml',$this->archives); ?>
 </ul>
 <?php echo $this->paginationControl($this->archives, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
