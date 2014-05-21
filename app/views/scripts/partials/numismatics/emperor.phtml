@@ -53,8 +53,8 @@ echo '<a href="'.$this->baseUrl().'/images/rulers/'.$this->escape($this->filenam
 
 </div>
 <?php echo $this->dbPediaRulerRdf()->setUri('http://dbpedia.org/resource/' .  $this->dbpedia);?>
-<?php echo $this->sparqlEasyEmperorNotable()->setDbpediaID($this->dbpedia);?>
-<?php echo $this->sparqlEasy()->setDbpediaID($this->dbpedia);?>
-<?php echo $this->sparqlEasyEmperorBuilt()->setDbpediaID($this->dbpedia);?>
+<?php echo $this->sparqlEasyEmperorNotable()->setId($this->dbpedia);?>
+<?php echo $this->sparqlEasy()->setId($this->dbpedia);?>
+<?php echo $this->sparqlEasyEmperorBuilt()->setId($this->dbpedia);?>
 </div>
 
