@@ -7,7 +7,7 @@
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
 * @license    GNU General Public License
 */
-class Info_GithubController extends Pas_Controller_Action_Admin {
+class Tech_GithubController extends Pas_Controller_Action_Admin {
 	
 	protected $_github = null;
 	

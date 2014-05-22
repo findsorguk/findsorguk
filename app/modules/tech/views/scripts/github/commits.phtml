@@ -11,7 +11,7 @@ foreach($this->commits as $commit):
     Committed by <a href="http://github.com/<?php echo $commit['commit']['committer']['name'];?>" ><?php echo $commit['commit']['committer']['name'];?></a><br/>
     Committed on: <?php echo $this->niceshortdate($commit['commit']['author']['date']);?>
     </p>
-    <p><a href="<?php echo $this->url(array('module' => 'info', 'controller' => 'github', 'action' => 'commit', 'sha' => $commit['parents'][0]['sha']), 'default', true);?>">View details &raquo;</a> </p>
+    <p><a href="<?php echo $this->url(array('module' => 'tech', 'controller' => 'github', 'action' => 'commit', 'sha' => $commit['parents'][0]['sha']), 'default', true);?>">View details &raquo;</a> </p>
     <?php if($commit['comment_count'] > 0):?>
     <span class="label">Comments entered: <?php echo $commit['comment_count'];?> <i class="icon-comment"></i></span>
     <?php endif;?>
