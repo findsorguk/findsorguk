@@ -7,7 +7,8 @@
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
 * @license    GNU General Public License
 */
-class Database_SmrController extends Pas_Controller_Action_Admin {
+class Datalabs_SmrController extends Pas_Controller_Action_Admin 
+{
 	/** Initialise the ACL and contexts
 	*/
 	public function init() {
@@ -21,7 +22,7 @@ class Database_SmrController extends Pas_Controller_Action_Admin {
 		->addActionContext('index',$this->_contexts)
 		->initContext();
     }
-	const REDIRECT = 'database/smr/';
+	const REDIRECT = 'datalabs/smr/';
 	/** Index page for smrs
 	*/
 	public function indexAction() {
@@ -44,7 +45,7 @@ class Database_SmrController extends Pas_Controller_Action_Admin {
     if ($form->isValid($form->getValues())) {
     $params = $form->getValues();
 	unset($params['csrf']);
-    $this->_helper->Redirector->gotoSimple('index','smr','database',$params);
+    $this->_helper->Redirector->gotoSimple('index','smr','datalabs',$params);
     } else {
     $form->populate($form->getValues());
     $params = $form->getValues();

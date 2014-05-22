@@ -6,7 +6,8 @@
  *
  * @uses Pas_OaiPmhRepository_ResponseGenerator
  */
-class Database_OaiController extends Pas_Controller_Action_Admin {
+class Datalabs_OaiController extends Pas_Controller_Action_Admin 
+{
 	/** Setup the contexts by action and the ACL.
 	*/
 	public function init() {
@@ -18,7 +19,7 @@ class Database_OaiController extends Pas_Controller_Action_Admin {
 	$this->_helper->layout->setLayout('database');
 	$response = $this->getResponse();
 	$view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
-	$response->insert('sidebar', $view->render('structure/infoSidebar.phtml'));
+	$response->insert('sidebar', $view->render('structure/datalabsSidebar.phtml'));
 	$response->insert('userdata', $view->render('structure/userdata.phtml'));
 	$response->insert('header', $view->render('structure/header.phtml'));
 	$response->insert('breadcrumb', $view->render('structure/breadcrumb.phtml'));

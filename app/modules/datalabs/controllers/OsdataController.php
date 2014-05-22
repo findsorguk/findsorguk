@@ -7,7 +7,8 @@
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
 * @license    GNU General Public License
 */
-class Database_OsdataController extends Pas_Controller_Action_Admin {
+class Datalabs_OsdataController extends Pas_Controller_Action_Admin 
+{
 
 	protected $_contexts;
 
@@ -24,7 +25,7 @@ class Database_OsdataController extends Pas_Controller_Action_Admin {
 		->initContext();
 	}
 
-	const REDIRECT = 'database/osdata/';
+	const REDIRECT = 'datalabs/osdata/';
 
 	/** Display a paginated list of OS data points
 	*/
@@ -48,7 +49,7 @@ class Database_OsdataController extends Pas_Controller_Action_Admin {
     if ($form->isValid($form->getValues())) {
     $params = $form->getValues();
 	unset($params['csrf']);
-    $this->_helper->Redirector->gotoSimple('index','osdata','database',$params);
+    $this->_helper->Redirector->gotoSimple('index','osdata','datalabs',$params);
     } else {
     $form->populate($form->getValues());
     $params = $form->getValues();

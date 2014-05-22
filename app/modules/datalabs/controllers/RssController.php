@@ -1,5 +1,5 @@
 <?php
-/** Controller for displaying information topics
+/** Controller for RSS section
 * 
 * @category   Pas
 * @package    Pas_Controller
@@ -7,18 +7,18 @@
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
 * @license    GNU General Public License
 */
-class Info_AdviceController extends Pas_Controller_Action_Admin {
+class Datalabs_RssController extends Pas_Controller_Action_Admin {
 	
     /** Setup the contexts by action and the ACL.
     */
     public function init(){
     $this->_helper->acl->allow('public', null);
     }
-    /** Display the list of topics or individual pages.
+    /** Display list of RSS feeds.
     */	
     public function indexAction(){
     $content = new Content();
-    $this->view->contents = $content->getContent('info', 
+    $this->view->contents = $content->getContent('datalabs', 
             $this->_getParam('slug'));
     }
 
