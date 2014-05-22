@@ -5,16 +5,17 @@
 * This controller serves to produce an events archive for the Portable Antiquities Scheme.
 * Formats include JSON, XML, ATOM, RSS
 * 
-* @category		Pas
-* @package		Pas_Controller
-* @subpackage	ActionAdmin
-* @copyright	Copyright (c) 2011 Daniel Pett
-* @license		GNU General Public License
-* @author		Daniel Pett
-* @version		1
-* @since		23 September 2011
+* @category   Pas
+* @package    Pas_Controller
+* @subpackage ActionAdmin
+* @author     Daniel Pett <dpett@britishmuseum.org>
+* @copyright  Daniel Pett 2011 <dpett@britishmuseum.org>
+* @license    GNU General Public License
+* @author     Daniel Pett
+* @version    1
+* @since      23 September 2011
 */
-class Events_ArchivesController extends Pas_Controller_Action_Admin {
+class News_ArchivesController extends Pas_Controller_Action_Admin {
 
 	protected $_contextSwitch;
 	

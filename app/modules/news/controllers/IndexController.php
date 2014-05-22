@@ -1,10 +1,11 @@
 <?php
-/** Index controller for news module
+/** Controller for index of the news module
 *
 * @category   Pas
 * @package    Pas_Controller
 * @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+* @author     Daniel Pett <dpett@britishmuseum.org>
+* @copyright  Daniel Pett 2011 <dpett@britishmuseum.org>
 * @license    GNU General Public License
 */
 class News_IndexController extends Pas_Controller_Action_Admin {
@@ -22,6 +23,8 @@ class News_IndexController extends Pas_Controller_Action_Admin {
                 ->initContext();
     }
 
+    	/** Generate the list of news articles for the index page
+	*/
 	public function indexAction() {
 	$news = new News();
 	$this->view->news = $news->getAllNewsArticles($this->_getAllParams());

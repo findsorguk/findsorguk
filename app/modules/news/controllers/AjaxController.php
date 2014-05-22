@@ -1,5 +1,5 @@
 <?php
-/** Controller for ajax information gathering of news
+/** Controller for ajax information gathering of news and events
 * 
 * @category   Pas
 * @package    Pas_Controller
@@ -44,6 +44,13 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
 	$this->view->mapping = $news->getMapdata();
 	}
 
+	/** Return data for the event data ajax page
+	*/
+	public function eventdataAction() {
+	$events = new Events();
+	$this->view->mapping = $events->getMapdata();
+	}
+        
 	/** Find news by individual MP from theyworkforyou
 	* @todo rewrite to use YQL
 	*/ 

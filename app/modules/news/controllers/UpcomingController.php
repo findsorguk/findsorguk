@@ -1,12 +1,12 @@
 <?php
 /** The upcoming events controller for the events package
 *
-* @category   	Pas
-* @package    	Pas_Controller
-* @subpackage 	ActionAdmin
-* @copyright	Copyright (c) 2011 Daniel Pett
-* @license		GNU General Public License
-* @author		Daniel Pett
+* @category   Pas
+* @package    Pas_Controller
+* @subpackage ActionAdmin
+* @author     Daniel Pett <dpett@britishmuseum.org>
+* @copyright  Daniel Pett 2011 <dpett@britishmuseum.org>
+* @license    GNU General Public License
 */
 
 class Events_UpcomingController extends Pas_Controller_Action_Admin {
