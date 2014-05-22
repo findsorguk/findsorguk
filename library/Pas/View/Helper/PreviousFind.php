@@ -1,111 +1,253 @@
 <?php
-/**
- *
- * @author dpett
- * @version
- */
-require_once 'Zend/View/Interface.php';
-
-/**
- * PreviousFind helper
- *
- * @uses viewHelper Pas_View_Helper
+/** 
+ * A view helper for getting the next find from the index
+ * 
+ * This view helper is used for interfacing with the SOLR indexes that 
+ * run the search engine for the site. It only queries the object core and 
+ * returns one single record prior to the one you are viewing.
+ * 
+ * To use this view helper is very simple:
+ * <code>
+ * <?php echo $this->previousFind()->setFindID($id);?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @version 1
+ * @license GNU
+ * @category Pas
+ * @package Pas_View_Helper
+ * @uses Zend_Config
+ * @uses Zend_Cache
+ * @uses Solarium_Client
+ * @uses Zend_Registry
+ * @uses Pas_User_Details
+ * @uses Zend_View_Helper_Partial
+ * @todo Solr core needs correcting when the names are changed
+ * 
  */
 class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
 {
+    /** The cache object
+     * @access protected
+     * @var object
+     */
     protected $_cache;
 
+    /** The configuration for solr
+     * @access protected
+     * @var array
+     */
     protected $_solrConfig;
 
+    /** The solr core
+     * @access protected
+     * @var object
+     */
     protected $_solr;
 
+    /** The config object
+     * @access protected
+     * @var object
+     */
     protected $_config;
 
+    /** The query to solr
+     * @access protected
+     * @var object
+     */
     protected $_query;
 
+    /** The core to query
+     * @access protected
+     * @var string 
+     * @todo update name of core when change made
+     */
     protected $_core = 'beowulf';
-
-    public function __construct()
-    {
+    
+    /** The default role
+     * @access protected
+     * @var string
+     */
+    protected $_role = null;
+    
+    /** Get the cache object
+     * @access public
+     * @return object
+     */
+    public function getCache() {
         $this->_cache = Zend_Registry::get('cache');
-        $this->_config = Zend_Registry::get('config');
-        $this->_solrConfig = array('adapteroptions' => $this->_config->solr->toArray());
-        $this->_solr = new Solarium_Client($this->_solrConfig);
+        return $this->_cache;
+    }
+
+    /** Get the config
+     * @access public
+     * @return type
+     */
+    public function getSolrConfig() {
+        $this->_solrConfig = array(
+            'adapteroptions' => $this->getConfig()->solr->toArray()
+                );
+        return $this->_solrConfig;
+    }
+
+    /** Get the Solr instance
+     * @access public
+     * @return object
+     */
+    public function getSolr() {
+        $this->_solr = new Solarium_Client($this->getSolrConfig());
         $loadbalancer = $this->_solr->getPlugin('loadbalancer');
-        $master = $this->_config->solr->asgard->toArray();
-        $slave  = $this->_config->solr->valhalla->toArray();
+        $master = $this->getConfig()->solr->asgard->toArray();
+        $slave  = $this->getConfig()->solr->valhalla->toArray();
         $loadbalancer->addServer('master', $master, 100);
         $loadbalancer->addServer('slave', $slave, 200);
         $loadbalancer->setFailoverEnabled(true);
+        return $this->_solr;
     }
 
-    protected function _getRole()
-    {
-    $user = new Pas_User_Details();
-    $person = $user->getPerson();
-    if ($person) {
-        return $person->role;
-    } else {
-        return false;
-    }
-    }
-
-    protected $_allowed =  array('fa','flos','admin','treasure');
-
-    /**
-     *
+    /** Get the config object
+     * @access public
+     * @return object
      */
-    public function previousFind($findID)
-    {
-        return $this->getSolrData($findID);
+    public function getConfig() {
+        $this->_config = Zend_Registry::get('config');
+        return $this->_config;
     }
 
-    public function getSolrData($findID)
-    {
-        $key = md5('previousfind' . $findID . $this->_getRole());
-        if (!($this->_cache->test($key))) {
-        $query = 'id:[* TO ' . $findID  . ']';
-        $select = array(
-        'query'         => $query,
-        'filterquery' => array(),
-        );
-        $select['fields'] = array('id', 'old_findID', 'objecttype', 'broadperiod');
-        $select['sort'] = array('id' => 'desc');
-        $select['start'] = 1;
-        $select['rows'] = 1;
-        $this->_query = $this->_solr->createSelect($select);
-        if (!in_array($this->_getRole(), $this->_allowed) || is_null($this->_getRole()) ) {
-        $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
-        }
-
-        $this->_resultset = $this->_solr->select($this->_query);
-//		Zend_Debug::dump($this->_resultset);
-        $results = $this->_processResults($this->_resultset);
-        $this->_cache->save($results);
-        } else {
-        $results = $this->_cache->load($key);
-        }
-        if ($results) {
-        return $this->view->partial('partials/database/previous.phtml', $results['0']);
-        } else {
-            return false;
-        }
-
+    /** Get the user role
+     * @access public
+     * @return string
+     */
+    public function getRole() {
+        $user = new Pas_User_Details();
+        $person = $user->getPerson();
+        if ($person) {
+        $this->_role = $person->role;
+        } 
+        return $this->_role;
     }
 
-    public function _processResults()
-    {
-    $data = array();
-    foreach ($this->_resultset as $doc) {
-    $fields = array();
-    foreach ($doc as $key => $value) {
-            $fields[$key] = $value;
+    /** The default ID
+     * @access protected
+     * @var int
+     */
+    protected $_findID = 1;
+    
+    /** The allowed roles
+     * @access protected
+     * @var array
+     */
+    protected $_allowed =  array('fa','flos','admin','treasure');
+    
+    /** The key to use when accessing the cache
+     * @access protected
+     * @var string
+     */
+    protected $_key;
+    
+    /** The fields to query
+     * @access public
+     * @var array
+     */
+    protected $_fields = array('id', 'old_findID', 'objecttype', 'broadperiod');
+
+    /** Get the key for accessing the cache
+     * @access public
+     * @return string
+     */
+    public function getKey() {
+        $this->_key = md5('previousfind' . $this->getFindID() . $this->getRole());
+        return $this->_key;
+    }
+
+    /** Get the findID
+     * @access public
+     * @return int
+     */       
+    public function getFindID() {
+        return $this->_findID;
+    }
+
+    /** Set the find ID 
+     * @access public
+     * @param int $findID
+     * @return \Pas_View_Helper_PreviousFind
+     */
+    public function setFindID( int $findID) {
+        $this->_findID = $findID;
+        return $this;
+    }
+    
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_PreviousFind
+     */
+    public function previousFind() {
+        return $this;
+    }
+    
+    /** The to string method
+     * @access public
+     * @return the string to the view
+     */
+    public function __toString() {
+        return $this->getSolrData( $this->getFindID() );
+    }
+
+    /** Get the data from solr
+     * @access public
+     * @param int $findID
+     * @return string
+     */
+    public function getSolrData( int $findID) {
+        if (!($this->getCache()->test($this->getKey()))) {
+            $query = 'id:[* TO ' . $findID  . ']';
+            $select = array(
+                'query'         => $query,
+                'filterquery' => array(),
+                );
+            $select['fields'] = $this->_fields;
+            $select['sort'] = array('id' => 'desc');
+            $select['start'] = 1;
+            $select['rows'] = 1;
+            $this->_query = $this->getSolr()->createSelect($select);
+            if (!in_array($this->_getRole(), $this->_allowed) || 
+                    is_null($this->_getRole()) ) {
+                $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
             }
-        $data[] = $fields;
-    }
-    $processor = new Pas_Solr_SensitiveFields();
-    $clean = $processor->cleanData($data, $this->_getRole(), $this->_core);
 
-    return $clean;
+            $this->_resultset = $this->getSolr()->select($this->_query);
+            $results = $this->_processResults($this->_resultset);
+            $this->getCache()->save($results);
+            } else {
+                $results = $this->getCache()->load($key);
+            }
+        
+            if ($results) {
+                $html = $this->view->partial('partials/database/previous.phtml', 
+                        $results['0']);
+            } else {
+                $html = '';
+            }
+        return $html;
+    }
+
+    /** Process the results from solr to ensure safety
+     * @access public
+     * @return array
+     */
+    public function _processResults() {
+        $data = array();
+        foreach ($this->_resultset as $doc) {
+            $fields = array();
+            foreach ($doc as $key => $value) {
+                $fields[$key] = $value;
+            }
+            $data[] = $fields;
+            }
+            $processor = new Pas_Solr_SensitiveFields();
+            $clean = $processor->cleanData($data, $this->getRole(), $this->_core);
+        return $clean;   
     }
 }

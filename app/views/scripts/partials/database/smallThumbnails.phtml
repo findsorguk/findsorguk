@@ -1,0 +1,19 @@
+<?php
+/* 
+ * A partial view for displaying small thumbnails of images
+ * 
+ * @author Daniel Pett
+ * 
+ */
+?>
+<li>
+    <a href="<?php echo $this->baseUrl();?><?php echo $this->imagedir;?>medium/<?php rawurlencode($this->f);?>" 
+       rel="lightbox"><img class="img img-polaroid" src="<?php echo $this->baseUrl();?>/images/thumbnails/<?php echo $this->thumbnail;?>.jpg" /></a>
+    <br />
+    <a class="btn btn-small" href="<?php echo $this->url(array(
+        'module' => 'database',
+        'controller' => 'images',
+        'action' => 'image',
+        'id' => $this->i),null,true);?>" 
+        title="View and edit image meta data">View <i class="icon-picture"></i></a>
+</li>

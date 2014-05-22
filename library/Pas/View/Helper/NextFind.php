@@ -4,6 +4,12 @@
  *
  * A view helper that interfaces with solr and presents a link to the next
  * object in the index. Results are cached and also load balanced.
+ * 
+ * To use this view helper is very simple:
+ * <code>
+ * <?php echo $this->nextFind()->setFindID($id);?>
+ * </code>
+ * 
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @license http://URL GNU
@@ -19,9 +25,16 @@
  * @uses userDetails Pas_User_Details
  * @uses sensitive_fields Pas_Solr_SensitiveFields
  * @uses viewHelper Zend_View_Helper_Partial
+ * @todo Swap name of the solr core when changes made
  */
 class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
 {
+   
+    /** The fields to query
+     * @access protected
+     * @var array
+     */
+    protected $_fields =  array('id', 'old_findID', 'objecttype', 'broadperiod');
     /**
      * The cache object
      * @var object
@@ -55,7 +68,6 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
 
     /** The core to query
      * @access protected
-     * @todo I don't think this is used in this class
      * @var string
      */
     protected $_core = 'beowulf';
@@ -226,14 +238,15 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
                 'filterquery' => array(),
                 );
 
-            $select['fields'] = array('id', 'old_findID', 'objecttype', 'broadperiod');
+            $select['fields'] = $this->_fields;
             $select['sort'] = array('id' => 'asc');
             $select['start'] = 1;
             $select['rows'] = 1;
             $this->_query = $this->getSolr()->createSelect($select);
             if (!in_array($this->getRole(), $this->getAllowed())
                     || is_null($this->getRole()) ) {
-                $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
+                $this->_query->createFilterQuery('workflow')
+                        ->setQuery('workflow:[3 TO 4]');
                     }
                 $this->_resultset = $this->getSolr()->select($this->_query);
                 $results = $this->_processResults($this->_resultset);
@@ -243,7 +256,8 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
                 }
 
                 if ($results) {
-                    $html = $this->view->partial('partials/database/next.phtml', $results['0']);
+                    $html = $this->view->partial('partials/database/next.phtml', 
+                            $results['0']);
                 } else {
                     $html = '';
                 }
@@ -264,8 +278,8 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
             $data[] = $fields;
             }
             $processor = new Pas_Solr_SensitiveFields();
-            $clean = $processor->cleanData($data, $this->_getRole(), $this->_core);
+            $clean = $processor->cleanData($data, $this->getRole(), 
+                    $this->getCore());
             return $clean;
     }
-
 }

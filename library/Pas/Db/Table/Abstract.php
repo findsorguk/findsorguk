@@ -11,8 +11,7 @@
 * @copyright 	2010 - DEJ Pett
  *
  */
-class Pas_Db_Table_Abstract
-	extends Zend_Db_Table_Abstract {
+class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
 
 	public $_config;
 
@@ -79,32 +78,7 @@ class Pas_Db_Table_Abstract
         return parent::insert($data);
 	}
 
-	/** Update the data to the model
-	 * @access public
-	 * @param array $data
-	 */
-	public function update( $data, $where){
-        if(array_key_exists('csrf', $data)){
-        unset($data['csrf']);
-        }
-
-	if(empty($data['updated'])){
-		$data['updated'] = $this->timeCreation();
-	}
-	if(empty($data['updatedBy'])){
-		$data['updatedBy'] = $this->userNumber();
-	}
-        if(array_key_exists('created', $data)){
-            unset($data['created']);
-        }
-        foreach($data as $k => $v) {
-            if ( $v == "") {
-            $data[$k] = NULL;
-            }
-        }
-	$tableSpec = ($this->_schema ? $this->_schema . '.' : '') . $this->_name;
-	return parent::update( $data, $where);
-	}
+	
 
 //	public function _purgeCache(){
 //    $this->_cache->clean(Zend_Cache::CLEANING_MODE_ALL);
