@@ -1,16 +1,16 @@
 
 <div class="sidebar-nav col-md-3" >
     <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
-		<li <?php echo $this->currentPage()->active('info','content','page','aboutus');?>>
-			<a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'aboutus'),'i',true);?>" title="About the Scheme">About the Scheme</a></li>
-		<li <?php echo $this->currentPage()->active('getinvolved','vacancies','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'vacancies','action' => 'index'),'default',true);?>" title="Current vacancy listing">Vacancies</a></li>
-        <li <?php echo $this->currentPage()->active('getinvolved','vacancies','archives');?>>
-            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'vacancies','action' => 'archives'),'default',true);?>" title="Archived vacancy lists">Archived vacancies</a></li>
-        <li <?php echo $this->currentPage()->active('contacts','alumni','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'contacts','controller' => 'alumni'),null,true);?>" title="View former staff details"><i class="icon-list"></i>Former staff</a></li>
+		<li <?php echo $this->currentPage()->active('about','content','page','aboutus');?>>
+			<a href="<?php echo $this->url(array('module' => 'about','controller' => 'content','action' => 'page','slug' => 'aboutus'),'i',true);?>" title="About the Scheme">About the Scheme</a></li>
+		<li <?php echo $this->currentPage()->active('about','vacancies','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'about','controller' => 'vacancies','action' => 'index'),'default',true);?>" title="Current vacancy listing">Vacancies</a></li>
+        <li <?php echo $this->currentPage()->active('about','vacancies','archives');?>>
+            <a href="<?php echo $this->url(array('module' => 'about','controller' => 'vacancies','action' => 'archives'),'default',true);?>" title="Archived vacancy lists">Archived vacancies</a></li>
+        <li <?php echo $this->currentPage()->active('about','alumni','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'about','controller' => 'alumni'),null,true);?>" title="View former staff details"><i class="icon-list"></i>Former staff</a></li>
         <!-- Scheme logo and brand from Get Involved -->
-        <li <?php echo $this->currentPage()->active('getinvolved','contactus','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'contactus'),'default',true);?>" title="Send us a message via our contact form">Contact us</a></li>
+        <li <?php echo $this->currentPage()->active('about','contactus','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'about','controller' => 'contactus'),'default',true);?>" title="Send us a message via our contact form">Contact us</a></li>
     </ul>
 </div>

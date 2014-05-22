@@ -1,5 +1,5 @@
 <?php
-/** Controller for alumni based data
+/** Controller for former staff
 * 
 * @category   Pas
 * @package    Pas_Controller
@@ -7,7 +7,7 @@
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
 * @license    GNU General Public License
 */
-class Contacts_AlumniController extends Pas_Controller_Action_Admin
+class About_AlumniController extends Pas_Controller_Action_Admin
 {
 	/** Initialise the ACL and contexts
 	*/ 

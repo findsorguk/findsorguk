@@ -10,7 +10,7 @@
  * @since 13th January 2011
  *
  */
-class GetInvolved_ContactUsController extends Pas_Controller_Action_Admin {
+class About_ContactUsController extends Pas_Controller_Action_Admin {
 
 	/** Initialise controller
 	 *

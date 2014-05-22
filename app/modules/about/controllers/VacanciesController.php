@@ -1,5 +1,5 @@
 <?php
-/** Controller for getting vacancy data
+/** Controller for current and archived vacancies
 *
 * @category   Pas
 * @package    Pas_Controller
