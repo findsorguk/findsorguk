@@ -7,7 +7,7 @@
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
 * @license    GNU General Public License
 */
-class GetInvolved_VacanciesController extends Pas_Controller_Action_Admin {
+class About_VacanciesController extends Pas_Controller_Action_Admin {
 	
 	protected $_vacancies;
 	
@@ -49,8 +49,8 @@ class GetInvolved_VacanciesController extends Pas_Controller_Action_Admin {
 		foreach ($vacs as $vac) {
 			$feedArray['entries'][] = array(
 				'title' => $vac['title'] . ' - ' . $vac['staffregions'],
-				'link' => Zend_Registry::get('siteurl').'/getinvolved/vacancies/vacancy/id/'.$vac['id'],
-				'guid' => Zend_Registry::get('siteurl').'/getinvolved/vacancies/vacancy/id/'.$vac['id'],
+				'link' => Zend_Registry::get('siteurl').'/about/vacancies/vacancy/id/'.$vac['id'],
+				'guid' => Zend_Registry::get('siteurl').'/about/vacancies/vacancy/id/'.$vac['id'],
 				'description' => strip_tags(substr($vac['specification'],0,300)),
 				'lastUpdate' => strtotime($vac['created']),
 				'content' => strip_tags($vac['specification'],''),

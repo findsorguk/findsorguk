@@ -1,5 +1,5 @@
 <?php
-/** Controller for displaying information topics
+/** Controller for index of About Us section
 * 
 * @category   Pas
 * @package    Pas_Controller
@@ -7,7 +7,7 @@
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
 * @license    GNU General Public License
 */
-class Info_AdviceController extends Pas_Controller_Action_Admin {
+class About_IndexController extends Pas_Controller_Action_Admin {
 	
     /** Setup the contexts by action and the ACL.
     */
