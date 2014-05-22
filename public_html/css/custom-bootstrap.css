@@ -1,9 +1,9 @@
 body {
 	padding-top: 60px;
-    padding-bottom: 40px;
+	padding-bottom: 40px;
 }
 .form-horizontal .form-actions {
-  padding-left: 50px;
+	padding-left: 50px;
 }
 .flow {
 	float:right;
@@ -21,7 +21,7 @@ body {
 
 #map {
 	min-height:700px;
-	 height: auto !important;
+	height: auto !important;
 }
 #mapIntro {
 	min-height:400px;
@@ -66,7 +66,7 @@ ul {
 	padding:10px;
 }
 #radius {
-    margin:20px;
+    margin-top:20px;
 }
 
 #totals{
@@ -140,35 +140,35 @@ ul.facetExpand li {
   }
 }
 @media (max-width: 825px) {
-.pagination .pageAway-4 {
-    display:none;
-  }
-  .pagination .pageAway-3 {
-    display:none;
-  }
+	.pagination .pageAway-4 {
+	    display:none;
+	}
+	.pagination .pageAway-3 {
+	    display:none;
+	}
 }
 @media (max-width: 750px) {
-.pagination .pageAway-6 {
-    display:none;
-  }
-.pagination .pageAway-5 {
-    display:none;
-  }
-.pagination .pageAway-4 {
-    display:none;
-  }
-  .pagination .pageAway-3 {
-    display:none;
-  }
-  .pagination .pageAway-2 {
-    display:none;
-  }
+	.pagination .pageAway-6 {
+	    display:none;
+	 }
+	.pagination .pageAway-5 {
+	    display:none;
+	 }
+	.pagination .pageAway-4 {
+	    display:none;
+	 }
+	 .pagination .pageAway-3 {
+	    display:none;
+	 }
+	 .pagination .pageAway-2 {
+	    display:none;
+	 }
 }
 .datepicker {
-  background-color: #ffffff;
-  border-color: #999;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: solid;
+	background-color: #ffffff;
+	border-color: #999;
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
   border-width: 1px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
