@@ -1,54 +1,56 @@
 <!--  Start previous next row -->
 <div class="row-fluid" id="prior-next">
     <ul class="pager">
-    	<?php echo $this->previousFind($this->finds['0']['id']);?>
-		<?php echo $this->nextFind($this->finds['0']['id']);?>
+
+        <!-- The previous find widget -->
+        <?php echo $this->previousFind()->setFindID($this->finds['0']['id']);?>
+        <!-- End of previous find widget -->
+
+        <!-- The next find widget -->
+        <?php echo $this->nextFind()->setFindID($this->finds['0']['id']);?>
+        <!-- End of next find widget -->
 
     </ul>
 </div>
 <!--  End the previous next row -->
-<div typeof="crm:E22_Man-Made_Object" about="<?php echo $this->serverUrl();?>/database/artefacts/record/id/<?php echo $this->finds['0']['id'];?>" class="record">
+
+<div typeof="crm:E22_Man-Made_Object"
+     about="<?php echo $this->serverUrl();?>/database/artefacts/record/id/<?php echo $this->finds['0']['id'];?>"
+     class="record">
 <!--  Start of main body of record -->
-<div class="row-fluid">
-
-
-
-    <?php
-	echo $this->partialLoop('partials/database/recordheadtitle.phtml',$this->finds);
-	
-	echo $this->partialLoop('partials/database/zoterorecord.phtml',$this->finds);
-    ?>
-
-<div id="workflowstatus"></div>
-
-
-
-<!--  Start of descriptive data -->
 
 <div class="row-fluid">
+    
+    <?php echo $this->partialLoop('partials/database/recordheadtitle.phtml',$this->finds);?>
+    <?php echo $this->partialLoop('partials/database/zoterorecord.phtml',$this->finds);?>
 
-	<div class="span8">
-	<?php
-	echo $this->partial('partials/database/recordh2section.phtml',$this->finds['0']);
 
-	echo $this->notifyFloPublic(
-       		$this->finds['0']['institution'],
- 			$this->finds['0']['id'],
-        	$this->finds['0']['secwfstage']
-            );
+    <div id="workflowstatus">
+        <!-- Empty div that updates with the workflow message -->
+    </div>
 
-   	echo $this->partial('partials/database/recorddescriptive.phtml',$this->finds['0']);
+    <!--  Start of descriptive data -->
+    <div class="row-fluid">
 
-   	echo $this->partial('partials/database/treasurefinddetails.phtml', $this->finds['0']);
-
-   	echo $this->partial('partials/database/temporal.phtml', $this->temporals['0']);
-
+        <div class="span8">
+            <!-- Header of section -->
+            <?php echo $this->partial('partials/database/recordh2section.phtml',$this->finds['0']); ?>
+            <!-- Notification message if public record -->
+            <?php echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
+            <!-- The description of the object -->
+            <?php echo $this->partial('partials/database/recorddescriptive.phtml',$this->finds['0']);?>
+            <!-- Treasure find info -->
+            <?php echo $this->partial('partials/database/treasurefinddetails.phtml', $this->finds['0']);?>
+            <!-- Temporal details -->
+            <?php echo $this->partial('partials/database/temporal.phtml', $this->temporals['0']);?>
+            <!-- Dimensional data -->
+        <?php
    	if (count($this->findsdata) > 0) {
 	echo $this->partial('partials/database/dimensions.phtml', $this->findsdata['0']);
 	}
-
-	echo $this->partial('partials/database/datefound.phtml',$this->finds['0']);
-
+        ?>
+        <?php echo $this->partial('partials/database/datefound.phtml',$this->finds['0']);?>
+        <?php
 	if (count($this->rallyfind)){
         echo $this->partial('partials/database/rallyfind.phtml', $this->rallyfind['0']);
 	}
@@ -67,8 +69,7 @@
 	<?php
 	if (count($this->findsmaterial)){
 		echo $this->partial('partials/database/materials.phtml', $this->findsmaterial['0']);
-	}
-	?>
+	} ?>
 
 	<?php
 	echo $this->coinDataDisplay()
@@ -83,9 +84,9 @@
 	<?php if(in_array($this->finds[0]['objecttype'],$numismatics)):?>
 	<div id="coinrefslinked">
         <h4>Coin references</h4>
-	        <ul>
-	        <?php echo $this->partial('partials/numismatics/coinrefs.phtml',$this->coinrefs['0']);?>
-	        </ul>
+            <ul>
+            <?php echo $this->partial('partials/numismatics/coinrefs.phtml',$this->coinrefs['0']);?>
+            </ul>
 
 	<?php
 	echo $this->coinRefAddLink(
@@ -133,7 +134,7 @@
 		<?php endif;?>
 		<h4>Image use policy</h4>
 		<p>Our images can be used under a <a href="https://creativecommons.org/licenses/by-sa/2.0/" >CC BY-SA licence</a> (unless stated otherwise).</p>
-		<?php 
+		<?php
 		} else {?>
 		<p>There are currently no images available.<br />
 		If you own this object please send us a picture of it.</p>
@@ -199,9 +200,7 @@ $this->finds['0']['secuid'],$this->finds['0']['createdBy']);?>
 </div>
 <!-- The more like this section -->
 <div class="row-fluid" id="morelikethis">
-<?php
-	echo $this->moreLikeThis()->setQuery('old_findID:' . $this->finds['0']['old_findID']);
-?>
+<?php echo $this->moreLikeThis()->setQuery('old_findID:' . $this->finds['0']['old_findID']);?>
 </div>
 <!--  End of more like this section -->
 
@@ -235,27 +234,29 @@ $this->finds['0']['secuid'],$this->finds['0']['createdBy']);?>
 <?php endif;?>
 </div>
 
-
+<!-- Start of commentary section -->
 <div id="commentform">
+    <div>
+    <h2>Comment on this artefact's record</h2>
 
-<div>
-<h2>Comment on this artefact's record</h2>
+        <div>
+        <p>
+            Your comment will be checked before being posted. We also check for spam using
+            <a href="http://akismet.com/" title="The Aksimet anti-spam detection service">akismet</a>.
+        </p>
 
-<div>
-<p>Your comment will be checked before being posted. We also check for spam using <a href="http://akismet.com/" title="The Aksimet anti-spam detection service">akismet</a>.</p>
+                <?php
+                $auth = Zend_Registry::get('auth');
+                if($auth->hasIdentity()){
+                $user = $auth->getIdentity();
+                $this->form->comment_author->setValue($user->fullname);
+                $this->form->comment_author_email->setValue($user->email);
+                }
+                echo $this->form;
+                ?>
 
-	<?php
-	$auth = Zend_Registry::get('auth');
-	if($auth->hasIdentity()){
-	$user = $auth->getIdentity();
-	$this->form->comment_author->setValue($user->fullname);
-	$this->form->comment_author_email->setValue($user->email);
-	}
-	echo $this->form;
-	?>
-
-</div>
-</div>
+        </div>
+    </div>
 </div>
 <!--  The end of the commentary section -->
 
@@ -267,13 +268,7 @@ $this->finds['0']['secuid'],$this->finds['0']['createdBy']);?>
 
 <!-- Start of the Audit section -->
 <div class="row-fluid" id="audit">
-        <?php 
-        echo $this->partial('partials/database/recordaudit.phtml',$this->finds['0']); 
-        ?>
-		<?php 
-		echo $this->auditLogs($this->finds['0']['id']);
-		?>
-
-
-	</div>
+    <?php echo $this->partial('partials/database/recordaudit.phtml',$this->finds['0']); ?>
+    <?php echo $this->auditLogs($this->finds['0']['id']); ?>
+</div>
 <!-- end of audit section -->
