@@ -1,16 +1,16 @@
 <?php
-/** 
+/**
  * A view helper for getting the next find from the index
- * 
- * This view helper is used for interfacing with the SOLR indexes that 
- * run the search engine for the site. It only queries the object core and 
+ *
+ * This view helper is used for interfacing with the SOLR indexes that
+ * run the search engine for the site. It only queries the object core and
  * returns one single record prior to the one you are viewing.
- * 
+ *
  * To use this view helper is very simple:
  * <code>
  * <?php echo $this->previousFind()->setFindID($id);?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
@@ -24,7 +24,7 @@
  * @uses Pas_User_Details
  * @uses Zend_View_Helper_Partial
  * @todo Solr core needs correcting when the names are changed
- * 
+ *
  */
 class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
 {
@@ -60,17 +60,17 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
 
     /** The core to query
      * @access protected
-     * @var string 
+     * @var string
      * @todo update name of core when change made
      */
     protected $_core = 'beowulf';
-    
+
     /** The default role
      * @access protected
      * @var string
      */
     protected $_role = null;
-    
+
     /** Get the cache object
      * @access public
      * @return object
@@ -124,7 +124,7 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
         $person = $user->getPerson();
         if ($person) {
         $this->_role = $person->role;
-        } 
+        }
         return $this->_role;
     }
 
@@ -133,19 +133,19 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @var int
      */
     protected $_findID = 1;
-    
+
     /** The allowed roles
      * @access protected
      * @var array
      */
     protected $_allowed =  array('fa','flos','admin','treasure');
-    
+
     /** The key to use when accessing the cache
      * @access protected
      * @var string
      */
     protected $_key;
-    
+
     /** The fields to query
      * @access public
      * @var array
@@ -164,21 +164,21 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
     /** Get the findID
      * @access public
      * @return int
-     */       
+     */
     public function getFindID() {
         return $this->_findID;
     }
 
-    /** Set the find ID 
+    /** Set the find ID
      * @access public
      * @param int $findID
      * @return \Pas_View_Helper_PreviousFind
      */
-    public function setFindID( int $findID) {
+    public function setFindID( $findID) {
         $this->_findID = $findID;
         return $this;
     }
-    
+
     /** The function to return
      * @access public
      * @return \Pas_View_Helper_PreviousFind
@@ -186,7 +186,7 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
     public function previousFind() {
         return $this;
     }
-    
+
     /** The to string method
      * @access public
      * @return the string to the view
@@ -200,7 +200,7 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @param int $findID
      * @return string
      */
-    public function getSolrData( int $findID) {
+    public function getSolrData( $findID) {
         if (!($this->getCache()->test($this->getKey()))) {
             $query = 'id:[* TO ' . $findID  . ']';
             $select = array(
@@ -212,7 +212,7 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
             $select['start'] = 1;
             $select['rows'] = 1;
             $this->_query = $this->getSolr()->createSelect($select);
-            if (!in_array($this->_getRole(), $this->_allowed) || 
+            if (!in_array($this->_getRole(), $this->_allowed) ||
                     is_null($this->_getRole()) ) {
                 $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
             }
@@ -223,9 +223,9 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
             } else {
                 $results = $this->getCache()->load($key);
             }
-        
+
             if ($results) {
-                $html = $this->view->partial('partials/database/previous.phtml', 
+                $html = $this->view->partial('partials/database/previous.phtml',
                         $results['0']);
             } else {
                 $html = '';
@@ -248,6 +248,6 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
             }
             $processor = new Pas_Solr_SensitiveFields();
             $clean = $processor->cleanData($data, $this->getRole(), $this->_core);
-        return $clean;   
+        return $clean;
     }
 }

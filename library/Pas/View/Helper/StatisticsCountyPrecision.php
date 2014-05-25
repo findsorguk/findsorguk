@@ -198,7 +198,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @param  string                                     $index
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setIndex(string $index)
+    public function setIndex( $index)
     {
         $this->_index = $index;
 
@@ -210,7 +210,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @param  int                                        $limit
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setLimit(int $limit)
+    public function setLimit($limit)
     {
         $this->_limit = $limit;
 
@@ -222,7 +222,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @param  int                                        $start
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setStart(int $start)
+    public function setStart($start)
     {
         $this->_start = $start;
 
@@ -234,7 +234,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @param  int                                        $end
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setEnd(int $end)
+    public function setEnd($end)
     {
         $this->_end = $end;
 
@@ -246,7 +246,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @param  string                                     $county
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setCounty(string $county)
+    public function setCounty( $county)
     {
         $this->_county = $county;
 

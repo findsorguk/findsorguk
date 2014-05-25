@@ -68,7 +68,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_PelagiosAnnotations
      * @throws Zend_Exception
      */
-    public function setPleiadesPlace(int $place)
+    public function setPleiadesPlace($place)
     {
         if (isset( $place )) {
             $this->_uri = urlencode(self::PLEIADESURI . $place);

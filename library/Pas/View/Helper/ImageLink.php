@@ -1,22 +1,22 @@
 <?php
 /**
  * This class is to help display links for edit or delete image functions
- * 
- * It takes data from the finds model and checks it conditionally against 
+ *
+ * It takes data from the finds model and checks it conditionally against
  * if/else statements and renders the link if possible.
- * 
+ *
  * To use:
- * 
+ *
  * <code>
- * <?php 
+ * <?php
  * echo $this->imageLink()
  * ->setInstitution($institution)
  * ->setSecuID($secuid)
  * ->setCreatedBy($createdBy);
  * ?>
  * </code>
- * 
- * 
+ *
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -26,7 +26,7 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @since September 13 2011
  * @version 2
- * 
+ *
 */
 class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
 {
@@ -66,19 +66,19 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
      * @var int
      */
     protected $_createdBy;
-    
+
     /** The institution of the recorder creator
      * @access protected
      * @var string
      */
     protected $_institution = 'PUBLIC';
-    
+
     /** The institution of the user
      * @access protected
      * @var string
      */
     protected $_inst;
-    
+
     /** The record's secuid
      * @access protected
      * @var string
@@ -90,7 +90,7 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
      * @var string
      */
     protected $_role = null;
-    
+
     /** get the creator
      * @access public
      * @return int
@@ -120,7 +120,7 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
      * @param int $createdBy
      * @return \Pas_View_Helper_ImageLink
      */
-    public function setCreatedBy( int $createdBy) {
+    public function setCreatedBy( $createdBy) {
         $this->_createdBy = $createdBy;
         return $this;
     }
@@ -130,7 +130,7 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
      * @param string $institution
      * @return \Pas_View_Helper_ImageLink
      */
-    public function setInstitution( string $institution) {
+    public function setInstitution( $institution) {
         $this->_institution = $institution;
         return $this;
     }
@@ -140,11 +140,11 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
      * @param string $secuid
      * @return \Pas_View_Helper_ImageLink
      */
-    public function setSecuid( string $secuid) {
+    public function setSecuid( $secuid) {
         $this->_secuid = $secuid;
         return $this;
     }
-    
+
     /** Get the user's role
      * @access public
      * @return string
@@ -153,7 +153,7 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
         if ($this->getAuth()->hasIdentity()) {
         $user = $this->getAuth()->getIdentity();
         $this->_role = $user->role;
-        } 
+        }
         return $this->_role;
     }
 
@@ -171,17 +171,17 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
      * @param int $findID
      * @return \Pas_View_Helper_CoinRefAddLink
      */
-    public function setFindID( int $findID) {
+    public function setFindID( $findID) {
         $this->_findID = $findID;
         return $this;
     }
-    
+
     /** The findID
      * @access protected
      * @var int
      */
     protected $_findID;
-    
+
     /** Get the findID
      * @access public
      * @return int
@@ -189,13 +189,13 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
     public function getFindID() {
         return $this->_findID;
     }
-    
+
     /** The user id
      * @access protected
-     * @var type 
+     * @var type
      */
     protected $_userID;
-    
+
     /** Get the user's ID
      * @access public
      * @return int
@@ -219,18 +219,18 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
         }
         return $this->_inst;
     }
-    
+
      /** Check whether access is allowed by userid for that record
-     * 
+     *
      * This function conditionally checks to see if a user is in the restricted
-     * group and then checks whether they created the record. If true, they can 
+     * group and then checks whether they created the record. If true, they can
      * edit it.
-     * 
+     *
      * @access public
      * @param int $createdBy
      * @return boolean
      */
-    public function checkAccessbyUserID(int $createdBy ) {
+    public function checkAccessbyUserID($createdBy ) {
             if (in_array( $this->getRole(), $this->_restricted ) ) {
             if ($createdBy == $this->getUserID()) {
                     $allowed = true;
@@ -242,36 +242,36 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
     }
 
     /** Check institutional access by user's institution
-     * 
-     * This function conditionally checks whether a user's institution allows 
+     *
+     * This function conditionally checks whether a user's institution allows
      * them editing rights to a record.
-     * 
-     * First condition: if role is in recorders array and their institution is 
+     *
+     * First condition: if role is in recorders array and their institution is
      * the same, then allow.
-     * 
+     *
      * Second condition: if role is in higher level, then allow
-     * 
-     * Third condition: if role is in restricted (public) and they created, 
+     *
+     * Third condition: if role is in restricted (public) and they created,
      * then allow.
-     * 
+     *
      * Fourth condition: if role is in restricted and institution is public,
      * then allow.
-     * 
+     *
      * @access public
      * @param string $institution
      * @return boolean
-     * 
+     *
      */
-    public function checkAccessbyInstitution( string $institution ) {
-        if(in_array($this->getRole(),$this->_recorders) 
+    public function checkAccessbyInstitution( $institution ) {
+        if(in_array($this->getRole(),$this->_recorders)
                 && $this->getInst() == $institution) {
             $allowed = true;
         } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
             $allowed = true;
-        } elseif (in_array ($this->getRole, $this->_restricted) 
+        } elseif (in_array ($this->getRole, $this->_restricted)
                 && $this->checkAccessbyUserID ($this->getCreatedBy())) {
             $allowed = true;
-        } elseif (in_array($this->getRole(),$this->_recorders) 
+        } elseif (in_array($this->getRole(),$this->_recorders)
                 && $institution == 'PUBLIC') {
             $allowed = true;
         }
@@ -285,7 +285,7 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
     public function ImageLink() {
         return $this;
     }
-    
+
     /** To string function
      * @access public
      * @return string
@@ -293,7 +293,7 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
     public function __toString() {
         return $this->generateLink();
     }
-    
+
     /** Generate the link
      * @access public
      * @return string
@@ -320,7 +320,7 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
         );
         return $url;
     }
-    
+
     /** Build the html
      * @access public
      * @return string
@@ -335,5 +335,5 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
         $html .= 'Add an image</a></div>';
         return $html;
     }
-    
+
 }

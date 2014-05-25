@@ -48,7 +48,7 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @param  int                        $certainty
      * @return \Pas_View_Helper_Certainty
      */
-    public function setCertainty(int $certainty)
+    public function setCertainty($certainty)
     {
         $this->_certainty = $certainty;
 

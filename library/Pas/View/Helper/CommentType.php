@@ -65,7 +65,7 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
      * @param  type                         $id
      * @return \Pas_View_Helper_CommentType
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->_id = $id;
 
@@ -77,7 +77,7 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
      * @param  string                       $type
      * @return \Pas_View_Helper_CommentType
      */
-    public function setType(string $type)
+    public function setType( $type)
     {
         $this->_type = $type;
 

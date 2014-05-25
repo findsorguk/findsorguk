@@ -32,7 +32,7 @@ class Pas_View_Helper_DenomController extends Zend_View_Helper_Abstract
      * @param  string                           $period
      * @return \Pas_View_Helper_DenomController
      */
-    public function setPeriod(string $period)
+    public function setPeriod( $period)
     {
         $this->_period = $period;
 

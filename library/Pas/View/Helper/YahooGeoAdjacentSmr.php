@@ -32,7 +32,7 @@ class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function setWoeid(int $woeid)
+    public function setWoeid($woeid)
     {
         $this->_woeid = $woeid;
 

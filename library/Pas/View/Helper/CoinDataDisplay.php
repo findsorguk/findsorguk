@@ -1,10 +1,10 @@
 <?php
-/** 
+/**
  * A view helper for rendering coin data
- * 
- * This view helper is used for displaying coin data on a page based on the 
+ *
+ * This view helper is used for displaying coin data on a page based on the
  * numismatic or object type.
- * 
+ *
  * To use this:
  * <code>
  * <?php echo $this->coinDataDisplay()
@@ -14,7 +14,7 @@
  * ->setFinds($this->finds);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @uses Zend_View_Helper_PartialLoop
  * @uses Pas_View_Helper_AddCoinLink
@@ -37,7 +37,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
 
     /** The array of object types
      * @access protected
-     * @var array 
+     * @var array
      */
     protected $_objects = array('JETTON', 'TOKEN');
 
@@ -47,7 +47,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      */
     protected $_broadperiods = array(
         'IRON AGE', 'ROMAN', 'BYZANTINE',
-        'EARLY MEDIEVAL', 'GREEK AND ROMAN PROVINCIAL', 'MEDIEVAL', 
+        'EARLY MEDIEVAL', 'GREEK AND ROMAN PROVINCIAL', 'MEDIEVAL',
         'POST MEDIEVAL', 'MODERN', 'UNKNOWN'
         );
 
@@ -56,31 +56,31 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @var string
      */
     protected $_objectType;
-    
+
     /** The broadperiod
      * @access protected
      * @var string
      */
     protected $_broadperiod;
-    
+
     /** The coins array drawn from the model
      * @access protected
      * @var array
      */
     protected $_coins;
-    
+
     /** The finds array drawn from the model
      * @access protected
      * @var array
      */
     protected $_finds;
-    
+
     /** The types array
      * @access protected
      * @var array
      */
     protected $_types;
-    
+
     /** Get the numismatic array
      * @access public
      * @return array
@@ -172,19 +172,19 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param string $objectType
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setObjectType( string $objectType) {
+    public function setObjectType( $objectType) {
         $this->_objectType = $objectType;
         return $this;
     }
-    
+
     /** Get the types
      * This function merges the two arrays of numismatica and objects
-     * 
+     *
      * @access public
      * @return array
      */
     public function getTypes() {
-        $this->_types = array_merge($this->getNumismatics(), 
+        $this->_types = array_merge($this->getNumismatics(),
                 $this->getObjects());
         return $this->_types;
     }
@@ -198,13 +198,13 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
         $this->_types = $types;
         return $this;
     }
-    
+
     /** Set the broadperiod to query
      * @access public
      * @param string $broadperiod
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setBroadperiod( string $broadperiod) {
+    public function setBroadperiod( $broadperiod) {
         $this->_broadperiod = $broadperiod;
         return $this;
     }
@@ -236,7 +236,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
     public function coinDataDisplay() {
         return $this;
     }
-    
+
     /** To string function
      * @access public
      * @return string
@@ -244,7 +244,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
     public function __toString() {
         return $this->buildHtml();
     }
-    
+
     /** Build the html
      * @access public
      * @return string
@@ -259,9 +259,9 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
             if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {
                 $template = str_replace(' ','', $this->getBroadperiod());
                 $html .= $this->view->partialLoop(
-                        'partials/database/' . strtolower($template) 
+                        'partials/database/' . strtolower($template)
                         . 'Data.phtml', $this->getCoins());
-            } elseif (in_array(strtoupper($this->getObjectType()), 
+            } elseif (in_array(strtoupper($this->getObjectType()),
                     $this->getObjects())) {
                 $html .= $this->view->partialLoop(
                         'partials/database/jettonData.phtml', $this->getCoins());
@@ -282,22 +282,22 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
             if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {
             $html .= $this->view->addCoinLink()
                             ->setFindID((int) $finds[0]['id'])
-                            ->setSecUid($finds[0]['secuid'])
+                            ->setSecuID($finds[0]['secuid'])
                             ->setCreatedBy((int) $finds[0]['createdBy'])
                             ->setBroadperiod($finds[0]['broadperiod'])
-                            ->setInstitution($finds[0]['institution']);
-
-            $html .= '</div></div>';
+                            ->setInstitution($finds[0]['institution'])
+                            ->setRecordID((int)$finds[0]['coinID']);
             } elseif (in_array(strtoupper($this->getObjectType()), $this->getObjects())) {
-            $html .= $this->view->addJettonLink()
-                    ->setFindID((int) $finds[0]['id'])
-                    ->setSecUid($finds[0]['secuid'])
-                    ->setCreatedBy((int) $finds[0]['createdBy'])
-                    ->setBroadperiod($finds[0]['broadperiod'])
-                    ->setInstitution($finds[0]['institution']);
-            $html .= '</div></div>';
+                $html .= $this->view->addJettonLink()
+                        ->setFindID((int) $finds[0]['id'])
+                        ->setSecUid($finds[0]['secuid'])
+                        ->setCreatedBy((int) $finds[0]['createdBy'])
+                        ->setBroadperiod($finds[0]['broadperiod'])
+                        ->setInstitution($finds[0]['institution'])
+                        ->setRecordID($finds[0]['coinID']);
             }
 
+            $html .= '</div></div>';
         }
         }
 

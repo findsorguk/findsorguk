@@ -129,7 +129,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @param string $string
      * @return type
      */
-    protected function _cleaner( string $string) {
+    protected function _cleaner( $string) {
         $html = str_replace(array('http://dbpedia.org/resource/', 'Category:',
             '_'),array('','',' '), $string);
         return $html;
@@ -140,7 +140,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @param string $string
      * @return string
      */
-    protected function _wikiLink( string $string) {
+    protected function _wikiLink( $string) {
         $cleaned = str_replace(array('http://dbpedia.org/resource/'),
                 array('http://en.wikipedia.org/wiki/'), $string);
         $html = '<a href="';

@@ -31,7 +31,7 @@ class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
      * @param string $string
      * @return \Pas_View_Helper_Acronyms
      */
-    public function setString(string $string) {
+    public function setString( $string) {
         $this->_string = $string;
         return $this;
     }

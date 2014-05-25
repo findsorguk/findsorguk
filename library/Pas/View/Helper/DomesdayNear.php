@@ -87,7 +87,7 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @param  string                        $lat
      * @return \Pas_View_Helper_DomesdayNear
      */
-    public function setLat(string $lat)
+    public function setLat( $lat)
     {
         $this->_lat = $lat;
 
@@ -99,7 +99,7 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @param  string                        $lon
      * @return \Pas_View_Helper_DomesdayNear
      */
-    public function setLon(string $lon)
+    public function setLon( $lon)
     {
         $this->_lon = $lon;
 
@@ -112,7 +112,7 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_DomesdayNear
      * @throws Exception
      */
-    public function setRadius(int $radius)
+    public function setRadius($radius)
     {
         if (!is_int($radius)) {
             throw new Exception('Defined radius needs to be an integer');

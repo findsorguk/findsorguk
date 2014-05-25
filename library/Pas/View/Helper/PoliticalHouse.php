@@ -44,7 +44,7 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @param  int                             $house
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setHouse(int $house)
+    public function setHouse($house)
     {
         $this->_house = $house;
 
@@ -80,7 +80,7 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @param  string                          $commons
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setCommons(string $commons)
+    public function setCommons( $commons)
     {
         $this->_commons = $commons;
 
@@ -92,7 +92,7 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @param  string                          $lords
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setLords(string $lords)
+    public function setLords( $lords)
     {
         $this->_lords = $lords;
 
@@ -134,7 +134,7 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @param  string $house
      * @return string
      */
-    public function buildImage(string $image, string $house)
+    public function buildImage( $image, string $house)
     {
         list($w, $h, $type, $attr) = getimagesize('./' . $image);
 
@@ -155,7 +155,7 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @param  int      $house
      * @return function
      */
-    public function getLogo(int $house)
+    public function getLogo($house)
     {
         if (!($this->getCache()->test('house' . $house))) {
             if (!is_null($house) || $house != "") {

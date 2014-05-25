@@ -29,7 +29,7 @@ class Pas_View_Helper_RomanNumerals extends Zend_View_Helper_Abstract
         return $this->_date;
     }
 
-    public function setDate(int $date)
+    public function setDate($date)
     {
         $this->_date = $date;
 

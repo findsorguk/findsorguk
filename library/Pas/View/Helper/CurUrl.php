@@ -1,116 +1,160 @@
 <?php
 /**
  * A view helper for displaying the current page URL
+ *
+ * To use this view helper
+ *
+ * <code>
+ * <?php
+ * echo $this->curUrl();
+ * ?>
+ * </code>
+ *
+ * 
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @version 1
+ * @uses Zend_Controller_Front
  */
 class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
 {
-
+    /** SSL string
+     * @access protected
+     * @var type
+     */
     protected $_ssl;
 
+    /** The port numbr
+     * @access protected
+     * @var int
+     */
     protected $_port;
 
+    /** The front controller object
+     * @access protected
+     * @var object
+     */
     protected $_front;
 
+    /** The https string
+     * @access protected
+     * @var string
+     */
     protected $_https;
 
+    /** The port number in use
+     * @access protected
+     * @var int
+     */
     protected $_portNumber;
 
+    /** The server base name
+     * @access protected
+     * @var string
+     */
     protected $_serverName;
 
+    /** The currently requested URI
+     * @access protected
+     * @var string
+     */
     protected $_requestUri;
 
-    public function __construct()
-    {
+    /** Get the front controller object
+     * @access public
+     * @return object
+     */
+    public function getFront() {
         $this->_front = Zend_Front_Controller::getInstance();
+        return $this->_front;
     }
 
-    public function getHttps()
-    {
-        $this->_https = $this->_front->getRequest('HTTPS');
-
+    /** Get whether https
+     * @access public
+     * @return string
+     */
+    public function getHttps()  {
+        $this->_https = $this->getFront()->getRequest('HTTPS');
         return $this->_https;
     }
 
-    public function getPortNumber()
-    {
-        $this->_portNumber = $this->_front->getRequest('SERVER_PORT');
-
+    /** Get the port number from the request
+     * @access public
+     * @return int
+     */
+    public function getPortNumber() {
+        $this->_portNumber = $this->getFront()->getRequest('SERVER_PORT');
         return $this->_portNumber;
     }
 
-    public function getUri()
-    {
-        $this->_requestUri = $this->_front->getRequest('REQUEST_URI');
-
+    /** Get the requested uri
+     * @access public
+     * @return string
+     */
+    public function getUri() {
+        $this->_requestUri = $this->getFront()->getRequest('REQUEST_URI');
         return $this->_requestUri;
     }
 
-    public function getServerName()
-    {
-        $this->_serverName = $this->_front->getRequest('SERVER_NAME');
-
+    /** Get the server's name
+     * @access public
+     * @return string
+     */
+    public function getServerName() {
+        $this->_serverName = $this->getFront()->getRequest('SERVER_NAME');
         return $this->_serverName;
     }
 
     /** Get whether ssl is enabled
-     *
+     * @access public
      * @return boolean
      */
-    public function getSsl()
-    {
+    public function getSsl() {
         $this->_ssl = (isset($this->getHttps()) && $this->getHttps() == "on");
-
         return $this->_ssl;
     }
 
     /** Get the port
-     *
+     * @access public
      * @return int
      */
-    public function getPort()
-    {
+    public function getPort() {
         $port = (isset($this->getPortNumber()) && ((!$this->getSsl() && $this->getPortNumber() != "80")
         || ($this->getSsl() && $this->getPortNumber() != "443")));
-    $this->_port = ($port) ? ':' . $this->getPortNumber() : '';
-
+        $this->_port = ($port) ? ':' . $this->getPortNumber() : '';
         return $this->_port;
     }
 
     /** The function
-     *
+     * @access public
      * @return \Pas_View_Helper_CurUrl
      */
-    public function curUrl()
-    {
+    public function curUrl() {
         return $this;
     }
 
     /** The magic method
-     *
+     * @access public
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->createUrl();
     }
 
     /** Create the url
+     * @access public
      * @return string
      */
-    public function createUrl()
-    {
+    public function createUrl() {
         $url = ($this->getSsl() ? 'https://' : 'http://')
                 . $this->getServerName()
                 . $this->getPort()
                 . $this->getUri();
-
-    return $url;
+        return $url;
     }
-
 }

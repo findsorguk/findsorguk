@@ -48,7 +48,7 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
      * @param  int                           $int
      * @return \Pas_View_Helper_Completeness
      */
-    public function setInt(int $int)
+    public function setInt($int)
     {
         $this->_int = $int;
 

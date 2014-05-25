@@ -127,7 +127,7 @@ class Pas_View_Helper_FieldNamesDb extends Zend_View_Helper_Abstract
      * @param string $field
      * @return \Pas_View_Helper_FieldNamesDb
      */
-    public function setField( string $field) {
+    public function setField( $field) {
         $this->_field = $field;
         return $this;
     }

@@ -4,12 +4,12 @@
  *
  * A view helper that interfaces with solr and presents a link to the next
  * object in the index. Results are cached and also load balanced.
- * 
+ *
  * To use this view helper is very simple:
  * <code>
  * <?php echo $this->nextFind()->setFindID($id);?>
  * </code>
- * 
+ *
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @license http://URL GNU
@@ -29,7 +29,7 @@
  */
 class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
 {
-   
+
     /** The fields to query
      * @access protected
      * @var array
@@ -185,7 +185,7 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
      * @param int $findID
      * @return \Pas_View_Helper_NextFind
      */
-    public function setFindID( int $findID) {
+    public function setFindID( $findID) {
         $this->_findID = $findID;
         return $this;
     }
@@ -230,7 +230,7 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
      * @param int $findID
      * @return string
      */
-    public function getSolrData(int $findID) {
+    public function getSolrData($findID) {
         if (!($this->getCache()->test($this->getKey()))) {
             $query = 'id:[' . $findID . ' TO *]';
             $select = array(
@@ -256,7 +256,7 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
                 }
 
                 if ($results) {
-                    $html = $this->view->partial('partials/database/next.phtml', 
+                    $html = $this->view->partial('partials/database/next.phtml',
                             $results['0']);
                 } else {
                     $html = '';
@@ -278,7 +278,7 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
             $data[] = $fields;
             }
             $processor = new Pas_Solr_SensitiveFields();
-            $clean = $processor->cleanData($data, $this->getRole(), 
+            $clean = $processor->cleanData($data, $this->getRole(),
                     $this->getCore());
             return $clean;
     }

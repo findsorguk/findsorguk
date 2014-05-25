@@ -51,7 +51,7 @@ class Pas_View_Helper_QrCode extends Zend_View_Helper_Abstract
      * @param  string                  $template
      * @return \Pas_View_Helper_QrCode
      */
-    public function setTemplate(string $template)
+    public function setTemplate( $template)
     {
         $this->template = $template;
 

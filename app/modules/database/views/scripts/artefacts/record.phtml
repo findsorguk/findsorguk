@@ -20,7 +20,7 @@
 <!--  Start of main body of record -->
 
 <div class="row-fluid">
-    
+
     <?php echo $this->partialLoop('partials/database/recordheadtitle.phtml',$this->finds);?>
     <?php echo $this->partialLoop('partials/database/zoterorecord.phtml',$this->finds);?>
 
@@ -44,7 +44,7 @@
             <!-- Temporal details -->
             <?php echo $this->partial('partials/database/temporal.phtml', $this->temporals['0']);?>
             <!-- Dimensional data -->
-            <?php 
+            <?php
                 if (count($this->findsdata) > 0) {
                     echo $this->partial('partials/database/dimensions.phtml', $this->findsdata['0']);
                 }
@@ -63,29 +63,29 @@
             <?php echo $this->partial('partials/database/personal.phtml', $this->peoples['0']) ?>
             <?php endif;?>
             <!-- Other references -->
-            <?php 
+            <?php
                 if ($this->findotherrefs){
                     echo $this->partial('partials/database/otherrefs.phtml', $this->findotherrefs['0']);
-                } 
+                }
             ?>
             <!-- Finds materials -->
             <?php
                 if (count($this->findsmaterial)){
                     echo $this->partial('partials/database/materials.phtml', $this->findsmaterial['0']);
-                } 
+                }
             ?>
             <!-- Display coins data -->
-            <?php 
+            <?php
                 echo $this->coinDataDisplay()
                     ->setObjectType($this->finds['0']['objecttype'])
                     ->setBroadperiod($this->finds['0']['broadperiod'])
                     ->setCoins($this->coins)
                     ->setFinds($this->finds);
             ?>
-    
+
             <!--  Start the numismatic references -->
 	    <?php if(in_array($this->finds[0]['objecttype'], array('coin', 'COIN','Coin'))):?>
-	
+
             <div id="coinrefslinked">
                 <h4>Coin references</h4>
                     <!-- existing coin references -->
@@ -108,7 +108,7 @@
                     ?>
                     <!-- End of coin ref link -->
             </div>
-        
+
             <?php endif;?>
 
         </div>
@@ -117,25 +117,25 @@
 
                 <?php
                     if (count($this->thumbs) > 0){
-                        echo $this->partialLoop('partials/database/thumbs.phtml', 
+                        echo $this->partialLoop('partials/database/thumbs.phtml',
                                 array_slice($this->thumbs,0,1));
                         if(sizeof($this->thumbs) > 1):
 
                 ?>
                     <!-- Start small thumbnails -->
                     <ul class="thumbnails">
-                    <?php 
+                    <?php
                         foreach(array_slice($this->thumbs,1) as $thumb){
                             echo $this->partialLoop('partials/database/smallThumbnails.phtml', $thumb);
-                        }	
+                        }
                     ?>
                     </ul>
                     <!-- End small thumbnails -->
                     <?php endif;?>
 
                     <h4>Image use policy</h4>
-                    <p>Our images can be used under a 
-                        <a href="https://creativecommons.org/licenses/by-sa/2.0/" >CC 
+                    <p>Our images can be used under a
+                        <a href="https://creativecommons.org/licenses/by-sa/2.0/" >CC
                             BY-SA licence</a> (unless stated otherwise).</p>
                     <?php
                     } else {?>
@@ -146,14 +146,14 @@
                     ?>
                     <?php
                     echo $this->imageLink()
-                            ->setfindID($this->finds['0']['id'])
+                            ->setFindID($this->finds['0']['id'])
                             ->setSecuID($this->finds['0']['secuid'])
                             ->setCreatedBy($this->finds['0']['createdBy'])
                             ->setInstitution($this->finds['0']['institution']);
                     ?>
             </div>
         <!-- End of the image pane -->
-        
+
         </div>
 <!--  End of descriptive data -->
 
@@ -161,48 +161,62 @@
 <!-- Start of the spatial data -->
     <div class="row-fluid">
         <!-- Render the map -->
+
         <?php if (count($this->findspots)) : ?>
+        <!-- Check for findspot data and if there render -->
             <?php echo $this->findspot($this->findspots);?>
         <?php else: ?>
-        <!-- Render the map ends -->
+            <!-- Render a link for adding find spot -->
             <div id="findspotdata">
                 <h4>Spatial data</h4>
-                <p>No data recorded at present.</p>
-                <?php echo $this->findSpotLink(
-                        $this->finds['0']['old_findID'],
-                        $this->finds['0']['id'],
-                        $this->finds['0']['secuid'],
-                        $this->finds['0']['createdBy']);?>
+                    <p>
+                        No spatial data available.
+                    </p>
+                <?php echo $this->findSpotLink()
+                        ->setFindID($this->finds['0']['id'])
+                        ->setSecuID($this->finds['0']['secuid'])
+                        ->setCreatedBy($this->finds['0']['createdBy'])
+                        ->setInstitution($this->finds['0']['institution']);
+                ?>
             </div>
         <?php endif; ?>
-
+        <!-- Render the map ends -->
     </div>
 <!--  End of spatial data -->
 
 <!--  Start of the references section -->
-<div class="row-fluid" id="references">
-<h4>References cited</h4>
-<?php
-if (count($this->refs) > 0) : ?>
-<p>
-    <?php echo $this->addRefLink(
-        $this->finds['0']['old_findID'],
-        $this->finds['0']['id'],
-        $this->finds['0']['secuid'],
-        $this->finds['0']['createdBy']);?>
-</p>
+    <div class="row-fluid" id="references">
+        <h4>References cited</h4>
+        <?php
+        if (count($this->refs) > 0) : ?>
+        <p>
+            <?php
+                echo $this->addRefLink()
+                        ->setFindID($this->finds['0']['id'])
+                        ->setSecuID($this->finds['0']['secuid'])
+                        ->setCreatedBy($this->finds['0']['createdBy'])
+                        ->setInstitution($this->finds['0']['institution']);
+             ?>
+        </p>
 
-<ul>
-<?php echo $this->partialLoop('partials/database/harvardbook.phtml', $this->refs);?>
-</ul>
-<?php else:?>
-<p class="norefs">No references cited so far.</p>
+        <ul>
+            <?php echo $this->partialLoop('partials/database/harvardbook.phtml',
+                    $this->refs);?>
+        </ul>
+        <?php else:?>
+        <p class="norefs">
+            No references cited so far.
+        </p>
 
-<?php echo $this->addRefLink($this->finds['0']['old_findID'],$this->finds['0']['id'],
-$this->finds['0']['secuid'],$this->finds['0']['createdBy']);?>
-<?php endif;?>
-</div>
-
+            <?php
+                echo $this->addRefLink()
+                        ->setFindID($this->finds['0']['id'])
+                        ->setSecuID($this->finds['0']['secuid'])
+                        ->setCreatedBy($this->finds['0']['createdBy'])
+                        ->setInstitution($this->finds['0']['institution']);
+             ?>
+        <?php endif;?>
+    </div>
 <!--  End of references section -->
 </div>
 <!-- The more like this section -->
@@ -221,7 +235,7 @@ $this->finds['0']['secuid'],$this->finds['0']['createdBy']);?>
 <a class="btn btn-small btn-warning" href="<?php echo $this->url(array(
 	'module' => 'database',
 	'controller' => 'artefacts',
-	'action' => 'errorreport'));?>" 
+	'action' => 'errorreport'));?>"
         title="Send message to the allotted National Finds Adviser"><i class="icon-warning-sign"></i> Report a mistake</a>
 </p>
 

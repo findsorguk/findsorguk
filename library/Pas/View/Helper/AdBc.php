@@ -82,7 +82,7 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      * @param  string                $prefix
      * @return \Pas_View_Helper_AdBc
      */
-    public function setPrefix(string $prefix)
+    public function setPrefix( $prefix)
     {
         $this->_prefix = $prefix;
 
@@ -94,7 +94,7 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      * @param  string                $suffix
      * @return \Pas_View_Helper_AdBc
      */
-    public function setSuffix(string $suffix)
+    public function setSuffix( $suffix)
     {
         $this->_suffix = $suffix;
 
@@ -106,7 +106,7 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      * @param  int                   $date
      * @return \Pas_View_Helper_AdBc
      */
-    public function setDate(int $date)
+    public function setDate($date)
     {
         $this->_date = $date;
 
@@ -118,7 +118,7 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      * @param  int $date
      * @return int
      */
-    public function _validate(int $date)
+    public function _validate($date)
     {
        if ($this->getValidator()->isValid($date)) {
              return $date;

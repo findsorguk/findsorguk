@@ -88,7 +88,7 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @param  string                 $fullname
      * @return \Pas_View_Helper_MpBio
      */
-    public function setFullname(string $fullname)
+    public function setFullname( $fullname)
     {
         $this->_fullname = $fullname;
 

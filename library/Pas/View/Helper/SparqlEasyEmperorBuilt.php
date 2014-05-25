@@ -36,7 +36,7 @@ class Pas_View_Helper_SparqlEasyEmperorBuilt extends Zend_View_Helper_Abstract
      * @param string $endpointUri
      * @return \Pas_View_Helper_SparqlEasy
      */
-    public function setEndpointUri( string $endpointUri) {
+    public function setEndpointUri( $endpointUri) {
         $this->_endpointUri = $endpointUri;
         return $this;
     }
@@ -72,7 +72,7 @@ class Pas_View_Helper_SparqlEasyEmperorBuilt extends Zend_View_Helper_Abstract
      * @param string $id
      * @return \Pas_View_Helper_SparqlEasy
      */
-    public function setId( string $id) {
+    public function setId( $id) {
         $this->_id = $id;
         return $this;
     }
@@ -177,7 +177,7 @@ class Pas_View_Helper_SparqlEasyEmperorBuilt extends Zend_View_Helper_Abstract
      * @param string $string
      * @return type
      */
-    protected function _cleaner( string $string) {
+    protected function _cleaner( $string) {
         $html = str_replace(array('http://dbpedia.org/resource/', 'Category:',
             '_'),array('','',' '), $string);
         return $html;
@@ -188,7 +188,7 @@ class Pas_View_Helper_SparqlEasyEmperorBuilt extends Zend_View_Helper_Abstract
      * @param string $string
      * @return string
      */
-    protected function _wikiLink( string $string) {
+    protected function _wikiLink( $string) {
         $cleaned = str_replace(array('http://dbpedia.org/resource/'),
                 array('http://en.wikipedia.org/wiki/'), $string);
         $html = '<a href="';

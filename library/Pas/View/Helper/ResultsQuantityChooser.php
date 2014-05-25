@@ -42,7 +42,7 @@ class Pas_View_Helper_ResultsQuantityChooser extends Zend_View_Helper_Abstract
             if (!array_key_exists('show', $request) &&  $k === 20) {
                 $html .= ' class="highlight" ';
             }
-            if (array_key_exists('show', $request) && $request['show'] === (string) $k) {
+            if (array_key_exists('show', $request) && $request['show'] === () $k) {
                 $html .= ' class="highlight" ';
             }
             $html .= '>' . $k . '</a> ';

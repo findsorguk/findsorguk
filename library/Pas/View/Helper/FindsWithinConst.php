@@ -38,7 +38,7 @@ class Pas_View_Helper_FindsWithinConst extends Zend_View_Helper_Abstract
      * @param  string                            $constituency
      * @return \Pas_View_Helper_FindsOfNoteConst
      */
-    public function setConstituency(string $constituency)
+    public function setConstituency( $constituency)
     {
         $this->_constituency = $constituency;
 
@@ -85,7 +85,7 @@ class Pas_View_Helper_FindsWithinConst extends Zend_View_Helper_Abstract
      * @param  string $constituency
      * @return object
      */
-    public function getGeometry(string $constituency)
+    public function getGeometry( $constituency)
     {
         $geo = new Pas_Twfy_Geometry();
 
@@ -111,7 +111,7 @@ class Pas_View_Helper_FindsWithinConst extends Zend_View_Helper_Abstract
      * @param  string $constituency
      * @return int
      */
-    public function getSolr(string $constituency)
+    public function getSolr( $constituency)
     {
         $geometry = $this->getGeometry($constituency);
         $bbox = array(
@@ -138,7 +138,7 @@ class Pas_View_Helper_FindsWithinConst extends Zend_View_Helper_Abstract
      * @param  string $constituency
      * @return string
      */
-    public function buildHtml(int $data, string $constituency)
+    public function buildHtml($data, string $constituency)
     {
         $html = '';
     if ($data > 0) {

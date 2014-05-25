@@ -37,7 +37,7 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
      * @param  int                          $period
      * @return \Pas_View_Helper_AdminPeriod
      */
-    public function setPeriod(int $period)
+    public function setPeriod($period)
     {
         $this->_period = $period;
 
@@ -58,7 +58,7 @@ class Pas_View_Helper_AdminPeriod extends Zend_View_Helper_Abstract
      * @param int period
      * @return string
      */
-    public function html(int $period)
+    public function html($period)
     {
         switch ($period) {
             case 21 :

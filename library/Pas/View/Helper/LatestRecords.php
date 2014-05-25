@@ -62,7 +62,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  string                         $query
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setQuery(string $query)
+    public function setQuery( $query)
     {
         $this->_query = $query;
 
@@ -83,7 +83,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  string                         $fields
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setFields(string $fields)
+    public function setFields( $fields)
     {
         $this->_fields = $fields;
 
@@ -105,7 +105,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  type                           $direction
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setDirection(string $direction)
+    public function setDirection( $direction)
     {
         $this->_direction = $direction;
 
@@ -144,7 +144,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  string                         $sort
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setSort(string $sort)
+    public function setSort( $sort)
     {
         $this->_sort = $sort;
 
@@ -156,7 +156,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  int                            $start
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setStart(int $start)
+    public function setStart($start)
     {
         $this->_start = $start;
 
@@ -168,7 +168,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  int                            $limit
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setLimit(int $limit)
+    public function setLimit($limit)
     {
         $this->_limit = $limit;
 

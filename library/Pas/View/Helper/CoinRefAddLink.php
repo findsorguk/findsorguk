@@ -1,11 +1,11 @@
 <?php
-/** 
+/**
  * A view helper for creating coin reference add link
- * 
- * This view helper is used to add a coin reference to the record form if 
- * allowed. This function could well be dropped if coin references are 
+ *
+ * This view helper is used to add a coin reference to the record form if
+ * allowed. This function could well be dropped if coin references are
  * integrated into the coin forms.
- * 
+ *
  * To use this function:
  * <code>
  * <?php
@@ -16,7 +16,7 @@
  * ->setInstitution($institution);
  * ?>
  * </code>
- * 
+ *
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
@@ -26,7 +26,7 @@
  * @license GNU
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @uses Zend_Auth
- * 
+ *
  */
 class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
 
@@ -35,44 +35,44 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
      * @var array
      */
     protected $_noaccess = array('public', null);
-    
+
     /** The restricted roles
      * @access protected
      * @var array
      */
     protected $_restricted = array('member','research','hero');
-    
-    /** The recording array 
+
+    /** The recording array
      * @access protected
      * @var array
      */
     protected $_recorders = array('flos');
-    
+
     /** The higher level roles
      * @access protected
      * @var array
      */
     protected $_higherLevel = array('admin','fa','treasure');
 
-    
+
     /** The auth object
      * @access protected
      * @var object
      */
     protected $_auth;
-    
+
     /** The role
      * @access protected
      * @var string
      */
     protected $_role = null;
-    
-    /** The user ID 
+
+    /** The user ID
      * @access protected
      * @var int
      */
     protected $_userID = null;
-    
+
     /** The default institution
      * @access protected
      * @var string
@@ -84,20 +84,20 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
      * @var int
      */
     protected $_createdBy;
-    
+
     /** Object secuid for the glue
      * This ties the records together
      * @var string
      * @access protected
      */
     protected $_secuID;
-    
+
     /** The findID
      * @access protected
      * @var int
      */
     protected $_findID;
-    
+
     /** Get the findID
      * @access public
      * @return int
@@ -111,7 +111,7 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
      * @var string
      */
     protected $_institution;
-    
+
     /** Get the institution
      * @access public
      * @return string
@@ -125,21 +125,21 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
      * @param string $institution
      * @return \Pas_View_Helper_CoinRefAddLink
      */
-    public function setInstitution( string $institution) {
+    public function setInstitution( $institution) {
         $this->_institution = $institution;
         return $this;
     }
-    
+
     /** Set the find ID to query
      * @access public
      * @param int $findID
      * @return \Pas_View_Helper_CoinRefAddLink
      */
-    public function setFindID( int $findID) {
+    public function setFindID( $findID) {
         $this->_findID = $findID;
         return $this;
     }
-        
+
     /** Get the creator of the record
      * @access public
      * @return int
@@ -161,7 +161,7 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
      * @param int $createdBy
      * @return \Pas_View_Helper_CoinRefAddLink
      */
-    public function setCreatedBy( int $createdBy) {
+    public function setCreatedBy( $createdBy) {
         $this->_createdBy = $createdBy;
         return $this;
     }
@@ -171,7 +171,7 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
      * @param string $secuid
      * @return \Pas_View_Helper_CoinRefAddLink
      */
-    public function setSecuID( string $secuid) {
+    public function setSecuID( $secuid) {
         $this->_secuID = $secuid;
         return $this;
     }
@@ -193,7 +193,7 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
         if ($this->_auth->hasIdentity()) {
             $user = $this->_auth->getIdentity();
             $this->_role = $user->role;
-        } 
+        }
         return $this->_role;
     }
 
@@ -223,16 +223,16 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
 
 
     /** Check whether access is allowed by userid for that record
-     * 
+     *
      * This function conditionally checks to see if a user is in the restricted
-     * group and then checks whether they created the record. If true, they can 
+     * group and then checks whether they created the record. If true, they can
      * edit it.
-     * 
+     *
      * @access public
      * @param int $createdBy
      * @return boolean
      */
-    public function checkAccessbyUserID(int $createdBy ) {
+    public function checkAccessbyUserID($createdBy ) {
             if (in_array( $this->getRole(), $this->_restricted ) ) {
             if ($createdBy == $this->getUserID()) {
                     $allowed = true;
@@ -244,36 +244,36 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
     }
 
     /** Check institutional access by user's institution
-     * 
-     * This function conditionally checks whether a user's institution allows 
+     *
+     * This function conditionally checks whether a user's institution allows
      * them editing rights to a record.
-     * 
-     * First condition: if role is in recorders array and their institution is 
+     *
+     * First condition: if role is in recorders array and their institution is
      * the same, then allow.
-     * 
+     *
      * Second condition: if role is in higher level, then allow
-     * 
-     * Third condition: if role is in restricted (public) and they created, 
+     *
+     * Third condition: if role is in restricted (public) and they created,
      * then allow.
-     * 
+     *
      * Fourth condition: if role is in restricted and institution is public,
      * then allow.
-     * 
+     *
      * @access public
      * @param string $institution
      * @return boolean
-     * 
+     *
      */
-    public function checkAccessbyInstitution( string $institution ) {
-        if(in_array($this->getRole(),$this->_recorders) 
+    public function checkAccessbyInstitution( $institution ) {
+        if(in_array($this->getRole(),$this->_recorders)
                 && $this->getInst() == $institution) {
             $allowed = true;
         } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
             $allowed = true;
-        } elseif (in_array ($this->getRole, $this->_restricted) 
+        } elseif (in_array ($this->getRole, $this->_restricted)
                 && $this->checkAccessbyUserID ($this->getCreatedBy())) {
             $allowed = true;
-        } elseif (in_array($this->getRole(),$this->_recorders) 
+        } elseif (in_array($this->getRole(),$this->_recorders)
                 && $institution == 'PUBLIC') {
             $allowed = true;
         }
@@ -287,7 +287,7 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
     public function coinRefAddLink() {
         return $this;
     }
-    
+
     /** To string function
      * @access public
      * @return string
@@ -295,7 +295,7 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
     public function __toString() {
         return $this->generateLink();
     }
-    
+
     /** Generate the link
      * @access public
      * @return string
@@ -322,7 +322,7 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
         );
         return $url;
     }
-    
+
     /** Build the html
      * @access public
      * @return string

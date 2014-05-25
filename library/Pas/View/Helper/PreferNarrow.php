@@ -31,7 +31,7 @@ class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
      * @param  string                        $term
      * @return \Pas_View_Helper_PreferNarrow
      */
-    public function setTerm(string $term)
+    public function setTerm( $term)
     {
         $this->_term = $term;
 

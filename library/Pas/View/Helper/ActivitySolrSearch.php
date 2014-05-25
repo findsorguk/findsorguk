@@ -129,7 +129,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  int                                 $start
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setStart(int $start)
+    public function setStart($start)
     {
         $this->_start = $start;
 
@@ -141,7 +141,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  int                                 $limit
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setLimit(int $limit)
+    public function setLimit($limit)
     {
         $this->_limit =  $limit;
 
@@ -153,7 +153,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  string                              $sort
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setSort(string $sort)
+    public function setSort( $sort)
     {
         $this->_sort = $sort;
 
@@ -165,7 +165,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  string                              $direction
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setDirection(string $direction)
+    public function setDirection( $direction)
     {
         $this->_direction = $direction;
 
@@ -186,7 +186,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  string                              $fields
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setFields(string $fields)
+    public function setFields( $fields)
     {
         $this->_fields = $fields;
 
@@ -207,7 +207,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  string                              $q
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setQ(string $q)
+    public function setQ( $q)
     {
         $this->_q = $q;
 

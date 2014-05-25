@@ -39,7 +39,7 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
      * @param  string                            $constituency
      * @return \Pas_View_Helper_FindsOfNoteConst
      */
-    public function setConstituency(string $constituency)
+    public function setConstituency( $constituency)
     {
         $this->_constituency = $constituency;
 
@@ -86,7 +86,7 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
      * @param  string $constituency
      * @return object
      */
-    public function getGeometry(string $constituency)
+    public function getGeometry( $constituency)
     {
         $geo = new Pas_Twfy_Geometry();
 
@@ -142,7 +142,7 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
      * @param  int    $quantity
      * @return string
      */
-    public function buildHtml(int $quantity)
+    public function buildHtml($quantity)
     {
         $html = '';
         if ($quantity > 0) {

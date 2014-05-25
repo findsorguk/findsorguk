@@ -65,7 +65,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @param  string                        $query
      * @return \Pas_View_Helper_MoreLikeThis
      */
-    public function setQuery(string $query)
+    public function setQuery( $query)
     {
         $this->_query = $query;
 

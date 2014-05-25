@@ -1,6 +1,12 @@
 <h4>Coin data (numismatics)</h4>
-<?php echo $this->CoinEditDeleteLink($this->old_findID,$this->id,$this->broadperiod,
-$this->secuid,$this->returnID,$this->createdBy);?>
+<?php echo $this->CoinEditDeleteLink()
+        ->setFindID($this->id)
+        ->setReturnID($this->returnID)
+        ->setBroadperiod($this->broadperiod)
+        ->setSecuID($this->secuid)
+        ->setInstitution($this->institution)
+        ->setCreatedBy($this->createdBy);
+?>
 <div class="awld-scope">
 <p>
 <?php if(!is_null($this->d)) : ?>
@@ -18,7 +24,7 @@ Reece period: <span property="pas:reecePeriod"><?php echo $this->escape($this->p
 Mint or issue place: <span property="skos:related" resource="http://pleiades.stoa.org/places/<?php echo $this->pleiadesID;?>"><?php echo $this->escape($this->mint_name);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module'=>'romancoins','controller' => 'mints','action'=>'mint','id' => $this->mint_id),null,true);?>" title="Read scope note for <?php echo $this->mint_name;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller'=>'search','action'=>'results','mint' => $this->mint_id),null,true);?>" title="view all records assigned to <?php echo $this->mint_name;?>">view all attributed records</a>]</span>
 <?php if(!is_null($this->pleiadesID)):?>
 <?php
-//$this->inlineScript()->appendFile('http://pelagios.github.com/pelagios-widgets/lib/require.js',$type = 'text/javascript'); 
+//$this->inlineScript()->appendFile('http://pelagios.github.com/pelagios-widgets/lib/require.js',$type = 'text/javascript');
 //$this->inlineScript()->appendFile('http://pelagios.github.com/pelagios-widgets/place.js',$type = 'text/javascript');
 ?>
 <span id="pelagios" data-pleiades_id="<?php echo $this->pleiadesID;?>" class="pelagios pelagios-place"></span>

@@ -31,7 +31,7 @@ class Pas_View_Helper_WorkflowStatus extends Zend_View_Helper_Abstract
      * @param  int                       $secwfstage
      * @return \Pas_View_Helper_Workflow
      */
-    public function setWorkflow(int $secwfstage)
+    public function setWorkflow($secwfstage)
     {
         $this->_secwfstage = $secwfstage;
 

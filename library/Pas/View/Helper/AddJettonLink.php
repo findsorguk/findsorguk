@@ -71,7 +71,7 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddJettonLink
      * @throws Zend_Exception
      */
-    public function setFindID(int $findID)
+    public function setFindID($findID)
     {
         if (is_int($findID)) {
             $this->_findID = $findID;
@@ -89,7 +89,7 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddJettonLink
      * @throws Zend_Exception
      */
-    public function setSecUid(string $secuid)
+    public function setSecUid( $secuid)
     {
         if (is_string($secuid)) {
             $this->_secuid = $secuid;
@@ -107,7 +107,7 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddJettonLink
      * @throws Zend_Exception
      */
-    public function setBroadperiod(string $broadperiod)
+    public function setBroadperiod( $broadperiod)
     {
         if (is_string($broadperiod)) {
             $this->_broadperiod = $broadperiod;
@@ -125,7 +125,7 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddJettonLink
      * @throws Zend_Exception
      */
-    public function setInstitution(string $institution)
+    public function setInstitution( $institution)
     {
         if (is_string($institution)) {
             $this->_institution = $institution;
@@ -143,7 +143,7 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddJettonLink
      * @throws Zend_Exception
      */
-    public function setCreatedBy(int $createdBy)
+    public function setCreatedBy($createdBy)
     {
         if (is_int($createdBy)) {
             $this->_createdBy = $createdBy;

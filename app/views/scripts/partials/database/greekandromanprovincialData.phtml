@@ -1,5 +1,12 @@
 <h4>Coin data (numismatics)</h4>
-<?php echo $this->CoinEditDeleteLink($this->old_findID,$this->id,$this->broadperiod,$this->secuid,$this->returnID,$this->createdBy);?>
+<?php echo $this->CoinEditDeleteLink()
+        ->setFindID($this->id)
+        ->setReturnID($this->returnID)
+        ->setBroadperiod($this->broadperiod)
+        ->setSecuID($this->secuid)
+        ->setInstitution($this->institution)
+        ->setCreatedBy($this->createdBy);
+?>
 <p>
 <?php if(!is_null($this->d )):?>
 Denomination: <?php echo $this->escape($this->d);?> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'greekromancoins','controller'=>'denominations','action'=>'denomination','id' => $this->denom),null,true);?>" title="Read scope note for <?php echo $this->d;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action'=>'results','denomination' => $this->denom),null,true);?>" title="view all records assigned to denomination: <?php echo $this->d;?>">view all attributed records</a>]</span><br />

@@ -358,7 +358,7 @@ class Pas_View_Helper_TwitterCard extends Zend_View_Helper_Abstract
         $user->username = $username;
         if ( $id && self::isValidId( $id ) ) {
         //Set the user id for the user object
-            $user->id = (string) $id;
+            $user->id = () $id;
         }
 
         //return the user object

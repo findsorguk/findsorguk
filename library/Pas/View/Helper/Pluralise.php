@@ -83,7 +83,7 @@ class Pas_View_Helper_Pluralise
      * @param  int                        $quantity
      * @return \Pas_View_Helper_Pluralise
      */
-    public function setQuantity(int $quantity)
+    public function setQuantity($quantity)
     {
         $this->_quantity = $quantity;
 
@@ -95,7 +95,7 @@ class Pas_View_Helper_Pluralise
      * @param  string                     $none
      * @return \Pas_View_Helper_Pluralise
      */
-    public function setNone(string $none)
+    public function setNone( $none)
     {
         $this->_none = $none;
 
@@ -107,7 +107,7 @@ class Pas_View_Helper_Pluralise
      * @param  string                     $singular
      * @return \Pas_View_Helper_Pluralise
      */
-    public function setSingular(string $singular)
+    public function setSingular( $singular)
     {
         $this->_singular = $singular;
 
@@ -119,7 +119,7 @@ class Pas_View_Helper_Pluralise
      * @param  string                     $plural
      * @return \Pas_View_Helper_Pluralise
      */
-    public function setPlural(string $plural)
+    public function setPlural( $plural)
     {
         $this->_plural = $plural;
 

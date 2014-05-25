@@ -32,7 +32,7 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
      * @param  int                              $qualifier
      * @return \Pas_View_Helper_EarlyMiddleLate
      */
-    public function setQualifier(int $qualifier)
+    public function setQualifier($qualifier)
     {
         $this->_qualifier = $qualifier;
 

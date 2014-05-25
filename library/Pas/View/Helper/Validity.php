@@ -30,7 +30,7 @@ class Pas_View_Helper_Validity extends Zend_View_Helper_Abstract
      * @param  int                       $valid
      * @return \Pas_View_Helper_Validity
      */
-    public function setValid(int $valid)
+    public function setValid($valid)
     {
         $this->_valid = $valid;
 

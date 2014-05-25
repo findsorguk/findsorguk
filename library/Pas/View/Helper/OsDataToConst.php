@@ -35,7 +35,7 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @param  string                         $constituency
      * @return \Pas_View_Helper_OsDataToConst
      */
-    public function setConstituency(string $constituency)
+    public function setConstituency( $constituency)
     {
         $this->_constituency = $constituency;
 
@@ -76,7 +76,7 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @param  string $constituency
      * @return array
      */
-    public function getRecords(string $constituency)
+    public function getRecords( $constituency)
     {
         $osdata = new Osdata();
 

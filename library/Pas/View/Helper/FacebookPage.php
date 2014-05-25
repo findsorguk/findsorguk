@@ -18,31 +18,31 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @var object
      */
     protected $_cache;
-    
+
     /** The page ID to query
      * @access protected
      * @var int
      */
     protected $_pageid;
-    
+
     /** The config object
      * @access protected
      * @var object
      */
     protected $_config;
-    
+
     /** The url to query
      * @access protected
      * @var string
      */
     protected $_url;
-    
+
     /** The header type to not try and parse
      * @access public
      * @var string
      */
     protected $_header = 'text/html;charset=UTF-8';
-    
+
     /** Get the cache object
      * @access public
      * @return type
@@ -78,13 +78,13 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
         $this->_url = 'https://graph.facebook.com/' . $this->getPageid();
         return $this->_url;
     }
-    
-    /** The port to access 
+
+    /** The port to access
      * @access protected
-     * @var type 
+     * @var type
      */
     protected $_port = 80;
-    
+
     /** Get the port
      * @access public
      * @return int
@@ -98,7 +98,7 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @param int $port
      * @return \Pas_View_Helper_FacebookPage
      */
-    public function setPort( int $port) {
+    public function setPort( $port) {
         $this->_port = $port;
         return $this;
     }
@@ -137,7 +137,7 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
         $header = $response->getHeaders();
         if ($code == 200 && $header != $this->_header) {
             $data = $this->getDecode($response);
-        } 
+        }
         return $data;
     }
 
@@ -148,7 +148,7 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
     public function facebookPage() {
         return $this;
     }
-    
+
     /** Parse the facebook result
      * @access public
      * @return type
@@ -163,7 +163,7 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
         return $this->buildHtml($data);
     }
 
-    /** Build the html 
+    /** Build the html
      * @access public
      * @param object $data
      * @return string
@@ -190,7 +190,7 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
         return $json;
     }
 
- 
+
     /** Get the status of the response
      * @access public
      * @param object $response
@@ -217,7 +217,7 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
         }
         return $http;
     }
-   
+
     /** The to String function
      * @access public
      * @return string
