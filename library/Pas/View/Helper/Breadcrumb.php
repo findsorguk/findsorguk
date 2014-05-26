@@ -15,42 +15,100 @@
 */
 class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
 {
+    /** The module
+     * @access protected
+     * @var string
+     */
     protected $_module;
 
+    /** The front controller
+     * @access protected
+     * @var object
+     */
     protected $_front;
 
+    /** The controller
+     * @access protected
+     * @var string
+     */
     protected $_controller;
 
+    /** The action
+     * @access protected
+     * @var string
+     */
     protected $_action;
 
-    protected $_separator = '&raquo;';
+    /** The separator to use
+     * @access protected
+     * @var string
+     */
+    protected $_separator = ' &raquo; ';
 
+    /** The base url
+     * @access protected
+     * @var string
+     */
     protected $_url;
 
-    /** Construct the function
-     *
+    /** Get the front controller
+     * @access public
+     * @return object
      */
-    public function __construct()
-    {
+    public function getFront() {
         $this->_front = Zend_Controller_Front::getInstance()->getRequest();
-        $this->_module = $this->_front->getModuleName();
-        $this->_url = $this->_view->baseUrl();
+        return $this->_front;
     }
 
-    public function getModule()
-    {
+    /** Get the action
+     * @access public
+     * @return type
+     */
+    public function getAction() {
+        $this->_action = $this->getFront()->getActionName();
+        return $this->_action;
+    }
+
+    /** Get the separator
+     * @access public
+     * @return string
+     *
+     */
+    public function getSeparator() {
+        return $this->_separator;
+    }
+
+    /** Get the base url
+     * @access public
+     * @return string
+     */
+    public function getUrl() {
+        $this->_url = Zend_Registry::get('siteurl') . '/';
+        return $this->_url;
+    }
+
+    /** Get the module
+     * @access public
+     * @return srring
+     */
+    public function getModule() {
+        $this->_module = $this->getFront()->getModuleName();
         return $this->_module;
     }
 
-    public function getController()
-    {
+    /** Get the controller
+     * @access public
+     * @return string
+     */
+    public function getController() {
+        $this->_controller = $this->getFront()->getControllerName();
         return $this->_controller;
     }
+    
     /* The view helper class
      *
      */
-    public function breadcrumb()
-    {
+    public function breadcrumb() {
         return $this;
     }
 
@@ -87,40 +145,40 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 break;
             case 'romancoins':
                 $clean = 'Roman Numismatic guide';
-        break;
+                break;
             case 'greekromancoins':
                 $clean = 'Greek and Roman Provincial Numismatic guide';
-         break;
+                break;
              case 'api':
-        $clean = 'Application programming interface';
-        break;
+                 $clean = 'Application programming interface';
+                 break;
             case 'bronzeage':
-        $clean = 'Bronze Age object guide';
-        break;
+                $clean = 'Bronze Age object guide';
+                break;
             case 'staffshoardsymposium':
-        $clean  = 'Staffordshire Hoard Symposium';
-        break;
+                $clean  = 'Staffordshire Hoard Symposium';
+                break;
             case 'database':
                 $clean = 'Finds database';
                 break;
             case 'medievalcoins':
                 $clean = 'Medieval coin guide';
-        break;
+                break;
             case 'ironagecoins':
-        $clean = 'Iron Age coin guide';
-        break;
+                $clean = 'Iron Age coin guide';
+                break;
             case 'earlymedievalcoins':
-        $clean = 'Early Medieval coin guide';
+                $clean = 'Early Medieval coin guide';
                 break;
             case 'greekandromancoins':
                 $clean = 'Greek &amp; Roman Provincial coin guide';
                 break;
             case 'byzantinecoins':
-        $clean = 'Byzantine coin guide';
-        break;
+                $clean = 'Byzantine coin guide';
+                break;
             case 'postmedievalcoins':
-        $clean = 'Post Medieval coin guide';
-        break;
+                $clean = 'Post Medieval coin guide';
+                break;
             case 'getinvolved':
                 $clean = 'Get involved';
                 break;
@@ -128,15 +186,15 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 $clean = 'Scheme contacts';
                 break;
             case 'events':
-        $clean = 'Scheme events';
+                $clean = 'Scheme events';
                 break;
             case 'secrettreasures':
                 $clean = 'Britain\'s Secret Treasures';
-        break;
-            default:
-                $clean = $module;
                 break;
-    }
+            default:
+                $clean = $this->getModule();
+                break;
+            }
 
         return $clean;
     }
@@ -153,7 +211,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 break;
             case 'users':
                 $clean = 'Users\' section';
-        break;
+                break;
             case 'admin':
                 $clean = 'Site Administration';
                 break;
@@ -168,7 +226,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 break;
             case 'foi':
                 $clean = 'Freedom of Information Act';
-        break;
+                break;
             case 'her':
                 $clean = 'Historic Enviroment Signatories';
                 break;
@@ -179,19 +237,18 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 $clean = 'Van Arsdell Types';
                 break;
             case 'smr':
-        $clean = 'Scheduled Monuments';
-        break;
+                $clean = 'Scheduled Monuments';
+                break;
             case 'osdata':
                 $clean = 'Ordnance Survery Open Data';
                 break;
             case 'theyworkforyou':
                 $clean = 'Data from TheyWorkForYou';
-        break;
+                break;
             default:
-                $clean = $controller;
-        break;
-    }
-
+                $clean = $this->getController();
+                break;
+        }
         return $clean;
     }
 
@@ -199,8 +256,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function _switchAction()
-    {
+    public function _switchAction() {
         switch ($action) {
             case 'mapsearchresults':
                 $clean = 'Map search results';
@@ -240,7 +296,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 break;
             case 'basicsearch':
                 $clean = 'Basic what/where/when search interface';
-        break;
+                break;
             case 'searchresults':
                 $clean = 'Search results';
                 break;
@@ -273,31 +329,31 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 break;
             case 'postmednumismatics':
                 $clean ='Post Medieval numismatic search';
-        break;
+                break;
             case 'project':
                 $clean = 'Project details';
-        break;
+                break;
             case 'hers':
                 $clean = 'HER offices signed up';
-        break;
+                break;
             case 'ruler':
                 $clean = 'Ruler details';
-        break;
+                break;
             case 'error':
                 $clean = 'Error details';
                 break;
             case 'errorreport':
                 $clean = 'Submit an error';
-        break;
+                break;
             case 'oneto50k':
                 $clean = 'One to 50K entry';
-        break;
+                break;
             case 'myfinds':
-        $clean = 'Finds I have recorded';
-        break;
+                $clean = 'Finds I have recorded';
+                break;
             case 'myimages':
-        $clean = 'Images I have added';
-        break;
+                $clean = 'Images I have added';
+                break;
             case 'mp':
                 $clean = 'Member of Parliament';
                 break;
@@ -311,10 +367,9 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 $clean = 'In a set';
                 break;
             default:
-        $clean = $action;
-        break;
-    }
-
+                $clean = $this->getAction();
+                break;
+        }
         return $clean;
     }
 
@@ -322,60 +377,59 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function html()
-    {
+    public function html() {
         $html = '';
         // HomePage = No Breadcrumb
-    if ($this->_module == 'default' && $this->_controller == 'index'
-                && $this->_action == 'index') {
-    return $html;
-    }
 
-    // Get our url and create a home crumb
-    $homeLink = '<a href=' . $this->_url . ' title="Scheme website home page">Home</a>';
-    // Start crumbs
-    $html .= $homeLink . $this->_separator;
+        if ($this->getModule() == 'default' && $this->getController() == 'index'
+                && $this->getAction() == 'index') {
+            return $html;
+        }
 
-    // If our module is default
-    if ($this->_module == 'default') {
+        // Get our url and create a home crumb
+        $homeLink = '<a href=' . $this->getUrl() . ' title="Scheme website home page">Home</a>';
+        // Start crumbs
+        $html .= $homeLink . $this->getSeparator();
 
-    if ($this->_action == 'index') {
-    $html .= $this->_switchModule();
-    } else {
-    $html .= ' <a href="' . $this->_url . $this->_controller;
-        $html .= '" title="Return to ' . $this->_switchModule() . ' section">';
-        $html .= $this->_switchModule() . '</a> ' . $this->_separator;
-        $html .= $this->_switchAction();
-    }
-    } else {
-    // Non Default Module
-    if ($this->_controller == 'index' && $this->_action == 'index') {
-    $html .= $this->_switchModule();
-    } else {
-    $html .= '<a href="' . $this->_url() . $this->_module .'" title="Return to';
-        $html .= $this->_switchController() . ' home">';
-        $html .= $this->_switchController() . "</a> &raquo; ";
+        // If our module is default
+        if ($this->getModule() == 'default') {
 
-    if ($this->_action == 'index') {
-    $html .= $this->_switchController();
-    } else {
-    $html .= ' <a href="' . $this->_url . $this->_module . $this->_controller;
-        $html .= '" title="Return to ' . $this->_switchController() . ' home">';
-        $html .= $this->_switchController() . '"</a>' .  $this->_separator .  $this->_switchAction();
-    }
-    }
+        if ($this->getAction() == 'index') {
+            $html .= $this->_switchModule();
+        } else {
+            $html .= ' <a href="' . $this->getUrl() . $this->getController();
+            $html .= '" title="Return to ' . $this->_switchModule() . ' section">';
+            $html .= $this->_switchModule() . '</a> ' . $this->getSeparator();
+            $html .= $this->_switchAction();
+        }
+        } else {
+        // Non Default Module
+        if ($this->getController() == 'index' && $this->getAction() == 'index') {
+        $html .= $this->_switchModule();
+        } else {
+        $html .= '<a href="' . $this->getUrl() . $this->getModule() .'" title="Return to';
+            $html .= $this->_switchController() . ' home">';
+            $html .= $this->_switchController() . "</a> &raquo; ";
 
-    }
+        if ($this->getAction() == 'index') {
+        $html .= $this->_switchController();
+        } else {
+        $html .= ' <a href="' . $this->getUrl() . $this->getModule() . $this->getController();
+            $html .= '" title="Return to ' . $this->_switchController() . ' home">';
+            $html .= $this->_switchController() . '"</a>' .  $this->getSeparator() .  $this->_switchAction();
+        }
+        }
 
-    return $html;
+        }
+
+        return $html;
     }
 
     /** Magic to string function
      *
      * @return object
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->html();
     }
 }
