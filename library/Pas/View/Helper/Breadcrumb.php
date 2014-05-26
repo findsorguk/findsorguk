@@ -104,7 +104,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
         $this->_controller = $this->getFront()->getControllerName();
         return $this->_controller;
     }
-    
+
     /* The view helper class
      *
      */
@@ -257,7 +257,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
      * @return string
      */
     public function _switchAction() {
-        switch ($action) {
+        switch ($this->getAction()) {
             case 'mapsearchresults':
                 $clean = 'Map search results';
                 break;
