@@ -245,7 +245,7 @@ echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRa
 
 <div class="row-fluid">
 <?php
-//echo $this->findSmrs($this->declat,$this->declong);
+echo $this->findSmrs()->setLat($this->declat)->setLon($this->declong);
 ?>
 </div>
 
@@ -253,7 +253,10 @@ echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRa
 
 <div class="span4 noprint">
 <?php
-echo $this->findspotGeo($this->woeid,$this->declat,$this->declong);
+echo $this->findspotGeo()
+        ->setWoeID($this->woeid)
+        ->setLat($this->declat)
+        ->setLon($this->declong);
 ?>
 </div>
 

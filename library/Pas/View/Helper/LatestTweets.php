@@ -19,50 +19,78 @@
 class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
 {
 
+    /** The cache object
+     * @access protected
+     * @var object
+     */
     protected $_cache;
 
+    /** The config object
+     * @access protected
+     * @var object
+     */
     protected $_config;
 
+    /** The key for the cache
+     * @access protected
+     * @var type
+     */
     protected $_key = 'twitterfindsorguk';
 
-    /** Construct the objects
-     *
+    /** Get the cache
+     * @access public
+     * @return type
      */
-    public function __construct()
-    {
+    public function getCache() {
         $this->_cache = Zend_Registry::get('cache');
-        $this->_config = Zend_Registry::get('config');
-
+        return $this->_cache;
     }
+
+    /** Get the config
+     * @access public
+     * @return Zend_Config
+     */
+    public function getConfig() {
+        $this->_config = Zend_Registry::get('config');
+        return $this->_config;
+    }
+
+    /** Get the key for the cache
+     * @access public
+     * @return string
+     */
+    public function getKey() {
+        return $this->_key;
+    }
+
+
 
     /** Call Twitter service
      *
      * @return array
      */
-    private function _callTwitter()
-    {
-    if (!($this->_cache->test(md5($this->_key)))) {
-        $tokens = new OauthTokens();
-        $token = $tokens->fetchRow($tokens->select()->where('service = ?', 'twitterAccess'));
-        $twitter = new Zend_Service_Twitter(
-                array(
-                    'username' => 'findsorguk',
-                    'accessToken' => unserialize($token->accessToken),
-                    'oauthOptions' => array(
-                        'consumerKey' => $this->_config->webservice->twitter->consumerKey,
-                        'consumerSecret' => $this->_config->webservice->twitter->consumerSecret
-                            )
-                    ));
-        $tweets = $twitter->statusesUserTimeline(array('count' => 2))->toValue();
+    private function _callTwitter() {
+        if (!($this->getCache()->test(md5($this->getKey())))) {
+            $tokens = new OauthTokens();
+            $token = $tokens->fetchRow($tokens->select()->where('service = ?', 'twitterAccess'));
+            $twitter = new Zend_Service_Twitter(
+                    array(
+                        'username' => 'findsorguk',
+                        'accessToken' => unserialize($token->accessToken),
+                        'oauthOptions' => array(
+                            'consumerKey' => $this->getConfig()->webservice->twitter->consumerKey,
+                            'consumerSecret' => $this->getConfig()->webservice->twitter->consumerSecret
+                                )
+                        ));
+            $tweets = $twitter->statusesUserTimeline(array('count' => 2))->toValue();
 
-        $this->_cache->save($tweets);
+            $this->getCache()->save($tweets);
 
-    } else {
-        $tweets = $this->_cache->load(md5($this->_key));
+        } else {
+            $tweets = $this->getCache()->load(md5( $this->getKey() ));
 
-    }
-
-    return $this->buildHtml($tweets);
+        }
+        return $this->buildHtml($tweets);
     }
 
     /** Build html string
@@ -70,8 +98,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
      * @param  array  $tweets
      * @return string
      */
-    public function buildHtml($tweets)
-    {
+    public function buildHtml($tweets) {
         $html = '';
         $html .= '<ul>';
         foreach ($tweets as $post) {

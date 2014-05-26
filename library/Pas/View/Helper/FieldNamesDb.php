@@ -1,6 +1,14 @@
 <?php
-/** 
+/**
  * A view helper for rendering nicer names for database fields
+ *
+ * Example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->fieldNamesDb()->setField($field);
+ * ?>
+ * </code>
  * 
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
@@ -10,14 +18,14 @@
  * @category Pas
  * @package Pas_View_Helper
  */
-class Pas_View_Helper_FieldNamesDb extends Zend_View_Helper_Abstract 
+class Pas_View_Helper_FieldNamesDb extends Zend_View_Helper_Abstract
 {
     /** The field to clean
      * @access protected
      * @var string
      */
     protected $_field;
-    
+
     /** fields on the db to query
      * @access protected
      * @var array
@@ -105,7 +113,7 @@ class Pas_View_Helper_FieldNamesDb extends Zend_View_Helper_Abstract
         'depthdiscovery'    => 'Depth of discovery',
         'Highsensitivity'   => 'High sensitivity',
     );
-    
+
     /** Get the field
      * @access public
      * @return string
@@ -154,7 +162,7 @@ class Pas_View_Helper_FieldNamesDb extends Zend_View_Helper_Abstract
 
         return ucfirst($clean);
     }
-        
+
     /** Render to string
      * @access public
      * @return type

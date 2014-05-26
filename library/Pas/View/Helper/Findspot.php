@@ -1,4 +1,4 @@
-<?php
+1<?php
 /**
  * A view helper for determining which findspot partial to display to the user
  *

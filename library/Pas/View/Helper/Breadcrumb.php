@@ -34,7 +34,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
     {
         $this->_front = Zend_Controller_Front::getInstance()->getRequest();
         $this->_module = $this->_front->getModuleName();
-        $this->_url = $this->view->baseUrl();
+        $this->_url = $this->_view->baseUrl();
     }
 
     public function getModule()

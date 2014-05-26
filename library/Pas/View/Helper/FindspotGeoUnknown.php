@@ -2,8 +2,8 @@
 /** A view helper for displaying findspots where grid reference is unknown.
  * @category Pas
  * @package Pas_View_Helper
- * @subpackage Abstract
- * @author Daniel Pett
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
  * @license GNU
  * @version 1
  * @uses Zend_View_Helper_Abstract
@@ -11,16 +11,18 @@
  * @uses Pas_View_Helper_YahooGeoAdjacent
  */
 
-class Pas_View_Helper_FindspotGeoUnknown
-    extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_FindspotGeoUnknown extends Zend_View_Helper_Abstract
+{
 
     /** The auth object
-    * @var object $_auth
+     * @access public
+     * @var object $_auth
     */
     protected $_auth = NULL;
 
     /** The auth object
-    * @var object $_cache
+     * @access protected
+     * *@var object $_cache
     */
     protected $_cache = NULL;
 
@@ -39,15 +41,45 @@ class Pas_View_Helper_FindspotGeoUnknown
     */
     protected $_appid = NULL;
 
-    /** The constructor
+    public function getAuth() {
+        $this->_auth = Zend_Registry::get('auth');
+        return $this->_auth;
+    }
+
+    public function getGeoplanet() {
+        $this->_geoplanet = new Pas_Service_Geo_Geoplanet($this->getAppid());
+        return $this->_geoplanet;
+    }
+
+    public function getAppid() {
+        $this->_appid = $this->getConfig()->webservice->ydnkeys->placemakerkey;
+        return $this->_appid;
+    }
+
+    public function setAppid($appid) {
+        $this->_appid = $appid;
+        return $this;
+    }
+
+    public function getCache() {
+        $this->_cache = Zend_Registry::get('cache');
+        return $this->_cache;
+    }
+
+    public function getConfig() {
+        $this->_config = Zend_Registry::get('config');
+        return $this->_config;
+    }
+
+        /** The constructor
      */
     public function __construct()
     {
-    $this->_auth = Zend_Registry::get('auth');
-    $this->_cache = Zend_Registry::get('cache');
-    $this->_config = Zend_Registry::get('config');
-    $this->_appid = $this->_config->webservice->ydnkeys->placemakerkey;
-    $this->_geoplanet = new Pas_Service_Geo_Geoplanet($this->_appid);
+
+
+
+
+
     }
 
     /** Create the findspot with no known geo

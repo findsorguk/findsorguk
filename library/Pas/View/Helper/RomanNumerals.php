@@ -1,6 +1,18 @@
 <?php
 /**
  * A view helper for turning dates into Roman numerals
+ *
+ * This view helper takes a year and breaks this down and returns a roman
+ * numeral
+ *
+ * Example:
+ *
+ * <code>
+ * <?php
+ * echo $this->romanNumerals()->setDate(2014);
+ * ?>
+ * </code>
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -8,14 +20,29 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @example /app/view/structure/footer.phtml Footer file uses this function
+ * for copyright dates
  */
 class Pas_View_Helper_RomanNumerals extends Zend_View_Helper_Abstract
 {
 
+    /** The date to query
+     * @access protected
+     * @var int
+     */
     protected $_date;
 
+    /** The validator to use
+     * @access protected
+     * @var object
+     */
     protected $_validator;
 
+    /** The roman numeral array
+     * @access public
+     * @var array
+     */
     protected $_numerals =  array(
         'M'  => 1000, 'CM' => 900, 'D'  => 500,
         'CD' => 400, 'C'  => 100, 'XC' => 90,
@@ -24,46 +51,68 @@ class Pas_View_Helper_RomanNumerals extends Zend_View_Helper_Abstract
         'I'  => 1
         );
 
-    public function getDate()
-    {
+    /** Get the date
+     * @access public
+     * @return type
+     */
+    public function getDate()  {
         return $this->_date;
     }
 
-    public function setDate($date)
-    {
+    /** Set the date
+     * @access public
+     * @param int $date
+     * @return \Pas_View_Helper_RomanNumerals
+     */
+    public function setDate($date) {
         $this->_date = $date;
-
         return $this;
     }
 
-    public function getValidator()
-    {
-        $this->_validator = Zend_Validate_Int();
-
+    /** get the validator
+     * @access public
+     * @return Zend_Validate_Int
+     */
+    public function getValidator() {
+        $this->_validator = new Zend_Validate_Int();
         return $this->_validator;
     }
 
-    public function getNumerals()
-    {
+    /** Get the array of roman numerals
+     * @access public
+     * @return array
+     */
+    public function getNumerals(){
         return $this->_numerals;
     }
 
-    public function romanNumerals()
-    {
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_RomanNumerals
+     */
+    public function romanNumerals() {
         return $this;
-    } 
+    }
 
-    public function validate($date)
-    {
+    /** Validate the date string
+     * @access public
+     * @param int $date
+     * @return boolean
+     */
+    public function validate($date) {
        $validator =  $this->getValidator();
-       if ($validator->isValud( $date )) {
+       if ($validator->isValid( $date )) {
            return true;
        } else {
            return false;
        }
     }
-    public function createDate()
-    {
+
+    /** Create the date string in Roman numerals
+     * @access public
+     * @return function
+     */
+    public function createDate() {
         $html = '';
         if ( $this->validate( $this->getDate() ) ) {
             $n = intval($date);
@@ -76,12 +125,14 @@ class Pas_View_Helper_RomanNumerals extends Zend_View_Helper_Abstract
                 $n = $n % $number;
             }
         }
-
         return $html;
     }
 
-    public function __toString()
-    {
+    /** The to string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
         return $this->createDate();
     }
 }

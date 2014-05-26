@@ -10,7 +10,7 @@
  * ?>
  * </code>
  *
- * 
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -70,7 +70,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @return object
      */
     public function getFront() {
-        $this->_front = Zend_Front_Controller::getInstance();
+        $this->_front = Zend_Controller_Front::getInstance();
         return $this->_front;
     }
 
@@ -115,7 +115,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @return boolean
      */
     public function getSsl() {
-        $this->_ssl = (isset($this->getHttps()) && $this->getHttps() == "on");
+        $this->_ssl = (null !== ($this->getHttps()) && $this->getHttps() == "on");
         return $this->_ssl;
     }
 
@@ -124,9 +124,12 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @return int
      */
     public function getPort() {
-        $port = (isset($this->getPortNumber()) && ((!$this->getSsl() && $this->getPortNumber() != "80")
+                Zend_Debug::dump($this->getPortNumber());
+        exit;
+        $port = (null !== ($this->getPortNumber()) && ((!$this->getSsl() && $this->getPortNumber() != "80")
         || ($this->getSsl() && $this->getPortNumber() != "443")));
         $this->_port = ($port) ? ':' . $this->getPortNumber() : '';
+
         return $this->_port;
     }
 
