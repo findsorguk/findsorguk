@@ -1,9 +1,19 @@
 <?php
 /**
  * This class is to retrieve tweets and display them.
+ * 
+ * This view helper is used to access Twitter's API via oauth and get back a 
+ * number of tweets as specified. It is project specific and therefore not
+ * for general use.
+ * 
+ * An example of how to use this
+ * <code>
+ * <?php 
+ * echo $this->latestTweets()->setCount(2);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
- * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses Zend_View_Helper_Abstract
@@ -12,7 +22,9 @@
  * @uses Zend_Service_Twitter
  * @uses Zend_Registry
  * @uses Zend_Cache
- *
+ * @uses Pas_View_Helper_TimeAgoInWords
+ * @uses OauthTokens
+ * @example /app/modules/database/views/scripts/index/index.phtml 
  * @author Daniel Pett
  * @since September 13 2011
 */
@@ -24,12 +36,36 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
      * @var object
      */
     protected $_cache;
+    
+    /** Number of tweets to retrieve
+     * @access protected
+     * @var int
+     */
+    protected $_count = 2;
 
     /** The config object
      * @access protected
      * @var object
      */
     protected $_config;
+
+    /** get the number of tweets to retrieve
+     * @access public
+     * @return int
+     */
+    public function getCount() {
+        return $this->_count;
+    }
+
+    /** Set the count to retrieve
+     * @access public
+     * @param int $count
+     * @return \Pas_View_Helper_LatestTweets
+     */
+    public function setCount($count) {
+        $this->_count = $count;
+        return $this;
+    }
 
     /** The key for the cache
      * @access protected
@@ -63,8 +99,6 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
         return $this->_key;
     }
 
-
-
     /** Call Twitter service
      *
      * @return array
@@ -72,7 +106,9 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
     private function _callTwitter() {
         if (!($this->getCache()->test(md5($this->getKey())))) {
             $tokens = new OauthTokens();
-            $token = $tokens->fetchRow($tokens->select()->where('service = ?', 'twitterAccess'));
+            $token = $tokens->fetchRow(
+                    $tokens->select()->where('service = ?', 'twitterAccess')
+                    );
             $twitter = new Zend_Service_Twitter(
                     array(
                         'username' => 'findsorguk',
@@ -82,7 +118,9 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
                             'consumerSecret' => $this->getConfig()->webservice->twitter->consumerSecret
                                 )
                         ));
-            $tweets = $twitter->statusesUserTimeline(array('count' => 2))->toValue();
+            $tweets = $twitter->statusesUserTimeline(array(
+                'count' => $this->getCount()
+                ))->toValue();
 
             $this->getCache()->save($tweets);
 
@@ -102,12 +140,12 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
         $html = '';
         $html .= '<ul>';
         foreach ($tweets as $post) {
-            $html .= '<li><strong>'. $this->view->timeagoinwords($post->created_at);
+            $html .= '<li><strong>'. $this->view->timeAgoInWords($post->created_at);
             $html .= '</strong>';
             $html .= '<strong><a href="http://www.twitter.com/';
             $html .= $post->user->screen_name	. '">';
             $html .= $post->user->screen_name . '</a></strong> said: ';
-            $html .= $this->view->autoLink($post->text)	. '</li>';
+            $html .= $this->view->autoLink()->setText($post->text)	. '</li>';
         }
         $html .= '</ul>';
 
@@ -131,5 +169,4 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
     {
         return $this->_callTwitter();
     }
-
 }

@@ -55,7 +55,7 @@ class Pas_View_Helper_SecretTreasureTweets
     foreach ($tweets->results as $post) {
     $html .= '<li>On <strong>'. date('m.d.y @ H:m:s',strtotime($post->created_at))
     . '</strong>, <strong><a href="http://www.twitter.com/'. $post->from_user
-    . '">' . $post->from_user. '</a></strong> said: '. $this->view->autoLink($post->text)
+    . '">' . $post->from_user. '</a></strong> said: '. $this->view->autoLink()->setText($post->text)
     . '</li>';
     }
     $html .= '</ul></div>';
