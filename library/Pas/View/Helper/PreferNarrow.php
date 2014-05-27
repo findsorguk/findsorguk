@@ -1,13 +1,25 @@
 <?php
 /**
- * A view helper to render thesauri terms
+ * A view helper to render thesauri term's scope.
+ *
+ * This helper takes data from the English Heritage thesaurus and uses the
+ * status column to determine whether hey can be either preferred or narrow in
+ * their usage. It is very limited in use and probably overkill.
+ *
+ * An example of use case:
+ * <code>
+ * <?php
+ * echo $this->preferNarrow()->setTerm('P');
+ * ?>
+ * </code>
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
- * @since 1
  * @package Pas
  * @category Pas_View_Helper
- *
+ * @license http://URL GNU
+ * @example /app/views/scripts/database/objectLister.phtml  
  */
 class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
 {
@@ -21,20 +33,17 @@ class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getTerm()
-    {
+    public function getTerm() {
         return $this->_term;
     }
 
     /** Set the term to query
      * @access public
-     * @param  string                        $term
+     * @param  string $term
      * @return \Pas_View_Helper_PreferNarrow
      */
-    public function setTerm( $term)
-    {
+    public function setTerm( $term ) {
         $this->_term = $term;
-
         return $this;
     }
 
@@ -42,8 +51,7 @@ class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_PreferNarrow
      */
-    public function preferNarrow()
-    {
+    public function preferNarrow() {
         return $this;
     }
 
@@ -51,10 +59,9 @@ class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         switch ($this->getTerm()) {
-            case 'P':$
+            case 'P':
                 $p = 'Preferred term';
                 break;
             case 'N':
@@ -64,8 +71,6 @@ class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
                 $p = "Invalid term";
                 break;
         }
-
         return $p;
     }
-
 }

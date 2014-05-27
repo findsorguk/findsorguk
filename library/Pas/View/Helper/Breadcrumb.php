@@ -51,6 +51,12 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
      */
     protected $_url;
 
+    /** Separator for URL
+     * @access public
+     * @var string
+     */
+    protected $_slash = '/';
+
     /** Get the front controller
      * @access public
      * @return object
@@ -387,7 +393,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
         }
 
         // Get our url and create a home crumb
-        $homeLink = '<a href=' . $this->getUrl() . ' title="Scheme website home page">Home</a>';
+        $homeLink = '<a href="' . $this->getUrl() . '" title="Scheme website home page">Home</a>';
         // Start crumbs
         $html .= $homeLink . $this->getSeparator();
 
