@@ -21,9 +21,9 @@ $this->headTitle('All finds created by my institution');
         </div>
         <div class="span3">
 		<p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'institutionmap'),null,false);?>" title="Map these records">Map these finds <i class="icon-map-marker"></i></a></p>
-      <?php echo $this->resultsQuantityChooser($this->paginator);?>
+      <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
         <?php echo $this->thumbnailToggler();?>
-        <?php echo $this->resultsSorter($this->paginator);?>
+        <?php echo $this->resultsSorter()->setResults($this->paginator);?>
         <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>
         <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
 		<?php echo $this->statGenerator()->setStats($this->stats);?>

@@ -1,48 +1,123 @@
 <?php
 /**
+ * A view helper for displaying links for choosing number of results required.
  *
- * @author dpett
- * @version
- */
-
-/**
- * ResultsQuantityChooser helper
+ * This helper is configurable for the number of results you want to display
+ * at one time from the solr response.
  *
- * @uses viewHelper Pas_View_Helper
+ * Example use:
+ *
+ * <code>
+ * <?php
+ * echo $this->resultsQuantityChooser()->setResults($results);
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @version 1
+ * @category Pas
+ * @package Pas_View_Helper
+ * @license http://URL name
  */
 class Pas_View_Helper_ResultsQuantityChooser extends Zend_View_Helper_Abstract
 {
+   /**
+    * The default quantities to return
+    * @access public
+    * @var array
+    */
     protected $_quantities = array(10, 20, 40, 100);
-    /**
-     *
+
+    /** The results object
+     * @access protected
+     * @var type
      */
-    public function resultsQuantityChooser($results)
-    {
+    protected $_results;
+
+    /** Get the quantites
+     * @access public
+     * @return array
+     */
+    public function getQuantities() {
+        return $this->_quantities;
+    }
+
+    /** Get the results
+     * @access public
+     * @return array
+     */
+    public function getResults() {
+        return $this->_results;
+    }
+
+    /** Set the quantities if desired
+     * @access public
+     * @param array $quantities
+     * @return \Pas_View_Helper_ResultsQuantityChooser
+     */
+    public function setQuantities(array $quantities) {
+        $this->_quantities = $quantities;
+        return $this;
+    }
+
+    /** Set the results
+     * @access public
+     * @param array $results
+     * @return \Pas_View_Helper_ResultsQuantityChooser
+     */
+    public function setResults( array $results) {
+        $this->_results = $results;
+        return $this;
+    }
+
+    /** The request object
+     * @access public
+     * @var object
+     */
+    protected $_request;
+
+    /** Get the request
+     * @access public
+     * @return object
+     */
+    public function getRequest() {
+        $this->_request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+        return $this->_request;
+    }
+
+    /** Generate the html url array
+     * @access public
+     * @param object $results
+     * @return type
+     */
+    public function generate(object $results){
+        $html = '';
         if ($results) {
             $urls = array();
-            $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-
-            foreach ($this->_quantities as $quantity) {
+            $request = $this->getRequest();
+            foreach ($this->getQuantities() as $quantity) {
                 $request['show'] = $quantity;
                 $urls[$quantity] = $this->view->url($request, 'default', true);
             }
-
-            return $this->_buildHtml($urls);
-        } else {
-        return null;
+            $html .= $this->_buildHtml($urls);
         }
+        return $html;
     }
 
-    protected function _buildHtml($urls)
-    {
+    /** Build final html
+     * @access public
+     * @param array $urls
+     * @return string
+     */
+    protected function _buildHtml(array $urls) {
         $html = '<p>Records per page: ';
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+        $request = $this->getRequest();
         foreach ($urls as $k => $v) {
             $html .= '<a href="' . $v . '" title="show ' . $k . ' records" ';
             if (!array_key_exists('show', $request) &&  $k === 20) {
                 $html .= ' class="highlight" ';
             }
-            if (array_key_exists('show', $request) && $request['show'] === () $k) {
+            if (array_key_exists('show', $request) && $request['show'] === $k) {
                 $html .= ' class="highlight" ';
             }
             $html .= '>' . $k . '</a> ';
@@ -50,6 +125,22 @@ class Pas_View_Helper_ResultsQuantityChooser extends Zend_View_Helper_Abstract
         $html .= '</p>';
 
         return $html;
+    }
+
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_ResultsQuantityChooser
+     */
+    public function resultsQuantityChooser() {
+        return $this;
+    }
+
+    /** The to string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
+        return $this->generate($this->getResults());
     }
 
 }

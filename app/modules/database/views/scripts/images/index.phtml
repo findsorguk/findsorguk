@@ -42,10 +42,10 @@ $(this).hover(
         $this->results);?>
     </ul>
     </div>
-    <div class="span3">        
-    	<?php echo $this->resultsQuantityChooser($this->paginator);?>
+    <div class="span3">
+    	<?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
         <?php echo $this->thumbnailToggler();?>
-        <?php echo $this->resultsSorter($this->paginator);?>
+        <?php echo $this->resultsSorter()->setResults($this->paginator);?>
 		<?php echo $this->imagesFacetCreator($this->facets); ?>
 	</div>
 </div>

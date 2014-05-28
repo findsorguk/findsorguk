@@ -1,56 +1,88 @@
 <?php
 /**
  * A view helper for returning the number of new sign ups recently
+ *
+ * A very pointless view helper, but people seem to like it.
+ *
+ * An example of use
+ *
+ * <code>
+ * <?php
+ * echo $this->newPeople();
+ * ?>
+ * </code>
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see 	   Zend_View_Helper_Abstract
- * @author 	   Daniel Pett
+ * @author Daniel Pett <dpett@britishmuseum.org>
  */
 class Pas_View_Helper_NewPeople extends Zend_View_Helper_Abstract
 {
     /** Get a list of new people from model
-     * @access private
+     * @access public
      * @return array
      */
-    private function getNew()
-    {
-    $users = new Users();
-
-    return 	$count = $users->newPeople();
+    public function getNew() {
+        $users = new Users();
+        return 	$count = $users->newPeople();
     }
 
-    /** Get new people and build html
-     * @access private
-     * @return function buildhtml
-     */
-    public function newPeople()
-    {
-    $people = $this->getNew();
-    if (count($people) > 0) {
-    return $this->buildHtml($people);
-    } else {
-    return null;
-    }
-    }
-
-    /** Build the HTML
+    /** The function to return
      * @access public
-     * @param array $people An array of people's usernames
+     * @return \Pas_View_Helper_NewPeople
      */
-    private function buildHtml($people)
-    {
-    $html = '';
-    $html .= '<h4>Welcome to today\'s new joiners</h4>';
-    $html .= '<ul>';
-    foreach ($people as $v) {
-    $url = $this->view->url(array('module' => 'users','controller' => 'named','action' => 'person','as' => $v['username']),NULL,true);
-    $html .= '<li><a href="' . $url .'" title="View account details for ' . $v['username'] . '">' . $v['username'] . '</a></li>';
+    public function newPeople() {
+        return $this;
     }
-    $html .= '</ul>';
 
-    return $html;
+    /** The to string function
+     * @access public
+     * @return type
+     */
+    public function __toString() {
+        return $this->buildHtml();
+    }
+
+    /** The build url function
+     * @access public
+     * @param array $person
+     * @return array]
+     */
+    public function buildUrl( array $person ) {
+        $params = array(
+            'module' => 'users',
+            'controller' => 'named',
+            'action' => 'person',
+            'as' => $person['username']);
+        return $params;
+    }
+
+    /** Build the html and return
+     * @access public
+     * @return string
+     */
+    public function buildHtml() {
+        $html = '';
+        $people = $this->getNew();
+        if($people){
+            $html .= '<h4>Welcome to today\'s new joiners</h4>';
+            $html .= '<ul>';
+            foreach ($people as $person) {
+                $url =
+                $html .= '<li><a href="';
+                $html .=  $this->view->url($this->buildUrl($person),NULL,true);
+                $html .= '" title="View account details for ';
+                $html .= $person['username'];
+                $html .= '">';
+                $html .= $person['username'];
+                $html .= '</a></li>';
+            }
+            $html .= '</ul>';
+        }
+        return $html;
     }
 }

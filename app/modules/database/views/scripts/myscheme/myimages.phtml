@@ -10,10 +10,10 @@
         $this->results);?>
     </ul>
     </div>
-    <div class="span3">        
-    	<?php echo $this->resultsQuantityChooser($this->paginator);?>
+    <div class="span3">
+    	<?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
         <?php echo $this->thumbnailToggler();?>
-        <?php echo $this->resultsSorter($this->paginator);?>
+        <?php echo $this->resultsSorter()->setResults($this->paginator);?>
 		<?php echo $this->facetCreatorMyImages($this->facets); ?>
 	</div>
 </div>
@@ -25,7 +25,7 @@
 <p>You have added no images to our database.</p>
 <?php endif; ?>
 
-<?php 
+<?php
 $this->inlineScript()->appendFile('/js/bootstrap-modal.js', $type='text/javascript');
 $this->inlineScript()->captureStart();
 ?>
@@ -47,5 +47,5 @@ $(document).ready(function() {
     }
 });
 
-	}); 
+	});
 <?php $this->inlineScript()->captureEnd();?>

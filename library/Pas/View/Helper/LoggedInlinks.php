@@ -1,15 +1,24 @@
 <?php
 /**
  * Display some links if logged in.
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->loggedInLinks();
+ * ?>
+ * </code>
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
- * @author Daniel Pett
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  * @uses Zend_Auth
  * @uses Zend_View_Helper_Url
+ * @author Daniel Pett <dpett@britishmuseum.org>
  */
 
 class Pas_View_Helper_LoggedInlinks extends Zend_View_Helper_Abstract
@@ -25,10 +34,8 @@ class Pas_View_Helper_LoggedInlinks extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getAuth()
-    {
+    public function getAuth() {
         $this->_auth = Zend_Auth::getInstance();
-
         return $this->_auth;
     }
 
@@ -36,8 +43,7 @@ class Pas_View_Helper_LoggedInlinks extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_LoggedInlinks
      */
-    public function loggedInLinks()
-    {
+    public function loggedInLinks() {
         return $this;
     }
 
@@ -45,8 +51,7 @@ class Pas_View_Helper_LoggedInlinks extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function buildHtml()
-    {
+    public function buildHtml() {
         $html = '';
         if ($this->getAuth()->hasIdentity()) {
             $url =  $this->view->url(array(
@@ -55,13 +60,12 @@ class Pas_View_Helper_LoggedInlinks extends Zend_View_Helper_Abstract
                 'action'=>'add'),
                     NULL, true
                     );
-
             $html .= '<div id="action"><p><a class="btn btn-large btn-success"';
             $html .= 'href="';
             $html .= $url;
             $html .-  '" title="Add a new artefact"';
             $html .= 'accesskey="a">Add new artefact</a></p></div>';
-    }
+        }
 
         return $html;
     }
@@ -70,8 +74,7 @@ class Pas_View_Helper_LoggedInlinks extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->buildHtml();
     }
 }
