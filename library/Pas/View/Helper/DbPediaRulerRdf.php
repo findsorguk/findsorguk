@@ -1,6 +1,16 @@
 <?php
-/** 
+/**
  * A view helper to render ruler information
+ *
+ * A single use view helper for getting data from dbpedia.
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->dbPediaRulerRdf()->setUri($uri);
+ * ?>
+ * </code>
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @category Pas
@@ -18,7 +28,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @var object
      */
     protected $_cache;
-    
+
     /** The array of namespaces to use
      * @access protected
      * @var array
@@ -29,7 +39,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
             'dbo', 'http://dbpedia.org/ontology/',
             'dbp', 'http://dbpedia.org/property/'
         );
-    
+
     /** Get the namespaces
      * @access public
      * @return array
@@ -47,7 +57,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         $this->_nameSpaces = $nameSpaces;
         return $this;
     }
-    
+
     /** Register the namespaces with EasyRdf
      * @access public
      * @return \Pas_View_Helper_SparqlEasy
@@ -58,7 +68,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         }
         return $this;
     }
-    
+
     /** Get the cache object
      * @access public
      * @return object
@@ -70,7 +80,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
 
     /** The uri to query
      * @access protected
-     * @var type 
+     * @var type
      */
     protected $_uri;
 
@@ -87,6 +97,11 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
     }
 
     /** Set the uri to query
+     * @access public
+     * @param type $uri
+     * @return \Pas_View_Helper_DbPediaRulerRdf
+     * @throws Pas_Exception_Url
+     */
     public function setUri($uri) {
         if (isset($uri)) {
             $this->_uri = $uri;
@@ -95,7 +110,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         }
         return $this;
     }
-    
+
     /** Get the uri to query
      * @access public
      * @return type
@@ -103,7 +118,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
     public function getUri() {
         return $this->_uri;
     }
-    
+
 
     /** Get the data from rdf graph
      * @access protected
@@ -113,13 +128,13 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         $uri = $this->getUri();
         $key = md5( $uri );
         if (!($this->getCache()->test($key))) {
-        $graph = new EasyRdf_Graph( $uri );
-        $graph->load();
+            $graph = new EasyRdf_Graph( $uri );
+            $graph->load();
 
-        $data = $graph->resource($uri);
-        $this->getCache()->save($data);
+            $data = $graph->resource($uri);
+            $this->getCache()->save($data);
         } else {
-        $data = $this->getCache()->load($key);
+            $data = $this->getCache()->load($key);
         }
         return $data;
     }

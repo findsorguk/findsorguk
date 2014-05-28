@@ -1,7 +1,7 @@
 <?php 
-$this->headTitle('Full details for ' . $this->niceshortdate($this->details['0']['date']));
+$this->headTitle('Full details for ' . $this->NiceShortDate()->setDate($this->details['0']['date']));
 ?>
-<h2>TVC held <?php echo $this->niceshortdate($this->details['0']['date']);?></h2>
+<h2>TVC held <?php echo $this->NiceShortDate()->setDate($this->details['0']['date']);?></h2>
 <p>Location: <?php echo $this->details['0']['location'];?></p>
 
 <h3>Cases assessed</h3>

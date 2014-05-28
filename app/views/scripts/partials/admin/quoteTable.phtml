@@ -1,11 +1,11 @@
 <tr>
 <td><?php echo $this->ellipsisstring($this->quote,60);?></td>
 <td><?php echo ucfirst($this->type);?></td>
-<td><?php echo $this->niceshortdate($this->expire);?></td>
+<td><?php echo $this->NiceShortDate()->setDate($this->expire);?></td>
 <td><?php echo $this->timeAgoInWords($this->created);?></td>
-<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->nameThem()->setName($this->fullname);?></td>
 <td><?php echo $this->timeAgoInWords($this->updated);?></td>
-<td><?php echo $this->namethem($this->fn);?></td>
+<td><?php echo $this->nameThem()->setName($this->fn);?></td>
 <td>
     <?php
 $edit = $this->Href(array(

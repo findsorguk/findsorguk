@@ -1,6 +1,13 @@
 <?php
 /**
  * Description of CommentType
+ *
+ * An example of use:
+ * <code>
+ * <?php
+ * echo $this->commentType()->setType('newsComment');
+ * ?>
+ * </code>
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
@@ -44,8 +51,7 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->_type;
     }
 
@@ -53,55 +59,45 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getServer()
-    {
+    public function getServer() {
         $this->_server = $this->view->serverUrl();
-
         return $this->_server;
     }
 
     /** Set the id to query
      * @access public
-     * @param  type                         $id
+     * @param  int $id
      * @return \Pas_View_Helper_CommentType
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->_id = $id;
-
         return $this;
     }
 
     /** Set the type to query
      * @access public
-     * @param  string                       $type
+     * @param  string $type
      * @return \Pas_View_Helper_CommentType
      */
-    public function setType( $type)
-    {
+    public function setType( $type )  {
         $this->_type = $type;
-
         return $this;
     }
 
     /** The comment type function
-     *
+     * @access public
      * @return \Pas_View_Helper_CommentType
      */
-    public function commentType()
-    {
+    public function commentType() {
         return $this;
     }
 
     /** Get the data for each comment
-     *
-     * @param  int                   $id
-     * @param  string                $type
-     * @return type
-     * @throws Pas_Exception_BadJuJu
+     * @return string
+     * @throws Zend_Exception
+     * @access public
      */
-    public function getData()
-    {
+    public function getData() {
         switch ($this->getType()) {
             case 'findComment':
                 $finds = new Finds();
@@ -119,15 +115,12 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
     }
 
     /** Build the Html for rendering
-     *
-     * @param  object                $data
-     * @param  string                $type
-     * @param  int                   $id
+     * @access public
      * @return string
-     * @throws Pas_Exception_BadJuJu
+     * @throws Zend_Exception
      */
-    public function buildHtml()
-    {
+    public function buildHtml() {
+        $html = '';
         $data = $this->getData();
         if ($data instanceof Zend_Db_Table_Row) {
             switch ($type) {
@@ -140,8 +133,12 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
                                 'id' => $id),
                             'default',
                             true);
-                    $html = '<a href="' .  $this->getServer() . $url  . '">Relating to find: '
-                        . $data->old_findID . '</a>';
+                    $html .= '<a href="';
+                    $html .= $this->getServer();
+                    $html .= $url;
+                    $html .= '">Relating to find: ';
+                    $html .= $data->old_findID;
+                    $html .= '</a>';
                     break;
                 case 'newsComment':
                     $url = $this->view->url(
@@ -152,8 +149,12 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
                                 'id' => $id),
                             'default',
                             true);
-                    $html = '<a href="' . $this->getServer() . $url . '">Relating to news article: '
-                        . $data->title . '</a>';
+                    $html .= '<a href="';
+                    $html .= $this->getServer();
+                    $html .= $url;
+                    $html .= '">Relating to news article: ';
+                    $html .= $data->title;
+                    $html .= '</a>';
                     break;
                 default:
                     throw new Zend_Exception('You need a comment type');
@@ -164,11 +165,10 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
     }
 
     /** The magic method to return
-     *
+     * @access public
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->buildHtml();
     }
 

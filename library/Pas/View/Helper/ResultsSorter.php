@@ -6,6 +6,11 @@
  * and then offers the user the chance to sort. It could be set up, so that
  * the user could have a default sort column and order in their preferences
  * (one day!)
+ * Example of use:
+ * <code>
+ * <?php
+ * echo $this->resultsSorter()->setResults($this->paginator);
+ * ?>
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @version 1
@@ -13,7 +18,7 @@
  * @license http://URL GNU
  * @package Pas
  * @category Pas_View_Helper
- *
+ * @version 1
  */
 class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
 {

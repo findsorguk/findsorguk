@@ -117,22 +117,22 @@ class Pas_View_Helper_SearchParams
                 $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->adBc()->setDate($v) . '</li>';
                 break;
             case 'updated':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->niceshortdate($v) . '</li>';
+                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
                 break;
             case 'created':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->niceshortdate($v) . '</li>';
+                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
                 break;
             case 'updatedAfter':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->niceshortdate($v) . '</li>';
+                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
                 break;
             case 'updatedBefore':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->niceshortdate($v) . '</li>';
+                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
                 break;
             case 'createdBefore':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->niceshortdate($v) . '</li>';
+                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
                 break;
             case 'createdAfter':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->niceshortdate($v) . '</li>';
+                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
                 break;
             default:
                 $html .= '<li>' . $this->cleanKey($k) .': ' . $v . '</li>';

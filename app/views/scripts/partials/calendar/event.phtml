@@ -3,8 +3,8 @@
 <blockquote><?php echo $this->paragraphRemove($this->purify($this->content));?></blockquote>
 <?php endif;?>
 <p>Location: <?php echo $this->where;?><br />
-Start: <?php echo date('g:ia', strtotime($this->starts));?> <?php echo $this->niceshortdate(date('d-m-Y', strtotime($this->ends)));?><br />
-End: <?php echo date('g:ia', strtotime($this->ends));?> <?php echo $this->niceshortdate(date('d-m-Y', strtotime($this->ends)));?><br />
+Start: <?php echo date('g:ia', strtotime($this->starts));?> <?php echo $this->NiceShortDate()->setDate(date('d-m-Y', strtotime($this->ends)));?><br />
+End: <?php echo date('g:ia', strtotime($this->ends));?> <?php echo $this->NiceShortDate()->setDate(date('d-m-Y', strtotime($this->ends)));?><br />
 <?php 
 $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
 if($action != 'event'):

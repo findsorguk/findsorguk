@@ -2,13 +2,21 @@
 /**
  * A view helper for determining which findspot partial to display to the user
  *
+ * An example of use
+ * <code>
+ * <?php
+ * echo $this->facebookPage();
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @author Daniel Pett <dpett at britishmuseum.org>
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
+ * @uses Zend_Http_Client_Adapter_Curl
+ * @uses Zend_Http_Client
  * @todo this class can be cut substantially for the user object to come from just one call
  */
 class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract

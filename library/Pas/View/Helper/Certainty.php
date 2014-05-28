@@ -1,6 +1,14 @@
 <?php
 /**
  * A basic view helper for displaying certainty for object types
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->certainty()->setCertainty(1);
+ * ?>
+ * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
@@ -27,10 +35,8 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getValidator()
-    {
+    public function getValidator() {
         $this->_validator = new Zend_Validate_Int();
-
         return $this->_validator;
     }
 
@@ -38,20 +44,17 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getCertainty()
-    {
+    public function getCertainty()  {
         return $this->_certainty;
     }
 
     /** Set the certainty value
      * @access public
-     * @param  int                        $certainty
+     * @param  int $certainty
      * @return \Pas_View_Helper_Certainty
      */
-    public function setCertainty($certainty)
-    {
+    public function setCertainty($certainty) {
         $this->_certainty = $certainty;
-
         return $this;
     }
 
@@ -59,8 +62,7 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_Certainty
      */
-    public function certainty()
-    {
+    public function certainty() {
         return $this;
     }
 
@@ -69,8 +71,7 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_Certainty
      * @throws Zend_Exception
      */
-    public function _checkValid()
-    {
+    public function _checkValid()  {
         if ($this->getValidator()->isValid($this->getCertainty())) {
             return $this;
         } else {
@@ -82,8 +83,7 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function html()
-    {
+    public function html() {
         $this->_checkValid();
         switch ($this->getCertainty()) {
         case 1:
@@ -99,7 +99,6 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
                     $html = '';
                     break;
         }
-
     return $html;
     }
 
@@ -107,8 +106,7 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->html();
     }
 }

@@ -1,7 +1,13 @@
  <?php
-
  /**
   * A view helper for pluralisation of quantities
+  *
+  * An example of usage
+  * <code>
+  * $this->pluralise()->setQuantity(10);
+  * </code>
+  * Would render: 10 coins
+  *
   * @todo this could be made more generic
   * @author Daniel Pett <dpett at britishmuseum.org>
   * @copyright (c) 2014, Daniel Pett
@@ -9,12 +15,7 @@
   * @since 1
   * @category Pas
   * @package Pas_View_Helper
-  * An example of usage
-  * <pre>
-  * $this->pluralise()->setQuantity(10);
-  * </pre>
-  * Would render:
-  * 10 coins
+  * @license GNU
   */
 class Pas_View_Helper_Pluralise
 {

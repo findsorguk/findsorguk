@@ -8,7 +8,9 @@
  *
  * To use this view helper is very simple:
  * <code>
- * <?php echo $this->previousFind()->setFindID($id);?>
+ * <?php
+ * echo $this->previousFind()->setFindID($id);
+ * ?>
  * </code>
  *
  * @author Daniel Pett <dpett at britishmuseum.org>

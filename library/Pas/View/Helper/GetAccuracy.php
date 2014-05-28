@@ -1,5 +1,15 @@
 <?php
 /** This view helper gets the accuracy of a grid reference
+ *
+ * An example use:
+ *
+ * <code>
+ * <?php
+ * echo $this->getAccuracy()->setGridRef('TQ1234');
+ * ?>
+ * </code>
+ *
+ *
  * @todo phase this out as it won't be needed shortly
  * @author Daniel Pett
  * @copyright DEJ Pett
@@ -10,64 +20,85 @@
  * @package Pas_View_Helper
  */
 
-class Pas_View_Helper_GetAccuracy
-    extends Zend_View_Helper_Abstract {
-    /** Strip out the NGR bad characters
-     *
-     * @param string $string
-     */
-    private function stripgrid($string="")
-    {
-    $stripOut = array(" ","-",'/',".");
-    $gridRef = str_replace($stripOut,"",$string);
-    $gridRef = strtoupper($gridRef);
+class Pas_View_Helper_GetAccuracy extends Zend_View_Helper_Abstract {
 
-    return $gridRef;
+    /** The grid ref to clean
+     * @access protected
+     * @var string
+     */
+    protected $_gridRef;
+
+    /** The function to grid ref
+     * @access public
+     * @return type
+     */
+    public function getGridRef() {
+        return $this->_gridRef;
     }
 
+    /** Set the grid ref
+     * @access public
+     * @param type $gridRef
+     * @return \Pas_View_Helper_GetAccuracy
+     */
+    public function setGridRef($gridRef) {
+        $this->_gridRef = $gridRef;
+        return $this;
+    }
+
+    /** Strip out the NGR bad characters
+     * @access public
+     * @param string $string
+     */
+    public function stripgrid( $string ) {
+        $stripOut = array(" ","-",'/',".");
+        $gridRef = str_replace($stripOut,"",$string);
+        $clean = strtoupper($gridRef);
+        return $clean;
+    }
+
+    public function getAccuracy() {
+        return $this;
+    }
     /** Get accuracy of the grid ref
      *
      * @param string $gridref
      * @param int    $clean
      */
-    public function GetAccuracy($gridref,$clean=  1)
-    {
-    if ($clean == 1) {$gridref = $this->stripgrid($gridref);}
-    $coordCount = strlen($gridref)-2; //count length and strip off fist two characters
+    public function __toString() {
 
-    switch ($coordCount) {
-        case 0:
-            $acc = 100000;
-            break;
-        case 2:
-            $acc = 10000;
-            break;
-        case 4:
-            $acc = 1000;
-            break;
-        case 6:
-            $acc = 100;
-            break;
-        case 8:
-            $acc = 10;
-            break;
-        case 10:
-            $acc = 1;
-            break;
-        case 12:
-            $acc = 0.1;
-            break;
-        case 14:
-            $acc = 0.01;
-            break;
-        default:
-            return false;
-            break;
-    }
-
-    $gridAcc = $acc;
-
-    return $acc;
+        $gridref = $this->stripgrid($this->getGridRef());
+        $coordCount = strlen($gridref) - 2; //count length and strip off fist two characters
+        switch ($coordCount) {
+            case 0:
+                $acc = 100000;
+                break;
+            case 2:
+                $acc = 10000;
+                break;
+            case 4:
+                $acc = 1000;
+                break;
+            case 6:
+                $acc = 100;
+                break;
+            case 8:
+                $acc = 10;
+                break;
+            case 10:
+                $acc = 1;
+                break;
+            case 12:
+                $acc = 0.1;
+                break;
+            case 14:
+                $acc = 0.01;
+                break;
+            default:
+                $acc = 'Not in range!';
+                break;
+        }
+        return $acc;
     }
 
 }

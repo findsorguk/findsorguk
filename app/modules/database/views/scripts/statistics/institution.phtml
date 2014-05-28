@@ -9,11 +9,11 @@ $("#dateto").datepicker();
 $this->jQuery()->javascriptCaptureEnd();
  ?>
 
-<?php $this->headTitle('Statistical analysis of the database for '. $this->niceshortdate($this->escape($this->datefrom)). ' until '. $this->niceshortdate($this->escape($this->dateto)));
-$this->headMeta('This is a statistical analyis of all data recorded with us between'. $this->niceshortdate($this->escape($this->datefrom)). ' until '. $this->niceshortdate($this->escape($this->dateto)),'description');
+<?php $this->headTitle('Statistical analysis of the database for '. $this->NiceShortDate()->setDate($this->escape($this->datefrom)). ' until '. $this->NiceShortDate()->setDate($this->escape($this->dateto)));
+$this->headMeta('This is a statistical analyis of all data recorded with us between'. $this->NiceShortDate()->setDate($this->escape($this->datefrom)). ' until '. $this->NiceShortDate()->setDate($this->escape($this->dateto)),'description');
 $this->headMeta('recorded,artefacts,archaeology','dc.keywords');
 ?>
-<h2><?php echo 'Statistical analysis of the database for '.  $this->niceshortdate($this->escape($this->datefrom)). ' until '. $this->niceshortdate($this->escape($this->dateto));?></h2>
+<h2><?php echo 'Statistical analysis of the database for '.  $this->NiceShortDate()->setDate($this->escape($this->datefrom)). ' until '. $this->NiceShortDate()->setDate($this->escape($this->dateto));?></h2>
 <p>These archives can be searched to find out what was recorded on a particular day of the year. We have been recording digitally since 1998.</p>
 <ul id="yearrange">
 <?php echo $this->partialLoop('partials/database/archiveYearsStats.phtml',$this->years);?>

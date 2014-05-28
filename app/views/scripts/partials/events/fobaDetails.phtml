@@ -1,5 +1,5 @@
 <h3><?php echo $this->name;?></h3>
-<p><?php echo $this->niceshortdate($this->eventStartDate);?></p>
+<p><?php echo $this->NiceShortDate()->setDate($this->eventStartDate);?></p>
 <?php echo $this->purify($this->ParagraphRemove($this->eventDescription));?>
 <?php 
 $params = array(  

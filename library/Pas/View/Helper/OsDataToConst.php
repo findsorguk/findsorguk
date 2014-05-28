@@ -3,6 +3,12 @@
  * A view helper for getting a count of OS antiquity/roman records within a
  * constituency
  *
+ * Example of use:
+ * <code>
+ * <?php
+ * echo $this->osDataToConst()->setConstituency($geo->name);
+ * ?>
+ * </code>
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
@@ -25,8 +31,7 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getConstituency()
-    {
+    public function getConstituency() {
         return $this->_constituency;
     }
 
@@ -35,10 +40,8 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @param  string                         $constituency
      * @return \Pas_View_Helper_OsDataToConst
      */
-    public function setConstituency( $constituency)
-    {
+    public function setConstituency( $constituency ) {
         $this->_constituency = $constituency;
-
         return $this;
     }
 
@@ -46,8 +49,7 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_OsDataToConst
      */
-    public function osDataToConst()
-    {
+    public function osDataToConst() {
         return $this;
     }
 
@@ -55,10 +57,8 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getData()
-    {
+    public function getData() {
         $os = $this->getRecords($this->getConstituency());
-
         return $this->buildHtml($os);
     }
 
@@ -66,8 +66,7 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString()  {
         return $this->getData();
     }
 
@@ -76,10 +75,8 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @param  string $constituency
      * @return array
      */
-    public function getRecords( $constituency)
-    {
+    public function getRecords( $constituency ) {
         $osdata = new Osdata();
-
         return $osdata->getGazetteerConstituency($constituency);
     }
 
@@ -88,8 +85,7 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @param  array  $os
      * @return string
      */
-    public function buildHtml(array $os)
-    {
+    public function buildHtml(array $os ) {
         $html = '';
         if (is_array($os)) {
             $html .= '<p>There are ';
@@ -100,5 +96,4 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
 
         return $html;
     }
-
 }

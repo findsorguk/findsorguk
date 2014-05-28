@@ -1,6 +1,14 @@
 <?php
 /**
  * A view helper for displaying workflow as a textual representation
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->workflowStatus()->setWorkflow(1);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -59,7 +67,6 @@ class Pas_View_Helper_WorkflowStatus extends Zend_View_Helper_Abstract
     /** Render the html string
      * @access public
      * @return string
-     * @throws Zend_Exception
      */
     public function _buildHtml()
     {
@@ -77,8 +84,9 @@ class Pas_View_Helper_WorkflowStatus extends Zend_View_Helper_Abstract
                 $wf = 'Published';
                 break;
             default:
-                throw new Zend_Exception('No workflow status set', 500);
-    }
+                $wf = 'No workflow status set';
+                break;
+        }
 
         return $wf;
     }

@@ -1,12 +1,12 @@
-<?php 
+<?php
 $this->headTitle('Submit an error report on ' . $this->old_findID);
-$this->headMeta('Using the form on this page, an error report can be submitted 
+$this->headMeta('Using the form on this page, an error report can be submitted
     for the record : ' . $this->old_findID,'description');
 ?>
 <h2>Report an error about record: <?php echo $this->old_findID;?></h2>
-<p>Thank you for taking the time to report an error about this find. The error 
+<p>Thank you for taking the time to report an error about this find. The error
     report will be sent to: <br />
-<?php 
-echo $this->relevantadviser($this->objecttype,$this->broadperiod);
+<?php
+echo $this->relevantAdviser()->setObjectType($this->objecttype)->setBroadperiod($this->broadperiod);
 ?>
 </p>

@@ -2,6 +2,14 @@
 /**
  * A view helper for automatically inserting period name from integer
  * This function is a bit of a waste of space!
+ *
+ * An example of use:
+ * <code>
+ * <?php
+ * echo $this->adminPeriod()->setPeriod(29);
+ * ?>
+ * </code>
+ * 
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract

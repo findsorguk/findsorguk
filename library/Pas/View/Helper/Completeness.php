@@ -1,6 +1,13 @@
 <?php
 /**
  * A view helper for rendering completeness of object
+ *
+ * An example of use:
+ * <code>
+ * <?php
+ * echo $this->completeness()->setInt(1);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -27,8 +34,7 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getInt()
-    {
+    public function getInt() {
         return $this->_int;
     }
 
@@ -36,10 +42,8 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getValidator()
-    {
+    public function getValidator() {
         $this->_validator = Zend_Validate_Int();
-
         return $this->_validator;
     }
 
@@ -48,10 +52,8 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
      * @param  int                           $int
      * @return \Pas_View_Helper_Completeness
      */
-    public function setInt($int)
-    {
+    public function setInt($int) {
         $this->_int = $int;
-
         return $this;
     }
 
@@ -59,8 +61,7 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_Completeness
      */
-    public function completeness()
-    {
+    public function completeness() {
         return $this;
     }
 
@@ -68,8 +69,7 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function html()
-    {
+    public function html() {
         $this->validate();
         switch ($this->getInt()) {
             case 1:

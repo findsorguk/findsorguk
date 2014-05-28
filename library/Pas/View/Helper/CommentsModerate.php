@@ -1,6 +1,14 @@
 <?php
 /**
  * Type of moderation for comments
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->commentsModerate();
+ * ?>
+ * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @license http://URL GNU
  * @copyright (c) 2014, Daniel Pett
@@ -19,20 +27,16 @@ class Pas_View_Helper_CommentsModerate extends Zend_View_Helper_Abstract
      * @access public
      * @return array of comments
      */
-    public function getComments()
-    {
-    $comments = new Comments();
-    $data = $comments->getCommentsTypeModerate();
-
-        return $data;
+    public function getComments() {
+        $comments = new Comments();
+        return $comments->getCommentsTypeModerate();
     }
 
     /** Build html
      * @access public
      * @return string html for view helper
      */
-    public function buildHtml()
-    {
+    public function buildHtml(){
         $html = '';
         $data = $this->getComments();
         if (is_array( $data )) {
@@ -49,7 +53,6 @@ class Pas_View_Helper_CommentsModerate extends Zend_View_Helper_Abstract
             $html .= '</li>';
 
         }
-
         return $html;
     }
 
@@ -57,8 +60,7 @@ class Pas_View_Helper_CommentsModerate extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_CommentsModerate
      */
-    public function commentsModerate()
-    {
+    public function commentsModerate() {
         return $this;
     }
 
@@ -66,8 +68,7 @@ class Pas_View_Helper_CommentsModerate extends Zend_View_Helper_Abstract
      * @access public
      * @return string The html for the view
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->buildHtml();
     }
 }

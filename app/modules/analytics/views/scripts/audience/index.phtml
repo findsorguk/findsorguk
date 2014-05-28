@@ -15,7 +15,7 @@ $this->headTitle('Visitors analytical data provided via Google Analytics ' . $th
 		<tbody>
 			<?php foreach($this->results as $row):?>
 			<tr>
-				<td><?php echo $this->niceshortdate(strtotime($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_DATE)->value));?></td>
+				<td><?php echo $this->NiceShortDate()->setDate(strtotime($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_DATE)->value));?></td>
 				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
 			</tr>
 			<?php endforeach;?>

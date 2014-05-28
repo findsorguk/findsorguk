@@ -3,10 +3,10 @@
 
 <?php if(isset($this->df))
 { 
-echo ' held '.$this->niceshortdate($this->df); 
+echo ' held '.$this->NiceShortDate()->setDate($this->df); 
 if(isset($this->dt))
 { 
-echo ' - '.$this->niceshortdate($this->dt);
+echo ' - '.$this->NiceShortDate()->setDate($this->dt);
 }
 }
 ?>

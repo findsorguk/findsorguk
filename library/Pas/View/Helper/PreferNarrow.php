@@ -19,7 +19,7 @@
  * @package Pas
  * @category Pas_View_Helper
  * @license http://URL GNU
- * @example /app/views/scripts/database/objectLister.phtml  
+ * @example /app/views/scripts/database/objectLister.phtml
  */
 class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
 {
@@ -36,7 +36,6 @@ class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
     public function getTerm() {
         return $this->_term;
     }
-
     /** Set the term to query
      * @access public
      * @param  string $term
@@ -46,7 +45,6 @@ class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
         $this->_term = $term;
         return $this;
     }
-
     /** The function to return
      * @access public
      * @return \Pas_View_Helper_PreferNarrow
@@ -54,7 +52,6 @@ class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
     public function preferNarrow() {
         return $this;
     }
-
     /** To string function
      * @access public
      * @return string

@@ -7,7 +7,7 @@
 	null,true);?>" title="Find all records recorded at this rally by <?php echo $this->fullname;?>">Find all records created</a>
 ]
 <?php if(isset($this->datefrom)):
-    $dates = array($this->niceshortdate($this->datefrom), $this->niceshortdate($this->dateto));
+    $dates = array($this->NiceShortDate()->setDate($this->datefrom), $this->NiceShortDate()->setDate($this->dateto));
     ?>
 
  Attended: <?php echo implode( ' - ', $dates);?>

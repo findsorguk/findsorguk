@@ -1,6 +1,14 @@
 <?php
 /**
  * A view helper for displaying export links for PAS data
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->export()->setParams($params);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -16,7 +24,7 @@ class Pas_View_Helper_Export extends Zend_View_Helper_Abstract
      * @var array
      */
     protected $_params = array();
-    
+
     /** Get the parameters
      * @access public
      * @return array
@@ -34,19 +42,19 @@ class Pas_View_Helper_Export extends Zend_View_Helper_Abstract
         $this->_params = $params;
         return $this;
     }
-    
+
     /** Get the cleaner class
      * @access protected
      * @var object
      */
     protected $_cleaner;
-    
+
     /** The array keys to remove
      * @access protected
      * @var array
      */
     protected $_keys = array( 'controller', 'module', 'action', 'submit');
-    
+
     /** The cleaning object
      * @access public
      * @return array
@@ -64,7 +72,7 @@ class Pas_View_Helper_Export extends Zend_View_Helper_Abstract
     public function cleanArray( array $array ) {
         return $this->_cleaner->array_cleanup($array, $this->_keys);
     }
-    
+
     /** The export function
      * @access public
      * @return \Pas_View_Helper_Export
@@ -72,7 +80,7 @@ class Pas_View_Helper_Export extends Zend_View_Helper_Abstract
     public function export(){
         return $this;
     }
-    
+
     /** Render the html
      * @access public
      */
@@ -92,14 +100,14 @@ class Pas_View_Helper_Export extends Zend_View_Helper_Abstract
                         'controller' => 'search',
                         'action' => 'map'
                         ),null,true) . '/' . $query;
-    
+
             $map = '<a href="' . $mapUrl . '">Map results</a>';
             $exportformats = '<p>' . $map;
-    
+
             $auth = Zend_Auth::getInstance();
-    
+
             if ($auth->hasIdentity()) {
-    
+
                 $exportformats .= ' | <a  href="';
                 $exportformats .=  $this->view->url(
                         array(
@@ -117,7 +125,7 @@ class Pas_View_Helper_Export extends Zend_View_Helper_Abstract
                             ),null,true);
                 $exportformats .= '" title="Email this search">Email this search</a>';
             }
-    
+
             $exportformats .= '</p>';
     }
 }

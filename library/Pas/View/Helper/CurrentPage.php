@@ -21,8 +21,7 @@ class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract
     /** Get the current instance of module, controller and action
      *
      */
-    public function __construct()
-    {
+    public function __construct() {
         $front = Zend_Controller_Front::getInstance()->getRequest();
         $this->_module = $front->getModuleName();
         $this->_controller = $front->getControllerName();
@@ -31,13 +30,11 @@ class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract
 
     }
 
-    public function __toString()
-    {
+    public function __toString() {
         return $this->active();
     }
 
-    public function currentPage()
-    {
+    public function currentPage() {
         return $this;
     }
 

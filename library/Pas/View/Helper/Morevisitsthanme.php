@@ -1,6 +1,14 @@
 <?php
 /**
  * A trivial view helper to work out who has visited more times than you
+ *
+ * An example use:
+ *
+ * <code>
+ * <?php
+ * echo $this->moreVisitsThanMe()->setVisits(2);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -9,21 +17,51 @@
  * @see Zend_View_Helper_Abstract
  */
 
-class Pas_View_Helper_Morevisitsthanme
-    extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_MoreVisitsThanMe extends Zend_View_Helper_Abstract
+{
 
-    /** Find out how many more people than you have visited the site
-     *
-     * @param integer $visits
+    /** The number of visits made
+     * @access protected
+     * @var int
      */
-    public function morevisitsthanme($visits)
-    {
-    $users = new Users();
-    $visits = $users->getMoreTotals($visits);
-    foreach ($visits as $v) {
-    $t = $v['morethan'];
+    protected $_visits;
+
+    /** Get the number of visits
+     * @access protected
+     * @return int
+     */
+    public function getVisits() {
+        return $this->_visits;
     }
 
-    return $t;
+    /** Set the number of visits
+     * @access public
+     * @param int $visits
+     * @return \Pas_View_Helper_MoreVisitsThanMe
+     */
+    public function setVisits($visits) {
+        $this->_visits = $visits;
+        return $this;
+    }
+
+    /** To string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
+        $users = new Users();
+        $visits = $users->getMoreTotals($this->getVisits());
+        foreach ($visits as $v) {
+            $total = $v['morethan'];
+        }
+        return $total;
+    }
+
+    /** Find out who has visited more times than a person
+     * @access public
+     * @return \Pas_View_Helper_MoreVisitsThanMe
+     */
+    public function moreVisitsThanMe() {
+        return $this;
     }
 }

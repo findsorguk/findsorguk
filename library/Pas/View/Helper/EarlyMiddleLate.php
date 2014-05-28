@@ -1,6 +1,13 @@
 <?php
 /** A view helper for displayin the qualifier for Early|Middle|Late period data
  *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->earlyMiddleLate()->setQualifier(1);
+ * ?>
+ * </code>
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
@@ -22,8 +29,7 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getQualifier()
-    {
+    public function getQualifier() {
         return $this->_qualifier;
     }
 
@@ -32,8 +38,7 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
      * @param  int                              $qualifier
      * @return \Pas_View_Helper_EarlyMiddleLate
      */
-    public function setQualifier($qualifier)
-    {
+    public function setQualifier($qualifier) {
         $this->_qualifier = $qualifier;
 
         return $this;
@@ -61,8 +66,7 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
      * @param  string         $qualifier
      * @return string|boolean
      */
-    public function getSwitch()
-    {
+    public function getSwitch() {
         switch ( $this->getQualifier() ) {
             case 1:
                 $string = 'Early';
@@ -77,7 +81,6 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
                 $string = '';
                 break;
         }
-
         return $string;
     }
 }

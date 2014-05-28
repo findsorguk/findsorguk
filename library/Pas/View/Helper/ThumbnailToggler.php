@@ -18,7 +18,7 @@
  * @version 1
  * @category Pas
  * @package Pas_View_Helper
- *
+ * @copyright (c) 2014, Daniel Pett
  */
 class Pas_View_Helper_ThumbnailToggler extends Zend_View_Helper_Abstract
 {

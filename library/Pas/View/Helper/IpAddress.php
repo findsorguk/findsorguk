@@ -5,6 +5,12 @@
  * This helper is just used to get the user's Ip address from the front
  * controller. Very simple!
  *
+ * Example of use:
+ * <code>
+ * <?php
+ * echo $this->ipAddress();
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract

@@ -7,7 +7,8 @@
  *
  * To use this:
  * <code>
- * <?php echo $this->coinDataDisplay()
+ * <?php
+ * echo $this->coinDataDisplay()
  * ->setObjectType($this->finds['0']['objecttype'])
  * ->setBroadperiod($this->finds['0']['broadperiod'])
  * ->setCoins($this->coins)

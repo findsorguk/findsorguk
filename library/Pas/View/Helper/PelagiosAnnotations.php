@@ -2,6 +2,17 @@
 
 /**
  * PelagiosAnnotations helper
+ *
+ * This view helper queries the Pelagios API and retrieves annotations from
+ * their system.
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->pelagiosAnnotations()->setPleiadesPlace($placeID);
+ * ?>
+ * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @uses viewHelper Pas_View_Helper
  * @copyright (c) 2014, Daniel Pett
@@ -48,8 +59,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
     /** Construct the cache
      *
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->_cache = Zend_Registry::get('cache');
     }
 
@@ -57,25 +67,22 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_PelagiosAnnotations
      */
-    public function pelagiosAnnotations()
-    {
+    public function pelagiosAnnotations() {
         return $this;
     }
 
     /** set the Pleiades place
      * @access public
-     * @param  int                                  $place
+     * @param  int $place
      * @return \Pas_View_Helper_PelagiosAnnotations
      * @throws Zend_Exception
      */
-    public function setPleiadesPlace($place)
-    {
+    public function setPleiadesPlace($place) {
         if (isset( $place )) {
             $this->_uri = urlencode(self::PLEIADESURI . $place);
         } else {
             throw new Zend_Exception('No uri has been provided to query');
         }
-
         return $this;
     }
 
@@ -83,8 +90,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function _getData()
-    {
+    public function _getData() {
         $key = md5($this->_uri . 'pelagios');
         if (!($this->_cache->test($key))) {
             $config = array(
@@ -110,7 +116,6 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
         } else {
             $newJson = $this->_cache->load($key);
         }
-
         return $newJson;
     }
 
@@ -118,8 +123,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function html()
-    {
+    public function html() {
         $html = '<h3>Other resources via Pelagios</h3>';
         if ($this->_getData()) {
             $html .= '<ul>';
@@ -132,7 +136,6 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
         } else {
             $html .= '<p>No annotations found</p>';
         }
-
         return $html;
     }
 
@@ -140,8 +143,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->html();
     }
 }

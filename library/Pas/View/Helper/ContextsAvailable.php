@@ -1,7 +1,16 @@
 <?php
 /**
- * A view helper for determining which contexts are available and displaying links
- * to obtain them
+ * A view helper for determining which contexts are available and displaying
+ * links to obtain them.
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->contextsAvailable()->setContexts($contexts);
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett@britishmuseum.org>@
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract

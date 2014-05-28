@@ -1,6 +1,12 @@
 <?php
 /**
  * A view helper for checking if a user has logged in
+ *
+ * An example of use:
+ * <code>
+ * <?php echo $this->amILoggedIn();?>
+ * </code>
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @author Daniel Pett <dpett @ britishmuseum.org>

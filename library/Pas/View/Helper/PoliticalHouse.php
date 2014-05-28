@@ -1,6 +1,14 @@
 <?php
 /**
- * A view helper for displaying an image based on political house assigned to
+ * A view helper for displaying an image based on political house assigned to.
+ *
+ * Example use:
+ *
+ * <code>
+ * <?php
+ * echo $this->politicalHouse()->setHouse(1);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -41,11 +49,10 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
 
     /** Set the house to query
      * @access public
-     * @param  int                             $house
+     * @param  int $house
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setHouse($house)
-    {
+    public function setHouse($house) {
         $this->_house = $house;
 
         return $this;
@@ -77,10 +84,10 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
 
     /** set a different path for commons logo
      * @access public
-     * @param  string                          $commons
+     * @param  string  $commons
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setCommons( $commons)
+    public function setCommons( $commons )
     {
         $this->_commons = $commons;
 
@@ -89,7 +96,7 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
 
     /** Set a different path for the lords logo
      * @access public
-     * @param  string                          $lords
+     * @param  string  $lords
      * @return \Pas_View_Helper_PoliticalHouse
      */
     public function setLords( $lords)
@@ -134,7 +141,7 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @param  string $house
      * @return string
      */
-    public function buildImage( $image, string $house)
+    public function buildImage( $image, $house)
     {
         list($w, $h, $type, $attr) = getimagesize('./' . $image);
 

@@ -1,6 +1,6 @@
 <?php
 /** A view helper to get statistics for a coin denomination from solr
- * @a
+ * 
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @version 1
  * @since 1

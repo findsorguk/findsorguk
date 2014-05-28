@@ -1,6 +1,13 @@
 <?php
 /**
  * A view helper for displaying workflow icons
+ *
+ * An example of use:
+ * <code>
+ * <?php
+ * echo $this->workflow()->setWorkflow(1);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract

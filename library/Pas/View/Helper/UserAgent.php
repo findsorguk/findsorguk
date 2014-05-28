@@ -1,6 +1,13 @@
 <?php
 /**
  * A basic view helper for displaying  user agent
+ *
+ * Example of use:
+ * <code>
+ * <?php
+ * echo $this->userAgent()
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract

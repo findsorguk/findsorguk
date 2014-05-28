@@ -21,6 +21,12 @@
  */
 class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
 {
+    /** The default role
+     * @access protected
+     * @var string
+     */
+    protected $_role = 'public';
+
     /** The Solr instance
      * @access protected
      * @var object
@@ -55,20 +61,17 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access protected
      * @return string
      */
-    public function getQuery()
-    {
+    public function getQuery() {
         return $this->_query;
     }
 
     /** Set the query
      * @access public
-     * @param  string                        $query
+     * @param  string  $query
      * @return \Pas_View_Helper_MoreLikeThis
      */
-    public function setQuery( $query)
-    {
+    public function setQuery( $query ) {
         $this->_query = $query;
-
         return $this;
     }
 
@@ -76,10 +79,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getConfig()
-    {
+    public function getConfig() {
         $this->_config = Zend_Registry::get('config');
-
         return $this->_config;
     }
 
@@ -87,10 +88,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
     /** Construct all the objects
      *
      */
-    public function getCache()
-    {
+    public function getCache()  {
         $this->_cache = Zend_Registry::get('rulercache');
-
         return $this->_cache;
     }
 
@@ -99,10 +98,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @todo might need deprecating as I think this is set elsewhere
      * @return type
      */
-    public function getSolrConfig()
-    {
+    public function getSolrConfig() {
         $this->_solrConfig = $this->_config->solr->toArray();
-
         return $this->_solrConfig;
     }
 
@@ -110,10 +107,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getSolr()
-    {
+    public function getSolr() {
         $this->_solr = new Pas_Solr_MoreLikeThis();
-
         return $this->_solr;
     }
 
@@ -121,15 +116,13 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return boolean
      */
-    public function getRole()
-    {
+    public function getRole()  {
         $user = new Pas_User_Details();
         $person = $user->getPerson();
         if ($person) {
             $this->_role = $person->role;
-        } else {
-            return false;
         }
+        return $this->_role;
     }
 
     /** Set the base string for the key
@@ -148,10 +141,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getKey()
-    {
+    public function getKey() {
         $this->_key = md5( $this->_keyBase . $this->getQuery() . $this->getRole());
-
         return $this->_key;
     }
 
@@ -159,8 +150,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_MoreLikeThis
      */
-    public function moreLikeThis()
-    {
+    public function moreLikeThis() {
         return $this;
     }
 
@@ -168,8 +158,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return boolean
      */
-    public function getData()
-    {
+    public function getData() {
        if (!($this->getCache()->test($this->getKey()))) {
            $mlt = $this->getSolr();
            $mlt->setFields(array('objecttype','broadperiod','description','notes'));
@@ -191,8 +180,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->buildHtml( $this->getData() );
     }
 
@@ -201,8 +189,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @param  array  $solrResponse
      * @return string
      */
-    private function buildHtml(array $solrResponse)
-    {
+    private function buildHtml(array $solrResponse) {
         $html ='<div class="row-fluid"><h3>Similar objects</h3>';
 
         foreach ($solrResponse['results'] as $document) {

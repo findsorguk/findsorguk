@@ -1,6 +1,15 @@
 <?php
 /**
- * A view helper for retrieving the geographic boundaries of a parliamentary constituency
+ * A view helper for retrieving the geographic boundaries of a parliamentary
+ * constituency
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $thos->twfyGeo()->setData($data);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -22,20 +31,17 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getData()
-    {
+    public function getData() {
         return $this->_data;
     }
 
     /** Set the data to query
      * @access public
-     * @param  array                    $data
+     * @param  array  $data
      * @return \Pas_View_Helper_TwfyGeo
      */
-    public function setData(array $data)
-    {
+    public function setData(array $data) {
         $this->_data = $data;
-
         return $this;
     }
 
@@ -43,8 +49,7 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_TwfyGeo
      */
-    public function twfyGeo()
-    {
+    public function twfyGeo() {
         return $this;
     }
 
@@ -52,12 +57,10 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
      * @access public
      * @return method
      */
-    public function getMap()
-    {
+    public function getMap() {
         $data = $this->getData();
         $geo = new Pas_Twfy_Geometry;
         $constituency = $geo->get($data['constituency']);
-
         return $this->buildMap($constituency, $data);
     }
 
@@ -67,8 +70,7 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
      * @param  type   $data
      * @return string
      */
-    public function buildMap($geo, $data)
-    {
+    public function buildMap($geo, $data) {
         $html = '';
         $html .= $this->view->partial('partials/news/map.phtml', get_object_vars($geo));
         $html .= $this->view->osDataToConst()->setConstituency($geo->name);
@@ -84,8 +86,7 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->getMap();
     }
 }

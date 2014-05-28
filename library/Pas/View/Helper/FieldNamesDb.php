@@ -9,7 +9,7 @@
  * echo $this->fieldNamesDb()->setField($field);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
  * @since 1

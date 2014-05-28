@@ -1,18 +1,18 @@
 <?php
-$this->headTitle('User account details for ' . $this->fullname . ' - ' 
+$this->headTitle('User account details for ' . $this->fullname . ' - '
         . $this->visits . ' visits.');
 ?>
 
 <h2><?php echo $this->title();?></h2>
 
 <p>
-<?php 
+<?php
 echo $this->gravatar($this->email,array(
-	'imgSize' => 80, 
-	'defaultImg' => 'http://finds.org.uk/assets/gravatar.png', 
+	'imgSize' => 80,
+	'defaultImg' => 'http://finds.org.uk/assets/gravatar.png',
 	'secure' => true),
 	array(
-	'class' => 'avatar img-circle pull-left stelae', 
+	'class' => 'avatar img-circle pull-left stelae',
 	'title' => $this->fullname . '\'s gravatar representation',
 	'rating' => 'G',
 	'width' => 80,
@@ -20,17 +20,17 @@ echo $this->gravatar($this->email,array(
 	);
 ?>
 
-<?php 
+<?php
 if(!is_null($this->institution)) {
-echo 'Your recording institution is ' . $this->acronyms()->setString($this->institution) 
+echo 'Your recording institution is ' . $this->acronyms()->setString($this->institution)
 . ' and your username is set as ' . $this->username . '<br/>';
-} else { 
+} else {
 echo 'Your username is currently '.$this->username;
-} 
+}
 ?>
 You have logged in: <?php echo $this->visits;?> times.
-<?php 
-$more = $this->morevisitsthanme($this->visits);
+<?php
+$more = $this->moreVisitsThanMe()->setVisits($this->visits);
 if($more != 0) {
 echo '<br />' . $more . ' people have visited the site more frequently than you!';
 } else {
@@ -41,7 +41,7 @@ Last visit registered at: <?php echo $this->escape($this->timeAgoInWords($this->
 Your specified role on the site is: <?php echo ucfirst($this->role);?><br />
 Your account was last updated by <?php echo $this->updater;?>, <?php echo $this->escape($this->timeAgoInWords($this->updated));?>.<br />Your account was created by: <?php echo $this->creator;?>.<br/ >
 Your account was created: <?php echo $this->escape($this->timeAgoInWords($this->created));?>.<br/ >
-<?php 
+<?php
 if($this->canRecord === '1'):?>
 <strong>Your account has permission to record objects</strong>
 <?php else:?>

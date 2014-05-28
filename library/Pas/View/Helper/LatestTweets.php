@@ -1,14 +1,14 @@
 <?php
 /**
  * This class is to retrieve tweets and display them.
- * 
- * This view helper is used to access Twitter's API via oauth and get back a 
+ *
+ * This view helper is used to access Twitter's API via oauth and get back a
  * number of tweets as specified. It is project specific and therefore not
  * for general use.
- * 
+ *
  * An example of how to use this
  * <code>
- * <?php 
+ * <?php
  * echo $this->latestTweets()->setCount(2);
  * ?>
  * </code>
@@ -24,7 +24,7 @@
  * @uses Zend_Cache
  * @uses Pas_View_Helper_TimeAgoInWords
  * @uses OauthTokens
- * @example /app/modules/database/views/scripts/index/index.phtml 
+ * @example /app/modules/database/views/scripts/index/index.phtml
  * @author Daniel Pett
  * @since September 13 2011
 */
@@ -36,7 +36,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
      * @var object
      */
     protected $_cache;
-    
+
     /** Number of tweets to retrieve
      * @access protected
      * @var int
@@ -156,8 +156,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_LatestTweets
      */
-    public function latestTweets()
-    {
+    public function latestTweets() {
         return $this;
     }
 
@@ -165,8 +164,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->_callTwitter();
     }
 }

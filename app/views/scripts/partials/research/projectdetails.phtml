@@ -6,9 +6,9 @@
 <h3>Audit data</h3>
 <ul id="related">
 <li>Created: <?php echo $this->timeAgoInWords($this->created);?></li>
-<li>Created by: <?php echo $this->namethem($this->fullname);?></li>
+<li>Created by: <?php echo $this->nameThem()->setName($this->fullname);?></li>
 <?php if(isset($this->updated)):?>
 <li>Updated: <?php echo $this->timeAgoInWords($this->created);?></li>
-<li>Updated by: <?php echo $this->namethem($this->fn);?></li>
+<li>Updated by: <?php echo $this->nameThem()->setName($this->fn);?></li>
 <?php endif;?>
 </ul>

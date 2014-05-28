@@ -15,7 +15,7 @@ $this->headTitle('A list of Treasure Valuation Committee meeting dates');?>
 <?php foreach($this->tvcdates as $d):?>
 <tr><td><a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'tvc',
 'action' => 'details','id' => $d['id']),null,true);?>" 
-title="View details for meeting"><?php echo $this->niceshortdate($d['date']);?></a></td><td><?php echo $d['location'];?></td><td><?php echo $d['total'];?></td></tr>
+title="View details for meeting"><?php echo $this->NiceShortDate()->setDate($d['date']);?></a></td><td><?php echo $d['location'];?></td><td><?php echo $d['total'];?></td></tr>
 <?php endforeach;?>
 </tbody>
 </table>

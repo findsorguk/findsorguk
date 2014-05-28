@@ -5,9 +5,9 @@ $ctrllr = strtolower($controller);
 <tr class="valid-<?php echo $this->valid;?>">
 <td><?php echo $this->escape($this->term);?> <?php echo $this->adBc()->setDate($this->fromdate);?> <?php echo $this->adBc()->setDate($this->todate);?></td>
 <td><?php echo $this->timeAgoInWords($this->created);?></td>
-<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->nameThem()->setName($this->fullname);?></td>
 <td><?php echo $this->timeAgoInWords($this->updated);?></td>
-<td><?php echo $this->namethem($this->fn);?></td>
+<td><?php echo $this->nameThem()->setName($this->fn);?></td>
 <td><?php echo $this->validity()->setValid($this->valid);?></td>
 <td><a href="<?php echo $this->url(array('module' => 'admin','controller'=>$ctrllr,'action'=>'editperiod', 'id'=>$this->id),null,true);?>">Edit</a> | 
 <a href="<?php echo $this->url(array('module' => 'admin','controller'=> $ctrllr,'action'=>'deleteperiod', 'id'=>$this->id),null,true);?>">Delete</a></td>

@@ -1,6 +1,6 @@
 <?php
 /**
- * A view helper for displaying activuty from Solr
+ * A view helper for displaying activity from Solr
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @version 1
