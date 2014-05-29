@@ -2,6 +2,14 @@
 /**
  * A view helper for automatically inserting HTML abbreviations
  * Not sure if this was inspired by a wordpress plugin or not?!
+ * 
+ * An example of use:
+ * <code>
+ * <?php
+ * echo $this->acronyms()->setString($string);
+ * ?>
+ * </code>
+ * 
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -9,6 +17,7 @@
  * @license    GNU Public
  * @see Zend_View_Helper_Abstract
  * @author Daniel Pett <dpett at britishmuseum.org>
+ * @uses Acronyms
  */
 class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
 {

@@ -9,6 +9,7 @@
  * echo $this->certainty()->setCertainty(1);
  * ?>
  * </code>
+ * 
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper

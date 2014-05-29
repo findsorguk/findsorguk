@@ -4,7 +4,7 @@ $this->headMeta($this->ellipsisstring($this->specification,200),'description');
 ?>
 <h2><?php echo $this->escape($this->title);?> <?php echo $this->escape($this->staffregions);?></h2>
 <?php
-if($this->ExpiredJob()->setDate($this->expire) == -1)  {
+if($this->expiredJob()->setDate($this->expire) == -1)  {
  echo '<p class="valid-0 jobexpire">This job is no longer available, it expired
      on the ' . $this->NiceShortDate()->setDate($this->expire).'</p>';
 }

@@ -8,6 +8,7 @@
  * echo $this->earlyMiddleLate()->setQualifier(1);
  * ?>
  * </code>
+ * 
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
@@ -35,7 +36,7 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
 
     /** Set the qualifier
      * @access public
-     * @param  int                              $qualifier
+     * @param  int $qualifier
      * @return \Pas_View_Helper_EarlyMiddleLate
      */
     public function setQualifier($qualifier) {
@@ -57,14 +58,13 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->getSwitch();
     }
     /** Switch for displaying correct period qualifier
      * @access public
-     * @param  string         $qualifier
-     * @return string|boolean
+     * @param  string $qualifier
+     * @return string 
      */
     public function getSwitch() {
         switch ( $this->getQualifier() ) {

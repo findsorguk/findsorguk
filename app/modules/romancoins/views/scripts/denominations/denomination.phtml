@@ -6,4 +6,4 @@
 </ul>
 <?php endif;?>
 <?php echo $this->latestRecords('denomination:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>
-<?php echo $this->coinStatsSolr(Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>
+<?php echo $this->coinStatsSolr()->setDenomination(Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>

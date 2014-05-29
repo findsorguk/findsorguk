@@ -1,55 +1,87 @@
 <?php
-
+/** 
+ * A view helper for displaying errors 
+ * 
+ * This view helper formats the errors created and logged in the error 
+ * controller.
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->actionErrors();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @category Pas
+ * @package Pas_View_Helper
+ * @license http://URL name
+ * @copyright (c) 2014, Daniel Pett
+ * 
+ */
 class Pas_View_Helper_ActionErrors extends Zend_View_Helper_Abstract
 {
+    /** The css class to use
+     * @access protected
+     * @var string
+     */
     protected $_class = 'action-errors';
 
+    /** The css id to use
+     * @access protected
+     * @var string
+     */
     protected $_id = 'action-errors';
 
-    /**
-     * @return the $_class
+    /** Get the class to use
+     * @access public
+     * @return string $_class
      */
-    public function getClass()
-    {
+    public function getClass() {
         return $this->_class;
     }
 
-    /**
-     * @param $_class the $_class to set
+    /** Set the class
+     * @access public
+     * @param string $_class
      */
-    public function setClass($_class)
-    {
+    public function setClass($_class) {
         $this->_class = $_class;
-
         return $this;
     }
 
-    /**
-     * @return the $_id
+    /** Return the csss ID
+     * @return string $_id
+     * @access public
      */
-    public function getID()
-    {
+    public function getID()  {
         return $this->_id;
     }
 
     /** Set the ID
-     *
-     * @param $_id
+     * @access public
+     * @param string $_id
      */
-    public function setID($_id)
-    {
+    public function setID($_id) {
         $this->_id = $_id;
-
         return $this;
     }
 
-    public function actionErrors()
-    {
+    /** The class to return
+     * @access public
+     * @return \Pas_View_Helper_ActionErrors
+     */
+    public function actionErrors()  {
         return $this;
     }
 
-    public function generateHtml()
-    {
+    /** Generate the css and html
+     * @access public
+     * @return string
+     */
+    public function generateHtml() {
         $result = '';
         if (isset($this->_view->actionErrors)) {
             $result .= '<ul class="';
@@ -62,12 +94,14 @@ class Pas_View_Helper_ActionErrors extends Zend_View_Helper_Abstract
             }
             $result .= '</ul>' . PHP_EOL;
         }
-
         return $result;
     }
 
-    public function __toString()
-    {
+    /** The string function
+     * @access public
+     * @return string
+     */
+    public function __toString()  {
         return $this->generateHtml();
     }
 }

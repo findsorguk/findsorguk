@@ -12,7 +12,7 @@ echo lcfirst($this->commentType()->setId($this->contentID)->setType($this->comme
 
 <p>For your own reference, this is what you submitted:</p>
 
-<?php echo $this->purify($this->comment_content);?>
+<?php echo $this->purify()->setValue($this->comment_content);?>
 
 <p>Many thanks for taking the time to comment!</p>
 

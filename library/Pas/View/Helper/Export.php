@@ -9,6 +9,7 @@
  * echo $this->export()->setParams($params);
  * ?>
  * </code>
+ * 
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract

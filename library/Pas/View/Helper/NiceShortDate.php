@@ -8,6 +8,7 @@
  * echo $this->niceShortDate()->setDate($date);
  * ?>
  * </code>
+ * 
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract

@@ -2,6 +2,14 @@
 /**
  * A view helper for displaying activity from Solr
  *
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $this->activitySolrSearch()->setQ($query);
+ * ?>
+ * </code>
+ * 
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @version 1
  * @since 16/5/2014
@@ -150,7 +158,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
 
     /** Set the sort column
      * @access public
-     * @param  string                              $sort
+     * @param  string $sort
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
     public function setSort( $sort)
@@ -162,7 +170,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
 
     /** Set the sort direction
      * @access public
-     * @param  string                              $direction
+     * @param  string $direction
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
     public function setDirection( $direction)
@@ -183,7 +191,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
 
     /** Set the fields to query
      * @access public
-     * @param  string                              $fields
+     * @param  string $fields
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
     public function setFields( $fields)
@@ -204,7 +212,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
 
     /** Set the query
      * @access public
-     * @param  string                              $q
+     * @param  string $q
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
     public function setQ( $q)
@@ -218,10 +226,8 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getSolr()
-    {
+    public function getSolr() {
         $this->_solr = new Solarium_Client($this->_solrConfig);
-
         return $this->_solr;
     }
 
@@ -229,35 +235,30 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getSolrConfig()
-    {
+    public function getSolrConfig() {
         $config = $this->getConfig()->solr->toArray();
         $config['path'] = '/solr/';
         $config['core'] = 'beopeople';
         $this->_solrConfig = array(
             'adapteroptions' => $config
                 );
-
         return $this->_solrConfig;
     }
 
     /** Get the config object
      * @access public
-     * @return type
+     * @return Zend_Config
      */
-    public function getConfig()
-    {
+    public function getConfig()  {
         $this->_config = Zend_Registry::get('config');
-
         return $this->_config;
     }
 
     /** Get the cache object
      * @access public
-     * @return object
+     * @return Zend_Cacbe
      */
-    public function getCache()
-    {
+    public function getCache() {
         $this->_cache = Zend_Registry::get('rulercache');
 
         return $this->_cache;
@@ -267,8 +268,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function activitySolrSearch()
-    {
+    public function activitySolrSearch() {
         return $this;
     }
 
@@ -276,8 +276,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @access public
      * @return array $data
      */
-    public function getData()
-    {
+    public function getData() {
         $select = array(
             'query' => $this->getQ(),
             'start' => $this->getStart(),
@@ -286,7 +285,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
                 $this->getFields()
                     ),
             'sort'  => array(
-                $this->getSort()    => $this->getDirection()
+                $this->getSort() => $this->getDirection()
                     ),
             'filterquery'   =>  array(),
         );
@@ -311,14 +310,11 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  array $doc
      * @return array
      */
-    public function parseData(array $doc)
-    {
+    public function parseData(array $doc) {
         $fields = array();
         foreach ($doc as $key => $value) {
             $fields[$key] = $value;
-
         }
-
         return $fields;
     }
 
@@ -326,8 +322,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function buildHtml()
-    {
+    public function buildHtml() {
         $html = '';
         $data = $this->getData();
         if (array_key_exists('images', $data )) {
@@ -335,7 +330,6 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
             $html .= '<p>We have recorded ' . $data['numberFound'];
             $html .= ' people.</p>';
         }
-
         return $html;
     }
 
@@ -343,8 +337,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->buildHtml();
     }
 }
