@@ -16,11 +16,13 @@ if(array_key_exists('slug',$action)){
 		$array = array('gettingstarted','howtorecord','accesslevelsexplained');
 		if(in_array($slug, $array)){ echo ' class="expandfirst"';}
 		?>>
-		<a href="#">Using the database</a>
+		<a href="#"><i class="icon-folder-open"></i>Using the database</a>
 			<ul class="nav nav-pills nav-stacked menuindent">
-				<li><a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'gettingstarted'),'frg',true);?>"
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'gettingstarted');?>>
+                                        <a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'gettingstarted'),'frg',true);?>"
 				title="Getting started on the database">Getting started</a></li>
-				<li><a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'accesslevelsexplained'),'frg',true);?>"
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'accesslevelsexplained');?>>
+                                        <a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'accesslevelsexplained'),'frg',true);?>"
 				title="Access levels explained">What can I see?</a></li>
 				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'howtorecord');?>>
 					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'howtorecord'),'frg',true);?>"
@@ -75,9 +77,6 @@ if(array_key_exists('slug',$action)){
 				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'pins');?>>
 					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'pins'),'frg',true);?>"
 					title="How to record pins">Pins</a></li>
-				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'thimbles');?>>
-					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'thimbles'),'frg',true);?>"
-					title="How to record thimbles">Thimbles</a></li>
 				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'strapends');?>>
 					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'strapends'),'frg',true);?>"
 					title="How to record strap ends">Strap ends</a></li>
