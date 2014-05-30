@@ -46,7 +46,7 @@
 <?php 
 $string = $this->facetName;
 $facets = array($this->facetName => $this->data['facets'][$string]);
-echo $this->facetCreatorAjaxMyImages($facets);?>
+echo $this->facetCreatorAjaxMyImages()->setFacets($facets);?>
 </div>
 
   </div>

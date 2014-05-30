@@ -75,7 +75,7 @@ class Pas_View_Helper_FacetCreatorMyImages extends Zend_View_Helper_Abstract
 
         $html .= '<li>';
         if ($facetName !== 'workflow') {
-        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection($key);
+        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection()->setString($key);
         $html .= '">';
         $html .= $key . ' ('. number_format($value) .')';
         } else {

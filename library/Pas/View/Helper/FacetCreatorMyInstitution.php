@@ -76,7 +76,7 @@ class Pas_View_Helper_FacetCreatorMyInstitution extends Zend_View_Helper_Abstrac
         $html .= '<li>';
 
         if ($facetName !== 'workflow') {
-        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection($key);
+        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection()->setString($key);
         $html .= '">';
         $html .= $key . ' ('. number_format($value) .')';
         } else {

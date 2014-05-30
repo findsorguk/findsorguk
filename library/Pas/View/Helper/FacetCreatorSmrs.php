@@ -151,7 +151,7 @@ class Pas_View_Helper_FacetCreatorSmrs extends Zend_View_Helper_Abstract
                 $html .= '<a href="';
                 $html .= $url;
                 $html .= '" title="Facet query for ';
-                $html .= $this->view->facetContentSection()->setKey($key);
+                $html .= $this->view->facetContentSection()->setString()->setKey($key);
                 $html .= '">';
                 $html .= $key;
                 $html .= ' (';

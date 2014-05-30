@@ -28,7 +28,7 @@ foreach($this->results as $result){
 </div>
 
 <div class="span2">
-<?php echo $this->facetCreatorContent($this->facets);?>
+<?php echo $this->facetCreatorContent()->setFacets($this->facets);?>
 
 </div>
 <div class="span12">
