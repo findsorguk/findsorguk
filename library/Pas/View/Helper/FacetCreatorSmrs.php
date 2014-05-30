@@ -1,98 +1,180 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/** This view helper takes the array of facets and their counts and produces
+/**
+ *
+ * This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
+ *
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
  * @version 1
  * @since 30/1/2012
  * @copyright Daniel Pett
- * @author Daniel Pett
  * @license GNU
  * @uses Pas_Exception_BadJuJu
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
+ * @author Daniel Pett <dpett@britishmuseum.org>
  */
 class Pas_View_Helper_FacetCreatorSmrs extends Zend_View_Helper_Abstract
 {
-    protected $_action, $_controller;
+    /** The action string
+     * @access public
+     * @var string
+     */
+    protected $_action;
 
-    public function __construct()
-    {
-        $this->_controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-        $this->_action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+    /** The controller string
+     * @access public
+     * @var string
+     */
+    protected $_controller;
+
+    /** The front controller
+     * @access public
+     * @var \Zend_Controller_Front
+     */
+    protected $_front;
+
+    /** The array of facets
+     * @access public
+     * @var array
+     */
+    protected $_facets;
+
+    /** Get the front controller request
+     * @access public
+     * @return \Zend_Controller_Front
+     */
+    public function getFront() {
+        $this->_front = Zend_Controller_Front::getInstance()->getRequest();
+        return $this->_front;
     }
+
+    /** Get the action from the request
+     * @access public
+     * @return string The action string
+     */
+    public function getAction() {
+        $this->_action = $this->getFront()->getActionName();
+        return $this->_action;
+    }
+
+    /** Get teh controller from the request
+     * @access public
+     * @return string The controller string
+     */
+    public function getController() {
+        $this->_controller = $this->getFront()->getControllerName();
+        return $this->_controller;
+    }
+
+    /** Get the facets to render
+     * @access public
+     * @return array
+     */
+    public function getFacets() {
+        return $this->_facets;
+    }
+
+    /** Set the facets to render
+     * @access public
+     * @param array $facets
+     * @return \Pas_View_Helper_FacetCreatorSmrs
+     */
+    public function setFacets(array $facets) {
+        $this->_facets = $facets;
+        return $this;
+    }
+
+    /** The function
+     * @access public
+     * @return \Pas_View_Helper_FacetCreatorSmrs
+     */
+    public function facetCreatorSmrs() {
+        return $this;
+    }
+
+    /** To string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
+        return $this->buildHtml($this->getFacets());
+    }
+
     /** Create the facets boxes for rendering
      * @access public
-     * @param  array                 $facets
+     * @param  array $facets
      * @return string
      * @throws Pas_Exception_BadJuJu
      */
 
-    public function facetCreatorSmrs(array $facets)
-    {
-        if (is_array($facets)) {
+    public function buildHtml(array $facets) {
         $html = '';
-        foreach ($facets as $facetName => $facet) {
-            $html .= $this->_processFacet($facet, $facetName);
+        if (is_array($facets)) {
+            foreach ($facets as $facetName => $facet) {
+                $html .= $this->_processFacet($facet, $facetName);
+            }
         }
-
         return $html;
-        } else {
-            throw new Pas_Exception_BadJuJu('The facets sent are not an array');
-        }
     }
 
     /** Process the facet array and name
      * @access public
-     * @param  array                 $facet
-     * @param  string                $facetName
+     * @param  array $facet
+     * @param  string $facetName
      * @return string
      * @throws Pas_Exception_BadJuJu
      * @uses Zend_Controller_Front
      * @uses Zend_View_Helper_Url
      */
-    protected function _processFacet(array $facets, $facetName)
-    {
+    protected function _processFacet(array $facets, $facetName) {
+        $html = '';
         if (is_array($facets)) {
             if (count($facets)) {
-        $html = '<div id="facet-' . $facetName .'">';
-        $html .= '<ul class="facetExpand">';
+                $html .= '<div id="facet-' . $facetName .'">';
+                $html .= '<ul class="facetExpand">';
+                foreach ($facets as $key => $value) {
+                    $request = $this->getFront()->getParams();
+                    if (isset($request['page'])) {
+                        unset($request['page']);
+                    }
+                    unset($request['facetType']);
+                $request[$facetName] = $key;
+                $request['controller'] = 'myscheme';
+                $request['action'] = 'myimages';
+                $url = $this->view->url($request,'default',true);
 
-        foreach ($facets as $key => $value) {
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-        if (isset($request['page'])) {
-            unset($request['page']);
-        }
-        unset($request['facetType']);
-        $request[$facetName] = $key;
-        $request['controller'] = 'myscheme';
-        $request['action'] = 'myimages';
-        $url = $this->view->url($request,'default',true);
-
-        $html .= '<li>';
-        if ($facetName !== 'workflow') {
-        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection($key);
-        $html .= '">';
-        $html .= $key . ' ('. number_format($value) .')';
-        } else {
-        $html .=  '<a href="' . $url . '" title="Facet query for ' . $this->_workflow($key);
-        $html .= '">';
-        $html .= $this->_workflow($key) . ' ('. number_format($value) .')';
-        }
+                $html .= '<li>';
+            if ($facetName !== 'workflow') {
+                $html .= '<a href="';
+                $html .= $url;
+                $html .= '" title="Facet query for ';
+                $html .= $this->view->facetContentSection()->setKey($key);
+                $html .= '">';
+                $html .= $key;
+                $html .= ' (';
+                $html .= number_format($value);
+                $html .= ')';
+            } else {
+                $html .= '<a href="';
+                $html .= $url;
+                $html .= '" title="Facet query for ';
+                $html .= $this->_workflow($key);
+                $html .= '">';
+                $html .= $this->_workflow($key);
+                $html .= ' (';
+                $html .= number_format($value);
+                $html .= ')';
+            }
 
         $html .= '</a>';
         $html .= '</li>';
         }
 
         $html .= '</ul>';
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+        $request = $this->getFront()->getParams();
         $request['controller'] = 'smr';
         $request['action'] = 'index';
         if (isset($request['page'])) {
@@ -102,14 +184,19 @@ class Pas_View_Helper_FacetCreatorSmrs extends Zend_View_Helper_Abstract
             $request['controller'] = 'ajax';
             $request['action'] = 'facet';
             unset($request['facetType']);
-            $html .= '<a class="btn btn-small overlay" href="' . $this->view->url(($request),'default',false) . '">All ' . $this->_prettyName($facetName) . ' options <i class="icon-plus"></i></a>';
+            $html .= '<a class="btn btn-small overlay" href="';
+            $html .= $this->view->url(($request),'default',false);
+            $html .= '">All ';
+            $html .= $this->_prettyName($facetName);
+            $html .= ' options <i class="icon-plus"></i></a>';
         }
         $facet = $request[$facetName];
         if (isset($facet)) {
             unset($request[$facetName]);
             unset($request['facetType']);
-            $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request),'default',true)
-                    . '" title="Clear the facet">Clear this facet</a></p>';
+            $html .= '<p><i class="icon-remove-sign"></i> <a href="';
+            $html .= $this->view->url(($request),'default',true);
+            $html .= '" title="Clear the facet">Clear this facet</a></p>';
         }
 
         $html .= '</div>';
@@ -170,19 +257,23 @@ class Pas_View_Helper_FacetCreatorSmrs extends Zend_View_Helper_Abstract
         return $clean;
     }
 
-    protected function _workflow($key)
-    {
+    /** render the correct workflow key
+     * @access public
+     * @param int $key
+     * @return string
+     */
+    protected function _workflow($key) {
         switch ($key) {
-            case '1':
+            case 1:
                 $type = 'Quarantine';
                 break;
-            case '2':
+            case 2:
                 $type = 'Review';
                 break;
-            case '3':
+            case 3:
                 $type = 'Published';
                 break;
-            case '4':
+            case 4:
                 $type = 'Validation';
                 break;
             default:
