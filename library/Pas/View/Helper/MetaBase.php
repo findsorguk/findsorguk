@@ -33,7 +33,7 @@ class Pas_View_Helper_MetaBase
         ->headMeta($keywords,'keywords')
         ->headMeta('The Portable Antiquities Scheme and the British Museum',
                 'dc.publisher')
-        ->headMeta($this->view->ellipsisstring(strip_tags($description),200),'description')
+        ->headMeta($this->view->ellipsisString()->setString(strip_tags($description))->setMax(200),'description')
         ->headMeta()->setProperty('dc.subject',strip_tags($subject))
         ->headMeta()->setProperty('og:site_name','Portable Antiquities Scheme')
         ->headMeta()->setProperty('twitter:card', 'summary')
@@ -44,7 +44,7 @@ class Pas_View_Helper_MetaBase
         ->headMeta()->setProperty('dc.rights','Creative Commons BY-SA');
     $this->view->headMeta('CC BY-SA','dc.rights');
     $this->view->headRdf($this->view->curUrl(),'og:url');
-    $this->view->headRdf($this->view->ellipsisstring(strip_tags($description),200),'og:description');
+    $this->view->headRdf($this->view->ellipsisString()->setString(strip_tags($description))->setMax(200),'og:description');
 //    $this->view->headRdf('https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn1/c59.0.712.712/s160x160/540083_10151131686659762_1658645946_n.jpg','og:image');
     $this->view->headRdf('non_profit','og:type');
     $this->view->headRdf($this->view->title(),'og:title');

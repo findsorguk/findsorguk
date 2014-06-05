@@ -26,8 +26,8 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
 			<li>Views: <?php echo $this->image->photo->views;?></li>
 			<li>License: <?php echo $this->FlickrLicense((int)$this->image->photo->license);?></li>
 			<li>Taken by: <?php echo $this->image->photo->owner->realname;?></li>
-			<li>Uploaded: <?php echo $this->NiceShortDate()->setDate($this->image->photo->dateuploaded);?></li>
-			<li>Taken on: <?php echo $this->NiceShortDate()->setDate($this->image->photo->dates->taken);?></li>
+			<li>Uploaded: <?php echo $this->niceShortDate()->setDate($this->image->photo->dateuploaded);?></li>
+			<li>Taken on: <?php echo $this->niceShortDate()->setDate($this->image->photo->dates->taken);?></li>
 			<?php if(!is_null($this->image->photo->tags)):
 			
 			?>

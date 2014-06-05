@@ -67,11 +67,14 @@
         <?php echo $this->workflow()->setWorkflow($this->workflow);?><br />
         <?php endif;?>
         <?php if(!is_null($this->description)):?>
-        <span property="skos:definition"><?php echo $this->ellipsisstring($this->description,600);?></span><br />
+        <span property="skos:definition">
+            <?php echo $this->ellipsisString()->setString($this->description)->setMax(600);?>
+        </span>
+        <br />
 		<?php endif;?>
-		Created on: <span property="dcterms:created"><?php echo $this->NiceShortDate()->setDate($this->created);?></span><br />
+		Created on: <span property="dcterms:created"><?php echo $this->niceShortDate()->setDate($this->created);?></span><br />
 		<?php if(!is_null($this->updated)):?>
-		Last updated: <span property="dcterms:updated"><?php echo $this->NiceShortDate()->setDate($this->updated);?></span><br />
+		Last updated: <span property="dcterms:updated"><?php echo $this->niceShortDate()->setDate($this->updated);?></span><br />
 		<?php endif;?>
 		<?php 
 		if($this->fourFigure):?>

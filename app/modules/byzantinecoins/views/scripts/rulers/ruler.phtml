@@ -64,7 +64,7 @@ $chunks = split('\. ',str_replace(array('c.','d.'),array('circa','died'),$row['a
     $chunks[$key] = ($key%3==0) ? ($c . '.</p><p>') : ($c.'. ');
   }
  $abs = '<p>'.join($chunks).'</p>';
- $trimmed = $this->ellipsisstring($abs,200);
+ $trimmed = $this->ellipsisString()->setString($abs)->setMax(200);
 $this->headMeta($trimmed,'description');
 echo '<h4>Wikipedia derived information</h4>';
 if(isset($row['thumb'])) {

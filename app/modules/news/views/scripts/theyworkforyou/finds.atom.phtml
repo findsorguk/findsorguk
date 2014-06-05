@@ -20,9 +20,9 @@ $feedArray = array(
 				'title' => $find['old_findID'].' '.$find['objecttype'].' '.$find['broadperiod'],
 				'link' => Zend_Registry::get('siteurl').'/database/artefacts/record/id/'.$find['id'],
 				'guid' => Zend_Registry::get('siteurl').'/database/artefacts/record/id/'.$find['id'],
-				'description' => $this->ellipsisstring(strip_tags($find['description'])),
+				'description' => $this->ellipsisString()->setString(strip_tags($find['description'])),
 				'lastUpdate' => strtotime($find['updated']),
-				'content' => $this->ellipsisstring(strip_tags($find['description'])),
+				'content' => $this->ellipsisString()->setString(strip_tags($find['description'])),
 				);
 		}
 		

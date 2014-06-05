@@ -1,18 +1,18 @@
 <?php
 $this->headTitle($this->title . ' '.$this->staffregions);
-$this->headMeta($this->ellipsisstring($this->specification,200),'description');
+$this->headMeta($this->ellipsisstring()->setString($this->specification)->setMax(200),'description');
 ?>
 <h2><?php echo $this->escape($this->title);?> <?php echo $this->escape($this->staffregions);?></h2>
 <?php
 if($this->expiredJob()->setDate($this->expire) == -1)  {
  echo '<p class="valid-0 jobexpire">This job is no longer available, it expired
-     on the ' . $this->NiceShortDate()->setDate($this->expire).'</p>';
+     on the ' . $this->niceShortDate()->setDate($this->expire).'</p>';
 }
 ?>
 
 <p>Salary: &pound; <?php echo $this->escape($this->salary);?></p>
 <?php echo $this->specification ;?>
-<p>Advert went live on: <?php echo $this->escape($this->NiceShortDate()->setDate($this->live));?>
+<p>Advert went live on: <?php echo $this->escape($this->niceShortDate()->setDate($this->live));?>
 <?php
 $today = new Zend_Date(null, 'YYYY-MM-DD');
 $datecompare =  new Zend_Date($this->expire);
@@ -20,6 +20,6 @@ $difference = $today->compare($datecompare, Zend_Date::DAY);
 if($difference == -1) {
 ?>
 <br />
-Advert archived on: <?php echo $this->escape($this->NiceShortDate()->setDate($this->expire));?>
+Advert archived on: <?php echo $this->escape($this->niceShortDate()->setDate($this->expire));?>
 <?php }?>
 </p>

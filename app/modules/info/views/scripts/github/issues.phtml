@@ -8,8 +8,8 @@ $this->headTitle('Open issues and bugs entered for the codebase for finds.org.uk
 <h4><?php echo $issue['title'];?></h4>
 <p><?php echo $issue['body'];?></p>
 <p>
-Created: <?php echo $this->NiceShortDate()->setDate($issue['created_at']);?><br />
-Updated: <?php echo $this->NiceShortDate()->setDate($issue['updated_at']);?>
+Created: <?php echo $this->niceShortDate()->setDate($issue['created_at']);?><br />
+Updated: <?php echo $this->niceShortDate()->setDate($issue['updated_at']);?>
 </p>
 <p>Assigned: <a href="http://github.com/<?php echo $issue['assignee']['login'];?>"><?php echo $issue['assignee']['login'];?></a></p>
 <?php if(sizeof($issue['labels']) > 0):?>

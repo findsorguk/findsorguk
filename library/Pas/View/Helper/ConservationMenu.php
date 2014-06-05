@@ -2,6 +2,12 @@
 /**
  * This class is to display conservation menu
  * Load of rubbish, needs a rewrite
+ * 
+ * <code>
+ * <?php
+ * echo $this->conservationMenu();
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -10,27 +16,39 @@
  * @uses Zend_View_Helper_Abstract
  * @uses Zend_Controller_Front
  * @uses Content
- * @author Daniel Pett
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @since September 13 2011
  * @todo change the class to use zend_navigation
 */
-class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract {
+    
+    /** The front controller object
+     * @access protected
+     * @var \Zend_Controller_Front
+     */
     protected $_front;
 
+    /** The parameter to use
+     * @access protected
+     * @var string
+     */
     protected $_param;
 
-    public function getFront()
-    {
+    /** Get the front controller request
+     * @access public
+     * @return \Zend_Controller_Front
+     */
+    public function getFront() {
         $this->_front = Zend_Controller_Front::getInstance()->getRequest();
-
         return $this->_front;
     }
 
-    public function getParam()
-    {
+    /** Get a parameter
+     * @access public
+     * @return string
+     */
+    public function getParam() {
         $this->_param = $this->_front->getParam('slug');
-
         return $this->_param;
     }
 
@@ -38,8 +56,7 @@ class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract
     * @access public
     * @return string $html
     */
-    public function conservationMenu()
-    {
+    public function conservationMenu() {
         return $this;
     }
 
@@ -47,8 +64,7 @@ class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function menu()
-    {
+    public function menu() {
         $conservation = new Content();
         $cons = $conservation->getConservationNotes();
         $html = '';
@@ -69,7 +85,6 @@ class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract
             $html .=$c['menuTitle'];
             $html .= '</a></li>';
         }
-
         return $html;
     }
 
@@ -77,8 +92,7 @@ class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->menu();
     }
 }

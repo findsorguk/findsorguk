@@ -4,7 +4,9 @@
  *
  * An example of use:
  * <code>
- * <?php echo $this->amILoggedIn();?>
+ * <?php 
+ * echo $this->amILoggedIn();
+ * ?>
  * </code>
  *
  * @category   Pas

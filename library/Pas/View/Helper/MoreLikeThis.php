@@ -209,7 +209,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                 $html .= '</a><br />Object type: ' . $document->objecttype;
                 $html .= '<br />Broadperiod: ' . $document->broadperiod;
                 $html .= '<br/>';
-                $html .= $this->view->ellipsisstring($document->description,150);
+                $html .= $this->view->ellipsisString()->setString($document->description)->setMax(150);
                 $html .= '<br />Workflow: ';
                 $html .= $this->view->workflowStatus()->setWorkflow($document->workflow);
                 $html .= $this->view->workflow()->setWorkflow($document->workflow);

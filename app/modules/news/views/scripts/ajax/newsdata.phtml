@@ -1,6 +1,6 @@
 <?php
 
-$dom 	  = new DomDocument("1.0", "UTF-8");
+$dom = new DomDocument("1.0", "UTF-8");
 $dom->createElement('markers');
 
 $documentNode = $dom->createElement('markers');
@@ -10,15 +10,14 @@ foreach($this->mapping as $result){
 	
 	
     if(!is_null($result['lon'])){
-		$description = $this->purify($this->ellipsisstring($result['contents'],200));
-
-		$marker = $dom->createElement('marker');
-		$marker->setAttribute('id',$result['id']);
-		$marker->setAttribute('lat', $result['lat']);
+        $description = $this->purify($this->ellipsisString()->setString($result['contents'])->setMax(200));
+        $marker = $dom->createElement('marker');
+        $marker->setAttribute('id',$result['id']);
+        $marker->setAttribute('lat', $result['lat']);
         $marker->setAttribute('lon', $result['lon']);
         $marker->setAttribute('content', $description);
         $marker->setAttribute('title', $result['title']);
-		$documentNode->appendChild( $marker );
+        $documentNode->appendChild( $marker );
     }
 }
 $xmlData  = $dom->saveXML();

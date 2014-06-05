@@ -5,7 +5,12 @@
  * 
  * <code>
  * <?php
- * $this->view->addCoinLink();
+ * $this->view->addCoinLink()
+ * ->setFindID($id)
+ * ->setSecuID($secuid)
+ * ->setCreatedBy($createBy)
+ * ->setBroadperiod($broadperiod)
+ * ->setInstitution($institution);
  * ?>
  * </code>
  * 
@@ -95,21 +100,112 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
     protected $_message = 'You are not allowed edit rights to this record';
 
     /** Get the current user to check
-     * @access protected
+     * @access public
      * @return object
      */
-    protected function _getUser() {
+    public function getUser() {
         $person = new Pas_User_Details();
-
         return $person->getPerson();
     }
+    
+    /** The role of the user
+     * @access protected
+     * @var string
+     */
+    protected $_role = 'public';
+    
+    /** The user's id from the model
+     * @access protected
+     * @var int
+     */
+    protected $_userID = NULL;
+    
+    /** The user's institution from the model
+     * @access protected
+     * @var string
+     */
+    protected $_userInst = NULL;
+    
+    /** Get the user's institution
+     * @access public
+     * @return string
+     */
+    public function getUserInst() {
+        if($this->getUser()) {
+        $this->_userInst = $this->getUser()->institution;
+        }
+        return $this->_userInst;
+    }
 
+    /** Get the user's role from the model
+     * @access public
+     * @return string
+     */
+    public function getRole() {
+        if($this->getUser()) {
+        $this->_role = $this->getUser()->role;
+        }
+        return $this->_role;
+    }
+
+    /** Get the user's ID from the model
+     * @access public
+     * @return int
+     */
+    public function getUserID() {
+        if($this->getUser()) {
+        $this->_userID = $this->getUser()->id;
+        }
+        return $this->_userID;
+    }
+
+    /** Get the set findID for the find
+     * @access public
+     * @return int
+     */
+    public function getFindID() {
+        return $this->_findID;
+    }
+
+    /** Get the set institution for the find
+     * @access public
+     * @return string
+     */
+    public function getInstitution() {
+        return $this->_institution;
+    }
+
+    /** Get the set secure ID for the find
+     * @access public
+     * @return string
+     */
+    public function getSecuid() {
+        return $this->_secuid;
+    }
+
+    /** Get the set broadperiod for the find
+     * @access public
+     * @return string
+     */
+    public function getBroadperiod() {
+        return $this->_broadperiod;
+    }
+
+    /** Get the creator of the find
+     * @access public
+     * @return int
+     */
+    public function getCreatedBy() {
+        return $this->_createdBy;
+    }
+
+        
     /** Function to check whether the institution of creator == user's
      * @access protected
      * @return boolean
      */
     protected function _checkInstitution() {
-        if ($this->_institution === $this->_getUser()->institution) {
+        if ($this->getInstitution() === $this->getUserInst()) {
             return true;
         } else {
             return false;
@@ -121,10 +217,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @return boolean
      */
     protected function _checkCreator() {
-        $userid = (int) $this->_getUser()->id;
-        if ($this->_createdBy === $userid) {
+        if ($this->getCreatedBy() === $this->getUserID()) {
             return true;
-
         } else {
             return false;
         }
@@ -212,10 +306,11 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      */
     private function _checkParameters() {
         $parameters = array(
-            $this->_broadperiod,
-            $this->_createdBy,
-            $this->_findID,
-            $this->_secuid
+            $this->getBroadperiod(),
+            $this->getCreatedBy(),
+            $this->getFindID(),
+            $this->getSecuid(),
+            $this->getInstitution()
                 );
         foreach ($parameters as $parameter) {
             if ( is_null( $parameter ) ) {
@@ -230,24 +325,18 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddCoinLink
      */
     private function _performChecks() {
-        $user = $this->_getUser();
-        if ($user) {
-                $role = $user->role;
-            } else {
-                $role = null;
-        }
-        if ( in_array( $role, $this->_restricted ) ) {
+        if ( in_array( $this->getRole(), $this->_restricted ) ) {
             if( ( $this->_checkCreator() && !$this->_checkInstitution() )
                     || ( $this->_checkCreator() && $this->_checkInstitution() ) ) {
                 $this->_canCreate = true;
                 }
-                    } elseif (in_array($role,$this->_higherLevel)) {
+                    } elseif (in_array($this->getRole(),$this->_higherLevel)) {
                         $this->_canCreate = true;
-                    } elseif (in_array($role,$this->_recorders)) {
+                    } elseif (in_array($this->getRole(),$this->_recorders)) {
                         if( ( $this->_checkCreator() && !$this->_checkInstitution() )
                                 || ( $this->_checkCreator() && $this->_checkInstitution() )
                                 || ( !$this->_checkCreator() && $this->_checkInstitution() )
-                                || ( !$this->_checkCreator() && $this->_institution === 'PUBLIC' ) ) {
+                                || ( !$this->_checkCreator() && $this->getUserInst() === 'PUBLIC' ) ) {
                             $this->_canCreate = true;
                                 }
                                 } else {
@@ -278,17 +367,17 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
                 'module' => 'database',
                 'controller' => 'coins',
                 'action' => 'add',
-                'broadperiod' => $this->_broadperiod,
-                'findID' => $this->_secuid,
-                'returnID' => $this->_findID
+                'broadperiod' => $this->getBroadperiod(),
+                'findID' => $this->getSecuid(),
+                'returnID' => $this->getFindID()
                 );
             $url = $this->view->url($params,NULL,TRUE);
             $string .= '<a class="btn btn-primary" href="';
             $string .= $url;
             $string .= '" title="Add ';
-            $string .= $this->_broadperiod;
+            $string .= $this->getBroadperiod();
             $string .= ' coin data" accesskey="m">Add ';
-            $string .= $this->_broadperiod;
+            $string .= $this->getBroadperiod();
             $string .= ' coin data</a>';
         }
         return $string;
@@ -298,8 +387,7 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string function
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->_buildHtml();
     }
 }

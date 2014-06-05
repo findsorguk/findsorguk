@@ -1,8 +1,8 @@
 <tr>
 <td><?php echo $this->name;?></td>
-<td><?php echo $this->NiceShortDate()->setDate($this->created);?></td>
+<td><?php echo $this->niceShortDate()->setDate($this->created);?></td>
 <td><?php echo $this->fullname;?></td>
-<td><?php if(!is_null($this->updated)) {echo $this->NiceShortDate()->setDate($this->updated);}?></td>
+<td><?php if(!is_null($this->updated)) {echo $this->niceShortDate()->setDate($this->updated);}?></td>
 <td><?php echo $this->fn;?></td>
 <td>
 <?php

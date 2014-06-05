@@ -5,7 +5,7 @@ $keywords = implode(',',$this->tags);
 } else {
 $keywords = NULL;	
 }
-$this->MetaBase($this->ellipsisstring($this->description,300),
+$this->MetaBase($this->ellipsisString()->setString($this->description)->setMax(300),
 'photo',
 $keywords
 );?>

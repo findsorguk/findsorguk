@@ -37,8 +37,8 @@ $created = new Zend_Date($hoard['created'], 'YY-mm-dd hh:mm:ss');
 $entry->setDateModified($updated);
 $entry->setDateCreated($created);
 
-$entry->setDescription($this->ellipsisstring($description,400));
-$entry->setContent(htmlspecialchars(strip_tags($description)));
+$entry->setDescription($this->ellipsisString()->setString($description)->setMax(400));
+$entry->setContent(htmlspecialchars(strip_tagellipsisstrings($description)));
 $feed->addEntry($entry);
 }
 

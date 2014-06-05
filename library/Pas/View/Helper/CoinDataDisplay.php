@@ -283,19 +283,17 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
             if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {
             $html .= $this->view->addCoinLink()
                             ->setFindID((int) $finds[0]['id'])
-                            ->setSecuID($finds[0]['secuid'])
+                            ->setSecUid($finds[0]['secuid'])
                             ->setCreatedBy((int) $finds[0]['createdBy'])
                             ->setBroadperiod($finds[0]['broadperiod'])
-                            ->setInstitution($finds[0]['institution'])
-                            ->setRecordID((int)$finds[0]['coinID']);
+                            ->setInstitution($finds[0]['institution']);
             } elseif (in_array(strtoupper($this->getObjectType()), $this->getObjects())) {
                 $html .= $this->view->addJettonLink()
                         ->setFindID((int) $finds[0]['id'])
                         ->setSecUid($finds[0]['secuid'])
                         ->setCreatedBy((int) $finds[0]['createdBy'])
                         ->setBroadperiod($finds[0]['broadperiod'])
-                        ->setInstitution($finds[0]['institution'])
-                        ->setRecordID($finds[0]['coinID']);
+                        ->setInstitution($finds[0]['institution']);
             }
 
             $html .= '</div></div>';

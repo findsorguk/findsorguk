@@ -44,7 +44,7 @@ class News_StoriesController extends Pas_Controller_Action_Admin {
             'title' => $new['title'],
             'link' => $this->view->serverUrl() . '/news/story/id/' . $new['id'],
             'guid' => $this->view->serverUrl() .'/news/story/id/' . $new['id'],
-            'description' => $this->EllipsisString($new['contents'],200),
+            'description' => $this->view->ellipsisString()->setString($new['contents'])->setMax(200),
             'lastUpdate' => strtotime($new['datePublished']),
                         //'georss'=> $latlong,
                         //'enclosure' => array()
@@ -93,15 +93,4 @@ class News_StoriesController extends Pas_Controller_Action_Admin {
 
 	public function newsfeedAction(){
 	}
-
-	public function ellipsisString($string, $max = 300, $rep = '...') {
-		if (strlen($string) < $max) {
-		return $string;
-		} else {
-		$leave = $max - strlen ($rep);
-		}
-	    return strip_tags(substr_replace($string, $rep, $leave),'<br><a><em>');
-	}
-
-
 }

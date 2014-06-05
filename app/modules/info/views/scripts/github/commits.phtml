@@ -9,7 +9,7 @@ foreach($this->commits as $commit):
     <p class="lead"><?php echo $commit['commit']['message'];?></p>
     <p>
     Committed by <a href="http://github.com/<?php echo $commit['commit']['committer']['name'];?>" ><?php echo $commit['commit']['committer']['name'];?></a><br/>
-    Committed on: <?php echo $this->NiceShortDate()->setDate($commit['commit']['author']['date']);?>
+    Committed on: <?php echo $this->niceShortDate()->setDate($commit['commit']['author']['date']);?>
     </p>
     <p><a href="<?php echo $this->url(array('module' => 'info', 'controller' => 'github', 'action' => 'commit', 'sha' => $commit['parents'][0]['sha']), 'default', true);?>">View details &raquo;</a> </p>
     <?php if($commit['comment_count'] > 0):?>

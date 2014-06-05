@@ -35,8 +35,8 @@
     $this->view->headMeta($this->view->title(),'title');
     $this->view->headMeta($this->_keywords,'keywords');
     $this->view->headMeta('The Portable Antiquities Scheme and the British Museum','dc.publisher');
-    $this->view->headMeta($this->view->ellipsisstring(strip_tags($this->view->partialLoop('partials/database/description.phtml',
-    $this->view->finds)),170),'description');
+    $this->view->headMeta($this->view->ellipsisString()->setString(strip_tags($this->view->partialLoop('partials/database/description.phtml',
+    $this->view->finds)))->setMax(170),'description');
     $this->view->headMeta($this->view->partialLoop('partials/database/datecreated.phtml',
     $this->view->finds),'dc.date.created');
     $this->view->headMeta('Archaeological artefact found in England or Wales','dc.subject');

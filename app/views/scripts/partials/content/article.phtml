@@ -5,10 +5,7 @@ $date->add('72',Zend_Date::HOUR);
 $this->headMeta()->appendHttpEquiv('expires',$date->get(Zend_Date::RFC_1123))
 					   ->appendHttpEquiv('Content-Language', 'en-GB')
 					   ->appendHttpEquiv('imagetoolbar', 'no');
-$this->metaBase($this->ellipsisstring($this->body,200),null,'archaeology');
-
+$this->metaBase($this->ellipsisString()->setString($this->body)->setMax(200),null,'archaeology');
 ?>
 <h2><?php echo $this->title;?></h2>
-
 <?php echo $this->body;?>
-

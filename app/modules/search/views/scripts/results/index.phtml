@@ -16,7 +16,7 @@ foreach($this->results as $result){
 ?>
 	<li>
 	<h4><a href="<?php echo $this->searchUrl($result, false);?>"><?php echo $result['title'];?></a></h4>
-	<p><?php echo $this->ellipsisstring($result['body'],300);?><br />
+	<p><?php echo $this->ellipsisString()->setString($result['body'])->setMax(300);?><br />
 	<?php echo $this->searchUrl($result);?>
 	</p>
 	</li>

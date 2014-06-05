@@ -20,7 +20,7 @@ $feedArray = array(
 				'title' => $s['firstname'].' '.$s['lastname'],
 				'link' => Zend_Registry::get('siteurl').'/contacts/staff/profile/id/'.$s['id'],
 				'guid' => Zend_Registry::get('siteurl').'/contacts/staff/profile/id/'.$s['id'],
-				'description' => strip_tags($this->ellipsisstring(str_replace('£','&pound;',$s['profile']),100)),
+				'description' => strip_tags($this->ellipsisString()->setString(str_replace('£','&pound;',$s['profile']))->setMax(100)),
 				'lastUpdate' => strtotime($s['updated']),
 				'content' => strip_tags(str_replace('£','&pound;',$s['profile']),''),
 				);

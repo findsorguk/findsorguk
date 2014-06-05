@@ -26,7 +26,7 @@ Record: <a href="<?php echo $this->url(array('module' => 'database','controller'
 'action'=>'record','id' => $this->id),null,true);?>" title="PAS record number: <?php echo $this->old_findID;?>"><?php echo $this->old_findID;?></a><br />
 Object type: <?php echo $this->objecttype;?><br />
 Broadperiod: <?php echo $this->broadperiod;?><br />
-Description: <?php echo $this->ellipsisstring($this->description,150);?><br />
+Description: <?php echo $this->ellipsisString()->setString($this->description)->setMax(150);?><br />
 Workflow: <?php echo $this->workflowStatus()->setWorkflow($this->workflow);?><?php echo $this->workflow()->setWorkflow($this->workflow);?>
 </p>
           </div>
