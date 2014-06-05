@@ -2,7 +2,7 @@
 <?php $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName(); ?>
 
 <div class="sidebar-nav col-md-3" >
-    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
+    <ul  id="menu1" class="menu nav nav-stacked nav-pills collapsible">
         <li <?php echo $this->currentPage()->active('publications','index','index');?>>
             <a href="<?php echo $this->url(array('module' => 'publications'),'default',true);?>" title="Introduction to our publications">Our publications</a></li>
         

@@ -39,7 +39,7 @@ class About_ContactUsController extends Pas_Controller_Action_Admin {
 		);
 	$this->_helper->mailer($insertData, 'contactUs', null, $cc, $cc);
 	$this->_flashMessenger->addMessage('Your enquiry has been submitted to the Scheme');
-	$this->_redirect('getinvolved/contactus/');
+	$this->_redirect('about/contactus/');
 	} else {
 	$this->_flashMessenger->addMessage('There are problems with your submission');
 	$form->populate($form->getValues());
