@@ -14,12 +14,11 @@ class About_IndexController extends Pas_Controller_Action_Admin {
     public function init(){
     $this->_helper->acl->allow('public', null);
     }
-    /** Display the list of topics or individual pages.
+    /** Display the front page material.
     */	
     public function indexAction(){
     $content = new Content();
-    $this->view->contents = $content->getContent('info', 
-            $this->_getParam('slug'));
+        $this->view->contents = $content->getFrontContent('about');
     }
 
 }

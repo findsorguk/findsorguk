@@ -20,7 +20,7 @@ class Datalabs_IndexController extends Pas_Controller_Action_Admin
     */	
     public function indexAction(){
         $content = new Content();
-        $this->view->content = $content->getFrontContent('datalabs');
+        $this->view->contents = $content->getFrontContent('datalabs');
     }
 
 }
