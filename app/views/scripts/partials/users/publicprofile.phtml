@@ -22,5 +22,5 @@ Number of visits: <?php echo $this->visits;?><br />
 </p>
 </div>
 
-<?php echo $this->UserRecords($this->username); ?>
-<?php echo $this->OnlineAccountHtmlPublic($this->id);?>
+<?php echo $this->userRecords()->setUsername($this->username); ?>
+<?php echo $this->onlineAccountHtmlPublic()->setId($this->id);?>
