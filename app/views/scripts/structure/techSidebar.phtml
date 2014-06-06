@@ -1,19 +1,6 @@
-
 <div class="sidebar-nav col-md-3" >
     <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
-        <li <?php 
-        $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-        if($controller == 'github'):
-        ?> 
-        class="expandfirst" 
-        <?php endif;?>
-            ><a href="#"><i class="icon-folder-open"></i>Source code</a>
-            <ul class="nav nav-pills nav-stacked  menuindent">
-                <li <?php echo $this->currentPage()->active('tech','github','index');?>><a href="<?php echo $this->url(array('module' => 'tech','controller' => 'github','action' => 'index'),'default',true);?>" title="Github code changes">Code maintenance at Github</a></li>
-                <li <?php echo $this->currentPage()->active('tech','github','commits');?>><a href="<?php echo $this->url(array('module' => 'tech','controller' => 'github','action' => 'commits'),'default',true);?>">Commits</a></li>
-                <li <?php echo $this->currentPage()->active('tech','github','issues');?>><a href="<?php echo $this->url(array('module' => 'tech','controller' => 'github','action' => 'issues'),'default',true);?>">Issues</a></li>
-            </ul>
-        </li>
-        <li <?php echo $this->currentPage()->active('analytics','index','index');?>></li><a href="<?php echo $this->url(array('module' => 'analytics'),'default', true);?>">Analytics</a></li>
+        <li <?php echo $this->currentPage()->active('tech','index','index');?>><a href="<?php echo $this->url(array('module' => 'tech'),'default', true);?>">Technology</a></li>
+        <li <?php echo $this->currentPage()->active('analytics','index','index');?>><a href="<?php echo $this->url(array('module' => 'analytics'),'default', true);?>">Analytics</a></li>
     </ul>
 </div>
