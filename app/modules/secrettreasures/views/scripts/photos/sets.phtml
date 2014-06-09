@@ -12,7 +12,12 @@ if($this->photos):?>
 <div class="span10 well">
 <h3><?php echo $this->photos->photoset->title;?></h3>
 <p>
-<a href="<?php echo $this->FlickrImage($this->photos->photoset->farm,$this->photos->photoset->server,$this->photos->photoset->primary,$this->photos->photoset->secret,'b');?>" title="View image in larger format" rel="lightbox"><img src="http://farm<?php echo $this->photos->photoset->farm;?>.static.flickr.com/<?php echo $this->photos->photoset->server;?>/<?php echo $this->photos->photoset->primary;?>_<?php echo $this->photos->photoset->secret;?>_m.jpg" alt="Primary image for this set" style="float:right;" class="tmb" /></a>
+<a href="<?php echo $this->flickrImage()
+        ->setFarm($this->photos->photoset->farm)
+        ->setServer($this->photos->photoset->server)
+        ->setId($this->photos->photoset->primary)
+        ->setSecret($this->photos->photoset->secret)
+        ->setSize('b');?>" title="View image in larger format" rel="lightbox"><img src="http://farm<?php echo $this->photos->photoset->farm;?>.static.flickr.com/<?php echo $this->photos->photoset->server;?>/<?php echo $this->photos->photoset->primary;?>_<?php echo $this->photos->photoset->secret;?>_m.jpg" alt="Primary image for this set" style="float:right;" class="tmb" /></a>
 <?php echo $this->photos->photoset->description;?><br />
 This set contains <?php echo $this->photos->photoset->photos;?> photographs<?php if($this->photos->photoset->videos != 0) { echo ' and '.$this->photos->photoset->videos.' videos';} else { echo '.';}?> <br />
 <a href="<?php echo $this->flickrSetUrl()->setId($this->photos->photoset->id);?>" title="View this set in context">View this set on flickr.</a> | <a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'inaset','id'=> $this->photos->photoset->id),'default',true);?>" title="View photos on our site">View all photos here</a></p>
@@ -22,7 +27,12 @@ This set contains <?php echo $this->photos->photoset->photos;?> photographs<?php
 <div class="span10 well">
 <h3><?php echo $d->title;?></h3>
 <p>
-<a href="<?php echo $this->FlickrImage($d->farm,$d->server,$d->primary,$d->secret,'b');?>" title="View image in larger format" rel="lightbox"><img src="http://farm<?php echo $d->farm;?>.static.flickr.com/<?php echo $d->server;?>/<?php echo $d->primary;?>_<?php echo $d->secret;?>_m.jpg" alt="Primary image for this set" style="float:right;" /></a>
+<a href="<?php echo $this->flickrImage()
+        ->setFarm($d->farm)
+        ->setServer($d->server)
+        ->setId($d->primary)
+        ->setSecret($d->secret)
+        ->setSize('b');?>" title="View image in larger format" rel="lightbox"><img src="http://farm<?php echo $d->farm;?>.static.flickr.com/<?php echo $d->server;?>/<?php echo $d->primary;?>_<?php echo $d->secret;?>_m.jpg" alt="Primary image for this set" style="float:right;" /></a>
 <?php echo $d->description;?><br />
 This set contains <?php echo $d->photos;?> photographs<?php if($d->videos != 0) { echo ' and '.$d->videos.' videos';} else { echo '.';}?> <br />
 <a href="<?php echo $this->flickrSetUrl()->setId($d->id);?>" title="View this set in context">View this set on flickr.</a> | <a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'inaset','id'=> $d->id),'default',true);?>" title="View photos on our site">View all photos here</a></p>

@@ -1,77 +1,174 @@
 <?php
 /**
- *
- * @author dpett
- * @version
- */
-
-/**
- * TimeSpansGa helper
- *
+ * A view helper for rendering several different time spans for interfacing
+ * with Google Analytics api.
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->timeSpansGa()->setTimeSpan('lastmonth');
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @copyright (c) 2014, Daniel Pett
+ * @category Pas
+ * @package Pas_View_Helper
  * @uses viewHelper Pas_View_Helper_
+ * @example /app/modules/analytics/views/scripts/content/page.phtml
  */
-class Pas_View_Helper_TimeSpansGa
-    extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_TimeSpansGa extends Zend_View_Helper_Abstract {
 
+    /** The time span ranges
+     * @access protected
+     * @var array
+     */
     protected $_timespans = array(
-        'today'			=> 'today',
-        'yesterday'		=> 'yesterday',
-        'this week' 	=> 'thisweek',
-        'last week' 	=> 'lastweek',
-        'this month' 	=> 'thismonth',
-        'last month' 	=> 'lastmonth',
-        'this year' 	=> 'thisyear',
-        'last year' 	=> 'lastyear'
+        'today' =>  'today',
+        'yesterday' =>  'yesterday',
+        'this week' =>  'thisweek',
+        'last week' =>  'lastweek',
+        'this month'    =>  'thismonth',
+        'last month'    =>  'lastmonth',
+        'this year' 	=>  'thisyear',
+        'last year' 	=>  'lastyear'
         );
 
-    protected $_module;
-    protected $_action;
-    protected $_controller;
-    protected $_timeSpan = 'thisweek';
+    /** The request
+     * @access protected
+     * @var \Zend_Controller_Front
+     */
+    protected $_request;
 
-    public function __construct()
-    {
-        $frontController = Zend_Controller_Front::getInstance()->getRequest();
-        $this->_module = $frontController->getModuleName();
-        $this->_controller = $frontController->getControllerName();
-        $this->_action = $frontController->getActionName();
-        $this->_timeSpan = $frontController->getParam('timespan');
+    /** The module
+     * @access protected
+     * @var string
+     */
+    protected $_module;
+    
+    /** The action
+     * @access protected
+     * @var string
+     */
+    protected $_action;
+    
+    /** The controller
+     * @access protected
+     * @var string
+     */
+    protected $_controller;
+    
+    /** The time span by default
+     * @access protected
+     * @var type 
+     */
+    protected $_timeSpan = 'thisweek';
+    
+    /** Get the module 
+     * @access public
+     * @return string
+     */
+    public function getModule() {
+        $this->_module = $this->getRequest()->getModuleName();
+        return $this->_module;
     }
 
-    /**
-     *
+    /** Get the action
+     * @access public
+     * @return string
      */
-    public function timeSpansGa()
-    {
+    public function getAction() {
+        $this->_action = $this->getRequest()->getActionName();
+        return $this->_action;
+    }
+
+    /** Get the controller
+     * @access public
+     * @return string
+     */
+    public function getController() {
+        $this->_controller = $this->getRequest()->getControllerName();
+        return $this->_controller;
+    }
+
+    /** Get the time span
+     * @access public
+     * @return string
+     */
+    public function getTimeSpan() {
+        $this->_timeSpan = $this->getRequest()->getParam('timespan');
+        return $this->_timeSpan;
+    }
+
+    /** Set the timespan
+     * @access public
+     * @param string $timeSpan
+     * @return \Pas_View_Helper_TimeSpansGa
+     */
+    public function setTimeSpan($timeSpan) {
+        $this->_timeSpan = $timeSpan;
         return $this;
     }
 
-    private function _createUrls()
-    {
-    $html = '<ul class="nav nav-pills">';
-    foreach ($this->_timespans as $k => $v) {
-        $html .= '<li class="';
-        if ($this->_timeSpan === $v) {
-            $html .= 'active';
-        } elseif (is_null($this->_timeSpan) && $v === 'thisweek') {
-            $html .= 'active';
-        }
-        $html .= '"><a href="';
-        $html .= $this->view->url(array(
-            'module' => $this->_module,
-            'controller' => $this->_controller,
-            'action' => $this->_action,
-            'timespan' => $v),
-            'default', false);
-        $html .= '">' . ucfirst($k);
-        $html .= '</a></li>';
+    /** Get the available timespans
+     * @access public
+     * @return array
+     */
+    public function getTimespans() {
+        return $this->_timespans;
     }
-    $html .= '</ul>';
 
-    return $html;
+    /** Get the request
+     * @access public
+     * @return \Zend_Controller_Front
+     */
+    public function getRequest() {
+        $this->_request = Zend_Controller_Front::getInstance()->getRequest();
+        return $this->_request;
     }
-    public function __toString()
-    {
+
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_TimeSpansGa
+     */
+    public function timeSpansGa() {
+        return $this;
+    }
+
+    /** Create urls for rendering as to string
+     * @access public
+     * @return string
+     */
+    public function _createUrls() {
+        $html = '<ul class="nav nav-pills">';
+        foreach ($this->getTimespans() as $k => $v) {
+            $html .= '<li class="';
+            if ($this->_timeSpan === $v) {
+                $html .= 'active';
+            } elseif (is_null($this->getTimeSpan()) && $v === 'thisweek') {
+                $html .= 'active';
+            }
+            $html .= '"><a href="';
+            $html .= $this->view->url(array(
+                'module' => $this->getModule(),
+                'controller' => $this->getController(),
+                'action' => $this->getAction(),
+                'timespan' => $v),
+                'default', false);
+            $html .= '">' . ucfirst($k);
+            $html .= '</a></li>';
+        }
+        $html .= '</ul>';
+
+        return $html;
+    }
+    /** The to string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
         return $this->_createUrls();
     }
 }

@@ -4,7 +4,9 @@
  * An example of use:
  * <code>
  * <?php
- * echo $this->relevantAdviser()->setObjectType($this->objecttype)->setBroadperiod($this->broadperiod);
+ * echo $this->relevantAdviser()
+ * ->setObjectType($objecttype)
+ * ->setBroadperiod($broadperiod);
  * ?>
  * </code>
  *

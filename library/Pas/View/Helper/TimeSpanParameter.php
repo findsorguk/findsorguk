@@ -1,28 +1,44 @@
 <?php
 /**
- * A view helper for displaying the time span from parameter entered.
- * @author dpett
- * @version
- */
-
-/**
  * TimeSpanParameter helper
  *
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->timeSpanParameter();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @category Pas
+ * @package Pas_View_Helper
+ * @license http://URL name
  * @uses viewHelper Pas_View_Helper
+ * @example /app/modules/analytics/views/scripts/audience/city.phtml
  */
-class Pas_View_Helper_TimeSpanParameter extends Zend_View_Helper_Abstract
-{
-    protected $_timespan;
-    /**
-     *
+class Pas_View_Helper_TimeSpanParameter extends Zend_View_Helper_Abstract {
+    /** The time span variable
+     * @access public
+     * @var string
      */
-    public function timeSpanParameter()
-    {
-        $frontController = Zend_Controller_Front::getInstance();
-        $params = $frontController->getRequest()->getParams();
+    protected $_timespan;
+
+    /** The request
+     * @access public
+     * @var \Zend_Controller_Front
+     */
+    protected $_request;
+    
+    /** Get the timespan
+     * @access public
+     * @return string
+     */
+    public function getTimespan() {
+        $params = $this->getRequest();
         $ts = $params['timespan'];
         if (array_key_exists('timespan', $params)) {
-
             switch ($ts) {
                 case 'thisweek':
                     $time = 'this week';
@@ -47,15 +63,32 @@ class Pas_View_Helper_TimeSpanParameter extends Zend_View_Helper_Abstract
                     break;
             }
             $this->_timespan = $time;
-        } else {
-            $this->_timespan = 'this week';
         }
+        return $this->_timespan;
+    }
 
+    /** The request object
+     * @access public
+     * @var \Zend_Controller_Front
+     */
+    public function getRequest() {
+        $this->_request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+        return $this->_request;
+    }
+    
+    /** The function
+     * @access public
+     * @return \Pas_View_Helper_TimeSpanParameter
+     */
+    public function timeSpanParameter() {
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->_timespan;
+    /** To string function
+     * @access public
+     * @return type
+     */
+    public function __toString() {
+        return $this->getTimespan();
     }
 }

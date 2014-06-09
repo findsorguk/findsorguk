@@ -2,35 +2,49 @@
 
 /**
  * A view helper for displaying a datestamp as atom date
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->toAtomDateStamp()->setDateString($date);
+ * ?>
+ * </code>
+ * 
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses Zend_View_Helper_Abstract
- * @author Daniel Pett
  * @since September 13 2011
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @example /app/views/scripts/partials/events/eventDetailsSingle.phtml 
  */
 class Pas_View_Helper_ToAtomDateStamp extends Zend_View_Helper_Abstract
 {
-protected $_dateString;
+
+    /** The date string
+     * @access protected
+     * @var string
+     */
+    protected $_dateString;
 
     /** Get the date string
-     *
+     * @access public
      * @return string
      */
-    public function getDateString()
-    {
+    public function getDateString() {
         return $this->_dateString;
     }
 
     /** Set the date string
-     *
-     * @param  string                       $dateString
+     * @access public
+     * @param  string $dateString
      * @return \Pas_View_Helper_ToDateStamp
      */
-    public function setDateString($dateString)
-    {
+    public function setDateString($dateString)  {
         $this->_dateString = $dateString;
 
         return $this;
@@ -41,45 +55,37 @@ protected $_dateString;
      * @return string Formatted date string
      * @access public
      */
-
-    public function fromString($date_string)
-    {
-    if (is_integer($date_string) || is_numeric($date_string)) {
-            return intval($date_string);
-    } else {
-            return strtotime($date_string);
-    }
+    public function fromString($date_string){
+        if (is_integer($date_string) || is_numeric($date_string)) {
+                return intval($date_string);
+        } else {
+                return strtotime($date_string);
+        }
     }
 
     /** The function
-     *
+     * @access public
      * @return \Pas_View_Helper_ToAtomDateStamp
      */
-    public function toAtomDateStamp()
-    {
+    public function toAtomDateStamp() {
         return $this;
     }
 
     /** The magic method
-     *
+     * @access public
      * @return string
-     *
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->format();
     }
 
     /** Format the date
-     *
+     * @access public
      * @return string
      */
-    public function format()
-    {
+    public function format() {
         $date = $this->fromString($this->getDateString());
         $ret = date('Y-m-d\T', $date);
-
         return $ret;
     }
-
 }

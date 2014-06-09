@@ -8,6 +8,7 @@
  * echo $this->facebookPage();
  * ?>
  * </code>
+ * 
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract

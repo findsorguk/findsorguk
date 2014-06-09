@@ -6,7 +6,13 @@
  *
  * <code>
  * <?php
- * echo $this->gaHeadlineStats();
+ * echo $this->gaHeadlineStats()
+ * ->setId($id)
+ * ->setProfile($profile)
+ * ->setPassword($password)
+ * ->setSegment($segment)
+ * ->setStart($start)
+ * ->setEnd($end);
  * ?>
  * </code>
  *
@@ -17,6 +23,8 @@
  * @version 1
  * @copyright (c) 2014, Daniel Pett
  * @license http://URL name
+ * @todo Put in checks for date strings.
+ * @example /app/modules/analytics/views/scripts/index/index.phtml 
  *
  */
 class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
@@ -331,13 +339,18 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @return string|boolean
      */
     public function __toString() {
+        $html = '';
         $data = $this->toArray();
         if ( empty( $data ) ) {
             return false;
         }
-        $html = '<ul>';
+        $html .= '<ul>';
         foreach ($data as $name => $value) {
-            $html .= '<li>' . ucfirst($name) . ': ' . $value;
+            $html .= '<li>';
+            $html .= ucfirst($name);
+            $html .= ': ';
+            $html .= $value;
+            $html .= '</li>';
         }
         $html .= '</ul>';
         return $html;
