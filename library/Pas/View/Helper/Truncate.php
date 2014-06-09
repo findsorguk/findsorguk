@@ -1,5 +1,14 @@
 <?php
 /** Truncate string helper
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->truncate($string)->toLength(100)->withPostfix(' ');
+ * ?>
+ * </code>
+ *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @since 1
  * @uses viewHelper Pas_View_Helper
@@ -7,87 +16,92 @@
  * @license http://URL GNU
  * @category Pas
  * @package Pas_View_Helper
- * @example $this->truncate($string)->toLength(100)->withPostfix(' ');
+ * @example /app/modules/romancoins/views/scripts/emperors/data.json.phtml
+ * @todo Use this more often throughout site
  */
-class Pas_View_Helper_Truncate extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_Truncate extends Zend_View_Helper_Abstract {
 
-    private $_string;
+    /** The string to truncate
+     * @access protected
+     * @var string
+     */
+    protected $_string;
 
-    private $_length;
+    /** The length to truncate
+     * @access protected
+     * @var int
+     */
+    protected $_length;
 
-    private $_postfix;
+    /** Post fix value
+     * @access protected
+     * @var string
+     */
+    protected $_postfix;
 
-    private $_cutatspace = true;
+    /** Cut at space
+     * @access protected
+     * @var boolean
+     */
+    protected $_cutatspace = true;
 
     /** Truncate the string
      *
-     * @param  string                    $string
+     * @param  string $string
      * @return \Pas_View_Helper_Truncate
      */
-    public function truncate($string)
-    {
+    public function truncate($string) {
         $this->_string = trim($string);
         $this->_defaultValues();
-
         return $this;
     }
 
     /** Set default values
      *
      */
-    private function _defaultValues()
-    {
+    private function _defaultValues() {
         $this->toLength(100);
         $this->withPostfix('&#0133;');
     }
 
     /** Cut midword
-     *
+     * @access public
      * @return \Pas_View_Helper_Truncate
      */
-    public function midword()
-    {
+    public function midword() {
         $this->_cutatspace = false;
-
         return $this;
     }
 
     /** To a certain length
-     *
-     * @param  int                       $int
+     * @access public
+     * @param  int $int
      * @return \Pas_View_Helper_Truncate
      */
-    public function toLength($int)
-    {
+    public function toLength($int) {
         $this->_length = (int) $int;
-
         return $this;
     }
 
     /** With the postfix string
-     *
-     * @param  string                    $str
+     * @access public
+     * @param  string $str
      * @return \Pas_View_Helper_Truncate
      */
-    public function withPostfix($str)
-    {
+    public function withPostfix($str) {
         $this->_postfix = $str;
-
         return $this;
     }
 
     /** Render function
-     *
+     * @access public
      * @return string
      */
-    public function render()
-    {
+    public function render() {
     // Return empty string if max length < 1
         if ($this->_length < 1) {
             return '';
-
-        }
+            }
 
     // Return full string if max length >= string length
 
@@ -118,11 +132,10 @@ class Pas_View_Helper_Truncate extends Zend_View_Helper_Abstract
         }
 
         /** Magic method
-         *
+         * @access public
          * @return string
          */
-        public function __toString()
-        {
+        public function __toString() {
             return $this->render();
         }
 }

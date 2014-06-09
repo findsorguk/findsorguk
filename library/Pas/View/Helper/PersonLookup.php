@@ -15,6 +15,7 @@
  * @package Pas_View_Helper
  * @license http://URL name
  * @copyright (c) 2014, Daniel Pett
+ * @example /app/views/scripts/partials/admin/account.phtml 
  */
 class Pas_View_Helper_PersonLookup extends Zend_View_Helper_Abstract
 {

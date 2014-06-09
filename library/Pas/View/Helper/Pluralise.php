@@ -16,9 +16,9 @@
   * @category Pas
   * @package Pas_View_Helper
   * @license GNU
+  * @example path description
   */
-class Pas_View_Helper_Pluralise
-{
+class Pas_View_Helper_Pluralise {
     /** Quantity of objects to use
      * @access protected
      * @var int
