@@ -5,7 +5,7 @@ $this->headTitle($this->image->photo->title);
 <a href="<?php echo $this->sizes->size['7']->source;?>" rel="lightbox" title="View larger version"><img src="<?php echo $this->sizes->size['6']->source;?>" width="<?php echo $this->sizes->size['6']->width;?>"
 height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->image->photo->title;?>" /></a>
 
-<p>View on flickr: <?php echo $this->FlickrVariantSizes($this->sizes->size );?></p>
+<p>View on flickr: <?php echo $this->flickrVariantSizes()->setSizes( $this->sizes->size );?></p>
 <p><?php echo $this->image->photo->description;?></p>
 <div class="row-fluid">
 
@@ -24,16 +24,16 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
 			<h3>Metadata</h3>
 			<ul>
 			<li>Views: <?php echo $this->image->photo->views;?></li>
-			<li>License: <?php echo $this->FlickrLicense((int)$this->image->photo->license);?></li>
+			<li>License: <?php echo $this->flickrLicense()->setLicense((int)$this->image->photo->license);?></li>
 			<li>Taken by: <?php echo $this->image->photo->owner->realname;?></li>
 			<li>Uploaded: <?php echo $this->niceShortDate()->setDate($this->image->photo->dateuploaded);?></li>
 			<li>Taken on: <?php echo $this->niceShortDate()->setDate($this->image->photo->dates->taken);?></li>
 			<?php if(!is_null($this->image->photo->tags)):
-			
+
 			?>
-			<li>Tagged: <?php echo $this->flickrTagDetails($this->image->photo->tags);?></li>
+			<li>Tagged: <?php echo $this->flickrTagDetails()->setTags($this->image->photo->tags);?></li>
 			<?php endif;?>
-			<li>Image permissions: <?php echo $this->flickrPerms($this->image->photo->usage);?></li>
+			<li>Image permissions: <?php echo $this->flickrPerms()->setPerms($this->image->photo->usage);?></li>
 			</ul>
 			</div>
 
@@ -59,7 +59,7 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
            	<?php if($this->image->photo->comments):?>
 			<h3>Comments</h3>
 			<ul>
-			<?php echo $this->FlickrPhotoComments($this->comments);?>
+			<?php echo $this->flickrPhotoComments()->setComments($this->comments);?>
 			</ul>
 			<?php endif;?>
 			</div>
@@ -72,7 +72,7 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
 			<?php endif;?>
 			<h4>Tags</h4>
 			<ul>
-			<?php echo $this->FlickrTagExif($this->exif->exif);?>
+			<?php echo $this->flickrTagExif()->setExif($this->exif->exif);?>
 			</ul>
 			<?php endif;?>
 			</div>

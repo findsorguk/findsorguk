@@ -2,12 +2,30 @@
 /**
  * A view helper for constructing a flickr image from an array
  *
+ * A view helper that can take the parameters and return a url for the
+ * different size of image available.
+ *
+ * An example of use:
+ * <code>
+ * <?php
+ * echo $this->flickrImage()
+ * ->setFarm($this->photos->photoset->farm)
+ * ->setServer($this->photos->photoset->server)
+ * ->setId($this->photos->photoset->primary)
+ * ->setSecret($this->photos->photoset->secret)
+ * ->setSize('b');
+ * ?>
+ * </code>
+ * 
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @example /app/modules/flickr/views/scripts/photos/sets.phtml
  */
 class Pas_View_Helper_FlickrImage extends Zend_View_Helper_Abstract
 {
@@ -16,11 +34,11 @@ class Pas_View_Helper_FlickrImage extends Zend_View_Helper_Abstract
      * @var array
      */
     protected $_sizes = array(
-        self::SIZE_75PX, 
-        self::SIZE_100PX, 
+        self::SIZE_75PX,
+        self::SIZE_100PX,
         self::SIZE_240PX,
-        self::SIZE_500PX, 
-        self::SIZE_1024PX, 
+        self::SIZE_500PX,
+        self::SIZE_1024PX,
         self::SIZE_ORIGINAL
             );
 
@@ -73,37 +91,37 @@ class Pas_View_Helper_FlickrImage extends Zend_View_Helper_Abstract
      * @var string
     */
     const SIZE_ORIGINAL = 'o';
-    
+
     /** The farm number
      * @access protected
      * @var int
      */
     protected $_farm;
-    
+
     /** The server number
      * @access public
      * @var int
      */
     protected $_server;
-    
+
     /** The ID of the photo
      *
-     * @var type 
+     * @var type
      */
     protected $_id;
-    
+
     /** The photo secret
      * @access protected
      * @var int
      */
     protected $_secret;
-    
+
     /** The default size
      * @access protected
-     * @var type 
+     * @var type
      */
     protected $_size = 'm';
-    
+
     /** Get the requested size
      * @access public
      * @return string
@@ -200,10 +218,10 @@ class Pas_View_Helper_FlickrImage extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_FlickrImage
      */
-    public function flickrImage(){ 
+    public function flickrImage(){
         return $this;
     }
-    
+
     /** The url to return as a string
      * @access public
      * @return string
@@ -211,10 +229,10 @@ class Pas_View_Helper_FlickrImage extends Zend_View_Helper_Abstract
     public function __toString() {
         $url = sprintf(
                 "http://farm%d.static.flickr.com/%d/%s_%s%s.jpg",
-                $this->getFarm(), 
-                $this->getServer(), 
-                $this->getId(), 
-                $this->getSecret(), 
+                $this->getFarm(),
+                $this->getServer(),
+                $this->getId(),
+                $this->getSecret(),
                 $this->getSize()
                 );
         return $url;

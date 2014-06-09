@@ -18,7 +18,7 @@ Lat/Lon: <?php echo $this->latitude;?>, <?php echo $this->longitude;?><br />
 <?php endif;?>
 Taken: <?php echo $this->datetaken;?><br />
 Date we liked this: <?php echo date(DATE_ATOM,$this->date_faved);?><br />
-Licence: <?php echo $this->FlickrLicense((int)$this->license);?><br />
+Licence: <?php echo $this->flickrLicense()->setLicense((int)$this->license);?><br />
 Tags: <?php
 $tags = $this->tags;
 $pieces = explode(" ", $tags);

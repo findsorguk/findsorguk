@@ -18,6 +18,7 @@
  * @license GNU
  * @copyright (c) 2014, Daniel Pett
  * @uses Zend_View_Helper_Abstract
+ * @example /app/modules/flickr/views/scripts/photos/details.phtml
  */
 class Pas_View_Helper_FlickrPhotoComments extends Zend_View_Helper_Abstract
 {

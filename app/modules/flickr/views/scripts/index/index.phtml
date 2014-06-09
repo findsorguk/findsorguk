@@ -17,7 +17,7 @@ echo $this->flickrFront()->setLimit(12)->setFlickrConfig($flickr);
 ?>
 <div class="row-fluid span10">
 <?php
-echo $this->flickrContactsList($flickr);
+echo $this->flickrContactsList()->setFlickr($flickr);
 ?>
 </div>
 <div class="row-fluid span10">

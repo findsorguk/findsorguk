@@ -16,12 +16,14 @@
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
+ * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  * @uses Pas_Yql_Oauth
  * @uses OauthTokens
  * @see https://www.flickr.com/services/api/ For api details
+ * @example /app/modules/flickr/views/scripts/index/index.phtml
  */
 class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
 {

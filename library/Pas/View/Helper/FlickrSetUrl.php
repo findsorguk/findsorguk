@@ -19,8 +19,16 @@
  */
 class Pas_View_Helper_FlickrSetUrl extends Zend_View_Helper_Abstract {
 
+    /** The base uri
+     * @access protected
+     * @var string
+     */
     protected $_base = 'http://flickr.com/photos/finds/sets/';
 
+    /** The id
+     * @access protected
+     * @var int
+     */
     protected $_id;
 
     /** Get the base url for flickr sets
