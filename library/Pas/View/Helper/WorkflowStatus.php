@@ -9,15 +9,16 @@
  * echo $this->workflowStatus()->setWorkflow(1);
  * ?>
  * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @see Zend_View_Helper_Abstract
+ * @example /app/views/scripts/email/informFinderWorkflow.phtml 
  */
-class Pas_View_Helper_WorkflowStatus extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_WorkflowStatus {
 
      /** Default workflow status
      * @access protected
@@ -36,7 +37,7 @@ class Pas_View_Helper_WorkflowStatus extends Zend_View_Helper_Abstract
 
     /** Set the Workflow status
      * @access public
-     * @param  int                       $secwfstage
+     * @param  int $secwfstage
      * @return \Pas_View_Helper_Workflow
      */
     public function setWorkflow($secwfstage)

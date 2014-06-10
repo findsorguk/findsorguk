@@ -9,7 +9,7 @@ $this->jQuery()->addJavascriptFile('/js/bootstrap-carousel.js',$type='text/javas
 
 <h2>The Scheme on Flickr</h2>
 <?php
-$flickr = Zend_Registry::get('config')->webservice->flickr;
+$flickr = $this->getInvokeArg('bootstrap')->config->webservice->flickr;
 ?>
 <div class="row-fluid">
 <?php
@@ -21,11 +21,11 @@ echo $this->flickrContactsList()->setFlickr($flickr);
 ?>
 </div>
 <div class="row-fluid span10">
-<?php echo $this->flickrTags($flickr);?>
+<?php echo $this->flickrTags()->setApi($flickr);?>
 </div>
 <div class="row-fluid span10">
 <?php
-echo $this->flickrTotalViews($flickr);
+echo $this->flickrTotalViews()->setApi($flickr);
 ?>
 </div>
 

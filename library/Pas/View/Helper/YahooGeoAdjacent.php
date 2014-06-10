@@ -1,14 +1,28 @@
 <?php
-/** A view helper that queries the local geo planet database and returns html of adjacent places
+/** 
+ * A view helper that queries the local geo planet database and returns html 
+ * of adjacent places
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->yahooGeoAdjacent()->setWoeid($id);
+ * ?>
+ * </code>
+ * 
+ * 
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
  * @version 1
  * @license GNU
  * @copyright Daniel Pett
- * @author Daniel Pett
  * @since 30 September 2011
  * @uses Zend_View_Helper_Url
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @example /app/views/scripts/partials/database/findspot.phtml 
+ * 
  */
 class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
 {

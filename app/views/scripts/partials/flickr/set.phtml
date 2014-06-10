@@ -7,7 +7,7 @@ echo $this->title;?></h4>
 <p><?php echo $this->description;?></p>
 <p><a href="http://www.flickr.com/photos/<?php echo $this->pathalias;?>" title="Go to
 <?php echo $this->ownername;?>'s profile on flickr">
-<img src="http://farm<?php echo $this->iconfarm;?>.static.flickr.com/<?php echo $this->iconserver;?>/buddyicons/<?php echo $this->flickrNsid($this->ownername);?>.jpg" height="48"
+<img src="http://farm<?php echo $this->iconfarm;?>.static.flickr.com/<?php echo $this->iconserver;?>/buddyicons/<?php echo $this->flickrNsid()->setApi($this->getInvokeArg('bootstrap')->config->webservice->flickr->apikey)->setUsername($this->ownername);?>.jpg" height="48"
 width="48" alt="View <?php echo $this->ownername;?>'s images" style="float:left;padding:5px;"/></a>
 Image taken by: <?php echo $this->ownername;?><br />
 

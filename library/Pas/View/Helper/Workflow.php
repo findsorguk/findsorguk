@@ -8,6 +8,8 @@
  * echo $this->workflow()->setWorkflow(1);
  * ?>
  * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -15,6 +17,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses Zend_View_Helper_Abstract
  * @uses Zend_Exception
+ * @example /app/views/scripts/email/informFinderWorkflow.phtml 
  */
 class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
 {
@@ -36,13 +39,11 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
 
     /** Set the Workflow status
      * @access public
-     * @param  int                       $secwfstage
+     * @param  int $secwfstage
      * @return \Pas_View_Helper_Workflow
      */
-    public function setWorkflow($secwfstage)
-    {
+    public function setWorkflow($secwfstage) {
         $this->_secwfstage = $secwfstage;
-
         return $this;
     }
 
@@ -50,8 +51,7 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_Workflow
      */
-    public function workflow()
-    {
+    public function workflow() {
         return $this;
     }
 
@@ -59,8 +59,7 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->_buildHtml();
     }
 
@@ -69,8 +68,7 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
      * @return string
      * @throws Zend_Exception
      */
-    public function _buildHtml()
-    {
+    public function _buildHtml() {
         switch ( $this->getSecwfstage() ) {
             case 1:
         $wf = 'quarantine.png';

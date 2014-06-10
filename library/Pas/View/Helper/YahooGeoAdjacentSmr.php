@@ -1,17 +1,28 @@
 <?php
-/** A view helper that queries the local geo planet database and returns html of adjacent places
+/** 
+ * A view helper that queries the local geo planet database and returns html of adjacent places
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->YahooGeoAdjacentSmr()->setWoeid($this->woeid);
+ * ?>
+ * </code>
+ * 
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
  * @version 1
  * @license GNU
  * @copyright Daniel Pett
- * @author Daniel Pett
  * @since 30 September 2011
  * @uses Zend_View_Helper_Url
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @example /app/views/scripts/partials/database/smrrecord.phtml 
+ * 
  */
-class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract {
 
      /** The woeid to query
      * @access protected
@@ -23,19 +34,17 @@ class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getWoeid()
-    {
+    public function getWoeid() {
         return $this->_woeid;
     }
 
     /** Set the woeid to query
      * @access public
-     * @return int
+     * @param int $woeid
+     * @return \Pas_View_Helper_YahooGeoAdjacentSmr
      */
-    public function setWoeid($woeid)
-    {
+    public function setWoeid($woeid) {
         $this->_woeid = $woeid;
-
         return $this;
     }
 
@@ -43,19 +52,16 @@ class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getPlaces()
-    {
+    public function getPlaces() {
         $adjacent = new GeoPlaces();
-
-    return $adjacent->getAdjacent($this->getWoeid());
+        return $adjacent->getAdjacent($this->getWoeid());
     }
 
     /** The function to return
      * @access public
      * @return \Pas_View_Helper_YahooGeoAdjacent
      */
-    public function yahooGeoAdjacentSmr()
-    {
+    public function yahooGeoAdjacentSmr()  {
         return $this;
     }
 
@@ -63,8 +69,7 @@ class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function buildHtml()
-    {
+    public function buildHtml() {
         $html = '';
         $places = $this->getPlaces();
         if (count($places)) {
@@ -87,8 +92,7 @@ class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract
             }
             $html .= '</ul>';
             $html .= '</div>';
-    }
-
+            }
         return $html;
     }
 }

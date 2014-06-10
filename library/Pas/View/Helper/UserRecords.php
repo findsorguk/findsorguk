@@ -9,7 +9,7 @@
  * echo $this->userRecords()->setUsername($username);
  * ?>
  * </code>
- * 
+ * @example /app/views/scripts/partials/users/publicprofile.phtml 
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper

@@ -9,13 +9,15 @@
  * echo $this->flickrSetUrl()->setId(1);
  * ?>
  * </code>
+ * 
  * @category Pas
  * @package Pas_View_Helper
  * @version 1
  * @since 5 October 2011
- * @author Daniel Pett
- * @copyright DEJ PETT
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @license GNU
+ * @copyright (c) 2014, Daniel Pett
+ * @example /app/modules/flickr/views/scripts/photos/sets.phtml 
  */
 class Pas_View_Helper_FlickrSetUrl extends Zend_View_Helper_Abstract {
 

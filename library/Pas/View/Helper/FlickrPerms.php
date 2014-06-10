@@ -3,7 +3,6 @@
  * A view helper for showing the permissions for a photo
  *
  * An example of use:
- *
  * <code>
  * <?php
  * echo $this->flickrPerms()->setPerms($perms);
