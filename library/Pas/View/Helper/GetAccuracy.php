@@ -18,6 +18,7 @@
  * @since 28 September 2011
  * @category Pas
  * @package Pas_View_Helper
+ * @example /app/views/scripts/partials/database/findspot.phtml
  */
 
 class Pas_View_Helper_GetAccuracy extends Zend_View_Helper_Abstract {
@@ -66,7 +67,6 @@ class Pas_View_Helper_GetAccuracy extends Zend_View_Helper_Abstract {
      * @param int    $clean
      */
     public function __toString() {
-
         $gridref = $this->stripgrid($this->getGridRef());
         $coordCount = strlen($gridref) - 2; //count length and strip off fist two characters
         switch ($coordCount) {

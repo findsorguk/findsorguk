@@ -1,7 +1,7 @@
 <?php
 /**
  * Get details for an amazon product from the isbn number.
- * 
+ *
  * An example of use:
  * <code>
  * <?php
@@ -17,6 +17,7 @@
  * @package Pas_View_Helper
  * @todo Split the amazon html generator into chunks
  * @todo add validator for ISBN number
+ * @example /app/views/scripts/partials/database/pubAmazonDetails.phtml
  */
 
 class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
@@ -157,10 +158,10 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
      * @return string $html
      */
     protected function buildHtml($book) {
-    
+
         $html = '';
         $html .= '<div><h3>Amazon Book Data</h3><ul>';
-        if (array_key_exists('MediumImage',$book) && 
+        if (array_key_exists('MediumImage',$book) &&
                 (!is_null($book->MediumImage))) {
                     $html .= '<img class="flow" src="';
                     $html .= $book->MediumImage->Url;
@@ -172,7 +173,7 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
                     $html .= $book->MediumImage->Width;
                     $html .= '" class="amazonpicture" />';
                 }
-        
+
                 $html .= '<li><a href="';
                 $html .= $book->DetailPageURL;
                 $html .= '" title="View full details at Amazon"> ';
@@ -185,13 +186,13 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
                 $html .= '</li><li>Total used copies available: ';
                 $html .= $book->Offers->TotalUsed;
                 $html .= '</li>';
-    
+
                 if (array_key_exists('FormattedPrice',$book)) {
                     $html .= '<li>Price for new copy: ';
                     $html .= $book->FormattedPrice;
                     $html .= '</li>';
                 }
-    
+
                 $html .= '<li>Current sales rank at Amazon: ';
                 $html .= $book->SalesRank;
                 $html .= '</li>';
@@ -202,7 +203,7 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
                 $html .= '</li><li>Original publication date: ';
                 $html .= $book->PublicationDate;
                 $html .= '</li>';
-    
+
                 if (array_key_exists('Author',$book)) {
                     if (!is_array($book->Author)) {
                         $html .= '<li>Author: ';
@@ -214,7 +215,7 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
                             }
                             }
                             }
-    
+
                             if (array_key_exists('EditorialReviews', $book)) {
                                 $html .= '</ul>';
                                 $html .= '<h3>Amazon editoral review</h3>';
@@ -222,7 +223,7 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
                                     $html .= '<p>' . $review->Content . '</p>';
                                 }
                                 }
-    
+
                                 if ($book->SimilarProducts) {
                                     $html .= '<h3>Similar books</h3>';
                                     $html .= '<ul>';
@@ -230,7 +231,7 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
                                         $html .= "<li>{$sim->Title}</li>";
                                         }
                                         }
-    
+
                                         $html .= '</ul>';
                                         $html .= '</div>';
                                         return $html;

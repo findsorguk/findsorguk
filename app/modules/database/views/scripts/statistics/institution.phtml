@@ -1,4 +1,4 @@
-<?php 
+<?php
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
 $this->jQuery()->javascriptCaptureStart(); ?>
 $(document).ready(function(){
@@ -63,7 +63,7 @@ $this->headMeta('recorded,artefacts,archaeology','dc.keywords');
 <tr>
 <th></th>
 <th></th>
-<?php 
+<?php
 $finds_users = array();
 $records_users = array();
 foreach($this->creators as $find)
@@ -92,7 +92,7 @@ $recordsUsersTotal = array_sum($records_users);
 </tr>
 <?php echo $this->partialLoop('partials/annual/objectperiods.phtml',$this->periods);?>
 <tr>
-<?php 
+<?php
 $finds_period = array();
 $records_period = array();
 foreach($this->periods as $find)
@@ -112,7 +112,10 @@ $recordsPeriodTotal = array_sum($records_period);
 </tr>
 </table>
 <div id="fpgraph">
-<?php echo $this->Grapher('pie','Finds by period',$this->periods);?>
+<?php echo $this->grapher()
+        ->setType('pie')
+        ->setTitle('Finds by period')
+        ->setData($this->periods);?>
 </div>
 
 
@@ -125,7 +128,7 @@ $recordsPeriodTotal = array_sum($records_period);
 </tr>
 <?php echo $this->partialLoop('partials/annual/finderquants.phtml',$this->finders);?>
 <tr>
-<?php 
+<?php
 $finders = array();
 foreach($this->finders as $find)
 {
@@ -150,7 +153,7 @@ $finderstotal = array_sum($finders);
 </tr>
 <?php echo $this->partialLoop('partials/annual/averagemonth.phtml',$this->averages);?>
 <tr>
-<?php 
+<?php
 $finds_month = array();
 $records_month = array();
 foreach($this->averages as $find)
@@ -179,7 +182,7 @@ $recordsMonthTotal = array_sum($records_month);
 </tr>
 <?php echo $this->partialLoop('partials/annual/year.phtml',$this->year);?>
 <tr>
-<?php 
+<?php
 $finds_disco = array();
 $records_disco = array();
 foreach($this->year as $find)
@@ -208,7 +211,7 @@ $recordsDiscoTotal = array_sum($records_disco);
 </tr>
 <?php echo $this->partialLoop('partials/annual/discoinferno.phtml',$this->discovery);?>
 <tr>
-<?php 
+<?php
 $finds_discomethod = array();
 $records_discomethod = array();
 foreach($this->discovery as $find)
@@ -237,7 +240,7 @@ $recordsDiscoMethodTotal = array_sum($records_discomethod);
 </tr>
 <?php echo $this->partialLoop('partials/annual/landuse.phtml',$this->landuse);?>
 <tr>
-<?php 
+<?php
 $finds_landuse = array();
 $records_landuse = array();
 foreach($this->landuse as $find)
@@ -266,7 +269,7 @@ $recordsLanduseTotal = array_sum($records_landuse);
 </tr>
 <?php echo $this->partialLoop('partials/annual/precision.phtml',$this->precision);?>
 <tr>
-<?php 
+<?php
 $finds = array();
 $records = array();
 foreach($this->precision as $find)

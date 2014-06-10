@@ -185,7 +185,7 @@ WOEID: <a href="http://woe.spum.org/id/<?php echo $this->woeid;?>"><?php echo $t
 <?php if($this->source):?>
 Grid reference source: <?php echo $this->escape($this->source);?><br />
 <?php endif;?>
-Unmasked grid reference accurate to a <?php echo $this->GetAccuracy($this->gridref);?> metre square.
+Unmasked grid reference accurate to a <?php echo $this->getAccuracy()->setGridRef($this->gridref);?> metre square.
 
 </p>
 

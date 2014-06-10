@@ -218,7 +218,7 @@ Grid reference: <?php echo $this->stripGrid()->setGrid($this->gridref);?><br />
 <?php if(!is_null($this->source)):?>
 Grid reference source: <?php echo $this->escape($this->source);?><br />
 <?php endif;?>
-Grid reference accurate to a <?php echo $this->GetAccuracy($this->gridref);?> metre square.<br />
+Grid reference accurate to a <?php echo $this->getAccuracy()->setGridRef($this->gridref);?> metre square.<br />
 Grid reference length: <?php echo $this->gridlen;?><br />
 Easting: <?php echo $this->easting;?>  Northing: <?php echo $this->northing;?><br />
 Latitude: <?php echo $this->declat;?> Longitude: <?php echo $this->declong;?><br />
