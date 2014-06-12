@@ -1,0 +1,12 @@
+<?php
+/** A view for the map action of the events controller
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @copyright (c) 2014, Daniel Pett
+ * @todo Add head meta data for SEO
+ */
+?>
+<?php $this->headTitle('A map of upcoming events at the Scheme');?>
+<h2><?php echo $this->title();?>
+<?php $this->view->inlineScript()->appendFile("http://maps.google.com/maps/api/js?sensor=false",$type="text/javascript");?>
+<div id="map" style="width:750px;height:700px;"></div>   

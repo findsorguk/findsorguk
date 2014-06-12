@@ -1,18 +1,19 @@
 <?php
 
-/** Controller for PAS events
-*
-* @category     Pas
-* @package      Pas_Controller
-* @subpackage	ActionAdmin
-* @license	GNU General Public License
-* @author       Daniel Pett <dpett@britishmuseum.org>
-* @copyright    Daniel Pett 2011 <dpett@britishmuseum.org>
-* @since        23 Sept. 2011
-* @version      1.0
+/** 
+ * Controller for PAS events
+ * This has been revised on the 12th June 2014
+ *
+ * @category     Pas
+ * @package      Pas_Controller_Action
+ * @subpackage	Admin
+ * @license	GNU General Public License
+ * @author       Daniel Pett <dpett@britishmuseum.org>
+ * @copyright    Daniel Pett 2011 <dpett@britishmuseum.org>
+ * @since        23 Sept. 2011
+ * @version      2
 */
-class News_EventsController extends Pas_Controller_Action_Admin
-{
+class News_EventsController extends Pas_Controller_Action_Admin {
 
     /** Initialise the ACL for access levels and set up contexts
     */
@@ -37,30 +38,15 @@ class News_EventsController extends Pas_Controller_Action_Admin
     * Render data for view on index action
     */
     function indexAction() {
-        $this->view->headTitle('Events at the Scheme');
         $content = new Content();
         $this->view->contents = $content->getFrontContent('events');
-
-        $year = strftime("%Y", strtotime(Zend_Date::now()->toString('yyyy-MM-dd')));
-        $this->view->year = $year;
-        $adults = new Events();
-        $this->view->adults = $adults->getAttendanceAdults($year.'-01-01',$year.'-12-31');
-
-        $eventsList = new Events();
-        $eventsListed = $eventsList->getUpcomingEvents();
-        $calendar = new Calendar;
-        $lists = array();
-        foreach ($eventsListed as $value)
-        {
-        $lists[] = $value['eventStartDate'];
-        }
-        $listedDates = $lists;
-        $calendar->highlighted_dates = $listedDates;
-        $url = $this->view->url(array('module' => 'news','controller' => 'upcoming','action' => 'index'),'upcoming',true);
-        $calendar->formatted_link_to = $url.'/%Y-%m-%d';
-        $cal = '<div id="calendars" style="float:right;margin-top:100px;margin-left:10px;">'. ($calendar->output_calendar()). '</div>';
-        $this->view->cal =$cal;
-
+    }
+    
+    /**
+    * Render data for view on map action
+    */	
+    public function mapAction() {
+        
     }
 
     /** Render data for upcoming events
@@ -147,16 +133,7 @@ class News_EventsController extends Pas_Controller_Action_Admin
     */	
     public function archiveAction() {
         $events = new Events();
-        $events = $events->getArchivedEventsList($this->_getAllParams());
-        $current_year = date('Y');
-        $years = range(1998, $current_year);
-        $yearslist = array();
-        foreach($years as $key => $value) {
-        $yearslist[] = array('year' => $value);
-        }
-        $list = $yearslist;
-        $this->view->years = $list;
-        $this->view->events = $events;
+        $this->view->events = $events->getArchivedEventsList($this->_getAllParams());
     }
     
     /**
@@ -214,11 +191,6 @@ class News_EventsController extends Pas_Controller_Action_Admin
         print("</ul></div>"); 
     }
 
-    /**
-    * Render data for view on map action
-    */	
-    public function mapAction() {
-        $this->view->inlineScript()->appendFile("http://maps.google.com/maps/api/js?sensor=false",$type="text/javascript");
-    }
+    
 
 }
