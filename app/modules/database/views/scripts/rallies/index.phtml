@@ -19,7 +19,8 @@ echo $this->Href(array('module' => 'database','controller'=>'rallies', 'action'=
 
 <?php if (count($this->rallies)): ?>
 <ul id="yearrange">
-<?php echo $this->partialLoop('partials/database/archiveYearsRallies.phtml',$this->years);?>
+<?php echo $this->partialLoop('partials/database/archiveYearsRallies.phtml',
+        $this->yearList()->setStartYear(1998));?>
 </ul>
 <a class="btn btn-small" href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies','action' => 'map'),NULL,true);?>" title="View rally locations">View rally locations on a map <i class="icon-map-marker"></i></a> 
 <table class="table table-striped" summary="A list of all rallies we have attended">

@@ -3,9 +3,10 @@ $this->headTitle('Archived scheme events');
 $this->headMeta('A list of all our events that have expired','description');?>
 <h2>Archived Scheme events</h2>
 
-<?php if(count($this->events)):?><p>View events on calendar:</p>
+<?php if(count($this->events)):?>
+<p>View events on calendar:</p>
 <ul id="yearrange">
-<?php echo $this->partialLoop('partials/news/archiveYears.phtml',$this->years);?>
+<?php echo $this->partialLoop('partials/news/archiveYears.phtml', $this->yearList()->setStartYear(1998));?>
 </ul><table class="table table-striped" summary="List of all archived scheme events">
 <caption>List of past Scheme events</caption>
 <thead>
