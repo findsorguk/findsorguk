@@ -5,7 +5,7 @@
  * An example of use:
  * <code>
  * <?php
- * echo $thos->flickrTagDetails()->setTags($tags);
+ * echo $this->flickrTagDetails()->setTags($tags);
  * ?>
  * </code>
  * @todo Could be abstracted to a flickr class
