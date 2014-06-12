@@ -8,17 +8,16 @@
 * @license    GNU General Public License
 */
 class News_GuardianController extends Pas_Controller_Action_Admin {
+    
+    const FORMAT = "json";
 
-	
-	const FORMAT = "json";
-	
-	const GUARDIANAPI_URL = 'http://content.guardianapis.com/';
-	
-	const QUERY = 'Portable Antiquities Scheme';
-	
-	protected $_cache;
-	
-	/** Initialise the ACL and contexts
+    const GUARDIANAPI_URL = 'http://content.guardianapis.com/';
+
+    const QUERY = 'Portable Antiquities Scheme';
+
+    protected $_cache;
+
+    /** Initialise the ACL and contexts
 	*/ 
 	public function init() {
 	$this->_helper->_acl->allow(null);

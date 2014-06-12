@@ -1,5 +1,6 @@
 <?php
-/** Controller for all the Scheme's news stories
+/** 
+ * Controller for all the Scheme's news stories
 *
 * @category   Pas
 * @package    Pas_Controller
@@ -7,15 +8,14 @@
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
 * @license    GNU General Public License
 */
-class News_StoryController extends Pas_Controller_Action_Admin
-{
+class News_StoryController extends Pas_Controller_Action_Admin {
 
     public function init() {
-    $this->_helper->_acl->allow('public',null);
-    $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-    $this->_helper->contextSwitch()->setAutoDisableLayout(true)
-        ->addActionContext('article', array('xml','json'))
-        ->initContext();
+        $this->_helper->_acl->allow('public',null);
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->_helper->contextSwitch()->setAutoDisableLayout(true)
+                ->addActionContext('article', array('xml','json'))
+                ->initContext();
     }
     
     /** For individual article
@@ -45,18 +45,4 @@ class News_StoryController extends Pas_Controller_Action_Admin
 	}
         
     }
-
-    public function newsfeedAction(){
-	}
-
-    public function ellipsisString($string, $max = 300, $rep = '...') {
-		if (strlen($string) < $max) {
-		return $string;
-		} else {
-		$leave = $max - strlen ($rep);
-		}
-	    return strip_tags(substr_replace($string, $rep, $leave),'<br><a><em>');
-    }
-
-
 }

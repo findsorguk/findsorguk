@@ -1,142 +1,94 @@
 <?php
-/** Controller for ajax information gathering of news and events
-* 
-* @category   Pas
-* @package    Pas_Controller
-* @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
-*/
+/**
+ * A controller for ajax based functions for news module
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 2
+ * @since version 1
+ * @category Pas
+ * @package Pas_Controller_Action
+ * @subpackage Admin
+ * @license http://URL name
+ *
+ */
 class News_AjaxController extends Pas_Controller_Action_Admin {
+    
+    /** The they work for you api key
+     * @access protected
+     * @var string
+     */
+    protected $_apikey;
 
-	protected $_apikey;
-	
-	/** Initialise the ACL and contexts
-	*/ 
-	public function init() {
-		$this->_helper->_acl->allow(NULL);
-		$this->_helper->layout->disableLayout();
-		$this->_apikey = $this->_helper->config()->webservice->twfy->apikey;  
+    /** Initialise the ACL and contexts
+    */ 
+    public function init() {
+        $this->_helper->_acl->allow(NULL);
+        $this->_helper->layout->disableLayout();
+        $this->_apikey = $this->_helper->config()->webservice->twfy->apikey;  
     }
 
     /** Index page, nothing happens here
-	*/ 
-	public function indexAction() {
-	}
+     * 
+     */
+    public function indexAction() {
+    //Dummy action
+    }
 	
-	/** Curl function
-	* @param $url The URL to fetch
-	* @todo rewrite this and make ZEND_HTTP
-	*/ 
-	public function get($url){
-	$ch = curl_init(); 
-	curl_setopt($ch, CURLOPT_URL, $url); 
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-	$output = curl_exec($ch); 
-	curl_close($ch);
-	return $output;
-	}
+    /** Curl function to retrieve data from url
+     * @access public
+     * @param string $url
+     */
+    public function get( $url ){
+        $config = array(
+            'adapter'   => 'Zend_Http_Client_Adapter_Curl',
+            'curloptions' => array(
+                CURLOPT_POST =>  true,
+                CURLOPT_USERAGENT =>  $_SERVER["HTTP_USER_AGENT"],
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HEADER => false,
+                CURLOPT_RETURNTRANSFER => true,
+            ),
+	);
+        $client = new Zend_Http_Client($url, $config);
+	return $client->request();
+    }
+    
+    /** Action for getting mapping data for the news module
+     */
+    public function newsdataAction() {
+        $news = new News();
+        $this->view->mapping = $news->getMapdata();
+    }
 
-	/** get map data for news map
-	*/ 
-	public function newsdataAction() {
-	$news = new News();
-	$this->view->mapping = $news->getMapdata();
-	}
-
-	/** Return data for the event data ajax page
-	*/
-	public function eventdataAction() {
+    /** Return data for the event data ajax page
+     */
+    public function eventdataAction() {
 	$events = new Events();
 	$this->view->mapping = $events->getMapdata();
-	}
+    }
         
-	/** Find news by individual MP from theyworkforyou
-	* @todo rewrite to use YQL
-	*/ 
-	public function mpAction() {
+
+    /** Find news by individual MP from theyworkforyou
+    * @todo rewrite to use YQL
+    */ 
+    public function mpAction() {
 	$id = $this->_getParam('id');
-	$twfy = 'http://www.theyworkforyou.com/api/getPerson?key=' . $this->_apikey . '&id=' . $id 
-	. '&output=js';
-	$data = json_decode($this->get($twfy));
-	$this->view->data = $data;	
-	}
+	$twfy = 'http://www.theyworkforyou.com/api/getPerson?key='; 
+        $twfy .= $this->_apikey;
+        $twfy .= '&id=';
+        $twfy .= $id; 
+        $twfy .= '&output=js';
+	$this->view->data = json_decode($this->get($twfy));
+    }
 
-	/** get map data for news map
-	*/ 
-	public function mapAction()	{
+    /** Get map data for news map
+    */ 
+    public function mapAction()	{
 	if($this->_getParam('constituency',false)){
-	$finds = new Finds();
-	$finds = $finds->getFindsConstituencyMap($this->_getParam('constituency'));
-	$dom = new DOMDocument("1.0");
-	$node = $dom->createElement("markers");
-	$parnode = $dom->appendChild($node); 
-	foreach($finds as $mapdata) {
-	$restricted = array('public','member');
-	$auth = Zend_Auth::getInstance();
-	if($auth->hasIdentity()) {
-	$user = $auth->getIdentity();
-	$geo = new Pas_Geo_Gridcalc($mapdata['fourFigure']);
-	$results = $geo->convert();
-	if(!in_array($user->role,$restricted))  {
-	$lat = $mapdata['declat'];
-	$long = $mapdata['declong']; 
+            $finds = new Finds();
+            $this->view->finds = $finds->getFindsConstituencyMap($this->_getParam('constituency'));
 	} else {
-		$geo = new Pas_Geo_Gridcalc($mapdata['fourFigure']);
-	$results = $geo->convert();
-	$lat = $results['decimalLatLon']['decimalLatitude'];
-	$long = $results['decimalLatLon']['decimalLongitude']; 
-	} 
-	} else {
-		$geo = new Pas_Geo_Gridcalc($mapdata['fourFigure']);
-	$results = $geo->convert();
-	$lat = $results['decimalLatLon']['decimalLatitude'];
-	$long = $results['decimalLatLon']['decimalLongitude'];  
+            throw new Exception($this->_missingParameter);
 	}
-
-	 $html = '';
-	  if(isset($mapdata['i'])) {
-	  $html .=  '<div id="tmb">'
-	  .'<img src="http://'
-	  . $_SERVER['SERVER_NAME']
-	  . '/images/thumbnails/'
-	  . $mapdata['i']
-	  .'.jpg"/></div>';
-	  }
-
-	  $html .= '<div id="detailsmap"><p>'
-	  . ucwords(strtolower($mapdata['county']))
-	  . ' - <a href="http://'
-	  . $_SERVER['SERVER_NAME']
-	  . $this->view->url(array('module'=> 'database','controller' => 'artefacts','action' => 'record','id'=> $mapdata['id']),null,true)
-	  . '" title="View record\'s details">'
-	  . $mapdata['old_findID'] 
-	  . '</a><br />' 
-	  . $mapdata['objecttype']
-	  .'<br />'
-	  .$mapdata['broadperiod']
-	  .'</p></div>';
-	 
-	  $node = $dom->createElement("marker");  
-	  $newnode = $parnode->appendChild($node);  
-	  $newnode->setAttribute("name", $html);
-	  $newnode->setAttribute("broadperiod", $mapdata['broadperiod']);  
-	  $newnode->setAttribute("lat", $lat);  
-	  $newnode->setAttribute("lng", $long); 
-	  $newnode->setAttribute("type", $mapdata['objecttype']); 
-	  $newnode->setAttribute("workflow",
-	  str_replace(array('1','2','3','4'),
-	  array('quarantine','review','published','validation'),
-	  $mapdata['secwfstage']))
-	  ; 
- 
-	} 
-	header('Content-Type: text/xml');
-	echo $dom->saveXML();
-	} else {
-		throw new Exception($this->_missingParameter);
-	}
-		
-	}
-
+    }
 }

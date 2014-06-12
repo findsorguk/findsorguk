@@ -109,7 +109,7 @@ class News_EventsController extends Pas_Controller_Action_Admin
                         'charset' => 'utf-8',
                         'description' => 'The latest Portable Antiquities Scheme events',
                         'author' => 'The Portable Antiquities Scheme',
-                        'image' => Zend_Registry::get('siteurl').'/images/logos/pas.gif',
+                        'image' => $this->view->serverUrl() . '/assets/logos/pas.jpg',
                         'email' => 'info@finds.org.uk',
                         'copyright' => 'Creative Commons Licenced',
                         'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
@@ -119,8 +119,8 @@ class News_EventsController extends Pas_Controller_Action_Admin
         foreach ($events as $event) {
         $feedArray['entries'][] = array(
                                 'title' => $event['eventTitle'],
-                                'link' => Zend_Registry::get('siteurl').'/events/info/index/id/'.$event['id'],
-                                'guid' => Zend_Registry::get('siteurl').'/events/info/index/id/'.$event['id'],
+                                'link' => $this->view->serverUrl() . '/events/info/index/id/' . $event['id'],
+                                'guid' => $this->view->serverUrl() . '/events/info/index/id/' . $event['id'],
                                 'description' => strip_tags($event['eventDescription']),
                                 'lastUpdate' => strtotime($event['updated']),
                                 'content' => $event['eventDescription'],

@@ -1,56 +1,43 @@
 <?php
-/** Controller for accessing they work for you based news
-*
-* @category   Pas
-* @package    Pas_Controller
-* @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
-* @version    1.1
-* @since      1/2/2012
-*
+/** 
+ * Controller for accessing they work for you based news
+ * @category   Pas
+ * @package    Pas_Controller_Action
+ * @subpackage Admin
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license    GNU General Public License
+ * @version    1.1
+ * @since      1/2/2012
+ *
 */
 class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
 
-        /** The cache object
-         *
-         * @var type
-         */
-	protected $_cache = NULL;
-
-        /** Initialise
-         *
-         */
-	public function init() {
+    /** The cache object
+     * @access protected
+     * @var \Zend_Cache
+     */
+    protected $_cache = NULL;
+    
+    /** Initialise contexts and cache
+     * @access public
+     */
+    public function init() {
  	$this->_helper->_acl->allow(null);
  	$this->_helper->contextSwitch()->setAutoJsonSerialization(false);
 	$this->_helper->contextSwitch()
-            ->setAutoDisableLayout(true)
-            ->addContext('kml',array('suffix' => 'kml'))
-            ->addContext('rss',array('suffix' => 'rss'))
-            ->addContext('atom',array('suffix' => 'atom'))
-            ->addActionContext('finds', array('xml','json','kml','rss','atom'))
-            ->addActionContext('members',array('xml','json'))
-            ->addActionContext('constituencies',array('xml','json'))
-            ->addActionContext('index',array('xml','json'))
-             ->initContext();
-	$this->_cache = Zend_Registry::get('cache');
-	    $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-	}
-
-
-        /** Retrieve the page number
-        *
-        */
-        public function getPage(){
-        $page = $this->_getParam('page');
-	if(!isset($page)){
-		$start = 1;
-	} else {
-		$start = $page ;
-	}
-	return $start;
-        }
+                ->setAutoDisableLayout(true)
+                ->addContext('kml',array('suffix' => 'kml'))
+                ->addContext('rss',array('suffix' => 'rss'))
+                ->addContext('atom',array('suffix' => 'atom'))
+                ->addActionContext('finds', array('xml','json','kml','rss','atom'))
+                ->addActionContext('members',array('xml','json'))
+                ->addActionContext('constituencies',array('xml','json'))
+                ->addActionContext('index',array('xml','json'))
+                ->initContext();
+	
+        $this->_cache = Zend_Registry::get('cache');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+    }
 
         /** Get the index page and results for PAS search of twfy
         * @uses Pas_Twfy_Hansard

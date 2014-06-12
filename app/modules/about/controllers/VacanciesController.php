@@ -39,7 +39,7 @@ class About_VacanciesController extends Pas_Controller_Action_Admin {
 			'charset' => 'utf-8',
 			'description' => 'The latest vacancies at the Portable Antiquities Scheme',
 			'author' => 'The Portable Antiquities Scheme',
-			'image' => Zend_Registry::get('siteurl').'/images/logos/pas.gif',
+			'image' => $this->view->serverUrl(). '/assets/logos/pas.jpg',
 			'email' => 'info@finds.org.uk',
 			'copyright' => 'Creative Commons Licenced',
 			'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
@@ -49,8 +49,8 @@ class About_VacanciesController extends Pas_Controller_Action_Admin {
 		foreach ($vacs as $vac) {
 			$feedArray['entries'][] = array(
 				'title' => $vac['title'] . ' - ' . $vac['staffregions'],
-				'link' => Zend_Registry::get('siteurl').'/about/vacancies/vacancy/id/'.$vac['id'],
-				'guid' => Zend_Registry::get('siteurl').'/about/vacancies/vacancy/id/'.$vac['id'],
+				'link' => $this->view->serverUrl().'/about/vacancies/vacancy/id/'.$vac['id'],
+				'guid' => $this->view->serverUrl().'/about/vacancies/vacancy/id/'.$vac['id'],
 				'description' => strip_tags(substr($vac['specification'],0,300)),
 				'lastUpdate' => strtotime($vac['created']),
 				'content' => strip_tags($vac['specification'],''),
