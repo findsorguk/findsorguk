@@ -14,12 +14,17 @@ $feedArray = array(
     );
 foreach ($this->events as $event) {
 
+    $params = array(
+        'module' => 'news', 
+        'controller' => 'events',
+        'action' => 'details',
+        'id' => $event['id']
+            );
     $feedArray['entries'][] = array(
-    
         'title' => $event['eventTitle'],
         'description' => strip_tags($event['eventDescription']),
-        'guid' => $this->serverUrl() . '/events/info/index/id/' . $event['id'],
-        'link' => $this->serverUrl() . '/events/info/index/id/' . $event['id'],
+        'guid' => $this->serverUrl() . $this->url($params, 'default', true),
+        'link' => $this->serverUrl() . $this->url($params, 'default', true),
         'lastUpdate' => strtotime($event['updated']),
         'content' => $event['eventDescription'],
         'georss'=> $event['latitude'].','.$event['longitude'],  
