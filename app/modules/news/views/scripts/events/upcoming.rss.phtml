@@ -1,28 +1,29 @@
 <?php
 $feedArray = array(
-            'title' => 'Finds from the Scheme',
-            'link' => $this->view->CurUrl(),
-            'charset' => 'utf-8',
-            'description' => 'The latest Portable Antiquities Scheme events',
-            'author' => 'The Portable Antiquities Scheme',
-            'image' => $this->view->serverUrl() . '/assets/logos/pas.jpg',
-            'email' => 'info@finds.org.uk',
-            'copyright' => 'Creative Commons Licenced',
-            'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
-            'language' => 'en',
-            'entries' => array()
-                );
-        foreach ($this->events as $event) {
-        $feedArray['entries'][] = array(
-            'title' => $event['eventTitle'],
-            'link' => $this->view->serverUrl() . '/events/info/index/id/' . $event['id'],
-            'guid' => $this->view->serverUrl() . '/events/info/index/id/' . $event['id'],
-            'description' => strip_tags($event['eventDescription']),
-            'lastUpdate' => strtotime($event['updated']),
-            'content' => $event['eventDescription'],
-            'georss'=> $event['latitude'].','.$event['longitude'],  
-            );
-        }
-        $feed = Zend_Feed::importArray($feedArray, 'rss');
-        $feed->send();
+    'title' => 'Finds from the Scheme',
+    'link' => $this->curUrl(),
+    'charset' => 'utf-8',
+    'description' => 'The latest Portable Antiquities Scheme events',
+    'author' => 'The Portable Antiquities Scheme',
+    'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
+    'email' => 'info@finds.org.uk',
+    'copyright' => 'Creative Commons Licenced',
+    'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
+    'language' => 'en',
+    'entries' => array()
+    );
+foreach ($this->events as $event) {
 
+    $feedArray['entries'][] = array(
+    
+        'title' => $event['eventTitle'],
+        'description' => strip_tags($event['eventDescription']),
+        'guid' => $this->serverUrl() . '/events/info/index/id/' . $event['id'],
+        'link' => $this->serverUrl() . '/events/info/index/id/' . $event['id'],
+        'lastUpdate' => strtotime($event['updated']),
+        'content' => $event['eventDescription'],
+        'georss'=> $event['latitude'].','.$event['longitude'],  
+    );
+}
+$feed = Zend_Feed::importArray($feedArray, 'rss');
+$feed->send();

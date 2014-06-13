@@ -86,7 +86,9 @@ class Events extends Pas_Db_Table_Abstract {
         $events = $this->getAdapter();
         $select = $events->select()
                 ->from($this->_name,array(
-                    'eventStartDate', 'eventTitle', 'organisation', 'id'
+                    'eventStartDate', 'eventTitle', 'organisation', 
+                    'id', 'created', 'updated',
+                    'latitude', 'longitude', 'eventDescription'
                     ))
                 ->where('events.eventStartDate >= ?',
                         Zend_Date::now()->toString('yyyy-MM-dd'))

@@ -24,7 +24,9 @@ class News_EventsController extends Pas_Controller_Action_Admin {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->acl->allow('public',null);
         $contexts = array('xml','json', 'rss', 'atom');
-        $contextSwitch = $this->_helper->contextSwitch();
+        $contextSwitch = $this->_helper->contextSwitch()
+                ->setAutoJsonSerialization(false);
+	$this->_helper->contextSwitch();
         $contextSwitch->setAutoDisableLayout(true)
                 ->addContext('rss',array('suffix' => 'rss'))
                 ->addContext('atom',array('suffix' => 'atom'))
