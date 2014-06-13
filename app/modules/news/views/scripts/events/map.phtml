@@ -44,7 +44,7 @@ This map shows the upcoming ones.','description')
           var point = new google.maps.LatLng(
               parseFloat(markers[i].getAttribute("lat")),
               parseFloat(markers[i].getAttribute("lon")));
-          var url = "<?php echo $this->serverUrl();?>/news/stories/article/id/" + id;
+          var url = "<?php echo $this->serverUrl();?>/news/story/" + id;
           var content = markers[i].getAttribute("content")
           var html = "<h3><a href='" + url + "'>"+ title + "</a></h3>" + content;
           var marker = new google.maps.Marker({
