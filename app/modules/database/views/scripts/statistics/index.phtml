@@ -7,6 +7,6 @@ $this->headMeta('records,daily,archive,portable antiquities scheme,archaeology,e
 <ul id="yearrange">
     <?php 
     echo $this->partialLoop('partials/database/archiveYears.phtml',
-            $this->yearList()->setStartYear(1998));
+            $this->yearList()->setStartYear(1998)->generateArray());
     ?>
 </ul>

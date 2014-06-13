@@ -11,10 +11,9 @@
 <h2>
     <?php echo $this->title();?>
 </h2>
-
 <?php if(count($this->events)):?>
 <ul id="yearrange">
-<?php echo $this->partialLoop('partials/news/archiveYears.phtml', $this->yearList()->setStartYear(1998));?>
+<?php echo $this->partialLoop('partials/news/archiveYears.phtml', $this->yearList()->setStartYear(1998)->generateArray());?>
 </ul>
 <table class="table table-striped" summary="List of all archived scheme events">
     <caption>List of past Scheme events</caption>

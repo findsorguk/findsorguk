@@ -36,7 +36,8 @@ class Events extends Pas_Db_Table_Abstract {
     * @return array
     */
     public function getEventData($id){
-        $select = $this->select()
+        $events = $this->getAdapter();
+        $select = $events->select()
                 ->from($this->_name)
                 ->joinLeft('users','users.id = events.createdBy',
                         array('fullname','email'))
@@ -45,7 +46,7 @@ class Events extends Pas_Db_Table_Abstract {
                 ->joinLeft('eventtypes',$this->_name . '.eventType = eventtypes.id',
                         array('type'))
                 ->where('events.id = ?',(int)$id);
-        return $this->getAdapter()->fetchAll($select);
+        return $events->fetchAll($select);
     }
 
     /**
@@ -82,9 +83,10 @@ class Events extends Pas_Db_Table_Abstract {
     * @return array
     */
     public function getUpcomingEvents(){
-        $select = $this->select()
+        $events = $this->getAdapter();
+        $select = $events->select()
                 ->from($this->_name,array(
-                    'eventStartDate', 'eventTitle', 'organisation'
+                    'eventStartDate', 'eventTitle', 'organisation', 'id'
                     ))
                 ->where('events.eventStartDate >= ?',
                         Zend_Date::now()->toString('yyyy-MM-dd'))
@@ -95,7 +97,7 @@ class Events extends Pas_Db_Table_Abstract {
                 ->joinLeft('users','events.createdBy = users.id',
                         array('fullname','i' => 'id','email'))
                 ->order('eventStartDate DESC');
-        return $this->getAdapter()->fetchAll($select);
+        return $events->fetchAll($select);
     }
 
     /**

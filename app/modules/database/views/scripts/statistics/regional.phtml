@@ -15,7 +15,7 @@ $this->jQuery()->javascriptCaptureEnd();
 <ul id="yearrange">
 <?php 
 echo $this->partialLoop('partials/database/archiveYearsStats.phtml', 
-        $this->yearList()->setStartYear(1998));
+        $this->yearList()->setStartYear(1998)->generateArray());
 ?>
 </ul>
 

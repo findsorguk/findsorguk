@@ -103,37 +103,7 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
             }
         }
         return parent::insert($data);
-    }
-
-	
-    /** Update the data to the model
-     * @access public
-     * @param array $data
-     * @param array $where
-     * @return type
-     */
-    public function update( array $data, array $where){
-        if(array_key_exists('csrf', $data)){
-            unset($data['csrf']);
-        }
-	if(empty($data['updated'])){
-            $data['updated'] = $this->timeCreation();
-	}
-	if(empty($data['updatedBy'])){
-            $data['updatedBy'] = $this->userNumber();
-	}
-        if(array_key_exists('created', $data)){
-            unset($data['created']);
-        }
-        foreach($data as $k => $v) {
-            if ( $v == "") {
-                $data[$k] = NULL;
-            }
-        }
-	
-        $tableSpec = ($this->_schema ? $this->_schema . '.' : '') . $this->_name;
-        return parent::update( $data, $where);
-    }
+    }    
 
     /** Delete data from model
      * @access public

@@ -9,25 +9,7 @@ $this->headMeta('The Portable Antiquities Scheme and the British Museum','dc.Pub
 <div class="vevent">
 <h2 class="summary"><?php echo $this->eventTitle;?></h2>
 
-<p>Add to my calendar: <a href="<?php echo $this->url(array(
-    'module' => 'events',
-    'controller' => 'info', 
-    'action' => 'index', 
-    'id' => $this->id,'format' => 'ics'), null, true);?>" 
-    title="Download event details in ICS format">ics</a> | <a href="<?php echo 
-    $this->url(array(
-        'module' => 'events',
-        'controller' => 'info', 
-        'action' => 'index', 
-        'id' => $this->id,'format' => 'rdf'), null, true);?>" 
-        title="Download event details in RDF format">rdf</a> | <a href="
-    <?php echo $this->url(array(
-        'module' => 'events',
-        'controller' => 'info', 
-        'action' => 'index', 
-        'id' => $this->id,
-        'format' => 'xcs'),'info', true);?>" 
-        title="Download event details in XCS format">xcs</a></p>
+
 
 <p>Date(s): <abbr class="dtstart" title="<?php echo $this->toAtomDateStamp($this->eventStartDate);?><?php echo $this->eventStartTime;?>">
 <?php echo ucwords(strftime("%A %d %B %Y", strtotime($this->eventStartDate)));?></abbr> 

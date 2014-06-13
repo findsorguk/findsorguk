@@ -63,7 +63,7 @@ class News_EventsController extends Pas_Controller_Action_Admin {
     /**
     * Render data for view on index action
     */	
-    function eventAction() {
+    function detailsAction() {
         $this->view->events = $this->_events->getEventData($this->_getParam('id'));
     }
 

@@ -19,7 +19,7 @@ you will be able to find our details of the find, valuations and further informa
 <ul id="yearrange">
 <?php 
     echo $this->partialLoop('partials/treasure/archiveYearsStats.phtml',
-            $this->yearList()->setStartYear(1998));?>
+            $this->yearList()->setStartYear(1998)->generateArray());?>
 </ul>
 <table class="table table-striped">
 <caption>All Treasure cases reported</caption>

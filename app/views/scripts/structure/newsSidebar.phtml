@@ -7,12 +7,12 @@
         <li <?php echo $this->currentPage()->active('news','map','index');?>>
         	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'map'),'default',true);?>" title="View most recent news stories on a map"><i class="icon-map-marker"></i>Geographic news map</a></li>
         <li <?php echo $this->currentPage()->active('news','events','index');?>>
-        	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'events','action' => 'index'),'default',true);?>" title="Find out about our events programme">Our events</a></li>
+        	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'events','action' => 'index'),'default',true);?>" title="Find out about our events programme"><i class="icon-calendar"></i>Our events</a></li>
         <li <?php echo $this->currentPage()->active('news','events','upcoming');?>>
-        	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'events','action' => 'upcoming'),'default',true);?>" title="Upcoming events at the Scheme">Upcoming events</a></li>
+            <a href="<?php echo $this->url(array('module' => 'news','controller' => 'events','action' => 'upcoming'),'default',true);?>" title="Upcoming events at the Scheme"><i class="icon-calendar"></i>Upcoming events</a></li>
         <li <?php echo $this->currentPage()->active('news','events','map');?>>
         	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'events','action' => 'map'),'default',true);?>" title="Map of upcoming events"><i class="icon-map-marker"></i>Events map</a></li>
         <li <?php echo $this->currentPage()->active('news','events','archive');?>>
-        	<a href="<?php echo $this->url(array('module' => 'news' , 'controller' => 'events','action' => 'archive'),'default',true);?>" title="Our events archive">Events archive</a></li>
+        	<a href="<?php echo $this->url(array('module' => 'news' , 'controller' => 'events','action' => 'archive'),'default',true);?>" title="Our events archive"><i class="icon-calendar"></i>Events archive</a></li>
     </ul>
 </div>

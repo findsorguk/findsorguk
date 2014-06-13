@@ -66,7 +66,6 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
 	$events = new Events();
 	$this->view->mapping = $events->getMapdata();
     }
-        
 
     /** Find news by individual MP from theyworkforyou
     * @todo rewrite to use YQL
