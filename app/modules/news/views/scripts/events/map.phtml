@@ -3,10 +3,21 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
  * @copyright (c) 2014, Daniel Pett
- * @todo Add head meta data for SEO
  */
 ?>
-<?php $this->headTitle('A map of upcoming events at the Scheme');?>
-<h2><?php echo $this->title();?>
+<?php 
+    $this->headTitle('A map of upcoming events at the Scheme');
+    $this->headMeta('The Portable Antiquities Scheme has a wide range of events around the country. 
+This map shows the upcoming ones.','description')
+            ->headMeta($this->curUrl(),'dc.identifier')
+            ->headMeta('Daniel Pett','dc.creator')
+            ->headMeta('The Portable Antiquities Scheme','dc.publisher')
+            ->headMeta('CC BY-SA','dc.rights');
+?>
+
+<h2>
+    <?php echo $this->title();?>
+</h2>
+
 <?php $this->view->inlineScript()->appendFile("http://maps.google.com/maps/api/js?sensor=false",$type="text/javascript");?>
 <div id="map" style="width:750px;height:700px;"></div>   

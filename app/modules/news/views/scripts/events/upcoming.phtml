@@ -1,8 +1,42 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/** A view for listing upcoming events
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @copyright (c) 2014, Daniel Pett
  */
+?>
+<?php
+    $this->headTitle('Upcoming Scheme Events');
+    $this->headMeta('An overview of our attendance of upcoming events','description')
+            ->headMeta($this->curUrl(),'dc.identifier')
+            ->headMeta('Daniel Pett','dc.creator')
+            ->headMeta('The Portable Antiquities Scheme','dc.publisher')
+            ->headMeta('CC BY-SA','dc.rights');
+?>
+<h2>
+    <?php echo $this->title();?>
+</h2>
 
+<?php if(count($this->events)):?>
+
+<table class="table table-striped" summary="List of all upcoming scheme events">
+    <caption>List of upcoming Scheme events</caption>
+    <thead>
+        <tr>
+            <th>Date of event</th>
+            <th>Event title</th>
+            <th>Location</th>
+            <th>Type</th>
+            <th>Organised by</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/events/upcoming.phtml',$this->events);?>
+    </tbody>
+</table>
+<?php else:?>
+    <p>
+        There are no upcoming events available to you on this date.
+    </p>
+<?php endif;?>

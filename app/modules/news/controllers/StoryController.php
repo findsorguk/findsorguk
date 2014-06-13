@@ -14,7 +14,7 @@ class News_StoryController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('public',null);
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
-                ->addActionContext('article', array('xml','json'))
+                ->addActionContext('index', array('xml','json'))
                 ->initContext();
     }
     
@@ -43,6 +43,5 @@ class News_StoryController extends Pas_Controller_Action_Admin {
 	} else {
 	throw new Exception('No parameter on the url string');
 	}
-        
     }
 }

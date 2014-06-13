@@ -1,5 +1,6 @@
 <?php
-/** Controller for index of the news module
+/** 
+ * Controller for index of the news module
  *
  * @category   Pas
  * @package    Pas_Controller_Action
@@ -10,10 +11,9 @@
  * @version 2
  * @since version 1
  * 
-*/
+ */
 class News_IndexController extends Pas_Controller_Action_Admin {
 
-    
     /** Initialise the ACL and contexts
      * @access public
      */
@@ -34,49 +34,5 @@ class News_IndexController extends Pas_Controller_Action_Admin {
     public function indexAction() {
         $news = new News();
 	$this->view->news = $news->getAllNewsArticles($this->_getAllParams());
-        $format = $this->_request->getParam('format');
-        if(in_array($format,array('georss','rss','atom'))){
-            $news = new News();
-            $news = $news->getNews();
-            // prepare an array that our feed is based on
-            $feedArray = array(
-                'title' => 'Latest news from the Portable Antiquities Scheme',
-                'link' => $this->view->serverUrl() . '/news/',
-                'charset' => 'utf-8',
-                'description' => 'The latest news stories published by the Portable Antiquities Scheme',
-                'author' => 'The Portable Antiquities Scheme',
-                'image' => $this->view->serverUrl() . '/assets/logos/pas.jpg',
-                'email' => 'info@finds.org.uk',
-                'copyright' => 'Creative Commons Licenced',
-                'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
-                'language' => 'en',
-                'entries' => array()
-                );
-                foreach ($news as $new) {
-
-                //$latlong = $new['declat'] .' ' .$new['declong'];
-                $feedArray['entries'][] = array(
-                    'title' => $new['title'],
-                    'link' => $this->view->serverUrl() . '/news/story/id/' . $new['id'],
-                    'guid' => $this->view->serverUrl() .'/news/story/id/' . $new['id'],
-                    'description' => $this->ellipsisString($new['contents'],200),
-                    'lastUpdate' => strtotime($new['datePublished']),
-                        //'georss'=> $latlong,
-                        //'enclosure' => array()
-                    );
-
-                        /*if($object['i'] != NULL) {
-                        $feedArray['enclosure'][] = array(array(
-                        'url' => 'http://www.findsdatabase.org.uk/view/thumbnails/pas/'.$object['i'].'.jpg',
-                        'type' => 'image/jpeg' //always sets to jpeg as the thumbnails are derived from there.
-                        ));
-                        }*/
-            }
-            $feed = Zend_Feed::importArray($feedArray, $format);
-            $feed->send();
-            } else {
-            $this->_redirect('/news/');
-            }
-        
-        }
+    }
 }
