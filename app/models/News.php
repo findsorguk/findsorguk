@@ -28,7 +28,7 @@ class News extends Pas_Db_Table_Abstract {
      */
     public function init(){
         $this->_geoPlanet = new Pas_Service_Geo_Geoplanet(
-                $this->_helper->config()->webservice->ydnkeys->appid
+                Zend_Registry::get('config')->webservice->ydnkeys->appid
                 );
 	$this->_geoCoder = new Pas_Service_Geo_Coder();
     }
