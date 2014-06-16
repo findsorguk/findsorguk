@@ -1,17 +1,16 @@
 <?php 
-$dom 	  = new DomDocument("1.0", "UTF-8");
-$markers  = $dom->createElement('markers');
+$dom = new DomDocument("1.0", "UTF-8");
+$markers = $dom->createElement('markers');
 foreach($this->mapping as $mapping) {
-     $markerElem = $dom->createElement('marker');
-	 $markerElem->setAttribute('name', $mapping['name'] );
-	 $markerElem->setAttribute('lat', $mapping['lat'] );
-	 $markerElem->setAttribute('lng', $mapping['lng'] );
-	 $markerElem->setAttribute('id', $mapping['id']);
-	 $markerElem->setAttribute('datefrom', $mapping['df']);
-	 $markerElem->setAttribute('dateto', $mapping['dt']);
-	 $markers->appendChild($markerElem);
+    $markerElem = $dom->createElement('marker');
+    $markerElem->setAttribute('name', $mapping['name'] );
+    $markerElem->setAttribute('lat', $mapping['lat'] );
+    $markerElem->setAttribute('lon', $mapping['lng'] );
+    $markerElem->setAttribute('id', $mapping['id']);
+    $markerElem->setAttribute('datefrom', $mapping['df']);
+    $markerElem->setAttribute('dateto', $mapping['dt']);
+    $markers->appendChild($markerElem);
 }
 $dom->appendChild( $markers );
-
 $xmlData  = $dom->saveXML();
 echo $xmlData;

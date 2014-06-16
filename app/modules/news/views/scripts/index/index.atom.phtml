@@ -1,4 +1,5 @@
 <?php
+Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/atom+xml');
 $feedArray = array(
     'title' => 'The lastest news from the Portable Antiquities Scheme',
     'link' => $this->CurUrl(),
@@ -13,16 +14,20 @@ $feedArray = array(
     'entries' => array()
     );
 foreach ($this->news as $new) {
+    $url = $this->url(array(
+    'module' => 'news', 
+    'controller' => 'story',
+    'action' => 'index',
+    'id' => $new['id']),
+        'newsstory', true);
     $feedArray['entries'][] = array(
-				
         'title' => $new['title'],
-        'link' => $this->serverUrl() . '/news/stories/article/id/' . $new['id'],
-        'guid' => $this->serverUrl() . '/news/stories/article/id/' . $new['id'],
+        'link' => $this->serverUrl() . $url,
+        'guid' => $this->serverUrl() . $url,
         'description' => strip_tags($new['summary']),
         'lastUpdate' => strtotime($new['updated']),
         'content' => strip_tags($new['summary']),
         );
     }
-
 $feed = Zend_Feed::importArray($feedArray,'atom');
 $feed->send();

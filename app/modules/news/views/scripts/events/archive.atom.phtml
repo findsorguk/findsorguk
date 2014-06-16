@@ -11,7 +11,7 @@ $feedArray = array(
     'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
     'language' => 'en',
     'entries' => array()
-    );
+        );
 foreach ($this->events as $event) {
     $params = array(
         'module' => 'news', 
@@ -19,15 +19,16 @@ foreach ($this->events as $event) {
         'action' => 'details',
         'id' => $event['id']
             );
+    
     $feedArray['entries'][] = array(
         'title' => $event['eventTitle'],
-        'description' => strip_tags($event['eventDescription']),
-        'guid' => $this->serverUrl() . $this->url($params, 'default', true),
         'link' => $this->serverUrl() . $this->url($params, 'default', true),
+        'guid' =>  $this->serverUrl() . $this->url($params, 'default', true),
+        'description' => strip_tags($event['eventDescription']),
         'lastUpdate' => strtotime($event['updated']),
         'content' => $event['eventDescription'],
         'georss'=> $event['latitude'].','.$event['longitude'],  
-    );
+        );
 }
-$feed = Zend_Feed::importArray($feedArray, 'rss');
+$feed = Zend_Feed::importArray($feedArray, 'atom');
 $feed->send();

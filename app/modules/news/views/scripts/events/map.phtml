@@ -39,13 +39,19 @@ This map shows the upcoming ones.','description')
         var xml = parseXml(data);
         var markers = xml.documentElement.getElementsByTagName("marker");
         for (var i = 0; i < markers.length; i++) {
-          var title = markers[i].getAttribute("title");
+          var title = markers[i].getAttribute("name");
           var id = markers[i].getAttribute("id");
           var point = new google.maps.LatLng(
               parseFloat(markers[i].getAttribute("lat")),
               parseFloat(markers[i].getAttribute("lon")));
-          var url = "<?php echo $this->serverUrl();?>/news/story/" + id;
-          var content = markers[i].getAttribute("content")
+              <?php
+              $eventArticle = $this->url(array(
+                  'module' => 'news',
+                  'controller' => 'events',
+                  'action' => 'details'), 'default', true);
+              ?>
+          var url = "<?php echo $this->serverUrl() . $eventArticle;?>/id/" + id;
+          var content = markers[i].getAttribute("datefrom") + ' ' +  markers[i].getAttribute("dateto");
           var html = "<h3><a href='" + url + "'>"+ title + "</a></h3>" + content;
           var marker = new google.maps.Marker({
             map: map,

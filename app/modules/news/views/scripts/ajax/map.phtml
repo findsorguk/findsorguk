@@ -1,69 +1,66 @@
 <?php
-    $dom = new DOMDocument("1.0");
-    $node = $dom->createElement("markers");
-    $parnode = $dom->appendChild($node); 
-    foreach($this->finds as $mapdata) {
-        $restricted = array('public','member');
-	$auth = Zend_Auth::getInstance();
-        if($auth->hasIdentity()) {
-            $user = $auth->getIdentity();
+$dom = new DOMDocument("1.0");
+$node = $dom->createElement("markers");
+$parnode = $dom->appendChild($node); 
+foreach($this->finds as $mapdata) {
+    $restricted = array('public','member');
+    $auth = Zend_Auth::getInstance();
+    if($auth->hasIdentity()) {
+        $user = $auth->getIdentity();
+        $geo = new Pas_Geo_Gridcalc($mapdata['fourFigure']);
+        $results = $geo->convert();
+        if(!in_array($user->role,$restricted))  {
+            $lat = $mapdata['declat'];
+            $long = $mapdata['declong']; 
+        } else {
             $geo = new Pas_Geo_Gridcalc($mapdata['fourFigure']);
             $results = $geo->convert();
-            if(!in_array($user->role,$restricted))  {
-                $lat = $mapdata['declat'];
-                $long = $mapdata['declong']; 
-            } else {
-		$geo = new Pas_Geo_Gridcalc($mapdata['fourFigure']);
-                $results = $geo->convert();
-                $lat = $results['decimalLatLon']['decimalLatitude'];
-                $long = $results['decimalLatLon']['decimalLongitude']; 
-            } 
-            } else {
-		$geo = new Pas_Geo_Gridcalc($mapdata['fourFigure']);
-                $results = $geo->convert();
-                $lat = $results['decimalLatLon']['decimalLatitude'];
-                $long = $results['decimalLatLon']['decimalLongitude'];  
-            }
-
-            $html = '';
-            if(isset($mapdata['i'])) {
-                $html .=  '<div id="tmb">';
-                $html .=  '<img src="http://';
-                $html .=  $_SERVER['SERVER_NAME'];
-                $html .=  '/images/thumbnails/';
-                $html .=  $mapdata['i'];
-                $html .=  '.jpg"/></div>';
-            }
-            $html .= '<div id="detailsmap"><p>';
-            $html .= ucwords(strtolower($mapdata['county']));
-            $html .= ' - <a href="http://';
-            $html .= $this->serverUrl();
-            $html .= $this->url(array(
+            $lat = $results['decimalLatLon']['decimalLatitude'];
+            $long = $results['decimalLatLon']['decimalLongitude']; 
+        } 
+        } else {
+            $geo = new Pas_Geo_Gridcalc($mapdata['fourFigure']);
+            $results = $geo->convert();
+            $lat = $results['decimalLatLon']['decimalLatitude'];
+            $long = $results['decimalLatLon']['decimalLongitude'];  
+        }
+    $html = '';
+    if(isset($mapdata['i'])) {
+        $html .=  '<div id="tmb">';
+        $html .=  '<img src="http://';
+        $html .=  $_SERVER['SERVER_NAME'];
+        $html .=  '/images/thumbnails/';
+        $html .=  $mapdata['i'];
+        $html .=  '.jpg"/></div>';
+        }
+        $html .= '<div id="detailsmap"><p>';
+        $html .= ucwords(strtolower($mapdata['county']));
+        $html .= ' - <a href="http://';
+        $html .= $this->serverUrl();
+        $html .= $this->url(array(
                 'module'=> 'database',
                 'controller' => 'artefacts',
                 'action' => 'record',
                 'id'=> $mapdata['id']),null,true);
-            $html .= '" title="View record\'s details">';
-            $html .= $mapdata['old_findID']; 
-            $html .= '</a><br />';
-            $html .= $mapdata['objecttype'];
-            $html .= '<br />';
-            $html .= $mapdata['broadperiod'];
-            $html .= '</p></div>';
+        $html .= '" title="View record\'s details">';
+        $html .= $mapdata['old_findID']; 
+        $html .= '</a><br />';
+        $html .= $mapdata['objecttype'];
+        $html .= '<br />';
+        $html .= $mapdata['broadperiod'];
+        $html .= '</p></div>';
 	 
-	  $node = $dom->createElement("marker");  
-	  $newnode = $parnode->appendChild($node);  
-	  $newnode->setAttribute("name", $html);
-	  $newnode->setAttribute("broadperiod", $mapdata['broadperiod']);  
-	  $newnode->setAttribute("lat", $lat);  
-	  $newnode->setAttribute("lng", $long); 
-	  $newnode->setAttribute("type", $mapdata['objecttype']); 
-	  $newnode->setAttribute("workflow",
-	  str_replace(array('1','2','3','4'),
-	  array('quarantine','review','published','validation'),
-	  $mapdata['secwfstage']))
-	  ; 
- 
-	} 
-	header('Content-Type: text/xml');
-	echo $dom->saveXML();
+        $node = $dom->createElement("marker");  
+        $newnode = $parnode->appendChild($node);  
+	$newnode->setAttribute("name", $html);
+	$newnode->setAttribute("broadperiod", $mapdata['broadperiod']);  
+	$newnode->setAttribute("lat", $lat);  
+	$newnode->setAttribute("lng", $long); 
+	$newnode->setAttribute("type", $mapdata['objecttype']); 
+	$newnode->setAttribute("workflow",
+	str_replace(array('1','2','3','4'),
+                array('quarantine','review','published','validation'),
+	$mapdata['secwfstage'])); 
+    } 
+header('Content-Type: text/xml');
+echo $dom->saveXML();
