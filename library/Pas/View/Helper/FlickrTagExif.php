@@ -8,6 +8,7 @@
  * echo $thos->flickrTagExif()->setExif($exif);
  * ?>
  * </code>
+ * 
  * @todo Could be abstracted to a flickr class
  * @version 1
  * @since 7 October 2011

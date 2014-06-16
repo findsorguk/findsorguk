@@ -1,4 +1,8 @@
-<?php echo $this->FlickrSetInfo($this->pictures->photoset->id);?>
+<?php
+echo $this->flickrSetInfo()
+        ->setSetId($this->pictures->photoset->id)
+         ->setApiKey($this->getInvokeArg('bootstrap')->config->webservice->flickr->apikey);
+?>
 <?php if(count($this->pictures)):?>
 <?php
 $photos = array();

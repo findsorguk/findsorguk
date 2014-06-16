@@ -1,23 +1,24 @@
 <?php
 /** A view helper for rendering links if permission allows for saving searches.
- * 
+ *
  * An example of use:
  * <code>
  * <?php
  * echo $this->emailSaveSearch();
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category Pas
  * @package Pas_View_Helper
  * @version 1
  * @copyright (c) 2014, Daniel Pett
- * @uses Pas_User_Details 
+ * @uses Pas_User_Details
+ * @example /app/modules/database/views/scripts/search/results.phtml
  */
 class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
 {
-    
+
     /** The default role
      * @access protected
      * @var string
@@ -29,18 +30,18 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
      * @var array
      */
     protected $_allowed = array('member', 'flos', 'admin', 'treasure', 'hero', 'fa' );
-    
+
     /** The simple link parameters for sending to the url helper
-     * 
+     *
      * @access protected
      * @var array Key value pairs for url params
      */
     protected $_simple = array(
         'module' => 'database',
         'controller' => 'search');
-    
+
     /** The advanced link parameters for sending to the url helper
-     * 
+     *
      * @access protected
      * @var array $_advanced; Key value pairs for url params
      */
@@ -48,9 +49,9 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
             'module' => 'database',
             'controller' => 'search',
             'action' => 'advanced');
-    
+
     /** The save link parameters for sending to the url helper
-     * 
+     *
      * @access protected
      * @var array Key value pairs for url params
      */
@@ -58,9 +59,9 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
             'module' => 'database',
             'controller' => 'search',
             'action' => 'save');
-    
+
     /** The email link parameters for sending to the url helper
-     * 
+     *
      * @access protected
      * @var array Key value pairs for url params
      */
@@ -90,15 +91,15 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
         $simple = '<a href="';
         $simple .= $this->view->url($this->_simple,'default',true);
         $simple .= '">Back to simple search</a>';
-        
+
         $advanced = '<a href="';
         $advanced .= $this->view->url($this->_advanced, 'default',true);
         $advanced .= '">Back to advanced search</a>';
-        
+
         $email = '<a href="';
         $email .= $this->view->url($this->_email, 'default',true);
         $email .= '">Send this search to someone</a>';
-        
+
         $save = '<a href="';
         $save .= $this->view->url($this->_save,'default',true);
         $save .= '">Save this search</a>';
@@ -108,7 +109,7 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
         } else {
             $urls = array($simple, $advanced);
         }
-        
+
         $html = '<p>';
         $html .= implode(' | ', $urls);
         $html .= '</p>';

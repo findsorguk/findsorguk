@@ -1,15 +1,15 @@
 <?php
 /**
  * A view helper for truncating text and adding an ellipsis at the end
- * 
+ *
  * Example of use:
- * 
+ *
  * <code>
  * <?php
  * echo $this->ellipsisString()->setString($string)->setMax(200);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
@@ -18,27 +18,28 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  * @todo Replace all uses of this with the truncate helper
+ * @example /app/modules/byzantinecoins/views/scripts/rulers/ruler.phtml
  */
 class Pas_View_Helper_EllipsisString extends Zend_View_Helper_Abstract {
-    
+
     /** The String to truncate
-     *@access protected
+     * @access protected
      * @var string
      */
     protected $_string;
-    
+
     /** The maximum number of characters
      * @access protected
      * @var int
      */
     protected $_max = 300;
-    
+
     /** Replace end of string with this character
      * @access protected
      * @var string
      */
     protected $_replace = '&hellip;';
-    
+
     /** Get the string
      * @access public
      * @return string
@@ -99,8 +100,8 @@ class Pas_View_Helper_EllipsisString extends Zend_View_Helper_Abstract {
      */
     public function ellipsisString() {
         return $this;
-    }    
-    
+    }
+
     /** The to string function
      * @access public
      * @return string
@@ -111,7 +112,7 @@ class Pas_View_Helper_EllipsisString extends Zend_View_Helper_Abstract {
             $string .= $this->getString();
         } else {
             $leave = $this->getMax() - strlen ($this->getReplace());
-            $string .= strip_tags(substr_replace($this->getString(), 
+            $string .= strip_tags(substr_replace($this->getString(),
                     $this->getReplace(), $leave),'<br><a><em>');
         }
         return $string;
