@@ -1,19 +1,23 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/** A series of method calls to the excellent mysociety produced MapIt api.
+/**
+ * A series of method calls to the excellent mysociety produced MapIt api.
+ *
+ * An example of use
+ *
+ * <code>
+ *
+ * </code>
+ *
+ * 
  * @category Pas
  * @package Pas_Geo_Mapit
  * @since 6/2/12
  * @version 1
  * @copyright Daniel Pett, British Museum
  * @license GNU
- * @author Daniel Pett
+ * @author Daniel Pett <dpett@britishmuseum.org>
  * @see http://mapit.mysociety.org/ for full documentation of api
+ * @example path description
  */
 class Pas_Geo_Mapit {
 

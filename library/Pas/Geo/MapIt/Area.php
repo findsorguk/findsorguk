@@ -1,12 +1,7 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/** A wrapper for interfacing with the MapIt api, specifically the area call.
+/**
+ * A wrapper for interfacing with the MapIt api, specifically the area call.
  * This extends the Mapit base class.
  *
  * @category Pas
@@ -17,7 +12,7 @@
  * @copyright Daniel Pett, British Museum
  * @license GNU public
  * @see http://mapit.mysociety.org/
- * @author Daniel Pett
+ * @author Daniel Pett <dpett@britishmuseum.org>
  * @uses Pas_Validate_ValidPostcode
  * @uses Pas_Geo_Mapit_Exception
  *
