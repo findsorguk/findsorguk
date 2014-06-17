@@ -1,16 +1,16 @@
 <?php
 
 $this->headTitle('Profile for ' . $this->escape($this->firstname). ' ' . $this->escape($this->lastname));
-$this->metaBase('A full profile and details for ' . $this->escape($this->firstname).
-' ' . $this->escape($this->lastname),'Contact profile','contacts,scheme,'. $this->escape($this->firstname). ' ' . $this->escape($this->lastname) . ',archaeology');
+$this->metaBase()
+        ->setDescription('A full profile and details for ' . $this->escape($this->firstname).
+' ' . $this->escape($this->lastname))
+        ->setSubject('Contact profile')
+        ->setKeywords('contacts,scheme,'. $this->escape($this->firstname). ' ' . $this->escape($this->lastname) . ',archaeology');
 $this->headLink()->appendAlternate($this->baseUrl() . '/contacts/staff/profile/id/' . $this->number . '/format/foaf/',
 	 			'application/rdf+xml', 'FOAF');
 $this->headLink()->appendAlternate($this->baseUrl().'/database/search/results/createdby/'.$this->dbaseID.'/format/atom/',
 	 			'application/rss+xml', 'Latest recorded finds feed for '.$this->escape($this->firstname).' '.$this->escape($this->lastname));
-
 				?>
-
-
 <div id="person" class="hresume" typeof="google:Person foaf:Person dc:Agent"
 property="dc:title" content="FOAF data about the real person called <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>">
 <div class="contact vcard" >

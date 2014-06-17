@@ -1,8 +1,11 @@
 <?php
 $this->headTitle('All finds recorded in the Parliamentary constituency of '.$this->constituency);
-$this->MetaBase('This page lists all objects recorded by the Scheme in the Parliamentary constituency of '.$this->constituency,'archaeology','finds,found in,constituency,archaeology,portable antiquities,' . $this->constituency);
+$this->metaBase()
+        ->setDescription('This page lists all objects recorded by the Scheme in the Parliamentary constituency of ' . $this->constituency)
+        ->setSubject('archaeology')
+        ->setKeywords('finds,found in,constituency,archaeology,portable antiquities,' . $this->constituency);
 ?>
-<h2>Finds within constituency of <?php echo $this->escape($this->constituency);?></h2>
+<h2><?php echo $this->title();?></h2>
 <div class="row-fluid">
 <div class="span9">
 <?php if ($this->finds): ?>

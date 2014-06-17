@@ -38,8 +38,13 @@ $phMagick->resize(500,500);
 $phMagick->convert();
 echo '<img src="'.$this->baseUrl().'/'.$path.'medium/'.$name.$ext.'" alt="A resized image of '.$this->label.'">';
 }
-$this->metaBaseImage($this->label, $subject = 'archaeology', implode(',',array(
-$this->broadperiod,$this->county, $this->objecttype)), $this->serverUrl().'/'.$path.'medium/'.rawurlencode($name).$ext, $w, $h);
+$this->metaBase()
+        ->setDescription($this->label)
+        ->setSubject('archaeology')
+        ->setKeywords(implode(',',array($this->broadperiod,$this->county, $this->objecttype)))
+        ->setImage($this->serverUrl().'/'.$path.'medium/'.rawurlencode($name).$ext)
+        ->setImageWidth($w)
+        ->setImageHeight($h);
 
 ?>
 <p><a class="btn" href="<?php echo $this->url(array('module' => 'database','controller' => 'ajax','action' => 'download','id' => $this->id),null,true);?>" title="Download image">Download original</a>
@@ -104,7 +109,7 @@ $this->broadperiod,$this->county, $this->objecttype)), $this->serverUrl().'/'.$p
 
         <div class="tab-pane fade" id="exif">
         <h3>Extracted data</h3>
-		<ul id="related">
+		<ul>
 		<?php  $img = getimagesize($location);
 		//Zend_Debug::dump($img);
 		echo '<li>Width: '.$img['0'] .' pixels </li>';

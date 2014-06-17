@@ -1,10 +1,11 @@
 <?php
 $this->headTitle('All pictures within 500 metres of '.$this->place);
-$this->MetaBase('A list of all our photos taken within a radius of 500 metres from ' . $this->place,
-'photos',
-'photos,archaeology,museum,british,flickr,portable antiquities');
+$this->metaBase()
+        ->setDescription('A list of all our photos taken within a radius of 500 metres from ' . $this->place)
+        ->setSubject('photos')
+        ->setKeywords('photos,archaeology,museum,british,flickr,portable antiquities');
 ?>
-<h2>All photos within 500 metres of <?php echo $this->place;?></h2>
+<h2><?php echo $this->title();?></h2>
 <?php
 if(($this->pictures)):
 $photos = array();

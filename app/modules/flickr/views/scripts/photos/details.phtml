@@ -42,12 +42,23 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
 			<?php if(isset($this->geo->location)):?>
 			<?php
 			$parameters = array(
-			'size' => array( '300', '300'),
-			'zoom' => 12,
-			'maptype' => 'hybrid',
-			'markers' => array (array($this->geo->location->latitude ,$this->geo->location->longitude))
+                            'size' => array( 
+                                '300', 
+                                '300'
+                                ),
+                            'zoom' => 12,
+                            'maptype' => 'hybrid',
+                            'markers' => array(
+                                array(
+                                    $this->geo->location->latitude,
+                                    $this->geo->location->longitude
+                                )
+                            )
 			);
-			echo $this->GoogleStaticMap($parameters);?>
+			echo $this->GoogleStaticMap()
+                                ->setApiKey($this->getInvokeArg('bootstrap')->config->webservice->googlemaps->apikey)
+                                ->setParameters($parameters);
+                        ?>
 			<?php else:?>
 			<p>No geography recorded.</p>
 			<?php endif;?>

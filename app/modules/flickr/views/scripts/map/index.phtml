@@ -1,11 +1,13 @@
 <?php 
 $this->inlineScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false',$type='text/javascript');
-$this->headTitle('Our photos from Flickr mapped');
-$this->MetaBase('A map showing our images from flickr that have geo information and can be plotted',
-'photos',
-'archaeology,woeid,map,flickr,photos,portable antiquities');
+$this->headTitle('Our geofreferenced photos from Flickr mapped');
+$this->metaBase()->setDescription('A map showing our images from flickr that have geo information and can be plotted')
+        ->setSubject('photos')
+        ->setKeywords('archaeology,woeid,map,flickr,photos,portable antiquities');
 ?>
-<h2>Our georeferenced images from flickr</h2>
+<h2>
+    <?php echo $this->title();?>
+</h2>
 
 <div id="map" style="width:740px; height:700px;"><div id="overlay" class="mapload"><img src="/assets/loading.gif" /></div></div>
 

@@ -1,10 +1,13 @@
 <?php
 $this->headTitle('A list of all cases of Treasure in reverse chronologvical order');
-$this->MetaBase('The Scheme keeps an archive of Treasure cases, which can be queried via this page',
-'treasure finds',
-'treasure,archaeology,counties,T numbers');
+$this->metaBase()
+        ->setDescription('The Scheme keeps an archive of Treasure cases, which can be queried via this page')
+        ->setSubject('treasure finds')
+        ->setKeywords('treasure,archaeology,counties,T numbers');     
 ?>
-<h2>Treasure cases reported</h2>
+<h2>
+    <?php echo $this->title();?>
+</h2>
 <?php 
 $page = Zend_Controller_Front::getInstance()->getRequest()->getParam('page');
 if(is_null($page)){
@@ -21,22 +24,22 @@ you will be able to find our details of the find, valuations and further informa
 </ul>
 <table class="table table-striped">
 <caption>All Treasure cases reported</caption>
-<thead>
-<tr>
-	<th>Treasure number</th>
-	<th>PAS ID</th>
-	<th>County</th>
-	<th>Last updated</th>
-	
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/treasure/treasureTable.phtml',$this->treasurecases);?>
-</tbody>
+    <thead>
+        <tr>
+            <th>Treasure number</th>
+            <th>PAS ID</th>
+            <th>County</th>
+            <th>Last updated</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('partials/treasure/treasureTable.phtml',$this->treasurecases);?>
+    </tbody>
 </table>
 <?php echo $this->paginationControl($this->treasurecases, 'Sliding', 'structure/pagination.phtml'); ?>
 
-
 <?php else:?>
-<p>No Treasure cases are available for you to view.</p>
+    <p>
+        No Treasure cases are available for you to view.
+    </p>
 <?php endif;?>

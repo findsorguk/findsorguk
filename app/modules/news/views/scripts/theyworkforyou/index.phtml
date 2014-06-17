@@ -1,8 +1,11 @@
 <?php
-	$this->headTitle('Data mined from theyworkforyou website');
-$this->MetaBase('The parliamentary data website, Theyworkforyou, provides a repository of information on parliamentary debates. This section is an archive of political comment relating to archaeology and the Portable Antiquities Scheme','parliamentary news','archaeology,hansard,parliament,portable antiquities,scheme,mla,mp,house of lords,house of commons,theyworkforyou'
-);?>
-<h2>Parliamentary news</h2>
+$this->headTitle('Data mined from theyworkforyou website');
+$this->metaBase()
+        ->setDescription('The parliamentary data website, Theyworkforyou, provides a repository of information on parliamentary debates. This section is an archive of political comment relating to archaeology and the Portable Antiquities Scheme')
+        ->setSubject('parliamentary news')
+        ->setKeywords('archaeology,hansard,parliament,portable antiquities,scheme,mla,mp,house of lords,house of commons,theyworkforyou');
+?>
+<h2>Parliamentary news: <?php echo $this->title();?></h2>
 <p>The data produced below is collated by the excellent <a href="http://www.theyworkforyou.com" title="Visit the theyworkforyou website">theyworkforyou</a> website. All information is drawn from search data returned over their api.</p>
 <img src="<?php echo $this->baseUrl();?>/images/logos/twfy.png" width="423" height="80" alt="They work for you logo" />
 

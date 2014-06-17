@@ -4,7 +4,7 @@ $this->headTitle('Greek and Roman provincial period issued denominations');
 <h2>Greek and Roman Provincial denominations</h2>
 <p>The following coins were issued during the Greek and Roman provincial period.</p>
 <?php if(count($this->denominations)):?>
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/numismatics/denominations.phtml',$this->denominations);?>
 </ul>
 <?php echo $this->paginationControl($this->denominations, 'Sliding', 'structure/pagination.phtml'); ?>

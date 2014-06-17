@@ -3,6 +3,8 @@ $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocompl
 $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteinitwww.js',$type='text/javascript'); 
 $this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
 $this->headTitle('Perform a basic  search');
+$this->metaBase()
+        ->setDescription('A simple search interface for the database');
 ?>
 <?php $this->jQuery()->javascriptCaptureStart();?>
 $(document).ready(function() {
@@ -10,13 +12,10 @@ $(document).ready(function() {
         $("input[type='text']:first", document.forms[0]).focus();
     });
 <?php $this->jQuery()->javascriptCaptureEnd();?>
-<h2>Search the database</h2>
+<h2><?php echo $this->title();?></h2>
 
 <div class="row-fluid">
-<?php 
-$this->metaBasic();
-echo $this->form;
-?>
+<?php echo $this->form; ?>
 </div>
 
 <div class="row-fluid">

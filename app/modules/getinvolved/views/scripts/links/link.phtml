@@ -8,7 +8,7 @@
 	$delicious = new Zend_Service_Delicious($userid, $pwd);
 	$posts = $delicious->getAllPosts();
 
-echo '<ul id="related">';
+echo '<ul>';
 foreach ($posts->withTags(array($this->tag)) as $post){
 echo '<li><a href="'.$post->getUrl().'" title="'.$post->getTitle().'">'.$post->getTitle().'</a>';
 }

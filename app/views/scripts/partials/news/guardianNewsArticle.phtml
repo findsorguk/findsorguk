@@ -8,7 +8,10 @@
          }
        }
 $this->headTitle($this->headline);
-$this->MetaBase($this->standfirst,'guardian news',$keywords);
+$this->metaBase()
+        ->setDescription($this->standfirst)
+        ->setSubject('guardian news')
+        ->setKeywords($keywords);
 ?>
 
 <h2><a href="<?php echo $this->url;?>" title="Get this article on the Guardian's site"><?php echo $this->headline;?></a></h2>

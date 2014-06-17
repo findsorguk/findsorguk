@@ -2,7 +2,7 @@
 
 <h3>Denominations issued in this region</h3>
 <?php if(count($this->denominations)):?>
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/numismatics/iadenoms.phtml',$this->denominations);?>
 </ul>
 <?php else:?>

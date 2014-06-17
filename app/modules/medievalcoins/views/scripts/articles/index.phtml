@@ -1,10 +1,11 @@
 <?php $this->headTitle('A series of articles on Medieval coins');
-$this->metaBase('A series of articles that relate to Medieval coins, encompassing inscriptions, mint and types',
-'medieval numismatics',
-'medieval,coins,inscription,reading');
+$this->metaBase()
+        ->setDescription('A series of articles that relate to Medieval coins, encompassing inscriptions, mint and types')
+        ->setSubject('medieval numismatics')
+        ->setKeywords('medieval,coins,inscription,reading');
 ?>
 
-<h2>Medieval coin articles</h2>
+<h2><?php echo $this->title();?></h2>
 <ul>
 <?php foreach($this->contents as $c) {?>
 <li><a href="<?php echo $this->url(array('module' => 'medievalcoins','controller' => 'articles',

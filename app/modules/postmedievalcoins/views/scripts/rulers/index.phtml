@@ -5,5 +5,5 @@ $this->headTitle('Issuing rulers of the Post Medieval period');
 
 <?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->rulers['0']) ; ?>
 <p>This period had <?php echo count($this->rulers);?> issuers.</p>
-<ul id="related"><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?></ul>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?></ul>
 

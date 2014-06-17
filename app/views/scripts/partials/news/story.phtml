@@ -1,9 +1,10 @@
 <?php
 $this->headTitle($this->title,'PREPEND');
-$this->MetaBase(strip_tags($this->ellipsisString()->setString($this->contents)->setMax(150)),'archaeological news','');
+$this->metaBase()
+        ->setDescription(strip_tags($this->ellipsisString()->setString($this->contents)->setMax(150)))
+        ->setSubject('archaeological news');
 ?>
 <h2><?php echo $this->title;?></h2>
-
 <p><span class="updated dtstamp" title="<?php
 $date = strtotime($this->golive);
 echo date(DATE_ATOM,$date);?>">Published: <?php echo  $this->timeAgoInWords($this->golive);?></span>

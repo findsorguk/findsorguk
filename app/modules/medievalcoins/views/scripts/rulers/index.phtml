@@ -14,17 +14,17 @@ $this->headMeta($this->curUrl(),'dc.identifier')
 <?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->normans['0']) ; ?>
 <p>This period had <?php echo count($this->normans);?> issuers.</p>
 
-<ul id="related"><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->normans) ?></ul>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->normans) ?></ul>
 
 <?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->shortlong['0']) ; ?>
 <p>This period had <?php echo count($this->shortlong);?> issuers.</p>
 
-<ul id="related"><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->shortlong) ?></ul>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->shortlong) ?></ul>
 
 <?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->edwardian['0']) ; ?>
 <p>This period had <?php echo count($this->edwardian);?> issuers.</p>
-<ul id="related"><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->edwardian) ?></ul>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->edwardian) ?></ul>
 
 <?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->latemed['0']) ; ?>
 <p>This period had <?php echo count($this->latemed);?> issuers.</p>
-<ul id="related"><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->latemed) ?></ul>
+<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->latemed) ?></ul>

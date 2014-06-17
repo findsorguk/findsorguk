@@ -1,10 +1,12 @@
 <?php
-$this->headTitle('Coroner\'s of England and Wales mapped');
-$this->metaBase('A map of the locations for coroners known to the  Portable Antiquities Scheme','Coroners map',
-'map,google,contacts,scheme,coroners,archaeology,deaths');
+$this->headTitle('Map of coroners locations');
+$this->metaBase()
+        ->setDescription('A map of the locations for coroners known to the  Portable Antiquities Scheme')
+        ->setSubject('Coroners map')
+        ->setKeywords('map,google,contacts,scheme,coroners,archaeology,deaths');
 $this->googleDynamicMap();
 ?>
-<h2>Map of coroners locations</h2>
+<h2><?php echo $this->title();?></h2>
 <?php $this->inlineScript()->captureStart() ?>
  $(document).ready(function() {
   var center = new google.maps.LatLng(54.70235509327093, -3.2080078125);
@@ -19,8 +21,10 @@ $this->googleDynamicMap();
   var markers = new Array();
 
 	var infowindow = new google.maps.InfoWindow();
-    jQuery.get("<?php echo $this->serverUrl() . $this->url(array('module' => 'contacts','controller' =>
-  'ajax','action' => 'coroners'),'default',true);?>", {}, function(data) {
+    jQuery.get("<?php echo $this->serverUrl() . $this->url(array(
+        'module' => 'contacts',
+        'controller' => 'ajax',
+        'action' => 'coroners'),'default',true);?>", {}, function(data) {
 
     jQuery(data).find("marker").each(function() {
         var markerXML = jQuery(this);
@@ -66,5 +70,5 @@ $this->googleDynamicMap();
   });
 <?php $this->inlineScript()->captureEnd() ?>
 <div id="map">
-<div id="loading"></div>
+    <div id="loading"></div>
 </div>

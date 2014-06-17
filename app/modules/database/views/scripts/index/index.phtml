@@ -1,9 +1,9 @@
 <?php
 $this->headTitle("Welcome to the Scheme's database");
-$this->metaBase('This database is maintained by the Scheme and contains records of archaeological objects found by the public in England and Wales. It is first and foremost a research resource, but it is also a record of our rural archaeological record',
-'archaeological database',
- 'archaeology,database,England,Wales,discovery,archaeological'
-        );
+$this->metaBase()
+        ->setDescription('This database is maintained by the Scheme and contains records of archaeological objects found by the public in England and Wales. It is first and foremost a research resource, but it is also a record of our rural archaeological record')
+        ->setSubject('archaeological database')
+        ->setKeywords('archaeology,database,England,Wales,discovery,archaeological');
 ?>
 <?php
 echo $this->googleDynamicMap();
@@ -141,7 +141,7 @@ $(document).ready(function() {
 
 });
 <?php $this->inlineScript()->captureEnd();?>
-<h2>Welcome to the Scheme's database</h2>
+<h2><?php echo $this->title();?></h2>
 
 <div class="row-fluid">
 	<div id="mapIntro" >

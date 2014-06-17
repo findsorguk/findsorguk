@@ -1,12 +1,8 @@
 <?php $this->headTitle($this->title);?>
 <?php
-$date = new Zend_Date();
-$date->add('72',Zend_Date::HOUR);
-$this->headMeta()->appendHttpEquiv('expires',$date->get(Zend_Date::RFC_1123))
-					   ->appendHttpEquiv('Content-Language', 'en-GB')
-					   ->appendHttpEquiv('imagetoolbar', 'no');
-$this->metaBase($this->ellipsisString()->setString($this->body)->setMax(200),null,'archaeology');
-
+$this->metaBase()
+        ->setDescription($this->ellipsisString()->setString($this->body)->setMax(200))
+        ->setSubject('archaeology');
 ?>
 <h1><?php echo $this->title;?></h1>
 

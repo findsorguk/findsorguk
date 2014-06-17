@@ -1,13 +1,15 @@
 <?php
-$this->headTitle('An introduction to our photos');
-$this->MetaBase('The Scheme curates a large number of images on it\'s flickr profile feed.
-They are all produced under a Creative Commons licence, feel free to use them - except for commercial use',
-'Photos',
-'flickr,photos,archaeology,numismatics,coins,museums');
+$this->headTitle('An introduction to our photos on flickr');
+$this->metaBase()
+        ->setDescription('The Scheme curates a large number of images on it\'s flickr profile feed.
+They are all produced under a Creative Commons licence, feel free to use them')
+        ->setSubject('Photos')
+        ->setKeywords('flickr,photos,archaeology,numismatics,coins,museums');
 $this->jQuery()->addJavascriptFile('/js/bootstrap-carousel.js',$type='text/javascript');
 ?>
-
-<h2>The Scheme on Flickr</h2>
+<h2>
+    <?php echo $this->title();?>
+</h2>
 <?php
 $flickr = $this->getInvokeArg('bootstrap')->config->webservice->flickr;
 ?>

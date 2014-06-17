@@ -86,7 +86,12 @@ function trunc(x) {
 <?php $this->inlineScript()->captureEnd();?>
 <?php $this->headTitle('Search our database via a map interface');?>
 <h2 class="lead"><?php echo $this->title();?></h2>
-<?php $this->metaBase('An interface to search the PAS database via a map', 'archaeology', 'mapping, gis,archaeology,lat/lon')?>
+<?php 
+$this->metaBase()
+        ->setDescription('An interface to search the PAS database via a map')
+        ->setSubject('archaeology')
+        ->setKeywords('mapping, gis,archaeology,lat/lon');
+?>
 <p>To use this search, you need to draw a box on the map. This will produce a red outline. Follow these steps:</p>
 <ol>
 <li>using the magnification slider and drag tools to zoom in on your chosen search area</li>  

@@ -1,6 +1,9 @@
 <?php
 $this->headTitle('Scheme news stories mapped by location');
-$this->MetaBase('A map showing all of our georeferenced news stories that the Scheme has filed','map of stories','archaeology,news,stories,map,georeferenced');
+$this->metaBase()
+        ->setDescription('A map showing all of our georeferenced news stories that the Scheme has filed')
+        ->setSubject('map of stories')
+        ->setKeywords('archaeology,news,stories,map,georeferenced');
 $this->googleDynamicMap();
 $this->inlineScript()->captureStart();
 ?>
@@ -78,5 +81,5 @@ $this->inlineScript()->captureStart();
 
 <?php 
 $this->inlineScript()->captureEnd();?>
-<h2>Map of where our news comes from</h2>
+<h2><?php echo $this->title();?></h2>
 <div id="map"></div>

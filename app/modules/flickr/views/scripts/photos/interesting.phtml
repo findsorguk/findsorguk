@@ -1,9 +1,10 @@
 <?php 
 $this->headTitle('Archaeological images on flickr');
-$this->MetaBase('Archaeological images that we\'ve seen on flickr. This should only
-show creative commons licenced images.',
-'photos',
-'photos,archaeology,favourites,portable antiquities,flickr');
+$this->metaBase()
+        ->setDescription('Archaeological images that we\'ve seen on flickr. This should only
+show creative commons licenced images.')
+        ->setSubject('photos')
+        ->setKeywords('photos,archaeology,favourites,portable antiquities,flickr');
 ?>
 
 <h2><?php echo $this->title();?></h2>

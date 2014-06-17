@@ -1,11 +1,13 @@
 <?php
 $this->headTitle('The Scheme\'s favourite images');
-$this->MetaBase('A list of our favourite images that we have found on flickr from the creative commons community',
-'photos',
-'favourites,flickr,archaeology,creative commons,portable antiquities'
-);
+$this->metaBase()
+        ->setDescription('A list of our favourite images that we have found on flickr from the creative commons community')
+        ->setSubject('photos')
+        ->setKeywords('favourites,flickr,archaeology,creative commons,portable antiquities');
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2>
+    <?php echo $this->title();?>
+</h2>
 <div class="row-fluid">
 <?php if($this->photos->photo):?>
 

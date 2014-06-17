@@ -1,11 +1,12 @@
 <?php 
-$this->headTitle('All pictures tagged with '.$this->tagtitle);
-$this->MetaBase('A list of photos retrieved from the flickr api using creative commons searches on the tag ' 
-. $this->tagtitle,
-'photos',
-'photos,flickr,api,tagged,' . $this->tagtitle);
+$this->headTitle('All pictures tagged with ' . $this->tagtitle);
+$this->metaBase()
+        ->setDescription('A list of photos retrieved from the flickr api using creative commons searches on the tag ' 
+. $this->tagtitle)
+        ->setSubject('photos')
+        ->setKeywords('photos,flickr,api,tagged,' . $this->tagtitle);
 ?>
-<h2>All photos tagged with <?php echo $this->tagtitle;?></h2>
+<h2><?php echo $this->title();?></h2>
 
 <?php if(count($this->pictures)):?>
 <?php echo $this->partialLoop('partials/flickr/set.phtml',$this->pictures);?>

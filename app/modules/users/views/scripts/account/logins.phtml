@@ -3,7 +3,7 @@
 <?php if($this->logins):?>
 
 <p>You have used the following IP addresses:</p>
-<ul id="related">
+<ul>
 <?php foreach($this->ips as $i) {
 echo '<li>IP Address: '.$i['ipAddress'].' '.$i['count'].' times</li>';
 }?>

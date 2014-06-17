@@ -1,11 +1,11 @@
 <?php 
 $this->headTitle('Minutes of the Treasure Valuation Committee');
-$this->metaBase(
-	'The minutes of the Treasure valuation committee are published retrospectively here',
-	'Minutes',
-	'treasure,valuation,committee,minutes,recommendations')
+$this->metaBase()
+        ->setDescription('The minutes of the Treasure valuation committee are published retrospectively here')
+	->setSubject('Minutes')
+	->setKeywords('treasure,valuation,committee,minutes,recommendations');
 ?>
-<h2>Scheme research publications</h2>
+<h2><?php echo $this->title();?></h2>
 
 <p>One of the recommendations of the 2012 Review of the Treasure Valuation Committee by the DCMS was that historic minutes of the Committee's 
 meetings should be made available to the public once all of the cases discussed therein had been processed to their conclusion.  The Committee 

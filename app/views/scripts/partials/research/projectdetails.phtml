@@ -4,7 +4,7 @@
 <strong>Level:</strong> <?php echo $this->type;?></p>
 <?php echo $this->description;?>
 <h3>Audit data</h3>
-<ul id="related">
+<ul>
 <li>Created: <?php echo $this->timeAgoInWords($this->created);?></li>
 <li>Created by: <?php echo $this->nameThem()->setName($this->fullname);?></li>
 <?php if(isset($this->updated)):?>

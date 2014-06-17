@@ -8,7 +8,7 @@ $this->headTitle("Issuing rulers of the Byzantine period");?>
 <p>The Byzantine period has these issuing rulers or authorities which are in use on the Scheme's database.</p>
 <?php if (count($this->rulers)): ?>
 
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?>
 </ul>
 <?php echo $this->paginationControl($this->rulers, 'Sliding',

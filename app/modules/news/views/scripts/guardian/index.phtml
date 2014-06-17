@@ -1,8 +1,8 @@
 <?php 
 $this->headTitle('Articles about the Scheme in the Guardian');
-$this->MetaBase('A list of all articles that refer to the Scheme, retrieved from the Guardian API',
-'Portable Antiquities Scheme',
-'guardian,api,archaeology,maev kennedy,portable antiquities');
+$this->metaBase()
+        ->setDescription('A list of all articles that refer to the Scheme, retrieved from the Guardian API')
+        ->setKeywords('guardian,api,archaeology,maev kennedy,portable antiquities');
 ?>
 <h2><?php echo $this->title();?></h2>
 <?php if($this->data):?>
