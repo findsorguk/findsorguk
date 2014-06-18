@@ -11,7 +11,7 @@
  */
 
 
-class Pas_Controller_Action_Helper_LoginRedirect extends Zend_Controller_Action_Helper_Abstract {
+class Pas_Controller_Action_Helper_LoginRedirects extends Zend_Controller_Action_Helper_Abstract {
 
   /** Direct method for getting the user's redirect
   */
