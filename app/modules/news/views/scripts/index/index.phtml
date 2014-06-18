@@ -1,9 +1,18 @@
-<?php $this->MetaBase('A list of all recently released news stories from the Scheme and external sources. This is compiled infrequently.','news','portable antiquities,news,stories,central unit,website','dc.keywords');
+<?php 
+    $this->MetaBase(
+            'A list of all recently released news stories from the Scheme and external sources. This is compiled infrequently.',
+            'news',
+            'portable antiquities,news,stories,central unit,website',
+            'dc.keywords');
 ?>
-<h2>News from the Scheme</h2>
+<h2>
+    <?php $this->title();?>
+</h2>
 <?php if (count($this->news)): ?>
-<?php echo $this->partialLoop('partials/news/newsTable.phtml',$this->news);?>
+    <?php echo $this->partialLoop('partials/news/newsTable.phtml',$this->news);?>
 <?php else:?>
-<p>There are no news articles availble at the moment.</p>
+    <p>
+        There are no news articles available at the moment.
+    </p>
 <?php endif; ?>
 <?php echo $this->paginationControl($this->news, 'Sliding', 'structure/pagination.phtml'); ?>

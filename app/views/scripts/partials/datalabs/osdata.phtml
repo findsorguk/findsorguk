@@ -1,0 +1,17 @@
+<tr>
+<td><a href="<?php echo $this->url(array(
+	'module' => 'datalabs',
+	'controller' => 'osdata',
+	'action' => 'oneto50k',
+	'id' => $this->id),NULL,true);?>" title="View details for 1:50K record - 
+<?php echo $this->escape($this->name);?>"><?php echo $this->escape($this->name);?></a></td>
+<td><?php echo $this->county;?></td>
+<td><?php 
+if($this->type == 'R') {
+echo 'Roman Antiquity';
+} else if($this->type == 'A'){
+echo 'Antiquity';	
+}
+?>
+</td>
+</tr>

@@ -16,7 +16,10 @@ $this->headMeta('recorded,artefacts,archaeology','dc.keywords');
 <h2><?php echo 'Statistical analysis of the database for '.  $this->niceshortdate($this->escape($this->datefrom)). ' until '. $this->niceshortdate($this->escape($this->dateto));?></h2>
 <p>These archives can be searched to find out what was recorded on a particular day of the year. We have been recording digitally since 1998.</p>
 <ul id="yearrange">
-<?php echo $this->partialLoop('partials/database/archiveYearsStats.phtml',$this->years);?>
+<?php 
+echo $this->partialLoop('partials/database/archiveYearsStats.phtml', 
+        $this->yearList()->setStartYear(1998)->generateArray());
+?>
 </ul>
 
 <p>You can also choose your own date ranges. You must choose a date from and a date to to interrogate this properly.</p>

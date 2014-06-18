@@ -148,8 +148,8 @@ class Pas_View_Helper_SearchUrl extends Zend_View_Helper_Abstract  {
 				$parameters['nicename'] = 'Conservation guide';
 			break;
 			case($section === 'frg'):
-				$parameters['module'] = 'guide';
-				$parameters['controller'] = 'torecording';
+				$parameters['module'] = 'volunteerrecording';
+				$parameters['controller'] = 'guide';
 				$parameters['action'] = 'index';
 				$parameters['slug'] = $data['slug'];
 				$parameters['route'] = 'frg';

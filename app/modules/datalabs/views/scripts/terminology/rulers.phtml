@@ -1,0 +1,27 @@
+<?php
+
+$this->headTitle('All available rulers');
+?>
+<h2>Rulers or issuers available for use on the database</h2>
+
+<?php if (count($this->rulers)): ?>
+<table class="table table-striped" summary="List of all active rulers on the Scheme's database">
+<caption>Active rulers on the Scheme database</caption>
+    <thead>
+        <tr>
+            <th>Issuer name</th>
+            <th>Period</th>
+            <th>Date reigned</th>
+        </tr>
+    </thead>
+<tbody>
+<?php echo $this->partialLoop('partials/database/rulerListsCTerms.phtml',$this->rulers);?>
+</tbody>
+</table>
+<?php echo $this->paginationControl($this->rulers, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>It is you lucky day Odysseus, Nemo has been and gone and left you with nothing to do.</p>
+<?php endif; ?>
+
+
+

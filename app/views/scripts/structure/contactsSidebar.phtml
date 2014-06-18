@@ -1,14 +1,13 @@
+
+
 <div class="sidebar-nav col-md-3" >
     <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
-    
-        <li <?php echo $this->currentPage()->active('contacts','staff','index');?>>
-            <a href="<?php echo $this->url(array('module'=>'contacts','controller' => 'staff'),null,true);?>" title="Find contact details for our staff"><i class="icon-user"></i>Contacts</a></li>
+        
+        <li <?php echo $this->currentPage()->active('contacts','index','index');?>>
+            <a href="<?php echo $this->url(array('module'=>'contacts','controller' => 'staff'),null,true);?>" title="Find contact details for our staff, coroners and museums"><i class="icon-user"></i>Contacts</a></li>
         
         <li <?php echo $this->currentPage()->active('contacts','staff','map');?>>
             <a href="<?php echo $this->url(array('module' => 'contacts','controller'=>'staff','action'=>'map'),null,true);?>" title="View our office locations"><i class="icon-map-marker"></i>Contacts map</a></li>
-        
-        <li <?php echo $this->currentPage()->active('contacts','alumni','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'contacts','controller' => 'alumni'),null,true);?>" title="View former staff details"><i class="icon-list"></i>Former staff</a></li>
         
         <li <?php echo $this->currentPage()->active('contacts','coroners','index');?>>
             <a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'coroners'),null,true);?>" title="View coroners' details"><i class="icon-list"></i>Coroners</a></li>

@@ -31,7 +31,6 @@ $tags = array_slice($story,12);
 $story = array_slice($story,0,12);
 $storyElem = $dom->createElement('story');
    foreach($story as $k => $v){
-      
        $storyElem->appendChild( $dom->createElement($k, htmlspecialchars($v))); 
    }
 //$tagsElem = $dom->createElement('tags');
@@ -49,6 +48,5 @@ $storiesElem->appendChild( $storyElem );
 }
 $stories->appendChild($storiesElem);
 $dom->appendChild( $stories );
-
 $xmlData  = $dom->saveXML();
 echo $xmlData;

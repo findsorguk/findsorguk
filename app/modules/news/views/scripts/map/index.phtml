@@ -1,8 +1,8 @@
 <?php
-$this->headTitle('Scheme news stories mapped by location');
-$this->MetaBase('A map showing all of our georeferenced news stories that the Scheme has filed','map of stories','archaeology,news,stories,map,georeferenced');
-$this->googleDynamicMap();
-$this->inlineScript()->captureStart();
+    $this->headTitle('Scheme news stories mapped by location');
+    $this->metaBase('A map showing all of our georeferenced news stories that the Scheme has filed','map of stories','archaeology,news,stories,map,georeferenced');
+    $this->googleDynamicMap();
+    $this->inlineScript()->captureStart();
 ?>
     function load() {
       var map = new google.maps.Map(document.getElementById("map"), {
@@ -25,7 +25,13 @@ $this->inlineScript()->captureStart();
           var point = new google.maps.LatLng(
               parseFloat(markers[i].getAttribute("lat")),
               parseFloat(markers[i].getAttribute("lon")));
-          var url = "<?php echo $this->serverUrl();?>/news/stories/article/id/" + id;
+              <?php
+              $newsArticle = $this->url(array(
+                  'module' => 'news',
+                  'controller' => 'story',
+                  'action' => 'index'), 'default', true);
+              ?>
+          var url = "<?php echo $this->serverUrl() . $newsArticle ;?>/" + id;
           var content = markers[i].getAttribute("content")
           var html = "<h3><a href='" + url + "'>"+ title + "</a></h3>" + content;
           var marker = new google.maps.Marker({
@@ -76,7 +82,8 @@ $this->inlineScript()->captureStart();
 
 	window.onload = load;
 
-<?php 
-$this->inlineScript()->captureEnd();?>
-<h2>Map of where our news comes from</h2>
+<?php $this->inlineScript()->captureEnd();?>
+<h2>
+    <?php echo $this->title();?>
+</h2>
 <div id="map"></div>

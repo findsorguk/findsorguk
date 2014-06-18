@@ -1,0 +1,34 @@
+<?php
+$feedArray = array(
+    'title' => 'Finds from the Scheme',
+    'link' => $this->curUrl(),
+    'charset' => 'utf-8',
+    'description' => 'The latest Portable Antiquities Scheme events',
+    'author' => 'The Portable Antiquities Scheme',
+    'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
+    'email' => 'info@finds.org.uk',
+    'copyright' => 'Creative Commons Licenced',
+    'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
+    'language' => 'en',
+    'entries' => array()
+        );
+foreach ($this->events as $event) {
+    $params = array(
+        'module' => 'news', 
+        'controller' => 'events',
+        'action' => 'details',
+        'id' => $event['id']
+            );
+    
+    $feedArray['entries'][] = array(
+        'title' => $event['eventTitle'],
+        'link' => $this->serverUrl() . $this->url($params, 'default', true),
+        'guid' =>  $this->serverUrl() . $this->url($params, 'default', true),
+        'description' => strip_tags($event['eventDescription']),
+        'lastUpdate' => strtotime($event['updated']),
+        'content' => $event['eventDescription'],
+        'georss'=> $event['latitude'].','.$event['longitude'],  
+        );
+}
+$feed = Zend_Feed::importArray($feedArray, 'atom');
+$feed->send();

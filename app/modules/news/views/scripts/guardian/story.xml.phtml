@@ -6,10 +6,8 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
 $contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
 $param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
 $contexts = $contextSwitch->getContexts();
-
 $dom = new DomDocument("1.0", "UTF-8");
 $stories  = $dom->createElement('response');
-
 $meta = $dom->createElement('meta');
 $stories->appendChild($meta);
 $meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
@@ -24,16 +22,12 @@ $formats->appendChild( $dom->createElement('html', $site . $this->url(array('mod
 $storiesElem = $dom->createElement('guardianStories');
 $story = array_slice($this->story['0'],0,12);
 $tags = array_slice($this->story['0'],12);
-
 $storyElem = $dom->createElement('story');
    foreach($story as $k => $v){
-      
        $storyElem->appendChild( $dom->createElement($k, htmlspecialchars($v))); 
    }
 $storiesElem->appendChild( $storyElem );
-
 $stories->appendChild($storiesElem);
 $dom->appendChild( $stories );
-
 $xmlData  = $dom->saveXML();
 echo $xmlData;

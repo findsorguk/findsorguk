@@ -87,12 +87,12 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
 	case 'news':
 		$layouttype = 'database';
 		$response->insert('sidebar', $view->render('structure/newsSidebar.phtml'));
-		$view->headTitle('News section ')->setSeparator(' - ');
+		$view->headTitle('News &amp; events ')->setSeparator(' - ');
 		break;
-	case 'events':
+	case 'guides':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/eventsSidebar.phtml'));
-		$view->headTitle('Scheme Events ')->setSeparator(' - ');
+		$response->insert('sidebar', $view->render('structure/guidesSidebar.phtml'));
+		$view->headTitle('Guides to objects and conservation ')->setSeparator(' - ');
 		break;
 	case 'users':
 		$layouttype = 'database';
@@ -148,6 +148,11 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
 		$response->insert('sidebar', $view->render('structure/treasureSidebar.phtml'));
 	    $view->headTitle('The Treasure Act')->setSeparator(' - ');
 		break;
+	case 'publications':
+		$layouttype = 'database';
+		$response->insert('sidebar', $view->render('structure/publicationsSidebar.phtml'));
+                $view->headTitle('Publications ')->setSeparator(' - ');
+		break;
 	case 'help':
 		$layouttype = 'database';
 		$response->insert('sidebar', $view->render('structure/helpSidebar.phtml'));
@@ -156,7 +161,12 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
 	case 'info':
 		$layouttype = 'database';
 		$response->insert('sidebar', $view->render('structure/infoSidebar.phtml'));
-	    $view->headTitle('Information about our site')->setSeparator(' - ');
+                $view->headTitle('Information about our site')->setSeparator(' - ');
+		break;
+	case 'about':
+		$layouttype = 'database';
+		$response->insert('sidebar', $view->render('structure/aboutSidebar.phtml'));
+                $view->headTitle('About the Scheme')->setSeparator(' - ');
 		break;
 	case 'flickr':
 		$layouttype = 'database';
@@ -172,10 +182,20 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
 		$layouttype = 'database';
 	    $view->headTitle('ebay monitoring')->setSeparator(' - ');
 		break;
-	case 'guide';
+	case 'volunteerrecording';
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/guideSidebar.phtml'));
-	    $view->headTitle('Volunteer recording guide')->setSeparator(' - ');
+		$response->insert('sidebar', $view->render('structure/volunteerRecordingSidebar.phtml'));
+                $view->headTitle('Volunteer recording guide')->setSeparator(' - ');
+		break;
+	case 'tech':
+		$layouttype = 'database';
+		$response->insert('sidebar', $view->render('structure/techSidebar.phtml'));
+                $view->headTitle('Technology behind the scenes')->setSeparator(' - ');
+		break;
+	case 'datalabs':
+		$layouttype = 'database';
+		$response->insert('sidebar', $view->render('structure/datalabsSidebar.phtml'));
+                $view->headTitle('Data labs')->setSeparator(' - ');
 		break;
 	case 'bronzeage';
 		$layouttype = 'database';

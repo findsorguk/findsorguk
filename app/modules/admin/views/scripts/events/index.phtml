@@ -23,5 +23,5 @@ if (count($this->events)) : ?>
 <?php echo $this->partialLoop('partials/admin/eventsTable.phtml',$this->events);?>
 </tbody>
 </table>
-<?echo $this->paginationControl($this->events, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->events, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php endif;?>
