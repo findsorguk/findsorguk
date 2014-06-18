@@ -30,8 +30,8 @@ echo 'Your username is currently '.$this->username;
 ?>
 You have logged in: <?php echo $this->visits;?> times.
 <?php
-$more = $this->moreVisitsThanMe()->setVisits($this->visits);
-if($more != 0) {
+$more = $this->moreVisitsThanMe()->setVisits($this->visits)->getData();
+if( (int) $more != 0) {
 echo '<br />' . $more . ' people have visited the site more frequently than you!';
 } else {
 echo '<br />You are the most frequent visitor!';

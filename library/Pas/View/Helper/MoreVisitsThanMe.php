@@ -44,11 +44,11 @@ class Pas_View_Helper_MoreVisitsThanMe extends Zend_View_Helper_Abstract
         return $this;
     }
 
-    /** To string function
+    /** Get greater or smaller visitor numbers
      * @access public
-     * @return string
+     * @return int
      */
-    public function __toString() {
+    public function getData() {
         $users = new Users();
         $visits = $users->getMoreTotals($this->getVisits());
         foreach ($visits as $v) {
