@@ -11,6 +11,7 @@ $this->metaBase()
 </h2>
 <?php if (count($this->news)): ?>
 <?php echo $this->partialLoop('partials/news/newsTable.phtml',$this->news);?>
+
 <?php echo $this->paginationControl($this->news, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
 <p>

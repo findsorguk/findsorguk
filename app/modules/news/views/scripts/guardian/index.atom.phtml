@@ -11,7 +11,7 @@ $feed->addAuthor(array(
 ));
 $feed->setDateModified(time());
 $feed->addHub('http://pubsubhubbub.appspot.com/');
- Zend_Date::setOptions(array(
+Zend_Date::setOptions(array(
     'format_type'   => 'php'
 ));
 foreach($this->guardianStories['guardianStory'] as $e){
@@ -38,8 +38,7 @@ $desc = $e['linkText'];
 }
 $len = strlen($e['content']);
 if($len == 61){
-	$content = 'Content only available on the Guardian site';
-
+    $content = 'Content only available on the Guardian site';
 } else {
 $content = strip_tags($this->ellipsisString()->setString($e['content'])->setMax(600));
 }
@@ -47,6 +46,4 @@ $entry->setDescription(htmlspecialchars(strip_tags($desc)));
 $entry->setContent(htmlspecialchars(strip_tags($content)));
 $feed->addEntry($entry);
 }
-
-$out = $feed->export('atom');
-echo $out;
+echo $feed->export('atom');

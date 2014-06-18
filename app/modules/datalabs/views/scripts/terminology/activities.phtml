@@ -1,0 +1,15 @@
+<?php
+$this->headTitle('Primary Activities');
+$this->metaBase()
+        ->setDescription('This page outlines the majority of activities in which finders engage when 
+discovering artefacts')
+        ->setSubject('discovery')
+        ->setKeywords('metal detecting,fieldwalking')
+        ->generate();
+?>
+<h2>
+    <?php echo $this->title();?>
+</h2>
+<ul>
+    <?php echo $this->partialLoop('partials/database/activityList.phtml',$this->activities);?>
+</ul>

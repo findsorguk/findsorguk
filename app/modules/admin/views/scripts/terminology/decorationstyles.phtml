@@ -2,19 +2,19 @@
 <h2><?php echo $this->title();?></h2>
 <p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'adddecorationstyle'),null,true);?>" title="Add a new style">Add a new decorative style</a></p>
 <table class="table table-striped" summary="All decorative styles available">
-<caption>All decorative styles available</caption>
-<thead>
-<tr>
-<th>Decorative style</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Validity</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/decstylesTable.phtml',$this->decs);?>
-</tbody>
+    <caption>All decorative styles available</caption>
+    <thead>
+        <tr>
+            <th>Decorative style</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Validity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php echo $this->partialLoop('partials/admin/decstylesTable.phtml',$this->decs);?>
+    </tbody>
 </table>

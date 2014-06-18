@@ -1,32 +1,33 @@
 <?php
+Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/atom+xml');
 $feedArray = array(
-
-			'title' => 'The lastest news from the Portable Antiquities Scheme',
-			'link' => $this->CurUrl(),
-			'charset' => 'utf-8',
-			'description' => 'All the news from around the regions of the Scheme',
-			'author' => 'The Portable Antiquities Scheme',
-			'image' => Zend_Registry::get('siteurl').'/images/logos/pas.gif',
-			'email' => 'info@finds.org.uk',
-			'copyright' => 'Creative Commons Licenced',
-			'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
-			'language' => 'en',
-			'entries' => array()
-		);
-
-
-		foreach ($this->news as $new) {
-			$feedArray['entries'][] = array(
-				'title' => $new['title'],
-				'link' => Zend_Registry::get('siteurl').'/news/stories/article/id/'.$new['id'],
-				'guid' => Zend_Registry::get('siteurl').'/news/stories/article/id/'.$new['id'],
-				'description' => strip_tags($new['summary']),
-				'lastUpdate' => strtotime($new['updated']),
-				'content' => strip_tags($new['summary']),
-				);
-		}
-		
-  		 $feed = Zend_Feed::importArray($feedArray,'atom');
-		 $feed->send();
-		
-				?>
+    'title' => 'The lastest news from the Portable Antiquities Scheme',
+    'link' => $this->CurUrl(),
+    'charset' => 'utf-8',
+    'description' => 'All the news from around the regions of the Scheme',
+    'author' => 'The Portable Antiquities Scheme',
+    'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
+    'email' => 'info@finds.org.uk',
+    'copyright' => 'Creative Commons Licenced',
+    'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
+    'language' => 'en',
+    'entries' => array()
+    );
+foreach ($this->news as $new) {
+    $url = $this->url(array(
+    'module' => 'news', 
+    'controller' => 'story',
+    'action' => 'index',
+    'id' => $new['id']),
+        'newsstory', true);
+    $feedArray['entries'][] = array(
+        'title' => $new['title'],
+        'link' => $this->serverUrl() . $url,
+        'guid' => $this->serverUrl() . $url,
+        'description' => strip_tags($new['summary']),
+        'lastUpdate' => strtotime($new['updated']),
+        'content' => strip_tags($new['summary']),
+        );
+    }
+$feed = Zend_Feed::importArray($feedArray,'atom');
+$feed->send();

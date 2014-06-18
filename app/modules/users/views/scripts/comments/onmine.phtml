@@ -11,7 +11,7 @@
 
 <?php echo $this->partialLoop('partials/users/allcomments.phtml', $this->comments) ?>
 </ol>
-<?echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
 <p>No comments are listed or available to you</p>
 <?php endif;?>

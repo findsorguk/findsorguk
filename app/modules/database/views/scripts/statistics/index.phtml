@@ -3,6 +3,10 @@ $this->headMeta('An archive of daily record entries for the Scheme database','de
 $this->headMeta('records,daily,archive,portable antiquities scheme,archaeology,england,wales, finds liasion','dc.keywords');?>
 <h2>Annual artefact record archives</h2>
 <p>These archives can be searched to find out what was recorded on a particular day of the year. We have been recording digitally since 1998.</p>
+
 <ul id="yearrange">
-<?php echo $this->partialLoop('partials/database/archiveYears.phtml',$this->years);?>
+    <?php 
+    echo $this->partialLoop('partials/database/archiveYears.phtml',
+            $this->yearList()->setStartYear(1998)->generateArray());
+    ?>
 </ul>

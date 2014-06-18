@@ -27,7 +27,7 @@ $this->headMeta('A list of all acronyms/ abbreviations on the database',
 <?php echo $this->partialLoop('partials/admin/acronyms.phtml',$this->acronyms);?>
 </tbody>
 </table>
-<?echo $this->paginationControl($this->acronyms, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->acronyms, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
 <p>There are no acronyms in use at the moment.</p>
 <?php endif;?>

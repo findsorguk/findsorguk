@@ -37,7 +37,7 @@ class MYPDF extends TCPDF {
     public function Header() {
 		$view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
     	// Logo
-        $image_file = $view->serverUrl() . '/images/logos/pas.gif';
+        $image_file = $view->serverUrl() . '/assets/logos/pas.jpg';
         $this->Image($image_file, 10, 10, 15, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
         // Set font
         $this->SetFont('helvetica', 'B', 20);
