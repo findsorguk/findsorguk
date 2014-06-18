@@ -1,15 +1,15 @@
 <?php $this->mail->setSubject('Activate your account on finds.org.uk');?>
-<p>Dear <?php echo $this->escape($this->splitName($this->name));?>,</p>
+<p>Dear <?php echo $this->escape($this->splitName->setName($this->name));?>,</p>
 
 <p>Thank you for registering with the Scheme. By doing so you will get access to
  enhanced features and if required higher level access.</p>
- 
+
 <p>If you have problems activating your account, please do contact us at the Central Unit
   <a href="mailto:info@finds.org.uk">by email</a>.</p>
 
-<p>To activate your account please go to this link: 
+<p>To activate your account please go to this link:
 <a href="<?php echo $this->serverUrl();?>/users/account/activate/">Activate me</a></p>
-<p>Once there, you will need to enter the below activation key, your username and email address:</p> 
+<p>Once there, you will need to enter the below activation key, your username and email address:</p>
 <p><?php echo $this->activationKey?></p>
 <p>If the link above does not work, paste this into your address bar: <?php echo $this->serverUrl();?>/users/account/activate/</p>
 

@@ -1,7 +1,7 @@
 <li><a href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'emperors','action'=>'emperor', 'id'=> $this->id),null,true);?>" title="View details for <?php echo $this->escape($this->issuer);?>"><?php echo $this->escape($this->issuer);?></a> <?php if(isset($this->date_from)) { 
-echo '['.$this->adbc($this->date_from);
+echo '['.$this->adBc()->setDate($this->date_from);
 if(!is_null($this->date_to)) { 
-echo ' - '.$this->adbc($this->date_to).']';
+echo ' - '.$this->adBc()->setDate($this->date_to).']';
 } else { echo ']';
 }
 }

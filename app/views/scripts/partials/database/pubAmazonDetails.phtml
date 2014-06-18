@@ -41,9 +41,9 @@ $this->headMeta('Archaeology','dc.subject');
 <?php if(!is_null($this->doi)):?>
 <li>Digital Object Identifier (DOI): <a href="http://dx.doi.org/<?php echo $this->escape($this->doi);?>" title="Resolve this DOI"><?php echo $this->escape($this->doi);?></a></li>
 <?php endif;?>
-<li>This was created by: <?php echo $this->escape($this->createdBy);?> on the: <?php echo $this->timeagoinwords($this->created);?></li>
+<li>This was created by: <?php echo $this->escape($this->createdBy);?> on the: <?php echo $this->timeAgoInWords($this->created);?></li>
 <?php if(!is_null($this->updated)):?>
-<li>Record last updated by: <?php echo $this->escape($this->updatedBy);?> on the <?php echo $this->timeagoinwords($this->updated);?></li>
+<li>Record last updated by: <?php echo $this->escape($this->updatedBy);?> on the <?php echo $this->timeAgoInWords($this->updated);?></li>
 <?php endif;?>
 </ul>
 

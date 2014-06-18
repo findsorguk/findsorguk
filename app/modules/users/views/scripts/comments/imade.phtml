@@ -1,5 +1,5 @@
 
-<?php echo $this->commenttitle($this->params);?>
+<?php echo $this->commentTitle($this->params);?>
 <?php if(count($this->comments)):?>
 <ol id="timeline" class="statuses">
 <?php echo $this->partialLoop('partials/users/allcomments.phtml', $this->comments) ?>

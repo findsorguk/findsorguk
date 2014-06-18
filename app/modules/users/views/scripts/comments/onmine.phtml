@@ -1,5 +1,5 @@
 
-<?php echo $this->commenttitle($this->params);?>
+<?php echo $this->commentTitle($this->params);?>
 <?php if(count($this->comments)):?>
 <ul id="commentslist">
 <li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'onmine'),'default',true);?>" title="View all comments as one table">All comments</a></li>

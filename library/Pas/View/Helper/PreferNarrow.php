@@ -1,7 +1,7 @@
 <?php
-class Pas_View_Helper_Prefernarrow extends Zend_View_Helper_Abstract
+class Pas_View_Helper_PreferNarrow extends Zend_View_Helper_Abstract
 {
-function prefernarrow($term)
+function preferNarrow($term)
 {
 switch($term)
 {

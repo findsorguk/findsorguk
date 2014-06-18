@@ -1,5 +1,5 @@
-<?php $this->headTitle($this->type);?>
-<h2>Reverse type: <?php echo $this->type;?></h2>
+<?php $this->headTitle('Reverse type: ' . $this->type);?>
+<h2><?php echo $this->title();?></h2>
 <p>Translation: <?php echo $this->translation;?><br />
 Description: <?php echo $this->description;?><br />
 Reece period: <a href="<?php echo $this->url(array(
@@ -7,5 +7,5 @@ Reece period: <a href="<?php echo $this->url(array(
     'controller' => 'reeceperiods',
     'action'=> 'period',
     'id' => $this->i),null,true);?>"><?php echo $this->period_name;?></a> [ 
-    <?php echo $this->adbc($this->date_range);?>]<br />
+    <?php echo $this->adBc()->setDate($this->date_range);?>]<br />
 General date: <?php echo $this->gendate;?></p>

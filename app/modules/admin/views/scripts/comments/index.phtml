@@ -37,9 +37,9 @@ $('a[class^=delete]').confirm({
 
 
 <?php $this->jQuery()->javascriptCaptureEnd();?>
-<?php echo $this->commentheadtitle($this->params);?>
+<?php echo $this->headTitle($this->commentHeadTitle()->setParams($this->params));?>
 
-<?php echo $this->commenttitle($this->params);?>
+ <h2 class="lead"><?php echo $this->title();?></h2>
 
 <div class="btn-group">
 <a class="btn btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'comments'),'default',true);?>" title="View all comments as one table">All comments</a>

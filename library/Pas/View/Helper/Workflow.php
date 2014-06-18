@@ -6,34 +6,84 @@
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @see Zend_View_Helper_Abstract
- * @uses Zend_View_Helper_Baseurl
+ * @uses Zend_View_Helper_Abstract
+ * @uses Zend_Exception
  */
-class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract 
+{
 
-	/** Determine the correct image to display from workflow lookup
-	 * 
-	 * @param integer $secwfstage
-	 */
-	public function Workflow($secwfstage) {
-	switch ($secwfstage) {
-		case 1:
-			$wf = '<img src="' . $this->view->baseUrl() . '/images/icons/quarantine.png" width="16" height="16" alt="Find in quarantine - not available to the public"/>';
-			break;
-		case 2:
-			$wf = '<img src="'.$this->view->baseUrl() . '/images/icons/flag_red.gif" width="16" height="16" alt="Find on review - not available to the public"/>';
-			break;
-		case 4:
-			$wf = '<img src="'.$this->view->baseUrl() . '/images/icons/flag_orange.gif" width="16" height="16" alt="Find waiting to be validated"/>';
-			break; 
-		case 3:
-			$wf = '<img src="'.$this->view->baseUrl() . '/images/icons/flag_green.gif" width="16" height="16" alt="Find validated and published by finds advisers"/>';
-			break; 
-		default:
-			return false;
-			break;
-	}		
-	return $wf;
+    /** Default workflow status
+     * @access protected
+     * @var int
+     */
+    protected $_secwfstage = 1;
+    
+    /** Get the workflow stage
+     * @access public
+     * @return type
+     */
+    public function getSecwfstage() {
+        return $this->_secwfstage;
+    }
+
+    /** Set the Workflow status
+     * @access public
+     * @param int $secwfstage
+     * @return \Pas_View_Helper_Workflow
+     */
+    public function setWorkflow( int $secwfstage) {
+        $this->_secwfstage = $secwfstage;
+        return $this;
+    }
+
+    /** The workflow class
+     * @access public
+     * @return \Pas_View_Helper_Workflow
+     */
+    public function workflow() {
+        return $this;
+    }
+    
+    /** The magic to string method
+     * @access public
+     * @return type
+     */
+    public function __toString() {
+        return $this->_buildHtml();
+    }
+    
+    /** Render the html string
+     * @access public
+     * @return string
+     * @throws Zend_Exception
+     */
+    public function _buildHtml() {
+        switch ( $this->getSecwfstage() ) {
+            case 1:
+		$wf = 'quarantine.png';
+                $alt = 'Find in quarantine';
+                break;
+            case 2:
+                $wf = 'flag_red.gif';
+                $alt = 'Find on review';
+		break;
+            case 4:
+                $wf = 'flag_orange.gif';
+                $alt = 'Find awaiting validation';
+                break;
+            case 3:
+                $wf = 'flag_green.gif';
+                $alt = 'Find published';
+                break; 
+            default:
+                throw new Zend_Exception('No workflow status set', 500);
 	}
-
+        $imageTag = '<img src="/images/icons/';
+        $imageTag .= $wf;
+        $imageTag .= '" width="16" height="16"';
+        $imageTag .= 'alt="';
+        $imageTag .= $alt;
+        $imageTag .= '"/>';
+	return $imageTag;
+    }
 }

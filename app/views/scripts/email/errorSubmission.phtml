@@ -1,11 +1,11 @@
 <?php $this->mail->setSubject('An error report has been entered for ' . $this->old_findID );?>
-<p>Dear <?php echo $this->escape($this->splitName($this->name));?>,</p>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name));?>,</p>
 
 <?php if($this->institution === 'PUBLIC'):?>
-<p>As the creator of the record, an error report has been submitted by <?php echo 
+<p>As the creator of the record, an error report has been submitted by <?php echo
 $this->escape($this->comment_author);?> for action to be taken by you or the finds adviser for the period.</p>
 <?php else:?>
-<p>As the current FLO for your region, an error report has been submitted by <?php echo 
+<p>As the current FLO for your region, an error report has been submitted by <?php echo
 $this->escape($this->comment_author);?> for action to be taken.</p>
 <?php endif; ?>
 <p>This error report is related to: <?php echo $this->comment_type;?></p>
@@ -20,7 +20,7 @@ $this->escape($this->comment_author);?> for action to be taken.</p>
 <li>Object type: <?php echo $this->objecttype;?></li>
 <li>Find number: <?php echo $this->old_findID;?></li>
 <li>Originally created by: <?php echo $this->name;?></li>
-<li>Date created: <?php echo $this->timeagoinwords($this->created);?></li>
+<li>Date created: <?php echo $this->timeAgoInWords($this->created);?></li>
 </ul>
 <p>Thank you for taking the time to submit an error to us.<br />
 We appreciate that you have taken the time to improve our database.
