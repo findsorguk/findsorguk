@@ -47,16 +47,16 @@ $allowed = array('fa','admin','flos','hero','treasure','research');
 if(in_array($user->role,$allowed)){
 }?>
         <li <?php echo $this->currentPage()->active('datalabs','smr','index');?>>
-            <a href="<?php echo $this->url(array('controller' => 'datalabs','action' => 'smr'),'default',true);?>" title="List of scheduled monuments"><i class="icon-list"></i>Scheduled monuments</a></li>
+            <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'smr','action' => 'index'),'default',true);?>" title="List of scheduled monuments"><i class="icon-list"></i>Scheduled monuments</a></li>
         <li <?php echo $this->currentPage()->active('datalabs','osdata','index');?>>
-            <a href="<?php echo $this->url(array('controller' => 'datalabs','action' => 'osdata'),'default',true);?>" title="List of OS data"><i class="icon-map-marker"></i>Ordnance Survey data</a></li>
+            <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'osdata','action' => 'index'),'default',true);?>" title="List of OS data"><i class="icon-map-marker"></i>Ordnance Survey data</a></li>
 <?php
 }
 ?>
         <li <?php echo $this->currentPage()->active('datalabs','oai','index');?>>
             <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'oai','action' => 'index'),'default',true);?>" title="Read about our OAI server access">OAI access</a></li>
-        <li <?php echo $this->currentPage()->active('datalabs','rss','index', 'rss');?>>
-            <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'rss','action' => 'index','slug' => 'rss'),'default',true);?>" title="Read about available RSS and Atom feeds">RSS feeds</a></li>
+        <li <?php echo $this->currentPage()->active('datalabs','rss','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'rss','action' => 'index'),'default',true);?>" title="Read about available RSS and Atom feeds">RSS feeds</a></li>
         
     </ul>
 </div>
