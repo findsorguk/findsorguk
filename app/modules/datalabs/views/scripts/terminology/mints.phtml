@@ -15,7 +15,7 @@ $this->MetaBasic();?>
 <?php echo $this->partialLoop('partials/database/mintsTableListPublic.phtml',$this->mints);?>
 </tbody>
 </table>
-<?echo $this->paginationControl($this->mints, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->mints, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
 <p>Nothing happening here!</p>
 <?php endif;?>
