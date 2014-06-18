@@ -167,17 +167,17 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
         $data = $this->getData();
         $this->getCache()->save($data);
         } else {
-        $data = $this->getCache->load('facebookCounts');
+        $data = $this->getCache()->load('facebookCounts');
         }
         return $this->buildHtml($data);
     }
 
     /** Build the html
      * @access public
-     * @param object $data
+     * @param stdClass $data
      * @return string
      */
-    public function buildHtml(object $data){
+    public function buildHtml(stdClass $data){
         $html = '';
         $html .= '<li class="purple"><p>Join our ';
         $html .= $data->likes;
@@ -190,10 +190,10 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
 
     /** Decode the response
      * @access public
-     * @param object $response
+     * @param Zend_Http_Response $response
      * @return type
      */
-    private function getDecode( object $response) {
+    private function getDecode( Zend_Http_Response $response) {
         $data = $response->getBody();
         $json = json_decode($data);
         return $json;
@@ -202,10 +202,10 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
 
     /** Get the status of the response
      * @access public
-     * @param object $response
+     * @param Zend_Http_Response $response
      * @return int
      */
-    private function getStatus( object $response) {
+    private function getStatus( Zend_Http_Response $response) {
         $code = $response->getStatus();
         switch ($code) {
             case ($code == 200):
