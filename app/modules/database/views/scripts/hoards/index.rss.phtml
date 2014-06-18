@@ -26,7 +26,7 @@ $entry = $feed->createEntry();
 $entry->setTitle($hoard['term']);
 $entry->setLink($this->serverUrl() . '/database/hoards/hoard/id/' . $hoard['id']);
 $entry->setDateCreated(new Zend_Date($hoard['created'], 'YY-mm-dd hh:mm:ss'));
-$entry->setDescription($this->ellipsisstring($description,400));
+$entry->setDescription($this->ellipsisString()->setString($description)->setMax(400));
 $entry->setContent($description);
 $entry->setDateModified();
 $entry->setDateCreated(strtotime($hoard['created']));

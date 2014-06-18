@@ -1,8 +1,16 @@
 <?php
 $this->headTitle('Early Medieval ascribed cultures');
+$this->metaBase()
+        ->setDescription('A list of ascribed cultures, primarily used for the '
+                . 'Early medieval period.')
+        ->setSubject('terminology')
+        ->setKeywords('cultures,early,medieval,saxon,viking')
+        ->generate();
 ?>
-<h2>Ascribed cultures</h2>
+<h2>
+    <?php echo $this->title();?>
+</h2>
 <p>The Scheme has broken the Early Medieval period down into the following ascribed cultures to make it easier to search the database.</p>
-<ul id="related">
-<?php echo $this->partialLoop('partials/datalabs/culture.phtml',$this->cultures);?>
+<ul>
+    <?php echo $this->partialLoop('partials/database/culture.phtml',$this->cultures);?>
 </ul>

@@ -1,8 +1,12 @@
 <?php
-    $this->headTitle('Scheme news stories mapped by location');
-    $this->metaBase('A map showing all of our georeferenced news stories that the Scheme has filed','map of stories','archaeology,news,stories,map,georeferenced');
-    $this->googleDynamicMap();
-    $this->inlineScript()->captureStart();
+$this->headTitle('Scheme news stories mapped by location');
+$this->metaBase()
+        ->setDescription('A map showing all of our georeferenced news stories that the Scheme has filed')
+        ->setSubject('map of stories')
+        ->setKeywords('archaeology,news,stories,map,georeferenced')
+        ->generate();
+$this->googleDynamicMap();
+$this->inlineScript()->captureStart();
 ?>
     function load() {
       var map = new google.maps.Map(document.getElementById("map"), {

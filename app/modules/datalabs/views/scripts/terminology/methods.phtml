@@ -1,4 +1,14 @@
-<h2>Methods of discovery</h2>
-<ul id="related">
-<?php echo $this->partialLoop('partials/datalabs/methodsList.phtml',$this->methods); ?>
+<?php
+$this->headTitle('Methods of discovery');
+$this->metaBase()
+        ->setDescription('A list of methods of discovery')
+        ->setSubject('terminology')
+        ->generate();
+?>
+<h2>
+    <?php echo $this->title();?>
+</h2>
+
+<ul>
+    <?php echo $this->partialLoop('partials/database/methodsList.phtml',$this->methods); ?>
 </ul>

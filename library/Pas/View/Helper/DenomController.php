@@ -1,5 +1,14 @@
 <?php
 /**  A view helper to return correct controller for period
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->denomController()->setPeriod('ROMAN');
+ * ?>
+ * </code>
+ *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @license GNU
  * @version 1
@@ -28,10 +37,10 @@ class Pas_View_Helper_DenomController extends Zend_View_Helper_Abstract
 
     /** Set the period to query
      * @access public
-     * @param string $period
+     * @param  string  $period
      * @return \Pas_View_Helper_DenomController
      */
-    public function setPeriod( string $period) {
+    public function setPeriod( $period ) {
         $this->_period = $period;
         return $this;
     }
@@ -48,7 +57,7 @@ class Pas_View_Helper_DenomController extends Zend_View_Helper_Abstract
      * @access public
      * @return string|boolean
      */
-    public function determine() {
+    public function determine()  {
         switch ($this->getPeriod()) {
             case 'ROMAN':
                 $ctrllr = 'romancoins';
@@ -73,8 +82,9 @@ class Pas_View_Helper_DenomController extends Zend_View_Helper_Abstract
                 break;
             default:
                 return false;
-	}
-	return $ctrllr;
+    }
+
+    return $ctrllr;
     }
 
     /** To String method

@@ -40,7 +40,7 @@ $len = strlen($e['content']);
 if($len == 61){
     $content = 'Content only available on the Guardian site';
 } else {
-    $content = strip_tags($this->ellipsisstring($e['content'],600));
+$content = strip_tags($this->ellipsisString()->setString($e['content'])->setMax(600));
 }
 $entry->setDescription(htmlspecialchars(strip_tags($desc)));
 $entry->setContent(htmlspecialchars(strip_tags($content)));

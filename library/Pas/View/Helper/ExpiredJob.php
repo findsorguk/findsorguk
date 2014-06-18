@@ -1,15 +1,25 @@
-<?php 
+<?php
 /**
  * A view helper for determining the difference between dates for expired jobs
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->expiredJob()->setDate($this->expire)
+ * ?>
+ * </code>
+ * 
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
+ * @author Daniel Pett <dpett at britishmuseum.org>
  */
 
-class Pas_View_Helper_ExpiredJob extends Zend_View_Helper_Abstract 
+class Pas_View_Helper_ExpiredJob extends Zend_View_Helper_Abstract
 {
 
     /** The date string
@@ -17,13 +27,13 @@ class Pas_View_Helper_ExpiredJob extends Zend_View_Helper_Abstract
      * @var date
      */
     protected $_date;
-    
+
     /** Today as a string
      * @access protected
      * @var date
      */
     protected $_today;
-    
+
     /** Get the date to query
      * @access public
      * @return date
@@ -31,7 +41,7 @@ class Pas_View_Helper_ExpiredJob extends Zend_View_Helper_Abstract
     public function getDate() {
         return $this->_date;
     }
-    
+
     /** Set the date to query
      * @access public
      * @return date
@@ -62,11 +72,10 @@ class Pas_View_Helper_ExpiredJob extends Zend_View_Helper_Abstract
      * @access public
      * @return boolean
      */
-    public function checkDate(){
+    public function checkDate() {
         $difference = $this->getToday()->isLater(
                 new Zend_Date($this->getDate(),'YYYY-MM-dd')
                 );
-	return $difference;
+        return $difference;
     }
-    
 }

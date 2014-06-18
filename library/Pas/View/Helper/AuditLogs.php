@@ -1,24 +1,68 @@
 <?php
 /**
- * A view helper to build the audit logs html string
- * @author Daniel Pett <dpett @ britishmuseum.org>
- * @category Pas
- * @package Pas_View_Helper
+ * A view helper for rendering audit logs on a finds record
+ * 
+ * This helper uses data from the finds, findspots and coins models and then
+ * redisplays this as a list of audited actions that are clickable and this 
+ * instatiates a modal window with the changes within it.
+ * 
+ * To use this, follow the example below:
+ * <code>
+ * <?php
+ * echo $this->auditLogs()->setID(1);
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
  * @version 1
- * @since 17/5/2014
  * @license http://URL GNU
- * @todo Does this need to be returned based on roles?
+ * @uses Pas_User_Details
+ * 
+ * @uses viewHelper Pas_View_Helper
  */
 class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
 {
+    /** The roles allowed to view audit logs
+     * @access protected
+     * @var array
+     */
+    protected $_allowed = array('flos', 'hero', 'treasure', 'fa', 'admin');
 
-    /** The id to query
+    /** The user's role
+     * @access protected
+     * @var string
+     */
+    protected $_role = 'public';
+    
+    /** ID number to query
      * @access protected
      * @var int
      */
-    protected $_id;
+    protected $_id = 1;
+    
+    /** Get the allowed array
+     * @access public
+     * @return array
+     */
+    public function getAllowed() {
+        return $this->_allowed;
+    }
 
-    /** Get the id to query
+    /** Get the role of the user
+     * @access public
+     * @return string
+     */
+    public function getRole() {
+        $user = new Pas_User_Details();
+        $person = $user->getPerson();
+        if ($person) {
+        $this->_role = $person->role;
+        } 
+        return $this->_role;
+    }
+
+    /** get the id of the find
      * @access public
      * @return int
      */
@@ -26,47 +70,40 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
         return $this->_id;
     }
 
-    /** Set the id to query
+    /** Set the id of the find to query
      * @access public
      * @param int $id
      * @return \Pas_View_Helper_AuditLogs
      */
-    public function setId( int $id) {
+    public function setId($id) {
         $this->_id = $id;
         return $this;
     }
 
-    /** The audit log function
+    /** The function
      * @access public
      * @return \Pas_View_Helper_AuditLogs
      */
     public function auditLogs() {
-	return $this;
+        return $this;
     }
-
-    /** Get data to return
-     * @access public
-     * @return string
-     */
-    public function _getData() {
-        return $this->buildHtml($this->getId());
-    }
-
-    /** Magic method to string
+    
+    /** the to string method
      * @access public
      * @return string
      */
     public function __toString() {
-        return $this->_getData();
+        return $this->buildHtml( $this->getId() );
     }
 
-    /** Build the html to return
+    /** Build the function for returning html
      * @access public
-     * @param type $id
+     * @param int $id
      * @return string
      */
-    public function buildHtml( int $id){
+    public function buildHtml($id) {
         $html = '';
+        if (!is_null($this->getRole() && is_int($id))) {
         $html .= '<ul id="tab" class="nav nav-tabs">';
         $html .= '<li class="active"><a href="#findAudit" data-toggle="tab">Finds audit</a></li>';
         $html .= '<li><a href="#fspot" data-toggle="tab">Findspot audit</a></li>';
@@ -74,15 +111,16 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
         $html .= '</ul>';
         $html .= '<div id="myTabContent" class="tab-content">';
         $html .= '<div class="tab-pane fade in active" id="findAudit">';
-        $html .= $this->view->changesFind()->setId($id);
+        $html .= $this->view->auditDisplay()->setId($id)->setTableName('finds');
         $html .= '</div>';
         $html .= '<div class="tab-pane fade" id="fspot">';
-        $html .= $this->view->changesFindSpot()->setId($id);
+        $html .= $this->view->auditDisplay()->setId($id)->setTableName('findspots');
         $html .= '</div>';
         $html .= '<div class="tab-pane fade" id="coinAudit">';
-        $html .= $this->view->changesCoins()->setId($id);
+        $html .= $this->view->auditDisplay()->setId($id)->setTableName('coins');
         $html .= '</div></div>';
+        }
         return $html;
-	}
+    }
 }
 

@@ -1,11 +1,6 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/** A wrapper for interfacing with the MapIt api, specifically the postcode call.
+/**
+ * A wrapper for interfacing with the MapIt api, specifically the postcode call.
  * This extends the Mapit base class.
  *
  * @category Pas

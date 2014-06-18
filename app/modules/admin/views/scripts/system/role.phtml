@@ -1,7 +1,7 @@
 <?php echo $this->partial('partials/admin/systemroledetails.phtml',$this->roles['0']);?>
 <?php if(count($this->members)):?>
 <h3>User accounts associated with this role</h3>
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/admin/systemrolemembers.phtml',$this->members);?>
 </ul>
 <?php else:?>

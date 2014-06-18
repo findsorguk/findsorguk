@@ -103,15 +103,8 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
             }
         }
         return parent::insert($data);
-    }    
 
-    /** Delete data from model
-     * @access public
-     * @param array $where
-     */
-    public function delete( array $where) {
-        parent::delete($where);
-    }
+    }    
 
     /** Fetch pairs from the model
      * @access public

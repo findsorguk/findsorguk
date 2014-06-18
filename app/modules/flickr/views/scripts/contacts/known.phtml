@@ -1,11 +1,14 @@
 <?php
 $this->headTitle('More on our flickr contact: ' . $this->details->realname );
-$this->MetaBase($this->details->realname . '\'s profile details and some photos retrieved from the flickr api',
-'photos',
-'favourites,flickr,archaeology,creative commons,' . $this->details->username
-);
+$this->metaBase()
+        ->setDescription($this->details->realname . '\'s profile details and some photos retrieved from the flickr api')
+        ->setSubject('photos')
+        ->setKeywords('favourites,flickr,archaeology,creative commons,' . $this->details->username)
+        ->generate();
 ?>
-<h2>More on our flickr contact: <?php echo $this->details->realname;?></h2>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
 <ul>
 <li>Username: <?php echo $this->details->username;?></li>
 <?php if(!is_null($this->details->realname)):?>
@@ -28,5 +31,7 @@ $this->MetaBase($this->details->realname . '\'s profile details and some photos 
 alt="<?php echo $photo->title;?>" /></a>
 <?php endforeach;?>
 <?php else: ?>
-<p><?php echo $this->details->username;?> doesn't have any photos available.</p>
+<p>
+    <?php echo $this->details->username;?> does not have any photos available.
+</p>
 <?php endif; ?>

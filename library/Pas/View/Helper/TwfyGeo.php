@@ -1,6 +1,15 @@
 <?php
 /**
- * A view helper for retrieving the geographic boundaries of a parliamentary constituency
+ * A view helper for retrieving the geographic boundaries of a parliamentary
+ * constituency
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $thos->twfyGeo()->setData($data);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -28,7 +37,7 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
 
     /** Set the data to query
      * @access public
-     * @param array $data
+     * @param  array  $data
      * @return \Pas_View_Helper_TwfyGeo
      */
     public function setData(array $data) {
@@ -57,11 +66,11 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
 
     /** Build the map
      * @access public
-     * @param type $geo
-     * @param type $data
+     * @param  type   $geo
+     * @param  type   $data
      * @return string
      */
-    public function buildMap($geo, $data){
+    public function buildMap($geo, $data) {
         $html = '';
         $html .= $this->view->partial('partials/news/map.phtml', get_object_vars($geo));
         $html .= $this->view->osDataToConst()->setConstituency($geo->name);
@@ -70,13 +79,14 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
         $html .= $this->view->findsWithinConst()->setConstituency($geo->name);
         $html .= $this->view->mpBio()->setFullname($data->full_name);
         $html .= $this->view->politicalHouse()->setHouse($data->house);
+
         return $html;
     }
     /** The string to return
      * @access public
      * @return type
      */
-    public function __toString(){
+    public function __toString() {
         return $this->getMap();
     }
 }

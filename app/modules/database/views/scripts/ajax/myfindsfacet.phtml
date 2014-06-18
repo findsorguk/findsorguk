@@ -46,7 +46,7 @@
 <?php 
 $string = $this->facetName;
 $facets = array($this->facetName => $this->data['facets'][$string]);
-echo $this->facetCreatorAjaxMyFinds($facets);?>
+echo $this->facetCreatorAjaxMyFinds()->setFacets($facets);?>
 </div>
 
   </div>

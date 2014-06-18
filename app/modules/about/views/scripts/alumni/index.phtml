@@ -1,6 +1,10 @@
 <?php 
 $this->headTitle('List of Scheme alumni');
-$this->metaBase('A list of all people who used to work for the Portable Antiquities Scheme','alumni','alumni,scheme,head office,archaeology');
+$this->metaBase()
+        ->setDescription('A list of all people who used to work for the Portable Antiquities Scheme')
+        ->setSubject('alumni')
+        ->setKeywords('alumni,scheme,head office,archaeology')
+        ->generate();
 ?>
 <h2>
     <?php echo $this->title();?>

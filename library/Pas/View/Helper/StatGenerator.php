@@ -23,22 +23,25 @@ class Pas_View_Helper_StatGenerator extends Zend_View_Helper_Abstract
      *
      * @return array
      */
-    public function getStats() {
+    public function getStats()
+    {
         return $this->_stats;
     }
 
     /** Set up the stats array
      * @access public
-     * @param array $stats
+     * @param  array                          $stats
      * @return \Pas_View_Helper_StatGenerator
      * @throws Zend_Exception
      */
-    public function setStats(array $stats) {
-        if(is_array ( $stats) ) {
+    public function setStats(array $stats)
+    {
+        if (is_array ( $stats) ) {
             $this->_stats = $stats;
         } else {
             throw new Zend_Exception( 'You need to use an array', 500);
         }
+
         return $this;
     }
 
@@ -46,7 +49,8 @@ class Pas_View_Helper_StatGenerator extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->html();
     }
 
@@ -54,7 +58,8 @@ class Pas_View_Helper_StatGenerator extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function html() {
+    public function html()
+    {
         return $this->view->partial('partials/database/statSearch.phtml',
                 $this->getStats());
     }
@@ -63,7 +68,8 @@ class Pas_View_Helper_StatGenerator extends Zend_View_Helper_Abstract
      *
      * @return \Pas_View_Helper_StatGenerator
      */
-    public function statGenerator() {
+    public function statGenerator()
+    {
         return $this;
     }
 

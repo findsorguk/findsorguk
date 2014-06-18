@@ -12,7 +12,7 @@ $this->escape($this->comment_author);?> for action to be taken.</p>
 
 <h3>Error details</h3>
 
-<?php echo $this->purify($this->comment_content);?>
+<?php echo $this->purify()->setValue($this->comment_content);?>
 
 <ul>
 <li>Error report issued on: <a href="<?php echo $this->serverUrl();?>/database/artefacts/record/id/<?php echo $this->comment_findID;?>">

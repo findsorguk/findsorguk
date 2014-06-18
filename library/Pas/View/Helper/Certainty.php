@@ -1,6 +1,15 @@
 <?php
 /**
  * A basic view helper for displaying certainty for object types
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->certainty()->setCertainty(1);
+ * ?>
+ * </code>
+ * 
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
@@ -9,7 +18,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  */
-class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract 
+class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
 {
     /** The validator object
      * @access protected
@@ -22,7 +31,7 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @var string
      */
     protected $_certainty;
-    
+
     /** Get the validator
      * @access public
      * @return object
@@ -36,16 +45,16 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getCertainty() {
+    public function getCertainty()  {
         return $this->_certainty;
     }
 
     /** Set the certainty value
      * @access public
-     * @param int $certainty
+     * @param  int $certainty
      * @return \Pas_View_Helper_Certainty
      */
-    public function setCertainty( int $certainty) {
+    public function setCertainty($certainty) {
         $this->_certainty = $certainty;
         return $this;
     }
@@ -63,8 +72,8 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_Certainty
      * @throws Zend_Exception
      */
-    public function _checkValid() {
-        if($this->getValidator()->isValid($this->getCertainty())){
+    public function _checkValid()  {
+        if ($this->getValidator()->isValid($this->getCertainty())) {
             return $this;
         } else {
             throw new Zend_Exception( 'The value supplied must be an integer');
@@ -78,20 +87,20 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
     public function html() {
         $this->_checkValid();
         switch ($this->getCertainty()) {
-		case 1:
+        case 1:
                     $html = 'Certain';
                     break;
-		case 2:
+        case 2:
                     $html = 'Probably';
                     break;
-		case 3:
+        case 3:
                     $html = 'Possibly';
                     break;
-		default:
+        default:
                     $html = '';
                     break;
-		}
-	return $html;
+        }
+    return $html;
     }
 
     /** Magic method to return string of html

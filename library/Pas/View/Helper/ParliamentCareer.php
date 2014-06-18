@@ -24,17 +24,20 @@ class Pas_View_Helper_ParliamentCareer extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->_data;
     }
 
     /** Set the data to use
      * @access public
-     * @param array $data
+     * @param  array                             $data
      * @return \Pas_View_Helper_ParliamentCareer
      */
-    public function setData(array $data) {
+    public function setData(array $data)
+    {
         $this->_data = $data;
+
         return $this;
     }
 
@@ -42,7 +45,8 @@ class Pas_View_Helper_ParliamentCareer extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_ParliamentCareer
      */
-    public function parliamentCareer() {
+    public function parliamentCareer()
+    {
         return $this;
     }
 
@@ -50,16 +54,18 @@ class Pas_View_Helper_ParliamentCareer extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function buildHtml() {
+    public function buildHtml()
+    {
         $data = $this->getData();
         $html = '';
-        if(is_array($data)){
+        if (is_array($data)) {
             $html .= '<div id="career">';
-            foreach($data as $d){
+            foreach ($data as $d) {
                 $html .= $this->view->partial('partials/news/mp.phtml', $d);
             }
             $html .= '</div>';
         }
+
         return $html;
     }
 
@@ -67,7 +73,8 @@ class Pas_View_Helper_ParliamentCareer extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildHtml();
     }
 }

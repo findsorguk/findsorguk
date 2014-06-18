@@ -4,5 +4,5 @@
 'artefacts','action' => 'record','id' => $this->id),null,true);?>" title="View details for 
 <?php echo $this->old_findID;?>"><?php echo $this->old_findID;?></a></td>
 <td><?php echo $this->county;?></td>
-<td><?php echo $this->niceshortdate($this->updated);?></td>
+<td><?php echo $this->niceShortDate()->setDate($this->updated);?></td>
 </tr>

@@ -1,12 +1,14 @@
 <?php
-$this->MetaBasic();
 $this->headTitle('Mints in use on the database');
+$this->metaBase()
+        ->setDescription('A list of all mints in use on the database')
+        ->generate();
 ?>
-<h2>Mints in use on the database</h2>
+<h2><?php echo $this->title();?></h2>
 <p><a class="btn-success btn btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addmint'),null,true);?>" title="Add a new mint">Add a new mint</a></p>
 <?php if (count($this->paginator)): ?>
 
-<table class="table table-striped" summary="A list of all mints used by the database">
+<table class="table table-striped" summary="<?php echo $this->title();?>">
 <caption>Mints in use on the system</caption>
     <thead>
         <tr>

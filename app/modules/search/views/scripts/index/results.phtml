@@ -1,5 +1,5 @@
-    <?php $this->headTitle('Search results for ' . $this->escape($this->query));?>
-<h2>Search results for site content</h2>
+<?php $this->headTitle('Search results for ' . $this->escape($this->query));?>
+<h2><?php echo $this->title();?></h2>
 
 <div class="row-fluid">
 <?php if ($this->results): ?>
@@ -7,28 +7,25 @@
 <p><a href="<?php echo $this->url(array('module' => 'search'),'default',true);?>">Back to search</a></p>
 
 <div class="span8">
-<ul>
-
-
- <?php
-
-foreach($this->results as $result){
-?>
+    <ul>
+    <?php
+        foreach($this->results as $result){
+    ?>
 	<li>
 	<h4><a href="<?php echo $this->searchUrl($result, false);?>"><?php echo $result['title'];?></a></h4>
-	<p><?php echo $this->ellipsisstring($result['body'],300);?><br />
+	<p><?php echo $this->ellipsisString()->setString($result['body'])->setMax(300);?><br />
 	<?php echo $this->searchUrl($result);?>
 	</p>
 	</li>
-	<?php
-}
-?>
-</ul>
+    <?php
+        }
+    ?>
+    </ul>
 
 </div>
 
 <div class="span2">
-<?php echo $this->facetCreatorContent($this->facets);?>
+<?php echo $this->facetCreatorContent()->setFacets($this->facets);?>
 
 </div>
 <div class="span12">

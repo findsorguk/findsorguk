@@ -1,13 +1,13 @@
 <?php echo $this->partialLoop('partials/numismatics/reeceDetail.phtml',$this->periods);?>
 
 <h3>Issuers associated with this period</h3>
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/numismatics/emperorList.phtml',$this->reeces);?>
 </ul>
 
 <?php if($this->reverses) :?>
 <h3>Associated reverse types</h3>
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/numismatics/revtypelistreece.phtml',$this->reverses);?>
 
 </ul>

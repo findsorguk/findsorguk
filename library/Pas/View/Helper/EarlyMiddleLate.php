@@ -1,6 +1,14 @@
 <?php
 /** A view helper for displayin the qualifier for Early|Middle|Late period data
  *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->earlyMiddleLate()->setQualifier(1);
+ * ?>
+ * </code>
+ * 
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
@@ -10,14 +18,14 @@
  * @copyright Daniel Pett <dpett@britishmuseum.org>
  * @license GNU
  */
-class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
+{
     /** The qualifier integer
      * @access protected
      * @var int
      */
     protected $_qualifier;
-    
+
     /** Get the qualifier number
      * @access public
      * @return int
@@ -28,11 +36,12 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract {
 
     /** Set the qualifier
      * @access public
-     * @param int $qualifier
+     * @param  int $qualifier
      * @return \Pas_View_Helper_EarlyMiddleLate
      */
-    public function setQualifier( int $qualifier) {
+    public function setQualifier($qualifier) {
         $this->_qualifier = $qualifier;
+
         return $this;
     }
 
@@ -40,7 +49,8 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_EarlyMiddleLate
      */
-    public function earlyMiddleLate(){
+    public function earlyMiddleLate()
+    {
         return $this;
     }
 
@@ -53,11 +63,11 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract {
     }
     /** Switch for displaying correct period qualifier
      * @access public
-     * @param string $qualifier
-     * @return string|boolean
+     * @param  string $qualifier
+     * @return string 
      */
     public function getSwitch() {
-        switch ( $this->getQualifier() ){
+        switch ( $this->getQualifier() ) {
             case 1:
                 $string = 'Early';
                 break;
@@ -74,4 +84,3 @@ class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract {
         return $string;
     }
 }
-

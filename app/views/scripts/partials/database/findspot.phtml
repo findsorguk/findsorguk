@@ -218,7 +218,7 @@ Grid reference: <?php echo $this->stripGrid()->setGrid($this->gridref);?><br />
 <?php if(!is_null($this->source)):?>
 Grid reference source: <?php echo $this->escape($this->source);?><br />
 <?php endif;?>
-Grid reference accurate to a <?php echo $this->GetAccuracy($this->gridref);?> metre square.<br />
+Grid reference accurate to a <?php echo $this->getAccuracy()->setGridRef($this->gridref);?> metre square.<br />
 Grid reference length: <?php echo $this->gridlen;?><br />
 Easting: <?php echo $this->easting;?>  Northing: <?php echo $this->northing;?><br />
 Latitude: <?php echo $this->declat;?> Longitude: <?php echo $this->declong;?><br />
@@ -245,7 +245,7 @@ echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRa
 
 <div class="row-fluid">
 <?php
-//echo $this->findSmrs($this->declat,$this->declong);
+echo $this->findSmrs()->setLat($this->declat)->setLon($this->declong);
 ?>
 </div>
 
@@ -253,7 +253,10 @@ echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRa
 
 <div class="span4 noprint">
 <?php
-echo $this->findspotGeo($this->woeid,$this->declat,$this->declong);
+echo $this->findspotGeo()
+        ->setWoeID($this->woeid)
+        ->setLat($this->declat)
+        ->setLon($this->declong);
 ?>
 </div>
 

@@ -1,6 +1,14 @@
 <?php
 /**
  * A view helper for checking if a user has logged in
+ *
+ * An example of use:
+ * <code>
+ * <?php 
+ * echo $this->amILoggedIn();
+ * ?>
+ * </code>
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @author Daniel Pett <dpett @ britishmuseum.org>
@@ -13,8 +21,8 @@
  * @uses Zend_Auth
  */
 
-class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract
+{
     /** The auth object
      *
      * @var type
@@ -24,7 +32,8 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
     /** Construc the auth object
      *
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->_auth = Zend_Auth::getInstance();
     }
 
@@ -32,7 +41,8 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
      *
      * @return string
      */
-    public function amILoggedIn() {
+    public function amILoggedIn()
+    {
         return $this;
     }
 
@@ -40,7 +50,8 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
      *
      * @return function
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->html();
     }
 
@@ -49,8 +60,9 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
      * @return string
      * @author Daniel Pett
      */
-    public function html(){
-        if($this->_auth->hasIdentity()) {
+    public function html()
+    {
+        if ($this->_auth->hasIdentity()) {
             $logoutUrl = $this->view->url(array(
                 'module' => 'users',
                 'controller'=>'account',
@@ -69,11 +81,11 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
             $string .= '</a> &raquo; <a href="' . $logoutUrl;
             $string .= '">Log out</a></p><p>Assigned role: ';
             $string .= ucfirst($user->role);
-            $this->view->headMeta( ucfirst( $user->fullname ), 
+            $this->view->headMeta( ucfirst( $user->fullname ),
                     'page-user-screen_name');
 
             $allowed =  array('admin' , 'fa');
-            if(in_array($user->role, $allowed)) {
+            if (in_array($user->role, $allowed)) {
                 $string .= '<br /><a class="btn btn-small btn-danger" href="';
                 $string .= $this->view->url(array('module'  => 'admin'),'default',true);
                 $string .= '">Administer site</a></p>';
@@ -98,6 +110,7 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract {
                 $this->view->headMeta( 'Public User', 'page-user-screen_name' );
             }
             $string .= '</div>';
+
             return $string;
     }
 }

@@ -1,6 +1,14 @@
 <?php
-/** 
+/**
  * Type of moderation for comments
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->commentsModerate();
+ * ?>
+ * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @license http://URL GNU
  * @copyright (c) 2014, Daniel Pett
@@ -20,11 +28,10 @@ class Pas_View_Helper_CommentsModerate extends Zend_View_Helper_Abstract
      * @return array of comments
      */
     public function getComments() {
-	$comments = new Comments();
-	$data = $comments->getCommentsTypeModerate();
-        return $data;
+        $comments = new Comments();
+        return $comments->getCommentsTypeModerate();
     }
-    
+
     /** Build html
      * @access public
      * @return string html for view helper
@@ -32,23 +39,23 @@ class Pas_View_Helper_CommentsModerate extends Zend_View_Helper_Abstract
     public function buildHtml(){
         $html = '';
         $data = $this->getComments();
-        if(is_array( $data )){
+        if (is_array( $data )) {
             $html .= '<li>';
             $html .= '<p>';
-            foreach($data as $d) {
+            foreach ($data as $d) {
                 $html .= $d['comments'];
                 $html .= ' ';
                 $html .= $d['type'];
-                $html .= ' comments'; 
+                $html .= ' comments';
                 $html .= '<br />';
             }
             $html .= '</p>';
             $html .= '</li>';
-            
+
         }
         return $html;
     }
-    
+
     /** Function to call
      * @access public
      * @return \Pas_View_Helper_CommentsModerate

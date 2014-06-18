@@ -82,7 +82,7 @@ class Pas_OaiPmhRepository_Metadata_Europeana
     if(is_null($this->item['knownas']) && !is_null($this->item['fourFigure'])){
 //    $geo = new Pas_Geo_Gridcalc($this->item['fourFigure']);
 //    $coords = $geo->convert();
-    $lat = $this->item['fourFigureLat']; 
+    $lat = $this->item['fourFigureLat'];
     //$coords['decimalLatLon']['decimalLatitude'];
     $lon = $this->item['fourFigureLon'];
     //$coords['decimalLatLon']['decimalLongitude'];

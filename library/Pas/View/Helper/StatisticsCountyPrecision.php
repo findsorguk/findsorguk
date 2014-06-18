@@ -12,23 +12,23 @@
  * @uses Zend_Config
  * @uses Zend_Controller_Front
  */
-class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstract 
+class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstract
 {
     /** The solr object
      * @access protected
      * @var object
      */
     protected $_solr;
-    
+
     /** The index to query
      * @access protected
      * @var string
      */
     protected $_index;
-    
+
     /** The limit
      * @access protected
-     * @var int 
+     * @var int
      */
     protected $_limit;
 
@@ -49,52 +49,56 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @var array
      */
     protected $_solrConfig;
-    
+
     /** The start number to query
      * @access protected
-     * @var int 
+     * @var int
      */
     protected $_start;
-    
+
     /** The end number
      * @access protected
-     * @var type 
+     * @var type
      */
     protected $_end;
-    
+
     /** Which county
      * @access protected
-     * @var type 
+     * @var type
      */
     protected $_county;
-    
+
     /** The request object
      * @access protected
      * @var object
      */
     protected $_request;
-    
+
     /** The front controller object
      * @access protected
      * @var object
      */
     protected $_front;
-    
+
     /** Get the front controller
      * @access protected
      * @return object
      */
-    public function getFront() {
+    public function getFront()
+    {
         $this->_front = Zend_Controller_Front::getInstance()->getRequest();
+
         return $this->_front;
     }
-    
+
     /** TYhe solr object
      * @access public
      * @return object
      */
-    public function getSolr() {
+    public function getSolr()
+    {
         $this->_solr = new Solarium_Client($this->getSolrConfig());
+
         return $this->_solr;
     }
 
@@ -102,15 +106,17 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @access public
      * @return string
      */
-    public function getIndex() {
+    public function getIndex()
+    {
         return $this->_index;
     }
 
-    /** Get the limit 
+    /** Get the limit
      * @access public
      * @return int
      */
-    public function getLimit() {
+    public function getLimit()
+    {
         return $this->_limit;
     }
 
@@ -118,8 +124,10 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
+
         return $this->_cache;
     }
 
@@ -127,8 +135,10 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @access public
      * @return object
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         $this->_config = Zend_Registry::get('config');
+
         return $this->_config;
     }
 
@@ -136,10 +146,12 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @access public
      * @return array
      */
-    public function getSolrConfig() {
+    public function getSolrConfig()
+    {
         $this->_solrConfig = array(
             'adapteroptions' => $this->getConfig()->solr->toArray()
                 );
+
         return $this->_solrConfig;
     }
 
@@ -147,15 +159,17 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @access public
      * @return type
      */
-    public function getStart() {
+    public function getStart()
+    {
         return $this->_start;
     }
 
-    /** Get the end 
+    /** Get the end
      * @access public
      * @return type
      */
-    public function getEnd() {
+    public function getEnd()
+    {
         return $this->_end;
     }
 
@@ -163,7 +177,8 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @access public
      * @return string
      */
-    public function getCounty() {
+    public function getCounty()
+    {
         return $this->_county;
     }
 
@@ -171,58 +186,70 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @access public
      * @return object
      */
-    public function getRequest() {
+    public function getRequest()
+    {
         $this->_request = $this->getFront()->getParams();
+
         return $this->_request;
     }
 
-    /** Set the index 
+    /** Set the index
      * @access public
-     * @param string $index
+     * @param  string                                     $index
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setIndex(string $index) {
+    public function setIndex( $index)
+    {
         $this->_index = $index;
+
         return $this;
     }
 
     /** Set the limit
      * @access public
-     * @param int $limit
+     * @param  int                                        $limit
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setLimit(int $limit) {
+    public function setLimit($limit)
+    {
         $this->_limit = $limit;
+
         return $this;
     }
 
     /** Set the start
      * @access public
-     * @param int $start
+     * @param  int                                        $start
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setStart(int $start) {
+    public function setStart($start)
+    {
         $this->_start = $start;
+
         return $this;
     }
 
     /** Set the end
      * @access public
-     * @param int $end
+     * @param  int                                        $end
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setEnd(int $end) {
+    public function setEnd($end)
+    {
         $this->_end = $end;
+
         return $this;
     }
 
     /** Set the county
      * @access public
-     * @param string $county
+     * @param  string                                     $county
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setCounty(string $county) {
+    public function setCounty( $county)
+    {
         $this->_county = $county;
+
         return $this;
     }
 
@@ -230,7 +257,8 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @access public
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function statisticsCountyPrecision() {
+    public function statisticsCountyPrecision()
+    {
         return $this;
     }
 
@@ -238,39 +266,40 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
      * @access public
      * @return array
      */
-    private function getSolrResults() {
+    private function getSolrResults()
+    {
         $select = array(
             'query'         => '*:*',
             'filterquery' => array(),
             );
         $query = $this->getSolr()->createSelect();
-	$query->setRows(0);
-	$request = $this->getRequest();
-	if(array_key_exists('county', $request)){
-            $query->createFilterQuery('county')->setQuery('county:' 
+    $query->setRows(0);
+    $request = $this->getRequest();
+    if (array_key_exists('county', $request)) {
+            $query->createFilterQuery('county')->setQuery('county:'
                 . $request['county']);
-	}
-	if(!array_key_exists('datefrom', $request)){
+    }
+    if (!array_key_exists('datefrom', $request)) {
             $timespan = new Pas_Analytics_Timespan('thisyear');
             $dates = $timespan->getDates();
             $queryDateA = $dates['start'] . "T00:00:00.001Z";
-            $queryDateB = $dates['end'] . "T23:59:59.99Z";	
-            $query->createFilterQuery('created')->setQuery('created:[' 
+            $queryDateB = $dates['end'] . "T23:59:59.99Z";
+            $query->createFilterQuery('created')->setQuery('created:['
                     . $queryDateA . ' TO ' . $queryDateB . ']' );
         } else {
             $queryDateA = $request['datefrom'] . "T00:00:00.001Z";
-            $queryDateB = $request['dateto'] . "T23:59:59.99Z";	
-            $query->createFilterQuery('created')->setQuery('created:[' 
-                    . $queryDateA . ' TO ' . $queryDateB . ']') ;		
-	}
+            $queryDateB = $request['dateto'] . "T23:59:59.99Z";
+            $query->createFilterQuery('created')->setQuery('created:['
+                    . $queryDateA . ' TO ' . $queryDateB . ']') ;
+    }
 
         $stats = $query->getStats();
-	$stats->createField('quantity');
-	$stats->addFacet('precision');
-	$resultset = $this->getSolr()->select($query);
-	$data = $resultset->getStats();
-	$stats = array();
-	foreach ($data as $field) {
+    $stats->createField('quantity');
+    $stats->addFacet('precision');
+    $resultset = $this->getSolr()->select($query);
+    $data = $resultset->getStats();
+    $stats = array();
+    foreach ($data as $field) {
             foreach ($field->getFacets() as $field => $facet) {
                 foreach ($facet AS $facetStats) {
                     $stats[] = array(
@@ -280,32 +309,35 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
                             );
                 }
             }
-	}
-	$sort = array();
-	foreach($stats as $k=>$v) {
+    }
+    $sort = array();
+    foreach ($stats as $k=>$v) {
             $sort['precision'][$k] = $v['precision'];
             $sort['finds'][$k] = $v['finds'];
         }
-	array_multisort($sort['precision'], SORT_ASC, $sort['finds'], SORT_ASC,$stats);
-	return $stats;
+    array_multisort($sort['precision'], SORT_ASC, $sort['finds'], SORT_ASC,$stats);
+
+    return $stats;
     }
 
     /** Build the html to return
      * @access public
-     * @param array $data
+     * @param  array  $data
      * @return string
      */
-    public function buildHtml(array $data){
+    public function buildHtml(array $data)
+    {
         $html = '';
         $html .= $this->view->partialLoop('partials/annual/precision.phtml',$data);
-        return $html;	
+
+        return $html;
     }
     /** Return the string
      * @access public
      * @return string
      */
-    public function __toString(){
+    public function __toString()
+    {
         return $this->buildHtml($this->getSolrResults());
     }
 }
-

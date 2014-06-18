@@ -8,7 +8,7 @@ $this->headTitle('Image and metadata for '.$this->images['0']['label']);
 <h3>Linked finds for this image</h3>
 <?php if(!is_null($this->finds['0']['old_findID'])):?>
 
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/database/linkedfinds.phtml',$this->finds);?>
 </ul>
 <?php endif;?>

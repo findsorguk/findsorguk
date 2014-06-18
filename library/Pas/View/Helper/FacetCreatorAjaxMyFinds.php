@@ -19,27 +19,30 @@
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  */
-class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract
+{
+    protected $_action;
 
-	protected $_action;
-
-	public function __construct(){
-		$this->_action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
-	}
+    public function __construct()
+    {
+        $this->_action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+    }
 
     /** Create the facets boxes for rendering
      * @access public
-     * @param array $facets
+     * @param  array                 $facets
      * @return string
      * @throws Pas_Exception_BadJuJu
      */
 
-    public function facetCreatorAjaxMyFinds(array $facets){
-        if(is_array($facets)){
+    public function facetCreatorAjaxMyFinds(array $facets)
+    {
+        if (is_array($facets)) {
         $html = '';
-        foreach($facets as $facetName => $facet){
+        foreach ($facets as $facetName => $facet) {
             $html .= $this->_processFacet($facet, $facetName);
         }
+
         return $html;
         } else {
             throw new Pas_Exception_BadJuJu('The facets sent are not an array');
@@ -48,33 +51,34 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract 
 
     /** Process the facet array and name
      * @access public
-     * @param array $facet
-     * @param string $facetName
+     * @param  array                 $facet
+     * @param  string                $facetName
      * @return string
      * @throws Pas_Exception_BadJuJu
      * @uses Zend_Controller_Front
      * @uses Zend_View_Helper_Url
      */
-    protected function _processFacet(array $facets, $facetName){
-        if(is_array($facets)){
-        	if(count($facets)){
+    protected function _processFacet(array $facets, $facetName)
+    {
+        if (is_array($facets)) {
+            if (count($facets)) {
         $html = '<div id="facet-' . $facetName .'">';
         $html .= '<ul class="facetExpand">';
 
-        foreach($facets as $key => $value){
+        foreach ($facets as $key => $value) {
         $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-		if(isset($request['page'])){
+        if (isset($request['page'])) {
             unset($request['page']);
         }
-		unset($request['facetType']);
+        unset($request['facetType']);
         $request[$facetName] = $key;
-		$request['controller'] = 'myscheme';
-		$request['action'] = 'myfinds';
+        $request['controller'] = 'myscheme';
+        $request['action'] = 'myfinds';
         $url = $this->view->url($request,'default',true);
 
         $html .= '<li>';
-        if($facetName !== 'workflow'){
-        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection($key);
+        if ($facetName !== 'workflow') {
+        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection()->setString($key);
         $html .= '">';
         $html .= $key . ' ('. number_format($value) .')';
         } else {
@@ -89,21 +93,21 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract 
 
         $html .= '</ul>';
         $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-		$request['controller'] = 'search';
-		$request['action'] = 'results';
-        if(isset($request['page'])){
+        $request['controller'] = 'search';
+        $request['action'] = 'results';
+        if (isset($request['page'])) {
             unset($request['page']);
         }
-		if(count($facets) > 10){
-			$request['controller'] = 'ajax';
-			$request['action'] = 'facet';
-			unset($request['facetType']);
-			$html .= '<a class="btn btn-small overlay" href="' . $this->view->url(($request),'default',false)
+        if (count($facets) > 10) {
+            $request['controller'] = 'ajax';
+            $request['action'] = 'facet';
+            unset($request['facetType']);
+            $html .= '<a class="btn btn-small overlay" href="' . $this->view->url(($request),'default',false)
                                 . '">All ' . $this->_prettyName($facetName) . ' options <i class="icon-plus"></i></a>';
-		}
-        if(array_key_exists($facetName,$request)){
+        }
+        if (array_key_exists($facetName,$request)) {
         $facet = $request[$facetName];
-        if(isset($facet)){
+        if (isset($facet)) {
             unset($request[$facetName]);
             unset($request['facetType']);
             $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request),'default',true)
@@ -111,8 +115,9 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract 
         }
                 }
         $html .= '</div>';
+
         return $html;
-        	}
+            }
         } else {
             throw new Pas_Exception_BadJuJu('The facet is not an array');
         }
@@ -120,11 +125,12 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract 
 
     /** Create a pretty name for the facet
      * @access public
-     * @param string $name
+     * @param  string $name
      * @return string
      */
-    protected function _prettyName($name){
-        switch($name){
+    protected function _prettyName($name)
+    {
+        switch ($name) {
             case 'objectType':
                 $clean = 'Object type';
                 break;
@@ -138,32 +144,34 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract 
                 $clean = 'County of origin';
                 break;
             case 'denominationName':
-            	$clean = 'Denomination';
-            	break;
+                $clean = 'Denomination';
+                break;
             case 'mintName':
-            	$clean = 'Mint';
-            	break;
+                $clean = 'Mint';
+                break;
             case 'rulerName':
-            	$clean = 'Ruler/issuer';
-            	break;
+                $clean = 'Ruler/issuer';
+                break;
             case 'licenseAcronym':
-            	$clean = 'License applicable';
-            	break;
+                $clean = 'License applicable';
+                break;
             case 'materialTerm':
-            	$clean = 'Material';
-            	break;
+                $clean = 'Material';
+                break;
             case 'institution':
-            	$clean = 'Institution';
-            	break;
+                $clean = 'Institution';
+                break;
             default:
                 $clean = ucfirst($name);
                 break;
         }
+
         return $clean;
     }
 
-    protected function _workflow($key){
-        switch($key){
+    protected function _workflow($key)
+    {
+        switch ($key) {
             case '1':
                 $type = 'Quarantine';
                 break;
@@ -180,6 +188,7 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract 
                 $type = 'Unset workflow';
                 break;
             }
+
             return $type;
         }
 

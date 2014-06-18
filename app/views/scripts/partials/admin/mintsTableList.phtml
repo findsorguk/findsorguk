@@ -4,9 +4,9 @@ $ctrllr = $this->rulerperiod($this->t).'coins';
 <tr class="valid-<?php echo $this->valid;?>">
 <td><?php echo $this->escape($this->mint_name).'<br /> ' .$this->escape($this->t);?></td>
 <td><?php echo $this->timeAgoInWords($this->created);?></td>
-<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->nameThem()->setName($this->fullname);?></td>
 <td><?php echo $this->timeAgoInWords($this->updated);?></td>
-<td><?php echo $this->namethem($this->fn);?></td>
+<td><?php echo $this->nameThem()->setName($this->fn);?></td>
 <td><?php echo $this->validity()->setValid($this->valid);?></td>
 <td>
 <?php

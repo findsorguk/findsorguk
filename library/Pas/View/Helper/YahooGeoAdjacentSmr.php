@@ -1,24 +1,35 @@
-<?php 
-/** A view helper that queries the local geo planet database and returns html of adjacent places
+<?php
+/** 
+ * A view helper that queries the local geo planet database and returns html of adjacent places
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->YahooGeoAdjacentSmr()->setWoeid($this->woeid);
+ * ?>
+ * </code>
+ * 
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
  * @version 1
  * @license GNU
  * @copyright Daniel Pett
- * @author Daniel Pett
  * @since 30 September 2011
  * @uses Zend_View_Helper_Url
- */ 
-class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract 
-{
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @example /app/views/scripts/partials/database/smrrecord.phtml 
+ * 
+ */
+class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract {
 
      /** The woeid to query
      * @access protected
      * @var int
      */
     protected $_woeid;
-    
+
     /** Get the woeid to query
      * @access public
      * @return int
@@ -26,12 +37,13 @@ class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract
     public function getWoeid() {
         return $this->_woeid;
     }
-    
+
     /** Set the woeid to query
      * @access public
-     * @return int
+     * @param int $woeid
+     * @return \Pas_View_Helper_YahooGeoAdjacentSmr
      */
-    public function setWoeid( int $woeid) {
+    public function setWoeid($woeid) {
         $this->_woeid = $woeid;
         return $this;
     }
@@ -42,36 +54,36 @@ class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract
      */
     public function getPlaces() {
         $adjacent = new GeoPlaces();
-	return $adjacent->getAdjacent($this->getWoeid());
+        return $adjacent->getAdjacent($this->getWoeid());
     }
-    
+
     /** The function to return
      * @access public
      * @return \Pas_View_Helper_YahooGeoAdjacent
      */
-    public function yahooGeoAdjacentSmr() {
+    public function yahooGeoAdjacentSmr()  {
         return $this;
     }
-    
+
      /** Build the html
      * @access public
      * @return string
      */
-    public function buildHtml(){
+    public function buildHtml() {
         $html = '';
         $places = $this->getPlaces();
-        if(count($places)){
+        if (count($places)) {
             $html .= '<div id="adjacentsmr">';
             $html .= '<h3>Adjacent places</h3>';
             $html .= '<ul>';
-            foreach($places as $p ) {
+            foreach ($places as $p) {
                 $url = $this->view->url(array(
                     'module' => 'database',
                     'controller' => 'smr',
                     'action' => 'bywoeid',
                     'woeid' => $p['WOE_ID']),
                         null, true);
-	
+
                 $html .= '<li><a href="';
                 $html .=  $url;
                 $html .= '" title="Find all objects associated with this WOEID">';
@@ -80,7 +92,7 @@ class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract
             }
             $html .= '</ul>';
             $html .= '</div>';
-	}
+            }
         return $html;
     }
 }

@@ -77,7 +77,7 @@ echo $this->url(array('module' => 'database','controller'=>'treasure', 'action'=
 <?php foreach($this->tvcs as $tvc):?>
 <li><a href="<?php echo $this->url(
 array('module' => 'treasure','controller' => 'tvc','action' => 'details', 'id' => $tvc['id']
-),null,true);?>" title="View details for TVC"><?php echo $this->niceshortdate($tvc['date']);?> held in the <?php echo $tvc['location'];?></a></li>
+),null,true);?>" title="View details for TVC"><?php echo $this->niceShortDate()->setDate($tvc['date']);?> held in the <?php echo $tvc['location'];?></a></li>
 <?php endforeach;?>
 </ol>
 <?php else:?>

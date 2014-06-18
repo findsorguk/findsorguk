@@ -4,7 +4,7 @@ $this->headTitle('Denominations issued during the Medieval period');
 <h2>Post Medieval denominations</h2>
 <p>The following coins were issued during the Post Medieval period.</p>
 <?php if(count($this->denominations)):?>
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/numismatics/denominations.phtml',$this->denominations);?>
 </ul>
 <?php echo $this->paginationControl($this->denominations, 'Sliding', 'structure/pagination.phtml'); ?>

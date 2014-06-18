@@ -4,7 +4,7 @@
 <?php }?>
 <p class="byline"><?php echo date_format(date_create($this->pubDate),'Y/m/d');?> by <?php echo $this->byline;?><br />
 Originally published in <?php echo $this->publication;?> <?php echo $this->sectionName;?></p>
-<p><?php echo $this->ellipsisstring($this->content,1000);?></p>
+<p><?php echo $this->ellipsisString()->setString($this->content)->setMax(1000);?></p>
 <p>Read <a href="<?php echo $this->url(array('module' => 'news','controller' => 'guardian','action' => 'story','id' => urlencode($this->id)),NULL,true);?>" title="Read entire story here">entire story &raquo;</a></p>
 <ul class="keywords">
 <?php 

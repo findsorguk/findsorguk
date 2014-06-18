@@ -9,28 +9,28 @@ $this->headMeta('kings,doges,foreign,low countries,venice,medieval,imitations,
 
 <h3>Late medieval French coins</h3>
 <p>This period had <?php echo count($this->french);?> issuers.</p>
-<ul id="related">
+<ul>
 <?php 
 echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->french); ?>
 </ul>
 
 <h3>Coins of Scotland</h3>
 <p>This period had <?php echo count($this->scots);?> issuers.</p>
-<ul id="related">
+<ul>
 <?php 
 echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->scots); ?>
 </ul>
 
 <h3>The Doges of Venice</h3>
 <p>This period had <?php echo count($this->doges);?> issuers.</p>
-<ul id="related">
+<ul>
 <?php 
 echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->doges); ?>
 </ul>
 
 <h3>Coins of Portugal</h3>
 <p>This period had <?php echo count($this->portugal);?> issuers.</p>
-<ul id="related">
+<ul>
 <?php 
 echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->portugal); 
 ?>
@@ -38,7 +38,7 @@ echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->portugal);
 
 <h3>Coins of the Medieval Low Countries</h3>
 <p>This period had <?php echo count($this->low);?> issuers.</p>
-<ul id="related">
+<ul>
 <?php 
 echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->low); 
 ?>
@@ -46,7 +46,7 @@ echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->low);
 
 <h3>Edwardian imitations (Continental)</h3>
 <p>This period had <?php echo count($this->imitate);?> issuers.</p>
-<ul id="related">
+<ul>
 <?php 
 echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->imitate);
 ?>
@@ -54,7 +54,7 @@ echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->imitate);
 
 <h3>Short Long cross imitations (Continental)</h3>
 <p>This period had <?php echo count($this->shortlongs);?> issuers.</p>
-<ul id="related">
+<ul>
 <?php 
 echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->shortlongs);
 ?>

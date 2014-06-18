@@ -33,7 +33,7 @@ require_once 'Zend/View/Helper/Placeholder/Container/Standalone.php';
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_Standalone
+class Pas_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_Standalone
 {
     /**
      * Types of attributes
@@ -64,11 +64,11 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
     /**
      * Retrieve object instance; optionally add meta tag
      *
-     * @param  string $content
-     * @param  string $keyValue
-     * @param  string $keyType
-     * @param  array $modifiers
-     * @param  string $placement
+     * @param  string                    $content
+     * @param  string                    $keyValue
+     * @param  string                    $keyType
+     * @param  array                     $modifiers
+     * @param  string                    $placement
      * @return Zend_View_Helper_HeadMeta
      */
     public function headRdf($content = null, $keyValue = null, $keyType = 'property', $modifiers = array(), $placement = Zend_View_Helper_Placeholder_Container_Abstract::APPEND)
@@ -119,8 +119,8 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
      * - prependHttpEquiv($keyValue, $content, $modifiers = array())
      * - setHttpEquiv($keyValue, $content, $modifiers = array())
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string                    $method
+     * @param  array                     $args
      * @return Zend_View_Helper_HeadMeta
      */
     public function __call($method, $args)
@@ -156,20 +156,21 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
             }
 
             $this->$action($item);
+
             return $this;
         }
 
         return parent::__call($method, $args);
     }
 
-	/**
-	 * Create an HTML5-style meta charset tag. Something like <meta charset="utf-8">
-	 * 
-	 * Not valid in a non-HTML5 doctype
-	 *
-	 * @param string $charset 
-	 * @return Zend_View_Helper_HeadMeta Provides a fluent interface
-	 */
+    /**
+     * Create an HTML5-style meta charset tag. Something like <meta charset="utf-8">
+     *
+     * Not valid in a non-HTML5 doctype
+     *
+     * @param  string                    $charset
+     * @return Zend_View_Helper_HeadMeta Provides a fluent interface
+     */
     public function setCharset($charset)
     {
         $item = new stdClass;
@@ -178,13 +179,14 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
         $item->content = null;
         $item->modifiers = array();
         $this->set($item);
+
         return $this;
     }
 
     /**
      * Determine if item is valid
      *
-     * @param  mixed $item
+     * @param  mixed   $item
      * @return boolean
      */
     protected function _isValid($item)
@@ -208,7 +210,7 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
     /**
      * Append
      *
-     * @param  string $value
+     * @param  string              $value
      * @return void
      * @throws Zend_View_Exception
      */
@@ -227,8 +229,8 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
     /**
      * OffsetSet
      *
-     * @param  string|int $index
-     * @param  string $value
+     * @param  string|int          $index
+     * @param  string              $value
      * @return void
      * @throws Zend_View_Exception
      */
@@ -247,7 +249,7 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
     /**
      * OffsetUnset
      *
-     * @param  string|int $index
+     * @param  string|int          $index
      * @return void
      * @throws Zend_View_Exception
      */
@@ -266,7 +268,7 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
     /**
      * Prepend
      *
-     * @param  string $value
+     * @param  string              $value
      * @return void
      * @throws Zend_View_Exception
      */
@@ -285,7 +287,7 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
     /**
      * Set
      *
-     * @param  string $value
+     * @param  string              $value
      * @return void
      * @throws Zend_View_Exception
      */
@@ -314,7 +316,7 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
      * @param  string $type
      * @param  string $typeValue
      * @param  string $content
-     * @param  array $modifiers
+     * @param  array  $modifiers
      * @return string
      */
     public function itemToString(stdClass $item)
@@ -344,9 +346,9 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
         if ($this->view instanceof Zend_View_Abstract) {
             if ($this->view->doctype()->isHtml5()
             && $type == 'charset') {
-				$tpl = ($this->view->doctype()->isXhtml())
-					? '<meta %s="%s"/>'
-					: '<meta %s="%s">';
+                $tpl = ($this->view->doctype()->isXhtml())
+                    ? '<meta %s="%s"/>'
+                    : '<meta %s="%s">';
             } elseif ($this->view->doctype()->isXhtml()) {
                 $tpl = '<meta %s="%s" content="%s" %s/>';
             } else {
@@ -363,6 +365,7 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
             $this->_escape($item->content),
             $modifiersString
         );
+
         return $meta;
     }
 
@@ -386,18 +389,20 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
             }
         } catch (Zend_View_Exception $e) {
             trigger_error($e->getMessage(), E_USER_WARNING);
+
             return '';
         }
+
         return $indent . implode($this->_escape($this->getSeparator()) . $indent, $items);
     }
 
     /**
      * Create data item for inserting into stack
      *
-     * @param  string $type
-     * @param  string $typeValue
-     * @param  string $content
-     * @param  array $modifiers
+     * @param  string   $type
+     * @param  string   $typeValue
+     * @param  string   $content
+     * @param  array    $modifiers
      * @return stdClass
      */
     public function createData($type, $typeValue, $content, array $modifiers)
@@ -407,6 +412,7 @@ class Zend_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_St
         $data->$type     = $typeValue;
         $data->content   = $content;
         $data->modifiers = $modifiers;
+
         return $data;
     }
 }

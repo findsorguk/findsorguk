@@ -1,9 +1,17 @@
 <?php 
 $this->headTitle('Coroner\'s Profile for '. $this->escape($this->firstname). ' ' . $this->escape($this->lastname));
 $this->headLink()->appendAlternate(
-$this->url(array('module' => 'contacts','controller' => 'coroners','action' => 'profile','id' => $this->id,'format' => 'foaf'),NULL,true)
+$this->url(array(
+    'module' => 'contacts',
+    'controller' => 'coroners',
+    'action' => 'profile',
+    'id' => $this->id,'format' => 'foaf'),NULL,true)
 , 'application/rdf+xml', 'FOAF');
-$this->metaBase('A description of the coroner for ' . $this->region_name,'coroner profile','coroner,' . $this->region_name);
+$this->metaBase()
+        ->setDescription('A description of the coroner for ' . $this->region_name)
+        ->setSubject('coroner profile')
+        ->setKeywords('coroner,' . $this->region_name)
+        ->generate();
 ?>
 				
 				

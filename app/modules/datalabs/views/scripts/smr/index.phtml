@@ -32,8 +32,8 @@ $this->headTitle('List all Scheduled Monuments of the National Monument record')
 
 <div class="span3">
 <p><a class="btn btn-small" href="<?php echo $this->url(array('module' => 'database','controller' => 'smr','action' => 'map'),'default',false);?>">Map these sites</a></p>
-        <?php echo $this->resultsQuantityChooser($this->paginator);?>
-        <?php echo $this->resultsSorter($this->paginator);?>
+        <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
+        <?php echo $this->resultsSorter()->setResults($this->paginator);?>
         <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>
         <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
         <?php echo $this->statGenerator()->setStats($this->stats);?>

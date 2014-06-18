@@ -21,4 +21,4 @@ echo date(DATE_ATOM,$date);?>">Published: <?php echo  $this->timeAgoInWords($thi
 </div>
  <?php endif;?>
 </div>
-<?php echo $this->NewsCommentCount($this->id);?>
+<?php echo $this->newsCommentCount()->setId($this->id);?>

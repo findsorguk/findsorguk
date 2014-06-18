@@ -2,6 +2,17 @@
 
 /**
  * PelagiosAnnotations helper
+ *
+ * This view helper queries the Pelagios API and retrieves annotations from
+ * their system.
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->pelagiosAnnotations()->setPleiadesPlace($placeID);
+ * ?>
+ * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @uses viewHelper Pas_View_Helper
  * @copyright (c) 2014, Daniel Pett
@@ -62,12 +73,12 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
 
     /** set the Pleiades place
      * @access public
-     * @param int $place
+     * @param  int $place
      * @return \Pas_View_Helper_PelagiosAnnotations
      * @throws Zend_Exception
      */
-    public function setPleiadesPlace( int $place ) {
-        if(isset( $place )){
+    public function setPleiadesPlace($place) {
+        if (isset( $place )) {
             $this->_uri = urlencode(self::PLEIADESURI . $place);
         } else {
             throw new Zend_Exception('No uri has been provided to query');
@@ -97,7 +108,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
         $data = $response->getBody();
         $json = json_decode($data);
         $newJson = array();
-        foreach($json as $js){
+        foreach ($json as $js) {
             $js->pleiades = $this->_uri;
             $newJson[] = $js;
         }
@@ -112,9 +123,9 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function html(){
+    public function html() {
         $html = '<h3>Other resources via Pelagios</h3>';
-        if($this->_getData()){
+        if ($this->_getData()) {
             $html .= '<ul>';
             $html .= $this->view->partialLoop('partials/numismatics/pelagios.phtml',
                     $this->_getData());
@@ -132,7 +143,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString(){
+    public function __toString() {
         return $this->html();
     }
 }

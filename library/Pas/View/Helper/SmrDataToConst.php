@@ -1,11 +1,7 @@
 <?php
 /**
+ * A view helper for getting a count of SMR records within a constituency
  *
- * @author dpett
- * @version
- */
-
-/** A view helper for getting a count of SMR records within a constituency
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
@@ -13,46 +9,86 @@
  * @copyright Daniel Pett
  * @author Daniel Pett
  * @version 1
- * @uses viewHelper Pas_View_Helper extends Zend_View_Helper_Abstract
+ * @uses viewHelper Pas_View_Helper
+ * @uses ScheduledMonuments
  */
-class Pas_View_Helper_SmrDataToConst extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_SmrDataToConst extends Zend_View_Helper_Abstract
+{
 
-
-    /** Get all SMR data for a consituency
-     *
-     * @param string $constituency
-     * @return null
+    /** The constituency to query
+     * @access protected
+     * @var type
      */
-    public function SmrDataToConst($constituency) {
-    $os = $this->getRecords($constituency);
-    if($os){
-    return $this->buildHtml($os);
-    }else {
-    return null;
+    protected $_constituency;
+
+    /** Get the constituency to query
+     * @access public
+     * @return string
+     */
+    public function getConstituency()
+    {
+        return $this->_constituency;
     }
+
+    /** Set the constituency
+     * @access public
+     * @param  string                          $constituency
+     * @return \Pas_View_Helper_SmrDataToConst
+     */
+    public function setConstituency( $constituency)
+    {
+        $this->_constituency = $constituency;
+
+        return $this;
+    }
+
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_SmrDataToConst
+     */
+    public function smrDataToConst()
+    {
+        return $this;
+    }
+
+    /** Get the data
+     * @access public
+     * @return function
+     */
+    public function getData()
+    {
+        $os = $this->getRecords( $this->getConstituency() );
+
+        return $this->buildHtml($os);
     }
 
     /** Get the records from the database
-     *
-     * @param string $constituency
-     * @return
+     * @access public
+     * @param  string $constituency
+     * @return array
      */
-    public function getRecords($constituency) {
-    $osdata = new ScheduledMonuments();
-    return $osdata->getSmrsConstituency($constituency);
+    public function getRecords( $constituency)
+    {
+        $osdata = new ScheduledMonuments();
 
+        return $osdata->getSmrsConstituency( $constituency );
     }
 
     /** Build the HTML
-     *
-     * @param array $os
+     * @access public
+     * @param  array  $os
      * @return string
      */
-    public function buildHtml($os){
-    $string = '<p>There are ' . count($os);
-    $string .= ' scheduled monuments listed in the National Monuments Records';
-    $string .= 'from EH for this constituency.</p>';
-    return $string;
+    public function buildHtml(array $os)
+    {
+        $html = '';
+        if (is_array( $os )) {
+            $html .= '<p>There are ';
+            $html .= count($os);
+            $html .= ' scheduled monuments listed in the National Monuments Records';
+            $html .= 'from EH for this constituency.</p>';
+        }
+
+        return $html;
     }
 }
-

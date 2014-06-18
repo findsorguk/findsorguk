@@ -1,5 +1,14 @@
 <?php
 /** A view helper for getting a count of SMR records within a constituency
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->findsWithinConst()->setConstituency('Battersea');
+ * ?>
+ * </code>
+ * 
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
@@ -34,10 +43,10 @@ class Pas_View_Helper_FindsWithinConst extends Zend_View_Helper_Abstract
 
     /** Set the constituency
      * @access public
-     * @param string $constituency
+     * @param  string $constituency
      * @return \Pas_View_Helper_FindsOfNoteConst
      */
-    public function setConstituency( string $constituency) {
+    public function setConstituency( $constituency ) {
         $this->_constituency = $constituency;
         return $this;
     }
@@ -46,7 +55,7 @@ class Pas_View_Helper_FindsWithinConst extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache(){
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
@@ -69,23 +78,23 @@ class Pas_View_Helper_FindsWithinConst extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString(){
         return $this->getData($this->getConstituency());
     }
 
     /** Get the constituency's geometry
      * @access public
-     * @param string $constituency
+     * @param  string $constituency
      * @return object
      */
-    public function getGeometry(string $constituency) {
+    public function getGeometry( $constituency ) {
         $geo = new Pas_Twfy_Geometry();
         return $geo->get($constituency);
     }
 
     /** Get the data for the constituency
      * @access public
-     * @param string $constituency
+     * @param  string $constituency
      * @return string
      */
     public function getData($constituency) {
@@ -97,50 +106,56 @@ class Pas_View_Helper_FindsWithinConst extends Zend_View_Helper_Abstract
 
     /** Get the data from the solr index
      * @access public
-     * @param string $constituency
+     * @param  string $constituency
      * @return int
      */
-    public function getSolr(string $constituency){
+    public function getSolr( $constituency ) {
         $geometry = $this->getGeometry($constituency);
         $bbox = array(
             $geometry->min_lat,
             $geometry->min_lon,
             $geometry->max_lat,
-            $geometry->max_lon);
-	$search = new Pas_Solr_Handler('beowulf');
+            $geometry->max_lon
+                );
+        $search = new Pas_Solr_Handler('beowulf');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',
             'filename','thumbnail','old_findID',
             'description', 'county')
             );
-	$search->setParams(array('bbox' => implode(',',$bbox)));
+
+        $search->setParams(
+                array(
+                    'bbox' => implode(',',$bbox)
+                    )
+                );
         $search->execute();
         $this->_geometry = implode(',', $bbox);
         return $search->getNumber();
     }
 
     /** Build the html
-     * @param int $data
-     * @param string $constituency
+     * @param  int $data
+     * @param  string $constituency
      * @return string
      */
-    public function buildHtml(int $data, string $constituency){
+    public function buildHtml($data, $constituency) {
         $html = '';
-	if($data > 0){
+        if ($data > 0 && is_string($constituency)) {
         $url = $this->view->url(array(
             'module' => 'news',
             'controller' => 'theyworkforyou',
             'action' => 'finds',
             'constituency' => $constituency,
             ),'default',true);
-	$html .= '<p>There are <a href="';
+
+        $html .= '<p>There are <a href="';
         $html .= $url;
         $html .= '" title ="View finds for this constituency">';
         $html .= $data;
         $html .= ' finds</a> recorded in this constituency.</p>';
-	}
+        }
         return $html;
     }
 }
-

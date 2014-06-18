@@ -1,20 +1,28 @@
 <?php
 /**
  * A basic view helper for displaying  user agent
+ *
+ * Example of use:
+ * <code>
+ * <?php
+ * echo $this->userAgent()
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @see Zend_View_Helper_Abstract
+ * @example /app/views/scripts/email/requestPublication.phtml
  */
-class Pas_View_Helper_UserAgent extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_UserAgent  {
 
     protected $_userAgent;
 
     /** Get the user agent
-     *
+     * @access public
      * @return string
      */
     public function getUserAgent() {
@@ -24,7 +32,7 @@ class Pas_View_Helper_UserAgent extends Zend_View_Helper_Abstract
     }
 
     /** The function
-     *
+     * @access public
      * @return \Pas_View_Helper_UserAgent
      */
     public function userAgent() {
@@ -32,11 +40,10 @@ class Pas_View_Helper_UserAgent extends Zend_View_Helper_Abstract
     }
 
     /** Magic to string method
-     *
+     * @access public
      * @return string
      */
     public function __toString() {
         return $this->getUserAgent();
     }
-
 }

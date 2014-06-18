@@ -1,22 +1,31 @@
 <?php
-$this->headTitle('A list of all active mints on the Scheme\'s database');
-$this->MetaBasic();?>
-<h2>Mints in use on the database</h2>
+$this->headTitle('A list of all active mints');
+$this->metaBase()
+        ->setDescription($this->title())
+        ->generate();
+?>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
+
 <?php if (count($this->mints)): ?>
 <table class="table table-striped" summary="A list of all mints used by the database">
-<caption>A list of all available mints, for all periods, on our database</caption>
+    <caption>A list of all available mints, for all periods, on our database</caption>
     <thead>
         <tr>
             <th>Mint name</th>
             <th>Period of use</th>
         </tr>
     </thead>
-<tbody>
-<?php echo $this->partialLoop('partials/database/mintsTableListPublic.phtml',$this->mints);?>
-</tbody>
+    <tbody>
+        <?php echo $this->partialLoop('partials/database/mintsTableListPublic.phtml',$this->mints);?>
+    </tbody>
 </table>
+
 <?php echo $this->paginationControl($this->mints, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
-<p>Nothing happening here!</p>
+    <p>
+        Nothing happening here!
+    </p>
 <?php endif;?>
 

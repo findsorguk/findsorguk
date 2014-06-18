@@ -1,22 +1,31 @@
 <?php
 /**
  * A view helper for displaying workflow as a textual representation
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->workflowStatus()->setWorkflow(1);
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @see Zend_View_Helper_Abstract
+ * @example /app/views/scripts/email/informFinderWorkflow.phtml 
  */
-class Pas_View_Helper_WorkflowStatus extends Zend_View_Helper_Abstract 
-{
-    
+class Pas_View_Helper_WorkflowStatus {
+
      /** Default workflow status
      * @access protected
      * @var int
      */
     protected $_secwfstage = 1;
-    
+
     /** Get the workflow stage
      * @access public
      * @return type
@@ -27,10 +36,10 @@ class Pas_View_Helper_WorkflowStatus extends Zend_View_Helper_Abstract
 
     /** Set the Workflow status
      * @access public
-     * @param int $secwfstage
+     * @param  int $secwfstage
      * @return \Pas_View_Helper_Workflow
      */
-    public function setWorkflow( int $secwfstage) {
+    public function setWorkflow($secwfstage) {
         $this->_secwfstage = $secwfstage;
         return $this;
     }
@@ -42,7 +51,7 @@ class Pas_View_Helper_WorkflowStatus extends Zend_View_Helper_Abstract
     public function workflow() {
         return $this;
     }
-    
+
     /** The magic to string method
      * @access public
      * @return type
@@ -50,30 +59,29 @@ class Pas_View_Helper_WorkflowStatus extends Zend_View_Helper_Abstract
     public function __toString() {
         return $this->_buildHtml();
     }
-    
+
     /** Render the html string
      * @access public
      * @return string
-     * @throws Zend_Exception
      */
-    public function _buildHtml() {
+    public function _buildHtml()  {
         switch ( $this->getSecwfstage() ) {
             case 1:
-		$wf = 'Quarantine';
+        $wf = 'Quarantine';
                 break;
             case 2:
                 $wf = 'On review';
-		break;
+        break;
             case 4:
                 $wf = 'Awaiting validation';
                 break;
             case 3:
                 $wf = 'Published';
-                break; 
+                break;
             default:
-                throw new Zend_Exception('No workflow status set', 500);
-	}
+                $wf = 'No workflow status set';
+                break;
+        }
         return $wf;
     }
-
 }

@@ -1,27 +1,37 @@
 <?php
+/**
+ * A view file for sending a rss feed of suggested research topics
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * 
+ */
 $feedArray = array(
     'title' => 'Suggested research projects on Scheme data',
     'link' => $this->curUrl(),
     'charset' => 'utf-8',
     'description' => 'Latest feed of suggested research projects on Scheme data',
     'author' => 'The Portable Antiquities Scheme',
-    'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
+
+    'image' => $this->serverUrl() . $this->baseUrl() . '/assets/logos/pas.jpg',
     'email' => 'info@finds.org.uk',
     'copyright' => 'Creative Commons Licenced',
     'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
     'language' => 'en',
     'entries' => array()
     );
+
 foreach ($this->suggested as $suggest) {
+
     $feedArray['entries'][] = array(
+				
         'title' => $suggest['title'],
-        'link' => $this->serverUrl() . '/research/projects/topic/id/' . $suggest['id'],
-        'guid' => $this->serverUrl() . '/research/projects/topic/id/'. $suggest['id'],
-        'description' => strip_tags($this->ellipsisString(str_replace('£','&pound;',$suggest['description']),300)),
+        'link' => Zend_Registry::get('siteurl').'/research/projects/topic/id/'.$suggest['id'],
+        'guid' => Zend_Registry::get('siteurl').'/research/projects/topic/id/'.$suggest['id'],
+        'description' => strip_tags($this->ellipsisString()->setString(str_replace('£','&pound;',$suggest['description']))->setMax(300)),
         'lastUpdate' => strtotime($suggest['updated']),
         'content' => strip_tags(str_replace('£','&pound;',$suggest['description']),''),
         );
-    }
-    
-    $feed = Zend_Feed::importArray($feedArray,'rss');
-    $feed->send();
+}
+
+$feed = Zend_Feed::importArray($feedArray,'rss');
+$feed->send();

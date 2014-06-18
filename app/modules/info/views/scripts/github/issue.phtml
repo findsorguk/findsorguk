@@ -5,8 +5,8 @@ $this->headTitle('Details for issue');
 <p><?php echo $this->issue['body'];?></p>
 <p>
 State: <?php echo $this->issue['state'];?><br />
-Created: <?php echo $this->niceshortdate($this->issue['created_at']);?><br />
-Updated: <?php echo $this->niceshortdate($this->issue['updated_at']);?>
+Created: <?php echo $this->niceShortDate()->setDate($this->issue['created_at']);?><br />
+Updated: <?php echo $this->niceShortDate()->setDate($this->issue['updated_at']);?>
 </p>
 <h4>Who is dealing with this</h4>
 <p>

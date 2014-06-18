@@ -1,176 +1,339 @@
 <?php
 /**
  * This class is to help display links for edit or delete image functions
+ *
+ * It takes data from the finds model and checks it conditionally against
+ * if/else statements and renders the link if possible.
+ *
+ * To use:
+ *
+ * <code>
+ * <?php
+ * echo $this->imageLink()
+ * ->setInstitution($institution)
+ * ->setSecuID($secuid)
+ * ->setCreatedBy($createdBy);
+ * ?>
+ * </code>
+ *
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license    GNU
  * @uses Zend_View_Helper_Abstract
- * @author Daniel Pett
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @since September 13 2011
+ * @version 2
+ *
 */
-class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract {
-/** Set up the user groups with no access
-	 *
-	 * @var array $noaccess
-	 */
-	protected $noaccess = array('public');
+class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
+{
 
-	/** Set up the user groups with limited access
-	 *
-	 * @var array $restricted
-	 */
-	protected $restricted = array('member','research','hero');
+    /** Set up the user groups with no access
+     * @access protected
+     * @var array $noaccess
+     */
+    protected $noaccess = array('public', null);
 
-	/** Set up the user groups with recorder access
-	 *
-	 * @var array $recorders
-	 */
-	protected $recorders = array('flos');
+    /** Set up the user groups with limited access
+     * @access protected
+     * @var array $restricted
+     */
+    protected $restricted = array('member','research','hero');
 
-	/** Set up the user groups with higher level access
-	 *
-	 * @var array $higherLevel
-	 */
-	protected $higherLevel = array('admin','fa','treasure');
+    /** Set up the user groups with recorder access
+     * @access protected
+     * @var array $recorders
+     */
+    protected $recorders = array('flos');
 
-	/** Set up the exception error if missing a group from user profile
-	 *
-	 * @var string $_missingGroup
-	 */
-	protected $_missingGroup = 'User is not assigned to a group';
+    /** Set up the user groups with higher level access
+     * @access protected
+     * @var array $higherLevel
+     */
+    protected $higherLevel = array('admin','fa','treasure');
 
-	/** Set up the error message
-	 *
-	 * @var string $_message
-	 */
-	protected $_message = 'You are not allowed edit rights to this record';
+    /** The auth object
+     * @access protected
+     * @var object
+     */
+    protected $_auth;
 
+    /** The creator
+     * @access protected
+     * @var int
+     */
+    protected $_createdBy;
 
-	protected $_auth;
+    /** The institution of the recorder creator
+     * @access protected
+     * @var string
+     */
+    protected $_institution = 'PUBLIC';
 
-	public function __construct(){
-	$auth = Zend_Auth::getInstance();
-	$this->_auth = $auth;
-	}
+    /** The institution of the user
+     * @access protected
+     * @var string
+     */
+    protected $_inst;
+
+    /** The record's secuid
+     * @access protected
+     * @var string
+     */
+    protected $_secuid;
+
+    /** The role of the user
+     * @access protected
+     * @var string
+     */
+    protected $_role = null;
+
+    /** get the creator
+     * @access public
+     * @return int
+     */
+    public function getCreatedBy() {
+        return $this->_createdBy;
+    }
+
+    /** Get the institution
+     * @access public
+     * @return string
+     */
+    public function getInstitution() {
+        return $this->_institution;
+    }
+
+    /** Get the secure ID
+     * @access public
+     * @return string
+     */
+    public function getSecuid() {
+        return $this->_secuid;
+    }
+
+    /** Set createdby
+     * @access public
+     * @param int $createdBy
+     * @return \Pas_View_Helper_ImageLink
+     */
+    public function setCreatedBy( $createdBy) {
+        $this->_createdBy = $createdBy;
+        return $this;
+    }
+
+    /** Set the institution
+     * @access public
+     * @param string $institution
+     * @return \Pas_View_Helper_ImageLink
+     */
+    public function setInstitution( $institution) {
+        $this->_institution = $institution;
+        return $this;
+    }
+
+    /** Set the secure ID
+     * @access public
+     * @param string $secuid
+     * @return \Pas_View_Helper_ImageLink
+     */
+    public function setSecuid( $secuid) {
+        $this->_secuid = $secuid;
+        return $this;
+    }
 
     /** Get the user's role
      * @access public
-     * @return string $role
+     * @return string
      */
-	public function getRole() {
-	if($this->_auth->hasIdentity()) {
-	$user = $this->_auth->getIdentity();
-	$role = $user->role;
-	} else {
-	$role = 'public';
-	}
-	return $role;
-	}
+    public function getRole() {
+        if ($this->getAuth()->hasIdentity()) {
+        $user = $this->getAuth()->getIdentity();
+        $this->_role = $user->role;
+        }
+        return $this->_role;
+    }
 
-	/** Get user's ID number
-	 * @access public
-	 * @return integer $id
-	 */
-	public function getIdentityForForms(){
-	if($this->_auth->hasIdentity()){
-	$user = $this->_auth->getIdentity();
-	$id = $user->id;
-	} else {
-	$id = '3';
-	}
-	return $id;
-	}
+    /** Get the auth object
+     * @access public
+     * @return object
+     */
+    public function getAuth() {
+        $this->_auth = Zend_Registry::get('auth');
+        return $this->_auth;
+    }
 
-	/** Check access by institution ID
-	 * @access public
-	 * @param string $oldfindID
-	 * @return boolean
-	 */
-	public function checkAccessbyInstitution($oldfindID) {
-	$find = explode('-', $oldfindID);
-	$id = $find['0'];
-	$inst = $this->getInst();
-	if((in_array($this->getRole(),$this->recorders) && ($id === 'PUBLIC'))) {
-	return TRUE;
-	} else if($id == $inst) {
-	return TRUE;
-	}
-	}
+    /** Set the find ID to query
+     * @access public
+     * @param int $findID
+     * @return \Pas_View_Helper_CoinRefAddLink
+     */
+    public function setFindID( $findID) {
+        $this->_findID = $findID;
+        return $this;
+    }
 
-	/** Check access to record by userID number and creation
-	 * @access public
-	 * @param integer $userID
-	 * @param integer $createdBy
-	 * @return boolean
-	 */
-	public function checkAccessbyUserID($userID, $createdBy) {
-	if($userID === $createdBy) {
-	return TRUE;
-	} else {
-	return FALSE;
-	}
-	}
+    /** The findID
+     * @access protected
+     * @var int
+     */
+    protected $_findID;
 
-	/** get the user institution
-	 * @access public
-	 * @return string $inst
-	 * @throws Pas_Exception_Group
-	 */
-	public function getInst() {
-	if($this->_auth->hasIdentity())	{
-	$user = $this->_auth->getIdentity();
-	$inst = $user->institution;
-	if(is_null($inst)){
-	throw new Pas_Exception_Group($this->_missingGroup);
-	}
-	return $inst;
-	} else {
-	return FALSE;
-	}
-	}
+    /** Get the findID
+     * @access public
+     * @return int
+     */
+    public function getFindID() {
+        return $this->_findID;
+    }
 
-	/** Create the links for images
-	 * @access public
-	 * @param string $oldfindID
-	 * @param string $findID
-	 * @param string $secuid
-	 * @param integer $createdBy
-	 * @return string
-	 */
-	public function ImageLink($oldfindID, $findID, $secuid, $createdBy) {
-	$byID = $this->checkAccessbyUserID($this->getIdentityForForms(),$createdBy);
-	$instID = $this->checkAccessbyInstitution($oldfindID);
-	if(in_array($this->getRole(),$this->restricted)) {
-	if((($byID == TRUE) && ($instID == TRUE)) || (($byID == TRUE) && ($instID == FALSE))) {
-	return $this->buildHtml($findID,$secuid);
-	}
-	} elseif (in_array($this->getRole(),$this->recorders)) {
-	if((($byID == true) && ($instID === false)) || (($byID === FALSE) && ($instID === TRUE))
-	|| ($byID === true && $instID === true)) {
-	return $this->buildHtml($findID,$secuid);
-	}
-	} else if(in_array($this->getRole(),$this->higherLevel)) {
-	return $this->buildHtml($findID,$secuid);
-	} else {
-	return FALSE;
-	}
-	}
+    /** The user id
+     * @access protected
+     * @var type
+     */
+    protected $_userID;
 
-	/** Build the html
-	 * @access public
-	 * @param string $findID
-	 * @param string $secuid
-	 * @return string $string
-	 */
-	public function buildHtml($findID, $secuid) {
-	$url = $this->view->url(array('module' => 'database','controller' => 'images','action' => 'add',
-	'id' => $findID, 'findID' => $secuid),null,TRUE);
-        $class = 'btn btn-small btn-success';
-	$string = '<div class="noprint"><a href="' . $url
-	. '" title="Add an image to this find" accesskey="i" class="' . $class .'">Add an image</a></div>';
-	return $string;
-	}
+    /** Get the user's ID
+     * @access public
+     * @return int
+     */
+    public function getUserID() {
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $this->_userID = $user->id;
+        }
+        return $this->_userID;
+    }
+
+    /** Get the user's institution
+     * @access public
+     * @return string
+     */
+    public function getInst() {
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $this->_inst = $user->institution;
+        }
+        return $this->_inst;
+    }
+
+     /** Check whether access is allowed by userid for that record
+     *
+     * This function conditionally checks to see if a user is in the restricted
+     * group and then checks whether they created the record. If true, they can
+     * edit it.
+     *
+     * @access public
+     * @param int $createdBy
+     * @return boolean
+     */
+    public function checkAccessbyUserID($createdBy ) {
+            if (in_array( $this->getRole(), $this->_restricted ) ) {
+            if ($createdBy == $this->getUserID()) {
+                    $allowed = true;
+                } else {
+                    $allowed = false;
+                }
+            }
+        return $allowed;
+    }
+
+    /** Check institutional access by user's institution
+     *
+     * This function conditionally checks whether a user's institution allows
+     * them editing rights to a record.
+     *
+     * First condition: if role is in recorders array and their institution is
+     * the same, then allow.
+     *
+     * Second condition: if role is in higher level, then allow
+     *
+     * Third condition: if role is in restricted (public) and they created,
+     * then allow.
+     *
+     * Fourth condition: if role is in restricted and institution is public,
+     * then allow.
+     *
+     * @access public
+     * @param string $institution
+     * @return boolean
+     *
+     */
+    public function checkAccessbyInstitution( $institution ) {
+        if(in_array($this->getRole(),$this->_recorders)
+                && $this->getInst() == $institution) {
+            $allowed = true;
+        } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
+            $allowed = true;
+        } elseif (in_array ($this->getRole, $this->_restricted)
+                && $this->checkAccessbyUserID ($this->getCreatedBy())) {
+            $allowed = true;
+        } elseif (in_array($this->getRole(),$this->_recorders)
+                && $institution == 'PUBLIC') {
+            $allowed = true;
+        }
+        return $allowed;
+    }
+
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_ImageLink|boolean
+     */
+    public function ImageLink() {
+        return $this;
+    }
+
+    /** To string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
+        return $this->generateLink();
+    }
+
+    /** Generate the link
+     * @access public
+     * @return string
+     */
+    public function generateLink() {
+        $html = '';
+        if( $this->checkAccessbyInstitution( $this->getInstitution() ) ) {
+            $html .= $this->buildHtml();
+        }
+        return $html;
+    }
+
+    /** Build just the url
+     * @access public
+     * @return string
+     */
+    public function urlBuild() {
+        $url = array(
+            'module' => 'database',
+            'controller' => 'images',
+            'action' => 'add',
+            'secuid' => $this->getSecuID(),
+            'id' => $this->getFindID()
+        );
+        return $url;
+    }
+
+    /** Build the html
+     * @access public
+     * @return string
+     */
+    public function buildHtml() {
+        $url = $this->view->url($this->urlBuild(),null,true);
+        $html = '';
+        $html .= '<div class="noprint">';
+        $html .= '<a class="btn btn-small btn-primary" href="';
+        $html .= $url;
+        $html .= '" title="Add an image to this find">';
+        $html .= 'Add an image</a></div>';
+        return $html;
+    }
 
 }

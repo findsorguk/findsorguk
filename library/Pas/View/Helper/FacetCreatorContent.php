@@ -1,109 +1,163 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/** This view helper takes the array of facets and their counts and produces
+/** 
+ * This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->facetContentCreator()->setFacets($facets);
+ * ?>
+ * </code>
+ * 
+ * 
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
  * @version 1
  * @since 30/1/2012
  * @copyright Daniel Pett
- * @author Daniel Pett
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @license GNU
  * @uses Pas_Exception_BadJuJu
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  */
 class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
+    /** The facets variable
+     * @access public
+     * @var array
+     */
+    protected $_facets;
+    
+    /** Get the facets to query
+     * @access public
+     * @return array
+     */
+    public function getFacets() {
+        return $this->_facets;
+    }
 
-    /** Create the facets boxes for rendering
+    /** Set the facets to query
      * @access public
      * @param array $facets
+     * @return \Pas_View_Helper_FacetCreatorContent
+     */
+    public function setFacets( array $facets) {
+        $this->_facets = $facets;
+        return $this;
+    }
+
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_FacetCreatorContent
+     */
+    public function facetCreatorContent(){
+        return $this;
+    }
+    
+    /** The to string function
+     * @access public
+     * @return type
+     */
+    public function __toString() {
+        return $this->buildFacets( $this->getFacets());
+    }
+    
+    /** Create the facets boxes for rendering
+     * @access public
+     * @param  array $facets
      * @return string
      * @throws Pas_Exception_BadJuJu
      */
 
-    public function facetCreatorContent(array $facets){
-        if(is_array($facets)){
-        $html = '<h3>Search facets</h3>';
-        foreach($facets as $facetName => $facet){
-            $html .= $this->_processFacet($facet, $facetName);
-        }
+    public function buildFacets(array $facets) {
+        $html = '';
+        if (is_array($facets)) {
+            $html .= '<h3>Search facets</h3>';
+            foreach ($facets as $facetName => $facet) {
+                $html .= $this->_processFacet($facet, $facetName);
+            }
+        } 
         return $html;
-        } else {
-            throw new Pas_Exception_BadJuJu('The facets sent are not an array');
-        }
     }
 
     /** Process the facet array and name
      * @access public
-     * @param array $facet
-     * @param string $facetName
+     * @param  array $facet
+     * @param  string $facetName
      * @return string
-     * @throws Pas_Exception_BadJuJu
      * @uses Zend_Controller_Front
      * @uses Zend_View_Helper_Url
      */
-    protected function _processFacet(array $facet, $facetName){
-        if(is_array($facet)){
-        $html = '<div id="facet-' . $facetName .'">';
-        $html .= '<h4>' . $this->_prettyName($facetName) . '</h4>';
-        $html .= '<ul class="navpills nav-stacked nav">';
+    protected function _processFacet(array $facet, $facetName) {
+        $html = '';
+        if (is_array($facet)) {
+            $html .= '<div id="facet-' . $facetName .'">';
+            $html .= '<h4>' . $this->_prettyName($facetName) . '</h4>';
+            $html .= '<ul class="navpills nav-stacked nav">';
+            foreach ($facet as $key => $value) {
+                $url = $this->view->url(array(
+                    'fq' . $facetName => $key
+                        ),'default',false);
+        
+                $html .= '<li>';
+                if ($facetName !== 'workflow') {
+                    $html .= '<a href="';
+                    $html .= $url; 
+                    $html .= '" title="Facet query for ';
+                    $html .= $this->view->facetContentSection()->setString($key);
+                    $html .= '">';
+                    $html .= $this->view->facetContentSection()->setString($key);
+                    $html .= ' (';
+                    $html .= number_format($value);
+                    $html .= ')';
+                } else {
+                    $html .= '<a href="';
+                    $html .= $url;
+                    $html .= '" title="Facet query for ';
+                    $html .= $this->_workflow($key);
+                    $html .= '">';
+                    $html .= $this->_workflow($key);
+                    $html .= ' (';
+                    $html .= number_format($value);
+                    $html .= ')';
+                }
 
-//        if($facetName !== 'workflow'){
-//            $facet = array_slice($facet,0,10);
-//        }
-        foreach($facet as $key => $value){
+                $html .= '</a>';
+                $html .= '</li>';
+                }
+                $html .= '</ul>';
+        
+                $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 
-        $url = $this->view->url(array('fq' . $facetName => $key),'default',false);
-        $html .= '<li>';
-        if($facetName !== 'workflow'){
-        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->facetContentSection($key);
-        $html .= '">';
-        $html .= $this->facetContentSection($key) . ' ('. number_format($value) .')';
-        } else {
-        $html .=  '<a href="' . $url . '" title="Facet query for ' . $this->_workflow($key);
-        $html .= '">';
-        $html .= $this->_workflow($key) . ' ('. number_format($value) .')';
-        }
-
-        $html .= '</a>';
-        $html .= '</li>';
-        }
-
-        $html .= '</ul>';
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-
-        if(isset($request['page'])){
-            unset($request['page']);
-        }
-        if(array_key_exists($facetName,$request)){
-        $facet = $request['fq' . $facetName];
-        if(isset($facet)){
-            unset($request['fq' . $facetName]);
-            $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request),'default',true)
-                    . '" title="Clear the facet">Clear this facet</a></p>';
-        }
-        }
-        $html .= '</div>';
+        
+                if (isset($request['page'])) {
+                    unset($request['page']);
+                }
+        
+                if (array_key_exists($facetName,$request)) {
+                    $facet = $request['fq' . $facetName];
+                    if (isset($facet)) {
+                        unset($request['fq' . $facetName]);
+                        $html .= '<p><i class="icon-remove-sign"></i> <a href="';
+                        $html .= $this->view->url($request,'default',true);
+                        $html .= '" title="Clear the facet">Clear this facet</a></p>';
+                    }
+                }
+            $html .= '</div>';
+        } 
         return $html;
-        } else {
-            throw new Pas_Exception_BadJuJu('The facet is not an array');
-        }
     }
 
     /** Create a pretty name for the facet
      * @access public
-     * @param string $name
+     * @param  string $name
      * @return string
      */
-    protected function _prettyName($name){
-        switch($name){
+    public function _prettyName($name) {
+        switch ($name) {
             case 'objectType':
                 $clean = 'Object type';
                 break;
@@ -120,8 +174,14 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
         return $clean;
     }
 
-    protected function _workflow($key){
-        switch($key){
+    /** Function for rendering workflow labels
+     * @access protected
+     * @param type $key
+     * @return string
+     * @todo move this to a library function
+     */
+    public function _workflow($key) {
+        switch ($key) {
             case '1':
                 $type = 'Quarantine';
                 break;
@@ -138,42 +198,6 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
                 $type = 'Unset workflow';
                 break;
             }
-            return $type;
-        }
-	protected $sections = array(
-	'databasehelp' => 'Database help',
-	'help' => 'Site help',
-	'getinvolved' => 'Get involved',
-	'bronzeage' => 'Bronze Age guide',
-	'ironage' => 'Iron Age guide',
-	'profiles' => 'Staff profiles',
-	'reports' => 'Annual reports',
-	'treports' => 'Treasure reports',
-	'info' => 'General information',
-	'medievalcoins' => 'Medieval coin guide',
-	'postmedievalcoins' => 'Post medieval coin guide',
-	'byzantinecoins' => 'Byzantine coin guide',
-	'earlymedievalcoins' => 'Early medieval coins',
-	'romancoins' => 'Roman coin guide',
-	'frg' => 'Finds recording guide',
-	'oai' => 'OAI documentation',
-	'staffs' => 'Staffordshire hoard symposium',
-	'ironagecoins' => 'Iron Age coin guide',
-	'greekromancoins' => 'Greek and Roman coin guide',
-	'api' => 'API documentation',
-            'secret' => 'Britain\'s Secret Treasures'
-	);
-
-	public function facetContentSection($string){
-	if(in_array($string,array_keys($this->sections))){
-	$text = " $string ";
-	foreach ($this->sections as $key => $value) {
-	$text = preg_replace( "|(?!<[^<>]*?)(?<![?.&])\b$key\b(?!:)(?![^<>]*?>)|msU",
-	$value , $text );
-	}
-	} else {
-	$text = $string;
-	}
-	return ucfirst($text);
-	}
+        return $type;
+    }
 }

@@ -1,7 +1,15 @@
 <?php
 /**
- * EmailSignature helper for the email templates
+ * Email Signature helper for the email templates
  *
+ * An exampleof use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->emailSignature();
+ * ?>
+ * </code>
+ * 
  * @author  Daniel Pett <dpett@britishmuseum.org>
  * @category Pas
  * @package Pas_View_Helper
@@ -11,14 +19,22 @@
  * @uses viewHelper Zend_View_Helper_Escape
  * @uses date Zend_Date
  */
-class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract {
-
+class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract
+{
+    /** The user to get signature from
+     *@access protected
+     * @var String
+     */
     protected $_user;
 
+    /** The time stamp
+     * @access protected
+     * @var string
+     */
     protected $_timeStamp;
 
     /** Get the user's details
-     *
+     * @access public
      * @return string
      */
     public function getUser() {
@@ -35,8 +51,8 @@ class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract {
         return $this->_timeStamp = $date->get(Zend_Date::W3C);
     }
 
-    /** Magic method
-     *
+    /** To string method
+     * @access public
      * @return string
      */
     public function __toString() {
@@ -44,21 +60,21 @@ class Pas_View_Helper_EmailSignature extends Zend_View_Helper_Abstract {
     }
 
     /** Get the email signature string
-     *
+     * @access public
      * @return string
      */
     public function getSignature() {
         $html = '';
         $html .= '<p>Sent by: ' . $this->view->escape( $this->getUser() ) . ' at ';
-	$html .= $this->getTimeStamp() . '</p>';
-	return $html;
+        $html .= $this->getTimeStamp() . '</p>';
+        return $html;
     }
 
     /** The function
-     *
+     * @access public
      * @return \Pas_View_Helper_EmailSignature
      */
-    public function emailSignature() {
+    public function emailSignature(){
         return $this;
     }
 }

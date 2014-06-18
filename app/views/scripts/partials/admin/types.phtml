@@ -1,9 +1,9 @@
 <tr>
 <td><?php echo $this->type;?><br />Category: <em><?php echo $this->c;?></em></td>
 <td><?php echo $this->timeAgoInWords($this->escape($this->created));?></td>
-<td><?php echo $this->namethem($this->fullname);?></td>
+<td><?php echo $this->nameThem()->setName($this->fullname);?></td>
 <td><?php echo $this->timeAgoInWords($this->escape($this->updated));?></td>
-<td><?php echo $this->namethem($this->fn);?>
+<td><?php echo $this->nameThem()->setName($this->fn);?>
 </td>
 <td>
  <?php

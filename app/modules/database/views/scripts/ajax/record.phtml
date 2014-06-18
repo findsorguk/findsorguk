@@ -52,7 +52,7 @@ $objectarray = array('coin','COIN','Coin');
 if((!count($this->coins)) && in_Array($this->finds['0']['objecttype'],$objectarray)) { ?>
 <h3>Numismatic data</h3>
 <p>No numismatic data has been recorded for this coin yet.</p>
-<?php $this->allowedTest('<p>You have not added <a href="'.$this->url(array('module' => 'database','controller' => 'coins','action' => 'add', 'broadperiod' => $this->finds['0']['broadperiod'],'findID' => $this->finds['0']['secuid'],'returnID' => $this->finds['0']['id']),null,true).'" class="btn btn-small"  title="Add '.$this->finds['0']['broadperiod'].' coin data">coin data</a>.</p>');?>
+<?php $this->allowedTest()->setString('<p>You have not added <a href="'.$this->url(array('module' => 'database','controller' => 'coins','action' => 'add', 'broadperiod' => $this->finds['0']['broadperiod'],'findID' => $this->finds['0']['secuid'],'returnID' => $this->finds['0']['id']),null,true).'" class="btn btn-small"  title="Add '.$this->finds['0']['broadperiod'].' coin data">coin data</a>.</p>');?>
 <?php }?>
 
 
@@ -88,7 +88,7 @@ if((!count($this->coins)) && in_Array($this->finds['0']['objecttype'],$objectarr
 <div id="references">
 <?php
 if (count($this->refs) > 0) : ?>
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/database/harvardbook.phtml', $this->refs);?>
 </ul>
 <?php else:?>

@@ -8,7 +8,7 @@ $("#dateto").datepicker();
 $this->jQuery()->javascriptCaptureEnd();
  ?>
 
-<?php $this->headTitle('Statistical analysis of the database for '. $this->niceshortdate($this->escape($this->datefrom)). ' until '. $this->niceshortdate($this->escape($this->dateto)));?>
+<?php $this->headTitle('Statistical analysis of the database for '. $this->niceShortDate()->setDate($this->escape($this->datefrom)). ' until '. $this->niceShortDate()->setDate($this->escape($this->dateto)));?>
 <p>These archives can be searched to find out what was found on a particular day of the year. We have been recording digitally since 1998.</p>
 <ul id="yearrange">
 <?php echo $this->partialLoop('partials/database/archiveYearsStats.phtml',
@@ -19,7 +19,7 @@ $this->jQuery()->javascriptCaptureEnd();
 <?php echo $this->form;?>
 
 <h3>Quantities of objects and records found</h3>
-<ul id="related">
+<ul>
 <?php echo $this->partialLoop('partials/statistics/rawquant.phtml',$this->annualsum);?>
 </ul>
 

@@ -1,21 +1,33 @@
-<?php 
-/** A view helper to return whether an integer is seen as valid
+<?php
+/** 
+ * A view helper to return whether an integer is seen as valid
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * echo $this->validity()->setValid(1);
+ * ?>
+ * </code>
+ * 
  * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
  * @category Pas
  * @package Pas_View_Helper
  * @license http://URL GNU
  * @since 1
  * @version 1
+ * @example /app/views/scripts/partials/admin/diesTable.phtml 
+ * 
  */
-class Pas_View_Helper_Validity extends Zend_View_Helper_Abstract 
-{
+class Pas_View_Helper_Validity  {
 
     /** The validity integer
      * @access protected
      * @var int
      */
     protected $_valid;
-    
+
     /** Get the validity int
      * @access public
      * @return int
@@ -26,14 +38,14 @@ class Pas_View_Helper_Validity extends Zend_View_Helper_Abstract
 
     /** Set the valdidity
      * @access public
-     * @param int $valid
+     * @param  int $valid
      * @return \Pas_View_Helper_Validity
      */
-    public function setValid( int $valid) {
+    public function setValid($valid) {
         $this->_valid = $valid;
         return $this;
     }
-    
+
     /** Return the function
      * @access public
      * @return \Pas_View_Helper_Validity
@@ -41,20 +53,20 @@ class Pas_View_Helper_Validity extends Zend_View_Helper_Abstract
     public function validity() {
         return $this;
     }
-    
-    /** The string to return 
+
+    /** The string to return
      * @access public
      * @return string
      */
     public function __toString() {
         switch ($this->getValid()) {
-		case 1:
-			$v = 'Valid';
-			break;
-		default:
-			$v = 'Invalid';
-			break;
-	}		
-	return $v;
+            case 1:
+                $v = 'Valid';
+                break;
+            default:
+                $v = 'Invalid';
+                break;
+            }
+        return $v;
     }
 }

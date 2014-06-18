@@ -1,9 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /** Base class for accessing the Edina Unlock Geo api
  * Caching of calls is handled in this class

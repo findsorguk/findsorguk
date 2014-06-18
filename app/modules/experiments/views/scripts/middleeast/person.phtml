@@ -34,4 +34,8 @@ if($r->person){
 }
 ?>
 
-<?php echo $this->flickrImageSearch($this->title() . ' archaeologist');?>
+<?php 
+echo $this->flickrImageSearch()
+        ->setTerm($this->title() . ' archaeologist')
+        ->setLimit(4);
+?>

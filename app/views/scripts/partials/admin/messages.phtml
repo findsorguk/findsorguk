@@ -20,7 +20,7 @@ echo $this->gravatar($this->comment_author_email,array(
 <?php echo $this->user_ip;?></td>
 <td class="comment column-comment"><div id="submitted-on">Submitted:<br />
 <?php echo $this->comment_date ;?></div><?php echo 
-$this->ellipsisstring(strip_tags($this->comment_content),200);?></td>
+$this->ellipsisString()->setString(strip_tags($this->comment_content))->setMax(200);?></td>
 <td><?php if($this->replied == 1) { 
 	echo 'Replied '.$this->timeAgoInWords($this->updated);
 	?> 

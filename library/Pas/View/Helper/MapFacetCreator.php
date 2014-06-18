@@ -19,38 +19,38 @@
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  */
-class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract {
-
-
-
+class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
+{
     /** Create the facets boxes for rendering
      * @access public
-     * @param array $facets
+     * @param  array                 $facets
      * @return string
      * @throws Pas_Exception_BadJuJu
      */
 
-    public function mapFacetCreator(){
+    public function mapFacetCreator()
+    {
     $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
     $search = new Pas_Solr_Handler('beowulf');
 //	$search->setFields(array(
 //		'id','old_findID','description', 'gridref','fourFigure',
 //		'longitude', 'latitude', 'county', 'woeid',
 //		'district', 'parish','knownas', 'thumbnail'));
-	$search->setParams($params);
-	$search->setFacets(array('objectType','county','broadperiod',
-    	'institution', 'rulerName', 'denominationName', 'mintName',
-    	'workflow'));
-	$search->setMap(true);
-	$search->execute();
-	$facets = $search->_processFacets();
+    $search->setParams($params);
+    $search->setFacets(array('objectType','county','broadperiod',
+        'institution', 'rulerName', 'denominationName', 'mintName',
+        'workflow'));
+    $search->setMap(true);
+    $search->execute();
+    $facets = $search->_processFacets();
         $total = $search->getNumber();
-    if(is_array($facets)){
+    if (is_array($facets)) {
         $html = '<p>Total results available: ' . number_format($total) . '<br />These results might differ to the expected results. We only allow you to see records available to you</p>';
         $html .= '<h3>Search facets</h3>';
-        foreach($facets as $facetName => $facet){
+        foreach ($facets as $facetName => $facet) {
             $html .= $this->_processFacet($facet, $facetName);
         }
+
         return $html;
         } else {
             throw new Pas_Exception_BadJuJu('The facets sent are not an array');
@@ -59,33 +59,34 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract {
 
     /** Process the facet array and name
      * @access public
-     * @param array $facet
-     * @param string $facetName
+     * @param  array                 $facet
+     * @param  string                $facetName
      * @return string
      * @throws Pas_Exception_BadJuJu
      * @uses Zend_Controller_Front
      * @uses Zend_View_Helper_Url
      */
-    protected function _processFacet(array $facet, $facetName){
-        if(is_array($facet)){
-        	if(count($facet)){
+    protected function _processFacet(array $facet, $facetName)
+    {
+        if (is_array($facet)) {
+            if (count($facet)) {
         $html = '<div id="facet-' . $facetName .'">';
         $html .= '<h4>' . $this->_prettyName($facetName) . '</h4>';
         $html .= '<ul class="navpills nav-stacked nav">';
 
-        if($facetName !== 'workflow'){
+        if ($facetName !== 'workflow') {
             $facet = array_slice($facet,0,10);
         }
-        foreach($facet as $key => $value){
-		$request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-		if(isset($request['page'])){
+        foreach ($facet as $key => $value) {
+        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+        if (isset($request['page'])) {
             unset($request['page']);
         }
-		$request[$facetName] = $key;
+        $request[$facetName] = $key;
 
         $url = $this->view->url($request,'default',false);
         $html .= '<li>';
-        if($facetName !== 'workflow'){
+        if ($facetName !== 'workflow') {
         $html .= '<a href="' . $url . '" title="Facet query for ' . $key;
         $html .= '">';
         $html .= $key . ' ('. number_format($value) .')';
@@ -102,20 +103,21 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract {
         $html .= '</ul>';
         $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 
-        if(isset($request['page'])){
+        if (isset($request['page'])) {
             unset($request['page']);
         }
-        if(array_key_exists($facetName, $request)){
+        if (array_key_exists($facetName, $request)) {
         $facet = $request[$facetName];
-        if(isset($facet)){
+        if (isset($facet)) {
             unset($request[$facetName]);
             $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url($request,'default',true)
                     . '" title="Clear the facet">Clear this facet</a></p>';
         }
         }
         $html .= '</div>';
+
         return $html;
-        	}
+            }
         } else {
             throw new Pas_Exception_BadJuJu('The facet is not an array');
         }
@@ -123,11 +125,12 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract {
 
     /** Create a pretty name for the facet
      * @access public
-     * @param string $name
+     * @param  string $name
      * @return string
      */
-    protected function _prettyName($name){
-        switch($name){
+    protected function _prettyName($name)
+    {
+        switch ($name) {
             case 'objectType':
                 $clean = 'Object type';
                 break;
@@ -138,23 +141,25 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract {
                 $clean = 'County of origin';
                 break;
             case 'denominationName':
-            	$clean = 'Denomination';
-            	break;
+                $clean = 'Denomination';
+                break;
             case 'mintName':
-            	$clean = 'Mint';
-            	break;
-			case 'rulerName':
-            	$clean = 'Ruler/issuer';
-            	break;
-            	default:
+                $clean = 'Mint';
+                break;
+            case 'rulerName':
+                $clean = 'Ruler/issuer';
+                break;
+                default:
                 $clean = ucfirst($name);
                 break;
         }
+
         return $clean;
     }
 
-    protected function _workflow($key){
-        switch($key){
+    protected function _workflow($key)
+    {
+        switch ($key) {
             case '1':
                 $type = 'Quarantine';
                 break;
@@ -171,6 +176,7 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract {
                 $type = 'Unset workflow';
                 break;
             }
+
             return $type;
         }
 

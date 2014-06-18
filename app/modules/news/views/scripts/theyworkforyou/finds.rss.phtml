@@ -5,7 +5,7 @@ $feedArray = array(
     'charset' => 'utf-8',
     'description' => 'Latest rss feed of finds recorded by the Portable Antiquities Scheme',
     'author' => 'The Portable Antiquities Scheme',
-    'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
+    'image' => $this->serverUrl() . $this->baseUrl() .'/assets/logos/pas.jpg',
     'email' => 'info@finds.org.uk',
     'copyright' => 'Creative Commons Licenced',
     'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
@@ -13,16 +13,16 @@ $feedArray = array(
     'entries' => array()
     );
 
+foreach ($this->finds as $find) {
+$feedArray['entries'][] = array(
+        'title' => $find['old_findID'].' '.$find['objecttype'].' '.$find['broadperiod'],
+        'link' => $this->serverUrl() . $this->baseUrl() . '/database/artefacts/record/id/'.$find['id'],
+        'guid' => $this->serverUrl() . $this->baseUrl() .'/database/artefacts/record/id/'.$find['id'],
+        'description' => $this->xmlconvert($this->ellipsisString()->setString(strip_tags($find['description']))->setMax(200)),
+        'lastUpdate' => strtotime($find['updated']),
+        'content' => $this->xmlconvert(strip_tags($find['description'])),
+        );
+}
 
-    foreach ($this->finds as $find) {
-        $feedArray['entries'][] = array(
-            'title' => $find['old_findID'] . ' ' . $find['objecttype'] . ' ' . $find['broadperiod'],
-            'link' => $this->serverUrl() . '/database/artefacts/record/id/' . $find['id'],
-            'guid' => $this->serverUrl() . '/database/artefacts/record/id/' . $find['id'],
-            'description' => $this->xmlconvert($this->ellipsisString(strip_tags($find['description']),200)),
-            'lastUpdate' => strtotime($find['updated']),
-            'content' => $this->xmlconvert(strip_tags($find['description'])),
-            );
-        }
-        $feed = Zend_Feed::importArray($feedArray,'rss');
-        $feed->send();
+$feed = Zend_Feed::importArray($feedArray,'rss');
+$feed->send();

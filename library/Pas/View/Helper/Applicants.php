@@ -2,6 +2,13 @@
 /**
  * A view helper for returning the number of applicants that have applied for
  * higher level status
+ *
+ * An example of use:
+ * <code>
+ * <?php
+ * echo $this->applicants();
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -25,16 +32,16 @@ class Pas_View_Helper_Applicants extends Zend_View_Helper_Abstract
      * @return array
      */
     public function getUsers() {
-	$users = new Users();
-	$this->_users = $users->getNewHigherLevelRequests();
-	return $this->_users;
+    $users = new Users();
+    $this->_users = $users->getNewHigherLevelRequests();
+    return $this->_users;
     }
 
     /** Return the class
      * @access public
      * @return \Pas_View_Helper_Applicants
      */
-    public function applicants() {
+    public function applicants()  {
         return $this;
     }
 
@@ -43,15 +50,15 @@ class Pas_View_Helper_Applicants extends Zend_View_Helper_Abstract
      * @return string|boolean
      */
     public function _buildHtml() {
+        $html = '';
         $url = $this->view->url(array(
             'module' => 'admin',
             'controller' => 'users',
             'action' => 'upgrades'
             ),
                 NULL,true);
-
         $data = $this->getUsers();
-        if($data){
+        if ($data) {
         $html = '';
         $html .= '<li class="purple">';
         $html .= '<a href="';
@@ -59,21 +66,17 @@ class Pas_View_Helper_Applicants extends Zend_View_Helper_Abstract
         $html .= '" title="View upgrade requests">';
         $html .= $data['0']['applicants'];
         $html .= ' applicants waiting</a></li>';
-        return $html;
 
-
-        } else {
-
-            return false;
         }
+        return $html;
     }
-
 
     /** Magic to string
      * @access public
      * @return type
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->_buildHtml();
     }
 }

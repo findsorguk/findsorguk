@@ -8,7 +8,7 @@ $dates .= ' - '.$this->escape($this->dt);
 $this->headMeta('This page gives full details for metal detecting rally held at '
         . $this->escape($this->rally_name).' between ' . $dates,'description')
 ->headMeta($this->curUrl(),'dc.identifier')
-->headMeta($this->namethem($this->escape($this->fullname)),'dc.creator')
+->headMeta($this->nameThem()->setName($this->escape($this->fullname)),'dc.creator')
 ->headMeta($this->updated, 'updated')
 ->headMeta('The Portable Antiquities Scheme','dc.publisher')
 ->headMeta('CC NC-SA-BY','dc.rights')
@@ -252,13 +252,13 @@ County: <?php echo $this->escape($this->county);?></p>
 
 <p>
 <?php if(!is_null($this->fullname)):?>
-Created by: <?php echo $this->namethem($this->escape($this->fullname));?><br />
+Created by: <?php echo $this->nameThem()->setName($this->escape($this->fullname));?><br />
 <?php endif;?>
 <?php if(!is_null($this->created)):?>
 Created on: <?php echo $this->escape($this->timeAgoInWords($this->created));?><br />
 <?php endif;?>
 <?php if(!is_null($this->fn)):?>
-Updated: <?php echo $this->namethem($this->escape($this->fn));?><br />
+Updated: <?php echo $this->nameThem()->setName($this->escape($this->fn));?><br />
 <?php endif;?>
 <?php if(!is_null($this->updated)):?>
 Updated on: <?php echo $this->escape($this->timeAgoInWords($this->updated));?>

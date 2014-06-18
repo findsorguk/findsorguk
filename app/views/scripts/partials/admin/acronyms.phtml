@@ -1,9 +1,8 @@
 <tr class="valid-<?php echo $this->valid;?>">
 <td><?php echo $this->abbreviation;?></td>
 <td><?php echo $this->expanded;?></td>
-<td><?php echo $this->namethem($this->fullname);?></td>
-<td><?php echo $this->niceshortdate($this->updated);?></td>
-<td><?php echo $this->namethem($this->fn);?></td>
+<td><?php echo $this->nameThem()->setName($this->fullname);?></td>
+<td><?php echo $this->niceShortDate()->setDate($this->updated);?></td>
+<td><?php echo $this->nameThem()->setName($this->fn);?></td>
 <td><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'acronyms','action' => 'edit', 'id' => $this->id),null,true);?>" title="Edit this acronym">Edit</a> | <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'acronyms','action' => 'delete', 'id' => $this->id),null,true);?>" title="Delete this acronym">delete</a></td>
 </tr>
- 

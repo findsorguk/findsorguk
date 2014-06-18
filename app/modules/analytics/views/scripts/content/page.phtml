@@ -169,32 +169,45 @@ $(document).ready(function() {
 	<div class="span12">
 	<h3 class="lead">Prior and subsequent pages visited</h3>
 	<?php 
-//	echo $this->gaContentPreviousPage()
-//					->setPath($this->path)
-//					->setLimit(10)
-//					->setTimespan($this->timeSpanParameter());
+	echo $this->gaContentPreviousPage() 
+                ->setId($this->getInvokeArg('bootstrap')->config->webservice->google->username)
+                ->setPassword($this->getInvokeArg('bootstrap')->config->webservice->google->password)
+                ->setPath($this->path)
+                ->setLimit(10)
+                ->setTimespan($this->timeSpanParameter())
+                ->setProfile(25726058);
 	?>
 	<?php 
-//	echo $this->gaContentNextPage()
-//					->setPath($this->path)
-//					->setLimit(10)
-//					->setTimespan($this->timeSpanParameter());
+	echo $this->gaContentNextPage() 
+                ->setId($this->getInvokeArg('bootstrap')->config->webservice->google->username)
+                ->setPassword($this->getInvokeArg('bootstrap')->config->webservice->google->password)
+                ->setPath($this->path)
+                ->setLimit(10)
+                ->setTimespan($this->timeSpanParameter())
+                ->setProfile(25726058);
 	?>
 	</div>
 </div> -->
 
-<?php echo $this->gaContentSearch()
-				->setPath($this->path)
-				->setLimit(10)
-				->setTimespan($this->timeSpanParameter());
+<?php 
+echo $this->gaContentSearch()
+        ->setId($this->getInvokeArg('bootstrap')->config->webservice->google->username)
+        ->setPassword($this->getInvokeArg('bootstrap')->config->webservice->google->password)
+        ->setPath($this->path)
+        ->setLimit(10)
+        ->setTimespan($this->timeSpanParameter())
+        ->setProfile(25726058);
 ?>
 
 <?php 
-//echo $this->gaContentMetrics()
-//				->setPath($this->path)
-//				->setLimit(10)
-//				->setTimespan($this->timeSpanParameter());
-				?>
+echo $this->gaContentMetrics()
+        ->setId($this->getInvokeArg('bootstrap')->config->webservice->google->username)
+        ->setPassword($this->getInvokeArg('bootstrap')->config->webservice->google->password)
+        ->setPath($this->path)
+        ->setLimit(10)
+        ->setTimespan($this->timeSpanParameter())
+        ->setProfile(25726058);			
+?>
 <?php else:?>
 <?php $this->headTitle('Analysis for page titled: "' . $title . '" during time period of  ' . $this->timeSpanParameter());
 ?>

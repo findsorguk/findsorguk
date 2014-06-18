@@ -5,10 +5,12 @@ $keywords = implode(',',$this->tags);
 } else {
 $keywords = NULL;	
 }
-$this->MetaBase($this->ellipsisstring($this->description,300),
-'photo',
-$keywords
-);?>
+$this->metaBase()
+        ->setDescription($this->ellipsisString()->setString($this->description)->setMax(300))
+        ->setSubject('photo')
+        ->setKeywords($keywords)
+        ->generate();
+?>
 <?php 
 $config = Zend_Registry::get('config');
 $apikey = $config->googlemaps->apikey;

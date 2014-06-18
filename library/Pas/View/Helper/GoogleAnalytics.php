@@ -6,7 +6,7 @@
  * @original http://www.zfsnippets.com/snippets/view/id/30
  */
 class Pas_View_Helper_GoogleAnalytics
-	extends Zend_View_Helper_Placeholder_Container_Standalone
+    extends Zend_View_Helper_Placeholder_Container_Standalone
 {
     /**
      * @var string registry key
@@ -16,7 +16,7 @@ class Pas_View_Helper_GoogleAnalytics
     /**
      * Available Trackers options
      */
-    static protected $_availableOptions = array
+    protected static $_availableOptions = array
     (
         // Standard Options
         'trackPageview',
@@ -56,8 +56,8 @@ class Pas_View_Helper_GoogleAnalytics
 
     /**
      *
-     * @param string $trackerId the google analytics tracker id
-     * @param array $options
+     * @param  string                          $trackerId the google analytics tracker id
+     * @param  array                           $options
      * @return App_View_Helper_GoogleAnalytics
      */
     public function GoogleAnalytics($trackerId = null, array $options = array())
@@ -73,8 +73,8 @@ class Pas_View_Helper_GoogleAnalytics
     /**
      * Alias to _addTrackerOption
      *
-     * @param string $optionsName
-     * @param array $optionsArgs
+     * @param  string                          $optionsName
+     * @param  array                           $optionsArgs
      * @return App_View_Helper_GoogleAnalytics
      */
     public function __call($optionsName, $optionsArgs)
@@ -97,8 +97,8 @@ class Pas_View_Helper_GoogleAnalytics
     /**
      * Add tracker
      *
-     * @param string $id
-     * @param array $options
+     * @param  string                          $id
+     * @param  array                           $options
      * @return App_View_Helper_GoogleAnalytics
      */
     public function addTracker($id, array $options = array())
@@ -115,13 +115,12 @@ class Pas_View_Helper_GoogleAnalytics
     /**
      * Set options
      *
-     * @param array $trackers
+     * @param  array                           $trackers
      * @return App_View_Helper_GoogleAnalytics
      */
     public function setOptions(array $trackers)
     {
-        foreach ($trackers as $tracker)
-        {
+        foreach ($trackers as $tracker) {
             if (!$tracker['enabled'])
                 continue;
 
@@ -134,8 +133,8 @@ class Pas_View_Helper_GoogleAnalytics
     /**
      * Add options from array
      *
-     * @param string $trackerId the google analytics tracker id
-     * @param array $options of array option with first value has option name
+     * @param  string                          $trackerId the google analytics tracker id
+     * @param  array                           $options   of array option with first value has option name
      * @return App_View_Helper_GoogleAnalytics
      */
     public function addTrackerOptions($trackerId, array $options)
@@ -153,9 +152,9 @@ class Pas_View_Helper_GoogleAnalytics
     /**
      * Add a tracker option
      *
-     * @param string $trackerId the google analytics tracker id
-     * @param string $optionsName option name
-     * @param array $optionsArgs option arguments
+     * @param  string                          $trackerId   the google analytics tracker id
+     * @param  string                          $optionsName option name
+     * @param  array                           $optionsArgs option arguments
      * @return App_View_Helper_GoogleAnalytics
      */
     protected function _addTrackerOption($trackerId, $optionsName, array $optionsArgs = array())
@@ -199,7 +198,7 @@ class Pas_View_Helper_GoogleAnalytics
         $xhtml[] = 'var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");';
         $xhtml[] = 'document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));';
         $xhtml[] = '</script>';
-	$xhtml[] = '<script type="text/javascript">';
+    $xhtml[] = '<script type="text/javascript">';
         $xhtml[] = 'try {';
 
         $i = 0;
@@ -230,7 +229,7 @@ class Pas_View_Helper_GoogleAnalytics
             $i++;
         }
 
-        $xhtml[] = '} catch(err) {}';
+        $xhtml[] = '} catch (err) {}';
         $xhtml[] = '</script>';
 
         return implode("\n", $xhtml);

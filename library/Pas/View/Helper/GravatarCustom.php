@@ -32,7 +32,7 @@ require_once 'Zend/View/Helper/HtmlElement.php';
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @link http://pl.gravatar.com/site/implement/url
  */
-class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
+class Pas_View_Helper_GravatarCustom extends Zend_View_Helper_HtmlElement
 {
 
     /**
@@ -98,23 +98,24 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      *
      * @see    http://pl.gravatar.com/site/implement/url
      * @see    http://pl.gravatar.com/site/implement/url More information about gravatar's service.
-     * @param  string|null $email Email adress.
-     * @param  null|array $options Options
-     * @param  array $attribs Attributes for image tag (title, alt etc.)
+     * @param  string|null               $email   Email adress.
+     * @param  null|array                $options Options
+     * @param  array                     $attribs Attributes for image tag (title, alt etc.)
      * @return Zend_View_Helper_Gravatar
      */
-    public function gravatar($email = "", $options = array(), $attribs = array())
+    public function gravatarCustom($email = "", $options = array(), $attribs = array())
     {
         $this->setEmail($email);
         $this->setOptions($options);
         $this->setAttribs($attribs);
+
         return $this;
     }
 
     /**
      * Configure state
      *
-     * @param  array $options
+     * @param  array                     $options
      * @return Zend_View_Helper_Gravatar
      */
     public function setOptions(array $options)
@@ -125,6 +126,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
                 $this->{$method}($value);
             }
         }
+
         return $this;
     }
 
@@ -141,12 +143,13 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
     /**
      * Set img size in pixels
      *
-     * @param int $imgSize Size of img must be between 1 and 512
+     * @param  int                       $imgSize Size of img must be between 1 and 512
      * @return Zend_View_Helper_Gravatar
      */
     public function setImgSize($imgSize)
     {
         $this->_options['img_size'] = (int) $imgSize;
+
         return $this;
     }
 
@@ -165,13 +168,14 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      *
      * Can be either an absolute URL to an image, or one of the DEFAULT_* constants
      *
-     * @param string $defaultImg
+     * @param  string                    $defaultImg
      * @link http://pl.gravatar.com/site/implement/url More information about default image.
      * @return Zend_View_Helper_Gravatar
      */
     public function setDefaultImg($defaultImg)
     {
         $this->_options['default_img'] = urlencode($defaultImg);
+
         return $this;
     }
 
@@ -180,7 +184,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      *
      * Must be one of the RATING_* constants
      *
-     * @param string $rating Value for rating. Allowed values are: g, px, r,x
+     * @param  string              $rating Value for rating. Allowed values are: g, px, r,x
      * @link http://pl.gravatar.com/site/implement/url More information about rating.
      * @throws Zend_View_Exception
      */
@@ -200,6 +204,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
                     $rating
                 ));
         }
+
         return $this;
     }
 
@@ -216,12 +221,13 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
     /**
      * Set email adress
      *
-     * @param string $email
+     * @param  string                    $email
      * @return Zend_View_Helper_Gravatar
      */
-    public function setEmail( $email )
+    public function setEmail($email)
     {
         $this->_email = $email;
+
         return $this;
     }
 
@@ -238,12 +244,13 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
     /**
      * Load from an SSL or No-SSL location?
      *
-     * @param bool $flag
+     * @param  bool                      $flag
      * @return Zend_View_Helper_Gravatar
      */
     public function setSecure($flag)
     {
         $this->_options['secure'] = ($flag === null) ? null : (bool) $flag;
+
         return $this;
     }
 
@@ -257,6 +264,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
         if ($this->_options['secure'] === null) {
             return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
         }
+
         return $this->_options['secure'];
     }
 
@@ -282,12 +290,13 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      * This attrib is overwritten in protected method _setSrcAttribForImg().
      * This method(_setSrcAttribForImg) is called in public method getImgTag().
 
-     * @param array $attribs
+     * @param  array                     $attribs
      * @return Zend_View_Helper_Gravatar
      */
     public function setAttribs(array $attribs)
     {
         $this->_attribs = $attribs;
+
         return $this;
     }
 
@@ -317,6 +326,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
              . $this->getDefaultImg()
              . '&r='
              . $this->getRating();
+
         return $src;
     }
 
@@ -355,7 +365,7 @@ class Zend_View_Helper_Gravatar extends Zend_View_Helper_HtmlElement
      *
      * @return string
      */
-    public function  __toString()
+    public function __toString()
     {
         return $this->getImgTag();
 

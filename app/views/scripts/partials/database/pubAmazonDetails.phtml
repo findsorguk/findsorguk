@@ -1,5 +1,5 @@
-<?php 
-$this->headTitle('Details for '. $this->escape($this->ellipsisstring($this->title,90)));
+<?php
+$this->headTitle('Details for '. $this->escape($this->ellipsisString()->setString($this->title)->setMax(90)));
 $this->headMeta('','dc.Keywords');
 $this->headMeta('The Portable Antiquities Scheme and the British Museum','dc.Publisher');
 $this->headMeta('Details for reference work '.$this->title,'description');
@@ -7,7 +7,7 @@ $this->headMeta($this->c,'dc.date.created');
 $this->headMeta('Archaeology','dc.subject');
 ?>
 <div about="<?php echo $this->CurUrl();?>" typeof="bibo:AcademicArticle">
-<h2>Publication details</h2>
+<h2><?php echo $this->title();?></h2>
 
 <ul>
 <li>Full title: <span property="dc:title"><?php echo $this->escape($this->title);?></span></li>
@@ -47,11 +47,11 @@ $this->headMeta('Archaeology','dc.subject');
 <?php endif;?>
 </ul>
 
-<?php 
-$links = array($this->Href(array('module' => 'database','controller'=>'publications', 'action'=>'edit', 
+<?php
+$links = array($this->Href(array('module' => 'database','controller'=>'publications', 'action'=>'edit',
 'params' =>array('id' => $this->id), 'checkAcl'=>true,
 'acl'=>'Zend_Acl', 'content'=>'Edit','attribs' => array('title' => 'Edit publication'))),
-$this->Href(array('module' => 'database','controller'=>'publications', 'action'=>'delete', 
+$this->Href(array('module' => 'database','controller'=>'publications', 'action'=>'delete',
 'params' =>array('id' => $this->id), 'checkAcl'=>true,
 'acl'=>'Zend_Acl', 'content'=>'Delete','attribs' => array('title' => 'Delete publication'))));
 if($links['0'] != false){
@@ -62,4 +62,4 @@ if($links['0'] != false){
 ?>
 
 </div>
-<?php echo $this->amazonDetails($this->ISBN);?>
+<?php echo $this->amazonDetails()->setIsbn($this->ISBN);?>

@@ -6,8 +6,8 @@ $this->jQuery()->addJavascriptFile($this->baseUrl()
 $this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
 $this->headTitle('All finds created by my institution');
 ?>
-<?php $this->headTitle('All finds created by ' . $this->Institution($this->inst)); ?>
-<h2>All finds and coins recorded by institution: <?php echo $this->Institution($this->inst);?></h2>
+<?php $this->headTitle('All finds created by ' . $this->institution()->setInstitution($this->inst)); ?>
+<h2><?php echo $this->title();?></h2>
 <?php echo $this->loggedInLinks();?>
 <?php if($this->params):?>
 <?php echo $this->SearchParams($this->params);?>
@@ -21,9 +21,9 @@ $this->headTitle('All finds created by my institution');
         </div>
         <div class="span3">
 		<p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'institutionmap'),null,false);?>" title="Map these records">Map these finds <i class="icon-map-marker"></i></a></p>
-      <?php echo $this->resultsQuantityChooser($this->paginator);?>
+      <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
         <?php echo $this->thumbnailToggler();?>
-        <?php echo $this->resultsSorter($this->paginator);?>
+        <?php echo $this->resultsSorter()->setResults($this->paginator);?>
         <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>
         <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
 		<?php echo $this->statGenerator()->setStats($this->stats);?>

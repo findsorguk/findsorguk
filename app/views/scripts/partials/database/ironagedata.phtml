@@ -1,7 +1,12 @@
 <h4>Coin data (numismatics)</h4>
-<?php echo $this->CoinEditDeleteLink(
-$this->old_findID,$this->id,$this->broadperiod,
-$this->secuid,$this->returnID,$this->createdBy);?>
+<?php echo $this->CoinEditDeleteLink()
+        ->setFindID($this->id)
+        ->setReturnID($this->returnID)
+        ->setBroadperiod($this->broadperiod)
+        ->setSecuID($this->secuid)
+        ->setInstitution($this->institution)
+        ->setCreatedBy($this->createdBy);
+?>
 <p>
 <?php if(!is_null($this->cciNumber)):?>
 <strong>Celtic Coin Index Number:</strong> <span property="owl:sameAs" resource="http://http://www.celticcoins.ca/record.php?coin_id=<?php echo str_replace('.','',$this->cciNumber);?>"><?php echo $this->escape($this->cciNumber);?></span><br />

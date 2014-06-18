@@ -1,5 +1,24 @@
 <?php
-/** A view helper for determining whether findspot link should be printed 
+/**
+ * This class is to help display links for edit or delete find spot functions
+ *
+ * It takes data from the finds model and checks it conditionally against
+ * if/else statements and renders the link if possible. It is all based around
+ * the user's role, institution and user ID.
+ *
+ * To use:
+ *
+ * <code>
+ * <?php
+ * echo $this->findSpotLink()
+ * ->setInstitution($institution)
+ * ->setSecuID($secuid)
+ * ->setCreatedBy($createdBy)
+ * ->setFindID($findID);
+ * ?>
+ * </code>
+ *
+ *
  * @category Pas
  * @package Pas_View_Helper
  * @todo streamline code
@@ -11,129 +30,312 @@
  * @author dpett
  */
 
-class Pas_View_Helper_FindSpotLink 
-	extends Zend_View_Helper_Abstract {
-	
-	protected $noaccess = array('public');
-	protected $restricted = array('member','research','hero');
-	protected $recorders = array('flos');
-	protected $higherLevel = array('admin','fa','treasure');
-	protected $_missingGroup = 'User is not assigned to a group';
-	protected $_message = 'You are not allowed edit rights to this record';
-	protected $_auth = NULL;
+class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
 
-	/** Construct the auth object
-	*/
-	public function __construct() { 
-    $auth = Zend_Auth::getInstance();
-    $this->_auth = $auth; 
+    /** Set up the user groups with no access
+     * @access protected
+     * @var array $noaccess
+     */
+    protected $noaccess = array('public', null);
+
+    /** Set up the user groups with limited access
+     * @access protected
+     * @var array $restricted
+     */
+    protected $restricted = array('member','research','hero');
+
+    /** Set up the user groups with recorder access
+     * @access protected
+     * @var array $recorders
+     */
+    protected $recorders = array('flos');
+
+    /** Set up the user groups with higher level access
+     * @access protected
+     * @var array $higherLevel
+     */
+    protected $higherLevel = array('admin','fa','treasure');
+
+    /** The auth object
+     * @access protected
+     * @var object
+     */
+    protected $_auth;
+
+    /** The creator
+     * @access protected
+     * @var int
+     */
+    protected $_createdBy;
+
+    /** The institution of the recorder creator
+     * @access protected
+     * @var string
+     */
+    protected $_institution = 'PUBLIC';
+
+    /** The institution of the user
+     * @access protected
+     * @var string
+     */
+    protected $_inst;
+
+    /** The record's secuid
+     * @access protected
+     * @var string
+     */
+    protected $_secuid;
+
+    /** The role of the user
+     * @access protected
+     * @var string
+     */
+    protected $_role = null;
+
+    /** get the creator
+     * @access public
+     * @return int
+     */
+    public function getCreatedBy() {
+        return $this->_createdBy;
     }
-    
-	/** Construct the user role
-	*/
-	public function getRole(){
-	if($this->_auth->hasIdentity()) {
-	$user = $this->_auth->getIdentity();
-	$role = $user->role;
-	} else {
-	$role = 'public';
-	}	
-	return $role;
-	}
-	
-	
-	/** Get the user's id
-	*/
-	public function getIdentityForForms() {
-	if($this->_auth->hasIdentity()) {
-	$user = $this->_auth->getIdentity();
-	$id = $user->id;
-	return $id;
-	} else {
-	$id = '3';
-	return $id;
-	}
-	}
-	
-	/** Check the user's access by institution
-	 * 
-	 * @param string $oldfindID
-	 */
-	public function checkAccessbyInstitution($oldfindID) {
-	$find = explode('-', $oldfindID);
-	$id = $find['0'];
-	$inst = $this->getInst();
-	if((in_array($this->getRole(),$this->recorders) && ($id == 'PUBLIC'))) {
-	return true;
-	} else if($id === $inst) {
-	return true;
-	}
-	}
 
-	/** Check access by user id
-	 * 
-	 * @param int $userID
-	 * @param int $createdBy
-	 */
-	public function checkAccessbyUserID($userID,$createdBy) {
-	if($userID === $createdBy) {
-	return true;
-	}
-	}
+    /** Get the institution
+     * @access public
+     * @return string
+     */
+    public function getInstitution() {
+        return $this->_institution;
+    }
 
-	/** Check for inst
-	 * 
-	 */
-	public function getInst() {
-	if($this->_auth->hasIdentity()) {
-	$user = $this->_auth->getIdentity();
-	$inst = $user->institution;
-	if(is_null($inst)){
-	throw new Exception($this->_missingGroup);	
-	}
-	return $inst;
-	} else {
-	return FALSE;
-	}	
-	}
-	
-	/** Determine whether link can be displayed
-	 * 
-	 * @param string $oldfindID
-	 * @param int $findID
-	 * @param string $secuid
-	 * @param int $createdBy
-	 */
-	public function FindSpotLink($oldfindID, $findID, $secuid, $createdBy) {
-	$byID = $this->checkAccessbyUserID($this->getIdentityForForms(),$createdBy);
-	$instID = $this->checkAccessbyInstitution($oldfindID);
-	if(in_array($this->getRole(),$this->restricted)) {
-	if((($byID == true) && ($instID == true)) || (($byID == true) && ($instID == false))) {
-	return $this->buildHtml($findID,$secuid);	
-	} 
-	} else if(in_array($this->getRole(),$this->higherLevel)) {
-	return $this->buildHtml($findID,$secuid);
-	} else if(in_array($this->getRole(),$this->recorders)) {
-	if((($byID == true) && ($instID == false)) || (($byID == false) && ($instID == true) 
-	|| ($byID == true && $instID == true))) {
-	return $this->buildHtml($findID,$secuid);	
-	} 
-	} else {
-	return false;
-	}
-	}
-	
-	/** Build the html
-	 * 
-	 * @param int $findID
-	 * @param string $secuid
-	 */
-	public function buildHtml($findID, $secuid) {
-	$url = $this->view->url(array('module' => 'database', 'controller' => 'findspots','action' => 'add',
-	'id' => $findID, 'secuid' => $secuid),null,true);
-	$string = '<a class="btn btn-success" href="' . $url
-	.'" title="Add spatial details for this find" accesskey="f">Add a findspot</a>';
-	return $string;
-	}
+    /** Get the secure ID
+     * @access public
+     * @return string
+     */
+    public function getSecuid() {
+        return $this->_secuid;
+    }
+
+    /** Set createdby
+     * @access public
+     * @param int $createdBy
+     * @return \Pas_View_Helper_ImageLink
+     */
+    public function setCreatedBy(  $createdBy) {
+        $this->_createdBy = $createdBy;
+        return $this;
+    }
+
+    /** Set the institution
+     * @access public
+     * @param string $institution
+     * @return \Pas_View_Helper_ImageLink
+     */
+    public function setInstitution( $institution) {
+        $this->_institution = $institution;
+        return $this;
+    }
+
+    /** Set the secure ID
+     * @access public
+     * @param string $secuid
+     * @return \Pas_View_Helper_ImageLink
+     */
+    public function setSecuid( $secuid) {
+        $this->_secuid = $secuid;
+        return $this;
+    }
+
+    /** Get the user's role
+     * @access public
+     * @return string
+     */
+    public function getRole() {
+        if ($this->getAuth()->hasIdentity()) {
+        $user = $this->getAuth()->getIdentity();
+        $this->_role = $user->role;
+        }
+        return $this->_role;
+    }
+
+    /** Get the auth object
+     * @access public
+     * @return object
+     */
+    public function getAuth() {
+        $this->_auth = Zend_Registry::get('auth');
+        return $this->_auth;
+    }
+
+    /** Set the find ID to query
+     * @access public
+     * @param int $findID
+     * @return \Pas_View_Helper_CoinRefAddLink
+     */
+    public function setFindID( $findID) {
+        $this->_findID = $findID;
+        return $this;
+    }
+
+    /** The findID
+     * @access protected
+     * @var int
+     */
+    protected $_findID;
+
+    /** Get the findID
+     * @access public
+     * @return int
+     */
+    public function getFindID() {
+        return $this->_findID;
+    }
+
+    /** The user id
+     * @access protected
+     * @var type
+     */
+    protected $_userID;
+
+    /** Get the user's ID
+     * @access public
+     * @return int
+     */
+    public function getUserID() {
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $this->_userID = $user->id;
+        }
+        return $this->_userID;
+    }
+
+    /** Get the user's institution
+     * @access public
+     * @return string
+     */
+    public function getInst() {
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $this->_inst = $user->institution;
+        }
+        return $this->_inst;
+    }
+
+    /** Check whether access is allowed by userid for that record
+     *
+     * This function conditionally checks to see if a user is in the restricted
+     * group and then checks whether they created the record. If true, they can
+     * edit it.
+     *
+     * @access public
+     * @param int $createdBy
+     * @return boolean
+     */
+    public function checkAccessbyUserID($createdBy ) {
+            if (in_array( $this->getRole(), $this->_restricted ) ) {
+            if ($createdBy == $this->getUserID()) {
+                    $allowed = true;
+                } else {
+                    $allowed = false;
+                }
+            }
+        return $allowed;
+    }
+
+    /** Check institutional access by user's institution
+     *
+     * This function conditionally checks whether a user's institution allows
+     * them editing rights to a record.
+     *
+     * First condition: if role is in recorders array and their institution is
+     * the same, then allow.
+     *
+     * Second condition: if role is in higher level, then allow
+     *
+     * Third condition: if role is in restricted (public) and they created,
+     * then allow.
+     *
+     * Fourth condition: if role is in restricted and institution is public,
+     * then allow.
+     *
+     * @access public
+     * @param string $institution
+     * @return boolean
+     *
+     */
+    public function checkAccessbyInstitution( $institution ) {
+        if(in_array($this->getRole(),$this->_recorders)
+                && $this->getInst() == $institution) {
+            $allowed = true;
+        } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
+            $allowed = true;
+        } elseif (in_array ($this->getRole, $this->_restricted)
+                && $this->checkAccessbyUserID ($this->getCreatedBy())) {
+            $allowed = true;
+        } elseif (in_array($this->getRole(),$this->_recorders)
+                && $institution == 'PUBLIC') {
+            $allowed = true;
+        }
+        return $allowed;
+    }
+
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_FindSpotLink
+     */
+    public function findSpotLink() {
+        return $this;
+    }
+
+    /** To string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
+        return $this->generateLink();
+    }
+
+    /** Generate the link
+     * @access public
+     * @return string
+     */
+    public function generateLink() {
+        $html = '';
+        if( $this->checkAccessbyInstitution( $this->getInstitution() ) ) {
+            $html .= $this->buildHtml();
+        }
+        return $html;
+    }
+
+    /** Build just the url
+     * @access public
+     * @return string
+     */
+    public function urlBuild() {
+        $url = array(
+            'module' => 'database',
+            'controller' => 'findspot',
+            'action' => 'add',
+            'secuid' => $this->getSecuID(),
+            'id' => $this->getFindID()
+        );
+        return $url;
+    }
+
+    /** Build the html
+     * @access public
+     * @return string
+     */
+    public function buildHtml() {
+        $url = $this->view->url($this->urlBuild(),null,true);
+        $html = '';
+        $html .= '<div class="noprint">';
+        $html .= '<a class="btn btn-small btn-success" href="';
+        $html .= $url;
+        $html .= '" title="Add spatial details for this find"';
+        $html .= ' accesslkey="f">';
+        $html .= 'Add a find spot</a></div>';
+        return $html;
+    }
 
 }

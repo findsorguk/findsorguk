@@ -58,7 +58,7 @@ google.load("visualization", "1", {packages:["corechart"]});
 			?>
 			
 			<tr>
-				<td><?php echo $this->niceshortdate(strtotime($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_DATE)->value));?></td>
+				<td><?php echo $this->niceShortDate()->setDate(strtotime($row->getDimension(Zend_Gdata_Analytics_DataQuery::DIMENSION_DATE)->value));?></td>
 				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value;?></td>
 				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value;?></td>
 				<td><?php echo $row->getMetric(Zend_Gdata_Analytics_DataQuery::METRIC_BOUNCES)->value;?></td>

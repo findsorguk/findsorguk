@@ -3,7 +3,27 @@
     <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
         <li <?php echo $this->currentPage()->active('getinvolved','index','index');?>><a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'index'),'default',true);?>" title="How to report your finds">Report your finds</a></li>
         
-        <?php echo $this->involvedMenu();?>        
+        <li <?php echo $this->currentPage()->active('getinvolved','vacancies','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'vacancies','action' => 'index'),'default',true);?>" title="Current vacancy listing">Current vacancies</a></li>
+        
+        <li <?php echo $this->currentPage()->active('getinvolved','vacancies','archives');?>>
+            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'vacancies','action' => 'archives'),'default',true);?>" title="Archived vacancy lists">Archived vacancies</a></li>
+        
+        <li <?php echo $this->currentPage()->active('getinvolved','volunteering','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'volunteering'),'default',true);?>" title="Volunteer opportunities with the Scheme">Volunteer opportunities</a></li>
+        
+        <li <?php echo $this->currentPage()->active('getinvolved','contactus','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'contactus'),'default',true);?>" title="Send us a message via our contact form">Contact us</a></li>
+        
+        <li <?php echo $this->currentPage()->active('getinvolved','faq','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'faq'),'default',true);?>" title="Read our frequently asked questions">FAQs &amp; Answers</a></li>
+        
+        
+        <li <?php echo $this->currentPage()->active('getinvolved','publications','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'publications'),'default',true);?>" title="Obtain our publications">Our publications</a></li>
+        
+        <li <?php echo $this->currentPage()->active('getinvolved','links','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'links'),'default',true);?>" title="Our bookmarks on delicious">Links</a></li>
         
         <li <?php echo $this->currentPage()->active('getinvolved','volunteering','index');?>><a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'volunteering'),'default',true);?>" title="Volunteer opportunities with the Scheme">Volunteer opportunities</a></li>
         <li><a href="<?php echo $this->url(array('module' => 'volunteerrecording'),'default',true);?>" title="Learn more about recording"><i class="icon-eye-open"></i>Volunteer recording guide</a></li>

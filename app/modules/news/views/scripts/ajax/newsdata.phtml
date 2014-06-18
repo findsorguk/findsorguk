@@ -5,14 +5,14 @@ $documentNode = $dom->createElement('markers');
 $dom->appendChild($documentNode);
 foreach($this->mapping as $result){
     if(!is_null($result['lon'])){
-        $description = $this->purify($this->ellipsisString($result['contents'],200));
+        $description = $this->purify($this->ellipsisString()->setString($result['contents'])->setMax(200));
         $marker = $dom->createElement('marker');
-	$marker->setAttribute('id',$result['id']);
-	$marker->setAttribute('lat', $result['lat']);
+        $marker->setAttribute('id',$result['id']);
+        $marker->setAttribute('lat', $result['lat']);
         $marker->setAttribute('lon', $result['lon']);
         $marker->setAttribute('content', $description);
         $marker->setAttribute('title', $result['title']);
-	$documentNode->appendChild( $marker );
+        $documentNode->appendChild( $marker );
     }
 }
 $xmlData  = $dom->saveXML();

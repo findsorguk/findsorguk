@@ -3,11 +3,11 @@
 <p><a class="btn btn-large btn-warning" href="<?php echo $this->url(array('module' => 'admin','controller' => 'roles','action' => 'edit','id' => $this->id),null,true);?>" title="Edit the role of <?php echo $this->role;?>">Edit</a></p>
 <?php echo $this->description;?>
 <h3>Audit data</h3>
-<ul id="related">
+<ul>
 <?php if(isset($this->created)):?>
 <li>Created: <?php echo $this->timeAgoInWords($this->created);?></li>
 <?php endif;?>
-<li>Created by: <?php echo $this->namethem($this->fullname);?></li>
+<li>Created by: <?php echo $this->nameThem()->setName($this->fullname);?></li>
 <li>Updated: <?php echo $this->timeAgoInWords($this->updated);?></li>
-<li>Updated by: <?php echo $this->namethem($this->fn);?></li>
+<li>Updated by: <?php echo $this->nameThem()->setName($this->fn);?></li>
 </ul>
