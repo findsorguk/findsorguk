@@ -4,11 +4,25 @@
 .record p {
 	padding:2px;
 }
-.navbar, .sidebar, .footer, 
-    #comm, #commentform, .pager, 
-    #toolBox, #contexts, #bookmarks, 
-    .scope, #breadcrumb, #morelikethis, #audit, #map,
-    #commentary, .imagebar, .noprint, .btn {
+.navbar, 
+.sidebar, 
+.footer, 
+#comm, 
+#commentform, 
+.pager, 
+#flashmessenger,
+#toolBox, 
+#contexts, 
+#bookmarks, 
+.scope, 
+#breadcrumb, 
+#morelikethis, 
+#audit, 
+#map,
+#commentary, 
+.imagebar, 
+.noprint, 
+.btn {
 	display:none;
 }
 

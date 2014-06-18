@@ -1,56 +1,88 @@
 <?php
 /**
- *
- * @author dpett
- * @version 
+ * A view helper to build the audit logs html string
+ * @author Daniel Pett <dpett @ britishmuseum.org>
+ * @category Pas
+ * @package Pas_View_Helper
+ * @version 1
+ * @since 17/5/2014
+ * @license http://URL GNU
+ * @todo Does this need to be returned based on roles?
  */
+class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
+{
 
-/**
- * AuditLogs helper
- *
- * @uses viewHelper Pas_View_Helper
- */
-class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract{
-	
-	protected $_allowed = array('flos', 'hero', 'treasure', 'fa', 'admin');
-	
-	protected $_role;
-	
-	public function __construct(){
-	$user = new Pas_User_Details();
-    $person = $user->getPerson();
-    if($person){
-    $this->_role = $person->role;
-    } else {
-    	return false;
-    }
+    /** The id to query
+     * @access protected
+     * @var int
+     */
+    protected $_id;
+
+    /** Get the id to query
+     * @access public
+     * @return int
+     */
+    public function getId() {
+        return $this->_id;
     }
 
-    
-    public function auditLogs($id) {
-	if(!is_null($this->_role)){
-		return $this->buildHtml($id);
-	}
-	}
-	
-	public function buildHtml($id){
-		$html = '<ul id="tab" class="nav nav-tabs">';
-		$html .= '<li class="active"><a href="#findAudit" data-toggle="tab">Finds audit</a></li>';
-		$html .= '<li><a href="#fspot" data-toggle="tab">Findspot audit</a></li>';
-		$html .= '<li><a href="#coinAudit" data-toggle="tab">Numismatic audit</a></li>';
-		$html .= '</ul>';
-		$html .= '<div id="myTabContent" class="tab-content">';
+    /** Set the id to query
+     * @access public
+     * @param int $id
+     * @return \Pas_View_Helper_AuditLogs
+     */
+    public function setId( int $id) {
+        $this->_id = $id;
+        return $this;
+    }
+
+    /** The audit log function
+     * @access public
+     * @return \Pas_View_Helper_AuditLogs
+     */
+    public function auditLogs() {
+	return $this;
+    }
+
+    /** Get data to return
+     * @access public
+     * @return string
+     */
+    public function _getData() {
+        return $this->buildHtml($this->getId());
+    }
+
+    /** Magic method to string
+     * @access public
+     * @return string
+     */
+    public function __toString() {
+        return $this->_getData();
+    }
+
+    /** Build the html to return
+     * @access public
+     * @param type $id
+     * @return string
+     */
+    public function buildHtml( int $id){
+        $html = '';
+        $html .= '<ul id="tab" class="nav nav-tabs">';
+        $html .= '<li class="active"><a href="#findAudit" data-toggle="tab">Finds audit</a></li>';
+        $html .= '<li><a href="#fspot" data-toggle="tab">Findspot audit</a></li>';
+        $html .= '<li><a href="#coinAudit" data-toggle="tab">Numismatic audit</a></li>';
+        $html .= '</ul>';
+        $html .= '<div id="myTabContent" class="tab-content">';
         $html .= '<div class="tab-pane fade in active" id="findAudit">';
-		$html .= $this->view->changesFind($id);
-		$html .= '</div>';
-		$html .= '<div class="tab-pane fade" id="fspot">';
-		$html .= $this->view->changesFindSpot($id);
-		$html .= '</div>';
-		$html .= '<div class="tab-pane fade" id="coinAudit">';
-		$html .= $this->view->changesCoins($id);
-		$html .= '</div></div>';
-		
-		return $html;
+        $html .= $this->view->changesFind()->setId($id);
+        $html .= '</div>';
+        $html .= '<div class="tab-pane fade" id="fspot">';
+        $html .= $this->view->changesFindSpot()->setId($id);
+        $html .= '</div>';
+        $html .= '<div class="tab-pane fade" id="coinAudit">';
+        $html .= $this->view->changesCoins()->setId($id);
+        $html .= '</div></div>';
+        return $html;
 	}
 }
 

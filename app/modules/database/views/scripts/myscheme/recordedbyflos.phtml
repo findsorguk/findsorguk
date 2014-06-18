@@ -8,13 +8,13 @@ if($this->finds) :?>
         <?php echo $this->partialLoop('partials/database/findRecordList.phtml',$this->finds);?>
     </div>
     <div class="span3">
-    
+
       <?php echo $this->resultsQuantityChooser($this->paginator);?>
         <?php echo $this->thumbnailToggler();?>
         <?php echo $this->resultsSorter($this->paginator);?>
         <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>
         <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
-		<?php echo $this->statGenerator($this->stats);?>    
+        <?php echo $this->statGenerator()->setStats($this->stats);?>
         <?php
 echo $this->facetCreator($this->facets);
 ?>

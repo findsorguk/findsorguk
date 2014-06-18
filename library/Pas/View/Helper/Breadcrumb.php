@@ -2,7 +2,7 @@
 
 /**
  * This class is to display the breadcrumbs
- * Load of rubbish, needs a rewrite
+ * Load of rubbish, needs a rewrite and to use reflection maybe
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -13,303 +13,359 @@
  * @since September 13 2008
  * @todo change the class to use zend_navigation
 */
-class Pas_View_Helper_Breadcrumb
-	extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
+{
+    protected $_module;
 
+    protected $_front;
 
-	/** Build the breadcrumbs
-	 * @access public
-	 * @return string $html
-	 */
-	public function breadCrumb() {
-	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
-	$l_m = $module;
+    protected $_controller;
 
-	switch ($module) {
-		case 'getinvolved':
-			$nicemodule = 'Getting involved';
-			break;
-		case 'admin':
-			$nicemodule = 'Administration centre';
-			break;
-		case 'conservation':
-			$nicemodule = 'Conservation advice';
-			break;
-		case 'research':
-			$nicemodule = 'research';
-			break;
-		case 'treasure':
-			$nicemodule = 'Treasure Act';
-			break;
-		case 'news':
-			$nicemodule = 'news &amp; reports';
-			break;
-		case 'events':
-			$nicemodule = 'events';
-			break;
-		case 'info':
-			$nicemodule = 'Site information';
-			break;
-		case 'romancoins':
-			$nicemodule = 'Roman Numismatic guide';
-			break;
-		case 'greekromancoins':
-			$nicemodule = 'Greek and Roman Provincial Numismatic guide';
-		 	break;
-		case 'api':
-			$nicemodule = 'Application programming interface';
-			break;
-		case 'bronzeage':
-			$nicemodule = 'Bronze Age object guide';
-			break;
-		case 'staffshoardsymposium':
-			$nicemodule  = 'Staffordshire Hoard Symposium';
-			break;
-		case 'romancoins':
-			$nicemodule = 'Roman coin guide';
-			break;
-		case 'database':
-			$nicemodule = 'Finds database';
-			break;
-		case 'medievalcoins':
-			$nicemodule = 'Medieval coin guide';
-			break;
-		case 'ironagecoins':
-			$nicemodule = 'Iron Age coin guide';
-			break;
-		case 'earlymedievalcoins':
-			$nicemodule = 'Early Medieval coin guide';
-			break;
-		case 'greekandromancoins':
-			$nicemodule = 'Greek &amp; Roman Provincial coin guide';
-			break;
-		case 'byzantinecoins':
-			$nicemodule = 'Byzantine coin guide';
-			break;
-		case 'postmedievalcoins':
-			$nicemodule = 'Post Medieval coin guide';
-			break;
-		case 'getinvolved':
-			$nicemodule = 'Get involved';
-			break;
-		case 'contacts':
-			$nicemodule = 'Scheme contacts';
-			break;
-		case 'events':
-			$nicemodule = 'Scheme events';
-			break;
-		case 'secrettreasures':
-			$nicemodule = 'Britain\'s Secret Treasures';
-			break;
-		 default:
-		 	$nicemodule = $module;
+    protected $_action;
+
+    protected $_separator = '&raquo;';
+
+    protected $_url;
+
+    /** Construct the function
+     *
+     */
+    public function __construct() {
+        $this->_front = Zend_Controller_Front::getInstance()->getRequest();
+        $this->_module = $this->_front->getModuleName();
+        $this->_url = $this->view->baseUrl();
+    }
+
+    public function getModule() {
+		return $this->_module;
+    }
+    
+    
+    public function getController() {
+    	return $this->_controller;
+    }
+    /* The view helper class
+     *
+     */
+    public function breadcrumb() {
+        return $this;
+    }
+
+    /** A switch to get the nice name for the module
+     *
+     * @return string
+     */
+    public function _switchModule() {
+
+        switch ($this->getModule()) {
+        	case 'getinvolved':
+            	$clean = 'Getting involved';
+            	break;
+            case 'admin':
+            	$clean = 'Administration centre';
+            	break;
+           	case 'conservation':
+                $clean = 'Conservation advice';
+                break;
+            case 'research':
+            	$clean = 'research';
+            	break;
+            case 'treasure':
+				$clean = 'Treasure Act';
+				break;
+            case 'news':
+                $clean = 'news &amp; reports';
+                break;
+            case 'events':
+                $clean = 'events';
+                break;
+            case 'info':
+                $clean = 'Site information';
+                break;
+            case 'romancoins':
+                $clean = 'Roman Numismatic guide';
+		break;
+            case 'greekromancoins':
+                $clean = 'Greek and Roman Provincial Numismatic guide';
 		 break;
+             case 'api':
+		$clean = 'Application programming interface';
+		break;
+            case 'bronzeage':
+		$clean = 'Bronze Age object guide';
+		break;
+            case 'staffshoardsymposium':
+		$clean  = 'Staffordshire Hoard Symposium';
+		break;
+            case 'database':
+                $clean = 'Finds database';
+                break;
+            case 'medievalcoins':
+                $clean = 'Medieval coin guide';
+		break;
+            case 'ironagecoins':
+		$clean = 'Iron Age coin guide';
+		break;
+            case 'earlymedievalcoins':
+		$clean = 'Early Medieval coin guide';
+                break;
+            case 'greekandromancoins':
+                $clean = 'Greek &amp; Roman Provincial coin guide';
+                break;
+            case 'byzantinecoins':
+		$clean = 'Byzantine coin guide';
+		break;
+            case 'postmedievalcoins':
+		$clean = 'Post Medieval coin guide';
+		break;
+            case 'getinvolved':
+                $clean = 'Get involved';
+                break;
+            case 'contacts':
+                $clean = 'Scheme contacts';
+                break;
+            case 'events':
+		$clean = 'Scheme events';
+                break;
+            case 'secrettreasures':
+                $clean = 'Britain\'s Secret Treasures';
+		break;
+            default:
+                $clean = $module;
+                break;
 	}
+        return $clean;
+    }
 
-	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-	$l_c = strtolower($controller);
 
-	switch ($controller) {
-		case 'error':
-			$nicename = 'Error manager';
-			break;
-		case 'users':
-			$nicename = 'Users\' section';
-			break;
-		case 'admin':
-			$nicename = 'Site Administration';
-			break;
-		case 'britishmuseum':
-			$nicename = 'British Museum events';
-			break;
-		case 'datatransfer':
-			$nicename = 'Data transfer';
-			break;
-		case 'info':
-			$nicename = 'Event information';
-			break;
-		case 'foi':
-			$nicename = 'Freedom of Information Act';
-			break;
-		case 'her':
-			$nicename = 'Historic Enviroment Signatories';
-			break;
-		case 'myscheme':
-			$nicename = 'My scheme';
-			break;
-		case 'vanarsdelltypes':
-			$nicename = 'Van Arsdell Types';
-			break;
-		case 'smr':
-			$nicename = 'Scheduled Monuments';
-			break;
-		case 'osdata':
-			$nicename = 'Ordnance Survery Open Data';
-			break;
-		case 'theyworkforyou':
-			$nicename = 'Data from TheyWorkForYou';
-			break;
-		default:
-			$nicename = $controller;
-			break;
+    /** A function to get the nice name for the controller
+     *
+     * @return string
+     */
+    public function _switchController(){
+        switch ($this->getController()) {
+            case 'error':
+                $clean = 'Error manager';
+                break;
+            case 'users':
+                $clean = 'Users\' section';
+		break;
+            case 'admin':
+                $clean = 'Site Administration';
+                break;
+            case 'britishmuseum':
+                $clean = 'British Museum events';
+                break;
+            case 'datatransfer':
+                $clean = 'Data transfer';
+                break;
+            case 'info':
+                $clean = 'Event information';
+                break;
+            case 'foi':
+                $clean = 'Freedom of Information Act';
+		break;
+            case 'her':
+                $clean = 'Historic Enviroment Signatories';
+                break;
+            case 'myscheme':
+                $clean = 'My scheme';
+                break;
+            case 'vanarsdelltypes':
+                $clean = 'Van Arsdell Types';
+                break;
+            case 'smr':
+		$clean = 'Scheduled Monuments';
+		break;
+            case 'osdata':
+                $clean = 'Ordnance Survery Open Data';
+                break;
+            case 'theyworkforyou':
+                $clean = 'Data from TheyWorkForYou';
+		break;
+            default:
+                $clean = $controller;
+		break;
 	}
+        return $clean;
+    }
 
-
-	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
-	$l_a = strtolower($action);
-
-	switch ($action) {
-		case 'mapsearchresults':
-			$nicenameaction = 'Map search results';
-			break;
-
-		case 'countystats':
-			$nicenameaction = 'County statistics';
-			break;
-		case 'regionalstats':
-			$nicenameaction = 'Regional statistics';
-			break;
-		case 'institutionstats':
-			$nicenameaction = 'Institutional statistics';
-			break;
-		case 'numismaticsearch':
-			$nicenameaction = 'Numismatic search';
-			break;
-		case 'profile':
-			$nicenameaction = 'Profile details';
-			break;
-		case 'add':
-			$nicenameaction = 'Create new';
-			break;
-		case 'myresearch':
-			$nicenameaction = 'My research agendas';
-			break;
-		case 'myinstitution':
-			$nicenameaction = 'My institution\'s finds';
-			break;
-		case 'forgot':
-			$nicenameaction = 'Reset forgotten password';
-			break;
-		case 'login':
-			$nicenameaction = 'Login to Beowulf';
-			break;
-		case 'advanced':
-			$nicenameaction = 'Advanced search interface';
-			break;
-		case 'basicsearch':
-			$nicenameaction = 'Basic what/where/when search interface';
-			break;
-		case 'searchresults':
-			$nicenameaction = 'Search results';
-			break;
-		case 'organisations':
-			$nicenameaction = 'Registered Organisations';
-			break;
-		case 'addfindspot':
-			$nicenameaction = 'Add a findspot';
-			break;
-		case 'editfindspot':
-			$nicenameaction = 'Edit findspot';
-			break;
-		case 'editpublication':
-			$nicenameaction = 'Edit a publication\'s details';
-			break;
-		case 'publication':
-			$nicenameaction = 'Publication\'s details';
-			break;
-			case 'addromancoin':
-			$nicenameaction = 'Add Roman numismatic data';
-			break;
-			case 'romannumismatics':
-			$nicenameaction = 'Roman numismatic search';
-			break;
-			case 'record':
-			$nicenameaction = 'Object/coin record';
-			break;
-			case 'emperorbios':
-			$nicenameaction = 'Emperor biographies';
-			break;
-			case 'postmednumismatics':
-			$nicenameaction ='Post Medieval numismatic search';
-			break;
-			case 'project':
-			$nicenameaction = 'Project details';
-			break;
-			case 'hers':
-			$nicenameaction = 'HER offices signed up';
-			break;
-			case 'ruler':
-			$nicenameaction = 'Ruler details';
-			break;
-			case 'error':
-			$nicenameaction = 'Error details';
-			break;
-			case 'errorreport':
-			$nicenameaction = 'Submit an error';
-			break;
-			case 'oneto50k':
-			$nicenameaction = 'One to 50K entry';
-			break;
-			case 'myfinds':
-			$nicenameaction = 'Finds I have recorded';
-			break;
-			case 'myimages':
-			$nicenameaction = 'Images I have added';
-			break;
-			case 'mp':
-			$nicenameaction = 'Member of Parliament';
-			break;
-			case 'recordedbyflos':
-			$nicenameaction = 'Recorded by an FLO';
-			break;
-			case 'accountproblem':
-			$nicenameaction = 'Problem with your account';
-			break;
-			case 'inaset':
-			$nicenameaction = 'In a set';
-			break;
-			default:
-			$nicenameaction = $action;
-			break;
+    /** A function to get the nice name for an action
+     *
+     * @return string
+     */
+    public function _switchAction() {
+        switch ($action) {
+            case 'mapsearchresults':
+                $clean = 'Map search results';
+                break;
+            case 'countystats':
+                $clean = 'County statistics';
+                break;
+            case 'regionalstats':
+                $clean = 'Regional statistics';
+                break;
+            case 'institutionstats':
+                $clean = 'Institutional statistics';
+                break;
+            case 'numismaticsearch':
+                $clean = 'Numismatic search';
+                break;
+            case 'profile':
+                $clean = 'Profile details';
+                break;
+            case 'add':
+                $clean = 'Create new';
+                break;
+            case 'myresearch':
+                $clean = 'My research agendas';
+                break;
+            case 'myinstitution':
+                $clean = 'My institution\'s finds';
+                break;
+            case 'forgot':
+                $clean = 'Reset forgotten password';
+                break;
+            case 'login':
+                $clean = 'Login';
+                break;
+            case 'advanced':
+                $clean = 'Advanced search interface';
+                break;
+            case 'basicsearch':
+                $clean = 'Basic what/where/when search interface';
+		break;
+            case 'searchresults':
+                $clean = 'Search results';
+                break;
+            case 'organisations':
+                $clean = 'Registered Organisations';
+                break;
+            case 'addfindspot':
+                $clean = 'Add a findspot';
+                break;
+            case 'editfindspot':
+                $clean = 'Edit findspot';
+                break;
+            case 'editpublication':
+                $clean = 'Edit a publication\'s details';
+                break;
+            case 'publication':
+                $clean = 'Publication\'s details';
+                break;
+            case 'addromancoin':
+                $clean = 'Add Roman numismatic data';
+                break;
+            case 'romannumismatics':
+                $clean = 'Roman numismatic search';
+                break;
+            case 'record':
+                $clean = 'Object/coin record';
+                break;
+            case 'emperorbios':
+                $clean = 'Emperor biographies';
+                break;
+            case 'postmednumismatics':
+                $clean ='Post Medieval numismatic search';
+		break;
+            case 'project':
+                $clean = 'Project details';
+		break;
+            case 'hers':
+                $clean = 'HER offices signed up';
+		break;
+            case 'ruler':
+                $clean = 'Ruler details';
+		break;
+            case 'error':
+                $clean = 'Error details';
+                break;
+            case 'errorreport':
+                $clean = 'Submit an error';
+		break;
+            case 'oneto50k':
+                $clean = 'One to 50K entry';
+		break;
+            case 'myfinds':
+		$clean = 'Finds I have recorded';
+		break;
+            case 'myimages':
+		$clean = 'Images I have added';
+		break;
+            case 'mp':
+                $clean = 'Member of Parliament';
+                break;
+            case 'recordedbyflos':
+                $clean = 'Recorded by an FLO';
+                break;
+            case 'accountproblem':
+                $clean = 'Problem with your account';
+                break;
+            case 'inaset':
+                $clean = 'In a set';
+                break;
+            default:
+		$clean = $action;
+		break;
 	}
+        return $clean;
+    }
 
-	// HomePage = No Breadcrumb
-	if($l_m == 'default' && $l_c == 'index' && $l_a == 'index'){
-	return;
+    /** function to build the html
+     *
+     * @return string
+     */
+    public function html() {
+        $html = '';
+        // HomePage = No Breadcrumb
+	if($this->_module == 'default' && $this->_controller == 'index'
+                && $this->_action == 'index'){
+	return $html;
 	}
 
 	// Get our url and create a home crumb
-	$url = $this->view->baseUrl();
-	$homeLink = "<a href='{$url}/' title='Scheme website home page'>Home</a>";
+	$homeLink = '<a href=' . $this->_url . ' title="Scheme website home page">Home</a>';
 	// Start crumbs
-	$crumbs = $homeLink . " &raquo; ";
+	$html .= $homeLink . $this->_separator;
 
 	// If our module is default
-	if($l_m == 'default') {
+	if($this->_module == 'default') {
 
-	if($l_a == 'index'){
-	$crumbs .= ucfirst($nicename);
+	if($this->_action == 'index'){
+	$html .= $this->_switchModule();
 	} else {
-	$crumbs .= " <a href='{$url}/{$controller}/' title='Return to {$nicename} section'>$nicename</a> &raquo; $nicenameaction ";
-
-
+	$html .= ' <a href="' . $this->_url . $this->_controller;
+        $html .= '" title="Return to ' . $this->_switchModule() . ' section">';
+        $html .= $this->_switchModule() . '</a> ' . $this->_separator;
+        $html .= $this->_switchAction();
 	}
 	} else {
 	// Non Default Module
-	if($l_c == 'index' && $l_a == 'index') {
-	$crumbs .= ucfirst($nicemodule);
+	if($this->_controller == 'index' && $this->_action == 'index') {
+	$html .= $this->_switchModule();
 	} else {
-	$crumbs .= "<a href='{$url}/{$module}/' title='Return to $nicemodule home'>" . ucfirst($nicemodule) . "</a> &raquo; ";
+	$html .= '<a href="' . $this->_url() . $this->_module .'" title="Return to';
+        $html .= $this->_switchController() . ' home">';
+        $html .= $this->_switchController() . "</a> &raquo; ";
 
-	if($l_a == 'index') {
-	$crumbs .= ucfirst($nicename);
+	if($this->_action == 'index') {
+	$html .= $this->_switchController();
 	} else {
-	$crumbs .= " <a href='{$url}/{$module}/{$controller}/' title='Return to $nicename home'> " . ucfirst($nicename) . "</a> &raquo; " . ucfirst($nicenameaction);
+	$html .= ' <a href="' . $this->_url . $this->_module . $this->_controller;
+        $html .= '" title="Return to ' . $this->_switchController() . ' home">';
+        $html .= $this->_switchController() . '"</a>' .  $this->_separator .  $this->_switchAction();
 	}
 	}
 
 	}
-	return $crumbs;
-	}
+	return $html;
+    }
 
+    /** Magic to string function
+     *
+     * @return object
+     */
+    public function __toString() {
+        return $this->html();
+    }
 }

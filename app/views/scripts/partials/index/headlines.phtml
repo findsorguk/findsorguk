@@ -1,1 +1,1 @@
-<li><a href="<?php echo $this->url(array('module' => 'news','controller' => 'stories','action'=> 'article','id' => $this->id),'default',true);?>" title="Read more on this story"><?php echo $this->escape($this->title);?></a> @ <?php echo $this->timeagoinwords($this->datePublished);?></li>
+<li><a href="<?php echo $this->url(array('module' => 'news','controller' => 'stories','action'=> 'article','id' => $this->id),'default',true);?>" title="Read more on this story"><?php echo $this->escape($this->title);?></a> @ <?php echo $this->timeAgoInWords($this->datePublished);?></li>

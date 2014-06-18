@@ -42,5 +42,5 @@ switch ($action) {
 <tr>
 <td><a href="<?php echo $this->url(array('module' => $module,'controller' => $actionset.'s' ,'action' => $actionset,'id' => $id),null,true);?>"><?php echo $this->issuer;?></a></td>
 <td><a href="<?php echo $this->url(array('module' => 'database','controller' => 'terminology','action' => 'period','id' => $this->i),null,true);?>"><?php echo $this->term;?></a></td>
-<td><?php echo $this->adbc($this->date1) . ' ' . $this->adbc($this->date2);?></td> 
+<td><?php echo $this->adBc()->setDate($this->date1) . ' ' . $this->adBc()->setDate($this->date2);?></td> 
 </tr>

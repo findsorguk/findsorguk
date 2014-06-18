@@ -1,10 +1,10 @@
 <tr class="valid-<?php echo $this->valid;?>">
 <td><?php echo $this->escape($this->die_axis_name);?></td>
-<td><?php echo $this->timeagoinwords($this->created);?></td>
+<td><?php echo $this->timeAgoInWords($this->created);?></td>
 <td><?php echo $this->namethem($this->fullname);?></td>
-<td><?php echo $this->timeagoinwords($this->updated);?></td>
+<td><?php echo $this->timeAgoInWords($this->updated);?></td>
 <td><?php echo $this->namethem($this->fn);?></td>
-<td><?php echo $this->validity($this->valid);?></td>
+<td><?php echo $this->validity()->setValid($this->valid);?></td>
 <td>
 <?php
 $edit = $this->Href(array(

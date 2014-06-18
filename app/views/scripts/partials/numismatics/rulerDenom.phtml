@@ -7,7 +7,7 @@ $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
     'controller' => 'rulers',
     'action' => 'ruler',
     'id'=> $this->i,
-    ),null,true);?>"><?php echo $this->issuer . ' ' . $this->adbc($this->date_from);?></a> -
+    ),null,true);?>"><?php echo $this->issuer . ' ' . $this->adBc()->setDate($this->date_from);?></a> -
 <a href="<?php echo $this->url(array(
     'module' => 'database',
     'controller' => 'search',

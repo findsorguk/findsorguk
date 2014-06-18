@@ -2,7 +2,7 @@
 <?php echo $this->eventDescription;?>
 <div>
 <p>Event data created on:
-<abbr class="dtstamp" title="<?php echo $this->toDateStamp($this->created);?>">
+<abbr class="dtstamp" title="<?php echo $this->toDateStamp()->setDateString($this->created);?>">
 <?php echo ucwords(strftime("%A %d %B %Y", strtotime($this->created)));?></abbr></small></p>
 </div>
 <div class="vcard">

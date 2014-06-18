@@ -37,10 +37,10 @@ echo '<br />' . $more . ' people have visited the site more frequently than you!
 echo '<br />You are the most frequent visitor!';
 }?>
 <br />
-Last visit registered at: <?php echo $this->escape($this->timeagoinwords($this->lastLogin));?><br />
+Last visit registered at: <?php echo $this->escape($this->timeAgoInWords($this->lastLogin));?><br />
 Your specified role on the site is: <?php echo ucfirst($this->role);?><br />
-Your account was last updated by <?php echo $this->updater;?>, <?php echo $this->escape($this->timeagoinwords($this->updated));?>.<br />Your account was created by: <?php echo $this->creator;?>.<br/ >
-Your account was created: <?php echo $this->escape($this->timeagoinwords($this->created));?>.<br/ >
+Your account was last updated by <?php echo $this->updater;?>, <?php echo $this->escape($this->timeAgoInWords($this->updated));?>.<br />Your account was created by: <?php echo $this->creator;?>.<br/ >
+Your account was created: <?php echo $this->escape($this->timeAgoInWords($this->created));?>.<br/ >
 <?php 
 if($this->canRecord === '1'):?>
 <strong>Your account has permission to record objects</strong>

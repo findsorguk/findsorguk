@@ -63,8 +63,8 @@
         <?php 
         if(!is_null($this->workflow)):?>
         
-        Workflow stage: <?php echo $this->workflowStatus($this->workflow);?>
-        <?php echo $this->workflow($this->workflow);?><br />
+        Workflow stage: <?php echo $this->workflowStatus()->setWorkflow($this->workflow);?>
+        <?php echo $this->workflow()->setWorkflow($this->workflow);?><br />
         <?php endif;?>
         <?php if(!is_null($this->description)):?>
         <span property="skos:definition"><?php echo $this->ellipsisstring($this->description,600);?></span><br />

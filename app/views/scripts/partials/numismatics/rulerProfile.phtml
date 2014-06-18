@@ -1,12 +1,12 @@
-<?php $this->headTitle('Details for '.$this->issuer. ' ' .$this->adbc($this->date1).' - '.$this->adbc($this->date2));
+<?php $this->headTitle('Details for '.$this->issuer. ' ' .$this->adBc($this->date1).' - '.$this->adBc($this->date2));
 $this->headMeta($this->curUrl(),'dc.identifier')
 ->headMeta('Daniel Pett','dc.creator')
 ->headMeta('CC BY-SA','dc.rights')
 ->headMeta('The Portable Antiquities Scheme','dc.publisher');?>
-<h2><?php echo $this->issuer; ?></h2>
+<h2><?php echo $this->title();?></h2>
 
 <?php if(!is_null($this->date1)):?>
-<?php $dates = array($this->adbc($this->date1), $this->adbc($this->date2));?>
+<?php $dates = array($this->adBc()->setDate($this->date1), $this->adBc()->setDate($this->date2));?>
 <p>Date of reign:  <?php echo implode('-', $dates);?></p>
 <?php endif;?>
 
@@ -19,7 +19,7 @@ $this->headMeta($this->curUrl(),'dc.identifier')
 <?php endif;?>
 
 <?php if(isset($this->born)):?>
-<p>Born: <?php echo $this->adbc($this->born); ?> Died: <?php echo $this->adbc($this->died); ?></p>
+<p>Born: <?php echo $this->adBc()->setDate($this->born); ?> Died: <?php echo $this->adBc()->setDate($this->died); ?></p>
 <?php endif;?>
 
 <?php echo $this->biography; ?>

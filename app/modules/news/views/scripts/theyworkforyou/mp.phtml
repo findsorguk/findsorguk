@@ -2,7 +2,7 @@
 echo $this->partial('partials/news/mpDetails.phtml',  $this->data[0]);
 ?>
 <?php
-echo $this->twfyGeo($this->data[0]);
-echo $this->parliamentCareer($this->data);
+echo $this->twfyGeo()->setData($this->data[0]);
+echo $this->parliamentCareer()->setData($this->data);
 ?>
 
