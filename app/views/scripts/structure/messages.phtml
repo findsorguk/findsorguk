@@ -10,7 +10,7 @@ $('#flashmessenger').fadeOut('slow'); }, 8000);
 <div class="alert alert-info" id="flashmessenger">
 <a class="close" data-dismiss="alert"><i class="icon-eject"></i></a>
 <?php foreach($this->messages as $message):?>
-<?php echo $message['quote']; ?>
+<?php echo $message;?>
 <?php endforeach;?>
 </div>
 <?php endif;?>
