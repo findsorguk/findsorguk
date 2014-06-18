@@ -48,7 +48,7 @@ class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract {
      * @return string
      */
     public function getParam() {
-        $this->_param = $this->_front->getParam('slug');
+        $this->_param = $this->getFront()->getParam('slug');
         return $this->_param;
     }
 
