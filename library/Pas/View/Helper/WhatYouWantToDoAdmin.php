@@ -5,100 +5,109 @@
  *
  * @category   Pas
  * @package    View_Helper
- * @subpackage
+ * @subpackage WhatYouWantToDoAdmin
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  * @uses Pas_View_Helper_RecordEditDeleteLinks
  */
 
-class Pas_View_Helper_WhatYouWantToDoAdmin extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_WhatYouWantToDoAdmin extends Zend_View_Helper_Abstract {
+    
+    protected $_restricted = array('flos');
+    
+    protected $_higherLevel = array('admin','fa');
+    
     /** Get the user's role
      * @access public
      * @return string $role role of the user
      */
-    public function getRole()
-    {
-    $auth = Zend_Auth::getInstance();
-    if ($auth->hasIdentity()) {
-    $user = $auth->getIdentity();
-    $role = $user->role;
-    } else {
-    $role = 'public';
+    public function getRole() {
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $user = $auth->getIdentity();
+            $role = $user->role;
+        } else {
+            $role = 'public';
+        }
+        return $role;
     }
 
-    return $role;
-    }
-
-    protected $_restricted = array('flos');
-    protected $_higherLevel = array('admin','fa');
+    
 
     /** Build the Html
      * @access public
      * @return html $this->buildHtml();
      */
-    public function WhatYouWantToDoAdmin()
-    {
-    return $this->buildHtml();
+    public function WhatYouWantToDoAdmin() {
+        return $this;
+    }
+    
+    public function __toString() {
+        return $this->buildHtml();
     }
 
     /** Build the html
      * @access public
      *
      */
-    public function buildHtml()
-    {
-    $html = '';
-    $html .= '<div id="action">';
-    $html .= '<ul>';
-    if (in_array($this->getRole(),$this->_higherLevel)) {
-    $html .= $this->AdminAcct();
-    $html .= $this->AdminContent();
-    $html .= $this->buildNumismatics();
-    $html .= $this->suggestResearch();
-    $html .= $this->manageResearch();
-    $html .= $this->buildErrors();
-    $html .= $this->view->Applicants();
-    $html .= $this->buildSearch();
-    $html .= $this->buildMessages();
-    }
-    $html .= $this->buildAddRecord();
-    $html .= $this->buildNews();
-    $html .= $this->buildVacancy();
-    $html .= $this->buildEvent();
-
-    $html .= '</ul>';
-    $html .= '</div><div id="clear"></div>';
-
-    return $html;
+    public function buildHtml() {
+        $html = '';
+        $html .= '<div id="action">';
+        $html .= '<ul>';
+        if (in_array($this->getRole(),$this->_higherLevel)) {
+            $html .= $this->adminAcct();
+            $html .= $this->adminContent();
+            $html .= $this->buildNumismatics();
+            $html .= $this->suggestResearch();
+            $html .= $this->manageResearch();
+            $html .= $this->buildErrors();
+            $html .= $this->view->applicants();
+            $html .= $this->buildSearch();
+            $html .= $this->buildMessages();
+        }
+        $html .= $this->buildAddRecord();
+        $html .= $this->buildNews();
+        $html .= $this->buildVacancy();
+        $html .= $this->buildEvent();
+        $html .= '</ul>';
+        $html .= '</div>';
+        return $html;
     }
 
     /** Build the admin widget
      * @access public
      * @return string
      */
-    public function AdminAcct()
-    {
-    $USERSURL = $this->view->url(array('module' => 'admin','controller' => 'users'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="purple">';
-    $newshtml .= '<a href="' . $USERSURL . '" title="Administer users">User accounts</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
+    public function adminAcct() {
+        $urlUsers = $this->view->url(array(
+            'module' => 'admin',
+            'controller' => 'users'
+            ),null,true);
+        $html = '';
+        $html .= '<li class="purple">';
+        $html .= '<a href="';
+        $html. $urlUsers;
+        $html .= '" title="Administer users">User accounts</a>';
+        $html .= '</li>';
+        return $html;
     }
+    
     /** Build the research widget
      * @access public
      * @return string
      */
     public function suggestResearch()
     {
-    $RESEARCHSURL = $this->view->url(array('module' => 'admin','controller' => 'research','action' => 'suggested'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="black">';
-    $newshtml .= '<a href="' . $RESEARCHSURL . '" title="Administer suggested topics">Suggest research</a>';
-    $newshtml .= '</li>';
+    $research = $this->view->url(array(
+        'module' => 'admin',
+        'controller' => 'research',
+        'action' => 'suggested'),null,true);
+    $html = '';
+    $html .= '<li class="black">';
+    $html .= '<a href="' . $RESEARCHSURL . '" title="Administer suggested topics">Suggest research</a>';
+    $html .= '</li>';
 
     return $newshtml;
     }
