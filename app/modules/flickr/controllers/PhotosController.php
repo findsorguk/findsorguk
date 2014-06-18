@@ -191,6 +191,8 @@ class Flickr_PhotosController
 	} else {
 	$flickr = $this->_cache->load($key);
 	}
+        Zend_Debug::dump($flickr);
+        exit;
 	$pagination = array(
 	'page'          => $page,
 	'per_page'      => (int)$flickr->perpage,

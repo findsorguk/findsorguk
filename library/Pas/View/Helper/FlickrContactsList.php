@@ -127,7 +127,7 @@ class Pas_View_Helper_FlickrContactsList extends Zend_View_Helper_Abstract {
      * @param int $total
      * @return string
      */
-    public function buildHtml(stdClass $contacts, $total)  {
+    public function buildHtml( $contacts, $total)  {
         $html = '';
         $key = md5 ('contactslistFP');
         if (!$friends = $this->getCache()->load($key)) {

@@ -3,14 +3,21 @@ $this->headTitle('Our contacts on flickr');
 $this->metaBase()
         ->setDescription('The Scheme curates a large number of images on it\'s flickr profile feed.
 They are all produced under a Creative Commons licence, feel free to use them')
-->setSubject('Photos')
-->setKeywords('flickr,photos,contacts,friends');
+        ->setSubject('Photos')
+        ->setKeywords('flickr,photos,contacts,friends')
+        ->generate();
 ?>
-<h2><?php $this->title();?></h2>
-<?php
-if($this->contacts):?>
-<p>The Scheme has <?php echo $this->contacts->total;?> contacts on flickr, here's a bit about them.</p>
-<?php
+<h2>
+    <?php $this->title();?>
+</h2>
+
+<?php if($this->contacts):?>
+
+<p>
+    The Scheme has <?php echo $this->contacts->total;?> contacts on flickr, here's a bit about them.
+</p>
+
+    <?php
 	foreach($this->contacts->contact as $c){
 	$type = '.jpg';
 	$url = 'http://farm'. $c->iconfarm . '.static.flickr.com/' . $c->iconserver . '/buddyicons/' . $c->nsid . $type;
@@ -26,6 +33,7 @@ if($this->contacts):?>
 	}
 	?>
 <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+
 <?php else:?>
     <p>
         There are no contacts available at the moment.

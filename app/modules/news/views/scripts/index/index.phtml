@@ -3,12 +3,17 @@ $this->headTitle('News from the Scheme');
 $this->metaBase()
         ->setDescription('A list of all recently released news stories from the Scheme and external sources. This is compiled infrequently.')
         ->setSubject('news')
-        ->setKeywords('portable antiquities,news,stories,central unit,website','dc.keywords');
+        ->setKeywords('portable antiquities,news,stories,central unit,website','dc.keywords')
+        ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
 <?php if (count($this->news)): ?>
 <?php echo $this->partialLoop('partials/news/newsTable.phtml',$this->news);?>
-<?php else:?>
-<p>There are no news articles available at the moment.</p>
-<?php endif; ?>
 <?php echo $this->paginationControl($this->news, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>
+    There are no news articles available at the moment.
+</p>
+<?php endif; ?> 

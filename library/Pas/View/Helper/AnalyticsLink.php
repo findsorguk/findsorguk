@@ -86,7 +86,7 @@ class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
      */
     private function getPath() {
         $path = parse_url($this->getCurUrl(), PHP_URL_PATH);
-        return  self::SLASH . substr($path, 1);
+        return  $this->_delimiter . substr($path, 1);
     }
 
     /** Encode the path

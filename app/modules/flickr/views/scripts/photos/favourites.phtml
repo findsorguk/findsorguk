@@ -3,24 +3,24 @@ $this->headTitle('The Scheme\'s favourite images');
 $this->metaBase()
         ->setDescription('A list of our favourite images that we have found on flickr from the creative commons community')
         ->setSubject('photos')
-        ->setKeywords('favourites,flickr,archaeology,creative commons,portable antiquities');
+        ->setKeywords('favourites,flickr,archaeology,creative commons,portable antiquities')
+        ->generate();
 ?>
 <h2>
     <?php echo $this->title();?>
 </h2>
 <div class="row-fluid">
 <?php if($this->photos->photo):?>
-
-<?php
-$photos = array();
-foreach($this->photos->photo as $photo){
-	$photos[] = (array)$photo;
-}
-echo $this->partialLoop('partials/flickr/favourite.phtml',$photos);
-?>
-<div class="row span16">
-<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
-</div>
+    <?php
+    $photos = array();
+    foreach($this->photos->photo as $photo){
+        $photos[] = (array)$photo;
+    }
+    echo $this->partialLoop('partials/flickr/favourite.phtml',$photos);
+    ?>
+    <div class="row span16">
+        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+    </div>
 <?php else:?>
 <p>There are no favourites available at the moment</p>
 <?php endif;?>

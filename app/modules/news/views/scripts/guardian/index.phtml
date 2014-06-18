@@ -2,12 +2,17 @@
 $this->headTitle('Articles about the Scheme in the Guardian');
 $this->metaBase()
         ->setDescription('A list of all articles that refer to the Scheme, retrieved from the Guardian API')
-        ->setKeywords('guardian,api,archaeology,maev kennedy,portable antiquities');
+        ->setKeywords('guardian,api,archaeology,maev kennedy,portable antiquities')
+        ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2>
+    <?php echo $this->title();?>
+</h2>
 <?php if($this->data):?>
-<?php echo $this->partialLoop('partials/news/guardianNews.phtml',$this->data);?>
-<?php echo $this->paginationControl($this->data, 'Sliding', 'structure/pagination.phtml'); ?>
+    <?php echo $this->partialLoop('partials/news/guardianNews.phtml',$this->data);?>
+    <?php echo $this->paginationControl($this->data, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
-<p>No news has been retrieved from the Guardian's API</p>
+<p>
+    No news has been retrieved from the Guardian's API.
+</p>
 <?php endif;?>

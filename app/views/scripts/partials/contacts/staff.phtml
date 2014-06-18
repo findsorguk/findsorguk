@@ -1,11 +1,11 @@
 <?php
-
 $this->headTitle('Profile for ' . $this->escape($this->firstname). ' ' . $this->escape($this->lastname));
 $this->metaBase()
         ->setDescription('A full profile and details for ' . $this->escape($this->firstname).
 ' ' . $this->escape($this->lastname))
         ->setSubject('Contact profile')
-        ->setKeywords('contacts,scheme,'. $this->escape($this->firstname). ' ' . $this->escape($this->lastname) . ',archaeology');
+        ->setKeywords('contacts,scheme,'. $this->escape($this->firstname). ' ' . $this->escape($this->lastname) . ',archaeology')
+        ->generate();
 $this->headLink()->appendAlternate($this->baseUrl() . '/contacts/staff/profile/id/' . $this->number . '/format/foaf/',
 	 			'application/rdf+xml', 'FOAF');
 $this->headLink()->appendAlternate($this->baseUrl().'/database/search/results/createdby/'.$this->dbaseID.'/format/atom/',

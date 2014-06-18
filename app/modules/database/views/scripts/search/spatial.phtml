@@ -1,3 +1,32 @@
+<?php 
+$this->headTitle('Search our database via a map interface');
+$this->metaBase()
+        ->setDescription('An interface to search the PAS database via a map')
+        ->setSubject('archaeology')
+        ->setKeywords('mapping, gis,archaeology,lat/lon')
+        ->generate();
+?>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
+
+    <p>
+        To use this search, you need to draw a box on the map. This will produce a 
+        red outline. Follow these steps:
+    </p>
+
+    <ol>
+        <li>using the magnification slider and drag tools to zoom in on your chosen search area</li>  
+        <li>then the red outline box tool</li>
+        <li>then click on the filter button below the map</li>
+    </ol>
+
+<div id="map">
+    <div id="loading"></div>
+</div>
+
+<?php echo $this->form;?>
+
 <?php
 $this->inlineScript()->appendFile('http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry&libraries=drawing');
 ?>
@@ -84,20 +113,3 @@ function trunc(x) {
 
 
 <?php $this->inlineScript()->captureEnd();?>
-<?php $this->headTitle('Search our database via a map interface');?>
-<h2 class="lead"><?php echo $this->title();?></h2>
-<?php 
-$this->metaBase()
-        ->setDescription('An interface to search the PAS database via a map')
-        ->setSubject('archaeology')
-        ->setKeywords('mapping, gis,archaeology,lat/lon');
-?>
-<p>To use this search, you need to draw a box on the map. This will produce a red outline. Follow these steps:</p>
-<ol>
-<li>using the magnification slider and drag tools to zoom in on your chosen search area</li>  
-<li>then the red outline box tool</li>
-<li>then click on the filter button below the map</li>
-</ol>
-<div id="map"></div>
-
-<?php echo $this->form;?>

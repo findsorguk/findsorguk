@@ -3,9 +3,12 @@ $this->headTitle('All pictures within 500 metres of '.$this->place);
 $this->metaBase()
         ->setDescription('A list of all our photos taken within a radius of 500 metres from ' . $this->place)
         ->setSubject('photos')
-        ->setKeywords('photos,archaeology,museum,british,flickr,portable antiquities');
+        ->setKeywords('photos,archaeology,museum,british,flickr,portable antiquities')
+        ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
 <?php 
 if(($this->pictures)):
 $photos = array();

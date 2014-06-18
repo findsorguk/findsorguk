@@ -3,9 +3,12 @@ $this->headTitle('Our sets of images as seen on Flickr');
 $this->metaBase()
         ->setDescription('A collection of our sets of photos as shown on flickr and consumed within our site. It includes the mighty Staffordshire Hoard')
         ->setSubject('photos')
-        ->setKeywords('archaeology,museum,treasure,objects,staffordshire,hoard,frome');
+        ->setKeywords('archaeology,museum,treasure,objects,staffordshire,hoard,frome')
+        ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
 <div class="row-fluid">
 <?php
 if($this->photos):?>

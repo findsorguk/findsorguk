@@ -3,13 +3,16 @@ $this->inlineScript()->appendFile('http://maps.google.com/maps/api/js?sensor=fal
 $this->headTitle('Our geofreferenced photos from Flickr mapped');
 $this->metaBase()->setDescription('A map showing our images from flickr that have geo information and can be plotted')
         ->setSubject('photos')
-        ->setKeywords('archaeology,woeid,map,flickr,photos,portable antiquities');
+        ->setKeywords('archaeology,woeid,map,flickr,photos,portable antiquities')
+        ->generate();
 ?>
-<h2>
+<h2 class="lead">
     <?php echo $this->title();?>
 </h2>
 
-<div id="map" style="width:740px; height:700px;"><div id="overlay" class="mapload"><img src="/assets/loading.gif" /></div></div>
+<div id="map">
+    <div id="overlay" class="mapload"><img src="/assets/loading.gif" /></div>
+</div>
 
 <?php $this->inlineScript()->captureStart();?>
 	$(document).ready(function() {

@@ -3,7 +3,8 @@ $this->headTitle('A list of Arts Council England accredited museums');
 $this->metaBase()
         ->setDescription('A list of accredited Arts Council England museums in the UK')
         ->setSubject('ACE museums')
-        ->setKeywords('museums,accredited,treasure');
+        ->setKeywords('museums,accredited,treasure')
+        ->generate();
 ?>
 <h2><?php echo $this->title();?></h2>
 <p>This list has been generated and enhanced from the <a href="http://www.artscouncil.org.uk/what-we-do/supporting-museums/accreditation-scheme/accreditation-statistics/">Arts Council England curated list</a>.

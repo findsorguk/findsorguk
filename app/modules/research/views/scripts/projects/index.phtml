@@ -3,9 +3,12 @@ $this->headTitle('All research projects listed on our system');
 $this->metaBase()
         ->setDescription('A list of all research projects that the Scheme knows about using PAS data')
         ->setSubject('research')
-        ->setKeywords('archaeology,romans,saxons,phd,undergraduate,museum,danelaw');
+        ->setKeywords('archaeology,romans,saxons,phd,undergraduate,museum,danelaw')
+        ->generate();
 ?>
-<h2><?php if(isset($this->name)){ echo $this->name. ' ';}?>Research in progress using our data</h2>
+<h2 class="lead">
+    <?php if(isset($this->name)){ echo $this->name. ' ';}?>Research in progress using our data
+</h2>
 <?php if(count($this->projects)):?>
 <p>There are <?php echo $this->paginationControl($this->projects, 'Sliding', 'structure/queryCounts.phtml'); ?> projects in progress that you can read about. If you're not listed here, then please do let us know and we'll add you.</p>
 

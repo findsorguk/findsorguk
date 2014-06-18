@@ -151,7 +151,7 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
      * @access public
      * @return array The keys to use
      */
-    private function getAccessKeys() {
+    public function getAccessKeys() {
         $tokens = new OauthTokens();
         $where = array();
         $where[] = $tokens->getAdapter()->quoteInto('service = ?','yahooAccess');
@@ -171,10 +171,11 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
      * @uses Pas_YqlOauth
      * @param array $access
      */
-    private function getFlickr(array $access) {
-        $access = (object) $access;
+    public function getFlickr() {
+        $openup = $this->getAccessKeys();
+        $access = (object) $openup;
         $key = 'flickrfontrecent';
-        if (!($this->getCache()->test($key))) {
+//        if (!($this->getCache()->test($key))) {
             $oauth = new Pas_Yql_Oauth();
             $q = 'SELECT * FROM flickr.photos.search WHERE';
             $q .= 'tag_mode ="all" AND user_id="';
@@ -185,30 +186,28 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
             $q .= $this->getFlickrKey();
             $q .= '" LIMIT';
             $q .= $this->getLimit();
-        $data = $oauth->execute(
+        
+            $data = $oauth->execute(
                 $q,
                 $access->access_token,
                 $access->access_token_secret,
                 $access->access_token_expiry,
                 $access->handle
                 );
-        $this->getCache()->save($data);
-        } else {
-        $data = $this->getCache()->load($key);
-        }
-        if (is_array((array) $data)) {
+//            $this->getCache()->save($data);
+//        } else {
+//            $data = $this->getCache()->load($key);
+//        }
+        Zend_Debug::dump($data);
+        exit;
         return $this->parseFlickr($data);
-        } else {
-            return false;
-        }
     }
 
     /** Parse the flickr response to an array and build html
      * @access public
      * @param stdClass $data
-
      */
-    private function parseFlickr(stdClass $data) {
+    public function parseFlickr( $data) {
         $recent = array();
         if (!is_null($data)) {
             foreach ($data->query->results->photo as $k) {
@@ -251,22 +250,6 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
      * @return string
      */
     public function __toString() {
-        return $this->openSesame();
-    }
-
-
-    /** Get the data via Oauth and run the functions
-     * @access public
-     * @return boolean
-     */
-    public function openSesame(){
-        $openup = $this->getAccessKeys();
-
-        if (!is_null($openup)) {
-            return $this->getFlickr($openup);
-        } else {
-//            return $this->getFlickr($openup);
-            return 'There has been a problem accessing the api';
-        }
+        Zend_Debug::dump($this->getFlickr());
     }
 }

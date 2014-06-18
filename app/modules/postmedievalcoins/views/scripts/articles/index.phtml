@@ -3,13 +3,16 @@ $this->headTitle('A series of articles on Post Medieval coins');
 $this->metaBase()
         ->setDescription('A series of articles that relate to Post Medieval coins, encompassing inscriptions, mint and types')
         ->setSubject('post medieval numismatics')
-        ->setKeywords('post,medieval,coins,inscription,reading');
+        ->setKeywords('post,medieval,coins,inscription,reading')
+        ->generate();
 ?>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
 
-<h2><?php echo $this->title();?></h2>
 <ul>
-<?php foreach($this->contents as $c) {?>
-<li><a href="<?php echo $this->url(array('module' => 'postmedievalcoins','controller' => 'articles',
-'action' => 'page','slug' => $c['slug']),'postmedievalguides',true);?>" title="Read the full article entitled <?php echo $c['menuTitle'];?>"><?php echo $c['menuTitle'];?></a></li>
-<?php }?>
+    <?php foreach($this->contents as $c) {?>
+    <li><a href="<?php echo $this->url(array('module' => 'postmedievalcoins','controller' => 'articles',
+    'action' => 'page','slug' => $c['slug']),'postmedievalguides',true);?>" title="Read the full article entitled <?php echo $c['menuTitle'];?>"><?php echo $c['menuTitle'];?></a></li>
+    <?php }?>
 </ul>

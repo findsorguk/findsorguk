@@ -115,7 +115,7 @@ class Pas_View_Helper_RomanNumerals extends Zend_View_Helper_Abstract
     public function createDate() {
         $html = '';
         if ( $this->validate( $this->getDate() ) ) {
-            $n = intval($date);
+            $n = intval($this->getDate() );
             foreach ($this->getNumerals() as $roman => $number) {
                 //Divide number to get matches
                 $matches = intval($n / $number);

@@ -88,7 +88,8 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @return int
      */
     public function getPortNumber() {
-        $this->_portNumber = $this->getFront()->getRequest('SERVER_PORT');
+        $this->_portNumber =  $_SERVER['SERVER_PORT'] != 80 
+                ? ":{$_SERVER['SERVER_PORT']}" : '';
         return $this->_portNumber;
     }
 
@@ -97,7 +98,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @return string
      */
     public function getUri() {
-        $this->_requestUri = $this->getFront()->getRequest('REQUEST_URI');
+        $this->_requestUri = $this->getFront()->getRequest()->getRequestUri();
         return $this->_requestUri;
     }
 
@@ -106,7 +107,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @return string
      */
     public function getServerName() {
-        $this->_serverName = $this->getFront()->getRequest('SERVER_NAME');
+        $this->_serverName = $_SERVER['HTTP_HOST'];
         return $this->_serverName;
     }
 
@@ -117,20 +118,6 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
     public function getSsl() {
         $this->_ssl = (null !== ($this->getHttps()) && $this->getHttps() == "on");
         return $this->_ssl;
-    }
-
-    /** Get the port
-     * @access public
-     * @return int
-     */
-    public function getPort() {
-                Zend_Debug::dump($this->getPortNumber());
-        exit;
-        $port = (null !== ($this->getPortNumber()) && ((!$this->getSsl() && $this->getPortNumber() != "80")
-        || ($this->getSsl() && $this->getPortNumber() != "443")));
-        $this->_port = ($port) ? ':' . $this->getPortNumber() : '';
-
-        return $this->_port;
     }
 
     /** The function
@@ -156,7 +143,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
     public function createUrl() {
         $url = ($this->getSsl() ? 'https://' : 'http://')
                 . $this->getServerName()
-                . $this->getPort()
+                . $this->getPortNumber()
                 . $this->getUri();
         return $url;
     }

@@ -1,10 +1,13 @@
-<?php $this->headTitle($this->title);?>
-<?php
+<?php 
+$this->headTitle($this->title);
 $this->metaBase()
         ->setDescription($this->ellipsisString()->setString($this->body)->setMax(200))
-        ->setSubject('archaeology');
+        ->setSubject('archaeology')
+        ->generate();
 ?>
-<h1><?php echo $this->title;?></h1>
+<h1 class="lead">
+    <?php echo $this->title;?>
+</h1>
 
 <p class="lead"><?php echo strip_tags($this->body);?></p>
 

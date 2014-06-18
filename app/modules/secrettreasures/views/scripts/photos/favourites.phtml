@@ -3,9 +3,13 @@ $this->headTitle('Our favourite images from other users.');
 $this->metaBase()
         ->setDescription('A list of our favourite images that we have found on flickr from the creative commons community')
         ->setSubject('photos')
-        ->setKeywords('favourites,flickr,archaeology,creative commons,portable antiquities');
+        ->setKeywords('favourites,flickr,archaeology,creative commons,portable antiquities')
+        ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
+
 <?php if($this->photos):?>
 <?php
 $photos = array();

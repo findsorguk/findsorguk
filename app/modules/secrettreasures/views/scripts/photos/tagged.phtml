@@ -4,9 +4,12 @@ $this->metaBase()
         ->setDescription('A list of photos retrieved from the flickr api using creative commons searches on the tag ' 
 . $this->tagtitle)
         ->setSubject('photos')
-        ->setKeywords('photos,flickr,api,tagged,' . $this->tagtitle);
+        ->setKeywords('photos,flickr,api,tagged,' . $this->tagtitle)
+        ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
 
 <?php if(count($this->pictures)):?>
 <?php echo $this->partialLoop('partials/flickr/set.phtml',$this->pictures);?>

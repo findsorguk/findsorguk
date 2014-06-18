@@ -11,7 +11,8 @@ $this->jQuery()->addJavascriptFile('/js/bootstrap-carousel.js',$type='text/javas
     <?php echo $this->title();?>
 </h2>
 <?php
-$flickr = $this->getInvokeArg('bootstrap')->config->webservice->flickr;
+$config = Zend_Registry::get('config');
+$flickr = $config->webservice->flickr;
 ?>
 <div class="row-fluid">
 <?php

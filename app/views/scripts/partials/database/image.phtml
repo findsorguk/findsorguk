@@ -25,7 +25,6 @@ $tempfilesmall = './'.$path.'small/'.$name.$ext;
 
 <div id="image">
 <?php
-
 if(file_exists($location)) {
 ?>
 <?php
@@ -44,7 +43,8 @@ $this->metaBase()
         ->setKeywords(implode(',',array($this->broadperiod,$this->county, $this->objecttype)))
         ->setImage($this->serverUrl().'/'.$path.'medium/'.rawurlencode($name).$ext)
         ->setImageWidth($w)
-        ->setImageHeight($h);
+        ->setImageHeight($h)
+        ->generate();
 
 ?>
 <p><a class="btn" href="<?php echo $this->url(array('module' => 'database','controller' => 'ajax','action' => 'download','id' => $this->id),null,true);?>" title="Download image">Download original</a>

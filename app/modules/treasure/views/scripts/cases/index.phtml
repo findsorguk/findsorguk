@@ -3,9 +3,10 @@ $this->headTitle('A list of all cases of Treasure in reverse chronologvical orde
 $this->metaBase()
         ->setDescription('The Scheme keeps an archive of Treasure cases, which can be queried via this page')
         ->setSubject('treasure finds')
-        ->setKeywords('treasure,archaeology,counties,T numbers');     
+        ->setKeywords('treasure,archaeology,counties,T numbers')
+        ->generate();     
 ?>
-<h2>
+<h2 class="lead">
     <?php echo $this->title();?>
 </h2>
 <?php 

@@ -12,7 +12,8 @@
  * ->setDescription($description)
  * ->setImage($image)
  * ->setSubject($subject)
- * ->setKeywords($keywords);
+ * ->setKeywords($keywords)
+ * ->generate();
  * ?>
  * </code>
  * 

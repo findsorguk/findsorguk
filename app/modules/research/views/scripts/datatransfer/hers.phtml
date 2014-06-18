@@ -3,10 +3,12 @@ $this->headTitle('Authorities signed up for data transfer');
 $this->metaBase()
         ->setDescription('A list of Historic Environment Record offices that have signed up to transfer our data.')
         ->setSubject('research')
-        ->setKeywords('historic,archaeology,antiquities,environment,data,transfer,third,party');
-
+        ->setKeywords('historic,archaeology,antiquities,environment,data,transfer,third,party')
+        ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
 
 
 <?php if (count($this->hers)): ?>

@@ -4,14 +4,13 @@ $this->headTitle('Location map showing Scheme staff');
 $this->metaBase()
         ->setDescription('A map of the locations of our staff who work for the Portable Antiquities Scheme')
         ->setSubject('contacts map')
-        ->setKeywords('map,google,contacts,scheme,head office,archaeology');
+        ->setKeywords('map,google,contacts,scheme,head office,archaeology')
+        ->generate();
 ?>
 <h2><?php echo $this->title();?></h2>
 <div id="map">
 </div>
-<?php
-$this->inlineScript()->captureStart();
-?>
+<?php  $this->inlineScript()->captureStart(); ?>
 
  //<![CDATA[
 
@@ -84,5 +83,4 @@ $this->inlineScript()->captureStart();
 
     //]]>
 	window.onload = load;
-
 <?php $this->inlineScript()->captureEnd();?>

@@ -3,12 +3,11 @@ $this->headTitle('Scheme contacts');
 $this->metaBase()
         ->setDescription('A list of all contacts who work for the Portable Antiquities Scheme')
         ->setSubject('contacts list')
-        ->setKeywords('contacts,scheme,head office,archaeology');
+        ->setKeywords('contacts,scheme,head office,archaeology')
+        ->generate();
 $this->headLink()->appendAlternate($this->baseUrl().'/contacts/index/index/format/foaf/',
 	 			'application/rdf+xml', 'FOAF');
-
 ?>
-
 <h2>
     <?php echo $this->title();?>
 </h2>

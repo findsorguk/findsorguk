@@ -89,7 +89,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
      * @return string
      */
     public function getUrl() {
-        $this->_url = Zend_Registry::get('siteurl') . '/';
+        $this->_url = $this->view->serverUrl() . $this->view->baseUrl() . '/';
         return $this->_url;
     }
 

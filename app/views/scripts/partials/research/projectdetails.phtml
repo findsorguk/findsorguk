@@ -1,5 +1,18 @@
-<?php $this->headTitle('Project details for: '.$this->escape($this->title));?>
-<h2><?php echo $this->escape($this->title);?></h2>
+<?php 
+$this->headTitle('Project details for: '.$this->escape($this->title));
+$this->metaBase()
+        ->setDescription(
+                $this->ellipsisString()
+                ->setString($this->description)
+                ->setMax(200)
+                )
+        ->setSubject('Research project')
+        ->setKeywords('research,projects')
+        ->generate();
+?>
+<h2 class="lead">
+    <?php echo $this->escape($this->title);?>
+</h2>
 <p><strong>Principal investigator:</strong> <?php echo $this->investigator;?><br />
 <strong>Level:</strong> <?php echo $this->type;?></p>
 <?php echo $this->description;?>

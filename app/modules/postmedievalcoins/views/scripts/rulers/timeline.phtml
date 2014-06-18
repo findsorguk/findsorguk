@@ -3,7 +3,8 @@ $this->headTitle('A timeline of post medieval issuers');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/compiled/js/storyjs-embed.js',$type = 'text/javascript');
 $this->metaBase()
         ->setDescription('A timeline of Post Medieval issuers')
-        ->setKeywords('post medieval,issuers,timeline,king');
+        ->setKeywords('post medieval,issuers,timeline,king')
+        ->generate();
 ?>
 <h2>
     <?php echo $this->title();?>

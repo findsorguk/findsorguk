@@ -1,7 +1,10 @@
 <?php 
-$this->headTitle($this->title);?>
+$this->headTitle($this->title);
 $this->metaBase()
-        ->setDescription($this->ellipsisString()->setString($this->body)->setMax(200));
+        ->setDescription($this->ellipsisString()->setString($this->body)->setMax(200))
+        ->generate();
 ?>
-<h2><?php echo $this->title;?></h2>
+<h2 class="lead">
+    <?php echo $this->title;?>
+</h2>
 <?php echo $this->body;?>

@@ -3,10 +3,18 @@ $this->headTitle('Map of coroners locations');
 $this->metaBase()
         ->setDescription('A map of the locations for coroners known to the  Portable Antiquities Scheme')
         ->setSubject('Coroners map')
-        ->setKeywords('map,google,contacts,scheme,coroners,archaeology,deaths');
+        ->setKeywords('map,google,contacts,scheme,coroners,archaeology,deaths')
+        ->generate();
 $this->googleDynamicMap();
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2>
+    <?php echo $this->title();?>
+</h2>
+
+<div id="map">
+    <div id="loading"></div>
+</div>
+
 <?php $this->inlineScript()->captureStart() ?>
  $(document).ready(function() {
   var center = new google.maps.LatLng(54.70235509327093, -3.2080078125);
@@ -69,6 +77,3 @@ $this->googleDynamicMap();
   
   });
 <?php $this->inlineScript()->captureEnd() ?>
-<div id="map">
-    <div id="loading"></div>
-</div>
