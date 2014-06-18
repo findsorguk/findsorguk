@@ -4,7 +4,8 @@
  * A view helper for displaying optional task widgets on login pages when admin
  *
  * @category   Pas
- * @package    Service
+ * @package    View_Helper
+ * @subpackage
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract

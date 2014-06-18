@@ -30,8 +30,7 @@ class Pas_View_Helper_WorkflowStatus {
      * @access public
      * @return type
      */
-    public function getSecwfstage()
-    {
+    public function getSecwfstage() {
         return $this->_secwfstage;
     }
 
@@ -40,10 +39,8 @@ class Pas_View_Helper_WorkflowStatus {
      * @param  int $secwfstage
      * @return \Pas_View_Helper_Workflow
      */
-    public function setWorkflow($secwfstage)
-    {
+    public function setWorkflow($secwfstage) {
         $this->_secwfstage = $secwfstage;
-
         return $this;
     }
 
@@ -51,8 +48,7 @@ class Pas_View_Helper_WorkflowStatus {
      * @access public
      * @return \Pas_View_Helper_Workflow
      */
-    public function workflow()
-    {
+    public function workflow() {
         return $this;
     }
 
@@ -60,8 +56,7 @@ class Pas_View_Helper_WorkflowStatus {
      * @access public
      * @return type
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->_buildHtml();
     }
 
@@ -69,8 +64,7 @@ class Pas_View_Helper_WorkflowStatus {
      * @access public
      * @return string
      */
-    public function _buildHtml()
-    {
+    public function _buildHtml()  {
         switch ( $this->getSecwfstage() ) {
             case 1:
         $wf = 'Quarantine';
@@ -88,8 +82,6 @@ class Pas_View_Helper_WorkflowStatus {
                 $wf = 'No workflow status set';
                 break;
         }
-
         return $wf;
     }
-
 }
