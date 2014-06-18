@@ -1,7 +1,14 @@
+
+
 <div class="sidebar-nav col-md-3" >
     <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
+<<<<<<< HEAD
     
         <li <?php echo $this->currentPage()->active('contacts','staff','index');?>>
+=======
+        
+        <li <?php echo $this->currentPage()->active('contacts','index','index');?>>
+>>>>>>> 539630dda677a1e1d89687bada6c90a8165f7b04
             <a href="<?php echo $this->url(array('module'=>'contacts','controller' => 'staff'),null,true);?>" title="Find contact details for our staff, coroners and museums"><i class="icon-user"></i>Contacts</a></li>
         
         <li <?php echo $this->currentPage()->active('contacts','staff','map');?>>

@@ -8,7 +8,6 @@ $meta->appendChild( $dom->createElement('count', count($this->news)));
 
 $activitiesElem = $dom->createElement('stories');
 $news->appendChild($activitiesElem);
-// set it's attribute
 foreach($this->news as $r){
 $activityElem = $dom->createElement('story');
 foreach($r as $k => $v){
@@ -17,8 +16,6 @@ $activityElem->appendChild( $dom->createElement($k, $v));
 }
 $activitiesElem->appendChild( $activityElem );
 }
-
 $dom->appendChild( $news );
-
 $xmlData  = $dom->saveXML();
 echo $xmlData;

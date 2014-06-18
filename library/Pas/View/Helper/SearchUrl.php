@@ -27,7 +27,8 @@ class Pas_View_Helper_SearchUrl extends Zend_View_Helper_Abstract
 
     return $html;
     }
-
+    
+    
     public function getParameters($data)
     {
         $section = $data['section'];
@@ -256,7 +257,7 @@ class Pas_View_Helper_SearchUrl extends Zend_View_Helper_Abstract
                 $parameters['route'] = 'default';
                 $parameters['nicename'] = 'API documentation';
             break;
-                        case($section === 'secret'):
+            case($section === 'secret'):
                 $parameters['module'] = 'secrettreasures';
                 $parameters['route'] = 'default';
                 $parameters['nicename'] = 'Britain\'s Secret Treasures';

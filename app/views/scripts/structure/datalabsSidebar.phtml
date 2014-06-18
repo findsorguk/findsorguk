@@ -1,0 +1,62 @@
+<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
+
+<div class="sidebar-nav col-md-3" >
+    <ul  id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('datalabs','index','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'index','action' => 'index'),'default',true);?>" title="Introduction to our linked data">About our linked data</a></li>
+        <li <?php if($controller == 'terminology'){ echo 'class="expandfirst"';};?>>
+            <a href="#" title="Click to view controlled lists"><i class="icon-folder-open"></i>Controlled vocabulary</a>
+            <ul class="nav nav-pills nav-stacked  menuindent">
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','objects');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'terminology','action' => 'objects'),'default',true);?>" title="Learn about object terms in use">Object terms</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','periods');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'terminology', 'action' => 'periods'),'default',true);?>" title="View a list of the temporal terms we use">Periods</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','denominations');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'terminology', 'action' => 'denominations'),'default',true);?>" title="View a list of active denoinations">Denominations</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','mints');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'terminology','action' => 'mints'),'default',true);?>" title="View list of active mints">Mints</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','rulers');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology','action' => 'rulers'),'default',true);?>" title="View list of all active rulers">Rulers</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','cultures');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'cultures'),'default',true);?>" title="View a list of all ascribed cultures in use">Ascribed cultures</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','workflows');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'workflows'),'default',true);?>" title="View list of our workflow stages">Workflow stages</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','preservations');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'terminology', 'action' => 'preservations'),'default',true);?>" title="View list of active preservation states">Preservation states</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','methods');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'methods'),'default',true);?>" title="View a list of active discovery methods">Discovery methods</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','notes');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'notes'),'default',true);?>" title="View our reasoning for denoting finds of interest">Finds of note reasons</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','materials');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'materials'),'default',true);?>" title="View a list of active materials">Materials</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','manufactures');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'terminology', 'action' => 'manufactures'),'default',true);?>" title="View a list of all manufacturing method terms">Methods of manufacture</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','landuses');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'landuses'),'default',true);?>" title="View all landuses on our database">Landuses</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','surfaces');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'surfaces'),'default',true);?>" title="View all surface treatment types on our database">Surface treatments</a></li>
+                <li <?php echo $this->currentPage()->active('datalabs','terminology','activities');?>>
+                        <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'activities'),'default',true);?>" title="View all landuse terminology in use on our database">Primary activities</a></li>
+            </ul>
+        </li>
+<?php
+$auth = Zend_Auth::getInstance();
+if($auth->hasIdentity()) {
+$user = $auth->getIdentity();
+$allowed = array('fa','admin','flos','hero','treasure','research');
+if(in_array($user->role,$allowed)){
+}?>
+        <li <?php echo $this->currentPage()->active('datalabs','smr','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'smr','action' => 'index'),'default',true);?>" title="List of scheduled monuments"><i class="icon-list"></i>Scheduled monuments</a></li>
+        <li <?php echo $this->currentPage()->active('datalabs','osdata','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'osdata','action' => 'index'),'default',true);?>" title="List of OS data"><i class="icon-map-marker"></i>Ordnance Survey data</a></li>
+<?php
+}
+?>
+        <li <?php echo $this->currentPage()->active('datalabs','oai','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'oai','action' => 'index'),'default',true);?>" title="Read about our OAI server access">OAI access</a></li>
+        <li <?php echo $this->currentPage()->active('datalabs','rss','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'rss','action' => 'index'),'default',true);?>" title="Read about available RSS and Atom feeds">RSS feeds</a></li>
+        
+    </ul>
+</div>

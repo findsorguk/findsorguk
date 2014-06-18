@@ -1,5 +1,4 @@
 <?php if (!empty($this->messages[0])): ?>
-
 <?php $this->jQuery()->javascriptCaptureStart();?>
 $(document).ready(function(){
     setTimeout(function(){
@@ -13,5 +12,4 @@ $(document).ready(function(){
         <?php echo $message;?>
     <?php endforeach;?>
 </div>
-
 <?php endif;?>

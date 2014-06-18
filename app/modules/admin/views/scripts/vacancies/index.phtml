@@ -22,7 +22,7 @@ $this->headTitle('Vacancies administration section');?>
 <?php echo $this->partialLoop('partials/admin/vacancyTable.phtml',$this->currentvacs);
 ?>
 </table>
-<?echo $this->paginationControl($this->currentvacs, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->currentvacs, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
 <?php echo '<p>There are currently no vacancies at the Scheme.</p>';?>
 <?php endif;?>

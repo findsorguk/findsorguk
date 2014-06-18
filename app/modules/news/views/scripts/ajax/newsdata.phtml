@@ -1,14 +1,9 @@
 <?php
-
 $dom = new DomDocument("1.0", "UTF-8");
 $dom->createElement('markers');
-
 $documentNode = $dom->createElement('markers');
 $dom->appendChild($documentNode);
-
 foreach($this->mapping as $result){
-	
-	
     if(!is_null($result['lon'])){
         $description = $this->purify($this->ellipsisString()->setString($result['contents'])->setMax(200));
         $marker = $dom->createElement('marker');
