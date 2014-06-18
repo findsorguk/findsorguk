@@ -27,6 +27,13 @@ else
 {
 ?>
 		<li <?php echo $this->currentPage()->active('database','images','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'images'),null,true);?>"><i class="icon-picture"></i>All images</a></li>
+<<<<<<< HEAD
+
+		<li <?php if($controller == 'database') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>More searches</a>
+			<ul class="nav nav-pills nav-stacked  menuindent">
+				<li <?php echo $this->currentPage()->active('database','search','advanced');?>><a href="<?php echo $this->url(array('module' => 'database','controller'=>  'publications'),NULL,true);?>" title="Reference works cited on database"><i class="icon-search"></i>Advanced</a></li>
+=======
+>>>>>>> 539630dda677a1e1d89687bada6c90a8165f7b04
 
 <?php
 }
@@ -44,17 +51,28 @@ if($auth->hasIdentity()) {
 		$allowed = array('fa','admin','flos', 'treasure');
 		if(in_array($user->role,$allowed)) {
 ?>
+<<<<<<< HEAD
+				<li <?php echo $this->currentPage()->active('database','people','index');?> ><a href="<?php echo $this->url(array('controller' => 'database','action' => 'people'),NULL,true);?>" title="List of all personal details"><i class="icon-user"></i>People</a></li>
+				<li <?php echo $this->currentPage()->active('database','organisations','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'organisations'),NULL,true);?> " title="Contributing organisations"><i class="icon-user"></i>Organisations</a></li>
+=======
 			<li <?php echo $this->currentPage()->active('database','people','index');?> ><a href="<?php echo $this->url(array('controller' => 'database','action' => 'people'),NULL,true);?>" title="List of all personal details"><i class="icon-user"></i>People</a></li>
 			<li <?php echo $this->currentPage()->active('database','organisations','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'organisations'),NULL,true);?> " title="Contributing organisations"><i class="icon-user"></i>Organisations</a></li>
+>>>>>>> 539630dda677a1e1d89687bada6c90a8165f7b04
 <?php 
 		}
 	}
 }
 ?>
 
+<<<<<<< HEAD
+				<li <?php echo $this->currentPage()->active('database','publications','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller'=>  'publications'),NULL,true);?>" title="Reference works cited on database"><i class="icon-book"></i>References</a></li>
+				<li <?php echo $this->currentPage()->active('database','rallies','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies'),null,true);?>" title="View list of rallies we have recorded at"><i class="icon-map-marker"></i>Rallies</a></li>
+			</ul>
+=======
 			<li <?php echo $this->currentPage()->active('database','publications','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller'=>  'publications'),NULL,true);?>" title="Reference works cited on database"><i class="icon-book"></i>References</a></li>
 			<li <?php echo $this->currentPage()->active('database','rallies','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies'),null,true);?>" title="View list of rallies we have recorded at"><i class="icon-map-marker"></i>Rallies</a></li>
                     </ul>
+>>>>>>> 539630dda677a1e1d89687bada6c90a8165f7b04
 		</li>
 
 		<li <?php if($controller == 'statistics') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Statistics</a>

@@ -216,7 +216,7 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
 	    $view->headTitle('API version 1')->setSeparator(' - ');
 		break;
 	default:
-		$layouttype = 'new';
+		$layouttype = 'database';
 		break;
 		}
 //	if(!$route instanceOf Zend_Rest_Route){
