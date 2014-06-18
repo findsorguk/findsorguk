@@ -18,7 +18,7 @@ $this->headTitle('All available rulers');
 <?php echo $this->partialLoop('partials/database/rulerListsCTerms.phtml',$this->rulers);?>
 </tbody>
 </table>
-<?echo $this->paginationControl($this->rulers, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->rulers, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
 <p>It is you lucky day Odysseus, Nemo has been and gone and left you with nothing to do.</p>
 <?php endif; ?>
