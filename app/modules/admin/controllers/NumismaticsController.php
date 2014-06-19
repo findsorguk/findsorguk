@@ -977,7 +977,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	$formData = $this->_request->getPost();	{
 	if ($form->isValid($formData)) {
 	$upload = new Zend_File_Transfer_Adapter_Http();
-	$upload->addValidator('NotExists', false,array('./images/rulers/'));
+	$upload->addValidator('NotExists', false,array('./assets/rulers/'));
 	$filesize = $upload->getFileSize();
 	if($upload->isValid()) {
 	$filename = $form->getValue('image');
@@ -995,9 +995,9 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 		unset($insertData[$key]);
 		}
 	}	
-	$location = './images/rulers/';
-	$largepath = './images/rulers/resized/';
-	$smallpath = './images/rulers/thumbnails/';
+	$location = './assets/rulers/';
+	$largepath = './assets/rulers/resized/';
+	$smallpath = './assets/rulers/thumbnails/';
 	$name = substr($filename, 0, strrpos($filename, '.')); 
 
 	$ext = '.jpg';

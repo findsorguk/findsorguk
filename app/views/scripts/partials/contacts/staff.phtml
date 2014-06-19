@@ -45,11 +45,11 @@ lat:
 </span>
 </span>
 <?php if(!is_null($this->image)) {?>
-<?php list($w, $h) = getimagesize('./images/staffphotos/thumbnails/' . $this->image);?>
+<?php list($w, $h) = getimagesize('./assets/staffphotos/thumbnails/' . $this->image);?>
 
-<a href="<?php echo $this->baseUrl();?>/images/staffphotos/resized/<?php echo $this->image;?>" rel="lightbox"
+<a href="<?php echo $this->baseUrl();?>/assets/staffphotos/resized/<?php echo $this->image;?>" rel="lightbox"
 title="Profile image of <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>">
-<img property="foaf:img google:photo" src="<?php echo $this->baseUrl(); ?>/images/staffphotos/thumbnails/<?php echo $this->image;?>" title="Image of <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>"  class="staffimage" width="<?php echo $w;?>" height="<?php echo $h;?>" alt="A profile picture chosen by <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>"/></a>
+<img property="foaf:img google:photo" src="<?php echo $this->baseUrl(); ?>/assets/staffphotos/thumbnails/<?php echo $this->image;?>" title="Image of <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>"  class="staffimage" width="<?php echo $w;?>" height="<?php echo $h;?>" alt="A profile picture chosen by <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?>"/></a>
 <?php }?>
 
 <p>Short profile:</p><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude;?>,<?php echo $this->longitude;?>&zoom=15&size=200x200&maptype=hybrid&markers=color:green|label:G|

@@ -48,7 +48,7 @@ $('a[class^=delete]').confirm({
 <p><a href="<?php echo $this->url(array('module' => 'admin','controller'=>'contacts','action'=>'editcontact', 'id'=>$this->number));?>">Edit</a> | <a href="<?php echo $this->url(array('module' => 'admin','controller'=>'contacts','action'=>'deletecontact', 'id'=>$this->number));?>">Delete</a></p>
  <div id="image-<?php echo $this->number;?>">
  <?php if(isset($this->image)){?>
- <img src="<?php echo $this->baseUrl().'/images/staffphotos/thumbnails/'.$this->escape($this->image);?>" />
+ <img src="<?php echo $this->baseUrl().'/assets/staffphotos/thumbnails/'.$this->escape($this->image);?>" />
  <p><a href="#" class="deleteimage">Delete this image</a></p>
  <?php } else {?>
  <p><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts','action' => 'addpicture','id' => $this->number ),'default',true);?>" title="Add a new image">Add a photo for <?php echo $this->escape($this->firstname);?> <?php echo $this->escape($this->lastname);?></a></p>
@@ -57,7 +57,7 @@ $('a[class^=delete]').confirm({
 <p>Role: <span class="title"><?php echo $this->escape($this->staffroles);?></span> <br />
 Database records prefix: <strong><?php echo $this->escape($this->identifier);?></strong></p>
 <?php if(isset($this->host)) {?>
-<img src="<?php echo $this->baseUrl(); ?>/images/logos/<?php echo $this->escape($this->host);?>" alt="<?php echo $this->escape($this->description);?>'s logo" />
+<img src="<?php echo $this->baseUrl(); ?>/asset/logos/<?php echo $this->escape($this->host);?>" alt="<?php echo $this->escape($this->description);?>'s logo" />
 <?php }?>
 
 <p class="adr work">Address: <?php echo $this->escape($this->address_1);?><br />

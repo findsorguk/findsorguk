@@ -21,7 +21,7 @@ public function __construct($options = null) {
 	$avatar = new Zend_Form_Element_File('image');
 	$avatar->setLabel('Upload staff photo: ')
 		->setRequired(true)
-		->setDestination('./images/staffphotos/')
+		->setDestination('./assets/staffphotos/')
         ->addValidator('NotEmpty')
         ->addValidator('Size', false, 2097152)
 		->addValidator('Extension', false, 'jpeg,tif,jpg,png,gif')

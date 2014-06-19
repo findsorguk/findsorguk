@@ -15,7 +15,7 @@ foreach($this->emperors as $emperor){
 	'headline' => $emperor['name'],
 	'text' => $bio,
 	'asset' => array(
-	'media' => 'http://finds.org.uk/images/rulers/resized/' . $emperor['filename'],
+	'media' => $this->serverUrl() . $this->baseUrl() . '/assets/rulers/resized/' . $emperor['filename'],
 	'credit' => 'The Trustees of the British Museum',
 	'caption' => 'An image of a coin from the BM collection showing ' . $emperor['name']
 	)
@@ -28,7 +28,8 @@ $start = array(
 	'text' => 'The issuing authorities of the Roman Empire on a timeline',
 	'startDate' => '43',
 'asset' => array(
-	'media' => 'http://finds.org.uk/images/rulers/resized/1194932266_e7c871bad2_o.jpg',
+	'media' => $this->serverUrl() . $this->baseUrl() 
+        . '/assets/rulers/resized/1194932266_e7c871bad2_o.jpg',
 	'credit' => 'The Trustees of the British Museum',
 	'caption' => 'An image of a coin from the BM collection showing Augustus'
 	),

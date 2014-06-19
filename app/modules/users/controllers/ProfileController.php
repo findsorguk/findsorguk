@@ -13,7 +13,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
 
 	const LOGOPATH = './images/logos/';
 
-	const PROFILEPATH = './images/staffphotos/';
+	const PROFILEPATH = './assets/staffphotos/';
 
 	/** Set up the ACL and contexts
 	*/
@@ -127,8 +127,8 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();	{
 	if ($form->isValid($formData)) {
-    $upload = new Zend_File_Transfer_Adapter_Http();
-   	$upload->addValidator('NotExists', true,array('./images/staffphotos/'));
+            $upload = new Zend_File_Transfer_Adapter_Http();
+   	$upload->addValidator('NotExists', true,array('./assets/staffphotos/'));
 	if($upload->isValid()) {
 	$filename = $form->getValue('image');
 	$largepath = self::PROFILEPATH;

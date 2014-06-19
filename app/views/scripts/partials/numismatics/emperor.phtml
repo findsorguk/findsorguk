@@ -3,13 +3,13 @@ $this->headTitle('Profile for Emperor:  '.$this->name);
 $this->headMeta('Biographical and related data for '.$this->name,'Description');
 $this->headMeta('roman,numismatics,biography,emperor,'.$this->name.',portable antiquities','Keywords');
 if (!is_null($this->filename)) {
-list($w, $h) = getimagesize('./images/rulers/resized/'.$this->escape($this->filename));
+list($w, $h) = getimagesize('./assets/rulers/resized/'.$this->escape($this->filename));
 }
 $this->twitterCard('summary')
      ->setTitle($this->title())
      ->setUrl($this->curUrl())
      ->setDescription('Biographical and related data for '.$this->name)
-     ->setImage($this->serverUrl() . './images/rulers/resized/'.$this->escape($this->filename),$w,$h)
+     ->setImage($this->serverUrl() . './assets/rulers/resized/'.$this->escape($this->filename),$w,$h)
      ->setSiteAccount('findsorguk', 15156713)
      ->setCreatorAccount('portableant', 12640312)
      ->create();
@@ -21,10 +21,10 @@ $this->headLink()->appendAlternate($this->url(array('module' => 'database','cont
 <?php endif;?>
 
 <?php if (!is_null($this->filename)) {
-list($w, $h) = getimagesize('./images/rulers/resized/'.$this->escape($this->filename));
-echo '<a href="'.$this->baseUrl().'/images/rulers/'.$this->escape($this->filename) 
+list($w, $h) = getimagesize('./assets/rulers/resized/'.$this->escape($this->filename));
+echo '<a href="'.$this->baseUrl().'/assets/rulers/'.$this->escape($this->filename) 
 . '" "title="View high resolution image of '. $this->name 
-. '" rel="lightbox"><img property="foaf:depicts" src="'.$this->baseUrl().'/images/rulers/resized/'
+. '" rel="lightbox"><img property="foaf:depicts" src="' . $this->baseUrl() . '/assets/rulers/resized/'
 .$this->escape($this->filename).'" class="portrait" alt="Obverse image of a coin of '
 . $this->name.'" width="'.$w.'" height="'.$h.'" /></a>';
 }

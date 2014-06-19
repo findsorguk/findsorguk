@@ -493,7 +493,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$filename = $files['filename'];
         $where = $images->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
 	$images->delete($where);
-	unlink('./images/rulers/' . $filename);
+	unlink('./assets/rulers/' . $filename);
 	}
 
 	}
@@ -515,9 +515,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$name = substr($filename, 0, strrpos($filename, '.'));
 	$ext = '.jpg';
 	$converted = $name.$ext;
-	unlink('./images/staffphotos/'.$filename);
-	unlink('./images/staffphotos/resized/'.$converted);
-	unlink('./images/staffphotos/thumbnails/'.$converted);
+	unlink('./assets/staffphotos/'.$filename);
+	unlink('./assets/staffphotos/resized/'.$converted);
+	unlink('./assets/staffphotos/thumbnails/'.$converted);
 	}
 
 	public function deletemintrulerAction(){
