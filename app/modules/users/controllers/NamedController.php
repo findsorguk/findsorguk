@@ -30,6 +30,7 @@ class Users_NamedController extends Pas_Controller_Action_Admin {
 	if($this->_getParam('as',0)){
 	$id = $this->_getParam('as');
 	$this->view->accountdata = $this->_users->getUserAccountData($id);
+
 	$this->view->totals = $this->_users->getCountFinds($this->getIdentityForForms());
 	
 	} else {

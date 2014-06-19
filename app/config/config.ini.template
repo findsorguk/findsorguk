@@ -97,6 +97,8 @@ settings.application.datetime = "Europe/London"
 form.salt = 
 siteurl = http://finds.org.uk
 
+solr.hostpath =
+solr.schemapath = 
 solr.host = 81.29.66.140
 solr.port = 8080
 solr.path = /solr/
@@ -155,3 +157,5 @@ acl.roles.treasure = flos
 acl.roles.admin    = fa
 
 auth.salt = 
+
+email = 
