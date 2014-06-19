@@ -7,7 +7,8 @@
  *
  * <code>
  * <?php
- * echo $this->contextsAvailable()->setContexts($contexts);
+ * echo $this->contextsAvailable()
+ * ->setContexts($contexts);
  * ?>
  * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>@
@@ -158,10 +159,12 @@ class Pas_View_Helper_ContextsAvailable extends Zend_View_Helper_Abstract
      */
     public function buildHtml() {
         $html = '';
+        $html .= '<div id="contexts" class="row-fluid">';
+        $html .= '<h4>Other formats</h4>';
+        $html .= '<p>This page';
         $contexts = $this->getContexts();
-        if ( is_array( $contexts ) ) {
-            $html .= '<div id="contexts" class="row-fluid">';
-            $html .= '<p>This page is available in: ';
+        if ( is_array( $contexts ) && array_key_exists(0, $contexts) ) {
+            $html .= ' is available in ';
             foreach ($contexts as $key => $value) {
                 $url = $this->view->url(array(
                     'module' => $this->getModule(),
@@ -192,8 +195,11 @@ class Pas_View_Helper_ContextsAvailable extends Zend_View_Helper_Abstract
         }
             }
 
-            $html .=' representations.</p></div>';
+            
+        } else {
+            $html .= ' is not available in other';
         }
+        $html .=' representations.</p></div>';
         return $html;
     }
 
