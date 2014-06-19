@@ -1,15 +1,13 @@
-
-<!-- saved from url=(0138)https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/NiceShortDate.php -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body about="https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/NiceShortDate.php"><pre style="word-wrap: break-word; white-space: pre-wrap;">&lt;?php
+<?php
 /**
  * A view helper for displaying a short human readable date
  *
  * Example use:
- * &lt;code&gt;
- * &lt;?php
- * echo $this-&gt;niceShortDate()-&gt;setDate($date);
- * ?&gt;
- * &lt;/code&gt;
+ * <code>
+ * <?php
+ * echo $this->niceShortDate()->setDate($date);
+ * ?>
+ * </code>
  * 
  * @category   Pas
  * @package    Pas_View_Helper
@@ -17,7 +15,7 @@
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
- * @author Daniel Pett &lt;dpett@britishmuseum.org&gt;
+ * @author Daniel Pett <dpett@britishmuseum.org>
  * @version 1
  */
 
@@ -34,7 +32,7 @@ class Pas_View_Helper_NiceShortDate extends Zend_View_Helper_Abstract
      * @return string
      */
     public function getDate() {
-        return $this-&gt;_date;
+        return $this->_date;
     }
 
     /** Set the date
@@ -43,7 +41,7 @@ class Pas_View_Helper_NiceShortDate extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_NiceShortDate
      */
     public function setDate($date) {
-        $this-&gt;_date = $date;
+        $this->_date = $date;
         return $this;
     }
 
@@ -67,16 +65,16 @@ class Pas_View_Helper_NiceShortDate extends Zend_View_Helper_Abstract
      * @return string $ret
      */
     public function __toString() {
-        $date = $this-&gt;fromString($this-&gt;getDate());
+        $date = $this->fromString($this->getDate());
         $ret = date('l jS F Y', $date);
         return $ret;
     }
     /** The function
-     * @author Daniel Pett &lt;dpett@britishmuseum.org&gt;
+     * @author Daniel Pett <dpett@britishmuseum.org>
      * @access public
      * @return \Pas_View_Helper_NiceShortDate
      */
     public function niceShortDate() {
         return $this;
     }
-}</pre></body></html>
+}
