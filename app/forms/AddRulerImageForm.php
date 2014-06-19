@@ -20,7 +20,7 @@ public function __construct($options = null) {
 	$image = new Zend_Form_Element_File('image');
 	$image->setLabel('Upload an image: ')
 		->setRequired(true)
-		->setDestination('./images/rulers/')
+		->setDestination('./assets/rulers/')
 		->addValidator('Size', false, 2097152 )
 		->addValidator('Extension', false, 'jpeg,tif,jpg,png,gif,JPG,TIFF')
 		->setMaxFileSize(1024000)

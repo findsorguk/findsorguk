@@ -7,7 +7,7 @@
 <foaf:mbox rdf:resource="mailto:<?php echo $this->email_one;?>"/>
 <foaf:homepage rdf:resource="<?php echo $this->serverUrl();?>"/>
 <?php if(isset($this->image)) {?>
-<foaf:depiction rdf:resource="<?php echo $this->serverUrl();?>/<?php echo $this->baseUrl().'/images/staffphotos/thumbnails/'.$this->image;?>"/><?php } ?>
+<foaf:depiction rdf:resource="<?php echo $this->serverUrl();?>/<?php echo $this->baseUrl().'/assets/staffphotos/thumbnails/'.$this->image;?>"/><?php } ?>
 <foaf:phone rdf:resource="tel:<?php echo $this->escape($this->telephone);?>"/>
 <foaf:workplaceHomepage rdf:resource="<?php echo $this->serverUrl();?>"/>
 <foaf:workInfoHomepage rdf:resource="<?php echo $this->serverUrl();?>/contacts/staff/profile/id/<?php echo $this->id;?>"/>

@@ -58,7 +58,7 @@ $vc->data['email1'] = $person['email_one'];
 $vc->data['url'] =  $this->serverUrl();
 if(!is_null($person['image']))
 {
-$vc->data['photo'] = $this->serverUrl() . '/images/staffphotos/thumbnails/' . rawurlencode($person['image']);
+$vc->data['photo'] = $this->serverUrl() . '/assets/staffphotos/thumbnails/' . rawurlencode($person['image']);
 }
 #$vc->data['birthday'] = "";
 $vc->data['timezone'] = "00:00";

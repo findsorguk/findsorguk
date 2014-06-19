@@ -314,10 +314,10 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
 
     /** Parse the documents for field results
      * @access public
-     * @param  array $doc
+     * @param  Solarium_Document_ReadOnly $doc
      * @return array
      */
-    public function parseResults( array $doc ) {
+    public function parseResults( Solarium_Document_ReadOnly $doc ) {
         $fields = array();
         foreach ($doc as $key => $value) {
             $fields[$key] = $value;
@@ -336,10 +336,11 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
     /** Build HTML to return as string
      * @access public
      * @return string
+     * @param array $data
      */
-    public function buildHtml() {
+    public function buildHtml( array $data ) {
         $html = '';
-        if (array_key_exists( 'images', $this->getResults() )) {
+        if (array_key_exists( 'images', $data )) {
             $html .= '<h3>Latest examples recorded with images</h3>';
             $html .= '<p>We have recorded ' . number_format($data['numberFound']);
             $html .= ' examples.</p>';
@@ -355,7 +356,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @return string
      */
     public function __toString() {
-        return $this->buildHtml();
+        return $this->buildHtml($this->getResults());
     }
 
 }

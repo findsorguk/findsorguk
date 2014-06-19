@@ -497,21 +497,5 @@ class Pas_Zoomify_FileProcessor  {
 	return true;
 	}
 
-	/** Crop an image
-	 * 
-	 * @param $image
-	 * @param $left
-	 * @param $upper
-	 * @param $right
-	 * @param $lower
-	 */
-	function imageCrop($image,$left,$upper,$right,$lower) {
-	$x = imagesx($image);
-	$y = imagesy($image);
-	$w = abs($right-$left);
-	$h = abs($lower-$upper);
-	$crop = imagecreatetruecolor($w,$h);
-	imagecopy($crop, $image, 0, 0, $left, $upper, $w, $h);
-	return $crop;
-	}
+
 

@@ -4,15 +4,15 @@
         <ShortName>PAS database</ShortName>
         <Tags>archaeology public discovery</Tags>
 	<Description>Search the PAS database of over 750,000 objects found by the Public in England and Wales</Description>
-	<Image height="16" width="16" type="image/vnd.microsoft.icon">http://beta.finds.org.uk/favicon.ico</Image>
-        <Image height="64" width="64" type="image/png">http://beta.finds.org.uk/images/logoSearch.png</Image>
+	<Image height="16" width="16" type="image/vnd.microsoft.icon">http://finds.org.uk/favicon.ico</Image>
+        <Image height="64" width="64" type="image/png">http://finds.org.uk/images/logoSearch.png</Image>
         <Contact>info@finds.org.uk</Contact>
 	<Url type="text/html"
-        template="http://beta.finds.org.uk/database/search/results/?q={searchTerms}" />
+        template="http://finds.org.uk/database/search/results/?q={searchTerms}" />
         <Url type="application/atom+xml"
-        template="http://beta.finds.org.uk/database/search/results/?q={searchTerms}&amp;format=atom"/>
+        template="http://finds.org.uk/database/search/results/?q={searchTerms}&amp;format=atom"/>
         <Url type="application/rss+xml"
-        template="http://beta.finds.org.uk/database/search/results/?q={searchTerms}&amp;format=rss"/>
+        template="http://finds.org.uk/database/search/results/?q={searchTerms}&amp;format=rss"/>
         <Query role="example" searchTerms="crucifix" />
         <Developer>dpett@britishmuseum.org Daniel Pett, The British Museum</Developer>
         <Attribution>

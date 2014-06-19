@@ -9,9 +9,9 @@
 */
 class Admin_ContactsController extends Pas_Controller_Action_Admin
 {
-	const LOGOPATH = './images/logos/';
+	const LOGOPATH = './assets/logos/';
 
-	const STAFFPATH = './images/staffphotos/';
+	const STAFFPATH = './assets/staffphotos/';
 
 	protected $_geoPlanet;
 

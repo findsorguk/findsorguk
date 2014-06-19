@@ -21,7 +21,7 @@ parent::__construct($options);
 	$avatar = new Zend_Form_Element_File('logo');
 	$avatar->setLabel('Upload logo: ')
 		->setRequired(true)
-		->setDestination('./images/logos/')
+		->setDestination('./assets/logos/')
         ->addValidator('NotEmpty')
         ->addValidator('Size', false, 512000)
 		->addValidator('Extension', false, 'jpeg,tif,jpg,png,gif')

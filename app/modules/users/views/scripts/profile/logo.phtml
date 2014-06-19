@@ -3,7 +3,7 @@
 <h2>Add an institutional logo</h2>
 <?php if(count($this->logos)) :?>
 <?php foreach($this->logos as $l) {?>
-<img src="<?php echo $this->baseUrl();?>/images/logos/resized/<?php echo $l['image'];?>" alt="Current logo for <?php echo $this->escape($this->inst);?>" />
+<img src="<?php echo $this->baseUrl();?>/assets/logos/resized/<?php echo $l['image'];?>" alt="Current logo for <?php echo $this->escape($this->inst);?>" />
 <?php }?>
 
 <?php else:?>

@@ -84,4 +84,12 @@ class Pas_View_Helper_WorkflowStatus {
         }
         return $wf;
     }
+    
+    /** The function to call
+     * @access public
+     * @return \Pas_View_Helper_WorkflowStatus
+     */
+    public function workflowStatus() {
+        return $this;
+    }
 }

@@ -24,13 +24,13 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @access protected
      * @var string
      */
-    protected $_commons = '/images/logos/commons.jpg';
+    protected $_commons = '/assets/logos/commons.jpg';
 
     /** Path for the house of lords logo
      * @access protected
      * @var string
      */
-    protected $_lords = '/images/logos/lords.jpg';
+    protected $_lords = '/assets/logos/lords.jpg';
 
     /** The house to query
      * @access public
