@@ -1,16 +1,14 @@
-
-<!-- saved from url=(0141)https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/MoreVisitsThanMe.php -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body about="https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/MoreVisitsThanMe.php"><pre style="word-wrap: break-word; white-space: pre-wrap;">&lt;?php
+<?php
 /**
  * A trivial view helper to work out who has visited more times than you
  *
  * An example use:
  *
- * &lt;code&gt;
- * &lt;?php
- * echo $this-&gt;moreVisitsThanMe()-&gt;setVisits(2);
- * ?&gt;
- * &lt;/code&gt;
+ * <code>
+ * <?php
+ * echo $this->moreVisitsThanMe()->setVisits(2);
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -33,7 +31,7 @@ class Pas_View_Helper_MoreVisitsThanMe extends Zend_View_Helper_Abstract
      * @return int
      */
     public function getVisits() {
-        return $this-&gt;_visits;
+        return $this->_visits;
     }
 
     /** Set the number of visits
@@ -42,7 +40,7 @@ class Pas_View_Helper_MoreVisitsThanMe extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_MoreVisitsThanMe
      */
     public function setVisits($visits) {
-        $this-&gt;_visits = $visits;
+        $this->_visits = $visits;
         return $this;
     }
 
@@ -52,7 +50,7 @@ class Pas_View_Helper_MoreVisitsThanMe extends Zend_View_Helper_Abstract
      */
     public function getData() {
         $users = new Users();
-        $visits = $users-&gt;getMoreTotals($this-&gt;getVisits());
+        $visits = $users->getMoreTotals($this->getVisits());
         foreach ($visits as $v) {
             $total = $v['morethan'];
         }
@@ -67,4 +65,3 @@ class Pas_View_Helper_MoreVisitsThanMe extends Zend_View_Helper_Abstract
         return $this;
     }
 }
-</pre></body></html>

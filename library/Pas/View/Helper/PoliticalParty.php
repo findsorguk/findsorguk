@@ -1,16 +1,14 @@
-
-<!-- saved from url=(0139)https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/PoliticalParty.php -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body about="https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/PoliticalParty.php"><pre style="word-wrap: break-word; white-space: pre-wrap;">&lt;?php
+<?php
 /**
  * A view helper for  creating an image based on political party
  *
  * Example use:
  *
- * &lt;code&gt;
- * &lt;?php
- * echo $this-&gt;politicalParty()-&gt;setParty('Conservative');
- * ?&gt;
- * &lt;/code&gt;
+ * <code>
+ * <?php
+ * echo $this->politicalParty()->setParty('Conservative');
+ * ?>
+ * </code>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -54,7 +52,7 @@ class Pas_View_Helper_PoliticalParty extends Zend_View_Helper_Abstract
      * @return string
      */
     public function getParty() {
-        return $this-&gt;_party;
+        return $this->_party;
     }
 
     /** Set the party to query
@@ -63,7 +61,7 @@ class Pas_View_Helper_PoliticalParty extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_Politicalparty
      */
     public function setParty($party) {
-        $this-&gt;_party = $party;
+        $this->_party = $party;
         return $this;
     }
 
@@ -72,8 +70,8 @@ class Pas_View_Helper_PoliticalParty extends Zend_View_Helper_Abstract
      * @return Zend_Cache
      */
     public function getCache() {
-        $this-&gt;_cache = Zend_Registry::get('cache');
-        return $this-&gt;_cache;
+        $this->_cache = Zend_Registry::get('cache');
+        return $this->_cache;
     }
     /** Build the image
      * @access public
@@ -84,13 +82,13 @@ class Pas_View_Helper_PoliticalParty extends Zend_View_Helper_Abstract
         $party = str_replace(' ','_',$party);
         $html = '';
         list($w, $h, $type, $attr) = getimagesize('./'.$image);
-        $html .= '&lt;img src="';
+        $html .= '<img src="';
         $html .= $image;
         $html .= '" alt="Party political logo" width="';
         $html .= $w;
         $html .= '" height="';
         $html .= $h;
-        $html .= '" /&gt;';
+        $html .= '" />';
         return $html;
     }
     /** Determine which image to build based on political party
@@ -98,17 +96,17 @@ class Pas_View_Helper_PoliticalParty extends Zend_View_Helper_Abstract
      * @param string
      */
     public function __toString() {
-        $party = $this-&gt;getParty();
+        $party = $this->getParty();
         if (!is_null($party) || $party != "") {
         switch ($party) {
             case($party == 'Labour'):
-                $partyImage = $this-&gt;buildImage($this-&gt;_labour,$party);
+                $partyImage = $this->buildImage($this->_labour,$party);
                 break;
             case($party == 'Conservative'):
-                $partyImage = $this-&gt;buildImage($this-&gt;_conservatives,$party);
+                $partyImage = $this->buildImage($this->_conservatives,$party);
                 break;
             case($party == 'Liberal Democrat');
-                $partyImage = $this-&gt;buildImage($this-&gt;_libdem,$party);
+                $partyImage = $this->buildImage($this->_libdem,$party);
                 break;
             default:
                 $partyImage = NULL;
@@ -126,4 +124,4 @@ class Pas_View_Helper_PoliticalParty extends Zend_View_Helper_Abstract
         return $this;
     }
 
-}</pre></body></html>
+}
