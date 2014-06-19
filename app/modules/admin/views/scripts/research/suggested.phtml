@@ -20,7 +20,7 @@
 <?php echo $this->partialLoop('partials/admin/suggested.phtml',$this->suggested);?>
 </tbody>
 </table>
-<?echo $this->paginationControl($this->suggested, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->suggested, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
 <p>No topics are currently available</p>
 <?php endif;?>

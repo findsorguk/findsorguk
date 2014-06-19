@@ -11,7 +11,8 @@ $feedArray = array(
     'charset' => 'utf-8',
     'description' => 'Latest feed of suggested research projects on Scheme data',
     'author' => 'The Portable Antiquities Scheme',
-    'image' => Zend_Registry::get('siteurl').'/images/logos/pas.gif',
+
+    'image' => $this->serverUrl() . $this->baseUrl() . '/assets/logos/pas.jpg',
     'email' => 'info@finds.org.uk',
     'copyright' => 'Creative Commons Licenced',
     'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',

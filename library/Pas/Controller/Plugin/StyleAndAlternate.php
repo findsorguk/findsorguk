@@ -40,7 +40,7 @@ class Pas_Controller_Plugin_StyleAndAlternate
 		'application/rss+xml', 'Latest recorded finds feed')
 		->appendAlternate($view->serverUrl(). '/news/index/format/atom',
 		'application/rss+xml', 'Latest Scheme news feed')
-		->appendAlternate($view->serverUrl() . '/getinvolved/vacancies/index/format/atom', 'application/atom+xml',
+		->appendAlternate($view->serverUrl() . '/about/vacancies/index/format/atom', 'application/atom+xml',
 		'Latest Scheme vacancies atom Feed')
 		->appendAlternate($view->serverUrl() . '/research/projects/index/format/atom',
 		'application/atom+xml', 'Research projects based on Scheme data')

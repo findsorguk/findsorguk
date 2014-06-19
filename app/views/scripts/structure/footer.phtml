@@ -4,25 +4,28 @@
 	<a href="http://www.britishmuseum.org" title="The British Museum website">
 	<img class="sponsors" src="<?php echo $this->serverUrl();?>/assets/logos/bm_logo.png"  width="150" height="60" alt="The British Museum logo"/></a>
 	</div>
-
+    
 	<div class="span3">
-	<ul>
-	<li><a href="mailto:communications@britishmuseum.org ">British Museum Press Office</a></li>
-	<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action'=> 'page','slug' => 'aboutus'),'i',true);?>" title="More information about the Portable Antiquities Scheme">About the Scheme</a></li>
-	<li><a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'contactus'),'default',true);?>" title="Contact the Scheme regarding our work" accesskey="9">Contact Us</a></li>
-	<li><a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'vacancies'),'default',true);?>" title="See all current job vacancies">Work for us</a></li>
+            <h4>About Us</h4>
+            <ul>
+                <li><a href="<?php echo $this->url(array('module' => 'about','controller' => 'index','action'=> 'index'),'default',true);?>" title="More information about the Portable Antiquities Scheme">About the Scheme</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'about','controller' => 'vacancies','action'=> 'index'),'default',true);?>" title="See all current job vacancies">Vacancies</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'about','controller' => 'logoandbranding','action' => 'index'),'default',true);?>" title="Scheme logo and branding guidelines">Logo and branding</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'about','controller' => 'contactus'),'default',true);?>" title="Contact the Scheme regarding our work" accesskey="9">Contact Us</a></li>
 
-	</ul>
+            </ul>
 	</div>
 
 	<div class="span3">
-	<ul>
-	<li><a href="<?php echo $this->url(array('module' => 'help'),'default',true);?>" title="Find helpful information about using our site" accesskey="6">Help with our site</a></li>
-	<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'accessibility'),'i',true);?>" title="Information about our site's accessibility" accesskey="0">Accessibility</a></li>
-	<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'termsandconditions'),'i',true);?>" title="Read about our terms and conditions - nothing onerous" accesskey="8">Terms of Use</a></li>
-	<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'privacy'),'i',true);?>" title="Read about our privacy policy">Privacy &amp; Cookies</a></li>
-	<li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action'=> 'page','slug' => 'foi'),'i',true);?>" title="Freedom of information requests and how to submit one">Freedom of Information</a></li>
-	</ul>
+            <h4>About our Site</h4>
+            <ul>
+                <li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'index','action' => 'index'),'default',true);?>" title="Information about this website">About our site</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'accessibility'),'i',true);?>" title="Information about our site's accessibility" accesskey="0">Accessibility</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'termsandconditions'),'i',true);?>" title="Read about our terms and conditions - nothing onerous" accesskey="8">Terms of Use</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'privacy'),'i',true);?>" title="Read about our privacy policy">Privacy &amp; Cookies</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action'=> 'page','slug' => 'foi'),'i',true);?>" title="Freedom of information requests and how to submit one">Freedom of Information</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'help','controller' => 'database','action'=> 'index'),'default',true);?>" title="Find helpful information about using our site" accesskey="6">Help</a></li>
+            </ul>
 	</div>
 
     <div class="span3 ">
@@ -45,16 +48,25 @@
     </div>
 
     <div class="span3">
-        <h4>Techie stuff</h4>
+        <h4>Data Labs</h4>
         <ul>
-            <li><a href="https://github.com/portableant/Beowulf---PAS" title="The source code in github">Get the source code</a></li>
-            <li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'oai'),'default',true);?>">OAI-PMH endpoint</a></li>
-            <li><a href="<?php echo $this->url(array('module' => 'info','controller' => 'advice','action' => 'index','slug' => 'rss'),'i',true);?>">RSS feeds</a></li>
-            <li><a href="<?php echo $this->url(array('module' => 'analytics'),'default',true);?>">Analytics</a></li>
-            <li><a href="<?php echo $this->url(array('module' => 'info', 'controller' => 'github'), 'default',true);?>" title="View the changes on github">Github code changes</a></li>
+            <li><a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'index','action' => 'index'),'default',true);?>">Linked open data policy</a></li>
+            <li><a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'terminology','action' => 'objects'),'default',true);?>" title="Learn about object terms in use">Controlled vocabulary</a></li>
+            <li><a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'oai'),'default',true);?>">OAI interface</a></li>
+            <li><a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'rss','action' => 'index'),'default',true);?>">RSS feeds</a></li>
         </ul>
     </div>
 
+    <div class="span3">
+        <h4>Tech</h4>
+        <ul>
+            <li><a href="https://github.com/findsorguk/findsorguk" title="The source code in github">Source code on Github</a></li>
+            <li><a href="<?php echo $this->url(array('module' => 'tech'),'default',true);?>">Technology</a></li>
+            <li><a href="<?php echo $this->url(array('module' => 'analytics'),'default',true);?>">Analytics</a></li>
+
+        </ul>
+    </div>
+    
 	<div class="span3">
 		<div class="address">
 		<strong>&copy; <?php echo $this->romannumerals()->setDate(2003);?> - <?php echo $this->romannumerals()->setDate(Zend_Date::now()->toString('yyyy'));?></strong> &raquo; <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a> <br /><span class="vcard"><span class="adr"><span class="org fn">The British Museum</span>, <span class="street-address">Great Russell Street</span>, <span class="locality">London</span> <span class="postal-code">WC1B 3DG</span>.</span> T: <span class="tel"><span class="value">+44(0) 20 73238618</span></span> E: <a href="mailto:info@finds.org.uk" title="Email the Scheme" class="email">info@finds.org.uk</a></span></div>

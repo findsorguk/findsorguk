@@ -1,0 +1,21 @@
+<div class="sidebar-nav col-md-3" >
+    <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+            <li <?php echo $this->currentPage()->active('guides','index','index');?>><a href="<?php echo $this->url(array('module' => 'guides','controller'=>'index','action'=>'index'),null,true);?>" title="An introduction to artefacts, coin and conservation guides">Introduction to guides</a></li>
+            <li <?php echo $this->currentPage()->active('conservation','index','index');?>><a href="<?php echo $this->url(array('module' => 'conservation','controller'=>'index','action'=>'index'),null,true);?>" title="An introduction to finds conservation">Finds conservation</a></li>
+            <li <?php echo $this->currentPage()->active('bronzeage','index','index');?>><a href="<?php echo $this->url(array('module' => 'bronzeage'),'default',true);?>">Bronze Age artefacts</a></li>
+            <li <?php echo $this->currentPage()->active('ironagecoins','index','index');?>><a href="<?php echo $this->url(array('module' => 'ironagecoins','controller'=>'index','action'=>'index'),null,true);?>" title="An intro to Iron Age coins">Iron Age coins</a></li>
+            <li <?php echo $this->currentPage()->active('romancoins','index','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins'),'default', true);?>">Roman coins</a></li>
+<<<<<<< HEAD
+            <li <?php echo $this->currentPage()->active('greekromancoins','index','index');?>><a href="<?php echo $this->url(array('module'=> $module),NULL, true);?>" title="An introduction to Greek &amp; Roman coins">Greek &amp; Roman coins </a></li>
+            <li <?php echo $this->currentPage()->active('byzantinecoins','index','index');?>><a href="<?php echo $this->url(array('module' => 'byzantinecoins'),NULL, true);?>" title="Read an introduction to Byzantine coins">Byzantine coins</a></li>
+            <li <?php echo $this->currentPage()->active('earlymedievalcoins','index','index');?>><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins'),NULL, true);?>" title="An introduction to early medieval coins">Early medieval coins</a></li>
+            <li <?php echo $this->currentPage()->active('medievalcoins','index','index');?>><a href="<?php echo $this->url(array('module' => $module),NULL,true);?>" title="An introduction to medieval coins">Medieval coins</a></li>
+=======
+            <li <?php echo $this->currentPage()->active('greekromancoins','index','index');?>><a href="<?php echo $this->url(array('module'=> 'greekromancoins'),NULL, true);?>" title="An introduction to Greek &amp; Roman coins">Greek &amp; Roman coins </a></li>
+            <li <?php echo $this->currentPage()->active('byzantinecoins','index','index');?>><a href="<?php echo $this->url(array('module' => 'byzantinecoins'),NULL, true);?>" title="Read an introduction to Byzantine coins">Byzantine coins</a></li>
+            <li <?php echo $this->currentPage()->active('earlymedievalcoins','index','index');?>><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins'),NULL, true);?>" title="An introduction to early medieval coins">Early medieval coins</a></li>
+            <li <?php echo $this->currentPage()->active('medievalcoins','index','index');?>><a href="<?php echo $this->url(array('module' => 'medievalcoins'),NULL,true);?>" title="An introduction to medieval coins">Medieval coins</a></li>
+>>>>>>> 539630dda677a1e1d89687bada6c90a8165f7b04
+            <li <?php echo $this->currentPage()->active('postmedievalcoins','index','index');?>><a href="<?php echo $this->url(array('module' => 'postmedievalcoins'),NULL,true);?>" title="An introduction to post medieval coins">Post medieval coins</a></li>
+    </ul>
+</div>

@@ -4,15 +4,24 @@ $module =  Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
 <ul class="nav">
 <li><a <?php if($module == 'default') {echo 'class="active"  ';}?>href="<?php echo $this->url(array('controller' => 'index'),'default',true);?>" title="The Scheme's homepage" accesskey="1">Home <i class="icon-home icon-white"></i></a></li>
 <li><a <?php if($module == 'contacts') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'contacts'),'default',true);?>" title="Who to contact at the Scheme">Contacts</a></li>
-<li><a <?php if($module == 'getinvolved') {echo ' class="active" ';}?>href="<?php echo $this->url(array('module' => 'getinvolved'),'default',true);?>" title="How to get involved with the largest public archaeology project">Get involved</a></li>
-<li><a <?php if($module == 'conservation') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'conservation'),'default',true);?>" title="Conservation advice notes">Conservation</a></li>
-<li><a <?php if($module == 'database') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'database'),'default',true);?>" title="Search our database for data">Database</a></li>
-<li><a <?php if($module == 'news') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'news'),'default',true);?>" title="Get all the latest news">News &amp; reports</a></li>
+<li><a <?php if($module == 'getinvolved') {echo ' class="active" ';}?>href="<?php echo $this->url(array('module' => 'getinvolved'),'default',true);?>" title="How to get involved with the largest public archaeology project">Get Involved</a></li>
+<li><a <?php if($module == 'database') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'database'),'default',true);?>" title="Search our database for artefacts and coins">Database</a></li>
 <li><a <?php if($module == 'treasure') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'treasure'),'default',true);?>" title="Learn about the Treasure Act">Treasure</a></li>
-<li><a <?php if($module == 'research') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'research'),'default',true);?>" title="Research in progress">Research</a></li>
-<li><a <?php if($module == 'flickr') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'flickr'),'default',true);?>" title="Photos powered by flickr">Photos</a></li>
+<<<<<<< HEAD
+<li><a <?php if($module == 'conservation') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'conservation'),'default',true);?>" title="View guides to artefacts, coins and periods">Guides</a></li>
+<li><a <?php if($module == 'news') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'news'),'default',true);?>" title="Keep up to date with the latest news and events">News &amp; Events</a></li>
+<li><a <?php if($module == 'flickr') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'flickr'),'default',true);?>" title="View photos in our Flickr gallery">Photos</a></li>
+<li><a <?php if($module == 'research') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'research'),'default',true);?>" title="Publications and reports">Publications</a></li>
+<li><a <?php if($module == 'research') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'research'),'default',true);?>" title="Academic research using our data">Research</a></li>
 <li><a href="/blogs" title="Read content from our blogs">Blogs</a></li>
-<li><a <?php if($module == 'events') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'events'),'default',true);?>" title="Find out what events are happening near you">Events</a></li>
+=======
+<li><a <?php if($module == 'guides') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'guides'),'default',true);?>" title="View guides to artefacts, coins and periods">Guides</a></li>
+<li><a <?php if($module == 'news') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'news'),'default',true);?>" title="Keep up to date with the latest news and events">News &amp; Events</a></li>
+<li><a <?php if($module == 'flickr') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'flickr'),'default',true);?>" title="View photos in our Flickr gallery">Photos</a></li>
+<li><a <?php if($module == 'publications') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'publications'),'default',true);?>" title="Publications and reports">Publications</a></li>
+<li><a <?php if($module == 'research') {echo 'class="active" ';}?>href="<?php echo $this->url(array('module' => 'research'),'default',true);?>" title="Academic research using our data">Research</a></li>
+<!-- <li><a href="/blogs" title="Read content from our blogs">Blogs</a></li> -->
+>>>>>>> 539630dda677a1e1d89687bada6c90a8165f7b04
 <?php
 $auth = Zend_Auth::getInstance();
 if($auth->hasIdentity()){

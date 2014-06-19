@@ -15,26 +15,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
 		$this->_helper->_acl->allow('public',null);
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }
-	/** Private function for creating a range of years
-	 * 
-	 * @return array List of years (integers)
-	 * @todo add caching?
-	*/
-	private function years(){
-	$current_year = date('Y');
-	//1998 is the first year recording for the Scheme was digital
-	$years = range(1998, $current_year);
-	$yearslist = array();
-		foreach($years as $key => $value) {
-		$yearslist[] = array('year' => $value);
-	}
-	return $yearslist;	
-	}
-	/** Private function for creating a range of years
-	 * 
-	 * @return object form
-	 * 
-	*/
+
 	private function renderForm(){
 	$form = new DatePickerForm();
 	$form->datefrom->setValue($this->_getParam('datefrom'));
@@ -47,7 +28,6 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
 	*/	
 	public function indexAction() {
 	$date = $this->_getParam('date') ? $this->_getParam('date') : $this->getTimeForForms(); 
-	$this->view->years = $this->years();
 	$calendar= new Calendar($date); 
 	$cases = new Finds();
 	$cases = $cases->getFindsByDay();
@@ -74,7 +54,6 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
 	/** Page rendering records recorded annually
 	*/
 	public function annualAction() {
-	$this->view->years = $this->years();
 	$datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom') 
 	: Zend_Date::now()->toString('yyyy').'-01-01'; 
 	$dateto = $this->_getParam('dateto') ? $this->_getParam('dateto') 
@@ -113,7 +92,6 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
 	/** Page rendering records recorded by county
 	*/
 	public function countyAction() {
-	$this->view->years = $this->years();
 	$datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom') 
 	: Zend_Date::now()->toString('yyyy').'-01-01'; 
 	$dateto = $this->_getParam('dateto') ? $this->_getParam('dateto') 
@@ -158,7 +136,6 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
 	/** Page rendering records recorded by region
 	*/
 	public function regionalAction() {
-	$this->view->years = $this->years();
 	$datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom') 
 	: Zend_Date::now()->toString('yyyy').'-01-01'; 
 	$dateto = $this->_getParam('dateto') ? $this->_getParam('dateto') 
@@ -203,7 +180,6 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
 	/** Page rendering records recorded by institution
 	*/
 	public function institutionAction() {
-	$this->view->years = $this->years();
 	$datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom') 
 	: Zend_Date::now()->toString('yyyy').'-01-01'; 
 	$dateto = $this->_getParam('dateto') ? $this->_getParam('dateto') 

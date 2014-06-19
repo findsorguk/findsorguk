@@ -1,18 +1,20 @@
-<?php
+
+<!-- saved from url=(0137)https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/ImageToolBox.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body about="https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/ImageToolBox.php"><pre style="word-wrap: break-word; white-space: pre-wrap;">&lt;?php
 /**
  * A view helper for image link toolbox generation
  *
  * An example of use:
- * <code>
- * <?pho
- * $this->imageToolBox()
- * ->setID($this->id)
- * ->setCreatedBy($this->createdBy)
- * ->setInstitution($this->institution);
- * ?>
- * </code>
+ * &lt;code&gt;
+ * &lt;?pho
+ * $this-&gt;imageToolBox()
+ * -&gt;setID($this-&gt;id)
+ * -&gt;setCreatedBy($this-&gt;createdBy)
+ * -&gt;setInstitution($this-&gt;institution);
+ * ?&gt;
+ * &lt;/code&gt;
  *
- * @author Daniel Pett <dpett@britishmuseum.org>
+ * @author Daniel Pett &lt;dpett@britishmuseum.org&gt;
  * @copyright (c) 2014, Daniel Pett
  * @version 1
  * @example /app/views/scripts/partials/database/image.phtml Image view
@@ -84,7 +86,7 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      */
     public function _getUser() {
         $person = new Pas_User_Details();
-        return $person->getPerson();
+        return $person-&gt;getPerson();
     }
 
     /** Check their institution
@@ -92,7 +94,7 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return boolean
      */
     protected function _checkInstitution() {
-        if ($this->getInstitution() === $this->_getUser()->institution) {
+        if ($this-&gt;getInstitution() === $this-&gt;_getUser()-&gt;institution) {
             return true;
         } else {
             return false;
@@ -104,7 +106,7 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return boolean
      */
     protected function _checkCreator() {
-        if ($this->getCreatedBy() === $this->_getUser()->id) {
+        if ($this-&gt;getCreatedBy() === $this-&gt;_getUser()-&gt;id) {
             return true;
         } else {
             return false;
@@ -117,7 +119,7 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return \Pas_View_Helper_ImageToolBox
      */
     public function setID($id) {
-        $this->_id = $id;
+        $this-&gt;_id = $id;
         return $this;
     }
 
@@ -127,7 +129,7 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return \Pas_View_Helper_ImageToolBox
      */
     public function setInstitution($institution) {
-        $this->_institution = $institution;
+        $this-&gt;_institution = $institution;
         return $this;
     }
 
@@ -137,7 +139,7 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return \Pas_View_Helper_ImageToolBox
      */
     public function setCreatedBy($createdBy) {
-        $this->_createdBy = $createdBy;
+        $this-&gt;_createdBy = $createdBy;
         return $this;
     }
 
@@ -148,26 +150,26 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      */
     public function _buildHtml() {
         $html = '';
-        $this->_checkParameters();
-        $this->_performChecks();
-        if ($this->_canCreate) {
+        $this-&gt;_checkParameters();
+        $this-&gt;_performChecks();
+        if ($this-&gt;_canCreate) {
             $paramsEdit = array(
-                'module' => 'database',
-                'controller' => 'images',
-                'action' => 'edit',
-                'id' => $this->getId()
+                'module' =&gt; 'database',
+                'controller' =&gt; 'images',
+                'action' =&gt; 'edit',
+                'id' =&gt; $this-&gt;getId()
             );
             $paramsDelete = array(
-                'module' => 'database',
-                'controller' => 'images',
-                'action' => 'delete',
-                'id' => $this->getId()
+                'module' =&gt; 'database',
+                'controller' =&gt; 'images',
+                'action' =&gt; 'delete',
+                'id' =&gt; $this-&gt;getId()
             );
-            $editurl = $this->view->url($paramsEdit, 'default' ,TRUE);
-            $deleteurl = $this->view->url($paramsDelete, 'default', TRUE);
-            $html .= ' <a class="btn btn-success" href="' . $editurl;
-            $html .= '" title="Edit image">Edit</a> <a class="btn btn-warning" href="';
-            $html .= $deleteurl . '" title="Delete this image">Delete</a>';
+            $editurl = $this-&gt;view-&gt;url($paramsEdit, 'default' ,TRUE);
+            $deleteurl = $this-&gt;view-&gt;url($paramsDelete, 'default', TRUE);
+            $html .= ' &lt;a class="btn btn-success" href="' . $editurl;
+            $html .= '" title="Edit image"&gt;Edit&lt;/a&gt; &lt;a class="btn btn-warning" href="';
+            $html .= $deleteurl . '" title="Delete this image"&gt;Delete&lt;/a&gt;';
         }
         return $html;
     }
@@ -185,38 +187,38 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return boolean
      */
     public function _performChecks() {
-        if ($this->_getUser()) {
-            $role = $this->_getUser()->role;
+        if ($this-&gt;_getUser()) {
+            $role = $this-&gt;_getUser()-&gt;role;
         } else {
             $role = NULL;
         }
         //If user's role is in the no access array, return false for creation
-        if (in_array($role, $this->_noaccess)) {
-            $this->_canCreate = false;
+        if (in_array($role, $this-&gt;_noaccess)) {
+            $this-&gt;_canCreate = false;
         }
         //If user's role is in the higher level array, return true for creation
-        else if (in_array($role,$this->_higherLevel)) {
-            $this->_canCreate = true;
+        else if (in_array($role,$this-&gt;_higherLevel)) {
+            $this-&gt;_canCreate = true;
         }
         //If user's role is in recorders group check for
         // a) user ID = creator of image
         // b) institution is a public record
         // c) institution is theirs
-        else if (in_array($role,$this->_recorders)) {
-            if($this->_checkCreator() ||
-            $this->getInstitution() === $this->_overRide ||
-            $this->_checkInstitution()) {
-                $this->_canCreate = true;
+        else if (in_array($role,$this-&gt;_recorders)) {
+            if($this-&gt;_checkCreator() ||
+            $this-&gt;getInstitution() === $this-&gt;_overRide ||
+            $this-&gt;_checkInstitution()) {
+                $this-&gt;_canCreate = true;
             }
         }
         //If user's role is in restricted groups
         // a) check if the user's institution is theirs and they are the creator
-        else if (in_array($role,$this->_restricted)) {
-        if (($this->_checkCreator() && $this->_checkInstitution())) {
-            $this->_canCreate = true;
+        else if (in_array($role,$this-&gt;_restricted)) {
+        if (($this-&gt;_checkCreator() &amp;&amp; $this-&gt;_checkInstitution())) {
+            $this-&gt;_canCreate = true;
         }
         } else {
-            $this->_canCreate = false;
+            $this-&gt;_canCreate = false;
         }
     }
 
@@ -227,9 +229,9 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      */
     public function _checkParameters() {
         $parameters = array(
-            $this->getCreatedBy(),
-            $this->getInstitution(),
-            $this->getId()
+            $this-&gt;getCreatedBy(),
+            $this-&gt;getInstitution(),
+            $this-&gt;getId()
         );
         foreach ($parameters as $parameter) {
             if (is_null($parameter)) {
@@ -244,7 +246,7 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return string
      */
     public function __toString() {
-        return $this->_buildHtml();
+        return $this-&gt;_buildHtml();
     }
 
     /** Get the id number
@@ -252,7 +254,7 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return int
      */
     public function getId() {
-        return $this->_id;
+        return $this-&gt;_id;
     }
 
     /** Get the institution
@@ -260,7 +262,7 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return string
      */
     public function getInstitution() {
-        return $this->_institution;
+        return $this-&gt;_institution;
     }
 
     /** Get the creator
@@ -268,6 +270,6 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract {
      * @return int
      */
     public function getCreatedBy() {
-        return $this->_createdBy;
+        return $this-&gt;_createdBy;
     }
-}
+}</pre></body></html>

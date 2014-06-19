@@ -1,0 +1,15 @@
+<?php 
+	$this->headTitle('Materials available for use on the database');
+	?>
+<h2>Materials</h2>
+<table class="table table-striped" summary="List of available material terms in use on the database.">
+<caption>A list of available material terms on our database</caption>
+<thead>
+<tr>
+<th>Material</th>
+</tr>
+</thead>
+<tbody>
+<?php echo $this->partialLoop('partials/datalabs/materialsList.phtml',$this->materials);?>
+</tbody>
+</table>

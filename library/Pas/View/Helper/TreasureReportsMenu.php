@@ -63,3 +63,4 @@ class Pas_View_Helper_TreasureReportsMenu
         return $this->menu();
     }
 }
+

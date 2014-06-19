@@ -1,0 +1,92 @@
+<?php
+$this->jQuery()->addJavascriptFile('http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.tabs.js',
+	$type='text/javascript');?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+ $(document).ready(function(){
+$('#tabs').tabs({ fx: { opacity: 'toggle' } });
+});
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
+
+<?php echo $this->partial('partials/about/alumniprofile.phtml',$this->staffs['0']);?>
+<?php if(count($this->periodtotals) > 0): ?>
+<?php echo $this->partial('partials/contacts/searchfinds.phtml',$this->staffs['0']);?>
+<?php endif;?>
+<?php
+    $finds_officers = array();
+    $records_officers = array();
+    foreach($this->periodtotals as $off) {
+        $finds_officers[] = $off['artefacts'];
+        $records_officers[] = $off['records'];
+    }
+    $findsOffTotal = array_sum($finds_officers);
+    $recordsOffTotal = array_sum($records_officers);    
+?>
+
+<div id="tabs">
+	<ul>
+        <li><a href="#period"><span>Period breakdown</span></a></li>
+		 <li><a href="#records"><span>Records breakdown</span></a></li>
+    </ul>
+
+<?php if($this->periodtotals):?>
+<div id="period">
+    <h3>Records recorded by period</h3>
+    
+    <table class="table table-striped" summary="A summary of all records recorded by this alumnus">
+        <caption>All records recorded by period</caption>
+        <thead>
+          <tr>
+            <th scope="col">Period</th>
+            <th scope="col">Finds</th>
+            <th scope="col">Records</th>
+          </tr>
+         </thead>
+        <tbody>
+           <?php 
+           echo $this->partialLoop('partials/statistics/periodtotals.phtml', 
+                   $this->periodtotals);
+           ?>
+           <tr>
+                <th></th>
+                <th>
+                    <?php echo $findsOffTotal;?>
+                </th>
+                <th>
+                    <?php echo $recordsOffTotal;?>
+                </th>
+           </tr>
+       </tbody>
+    </table>
+</div>
+<?php endif;?>
+
+<?php if($this->findstotals):?>
+<div id="records">
+    <h3>Records and finds recorded by quarter</h3>
+        <table class="table table-striped">
+        <caption>A breakdown of finds recorded by quarter</caption>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Quarter</th>
+                <th>Finds</th>
+                <th>Records</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php echo $this->partialLoop('partials/statistics/quartertotals.phtml', $this->findstotals);?>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>
+                    <?php echo $findsOffTotal;?>
+                </th>
+                <th>
+                    <?php echo $recordsOffTotal;?>
+                </th>
+            </tr>
+        </tbody>
+        </table>
+</div>
+<?php endif;?>
+</div>

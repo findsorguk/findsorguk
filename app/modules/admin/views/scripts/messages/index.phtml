@@ -24,7 +24,7 @@
 <?php else:?>
 <p>No messages are listed or available to you</p>
 <?php endif;?>
-<?echo $this->paginationControl($this->messages, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->messages, 'Sliding', 'structure/pagination.phtml'); ?>
 
 <?php 
 $this->inlineScript()->appendFile('/js/bootstrap-modal.js', $type='text/javascript');

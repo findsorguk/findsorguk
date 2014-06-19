@@ -6,7 +6,7 @@ if(count($this->searches)):?>
 
 <?php echo $this->partialLoop('partials/users/searchList.phtml', $this->searches) ?>
 </ol>
-<?echo $this->paginationControl($this->searches, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->searches, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
 <p>No search history available to you at present.</p>
 <?php endif;?> 

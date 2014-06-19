@@ -1,14 +1,16 @@
-<?php
+
+<!-- saved from url=(0134)https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/NiceMonth.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body about="https://raw.githubusercontent.com/findsorguk/findsorguk/0e044981b8121339c5dc61d835be3d3e93683759/library/Pas/View/Helper/NiceMonth.php"><pre style="word-wrap: break-word; white-space: pre-wrap;">&lt;?php
 /** A view helper to translate integers to month
  *
  * Example use:
  *
- * <code>
- * <?php
- * echo $this->niceMonth()->setDate($date);
- * ?>
- * </code>
- * @author Daniel Pett <dpett@britishmuseum.org>
+ * &lt;code&gt;
+ * &lt;?php
+ * echo $this-&gt;niceMonth()-&gt;setDate($date);
+ * ?&gt;
+ * &lt;/code&gt;
+ * @author Daniel Pett &lt;dpett@britishmuseum.org&gt;
  * @version 1
  * @category Pas
  * @package Pas_View_Helper
@@ -29,7 +31,7 @@ class Pas_View_Helper_NiceMonth extends Zend_View_Helper_Abstract
      * @return int
      */
     public function getDate() {
-        return $this->_date;
+        return $this-&gt;_date;
     }
 
     /** Set the date to query
@@ -38,7 +40,7 @@ class Pas_View_Helper_NiceMonth extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_NiceMonth
      */
     public function setDate($date) {
-        $this->_date = $date;
+        $this-&gt;_date = $date;
         return $this;
     }
 
@@ -55,7 +57,7 @@ class Pas_View_Helper_NiceMonth extends Zend_View_Helper_Abstract
      * @return string
      */
     public function __toString() {
-       switch ($this->getDate()) {
+       switch ($this-&gt;getDate()) {
         case 01:
             $month = 'January';
             break;
@@ -93,7 +95,7 @@ class Pas_View_Helper_NiceMonth extends Zend_View_Helper_Abstract
             $month = 'December';
             break;
         default:
-            return $month = $this->getDate();
+            return $month = $this-&gt;getDate();
             break;
        }
 
@@ -101,3 +103,4 @@ class Pas_View_Helper_NiceMonth extends Zend_View_Helper_Abstract
     }
 
     }
+</pre></body></html>

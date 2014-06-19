@@ -123,3 +123,4 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
         return $html;
     }
 }
+
