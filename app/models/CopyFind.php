@@ -42,7 +42,7 @@ class CopyFind extends Pas_Db_Table_Abstract {
 		$copy = $this->getAdapter();
 		$select = $copy->select()
 		->from($this->_name, array('fields'))
-		->where('userID = ?', (int)$this->userNumber());
+		->where('userID = ?', (int)$this->getUserNumber());
 		$fields = $copy->fetchAll($select);
 		if($fields) {
 			$checked = unserialize($fields['0']['fields']);
@@ -64,9 +64,9 @@ class CopyFind extends Pas_Db_Table_Abstract {
 		$newFields = array_keys($data);
 		$updateData['fields'] = serialize($newFields);
 		$updateData['created'] = $this->timeCreation();
-		$updateData['createdBy'] = $this->userNumber();
-		$updateData['userID'] = $this->userNumber();
-		parent::delete('userID =' . $this->userNumber());
+		$updateData['createdBy'] = $this->getUserNumber();
+		$updateData['userID'] = $this->getUserNumber();
+		parent::delete('userID =' . $this->getUserNumber());
 		return parent::insert($updateData);	
 	}
 	

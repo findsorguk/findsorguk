@@ -21,7 +21,7 @@ class CopyCoin extends Pas_Db_Table_Abstract {
 	
 	public function init(){
 		$this->_cache = Zend_Registry::get('cache');
-		$this->_key = md5('coinConfig' . $this->userNumber());
+		$this->_key = md5('coinConfig' . $this->getUserNumber());
 	}
 
 	protected $_default = array(
@@ -44,7 +44,7 @@ class CopyCoin extends Pas_Db_Table_Abstract {
 		$copy = $this->getAdapter();
 		$select = $copy->select()
 		->from($this->_name, array('fields'))
-		->where('userID = ?', (int)$this->userNumber());
+		->where('userID = ?', (int)$this->getUserNumber());
 		$fields = $copy->fetchAll($select);
 		if($fields) {
 			$checked = unserialize($fields['0']['fields']);
@@ -66,9 +66,9 @@ class CopyCoin extends Pas_Db_Table_Abstract {
 		$newFields = array_keys($data);
 		$updateData['fields'] = serialize($newFields);
 		$updateData['created'] = $this->timeCreation();
-		$updateData['createdBy'] = $this->userNumber();
-		$updateData['userID'] = $this->userNumber();
-		parent::delete('userID =' . $this->userNumber());
+		$updateData['createdBy'] = $this->getUserNumber();
+		$updateData['userID'] = $this->getUserNumber();
+		parent::delete('userID =' . $this->getUserNumber());
 		return parent::insert($updateData);	
 	}
 	

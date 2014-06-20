@@ -114,8 +114,8 @@ class News extends Pas_Db_Table_Abstract {
                 ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy', 
                         array('fn' => 'fullname'))
                 ->order('id DESC');
-        if(in_array($this->getRole(),$this->_higherlevel)) {
-            $select->where($this->_name . '.createdBy = ?',$this->getIdentityForForms());
+        if(in_array($this->getUserRole(),$this->_higherlevel)) {
+            $select->where($this->_name . '.createdBy = ?',$this->getUserNumber());
         }
         $paginator = Zend_Paginator::factory($select);
         if(isset($params['page']) && ($params['page'] != "")) {
@@ -201,7 +201,7 @@ class News extends Pas_Db_Table_Abstract {
                 $data['created'] = $this->timeCreation();
             }
             if(empty($data['createdBy'])){
-                $data['createdBy'] = $this->userNumber();
+                $data['createdBy'] = $this->getUserNumber();
             }
         
             foreach($data as $k => $v) {
@@ -231,7 +231,7 @@ class News extends Pas_Db_Table_Abstract {
             $data['updated'] = $this->timeCreation();
         }
         if(empty($data['updatedBy'])){
-            $data['updatedBy'] = $this->userNumber();
+            $data['updatedBy'] = $this->getUserNumber();
         }
         $where = array();
         $where[] =  $this->getAdapter()->quoteInto($this->_primary . ' = ?', $id);

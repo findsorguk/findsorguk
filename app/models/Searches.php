@@ -28,7 +28,7 @@ class Searches extends Pas_Db_Table_Abstract {
     $updatesdata = array(
         'searchString' => $searchstring,
         'date' => Zend_Date::now()->toString('yyyy-MM-dd HH:mm:ss'),
-        'userid' => $this->userNumber(),
+        'userid' => $this->getUserNumber(),
         'ipaddress' => $_SERVER['REMOTE_ADDR'],
         'useragent' => $_SERVER['HTTP_USER_AGENT']
         );

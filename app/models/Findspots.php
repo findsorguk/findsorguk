@@ -247,7 +247,7 @@ class Findspots extends Pas_Db_Table_Abstract {
 	}
 
         if(empty($data['createdBy'])){
-		$data['createdBy'] = $this->userNumber();
+		$data['createdBy'] = $this->getUserNumber();
         }
 
 //        Zend_Debug::dump($data);

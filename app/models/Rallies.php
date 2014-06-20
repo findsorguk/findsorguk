@@ -207,7 +207,7 @@ class Rallies extends Pas_Db_Table_Abstract {
 	}
 
         if(empty($data['createdBy'])){
-		$data['createdBy'] = $this->userNumber();
+		$data['createdBy'] = $this->getUserNumber();
         }
         return parent::insert($data);
 

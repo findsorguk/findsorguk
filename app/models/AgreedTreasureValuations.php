@@ -31,7 +31,7 @@ class AgreedTreasureValuations
 		if (!isset($data['created']) || ($data['created'] instanceof Zend_Db_Expr)) {
 		$data['created'] = $this->timeCreation();
 	  	}
-	  	$data['createdBy'] = $this->userNumber();
+	  	$data['createdBy'] = $this->getUserNumber();
 		$data['treasureID'] = $this->_treasureID;
 		return parent::insert($data);
 	}
