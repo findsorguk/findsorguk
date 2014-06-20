@@ -20,7 +20,7 @@ defined('APPLICATION_ENV')
 
 // Define path to Solr
 defined('SOLR_PATH')
-    || define('SOLR_PATH', realpath(dirname(__FILE__) . '/../../solr/'));
+    || define('SOLR_PATH', realpath(dirname(__FILE__) . '/../solr/'));
 
 //Define the logs path
 defined('LOGS_PATH')
