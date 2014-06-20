@@ -14,7 +14,7 @@
 </div>
 <div class="row fluid">
     <div class="span12">
-<?php echo $this->latestRecords('objecttype:coin broadperiod:"BYZANTINE"');?>
+<?php echo $this->latestRecords()->setQuery('objecttype:coin broadperiod:"BYZANTINE"');?>
     </div>
 </div>
 <?php $this->inlineScript()->captureStart();?>

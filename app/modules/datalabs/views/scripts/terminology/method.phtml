@@ -1,3 +1,2 @@
-
 <?php echo $this->partialLoop('partials/database/method.phtml',$this->methods);?>
-<?php echo $this->latestRecords('discovery:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->latestRecords()->setQuery('discovery:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>

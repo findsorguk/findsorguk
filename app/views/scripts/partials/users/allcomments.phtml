@@ -3,7 +3,7 @@
 <span class="thumb vcard author">
 <a class="tweet-url profile-pic url" href=""><?php echo $this->gravatar($this->comment_author_email,array(
 	'imgSize' => 30, 
-	'defaultImg' => 'http://finds.org.uk/assets/gravatar.png', 
+	'defaultImg' => $this->serverUrl() . $this->baseUrl() . '/assets/gravatar.png', 
 	'secure' => true),
 	array(
 	'class' => 'avatar img-circle stelae', 
@@ -23,7 +23,7 @@
 <span class="published timestamp" data="{time:'<?php echo $this->df;?>'}"><?php echo $this->df;?></span>
 <span>
 upon record: 
-<a href="<?php echo $this->serverUrl();?>/database/artefacts/record/id/<?php echo $this->id;?>" title="View record"><?php echo $this->old_findID;?></a> a <?php echo $this->broadperiod . ' ' .$this->objecttype;?>
+<a href="<?php echo $this->baseUrl();?>/database/artefacts/record/id/<?php echo $this->id;?>" title="View record"><?php echo $this->old_findID;?></a> a <?php echo $this->broadperiod . ' ' .$this->objecttype;?>
 </span>
 </span>
 

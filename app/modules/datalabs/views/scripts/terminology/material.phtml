@@ -1,5 +1,5 @@
 <?php if(count($this->materials)) :?>
 <?php echo $this->partial('partials/database/materialDetails.phtml',
         $this->materials['0']); ?>
-<?php echo $this->latestRecords('material:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->latestRecords()->setQuery('material:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
 <?php endif;?>

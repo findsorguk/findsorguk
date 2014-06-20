@@ -12,7 +12,7 @@ echo 'Add an avatar';
 	<?php 
 	echo $this->gravatar($this->email,array( 
 	'imgSize' => 80, 
-	'defaultImg' => 'http://finds.org.uk/assets/gravatar.png', 
+	'defaultImg' => $this->baseUrl() . 'http://finds.org.uk/assets/gravatar.png', 
 	'secure' => true),
 	array(
 	'class' => 'avatar img-circle stelae',

@@ -1,2 +1,2 @@
 <?php echo $this->partial('partials/database/decStylesDetails.phtml',$this->decs['0']);?>
-<?php echo $this->latestRecords('decstyle:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->latestRecords()->setQuery('decstyle:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>

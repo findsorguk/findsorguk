@@ -1,5 +1,8 @@
-<?php echo $this->partialLoop('partials/numismatics/byzantineIssuer.phtml', $this->greek) ?>
-<?php echo $this->latestRecords('ruler:'  .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php 
+echo $this->partialLoop('partials/numismatics/byzantineIssuer.phtml', $this->greek);
+
+echo $this->latestRecords()->setQuery('ruler:'  
+        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
 <?php 
 ini_set('display_errors', '0');     # don't show any errors...
 error_reporting(E_ALL | E_STRICT);  # ...but do log them		

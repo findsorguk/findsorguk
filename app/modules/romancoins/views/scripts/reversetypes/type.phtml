@@ -50,4 +50,5 @@ echo $this->partialLoop('partials/numismatics/revtypedetail.phtml',$this->revers
 
 </div>
 
-<?php echo $this->latestRecords('reverse:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>
+<?php echo $this->latestRecords()->setQuery('reverse:' 
+        . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>

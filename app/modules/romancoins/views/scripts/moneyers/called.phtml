@@ -1,4 +1,3 @@
 <?php 
 echo $this->partial('partials/numismatics/moneyer.phtml',$this->moneyer['0']);
-echo $this->latestRecords('moneyer:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('by'));
-?>
+echo $this->latestRecords()->setQuery('moneyer:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('by'));

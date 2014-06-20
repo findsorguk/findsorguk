@@ -57,6 +57,6 @@ echo '<img src="/'. $imagedir .'medium/' . strtolower($name).$ext.'" alt="A resi
 
 </div>
 <?php else:?>
-<p><img src="/assets/gravatar.png" class="img img-circle"/><br />That image (filename: <?php echo $this->f;?>) is unavailable.</p>
+<p><img src="<?php echo $this->baseUrl();?>/assets/gravatar.png" class="img img-circle"/><br />That image (filename: <?php echo $this->f;?>) is unavailable.</p>
 <?php endif; ?>
 

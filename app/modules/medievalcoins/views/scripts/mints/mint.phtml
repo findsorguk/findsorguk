@@ -1,9 +1,21 @@
-<?php echo $this->partialLoop('partials/numismatics/medMintDetail.phtml',$this->mints);?>
-<h3>Issuers</h3>
-<p>This mint was active under the following issuers:</p>
+<?php 
+echo $this->partialLoop('partials/numismatics/medMintDetail.phtml',$this->mints);
+?>
 
-<ul>
-<?php echo $this->partialLoop('partials/numismatics/medMintsRulers.phtml',$this->actives);?>
-</ul>
+<h3 class="lead">
+    Issuers
+</h3>
+    <p>
+        This mint was active under the following issuers:
+    </p>
 
-<?php echo $this->latestRecords('mint:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+    <ul>
+        <?php 
+        echo $this->partialLoop('partials/numismatics/medMintsRulers.phtml',
+                $this->actives);
+        ?>
+    </ul>
+
+<?php 
+echo $this->latestRecords()->setQuery('mint:' 
+        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));

@@ -89,7 +89,9 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
             default:
                 throw new Zend_Exception('No workflow status set', 500);
     }
-        $imageTag = '<img src="/images/icons/';
+        $imageTag = '<img src="';
+        $imageTag .= $this->view->baseUrl();
+        $imageTag .= '/assets/icons/';
         $imageTag .= $wf;
         $imageTag .= '" width="16" height="16"';
         $imageTag .= 'alt="';

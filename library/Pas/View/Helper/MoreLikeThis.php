@@ -198,11 +198,13 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                 $html .= $document->thumbnail .'.jpg"/>';
 
             } else {
-                $html .= '<img class="flow img-circle" src="/assets/gravatar.png" />';
+                $html .= '<img class="flow img-circle" src="';
+                $html .= $this->view->baseUrl();
+                $html .= '/assets/gravatar.png" />';
                 }
                 $html .= '<div class="caption"><p>Find number: ';
                 $html .= '<a href="';
-                $html .= $this->view->serverUrl();
+                $html .= $this->view->baseUrl();
                 $html .= '/database/artefacts/record/id/';
                 $html .= $document->id . '">';
         $html .= $document->old_findID;

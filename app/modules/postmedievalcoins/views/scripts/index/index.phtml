@@ -1,5 +1,4 @@
 <div class="row-fluid">
-
     <div class="span6">
     <?php
     echo $this->partialLoop('partials/content/article.phtml',$this->content);
@@ -14,7 +13,7 @@
 </div>
 <div class="row fluid">
     <div class="span12">
-<?php echo $this->latestRecords('objecttype:coin broadperiod:"POST MEDIEVAL"');?>
+<?php echo $this->latestRecords()->setQuery('objecttype:coin broadperiod:"POST MEDIEVAL"');?>
     </div>
 </div>
 <?php $this->inlineScript()->captureStart();?>

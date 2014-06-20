@@ -35,18 +35,10 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      */
     protected $_nameSpaces = array(
             'category' => 'http://dbpedia.org/resource/Category:',
-            'dbpedia', 'http://dbpedia.org/resource/',
-            'dbo', 'http://dbpedia.org/ontology/',
-            'dbp', 'http://dbpedia.org/property/'
+            'dbpedia' =>  'http://dbpedia.org/resource/',
+            'dbo' =>  'http://dbpedia.org/ontology/',
+            'dbp' =>  'http://dbpedia.org/property/'
         );
-
-    /** Get the namespaces
-     * @access public
-     * @return array
-     */
-    public function getNameSpaces() {
-        return $this->_nameSpaces;
-    }
 
     /** Set new name spaces if so desired
      * @access public
@@ -56,6 +48,14 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
     public function setNameSpaces( array $nameSpaces) {
         $this->_nameSpaces = $nameSpaces;
         return $this;
+    }
+    
+    /** Get the namespaces
+     * @access public
+     * @return array
+     */
+    public function getNameSpaces() {
+        return $this->_nameSpaces;
     }
 
     /** Register the namespaces with EasyRdf
@@ -85,14 +85,16 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
     protected $_uri;
 
     /** The language to filter
+     * 
+     */
     const LANGUAGE = 'en';
 
     /** The function to return
      * @access public
      * @return \Pas_View_Helper_DbPediaRulerRdf
      */
-    public function DbPediaRulerRdf() {
-        $this->registerNameSpaces();
+    public function dbPediaRulerRdf() {
+//        $this->registerNameSpaces();
         return $this;
     }
 

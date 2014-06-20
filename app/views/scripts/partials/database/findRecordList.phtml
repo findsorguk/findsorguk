@@ -13,7 +13,7 @@
     <ul class="thumbnails pull-right">
         <li>
             <div property="crm:P138i_has_representation">
-            <a href="<?php echo $this->serverUrl() . '/' . $this->imagedir?>medium/<?php echo rawurlencode(strtolower($this->filename));?>" rel="lightbox" title="View larger image of <?php echo $this->old_findID;?>"><img property="crm:E38_Image" about="<?php $this->serverUrl()?>/images/thumbnails/<?php echo $this->thumbnail;?>.jpg"  src="/images/thumbnails/<?php echo $this->thumbnail;?>.jpg"
+            <a href="<?php echo $this->serverUrl() . $this->baseUrl() . $this->imagedir?>medium/<?php echo rawurlencode(strtolower($this->filename));?>" rel="lightbox" title="View larger image of <?php echo $this->old_findID;?>"><img property="crm:E38_Image" about="<?php $this->serverUrl()?>/images/thumbnails/<?php echo $this->thumbnail;?>.jpg"  src="/images/thumbnails/<?php echo $this->thumbnail;?>.jpg"
                     alt="Thumbnail image of <?php echo $this->old_findID;?>"
                      class="img-polaroid" height="<?php echo $h;?>"/></a>
             </div>
@@ -25,7 +25,7 @@
         <ul class="thumbnails pull-right">
         <li>
         <div>
-            <img src="/assets/gravatar.png" width="80" height="80" class="img-circle" />
+            <img src="<?php echo $this->baseUrl();?>/assets/gravatar.png" width="80" height="80" class="img-circle" />
             <p>Image unavailable<br />Error: 404</p>
             </div>
         </li>
@@ -37,7 +37,7 @@
 	 <ul class="thumbnails pull-right">
         <li>
         <div>
-            <img src="/assets/gravatar.png" width="80" height="80" class="img-circle" />
+            <img src="<?php echo $this->baseUrl();?>/assets/gravatar.png" width="80" height="80" class="img-circle" />
             <p>Image not taken</p>
             </div>
         </li>

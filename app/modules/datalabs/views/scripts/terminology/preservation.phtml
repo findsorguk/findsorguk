@@ -1,3 +1,4 @@
 <?php echo $this->partial('partials/database/presDetail.phtml',$this->preserves['0']);?>
 <?php echo $this->searchLink($this->preserves['0']['id']);?>
-<?php echo $this->latestRecords('preservation:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->latestRecords()->setQuery('preservation:' 
+        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>

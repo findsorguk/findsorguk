@@ -1,2 +1,2 @@
 <?php echo $this->partial('partials/database/cultureDetails.phtml',$this->cultures['0']);?>
-<?php echo $this->latestRecords('culture:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->latestRecords()->setQuery('culture:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>

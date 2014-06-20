@@ -108,9 +108,7 @@ echo '</p>';
 }
 ?>
 
-<?php echo $this->latestRecords('ruler:'  .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
-
-
+<?php echo $this->latestRecords()->setQuery('ruler:'  .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
 <div class="row-fluid">
 	<!--  Navigation for tabs  -->
 	<ul id="tab" class="nav nav-tabs">

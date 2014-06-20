@@ -1,6 +1,8 @@
-<?php echo $this->partialLoop('partials/numismatics/category.phtml',$this->categories);?>
-
-<?php echo $this->latestRecords('category:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'))?>
+<?php 
+echo $this->partialLoop('partials/numismatics/category.phtml',$this->categories);
+echo $this->latestRecords()->setQuery('category:' 
+        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
+?>
 
 
 
