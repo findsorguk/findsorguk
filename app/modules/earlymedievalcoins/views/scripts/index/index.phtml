@@ -14,13 +14,11 @@
 </div>
 <div class="row fluid">
     <div class="span12">
-<?php echo $this->latestRecords('objecttype:coin broadperiod:"EARLY MEDIEVAL"');?>
+<?php echo $this->latestRecords()->setQuery('objecttype:coin broadperiod:"EARLY MEDIEVAL"');?>
     </div>
 </div>
 <?php $this->inlineScript()->captureStart();?>
 $(document).ready(function() {
-
-
     var nlsmap = new google.maps.ImageMapType({
 	   getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
 	   tileSize: new google.maps.Size(256, 256),
@@ -30,14 +28,10 @@ $(document).ready(function() {
 	   name: 'Historic',
 	   alt: "NLS Historic Map"
 	});
-
-
-
     var osmMapType = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
             return "http://tile.openstreetmap.org/" +
                 zoom + "/" + coord.x + "/" + coord.y + ".png";
-
         },
         tileSize: new google.maps.Size(256, 256),
         isPng: true,
@@ -45,8 +39,6 @@ $(document).ready(function() {
         name: "OSM",
         maxZoom: 18
     });
-
-
 
     var myOptions = {
           center: new google.maps.LatLng( 53.2,-3.1),
@@ -82,8 +74,6 @@ $(document).ready(function() {
 		myTextDiv.appendChild(myTitle);
 
 		map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
-
-
 
 	  $('a[data-toggle="tab"]').on('shown', function (e) {
 	  e.target // activated tab

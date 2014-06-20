@@ -17,7 +17,7 @@ height="<?php echo $h;?>" alt="PAS record number: <?php echo $this->old_findID;?
           
 
 <?php } else {?>
-<img src="/assets/gravatar.png" width="80" height="80" class="img-circle" />
+<img src="<?php echo $this->baseUrl();?>/assets/gravatar.png" width="80" height="80" class="img-circle" />
             <p>Image unavailable<br />Error: 404</p>
 <?php }?>
 <div class="caption">

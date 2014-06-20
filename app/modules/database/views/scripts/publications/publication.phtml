@@ -2,5 +2,5 @@
 echo $this->partialLoop('partials/database/pubAmazonDetails.phtml',$this->publications);
 ?>
 <div class="row-fluid">
-<?php echo $this->latestRecordsPublications('pubID:'  . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+    <?php echo $this->latestRecordsPublications()->setQuery('pubID:'  . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
 </div>

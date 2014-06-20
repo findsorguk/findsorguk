@@ -23,7 +23,7 @@ class Pas_View_Helper_OnlineAccountHtmlPublic extends Zend_View_Helper_Abstract 
      * @access public
      * @var string
      */
-    protected $_id = null;
+    protected $_id;
     
     /** Get the ID number
      * @access public
@@ -43,32 +43,44 @@ class Pas_View_Helper_OnlineAccountHtmlPublic extends Zend_View_Helper_Abstract 
         return $this;
     }
     
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_OnlineAccountHtmlPublic
+     */
     public function onlineAccountHtmlPublic() {
-        Zend_Debug::dump($this);
-        Zend_Debug::dump($this->getId());
-        exit;
         return $this;
     }
     
+    /** Get account data
+     * @access public
+     * @param int $id
+     * @return string
+     */
     public function getAccounts($id) {
         $accts = new OnlineAccounts();
-        $data = $accts->getAllAccounts($id);
-        $this->buildHtml($data);
+        return $accts->getAllAccounts($id);
     }
 
     /** Build the html
      * @access public
      * @param array $data
      */
-    public function buildHtml( $data) {
+    public function buildHtml( $data ) {
         $html ='';
         $html .= '<p>Social profiles: ';
-        $html .=  $this->view->partialLoop('partials/contacts/foafAccts.phtml',$data);
+        $html .= '<div class="btn-group">';
+        $html .=  $this->view->partialLoop('partials/contacts/foafAccts.phtml',
+                $data);
+        $html .= '</div>';
         $html .= '</p>';
-        echo $html;
+        return  $html;
     }
 
+    /** To string function
+     * @access public
+     * @return string
+     */
     public function __toString() {
-        return $this->getAccounts($this->getId());
+        return $this->buildHtml($this->getAccounts($this->getId()));
     }
 }

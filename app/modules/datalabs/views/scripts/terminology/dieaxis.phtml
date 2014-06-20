@@ -1,3 +1,3 @@
 <?php 
 echo $this->partial('partials/database/dieDetail.phtml',$this->dieaxes['0']);
-echo $this->latestRecords('axis:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
+echo $this->latestRecords()->setQuery('axis:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));

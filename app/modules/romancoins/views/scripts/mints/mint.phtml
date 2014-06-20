@@ -5,11 +5,9 @@ echo $this->partialLoop('partials/numismatics/mintDetail.phtml',$this->rommints)
 <p>This mint was active under the following issuers:</p>
 <ul>
 <?php 
-echo $this->partialLoop('partials/numismatics/issuersRomanMints.phtml',$this->actives);
+    echo $this->partialLoop('partials/numismatics/issuersRomanMints.phtml', 
+            $this->actives);
 ?>
 </ul>
-
 <?php 
-echo $this->latestRecords('mint:'. Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); 
-?>
-
+echo $this->latestRecords()->setQuery('mint:'. Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); 

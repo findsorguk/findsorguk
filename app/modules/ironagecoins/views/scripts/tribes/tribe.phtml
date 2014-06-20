@@ -4,4 +4,4 @@
     <p class="error">There are no entries for this tribe.</p>
 <?php endif; ?>
 
-<?php echo $this->latestRecords('tribe:' . $this->escape($this->id));?>
+<?php echo $this->latestRecords()->setQuery('tribe:' . $this->escape($this->id));

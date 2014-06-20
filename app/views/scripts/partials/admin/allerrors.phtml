@@ -2,7 +2,8 @@
 <td class="author column-author" >
 <?php 
 	echo $this->gravatar($this->comment_author_email,array(
-	'defaultImg' => 'http://finds.org.uk/assets/gravatar.png', 	
+	'defaultImg' => $this->serverUrl() . $this->baseUrl() 
+        . '/assets/gravatar.png', 	
 	'imgSize' => 30, 
 	'secure' => true
 	),

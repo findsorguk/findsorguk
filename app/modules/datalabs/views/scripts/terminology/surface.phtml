@@ -1,4 +1,4 @@
 <?php
 echo $this->partial('partials/database/surfDetail.phtml',$this->surfaces['0']);
-echo $this->latestRecords('surface:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
-?>
+echo $this->latestRecords()->setQuery('surface:' 
+        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));

@@ -33,7 +33,7 @@ echo '<a href="'.$this->baseUrl().'/assets/rulers/'.$this->escape($this->filenam
 <p>Coins for this issuer were issued from <?php echo $this->escape($this->date_from);?> until <?php echo $this->escape($this->date_to);?>.</p>
 
 <?php echo $this->biography;?>
-<?php echo $this->latestRecords('ruler:' . $this->pasID);?>
+<?php echo $this->latestRecords()->setQuery('ruler:' . $this->pasID);?>
 <h3>Other resources about <?php echo $this->name;?></h3>
 <ul>
 <li>Dbpedia: <a property="skos:related"  resource="http://dbpedia.org/resource/<?php echo $this->dbpedia;?>" href="http://dbpedia.org/resource/<?php echo $this->dbpedia;?>">http://dbpedia.org/resource/<?php echo $this->dbpedia;?></a></li>

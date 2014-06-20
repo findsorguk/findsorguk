@@ -3,7 +3,7 @@
 <h3>Issued by</h3>
 
 <ul>
-	<?php echo $this->partialLoop('partials/numismatics/rulerDenom.phtml', $this->rulers);?>
+    <?php echo $this->partialLoop('partials/numismatics/rulerDenom.phtml', $this->rulers);?>
 </ul>
 
-<?php echo $this->latestRecords('denomination:' . $this->id);?>
+<?php echo $this->latestRecords()->setQuery('denomination:' . $this->id);?>

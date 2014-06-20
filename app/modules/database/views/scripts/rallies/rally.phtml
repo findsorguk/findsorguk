@@ -14,4 +14,4 @@ echo $this->Href(array('module' => 'database','controller'=>'rallies', 'action'=
 'acl'=>'Zend_Acl',  'params' =>array('id'=>$this->rallies['0']['id']), 'content'=>'Add an attending finds liaison officer','attribs' => array('title' => 'Add a new attending flo'),
 'attribs' => array('class' => 'btn btn-small') ));
 ?>
-<?php echo $this->latestRecords('rallyID:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->latestRecords()->setQuery('rallyID:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>

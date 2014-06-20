@@ -21,6 +21,5 @@ Account created: <?php echo $this->timeAgoInWords($this->created);?><br />
 Number of visits: <?php echo $this->visits;?><br />
 </p>
 </div>
-<?php echo $this->id;?>
 <?php echo $this->userRecords()->setUsername($this->username); ?>
-<?php echo $this->onlineAccountHtml()->setId($this->id);?>
+<?php echo $this->onlineAccountHtmlPublic()->setId($this->id);?>

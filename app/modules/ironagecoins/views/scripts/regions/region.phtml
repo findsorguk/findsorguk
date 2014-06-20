@@ -1,16 +1,24 @@
 <?php echo $this->partialLoop('partials/numismatics/ironageregion.phtml', $this->regions); ?>
-
-<h3>Denominations issued in this region</h3>
+<h3 class="lead">
+    Denominations issued in this region
+</h3>
 <?php if(count($this->denominations)):?>
 <ul>
-<?php echo $this->partialLoop('partials/numismatics/iadenoms.phtml',$this->denominations);?>
+    <?php echo $this->partialLoop('partials/numismatics/iadenoms.phtml',$this->denominations);?>
 </ul>
 <?php else:?>
-
-<p>There are no denominations listed for this region.</p>
+    <p>
+        There are no denominations listed for this region.
+    </p>
 <?php endif;?>
-<h3>Issuing rulers in this region</h3>
+
+<h3 class="lead">
+    Issuing rulers in this region
+</h3>
+    
 <ul>
-<?php echo $this->partialLoop('partials/numismatics/iarulers.phtml',$this->rulers);?>
+    <?php echo $this->partialLoop('partials/numismatics/iarulers.phtml',$this->rulers);?>
 </ul>
-<?php echo $this->latestRecords('geographyID:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+
+<?php echo $this->latestRecords()->setQuery('geographyID:' 
+        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));

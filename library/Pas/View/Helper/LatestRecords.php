@@ -269,7 +269,6 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
         $person = $user->getPerson();
         if ($person) {
             $this->_role =  $user->getPerson()->role;
-
         }
         return $this->_role;
     }
@@ -278,8 +277,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getResults()
-    {
+    public function getResults( ) {
         $select = array(
             'query' =>  $this->getQuery(),
             'start' =>  $this->getStart(),
@@ -296,6 +294,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
         }
         $select['filterquery']['images'] = array('query' => 'thumbnail:[1 TO *]');
 
+        
         if ( !( $this->getCache()->test( $this->getCacheKey() ) ) ) {
             $query = $this->getSolr()->createSelect( $select );
             $resultset = $this->getSolr()->select( $query );
@@ -308,8 +307,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
             } else {
                 $data = $this->getCache()->load($this->getCacheKey());
             }
-
-    return $data;
+        return $data;
     }
 
     /** Parse the documents for field results

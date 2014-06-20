@@ -24,7 +24,8 @@ echo $this->Href(array(
 <?php
 echo $this->gravatar($this->email,array(
 		'imgSize' => 80,
-		'defaultImg' => 'http://finds.org.uk/assets/gravatar.png',
+		'defaultImg' => $this->serverUrl() . $this->baseUrl() 
+        . '/assets/gravatar.png',
 		'secure' => true),
     array(
         'class' => 'avatar pull-left stelae img-circle',

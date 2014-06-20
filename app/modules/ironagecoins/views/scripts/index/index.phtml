@@ -1,5 +1,4 @@
 <div class="row-fluid">
-
     <div class="span6">
     <?php
     echo $this->partialLoop('partials/content/article.phtml',$this->content);
@@ -14,13 +13,14 @@
 </div>
 <div class="row fluid">
     <div class="span12">
-<?php echo $this->latestRecords('objecttype:coin broadperiod:"IRON AGE"');?>
+        <?php 
+        echo $this->latestRecords()
+                ->setQuery('objecttype:coin broadperiod:"IRON AGE"');
+        ?>
     </div>
 </div>
 <?php $this->inlineScript()->captureStart();?>
 $(document).ready(function() {
-
-
     var nlsmap = new google.maps.ImageMapType({
 	   getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
 	   tileSize: new google.maps.Size(256, 256),
@@ -30,14 +30,10 @@ $(document).ready(function() {
 	   name: 'Historic',
 	   alt: "NLS Historic Map"
 	});
-
-
-
     var osmMapType = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
             return "http://tile.openstreetmap.org/" +
                 zoom + "/" + coord.x + "/" + coord.y + ".png";
-
         },
         tileSize: new google.maps.Size(256, 256),
         isPng: true,
@@ -45,8 +41,6 @@ $(document).ready(function() {
         name: "OSM",
         maxZoom: 18
     });
-
-
 
     var myOptions = {
           center: new google.maps.LatLng( 53.2,-3.1),
@@ -100,9 +94,9 @@ $(document).ready(function() {
 
 	<?php
 	$request = Zend_Controller_Front::getInstance()->getRequest();
-	$params = array('module' => 'database', 'controller' => 'ajax', 'action' => 'mapdata2');
+	$url  = array('module' => 'database', 'controller' => 'ajax', 'action' => 'mapdata2');
 	$params2 = array_slice($request->getParams(),3);
-	$params = array_merge($params,$params2);
+	$params = array_merge($url,$params2);
 	$params['broadperiod'] = 'IRON AGE';
         $params['objectType'] = 'COIN';
         $params['note'] = 1;

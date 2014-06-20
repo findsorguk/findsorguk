@@ -121,4 +121,4 @@ echo '<img src="http://wiki.dbpedia.org/images/dbpedia_logo.png" alt="Dbpedia\'s
 }
 }
 ?> 
-<?php echo $this->latestRecords('ruler:' . $this->escape($this->id))?>
+<?php echo $this->latestRecords()->setQuery('ruler:' . $this->id)?>

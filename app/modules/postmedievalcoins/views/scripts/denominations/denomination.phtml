@@ -5,4 +5,6 @@
 <?php echo $this->partialLoop('partials/numismatics/rulerDenom.phtml', $this->rulers);?>
 </ul>
 <?php endif;?>
-<?php echo $this->latestRecords('denomination:'  .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php 
+echo $this->latestRecords()->setQuery('denomination:'
+        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
