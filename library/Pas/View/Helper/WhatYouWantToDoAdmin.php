@@ -64,7 +64,6 @@ class Pas_View_Helper_WhatYouWantToDoAdmin extends Zend_View_Helper_Abstract {
             $html .= $this->manageResearch();
             $html .= $this->buildErrors();
             $html .= $this->view->applicants();
-            $html .= $this->buildSearch();
             $html .= $this->buildMessages();
         }
         $html .= $this->buildAddRecord();
@@ -98,171 +97,201 @@ class Pas_View_Helper_WhatYouWantToDoAdmin extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function suggestResearch()
-    {
-    $research = $this->view->url(array(
-        'module' => 'admin',
-        'controller' => 'research',
-        'action' => 'suggested'),null,true);
-    $html = '';
-    $html .= '<li class="black">';
-    $html .= '<a href="' . $RESEARCHSURL . '" title="Administer suggested topics">Suggest research</a>';
-    $html .= '</li>';
-
-    return $newshtml;
+    public function suggestResearch() {
+        $suggest = $this->view->url(array(
+            'module' => 'admin',
+            'controller' => 'research',
+            'action' => 'suggested'),null,true);
+        $html = '';
+        $html .= '<li class="black">';
+        $html .= '<a href="';
+        $html .= $suggest;
+        $html .= '" title="Administer suggested topics">Suggest research</a>';
+        $html .= '</li>';
+        return $html;
     }
+    
     /** Build the management widget
      * @access public
      * @return string
      */
-    public function manageResearch()
-    {
-    $RESEARCHSURL = $this->view->url(array('module' => 'admin','controller' => 'research'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="black">';
-    $newshtml .= '<a href="' . $RESEARCHSURL . '" title="Administer current and past projects">Manage research projects</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
+    public function manageResearch() {
+        $research = $this->view->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'research')
+                ,null,true);
+        $html = '';
+        $html .= '<li class="black">';
+        $html .= '<a href="';
+        $html .= $research;
+        $html .= '" title="Administer current and past projects">Manage research projects</a>';
+        $html .= '</li>';
+        return $html;
     }
+    
     /** Build the admin content widget
      * @access public
      * @return string
      */
-    public function AdminContent()
-    {
-    $CONTENTSURL = $this->view->url(array('module' => 'admin','controller' => 'content'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="grey">';
-    $newshtml .= '<a href="' . $CONTENTSURL . '" title="Administer static content">Static content</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
-
+    public function AdminContent() {
+        $content = $this->view->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'content')
+                ,null,true);
+        $html = '';
+        $html .= '<li class="grey">';
+        $html .= '<a href="';
+        $html .= $content; 
+        $html .= '" title="Administer static content">Static content</a>';
+        $html .= '</li>';
+        return $html;
     }
+   
     /** Build the numismatics widget
      * @access public
      * @return string
      */
-    public function buildNumismatics()
-    {
-    $NUMISMATICSURL = $this->view->url(array('module' => 'admin','controller' => 'numismatics'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="orange">';
-    $newshtml .= '<a href="' . $NUMISMATICSURL . '" title="Administer numismatic content">Coin guides</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
-
+    public function buildNumismatics() {
+        $numismatics = $this->view->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'numismatics')
+                ,null,true);
+        $html = '';
+        $html .= '<li class="orange">';
+        $html .= '<a href="';
+        $html .=  $numismatics;
+        $html .= '" title="Administer numismatic content">Coin guides</a>';
+        $html .= '</li>';
+        return $html;
     }
+    
     /** Build the events widget
      * @access public
      * @return string
      */
-    public function buildEvent()
-    {
-    $EVENTSURL = $this->view->url(array('module' => 'admin','controller' => 'events','action' => 'add'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="green">';
-    $newshtml .= '<a href="' . $EVENTSURL . '" title="Add an event">Add an event</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
+    public function buildEvent() {
+        $events = $this->view->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'events',
+                    'action' => 'add')
+                ,null,true);
+        $html = '';
+        $html .= '<li class="green">';
+        $html .= '<a href="';
+        $html .= $events;
+        $html .= '" title="Add an event">Add an event</a>';
+        $html .= '</li>';
+        return $html;
 
     }
     /** Build the add record widget
      * @access public
      * @return string
      */
-    public function buildAddRecord()
-    {
-    $ADDSURL = $this->view->url(array('module' => 'database','controller' => 'artefacts','action' => 'add'),null,true);
-    $addhtml = '';
-    $addhtml .= '<li class="blue">';
-    $addhtml .= '<a href="' . $ADDSURL . '" title="Add a new object">Add a new object</a>';
-    $addhtml .= '</li>';
-
-    return $addhtml;
-
+    public function buildAddRecord() {
+        $add = $this->view->url(
+                array(
+                    'module' => 'database',
+                    'controller' => 'artefacts',
+                    'action' => 'add')
+                ,null,true);
+        $html = '';
+        $html .= '<li class="blue">';
+        $html .= '<a href="';
+        $html .= $add;
+        $html .= '" title="Add a new object">Add a new object</a>';
+        $html .= '</li>';
+        return $html;
     }
 
     /** Build the news widget
      * @access public
      * @return string
      */
-    public function buildNews()
-    {
-    $NEWSURL = $this->view->url(array('module' => 'admin','controller' => 'news','action' => 'add'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="red">';
-    $newshtml .= '<a href="' . $NEWSURL . '" title="Add a news story">Add a news story</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
+    public function buildNews() {
+        $news = $this->view->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'news',
+                    'action' => 'add')
+                ,null,true);
+        $html = '';
+        $html .= '<li class="red">';
+        $html .= '<a href="';
+        $html .= $news;
+        $html .= '" title="Add a news story">Add a news story</a>';
+        $html .= '</li>';
+        return $html;
 
     }
     /** Build the vacancy widget
      * @access public
      * @return string
      */
-    public function buildVacancy()
-    {
-    $NEWSURL = $this->view->url(array('module' => 'admin','controller' => 'vacancies','action' => 'add'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="black">';
-    $newshtml .= '<a href="' . $NEWSURL . '" title="Add a vacancy">Add a vacancy</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
+    public function buildVacancy() {
+        $vacancy = $this->view->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'vacancies',
+                    'action' => 'add')
+                ,null,true);
+        $html = '';
+        $html .= '<li class="black">';
+        $html .= '<a href="';
+        $html .= $vacancy;
+        $html .= '" title="Add a vacancy">Add a vacancy</a>';
+        $html .= '</li>';
+        return $html;
     }
-    /** Build the search widget
-     * @access public
-     * @return string
-     */
-    public function buildSearch()
-    {
-    $NEWSURL = $this->view->url(array('module' => 'admin','controller' => 'search'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="black">';
-    $newshtml .= '<a href="' . $NEWSURL . '" title="View searches">View search log</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
-    }
+    
 
     /** Build the messages widget
      * @access public
      * @return string
      */
-    public function buildMessages()
-    {
-    $messages = new Messages();
-    $mess = $messages->getCount();
-    $USERSURL = $this->view->url(array('module' => 'admin','controller' => 'messages'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="purple">';
-    $newshtml .= '<a href="' . $USERSURL . '" title="Administer users">' . $mess['0']['total'] . ' messages</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
+    public function buildMessages() {
+        $messages = new Messages();
+        $mess = $messages->getCount();
+        $message = $this->view->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'messages')
+                ,null,true);
+        $html = '';
+        $html .= '<li class="purple">';
+        $html .= '<a href="';
+        $html .= $message;
+        $html .= '" title="Administer users">';
+        $html .= $mess['0']['total'];
+        $html .= ' messages</a>';
+        $html .= '</li>';
+        return $html;
     }
 
     /** Build the errors widget
      * @access public
      * @return string
      */
-    public function buildErrors()
-    {
-    $messages = new ErrorReports();
-    $mess = $messages->getCount();
-    $USERSURL = $this->view->url(array('module' => 'admin','controller' => 'errors'),null,true);
-    $newshtml = '';
-    $newshtml .= '<li class="purple">';
-    $newshtml .= '<a href="' . $USERSURL . '" title="Administer users">' . $mess['0']['total'] . ' errors</a>';
-    $newshtml .= '</li>';
-
-    return $newshtml;
-
+    public function buildErrors() {
+        $messages = new ErrorReports();
+        $mess = $messages->getCount();
+        $errors = $this->view->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'errors')
+                ,null,true);
+        $html = '';
+        $html .= '<li class="purple">';
+        $html .= '<a href="';
+        $html .= $errors;
+        $html .= '" title="Administer users">';
+        $html .= $mess['0']['total'];
+        $html .= ' errors</a>';
+        $html .= '</li>';
+        return $html;
     }
-
 }

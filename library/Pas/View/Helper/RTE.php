@@ -25,10 +25,10 @@ class Pas_View_Helper_RTE extends Zend_View_Helper_FormElement
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable
 
-        $editor = new ckeditor($name);
+        $editor = new fckeditor($name);
 
         // set variables
-        $editor->BasePath    = '/js/ckeditor/' ;
+        $editor->BasePath    = $this->view->baseUrl() . '/js/ckeditor/' ;
         $editor->ToolbarSet = empty($attribs['ToolbarSet']) ? 'Default' : $attribs['ToolbarSet'];
         $editor->Width        = empty($attribs['Width']) ? '100%' : $attribs['Width'];
         $editor->Height        = empty($attribs['Height']) ? 200 : $attribs['Height'];
