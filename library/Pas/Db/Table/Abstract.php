@@ -65,10 +65,14 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
      * @uses 	Pas_UserDetails
      * @return object
      */
-    public function userNumber(){
+    public function getUserNumber(){
 	return $this->_user->getIdentityForForms();
     }
 
+    /** Get the user's role
+     * @access public
+     * @return type
+     */
     public function getUserRole() {
         return $this->_user->getRole();
     }
@@ -95,7 +99,7 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
             $data['created'] = $this->timeCreation();
 	}
 	if(empty($data['createdBy'])){
-            $data['createdBy'] = $this->userNumber();
+            $data['createdBy'] = $this->getUserNumber();
 	}
         foreach($data as $k => $v) {
             if ( $v == "") {

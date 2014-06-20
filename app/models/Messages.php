@@ -71,7 +71,7 @@ class Messages extends Pas_Db_Table_Abstract {
 		$data['comment_date'] = $this->timeCreation();
 	}
 	if(empty($data['updatedBy'])){
-		$data['updatedBy'] = $this->userNumber();
+		$data['updatedBy'] = $this->getUserNumber();
 	}
 	if ($this->_akismet->isSpam($data)) {
 		$data['comment_approved'] = self::SPAM;
@@ -97,10 +97,10 @@ class Messages extends Pas_Db_Table_Abstract {
 		$data['created'] = $this->timeCreation();
 	}
 	if(empty($data['createdBy'])){
-		$data['createdBy'] = $this->userNumber();
+		$data['createdBy'] = $this->getUserNumber();
 	}
 	if(empty($data['updatedBy'])){
-		$data['updatedBy'] = $this->userNumber();
+		$data['updatedBy'] = $this->getUserNumber();
 	}
 	if(empty($data['user_ip'])){
 		$data['user_ip'] = Zend_Controller_Front::getInstance()->getRequest()->getClientIp();

@@ -93,7 +93,7 @@ class LoginRedirect extends Pas_Db_Table_Abstract
     public function getConfig(){
         //Line flows over 80 character, so return
         $select = $this->select()->from( $this->_name, array( 'uri' ))
-                ->where('userID = ?', (int) $this->userNumber() );
+                ->where('userID = ?', (int) $this->getUserNumber() );
 
         $uri = $this->getAdapter()->fetchAll($select);
         $dbChoice = $this->getUri($uri);
@@ -118,10 +118,10 @@ class LoginRedirect extends Pas_Db_Table_Abstract
 	
         $updateData['uri'] = $data['uri'];
 		$updateData['created'] = $this->timeCreation();
-		$updateData['createdBy'] = $this->userNumber();
-		$updateData['userID'] = $this->userNumber();
+		$updateData['createdBy'] = $this->getUserNumber();
+		$updateData['userID'] = $this->getUserNumber();
 		//Delete the existing menu option
-		parent::delete('userID =' . $this->userNumber() );
+		parent::delete('userID =' . $this->getUserNumber() );
 		//Insert the new option
 		return parent::insert($updateData);
 	}

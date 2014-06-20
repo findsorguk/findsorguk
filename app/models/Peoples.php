@@ -229,7 +229,7 @@ class Peoples extends Pas_Db_Table_Abstract {
 		$data['created'] = $this->timeCreation();
 	}
 	if(empty($data['createdBy'])){
-		$data['createdBy'] = $this->userNumber();
+		$data['createdBy'] = $this->getUserNumber();
 		
 	}
 	

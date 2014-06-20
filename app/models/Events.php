@@ -66,7 +66,7 @@ class Events extends Pas_Db_Table_Abstract {
                         array('fn' => 'fullname'))
                 ->order('eventStartDate DESC');
         if(in_array($this->getUserRole(),$this->higherlevel)) {
-            $select->where($this->_name . '.createdBy = ?', $this->userNumber());
+            $select->where($this->_name . '.createdBy = ?', $this->getUserNumber());
         }
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(30)
