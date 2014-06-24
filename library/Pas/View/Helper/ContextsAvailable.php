@@ -140,7 +140,7 @@ class Pas_View_Helper_ContextsAvailable extends Zend_View_Helper_Abstract
      * @param  array $contexts
      * @return \Pas_View_Helper_ContextsAvailable
      */
-    public function setContexts(array $contexts) {
+    public function setContexts( $contexts) {
         $this->_contexts = $contexts;
         return $this;
     }
@@ -163,7 +163,8 @@ class Pas_View_Helper_ContextsAvailable extends Zend_View_Helper_Abstract
         $html .= '<h4>Other formats</h4>';
         $html .= '<p>This page';
         $contexts = $this->getContexts();
-        if ( is_array( $contexts ) && array_key_exists(0, $contexts) ) {
+
+        if ( is_array( $contexts ) && !empty( $contexts ) ) {
             $html .= ' is available in ';
             foreach ($contexts as $key => $value) {
                 $url = $this->view->url(array(
