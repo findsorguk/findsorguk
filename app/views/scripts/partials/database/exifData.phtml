@@ -3,7 +3,7 @@ echo '<li>Filename: '.$this->FileName.'</li>';
 }?>
 
 <?php if(isset($this->FileSize)) {
-echo '<li>Filesize: '.$this->humanfilesize($this->FileSize).'</li>';
+echo '<li>Filesize: '.$this->humanFileSize()->setSize($this->FileSize).'</li>';
 }?>
 
 <?php if(isset($this->FileSize)) {
