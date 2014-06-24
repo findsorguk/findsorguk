@@ -93,7 +93,7 @@ class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract
 
     /** The to string function rendering active
      * @access public
-     * @return type
+     * @return string
      */
     public function __toString() {
         return $this->active();
@@ -117,14 +117,14 @@ class Pas_View_Helper_CurrentPage extends Zend_View_Helper_Abstract
 
         switch ($param) {
             case null:
-                if($module == $this->_module && $controller == $this->_controller 
-                    && $action == $this->_action) {
+                if($module == $this->getModule() && $controller == $this->getController()
+                    && $action == $this->getAction()) {
                     return 'class="active"';
                 }
                 break;
             case !null:
-                if( $module == $this->_module && $controller == $this->_controller 
-                    && $action == $this->_action && $this->_param == $param ) {
+                if( $module == $this->getModule() && $controller == $this->getController()
+                    && $action == $this->getAction() && $this->getParam() == $param ) {
                     return 'class="active"';
                 }
                 break;
