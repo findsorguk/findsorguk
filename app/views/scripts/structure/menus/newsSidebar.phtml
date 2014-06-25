@@ -1,0 +1,27 @@
+<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
+
+<div class="sidebar-nav col-md-3" >
+    <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('news','index','index');?>>
+        	<a href="<?php echo $this->url(array('controller' => 'news','action' => 'index'),'default',true);?>" title="Latest news from the Scheme"><i class="icon-list-alt"></i>Scheme news</a></li>
+        <li <?php echo $this->currentPage()->active('news','map','index');?>>
+        	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'map'),'default',true);?>" title="View most recent news stories on a map"><i class="icon-map-marker"></i>Geographic news map</a></li>
+        <li <?php echo $this->currentPage()->active('news','events','index');?>>
+        	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'events','action' => 'index'),'default',true);?>" title="Find out about our events programme"><i class="icon-calendar"></i>Our events</a></li>
+        <li <?php echo $this->currentPage()->active('news','events','upcoming');?>>
+            <a href="<?php echo $this->url(array('module' => 'news','controller' => 'events','action' => 'upcoming'),'default',true);?>" title="Upcoming events at the Scheme"><i class="icon-calendar"></i>Upcoming events</a></li>
+        <li <?php echo $this->currentPage()->active('news','events','map');?>>
+        	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'events','action' => 'map'),'default',true);?>" title="Map of upcoming events"><i class="icon-map-marker"></i>Events map</a></li>
+        <li <?php echo $this->currentPage()->active('news','events','archive');?>>
+        	<a href="<?php echo $this->url(array('module' => 'news' , 'controller' => 'events','action' => 'archive'),'default',true);?>" title="Our events archive"><i class="icon-calendar"></i>Events archive</a></li>
+    </ul>
+</div>
+<hr />
+<div class="sidebar-nav col-md-3" >
+    <ul id="menu2" class="menu nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('news','theyworkforyou','index');?>>
+        	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'index'),'default',true);?>" title="Latest news from Parliament"><i class="icon-list-alt"></i>Parliamentary mentions</a></li>
+        <li <?php echo $this->currentPage()->active('news','guardian','index');?>>
+        	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'guardian','action' => 'index'),'default',true);?>" title="Latest news from Parliament"><i class="icon-list-alt"></i>Guardian mentions</a></li>
+    </ul>
+</div>

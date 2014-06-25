@@ -1,0 +1,14 @@
+<div class="sidebar-nav col-md-3" >
+    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('contacts','index','index');?>>
+            <a href="<?php echo $this->url(array('module'=>'contacts','controller' => 'staff'),null,true);?>" title="Find contact details for our staff, coroners and museums"><i class="icon-user"></i>Contacts</a></li>
+        <li <?php echo $this->currentPage()->active('contacts','staff','map');?>>
+            <a href="<?php echo $this->url(array('module' => 'contacts','controller'=>'staff','action'=>'map'),null,true);?>" title="View our office locations"><i class="icon-map-marker"></i>Contacts map</a></li>
+        <li <?php echo $this->currentPage()->active('contacts','coroners','index');?>>
+            <a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'coroners'),null,true);?>" title="View coroners' details"><i class="icon-list"></i>Coroners</a></li>
+        <li <?php echo $this->currentPage()->active('contacts','coroners','map');?>>
+            <a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'coroners','action' => 'map'),null,true);?>" title="View coroners' locations on map"><i class="icon-map-marker"></i>Coroners map</a></li>
+        <li <?php echo $this->currentPage()->active('contacts','accreditedmuseums','index');?>>
+            <a href="<?php echo $this->url(array('module'=>'contacts','controller'=>'accreditedmuseums'),null,true);?>" title="View accredited museums"><i class="icon-list"></i>Accredited museums</a></li>
+    </ul>
+</div>

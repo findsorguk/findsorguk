@@ -69,7 +69,6 @@ resources.cachemanager.rulercache.backend.name = File
 resources.cachemanager.rulercache.backend.options.lifetime = 86400
 resources.cachemanager.rulercache.backend.options.cache_dir = CACHE_PATH
 
-
 resources.cachemanager.dbMetadataCache.frontend.name = "Core"
 resources.cachemanager.dbMetadataCache.frontend.options.automatic_serialization = 1
 resources.cachemanager.dbMetadataCache.frontend.options.caching = 1
@@ -93,7 +92,9 @@ resources.session.remember_me_seconds = 864000
 resources.session.gc_maxlifetime = 864000
 
 settings.application.datetime = "Europe/London"
+
 form.salt = 
+
 siteurl = http://finds.org.uk
  
 solr.host = localhost
@@ -141,7 +142,6 @@ higherLevel[] = fa
 disabled[] =
 ;disabled[] = users
 ;disabled[] = database
-
 
 phpSettings.display_startup_errors = 1
 phpSettings.display_errors         = 0
@@ -229,7 +229,6 @@ resources.cachemanager.rulercache.backend.name = File
 resources.cachemanager.rulercache.backend.options.lifetime = 86400
 resources.cachemanager.rulercache.backend.options.cache_dir = CACHE_PATH
 
-
 resources.cachemanager.dbMetadataCache.frontend.name = "Core"
 resources.cachemanager.dbMetadataCache.frontend.options.automatic_serialization = 1
 resources.cachemanager.dbMetadataCache.frontend.options.caching = 1
@@ -301,7 +300,6 @@ higherLevel[] = fa
 disabled[] =
 ;disabled[] = users
 ;disabled[] = database
-
 
 phpSettings.display_startup_errors = 1
 phpSettings.display_errors         = 0

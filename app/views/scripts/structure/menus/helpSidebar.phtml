@@ -1,0 +1,6 @@
+<div class="sidebar-nav col-md-3" >
+<ul  id="menu1" class="menu collapsible nav nav-stacked nav-pills">
+<li <?php echo $this->currentPage()->active('help','database','index');?>><a href="<?php echo $this->url(array('module' => 'help','controller' => 'database'),'default',true);?>" title="Help with using our database">Database help topics</a></li>
+<li <?php echo $this->currentPage()->active('help','site','index');?>><a href="<?php echo $this->url(array('module' => 'help','controller' => 'site'),'default',true);?>" title="Upcoming events at the Scheme">Site help topics</a></li>
+</ul>
+</div>

@@ -1,0 +1,26 @@
+<?php $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName(); ?>
+
+<div class="sidebar-nav col-md-3" >
+<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+<li <?php echo $this->currentPage()->active($module,'index','index');?>><a href="<?php echo $this->url(array('module' => $module),null,true);?>" title="An intro to Iron Age coins">Iron age coins intro</a></li>
+<li <?php echo $this->currentPage()->active($module,'rulers','index');?>><a href="<?php echo $this->url(array('module' => $module, 'controller'=> 'rulers'),null,true);?>" title="Learn about issuing Iron Age issuers">Issuing rulers</a></li>
+<li <?php echo $this->currentPage()->active($module,'denominations','index');?>><a href="<?php echo $this->url(array('module' => $module, 'controller'=>'denominations'),null,true);?>" title="Learn about Iron Age denominations">Denominations</a></li>
+<li <?php echo $this->currentPage()->active($module,'regions','index');?>><a href="<?php echo $this->url(array('module' => $module, 'controller'=> 'regions'),null,true);?>" title="Learn about the geography of the Iron Age">Geographic regions</a></li>
+<li <?php echo $this->currentPage()->active($module,'tribes','index');?>><a href="<?php echo $this->url(array('module' => $module, 'controller'=> 'tribes'),null,true);?>" title="Learn about Iron Age tribal connections">Tribes</a></li>
+<li <?php echo $this->currentPage()->active($module,'mints','index');?>><a href="<?php echo $this->url(array('module' => $module, 'controller' => 'mints'),null,true);?>" title="Learn about Iron Age issuing mints">Issuing mints</a></li>
+<li <?php echo $this->currentPage()->active($module,'vanarsdelltypes','index');?>><a href="<?php echo $this->url(array('module' => $module, 'controller' => 'vanarsdelltypes'),null,true);?>" title="Learn about Van Arsdell types">Van Arsdell types</a></li>
+<li <?php echo $this->currentPage()->active($module,'macktypes','index');?>><a href="<?php echo $this->url(array('module' => $module, 'controller' => 'macktypes'),null,true);?>" title="Learn about Mack types">Mack types</a></li>
+<li <?php echo $this->currentPage()->active($module,'allentypes','index');?>><a href="<?php echo $this->url(array('module' => $module, 'controller' => 'allentypes'),null,true);?>" title="Learn about Allan types">Allen types</a></li>
+<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search','action' => 'ironagenumismatics'),null,true);?>" title="Search for Iron Age coins">Search</a></li>
+<li><a href="#"><i class="icon-folder-open"></i>Numismatics</a>
+<ul class="nav nav-pills nav-stacked  menuindent">
+<li><a href="<?php echo $this->url(array('controller'=>'byzantinecoins'),NULL, true);?>" title="Learn about Byzantine coins">Byzantine coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'romancoins'),NULL, true);?>" title="Learn about Roman coins">Roman coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'earlymedievalcoins'),NULL, true);?>" title="Learn about Early Medieval coins">Early Medieval coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'greekromancoins'),NULL, true);?>" title="Learn about Greek and Roman provincial coins">Greek &amp; Roman coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'medievalcoins'),NULL, true);?>" title="Learn about Medieval coins">Medieval coins</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'postmedievalcoins'),NULL, true);?>" title="Learn about Post Medieval coins">Post Medieval  coins</a></li>
+</ul>
+</li>
+</ul>
+</div>

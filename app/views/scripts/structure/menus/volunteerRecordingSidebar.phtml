@@ -1,0 +1,122 @@
+<?php
+$action = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+if(array_key_exists('slug',$action)){
+	$slug = $action['slug'];
+} else {
+	$slug = NULL;
+}
+?>
+
+<div class="sidebar-nav col-md-3" >
+	<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+		<li <?php echo $this->currentPage()->active('volunteerrecording','index','index');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording'),'default',true);?>"
+			title="Introduction to recording finds">Introduction</a></li>
+		<li	<?php
+		$array = array('gettingstarted','howtorecord','accesslevelsexplained');
+		if(in_array($slug, $array)){ echo ' class="expandfirst"';}
+		?>>
+		<a href="#"><i class="icon-folder-open"></i>Using the database</a>
+			<ul class="nav nav-pills nav-stacked menuindent">
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'gettingstarted');?>>
+                                        <a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'gettingstarted'),'frg',true);?>"
+				title="Getting started on the database">Getting started</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'accesslevelsexplained');?>>
+                                        <a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'accesslevelsexplained'),'frg',true);?>"
+				title="Access levels explained">What can I see?</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'howtorecord');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'howtorecord'),'frg',true);?>"
+				title="How to record an object online">How you record online</a></li>
+			</ul>
+		</li>
+		<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'gridreferences');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'gridreferences'),'frg',true);?>" title="Obtaining a grid reference"><i class="icon-map-marker"></i>Getting grid references</a></li>
+		<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'photographingfinds');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'photographingfinds'),'frg',true);?>"
+		       title="Taking photographs of objects"><i class="icon-camera"></i>Taking photographs</a></li>
+		<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'imageediting');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'imageediting'),'frg',true);?>"
+			title="Editing your images"><i class="icon-picture"></i>Editing digital images</a></li>
+		<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'bibliography');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'bibliography'),'frg',true);?>"
+			title="Suggested bibliography">Bibliography/Websites</a></li>
+		<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'timeline');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'timeline'),'frg',true);?>"
+			title="Period timeline"><i class="icon-time"></i>Timeline</a></li>
+		<li <?php
+		$array = array('buckles','pins','buttons','metalvessels','coins','brooches',
+		'strapends','buckles','furniturefittings','tokensandjettons','thimbles','lithics',
+		'bells','weights','pottery','fingerrings','mounts','horseharnesspendants','sealmatrices');
+		if(in_array($slug,$array)){ echo ' class="expandfirst"';}
+		?>><a href="#">Object types</a>
+			<ul class="nav nav-pills nav-stacked  menuindent">
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'bells');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'bells'),'frg',true);?>"
+					title="How to record bells">Bells</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'buckles');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'buckles'),'frg',true);?>"
+					title="How to record buckles">Buckles</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'buttons');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'buttons'),'frg',true);?>"
+					title="How to record buttons">Buttons</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'brooches');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'brooches'),'frg',true);?>"
+					title="How to record brooches">Brooches</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'coins');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'coins'),'frg',true);?>"
+					title="How to record coins">Coins</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'furniturefittings');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'furniturefittings'),'frg',true);?>"
+					title="How to record furntiture fittings">Furniture fittings</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'lithics');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'lithics'),'frg',true);?>"
+					title="How to record lithics">Lithics</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'metalvessels');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'metalvessels'),'frg',true);?>"
+					title="How to record metal vessels">Metal vessels</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'pins');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'pins'),'frg',true);?>"
+					title="How to record pins">Pins</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'strapends');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'strapends'),'frg',true);?>"
+					title="How to record strap ends">Strap ends</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'tokensandjettons');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'tokensandjettons'),'frg',true);?>"
+					title="How to record tokens">Tokens and jettons</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'thimbles');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'thimbles'),'frg',true);?>"
+					title="How to record thimbles">Thimbles</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'weights');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'weights'),'frg',true);?>"
+					title="How to record weights">Weights</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'pottery');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'pottery'),'frg',true);?>"
+					title="How to record pottery">Pottery</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'fingerrings');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'fingerrings'),'frg',true);?>"
+					title="How to record finger rings">Finger rings</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'mounts');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'mounts'),'frg',true);?>"
+					title="How to record mounts">Mounts</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'horseharnesspendants');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'horseharnesspendants'),'frg',true);?>"
+					title="How to record horse harness">Horse harness</a></li>
+				<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'sealmatrices');?>>
+					<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'sealmatrices'),'frg',true);?>"
+					title="How to record seals">Seals</a></li>
+			</ul>
+		</li>
+		<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'whatistheobjectmadefrom');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording','controller' => 'guide','action' => 'index','slug' => 'whatistheobjectmadefrom'),'frg',true);?>"
+		title="Material types and how to use them">Materials</a></li>
+		<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'manufacture');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording','controller' => 'guide','action' => 'index' ,'slug' => 'manufacture'),'frg',true);?>"
+		title="Manufacturing methods">Manufacture methods</a></li>
+		<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'decorative');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'decorative'),'frg',true);?>"
+		title="Decorative methods">Decorative methods</a></li>
+		<li <?php echo $this->currentPage()->active('volunteerrecording', 'guide', 'index', 'recommendedequipment');?>>
+			<a href="<?php echo $this->url(array('module' => 'volunteerrecording', 'controller' => 'guide', 'action' => 'index' ,'slug' => 'recommendedequipment'),'frg',true);?>"
+		title="Go to the volunteerrecording's introduction">Recommended equipment</a></li>
+	</ul>
+</div>

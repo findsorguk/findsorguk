@@ -1,0 +1,19 @@
+
+<div class="sidebar-nav col-md-3" >
+    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('research','index','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'research','controller' => 'index'),'default',true);?>" title="Research section home">Research</a></li>
+        
+        <li <?php echo $this->currentPage()->active('research','projects','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects'),'default',true);?>" title="View our research register">Research projects</a></li>
+        
+        <li <?php echo $this->currentPage()->active('research','projects','suggested');?>>
+            <a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects','action' => 'suggested'),'default',true);?>" title="Some topics we believe need investigating">Suggested research projects</a></li>
+        
+        <li <?php echo $this->currentPage()->active('research','datatransfer','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'research','controller' => 'datatransfer'),'default',true);?>" title="Data transfer to third parties">Data transfer</a></li>
+        
+        <li <?php echo $this->currentPage()->active('research','datatransfer','hers');?>>
+            <a href="<?php echo $this->url(array('module' => 'research','controller' => 'datatransfer','action' => 'hers'),'default',true);?>" title="Which HERS have signed our agreement">HER signup</a></li>
+    </ul>
+</div>
