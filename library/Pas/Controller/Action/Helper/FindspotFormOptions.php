@@ -80,7 +80,7 @@ class Pas_Controller_Action_Helper_FindspotFormOptions
     	'Available landuses' => $landusecode_options));
      }
     if(array_key_exists('landowner', $data)) {
-    $finders = new Peoples();
+    $finders = new People();
     $finders = $finders->getName($findspot['landowner']);
     foreach($finders as $finder) {
     $form->landownername->setValue($finder['term']);

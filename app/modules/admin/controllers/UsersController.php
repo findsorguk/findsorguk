@@ -115,7 +115,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
 	if(count($user)) {
 	$data = $user->toArray();
 	if(isset($data['peopleID'])) {
-	$people = new Peoples();
+	$people = new People();
 	$person = $people->fetchRow($people->select()->where('secuid = ?', $data['peopleID']));
 	if($person){
 	$person = $person->toArray();

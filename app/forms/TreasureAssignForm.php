@@ -11,7 +11,7 @@ class TreasureAssignForm extends Pas_Form
 
 public function __construct($options = null)
 {
-	$curators = new Peoples();
+	$curators = new People();
 	$assigned = $curators->getCurators();
 	
 	ZendX_JQuery::enableForm($this);

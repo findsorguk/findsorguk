@@ -65,7 +65,7 @@ class Pas_Form_Findspot {
      }
      
     if(array_key_exists('landowner', $data)) {
-    $finders = new Peoples();
+    $finders = new People();
     $finders = $finders->getName($data['landowner']);
     foreach($finders as $finder) {
     $this->_view->form->landownername->setValue($finder['term']);

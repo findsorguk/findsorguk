@@ -53,7 +53,7 @@ class Pas_View_Helper_SearchParamsUsers
     if (array_key_exists('recorderID',$params)) {
     if (!is_null($params['recorderID'])) {
     $rid = $params['recorderID'];
-    $peoples = new Peoples();
+    $peoples = new People();
     $people = $peoples->fetchRow($peoples->select()->where('secuid = ?', $rid));
     $data[] = 'Recorded by: ' . $people->fullname;
     }
@@ -259,7 +259,7 @@ class Pas_View_Helper_SearchParamsUsers
     if (!is_null($params['finder'])) {
 
     $finder = $params['finder'];
-    $peoples = new Peoples();
+    $peoples = new People();
     $peoples = $peoples->getName($finder);
 
     $this->peoples = $peoples;
@@ -275,7 +275,7 @@ class Pas_View_Helper_SearchParamsUsers
     if (!is_null($params['idby'])) {
 
     $finder = $params['idby'];
-    $peoples = new Peoples();
+    $peoples = new People();
     $peoples = $peoples->getName($finder);
 
     $this->peoples = $peoples;
@@ -291,7 +291,7 @@ class Pas_View_Helper_SearchParamsUsers
     if (array_key_exists('recordby',$params)) {
     if (!is_null($params['recordby'])) {
     $finder = $params['recordby'];
-    $peoples = new Peoples();
+    $peoples = new People();
     $peoples = $peoples->getName($finder);
     $this->peoples = $peoples;
     foreach ($this->peoples as $people) {
