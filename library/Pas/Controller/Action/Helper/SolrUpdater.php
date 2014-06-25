@@ -100,7 +100,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 $model = new Finds();
                 break;
             case 'beopeople':
-            	$model = new Peoples();
+            	$model = new People();
                 break;
             case 'beocontent':
             	$type = ucfirst($type);

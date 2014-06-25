@@ -456,7 +456,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
 
 	public function workflowAction(){
    	if($this->_getParam('findID',false)){
-   	$people = new Peoples();
+   	$people = new People();
    	$exist = $people->checkEmailOwner($this->_getParam('findID'));
    	$user = new Pas_User_Details();
    	$person = $user->getPerson();

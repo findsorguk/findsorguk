@@ -140,7 +140,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
     $parish_list = $this->_parishes->getParishesToDistrictList($rally['districtID']);
     $form->parishID->addMultiOptions(array(NULL => NULL,'Choose parish' => $parish_list));
     if(!is_null($rally['organiser'])) {
-    $organisers = new Peoples();
+    $organisers = new People();
     $organisers = $organisers->getName($rally['organiser']);
     foreach($organisers as $organiser) {
     $form->organisername->setValue($organiser['term']);
