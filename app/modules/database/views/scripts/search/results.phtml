@@ -30,10 +30,13 @@
         <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
         <?php echo $this->thumbnailToggler();?>
         <?php echo $this->resultsSorter()->setResults($this->paginator);?>
-        <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?><br />Server farm key: <?php echo $this->server;?></p>
+        <p>
+            Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?><br />
+            Server farm key: <?php echo $this->server;?>
+        </p>
         <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
         <?php echo $this->statGenerator()->setStats($this->stats);?>
-        <?php echo $this->facetCreator($this->facets); ?>
+        <?php echo $this->facetCreator()->setFacets($this->facets); ?>
 		</div>
         <?php else:?>
 
@@ -52,7 +55,7 @@
 <?php echo '<p>Your search has produced no results. Please refine your query. If you are expecting more results, you may have insufficient access for their workflow stage.</p>';?>
 <?php endif; ?>
 <?php
-$this->inlineScript()->appendFile('/js/bootstrap-modal.js', $type='text/javascript');
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
 $this->inlineScript()->captureStart();
 ?>
 $(document).ready(function() {

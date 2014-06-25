@@ -93,8 +93,9 @@ class Pas_View_Helper_FacetContentSection extends Zend_View_Helper_Abstract {
      * @return string
      */
     public function stringReplace( $string) {
+        $newString = '';
         if (in_array($string ,array_keys($this->_sections))) {
-            $newString = array_search($string, array_flip($this->sections));
+            $newString .= array_search($string, array_flip($this->sections));
         }
         return $newString;
     }

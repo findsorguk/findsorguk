@@ -44,14 +44,15 @@ class Pas_View_Helper_MapFacetCreatorMyInstitution extends Zend_View_Helper_Abst
     {
     $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
     $params['institution'] = $this->_inst;
-    $search = new Pas_Solr_Handler('beowulf');
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beowulf');
     $search->setParams($params);
     $search->setFacets(array('objectType','county','broadperiod',
         'institution', 'rulerName', 'denominationName', 'mintName',
         'workflow'));
     $search->setMap(true);
     $search->execute();
-    $facets = $search->_processFacets();
+    $facets = $search->processFacets();
     if (is_array($facets)) {
         $html = '<h3>Search facets</h3>';
         foreach ($facets as $facetName => $facet) {

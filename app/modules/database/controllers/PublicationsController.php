@@ -35,10 +35,9 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
         $this->view->form = $form;
 
         $params = $this->array_cleanup($this->_getAllParams());
-        $search = new Pas_Solr_Handler('beopublications');
-        $search->setFields(array(
-    	'*')
-        );
+        $search = new Pas_Solr_Handler();
+        $search->setCore('beopublications');
+        $search->setFields(array('*'));
         $search->setFacets(array('publisher','yearPublished'));
 
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
@@ -67,9 +66,9 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
 		$params['direction'] = 'asc';
         $search->setParams($params);
         $search->execute();
-        $this->view->facets = $search->_processFacets();
-        $this->view->paginator = $search->_createPagination();
-        $this->view->results = $search->_processResults();
+        $this->view->facets = $search->processFacets();
+        $this->view->paginator = $search->createPagination();
+        $this->view->results = $search->processResults();
 
 	}
 

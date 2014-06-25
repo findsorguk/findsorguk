@@ -89,9 +89,10 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     $params['createdBy'] =  $this->_getDetails()->id;
     $search->setParams($params);
     $search->execute();
-    $this->view->paginator = $search->_createPagination();
-    $this->view->results = $search->_processResults();
-    $this->view->facets = $search->_processFacets();
+    $this->view->paginator = $search->createPagination();
+    $this->view->results = $search->processResults();
+    $this->view->facets = $search->processFacets();
+    $this->view->stats = $search->processStats();
     }
 
     public function recordedbyflosAction(){
@@ -100,7 +101,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     $params['finderID'] = $this->_getDetails()->peopleID;
 
     $params['-createdBy'] = $this->_getDetails()->id;
-    $search = new Pas_Solr_Handler('beowulf');
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beowulf');
     $search->setFields(array(
     	'id', 'identifier', 'objecttype',
     	'title', 'broadperiod','imagedir',
@@ -113,9 +115,9 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     $search->setFacets(array('objectType','county','broadperiod','institution'));
     $search->setParams($params);
     $search->execute();
-    $this->view->paginator = $search->_createPagination();
-    $this->view->finds = $search->_processResults();
-    $this->view->facets = $search->_processFacets();
+    $this->view->paginator = $search->createPagination();
+    $this->view->finds = $search->processResults();
+    $this->view->facets = $search->processFacets();
     } else {
         $this->_redirect('/error/accountproblem');
     }
@@ -150,7 +152,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
 
     $params = $this->_getAllParams();
 
-    $search = new Pas_Solr_Handler('beowulf');
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beowulf');
     $search->setFields(array(
     	'id', 'identifier', 'objecttype',
     	'title', 'broadperiod','imagedir',
@@ -158,9 +161,11 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     	'description', 'county', 'workflow',
     	'fourFigure', 'knownas', 'updated',
     	'created'
-        )
-    );
-    $search->setFacets(array('objectType','county','broadperiod','institution','workflow'));
+        ));
+    $search->setFacets(array(
+        'objectType', 'county', 'broadperiod',
+        'institution', 'workflow'
+        ));
     if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->_getParam('submit'))){
 
@@ -186,9 +191,10 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     $params['institution'] =  $this->_getDetails()->institution;
     $search->setParams($params);
     $search->execute();
-    $this->view->paginator = $search->_createPagination();
-    $this->view->results = $search->_processResults();
-    $this->view->facets = $search->_processFacets();
+    $this->view->paginator = $search->createPagination();
+    $this->view->results = $search->processResults();
+    $this->view->facets = $search->processFacets();
+    $this->view->stats = $search->processStats();
     }
     /** Display all images that a user has added.
      *
@@ -198,22 +204,21 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     $form->removeElement('thumbnail');
     $this->view->form = $form;
     $params = $this->_getAllParams();
-    $search = new Pas_Solr_Handler('beoimages');
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beoimages');
     $search->setFields(array(
     	'id', 'identifier', 'objecttype',
     	'title', 'broadperiod', 'imagedir',
     	'filename', 'thumbnail', 'old_findID',
     	'county','licenseAcronym','findID',
         'objecttype','institution','updated',
-    	'created')
-    );
+    	'created'
+        ));
     $search->setFacets(array('broadperiod','county', 'objecttype','institution'));
     if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->_getParam('submit'))){
-
     if ($form->isValid($form->getValues())) {
     $params = $this->array_cleanup($form->getValues());
-
     $this->_helper->Redirector->gotoSimple('myimages','myscheme','database',$params);
     } else {
     $form->populate($form->getValues());
@@ -233,17 +238,18 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     $params['createdBy'] = $this->_getDetails()->id;
     $search->setParams($params);
     $search->execute();
-    $search->_processFacets();
-    $this->view->paginator = $search->_createPagination();
-    $this->view->results = $search->_processResults();
-    $this->view->facets = $search->_processFacets();
+    $search->processFacets();
+    $this->view->paginator = $search->createPagination();
+    $this->view->results = $search->processResults();
+    $this->view->facets = $search->processFacets();
     }
 
     public function mytreasurecasesAction(){
     $form = new SolrForm();
     $this->view->form = $form;
     $params = $this->_getAllParams();
-    $search = new Pas_Solr_Handler('beowulf');
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beowulf');
     $search->setFields(array(
     	'id', 'identifier', 'objecttype',
     	'title', 'broadperiod','imagedir',
@@ -279,9 +285,9 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     $params['treasure'] = 1;
     $search->setParams($params);
     $search->execute();
-    $this->view->paginator = $search->_createPagination();
-    $this->view->results = $search->_processResults();
-    $this->view->facets = $search->_processFacets();
+    $this->view->paginator = $search->createPagination();
+    $this->view->results = $search->processResults();
+    $this->view->facets = $search->processFacets();
     }
 
 

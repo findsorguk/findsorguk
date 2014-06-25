@@ -35,7 +35,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract
      */
     public function toolbox($id, $oldfindID, $createdBy)
     {
-    $this->view->inlineScript()->appendFile('/js/bootstrap-modal.js', $type='text/javascript');
+    $this->view->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
     $this->view->inlineScript()->captureStart();
     echo '$(document).ready(function () {
     $(\'#print\').click(function () {

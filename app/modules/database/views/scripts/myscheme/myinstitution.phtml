@@ -38,7 +38,7 @@ $this->headTitle('All finds created by my institution');
 </div>
 <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php
-$this->inlineScript()->appendFile('/js/bootstrap-modal.js', $type='text/javascript');
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
 $this->inlineScript()->captureStart();
 ?>
 $(document).ready(function() {

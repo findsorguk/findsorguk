@@ -76,7 +76,7 @@ class Pas_View_Helper_FacetCreator extends Zend_View_Helper_Abstract {
      * @param array $facets
      * @return string
      */
-    public function generateFacet(array $facets) {
+    public function generateFacet( $facets) {
         $html = '';
         if (is_array($facets)) {
             $html .= '<h3>Filter or refine your search</h3>';

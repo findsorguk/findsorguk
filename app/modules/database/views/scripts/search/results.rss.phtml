@@ -1,6 +1,5 @@
 <?php
 Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/rss+xml');
-
 $feed = new Zend_Feed_Writer_Feed;
 $feed->setTitle('Search results from the Scheme database');
 $feed->setDescription('An rss feed of search results you have retrieved.');

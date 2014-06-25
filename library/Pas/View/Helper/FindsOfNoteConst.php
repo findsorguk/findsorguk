@@ -116,22 +116,20 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
             $geometry->min_lon,
             $geometry->max_lat,
             $geometry->max_lon);
-        $search = new Pas_Solr_Handler('beowulf');
+        $search = new Pas_Solr_Handler();
+        $search->setCore('beowulf');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',
             'filename','thumbnail','old_findID',
-            'description', 'county')
-        );
-    
+            'description', 'county'
+            ));
         $search->setParams(array(
             'note' => '1',
             'bbox' => implode(',',$bbox)
-            )
-                );
+            ));
         $search->execute();
         $this->_geometry = implode(',', $bbox);
-
         return $search->getNumber();
     }
 

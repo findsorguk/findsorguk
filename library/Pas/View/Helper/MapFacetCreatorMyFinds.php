@@ -1,10 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
  * @category Pas
@@ -36,18 +30,20 @@ class Pas_View_Helper_MapFacetCreatorMyFinds extends Zend_View_Helper_Abstract
      * @throws Pas_Exception_BadJuJu
      */
 
-    public function mapFacetCreatorMyFinds()
-    {
+    public function mapFacetCreatorMyFinds() {
      $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
     $params['createdBy'] = $this->_id;
-    $search = new Pas_Solr_Handler('beowulf');
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beowulf');
     $search->setParams($params);
-    $search->setFacets(array('objectType','county','broadperiod',
-        'institution', 'rulerName', 'denominationName', 'mintName',
-        'workflow'));
+    $search->setFacets(array(
+        'objectType','county','broadperiod',
+        'institution', 'rulerName', 'denominationName',
+        'mintName','workflow'
+        ));
     $search->setMap(true);
     $search->execute();
-    $facets = $search->_processFacets();
+    $facets = $search->processFacets();
     if (is_array($facets)) {
         $html = '<h3>Search facets</h3>';
         foreach ($facets as $facetName => $facet) {

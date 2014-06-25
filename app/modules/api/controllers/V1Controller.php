@@ -16,14 +16,15 @@ class Api_V1Controller extends REST_Controller
 	
 	public function indexAction(){
 	$params = $this->_getAllParams();
-	$search = new Pas_Solr_Handler('objects');
+	$search = new Pas_Solr_Handler();
+        $search->setCore('objects');
 	$fields = new Pas_Solr_FieldGeneratorFinds($this->_helper->contextSwitch->getCurrentContext());
 	$search->setFields($fields->getFields());
 	$search->setParams($params);
 	$search->execute();
-	$this->view->pagination = $this->createPagination($search->_createPagination());
-	$this->view->stats = $search->_processStats();
-	$this->view->results = $search->_processResults();
+	$this->view->pagination = $this->createPagination($search->createPagination());
+	$this->view->stats = $search->processStats();
+	$this->view->results = $search->processResults();
 	$this->view->params = $this->_getAllParams();
 	$this->_response->ok();
     }

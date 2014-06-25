@@ -27,7 +27,7 @@
 <?php echo $this->paginationControl($this->messages, 'Sliding', 'structure/pagination.phtml'); ?>
 
 <?php 
-$this->inlineScript()->appendFile('/js/bootstrap-modal.js', $type='text/javascript');
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
 $this->inlineScript()->captureStart();
 ?>
 $(document).ready(function() {

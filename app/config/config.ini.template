@@ -96,9 +96,7 @@ resources.session.gc_maxlifetime = 864000
 settings.application.datetime = "Europe/London"
 form.salt = 
 siteurl = http://finds.org.uk
-
-solr.hostpath =
-solr.schemapath = 
+ 
 solr.host = 81.29.66.140
 solr.port = 8080
 solr.path = /solr/
@@ -124,6 +122,8 @@ solr.slave.host = 81.29.66.141
 solr.slave.port = 8080
 solr.slave.path = /solr/
 
+solr.schema.path = 
+solr.schema.file = 
 rest.default = xml
 rest.formats[] = json
 rest.formats[] = xml

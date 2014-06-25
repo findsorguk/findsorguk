@@ -18,7 +18,8 @@
 	$nav->appendChild($news);
 	$pages = $dom->createElement('pages');
 	
-	$search = new Pas_Solr_Handler('beowulf');
+	$search = new Pas_Solr_Handler();
+        $search->setCore('beowulf');
 	$page = Zend_Controller_Front::getInstance()->getRequest()->getParam('page');
 
 	$params['page'] = $page;

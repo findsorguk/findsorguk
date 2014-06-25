@@ -34,7 +34,6 @@ class Pas_View_Helper_FullName extends Zend_View_Helper_Abstract
      */
     public function getAuth() {
         $this->_auth = Zend_Auth::getInstance();
-
         return $this->_auth;
     }
 
@@ -50,7 +49,7 @@ class Pas_View_Helper_FullName extends Zend_View_Helper_Abstract
      */
     public function getFullname() {
         $user = $this->getAuth()->getIdentity();
-        if ($user->hasIdentity()) {
+        if ($user) {
             $this->_fullname = $this->view->escape(ucfirst($user->fullname));
         }
 

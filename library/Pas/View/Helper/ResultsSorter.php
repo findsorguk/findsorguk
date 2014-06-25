@@ -77,10 +77,10 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
 
     /** Set the results
      * @access public
-     * @param object $results
+     * @param Zend_Paginator $results
      * @return \Pas_View_Helper_ResultsSorter
      */
-    public function setResults(object $results) {
+    public function setResults(Zend_Paginator $results) {
         $this->_results = $results;
         return $this;
     }

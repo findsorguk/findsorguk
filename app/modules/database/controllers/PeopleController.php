@@ -40,9 +40,9 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     $this->view->form = $form;
 
     $params = $this->array_cleanup($this->_getAllParams());
-    $search = new Pas_Solr_Handler('beopeople');
-    $search->setFields(array('*')
-    );
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beopeople');
+    $search->setFields(array('*'));
     $search->setFacets(array('county','organisation','activity'));
     if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->_getParam('submit'))){
@@ -59,9 +59,9 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     }
     $search->setParams($params);
     $search->execute();
-    $this->view->paginator = $search->_createPagination();
-    $this->view->results = $search->_processResults();
-    $this->view->facets = $search->_processFacets();
+    $this->view->paginator = $search->createPagination();
+    $this->view->results = $search->processResults();
+    $this->view->facets = $search->processFacets();
     }
 
 
@@ -84,15 +84,16 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     $params = array();
     $person = $this->_peoples->getPersonDetails($this->_getParam('id'));
     if($this->_helper->contextSwitch()->getCurrentContext() !== 'vcf'){
-    $search = new Pas_Solr_Handler('beowulf');
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beowulf');
     $fields = new Pas_Solr_FieldGeneratorFinds($this->_helper->contextSwitch()->getCurrentContext());
     $search->setFields($fields->getFields());
     $params['finderID'] = $person['0']['secuid'];
     $params['page'] = $this->_getParam('page');
     $search->setParams($params);
     $search->execute();
-    $this->view->paginator = $search->_createPagination();
-    $this->view->finds = $search->_processResults();
+    $this->view->paginator = $search->createPagination();
+    $this->view->finds = $search->processResults();
     }
     $this->view->peoples = $person;
     } else {

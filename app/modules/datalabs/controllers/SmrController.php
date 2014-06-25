@@ -34,10 +34,10 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
 
     $params = $this->_getAllParams();
 
-    $search = new Pas_Solr_Handler('beogeodata');
-    $search->setFields(array('*')
-    );
-	$search->setFacets(array('county', 'district'));
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beogeodata');
+    $search->setFields(array('*'));
+    $search->setFacets(array('county', 'district'));
 
     if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->_getParam('submit'))){
@@ -66,9 +66,9 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
     $params['direction'] = 'asc';
     $search->setParams($params);
     $search->execute();
-    $this->view->paginator = $search->_createPagination();
-    $this->view->results = $search->_processResults();
-    $this->view->facets = $search->_processFacets();
+    $this->view->paginator = $search->createPagination();
+    $this->view->results = $search->processResults();
+    $this->view->facets = $search->processFacets();
     }
 
 	/** Set up the one to 50k entry page

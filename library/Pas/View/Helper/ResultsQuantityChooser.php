@@ -62,10 +62,10 @@ class Pas_View_Helper_ResultsQuantityChooser extends Zend_View_Helper_Abstract
 
     /** Set the results
      * @access public
-     * @param array $results
+     * @param \ Zend_Paginator $results
      * @return \Pas_View_Helper_ResultsQuantityChooser
      */
-    public function setResults( array $results) {
+    public function setResults(  Zend_Paginator $results) {
         $this->_results = $results;
         return $this;
     }
@@ -87,10 +87,10 @@ class Pas_View_Helper_ResultsQuantityChooser extends Zend_View_Helper_Abstract
 
     /** Generate the html url array
      * @access public
-     * @param object $results
+     * @param  Zend_Paginator $results
      * @return type
      */
-    public function generate(object $results){
+    public function generate( Zend_Paginator $results){
         $html = '';
         if ($results) {
             $urls = array();

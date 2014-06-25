@@ -48,7 +48,7 @@ $this->headTitle('List all Scheduled Monuments of the National Monument record')
 
 <?php endif;?>
 <?php
-$this->inlineScript()->appendFile('/js/bootstrap-modal.js', $type='text/javascript');
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
 $this->inlineScript()->captureStart();
 ?>
 $(document).ready(function() {
