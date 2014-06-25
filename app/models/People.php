@@ -224,7 +224,8 @@ if (!$data = $this->_cache->load('valuers')) {
                 ->joinLeft('primaryactivities',$this->_name
                         . '.primary_activity = primaryactivities.id',
                         array('activity' => 'term'))
-                ->joinLeft('organisations', $this->_name . '.organisationID',
+                ->joinLeft('organisations', $this->_name 
+                        . '.organisationID = organisations.secuid',
                         array('organisation' => 'name'))
                 ->where('people.id = ?',(int)$id);
         return $persons->fetchAll($select);
