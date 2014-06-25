@@ -43,7 +43,7 @@ public function __construct($options = null) {
 	->addFilters(array('StripTags','StringTrim', 'Purifier'))
 	->setAttrib('size',70);
 
-	$eventDescription = new Pas_Form_Element_RTE('eventDescription');
+	$eventDescription = new Pas_Form_Element_CKEditor('eventDescription');
 	$eventDescription->setLabel('Event description: ')
 	->setRequired(true)
 	->addFilters(array('StringTrim','WordChars','BasicHtml','EmptyParagraph'))

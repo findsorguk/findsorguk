@@ -21,7 +21,7 @@ public function __construct($options = null) {
 		->addValidator('Alpha',false,array('allowWhiteSpace' => true))
 		->addErrorMessage('Please enter a valid title for the state!');
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of preservation state: ')
 		->setAttrib('rows',10)
 		->setAttrib('cols',40)

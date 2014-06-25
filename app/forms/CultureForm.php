@@ -22,7 +22,7 @@ public function __construct($options = null)
 	->setAttrib('size',60)
 	->addErrorMessage('Please enter a valid title for this culture!');
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of ascribed culture: ')
 	->setRequired(true)
 	->setAttrib('rows',30)

@@ -27,7 +27,7 @@ public function __construct($options = null) {
 		->addErrorMessage('Please enter a valid email address!')
 		->setDescription('* This will not be displayed to the public.');
 
-	$comment_content = new Pas_Form_Element_RTE('comment_content');
+	$comment_content = new Pas_Form_Element_CKEditor('comment_content');
 	$comment_content->setLabel('Message submitted by user: ')
 		->setRequired(true)
 		->setAttrib('rows',10)
@@ -36,7 +36,7 @@ public function __construct($options = null) {
 		->setAttrib('ToolbarSet','Finds')
 		->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
 
-	$messagetext = new Pas_Form_Element_RTE('messagetext');
+	$messagetext = new Pas_Form_Element_CKEditor('messagetext');
 	$messagetext->setLabel('Your reply: ')
 		->setRequired(true)
 		->setAttrib('rows',10)

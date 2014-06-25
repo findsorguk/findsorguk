@@ -21,7 +21,7 @@ class DegreeOfWearForm extends Pas_Form {
 	->addFilters(array('StripTags','StringTrim'))
 	->addErrorMessage('Please enter a valid title for this surface treatment');
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of decoration style: ')
 	->setRequired(true)
 	->setAttrib('rows',10)

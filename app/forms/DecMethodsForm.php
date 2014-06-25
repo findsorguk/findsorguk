@@ -22,7 +22,7 @@ parent::__construct($options);
 	->addFilters(array('StripTags','StringTrim'))
 	->addErrorMessage('Please enter a valid title for this decorative method!');
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of decoration style: ')
 	->setRequired(false)
 	->setAttrib('rows',10)

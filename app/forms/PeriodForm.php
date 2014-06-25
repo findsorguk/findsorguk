@@ -38,7 +38,7 @@ parent::__construct($options);
 		->addValidator('Int')
 		->addErrorMessage('You must enter an end date');
 
-	$notes = new Pas_Form_Element_RTE('notes');
+	$notes = new Pas_Form_Element_CKEditor('notes');
 	$notes->setLabel('Period notes: ')
 		->setAttrib('rows',10)
 		->setAttrib('cols',40)

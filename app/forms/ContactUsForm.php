@@ -43,7 +43,7 @@ parent::__construct($options);
 	->setDescription('Not compulsory');
 
 
-	$comment_content = new Pas_Form_Element_RTE('comment_content');
+	$comment_content = new Pas_Form_Element_CKEditor('comment_content');
 	$comment_content->setLabel('Enter your comment: ')
 	->setRequired(true)
 	->setAttrib('rows',10)

@@ -13,7 +13,7 @@ public function __construct($options = null) {
 
 	$this->setName('quotes');
 
-	$quote = new Pas_Form_Element_RTE('quote');
+	$quote = new Pas_Form_Element_CKEditor('quote');
 	$quote->setLabel('Quote or announcement: ')
 	->setRequired(true)
 	->setAttrib('rows',10)

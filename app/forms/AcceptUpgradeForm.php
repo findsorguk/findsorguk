@@ -45,13 +45,9 @@ public function __construct($options = null) {
 		->setAttrib('size',60)
 		->addErrorMessage('This project needs a title.');
 
-	$researchOutline = new Pas_Form_Element_RTE('researchOutline');
+	$researchOutline = new Pas_Form_Element_CKEditor('researchOutline');
 	$researchOutline->setLabel('Research outline: ')
 		->setRequired(true)
-		->setAttrib('rows',10)
-		->setAttrib('cols',40)
-		->setAttrib('Height',400)
-		->setAttrib('ToolbarSet','Finds')
 		->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'))
 		->addErrorMessage('Outline must be present.');
 
@@ -66,7 +62,7 @@ public function __construct($options = null) {
 		->addValidator('EmailAddress')
 		->addFilters(array('StringToLower', 'StringTrim', 'StripTags'));
 
-	$message = new Pas_Form_Element_RTE('message');
+	$message = new Pas_Form_Element_CKEditor('message');
 	$message->setLabel('Message to user: ')
 		->setRequired(true)
 		->setAttrib('rows',10)

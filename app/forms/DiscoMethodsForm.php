@@ -22,7 +22,7 @@ parent::__construct($options);
 	->addValidator('NotEmpty')
 	->addErrorMessage('You must enter a valid term');
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of method: ')
 	->setRequired(true)
 	->setAttrib('rows',10)

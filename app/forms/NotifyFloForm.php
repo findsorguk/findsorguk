@@ -42,7 +42,7 @@ class NotifyFloForm extends Pas_Form {
 
 
 
-	$content = new Pas_Form_Element_RTE('content');
+	$content = new Pas_Form_Element_CKEditor('content');
 	$content->setLabel('Enter your comment: ')
 	->setRequired(true)
 	->addFilter('StringTrim')

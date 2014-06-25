@@ -5,7 +5,7 @@
 * @package    Pas_Form
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
 * @license    GNU General Public License
-* @todo		  Sort out the currency validator for £
+* @todo		  Sort out the currency validator for ï¿½
 */
 class FinalValuationForm extends Pas_Form {
 
@@ -25,7 +25,7 @@ class FinalValuationForm extends Pas_Form {
 	->addFilters(array('StripTags','StringTrim'))
 	->addValidator('Currency');
 
-	$comments  = new Pas_Form_Element_RTE('comments');
+	$comments  = new Pas_Form_Element_CKEditor('comments');
 	$comments->setLabel('Valuation comments: ')
 	->setRequired(false)
 	->setAttrib('rows',10)

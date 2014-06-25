@@ -27,7 +27,7 @@ class VolunteerForm extends Pas_Form {
 		->addFilters(array('StripTags','StringTrim', 'Purifier'))
 		->addErrorMessage('Choose title for the project.');
 	
-	$description = new Pas_Form_Element_RTE('description');
+	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Short description of project: ')
 		->setRequired(true)
 		->setAttribs(array('rows' => 10, 'cols' => 40, 'Height' => 400))

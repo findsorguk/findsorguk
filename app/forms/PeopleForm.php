@@ -147,7 +147,7 @@ public function __construct($options = null) {
 		->addFilters(array('StripTags','StringTrim', 'Purifier'))
 		->addValidator('StringLength', false, array(1,30));
 
-	$comments = new Pas_Form_Element_RTE('comments');
+	$comments = new Pas_Form_Element_CKEditor('comments');
 	$comments->SetLabel('Comments: ')
 		->setAttrib('rows',10)
 		->setAttrib('cols',40)

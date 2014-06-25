@@ -33,7 +33,7 @@ public function __construct($options = null) {
 		->addErrorMessage('You must enter a period for this type')
 		->addMultioptions(array(NULL => 'Choose a period', 'Available Options' => $period_options));
 
-	$description = new Pas_Form_Element_RTE('description');
+	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Description: ')
 		->setRequired(true)
 		->setAttrib('rows',10)

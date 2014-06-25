@@ -25,7 +25,7 @@ class HoardForm extends Pas_Form
 		->addFilters(array('StringTrim','StripTags'))
 		->addErrorMessage('You must enter a title for this hoard');
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of hoard: ')
 		->setRequired(true)
 		->setAttribs(array('rows' => 10, 'cols' => 40, 'Height' => 400))

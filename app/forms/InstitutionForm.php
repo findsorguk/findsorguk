@@ -21,7 +21,7 @@ public function __construct($options = null) {
 	->addFilters(array('StripTags','StringTrim'))
 	->addErrorMessage('Choose title for the role.');
 
-	$description = new Pas_Form_Element_RTE('description');
+	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Role description: ')
 	->setRequired(true)
 	->setAttrib('rows',10)
