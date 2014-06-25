@@ -20,7 +20,7 @@ public function __construct($options = null) {
 	->addErrorMessage('Please enter a valid title for this method!')
 ;
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of manufacture method: ')
 	->setAttrib('rows',10)
 	->setAttrib('cols',40)

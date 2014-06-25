@@ -22,7 +22,7 @@ public function __construct($options = null) {
 
 	$this->setName('actionsForTreasure');
 
-	$actionDescription = new Pas_Form_Element_RTE('actionTaken');
+	$actionDescription = new Pas_Form_Element_CKEditor('actionTaken');
 	$actionDescription->setLabel('Action summary: ')
 		->setRequired(true)
 		->setAttribs(array('rows' => 10, 'cols' => 40, 'Height' => 400,

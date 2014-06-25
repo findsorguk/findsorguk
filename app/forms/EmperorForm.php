@@ -64,7 +64,7 @@ parent::__construct($options);
 	->addValidator('Int')
 	->addErrorMessage('You must enter a date for the end of reign');
 
-	$biography = new Pas_Form_Element_RTE('biography');
+	$biography = new Pas_Form_Element_CKEditor('biography');
 	$biography->setLabel('Biography: ')
 	->setRequired(true)
 	->addFilters(array('StringTrim','WordChars','BasicHtml','EmptyParagraph'))

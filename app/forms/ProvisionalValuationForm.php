@@ -35,7 +35,7 @@ public function __construct($options = null) {
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('Float');
 	
-	$comments  = new Pas_Form_Element_RTE('comments');
+	$comments  = new Pas_Form_Element_CKEditor('comments');
 	$comments->setLabel('Valuation comments: ')
 		->setRequired(false)
 		->setAttrib('rows',10)

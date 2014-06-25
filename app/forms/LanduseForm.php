@@ -26,7 +26,7 @@ public function __construct($options = null) {
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addErrorMessage('Please enter a valid title for this landuse!');
 		
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of landuse type: ')
 		->setRequired(true)
 		->setAttrib('rows',10)

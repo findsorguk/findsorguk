@@ -68,7 +68,7 @@ public function __construct($options = null) {
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('Digits');
 
-	$biography = new Pas_Form_Element_RTE('biography');
+	$biography = new Pas_Form_Element_CKEditor('biography');
 	$biography->setLabel('Biography: ')
 		->setRequired(false)
 		->setAttrib('rows',10)

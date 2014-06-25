@@ -34,7 +34,7 @@ public function __construct($options = null) {
 		->setAttrib('size', 20)
 		->addErrorMessage('You must enter a salary.');
 	
-	$specification = new Pas_Form_Element_RTE('specification');
+	$specification = new Pas_Form_Element_CKEditor('specification');
 	$specification->setLabel('Job specification: ')
 		->setRequired(true)
 		->addFilters(array('BasicHtml', 'StringTrim'))

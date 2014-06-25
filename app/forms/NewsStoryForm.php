@@ -32,7 +32,7 @@ class NewsStoryForm extends Pas_Form {
 		->setAttrib('cols',70)
 		->addFilters(array('StripTags','StringTrim','Purifier'));
 	
-	$contents = new Pas_Form_Element_RTE('contents');
+	$contents = new Pas_Form_Element_CKEditor('contents');
 	$contents->setLabel('News story content: ')
 		->setRequired(true)
 		->setAttrib('rows',10)

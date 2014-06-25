@@ -163,7 +163,7 @@ class ContactForm extends Pas_Form
 	->addValidator('InArray', false, array(array_keys($staffregions_options)))
 	->addMultiOptions(array(NULL => NULL, 'Choose staff region' => $staffregions_options));
 
-	$profile= new Pas_Form_Element_RTE('profile');
+	$profile= new Pas_Form_Element_CKEditor('profile');
 	$profile->setLabel('Profile: ')
 	->setRequired(false)
 	->setAttrib('rows',10)

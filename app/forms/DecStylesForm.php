@@ -21,7 +21,7 @@ public function __construct($options = null) {
 	->addValidator('NotEmpty')
 	->addErrorMessage('Please enter a valid title for this decorative style');
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of decoration style: ')
 	->setRequired(false)
 	->setAttrib('rows',10)

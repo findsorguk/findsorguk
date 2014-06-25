@@ -36,7 +36,7 @@ public function __construct($options = null)
 	->addValidator('Int')
 	->addErrorMessage('You must enter a date for the end of reign');
 
-	$description = new Pas_Form_Element_RTE('description');
+	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Description: ')
 	->setRequired(true)
 	->setAttrib('rows',10)

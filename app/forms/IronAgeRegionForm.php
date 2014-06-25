@@ -32,7 +32,7 @@ class IronAgeRegionForm extends Pas_Form {
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addErrorMessage('You must enter a region name');
 	
-	$description = new Pas_Form_Element_RTE('description');
+	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Description: ')
 		->setRequired(true)
 		->setAttrib('rows',5)

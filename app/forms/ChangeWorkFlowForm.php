@@ -27,7 +27,7 @@ class ChangeWorkFlowForm extends Pas_Form {
 	$finder->setUncheckedValue(NULL);
 	
 
-	$content = new Pas_Form_Element_RTE('content');
+	$content = new Pas_Form_Element_CKEditor('content');
 	$content->setLabel('Enter your comment: ')
 	->addFilter('StringTrim')
 	->setAttrib('Height',400)

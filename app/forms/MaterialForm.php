@@ -20,7 +20,7 @@ public function __construct($options = null) {
 	->addFilter(array('StripTags', 'StringTrim'))
 	->addErrorMessage('Please enter a title for this material type');
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of material type: ')
 	->setRequired(true)
 	->setAttrib('rows',10)

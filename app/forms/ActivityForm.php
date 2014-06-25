@@ -23,7 +23,7 @@ class ActivityForm extends Pas_Form {
 		->addErrorMessage('Choose title for the activity.')
 		->setAttrib('size',70);
 
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Activity description: ')
 		->setRequired(true)
 		->setAttrib('rows',10)

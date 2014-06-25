@@ -21,7 +21,7 @@ public function __construct($options = null) {
 	->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
 	->addErrorMessage('You must enter a name for the tribe.');
 
-	$description = new Pas_Form_Element_RTE('description');
+	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Description of the tribe: ')
 	->setRequired(false)
 	->setAttrib('rows',10)

@@ -75,12 +75,12 @@ class Pas_View_Helper_ConservationMenu extends Zend_View_Helper_Abstract {
             }
             $html .= '>';
             $html .= '<a href="';
-            $html .= $this->view->url(array(
+                $html .= $this->view->url(array(
                 'module' => 'conservation',
                 'controller' => 'advice',
                 'action' => 'note',
                 'slug' => $c['slug']
-                    ),'c',true);
+                    ),'conservation',true);
             $html .= '" title="Read this note">';
             $html .=$c['menuTitle'];
             $html .= '</a></li>';

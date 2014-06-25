@@ -18,7 +18,7 @@ parent::__construct($options);
 	$this->setName('accountupgrades');
 
 
-	$researchOutline = new Pas_Form_Element_RTE('researchOutline');
+	$researchOutline = new Pas_Form_Element_CKEditor('researchOutline');
 	$researchOutline->setLabel('Research outline: ')
 		->setAttrib('rows',10)
 		->setAttrib('cols',40)

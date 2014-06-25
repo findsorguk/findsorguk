@@ -26,7 +26,7 @@ class WorkflowForm extends Pas_Form {
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Digits');
 	
-	$termdesc = new Pas_Form_Element_RTE('termdesc');
+	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
 	$termdesc->setLabel('Description of workflow stage: ')
 		->setRequired(true)
 		->setAttrib('rows',10)

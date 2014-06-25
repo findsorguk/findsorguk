@@ -49,7 +49,7 @@ public function __construct($options = null)
 	->addMultiOptions(array(NULL => NULL,'Choose material' => $material_options))
 	->addErrorMessage('You must enter a material for this denomination.');
 
-	$description = new Pas_Form_Element_RTE('description');
+	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Description: ')
 	->setRequired(false)
 	->setAttribs(array('rows' => 10, 'cols' => 40, 'Height' => 400))

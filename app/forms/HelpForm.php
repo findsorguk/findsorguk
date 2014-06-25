@@ -46,7 +46,7 @@ public function __construct($options = null) {
 	->setAttrib('cols',60)
 	->addFilters(array('StringTrim','StripTags'));
 
-	$body = new Pas_Form_Element_RTE('body');
+	$body = new Pas_Form_Element_CKEditor('body');
 	$body->setLabel('Main body of text: ')
 	->setRequired(true)
 	->setAttrib('rows',10)
