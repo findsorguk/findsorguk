@@ -13,6 +13,7 @@ CKEDITOR.editorConfig = function( config ) {
 	                  { name: 'document', items: [ 'Source' ] },
 	                  { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
 	                  '/',
-	                  { name: 'basicstyles', items: [ 'Bold', 'Italic' ] }
+	                  { name: 'basicstyles', items: [ 'Bold', 'Italic' ] },
+                          { name: 'insert', items: [ 'Table'] }
 	              ];
 };
