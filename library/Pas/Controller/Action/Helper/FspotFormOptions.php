@@ -69,7 +69,7 @@ class Pas_Form_Findspot {
     	'Available landuses' => $landusecode_options));
      }
     if(!is_null($data['landowner'])) {
-    $finders = new Peoples();
+    $finders = new People();
     $finders = $finders->getName($data['landowner']);
     foreach($finders as $finder) {
     $form->landownername->setValue($finder['term']);

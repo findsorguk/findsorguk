@@ -57,7 +57,7 @@ class Pas_View_Helper_PersonLookup extends Zend_View_Helper_Abstract
      * @return object
      */
     public function getData() {
-        $people = new Peoples();
+        $people = new People();
         return $people->fetchRow($people->select()->where('secuid = ?',
                 $this->getPerson() ));
         }

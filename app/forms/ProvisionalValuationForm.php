@@ -9,7 +9,7 @@ class ProvisionalValuationForm extends Pas_Form {
 
 public function __construct($options = null) {
 	
-	$curators = new Peoples();
+	$curators = new People();
 	$assigned = $curators->getValuers();
 
 	ZendX_JQuery::enableForm($this);

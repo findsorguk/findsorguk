@@ -13,7 +13,7 @@ public function __construct($options = null) {
 	$countries_options = $countries->getOptions();
 	$counties = new OsCounties();
 	$counties_options = $counties->getCountiesID();
-	$peoples = new Peoples();
+	$peoples = new People();
 	$people_options = $peoples->getNames2();
 
 	parent::__construct($options);

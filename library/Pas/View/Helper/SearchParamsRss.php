@@ -234,7 +234,7 @@ if (array_key_exists('finder',$params)) {
 if ($params['finder'] != NULL) {
 
 $finder = $params['finder'];
-$peoples = new Peoples();
+$peoples = new People();
 $peoples = $peoples->getName($finder);
 
 $this->peoples = $peoples;
@@ -250,7 +250,7 @@ if (array_key_exists('idby',$params)) {
 if ($params['idby'] != NULL) {
 
 $finder = $params['idby'];
-$peoples = new Peoples();
+$peoples = new People();
 $peoples = $peoples->getName($finder);
 
 $this->peoples = $peoples;
@@ -267,7 +267,7 @@ if (array_key_exists('recordby',$params)) {
 if ($params['recordby'] != NULL) {
 
 $finder = $params['recordby'];
-$peoples = new Peoples();
+$peoples = new People();
 $peoples = $peoples->getName($finder);
 
 $this->peoples = $peoples;

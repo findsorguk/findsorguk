@@ -144,14 +144,14 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
 	public function peopleAction()
 	{
-	$peoples = new Peoples();
+	$peoples = new People();
 	$people_options = $peoples->getNames($this->_getParam('term'));
 	echo  Zend_Json::encode($people_options);
 	}
 
 	public function peoplesearchAction()
 	{
-	$peoples = new Peoples();
+	$peoples = new People();
 	$people_options = $peoples->getNamesSearch($this->_getParam('q'));
 	echo  Zend_Json::encode($people_options);
 	}
