@@ -72,21 +72,21 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 		//Clean params
         $params = $this->_arrayTools->array_cleanup($this->_getAllParams());
         //Set up search handler
-        $search = new Pas_Solr_Handler('beoimages');
+        $search = new Pas_Solr_Handler();
+        $search->setCore('beoimages');
         //Set search fields
         $search->setFields(array(
-    	'id', 'identifier', 'objecttype',
-    	'title', 'broadperiod', 'imagedir',
-    	'filename', 'thumbnail', 'old_findID',
-    	'county','licenseAcronym','findID',
-        'institution')
-        );
-		//Set facets
+            'id', 'identifier', 'objecttype',
+            'title', 'broadperiod', 'imagedir',
+            'filename', 'thumbnail', 'old_findID',
+            'county','licenseAcronym','findID',
+            'institution'
+            ));
         $search->setFacets(array('licenseAcronym','broadperiod','county', 'objecttype','institution'));
-		//Form handler
+        //Form handler
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->_getParam('submit'))){
-		//Check if valid
+            //Check if valid
         if ($form->isValid($form->getValues())) {
         //Clean params
         $params = $this->_arrayTools->array_cleanup($form->getValues());
@@ -112,13 +112,13 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         //Execute the search
         $search->execute();
 		//Process the facets
-        $search->_processFacets();
+        $search->processFacets();
         //Send pagination to view
-        $this->view->paginator = $search->_createPagination();
+        $this->view->paginator = $search->createPagination();
         //Send results to view
-        $this->view->results = $search->_processResults();
+        $this->view->results = $search->processResults();
         //Send facets to view
-        $this->view->facets = $search->_processFacets();
+        $this->view->facets = $search->processFacets();
 
 	}
 

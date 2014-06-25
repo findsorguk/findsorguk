@@ -18,7 +18,8 @@ $news->appendChild($dom->createElement('changefreq', 'daily'));
 $news->appendChild($dom->createElement('priority', '0.9'));
 $nav->appendChild($news);
 $pages = $dom->createElement('pages');
-	$search = new Pas_Solr_Handler('beopublications');
+	$search = new Pas_Solr_Handler();
+        $search->setCore('beopublications');
 	$page = Zend_Controller_Front::getInstance()->getRequest()->getParam('page');
 
 	$params['page'] = $page;

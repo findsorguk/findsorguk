@@ -16,13 +16,14 @@ $news->appendChild($dom->createElement('label', 'Publications'));
 $news->appendChild($dom->createElement('uri', $this->serverUrl() . '/database/sitemap/books'));
 $nav->appendChild($news);
 $pages = $dom->createElement('pages');
-	$search = new Pas_Solr_Handler('beopublications');
+	$search = new Pas_Solr_Handler();
+        $search->setCore('beopublications');
 	$params['start'] = 0;
 	$params['show'] = 1000;
 	$params['format'] = 'sitemap';
     $search->setParams($params);
 	$search->execute();
-	$paginate = $search->_createPagination();
+	$paginate = $search->createPagination();
 	$a = ceil($paginate->getTotalItemCount() / $paginate->getItemCountPerPage());
 	for ($i = 1; $i <= $a; $i++) {
    $story = $dom->createElement( 'page' .$i);

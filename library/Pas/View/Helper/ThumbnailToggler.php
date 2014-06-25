@@ -102,6 +102,7 @@ class Pas_View_Helper_ThumbnailToggler extends Zend_View_Helper_Abstract
      */
     public function __toString() {
         $request = $this->getRequest();
+        
         $html = '';
         $html .= '<div>Only results with images:<br />';
         $active = 'success';
@@ -115,29 +116,29 @@ class Pas_View_Helper_ThumbnailToggler extends Zend_View_Helper_Abstract
         $onRequest['thumbnail'] = 1;
         $offRequest = $request;
         unset($offRequest['thumbnail']);
-        if (!is_null($thumbnail)) {
-            $html .= '<a class="btn btn-small btn-';
-            $html .= $this->getActive();
-            $html .= '" href="';
-            $html .= $this->view->url($onRequest,'default',true);
-            $html .= '">on</a> ';
-            $html .= '<a class="btn btn-small btn-';
-            $html .= $this->getInactive();
-            $html .= '" href="';
-            $html .= $this->view->url($offRequest,'default',true);
-            $html .= '">off</a>';
-        } else {
-            $html .= '<a class="btn btn-small btn-';
-            $html .= $$this->getInactive();
-            $html .= '"  href="';
-            $html .= $this->view->url($onRequest,'default',true);
-            $html .= '">on</a> ';
-            $html .= '<a class="btn btn-small btn-';
-            $html .= $this->getActive();
-            $html .= '"  href="';
-            $html .= $this->view->url($offRequest,'default',true);
-            $html .= '">off</a>';
-        }
+//        if (!is_null($thumbnail)) {
+//            $html .= '<a class="btn btn-small btn-';
+//            $html .= $this->getActive();
+//            $html .= '" href="';
+//            $html .= $this->view->url($onRequest,'default',true);
+//            $html .= '">on</a> ';
+//            $html .= '<a class="btn btn-small btn-';
+//            $html .= $this->getInactive();
+//            $html .= '" href="';
+//            $html .= $this->view->url($offRequest,'default',true);
+//            $html .= '">off</a>';
+//        } else {
+//            $html .= '<a class="btn btn-small btn-';
+//            $html .= $$this->getInactive();
+//            $html .= '"  href="';
+//            $html .= $this->view->url($onRequest,'default',true);
+//            $html .= '">on</a> ';
+//            $html .= '<a class="btn btn-small btn-';
+//            $html .= $this->getActive();
+//            $html .= '"  href="';
+//            $html .= $this->view->url($offRequest,'default',true);
+//            $html .= '">off</a>';
+//        }
         $html .= '</div>';
         return $html;
      }

@@ -103,7 +103,8 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
                 $cons->max_lat,
                 $cons->max_lon
                     );
-        $search = new Pas_Solr_Handler('beowulf');
+        $search = new Pas_Solr_Handler();
+        $search->setCore('beowulf');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());
@@ -111,14 +112,13 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
         $params['bbox'] = implode(',',$bbox);
         $search->setFacets(array(
             'objectType', 'county', 'broadperiod',
-            'institution', 'workflow')
-                );
-                
+            'institution', 'workflow'
+            ));
         $search->setParams($params);
         $search->execute();
-        $this->view->facets = $search->_processFacets();
-        $this->view->paginator = $search->_createPagination();
-        $this->view->finds = $search->_processResults();
+        $this->view->facets = $search->processFacets();
+        $this->view->paginator = $search->createPagination();
+        $this->view->finds = $search->processResults();
         $this->view->constituency = $const;
         } else {
             throw new Pas_Exception_Param($this->_missingParameter);

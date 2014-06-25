@@ -32,7 +32,8 @@ class Users_RecordsController extends Pas_Controller_Action_Admin {
     $params['finderID'] = $this->_getDetails()->peopleID;
 
     $params['-createdBy'] = $this->_getDetails()->id;
-    $search = new Pas_Solr_Handler('objects');
+    $search = new Pas_Solr_Handler();
+    $search->setCore('objects');
     $search->setFields(array(
     	'id', 'identifier', 'objecttype',
     	'title', 'broadperiod','imagedir',
@@ -43,9 +44,9 @@ class Users_RecordsController extends Pas_Controller_Action_Admin {
     $search->setFacets(array('objectType','county','broadperiod','institution'));
     $search->setParams($params);
     $search->execute();
-    $this->view->paginator = $search->_createPagination();
-    $this->view->finds = $search->_processResults();
-    $this->view->facets = $search->_processFacets();
+    $this->view->paginator = $search->createPagination();
+    $this->view->finds = $search->processResults();
+    $this->view->facets = $search->processFacets();
     } else {
         $this->_redirect('/error/accountconnection');
     }

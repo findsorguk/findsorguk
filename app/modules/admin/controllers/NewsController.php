@@ -1,6 +1,6 @@
 <?php
-/** Controller for managing latest news on the website
-* 
+/** 
+ * Controller for managing latest news on the website
 * @category   Pas
 * @package    Pas_Controller
 * @subpackage ActionAdmin
@@ -29,11 +29,12 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
     	$cleaner = new Pas_ArrayFunctions();
         $params = $cleaner->array_cleanup($this->_getAllParams());
        
-        $search = new Pas_Solr_Handler('beocontent');
+        $search = new Pas_Solr_Handler();
+        $search->setCore('beocontent');
         $search->setFields(array(
-    	'updated', 'updatedBy', 'publishState', 
-        'title', 'created', 'createdBy')
-        );
+            'updated', 'updatedBy', 'publishState', 
+            'title', 'created', 'createdBy'
+            ));
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->_getParam('submit'))){
 
@@ -56,8 +57,8 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
 		$params['type'] = 'news';
         $search->setParams($params);
         $search->execute();
-        $this->view->paginator = $search->_createPagination();
-        $this->view->news = $search->_processResults();
+        $this->view->paginator = $search->createPagination();
+        $this->view->news = $search->processResults();
 	}
 	/** Add and geocode a news story
 	*/		

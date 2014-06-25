@@ -40,7 +40,7 @@ class Pas_View_Helper_Institution {
      * @access public
      * @return \Pas_View_Helper_Institution
      */
-    public function setInstitution() {
+    public function setInstitution( $institution ) {
         if (!is_null($institution)) {
         $institutions = new Institutions();
         $institution = $institutions->fetchRow(

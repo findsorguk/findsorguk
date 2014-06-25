@@ -48,7 +48,7 @@ $this->headMeta('These pages catalogue all sites in the Ordnance Survey 1:50K da
 <?php endif;?>
 
 <?php
-$this->inlineScript()->appendFile('/js/bootstrap-modal.js', $type='text/javascript');
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
 $this->inlineScript()->captureStart();
 ?>
 $(document).ready(function() {

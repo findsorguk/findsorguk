@@ -28,23 +28,18 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
     	$form = new ContentSearchForm();
     	$form->submit->setLabel('Search content');
 	    $this->view->form = $form;
-    
         $params = $this->array_cleanup($this->_getAllParams());
-       
-        $search = new Pas_Solr_Handler('beocontent');
+        $search = new Pas_Solr_Handler();
+        $search->setCore('beocontent');
         $search->setFields(array(
-    	'id', 'title', 'section', 'publishState',
-        'created', 'updated', 'type', 'createdBy', 'updatedBy')
-        );
-
-
-
+            'id', 'title', 'section', 
+            'publishState', 'created', 'updated', 
+            'type', 'createdBy', 'updatedBy'
+            ));
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->_getParam('submit'))){
-
         if ($form->isValid($form->getValues())) {
         $params = $this->array_cleanup($form->getValues());
-
         $this->_helper->Redirector->gotoSimple('index','content','admin',$params);
         } else {
         $form->populate($form->getValues());
@@ -54,18 +49,15 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
 
         $params = $this->_getAllParams();
         $form->populate($this->_getAllParams());
-
-
         }
-
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';
         }
          $params['type'] = 'sitecontent';
         $search->setParams($params);
         $search->execute();
-        $this->view->paginator = $search->_createPagination();
-        $this->view->contents = $search->_processResults();
+        $this->view->paginator = $search->createPagination();
+        $this->view->contents = $search->processResults();
 
 	}
     /** Add contents

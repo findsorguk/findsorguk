@@ -117,19 +117,15 @@ class Pas_View_Helper_FindsWithinConst extends Zend_View_Helper_Abstract
             $geometry->max_lat,
             $geometry->max_lon
                 );
-        $search = new Pas_Solr_Handler('beowulf');
+        $search = new Pas_Solr_Handler();
+        $search->setCore('beowulf');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',
             'filename','thumbnail','old_findID',
-            'description', 'county')
-            );
-
-        $search->setParams(
-                array(
-                    'bbox' => implode(',',$bbox)
-                    )
-                );
+            'description', 'county'
+            ));
+        $search->setParams(array('bbox' => implode(',',$bbox)));
         $search->execute();
         $this->_geometry = implode(',', $bbox);
         return $search->getNumber();

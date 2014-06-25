@@ -367,21 +367,23 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
 	*/
 	public function resultsAction(){
 	$params = $this->_getAllParams();
-	$search = new Pas_Solr_Handler('beowulf');
+	$search = new Pas_Solr_Handler();
+        $search->setCore('beowulf');
 	$context = $this->_helper->contextSwitch->getCurrentContext();
 	$fields = new Pas_Solr_FieldGeneratorFinds($context);
 	$params['format'] = $context;
-	$search->setFields($fields->getFields());
+//	$search->setFields($fields->getFields());
 	$search->setFacets(array(
-    'objectType','county', 'broadperiod',
-    'institution', 'rulerName', 'denominationName', 
-    'mintName', 'materialTerm', 'workflow', 'reeceID'));
+            'objectType','county', 'broadperiod',
+            'institution', 'rulerName', 'denominationName', 
+            'mintName', 'materialTerm', 'workflow', 'reeceID'
+            ));
 	$search->setParams($params);
 	$search->execute();
-    $this->view->facets = $search->_processFacets();
-	$this->view->paginator = $search->_createPagination();
-	$this->view->stats = $search->_processStats();
-	$this->view->results = $search->_processResults();
+        $this->view->facets = $search->processFacets();
+	$this->view->paginator = $search->createPagination();
+	$this->view->stats = $search->processStats();
+	$this->view->results = $search->processResults();
 	$this->view->server = $search->getLoadBalancerKey();
 	if(array_key_exists('submit', $params)){
     $queries = new Searches();

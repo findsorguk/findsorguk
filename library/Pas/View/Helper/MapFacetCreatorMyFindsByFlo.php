@@ -44,20 +44,22 @@ class Pas_View_Helper_MapFacetCreatorMyFindsByFlo extends Zend_View_Helper_Abstr
     {
      $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
         $params['finderID'] = $this->_id;
-        $search = new Pas_Solr_Handler('beowulf');
-    $search->setParams($params);
-    $search->setFacets(array('objectType','county','broadperiod',
-        'institution', 'rulerName', 'denominationName', 'mintName',
-        'workflow'));
-    $search->setMap(true);
-    $search->execute();
-    $facets = $search->_processFacets();
-    if (is_array($facets)) {
-        $html = '<h3>Search facets</h3>';
-        foreach ($facets as $facetName => $facet) {
-            $html .= $this->_processFacet($facet, $facetName);
+        $search = new Pas_Solr_Handler();
+        $search->setCore('beowulf');
+        $search->setParams($params);
+        $search->setFacets(array(
+            'objectType','county','broadperiod',
+            'institution', 'rulerName', 'denominationName',
+            'mintName', 'workflow'
+            ));
+        $search->setMap(true);
+        $search->execute();
+        $facets = $search->processFacets();
+        if (is_array($facets)) {
+            $html = '<h3>Search facets</h3>';
+            foreach ($facets as $facetName => $facet) {
+                $html .= $this->_processFacet($facet, $facetName);
         }
-
         return $html;
         } else {
             throw new Pas_Exception_BadJuJu('The facets sent are not an array');

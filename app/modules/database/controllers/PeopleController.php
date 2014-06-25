@@ -1,19 +1,11 @@
 <?php
-/** 
- * Controller for displaying information about people
- * 
- * @author Daniel Pett <dpett at britishmuseum.org>
- * @category   Pas
- * @package    Controller_Action
- * @subpackage Admin
- * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
- * @license    GNU General Public License
- * @version 2
- * @uses Pas_Solr_Handler
- * @uses Pas_Service_Geo_Coder
- * @uses People
- * @uses Pas_Solr_FieldGeneratorFinds
- * 
+/** Controller for displaying information about people
+*
+* @category   Pas
+* @package    Pas_Controller
+* @subpackage ActionAdmin
+* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+* @license    GNU General Public License
 */
 class Database_PeopleController extends Pas_Controller_Action_Admin {
 
@@ -80,8 +72,6 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     const REDIRECT = 'database/people/';
     
     /** Index page of all people on the database
-     * @access public
-     * @todo change core and solr methods
     */
     public function indexAction(){
         $form = new SolrForm();
@@ -90,29 +80,30 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
         $form->q->setAttrib('placeholder','Try Bland for example');
         $this->view->form = $form;
         $params = $this->array_cleanup($this->_getAllParams());
-        $search = new Pas_Solr_Handler('beopeople');
+        $search = new Pas_Solr_Handler();
+        $search->setCore('beopeople');
         $search->setFields(array('*'));
         $search->setFacets(array('county','organisation','activity'));
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))){
-            $cleaner = new Pas_Array();
-            $params = $cleaner->array_cleanup($form->getValues(), 
+                && !is_null($this->_getParam('submit'))){
+        $cleaner = new Pas_Array();
+        $params = $cleaner->array_cleanup($form->getValues(), 
                     array('submit','action','controller','module','csrf'));
-            $this->_helper->Redirector->gotoSimple('index','people','database',$params);
-            } else {
-                $params = $this->_getAllParams();
-                $params['sort'] = 'surname';
-                $params['direction'] = 'asc';
-                $form->populate($this->_getAllParams());
-            }
-            if(!isset($params['q']) || $params['q'] == ''){
-                $params['q'] = '*';
-            }
+        $this->_helper->Redirector->gotoSimple('index','people','database',$params);
+        } else {
+        $params = $this->_getAllParams();
+        $params['sort'] = 'surname';
+        $params['direction'] = 'asc';
+        $form->populate($this->_getAllParams());
+        }
+        if(!isset($params['q']) || $params['q'] == ''){
+            $params['q'] = '*';
+        }
         $search->setParams($params);
         $search->execute();
-        $this->view->paginator = $search->_createPagination();
-        $this->view->results = $search->_processResults();
-        $this->view->facets = $search->_processFacets();
+        $this->view->paginator = $search->createPagination();
+        $this->view->results = $search->processResults();
+        $this->view->facets = $search->processFacets();
     }
 
     /** Display details of a person
@@ -120,24 +111,26 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     public function personAction(){
         if($this->_getParam('id',false)) {
             $params = array();
-            $person = $this->getPeople()->getPersonDetails($this->_getParam('id'));
-            if($this->getCurrentContext() !== 'vcf'){
-                $search = new Pas_Solr_Handler('beowulf');
-                $fields = new Pas_Solr_FieldGeneratorFinds($this->getCurrentContext());
+            $person = $this->_peoples->getPersonDetails($this->_getParam('id'));
+            if($this->_helper->contextSwitch()->getCurrentContext() !== 'vcf'){
+                $search = new Pas_Solr_Handler();
+                $search->setCore('beowulf');
+                $fields = new Pas_Solr_FieldGeneratorFinds($this->_helper->contextSwitch()->getCurrentContext());
                 $search->setFields($fields->getFields());
                 $params['finderID'] = $person['0']['secuid'];
                 $params['page'] = $this->_getParam('page');
                 $search->setParams($params);
                 $search->execute();
-                $this->view->paginator = $search->_createPagination();
-                $this->view->finds = $search->_processResults();
+                $this->view->paginator = $search->createPagination();
+                $this->view->finds = $search->processResults();
             }
             $this->view->peoples = $person;
-            } else {
-                throw new Exception($this->_missingParameter);
-            }
+        } else {
+            throw new Exception($this->_missingParameter);
+        }
     }
 
+    
     /** Add personal data
     */
     public function addAction() {
@@ -222,6 +215,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                 throw new Exception($this->_missingParameter);
             }
     }
+    
     /** Delete a person's data
      * @access public
      */

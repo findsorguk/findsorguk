@@ -235,7 +235,7 @@ if (!$data = $this->_cache->load('valuers')) {
      * @param array $data
      * @return int
      */
-    public function add( array $data){
+    public function add(  $data){
         if(array_key_exists('csrf', $data)){
             unset($data['csrf']);
         }

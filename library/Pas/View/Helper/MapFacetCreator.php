@@ -31,7 +31,8 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
     public function mapFacetCreator()
     {
     $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-    $search = new Pas_Solr_Handler('beowulf');
+    $search = new Pas_Solr_Handler();
+    $search->setCore('beowulf');
 //	$search->setFields(array(
 //		'id','old_findID','description', 'gridref','fourFigure',
 //		'longitude', 'latitude', 'county', 'woeid',
@@ -42,7 +43,7 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
         'workflow'));
     $search->setMap(true);
     $search->execute();
-    $facets = $search->_processFacets();
+    $facets = $search->processFacets();
         $total = $search->getNumber();
     if (is_array($facets)) {
         $html = '<p>Total results available: ' . number_format($total) . '<br />These results might differ to the expected results. We only allow you to see records available to you</p>';

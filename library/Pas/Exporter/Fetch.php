@@ -1,10 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of Fetch
  *
@@ -17,7 +11,8 @@ class Pas_Exporter_Fetch extends Pas_Exporter_Generate {
          if(!is_null($page)){
              $this->_params['page'] = $page;
          }
-         $this->_search = new Pas_Solr_Handler('beowulf');
+         $this->_search = new Pas_Solr_Handler();
+         $this->_search->setCore('beowulf');
          switch($this->_format){
              case 'csv':
                  $this->_search->setFields($this->_csvFields);
