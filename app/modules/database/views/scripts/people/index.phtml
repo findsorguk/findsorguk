@@ -36,7 +36,7 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/autocomplete.css')
 </div>
 
 		<div class="span2">
-        <?php echo $this->facetCreatorPeople($this->facets); ?>
+        <?php echo $this->facetCreatorPeople()->setFacets($this->facets); ?>
         
         </div>
 <?php else :?>

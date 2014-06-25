@@ -91,7 +91,7 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
      * @param array $data
      */
 	
-    public function add( array $data){
+    public function add(  $data){
    	if(array_key_exists('csrf', $data)){
             unset($data['csrf']);
         }
@@ -106,7 +106,7 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
                 $data[$k] = NULL;
             }
         }
-        return parent::insert($data);
+        return parent::insert(  $data);
 
     }    
 
