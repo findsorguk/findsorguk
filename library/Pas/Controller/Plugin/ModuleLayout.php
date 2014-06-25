@@ -61,121 +61,121 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
 		break;
 	case 'getinvolved':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/involvedSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/involvedSidebar.phtml'));
 		$view->headTitle('Get involved section ')->setSeparator(' - ');
 		break;
 	case 'analytics':
 		$layouttype = 'database';
 		$view->headTitle('Analytics from Google')->setSeparator(' - ');
-		$response->insert('sidebar', $view->render('structure/analyticsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/analyticsSidebar.phtml'));
 		break;
 	case 'research':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/researchSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/researchSidebar.phtml'));
 		$view->headTitle('Research section ')->setSeparator(' - ');
 		break;
 	case 'admin':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/adminSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/adminSidebar.phtml'));
 		$view->headTitle('Administration section ')->setSeparator(' - ');
 		break;
 	case 'database':
 		$layouttype = 'database';
 		$view->headTitle('Database ')->setSeparator(' - ');
-		$response->insert('sidebar', $view->render('structure/databaseSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/databaseSidebar.phtml'));
 		break;
 	case 'news':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/newsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/newsSidebar.phtml'));
 		$view->headTitle('News &amp; events ')->setSeparator(' - ');
 		break;
 	case 'guides':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/guidesSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/guidesSidebar.phtml'));
 		$view->headTitle('Guides to objects and conservation ')->setSeparator(' - ');
 		break;
 	case 'users':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/userSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/userSidebar.phtml'));
 		break;
 	case 'contacts':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/contactsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/contactsSidebar.phtml'));
 	    $view->headTitle('Scheme and external contacts ')->setSeparator(' - ');
 		break;
 	case 'romancoins':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/romanCoinsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/romanCoinsSidebar.phtml'));
 	    $view->headTitle('A guide to the coins of the Roman Empire ')->setSeparator(' - ');
 		break;
 	case 'postmedievalcoins':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/postMedievalCoinsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/postMedievalCoinsSidebar.phtml'));
 	    $view->headTitle('A guide to the coins of the Post Medieval period ')->setSeparator(' - ');
 		break;
 	case 'medievalcoins':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/medievalCoinsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/medievalCoinsSidebar.phtml'));
 	    $view->headTitle('A guide to the coins of the Medieval period ')->setSeparator(' - ');
 		break;
 	case 'earlymedievalcoins':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/earlyMedievalCoinsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/earlyMedievalCoinsSidebar.phtml'));
 	    $view->headTitle('A guide to the coins of the Early Medieval period ')->setSeparator(' - ');
 		break;
 	case 'ironagecoins':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/ironageCoinsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/ironageCoinsSidebar.phtml'));
 	    $view->headTitle('A guide to Iron Age coins ')->setSeparator(' - ');
 		break;
 	case 'byzantinecoins':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/byzantineCoinsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/byzantineCoinsSidebar.phtml'));
 	    $view->headTitle('A guide to Byzantine coins ')->setSeparator(' - ');
 		break;
 	case 'greekromancoins':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/greekCoinsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/greekCoinsSidebar.phtml'));
 	    $view->headTitle('A guide to Greek & Roman Provincial coins ')->setSeparator(' - ');
 		break;
 	case 'conservation':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/conservationSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/conservationSidebar.phtml'));
 	    $view->headTitle('A practical guide to conservation of objects ')->setSeparator(' - ');
 		break;
 	case 'treasure':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/treasureSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/treasureSidebar.phtml'));
 	    $view->headTitle('The Treasure Act')->setSeparator(' - ');
 		break;
 	case 'publications':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/publicationsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/publicationsSidebar.phtml'));
                 $view->headTitle('Publications ')->setSeparator(' - ');
 		break;
 	case 'help':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/helpSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/helpSidebar.phtml'));
 	    $view->headTitle('Help with our website')->setSeparator(' - ');
 		break;
 	case 'info':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/infoSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/infoSidebar.phtml'));
                 $view->headTitle('Information about our site')->setSeparator(' - ');
 		break;
 	case 'about':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/aboutSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/aboutSidebar.phtml'));
                 $view->headTitle('About the Scheme')->setSeparator(' - ');
 		break;
 	case 'flickr':
 		$layouttype = 'database';
 		$view->headTitle('The Scheme on flickr')->setSeparator(' - ');
-		$response->insert('sidebar', $view->render('structure/flickrSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/flickrSidebar.phtml'));
 		break;
 	case 'staffshoardsymposium';
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/staffsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/staffsSidebar.phtml'));
 	    $view->headTitle('The Symposium')->setSeparator(' - ');
 		break;
 	case 'ebay';
@@ -184,27 +184,27 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
 		break;
 	case 'volunteerrecording';
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/volunteerRecordingSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/volunteerRecordingSidebar.phtml'));
                 $view->headTitle('Volunteer recording guide')->setSeparator(' - ');
 		break;
 	case 'tech':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/techSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/techSidebar.phtml'));
                 $view->headTitle('Technology behind the scenes')->setSeparator(' - ');
 		break;
 	case 'datalabs':
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/datalabsSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/datalabsSidebar.phtml'));
                 $view->headTitle('Data labs')->setSeparator(' - ');
 		break;
 	case 'bronzeage';
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/bronzeageSidebar.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/bronzeageSidebar.phtml'));
 	    $view->headTitle('A guide to Bronze Age objects')->setSeparator(' - ');
 		break;
 	case 'secrettreasures';
 		$layouttype = 'database';
-		$response->insert('sidebar', $view->render('structure/secretTreasures.phtml'));
+		$response->insert('sidebar', $view->render('structure/menus/secretTreasures.phtml'));
 	    $view->headTitle('Britain\'s Secret Treasures')->setSeparator(' - ');
 		break;
 	case 'search';
