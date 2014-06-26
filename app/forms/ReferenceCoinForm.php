@@ -9,7 +9,7 @@ class ReferenceCoinForm extends Pas_Form {
 
 public function __construct($options = null) {
 
-	$refs = new Coinclassifications();
+	$refs = new CoinClassifications();
 	$ref_list = $refs->getClass();
 
 	parent::__construct($options);

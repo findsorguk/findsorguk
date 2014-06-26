@@ -1829,7 +1829,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();
 	if ($form->isValid($formData)) {
-	$classes = new CoinClass();
+	$classes = new CoinClassifications();
 	$insertData = array(
 	'referenceName' => $form->getValue('referenceName'),
 	'valid' => $form->getValue('valid') ,
@@ -1857,7 +1857,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();
 	if ($form->isValid($formData)) {
-	$classes = new CoinClass();
+	$classes = new CoinClassifications();
 	$where = array();
 	$where[] = $classes->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
 	$updateData = array(
@@ -1877,7 +1877,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id', 0);
 	if ($id > 0) {
-	$classes = new CoinClass();
+	$classes = new CoinClassifications();
 	$class = $classes->fetchRow('id=' . $id);
 	if(count($class)){
 	$form->populate($class->toArray());
@@ -1893,7 +1893,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	/** List reference types
 	*/	
 	public function refsAction() {
-	$refs = new CoinClass();
+	$refs = new CoinClassifications();
 	$this->view->refs = $refs->getRefs();
 	}
 	
