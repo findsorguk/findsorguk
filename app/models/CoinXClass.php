@@ -1,21 +1,39 @@
 <?php 
-
-/** Not sure if this table is needed
-* @category Pas
-* @package Pas_Db_Table
-* @subpackage Abstract
-* @author Daniel Pett dpett @ britishmuseum.org
-* @copyright 2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
-* @since 		22 September 2011
+/** 
+ * Link table for linking coins to class
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $coins = new CoinXClass();
+ * $coins->insert($insertData);
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
+ * @example /app/modules/database/controllers/CoinsController.php 
 */
 
 class CoinXClass extends Pas_Db_Table_Abstract {
 
-	protected $_primary = 'id';
-	protected $_name = 'coinxclass';
+    /** The primary key
+     * @access protected
+     * @var int
+     */
+    protected $_primary = 'id';
 
-
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'coinxclass';
 }
 
