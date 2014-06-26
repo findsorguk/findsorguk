@@ -27,7 +27,7 @@ class ProfileForm extends Pas_Form
     {
         $required = true;
         $copyrights = new Copyrights();
-		$copy = $copyrights->getStyles();
+        $copy = $copyrights->getTypes();
         $this->setAction($this->_actionUrl)
              ->setMethod('post')
              ->setAttrib('id', 'accountform');

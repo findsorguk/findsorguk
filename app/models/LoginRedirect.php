@@ -1,26 +1,44 @@
 <?php
 /**
-* A model to manipulate the login redirect page data
-*
-* @category Pas
-* @package  Pas_Db_Table
-* @subpackage   Abstract
-* @author   Mary Chester-Kadwell mchester-kadwell @ britishmuseum.org
-* @author   Daniel Pett dpett @ britishmuseum.org
-* @copyright    Copyright (c) 2014 Mary Chester-Kadwell/ Trustees British Museum
-* @license  GNU General Public License
-* @version  1
-* @since    9 May 2014
-*/
+ * A model to manipulate the login redirect page data
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $model = new LoginRedirect();
+ * $data = $model->getUserRole();
+ * ?>
+ * </code>
+ *
+ * @category Pas
+ * @package  Db_Table
+ * @subpackage Abstract
+ * @author   Mary Chester-Kadwell mchester-kadwell @ britishmuseum.org
+ * @author   Daniel Pett dpett @ britishmuseum.org
+ * @copyright Copyright (c) 2014 Mary Chester-Kadwell/ Trustees British Museum
+ * @license  GNU General Public License
+ * @version  1
+ * @since    9 May 2014
+ * @example /app/modules/users/controllers/ConfigurationController.php
+ */
 
-class LoginRedirect extends Pas_Db_Table_Abstract
-{
+class LoginRedirect extends Pas_Db_Table_Abstract {
+
+    /** The table name
+     * @access protected
+     * @var string
+     */
     protected $_name = 'loginRedirect';
 
+    /** The primary key
+     * @access protected
+     * @var int
+     */
     protected $_primary = 'id';
 
     /** The default array of available URIs
-     * 
+     * @access protected
      * @var array
      */
     protected $_default = array(
@@ -36,7 +54,7 @@ class LoginRedirect extends Pas_Db_Table_Abstract
         );
 
     /** The default array of role specific uris
-     * 
+     * @access protected
      * @var array
      */
     protected $_redirects = array(
@@ -50,20 +68,23 @@ class LoginRedirect extends Pas_Db_Table_Abstract
         );
 
     /** Get a dropdown key value pair list for uri and alias
-     *  @return array
+     * @access public
+     * @return array
      */
     public function getOptions() {
         return $this->_default;
     }
 
     /** Get the user's role
-     * @return string user role 
+     * @access public
+     * @return string user role
      */
     public function getUserRole() {
         return $this->user()->role;
     }
 
     /** Get the default uri for the user role
+     * @access public
      * @return array uri and label pair
      */
     public function getDefaultUri(){
@@ -76,7 +97,7 @@ class LoginRedirect extends Pas_Db_Table_Abstract
 
 
     /** Get the uri
-     * 
+     * @access public
      * @param $uri
      */
     public function getUri( $uri ){
@@ -88,7 +109,8 @@ class LoginRedirect extends Pas_Db_Table_Abstract
     }
 
     /** Get the uri to return for the form and redirect
-     * 
+     * @access public
+     * @return string uri of choice or default
      */
     public function getConfig(){
         //Line flows over 80 character, so return
@@ -108,14 +130,14 @@ class LoginRedirect extends Pas_Db_Table_Abstract
 
 
     /** Update the config for each user
-     * 
+     * @access public
      * @param $data
      */
     public function updateConfig( $data ) {
         if(array_key_exists('csrf', $data)) {
             unset($data['csrf']);
         }
-	
+
         $updateData['uri'] = $data['uri'];
 		$updateData['created'] = $this->timeCreation();
 		$updateData['createdBy'] = $this->getUserNumber();

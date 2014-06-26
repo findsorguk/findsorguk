@@ -1,33 +1,51 @@
 <?php
 /** Model for manipulating completeness details
-* @category Pas
-* @package Pas_Db_Table
-* @subpackage Abstract
-* @author Daniel Pett dpett @ britishmuseum.org
-* @copyright 2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
-* @since 		22 September 2011
-* @todo add some caching to model
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $model = new Completeness();
+ * $data = $model->getDetails($id);
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
+ * @license GNU General Public License
+ * @version 2
+ * @since 22 September 2011
+ * @todo add some caching to model
+ * @example /app/modules/datalabs/controllers/TerminologyController.php
 */
 class Completeness extends Pas_Db_Table_Abstract {
 
-	protected $_name = 'completeness';
-	protected $_primary = 'id';
+    /** The table name
+     * @access public
+     * @var string table name
+     */
+    protected $_name = 'completeness';
 
-	/** Get completeness details by id
-	* @param integer $id
-	* @return array
-	* @todo change to fetchrow in future?
-	* @todo add caching
-	*/
-	public function getDetails($id) {
-	$comp = $this->getAdapter();
-	$select = $comp->select()
-		->from($this->_name)
-		->where('id = ?', (int)$id)
-		->order('id');
-	return $comp->fetchAll($select);
-	}
-	
+    /** The table primary key
+     * @access public
+     * @var int The key
+     */
+    protected $_primary = 'id';
+
+    /** Get completeness details by id
+    * @param integer $id The id to query by
+    * @return array The details for the id number
+    * @todo add caching
+    */
+    public function getDetails($id) {
+        $comp = $this->getAdapter();
+        $select = $comp->select()
+                ->from($this->_name)
+                ->where('id = ?', (int)$id)
+                ->order('id');
+        return $comp->fetchAll($select);
+    }
 }
