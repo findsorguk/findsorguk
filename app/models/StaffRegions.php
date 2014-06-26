@@ -1,27 +1,47 @@
 <?php
-/** Model for interacting with staff regions table
-* @category 	Pas
-* @package 		Pas_Db_Table
-* @subpackage 	Abstract
-* @author 		Daniel Pett dpett @ britishmuseum.org
-* @copyright 	2010 - DEJ Pett
-* @license 		GNU General Public License
-* @todo 		add edit and delete functions, cache
-*/
+/**
+ * Model for interacting with staff regions table
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $model = new StaffRegions();
+ * $data = $model->getOptions();
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Db_Table
+ * @subpackage 	Abstract
+ * @license GNU General Public License
+ * @todo add edit and delete functions, cache
+ * @version 1
+ * @example /app/forms/ContactForm.php
+ */
 class StaffRegions extends Pas_Db_Table_Abstract {
-	
-	protected $_name = 'staffregions';
 
-	protected $_primary = 'id';
-	
-	/** Get a dropdown key value pair list for staff regions
-	* @return array
-	*/
-	public function getOptions() {
-	$select = $this->select()
-		->from($this->_name, array('ID', 'description'))
-		->order('description ASC');
-	$options = $this->getAdapter()->fetchPairs($select);
-	return $options;
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'staffregions';
+
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
+    protected $_primary = 'id';
+
+    /** Get a dropdown key value pair list for staff regions
+     * @access public
+     * @return array
+     */
+    public function getOptions() {
+        $select = $this->select()
+                ->from($this->_name, array('ID', 'description'))
+                ->order('description ASC');
+        return $this->getAdapter()->fetchPairs($select);
     }
 }

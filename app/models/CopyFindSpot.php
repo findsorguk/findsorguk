@@ -1,60 +1,90 @@
 <?php
 /**
-* A model to manipulate data for the Counties of England and Wales. Scotland may be added
-* in the future
-* @category Pas
-* @package Pas_Db_Table
-* @subpackage Abstract
-* @author Daniel Pett dpett @ britishmuseum.org
-* @copyright 2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
-* @since 		22 September 2011
-*/
+ * A model to update and manipulate the copy findspot table
+ *
+ * An example of use:
+ * <code>
+ * <?php
+ * $model = new CopyFindSpot();
+ * $data = $model->getConfig();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
+ * @example /app/modules/users/controllers/ConfigurationController.php
+ */
 
 class CopyFindSpot extends Pas_Db_Table_Abstract {
 
-	protected $_name = 'copyFindSpot';
-	protected $_primary = 'id';
+    /** The table name
+     * @access protected
+     * @var type
+     */
+    protected $_name = 'copyFindSpot';
 
-	protected $_default = array(
-		'county', 'district', 'parish',
-		'knownas', 'regionID', 'knownas',
-		'gridref', 'gridrefsrc', 'gridrefcert',
-		'description', 'comments', 'landusecode',
-		'landusevalue', 'depthdiscovery', 'countyID',
-                'parishID', 'districtID'
-	);
+    /** The primary key
+     * @access protected
+     * @var type
+     */
+    protected $_primary = 'id';
 
-	public function getConfig(){
-		$copy = $this->getAdapter();
-		$select = $copy->select()
-		->from($this->_name, array('fields'))
-		->where('userID = ?', (int)$this->getUserNumber());
-		$fields = $copy->fetchAll($select);
-		if($fields) {
-			$checked = unserialize($fields['0']['fields']);
-		} else {
-			$checked =  $this->_default;
-		}
-		return $checked;
-	}
+    /** The default array
+     * @access protected
+     * @var type
+     */
+    protected $_default = array(
+        'county', 'district', 'parish',
+        'knownas', 'regionID', 'knownas',
+        'gridref', 'gridrefsrc', 'gridrefcert',
+        'description', 'comments', 'landusecode',
+        'landusevalue', 'depthdiscovery', 'countyID',
+        'parishID', 'districtID'
+        );
 
-	public function updateConfig( $data ){
-		if(array_key_exists('csrf', $data)){
- 		unset($data['csrf']);
-  		}
-		foreach ( $data as $key => $value){
-			if(is_null($value) || $value === '' || $value === '0'){
-				unset($data[$key]);
-			}
-		}
-		$newFields = array_keys($data);
-		$updateData['fields'] = serialize($newFields);
-		$updateData['created'] = $this->timeCreation();
-		$updateData['createdBy'] = $this->getUserNumber();
-		$updateData['userID'] = $this->getUserNumber();
-		parent::delete('userID =' . $this->getUserNumber());
-		return parent::insert($updateData);
-}
+    /** Get the configuration
+     * @access public
+     * @return array
+     */
+    public function getConfig(){
+        $copy = $this->getAdapter();
+        $select = $copy->select()
+                ->from($this->_name, array('fields'))
+                ->where('userID = ?', (int)$this->getUserNumber());
+        $fields = $copy->fetchAll($select);
+        if($fields) {
+            $checked = unserialize($fields['0']['fields']);
+        } else {
+            $checked =  $this->_default;
+        }
+        return $checked;
+    }
+
+    /** update the base configuration
+     * @access public
+     * @param array $data
+     * @return int
+     */
+    public function updateConfig( array $data ){
+        if(array_key_exists('csrf', $data)){
+            unset($data['csrf']);
+        }
+        foreach ( $data as $key => $value){
+            if(is_null($value) || $value === '' || $value === '0'){
+                unset($data[$key]);
+            }
+        }
+        $newFields = array_keys($data);
+        $updateData['fields'] = serialize($newFields);
+        $updateData['created'] = $this->timeCreation();
+        $updateData['createdBy'] = $this->getUserNumber();
+        $updateData['userID'] = $this->getUserNumber();
+        parent::delete('userID =' . $this->getUserNumber());
+        return parent::insert($updateData);
+    }
 }
