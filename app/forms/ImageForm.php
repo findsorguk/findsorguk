@@ -23,8 +23,8 @@ class ImageForm extends Pas_Form
 	$period_options = $periods->getPeriodFrom();
 
 	$copyrights = new Copyrights();
-	$copy = $copyrights->getStyles();
-	
+	$copy = $copyrights->getTypes();
+
 	$licenses = new LicenseTypes();
 	$license = $licenses->getList();
 
@@ -32,7 +32,7 @@ class ImageForm extends Pas_Form
 	$this->_auth = $auth;
 	if($this->_auth->hasIdentity()) {
 	$user = $this->_auth->getIdentity();
-	
+
 	if(!is_null($user->copyright)){
 	$this->_copyright = $user->copyright;
 		} elseif(!is_null($user->fullname)) {
@@ -40,10 +40,10 @@ class ImageForm extends Pas_Form
 		} else {
 			$this->_copyright = $user->fullname;
 		}
-	} 
-		
-	
-	
+	}
+
+
+
 	$copyList = array_filter(array_merge(array($this->_copyright => $this->_copyright), $copy));
 	parent::__construct($options);
 
@@ -64,7 +64,7 @@ class ImageForm extends Pas_Form
 		->setRequired(true)
 		->setAttribs(array('size' => 60, 'class' => 'span6 required'))
 		->addErrorMessage('You must enter a label')
-		->setDescription('This must be descriptive text about the image - NOT THE FILE or FIND NUMBER/NAME - and follow the 
+		->setDescription('This must be descriptive text about the image - NOT THE FILE or FIND NUMBER/NAME - and follow the
 		conventions outlined below this form')
 		->addFilters(array('StripTags','StringTrim'));
 
@@ -91,10 +91,10 @@ class ImageForm extends Pas_Form
 		->setRequired(true)
 		->addErrorMessage('You must enter a licence holder')
 		->addMultiOptions(array(NULL => 'Select a licence holder','Valid copyrights' => $copyList))
-		->setDescription('You can set the copyright of your image here to your institution. If you are a public recorder, it 
+		->setDescription('You can set the copyright of your image here to your institution. If you are a public recorder, it
 		should default to your full name. For institutions that do not appear contact head office for getting it added.')
 		->setValue($this->_copyright);
-	
+
 	$licenseField = new Zend_Form_Element_Select('ccLicense');
 	$licenseField->setDescription('Our philosophy is to make our content available openly, by default we set the license as
 	use by attribution to gain the best public benefit. You can choose a different license if you wish.');
