@@ -1,16 +1,16 @@
 <?php
-/** 
- * A view helper that queries the local geo planet database and returns html 
+/**
+ * A view helper that queries the local geo planet database and returns html
  * of adjacent places
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * echo $this->yahooGeoAdjacent()->setWoeid($id);
  * ?>
  * </code>
- * 
+ *
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
@@ -20,8 +20,8 @@
  * @since 30 September 2011
  * @uses Zend_View_Helper_Url
  * @author Daniel Pett <dpett at britishmuseum.org>
- * @example /app/views/scripts/partials/database/findspot.phtml 
- * 
+ * @example /app/views/scripts/partials/database/findspot.phtml
+ *
  */
 class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
 {
@@ -35,8 +35,7 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getWoeid()
-    {
+    public function getWoeid() {
         return $this->_woeid;
     }
 
@@ -44,10 +43,8 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function setWoeid($woeid)
-    {
+    public function setWoeid($woeid) {
         $this->_woeid = $woeid;
-
         return $this;
     }
 
@@ -55,19 +52,16 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getPlaces()
-    {
+    public function getPlaces() {
         $adjacent = new GeoPlaces();
-
-    return $adjacent->getAdjacent($this->getWoeid());
+        return $adjacent->getAdjacent($this->getWoeid());
     }
 
     /** The function to return
      * @access public
      * @return \Pas_View_Helper_YahooGeoAdjacent
      */
-    public function yahooGeoAdjacent()
-    {
+    public function yahooGeoAdjacent() {
         return $this;
     }
 
@@ -75,8 +69,7 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function buildHtml()
-    {
+    public function buildHtml(){
         $html = '';
         $places = $this->getPlaces();
         if (count($places) && !is_null($places[0]['Name'])) {
@@ -89,7 +82,6 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
                     'action' => 'results',
                     'woeid' => $p['WOE_ID']),
                         null, true);
-
                 $html .= '<li><a href="';
                 $html .=  $url;
                 $html .= '" title="Find all objects associated with this WOEID">';
@@ -97,8 +89,7 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
                 $html .= '</a></li>';
             }
             $html .= '</ul>';
-    }
-
+        }
         return $html;
     }
 
@@ -106,8 +97,7 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->buildHtml();
     }
 }

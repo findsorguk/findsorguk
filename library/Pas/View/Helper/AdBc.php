@@ -13,7 +13,7 @@
  * 
  * @category   	Pas
  * @package    	Pas_View_Helper
- * @subpackage 	Abstract
+  * @subpackage Abstract
  * @copyright  	Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    	GNU
  * @see Zend_View_Helper_Abstract

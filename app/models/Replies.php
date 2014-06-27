@@ -4,7 +4,7 @@
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
- * @category 	Pas
+ * @category Pas
  * @package Db_Table
  * @license GNU General Public License
  * @todo add edit and delete functions and cache

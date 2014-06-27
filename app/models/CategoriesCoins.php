@@ -14,7 +14,7 @@
  * @copyright (c) 2014, Daniel Pett
  * @category   	Pas
  * @package    	Pas_Db_Table
- * @subpackage 	Abstract
+  * @subpackage Abstract
  * @license GNU General Public License
  * @version 1
  * @since 22 September 2011

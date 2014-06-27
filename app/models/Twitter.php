@@ -1,7 +1,7 @@
 <?php
 /** Model for creating Twitter oauth tokens and persist to storage in database
  * @category Pas
- * @package Pas_Db_Table
+ * @package Db_Table
  * @since 3 October 2011
  * @license GNU
  * @author dpett

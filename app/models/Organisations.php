@@ -1,13 +1,13 @@
 <?php
 /** Model for pulling organisational data from database
-* @category 	Pas
-* @package 		Pas_Db_Table
-* @subpackage 	Abstract
+* @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
 * @author 		Daniel Pett dpett @ britishmuseum.org
 * @copyright 	2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
-* @since 		22 September 2011
+* @license GNU General Public License
+* @version 1
+* @since 22 September 2011
 */
 class Organisations extends Pas_Db_Table_Abstract {
 

@@ -14,11 +14,11 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
- * @package Pas_Db_Table
+ * @package Db_Table
  * @subpackage Abstract
- * @license 		GNU General Public License
- * @version 		1
- * @since 		22 September 2011
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
  * @example /app/forms/AdvancedSearchForm.php
  */
 class DecMethods extends Pas_Db_Table_Abstract {
