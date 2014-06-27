@@ -42,7 +42,7 @@ class PostMedNumismaticSearchForm extends Pas_Form {
 	$mints = new Mints();
 	$mint_options = $mints->getPostMedievalMints();
 
-	$axis = new Dieaxes();
+	$axis = new DieAxes();
 	$axis_options = $axis->getAxes();
 
 	$cats = new CategoriesCoins();

@@ -29,7 +29,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	 * 
 	 */
 	public function dieaxesAction() {
-	$dieaxes = new Dieaxes();
+	$dieaxes = new DieAxes();
 	$this->view->dieaxes = $dieaxes->getDieListAdmin();
 	}
 	/** Add a die axis
@@ -42,7 +42,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();
 	if ($form->isValid($formData)) {
-	$dieaxes = new Dieaxes();
+	$dieaxes = new DieAxes();
 	$insertData = array(
 	'die_axis_name' => $form->getValue('die_axis_name'), 
 	'valid' => $form->getValue('valid'),
@@ -69,7 +69,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();
 	if ($form->isValid($formData)) {
-	$dieaxes = new Dieaxes();
+	$dieaxes = new DieAxes();
 	$updateData = array(
 	'die_axis_name' => $form->getValue('die_axis_name'), 
 	'valid' => $form->getValue('valid'),
@@ -89,7 +89,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	// find id is expected in $params['id']
 	$id = (int)$this->_request->getParam('id', 0);
 	if ($id > 0) {
-	$dieaxes = new Dieaxes();
+	$dieaxes = new DieAxes();
 	$dieaxis = $dieaxes->fetchRow('id=' . $id);
 	if(count($dieaxis)) {
 	$form->populate($dieaxis->toArray());
@@ -110,7 +110,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	$id = (int)$this->_request->getPost('id');
 	$del = $this->_request->getPost('del');
 	if ($del == 'Yes' && $id > 0) {
-	$dieaxes = new Dieaxes();
+	$dieaxes = new DieAxes();
 	$where = 'id = ' . $id;
 	$dieaxes->delete($where);
 	}	
@@ -119,7 +119,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id');
 	if ($id > 0) {
-	$dieaxes = new Dieaxes();
+	$dieaxes = new DieAxes();
 	$this->view->dieaxis = $dieaxes->fetchRow('id='.$id);
 	}
 	}

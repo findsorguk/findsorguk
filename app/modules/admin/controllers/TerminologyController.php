@@ -190,7 +190,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	/** List decorative methods
 	*/
 	public function decorationmethodsAction() {
-	$decs = new Decmethods();
+	$decs = new DecMethods();
 	$this->view->decs = $decs->getDecorationDetailsListAdmin();
 	}
 	/** Add a decorative method
@@ -201,7 +201,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$this->view->form = $form;
 	if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
     if ($form->isValid($form->getValues())) {
-	$decs = new Decmethods();
+	$decs = new DecMethods();
 	$update = $decs->add($form->getValues());
 	$this->_redirect($this->_redirectUrl . 'decorationmethods');
 	$this->_flashMessenger->addMessage('A new decoration method has been created on the system!');
@@ -219,7 +219,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$this->view->form = $form;
 	if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
     if ($form->isValid($form->getValues())) {
-	$decs = new Decmethods();
+	$decs = new DecMethods();
 	$where = array();
 	$where[] = $decs->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
 	$update = $decs->update($form->getValues(), $where);
@@ -231,7 +231,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id', 0);
 	if ($id > 0) {
-	$decs = new Decmethods();
+	$decs = new DecMethods();
 	$dec = $decs->fetchRow('id=' . $id);
 	if(count($decs)) {
 	$form->populate($dec->toArray());
@@ -252,7 +252,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$id = (int)$this->_request->getPost('id');
 	$del = $this->_request->getPost('del');
 	if ($del == 'Yes' && $id > 0) {
-	$decs = new Decmethods();
+	$decs = new DecMethods();
 	$where = 'id = ' . $id;
 	$decs->delete($where);
 	}
@@ -261,7 +261,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id');
 	if ($id > 0) {
-	$decs = new Decmethods();
+	$decs = new DecMethods();
 	$this->view->dec = $decs->fetchRow('id='.$id);
 	}
 	}
@@ -754,7 +754,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	/** List finds of note methods
 	*/
 	public function notesAction(){
-	$notes = new Findofnotereasons();
+	$notes = new FindOfNoteReasons();
 	$this->view->notes = $notes->getReasonsListAdmin();
 	}
 	/** Add a find of note reasoning
@@ -765,7 +765,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$this->view->form = $form;
 	if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
     if ($form->isValid($form->getValues())) {
-	$notes = new Findofnotereasons();
+	$notes = new FindOfNoteReasons();
 	$update = $notes->add($form->getValues());
 	$this->_redirect($this->_redirectUrl . 'notes');
 	$this->_flashMessenger->addMessage('Preservation state created!');
@@ -783,7 +783,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$this->view->form = $form;
 	if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
     if ($form->isValid($form->getValues())) {
-	$notes = new Findofnotereasons();
+	$notes = new FindOfNoteReasons();
 	$where = array();
 	$where[] = $notes->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
 	$update = $notes->update($form->getValues(), $where);
@@ -795,7 +795,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id', 0);
 	if ($id > 0) {
-	$notes = new Findofnotereasons();
+	$notes = new FindOfNoteReasons();
 	$note = $notes->fetchRow('id=' . $id);
 	if(count($note))
 	{
@@ -817,7 +817,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$id = (int)$this->_request->getPost('id');
 	$del = $this->_request->getPost('del');
 	if ($del == 'Yes' && $id > 0) {
-	$notes = new Findofnotereasons();
+	$notes = new FindOfNoteReasons();
 	$where = 'id = ' . $id;
 	$notes->delete($where);
 	$this->_flashMessenger->addMessage( self::DELETED );
@@ -826,7 +826,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id');
 	if ($id > 0) {
-	$notes = new Findofnotereasons();
+	$notes = new FindOfNoteReasons();
 	$this->view->note = $notes->fetchRow('id=' . $id);
 	}
 	}
@@ -913,7 +913,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	/** List decorative styles
 	*/
 	public function decorationstylesAction() {
-	$decs = new Decstyles();
+	$decs = new DecStyles();
 	$this->view->decs = $decs->getDecStylesAdmin();
 	}
 	/** Add a decorative style
@@ -924,7 +924,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$this->view->form = $form;
 	if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
     if ($form->isValid($form->getValues())) {
-	$decs = new Decstyles();
+	$decs = new DecStyles();
 	$update = $decs->add($form->getValues());
 	$this->_redirect($this->_redirectUrl . 'decorationstyles');
 	$this->_flashMessenger->addMessage('A new decoration style has been created on the system!');
@@ -942,7 +942,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$this->view->form = $form;
 	if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
     if ($form->isValid($form->getValues())) {
-	$decs = new Decstyles();
+	$decs = new DecStyles();
 	$where = array();
 	$where[] = $decs->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
 	$update = $decs->update($form->getValues(), $where);
@@ -954,7 +954,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id', 0);
 	if ($id > 0) {
-	$decs = new Decstyles();
+	$decs = new DecStyles();
 	$dec = $decs->fetchRow('id=' . $id);
 	if(count($dec)){
 	$form->populate($dec->toArray());
@@ -974,7 +974,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$id = (int)$this->_request->getPost('id');
 	$del = $this->_request->getPost('del');
 	if ($del == 'Yes' && $id > 0) {
-	$decs = new Decstyles();
+	$decs = new DecStyles();
 	$where = 'id = ' . $id;
 	$decs->delete($where);
 	}
@@ -983,7 +983,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id');
 	if ($id > 0) {
-	$decs = new Decstyles();
+	$decs = new DecStyles();
 	$this->view->dec = $decs->fetchRow('id=' . $id);
 	}
 	}

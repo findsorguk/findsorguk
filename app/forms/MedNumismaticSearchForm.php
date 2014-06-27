@@ -34,7 +34,7 @@ class MedNumismaticSearchForm extends Pas_Form {
 	$mints = new Mints();
 	$mint_options = $mints->getMedievalMints();
 
-	$axis = new Dieaxes();
+	$axis = new DieAxes();
 	$axis_options = $axis->getAxes();
 
 	$cats = new CategoriesCoins();
@@ -49,7 +49,7 @@ class MedNumismaticSearchForm extends Pas_Form {
 	$institutions = new Institutions();
 	$inst_options = $institutions->getInsts();
 
-	$axis = new Dieaxes();
+	$axis = new DieAxes();
 	$axis_options = $axis->getAxes();
 
 	parent::__construct($options);
