@@ -1,40 +1,64 @@
 <?php
-/**  Model for describing decorative methods for artefacts
-* @category Pas
-* @package Pas_Db_Table
-* @subpackage Abstract
-* @author Daniel Pett dpett @ britishmuseum.org
-* @copyright 2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
-* @since 		22 September 2011
-* */
-class Decmethods extends Pas_Db_Table_Abstract {
+/**  
+ * Model for describing decorative methods for artefacts
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $decmeths = new DecMethods();
+ * $decmeth_options = $decmeths->getDecmethods();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Pas_Db_Table
+ * @subpackage Abstract
+ * @license 		GNU General Public License
+ * @version 		1
+ * @since 		22 September 2011
+ * @example /app/forms/AdvancedSearchForm.php
+ */
+class DecMethods extends Pas_Db_Table_Abstract {
 
-	protected $_name = 'decmethods';
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'decmethods';
 	
-	protected $_primaryKey = 'id';
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
+    protected $_primaryKey = 'id';
 	
 
-	/** retrieve a key pair list of decoration methods for dropdown usage as key value pairs
-	* @return array
-	*/
-	public function getDecmethods() {
-	if (!$options = $this->_cache->load('decmethoddd')) {
-	$select = $this->select()
-		->from($this->_name, array('id', 'term'))
-		->order('id')
-		->where('valid = ?', (int)1);
-	$options = $this->getAdapter()->fetchPairs($select);
-	$this->_cache->save($options, 'decmethoddd');
-	}
-	return $options;
+    /** Retrieve a key pair list of decoration methods for dropdown usage as 
+     * key value pairs
+     * @access public
+     * @return array
+     */
+    public function getDecmethods() {
+        $key = md5('decmethoddd');
+        if (!$options = $this->_cache->load($key)) {
+            $select = $this->select()
+                    ->from($this->_name, array('id', 'term'))
+                    ->order('id')
+                    ->where('valid = ?', (int)1);
+            $options = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($options, $key);
+        }
+        return $options;
     }
 	
-    /** retrieve a list of decoration methods for dropdown usage
-	* @return array
-	*/
-	public function getDecorationDetailsList(){
+    /** Retrieve a list of decoration methods for dropdown usage
+     * @access public
+     * @return array
+     */
+    public function getDecorationDetailsList(){
 	$methods = $this->getAdapter();
 	$select = $methods->select()
 		->from($this->_name)
@@ -43,27 +67,28 @@ class Decmethods extends Pas_Db_Table_Abstract {
 	return $methods->fetchAll($select);
     }
 
-    /** retrieve a list of decoration methods for dropdown usage as admin
-    * @todo merge with above function and add param of valid to achieve same aims 
-	* @return array
-	*/
-	public function getDecorationDetailsListAdmin() {
+    /** Retrieve a list of decoration methods for dropdown usage as admin
+     * @access public
+     * @return array
+     */
+    public function getDecorationDetailsListAdmin() {
 	$methods = $this->getAdapter();
 	$select = $methods->select()
 		->from($this->_name)
-		->joinLeft('users','users.id = ' . $this->_name . '.createdBy', array('fullname'))
-		->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy', array('fn' => 'fullname'))
+		->joinLeft('users','users.id = ' . $this->_name . '.createdBy', 
+                        array('fullname'))
+		->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy', 
+                        array('fn' => 'fullname'))
 		->order('id');
 	return $methods->fetchAll($select);
     }
     
-    /** retrieve details of decoration method
-	* @return array
-	* @param integer $id
-	* @todo add caching
-	* @todo change to fetchrow?
-	*/
-	public function getDecorationDetails($id){
+    /** Retrieve details of decoration method
+     * @access public
+     * @param integer $id
+     * @return array
+     */
+    public function getDecorationDetails($id){
 	$methods = $this->getAdapter();
 	$select = $methods->select()
 		->from($this->_name)
@@ -72,19 +97,20 @@ class Decmethods extends Pas_Db_Table_Abstract {
 	return $methods->fetchAll($select);
     }
 
-	/** retrieve a count of objects with a specific decoration method
-	* @param integer $id
-	* @return array
-	*/
-	public function getDecCount($id) {
+    /** retrieve a count of objects with a specific decoration method
+     * @access public
+     * @param integer $id
+     * @return array
+     */
+    public function getDecCount($id) {
 	$methods = $this->getAdapter();
 	$select = $methods->select()
-		->from($this->_name)
-		->joinLeft('finds','finds.decmethod = ' . $this->_name . '.id' ,array('c' => 'count(finds.id)'))
+                ->from($this->_name)
+		->joinLeft('finds','finds.decmethod = ' . $this->_name . '.id' ,
+                        array('c' => 'count(finds.id)'))
 		->where('valid = ?',(int)1)
 		->where($this->_name . '.id = ?',(int)$id)
 		->group($this->_name . '.id');
 	return $methods->fetchAll($select);
     }
-
 }

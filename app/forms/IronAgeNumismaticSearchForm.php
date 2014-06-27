@@ -35,7 +35,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 	$mints = new Mints();
 	$mint_options = $mints->getIronAgeMints();
 
-	$axis = new Dieaxes();
+	$axis = new DieAxes();
 	$axis_options = $axis->getAxes();
 
 	$geog = new Geography();

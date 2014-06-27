@@ -146,7 +146,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 	*/
  	public function noteAction() {
 	if($this->_getParam('id',false)) {
-	$notes = new Findofnotereasons();
+	$notes = new FindOfNoteReasons();
 	$this->view->notes = $notes->getReasonDetails($this->_getParam('id'));
 	} else {
             throw new Pas_Exception_Param($this->_missingParameter);
@@ -155,7 +155,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 	/** Display details for notes
 	*/
 	public function notesAction() {
-	$notes = new Findofnotereasons();
+	$notes = new FindOfNoteReasons();
 	$this->view->notes = $notes->getReasonsList();
 	}
 	/** Display details for an ascribed cultural identity
@@ -194,7 +194,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 	*/
 	public function decorationstyleAction() {
 	if($this->_getParam('id',false)) {
-	$decs = new Decstyles();
+	$decs = new DecStyles();
 	$this->view->decs = $decs->getDecStyleDetails($this->_getParam('id'));
 	} else {
             throw new Pas_Exception_Param($this->_missingParameter);
@@ -203,7 +203,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 	/** Display list of decoration styles
 	*/
 	public function decorationstylesAction() {
-	$decs = new Decstyles();
+	$decs = new DecStyles();
 	$this->view->decs = $decs->getDecStyles();
 	}
 	/** Display details for method of manufacture
@@ -226,7 +226,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 	*/
 	public function decorationmethodAction() {
 	if($this->_getParam('id',false)) {
-	$decs = new Decmethods();
+	$decs = new DecMethods();
 	$this->view->decs = $decs->getDecorationDetails($this->_getParam('id'));
 	$this->view->counts = $decs->getDecCount($this->_getParam('id'));
 	} else {
@@ -236,7 +236,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 	/** Display list of decorative methods
 	*/
 	public function decorationmethodsAction() {
-	$decs = new Decmethods();
+	$decs = new DecMethods();
 	$this->view->decs = $decs->getDecorationDetailsList();
 	}
 	/** Display list of mints
@@ -354,14 +354,14 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 	/** Display list of die axes
 	*/
 	public function dieaxesAction() {
-	$dieaxes = new Dieaxes();
+	$dieaxes = new DieAxes();
 	$this->view->dieaxes = $dieaxes->getDieList();
 	}
 	/** Display details of die axis
 	*/
 	public function dieaxisAction() {
 	if($this->_getParam('id',false)){
-	$dieaxes = new Dieaxes();
+	$dieaxes = new DieAxes();
 	$this->view->dieaxes = $dieaxes->getDieAxesDetails((int)$this->_getParam('id'));
 	} else {
 		throw new Pas_Exception_Param($this->_missingParameter);

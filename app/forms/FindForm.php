@@ -36,15 +36,15 @@ public function __construct($options = null) {
 	$surface_options = $surfaces->getSurfaces();
 
 	//Get data to form Decoration styles menu
-	$decorations = new Decstyles();
+	$decorations = new DecStyles();
 	$decoration_options = $decorations->getStyles();
 
 	//Get data to form Decoration methods menu
-	$decmeths = new Decmethods();
+	$decmeths = new DecMethods();
 	$decmeth_options = $decmeths->getDecmethods();
 
 	//Get Find of note reason data
-	$reasons = new Findofnotereasons();
+	$reasons = new FindOfNoteReasons();
 	$reason_options = $reasons->getReasons();
 
 	//Get Preservation data

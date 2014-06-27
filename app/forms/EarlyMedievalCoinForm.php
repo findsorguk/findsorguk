@@ -20,7 +20,7 @@ class EarlyMedievalCoinForm extends Pas_Form {
 	$statuses = new Statuses();
 	$status_options = $statuses->getCoinStatus();
 
-	$dies = new Dieaxes();
+	$dies = new DieAxes();
 	$die_options = $dies->getAxes();
 
 	$wears = new Weartypes();

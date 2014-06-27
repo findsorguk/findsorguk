@@ -386,7 +386,7 @@ $string .=' Manufacture type: ' . $this->view->escape($man['term']);
 if (array_key_exists('decoration',$params)) {
 if ($params['decoration'] != NULL) {
 $decoration = $params['decoration'];
-$decorations = new Decmethods();
+$decorations = new DecMethods();
 $decorations = $decorations->getDecorationDetails((int) $decoration);
 $this->decorations = $decorations;
 foreach ($this->decorations as $dec) {

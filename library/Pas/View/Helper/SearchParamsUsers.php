@@ -402,7 +402,7 @@ class Pas_View_Helper_SearchParamsUsers
     if (array_key_exists('decoration',$params)) {
     if (!is_null($params['decoration'])) {
     $decoration = $params['decoration'];
-    $decorations = new Decmethods();
+    $decorations = new DecMethods();
     $decorations = $decorations->getDecorationDetails((int) $decoration);
     $this->decorations = $decorations;
     foreach ($this->decorations as $dec) {
