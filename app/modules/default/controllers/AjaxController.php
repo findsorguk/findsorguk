@@ -113,19 +113,19 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	}
 
 	public function macktypesAction(){
-	$macktypes = new MackTypes;
+	$macktypes = new MackTypes();
 	$macktypesjson = $macktypes->getTypes($this->_getParam('q'));
 	echo  Zend_Json::encode($macktypesjson);
 	}
 
 	public function allentypesAction(){
-	$allentypes = new AllenTypes;
+	$allentypes = new AllenTypes();
 	$allentypesjson = $allentypes->getTypes($this->_getParam('q'));
 	echo  Zend_Json::encode($allentypesjson);
 	}
 
 	public function vatypesAction(){
-	$vatypes = new VATypes;
+	$vatypes = new VanArsdellTypes();
 	$vatypesjson = $vatypes->getTypes($this->_getParam('q'));
 	echo  Zend_Json::encode($vatypesjson);
 	}
