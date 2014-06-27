@@ -2,7 +2,7 @@
 /** A script for manipulating grid references
 * Primarily for converting OSGB to LatLon. This uses some code from nearby.org.uk, but
 * has been heavily adapted. The UTM functions are adapted from https://gist.github.com/840476
-* @category 	Pas
+* @category Pas
 * @package		Pas_Geo
 * @subpackage 	GridCalc
 * @copyright 	Oxford ArchDigital Ltd. 2001-2002

@@ -2,12 +2,12 @@
 /**
 * A form for editing login redirect page choice
 *
-* @category 	Pas
+* @category Pas
 * @package 		Pas_Form
 * @author 		Mary Chester-Kadwell mchester-kadwell @ britishmuseum.org
 * @copyright  	Copyright (c) 2014 Mary Chester-Kadwell
-* @license 		GNU General Public License
-* @version 		1
+* @license GNU General Public License
+* @version 1
 * @since 		9 May 2014
 */
 

@@ -2,13 +2,13 @@
 /**
 * Data model for accessing and manipulating scheduled monument data, derived from
 * the English Heritage NMR data dump.
-* @category 	Pas
-* @package 		Pas_Db_Table
-* @subpackage 	Abstract
+* @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
 * @author 		Daniel Pett dpett @ britishmuseum.org
 * @copyright 	2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
+* @license GNU General Public License
+* @version 1
 * @since 		20 August 2010, 12:23:46
 * @todo 		add edit and delete functions
 * @todo 		make pi a constant

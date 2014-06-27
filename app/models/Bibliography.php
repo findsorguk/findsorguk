@@ -13,7 +13,7 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @category Pas
- * @package Pas_Db_Table
+ * @package Db_Table
  * @subpackage Abstract
  * @copyright 2010 - DEJ Pett
  * @license GNU General Public License

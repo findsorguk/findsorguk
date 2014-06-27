@@ -1,11 +1,11 @@
 <?php
 /** model for interacting with subsequent actions table
-* @category 	Pas
-* @package 		Pas_Db_Table
-* @subpackage 	Abstract
+* @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
 * @author 		Daniel Pett dpett @ britishmuseum.org
 * @copyright 	2010 - DEJ Pett
-* @license 		GNU General Public License
+* @license GNU General Public License
 * @todo 		add edit and delete functions
 */
 

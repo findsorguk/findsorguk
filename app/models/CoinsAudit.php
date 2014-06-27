@@ -15,9 +15,9 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- * @license 		GNU General Public License
- * @version 		1
- * @since 		22 September 2011
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
  * @example /library/Pas/View/Helper/ChangesCoins.php 
  */
 class CoinsAudit extends Pas_Db_Table_Abstract {

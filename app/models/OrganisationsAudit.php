@@ -1,13 +1,13 @@
 <?php
 /** Model for pulling audited data from database for organisations
-* @category 	Pas
-* @package 		Pas_Db_Table
-* @subpackage 	Abstract
+* @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
 * @author Daniel Pett dpett @ britishmuseum.org
 * @copyright 2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
-* @since 		22 September 2011
+* @license GNU General Public License
+* @version 1
+* @since 22 September 2011
 * @todo add caching
 */
 class OrganisationsAudit extends Pas_Db_Table_Abstract {

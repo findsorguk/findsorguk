@@ -14,7 +14,7 @@
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Db_Table
- * @subpackage 	Abstract
+  * @subpackage Abstract
  * @license GNU General Public License
  * @todo add edit and delete functions, cache
  * @version 1

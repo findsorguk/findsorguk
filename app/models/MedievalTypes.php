@@ -1,13 +1,13 @@
 <?php
 /** Retrieve and manipulate data for medieval coin types
-* @category 	Pas
-* @package 		Pas_Db_Table
-* @subpackage 	Abstract
+* @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
 * @author 		Daniel Pett dpett @ britishmuseum.org
 * @copyright 	2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
-* @since 		22 September 2011
+* @license GNU General Public License
+* @version 1
+* @since 22 September 2011
 * @todo add caching throughout model as the cached version won't be changing!
 */
 

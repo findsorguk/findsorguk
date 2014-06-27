@@ -1,13 +1,13 @@
 <?php
 /** Data model for accessing and manipulating staff roles assigned for the contacts 
 * list on website
-* @category 	Pas
-* @package 		Pas_Db_Table
-* @subpackage 	Abstract
+* @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
 * @author 		Daniel Pett dpett @ britishmuseum.org
 * @copyright 	2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
+* @license GNU General Public License
+* @version 1
 * @since 		20 August 2010, 12:23:46
 * @todo 		add edit and delete functions
 * @todo 		add caching

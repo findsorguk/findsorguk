@@ -1,12 +1,12 @@
 <?php
 /** Data model for accessing and manipulating rulers or issuers of coins
-* @category 	Pas
-* @package 		Pas_Db_Table
-* @subpackage 	Abstract
+* @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
 * @author 		Daniel Pett dpett @ britishmuseum.org
 * @copyright 	2010 - DEJ Pett
-* @license 		GNU General Public License
-* @version 		1
+* @license GNU General Public License
+* @version 1
 * @since 		22 October 2010, 17:12:34
 */
 class Rulers extends Pas_Db_Table_Abstract {
