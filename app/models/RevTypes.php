@@ -1,17 +1,26 @@
 <?php
 /** Data model for accessing and manipulating Roman reverse type database table
-* @category Pas
+ *
+ * An example of code:
+ * <code>
+ * <?php
+ * $model = new RevTypes();
+ * $data = $model->getRevTypes();
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
  * @package Db_Table
  * @subpackage Abstract
-* @author 		Daniel Pett dpett @ britishmuseum.org
-* @copyright 	2010 - DEJ Pett
-* @license GNU General Public License
-* @version 1
-* @since 		22 October 2010, 17:12:34
-* @todo 		add edit and delete functions
-* @todo 		add caching
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 October 2010, 17:12:34
+ * @todo add edit and delete functions
+ * @todo add caching
  * @example /app/forms/RomanCoinForm.php
-*/
+ */
 
 class RevTypes extends Pas_Db_Table_Abstract {
 

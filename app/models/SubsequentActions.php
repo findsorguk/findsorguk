@@ -1,32 +1,50 @@
 <?php
-/** model for interacting with subsequent actions table
-* @category Pas
+/** Model for interacting with subsequent actions table
+ *
+ * An example of code:
+ * <code>
+ * <?php
+ * $actions = new SubsequentActions();
+ * $actionsDD = $actions->getSubActionsDD();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
  * @package Db_Table
  * @subpackage Abstract
-* @author 		Daniel Pett dpett @ britishmuseum.org
-* @copyright 	2010 - DEJ Pett
-* @license GNU General Public License
-* @todo 		add edit and delete functions
+ * @license GNU General Public License
+ * @uses Zend_Cache
+ * @example /app/forms/FindForm.php
 */
 
 class SubsequentActions extends Pas_Db_Table_Abstract {
 
-	protected $_name = 'subsequentActions';
-	
-	protected $_primary = 'id';
-	
-	
-	/** Retrieve a key value pair list for subsequent actions
-	* @return Array
-	*/
-	public function getSubActionsDD() {
-	if (!$actions = $this->_cache->load('actions')) {
-		 $select = $this->select()
-                   ->from($this->_name, array('id', 'action'))
-				   ->order(array('action'));
-        $actions = $this->getAdapter()->fetchPairs($select);
-		$this->_cache->save($actions, 'actions');
-		} 
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'subsequentActions';
+
+    /** The table key
+     * @access protected
+     * @var integer
+     */
+    protected $_primary = 'id';
+
+    /** Retrieve a key value pair list for subsequent actions
+     * @access public
+     * @return array
+     */
+    public function getSubActionsDD() {
+        $key = md5('subsequentActions');
+	if (!$actions = $this->_cache->load($key)) {
+            $select = $this->select()
+                    ->from($this->_name, array('id', 'action'))
+                    ->order(array('action'));
+            $actions = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($actions, $key);
+            }
         return $actions;
-	}
+    }
 }

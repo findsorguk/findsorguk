@@ -1,14 +1,24 @@
 <?php
 /** Model for manipulating events data
-* @category Pas
-* @package 	Pas_Db_Table
+ *
+ * An example of code:
+ *
+ * <code>
+ * <?php
+ * $eventsList = new Events();
+ * $this->view->events = $eventsList->getEventsAdmin($this->_getParam('page'));
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Db_Table
  * @subpackage Abstract
-* @author 	Daniel Pett dpett @ britishmuseum.org
-* @copyright 	2010 - DEJ Pett
-* @license 	GNU General Public License
-* @version 	1
-* @since 	22 September 2011
-*/
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
+ * @example /app/modules/admin/controllers/EventsController.php
+ */
 
 class Events extends Pas_Db_Table_Abstract {
 
@@ -29,12 +39,12 @@ class Events extends Pas_Db_Table_Abstract {
      * @var array
      */
     protected $higherlevel = array('flos', 'fa');
-    
-    /**
-    * Retrieves all event data by id number
-    * @param integer $id
-    * @return array
-    */
+
+    /** Retrieves all event data by id number
+     * @access public
+     * @param integer $id
+     * @return array
+     */
     public function getEventData($id){
         $events = $this->getAdapter();
         $select = $events->select()
@@ -49,11 +59,11 @@ class Events extends Pas_Db_Table_Abstract {
         return $events->fetchAll($select);
     }
 
-    /**
-    * Retrieves all event datae by id number
-    * @param int $page
-    * @return array
-    */
+    /** Retrieves all event datae by id number
+     * @access public
+     * @param integer $page
+     * @return array
+     */
     public function getEventsAdmin($page) {
         $events = $this->getAdapter();
         $select = $events->select()
@@ -77,16 +87,16 @@ class Events extends Pas_Db_Table_Abstract {
         return $paginator;
     }
 
-    /**
-    * Retrieves all event datae by id number
-    * @param integer $page
-    * @return array
-    */
+    /** Retrieves all event datae by id number
+     * @access public
+     * @param integer $page
+     * @return array
+     */
     public function getUpcomingEvents(){
         $events = $this->getAdapter();
         $select = $events->select()
                 ->from($this->_name,array(
-                    'eventStartDate', 'eventTitle', 'organisation', 
+                    'eventStartDate', 'eventTitle', 'organisation',
                     'id', 'created', 'updated',
                     'latitude', 'longitude', 'eventDescription'
                     ))
@@ -102,11 +112,11 @@ class Events extends Pas_Db_Table_Abstract {
         return $events->fetchAll($select);
     }
 
-    /**
-    * Retrieves all events data in the archive
-    * @param array $params
-    * @return array
-    */
+    /** Retrieves all events data in the archive
+     * @access public
+     * @param array $params
+     * @return array
+     */
     public function getArchivedEventsList($params) {
         $events = $this->getAdapter();
         $select = $events->select()->from($this->_name)
@@ -126,7 +136,7 @@ class Events extends Pas_Db_Table_Abstract {
     }
     return $paginator;
     }
-    
+
     /**
     * Retrieves all event data and sends data for mapping
     * @param integer $page
