@@ -55,7 +55,7 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
         break;
     case 'ROMAN':
         if(isset($coinDataFlat['ruler_id'])) {
-        $reverses = new Revtypes();
+        $reverses = new RevTypes();
         $reverse_options = $reverses->getRevTypesForm($coinDataFlat['ruler_id']);
         if($reverse_options) {
         $this->_view->form->revtypeID->addMultiOptions(array(NULL =>

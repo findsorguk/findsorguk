@@ -21,9 +21,9 @@ class RomanCoins_ReverseTypesController extends Pas_Controller_Action_Admin {
 	/** Set up the index page
 	*/	
 	public function indexAction() {
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$this->view->reverses = $reverses->getReverseTypeList(1);
-	$uncommonreverses = new Revtypes();
+	$uncommonreverses = new RevTypes();
 	$this->view->uncommonreverses = $uncommonreverses->getReverseTypeList(2);
 	}
 	/** Set up the individual reverse type
@@ -31,7 +31,7 @@ class RomanCoins_ReverseTypesController extends Pas_Controller_Action_Admin {
 	public function typeAction() {
 	if($this->_getParam('id',false)) {
 	$id = $this->_getParam('id');
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$this->view->reverses = $reverses->getReverseTypesDetails($id);
 	$emps = new Emperors();
 	$this->view->emps = $emps->getEmperorRevTypes($id);

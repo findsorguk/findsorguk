@@ -27,7 +27,7 @@ public function __construct($options = null)
 	$dies = new DieAxes();
 	$die_options = $dies->getAxes();
 
-	$wears = new Weartypes;
+	$wears = new WearTypes;
 	$wear_options = $wears->getWears();
 
 	parent::__construct($options);

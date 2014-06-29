@@ -1,32 +1,52 @@
 <?php
-/** Model for interacting with webservices table
-* @category Pas
+/** Model for interacting with webservices tabl
+ *
+ * An example of use:
+ * <code>
+ * <?php
+ * $model = new WebServices();
+ * $data = $model->getValidServices();
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
  * @package Db_Table
  * @subpackage Abstract
-* @author 		Daniel Pett dpett @ britishmuseum.org
-* @copyright 	2010 - DEJ Pett
-* @license GNU General Public License
-* @todo 		add edit and delete functions
+ * @license GNU General Public License
+ * @version 1
+ * @example /app/forms/SocialAccountsForm.php
 */
 
 class WebServices extends Pas_Db_Table_Abstract {
-	
-	protected $_name = 'webServices';
-	protected $_primary = 'id';
 
-	/** Retrieve all web services
-	* @return array 
-	*/
-	public function getValidServices() {
-	if (!$data = $this->_cache->load('webservices')) {
-	$webservices = $this->getAdapter();
-	$select = $webservices->select()
-			->from($this->_name,array('service','service'))
-			->where('valid = ?',(int)1);
-    $data =  $webservices->fetchPairs($select);
-	$this->_cache->save($data, 'webservices');
-	}
-	return $data;
-	}
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'webServices';
 
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
+    protected $_primary = 'id';
+
+    /** Retrieve all web services
+     * @access public
+     * @return array
+     */
+    public function getValidServices() {
+        $key = md5('webservices');
+        if (!$data = $this->_cache->load($key)) {
+            $webservices = $this->getAdapter();
+            $select = $webservices->select()
+                    ->from($this->_name,array('service','service'))
+                    ->where('valid = ?',(int)1);
+            $data =  $webservices->fetchPairs($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
+    }
 }

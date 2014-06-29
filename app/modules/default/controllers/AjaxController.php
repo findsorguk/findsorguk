@@ -358,7 +358,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
 	public function revtypesAction(){
 	if($this->_getParam('term',false)){
-	$types = new Revtypes();
+	$types = new RevTypes();
 	$type_options = $types->getTypes($this->_getParam('term'));
 	if ($type_options) {
 	$response = $type_options;
