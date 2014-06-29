@@ -1,15 +1,18 @@
 <?php
-/** 
+/**
  * Model for manipulating audit data for finds
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
- * 
+ * <?php
+ * $model = new FindsAudit();
+ * $data = $model->getChange($id);
+ * ?>
  * </code>
- * 
- * 
- * @author Daniel Pett <dpett at britishmuseum.org> 
+ *
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Db_Table
@@ -20,13 +23,13 @@
  * @example /app/modules/database/controllers/AjaxController.php
 */
 class FindsAudit extends Pas_Db_Table_Abstract {
-	
+
     /** The table name
      * @access protected
      * @var string
      */
     protected $_name = 'findsAudit';
-    
+
     /** the primary key
      * @access protected
      * @var string
@@ -35,7 +38,7 @@ class FindsAudit extends Pas_Db_Table_Abstract {
 
     /** get all audited changes on a record
      * @access public
-     * @param integer $id 
+     * @param integer $id
      * @return array
      * @todo add cache
      */
@@ -53,7 +56,7 @@ class FindsAudit extends Pas_Db_Table_Abstract {
 
     /** get an audited change set on a record
      * @access public
-     * @param integer $id 
+     * @param integer $id
      * @return array
      * @todo add cache
      */

@@ -2,8 +2,6 @@
 /**
  * Linked finds lookup table
  *
- * An example of code:
- *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
