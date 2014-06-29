@@ -21,7 +21,7 @@ class RomanCoins_MintsController extends Pas_Controller_Action_Admin {
 		->addActionContext('index',$contexts)
 		->addActionContext('mint',$contexts)
 		->initContext();
-	$this->_mints = new Romanmints();
+	$this->_mints = new RomanMints();
     }
 	/** Set up the index action
 	* 

@@ -20,7 +20,7 @@ public function __construct($options = null)
 	$dies = new Dieaxes;
 	$die_options = $dies->getAxes();
 
-	$wears = new Weartypes;
+	$wears = new WearTypes;
 	$wear_options = $wears->getWears();
 
 	$rulers = new Rulers();
@@ -38,7 +38,7 @@ public function __construct($options = null)
 	$statuses = new Statuses();
 	$statuses = $statuses->getCoinStatus();
 
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$reverses = $reverses->getRevTypes();
 
 

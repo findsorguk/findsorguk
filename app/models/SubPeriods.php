@@ -1,17 +1,28 @@
-<?php 
-/** Model for subperiods
-* @category Pas
-* @package Pas_Db_Table
-* @subpackage Abstract
-* @author Daniel Pett dpett @ britishmuseum.org
-* @copyright 2010 - DEJ Pett
-* @license GNU General Public License
-* @todo add edit and delete functions
+<?php
+/**
+ * Model for subperiods
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Pas_Db_Table
+ * @subpackage Abstract
+ * @license GNU General Public License
+ * @todo add edit and delete functions
+ * @version 1
 */
 class SubPeriods extends Pas_Db_Table_Abstract {
 
-	protected $_name = 'subperiods';
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'subperiods';
 
-	protected $_primary = 'id';
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
+    protected $_primary = 'id';
 
 }

@@ -523,7 +523,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	$this->view->mints = $mints->getRomanMintRulerAdmin($id);
 	$denominations = new Denominations();
 	$this->view->denoms = $denominations->getRomanRulerDenomAdmin($id);
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$this->view->reverses = $reverses->getTypesAdmin($id);
 	$reece = new ReecePeriodEmperors();
 	$this->view->reeces = $reece->fetchRow('ruler_id = '. $id );
@@ -866,9 +866,9 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	/** List reverse types
 	*/	
 	public function reversetypesAction() {
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$this->view->reverses = $reverses->getReverseTypeList(1);
-	$uncommonreverses = new Revtypes();
+	$uncommonreverses = new RevTypes();
 	$this->view->uncommonreverses = $uncommonreverses->getReverseTypeList(2);
 	}
 	/** Add reverse types
@@ -880,7 +880,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();
 	if ($form->isValid($formData)) {
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$insertData = array(
 	'type' =>  $form->getValue('type'),
 	'description' => $form->getValue('description'),
@@ -911,7 +911,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();
 	if ($form->isValid($formData)) {
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$where = array();
 	$where[] = $reverses->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
 	$updateData = array(
@@ -936,7 +936,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	// find id is expected in $params['id']
 	$id = (int)$this->_request->getParam('id', 0);
 	if ($id > 0) {
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$reverse = $reverses->fetchRow('id=' . $id);
 	$form->populate($reverse->toArray());
 	}
@@ -953,7 +953,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	$id = (int)$this->_request->getPost('id');
 	$del = $this->_request->getPost('del');
 	if ($del == 'Yes' && $id > 0) {
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$where = 'id = ' . $id;
 	$reverses->delete($where);
 	}
@@ -961,7 +961,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id');
 	if ($id > 0) {
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$this->view->reverse = $reverses->fetchRow('id =' . $id);
 	}
 	}
@@ -1037,7 +1037,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	/** List degrees of wear
 	*/	
 	public function degreesofwearAction() {
-	$wears = new Weartypes();
+	$wears = new WearTypes();
 	$this->view->degrees = $wears->getWearTypesAdmin();
 	}
 	/** Add degree of wear details
@@ -1050,7 +1050,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	if ($this->_request->isPost()) {
 	$formData = $this->_request->getPost();
 	if ($form->isValid($formData)) {
-	$degrees = new Weartypes();
+	$degrees = new WearTypes();
 	$insertData = array(
 	'term' =>  $form->getValue('term'),
 	'termdesc' => $form->getValue('termdesc'),
@@ -1098,7 +1098,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id', 0);
 	if ($id > 0) {
-	$degrees = new Weartypes();
+	$degrees = new WearTypes();
 	$degree = $degrees->fetchRow('id=' . $id);
 	if(count($degree)){
 	$form->populate($degree->toArray());
@@ -1118,7 +1118,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	$id = (int)$this->_request->getPost('id');
 	$del = $this->_request->getPost('del');
 	if ($del == 'Yes' && $id > 0) {
-	$wears = new Weartypes();
+	$wears = new WearTypes();
 	$where = 'id = ' . $id;
 	$wears->delete($where);
 	}
@@ -1127,7 +1127,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id');
 	if ($id > 0) {
-	$wears = new Weartypes();
+	$wears = new WearTypes();
 	$this->view->degree = $wears->fetchRow('id ='.$id);
 	}
 	}
@@ -1274,7 +1274,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
 	$form = new AddReverseToRulerForm();
 	$rulerid = $this->_getParam('rulerid');
 	$form->rulerID->setValue($rulerid);
-	$reversetypes = new Revtypes();
+	$reversetypes = new RevTypes();
 	$reversetypesList = $reversetypes->getRevTypes();
 	$form->reverseID->addMultiOptions($reversetypesList);
 	$this->view->form = $form;

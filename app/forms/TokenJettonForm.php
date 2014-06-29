@@ -14,7 +14,7 @@ class TokenJettonForm extends Pas_Form {
 	$ro = $rulers->getJettonRulers();
 	$dies = new Dieaxes;
 	$die_options = $dies->getAxes();
-	$wears = new Weartypes;
+	$wears = new WearTypes;
 	$wear_options = $wears->getWears();
 	
 	$categories = new JettonClasses();

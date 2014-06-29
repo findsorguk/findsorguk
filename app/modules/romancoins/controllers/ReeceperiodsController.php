@@ -65,7 +65,7 @@ class RomanCoins_ReeceperiodsController extends Pas_Controller_Action_Admin {
 	$this->view->periods = $this->_reeces->getReecePeriodDetail($id);
 	$emperors = new Emperors();
 	$this->view->reeces = $emperors->getReeceDetail($id);
-	$reverses = new Revtypes();
+	$reverses = new RevTypes();
 	$this->view->reverses = $reverses->getRevTypeReece($id);    
 	} else {
 		throw new Pas_Exception_Param($this->_missingParameter);

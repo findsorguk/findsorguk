@@ -114,7 +114,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader
 
         case 'ROMAN':
         if(isset($coinDataFlat['ruler'])) {
-        $reverses = new Revtypes();
+        $reverses = new RevTypes();
         $reverse_options = $reverses->getRevTypesForm($coinDataFlat['ruler']);
         if($reverse_options)
         {

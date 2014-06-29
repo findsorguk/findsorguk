@@ -23,7 +23,7 @@ class EarlyMedievalCoinForm extends Pas_Form {
 	$dies = new DieAxes();
 	$die_options = $dies->getAxes();
 
-	$wears = new Weartypes();
+	$wears = new WearTypes();
 	$wear_options = $wears->getWears();
 
 	$rulers = new Rulers();
