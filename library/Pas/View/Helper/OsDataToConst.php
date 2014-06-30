@@ -76,7 +76,7 @@ class Pas_View_Helper_OsDataToConst extends Zend_View_Helper_Abstract
      * @return array
      */
     public function getRecords( $constituency ) {
-        $osdata = new Osdata();
+        $osdata = new OsData();
         return $osdata->getGazetteerConstituency($constituency);
     }
 

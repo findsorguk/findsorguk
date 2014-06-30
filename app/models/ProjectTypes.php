@@ -1,38 +1,56 @@
 <?php
 /** Retrieve and manipulate data from the project type table
-* @category Pas
+ *
+ * An example of code:
+ *
+ * <code>
+ * <?php
+ * $model = new ProjectTypes();
+ * $data = $model->getTypes();
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
  * @package Db_Table
  * @subpackage Abstract
-* @author 		Daniel Pett dpett @ britishmuseum.org
-* @copyright 	2010 - DEJ Pett
-* @license GNU General Public License
-* @version 1
-* @since 22 September 2011
-* @todo add caching
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
+ * @example /app/forms/AcceptUpgradeForm.php
 */
 class ProjectTypes extends Pas_Db_Table_Abstract {
-	
-	protected $_name = 'projecttypes';
-	
-	protected $_primarykey = 'id';
 
-	/** Get all valid types
-	* @return array
-	*/
-	public function getTypes() {
-	$select = $this->select()
-		->from($this->_name, array('id', 'title'));
-	$options = $this->getAdapter()->fetchPairs($select);
-	return $options;
-	}
-	/** Get all valid degrees
-	* @return array
-	*/
-	public function getDegrees(){
-	$select = $this->select()
-		->from($this->_name, array('id', 'title'))
-		->where($this->_name . '.id IN ( 1, 2, 3 )');
-        $options = $this->getAdapter()->fetchPairs($select);
-        return $options;
-	}
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'projecttypes';
+
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
+    protected $_primarykey = 'id';
+
+    /** Get all valid types
+     * @access public
+     * @return array
+     */
+    public function getTypes() {
+        $select = $this->select()
+                ->from($this->_name, array('id', 'title'));
+        return $this->getAdapter()->fetchPairs($select);
+    }
+    /** Get all valid degrees
+     * @access public
+     * @return array
+     */
+    public function getDegrees(){
+        $select = $this->select()
+                ->from($this->_name, array('id', 'title'))
+                ->where($this->_name . '.id IN ( 1, 2, 3 )');
+        return  $this->getAdapter()->fetchPairs($select);
+    }
 }
