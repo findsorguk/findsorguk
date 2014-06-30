@@ -54,7 +54,7 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin {
     /** List of suggested topics
 	*/
 	public function suggestedAction() {
-        $projects = new Suggested();
+        $projects = new SuggestedResearch();
 	if(in_array($this->_helper->contextSwitch->getCurrentContext(),array('xml','json','rss','atom'))) {
 	$this->view->suggested = $projects->getAll($this->_getAllParams(),0);
 	} else {
@@ -68,7 +68,7 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin {
 	*/
 	public function topicAction() {
 	if($this->_getParam('id',false)){
-		$topic = new Suggested();
+		$topic = new SuggestedResearch();
 		$this->view->topic = $topic->getTopic($this->_getParam('id'));
 	} else {
 		throw new Pas_Exception_Param($this->_missingParameter);

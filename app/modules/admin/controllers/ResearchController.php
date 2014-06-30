@@ -16,7 +16,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
 	*/
 	public function init() {
 	$this->_research = new ResearchProjects();
-	$this->_suggested = new Suggested();
+	$this->_suggested = new SuggestedResearch();
 	$this->_helper->_acl->allow('fa',null);
 	$this->_helper->_acl->allow('admin',null);
 	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
@@ -126,8 +126,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
 	$id = (int)$this->_request->getPost('id');
 	$del = $this->_request->getPost('del');
 	if ($del == 'Yes' && $id > 0) {
-	$suggested = new Suggested();
-	$where = $suggested->getAdapter()->quoteInto('id = ?', $id);
+	$where = $this->_suggested->getAdapter()->quoteInto('id = ?', $id);
 	$suggested->delete($where);
 	$this->_flashMessenger->addMessage('Record deleted!');
 	$this->_redirect(self::REDIRECT . 'suggested/');
@@ -135,8 +134,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id');
 	if ($id > 0) {
-	$suggested = new Suggested();
-	$this->view->suggest = $suggested->fetchRow('id=' . $id);
+	$this->view->suggest = $this->_suggested->fetchRow('id=' . $id);
 	}
 	}
 	}
@@ -148,6 +146,6 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
 
         public function projectAction(){
 
-            
+
         }
 }
