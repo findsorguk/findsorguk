@@ -1,34 +1,51 @@
 <?php
 /**
-* A model to manipulate data for the Counties of England and Wales. Scotland may be added
-* in the future 
-* @category Pas
-* @package Pas_Db_Table
-* @subpackage Abstract
-* @author Daniel Pett dpett @ britishmuseum.org
-* @copyright 2010 - DEJ Pett
-* @license GNU General Public License
-* @version 1
-* @since 22 September 2011
-*/
-
+ * A model to manipulate jetton classes.
+ * 
+ * An example of code:
+ * <code>
+ * <?php
+ * $categories = new JettonClasses();
+ * $cat_options = $categories->getClasses();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
+ * @example /app/forms/TokenJettonForm.php
+ */
 class JettonClasses extends Pas_Db_Table_Abstract {
-	
-	protected $_name = 'jettonClasses';
-	protected $_primary = 'id';
+    
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'jettonClasses';
 
-	/** retrieve a key pair list of counties in England and Wales for dropdown use
-	* @return array
-	*/
-	public function getClasses() {
-	if (!$data = $this->_cache->load('jettonClasses')) {
-	$select = $this->select()
-		->from($this->_name, array('id', 'className'));
-	$data = $this->getAdapter()->fetchPairs($select);
-	$this->_cache->save($data, 'jettonClasses');
-	}
-	return $data;
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
+    protected $_primary = 'id';
+
+    /** Retrieve a key pair array for dropdown
+     * @access public
+     * @return array
+     */
+    public function getClasses() {
+        $key = md5('jettonClasses');
+        if (!$data = $this->_cache->load($key)) {
+            $select = $this->select()
+                    ->from($this->_name, array('id', 'className'));
+            $data = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
     }
-	
-
 }

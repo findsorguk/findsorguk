@@ -1,105 +1,128 @@
 <?php
 /** Retrieve and manipulate data from the places listing
-* @category Pas
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $counties = new OsCounties();
+ * $county_options = $counties->getCountiesID();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
  * @package Db_Table
  * @subpackage Abstract
-* @author 		Daniel Pett dpett @ britishmuseum.org
-* @copyright 	2010 - DEJ Pett
-* @license GNU General Public License
-* @version 1
-* @since 		22 September 2013
-* @todo add caching
-*/
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2013
+ * @example /app/forms/AdvancedSearchForm.php
+ * @uses Zend_Cache
+ */
 class OsCounties extends Pas_Db_Table_Abstract {
 
-	protected $_name = 'osCounties';
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'osCounties';
 
-	protected $_primary = 'id';
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
+    protected $_primary = 'id';
 
+    /** Get the district by county
+     * @access public
+     * @return array
+     */
+    public function getCounties(){
+        $select = $this->select()
+                ->from($this->_name, array('osID' => 'id','uri', 'type', 'label'))
+                ->order('label');
+        return $this->getAdapter()->fetchAll($select);
+    }
 
-	/** Get the district by county
-	* @param string $county
-	* @return array
-	* @todo add caching
-	*/
- 	public function getCounties()
- 	{
- 		$select = $this->select()
- 		->from($this->_name, array('osID' => 'id','uri', 'type', 'label'))
- 		->order('label');
- 		return $this->getAdapter()->fetchAll($select);
-	}
+    /** Retrieve county list as key pairs for labels
+     * @access public
+     * @return type
+     */
+    public function getCountyNames(){
+        $key = md5('countyNamesList');
+        if (!$data = $this->_cache->load($key)) {
+            $select = $this->select()
+                    ->from($this->_name, array('label', 'CONCAT(label," (",type,")")'))
+                    ->order('label');
+            $data = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
+    }
 
-	/** Retrieve county list as key pairs for labels
-	 * @access public
-	 * @return array
-	 */
-	public function getCountyNames() 
-	{
-		if (!$data = $this->_cache->load('countyNamesList')) {
-			$select = $this->select()
-			->from($this->_name, array('label', 'CONCAT(label," (",type,")")'))
-			->order('label');
-			$data = $this->getAdapter()->fetchPairs($select);
-			$this->_cache->save($data, 'countyNamesList');
-		}
-		return $data;
-	}
-	
-	
-	/** retrieve county list again as key pairs.
-	* @return array
-	* @todo not sure why duplicate of first function. Fix it!(doofus Dan).
-	*/
-	public function getCountiesID() 
-	{
-		if (!$data = $this->_cache->load('countyIDs')) {
-			$select = $this->select()
-			->from($this->_name, array('osID', 'CONCAT(label," (",type,")")'))
-			->order('label');
-			$data = $this->getAdapter()->fetchPairs($select);
-			$this->_cache->save($data, 'countyIDs');
-		}
-		return $data;
-	}
+    /** retrieve county list again as key pairs.
+     * @access public
+     * @return type
+     */
+    public function getCountiesID() {
+        $key = md5('countyIDs');
+        if (!$data = $this->_cache->load($key)) {
+            $select = $this->select()
+                    ->from($this->_name, array('osID', 'CONCAT(label," (",type,")")'))
+                    ->order('label');
+            $data = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
+    }
 
-	/** retrieve county list again as key pairs.
-	* @return array
-	* @todo not sure why duplicate of first function. Fix it!(doofus Dan).
-	*/
-	public function getCountyToRegion( $county ) 
-	{
-		$key = md5('countyRegion' . $county);
-		if (!$data = $this->_cache->load( $key )) {
-			$table = $this->getAdapter();
-			$select = $table->select()
-			->from($this->_name, array())
-			->joinLeft('osRegions', 'osRegions.osID = osCounties.regionID',array('id' => 'osID', 'term' => 'CONCAT(osRegions.label," (",osRegions.type,")")'))
-			//->order('osRegions.label')
-			->where('osCounties.osID =?', (int) $county);
-			$data = $table->fetchAll($select);
-			$this->_cache->save($data, $key);
-		}
-		return $data;
-	}
+    /** Retrieve county list again as key pairs.
+     * @access public
+     * @param string $county
+     * @return array
+     */
+    public function getCountyToRegion( $county ) {
+        $key = md5('countyRegion' . $county);
+        if (!$data = $this->_cache->load( $key )) {
+            $table = $this->getAdapter();
+            $select = $table->select()
+                    ->from($this->_name, array())
+                    ->joinLeft('osRegions', 
+                            'osRegions.osID = osCounties.regionID',
+                            array(
+                                'id' => 'osID', 
+                                'term' => 'CONCAT(osRegions.label," (",osRegions.type,")")'
+                                ))
+                ->where('osCounties.osID =?', (int) $county);
+            $data = $table->fetchAll($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
+    }
 
-	/** retrieve county list again as key pairs.
-	* @return array
-	* @todo not sure why duplicate of first function. Fix it!(doofus Dan).
-	*/
-	public function getCountyToRegionList( $county ) 
-	{
-		$key = md5('countyRegionList' . $county);
-		if (!$data = $this->_cache->load( $key )) {
-			$table = $this->getAdapter();
-			$select = $table->select()
-			->from($this->_name, array())
-			->joinLeft('osRegions', 'osRegions.osID = osCounties.regionID',array('osID', 'CONCAT(osRegions.label," (",osRegions.type,")")'))
-			//->order('osRegions.label')
-			->where('osCounties.osID =?', (int) $county);
-			$data = $table->fetchPairs($select);
-			$this->_cache->save($data, $key);
-		}
-		return $data;
-	}
+    /** Retrieve county list again as key pairs.
+     * @access public
+     * @param string $county
+     * @return array
+     */
+    public function getCountyToRegionList( $county )  {
+        $key = md5('countyRegionList' . $county);
+        if (!$data = $this->_cache->load( $key )) {
+            $table = $this->getAdapter();
+            $select = $table->select()
+                    ->from($this->_name, array())
+                    ->joinLeft('osRegions', 
+                            'osRegions.osID = osCounties.regionID',
+                            array(
+                                'osID', 
+                                'CONCAT(osRegions.label," (",osRegions.type,")")'
+                                ))
+                    ->where('osCounties.osID =?', (int) $county);
+            $data = $table->fetchPairs($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
+    }
 }

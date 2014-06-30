@@ -1,43 +1,67 @@
 <?php
-/**
-* A model to manipulate data for the Counties of England and Wales. Scotland may be added
-* in the future 
-* @category Pas
-* @package Pas_Db_Table
-* @subpackage Abstract
-* @author Daniel Pett dpett @ britishmuseum.org
-* @copyright 2010 - DEJ Pett
-* @license GNU General Public License
-* @version 1
-* @since 22 September 2011
-*/
-
+/** 
+ * A model to manipulate jetton groups.
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $groups = new JettonGroups();
+ * $group_options = $groups->getGroups();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Db_Table
+ * @subpackage Abstract
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
+ * @example /app/forms/TokenJettonForm.php 
+ */
 class JettonGroups extends Pas_Db_Table_Abstract {
 	
-	protected $_name = 'jettonGroup';
-	protected $_primary = 'id';
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'jettonGroup';
 
-	/** retrieve a key pair list of counties in England and Wales for dropdown use
-	* @return array
-	*/
-	public function getGroups() {
-//	if (!$data = $this->_cache->load('jettonClasses')) {
-	$select = $this->select()
-		->from($this->_name, array('id', 'groupName'));
-	$data = $this->getAdapter()->fetchPairs($select);
-//	$this->_cache->save($data, 'jettonClasses');
-//	}
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
+    protected $_primary = 'id';
+
+    /** Get Jetton groups
+     * @access public
+     * @return array
+     */
+    public function getGroups() {
+        $key = md5('jettonClasses');
+	if (!$data = $this->_cache->load($key)) {
+            $select = $this->select()
+                    ->from($this->_name, array('id', 'groupName'));
+            $data = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($data, $key);
+	}
 	return $data;
     }
     
+    /** Get groups associated with classes
+     * @access public
+     * @param integer $classID
+     * @return type
+     */
     public function getGroupsToClasses( $classID ) {
     	$select = $this->select()
-				->from($this->_name, array('id', 'term' => 'groupName'))
-				->joinLeft('classesJettonGroups', 'classesJettonGroups.groupID = jettonGroup.id ',array())
-				->where('classesJettonGroups.classID = ?', $classID);
-		$data = $this->getAdapter()->fetchAll($select);
-		return $data;
+                ->from($this->_name, array('id', 'term' => 'groupName'))
+                ->joinLeft('classesJettonGroups', 
+                        'classesJettonGroups.groupID = jettonGroup.id ',
+                        array())
+                ->where('classesJettonGroups.classID = ?', (int) $classID);
+        return $this->getAdapter()->fetchAll($select);
     }
-	
-
 }

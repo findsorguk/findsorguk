@@ -25,10 +25,10 @@ class EditAccountForm extends Pas_Form
 
     public function init() {
         $roles = new Roles();
-		$role_options = $roles->getRoles();
+        $role_options = $roles->getRoles();
 
         $inst = new Institutions();
-		$inst_options = $inst->getInsts();
+        $inst_options = $inst->getInsts();
 
         $this->setAction($this->_actionUrl)
              ->setMethod('post')

@@ -1,20 +1,29 @@
 <?php
 /** Model for auditing changes to personal data entries
-* @category Pas
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
  * @package Db_Table
  * @subpackage Abstract
-* @author Daniel Pett dpett @ britishmuseum.org
-* @copyright 2010 - DEJ Pett
-* @license GNU General Public License
-* @version 1
-* @since 22 September 2011
-* @todo add edit and delete functions
-*/
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
+ * @example /app/modules/admin/controllers/UsersController.php 
+ */
 
 class UsersAudit extends Pas_Db_Table_Abstract {
 
-	protected $_name = 'usersAudit';
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'usersAudit';
 
-	protected $_primaryKey = 'id';
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
+    protected $_primaryKey = 'id';
 
 }

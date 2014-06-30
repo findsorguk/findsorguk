@@ -1,42 +1,68 @@
 <?php
 /**
-* A model to manipulate data for the Counties of England and Wales. Scotland may be added
-* in the future 
-* @category Pas
-* @package Pas_Db_Table
-* @subpackage Abstract
-* @author Daniel Pett dpett @ britishmuseum.org
-* @copyright 2010 - DEJ Pett
-* @license GNU General Public License
-* @version 1
-* @since 22 September 2011
-*/
+ * A model to manipulate the jetton types data.
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $types = new JettonTypes();
+ * $type_options = $types->getTypes();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Pas_Db_Table
+ * @subpackage Abstract
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 September 2011
+ * @example /app/forms/TokenJettonForm.php 
+ */
 
 class JettonTypes extends Pas_Db_Table_Abstract {
 	
-	protected $_name = 'jettonTypes';
-	protected $_primary = 'id';
-
-	/** retrieve a key pair list of counties in England and Wales for dropdown use
-	* @return array
-	*/
-	public function getTypes() {
-	if (!$data = $this->_cache->load('jettonTypes')) {
-	$select = $this->select()
-		->from($this->_name, array('id', 'typeName'));
-	$data = $this->getAdapter()->fetchPairs($select);
-	$this->_cache->save($data, 'jettonTypes');
-	}
-	return $data;
-    }
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'jettonTypes';
 	
-	public function getTypesToGroups( $groupID ) {
-    	$select = $this->select()
-				->from($this->_name, array('id', 'term' => 'typeName'))
-				->joinLeft('groupsJettonsTypes', 'groupsJettonsTypes.typeID = jettonTypes.id ',array())
-				->where('groupsJettonsTypes.groupID = ?', $groupID);
-		$data = $this->getAdapter()->fetchAll($select);
-		return $data;
+    /** The table key
+     * @access protected
+     * @var integer
+     */
+    protected $_primary = 'id';
+
+    /** Get the types for a dropdown as key value pairs
+     * @access public
+     * @return array
+     */
+    public function getTypes() {
+        $key = md5('jettonTypes');
+        if (!$data = $this->_cache->load($key)) {
+            $select = $this->select()
+                    ->from($this->_name, array('id', 'typeName'));
+            $data = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
     }
 
+    /** Get the types of jettons to their group ID
+     * @access public
+     * @param integer $groupID
+     * @return array
+     */
+    public function getTypesToGroups( $groupID ) {
+        $select = $this->select()
+                ->from($this->_name, array('id', 'term' => 'typeName'))
+                ->joinLeft('groupsJettonsTypes', 
+                        'groupsJettonsTypes.typeID = jettonTypes.id ',
+                        array())
+                ->where('groupsJettonsTypes.groupID = ?', (int) $groupID);
+        return $this->getAdapter()->fetchAll($select);
+    }
 }
