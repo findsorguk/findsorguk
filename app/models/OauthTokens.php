@@ -2,36 +2,52 @@
 /** 
  * Model for interacting with oauth tokens
  * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $tokens = new OauthTokens();
+ * $tokenexists = $tokens->fetchRow($tokens->select()
+ * ->where('service = ?', 'twitterAccess'));
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- * @author Daniel Pett <dpett at britishmuseum.org>
- * @copyright 2010 - DEJ Pett
  * @license GNU General Public License
  * @version 1
  * @since 22 September 2011
- * @example path 
+ * @example  /app/models/Twitter.php 
  */
 class OauthTokens extends Pas_Db_Table_Abstract {
 
+    /** The table name
+     * @access protected
+     * @var string
+     */
     protected $_name = 'oauthTokens';
 
+    /** The primary key
+     * @access protected
+     * @var integer
+     */
     protected $_primary = 'id';
-
 
     /** Get the cached token for accessing twitter's oauth'd endpoint
      * @access public
-     * @param string twitteraccess 
-     * @return object
+     * @return array
      */
     public function getTokens(){
-        if (!$data = $this->_cache->load('oauthtwitter')) {
-        $tokens = $this->getAdapter();
-        $select = $tokens->select()
-                ->from($this->_name)
-                ->where('service = ?', 'twitterAccess');
-        $data =  $tokens->fetchAll($select);
-        $this->_cache->save($data, 'oauthtwitter');
+        $key = md5('oauthtwitter');
+        if (!$data = $this->_cache->load($key)) {
+            $tokens = $this->getAdapter();
+            $select = $tokens->select()
+                    ->from($this->_name)
+                    ->where('service = ?', 'twitterAccess');
+            $data =  $tokens->fetchAll($select);
+            $this->_cache->save($data, $key);
         }
         return $data;
     }
