@@ -8,7 +8,7 @@
 class PublicationForm extends Pas_Form {
 
 public function __construct($options = null) {
-	$types = new Publicationtypes();
+	$types = new PublicationTypes();
 	$type_options = $types->getTypes();
 
 	parent::__construct($options);

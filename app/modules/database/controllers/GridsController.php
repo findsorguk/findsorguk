@@ -188,7 +188,7 @@ public function osdataupdateAction()
 	$this->_helper->layout->disableLayout();
 	$this->view->title = "Grid update process run and complete";
 	$this->_helper->layout->disableLayout();    
-    $findspots = new Osdata();
+    $findspots = new OsData();
     $select = $findspots->select()
   					    ->where('latitude = 0')
    						->where('f_code = ?','A');

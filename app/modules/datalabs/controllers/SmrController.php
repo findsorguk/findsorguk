@@ -75,7 +75,7 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
 	*/
 	public function oneto50kAction(){
 	if($this->_getParam('id',false)){
-	$gazetteers = new Osdata();
+	$gazetteers = new OsData();
 	$this->view->gazetteer = $gazetteers->getGazetteer($this->_getParam('id'));
 	} else {
 		throw new Pas_Exception_Param($this->_missingParameter);
