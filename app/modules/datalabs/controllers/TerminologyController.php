@@ -338,7 +338,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 	*/
 	public function surfaceAction() {
 	if($this->_getparam('id',false)) {
-	$surfaces = new Surftreatments();
+	$surfaces = new SurfTreatments();
 	$this->view->surfaces = $surfaces->getSurfaceTreatmentDetails($this->_getParam('id'));
 	$this->view->counts = $surfaces->getSurfaceCounts($this->_getParam('id'));
 	} else {
@@ -348,7 +348,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 	/** Display list of surface treatments
 	*/
 	public function surfacesAction() {
-	$surfaces = new Surftreatments();
+	$surfaces = new SurfTreatments();
 	$this->view->surfaces = $surfaces->getSurfaceTreatments();
 	}
 	/** Display list of die axes

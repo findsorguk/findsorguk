@@ -10,6 +10,7 @@
  * @version 1
  * @since 22 September 2011
  * @todo work out if still needed as a class
+ * @example /app/modules/admin/controllers/NumismaticsController.php
 */
 
 class ReecePeriodEmperors extends Pas_Db_Table_Abstract {

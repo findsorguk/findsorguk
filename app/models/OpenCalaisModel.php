@@ -115,7 +115,7 @@ class OpenCalaisModel extends Pas_Db_Table_Abstract {
             $select->where('finds.secwfstage NOT IN ( 1, 2 )');
         }
         $paginator = Zend_Paginator::factory($select);
-        $paginator->setCache($this->_cache);
+        Zend_Paginator::setCache($this->_cache);
         $paginator->setItemCountPerPage(30)->setPageRange(10);
         if(isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber((int)$params['page']);
@@ -153,7 +153,7 @@ class OpenCalaisModel extends Pas_Db_Table_Abstract {
             $select->where('finds.secwfstage NOT IN ( 1, 2 )');
         }
         $paginator = Zend_Paginator::factory($select);
-        $paginator->setCache($this->_cache);
+        Zend_Paginator::setCache($this->_cache);
         $paginator->setItemCountPerPage(30)->setPageRange(10);
         if(isset($params['page']) && ($params['page'] != ""))  {
             $paginator->setCurrentPageNumber((int)$params['page']);

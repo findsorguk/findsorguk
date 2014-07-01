@@ -1,98 +1,109 @@
 <?php
-/**
-* Data model for accessing surface treatment table
-* @category Pas
+/** Data model for accessing surface treatment table
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $surfaces = new SurfTreatments();
+ * $surface_options = $surfaces->getSurfaces();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
  * @package Db_Table
  * @subpackage Abstract
-* @author 		Daniel Pett dpett @ britishmuseum.org
-* @copyright 	2010 - DEJ Pett
-* @license GNU General Public License
-* @version 1
-* @since 		22 October 2010, 17:12:34
-*/
-class Surftreatments extends Pas_Db_Table_Abstract {
+ * @license GNU General Public License
+ * @version 1
+ * @since 22 October 2010, 17:12:34
+ * @example /app/forms/AdvancedSearchForm.php 
+ */
+class SurfTreatments extends Pas_Db_Table_Abstract {
+    
+    /** The primary Key
+     * @access protected
+     * @var integer
+     */
+    protected $_primaryKey = 'id';
 
-	protected $_primaryKey = 'id';
+    /** The table name
+     * @access protected
+     * @var string
+     */
+    protected $_name = 'surftreatments';
 
-	protected $_name = 'surftreatments';
-
-	/** Get surface treatment dropdowns
-	* @return array
-	*/
-	public function getSurfaces() {
-	if (!$options = $this->_cache->load('surftreatdd')) {
-	$select = $this->select()
-		->from($this->_name, array('id', 'term'))
-		->where('valid = ?',(int)1)
-		->order('term');
-	$options = $this->getAdapter()->fetchPairs($select);
-	$this->_cache->save($options, 'surftreatdd');
-	}
-	return $options;
+    /** Get surface treatment dropdowns
+     * @access public
+     * @return array
+     */
+    public function getSurfaces() {
+        $key = md5('surftreatdd');
+        if (!$options = $this->_cache->load($key)) {
+        $select = $this->select()
+                ->from($this->_name, array('id', 'term'))
+                ->where('valid = ?',(int)1)
+                ->order('term');
+        $options = $this->getAdapter()->fetchPairs($select);
+        $this->_cache->save($options, $key);
+        }
+        return $options;
+}
+    /** Get surface treatment details
+     * @access public
+     * @param integer $id
+     * @return array
+     */
+    public function getSurfaceTerm($id) {
+        $surfaces = $this->getAdapter();
+        $select = $surfaces->select()
+                ->from($this->_name, array('id','term'))
+                ->where('valid = ?',(int)1)
+                ->order('id')
+                ->limit('1')
+                ->where('id = ?', (int)$id);
+        return $surfaces->fetchAll($select);
     }
-	/** Get surface treatment details
-	* @param integer $surfaceterm
-	* @return array
-	*/
-	public function getSurfaceTerm($surfaceterm = NULL) {
-	$surfaces = $this->getAdapter();
-	$select = $surfaces->select()
-		->from($this->_name, array('id','term'))
-		->where('valid = ?',(int)1)
-		->order('id')
-		->limit('1')
-		->where('id = ?', (int)$surfaceterm);
-	return $surfaces->fetchAll($select);
-	}
 
-	/** Get surface treatment list
-	* @return array
-	*/
-	public function getSurfaceTreatments() {
-	$surfs = $this->getAdapter();
-	$select = $surfs->select()
-		->from($this->_name, array('id','term'))
-		->where('valid = ?',(int)1);
-	return  $surfs->fetchAll($select);
-	}
+    /** Get surface treatment list
+     * @access public
+     * @return array
+     */
+    public function getSurfaceTreatments() {
+        $surfs = $this->getAdapter();
+        $select = $surfs->select()
+                ->from($this->_name, array('id','term'))
+                ->where('valid = ?',(int)1);
+        return $surfs->fetchAll($select);
+    }
 
-	/** Get surface treatment list for admin
-	* @return array
-	*/
-	public function getSurfaceTreatmentsAdmin() {
-	$surfs = $this->getAdapter();
-	$select = $surfs->select()
-		->from($this->_name)
-		->joinLeft('users','users.id = ' . $this->_name . '.createdBy', array('fullname'))
-		->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy', array('fn' => 'fullname'));
-	return  $surfs->fetchAll($select);
-	}
+    /** Get surface treatment list for admin
+     * @access public
+     * @return array
+     */
+    public function getSurfaceTreatmentsAdmin() {
+        $surfs = $this->getAdapter();
+        $select = $surfs->select()
+                ->from($this->_name)
+                ->joinLeft('users','users.id = ' . $this->_name 
+                        . '.createdBy', array('fullname'))
+                ->joinLeft('users','users_2.id = ' . $this->_name 
+                        . '.updatedBy', array('fn' => 'fullname'));
+        return $surfs->fetchAll($select);
+    }
 
-	/** Get surface treatment details
-	* @param integer $id
-	* @return array
-	*/
-	public function getSurfaceTreatmentDetails($id) {
-	$surfs = $this->getAdapter();
-	$select = $surfs->select()
-		->from($this->_name, array('id','term'))
-		->where($this->_name . '.id = ?', (int)$id)
-		->where('valid = ?', (int)1);
-	return  $surfs->fetchAll($select);
-	}
-	
-	/** Get surface treatment counts
-	* @param integer $id
-	* @return array
-	*/
-	public function getSurfaceCounts($id) {
-	$surfs = $this->getAdapter();
-	$select = $surfs->select()
-		->from($this->_name, array('id','term'))
-		->joinLeft('finds',$this->_name . '.id = finds.surftreat', array('c' => 'count(*)'))
-		->where($this->_name.'.id = ?', (int)$id)
-		->where('valid = ?',(int)1)
-		->group($this->_name . '.id');
-     return  $surfs->fetchAll($select);
-	 }
+    /** Get surface treatment details
+     * @access public
+     * @param integer $id
+     * @return array
+     */
+    public function getSurfaceTreatmentDetails($id) {
+        $surfs = $this->getAdapter();
+        $select = $surfs->select()
+                ->from($this->_name, array('id','term'))
+                ->where($this->_name . '.id = ?', (int)$id)
+                ->where('valid = ?', (int)1);
+        return $surfs->fetchAll($select);
+    }
 }

@@ -195,9 +195,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $coinFormLoader = new Pas_Controller_Action_Helper_CoinFormLoaderOptions();
         Zend_Controller_Action_HelperBroker::addHelper($coinFormLoader);
 
-        $geoFormLoader = new Pas_Controller_Action_Helper_GeoFormLoaderOptions();
-        Zend_Controller_Action_HelperBroker::addHelper($geoFormLoader);
-
         $solr = new Pas_Controller_Action_Helper_SolrUpdater();
         Zend_Controller_Action_HelperBroker::addHelper($solr);
 

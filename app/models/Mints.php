@@ -1,7 +1,7 @@
 <?php
 /** Retrieve and manipulate data for mints issuing coins
 * @category Pas
-* @package Pas_Db_Table
+* @package Db_Table
 * @subpackage Abstract
 *
 * @author Daniel Pett dpett @ britishmuseum.org

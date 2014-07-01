@@ -80,7 +80,7 @@ class VanArsdellTypes extends Pas_Db_Table_Abstract {
             if(isset($params['page']) && ($params['page'] != "")) {
                 $paginator->setCurrentPageNumber((int)$params['page']);
             }
-            $paginator->setCache($this->_cache);
+            Zend_Paginator::setCache($this->_cache);
             return $paginator;
 	}
 }

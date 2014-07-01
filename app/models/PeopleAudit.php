@@ -1,5 +1,15 @@
 <?php
 /** Model for auditing changes to personal data entries
+ * 
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $model = new PeopleAudit();
+ * $data = $model->getChange($id);
+ * ?>
+ * </code>
+ * 
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas

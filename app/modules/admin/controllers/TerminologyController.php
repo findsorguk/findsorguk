@@ -269,7 +269,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	/** List surface treatments
 	*/
 	public function surfacesAction(){
-	$surfaces = new Surftreatments();
+	$surfaces = new SurfTreatments();
 	$this->view->surfaces = $surfaces->getSurfaceTreatmentsAdmin();
 	}
 	/** Add a surface treatment
@@ -280,7 +280,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$this->view->form = $form;
 	if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
     if ($form->isValid($form->getValues())) {
-	$surfaces = new Surftreatments();
+	$surfaces = new SurfTreatments();
 	$update = $surfaces->add($form->getValues());
 	$this->_flashMessenger->addMessage('A new surface treatment has been created on the system!');
 	$this->_redirect($this->_redirectUrl . 'surfaces');
@@ -298,7 +298,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$this->view->form = $form;
 	if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
     if ($form->isValid($form->getValues())) {
-	$surfaces = new Surftreatments();
+	$surfaces = new SurfTreatments();
 	$where = array();
 	$where[] = $surfaces->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
 	$update = $surfaces->update($form->getValues(), $where);
@@ -310,7 +310,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id', 0);
 	if ($id > 0) {
-	$surfaces = new Surftreatments();
+	$surfaces = new SurfTreatments();
 	$surface = $surfaces->fetchRow('id='.$id);
 	if(count($surface))
 	{
@@ -332,7 +332,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$id = (int)$this->_request->getPost('id');
 	$del = $this->_request->getPost('del');
 	if ($del == 'Yes' && $id > 0) {
-	$surfaces = new Surftreatments();
+	$surfaces = new SurfTreatments();
 	$where = 'id = ' . $id;
 	$surfaces->delete($where);
 	}
@@ -341,7 +341,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	} else {
 	$id = (int)$this->_request->getParam('id');
 	if ($id > 0) {
-	$surfaces = new Surftreatments();
+	$surfaces = new SurfTreatments();
 	$this->view->surface = $surfaces->fetchRow('id=' . $id);
 	}
 	}

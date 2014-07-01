@@ -68,7 +68,7 @@ class ErrorReports extends Pas_Db_Table_Abstract {
                 >order($this->_name . '.id DESC');
         $data = $messages->fetchAll($select);
         $paginator = Zend_Paginator::factory($data);
-        $paginator->setCache($this->_cache);
+        Zend_Paginator::setCache($this->_cache);
         $paginator->setItemCountPerPage(20)->setPageRange(10) ;
         if(isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber((int)$params['page']); 

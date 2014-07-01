@@ -195,7 +195,7 @@ class Pas_View_Helper_SearchParamsUsers
     if (!is_null($params['surface'])) {
     $surfaceterm = $params['surface'];
 
-    $surfaces = new Surftreatments();
+    $surfaces = new SurfTreatments();
     $surfaces = $surfaces->getSurfaceTerm($surfaceterm);
     $this->surfaces = $surfaces;
     foreach ($this->surfaces as $surface) {
