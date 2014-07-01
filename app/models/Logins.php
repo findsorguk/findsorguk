@@ -72,7 +72,7 @@ class Logins extends Pas_Db_Table_Abstract {
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(10)
                   ->setPageRange(10);
-        $paginator->setCache($this->_cache);
+        Zend_Paginator::setCache($this->_cache);
         if(isset($page) && ($page != "")) {
             $paginator->setCurrentPageNumber($page);
         }

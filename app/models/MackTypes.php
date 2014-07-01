@@ -79,7 +79,7 @@ class MackTypes extends Pas_Db_Table_Abstract {
                 ->order($this->_name . '.type')
                 ->group($this->_name . '.type');
         $paginator = Zend_Paginator::factory($select);
-        $paginator->setCache($this->_cache);
+        Zend_Paginator::setCache($this->_cache);
         $paginator->setItemCountPerPage(30)
                 ->setPageRange(10);
         if(isset($params['page']) && ($params['page'] != "")) {

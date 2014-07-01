@@ -156,7 +156,7 @@ class OsData extends Pas_Db_Table_Abstract {
         }
         $data = $acros->fetchAll($select);
         $paginator = Zend_Paginator::factory($data);
-        $paginator->setCache($this->_cache);
+        Zend_Paginator::setCache($this->_cache);
         $paginator->setItemCountPerPage(20)->setPageRange(10);
         if(isset($page) && ($page != "")) {
             $paginator->setCurrentPageNumber($page);

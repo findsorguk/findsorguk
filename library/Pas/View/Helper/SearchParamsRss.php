@@ -170,7 +170,7 @@ if (array_key_exists('surface',$params)) {
 if ($params['surface'] != NULL) {
 $surfaceterm = $params['surface'];
 
-$surfaces = new Surftreatments();
+$surfaces = new SurfTreatments();
 $surfaces = $surfaces->getSurfaceTerm($surfaceterm);
 $this->surfaces = $surfaces;
 foreach ($this->surfaces as $surface) {

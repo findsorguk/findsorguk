@@ -32,7 +32,7 @@ public function __construct($options = null) {
 	$culture_options = $cultures->getCultures();
 
 	//Get data to form Surface treatments menu
-	$surfaces = new Surftreatments();
+	$surfaces = new SurfTreatments();
 	$surface_options = $surfaces->getSurfaces();
 
 	//Get data to form Decoration styles menu
