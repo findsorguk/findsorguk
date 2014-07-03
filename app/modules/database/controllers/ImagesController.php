@@ -32,25 +32,25 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	$this->_images = new Slides();
 	$this->_cache = Zend_Registry::get('cache');
 	$this->_zoomifyObject = new Pas_Zoomify_FileProcessor();
-	$this->_arrayTools = new Pas_ArrayFunctions();
+	$this->_arrayTools = new Pas_ArraysFunctions();
 	}
-	
+
 	const REDIRECT 	= 'database/images/';
 
 	const PATH 		= './images/';
-	
+
 	const THUMB		= 'thumbnails/';
-	
+
 	const SMALL		= 'small/';
-	
+
 	const MEDIUM	= 'medium/';
 
 	const LARGE		= 'large/';
-	
+
 	const DISPLAY 	= 'display/';
-	
+
 	const EXT		= '.jpg';
-	
+
 	/** Retrieve the user's details
 	*/
 	private function getUserDetails()	{
@@ -61,7 +61,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	}
 	/** Display index page of images
 	*/
-	public function indexAction() 
+	public function indexAction()
 	{
 		//Set up form
 		$form = new SolrForm();
@@ -124,18 +124,18 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 
 	/** Add a new image
 	*/
-	public function addAction()	 
+	public function addAction()
 	{
 		//This could probably be sent to a view helper
 		//Get the help topic about image labels
 		$help = new Help();
-		//Send contents to the view 
+		//Send contents to the view
 		$this->view->contents = $help->fetchRow('id = 14')->toArray();
 		//Get the image form
 		$form = new ImageForm();
 		//Set image form label
 		$form->submit->setLabel('Submit a new image.');
-		//Get imagedir		
+		//Get imagedir
 		$imagedir = '.' . $this->_helper->Identity()->imagedir;
 		//Check if a directory and if not make directory
 		if( !is_dir( $imagedir ) ) {
@@ -150,7 +150,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 		$savePath 	= $path . self::MEDIUM;
 		//Set up thumbnail path
 		$thumbPath 	= $path . self::THUMB;
-		
+
 		//Check if post request
 		if ($this->_request->isPost()) {
 		//get request data
@@ -292,7 +292,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	$update = $this->_images->update($updateData, $where);
 		//Update the solr instance
 	$this->_helper->solrUpdater->update('beoimages', $this->_getParam('id'));
-	
+
 	$this->_flashMessenger->addMessage('Image and metadata updated!');
 	$this->_redirect(self::REDIRECT . 'image/id/' . $this->_getParam('id'));
 
@@ -414,7 +414,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 
 	$where[] = $linked->getAdapter()->quoteInto('image_id = ?', $imageID);
 	$where[] = $linked->getAdapter()->quoteInto('find_id = ?', $findID);
-	
+
 	$linked->delete($where);
 //	$this->_helper->solrUpdater->update('images', $imageID);
 	$this->_helper->solrUpdater->update('beowulf', $findID);
