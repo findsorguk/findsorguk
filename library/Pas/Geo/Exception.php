@@ -1,14 +1,16 @@
 <?php
 /** The exception for geo based classes
- * @category   Pas
- * @package    Pas_Geo
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Geo
  * @subpackage Exception
- * @copyright  Copyright (c) 2011 Daniel Pett
- * @license    GNU
- * @author 	   Daniel pett
- * @version	   1
- * @since 	   26 September 2011
+ * @license GNU
+ * @version 1
+ * @since 26 September 2011
+ * @example /library/Pas/Service/Geo/Placemaker.php
  */
 class Pas_Geo_Exception extends Zend_Exception {
-	
+
 }
