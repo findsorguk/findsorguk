@@ -1,21 +1,25 @@
 <?php
-/** 
+/**
  * Bootstrap for the website to run
  *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
  * @license    GNU General Public License
  * @version    1.0
  * @since      22 September 2011
- * @author Daniel Pett <dpett at britishmuseum.org>
- * 
-*/
+ * @uses Zend_Registry
+ * @uses Zend_Config
+ * @uses Zend_Controller_Front
+ * @uses Zend_Controller_Response_Http
+ */
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
-	
+
     /** Initialise the config and save to the registry
+     * @access protected
      */
     protected function _initConfig(){
         //Zend_Registry::set('config', new Zend_Config_Ini('app/config/config.ini', 'production'));
@@ -24,18 +28,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /** Setup the default timezone
+     * @access protected
      */
     protected function _initDate() {
         date_default_timezone_set(
-                Zend_Registry::get('config')
-                ->settings
-                ->application
-                ->datetime
+                Zend_Registry::get('config')->settings->application->datetime
                 );
     }
 
-	
+
     /** Initialise the database or throw error
+     * @access protected
      * @throws Exception
      */
     protected function _initDatabase(){
@@ -55,7 +58,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 
     /** Setup layouts for the site and modules
-     * 
+     * @access protected
      */
     protected function _initLayouts(){
         $frontController = Zend_Controller_Front::getInstance();
@@ -64,31 +67,33 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $frontController->registerPlugin(new Pas_Controller_Plugin_StyleAndAlternate());
 	$frontController->registerPlugin(new Pas_Controller_Plugin_Errors);
     }
-	
+
     /** Initialise the routing
-     * 
+     * @access protected
      */
     protected function _initRoutes(){
 
     }
 
     /** Initialise the various caches and save to registry
-    */
+     * @access protected
+     */
     protected function _initCache(){
         $this->bootstrap('cachemanager');
-        Zend_Registry::set('rulercache',$this->getResource('cachemanager')->getCache('rulercache'));
         Zend_Registry::set('cache',$this->getResource('cachemanager')->getCache('rulercache'));
-        Zend_Registry::set('formcache',$this->getResource('cachemanager')->getCache('rulercache'));
-        Zend_Registry::set('flickrcache',$this->getResource('cachemanager')->getCache('rulercache'));
     }
 
+    /** Get the site url
+     * @access protected
+     */
     protected function _initSiteUrl(){
         $siteurl = Zend_Registry::get('config')->siteurl;
         Zend_Registry::set('siteurl',$siteurl);
     }
 
     /** Initialise the response and set gzip status
-    */
+     * @access protected
+     */
     protected function _initResponse(){
         $response = new Zend_Controller_Response_Http;
         $response->setHeader('X-Powered-By', 'Dan\'s magic army of elves')
@@ -101,7 +106,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 
     /** Initialise the view objects
-    */
+     * @access protected
+     * @return \Zend_View
+     */
     protected function _initView()  {
         $options = $this->getOptions();
         if (isset($options['resources']['view'])) {
@@ -130,7 +137,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /** Initialise the jquery version
-     * 
+     * @access protected
      */
     protected function _initJQuery(){
         $this->bootstrap('view');
@@ -142,7 +149,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /** Setup the authorisation
-    */
+     * @access protected
+     */
     protected function _initAuth(){
         $auth = Zend_Auth::getInstance();
         $auth->setStorage(new Zend_Auth_Storage_Session());
@@ -151,7 +159,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /** Initialise the logging
-    */
+     * @access protected
+     * @todo make better use of logs
+     */
     protected function _initRegisterLogger() {
         $this->bootstrap('Log');
         if (!$this->hasPluginResource('Log')) {
@@ -162,12 +172,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_Registry::set('log', $logger);
     }
 
-    /** Initialise the ACL objects
+    /** Initialise the action helpers
+     * @access protected
     */
     protected function _initHelpers(){
-
         $acl = new Pas_Acl();
-        $aclHelper = new Pas_Controller_Action_Helper_Acl(null, array('acl' => $acl));
+        $aclHelper = new Pas_Controller_Action_Helper_Acl(null,
+                array('acl' => $acl)
+                );
         Zend_Registry::set('acl',$acl);
         Zend_Controller_Action_HelperBroker::addHelper($aclHelper);
 
@@ -213,13 +225,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $segmenter = new Pas_Controller_Action_Helper_SegmentGa();
         Zend_Controller_Action_HelperBroker::addHelper($segmenter);
 
-        $announcements = new Pas_Controller_Action_Helper_Annoucements();
+        $announcements = new Pas_Controller_Action_Helper_Announcements();
         Zend_Controller_Action_HelperBroker::addHelper($announcements);
 
         $redirects = new Pas_Controller_Action_Helper_LoginRedirects();
         Zend_Controller_Action_HelperBroker::addHelper($redirects);
     }
 
+    /** Set up rest routing
+     * @access public
+     * @todo do better than this
+     */
     public function _initRest(){
         $frontController = Zend_Controller_Front::getInstance();
         $restRoute = new Zend_Rest_Route($frontController, array(), array('api' => array('objects', 'status')));

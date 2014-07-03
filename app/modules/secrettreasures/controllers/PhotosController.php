@@ -18,7 +18,7 @@ class Secrettreasures_PhotosController
 	$this->_helper->acl->allow('public',null);
 	$this->_config = Zend_Registry::get('config');
 	$this->_flickr = $this->_config->webservice->flickr;
-	$this->_cache = Zend_Registry::get('flickrcache');
+	$this->_cache = Zend_Registry::get('cache');
 	$this->_api	= new Pas_Yql_Flickr($this->_flickr);
 	}
 

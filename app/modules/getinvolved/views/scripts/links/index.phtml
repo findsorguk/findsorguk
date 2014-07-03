@@ -7,7 +7,7 @@ $this->headLink()->appendAlternate('http://feeds.delicious.com/v2/rss/portablean
 <?php
 
 	$config = Zend_Registry::get('config');
-	$cachemain = Zend_Registry::get('formcache');
+	$cachemain = Zend_Registry::get('cache');
 	$userid = $config->webservice->delicious->id;
 	$pwd = $config->webservice->delicious->pwd;
 	$delicious = new Zend_Service_Delicious($userid, $pwd);
@@ -39,7 +39,7 @@ echo $this->paginationControl($paginator, 'Sliding', 'structure/pagination.phtml
 <?php
 
 	$config = Zend_Registry::get('config');
-	$cachemain = Zend_Registry::get('formcache');
+	$cachemain = Zend_Registry::get('cache');
 	$userid = $config->webservice->delicious->id;
 	$pwd = $config->webservice->delicious->pwd;
 	$delicious = new Zend_Service_Delicious($userid, $pwd);

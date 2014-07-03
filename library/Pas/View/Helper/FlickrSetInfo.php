@@ -89,7 +89,7 @@ class Pas_View_Helper_FlickrSetInfo extends Zend_View_Helper_Abstract {
      * @return \Zend_Cache
      */
     public function getCache() {
-        $this->_cache = Zend_Registry::get('rulercache');
+        $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
 

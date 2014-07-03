@@ -8,7 +8,7 @@
         ->setSize('b');?>" title="View image in larger format" rel="lightbox"><img src="http://farm<?php echo $r['farm'];?>.static.flickr.com/<?php echo $r['server'];?>/<?php echo $r['id'];?>_<?php echo $r['secret'];?>_s.jpg" alt="Primary image for this set" width="75" height="75" /></a><?php endforeach;?>
 
 <?php
-$cachemain = Zend_Registry::get('formcache');
+$cachemain = Zend_Registry::get('cache');
 echo '<h3>Most popular tags</h3>';
 
 if(!$cachemain->start('linkscloudflickrtags')) {
