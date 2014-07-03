@@ -54,25 +54,52 @@ class Yahoo extends Pas_Db_Table_Abstract {
      */
     const SITEYAHOOCALLBACK = 'http://finds.org.uk/admin/oauth/yahooaccess/';
 
+    /** The consumer key
+     * @access protected
+     * @var string
+     */
     protected $_consumerKey;
 
+    /** The consumer secret
+     * @access protected
+     * @var string
+     */
     protected $_consumerSecret;
 
+    /** The tokens
+     * @access protected
+     * @var type 
+     */
     protected $_tokens;
     
+    /** Date
+     * @access protected
+     * @var type 
+     */
     protected $_date;
+    
+    /** Get the date and time and add one hour
+     * @access public
+     * @return type
+     */
+    public function getDate() {
+        $this->_date = new Zend_Date();
+        $this->_date->add('1', Zend_Date::HOUR)->toString('YYYY-MM-dd HH:mm:ss');
+        return $this->_date;
+    }
 
+        
     /** Get the access keys, this could be changed to a constuct for passing keys
      * Uses the config.ini values
      *
      */
     public function init(){
-        $this->_consumerKey = $this->_helper->config()->webservice->ydnkeys->consumerKey;
-        $this->_consumerSecret = $this->_helper->config()->webservice->ydnkeys->consumerSecret;
-        $this->_date = new Zend_Date();
+        $this->_consumerKey = $this->_config->webservice->ydnkeys->consumerKey;
+        $this->_consumerSecret = $this->_config->webservice->ydnkeys->consumerSecret;
     }
 
     /** Request a token from Yahoo
+     * @access public
      * @return string $url The formed url for yahoo oauth request to be redirected to in controller.
      */
     public function request(){
@@ -102,7 +129,8 @@ class Yahoo extends Pas_Db_Table_Abstract {
     }
 
     /** Create the token for yahoo access and save to database.
-     *
+     * @access public
+     * @return type
      */
     public function access(){
         $config = array(
@@ -122,6 +150,13 @@ class Yahoo extends Pas_Db_Table_Abstract {
         return $this->buildToken($token);
     }
     
+    /** Refresh access using old details
+     * @access public
+     * @param string $old_access_token
+     * @param string $old_token_secret
+     * @param string $oauth_session_handle
+     * @return \build_token
+     */
     public function refreshAccess( $old_access_token, $old_token_secret, 
 	$oauth_session_handle ) {
          $config = array(
@@ -137,14 +172,18 @@ class Yahoo extends Pas_Db_Table_Abstract {
         $request->setToken($session->token)->setTokenSecret($session->secret);
         unset($session->token);
         unset($session->secret);
-       
         $consumer = new Zend_Oauth_Consumer($config);
         $token = $consumer->getAccessToken($_GET, $request);
         return $this->buildToken($token);
     }
     
+    /** Build a token
+     * @access public
+     * @param object $token
+     * @return boolean
+     */
     public function buildToken( $token ) {
-        $expires = $this->_date->add('1', Zend_Date::HOUR)->toString('YYYY-MM-dd HH:mm:ss');
+        $expires = $this->getDate();
         $oauth_guid = $token->xoauth_yahoo_guid;
         $oauth_session = $token->oauth_session_handle;
         $oauth_token = $token->getToken();
@@ -155,9 +194,10 @@ class Yahoo extends Pas_Db_Table_Abstract {
         $tokenRow->tokenSecret = serialize($oauth_token_secret);
         $tokenRow->guid = serialize($oauth_guid);
         $tokenRow->sessionHandle = serialize($oauth_session);
-        $tokenRow->created = $now;
+        $tokenRow->created = $this->timeCreation();
         $tokenRow->expires = $expires;
         $tokenRow->save();
+        return true;
     }
 }
 
