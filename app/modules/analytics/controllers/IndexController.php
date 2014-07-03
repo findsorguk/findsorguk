@@ -1,23 +1,15 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of IndexController
+/* An overiew of the GA api and what we can read
  *
- * @author Katiebear
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Controller_Action
+ * @subpackage Admin
+ * @license
+ * @version 1
  */
 class Analytics_IndexController extends Pas_Controller_Action_Admin {
-    
-    protected $_ID;
-    
-    protected $_pword;
-    
-    protected $_service;
-
     
     public function init() {
  	$this->_helper->_acl->allow(null); 

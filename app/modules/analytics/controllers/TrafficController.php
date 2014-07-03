@@ -1,35 +1,42 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of TrafficController
- *
+/** A controller to doscover more from the Google Analytics api about traffic 
+ * to the site.
+ * 
  * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Controller_Action
+ * @subpackage Admin
+ * @license
+ * @version 1
  */
-class Analytics_TrafficController
-    extends Pas_Controller_Action_Admin {
-    //put your code here
+class Analytics_TrafficController extends Pas_Controller_Action_Admin {
 
+    /** Initialise the variables
+     * @access public
+     */
     public function init(){
         $this->_helper->Acl->allow(null);
         $this->_ID = $this->_helper->config()->webservice->google->username;
-		$this->_pword = $this->_helper->config()->webservice->google->password;
+        $this->_pword = $this->_helper->config()->webservice->google->password;
     }
     
-    public function indexAction()
-    {
+    /** The index action
+     * @access public 
+     */
+    public function indexAction() {
+        //Redirect to the overview page
     	$this->_helper->redirector('overview');
     }
     
-    public function overviewAction()
-    {
+    /** Discover an overview
+     * @access public
+     */
+    public function overviewAction() {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
-    	$timeframe = new Pas_Analytics_Timespan($this->_getParam('timespan'));
+    	$timeframe = new Pas_Analytics_Timespan(); 
+        $timeframe->setTimespan($this->_getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -51,18 +58,11 @@ class Analytics_TrafficController
     	$this->view->results = $analytics->getData();	
     }
     
-    public function viareferralAction()
-    {
-    	
+    public function viareferralAction() {
     }
     
-    public function viasearchAction()
-    {
-    	
+    public function viasearchAction(){
     }
-    
-    
-    
-    }
+}
 
 
