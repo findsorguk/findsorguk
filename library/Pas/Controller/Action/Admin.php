@@ -1,8 +1,8 @@
 <?php
 /** Action admin controller; an extension of the zend controller action
- * 
- * This class allows for various functions and variables to be made 
- * available to all actions that utilise it. Probably could be stream 
+ *
+ * This class allows for various functions and variables to be made
+ * available to all actions that utilise it. Probably could be stream
  * lined.
  * @category Pas
  * @package Pas_Controller_Action_Admin
@@ -13,15 +13,15 @@
  * @since 23 Sept 2011
  */
 class Pas_Controller_Action_Admin extends Zend_Controller_Action {
-    
 
-    /**Database ID constant 
-     * 
+
+    /**Database ID constant
+     *
      */
     const  DBASE_ID = 'PAS';
 
     /**The secure ID instance
-     * 
+     *
      */
     const  SECURE_ID = '001';
 
@@ -29,8 +29,8 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @access protected
      * @var array
      */
-    protected $_higherLevel = array('admin','flos','fa','treasure'); 
-    
+    protected $_higherLevel = array('admin','flos','fa','treasure');
+
     /** Array of roles in research level
      * @access protected
      * @var array
@@ -39,31 +39,31 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
 
     /** Array of roles in restricted level
      * @access protected
-     * @var type 
+     * @var type
      */
     protected $_restricted = array('public');
- 
+
     /** Message for parameter absence
      * @access protected
      * @var string
      */
-    protected $_missingParameter = 'The url is missing a parameter. 
+    protected $_missingParameter = 'The url is missing a parameter.
             Please check your entry point.';
-    
+
     /** Message for no parameter found
      * @access public
      * @var string
      */
-    protected $_nothingFound = 'We cannot find anything with that parameter. 
+    protected $_nothingFound = 'We cannot find anything with that parameter.
             Please check your entry url carefully.';
-	
+
     /** Message for form errors
      * @access protected
      * @var string
      */
-    protected $_formErrors = 'Your form submission has some errors. 
+    protected $_formErrors = 'Your form submission has some errors.
             Please check and resubmit.';
-    
+
     /** No changes message
      * @access protected
      * @var string
@@ -82,14 +82,14 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
             $this->_redirect('/error/downtime');
 	}
     }
-	
+
     /** Post dispatch function
      * @access public
      */
     public function postDispatch() {
-        $this->view->announcements = $this->_helper->annoucements();
+        $this->view->announcements = $this->_helper->announcements();
     }
-    
+
     /** Get the institution of a user for reuse in controllers
      * @access public
      * @return string
@@ -97,7 +97,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
     public function getInstitution() {
 	return $this->_helper->identity->getPerson()->institution;
     }
-	
+
     /** Get the user's ID number for use in controllers
      * @access public
      * @return int
@@ -105,7 +105,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
     public function getIdentityForForms() {
 	return $this->_helper->identity->getIdentityForForms();
     }
-	
+
     /** Get the user's username for use in controllers
      * @access public
      * @return string
@@ -113,7 +113,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
     public function getUsername(){
 	return $this->_helper->identity->getPerson()->username;
     }
-	
+
     /** Get the user's role
      * @access public
      * @return string
@@ -127,7 +127,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
 	}
         return $role;
     }
-	
+
     /** Get full account details for reuse
      * @access public
      * @return object
@@ -135,7 +135,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
     public function getAccount() {
 	return $this->_helper->identity->getPerson();
     }
-	
+
     /** Get current date
      * @access public
      * @return string
@@ -152,7 +152,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
         list($usec, $sec)= explode(" ", microtime());
         $ms = dechex(round($usec * 4080));
 	while(strlen($ms) < 3) {
-            $ms = '0' . $ms; 
+            $ms = '0' . $ms;
 	}
 	return strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $ms);
     }
@@ -166,7 +166,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
 	$suffix =  strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
 	return $this->getInstitution() . '-' . $suffix;
     }
-    
+
     /** Retrieve the page number from pagination
      * @access public
      * @return int
@@ -180,7 +180,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
 	}
 	return $start;
     }
-	
+
      /** Curl function to retrieve data from url
      * @access public
      * @param string $url
@@ -200,13 +200,13 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
         $client = new Zend_Http_Client($url, $config);
 	return $client->request();
     }
-	
+
     /** The cache object
      * @access protected
      * @var \Zend_Cache
      */
     protected $_cache;
-    
+
     /** Create the cache
      * @access public
      */

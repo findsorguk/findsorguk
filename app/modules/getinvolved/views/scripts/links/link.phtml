@@ -2,7 +2,7 @@
 <h2>Bookmarks tagged with <?php echo $this->tag;?></h2>
 <?php 
 	$config = Zend_Registry::get('config');
-	$cachemain = Zend_Registry::get('formcache');
+	$cachemain = Zend_Registry::get('cache');
 	$userid = $config->webservice->delicious->id;
 	$pwd = $config->webservice->delicious->pwd;
 	$delicious = new Zend_Service_Delicious($userid, $pwd);

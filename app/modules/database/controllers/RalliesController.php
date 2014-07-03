@@ -36,7 +36,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
                 ->addActionContext('rally', array('xml','json'))
                 ->addActionContext('index', array('xml','json','rss','atom'))
                 ->initContext();
-        $this->_cache = Zend_Registry::get('rulercache');
+        $this->_cache = Zend_Registry::get('cache');
         $this->_rallies = new Rallies();
         $this->_districts = new OsDistricts();
         $this->_parishes = new OsParishes();

@@ -11,7 +11,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$this->_helper->acl->allow('public',null);
 	$this->_helper->layout->disableLayout();
 	$this->_helper->viewRenderer->setNoRender();
-	$this->_cache = Zend_Registry::get('rulercache');
+	$this->_cache = Zend_Registry::get('cache');
    	$this->_user = $this->_helper->identity->getPerson();
     $this->_places = new Places();
    	}

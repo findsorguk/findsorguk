@@ -24,7 +24,7 @@ class Pas_View_Helper_LatestRecordsPublications extends Zend_View_Helper_Abstrac
 
     public function __construct()
     {
-        $this->_cache = Zend_Registry::get('rulercache');
+        $this->_cache = Zend_Registry::get('cache');
         $this->_config = Zend_Registry::get('config');
         $this->_solrConfig = $this->_config->solr->toArray();
         $this->_solrConfig['core'] = 'beobiblio';

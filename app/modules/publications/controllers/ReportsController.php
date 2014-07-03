@@ -21,7 +21,7 @@ class Publications_ReportsController extends Pas_Controller_Action_Admin
                 $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 		$this->_helper->acl->allow('public',null);
 		$this->_config = Zend_Registry::get('config');
-		$this->_cache = Zend_Registry::get('rulercache');
+		$this->_cache = Zend_Registry::get('cache');
 	}
 
         /** Nothing on the index page

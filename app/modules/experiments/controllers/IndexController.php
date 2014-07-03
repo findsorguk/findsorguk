@@ -14,7 +14,7 @@ class Experiments_IndexController extends Pas_Controller_Action_Admin {
 		$this->_helper->_acl->allow('public',NULL);
     	$this->_oauth = new Pas_Yql_Oauth();  
 		$this->_config = Zend_Registry::get('config');
-		$this->_cache = Zend_Registry::get('rulercache');
+		$this->_cache = Zend_Registry::get('cache');
 		
     	
     }

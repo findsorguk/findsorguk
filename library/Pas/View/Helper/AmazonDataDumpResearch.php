@@ -150,7 +150,7 @@ class Pas_View_Helper_AmazonDataDumpResearch extends Zend_View_Helper_Abstract
      */
     public function getCache()
     {
-        $this->_cache = Zend_Registry::get('rulercache');
+        $this->_cache = Zend_Registry::get('cache');
 
         return $this->_cache;
     }

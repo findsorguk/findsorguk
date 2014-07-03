@@ -57,7 +57,7 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @return type
      */
     public function getCache() {
-        $this->_cache = Zend_Registry::get('rulercache');
+        $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
 

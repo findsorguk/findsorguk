@@ -9,7 +9,7 @@
 
 
 <?php
-$cachemain = Zend_Registry::get('formcache');
+$cachemain = Zend_Registry::get('cache');
 echo '<h3>Most popular tags</h3>';
 
 if(!$cachemain->start('linkscloudflickrtags')) {

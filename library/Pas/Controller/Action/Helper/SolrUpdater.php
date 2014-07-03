@@ -1,22 +1,41 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Config
+ * An action helper for sending updates to our solr instances via the controller
  *
- * @author Katiebear
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $this->_helper->solrUpdater->update($model, $insertData, $type);
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @license http://URL name
+ * @category Pas
+ * @package Controller_Action
+ * @subpackage Helper
+ * @version 1
+ *
  */
 class Pas_Controller_Action_Helper_SolrUpdater
     extends Zend_Controller_Action_Helper_Abstract {
 
+    /** The list of cores available
+     * @access protected
+     * @var array
+     * @todo change core names through out site
+     */
     protected $_cores = array(
-    'beowulf', 'beopeople', 'beoimages',
-    'beopublications','beobiblio','beocontent');
+        'beowulf', 'beopeople', 'beoimages',
+        'beopublications','beobiblio','beocontent'
+        );
 
+    /** The solr object
+     * @access protected
+     * @var
+     */
     protected $_solr;
 
     protected $_config;

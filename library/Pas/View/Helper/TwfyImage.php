@@ -25,7 +25,7 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract
      */
     public function __construct()
     {
-    $this->_cache = Zend_Registry::get('rulercache');
+    $this->_cache = Zend_Registry::get('cache');
     $this->_config = Zend_Registry::get('config');
     $this->_twfykey = $this->_config->webservice->twfy->apikey;
     }
