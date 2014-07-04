@@ -3,10 +3,12 @@
  * This controller action is primarily used for the creation of ajax responses
  *
  * This class needs total refactoring. Written in 2009 and not very good.
- * @category	Pas
- * @package Pas_Controller_Action
- * @subpackage	Ajax
+ * 
  * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Controller_Action
+ * @subpackage	Ajax
  * @version 2
  * @license GNU
  * @since September 2009
@@ -15,33 +17,34 @@
 class Pas_Controller_Action_Ajax extends Zend_Controller_Action {
 
     /** The error message for a missing parameter
-     *
+     * @access protected
      * @var string
      */
     protected $_missingParameter = 'The url is missing a parameter.
         Please check your entry point.';
 
     /** The error message for when nothing has been found from a db call via parameter
-     *
+     * @access protected
      * @var string
      */
     protected $_nothingFound = 'We cannot find anything with that parameter.
         Please check your entry url carefully.';
 
     /** Form error message - is this used?
-     *
+     * @access protected
      * @var string
      */
     protected $_formErrors = 'Your form submission has some errors.
         Please check and resubmit.';
 
     /** Message when no changes made
-     *
+     * @access protected
      * @var string
      */
     protected $_noChange = 'No changes have been implemented';
 
     /** The authority object.
+     * @access protected
      * @var object $_auth
      */
     protected $_auth;
@@ -50,7 +53,7 @@ class Pas_Controller_Action_Ajax extends Zend_Controller_Action {
      * @access public
      */
     public function init(){
-    $this->_auth = Zend_Auth::getInstance();
+        $this->_auth = Zend_Auth::getInstance();
     }
 
     /** Get a user's institution
@@ -68,7 +71,7 @@ class Pas_Controller_Action_Ajax extends Zend_Controller_Action {
     }
     /** Get a user's identity
      * @access public
-     * @return int
+     * @return integer
      */
     public function getIdentityForForms(){
         if($this->_auth->hasIdentity()){
@@ -95,21 +98,25 @@ class Pas_Controller_Action_Ajax extends Zend_Controller_Action {
 
     /** Get a user's username
      * @access public
+     * @return string
      */
     public function getUsername() {
         return $this->_helper->identity->getPerson()->username;
     }
+    
     /** Get a time for updating form
      * @access public
+     * @return string
      */
     public function getTimeForForms() {
         return Zend_Date::now()->toString('yyyy-MM-dd HH:mm');
     }
     
      /** Curl function to retrieve data from url
-     * @access public
-     * @param string $url
-     */
+      * @access public
+      * @param string $url
+      * @return type
+      */
     public function get( $url ){
         $config = array(
             'adapter'   => 'Zend_Http_Client_Adapter_Curl',
