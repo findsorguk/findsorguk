@@ -1,19 +1,31 @@
 <?php
-class Pas_Validate_Datetime extends Zend_Validate_Date {
-    public function isValid ($value)
-    {
+/** A validator for checking that a date and time is valid
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @license http://URL name
+ * @category Pas
+ * @package Validate
+ * @version 1
+ *
+ */
+class Pas_Validate_DateTime extends Zend_Validate_Date {
+
+    /** Check if date value submitted is valid
+     * @access public
+     * @param string $value
+     * @return boolean
+     */
+    public function isValid ($value){
         $this->_setValue($value);
-        
         if (empty($value)) {
             return true;
         }
-
         $valid = $this->_testDateAgainstFormat($value, $this->getFormat());
         if (!$valid) {
             // re-test for Y-m-d as this format is always a valid option
             $valid = $this->_testDateAgainstFormat($value, 'Y-m-d');
         }
-
         if ($valid) {
             return true;
         }
@@ -21,8 +33,13 @@ class Pas_Validate_Datetime extends Zend_Validate_Date {
         return false;
     }
 
-    protected function _testDateAgainstFormat($value, $format)
-    {
+    /** Test against the date format supplied
+     * @access public
+     * @param string $value
+     * @param string $format
+     * @return boolean
+     */
+    protected function _testDateAgainstFormat($value, $format){
         $ts = strtotime($value);
         if ($ts !== false) {
             $testValue = date($format, $ts);
