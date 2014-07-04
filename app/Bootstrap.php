@@ -65,7 +65,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $frontController->setParam('useDefaultControllerAlways', false);
         $frontController->registerPlugin(new Pas_Controller_Plugin_ModuleLayout());
         $frontController->registerPlugin(new Pas_Controller_Plugin_StyleAndAlternate());
-	$frontController->registerPlugin(new Pas_Controller_Plugin_Errors);
     }
 
     /** Initialise the routing
