@@ -427,7 +427,7 @@ public function __construct($options = null) {
 	'Available states' => $preserve_options))
 	->addValidator('InArray', false, array(array_keys($preserve_options)))
 	->addValidator('Int')
-	->setAttribs(array('class' => 'selectpicker show-menu-arrow'));
+	->setAttribs(array('class' => 'selectpicker show-menu-arrow input-large'));
 
 
 	//Completeness of object
