@@ -4,16 +4,17 @@
  * This class allows for various functions and variables to be made
  * available to all actions that utilise it. Probably could be stream
  * lined.
+ * 
  * @category Pas
- * @package Pas_Controller_Action_Admin
- * @subpackage Action
+ * @package Controller_Action
+ * @subpackage Admin
  * @version 1
  * @author Daniel Pett
  * @license GNU
  * @since 23 Sept 2011
+ * 
  */
 class Pas_Controller_Action_Admin extends Zend_Controller_Action {
-
 
     /**Database ID constant
      *
@@ -29,13 +30,13 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @access protected
      * @var array
      */
-    protected $_higherLevel = array('admin','flos','fa','treasure');
+    protected $_higherLevel = array('admin', 'flos', 'fa', 'treasure');
 
     /** Array of roles in research level
      * @access protected
      * @var array
      */
-    protected $_researchLevel = array('member','hero','research');
+    protected $_researchLevel = array('member', 'hero', 'research');
 
     /** Array of roles in restricted level
      * @access protected

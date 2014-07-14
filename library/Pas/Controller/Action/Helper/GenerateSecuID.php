@@ -1,43 +1,34 @@
 <?php
-/**
- *
- * @author dpett
- * @version 
- */
-
-/**
- * GenerateSecuID Action Helper 
+/** An action helper for generating a secure ID number.
  * 
+ * This helper generates a string that is used as the glue to tie database 
+ * records together.
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $secuid = $this->_helper->GenerateSecuID();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Controller_Action
+ * @subpackage Helper
+ * @version 1
+ * @license http://URL name
+ * @example /app/modules/database/controllers/PublicationsController.php
  */
-class Pas_Controller_Action_Helper_GenerateSecuID 
-		extends Zend_Controller_Action_Helper_Abstract {
+class Pas_Controller_Action_Helper_GenerateSecuID extends Zend_Controller_Action_Helper_Abstract {
 	
-	const  DBASE_ID = 'PAS';
-
-	/**The secure ID instance
-	 * 
-	 */
-	const  SECURE_ID = '001';
-	
-	/**
-	 * Strategy pattern: call helper as broker method
-	 */
-	public function direct() {
-		return $this->_secuid();
-	}
-	
-	protected function _secuid() {
-	list($usec, $sec) = explode(" ", microtime());
-	$ms = dechex(round($usec * 4080));
-	while(strlen($ms) < 3) {
-	$ms = '0' . $ms; 
-	}
-	$secuid = strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $ms);
-	while(strlen($ms)<3) {
-	$ms = '0' . $ms; 
-	}
-	$secuid=strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $ms);
-	return $secuid;
-	}
+    /** The proxy function to get the secure ID number
+     * @access public
+     * @return string
+     */
+    public function direct() {
+        $generator = new Pas_Generator_SecuID();
+        return $this->generator->secuid();
+    }
 }
-

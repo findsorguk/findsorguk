@@ -2,6 +2,14 @@
 /** An action helper for determining whether a submitted comment is termed as
  * spam by the akismet service.
  * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $data = $this->_helper->akismet($form->getValues());
+ * ?>
+ * </code>
+ * 
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -10,6 +18,7 @@
  * @version 1
  * @license http://URL name
  * @uses \Zend_Service_Akismet
+ * @example /app/modules/database/controllers/ArtefactsController.php
  * 
  */
 
@@ -101,7 +110,7 @@ class Pas_Controller_Action_Helper_Akismet extends Zend_Controller_Action_Helper
             $data['user_agent'] = $useragent->getUserAgent();
         }
         foreach ($data as $k => $v){
-            if(!in_array($k,$this->_additionalFields)){
+            if(!in_array($k, $this->_additionalFields)){
                 unset($data[$k]);
             }
         }

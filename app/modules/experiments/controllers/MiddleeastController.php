@@ -20,7 +20,7 @@ class Experiments_MiddleeastController extends Pas_Controller_Action_Admin {
 		if($this->_getParam('called',false)){
 			
 		} else {
-			throw new Pas_Exception_BadJuJu('No name has been called', 500);
+			throw new Pas_Exception('No name has been called', 500);
 		}
 	}
 	

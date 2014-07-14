@@ -1,14 +1,20 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of CoinFormLoader
- *
+/** An action helper for adding correct options to a form
+ * 
+ * An example of use:
+ * <code>
+ * <?php
+ * $formLoader = $this->_helper->coinFormLoaderOptions($broadperiod,  $coin);
+ * ?>
+ * </code>
+ * 
  * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Controller_Action
+ * @subpackage Helper
+ * @version 1
+ * @example /app/modules/database/controllers/CoinsController.php
  */
 class Pas_Controller_Action_Helper_CoinFormLoaderOptions
     extends Zend_Controller_Action_Helper_Abstract {

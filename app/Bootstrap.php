@@ -227,7 +227,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $announcements = new Pas_Controller_Action_Helper_Announcements();
         Zend_Controller_Action_HelperBroker::addHelper($announcements);
 
-        $redirects = new Pas_Controller_Action_Helper_LoginRedirects();
+        $redirects = new Pas_Controller_Action_Helper_LoginRedirect();
         Zend_Controller_Action_HelperBroker::addHelper($redirects);
     }
 

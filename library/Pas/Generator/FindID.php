@@ -17,7 +17,7 @@ class Pas_Generator_FindID {
     if($person){
     	return $person->institution;
     } else {
-    	throw new Pas_Exception_BadJuJu('User credentials missing', 500);
+    	throw new Pas_Exception('User credentials missing', 500);
     }
 	}
 	/**

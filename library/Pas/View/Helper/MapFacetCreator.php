@@ -15,7 +15,7 @@
  * @copyright Daniel Pett
  * @author Daniel Pett
  * @license GNU
- * @uses Pas_Exception_BadJuJu
+ * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  */
@@ -25,7 +25,7 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
      * @access public
      * @param  array                 $facets
      * @return string
-     * @throws Pas_Exception_BadJuJu
+     * @throws Pas_Exception
      */
 
     public function mapFacetCreator()
@@ -54,7 +54,7 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
 
         return $html;
         } else {
-            throw new Pas_Exception_BadJuJu('The facets sent are not an array');
+            throw new Pas_Exception('The facets sent are not an array');
         }
     }
 
@@ -63,7 +63,7 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
      * @param  array                 $facet
      * @param  string                $facetName
      * @return string
-     * @throws Pas_Exception_BadJuJu
+     * @throws Pas_Exception
      * @uses Zend_Controller_Front
      * @uses Zend_View_Helper_Url
      */
@@ -120,7 +120,7 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
         return $html;
             }
         } else {
-            throw new Pas_Exception_BadJuJu('The facet is not an array');
+            throw new Pas_Exception('The facet is not an array');
         }
     }
 
