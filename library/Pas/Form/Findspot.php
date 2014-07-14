@@ -25,7 +25,7 @@ class Pas_Form_Findspot {
     if($person){
     	return $person->id;
     } else {
-    	throw new Pas_Exception_BadJuJu('No user credentials found', 500);
+    	throw new Pas_Exception('No user credentials found', 500);
     }
     }
 

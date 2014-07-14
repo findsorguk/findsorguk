@@ -1,5 +1,5 @@
 <?php
-/** A general exception class for throwing exporter exception.
+/** A general exception class.
  * 
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
@@ -8,5 +8,8 @@
  * @version 1
  * 
  */
-class Pas_Exporter_Exception extends Zend_Exception {
+
+class Pas_Exception extends Exception {
+
+    
 }

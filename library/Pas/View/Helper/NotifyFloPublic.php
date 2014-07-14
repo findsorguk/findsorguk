@@ -26,7 +26,7 @@ class Pas_View_Helper_NotifyFloPublic
     if ($user) {
     $this->_user = $user->getPerson();
     } else {
-        throw new Pas_Exception_BadJuJu('No user credentials found');
+        throw new Pas_Exception('No user credentials found');
     }
     }
 

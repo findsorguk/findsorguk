@@ -1,47 +1,89 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of ArrayToCsv
- *
- * @author danielpett
+/** A class for exporting an array of fields to the correct HERO format
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $converter = new Pas_Exporter_ArrayToHero($this->_exegesis);
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Exporter
+ * @version 1
+ * @license http://URL name
+ * @example /library/Pas/Exporter/Hero.php
+ * 
  */
 class Pas_Exporter_ArrayToHero {
-
+    
+   /** Fields to use
+     * @access protected
+     * @var array
+     */
     protected $_fields;
 
+    /** The user's role
+     * @access protected
+     * @var string
+     */
     protected $_role;
 
+    /** The allowed roles
+     * @access protected
+     * @var array
+     */
     protected $_allowed = array('admin','flos','fa','treasure');
 
-    protected $_maybe = array('hero',);
+    /** Maybe allowed
+     * @access protected
+     * @var array
+     */
+    protected $_maybe = array('hero','research');
 
-    protected $_never = array('member',null,'public','research');
+    /** Never allowed
+     * @access protected
+     * @var array
+     */
+    protected $_never = array('member',null,'public');
 
+    /** Get the user role and the fields
+     * @access public
+     * @param type $fields
+     */
     public function __construct($fields){
         $this->_fields = $fields;
         $user = new Pas_User_Details();
         $this->_role = $user->getPerson()->role;
     }
-
+    
+       
+    /** Sort an array by an array
+     * @access public
+     * @param array $toSort
+     * @param array $sortByValuesAsKeys
+     * @return array
+     */
     public function sortArrayByArray(array $toSort, array $sortByValuesAsKeys){
-    $commonKeysInOrder = array_intersect_key(array_flip($sortByValuesAsKeys), $toSort);
-    $commonKeysWithValue = array_intersect_key($toSort, $commonKeysInOrder);
-    $sorted = array_merge($commonKeysInOrder, $commonKeysWithValue);
-    return $sorted;
+        $commonKeysInOrder = array_intersect_key(array_flip($sortByValuesAsKeys), $toSort);
+        $commonKeysWithValue = array_intersect_key($toSort, $commonKeysInOrder);
+        $sorted = array_merge($commonKeysInOrder, $commonKeysWithValue);
+        return $sorted;
     }
 
+    /** Convert the data
+     * @access public
+     * @param array $data
+     * @return array
+     */
     public function convert($data) {
-
         $remove = array_merge($this->_never, $this->_maybe);
 
         foreach($data as $dat){
-//            Zend_Debug::dump($dat,'ORIGINAL');
-set_time_limit(0);
+            set_time_limit(0);
             $dat['SecUID'] = $dat['secuid'];
             $dat['FindID'] = $dat['old_findID'];
             $dat['ObjectType'] = $dat['objecttype'];
@@ -110,26 +152,21 @@ set_time_limit(0);
         }
         $nullified[] = $dat;
         }
-    foreach ($nullified AS $null) {
-
- 	foreach($null as $k => $v){
-
-	$record[$k] = trim(strip_tags(str_replace('<br />',array( "\n", "\r"), utf8_decode( $v ))));
-        if(in_array($this->_role,$remove)){
-            $record['finder'] = 'Restricted info';
-        }
-        foreach($record as $k => $v){
-            if($v === '' || is_null($v)){
-                $record[$k] = NULL;
-            }
-        }
-
-
+        foreach ($nullified AS $null) {
+            foreach($null as $k => $v){
+                $record[$k] = trim(strip_tags(str_replace('<br />',array( "\n", "\r"), utf8_decode( $v ))));
+                if(in_array($this->_role,$remove)){
+                    $record['finder'] = 'Restricted info';
+                }
+                foreach($record as $k => $v){
+                    if($v === '' || is_null($v)){
+                        $record[$k] = NULL;
+                    }
+               }
 	}
         $cleanSort = $this->sortArrayByArray($record, $this->_fields);
-
 	$finalData[] = $cleanSort;
- }
-    return $finalData;
-	}
+        }
+        return $finalData;
+    }
 }

@@ -55,7 +55,7 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
 
     return $params;
     } else {
-        throw new Pas_Exception_BadJuJu('Parameters have to be an array');
+        throw new Pas_Exception('Parameters have to be an array');
     }
     }
     /** Generate authenticated data

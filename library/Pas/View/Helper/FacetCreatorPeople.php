@@ -19,7 +19,7 @@
  * @version 1
  * @since 30/1/2012
  * @license GNU
- * @uses Pas_Exception_BadJuJu
+ * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  * @example /app/modules/database/views/scripts/people/index.phtml
@@ -65,7 +65,7 @@ class Pas_View_Helper_FacetCreatorPeople extends Zend_View_Helper_Abstract {
      * @param  array                 $facet
      * @param  string                $facetName
      * @return string
-     * @throws Pas_Exception_BadJuJu
+     * @throws Pas_Exception
      */
     protected function _processFacet(array $facet, $facetName) {
         if (is_array($facet)) {
@@ -133,7 +133,7 @@ class Pas_View_Helper_FacetCreatorPeople extends Zend_View_Helper_Abstract {
         return $html;
             }
         } else {
-            throw new Pas_Exception_BadJuJu('The facet is not an array');
+            throw new Pas_Exception('The facet is not an array');
         }
     }
 

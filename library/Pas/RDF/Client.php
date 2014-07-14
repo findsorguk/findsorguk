@@ -8,6 +8,7 @@
  * $client = new Pas_RDF_Client();
  * ?>
  * </code>
+ * 
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @version 1
