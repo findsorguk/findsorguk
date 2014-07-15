@@ -1,19 +1,14 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** An interface to the Edina SpatialNameSearch api call using bounding box
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Pas_Geo_Edina
  * @subpackage SpatialNameSearch
  * @license GNU Public
  * @since 3/2/12
  * @version 1
- * @copyright Daniel Pett, The British Museum
- * @author Daniel pett
  * @uses Pas_Geo_Edina_Exception
  * @see http://unlock.edina.ac.uk/places/queries/
  *
@@ -130,28 +125,28 @@ class Pas_Geo_Edina_SpatialNameSearch extends Pas_Geo_Edina {
      * @throws Pas_Geo_Edina_Exception
      */
     protected function _bboxCheck($bbox){
-      if(count($bbox) === self::CORNERS){
-      //Validate the points
-      foreach($bbox as $corner){
-          if(!is_numeric($corner)){
-              throw new Pas_Geo_Edina_Exception('Coordinate provided not numeric');
-          } elseif((abs($corner) > 180)){
-              throw new Pas_Geo_Edina_Exception('Coordinate greater than 180 &deg;');
-          }
-      }
-      //Check mathematics
-      if($bbox['0']  > $bbox['2']){
-        //This checks that the minimum latitude is smaller than maximum
-        //latitude, if not throw exception
-        throw new Pas_Geo_Edina_Exception('Minimum latitude greater than maximum');
-       }
+        if(count($bbox) === self::CORNERS){
+        //Validate the points
+        foreach($bbox as $corner){
+            if(!is_numeric($corner)){
+                throw new Pas_Geo_Edina_Exception('Coordinate provided not numeric');
+            } elseif((abs($corner) > 180)){
+                throw new Pas_Geo_Edina_Exception('Coordinate greater than 180 &deg;');
+            }
+        }
+        //Check mathematics
+        if($bbox['0']  > $bbox['2']){
+            //This checks that the minimum latitude is smaller than maximum
+            //latitude, if not throw exception
+            throw new Pas_Geo_Edina_Exception('Minimum latitude greater than maximum');
+         }
 
-      if($bbox['1'] > $bbox['3'] ){
-        //This checks that the minimum latitude is smaller than maximum
-        ////latitude, if not throw exception
-        throw new Pas_Geo_Edina_Exception('Minimum longitude greater than maximum');
-      }
-    }
+        if($bbox['1'] > $bbox['3'] ){
+            //This checks that the minimum latitude is smaller than maximum
+            //latitude, if not throw exception
+            throw new Pas_Geo_Edina_Exception('Minimum longitude greater than maximum');
+        }
+        }
     }
 
     /** Using the parent class, call the api

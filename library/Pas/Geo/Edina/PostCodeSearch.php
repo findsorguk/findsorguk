@@ -1,11 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 /** An interface to the Edina PostCodeSearch api call
  * @category Pas
  * @package Pas_Geo_Edina
@@ -61,15 +54,15 @@ class Pas_Geo_Edina_PostCodeSearch extends Pas_Geo_Edina {
 
     /** Set the postcode
      * @access public
-     * @param type $postCode
+     * @param string $postCode
      */
     public function setPostCode($postCode) {
         $this->_postCode = $postCode;
     }
 
     /** Return the postcode queried
-     *
-     * @return type
+     * @access public
+     * @return string
      */
     public function getPostCode() {
         return $this->_postCode;
@@ -88,8 +81,8 @@ class Pas_Geo_Edina_PostCodeSearch extends Pas_Geo_Edina {
     }
 
     /** Send parameters to parent function
-     *
-     * @return type
+     * @access public
+     * @return array
      */
     public function get(){
         $params = array(

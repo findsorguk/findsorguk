@@ -41,7 +41,6 @@ class Pas_Geo_BoundBox {
           // distance
           $radius = 6378.1;
         }
-
         //	New latitude in degrees.
         $new_latitude = rad2deg(asin(sin(deg2rad($latitude)) * cos($distance / $radius)
         + cos(deg2rad($latitude)) * sin($distance / $radius) * cos(deg2rad($bearing))));

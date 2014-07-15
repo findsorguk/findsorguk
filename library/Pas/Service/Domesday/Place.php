@@ -1,39 +1,93 @@
 <?php
+/** A service class for interacting with the Domesday map website
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ *  $domesday = new Pas_Service_Domesday_Place();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @license http://URL name
+ * @version 1
+ * @category Pas
+ * @package Pas_Service
+ * @subpackage Domesday
+ * @example /library/Pas/View/Helper/DomesdayNear.php
+ * 
+ */
+class Pas_Service_Domesday_Place extends Zend_Rest_Client {
 
-class Pas_Service_Domesday_Place
-	extends Zend_Rest_Client {
+    /** The array of parameters to send
+     * @access protected
+     * @var type 
+     */
+    protected $_params = array();
 
-	protected $_params = array();
+    /** The uri of the service
+     * @access protected
+     * @var string
+     */
+    protected $_uri = 'http://domesdaymap.co.uk';
 
-	protected $_uri = 'http://domesdaymap.co.uk';
+    /** The response type array
+     * @access protected
+     * @var array
+     */
+    protected $_responseTypes = array('xml', 'json', 'django');
 
-	protected $_responseTypes = array('xml', 'json', 'django');
+    /** The default response type
+     * @access protected
+     * @var string
+     */
+    protected $_responseType = 'json';
 
-	protected $_responseType = 'json';
-
-    protected $_methods = array('place', 'placesnear', 'manor',
+    /** The methods available
+     * @access protected
+     * @var array
+     */
+    protected $_methods = array(
+        'place', 'placesnear', 'manor',
     	'image', 'hundred', 'area',
-    	'county' );
+    	'county' 
+        );
 
+    /** The place parameters to use
+     * @access protected
+     * @var array
+     */
     protected $_placeNearParams = array(
 	    'lat', 'lng', 'radius',
 	    's', 'e', 'n',
 	    'w','format');
 
+    /** The path to the api
+     * @access protected
+     * @var string
+     */
     protected $_apiPath = '/api/1.0/';
 
-	public function __construct(){
+    /** The constructor
+     * @access public
+     */
+    public function __construct(){
 	$this->setUri($this->_uri);
 	$client = self::getHttpClient();
 	$client->setHeaders('Accept-Charset', 'ISO-8859-1,utf-8');
-	}
+    }
 
-	public function setParams($params)
-    {
+    /** Set the parameters for searching
+     * @access public
+     * @param array $params
+     * @return \Pas_Service_Domesday_Place
+     */
+    public function setParams(array $params) {
         foreach ($params as $key => $value) {
             switch (strtolower($key)) {
                 case 'format':
-					$this->_params['format'] = $this->setResponseType($value);
+                    $this->_params['format'] = $this->setResponseType($value);
                     break;
                 default:
                     $this->_params[$key] = $value;
@@ -43,13 +97,21 @@ class Pas_Service_Domesday_Place
         return $this;
     }
 
-    public function getParams()
-    {
+    /** Get the parameters
+     * @access @access public
+     * @return type
+     */
+    public function getParams(){
     	return $this->_params;
     }
 
-    public function setResponseType($responseType)
-    {
+    /** Set the response type to retrieve
+     * @access protected
+     * @param string $responseType
+     * @return string
+     * @throws Pas_Service_Domesday_Exception
+     */
+    public function setResponseType($responseType) {
         if (!in_array(strtolower($responseType), $this->_responseTypes)) {
             throw new Pas_Service_Domesday_Exception('Invalid Response Type');
         }
@@ -57,18 +119,26 @@ class Pas_Service_Domesday_Place
         return $this->_responseType;
     }
 
-    public function getResponseType()
-    {
+    /** Get the response type
+     * @access public
+     * @return string
+     */
+    public function getResponseType() {
         return $this->_responseType;
     }
 
-    public function sendRequest($requestType, $path)
-    {
+    /** Send the request
+     * @access public
+     * @param string $requestType
+     * @param string $path
+     * @return \Zend_Http_Response
+     * @throws Pas_Service_Domesday_Exception
+     */
+    public function sendRequest($requestType, $path) {
         $requestType = ucfirst(strtolower($requestType));
         if ($requestType !== 'Post' && $requestType !== 'Get') {
             throw new Pas_Service_Domesday_Exception('Invalid request type: ' . $requestType);
         }
-
         try {
             $requestMethod = 'rest' . $requestType;
             $response = $this->{$requestMethod}($path, $this->getParams());
@@ -79,12 +149,10 @@ class Pas_Service_Domesday_Place
     }
 
     /** Set up the response rendering
-     *
+     * @access public
      * @param string $response
      */
-    public function formatResponse(Zend_Http_Response $response)
-    {
-   
+    public function formatResponse(Zend_Http_Response $response){
         if ('json' === $this->getResponseType()) {
             return json_decode($response->getBody());
         }  else {
@@ -93,24 +161,21 @@ class Pas_Service_Domesday_Place
     }
 
     /** Retrieve data from the api
-     *
+     * @access public
      * @param string $method
      * @param array $params
      */
-    public function getData($method, array $params = array())
-    {
+    public function getData($method, array $params = array()) {
     	if(!in_array($method,$this->_methods)){
-    		throw new Pas_Service_Domesday_Exception('That is not a valid method');
+            throw new Pas_Service_Domesday_Exception('That is not a valid method');
     	}
     	foreach($params as $k => $v) {
-			if(!in_array($k, $this->_placeNearParams)){
-				unset($params['k']);
-			}
-		}
+            if(!in_array($k, $this->_placeNearParams)){
+                unset($params['k']);
+                }
+	}
     	$this->setParams($params);
-		$path = $this->_apiPath . $method;
-
+        $path = $this->_apiPath . $method;
         return $this->sendRequest('GET', $path);
     }
-
 }

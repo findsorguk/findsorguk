@@ -1,5 +1,4 @@
 <?php
-
 /**
  * A wrapper for interfacing with the MapIt api, specifically the area call.
  * This extends the Mapit base class.
@@ -9,10 +8,10 @@
  * @subpackage Postcode
  * @version 1
  * @since 6/2/12
- * @copyright Daniel Pett, British Museum
  * @license GNU public
  * @see http://mapit.mysociety.org/
  * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @uses Pas_Validate_ValidPostcode
  * @uses Pas_Geo_Mapit_Exception
  *
@@ -61,7 +60,7 @@ class Pas_Geo_Mapit_Area extends Pas_Geo_Mapit {
     protected $_geometry = null;
 
     /** Available methods
-     *
+     * @access protected
      * @var type
      */
 
@@ -114,7 +113,7 @@ class Pas_Geo_Mapit_Area extends Pas_Geo_Mapit {
     );
 
     /** The method to use
-     * @acces protected
+     * @access protected
      * @var type
      */
     protected $_method;
@@ -130,7 +129,7 @@ class Pas_Geo_Mapit_Area extends Pas_Geo_Mapit {
      * @return type
      */
     public function get() {
-    return parent::get(self::APIMETHOD, $this->_createParams());
+        return parent::get(self::APIMETHOD, $this->_createParams());
     }
 
     /** Set the format you want
@@ -161,12 +160,12 @@ class Pas_Geo_Mapit_Area extends Pas_Geo_Mapit {
      * @throws Pas_Geo_Mapit_Exception
      */
     public function setId($id){
-    $validator = new Zend_Validate_Digits();
-    if($validator->isValid($id)){
-    	return $this->_id = $id;
-    } else {
-        throw new Pas_Geo_Mapit_Exception('The id must be an integer');
-    }
+        $validator = new Zend_Validate_Digits();
+        if($validator->isValid($id)){
+            return $this->_id = $id;
+        } else {
+            throw new Pas_Geo_Mapit_Exception('The id must be an integer');
+        }
     }
 
     /** Get the ID queried
@@ -177,19 +176,20 @@ class Pas_Geo_Mapit_Area extends Pas_Geo_Mapit {
     	return $this->_id;
     }
 
-    /**
+    /** Set the method to use
+     * @access public
      * @param $_method the $_method to set
      */
     public function setMethod($method) {
         if(!in_array($method, $this->_methods)){
             throw new Pas_Geo_Mapit_Exception('That method does not exist');
-
         } else {
              return $this->_method = $method;
         }
     }
 
-    /**
+    /** Get the method
+     * @access public
      * @return the $_method
      */
     public function getMethod() {
@@ -225,7 +225,5 @@ class Pas_Geo_Mapit_Area extends Pas_Geo_Mapit {
             throw new Pas_Geo_Mapit_Exception('The area type of ' . $type . ' must be in allowed list');
         }
         return $this->_filter = '?type=' . $type;
-
     }
-
 }

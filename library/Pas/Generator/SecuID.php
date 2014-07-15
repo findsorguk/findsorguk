@@ -44,4 +44,3 @@ class Pas_Generator_SecuID {
         return strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $msNew);
     }
 }
-

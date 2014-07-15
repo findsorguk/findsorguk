@@ -1,19 +1,14 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** An interface to the Edina ClosestMatchSearch api call
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
- * @package Pas_Geo Edina
- * @subpackage ClosestMatchSearch
+ * @package Pas_Geo
+ * @subpackage Edina
  * @license GNU Public
  * @since 3/2/12
  * @version 1
- * @copyright Daniel Pett, The British Museum
- * @author Daniel Pett
  * @uses Pas_Geo_Edina_Exception
  * @see http://unlock.edina.ac.uk/places/queries/
  *
@@ -73,6 +68,6 @@ class Pas_Geo_Edina_ClosestMatchSearch extends Pas_Geo_Edina{
         $params = array(
             'name' => $this->_name
         );
-    return parent::get(self::METHOD, $params);
+        return parent::get(self::METHOD, $params);
     }
 }

@@ -1,13 +1,13 @@
 <?php
-/** The exception for geo based classes
+/** The exception for the open plaques based classes
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category   Pas
- * @package    Pas_Service_Domesday
- * @subpackage Exception
+ * @package    Pas_Service
+ * @subpackage OpenPlaques
  * @copyright  Copyright (c) 2011 Daniel Pett
  * @license    GNU
- * @author 	   Daniel pett
- * @version	   1
- * @since 	   26 September 2011
+ * 
  */
 class Pas_Service_OpenPlaques_Exception extends Zend_Exception {
 	

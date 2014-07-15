@@ -1,19 +1,13 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** An interface to the Edina SpatialFeatureSearch api call
+ * @copyright (c) 2014 Daniel Pett
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @category Pas
  * @package Pas_Geo_Edina
  * @subpackage ClosestMatchSearch
  * @license GNU Public
  * @since 3/2/12
  * @version 1
- * @copyright Daniel Pett, The British Museum
- * @author Daniel Pett
  * @uses Pas_Geo_Edina_Exception
  * @see http://unlock.edina.ac.uk/places/queries/
  * Usage:
@@ -78,14 +72,13 @@ class Pas_Geo_Edina_SpatialFeatureSearch extends Pas_Geo_Edina {
 
     /** Set the type to query
      * @access public
-     * @param array $types
-     * @return type
+     * @param string $type
+     * @return string
      * @throws Pas_Geo_Edina_Exception
      */
     public function setType( $type){
         $featureTypes = new Pas_Geo_Edina_FeatureTypes();
         $types = $featureTypes->getTypesList();
-
         if(!in_array($type, $types)){
             throw new Pas_Geo_Edina_Exception('That type is not supported');
         } else {
@@ -157,7 +150,7 @@ class Pas_Geo_Edina_SpatialFeatureSearch extends Pas_Geo_Edina {
 
     /** set the operator to use
      * @access public
-     * @param type $operator
+     * @param string $operator
      * @throws Pas_Geo_Edina_Exception
      */
     public function setOperator($operator){
@@ -173,13 +166,13 @@ class Pas_Geo_Edina_SpatialFeatureSearch extends Pas_Geo_Edina {
      * @param array $bbox
      */
     public function setBoundingBox( array $bbox){
-       if(is_array($bbox)){
+        if(is_array($bbox)){
            $this->_bboxCheck($bbox);
-       }
-       $this->_minx = $bbox['0'];
-       $this->_miny = $bbox['1'];
-       $this->_maxx = $bbox['2'];
-       $this->_maxy = $bbox['3'];
+        }
+        $this->_minx = $bbox['0'];
+        $this->_miny = $bbox['1'];
+        $this->_maxx = $bbox['2'];
+        $this->_maxy = $bbox['3'];
     }
 
     /** Check that bounding box coordinates are valid
@@ -188,28 +181,28 @@ class Pas_Geo_Edina_SpatialFeatureSearch extends Pas_Geo_Edina {
      * @throws Pas_Geo_Edina_Exception
      */
     protected function _bboxCheck($bbox){
-      if(count($bbox) === self::CORNERS){
-      //Validate the points
-      foreach($bbox as $corner){
-          if(!is_numeric($corner)){
-              throw new Pas_Geo_Edina_Exception('Coordinate provided not numeric');
-          } elseif((abs($corner) > 180)){
-              throw new Pas_Geo_Edina_Exception('Coordinate greater than 180 &deg;');
-          }
-      }
-      //Check mathematics
-      if($bbox['0']  > $bbox['2']){
-        //This checks that the minimum latitude is smaller than maximum
-        //latitude, if not throw exception
-        throw new Pas_Geo_Edina_Exception('Minimum latitude greater than maximum');
-       }
+        if(count($bbox) === self::CORNERS){
+        //Validate the points
+        foreach($bbox as $corner){
+            if(!is_numeric($corner)){
+                throw new Pas_Geo_Edina_Exception('Coordinate provided not numeric');
+            } elseif((abs($corner) > 180)){
+                throw new Pas_Geo_Edina_Exception('Coordinate greater than 180 &deg;');
+            }
+        }
+        //Check mathematics
+        if($bbox['0']  > $bbox['2']){
+          //This checks that the minimum latitude is smaller than maximum
+          //latitude, if not throw exception
+          throw new Pas_Geo_Edina_Exception('Minimum latitude greater than maximum');
+         }
 
-      if($bbox['1'] > $bbox['3'] ){
-        //This checks that the minimum latitude is smaller than maximum
-        ////latitude, if not throw exception
-        throw new Pas_Geo_Edina_Exception('Minimum longitude greater than maximum');
+        if($bbox['1'] > $bbox['3'] ){
+          //This checks that the minimum latitude is smaller than maximum
+          ////latitude, if not throw exception
+          throw new Pas_Geo_Edina_Exception('Minimum longitude greater than maximum');
+        }
       }
-    }
     }
 
     /** Get the data from the api
@@ -224,8 +217,6 @@ class Pas_Geo_Edina_SpatialFeatureSearch extends Pas_Geo_Edina {
             'maxy' => $this->_maxy,
             'operator' => $this->_operator
         );
-
-    return parent::get(self::METHOD, $params);
+        return parent::get(self::METHOD, $params);
     }
-
 }

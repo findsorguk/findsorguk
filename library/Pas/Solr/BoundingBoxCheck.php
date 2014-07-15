@@ -25,7 +25,7 @@
  * @version 1
  * @since 27/1/2011
  * @license http://URL name
- * @example /Users/danielpett/Documents/findsorguk/library/Pas/Solr/ExportHandler.php
+ * @example /library/Pas/Solr/ExportHandler.php
  */
 class Pas_Solr_BoundingBoxCheck {
 

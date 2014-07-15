@@ -1,19 +1,14 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** An interface to the Edina FeatureLookUp api call
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
- * @package Pas_Geo_Edina
- * @subpackage FeatureLookUp
+ * @package Pas_Geo
+ * @subpackage Edina
  * @license GNU Public
  * @since 3/2/12
  * @version 1
- * @copyright Daniel Pett, The British Museum
- * @author Daniel Pett
  * @uses Pas_Geo_Edina_Exception
  * @see http://unlock.edina.ac.uk/places/queries/
  *
@@ -46,12 +41,10 @@ class Pas_Geo_Edina_FeatureLookUp extends Pas_Geo_Edina {
 
     /** Get the data via parent class
      * @access public
-     * @return type
+     * @return array
      */
     public function get() {
-
         $params = array('id' => $this->_id);
-
         return parent::get(self::METHOD, $params);
     }
 

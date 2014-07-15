@@ -1,16 +1,11 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** An interface to the name search api method from edina unlock
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Pas_Geo_Edina
  * @subpackage NameSearch
- * @author Daniel Pett
- * @copyright Daniel Pett, The British Museum
  * @version 1
  * @since 3/2/12
  * @uses Pas_Geo_Edina_Exception
@@ -52,8 +47,7 @@ class Pas_Geo_Edina_NameSearch extends Pas_Geo_Edina{
         $params = array(
             'name' => $this->_names
         );
-
-    return parent::get(self::METHOD, $params);
+        return parent::get(self::METHOD, $params);
     }
 
     /** Set the names to call
@@ -62,23 +56,18 @@ class Pas_Geo_Edina_NameSearch extends Pas_Geo_Edina{
      * @throws Pas_Geo_Edina_Exception
      */
     public function setNames(array $names){
-    if(is_array($names)){
-        $this->_names = implode(',',$names);
-    }    else {
-        throw new Pas_Geo_Edina_Exception('The search names must be an array');
-    }
+        if(is_array($names)){
+            $this->_names = implode(',',$names);
+        }    else {
+            throw new Pas_Geo_Edina_Exception('The search names must be an array');
+        }
     }
 
     /** Get the names back
      * @access public
-     * @return type
+     * @return array
      */
     public function getNames() {
         return $this->_names;
     }
-
-
-
 }
-
-

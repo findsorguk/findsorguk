@@ -1,24 +1,33 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Lords
+/** Retrieve a list of lords members from theyworkforyou
  *
- * @author danielpett
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @since 2/2/2012
+ * @version 1
+ * @category Pas
+ * @package Pas_twfy
+ * @subpackage Hansard
+ * @license GNU
+ * @uses Pas_Twfy
+ * @see http://www.theyworkforyou.com/api/docs/getLords
  */
 class Pas_Twfy_Lords extends Pas_Twfy {
 
-     const METHOD = 'getLords';
+    /** The method to call
+     * 
+     */
+    const METHOD = 'getLords';
 
-     public function get(){
-     $params = array(
-         'key' => $this->_apikey,
-     );
-     return parent::get(self::METHOD, $params);
+    /** Get the data
+     * @access public
+     * @return array
+     */
+    public function get(){
+        $params = array(
+            'key' => $this->_apikey,
+        );
+        return parent::get(self::METHOD, $params);
      }
 }
 

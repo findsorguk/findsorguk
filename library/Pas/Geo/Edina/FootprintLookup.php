@@ -1,19 +1,14 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** An interface to the Edina FootprintLookup api call
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Pas_Geo_Edina
  * @subpackage FootprintLookup
  * @license GNU Public
  * @since 3/2/12
  * @version 1
- * @copyright Daniel Pett, The British Museum
- * @author Daniel Pett
  * @uses Pas_Geo_Edina_Exception
  * @see http://unlock.edina.ac.uk/places/queries/
  *
@@ -47,7 +42,7 @@ class Pas_Geo_Edina_FootprintLookup extends Pas_Geo_Edina {
     /** Set up footprints to query
      * @access protected
      * @param array $footprints
-     * @return type
+     * @return string
      * @throws Pas_Geo_Edina_Exception
      */
     public function setFootprints(array $footprints){
@@ -60,7 +55,7 @@ class Pas_Geo_Edina_FootprintLookup extends Pas_Geo_Edina {
 
     /** Get the list of footprints queried
      * @access public
-     * @return type
+     * @return string
      */
     public function getFootprints(){
         return $this->_footprints;
@@ -68,13 +63,13 @@ class Pas_Geo_Edina_FootprintLookup extends Pas_Geo_Edina {
 
     /** Get the data from the api using parent class
      * @access public
-     * @return type
+     * @return array
      */
     public function get() {
         $params = array(
             'identifier' => $this->_footprints
         );
-    return parent::get(self::METHOD, $params);
+        return parent::get(self::METHOD, $params);
     }
 
 }

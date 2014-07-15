@@ -3,15 +3,15 @@
  * A wrapper for interfacing with the MapIt api, specifically the postcode call.
  * This extends the Mapit base class.
  *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Pas_Geo_Mapit
  * @subpackage Postcode
  * @version 1
  * @since 6/2/12
- * @copyright Daniel Pett, British Museum
  * @license GNU public
  * @see http://mapit.mysociety.org/
- * @author Daniel Pett
  * @uses Pas_Validate_ValidPostcode
  * @uses Pas_Geo_Mapit_Exception
  *
@@ -106,12 +106,12 @@ class Pas_Geo_Mapit_Postcode extends Pas_Geo_Mapit {
         if(isset($this->_postcode) && isset($this->_partialPostCode)){
             throw new Pas_Geo_Mapit_Exception('You cannot use both methods');
         }
-    $params = array(
-         $this->_partial,
-         $this->_postcode,
-         $this->_partialPostCode
-    );
-    return parent::get(self::APIMETHOD, $params);
+        $params = array(
+            $this->_partial,
+            $this->_postcode,
+            $this->_partialPostCode
+        );
+        return parent::get(self::APIMETHOD, $params);
     }
 
     /** Append the generation from mysociety
