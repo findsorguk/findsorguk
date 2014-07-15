@@ -1,21 +1,25 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** Retrieve a list of parliamentary mentions for PAS
  *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $twfy = new Pas_Twfy_Hansard();
+ * $arts = $twfy->get($search, $this->getPage(), 20);
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @since 2/2/2012
  * @version 1
  * @category Pas
  * @package Pas_twfy
  * @subpackage Hansard
- * @author Daniel Pett
- * @copyright Daniel Pett
  * @license GNU
  * @uses Pas_Twfy
+ * @see http://www.theyworkforyou.com/api/docs/getHansard
+ * @example /app/modules/news/controllers/TheyworkforyouController.php
  */
 class Pas_Twfy_Hansard extends Pas_Twfy {
 
@@ -25,7 +29,7 @@ class Pas_Twfy_Hansard extends Pas_Twfy {
      const METHOD = 'getHansard';
 
      /** Retrieve data
-      *
+      * @access public
       * @param string $search
       * @param int $page
       * @param int $limit

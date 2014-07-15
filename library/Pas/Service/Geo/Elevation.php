@@ -1,18 +1,34 @@
 <?php
 /** A class for getting elevation of a latlon point against the google api
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $elevation = new Pas_Service_GeoCoder($key);
+ * $elevation->getElevation($lat,$lon);
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @version 1
- * @author Daniel Pett
  * @license GNU
  * @package Pas_Service
  * @subpackage Geo
  * @category Pas
+ * @example /app/models/Findspots.php
  */
-class Pas_Service_Geo_Elevation{
+class Pas_Service_Geo_Elevation {
 
+    /** The api uri
+     * 
+     */
     const ELEVATIONURI = 'http://maps.googleapis.com/maps/api/elevation/json';
     
 
     /** Get the coordinates from an address string
+     * @access public
      * @param float $lat
      * @param float $lon
      * @access public
@@ -29,7 +45,8 @@ class Pas_Service_Geo_Elevation{
     }
 	
     /** Get the coordinates of an address
- 	 * @param float $lat
+     * @access public
+     * @param float $lat
      * @param float $lon
      * @access public
      */
@@ -38,8 +55,7 @@ class Pas_Service_Geo_Elevation{
      	if(isset($response->results[0]->elevation)){
             return $response->results[0]->elevation;
         } else {
-			return null;
-		}
+            return null;
+        }
     }
-
 }

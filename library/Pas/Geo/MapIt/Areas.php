@@ -1,22 +1,16 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** A wrapper for interfacing with the MapIt api, specifically the areas call.
  * This extends the Mapit base class.
  *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Pas_Geo_Mapit
  * @subpackage Areas
  * @version 1
  * @since 6/2/12
- * @copyright Daniel Pett, British Museum
  * @license GNU public
  * @see http://mapit.mysociety.org/
- * @author Daniel Pett
  * @uses Zend_Validate_Alpha
  * @uses Zend_Validate_Digits
  * @uses Zend_Valdiated_AlphaNum
@@ -146,16 +140,15 @@ class Pas_Geo_Mapit_Areas extends Pas_Geo_Mapit {
      * @return object
      */
     public function get() {
-    $params = array(
-        $this->_ids,
-        $this->_types,
-        $this->_name,
-    );
-
-    if(sizeof(array_filter($params)) > 1){
-        throw new Pas_Geo_Mapit_Exception('You have too many method calls');
-    }
-    return parent::get(self::APIMETHOD, $params);
+        $params = array(
+            $this->_ids,
+            $this->_types,
+            $this->_name,
+        );
+        if(sizeof(array_filter($params)) > 1){
+            throw new Pas_Geo_Mapit_Exception('You have too many method calls');
+        }
+        return parent::get(self::APIMETHOD, $params);
     }
 
     /** Set the name to query
@@ -165,16 +158,16 @@ class Pas_Geo_Mapit_Areas extends Pas_Geo_Mapit {
      * @throws Pas_Geo_Mapit_Exception
      */
     public function setName($name){
-    if(is_string($name)){
-    $validator = new Zend_Validate_Alnum($allowWhiteSpace = true);
-    if(!$validator->isValid($name)){
-      throw new Pas_Geo_Mapit_Exception('That string is not valid', 500);
-    } else {
-    return $this->_name = $name;
-    }
-    }  else {
-      throw new Pas_Geo_Mapit_Exception('The names to search for must be a string',500);
-    }
+        if(is_string($name)){
+            $validator = new Zend_Validate_Alnum($allowWhiteSpace = true);
+            if(!$validator->isValid($name)){
+              throw new Pas_Geo_Mapit_Exception('That string is not valid', 500);
+            } else {
+                return $this->_name = $name;
+            }
+        } else {
+          throw new Pas_Geo_Mapit_Exception('The names to search for must be a string',500);
+        }
     }
 
     /** Get the name queried
@@ -200,17 +193,17 @@ class Pas_Geo_Mapit_Areas extends Pas_Geo_Mapit {
      * @throws Pas_Geo_Mapit_Exception
      */
     public function setIds($ids){
-    if(is_array($ids)){
-        $validator = new Zend_Validate_Digits();
-        foreach($ids as $id){
-            if(!$validator->isValid($id)){
-                throw new Pas_Geo_Mapit_Exception('The id supplied must be a number');
+        if(is_array($ids)){
+            $validator = new Zend_Validate_Digits();
+            foreach($ids as $id){
+                if(!$validator->isValid($id)){
+                    throw new Pas_Geo_Mapit_Exception('The id supplied must be a number');
+                }
             }
+            $this->_ids = implode(',',$ids);
+        } else {
+            throw new Pas_Geo_Mapit_Exception('The ids must be an array');
         }
-        $this->_ids = implode(',',$ids);
-    } else {
-        throw new Pas_Geo_Mapit_Exception('The ids must be an array');
-    }
     }
 
     /** Get the ids queried
@@ -241,9 +234,7 @@ class Pas_Geo_Mapit_Areas extends Pas_Geo_Mapit {
                     }
                 }
             }
-
         return $fullnames;
-
         }
     }
 

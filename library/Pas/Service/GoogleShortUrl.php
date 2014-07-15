@@ -1,16 +1,21 @@
 <?php
-/**
- * A view helper for shortening and expanding links with goo.gl
+/** A service class for shortening and expanding links with goo.gl
  *
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $shortener = new Pas_Service_GoogleShortUrl($key);
+ * $url = $shortener->expand($url);
+ * $analytics = $shortener->analytics($url);
+ * ?>
+ * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category   Pas
- * @package    Service
- * @subpackage GoogleShortUrl
+ * @package    Pas_Service
  * @version 1
  * @license http://URL name
- * @example path description
- *
  */
 class Pas_Service_GoogleShortUrl {
 
@@ -55,8 +60,8 @@ class Pas_Service_GoogleShortUrl {
      * @return object $reponse Shortened URL
      */
     public function shorten( $url ) {
-        $url = $this->checkUrl( (string) $url );
-        $response = $this->send($url,true);
+        $uri = $this->checkUrl( (string) $url );
+        $response = $this->send($uri, true);
         return $response;
     }
 
@@ -66,8 +71,8 @@ class Pas_Service_GoogleShortUrl {
      * @return object $response
      */
     public function expand($url ) {
-        $url = $this->checkShortUrl( $url );
-        $response = $this->send($url,false);
+        $uri = $this->checkShortUrl( $url );
+        $response = $this->send($uri, false);
         return $response;
     }
 

@@ -1,22 +1,16 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 /** Retrieve a constituency boundary in KML
  *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @since 2/2/2012
  * @version 1
  * @category Pas
  * @package Pas_twfy
- * @subpackage Boundary
- * @author Daniel Pett
- * @copyright Daniel Pett
  * @license GNU
  * @uses Pas_Twfy
+ * @see http://www.theyworkforyou.com/api/docs/getBoundary
+ * 
  */
 class Pas_Twfy_Boundary extends Pas_Twfy {
 

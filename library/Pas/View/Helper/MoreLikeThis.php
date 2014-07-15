@@ -196,18 +196,17 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
             if (($document->thumbnail)) {
                 $html .= '<img class="flow img-polaroid" src="/images/thumbnails/';
                 $html .= $document->thumbnail .'.jpg"/>';
-
             } else {
                 $html .= '<img class="flow img-circle" src="';
                 $html .= $this->view->baseUrl();
                 $html .= '/assets/gravatar.png" />';
-                }
+            }
                 $html .= '<div class="caption"><p>Find number: ';
                 $html .= '<a href="';
                 $html .= $this->view->baseUrl();
                 $html .= '/database/artefacts/record/id/';
                 $html .= $document->id . '">';
-        $html .= $document->old_findID;
+                $html .= $document->old_findID;
                 $html .= '</a><br />Object type: ' . $document->objecttype;
                 $html .= '<br />Broadperiod: ' . $document->broadperiod;
                 $html .= '<br/>';
@@ -217,11 +216,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                 $html .= $this->view->workflow()->setWorkflow($document->workflow);
                 $html .= '</p></div>';
                 $html .= '</div>';
-
-            }
-            $html .= '</div>';
-
-            return $html;
-
-            }
+        }
+        $html .= '</div>';
+        return $html;
+    }
 }

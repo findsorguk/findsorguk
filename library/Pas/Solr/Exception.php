@@ -1,13 +1,11 @@
 <?php
-/** The exception for geo based classes
+/** The exception for solr classes
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category   Pas
- * @package    Pas_Service_Domesday
- * @subpackage Exception
- * @copyright  Copyright (c) 2011 Daniel Pett
- * @license    GNU
- * @author 	   Daniel pett
- * @version	   1
- * @since 	   26 September 2011
+ * @package    Pas_Solr
+ * @version 1
+ * @license http://URL name
  */
 class Pas_Solr_Exception extends Zend_Exception {
 	

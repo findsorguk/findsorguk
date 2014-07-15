@@ -1,11 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 /** An interface to the Edina NameAndFeatureSearch api call
  * @category Pas
  * @package Pas_Geo_Edina
@@ -63,13 +56,11 @@ class Pas_Geo_Edina_NameAndFeatureSearch extends Pas_Geo_Edina {
      * @return type
      */
     public function get() {
-    $params = array(
+        $params = array(
             'name' => $this->_names,
             'featureType' => $this->_types
-     );
-
-
-    return parent::get(self::METHOD, $params);
+         );
+        return parent::get(self::METHOD, $params);
     }
 
     /** Check that the required keys are there
@@ -81,7 +72,6 @@ class Pas_Geo_Edina_NameAndFeatureSearch extends Pas_Geo_Edina {
      */
     protected function _requiredKeys($array){
         foreach($array as $k => $v){
-
             if(!array_key_exists($k, $this->_requiredKeys)){
                 throw new Pas_Geo_Edina_Exception('You are missing a required term');
             }
@@ -94,31 +84,42 @@ class Pas_Geo_Edina_NameAndFeatureSearch extends Pas_Geo_Edina {
      * @throws Pas_Geo_Edina_Exception
      */
     public function setNames(array $names){
-    if(is_array($names)){
-        $this->_names = implode(',',$names);
-    }    else {
-        throw new Pas_Geo_Edina_Exception('The search names must be an array');
-    }
-    }
-
-    public function setFeatureType($type){
-        $featureTypes = new Pas_Geo_Edina_FeatureTypes();
-        $types = $featureTypes->getTypesList();
-
-        if(!in_array($type, $types)){
-            throw new Pas_Geo_Edina_Exception('That type is not supported');
+        if(is_array($names)){
+            $this->_names = implode(',',$names);
         } else {
-        return $this->_types = $type;
+            throw new Pas_Geo_Edina_Exception('The search names must be an array');
         }
     }
 
+    /** Set the feature type
+     * @access public
+     * @param string $type
+     * @return array
+     * @throws Pas_Geo_Edina_Exception
+     */
+    public function setFeatureType($type){
+        $featureTypes = new Pas_Geo_Edina_FeatureTypes();
+        $types = $featureTypes->getTypesList();
+        if(!in_array($type, $types)){
+            throw new Pas_Geo_Edina_Exception('That type is not supported');
+        } else {
+            return $this->_types = $type;
+        }
+    }
+
+    /** Get the names
+     * @access public
+     * @return array
+     */
     public function getNames() {
         return $this->_names;
     }
 
+    /** Get the types
+     * @access public
+     * @return array
+     */
     public function getTypes() {
         return $this->_types;
     }
-
-
 }
