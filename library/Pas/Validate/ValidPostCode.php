@@ -96,12 +96,10 @@ class Pas_Validate_ValidPostCode extends Zend_Validate_PostCode {
         if ($value == $specialPattern) {
            $ok = true;
         }
-
         if (!$ok) {
             $this->_error(self::NOT_POSTCODE);
             return false;
         }
-
         return true;
     }
 }

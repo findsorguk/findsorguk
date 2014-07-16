@@ -1,11 +1,10 @@
 <?php
-/**
- * Set up the ACL list for theproject
+/** Set up the ACL list for theproject
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category   Pas
- * @package    Acl
+ * @package    Pas_Acl
  * @license http://URL name
  * @see Zend_Acl
  *

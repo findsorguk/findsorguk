@@ -1,40 +1,49 @@
 <?php
-/**
- * A validation class for checking for unique usernames
+/** A validation class for checking for unique usernames
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @version 1
  * @category   Pas
- * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @see Zend_Validate_Abstract
+ * @package    Pas_Validate
+ * @license http://URL name
  */
 class Pas_Validate_Parish extends Zend_Validate_Abstract {
-	
-	const NOT_VALID = 'notValid';
 
-	/**
-	* Validation failure message template definitions
-	*
-	* @var array
-	*/
-	protected $_messageTemplates = array(
-	self::NOT_VALID => 'That parish does not exist.',
-	);
+    /** The not valid constant
+     * 
+     */
+    const NOT_VALID = 'notValid';
+    
+    /** Validation failure message template definitions
+    * @access protected
+    * @var array
+    */
+    protected $_messageTemplates = array(
+        self::NOT_VALID => 'That parish does not exist.',
+    );
 
-	protected function _getParish($value){
-		$parishes = new OsParishes();
-		$where[] = $parishes->getAdapter()->quoteInto('osID = ?',$value);
-		$parish = $parishes->fetchRow($where);
-		return $parish;
-	} 
+    /** Check the parish exists from the model
+     * @access protected
+     * @param integer $value
+     * @return array
+     */
+    protected function _getParish($value){
+        $parishes = new OsParishes();
+        $where[] = $parishes->getAdapter()->quoteInto('osID = ?',$value);
+        return $parishes->fetchRow($where);
+    } 
 
-
-	public function isValid($value){
-	$value = (string) $value;
-	$parish = $this->_getParish($value);
-	if(!$parish) {
-	$this->_error(self::NOT_VALID);
-	return false;
-	}
-	return true;
-	}
+    /** Check if valid
+     * @access public
+     * @param integer $value
+     * @return boolean
+     */
+    public function isValid($value){
+        $parish = $this->_getParish($value);
+        if(!$parish) {
+            $this->_error(self::NOT_VALID);
+            return false;
+        }
+        return true;
+    }
 }

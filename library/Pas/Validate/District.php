@@ -4,11 +4,10 @@
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
- * @category   Pas
- * @package    Validate
+ * @category Pas
+ * @package Pas_Validate
  * @version 1
  * @see Zend_Validate_Abstract
- * @example path description
  */
 class Pas_Validate_District extends Zend_Validate_Abstract {
 
@@ -44,7 +43,6 @@ class Pas_Validate_District extends Zend_Validate_Abstract {
      * @return boolean
      */
     public function isValid($value){
-        $value = (string) $value;
         $district = $this->_getDistrict($value);
         if(!$district) {
             $this->_error(self::NOT_VALID);
