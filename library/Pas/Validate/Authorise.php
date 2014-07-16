@@ -5,43 +5,67 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @category   Pas
- * @package    Validate
+ * @package    Pas_Validate
  * @subpackage Authorise
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version 1
+ * @license http://URL name
  */
 
 class Pas_Validate_Authorise extends Zend_Validate_Abstract {
 
+    /** The auth adapter
+     * @access protected
+     * @var \Zend_Auth_Adapter_DbTable
+     */
     protected $_authAdapter;
 
+    /** The config object
+     * @access protected
+     * @var \Zend_Config
+     */
     protected $_config;
 
-
+    /** Construct the config
+     * @access public
+     * @return void
+     */
     public function __construct(){
         $this->_config = Zend_Registry::get('config');
-
     }
 
+    /** The not authorised constant
+     * 
+     */
     const NOT_AUTHORISED = 'notAuthorised';
-
-
+    
+    /** The message templates
+     * @access protected
+     * @var array
+     */
     protected $_messageTemplates = array(
         self::NOT_AUTHORISED => 'No users with those details exist or your password is incorrect'
     );
 
+    /** Get the auth adapter
+     * @access public
+     * @return \Zend_Auth_Adapter_DbTable
+     */
     public function getAuthAdapter() {
         return $this->_authAdapter;
     }
 
+    /** Check if valid
+     * @access public
+     * @param string $value
+     * @param string $context
+     * @return boolean
+     */
     public function isValid($value, $context = null) {
-	$value = (string) $value;
 	$this->_setValue($value);
-    if (is_array($context)) {
-		if (!isset($context['password'])) {
-			return false;
-		}
+        if (is_array($context)) {
+            if (!isset($context['password'])) {
+                return false;
+            }
 	}
 
 	$dbAdapter = Zend_Registry::get('db');
@@ -58,14 +82,14 @@ class Pas_Validate_Authorise extends Zend_Validate_Abstract {
 	$auth = Zend_Auth::getInstance();
 	$result = $auth->authenticate($this->_authAdapter);
 	if (!$result->isValid()) {
-		$this->_error(self::NOT_AUTHORISED);
-		return false;
-		}
+            $this->_error(self::NOT_AUTHORISED);
+            return false;
+        }
 	//Updated the user table - this needs moving to the users model
 	$users = new Users();
 	$updateArray = array(
-		'visits' => new Zend_Db_Expr('visits + 1'),
-		'lastLogin' => Zend_Date::now()->toString('yyyy-MM-dd HH:mm')
+            'visits' => new Zend_Db_Expr('visits + 1'),
+            'lastLogin' => Zend_Date::now()->toString('yyyy-MM-dd HH:mm')
 	);
 	$where = array();
 	$where[] = $users->getAdapter()->quoteInto('username = ?', $value);
@@ -76,7 +100,6 @@ class Pas_Validate_Authorise extends Zend_Validate_Abstract {
 	$data['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
 	$data['ipAddress'] = $_SERVER['REMOTE_ADDR'];
 	$data['username'] = $value;
-	$insert = $logins->insert($data);
-	return true;
+	return $logins->insert($data);
     }
 }

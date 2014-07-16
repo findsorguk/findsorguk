@@ -8,8 +8,6 @@
  * @version 1
  * 
  */
-
 class Pas_Exception extends Exception {
-
-    
+    //Code here
 }
