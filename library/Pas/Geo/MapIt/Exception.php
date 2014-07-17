@@ -7,7 +7,7 @@
  * @package Pas_Geo
  * @subpackage Mapit
  * @version string
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * 
  */
 class Pas_Geo_Mapit_Exception extends Zend_Exception {

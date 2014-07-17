@@ -15,7 +15,7 @@
  * @category Pas
  * @package Pas_Form
  * @subpackage Element
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/forms/AcceptUpgradeForm.php
  */
 class Pas_Form_Element_CKEditor extends ZendX_JQuery_Form_Element_UiWidget

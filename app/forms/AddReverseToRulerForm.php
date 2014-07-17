@@ -5,7 +5,7 @@
  * @copyright (c) 2014 Daniel Pett
  * @category   Pas
  * @package    Pas_Form
- * @license    GNU General Public License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
 */
 class AddReverseToRulerForm extends Pas_Form {
@@ -15,7 +15,7 @@ class AddReverseToRulerForm extends Pas_Form {
      * @param type $options
      * @return void
      */
-    public function __construct($options = null) {
+    public function __construct(array $options) {
 
 	parent::__construct($options);
 

@@ -5,7 +5,7 @@
  * @author Daniel Pett
  * @version 1
  * @since 18 October 2011
- * @license GNU Public
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @category Pas
  * @package Pas_Yql
  * @uses Pas_Yql_Oauth

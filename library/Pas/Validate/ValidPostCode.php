@@ -19,7 +19,7 @@
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Validate
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @example /library/Pas/Geo/MapIt/Postcode.php
  */

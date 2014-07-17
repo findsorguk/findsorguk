@@ -17,7 +17,7 @@
  * @version 1
  * @category Pas
  * @package Pas_Filter
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/forms/AcceptUpgradeForm.php
  */
 class Pas_Filter_WordChars implements Zend_Filter_Interface

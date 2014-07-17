@@ -5,7 +5,7 @@
  * @package    Pas_Controller_Action
  * @subpackage Admin
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
- * @license    GNU General Public License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version    1.1
  * @since      1/2/2012
  *

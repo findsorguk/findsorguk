@@ -17,7 +17,7 @@
  * @author   Mary Chester-Kadwell mchester-kadwell @ britishmuseum.org
  * @author   Daniel Pett dpett @ britishmuseum.org
  * @copyright Copyright (c) 2014 Mary Chester-Kadwell/ Trustees British Museum
- * @license  GNU General Public License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version  1
  * @since    9 May 2014
  * @example /app/modules/users/controllers/ConfigurationController.php

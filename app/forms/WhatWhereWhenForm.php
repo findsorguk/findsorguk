@@ -3,14 +3,14 @@
 * @category   Pas
 * @package    Pas_Form
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
+* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
 * @todo		  Replace functions with solr when ready
 */
 
 class WhatWhereWhenForm extends Pas_Form {
 
 
-	public function __construct($options = null) {
+	public function __construct(array $options) {
 	$periods = new Periods();
 	$period_options = $periods->getPeriodFromWords();
 	

@@ -6,7 +6,7 @@
 * @package    Yql
 * @subpackage Oauth
 * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
-* @license    GNU General Public License
+* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
 
 */
 class Pas_Yql_Oauth {

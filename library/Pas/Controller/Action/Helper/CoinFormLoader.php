@@ -13,6 +13,7 @@
  * @subpackage Helper 
  * @version 1
  * @example /app/modules/database/controllers/CoinsController.php
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * 
  */
 class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action_Helper_Abstract {

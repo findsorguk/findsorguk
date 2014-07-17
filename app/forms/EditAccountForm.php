@@ -1,18 +1,41 @@
 <?php
 /** Form for editing a user's account details
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
-*/
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new EditAccountForm();
+ * $form->submit->setLabel('Edit account details');
+ * $form->removeElement('password');
+ * $this->view->form = $form;
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Pas_Form
+ * @version 1
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/modules/admin/controllers/UsersController.php
+ */
 
-class EditAccountForm extends Pas_Form
-{
+class EditAccountForm extends Pas_Form {
+    
+    /** The action url
+     * @access protected
+     * @var string
+     */
     protected $_actionUrl;
 
-    public function __construct($actionUrl = null, $options=null)
-    {
+    /** Constructor
+     * @access public
+     * @param type $actionUrl
+     * @param array $options
+     * @return void
+     */
+    public function __construct($actionUrl = null, array $options) {
         parent::__construct($options);
         $this->setActionUrl($actionUrl);
         $this->init();
@@ -23,21 +46,26 @@ class EditAccountForm extends Pas_Form
         return $this;
     }
 
+    /** Initialise the form
+     * @access public
+     * @return void
+     */
     public function init() {
+        
         $roles = new Roles();
         $role_options = $roles->getRoles();
 
         $inst = new Institutions();
         $inst_options = $inst->getInsts();
 
-        $this->setAction($this->_actionUrl)
-             ->setMethod('post')
-             ->setAttrib('id', 'accountform');
+        $this->setAction($this->_actionUrl)->setMethod('post')
+                ->setAttrib('id', 'accountform');
 
-        $username = $this->addElement('text','username',array('label' => 'Username: '))->username;
+        $username = $this->addElement('text','username',
+                array('label' => 'Username: '))->username;
 
-        $username->addFilters(array('StripTags', 'StringTrim'))->setRequired(true);
-
+        $username->addFilters(array('StripTags', 'StringTrim'))
+                ->setRequired(true);
 
         $firstName = $this->addElement('text', 'first_name',
             array('label' => 'First Name', 'size' => '30'))->first_name;
@@ -52,9 +80,9 @@ class EditAccountForm extends Pas_Form
 		->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
 		->addErrorMessage('You must enter a surname');
 
-		$preferred_name = $this->addElement('text', 'preferred_name',
-		array('label' => 'Preferred Name: ', 'size' => '30'))
-		->preferred_name;
+        $preferred_name = $this->addElement('text', 'preferred_name',
+                array('label' => 'Preferred Name: ', 'size' => '30'))
+                ->preferred_name;
         $preferred_name->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
 		->addErrorMessage('You must enter your preferred name');
@@ -66,40 +94,44 @@ class EditAccountForm extends Pas_Form
 		->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
 		->addErrorMessage('You must enter your preferred name');
 
-        $email = $this->addElement('text', 'email',array('label' => 'Email Address', 'size' => '30'))
-        ->email;
+        $email = $this->addElement('text', 'email',
+                array('label' => 'Email Address', 'size' => '30'))
+                ->email;
         $email->addValidator('EmailAddress')
 		->addFilters(array('StripTags','StringTrim','StringToLower'))
 		->setRequired(true)
 		->addErrorMessage('Please enter a valid address!');
 
-		$password = $this->addElement('password', 'password',array('label' => 'Change password: ',
+        $password = $this->addElement('password', 'password',array('label' => 'Change password: ',
 		'size' => '30'))
 		->password;
         $password->setRequired(false);
 
-        $institution = $this->addElement('select', 'institution',array('label' => 'Recording institution: '))->institution;
+        $institution = $this->addElement('select', 'institution',
+                array('label' => 'Recording institution: '))->institution;
         $institution->addMultiOptions(array(
-            NULL => 'Choose institution',
+            null => 'Choose institution',
             'Available institutions'=> $inst_options
             ))->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
 
-		$canRecord = $this->addElement('checkbox', 'canRecord',array('label' => 'Allowed to record: '))->canRecord;
+        $canRecord = $this->addElement('checkbox', 'canRecord',
+                array('label' => 'Allowed to record: '))->canRecord;
 
-        $role = $this->addElement('select', 'role',array('label' => 'Site role: '))->role;
-        $role->addMultiOptions(array(NULL => 'Choose a role','Choose role' => $role_options))->setAttrib('class', 'input-medium selectpicker show-menu-arrow');
+        $role = $this->addElement('select', 'role',
+                array('label' => 'Site role: '))->role;
+        $role->addMultiOptions(array(
+            null => 'Choose a role',
+            'Available roles' => $role_options))
+                ->setAttrib('class', 'input-medium selectpicker show-menu-arrow');
 
-        $person = $this->addElement('text', 'person',array('label' => 'Personal details attached: '))->person;
-
+        $person = $this->addElement('text', 'person',
+                array('label' => 'Personal details attached: '))->person;
         $peopleID = $this->addElement('hidden', 'peopleID',array())->peopleID;
-
-
 
         $submit = new Zend_Form_Element_Submit('submit');
         $this->addElement($submit);
 
-
-		$this->addDisplayGroup(array(
+        $this->addDisplayGroup(array(
             'username','first_name','last_name',
             'fullname', 'preferred_name', 'email','institution',
             'role','password','person','peopleID', 'canRecord'), 'userdetails');
@@ -107,6 +139,6 @@ class EditAccountForm extends Pas_Form
 	$this->addDisplayGroup(array('submit'),'buttons');
 
 	$this->setLegend('Edit account details: ');
-    parent::init();
-	}
+        parent::init();
+    }
 }

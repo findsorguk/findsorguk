@@ -17,9 +17,9 @@
  * @todo Probably deprecate and remove
  * @version 1
  * @example /app/modules/about/controllers/VacanciesController.php
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
-class Pas_Controller_Action_Helper_Config 
-    extends Zend_Controller_Action_Helper_Abstract {
+class Pas_Controller_Action_Helper_Config extends Zend_Controller_Action_Helper_Abstract {
    
     /** get the config object
      * @access public

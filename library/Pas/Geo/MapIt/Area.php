@@ -8,7 +8,7 @@
  * @subpackage Postcode
  * @version 1
  * @since 6/2/12
- * @license GNU public
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @see http://mapit.mysociety.org/
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett

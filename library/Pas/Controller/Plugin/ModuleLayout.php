@@ -9,7 +9,7 @@
  * @category Pas
  * @package Controller
  * @subpackage Plugin
- * @license GNU General Public License
+ @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
 */
 

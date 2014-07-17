@@ -9,7 +9,7 @@
  * @author Daniel Pett dpett @ britishmuseum . org
  * @link https://dev.twitter.com/docs/cards See this page for Twitter Card documentation
  * @copyright Daniel Pett/ British Museum
- * @license GNU General Public License
+ @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Zend_View_Helper_Abstract
  * @uses Zend_View_Helper_HeadMeta
  */

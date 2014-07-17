@@ -18,7 +18,7 @@
   * @uses Zend_Mail
   * @uses Zend_View
   * @uses Pas_Filter_EmailTextOnly
-  * @license http://URL name
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
   * @example /app/modules/database/controllers/ArtefactsController.php
   * 
  */

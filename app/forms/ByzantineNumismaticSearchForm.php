@@ -1,24 +1,50 @@
 <?php
-
-class ByzantineNumismaticSearchForm extends Pas_Form
-{
+/** A form for searching the indexes specifically tailored for the retrieval of
+ * the limited amount of Byzantine coins we have recorded.
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new ByzantineNumismaticSearchForm();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @version 1
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @category Pas
+ * @package Pas_Form
+ * @example /app/modules/database/controllers/SearchController.php
+ */
+class ByzantineNumismaticSearchForm extends Pas_Form {
+    
+    /** An array of roles that grant higher level access
+     * @access protected
+     * @var array
+     */
     protected $_higherlevel = array('admin', 'flos', 'fa', 'heros', 'treasure');
-
-	protected $_restricted = array(null,'public', 'member', 'research');
 	
+    /** An array of roles with restricted access
+     * @access protected
+     * @var array
+     */
+    protected $_restricted = array(null, 'public', 'member', 'research');
+    
+    /** The constructor
+     * @access public
+     * @param type $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
-	public function __construct($options = null)
-	{
-	$institutions = new Institutions();
+        $institutions = new Institutions();
 	$inst_options = $institutions->getInsts();
-	//Get data to form select menu for primary and secondary material
 
-	//Get data to form select menu for periods
-	//Get Rally data
-	$rallies = new Rallies();
+        $rallies = new Rallies();
 	$rally_options = $rallies->getRallies();
 
-	//Get Hoard data
 	$hoards = new Hoards();
 	$hoard_options = $hoards->getHoards();
 
@@ -31,10 +57,10 @@ class ByzantineNumismaticSearchForm extends Pas_Form
 	$denominations = new Denominations();
 	$denomination_options = $denominations->getDenomsByzantine();
 
-    $mints = new Mints();
+        $mints = new Mints();
 	$mint_options = $mints->getMintsByzantine();
 
-    $axis = new DieAxes();
+        $axis = new DieAxes();
 	$axis_options = $axis->getAxes();
 
 	$regions = new OsRegions();
@@ -46,17 +72,15 @@ class ByzantineNumismaticSearchForm extends Pas_Form
 
 	$old_findID = new Zend_Form_Element_Text('old_findID');
 	$old_findID->setLabel('Find number: ')
-		->setRequired(false)
-		->addFilter('StripTags')
-		->addFilter('StringTrim')
+                ->setRequired(false)
+                ->addFilters(array('StripTags','StringTrim'))
 		->addErrorMessage('Please enter a valid number!')
 		->setDisableTranslator(true);
 
 	$description = new Zend_Form_Element_Text('description');
 	$description->setLabel('Object description contains: ')
 		->setRequired(false)
-		->addFilter('StripTags')
-		->addFilter('StringTrim')
+                ->addFilters(array('StripTags','StringTrim'))
 		->addValidator('NotEmpty')
 		->addErrorMessage('Please enter a valid term')
 		->setDisableTranslator(true);
@@ -67,77 +91,91 @@ class ByzantineNumismaticSearchForm extends Pas_Form
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
-	if(in_array($this->_role,$this->_higherlevel)) {
-	$workflow->addMultiOptions(array(NULL => 'Available Workflow stages',
-            'Choose Worklow stage' => array(
-                '1' => 'Quarantine',
-                '2' => 'On review',
-                '4' => 'Awaiting validation',
-                '3' => 'Published')));
-	}
+        if(in_array($this->_role,$this->_higherlevel)) {
+            $workflow->addMultiOptions(
+                    array(
+                        null => 'Available Workflow stages',
+                        'Choose Worklow stage' => array(
+                            '1' => 'Quarantine',
+                            '2' => 'On review',
+                            '4' => 'Awaiting validation',
+                            '3' => 'Published')));
+        }
 	if(in_array($this->_role,$this->_restricted)) {
-	$workflow->addMultiOptions(array(NULL => 'Available Workflow stages',
-            'Choose Worklow stage' => array(
-                '4' => 'Awaiting validation',
-                '3' => 'Published')));
-	}
+            $workflow->addMultiOptions(array(null => 'Available Workflow stages',
+                'Choose Worklow stage' => array(
+                    '4' => 'Awaiting validation',
+                    '3' => 'Published')));
+        }
 		
-
 	//Rally details
 	$rally = new Zend_Form_Element_Checkbox('rally');
 	$rally->setLabel('Rally find: ')
-		->setRequired(false)
+                ->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setUncheckedValue(NULL);
+		->setUncheckedValue(null);
 
 	$rallyID =  new Zend_Form_Element_Select('rallyID');
 	$rallyID->setLabel('Found at this rally: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
-		->addMultiOptions(array(NULL => 'Choose rally name', 
-			'Available rallies' => $rally_options));
+		->setAttribs(array(
+                    'class' => 'input-xlarge selectpicker show-menu-arrow'))
+		->addMultiOptions(array(
+                    null => 'Choose rally name', 
+                    'Available rallies' => $rally_options));
 
 	$hoard = new Zend_Form_Element_Checkbox('hoard');
 	$hoard->setLabel('Hoard find: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setUncheckedValue(NULL);
+		->setUncheckedValue(null);
 
 	$hoardID =  new Zend_Form_Element_Select('hID');
 	$hoardID->setLabel('Part of this hoard: ')
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'))
-		->addMultiOptions(array(NULL => 'Choose hoard name', 'Available hoards' => $hoard_options));
+		->setAttribs(array(
+                    'class' => 'input-xxlarge selectpicker show-menu-arrow'))
+		->addMultiOptions(array(
+                    null => 'Choose hoard name', 
+                    'Available hoards' => $hoard_options
+                ));
 
 	$county = new Zend_Form_Element_Select('countyID');
 	$county->setLabel('County: ')
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidators(array('NotEmpty'))
-		->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'))
-		->addMultiOptions(array(NULL => 'Choose county', 
-			'Available counties' => $county_options));
+		->setAttribs(array(
+                    'class' => 'input-xxlarge selectpicker show-menu-arrow'))
+		->addMultiOptions(array(
+                    null => 'Choose county', 
+                    'Available counties' => $county_options
+                ));
 
 	$district = new Zend_Form_Element_Select('districtID');
 	$district->setLabel('District: ')
-		->addMultiOptions(array(NULL => 'Choose district after county'))
+		->addMultiOptions(array(null => 'Choose district after county'))
 		->setRegisterInArrayValidator(false)
-		->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'))
+		->setAttribs(array(
+                    'class' => 'input-xxlarge selectpicker show-menu-arrow'))
 		->disabled = true;
 
 	$parish = new Zend_Form_Element_Select('parishID');
 	$parish->setLabel('Parish: ')
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose parish after county'))
-		->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'))
+		->addMultiOptions(array(null => 'Choose parish after county'))
+		->setAttribs(array(
+                    'class' => 'input-xxlarge selectpicker show-menu-arrow'))
 		->disabled = true;
 
 	$regionID = new Zend_Form_Element_Select('regionID');
 	$regionID->setLabel('European region: ')
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose a region for a wide result',
-		'Choose region' => $region_options))
-		->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
+		->addMultiOptions(array(
+                    null => 'Choose a region for a wide result',
+                    'Choose region' => $region_options))
+		->setAttribs(array(
+                    'class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	$gridref = new Zend_Form_Element_Text('gridref');
 	$gridref->setLabel('Grid reference: ')
@@ -157,27 +195,34 @@ class ByzantineNumismaticSearchForm extends Pas_Form
 		->setRegisterInArrayValidator(false)
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
-		->addMultiOptions(array(NULL => 'Choose denomination type', 
-			'Available denominations' => $denomination_options));
+		->setAttribs(array(
+                    'class' => 'input-xlarge selectpicker show-menu-arrow'))
+		->addMultiOptions(array(
+                    null => 'Choose denomination type', 
+                    'Available denominations' => $denomination_options));
 
 	//Primary ruler
 	$ruler = new Zend_Form_Element_Select('ruler');
 	$ruler->setLabel('Ruler / issuer: ')
 		->setRegisterInArrayValidator(false)
-		->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
+		->setAttribs(array(
+                    'class' => 'input-xlarge selectpicker show-menu-arrow'))
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose primary ruler', 
-			'Available rulers' => $ruler_options));
+		->addMultiOptions(array(
+                    null => 'Choose primary ruler', 
+                    'Available rulers' => $ruler_options
+                ));
 
 	//Mint
 	$mint = new Zend_Form_Element_Select('mint');
 	$mint->setLabel('Issuing mint: ')
-		->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
+		->setAttribs(array(
+                    'class' => 'input-xlarge selectpicker show-menu-arrow'))
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose denomination type', 
-			'Available mints' => $mint_options));
+		->addMultiOptions(array(
+                    null => 'Choose denomination type', 
+                    'Available mints' => $mint_options));
 
 	//Obverse inscription
 	$obverseinsc = new Zend_Form_Element_Text('obverseLegend');
@@ -212,15 +257,20 @@ class ByzantineNumismaticSearchForm extends Pas_Form
 	$axis->setLabel('Die axis measurement: ')
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
-		->addMultiOptions(array(NULL => 'Choose measurement', 'Available axes' => $axis_options));
+		->setAttribs(array(
+                    'class' => 'input-xlarge selectpicker show-menu-arrow'))
+		->addMultiOptions(array(
+                    null => 'Choose measurement', 
+                    'Available axes' => $axis_options));
 
 	$institution = new Zend_Form_Element_Select('institution');
 	$institution->setLabel('Recording institution: ')
 	->setRequired(false)
 	->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
 	->addFilters(array('StringTrim','StripTags'))
-	->addMultiOptions(array(NULL => 'Choose institution', 'Choose institution' => $inst_options));
+	->addMultiOptions(array(
+            null => 'Choose institution', 
+            'Choose institution' => $inst_options));
 
 	$objecttype = new Zend_Form_Element_Hidden('objecttype');
 	$objecttype->setValue('coin');
@@ -230,45 +280,42 @@ class ByzantineNumismaticSearchForm extends Pas_Form
 	$broadperiod->setValue('Byzantine')
 		->addFilters(array('StripTags','StringTrim','StringToUpper'));
 
-	//	Submit button
 	$submit = new Zend_Form_Element_Submit('submit');
 
-
 	$this->addElements(array(
-	$old_findID, $description, $workflow,
-	$rally, $rallyID, $hoard,
-	$hoardID, $county, $regionID,
-	$district, $parish, $fourFigure,
-	$gridref, $denomination, $ruler,
-	$mint, $axis, $obverseinsc,
-	$obversedesc, $reverseinsc, $reversedesc,
-	$objecttype, $broadperiod, $institution,
-	$submit));
+            $old_findID, $description, $workflow,
+            $rally, $rallyID, $hoard,
+            $hoardID, $county, $regionID,
+            $district, $parish, $fourFigure,
+            $gridref, $denomination, $ruler,
+            $mint, $axis, $obverseinsc,
+            $obversedesc, $reverseinsc, $reversedesc,
+            $objecttype, $broadperiod, $institution,
+            $submit
+                ));
 
 	$this->addDisplayGroup(array(
-	'denomination', 'ruler','mint',
-	'moneyer', 'axis', 'obverseLegend',
-	'obverseDescription','reverseLegend','reverseDescription'),
-	'numismatics');
+            'denomination', 'ruler','mint',
+            'moneyer', 'axis', 'obverseLegend',
+            'obverseDescription','reverseLegend','reverseDescription'),
+            'numismatics');
 
 	$this->addDisplayGroup(array(
-	'old_findID', 'description', 'rally',
-	'rallyID', 'hoard', 'hID',
-	'workflow'), 'details');
+            'old_findID', 'description', 'rally',
+            'rallyID', 'hoard', 'hID',
+            'workflow'), 'details');
 	$this->addDisplayGroup(array(
-	'countyID','regionID','districtID',
-	'parishID','gridref','fourFigure',
-	'institution'), 'spatial');
+            'countyID','regionID','districtID',
+            'parishID','gridref','fourFigure',
+            'institution'), 'spatial');
 
 	$this->numismatics->setLegend('Numismatic details');
 
 	$this->details->setLegend('Artefact details');
 
 	$this->spatial->setLegend('Spatial details');
-
-
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
 	parent::init();
-}
+    }
 }

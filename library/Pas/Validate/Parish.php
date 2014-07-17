@@ -5,7 +5,7 @@
  * @version 1
  * @category   Pas
  * @package    Pas_Validate
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 class Pas_Validate_Parish extends Zend_Validate_Abstract {
 

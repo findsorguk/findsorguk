@@ -10,7 +10,7 @@
  * @subpackage Postcode
  * @version 1
  * @since 6/2/12
- * @license GNU public
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @see http://mapit.mysociety.org/
  * @uses Pas_Validate_ValidPostcode
  * @uses Pas_Geo_Mapit_Exception

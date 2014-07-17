@@ -6,14 +6,14 @@
 * @package 		Pas_Form
 * @author 		Mary Chester-Kadwell mchester-kadwell @ britishmuseum.org
 * @copyright  	Copyright (c) 2014 Mary Chester-Kadwell
-* @license GNU General Public License
+@license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
 * @version 1
 * @since 		9 May 2014
 */
 
 class ConfigureLoginRedirectForm extends Pas_Form
 {
-    public function __construct($options = null) {
+    public function __construct(array $options) {
         parent::__construct($options);
         $loginredirect = new LoginRedirect();
         $loginredirect_options = $loginredirect->getOptions();

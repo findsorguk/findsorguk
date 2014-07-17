@@ -6,7 +6,7 @@
  * @category   Pas
  * @package    Pas_Validate
  * @version 1
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/forms/RegisterForm.php 
  */
 class Pas_Validate_UsernameUnique extends Zend_Validate_Abstract {

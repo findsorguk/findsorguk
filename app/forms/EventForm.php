@@ -1,15 +1,33 @@
 <?php
-
 /** Form for manipulating events details
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
-*/
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new EventForm();
+ * $form->details->setLegend('Add a new event');
+ * $form->submit->setLabel('Save event');
+ * $this->view->form = $form;
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Pas_Form
+ * @version 1
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/modules/admin/controllers/EventsController.php
+ */
 class EventForm extends Pas_Form {
 
-public function __construct($options = null) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$staffregions = new StaffRegions();
 	$staffregions_options = $staffregions->getOptions();
@@ -17,24 +35,25 @@ public function __construct($options = null) {
 	$eventtypes = new EventTypes();
 	$event_options = $eventtypes->getTypes();
 
-	$orgs = array('PAS' => 'The Portable Antiquities Scheme',
-	 'BM' => 'The British Museum',
-	 'MLA' => 'MLA',
-	 'HLF' => 'Heritage Lottery Fund',
-	 'IFA' => 'Institute of Archaeology',
-	 'CBA' => 'Council for British Archaeology',
-	 'ARCH' => 'Current Archaeology',
-	 'AF' => 'The Art Fund',
-	 'LOC' => 'Local museum',
-	 'NADFAS' => 'NADFAS',
-	 'CASPAR' => 'CASPAR');
+	$orgs = array(
+            'PAS' => 'The Portable Antiquities Scheme',
+            'BM' => 'The British Museum',
+            'MLA' => 'MLA',
+            'HLF' => 'Heritage Lottery Fund',
+            'IFA' => 'Institute of Archaeology',
+            'CBA' => 'Council for British Archaeology',
+            'ARCH' => 'Current Archaeology',
+            'AF' => 'The Art Fund',
+            'LOC' => 'Local museum',
+            'NADFAS' => 'NADFAS',
+            'CASPAR' => 'CASPAR'
+            );
 
 	ZendX_JQuery::enableForm($this);
+	
+        parent::__construct($options);
 
-	parent::__construct($options);
-
-
-	$this->setName('event');
+        $this->setName('event');
 
 	$eventTitle = new Zend_Form_Element_Text('eventTitle');
 	$eventTitle->setLabel('Event title: ')

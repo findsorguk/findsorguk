@@ -17,7 +17,7 @@
  * @package Db_Table
  * @subpackage Abstract
  * @version 1
- * @license GNU General Public License
+ @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/modules/admin/controllers/TerminologyController.php
  */
 class Workflows extends Pas_Db_Table_Abstract {

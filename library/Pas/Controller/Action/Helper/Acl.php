@@ -1,5 +1,5 @@
 <?php
-/** ACL integration building on an example by Ron Allen.
+/** ACL integration building on an example by Rob Allen.
  *
  * An example of code use:
  * 
@@ -136,7 +136,7 @@ class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abs
      * @param  Zend_Acl_Role_Interface|string|array     $roles
      * @param  string|array                             $actions
      * @uses   Zend_Acl::setRule()
-     * @return Places_Controller_Action_Helper_Acl Provides a fluent interface
+     * @return Pas_Controller_Action_Helper_Acl Provides a fluent interface
      */
     public function allow($roles = null, $actions = null) {
         $resource = $this->_controllerName;
@@ -151,7 +151,7 @@ class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abs
      * @param  Zend_Acl_Role_Interface|string|array     $roles
      * @param  string|array                             $actions
      * @uses   Zend_Acl::setRule()
-     * @return Places_Controller_Action_Helper_Acl Provides a fluent interface
+     * @return Pas_Controller_Action_Helper_Acl Provides a fluent interface
      */
     public function deny($roles = null, $actions = null) {
         $resource = $this->_controllerName;

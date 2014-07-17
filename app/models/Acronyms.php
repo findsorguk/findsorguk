@@ -19,7 +19,7 @@
  * @copyright  2010 - DEJ Pett
  * @version    1
  * @since	  22 September 2011
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/modules/admin/controllers/AcronymsController.php Controller for acronyms
  * @uses Zend_Cache
 */

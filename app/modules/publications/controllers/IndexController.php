@@ -6,7 +6,7 @@
 * @subpackage ActionAdmin
 * @author     Daniel Pett <dpett@britishmuseum.org>
 * @copyright  Daniel Pett <dpett@britishmuseum.org>
-* @license    GNU General Public License
+* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
 * @todo       Move adding data and editing into model
 */
 class Publications_IndexController extends Pas_Controller_Action_Admin {
