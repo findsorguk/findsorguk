@@ -1,27 +1,41 @@
 <?php
 /** Form for editing and adding hoards information
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
-class HoardForm extends Pas_Form
-{
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $form = new HoardForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @version 1
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example  /app/modules/database/controllers/HoardsController.php
+ */
+class HoardForm extends Pas_Form {
 
-	public function __construct(array $options) {
-	$periods = new Periods();
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
+
+        $periods = new Periods();
 	$period_options = $periods->getPeriodFrom();
 
 	parent::__construct($options);
-	
 
 	$this->setName('hoard');
 
-
 	$term = new Zend_Form_Element_Text('term');
 	$term->setLabel('Hoard title: ')
-		->setRequired(true)
+                ->setRequired(true)
 		->addFilters(array('StringTrim','StripTags'))
 		->addErrorMessage('You must enter a title for this hoard');
 
@@ -30,9 +44,9 @@ class HoardForm extends Pas_Form
 		->setRequired(true)
 		->setAttribs(array('rows' => 10, 'cols' => 40, 'Height' => 400))
 		->setAttrib('ToolbarSet','Finds')
-		->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars')) 
+		->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'))
 		->addErrorMessage('You must enter a description for this hoard');
-	
+
 	$period = new Zend_Form_Element_Select('period');
 	$period->setLabel('Broad period attributed to: ')
 		->setRequired(true)
@@ -44,16 +58,16 @@ class HoardForm extends Pas_Form
 
 	$submit = new Zend_Form_Element_Submit('submit');
 
-	$this->addElements(array(
-	$term,$termdesc,$period,$submit)
-	);
+	$this->addElements(array($term,$termdesc,$period,$submit));
 
 	$this->addDisplayGroup(array('term','termdesc','period'), 'details');
-	$this->addDisplayGroup(array('submit'), 'buttons');
+
+        $this->addDisplayGroup(array('submit'), 'buttons');
 
 	$this->setLegend('Hoards: ');
 
 	$this->addDisplayGroup(array('submit'), 'buttons');
-	parent::init();
-	}
+
+        parent::init();
+    }
 }

@@ -1,15 +1,32 @@
 <?php
 /** Form for editing and creating Iron Age regional data
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $form = new IronAgeRegionForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/modules/admin/controllers/NumismaticsController.php
+ * @uses Tribes
+ *
 */
 class IronAgeRegionForm extends Pas_Form {
-	
-	public function __construct(array $options) {
-	$tribes = new Tribes();
+
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
+
+        $tribes = new Tribes();
 	$tribes_options = $tribes->getTribes();
 
 	parent::__construct($options);
@@ -31,7 +48,7 @@ class IronAgeRegionForm extends Pas_Form {
 		->setAttrib('size',60)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addErrorMessage('You must enter a region name');
-	
+
 	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Description: ')
 		->setRequired(true)
@@ -40,7 +57,7 @@ class IronAgeRegionForm extends Pas_Form {
 		->setAttrib('ToolbarSet','Finds')
 		->setAttrib('Height',250)
 		->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
-	
+
 	$tribe = new Zend_Form_Element_Select('tribe');
 	$tribe->setLabel('Associated tribe: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
@@ -51,27 +68,27 @@ class IronAgeRegionForm extends Pas_Form {
 		->addErrorMessage('You must enter a tribe from the dropdown.')
 		->addValidator('Int')
 		->addErrorMessage('You must enter a tribe.');
-	
+
 	$valid = new Zend_Form_Element_Checkbox('valid');
 	$valid->setLabel('Is this area valid: ')
 		->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Digits')
 		->addErrorMessage('You must set the validity');
-	
+
 	$submit = new Zend_Form_Element_Submit('submit');
-	
+
 	$this->addElements(array(
 	$area, $region, $tribe,
 	$valid, $description, $submit)
 	);
-	
+
 	$this->addDisplayGroup(array(
 	'area', 'region', 'tribe',
 	'description','valid','submit'),
 	'details');
-	
-	
+
+
 	parent::init();
-	}
+    }
 }

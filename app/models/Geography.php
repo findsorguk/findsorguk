@@ -20,7 +20,7 @@
  * @version 1
  * @since 22 September 2011
  * @todo add caching
- * @example /app/forms/IronAgeCoinFormNew.php
+ * @example /app/forms/IronAgeCoinForm.php
 */
 class Geography extends Pas_Db_Table_Abstract {
 

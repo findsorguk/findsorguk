@@ -1,19 +1,44 @@
 <?php
 /** Form for uploading images
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $form = new ImageForm();
+ * $form->submit->setLabel('Submit a new image.');
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/database/controllers/ImagesController.php
+ * @todo This needs replacing when we build the drag and drop
+ */
 
-class ImageForm extends Pas_Form
-{
-	protected $_auth = NULL;
+class ImageForm extends Pas_Form {
 
-	protected $_copyright = NULL;
+    /** The auth object
+     * @access protected
+     * @var \Zend_Auth
+     */
+    protected $_auth = NULL;
 
+    /** The copyright notice
+     * @access protected
+     * @var string
+     */
+    protected $_copyright = NULL;
 
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
     public function __construct(array $options) {
 
 	$counties = new Counties();
@@ -30,34 +55,34 @@ class ImageForm extends Pas_Form
 
 	$auth = Zend_Auth::getInstance();
 	$this->_auth = $auth;
-	if($this->_auth->hasIdentity()) {
-	$user = $this->_auth->getIdentity();
 
-	if(!is_null($user->copyright)){
-	$this->_copyright = $user->copyright;
-		} elseif(!is_null($user->fullname)) {
-			$this->_copyright = $user->first_name . ' ' . $user->last_name;
-		} else {
-			$this->_copyright = $user->fullname;
-		}
+	if($this->_auth->hasIdentity()) {
+            $user = $this->_auth->getIdentity();
+            if(!is_null($user->copyright)){
+                $this->_copyright = $user->copyright;
+            } elseif(!is_null($user->fullname)) {
+                $this->_copyright = $user->first_name . ' ' . $user->last_name;
+
+            } else {
+                $this->_copyright = $user->fullname;
+            }
 	}
 
+	$copyList = array_filter(array_merge(
+                array($this->_copyright => $this->_copyright), $copy
+                ));
 
-
-	$copyList = array_filter(array_merge(array($this->_copyright => $this->_copyright), $copy));
-	parent::__construct($options);
-
+        parent::__construct($options);
 
 	$this->setName('imagetofind');
 
-
 	$image = new Zend_Form_Element_File('filename');
 	$image->setLabel('Upload an image: ')
-	->setRequired(true)
-	->setAttribs(array('size' => 20, 'class' => 'required'))
-	->addValidator('Extension', false, 'jpeg,tif,jpg,png,gif,tiff,JPG,JPEG,GIF,PNG,TIFF,TIF')
-	->setDescription('Filename should not include spaces,commas,( or )')
-	->addErrorMessage('You must upload a file with the correct file extension in this array - jpeg,tif,jpg,png,gif');
+                ->setRequired(true)
+                ->setAttribs(array('size' => 20, 'class' => 'required'))
+                ->addValidator('Extension', false, 'jpeg,tif,jpg,png,gif,tiff,JPG,JPEG,GIF,PNG,TIFF,TIF')
+                ->setDescription('Filename should not include spaces,commas,( or )')
+                ->addErrorMessage('You must upload a file with the correct file extension in this array - jpeg,tif,jpg,png,gif');
 
 	$imagelabel = new Zend_Form_Element_Text('label');
 	$imagelabel->setLabel('Image label: ')
@@ -116,19 +141,22 @@ class ImageForm extends Pas_Form
 	$submit = new Zend_Form_Element_Submit('submit');
 
 	$this->addElements(array(
-	$image, $imagelabel, $county,
-	$period, $copyright, $type,
-	$licenseField, $submit));
-	$this->setMethod('post');
-	$this->addDisplayGroup(array(
-	'filename', 'label', 'county',
-	'period', 'imagerights', 'ccLicense',
-	'type'),'details');
+            $image, $imagelabel, $county,
+            $period, $copyright, $type,
+            $licenseField, $submit
+                ));
 
+	$this->setMethod('post');
+
+        $this->addDisplayGroup(array(
+            'filename', 'label', 'county',
+            'period', 'imagerights', 'ccLicense',
+            'type'),'details');
 
 	$this->addDisplayGroup(array('submit'), 'buttons')->removeDecorator('HtmlTag');
-	$this->details->setLegend('Attach an image');
+
+        $this->details->setLegend('Attach an image');
 
 	parent::init();
-	}
+    }
 }
