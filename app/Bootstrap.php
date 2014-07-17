@@ -215,14 +215,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $secuid = new Pas_Controller_Action_Helper_GenerateSecuID();
         Zend_Controller_Action_HelperBroker::addHelper($secuid);
 
-        $findID = new Pas_Controller_Action_Helper_GenerateFindID();
-        Zend_Controller_Action_HelperBroker::addHelper($findID);
-
         $mailer = new Pas_Controller_Action_Helper_Mailer();
         Zend_Controller_Action_HelperBroker::addHelper($mailer);
-
-        $segmenter = new Pas_Controller_Action_Helper_SegmentGa();
-        Zend_Controller_Action_HelperBroker::addHelper($segmenter);
 
         $announcements = new Pas_Controller_Action_Helper_Announcements();
         Zend_Controller_Action_HelperBroker::addHelper($announcements);

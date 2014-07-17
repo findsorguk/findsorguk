@@ -1,6 +1,6 @@
 <?php
 /** A plugin for loading coin form options
- * 
+ *
  * <code>
  * <?php
  * $form = $this->_helper->coinFormLoader($broadperiod);
@@ -10,14 +10,14 @@
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Controller_Action
- * @subpackage Helper 
+ * @subpackage Helper
  * @version 1
  * @example /app/modules/database/controllers/CoinsController.php
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * 
+ *
  */
 class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action_Helper_Abstract {
-    
+
     /** The Zend View object
      * @access protected
      * @var \Zend_View
@@ -31,7 +31,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
 	$this->_view = $this->_actionController->view;
         return $this->_view;
     }
-    
+
     /** Set up the correct options to load
      * @access public
      * @param string $broadperiod
@@ -41,21 +41,21 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
         $broadperiod = $this->_filter->filter($broadperiod);
         return $this->loadForm($broadperiod);
     }
-    
+
     /** Set up the filter
      * @access protected
      * @var \Zend_Filter_StringToUpper
      */
     protected $_filter;
-    
+
     /** Constructor function
      * @access public
-     * 
+     *
      */
     public function __construct() {
-        $this->_filter = new Zend_Filter_StringToUpper();            
+        $this->_filter = new Zend_Filter_StringToUpper();
     }
-    
+
     /** The array of periods
      * @access protected
      * @var array
@@ -65,7 +65,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
         'POST MEDIEVAL', 'MEDIEVAL', 'BYZANTINE',
         'GREEK AND ROMAN PROVINCIAL'
         );
-    
+
     /** Load the form options based on the broadperiod provided
      * @access public
      * @param string $broadperiod
@@ -83,11 +83,11 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
                 . '/js/JQuery/coinslinkedinit.js',$type='text/javascript');
                 break;
             case 'IRON AGE':
-                $form = new IronAgeCoinFormNew();
+                $form = new IronAgeCoinForm();
                 $form->details->setLegend('Add Iron Age numismatic data');
                 $form->submit->setLabel('Add Iron Age data');
                 $this->_view->headTitle('Add an Iron Age coin\'s details');
-                $this->_view->jQuery()->addJavascriptFile($this->_view->baseUrl() 
+                $this->_view->jQuery()->addJavascriptFile($this->_view->baseUrl()
                 . '/js/JQuery/iacoinslinkedinit.js',$type='text/javascript');
                 break;
             case 'EARLY MEDIEVAL':
@@ -95,41 +95,41 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
                 $form->details->setLegend('Add Early Medieval numismatic data');
                 $form->submit->setLabel('Add Early Medieval data');
                 $this->_view->headTitle('Add an Early Medieval coin\'s details');
-                $this->_view->jQuery()->addJavascriptFile($this->_view->baseUrl() 
+                $this->_view->jQuery()->addJavascriptFile($this->_view->baseUrl()
                 . '/js/JQuery/coinslinkedinitearlymededit.js',$type='text/javascript');
-                break; 
+                break;
             case 'MEDIEVAL':
                 $form = new MedievalCoinForm();
                 $form->details->setLegend('Add Medieval numismatic data');
                 $form->submit->setLabel('Add Medieval data');
                 $this->_view->headTitle('Add a Medieval coin\'s details');
-                $this->_view->jQuery()->addJavascriptFile($this->_view->baseUrl() 
+                $this->_view->jQuery()->addJavascriptFile($this->_view->baseUrl()
                 . '/js/JQuery/coinslinkedinitmededit.js',$type='text/javascript');
-                break; 
+                break;
             case 'POST MEDIEVAL':
                 $form = new PostMedievalCoinForm();
                 $form->details->setLegend('Add Post Medieval numismatic data');
                 $form->submit->setLabel('Add Post Medieval data');
                 $this->_view->headTitle('Add a Post Medieval coin\'s details');
-                $this->_view->jQuery()->addJavascriptFile($this->_view->baseUrl() 
+                $this->_view->jQuery()->addJavascriptFile($this->_view->baseUrl()
                 . '/js/JQuery/coinslinkedinitpostmededit.js',$type='text/javascript');
-                break; 
+                break;
             case 'BYZANTINE':
                 $form = new ByzantineCoinForm();
                 $form->details->setLegend('Add Byzantine numismatic data');
                 $form->submit->setLabel('Add Byzantine data');
-                break; 
+                break;
             case 'GREEK AND ROMAN PROVINCIAL':
                 $form = new GreekAndRomanCoinForm();
                 $form->details->setLegend('Add Greek & Roman numismatic data');
                 $form->submit->setLabel('Add Greek & Roman data');
-                break; 
+                break;
             default:
-                throw new Exception('You cannot have a coin for that period.');                
-        }	
+                throw new Exception('You cannot have a coin for that period.');
+        }
         return $form;
     }
-    
+
     /** Clone the options
      * @access public
      * @param string $broadperiod
@@ -145,10 +145,10 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
                             ->getIronAgeGeographyMenu($coinDataFlat['denomination']);
                     $form->geographyID->addMultiOptions(
                             array(
-                                null => 'Choose geographic region', 
+                                null => 'Choose geographic region',
                                 'Available regions' => $geography_options
                             ));
-                    $form->geographyID->addValidator('InArray', false, 
+                    $form->geographyID->addValidator('InArray', false,
                             array(array_keys($geography_options)));
                 }
                 break;
@@ -159,7 +159,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
                     if($reverse_options) {
                         $form->revtypeID->addMultiOptions(
                                 array(
-                                    null => 'Choose reverse type', 
+                                    null => 'Choose reverse type',
                                     'Available reverses' => $reverse_options
                                 ));
                     } else {
@@ -174,7 +174,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
                                     null => 'No options available'
                                     ));
                     }
-                    if(isset($coinDataFlat['ruler']) 
+                    if(isset($coinDataFlat['ruler'])
                             && ($coinDataFlat['ruler'] == 242)){
                         $moneyers = new Moneyers();
                         $moneyer_options = $moneyers->getRepublicMoneyers();
@@ -188,7 +188,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
                                         array(
                                             null => 'No options available'
                                             ));
-                    }	
+                    }
                     break;
 
             case 'EARLY MEDIEVAL':
@@ -217,7 +217,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
                             null => 'Choose Post Medieval type',
                             'Available types' => $type_options
                         ));
-            break;	
+            break;
             default:
                 throw new Exception('No period supplied',500);
         }

@@ -1,19 +1,45 @@
 <?php
 /** Form for editing and adding images
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $form = new ImageEditForm();
+ * $form->submit->setLabel('Update image..');
+ * $this->view->form = $form;
+ * ?>
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @category Pas
+ * @package Pas_Form
+ * @version 1
+ * @example /app/modules/database/controllers/ImagesController.php
+ *
 */
 class ImageEditForm extends Pas_Form {
 
-	protected $_auth = NULL;
+    /** The auth object
+     * @access public
+     * @var Zend_Auth
+     */
+    protected $_auth = NULL;
 
-	protected $_copyright = NULL;
+    /** The copyright statement
+     * @access public
+     * @var string
+     */
+    protected $_copyright;
 
-	public function __construct(array $options) {
-	$counties = new Counties();
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
+
+        $counties = new Counties();
 	$county_options = $counties->getCountyname2();
 
 	$periods = new Periods();
@@ -28,25 +54,27 @@ class ImageEditForm extends Pas_Form {
 	$auth = Zend_Auth::getInstance();
 	$this->_auth = $auth;
 	if($this->_auth->hasIdentity()) {
-	$user = $this->_auth->getIdentity();
+            $user = $this->_auth->getIdentity();
 
-	if(!is_null($user->copyright)){
-	$this->_copyright = $user->copyright;
-		} elseif(!is_null($user->fullname)) {
-			$this->_copyright = $user->forename . ' ' . $user->surname;
-		} else {
-			$this->_copyright = $user->fullname;
-		}
+            if(!is_null($user->copyright)){
+                $this->_copyright = $user->copyright;
+            } elseif (!is_null($user->fullname)) {
+                $this->_copyright = $user->forename . ' ' . $user->surname;
+            } else {
+                $this->_copyright = $user->fullname;
+            }
 	}
 
 	parent::__construct($options);
-	$copyList = array_filter(array_merge(array($this->_copyright => $this->_copyright), $copy));
-	$this->setName('imageeditfind');
 
+	$copyList = array_filter(array_merge(
+                array($this->_copyright => $this->_copyright), $copy));
+
+        $this->setName('imageeditfind');
 
 	$imagelabel = new Zend_Form_Element_Text('label');
 	$imagelabel->setLabel('Image label')
-		->setRequired(true)
+                ->setRequired(true)
 		->setAttribs(array('size' => 70, 'class' => 'span6' ))
 		->addErrorMessage('You must enter a label')
 		->addFilters(array('StringTrim','StripTags'));
@@ -100,16 +128,20 @@ class ImageEditForm extends Pas_Form {
 		->setRequired(false)
 		->addValidator('Int')
 		->addMultiOptions(array(
-		'-90' => '90 degrees anticlockwise', '-180' => '180 degrees anticlockwise',
-		'-270' => '270 degrees anticlockwise', '90' => '90 degrees clockwise',
-		'180' => '180 degrees clockwise', '270' => '270 degrees clockwise'));
+
+                    -90 => '90 degrees anticlockwise',
+                    -180 => '180 degrees anticlockwise',
+                    -270 => '270 degrees anticlockwise',
+                    90 => '90 degrees clockwise',
+                    180 => '180 degrees clockwise',
+                    270 => '270 degrees clockwise'));
 
 	$regenerate = new Zend_Form_Element_Checkbox('regenerate');
 	$regenerate->setLabel('Regenerate thumbnail: ');
 
 	$filename = new Zend_Form_Element_Hidden('filename');
 	$filename->removeDecorator('label')
-	->addFilters(array('StringTrim','StripTags'));
+                ->addFilters(array('StringTrim','StripTags'));
 
 	$imagedir = new Zend_Form_Element_Hidden('imagedir');
 
@@ -117,17 +149,19 @@ class ImageEditForm extends Pas_Form {
 	$submit = new Zend_Form_Element_Submit('submit');
 
 	$this->addElements(array(
-	$imagelabel, $county, $period,
-	$copyright, $licenseField, $type, $rotate,
-	$regenerate, $filename, $imagedir,
-	$submit));
+            $imagelabel, $county, $period,
+            $copyright, $licenseField, $type, $rotate,
+            $regenerate, $filename, $imagedir,
+            $submit
+                ));
 
 	$this->setMethod('post');
 
 	$this->addDisplayGroup(array(
-	'label', 'county', 'period',
-	'imagerights', 'copyrighttext', 'ccLicense','type', 'rotate',
-	'regenerate'), 'details');
+            'label', 'county', 'period',
+            'imagerights', 'copyrighttext', 'ccLicense',
+            'type', 'rotate', 'regenerate'),
+                'details');
 
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	$this->details->setLegend('Attach an image');

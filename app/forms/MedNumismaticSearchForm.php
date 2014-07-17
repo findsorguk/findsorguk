@@ -1,24 +1,58 @@
 <?php
 /** Form for searching for medieval numismatic material
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $form = new MedNumismaticSearchForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses Rallies
+ * @uses Hoards
+ * @uses OsCounties
+ * @uses Rulers
+ * @uses Denominations
+ * @uses Mints
+ * @uses CategoriesCoins
+ * @uses MedievalTypes
+ * @uses DieAxes
+ * @uses OsRegions
+ * @uses Institutions
+ * @example /app/modules/database/controllers/SearchController.php
 */
 
 class MedNumismaticSearchForm extends Pas_Form {
 
+    /** The array of higher level users
+     * @access protected
+     * @var array
+     *
+     */
     protected $_higherlevel = array('admin', 'flos', 'fa', 'heros', 'treasure');
 
-	protected $_restricted = array(null,'public', 'member', 'research');
+    /** The array of restricted users
+     * @access protected
+     * @var array
+     */
+    protected $_restricted = array(null,'public', 'member', 'research');
 
-	public function __construct(array $options) {
-
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$rallies = new Rallies();
 	$rally_options = $rallies->getRallies();
 
-	//Get Hoard data
 	$hoards = new Hoards();
 	$hoard_options = $hoards->getHoards();
 
@@ -39,22 +73,17 @@ class MedNumismaticSearchForm extends Pas_Form {
 
 	$cats = new CategoriesCoins();
 	$cat_options = $cats->getPeriodMed();
-	
+
 	$types = new MedievalTypes();
 	$type_options = $types->getMedievalTypesForm(29);
-	
+
 	$regions = new OsRegions();
 	$region_options = $regions->getRegionsID();
 
 	$institutions = new Institutions();
 	$inst_options = $institutions->getInsts();
 
-	$axis = new DieAxes();
-	$axis_options = $axis->getAxes();
-
 	parent::__construct($options);
-
-
 
 	$this->setName('medNumismaticsSearch');
 
@@ -75,31 +104,33 @@ class MedNumismaticSearchForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 
 	if(in_array($this->_role,$this->_higherlevel)) {
-	$workflow->addMultiOptions(array(NULL => 'Available Workflow stages',
-            'Choose Worklow stage' => array(
-                '1' => 'Quarantine',
-                '2' => 'On review',
-                '4' => 'Awaiting validation',
-                '3' => 'Published')));
+            $workflow->addMultiOptions(array(null => 'Available Workflow stages',
+                'Choose Worklow stage' => array(
+                    '1' => 'Quarantine',
+                    '2' => 'On review',
+                    '4' => 'Awaiting validation',
+                    '3' => 'Published')
+                ));
 	}
 	if(in_array($this->_role,$this->_restricted)) {
-	$workflow->addMultiOptions(array(NULL => 'Available Workflow stages',
-            'Choose Worklow stage' => array(
-                '4' => 'Awaiting validation',
-                '3' => 'Published')));
+            $workflow->addMultiOptions(array(null => 'Available Workflow stages',
+                'Choose Worklow stage' => array(
+                    '4' => 'Awaiting validation',
+                    '3' => 'Published')
+                ));
 	}
 
 	//Rally details
 	$rally = new Zend_Form_Element_Checkbox('rally');
 	$rally->setLabel('Rally find: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setUncheckedValue(NULL);
+		->setUncheckedValue(null);
 
 	$rallyID =  new Zend_Form_Element_Select('rallyID');
 	$rallyID->setLabel('Found at this rally: ')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose rally name', 
+		->addMultiOptions(array(null => 'Choose rally name',
 			'Available rallies' => $rally_options))
 		->addValidator('InArray', false, array(array_keys($rally_options)));
 
@@ -107,25 +138,25 @@ class MedNumismaticSearchForm extends Pas_Form {
 	$hoard->setLabel('Hoard find: ')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
-		->setUncheckedValue(NULL);
+		->setUncheckedValue(null);
 
 	$hoardID =  new Zend_Form_Element_Select('hID');
 	$hoardID->setLabel('Part of this hoard: ')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose hoard name', 'Available hoards' => $hoard_options))
+		->addMultiOptions(array(null => 'Choose hoard name', 'Available hoards' => $hoard_options))
 		->addValidator('InArray', false, array(array_keys($hoard_options)));
 
 	$county = new Zend_Form_Element_Select('countyID');
 	$county->setLabel('County: ')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose county', 'Available counties' => $county_options))
+		->addMultiOptions(array(null => 'Choose county', 'Available counties' => $county_options))
 		->addValidator('InArray', false, array(array_keys($county_options)));
 
 	$district = new Zend_Form_Element_Select('districtID');
 	$district->setLabel('District: ')
-		->addMultiOptions(array(NULL => 'Choose district after county'))
+		->addMultiOptions(array(null => 'Choose district after county'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false);
 
@@ -133,13 +164,13 @@ class MedNumismaticSearchForm extends Pas_Form {
 	$parish->setLabel('Parish: ')
 		->setRegisterInArrayValidator(false)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose parish after county'));
+		->addMultiOptions(array(null => 'Choose parish after county'));
 
 	$regionID = new Zend_Form_Element_Select('regionID');
 	$regionID->setLabel('European region: ')
 		->setRegisterInArrayValidator(false)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a region for a wide result',
+		->addMultiOptions(array(null => 'Choose a region for a wide result',
 		'Choose region' => $region_options));
 
 	$gridref = new Zend_Form_Element_Text('gridref');
@@ -158,7 +189,7 @@ class MedNumismaticSearchForm extends Pas_Form {
 	$denomination->setLabel('Denomination: ')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a denomination',
+		->addMultiOptions(array(null => 'Choose a denomination',
 		'Available denominations' => $denomination_options))
 		->addValidator('InArray', false, array(array_keys($denomination_options)));
 
@@ -167,7 +198,7 @@ class MedNumismaticSearchForm extends Pas_Form {
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(
-		NULL => 'Choose a category',
+		null => 'Choose a category',
 		'Available categories' => $cat_options))
 		->addValidator('InArray', false, array(array_keys($cat_options)));
 
@@ -176,9 +207,11 @@ class MedNumismaticSearchForm extends Pas_Form {
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
-        ->addValidator('Int')
+                ->addValidator('Int')
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose type after choosing ruler', 'Available types' => $type_options))
+		->addMultiOptions(array(
+                    null => 'Choose type after choosing ruler',
+                    'Available types' => $type_options))
 		->addValidator('InArray', false, array(array_keys($type_options)));
 
 	//Primary ruler
@@ -187,7 +220,7 @@ class MedNumismaticSearchForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(
-		NULL => 'Choose a ruler', 
+		null => 'Choose a ruler',
 		'Available issuers' => $ruler_options))
 		->addValidator('InArray', false, array(array_keys($ruler_options)));
 
@@ -198,8 +231,8 @@ class MedNumismaticSearchForm extends Pas_Form {
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
 		->addMultiOptions(array(
-		NULL => 'Choose a mint', 
-		'Available mints' => $mint_options))
+                    null => 'Choose a mint',
+                    'Available mints' => $mint_options))
 		->addValidator('InArray', false, array(array_keys($mint_options)));
 
 	//Obverse inscription
@@ -233,8 +266,9 @@ class MedNumismaticSearchForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(
-			NULL => 'Choose an axis', 
-			'Available measurements' => $axis_options))
+                    null => 'Choose an axis',
+                    'Available measurements' => $axis_options
+                ))
 		->addValidator('InArray', false, array(array_keys($axis_options)));
 
 	$objecttype = new Zend_Form_Element_Hidden('objecttype');
@@ -261,37 +295,44 @@ class MedNumismaticSearchForm extends Pas_Form {
 		->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StringTrim','StripTags'))
-		->addMultiOptions(array(NULL => 'Choose an institution',
+		->addMultiOptions(array(null => 'Choose an institution',
 		'Available institutions' => $inst_options));
 
 	$this->addElements(array(
-	$old_findID, $type, $description,
-	$workflow, $rally, $rallyID,
-	$hoard, $hoardID, $county,
-	$regionID, $district, $parish,
-	$fourFigure, $gridref, $denomination,
-	$ruler,$mint,$axis,
-	$obverseinsc, $obversedesc,$reverseinsc,
-	$reversedesc, $objecttype, $broadperiod,
-	$cat, $submit,$hash, $institution));
-
-
+            $old_findID, $type, $description,
+            $workflow, $rally, $rallyID,
+            $hoard, $hoardID, $county,
+            $regionID, $district, $parish,
+            $fourFigure, $gridref, $denomination,
+            $ruler,$mint,$axis,
+            $obverseinsc, $obversedesc,$reverseinsc,
+            $reversedesc, $objecttype, $broadperiod,
+            $cat, $submit,$hash, $institution
+                ));
 
 	$this->addDisplayGroup(array(
-	'category', 'ruler','type',
-	'denomination', 'mint','moneyer',
-	'axis',  'obverseLegend','obverseDescription',
-	'reverseLegend','reverseDescription'), 'numismatics')
-	->removeDecorator('HtmlTag');
+            'category', 'ruler','type',
+            'denomination', 'mint','moneyer',
+            'axis',  'obverseLegend','obverseDescription',
+            'reverseLegend','reverseDescription'), 'numismatics')
+                ->removeDecorator('HtmlTag');
 
 	$this->numismatics->setLegend('Numismatic details: ');
-	
-	$this->addDisplayGroup(array('old_findID','description','rally','rallyID','hoard','hID','workflow'), 'details');
-	
+
+	$this->addDisplayGroup(array(
+            'old_findID','description','rally',
+            'rallyID','hoard','hID',
+            'workflow'),
+                'details');
+
 	$this->details->setLegend('Object details:');
 
-	$this->addDisplayGroup(array('countyID','regionID','districtID','parishID','gridref','fourFigure', 'institution'), 'spatial');
-	
+	$this->addDisplayGroup(array(
+            'countyID','regionID','districtID',
+            'parishID','gridref','fourFigure',
+            'institution'),
+                'spatial');
+
 	$this->spatial->setLegend('Spatial details: ');
 
 	$this->setLegend('Perform an advanced search on our database: ');
@@ -299,5 +340,5 @@ class MedNumismaticSearchForm extends Pas_Form {
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
 	parent::init();
-	}
+    }
 }

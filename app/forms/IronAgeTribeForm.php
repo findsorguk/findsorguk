@@ -1,15 +1,30 @@
 <?php
 /** Form for editing and creating Iron Age tribal data
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
+ *
+ * An example of code use:
+ *
+ * <code>
+ * <?php
+ * $form = new IronAgeTribeForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/admin/controllers/NumismaticsController.php
+ */
 class IronAgeTribeForm extends Pas_Form {
-	
-public function __construct(array $options) {
-	
+
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
+
 	parent::__construct($options);
 
 	$this->setName('ironagetribes');
@@ -37,7 +52,7 @@ public function __construct(array $options) {
 	);
 
 	$this->addDisplayGroup(array('tribe', 'description', 'submit'), 'details');
-	
+
 	parent::init();
 	}
 }

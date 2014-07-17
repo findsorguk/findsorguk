@@ -1,21 +1,38 @@
 <?php
 /** Form for editing and creating medieval categories
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
+ *
+ * An example of code use:
+ *
+ * <code>
+ * <?php
+ * $form = new MedCategoryForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Periods
+ * @version 1
+ * @example /app/modules/admin/controllers/NumismaticsController.php
+ */
 
 class MedCategoryForm extends Pas_Form {
-	
-public function __construct(array $options) {
-	
+
+    /** the constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
+
 	$periods = new Periods();
 	$period_options = $periods->getMedievalCoinsPeriodList();
 
 
 	parent::__construct($options);
-	
+
 	$this->setName('medievaltype');
 
 	$category = new Zend_Form_Element_Text('category');
@@ -31,7 +48,7 @@ public function __construct(array $options) {
 		->setRequired(true)
 		->addFilters(array('StringTrim', 'StripTags'))
 		->addErrorMessage('You must enter a period for this type')
-		->addMultioptions(array(NULL => 'Choose a period', 'Available Options' => $period_options));
+		->addMultioptions(array(null => 'Choose a period', 'Available Options' => $period_options));
 
 	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Description: ')
@@ -43,12 +60,11 @@ public function __construct(array $options) {
 		->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
 
 	$submit = new Zend_Form_Element_Submit('submit');
-	
-	$this->addElements(array(
-	$category, $description, $periodID,
-	$submit));
-	
+
+	$this->addElements(array($category, $description, $periodID, $submit));
+
 	$this->addDisplayGroup(array('category','periodID','description','submit'), 'details');
-	parent::init();
-	}
+
+        parent::init();
+    }
 }
