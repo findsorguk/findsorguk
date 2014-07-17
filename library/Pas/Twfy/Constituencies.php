@@ -1,19 +1,12 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** Retrieve a list of constituencies from twfy
- *
- * @since 2/2/2012
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @version 1
  * @category Pas
  * @package Pas_twfy
  * @subpackage Constituencies
- * @author Daniel Pett
- * @copyright Daniel Pett
  * @license GNU
  * @uses Pas_Twfy
  * @uses Pas_Twfy_Exception
@@ -25,8 +18,8 @@ class Pas_Twfy_Constituencies extends Pas_Twfy {
      */
     const METHOD = 'getConstituencies';
 
-    /** Constituencies I don't want!!
-     *
+    /** Constituencies I don't want!! These are Scottish and don't fit into PAS.
+     * @access protected
      * @var array
      */
     protected $_remove = array(
@@ -57,9 +50,9 @@ class Pas_Twfy_Constituencies extends Pas_Twfy {
 	);
 
     /** Get the response from twfy
-     *
-     * @param type $date
-     * @return type
+     * @access public
+     * @param string $date
+     * @return array
      */
     public function get($date){
         $params = array(
@@ -76,27 +69,27 @@ class Pas_Twfy_Constituencies extends Pas_Twfy {
      * @return array
      */
     protected function _cleanUp($data){
-    if(is_array($data)){
-    if (!($this->_cache->test(md5(self::METHOD)))) {
-    foreach ($data as $a) {
-    if(in_array($a->name,$this->_remove)){
-    unset($a->name);
-    }
-    }
-    $data2 = array();
-    foreach($data as $a){
-    if(isset($a->name)){
-    $data2[] = array('name' => $a->name);
-    }
-    }
-    $this->_cache->save($data2);
-    } else {
-    $data2 = $this->_cache->load(md5(self::METHOD));
-    }
-    return $data2;
-    } else {
-        throw new Pas_Twfy_Exception('Data must be an array');
-    }
+        if(is_array($data)){
+            if (!($this->_cache->test(md5(self::METHOD)))) {
+            foreach ($data as $a) {
+                if(in_array($a->name,$this->_remove)){
+                    unset($a->name);
+                }
+            }
+            $data2 = array();
+            foreach($data as $a){
+                if(isset($a->name)){
+                    $data2[] = array('name' => $a->name);
+                }
+            }
+            $this->_cache->save($data2);
+            } else {
+                $data2 = $this->_cache->load(md5(self::METHOD));
+            }
+            return $data2;
+        } else {
+            throw new Pas_Twfy_Exception('Data must be an array');
+        }
     }
 
 }

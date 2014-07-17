@@ -11,7 +11,7 @@
  * @since 30/1/2012
  * @copyright Daniel Pett
  * @license GNU
- * @uses Pas_Exception_BadJuJu
+ * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  * @author Daniel Pett <dpett@britishmuseum.org>
@@ -107,7 +107,7 @@ class Pas_View_Helper_FacetCreatorSmrs extends Zend_View_Helper_Abstract
      * @access public
      * @param  array $facets
      * @return string
-     * @throws Pas_Exception_BadJuJu
+     * @throws Pas_Exception
      */
 
     public function buildHtml(array $facets) {
@@ -125,7 +125,7 @@ class Pas_View_Helper_FacetCreatorSmrs extends Zend_View_Helper_Abstract
      * @param  array $facet
      * @param  string $facetName
      * @return string
-     * @throws Pas_Exception_BadJuJu
+     * @throws Pas_Exception
      * @uses Zend_Controller_Front
      * @uses Zend_View_Helper_Url
      */
@@ -204,7 +204,7 @@ class Pas_View_Helper_FacetCreatorSmrs extends Zend_View_Helper_Abstract
         return $html;
             }
         } else {
-            throw new Pas_Exception_BadJuJu('The facet is not an array');
+            throw new Pas_Exception('The facet is not an array');
         }
     }
 

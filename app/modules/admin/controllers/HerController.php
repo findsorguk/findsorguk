@@ -1,12 +1,13 @@
 <?php
 /** Controller for setting up and manipulating historic environment data sign ups
-* 
-* @category   Pas
-* @package    Pas_Controller
-* @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
-*/
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Controller
+ * @subpackage ActionAdmin
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ */
 class Admin_HerController extends Pas_Controller_Action_Admin {
 	
 	protected $_hers;

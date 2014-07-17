@@ -16,7 +16,7 @@
  * @package Db_Table
  * @subpackage Abstract
  * @version 1
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/forms/IronAgeCoinFormNew.php
 */
 class AbcNumbers extends Pas_Db_Table_Abstract {

@@ -1,19 +1,14 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** An interface to the Edina UniqueNameSearch api call
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Pas_Geo_Edina
  * @subpackage UniqueNameSearch
- * @license GNU Public
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @since 3/2/12
  * @version 1
- * @copyright Daniel Pett, The British Museum
- * @author Daniel pett
  * @uses Pas_Geo_Edina_Exception
  * @see http://unlock.edina.ac.uk/places/queries/
  * Usage:
@@ -47,10 +42,10 @@ class Pas_Geo_Edina_UniqueNameSearch extends Pas_Geo_Edina{
      * @return type
      */
     public function get() {
-    $params = array(
-        'name' => $this->_name
-    );
-    return parent::get(self::METHOD, $params);
+        $params = array(
+            'name' => $this->_name
+        );
+        return parent::get(self::METHOD, $params);
     }
 
     /** Set the name of the place to query
@@ -61,7 +56,7 @@ class Pas_Geo_Edina_UniqueNameSearch extends Pas_Geo_Edina{
      */
     public function setName($name){
         if(!is_string($name)){
-            throw new Pas_Geo_Edina_Exception('The unique name should be a string');
+            throw new Pas_Geo_Edina_Exception('The unique name should be a string', 500);
         } else {
             return $this->_name = $name;
         }

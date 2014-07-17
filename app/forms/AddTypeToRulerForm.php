@@ -1,39 +1,42 @@
 <?php
-/**
-* Form for adding a type of coin to a specific ruler
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
+/**  Form for adding a type of coin to a specific ruler
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
 */
-class AddTypeToRulerForm extends Pas_Form
-{
-public function __construct($options = null)
-{
-parent::__construct($options);
+class AddTypeToRulerForm extends Pas_Form {
+
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options = null) {
+
+        parent::__construct($options);
 
 	$this->setName('TypeToRuler');
 
 	$type = new Zend_Form_Element_Select('type');
 	$type->setLabel('Medieval coin type: ')
-	->setRequired(true)
-	->addFilters(array('StripTags','StringTrim'))
-	->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
+                ->setRequired(true)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	$ruler_id = new Zend_Form_Element_Hidden('ruler_id');
 	$ruler_id->setRequired(true)
-	->addValidator('Int');
+                ->addValidator('Int');
 
-
-	//Submit button
-	$submit = new Zend_Form_Element_Submit('submit');
+        $submit = new Zend_Form_Element_Submit('submit');
 
 	$this->addElements(array($type, $ruler_id, $submit))
 	->setLegend('Add a new type')
 	->setMethod('post');
 
 	parent::init();
-	}
-
+    }
 }

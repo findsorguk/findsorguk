@@ -1,15 +1,33 @@
 <?php
+/** A form element for rendering the rich text editor interface
+ * 
+ * An example code use:
+ * 
+ * <code>
+ * <?php
+ * $researchOutline = new Pas_Form_Element_CKEditor('researchOutline');
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @version 1
+ * @category Pas
+ * @package Pas_Form
+ * @subpackage Element
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/forms/AcceptUpgradeForm.php
+ */
 class Pas_Form_Element_CKEditor extends ZendX_JQuery_Form_Element_UiWidget
 {
-    /**
-     * Use formCKeditor view helper by default
+    /** Use formCKeditor view helper by default
+     * @access public
      * @var string
      */
     public $helper = 'formCKEditor';
 
-    /**
-     * Default ckeditor options
-     *
+    /** Default ckeditor options
+     * @access public
      * @var array
      */
     public $jQueryParams = array(

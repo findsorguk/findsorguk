@@ -1,21 +1,31 @@
 <?php
-
 /**
  * BoundingBoxCheck takes parameters from a bounding box query string and
  * checks for validity, then returns the correct solr formatted query string.
  * Thanks for putting me on the right track to: James Grimster (OrangeLeaf),
  * Eric Kansa (UCLA - opencontext), Patrick Plaatje (Lovefilm), Jeremy Ottevanger
  * (Imperial War Museum)
+ *
+ * An example of code use:
+ *
+ * <code>
+ * <?php
+ * $coords = new Pas_Solr_BoundingBoxCheck($params['bbox']);
+ * $bbox = $coords->checkCoordinates();
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
- * @package Pas_Solr
- * @copyright Daniel Pett
- * @license GNU GENERAL PUBLIC LICENSE
- * @author Daniel Pett
+ * @package Solr
  * @see http://code.google.com/p/opencontext/source/browse/trunk/library/OpenContext/FacetQuery.php
  * @see http://doofercall.blogspot.com/2012/01/solr-to-google-earth.html
  * @uses Pas_Solr_Exception
  * @version 1
  * @since 27/1/2011
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /library/Pas/Solr/ExportHandler.php
  */
 class Pas_Solr_BoundingBoxCheck {
 
@@ -92,7 +102,5 @@ class Pas_Solr_BoundingBoxCheck {
       } else {
           throw new Pas_Solr_Exception('Invalid count of corners');
       }
-}
-
-
+    }
 }

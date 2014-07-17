@@ -1,73 +1,73 @@
 <?php
-/**
- * Zend Framework
+/** ACL integration building on an example by Rob Allen.
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Application
- * @package    Controller
- * @copyright  Copyright (c) 2007,2008 Rob Allen
- * @license    http://framework.zend.com/license/new-bsd  New BSD License
- */
-
-/** Zend_Controller_Action_Helper_Abstract */
-require_once 'Zend/Controller/Action/Helper/Abstract.php';
-
-
-/**
- * ACL integration
- *
- * Places_Controller_Action_Helper_Acl provides ACL support to a
- * controller.
- *
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $this->_helper->acl->allow('public', null);
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @uses       Zend_Controller_Action_Helper_Abstract
- * @package    Controller
- * @subpackage Controller_Action
- * @copyright  Copyright (c) 2007,2008 Rob Allen
+ * @category Pas
+ * @package Controller_Action
+ * @subpackage Helper
  * @license    http://framework.zend.com/license/new-bsd  New BSD License
+ * @example /app/modules/about/controllers/ContactusController.php 
+ * 
  */
 class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abstract
 {
-    /**
-     * @var Zend_Controller_Action
+    /** The action
+     * @var \Zend_Controller_Action
      */
     protected $_action;
 
-    /**
-     * @var Zend_Auth
+    /** The auth object
+     * @var \Zend_Auth
      */
     protected $_auth;
 
-    /**
-     * @var Zend_Acl
+    /** The Action Control Object
+     * @var \Zend_Acl
      */
     protected $_acl;
 
-    /**
+    /** The controller name
      * @var string
      */
     protected $_controllerName;
+    
+    /** Get the action
+     * @access public
+     * @return string
+     */
+    public function getAction() {
+        $this->_action = $this->getActionController();
+        return $this->_action;
+    }
 
-    /**
-     * Constructor
-     *
+    /** Get the auth object
+     * @access public
+     * @return \Zend_Auth
+     */
+    public function getAuth() {
+        $this->_auth = Zend_Auth::getInstance();
+        return $this->_auth;
+    }
+
+        
+    /**  Constructor
      * Optionally set view object and options.
-     *
+     * @access public
      * @param  Zend_View_Interface $view
      * @param  array $options
      * @return void
      */
-    public function __construct(Zend_View_Interface $view = null, array $options = array())
-    {
-        $this->_auth = Zend_Auth::getInstance();
+    public function __construct(Zend_View_Interface $view = null, array $options = array()) {
         $this->_acl = $options['acl'];
     }
 
@@ -76,12 +76,9 @@ class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abs
      *
      * @return void
      */
-    public function init()
-    {
-        $this->_action = $this->getActionController();
-
+    public function init() {
         // add resource for this controller
-        $controller = $this->_action->getRequest()->getControllerName();
+        $controller = $this->getAction()->getRequest()->getControllerName();
         if(!$this->_acl->has($controller)) {
             $this->_acl->add(new Zend_Acl_Resource($controller));
         }
@@ -93,18 +90,16 @@ class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abs
      *
      * @return void
      */
-    public function preDispatch()
-    {
+    public function preDispatch()  {
         $role = 'public';
-        if ($this->_auth->hasIdentity()) {
-            $user = $this->_auth->getIdentity();
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
             if(is_object($user)) {
-                $role = $this->_auth->getIdentity()->role;
+                $role = $this->getAuth()->getIdentity()->role;
 
             }
         }
-
-        $request = $this->_action->getRequest();
+        $request = $this->getAction()->getRequest();
         $controller = $request->getControllerName();
         $action = $request->getActionName();
         $module = $request->getModuleName();
@@ -119,12 +114,10 @@ class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abs
 
 
         if (!$this->_acl->isAllowed($role, $resource, $privilege)) {
-
-          	$request->setModuleName('default');
+            $request->setModuleName('default');
             $request->setControllerName('error');
-           	$request->setActionName('error');
+            $request->setActionName('error');
             $request->setDispatched(false);
-
         }
 
 	/**
@@ -136,40 +129,33 @@ class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abs
 		***/
     }
 
-    /**
-     * Proxy to the underlying Zend_Acl's allow()
-     *
+    /** Proxy to the underlying Zend_Acl's allow()
      * We use the controller's name as the resource and the
      * action name(s) as the privilege(s)
-     *
+     * @access public
      * @param  Zend_Acl_Role_Interface|string|array     $roles
      * @param  string|array                             $actions
      * @uses   Zend_Acl::setRule()
-     * @return Places_Controller_Action_Helper_Acl Provides a fluent interface
+     * @return Pas_Controller_Action_Helper_Acl Provides a fluent interface
      */
-    public function allow($roles = null, $actions = null)
-    {
+    public function allow($roles = null, $actions = null) {
         $resource = $this->_controllerName;
         $this->_acl->allow($roles, $resource, $actions);
         return $this;
     }
 
-    /**
-     * Proxy to the underlying Zend_Acl's deny()
-     *
+    /** Proxy to the underlying Zend_Acl's deny()
      * We use the controller's name as the resource and the
      * action name(s) as the privilege(s)
-     *
+     * @access public
      * @param  Zend_Acl_Role_Interface|string|array     $roles
      * @param  string|array                             $actions
      * @uses   Zend_Acl::setRule()
-     * @return Places_Controller_Action_Helper_Acl Provides a fluent interface
+     * @return Pas_Controller_Action_Helper_Acl Provides a fluent interface
      */
-    public function deny($roles = null, $actions = null)
-    {
+    public function deny($roles = null, $actions = null) {
         $resource = $this->_controllerName;
         $this->_acl->deny($roles, $resource, $actions);
         return $this;
     }
-
 }

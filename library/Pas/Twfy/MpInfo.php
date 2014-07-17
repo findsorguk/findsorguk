@@ -1,41 +1,34 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** Retrieve extended details for a single MP
  *
- * @since 2/2/2012
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @version 1
  * @category Pas
  * @package Pas_twfy
  * @subpackage MpInfo
- * @author Daniel Pett
- * @copyright Daniel Pett
  * @license GNU
  * @uses Pas_Twfy
+ * @see http://www.theyworkforyou.com/api/docs/getMPInfo
  */
 class Pas_Twfy_MpInfo extends Pas_Twfy {
 
     /** Method to call
-     *
      */
     const METHOD = 'getMPInfo';
 
     /** Get the extended data
-     *
-     * @param int $id
-     * @param string $postcode
+     * @access public
+     * @param integer $id
+     * @param array $fields
      * @return type
      */
-    public function get($id = null, $fields = NULL){
-     $params = array(
-         'key' => $this->_apikey,
-         'id' => $id,
-         'fields' => $fields
-     );
-     return parent::get(self::METHOD, $params);
+    public function get($id = null, array $fields){
+        $params = array(
+             'key' => $this->_apikey,
+             'id' => $id,
+             'fields' => $fields
+        );
+        return parent::get(self::METHOD, $params);
     }
 }

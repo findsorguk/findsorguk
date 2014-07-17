@@ -1,20 +1,38 @@
 <?php
-/**
- * ContextSwitch
- *
- * extends default context switch and adds AMF3, XML, PHP serialization
+/** A contextSwitch for determining how to deal with rest contexts
+ * Extends default context switch and adds AMF3, XML, PHP serialization
+ * 
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Controller_Action
+ * @subpackage Helper
+ * @version 1
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 class Pas_Controller_Action_Helper_RestContextSwitch extends Zend_Controller_Action_Helper_ContextSwitch
 {
+    /** The auto serialize flag
+     * @access protected
+     * @var boolean
+     */
     protected $_autoSerialization = true;
 
-    // TODO: run through Zend_Serializer::factory()
+    /** The available adapters in the system
+     * @access protected
+     * @var array
+     */
     protected $_availableAdapters = array(
         'json'  => 'Zend_Serializer_Adapter_Json',
         'xml'   => 'REST_Serializer_Adapter_Xml',
         'php'   => 'Zend_Serializer_Adapter_PhpSerialize'
     );
 
+    /** The array of rest contexts to return
+     * @access protected
+     * @var array
+     */
     protected $_rest_contexts = array(
         'json' => array(
             'suffix'    => 'json',
@@ -75,43 +93,51 @@ class Pas_Controller_Action_Helper_RestContextSwitch extends Zend_Controller_Act
         )
     );
 
-    public function __construct($options = null)
-    {
+    /** Set the constructor up
+     * @access public
+     * @param Zend_Config $options
+     */
+    public function __construct($options = null) {
         if ($options instanceof Zend_Config) {
             $this->setConfig($options);
         } elseif (is_array($options)) {
             $this->setOptions($options);
         }
-
         if (empty($this->_contexts)) {
             $this->addContexts($this->_rest_contexts);
         }
-
         $this->init();
     }
 
-    public function getAutoDisableLayout()
-    {
+    /** Get whether to auto disable the layout
+     * @access public
+     * @return boolean
+     */
+    public function getAutoDisableLayout() {
         $context = $this->_actionController->getRequest()->getParam($this->getContextParam());
         return $this->_rest_contexts[$context]['options']['autoDisableLayout'];
     }
 
-    public function initAbstractContext()
-    {
+    /** Initialise the abstract context
+     * @access public
+     * @return \Zend_View
+     */
+    public function initAbstractContext()  {
         if (!$this->getAutoSerialization()) {
             return;
         }
-
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $view = $viewRenderer->view;
-
         if ($view instanceof Zend_View_Interface) {
             $viewRenderer->setNoRender(true);
         }
     }
 
-    public function restContext()
-    {
+    /** Check if a rest context
+     * @access public
+     * @return boolean
+     */
+    public function restContext() {
         if (!$this->getAutoSerialization()) {
             return;
         }
@@ -128,7 +154,6 @@ class Pas_Controller_Action_Helper_RestContextSwitch extends Zend_Controller_Act
 
                     if ($this->_currentContext == 'xml') {
                         $stylesheet = $this->getRequest()->getHeader('X-XSL-Stylesheet');
-
                         if ($stylesheet !== false and !empty($stylesheet)) {
                             $body = str_replace('<?xml version="1.0"?>', sprintf('<?xml version="1.0"?><?xml-stylesheet type="text/xsl" href="%s"?>', $stylesheet), $body);
                         }
@@ -150,14 +175,21 @@ class Pas_Controller_Action_Helper_RestContextSwitch extends Zend_Controller_Act
         }
     }
 
-    public function setAutoSerialization($flag)
-    {
+    /** Set whether to autoserialize output
+     * @access public
+     * @param boolean $flag
+     * @return \Pas_Controller_Action_Helper_RestContextSwitch
+     */
+    public function setAutoSerialization($flag) {
         $this->_autoSerialization = (bool) $flag;
         return $this;
     }
 
-    public function getAutoSerialization()
-    {
+    /** Get whether to auto serialize
+     * @access public
+     * @return boolean
+     */
+    public function getAutoSerialization() {
         return $this->_autoSerialization;
     }
 }

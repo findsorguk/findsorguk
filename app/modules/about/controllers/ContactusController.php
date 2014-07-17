@@ -6,7 +6,7 @@
  * @subpackage Admin
  * @category Pas
  * @copyright DEJ Pett & British Museum
- * @license GNU Public
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
  * @since 13th January 2011

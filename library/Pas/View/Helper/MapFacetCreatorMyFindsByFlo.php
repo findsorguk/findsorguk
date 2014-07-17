@@ -15,7 +15,7 @@
  * @copyright Daniel Pett
  * @author Daniel Pett
  * @license GNU
- * @uses Pas_Exception_BadJuJu
+ * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  */
@@ -29,7 +29,7 @@ class Pas_View_Helper_MapFacetCreatorMyFindsByFlo extends Zend_View_Helper_Abstr
         if ($person) {
         $this->_id = $person->getPerson()->peopleID;
         } else {
-            throw new Pas_Exception_BadJuJu('No user credentials found');
+            throw new Pas_Exception('No user credentials found');
         }
     }
 
@@ -37,7 +37,7 @@ class Pas_View_Helper_MapFacetCreatorMyFindsByFlo extends Zend_View_Helper_Abstr
      * @access public
      * @param  array                 $facets
      * @return string
-     * @throws Pas_Exception_BadJuJu
+     * @throws Pas_Exception
      */
 
     public function mapFacetCreatorMyFindsByFlo()
@@ -62,7 +62,7 @@ class Pas_View_Helper_MapFacetCreatorMyFindsByFlo extends Zend_View_Helper_Abstr
         }
         return $html;
         } else {
-            throw new Pas_Exception_BadJuJu('The facets sent are not an array');
+            throw new Pas_Exception('The facets sent are not an array');
         }
     }
 
@@ -71,7 +71,7 @@ class Pas_View_Helper_MapFacetCreatorMyFindsByFlo extends Zend_View_Helper_Abstr
      * @param  array                 $facet
      * @param  string                $facetName
      * @return string
-     * @throws Pas_Exception_BadJuJu
+     * @throws Pas_Exception
      * @uses Zend_Controller_Front
      * @uses Zend_View_Helper_Url
      */
@@ -128,7 +128,7 @@ class Pas_View_Helper_MapFacetCreatorMyFindsByFlo extends Zend_View_Helper_Abstr
         return $html;
             }
         } else {
-            throw new Pas_Exception_BadJuJu('The facet is not an array');
+            throw new Pas_Exception('The facet is not an array');
         }
     }
 

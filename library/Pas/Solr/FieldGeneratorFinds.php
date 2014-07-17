@@ -1,32 +1,62 @@
 <?php
-
+/** A solr class for generating which fields to return for different responses
+ * 
+ * An example of use:
+ * <code>
+ * <?php
+ *  $fields = new Pas_Solr_FieldGeneratorFinds($context);
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Pas_Solr
+ * @version 1
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/modules/api/controllers/ObjectsController.php
+ * 
+ */
 class Pas_Solr_FieldGeneratorFinds {
 	
-	protected $_context;
+    /** The cintext to query
+     *@access protected
+     * @var string
+     */
+    protected $_context;
 	
-	public function __construct($context){
-		$this->_context = $context;
-	}
+    /** The constructor
+     * @access public
+     * @param string $context
+     */
+    public function __construct($context){
+        $this->_context = $context;
+    }
 
-	public function getFields(){
-////	if(!in_array($this->_context,array('json', 'xml', 'kml', 'geojson'))){
-//		$fields = array(
-//		'id','identifier','objecttype',
-//        'title','broadperiod','description',
-//        'old_findID','thumbnail', 'county',
-//        'imagedir','filename', 'workflow', 
-//        'fourFigure', 'knownas', 'created', 
-//        'updated', 'creator');
-//	} else {
-		$fields = array(
+    /** Get the fields based on the context
+     * @access public
+     * @return string
+     */
+    public function getFields(){
+	if(!in_array($this->_context,array('json', 'xml', 'kml', 'geojson'))){
+		
+            $fields = array(
+                'id','identifier','objecttype',
+                'title','broadperiod','description',
+                'old_findID','thumbnail', 'county',
+                'imagedir','filename', 'workflow', 
+                'fourFigure', 'knownas', 'created', 
+                'updated', 'creator');
+            
+        } else {
+            $fields = array(
 		'id','identifier', 'objecttype',
 		'creator', 'broadperiod', 'fromdate',
 		'todate', 'description', 'notes',
 		'inscription', 'completenessTerm', 'discoveryMethod', 
 		'materialTerm', 'secondaryMaterialTerm', 'cultureName', 
 		'classification', 'subClassification', 'manufactureTerm',
-        'old_findID', 'regionName', 'county', 
-        'district', 'parish', 'fourFigure',
+                'old_findID', 'regionName', 'county', 
+                'district', 'parish', 'fourFigure',
 		'knownas', 'imagedir', 'filename', 
 		'thumbnail', 'denominationName', 'mintName',
 		'obverseDescription', 'reverseDescription', 'obverseLegend',
@@ -65,8 +95,7 @@ class Pas_Solr_FieldGeneratorFinds {
 		'bmManufacture', 'bmTreatment', 'bmPreservation',
 		'rulerBM',  'denominationBM', 'objectType'
 		);
-//	}
-	return $fields;
 	}
-	
+	return $fields;
+    }
 }

@@ -9,7 +9,7 @@
  * @subpackage Abstract
  * @version    1
  * @since	  22 September 2011
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
 */
 
 class AccreditedRegions extends Pas_Db_Table_Abstract {

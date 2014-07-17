@@ -1,5 +1,15 @@
 <?php
-
+/** A controller for manipulating organisational data.
+ * 
+ * Data for organisations that people belong to is stored in the database and
+ * people can be attached to just one at present.
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @version 1
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ */
 class Database_OrganisationsController extends Pas_Controller_Action_Admin {
 
 	protected $_gmapskey,$_config,$_geocoder, $_organisations;

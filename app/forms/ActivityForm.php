@@ -1,23 +1,29 @@
 <?php
-/**
-* Form for adding and editing primary activities for people
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
-*/
+/** Form for adding and editing primary activities for people
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @version 1
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ */
 class ActivityForm extends Pas_Form {
 
-	public function __construct($options = null) {
+    /** Construct the form
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
-	parent::__construct($options);
+        parent::__construct($options);
 
 	$this->setName('activity');
 
 	$term = new Zend_Form_Element_Text('term');
 	$term->setLabel('Activity title: ')
-		->setRequired(true)
+                ->setRequired(true)
 		->addFilter('StringTrim')
 		->addFilter('StripTags')
 		->addErrorMessage('Choose title for the activity.')

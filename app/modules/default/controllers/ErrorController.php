@@ -288,7 +288,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
     			$this->sendEmail();
                         $this->view->headTitle('Not authorised.');
                         break;
-                    case 'Pas_Exception_BadJuJu':
+                    case 'Pas_Exception':
                         $this->getResponse()->setHttpResponseCode(500);
                         $this->view->message = 'There has been an internal server error!';
                         $this->view->info  = $errors->exception;

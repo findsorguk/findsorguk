@@ -3,20 +3,21 @@
  * A wrapper for interfacing with the MapIt api, specifically the postcode call.
  * This extends the Mapit base class.
  *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Pas_Geo_Mapit
  * @subpackage Postcode
  * @version 1
  * @since 6/2/12
- * @copyright Daniel Pett, British Museum
- * @license GNU public
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @see http://mapit.mysociety.org/
- * @author Daniel Pett
  * @uses Pas_Validate_ValidPostcode
  * @uses Pas_Geo_Mapit_Exception
  *
  * USAGE
- *
+ * <code>
+ * <?php
  * $m = new Pas_Geo_Mapit_Postcode();
  * You have two options to search for a partial or a full postcode
  * The full postcode is validated for format. I haven't bothered for partial.
@@ -26,7 +27,8 @@
  * To set partial postcode:
  * $m->setPartialPostCode('WC1B');
  * $m->get();
- *
+ * ?>
+ * </code>
  */
 class Pas_Geo_Mapit_Postcode extends Pas_Geo_Mapit {
 
@@ -60,12 +62,12 @@ class Pas_Geo_Mapit_Postcode extends Pas_Geo_Mapit {
      * @return string
      */
     public function setFullPostCode($postcode){
-    $validator = new Pas_Validate_ValidPostCode();
-    if($validator->isValid($postcode)){
-         $this->_postcode = str_replace(' ', '', $postcode);
-    } else {
-         throw new Pas_Geo_Mapit_Exception('Invalid post code specified');
-    }
+        $validator = new Pas_Validate_ValidPostCode();
+        if($validator->isValid($postcode)){
+            $this->_postcode = str_replace(' ', '', $postcode);
+        } else {
+            throw new Pas_Geo_Mapit_Exception('Invalid post code specified');
+        }
     }
 
     /** Get the postcode submitted
@@ -104,20 +106,24 @@ class Pas_Geo_Mapit_Postcode extends Pas_Geo_Mapit {
         if(isset($this->_postcode) && isset($this->_partialPostCode)){
             throw new Pas_Geo_Mapit_Exception('You cannot use both methods');
         }
-    $params = array(
-         $this->_partial,
-         $this->_postcode,
-         $this->_partialPostCode
-    );
-    return parent::get(self::APIMETHOD, $params);
+        $params = array(
+            $this->_partial,
+            $this->_postcode,
+            $this->_partialPostCode
+        );
+        return parent::get(self::APIMETHOD, $params);
     }
 
+    /** Append the generation from mysociety
+     * @access public
+     * @param integer $generation
+     * @throws Pas_Geo_Mapit_Exception
+     */
     public function appendGeneration($generation){
         if(is_numeric($generation)){
             $this->_generation = '?generation=' . $generation;
         } else {
             throw new Pas_Geo_Mapit_Exception('The generation must be an integer');
         }
-
     }
 }

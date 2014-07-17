@@ -22,7 +22,7 @@
  * @uses viewHelper Pas_View_Helper
  * @version 1
  * @copyright (c) 2014, Daniel Pett
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @todo Put in checks for date strings.
  * @example /app/modules/analytics/views/scripts/index/index.phtml 
  *

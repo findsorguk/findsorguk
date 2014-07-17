@@ -15,14 +15,14 @@
  * @category   Pas
  * @package    Form
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
- * @license    GNU General Public License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 2
  * @example /app/modules/admin/controllers/ContentController.php
  * 
 */
 class ContentForm extends Pas_Form {
 
-    public function __construct($options = null) {
+    public function __construct(array $options) {
         
         $authors = new Users();
         $authorOptions = $authors->getAuthors();

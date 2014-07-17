@@ -1,16 +1,20 @@
 <?php
-/**
-* Form for adding a profile photo to a user's account (staff only)
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
+/** Form for adding a profile photo to a user's account (staff only)
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
 */
-class AddStaffPhotoForm extends Pas_Form
-{
-
-public function __construct($options = null) {
+class AddStaffPhotoForm extends Pas_Form {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void 
+     */
+    public function __construct(array $options = null) {
 
 	parent::__construct($options);
 
@@ -22,10 +26,10 @@ public function __construct($options = null) {
 	$avatar->setLabel('Upload staff photo: ')
 		->setRequired(true)
 		->setDestination('./assets/staffphotos/')
-        ->addValidator('NotEmpty')
-        ->addValidator('Size', false, 2097152)
-		->addValidator('Extension', false, 'jpeg,tif,jpg,png,gif')
-        ->setMaxFileSize(2097152)
+                ->addValidator('NotEmpty')
+                ->addValidator('Size', false, 2097152)
+            	->addValidator('Extension', false, 'jpeg,tif,jpg,png,gif')
+                ->setMaxFileSize(2097152)
 		->setAttribs(array('class'=> 'textInput'))
 		->addValidator('Count', false, array('min' => 1, 'max' => 1))
                 ->setDescription('We only accept JPG, TIFF, PNG or GIF files of
@@ -48,6 +52,6 @@ public function __construct($options = null) {
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
 	parent::init();
-	}
+    }
 
 }

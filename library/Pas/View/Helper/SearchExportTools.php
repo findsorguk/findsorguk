@@ -6,7 +6,7 @@
  * @copyright Daniel Pett
  * @author dpett
  * @version 1
- * @license GNU Public
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 
 /**
@@ -55,7 +55,7 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
 
     return $params;
     } else {
-        throw new Pas_Exception_BadJuJu('Parameters have to be an array');
+        throw new Pas_Exception('Parameters have to be an array');
     }
     }
     /** Generate authenticated data

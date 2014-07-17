@@ -1,14 +1,16 @@
 <?php
-/** The exception for geo based classes
+/** The exception for open calais based classes
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
  * @category   Pas
- * @package    Pas_Service_Domesday
- * @subpackage Exception
+ * @package    Pas_Service
+ * @subpackage OpenCalais
  * @copyright  Copyright (c) 2011 Daniel Pett
  * @license    GNU
- * @author 	   Daniel pett
- * @version	   1
- * @since 	   26 September 2011
+ * @version 1
  */
+
 class Pas_Service_OpenCalais_Exception extends Zend_Exception {
 	
 }

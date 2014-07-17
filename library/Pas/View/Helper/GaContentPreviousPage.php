@@ -19,7 +19,7 @@
  * @category Pas
  * @package Pas_View_Helper
  * @uses viewHelper Pas_View_Helper
- * @license http://URL name
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/modules/analytics/views/scripts/content/page.phtml
  * @todo Decide whether to deprecate this function
  * 

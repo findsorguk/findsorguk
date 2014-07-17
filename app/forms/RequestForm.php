@@ -4,11 +4,11 @@
 * @category   Pas
 * @package    Pas_Form
 * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
+* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
 */
 class RequestForm extends Pas_Form {
 
-public function __construct($options = null) {
+public function __construct(array $options) {
 	
 	$countries = new Countries();
 	$countries_options = $countries->getOptions();
@@ -104,12 +104,6 @@ public function __construct($options = null) {
 		'Treasure Act' => 'Treasure Act'))
 		->setOptions(array('separator' => ''));
 	
-	$message = new Pas_Form_Element_RawText('message');
-	$message->setValue('<p>Some of our literature is now rather bulky, and therefore we have to 
-	charge postage or arrange collection from your local FLO. Please tick what you would like and
-	we will contact you about delivery if needed.</p>')
-	->setAttrib('class','info');
-	
 	$reports = new Zend_Form_Element_MultiCheckbox('reports');			
 	$reports->setLabel('Annual Reports: ')
 		->addFilters(array('StripTags','StringTrim'))
@@ -171,7 +165,7 @@ public function __construct($options = null) {
 	$title, $fullname, $address,
 	$town_city, $county, $postcode,
 	$country, $tel, $email,
-	$message, $leaflets, $reports,
+	$leaflets, $reports,
 	$combined, $treasure, $codes,
 	$captcha, $submit)
 	);
@@ -188,7 +182,7 @@ public function __construct($options = null) {
 	$this->addElements(array(
 	$title,	$fullname, $address,
 	$town_city, $county, $postcode,
-	$country, $tel, $message,
+	$country, $tel, 
 	$email, $leaflets, $reports,
 	$combined, $treasure, $codes,
 	$submit));

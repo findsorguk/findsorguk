@@ -1,15 +1,21 @@
 <?php
-/**
-* Form for adding reverse types to rulers
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license    GNU General Public License
+/** Form for adding reverse types to rulers
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
 */
-class AddReverseToRulerForm extends Pas_Form
-{
-public function __construct($options = null) {
+class AddReverseToRulerForm extends Pas_Form {
+
+    /** The constructor
+     * @access public
+     * @param type $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
 
@@ -17,13 +23,12 @@ public function __construct($options = null) {
 
 	$reverseID = new Zend_Form_Element_Select('reverseID');
 	$reverseID->setLabel('Reverse type: ')
-	->setRequired(true)
-	->addFilters(array('StripTags','StringTrim','StringToLower'))
-	->setAttribs(array('class' => 'span8 selectpicker show-menu-arrow'));
+                ->setRequired(true)
+                ->addFilters(array('StripTags','StringTrim','StringToLower'))
+                ->setAttribs(array('class' => 'span8 selectpicker show-menu-arrow'));
 
 	$rulerID = new Zend_Form_Element_Hidden('rulerID');
 	$rulerID->addValidator('Int');
-
 
 	//Submit button
 	$submit = new Zend_Form_Element_Submit('submit');
@@ -40,5 +45,4 @@ public function __construct($options = null) {
 
 	parent::init();
 	}
-
 }

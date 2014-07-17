@@ -7,7 +7,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @license    GNU General Public License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version    1.0
  * @since      22 September 2011
  * @uses Zend_Registry
@@ -65,7 +65,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $frontController->setParam('useDefaultControllerAlways', false);
         $frontController->registerPlugin(new Pas_Controller_Plugin_ModuleLayout());
         $frontController->registerPlugin(new Pas_Controller_Plugin_StyleAndAlternate());
-	$frontController->registerPlugin(new Pas_Controller_Plugin_Errors);
     }
 
     /** Initialise the routing
@@ -228,7 +227,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $announcements = new Pas_Controller_Action_Helper_Announcements();
         Zend_Controller_Action_HelperBroker::addHelper($announcements);
 
-        $redirects = new Pas_Controller_Action_Helper_LoginRedirects();
+        $redirects = new Pas_Controller_Action_Helper_LoginRedirect();
         Zend_Controller_Action_HelperBroker::addHelper($redirects);
     }
 

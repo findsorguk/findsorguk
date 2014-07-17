@@ -1,7 +1,7 @@
 <?php
 class MapSearchForm extends Pas_Form {
 	
-public function __construct($options = null) {
+public function __construct(array $options) {
 	
 $counties = new Counties();
 	$county_options = $counties->getCountyname2();

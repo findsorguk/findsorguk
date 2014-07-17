@@ -20,7 +20,7 @@
  * @copyright Daniel Pett
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @license GNU
- * @uses Pas_Exception_BadJuJu
+ * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  */
@@ -69,7 +69,7 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
      * @access public
      * @param  array $facets
      * @return string
-     * @throws Pas_Exception_BadJuJu
+     * @throws Pas_Exception
      */
 
     public function buildFacets(array $facets) {

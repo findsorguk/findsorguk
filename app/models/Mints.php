@@ -15,7 +15,7 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- * @license GNU General Public License
+ @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @todo add caching throughout model as the cached version won't be changing!
  * @example /app/forms/ByzantineCoinForm.php
  */

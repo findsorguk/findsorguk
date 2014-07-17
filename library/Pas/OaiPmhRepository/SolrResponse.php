@@ -37,7 +37,7 @@ class Pas_OaiPmhRepository_SolrResponse {
     if($person){
     	return $person->role;
     } else {
-    	throw new Pas_Exception_BadJuJu('No user credentials found', 500);
+    	throw new Pas_Exception('No user credentials found', 500);
     }
     }	
     

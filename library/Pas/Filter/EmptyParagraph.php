@@ -1,19 +1,30 @@
 <?php
-/**
-* Filter extension based on HTML purifioer for allowing Basic HTML on forms and displays
-*
-*
-* @category   Pas
-* @package    Filter
-* @subpackage Interface
-* @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
-* @license    GNU General Public License
-
-*/
+/** A filter for removing empty paragraphs from content.
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $researchOutline = new Pas_Form_Element_CKEditor('researchOutline');
+ * $researchOutline->setLabel('Research outline: ')
+ * 		->setRequired(true)
+ * 		->addFilters(array('EmptyParagraph'));
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Filter
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/forms/AcceptUpgradeForm.php
+ */
 
 class Pas_Filter_EmptyParagraph implements Zend_Filter_Interface {
-    /**
-     * Filter out the invalid characters that word puts in.
+    
+    /** Filter out the invalid characters that word puts in.
+     * @access public
      * @param string $value
      * @return string
      */
