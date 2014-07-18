@@ -17,6 +17,15 @@
  * @category Pas
  * @package Pas_Form
  * @example /app/modules/database/controllers/SearchController.php
+ * @uses Institutions
+ * @uses Rallies
+ * @uses Hoards
+ * @uses OsCounties
+ * @uses Rulers
+ * @uses Denominations
+ * @uses Mints
+ * @uses DieAxes
+ * @uses OsRegions
  */
 class ByzantineNumismaticSearchForm extends Pas_Form {
     

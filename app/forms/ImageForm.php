@@ -18,6 +18,10 @@
  * @version 1
  * @example /app/modules/database/controllers/ImagesController.php
  * @todo This needs replacing when we build the drag and drop
+ * @uses Counties
+ * @uses Periods
+ * @uses Copyrights
+ * @uses LicenseTypes
  */
 
 class ImageForm extends Pas_Form {

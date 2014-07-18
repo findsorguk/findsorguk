@@ -16,7 +16,15 @@
  * @category Pas
  * @package Pas_Form
  * @example /app/modules/database/controllers/SearchController.php
- * 
+ * @uses Materials
+ * @uses Rallies
+ * @uses Hoards
+ * @uses OsCounties
+ * @uses Rulers
+ * @uses Denominations
+ * @uses Mints
+ * @uses DieAxes
+ * @uses OsRegions
  */
 class GreekRomanSearchForm extends Pas_Form {
     

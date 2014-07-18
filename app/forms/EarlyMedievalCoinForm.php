@@ -18,6 +18,13 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /library/Pas/Controller/Action/Helper/CoinFormLoader.php
+ * @uses CategoriesCoins 
+ * @uses Denominations
+ * @uses Statuses
+ * @uses DieAxes
+ * @uses WearTypes
+ * @uses Rulers
+ * @uses Mints
  */
 class EarlyMedievalCoinForm extends Pas_Form {
 

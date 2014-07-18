@@ -1,17 +1,35 @@
 <?php
 /** Form for basic what where when search
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-* @todo		  Replace functions with solr when ready
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new WhatWhereWhenForm();
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @todo Replace functions with solr when ready
+ * @example 
+ * @uses Periods
+ * @uses OsCounties
 */
 
 class WhatWhereWhenForm extends Pas_Form {
 
-
-	public function __construct(array $options) {
-	$periods = new Periods();
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
+	
+        $periods = new Periods();
 	$period_options = $periods->getPeriodFromWords();
 	
 	$counties = new OsCounties();
@@ -42,7 +60,10 @@ class WhatWhereWhenForm extends Pas_Form {
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => NULL,'Choose period from' => $period_options))
+		->addMultiOptions(array(
+                    null => 'Choose period from',
+                    'Available periods' => $period_options
+                ))
 		->addValidator('InArray', false, array($period_options));
 
 	$county = new Zend_Form_Element_Select('county');
@@ -50,7 +71,10 @@ class WhatWhereWhenForm extends Pas_Form {
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => NULL,'Choose county' => $counties_options))
+		->addMultiOptions(array(
+                    null => 'Choose county',
+                    'Available counties' => $counties_options
+                ))
 		->addValidator('InArray', false, array($counties_options));
 
 	//Submit button 
@@ -61,14 +85,16 @@ class WhatWhereWhenForm extends Pas_Form {
 	$hash->setValue($this->_salt)->setTimeout(4800);
 	
 	$this->addElements(array(
-	$old_findID, $objecttype, $county,
-	$broadperiod, $submit, $hash));
+            $old_findID, $objecttype, $county,
+            $broadperiod, $submit, $hash
+                ));
 
 	$this->addDisplayGroup(array(
-	'old_findID', 'objecttype', 'broadperiod',
-	'county','submit'), 'Search');
+            'old_findID', 'objecttype', 'broadperiod',
+            'county','submit'),
+                'Search');
 	$this->Search->setLegend('What/Where/When search');
 	
 	parent::init();
-	}
+    }
 }

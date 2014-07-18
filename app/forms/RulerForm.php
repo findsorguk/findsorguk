@@ -1,15 +1,29 @@
 <?php
-
 /** Form for adding and editing ruler details etc
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
+ * 
+ * Example of use:
+ * <code>
+ * <?php
+ * $form = new RulerForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Periods
+ * @example /app/modules/admin/controllers/NumismaticsController.php
+ */
 class RulerForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	$periods = new Periods();
 	$period_options = $periods->getCoinsPeriod();
@@ -17,7 +31,6 @@ public function __construct(array $options) {
 	parent::__construct($options);
 
 	$this->setName('ruler');
-	
 	
 	$issuer = new Zend_Form_Element_Text('issuer');
 	$issuer->setLabel('Ruler or issuer name: ')
@@ -46,13 +59,15 @@ public function __construct(array $options) {
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int');
 
-
 	$period = new Zend_Form_Element_Select('period');
 	$period->setLabel('Broad period attributed to: ')
 		->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => NULL,'Choose reason' => $period_options))
+		->addMultiOptions(array(
+                    null => 'Choose a period',
+                    'Available periods' => $period_options
+                ))
 		->addValidator('InArray', false, array(array_keys($period_options)))
 		->addErrorMessage('You must enter a period for this ruler/issuer');
 
@@ -64,12 +79,15 @@ public function __construct(array $options) {
 	$submit = new Zend_Form_Element_Submit('submit');
 
 	$this->addElements(array(
-	$issuer, $date1, $date2,
-	$period, $valid, $submit, 
-	$hash));
+            $issuer, $date1, $date2,
+            $period, $valid, $submit, 
+            $hash));
 	
-	$this->addDisplayGroup(array('issuer','date1','date2','period','valid','submit'), 'details');
+	$this->addDisplayGroup(array(
+            'issuer','date1','date2',
+            'period','valid','submit'),
+                'details');
 	$this->details->setLegend('Issuer or ruler details: ');
 	parent::init();
-	}
+    }
 }

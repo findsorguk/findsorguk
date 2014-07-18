@@ -1,15 +1,30 @@
 <?php
 /** Form for assigning Treasure case actions
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new TreasureActionForm();
+ * ?>
+ * </code> 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example  /app/modules/database/controllers/TreasureController.php
+ * @version 1
+ * @uses TreasureActionTypes
 */
-class TreasureActionForm extends Pas_Form
-{
+class TreasureActionForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	$actionTypes = new TreasureActionTypes();
 	$actionlist = $actionTypes->getList();
@@ -17,8 +32,6 @@ public function __construct(array $options) {
 	ZendX_JQuery::enableForm($this);
 	
 	parent::__construct($options);
-
-	
 
 	$this->setName('actionsForTreasure');
 
@@ -43,12 +56,12 @@ public function __construct(array $options) {
 		->setTimeout(4800);
 	
 	$this->addElements(array(
-	$action, $actionDescription, $submit, $hash
+            $action, $actionDescription, $submit, $hash
 	));
 	
 	$this->addDisplayGroup(array('actionID','actionTaken',), 'details');
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	
 	parent::init();
-	}
+    }
 }

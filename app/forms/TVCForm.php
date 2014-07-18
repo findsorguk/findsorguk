@@ -1,14 +1,22 @@
 <?php
 /** Form for adding and editing TVC dates and details
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example  /app/modules/database/controllers/TvcController.php
 */
 class TVCForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	ZendX_JQuery::enableForm($this);
 	
@@ -38,15 +46,14 @@ public function __construct(array $options) {
 	$hash->setValue($this->_salt)->setTimeout(4800);
 	
 	$this->addElements(array(
-	$date, $location, $submit,
-	$hash
+            $date, $location, $submit,
+            $hash
 	));
-
 
 	$this->addDisplayGroup(array('date','location'), 'details');
 
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
 	parent::init();
-	}
+    }
 }

@@ -1,14 +1,33 @@
 <?php
-
 /** Form for rejection of upgrades
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new RejectUpgradeForm();
+ * $this->view->form = $form;
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses Roles
+ * @uses Institutions
+ * @uses ProjectTypes
+ * @example /app/modules/admin/controllers/UsersController.php
 */
 class RejectUpgradeForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
 
@@ -57,7 +76,8 @@ public function __construct(array $options) {
 		->addFilters(array('StringTrim', 'StripTags', 'Purifier'));
 
 
-	$email = $this->addElement('text', 'email',array('label' => 'Email Address', 'size' => '30'))->email;
+	$email = $this->addElement('text', 'email',
+                array('label' => 'Email Address', 'size' => '30'))->email;
 	$email->setRequired(true)
 		->addFilters(array('StringTrim', 'StripTags','StringToLower'))
 		->addValidator('EmailAddress',false,array('mx' => true))
@@ -65,7 +85,10 @@ public function __construct(array $options) {
 
 	$already = new Zend_Form_Element_Radio('already');
 	$already->setLabel('Is your topic already listed on our research register?: ')
-		->addMultiOptions(array( 1 => 'Yes it is',0 => 'No it isn\'t' ))
+		->addMultiOptions(array( 
+                    1 => 'Yes it is',
+                    0 => 'No it isn\'t' 
+                    ))
 		->setRequired(true);
 
 	//Submit button 

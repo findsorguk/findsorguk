@@ -1,22 +1,36 @@
 <?php
-
 /** Form for filtering user names in the admin interfaces
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new UserFilterForm();
+ * $this->view->form = $form;
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/admin/controllers/UsersController.php
 */
 class UserFilterForm extends Pas_Form {
 	
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
 	
 	$this->setMethod('post');  
 	
 	$this->setName('filterusers');
-	
 
 	$username = new Zend_Form_Element_Text('username');
 	$username->setLabel('Filter by username')
@@ -33,22 +47,26 @@ public function __construct(array $options) {
 		->addFilters(array('StringTrim', 'StripTags'))
 		->setAttrib('class', 'input-medium selectpicker show-menu-arrow')
 		->addValidator('StringLength', false, array(1,200))
-		->addMultiOptions(array(NULL => NULL,'Choose role' => array(
-		'admin' => 'Admin', 'hero' => 'HER officer', 'flos' => 'Finds Liaison',
-		'member' => 'Member', 'fa' => 'Finds Adviser', 'research' => 'Researcher',
-		'treasure' => 'Treasure team')));
-
+		->addMultiOptions(array(
+                    null => 'Choose role',
+                    'Available roles' => array(
+                        'admin' => 'Admin', 
+                        'hero' => 'HER officer', 
+                        'flos' => 'Finds Liaison',
+                        'member' => 'Member', 
+                        'fa' => 'Finds Adviser', 
+                        'research' => 'Researcher',
+                        'treasure' => 'Treasure team')
+                    ));
 	
 	$submit = new Zend_Form_Element_Submit('submit');
 	$submit->setLabel('Filter');
 	
-	
-		
 	$this->addElements(array(
-	$username, $name, $role,
-	 $submit)
+            $username, $name, $role,
+            $submit)
 	);
 	 
 	parent::init(); 
-	}
+    }
 }

@@ -1,16 +1,30 @@
 <?php
 /** Form for assignation by curator
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new TreasureAssignForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example  /app/modules/database/controllers/TreasureController.php
+ * @uses People
 */
-class TreasureAssignForm extends Pas_Form
-{
+class TreasureAssignForm extends Pas_Form {
 
-public function __construct(array $options)
-{
+    /** the constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	$curators = new People();
 	$assigned = $curators->getCurators();
 	
@@ -47,5 +61,5 @@ public function __construct(array $options)
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	
 	parent::init();
-	}
+    }
 }

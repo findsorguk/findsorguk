@@ -7,6 +7,21 @@
  * @package    Pas_Form
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
+ * @uses Institutions
+ * @uses Materials
+ * @uses DiscoMethods
+ * @uses Manufactures();
+ * @uses Periods
+ * @uses Cultures
+ * @uses SurfTreatments
+ * @uses DecStyles
+ * @uses DecMethods
+ * @uses FindOfNoteReasons
+ * @uses Preservations
+ * @uses Rallies
+ * @uses Hoards
+ * @uses OsCounties
+ * @uses OsRegions();
 */
 class AdvancedSearchForm extends Pas_Form {
     

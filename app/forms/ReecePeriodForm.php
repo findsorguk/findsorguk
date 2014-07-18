@@ -1,19 +1,34 @@
 <?php
 /** Form for adding and editing Reece period data
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
-
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new ReecePeriodForm();
+ * $form->submit->setLabel('Add a new Reece Period');
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/admin/controllers/NumismaticsController.php
+ */
 class ReecePeriodForm extends Pas_Form {
 	
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
-
- 	
-	$this->setName('reeceperiods');
+	
+        $this->setName('reeceperiods');
 
 	$period_name = new Zend_Form_Element_Text('period_name');
 	$period_name->setLabel('Reece Period name: ')
@@ -42,15 +57,14 @@ public function __construct(array $options) {
 	$hash = new Zend_Form_Element_Hash('csrf');
 	$hash->setValue($this->_salt)->setTimeout(4800);
 	
-	$this->addElements(array(
-	$period_name, $description, $date_range,
-	$submit, $hash));
-        
+	$this->addElements(
+                array( $period_name, $description, $date_range, $submit, $hash)
+                );
 
 	$this->addDisplayGroup(array('period_name','description','date_range','submit'), 'details');
 	
 	$this->details->setLegend('Reece Periods');
 
-	parent::init();
-	}
+        parent::init();
+    }
 }

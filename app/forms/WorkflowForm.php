@@ -1,14 +1,29 @@
 <?php
 /** Form for editing workflow stages
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new WorkflowForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/modules/admin/controllers/TerminologyController.php
+ * @version 1
 */
 
 class WorkflowForm extends Pas_Form {
 
-	public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
 
@@ -45,8 +60,8 @@ class WorkflowForm extends Pas_Form {
 	$hash->setValue($this->_salt)->setTimeout(4800);		
 	
 	$this->addElements(array(
-	$workflowstage, $valid, $termdesc,
-	$submit, $hash));
+            $workflowstage, $valid, $termdesc,
+            $submit, $hash));
 
 	$this->addDisplayGroup(array('workflowstage','termdesc','valid'), 'details');
 	

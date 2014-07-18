@@ -1,24 +1,39 @@
 <?php
 /** Form for suggesting research topics
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new SuggestedForm();
+ * ?>
+ * </code>
+ * @category   Pas
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Periods
+ * @uses ProjectTypes
 */
 class SuggestedForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$projecttypes = new ProjectTypes();
 	$projectype_list = $projecttypes->getTypes();
-	$periods = new Periods();
+	
+        $periods = new Periods();
 	$period_options = $periods->getPeriodFrom();
 
-parent::__construct($options);
+        parent::__construct($options);
 
 	$this->setName('suggested');
-
 
 	$level = new Zend_Form_Element_Select('level');
 	$level->setLabel('Level of research: ')
@@ -45,8 +60,8 @@ parent::__construct($options);
 		->addFilters(array('StringTrim', 'StripTags'))
 		->addErrorMessage('Choose title for the project.');
 
-	$description = $this->addElement('RTE', 'description',array(
-	'label' => 'Short description of project: '));
+	$description = $this->addElement('CKEditor', 'description',
+                array('label' => 'Short description of project: '));
 	$description = $this->getElement('description')
 		->setRequired(true)
 		->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'))
@@ -68,8 +83,11 @@ parent::__construct($options);
 	$description, $valid, $submit,
 	$hash));
 
-	$this->addDisplayGroup(array('title','level','period','description','taken'), 'details');
+	$this->addDisplayGroup(array(
+            'title','level','period',
+            'description','taken'), 
+                'details');
 	$this->addDisplayGroup(array('submit'),'buttons');
 	parent::init();
-	}
+    }
 }

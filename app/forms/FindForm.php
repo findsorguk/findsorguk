@@ -17,7 +17,20 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/modules/database/controllers/ArtefactsController.php
- * 
+ * @uses DiscoMethods
+ * @uses Manufactures
+ * @uses Materials
+ * @uses Periods
+ * @uses Cultures
+ * @uses SurfTreatments
+ * @uses DecStyles
+ * @uses DecMethods
+ * @uses FindOfNoteReasons
+ * @uses Preservations
+ * @uses Rallies
+ * @uses Periods
+ * @uses DateQualifiers
+ * @uses SubsequentActions
  */
 
 class FindForm extends Pas_Form {
