@@ -676,24 +676,27 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	$origins = new MapOrigins();
 	$this->view->origins = $origins->getOrigins();
 	}
-	/** Add a map origin statement
-	*/
-	public function addmaporiginAction() {
+
+    /** Add a map origin statement
+     * @access public
+     * @return void
+     */
+    public function addmaporiginAction() {
 	$form = new OriginForm();
 	$form->details->setLegend('Grid reference origin details: ');
 	$form->submit->setLabel('Add a grid ref. origin term.');
 	$this->view->form = $form;
 	if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-    if ($form->isValid($form->getValues())) {
-	$origins = new MapOrigins();
-	$origins->add($form->getValues());
-	$this->_flashMessenger->addMessage('A new grid reference origin has been entered');
-	$this->_redirect($this->_redirectUrl . 'maporigins');
-	} else {
-	$form->populate($form->getValues());
+            if ($form->isValid($form->getValues())) {
+                $origins = new MapOrigins();
+                $origins->add($form->getValues());
+                $this->_flashMessenger->addMessage('A new grid reference origin has been entered');
+                $this->_redirect($this->_redirectUrl . 'maporigins');
+            } else {
+                $form->populate($form->getValues());
+            }
 	}
-	}
-	}
+    }
 	/** Edit a map origin statement
 	*/
 	public function editmaporiginAction() {

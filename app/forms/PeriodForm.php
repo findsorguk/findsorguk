@@ -1,18 +1,35 @@
 <?php
 /** Form for setting up and editing period specific data.
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new PeriodForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/admin/controllers/TerminologyController.php
+ * @uses Periods
 */
 class PeriodForm extends Pas_Form {
-
-public function __construct(array $options) {
+    
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$periods = new Periods();
 	$period_options = $periods->getPeriodFrom();
 
-parent::__construct($options);
+        parent::__construct($options);
 
 	$this->setName('period');
 
@@ -56,7 +73,9 @@ parent::__construct($options);
 	$parent = new Zend_Form_Element_Select('parent');
 	$parent->setLabel('Period belongs to: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => NULL,'Choose period to' => $period_options))
+		->addMultiOptions(array(
+                    null => 'Choose period to',
+                    'Available periods' => $period_options))
 		->addValidator('InArray', false, array(array_keys($period_options)))
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('Int');
@@ -81,5 +100,5 @@ parent::__construct($options);
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	
 	parent::init();
-	}
+    }
 }

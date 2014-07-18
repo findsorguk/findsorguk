@@ -1,13 +1,31 @@
 <?php
 /** Form for creating monarch's data
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new MonarchForm();
+ * $form->submit->setLabel('Add biography to system');
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Rulers
+ * @uses Dynasties
+ * @example /app/modules/admin/controllers/NumismaticsController.php
 */
 class MonarchForm extends Pas_Form {
-	
-public function __construct(array $options) {
+
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	$rulers = new Rulers();
 	$rulers_options = $rulers-> getAllMedRulers();
@@ -99,10 +117,11 @@ public function __construct(array $options) {
 	$hash->setValue($this->_salt)->setTimeout(4800);
 	
 	$this->addElements(array(
-	$name, $styled, $alias, 
-	$dbaseID, $date_from, $date_to,
-	$born, $died, $biography, $dynasty, 
-	$publishState, $submit, $hash));
+            $name, $styled, $alias, 
+            $dbaseID, $date_from, $date_to,
+            $born, $died, $biography, $dynasty, 
+            $publishState, $submit, $hash
+                ));
 	
 	$this->addDisplayGroup(array('name','styled','alias'), 'names');
 	$this->names->setLegend('Nomenclature');

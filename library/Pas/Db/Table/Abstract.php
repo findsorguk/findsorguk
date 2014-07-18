@@ -112,9 +112,9 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
 
     /** Fetch pairs from the model
      * @access public
-     * @param type $sql
-     * @param type $bind
-     * @return type
+     * @param string $sql
+     * @param array $bind
+     * @return array
      */
     public function fetchPairs($sql, $bind = array()) {
         $id = md5($sql);

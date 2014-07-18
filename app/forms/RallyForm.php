@@ -1,15 +1,32 @@
 <?php
-
 /** Form for adding and editing rally data
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new RallyForm();
+ * $form->submit->setLabel('Add a new rally');
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/database/controllers/RalliesController.php
+ * @uses OsCounties
 */
 class RallyForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$counties = new OsCounties();
 	$county_options = $counties->getCountiesID();
@@ -17,7 +34,6 @@ public function __construct(array $options) {
 	parent::__construct($options);
 
 	ZendX_JQuery::enableForm($this);
-
 
 	$this->setName('rally');
 
@@ -38,7 +54,10 @@ public function __construct(array $options) {
 	$county = new Zend_Form_Element_Select('countyID');
 	$county->setLabel('County: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a county' ,'Valid counties' => $county_options))
+		->addMultiOptions(array(
+                    null => 'Choose a county' ,
+                    'Valid counties' => $county_options
+                ))
 		->addValidator('InArray', false, array(array_keys($county_options)))
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('Int');;
@@ -48,7 +67,8 @@ public function __construct(array $options) {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose district after county'))
+		->addMultiOptions(array(
+                    null => 'Choose district after county'))
 		->addValidator('Int');
 
 	$parish = new Zend_Form_Element_Select('parishID');
@@ -56,7 +76,8 @@ public function __construct(array $options) {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose parish after district'))
+		->addMultiOptions(array(
+                    null => 'Choose parish after district'))
 		->addValidator('Int');
 
 	$gridref = new Zend_Form_Element_Text('gridref');
@@ -92,24 +113,24 @@ public function __construct(array $options) {
 
 	$submit = new Zend_Form_Element_Submit('submit');
 
-
-
 	$this->addElements(array(
-	$rally_name, $date_from, $date_to,
-	$organiser, $organisername, $county,
-	$district, $parish, $gridref, $comments,
-	$record_method,	$submit));
+            $rally_name, $date_from, $date_to,
+            $organiser, $organisername, $county,
+            $district, $parish, $gridref, $comments,
+            $record_method, $submit
+                ));
 
 	$this->addDisplayGroup(array(
-	'rally_name', 'comments','record_method',
-	'date_from', 'date_to', 'organiser',
-	'organisername', 'countyID', 'districtID',
-	'parishID', 'gridref'), 'details');
+            'rally_name', 'comments','record_method',
+            'date_from', 'date_to', 'organiser',
+            'organisername', 'countyID', 'districtID',
+            'parishID', 'gridref'), 
+                'details');
 
 	$this->details->setLegend('Rally details: ');
 
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
 	parent::init();
-	}
+    }
 }

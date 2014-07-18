@@ -1,13 +1,32 @@
 <?php
 /** Form for replying to messages sent via public users
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new MessageReplyForm();
+ * $form->submit->setLabel('Send reply');
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @version 1
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/modules/admin/controllers/MessagesController.php
 */
 class MessageReplyForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
 
@@ -15,7 +34,7 @@ public function __construct(array $options) {
 
 	$comment_author = new Zend_Form_Element_Text('comment_author');
 	$comment_author->setLabel('Enter your name: ')
-		->setRequired(true)
+                ->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addErrorMessage('Please enter a valid name!');
 
@@ -48,18 +67,19 @@ public function __construct(array $options) {
 	$submit = new Zend_Form_Element_Submit('submit');
 
 	$this->addElements(array(
-		$comment_author, $comment_author_email,
-		$comment_content, $messagetext, $submit
-		));
+            $comment_author, $comment_author_email,
+            $comment_content, $messagetext, $submit
+                ));
 
 	$this->addDisplayGroup(array(
-	'comment_author','comment_author_email','comment_author_url',
-	'comment_content','messagetext'), 
-	'details');
+            'comment_author','comment_author_email','comment_author_url',
+            'comment_content','messagetext'), 
+                'details');
 	
 	$this->details->setLegend('Enter your comments: ');
 	
 	$this->addDisplayGroup(array('submit'), 'buttons');
-	parent::init();
-	}
+	
+        parent::init();
+    }
 }

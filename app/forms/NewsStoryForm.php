@@ -1,20 +1,37 @@
 <?php
 /** Form for creating and editing news stories for the Scheme website
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new NewsStoryForm();
+ * $form->submit->setLabel('Add story');
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/admin/controllers/NewsController.php
+ */
 class NewsStoryForm extends Pas_Form {
 
-	public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	parent::__construct($options);
 	
 	ZendX_JQuery::enableForm($this);
 	
 	$this->setName('newsstory');
-	
 	
 	$date = Zend_Date::now()->toString('yyyy-MM-dd');
 	
@@ -101,24 +118,26 @@ class NewsStoryForm extends Pas_Form {
 	$hash->setValue($this->_salt)->setTimeout(4800);
 
 	$this->addElements(array( 
-	$title, $summary, $contents,
-	$author, $contactEmail, $contactTel,
-	$contactName, $keywords, $address,
-	$golive, $publishstate, $submit, $hash));
+            $title, $summary, $contents,
+            $author, $contactEmail, $contactTel,
+            $contactName, $keywords, $address,
+            $golive, $publishstate, $submit, 
+            $hash
+                ));
 
 
 	
 	$this->addDisplayGroup(array(
-	'title', 'summary', 'contents', 
-	'author', 'contactName', 'contactTel', 
-	'contactEmail', 'primaryNewsLocation', 'keywords',
-	'golive', 'publish_state'), 
-	'details');
+            'title', 'summary', 'contents', 
+            'author', 'contactName', 'contactTel', 
+            'contactEmail', 'primaryNewsLocation', 'keywords',
+            'golive', 'publish_state'), 
+            'details');
 	
 	$this->details->setLegend('Story details: ');
 	
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
 	parent::init();
-	}
+    }
 }

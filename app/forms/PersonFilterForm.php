@@ -1,13 +1,29 @@
 <?php
 /** Form for filtering personal data
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *  An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new PersonFilterForm();
+ * ?>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @version 1
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Periods
+ * @uses Activities
+ * @todo this can probably be deleted!
 */
 class PersonFilterForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$periods = new Periods();
 	$periodword_options = $periods->getPeriodFromWords();
@@ -43,7 +59,9 @@ public function __construct(array $options) {
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('StringLength', false, array(1,200))
-		->addMultiOptions(array(NULL => NULL,'Choose county' => $county_options))
+		->addMultiOptions(array(
+                    null => 'Choose county', 
+                    'Available counties' => $county_options))
 		->addValidator('InArray', false, array(array_keys($county_options)));
 
 	$primary = new Zend_Form_Element_Select('primary_activity');
@@ -51,7 +69,10 @@ public function __construct(array $options) {
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('StringLength', false, array(1,200))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => NULL,'Choose activity' => $activities_options))
+		->addMultiOptions(array(
+                    null =>  'Choose activity', 
+                    'Available activities' => $activities_options
+                ))
 		->addValidator('InArray', false, array(array_keys($county_options)));
 
 	$hash = new Zend_Form_Element_Hash('csrf');
@@ -62,10 +83,10 @@ public function __construct(array $options) {
 	$submit->setLabel('Filter');
 
 	$this->addElements(array(
-	$name, $county, $organisation,
-	$organisationID, $primary, $submit,
-	$hash));
+            $name, $county, $organisation,
+            $organisationID, $primary, $submit,
+            $hash));
 
 	parent::init();
-	}
+    }
 }

@@ -1,14 +1,31 @@
 <?php
 /** Form for manipulating numismatic mint data 
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new MintForm();
+ * $form->submit->setLabel('Add a new mint to the system...');
+ * ?>
+ * </code>
+ * 
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Periods
+ * @example /app/modules/admin/controllersNumismaticsController.php
+ * @version 1
 */
 class MintForm extends Pas_Form {
 
-	public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	$periods = new Periods();
 	$period_actives = $periods->getMintsActive();
