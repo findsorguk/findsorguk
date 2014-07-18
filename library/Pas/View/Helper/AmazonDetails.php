@@ -144,11 +144,11 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
 
     /** Parse the response
      * @access protected
-     * @param object $book Amazon response object
+     * @param  Zend_Service_Amazon_Item $book Amazon response object
      * @return boolean
      */
-    protected function parseData(object $book) {
-        if (is_object($book)) {
+    protected function parseData( Zend_Service_Amazon_Item $book) {
+        if ($book instanceof  Zend_Service_Amazon_Item) {
             return $this->buildHtml($book);
         } else {
             return false;
@@ -157,10 +157,10 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
 
     /** Build the HTML for rendering
      * @access protected
-     * @param  object $book
+     * @param   Zend_Service_Amazon_Item $book
      * @return string $html
      */
-    protected function buildHtml(object $book) {
+    protected function buildHtml( Zend_Service_Amazon_Item $book) {
         $html = '';
         if($book) {
         $html .= '<div><h3>Amazon Book Data</h3><ul>';
