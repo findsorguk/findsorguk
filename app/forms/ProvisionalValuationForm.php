@@ -1,13 +1,32 @@
 <?php
 /** Form for setting up and editing provisional valuations
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new ProvisionalValuationForm();
+ * $form->submit->setLabel('Add valuation');
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses People
+ * @example /app/modules/database/controllers/TreasureController.php
 */
 class ProvisionalValuationForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	$curators = new People();
 	$assigned = $curators->getValuers();
@@ -16,9 +35,7 @@ public function __construct(array $options) {
 
 	parent::__construct($options);
 
-
 	$this->setName('provisionalvaluations');
-
 
 	$valuerID = new Zend_Form_Element_Select('valuerID');
 	$valuerID->setLabel('Valuation provided by: ')
@@ -60,10 +77,10 @@ public function __construct(array $options) {
 	));
 	
 	$this->addDisplayGroup(array(
-	'valuerID', 'value', 'dateOfValuation',
-	'comments'), 'details');
+            'valuerID', 'value', 'dateOfValuation',
+            'comments'), 'details');
 	
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	parent::init();
-	}
+    }
 }

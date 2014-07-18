@@ -1,14 +1,32 @@
 <?php
 /** Form for setting up and editing map grid reference origins.
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new OriginForm();
+ * $form->details->setLegend('Grid reference origin details: ');
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/admin/controllers/TerminologyController.php
 */
 
 class OriginForm extends Pas_Form {
 	
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
 	
@@ -19,15 +37,17 @@ public function __construct(array $options) {
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim', 'Purifier'))
 		->setAttrib('size',60)
-		->addErrorMessage('Please enter a valid grid reference origin term!');
+		->addErrorMessage('Please enter a valid grid reference origin');
 
 	$termdesc = new Zend_Form_Element_Textarea('termdesc');
 	$termdesc->setLabel('Description of term: ')
 		->setRequired(true)
-		->addFilters(array('StripTags','StringTrim','WordChars','BasicHtml', 'EmptyParagraph'))
+		->addFilters(array(
+                    'StripTags', 'StringTrim', 'WordChars',
+                    'BasicHtml', 'EmptyParagraph'))
 		->setAttrib('rows',10)
 		->setAttrib('cols',80)
-		->addErrorMessage('You must enter a descriptive term or David Williams will eat you.');
+		->addErrorMessage('You must enter a descriptive term .');
 
 	$valid = new Zend_Form_Element_Checkbox('valid');
 	$valid->setLabel('Is this term valid?: ')
@@ -41,8 +61,8 @@ public function __construct(array $options) {
 	$hash->setValue($this->_salt)->setTimeout(4800);
 	
 	$this->addElements(array(
-	$term, 	$termdesc,	$valid,
-	$submit, $hash));
+            $term, $termdesc, $valid,
+            $submit, $hash));
 	
 	$this->addDisplayGroup(array('term','termdesc','valid'), 'details');
 	
@@ -51,5 +71,5 @@ public function __construct(array $options) {
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	
 	parent::init();
-	}
+    }
 }

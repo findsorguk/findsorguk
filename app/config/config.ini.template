@@ -42,17 +42,17 @@ resources.router.routes.test.defaults.action = "index"
 resources.frontController.actionHelperPaths.Pas_Controller_Action_Helper = "Pas/Controller/Action/Helper"
 resources.frontController.baseurl = "/"
 
-resources.view.basePath                             = APPLICATION_PATH "/views/"
-resources.view.helperPath.Pas_View_Helper           = "Pas/View/Helper"
+resources.view.basePath = APPLICATION_PATH "/views/"
+resources.view.helperPath.Pas_View_Helper = "Pas/View/Helper"
 resources.view.helperPath.ZendX_JQuery_View_Helper  = "ZendX/JQuery/View/Helper"
-resources.view.helperPath.EasyBib_View_Helper       = "EasyBib/View/Helper"
-resources.view.doctype                              = "XHTML1_RDFA"
-resources.view.encoding                             = "UTF-8"
-resources.view.contentType                          = "text/html; charset=utf-8"
+resources.view.helperPath.EasyBib_View_Helper = "EasyBib/View/Helper"
+resources.view.doctype = "XHTML1_RDFA"
+resources.view.encoding = "UTF-8"
+resources.view.contentType  = "text/html; charset=utf-8"
 
 resources.modules[] =
 
-resources.locale.default                            = "en_GB"
+resources.locale.default = "en_GB"
 resources.frontController.throwExceptions = 0
 
 resources.layout.layout = "home"

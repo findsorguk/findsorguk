@@ -1,18 +1,34 @@
 <?php
 /** Form for solr based single word search
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new PostcodeForm();
+ * $form->postcode->setLabel('Postcode to search on: ');
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/database/controllers/SearchController.php
 */
-class PostcodeForm extends Pas_Form
-{
-public function __construct(array $options){
-    parent::__construct($options);
+class PostcodeForm extends Pas_Form {
 
-
-    $this->setName('solr')->removeDecorator('HtmlTag');
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options){
+        
+        parent::__construct($options);
+        
+        $this->setName('solr')->removeDecorator('HtmlTag');
 
 	$q = new Zend_Form_Element_Text('postcode');
 	$q->setLabel('Search content: ')
@@ -42,12 +58,10 @@ public function __construct(array $options){
 	$hash->setValue($this->_salt)->setTimeout(48000);
 
 	$this->addElements(array($q, $distance, $thumbnail, $submit, $hash ));
-
-
 	$this->addDisplayGroup(array('postcode', 'distance', 'thumbnail', 'submit'), 'Search');
 
         $this->Search->setLegend('Postcode Search: ');
 
 	parent::init();
-	}
+    }
 }

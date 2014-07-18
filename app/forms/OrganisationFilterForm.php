@@ -1,13 +1,34 @@
 <?php
 /** Form for filtering organisations.
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new OrganisationFilterForm();
+ * $this->view->form = $form;
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/database/controllers/OrganisationsController.php
+ * @uses Periods
+ * @uses PrimaryActivities
+ * @uses OsCounties
+ * 
 */
 class OrganisationFilterForm extends Pas_Form {
 	
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$periods = new Periods();
 	$periodword_options = $periods->getPeriodFromWords();
@@ -43,7 +64,9 @@ public function __construct(array $options) {
 	$county->setLabel('Filter by county')
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('StringLength', false, array(1,200))
-		->addMultiOptions(array(NULL => NULL,'Choose county' => $county_options))
+		->addMultiOptions(array(
+                    null => 'Choose a county',
+                    'Available counties' => $county_options))
 		->addValidator('InArray', false, array(array_keys($county_options)));
 	
 	//Submit button 
@@ -54,9 +77,9 @@ public function __construct(array $options) {
 	$hash->setValue($this->_salt)->setTimeout(4800);
 	
 	$this->addElements(array(
-	$name, $county, $contact,
-	$contactpersonID, $submit, $hash));
+            $name, $county, $contact,
+            $contactpersonID, $submit, $hash));
 	
 	parent::init();
-	}
+    }
 }

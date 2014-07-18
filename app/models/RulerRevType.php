@@ -2,7 +2,7 @@
 /** Data model for accessing and manipulating rulers and reverse type link table
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
- * @copyright (c) year, John Doe
+  * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract

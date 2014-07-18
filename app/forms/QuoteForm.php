@@ -1,13 +1,30 @@
 <?php
 /** Form for adding and editing quotes
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new QuoteForm();
+ * $form->details->setLegend('Add a new quote or announcement');
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/admin/controllers/QuotesController.php
 */
 class QuoteForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
 
@@ -15,12 +32,12 @@ public function __construct(array $options) {
 
 	$quote = new Pas_Form_Element_CKEditor('quote');
 	$quote->setLabel('Quote or announcement: ')
-	->setRequired(true)
-	->setAttrib('rows',10)
-	->setAttrib('cols',40)
-	->setAttrib('Height',400)
-	->setAttrib('ToolbarSet','Basic')
-	->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
+                ->setRequired(true)
+                ->setAttrib('rows',10)
+                ->setAttrib('cols',40)
+                ->setAttrib('Height',400)
+                ->setAttrib('ToolbarSet','Basic')
+                ->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
 
 	$quotedBy = new Zend_Form_Element_Text('quotedBy');
 	$quotedBy->setLabel('Origin of quote/announcement: ')
@@ -48,8 +65,11 @@ public function __construct(array $options) {
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setValue('quote')
-		->addMultiOptions(array(NULL => 'Choose type', 'quote' => 'Quote', 
-		'announcement' => 'Announcement'));
+		->addMultiOptions(array(
+                    null => 'Choose type', 
+                    'quote' => 'Quote', 
+                    'announcement' => 'Announcement'
+                    ));
 
 	$hash = new Zend_Form_Element_Hash('csrf');
 	$hash->setValue($this->_salt)->setTimeout(4800);
@@ -58,16 +78,15 @@ public function __construct(array $options) {
 	$submit = new Zend_Form_Element_Submit('submit');
 
 	$this->addElements(array(
-	$quote,	$quotedBy, $valid,
-	$expire, $type, $submit,
+            $quote, $quotedBy, $valid,
+            $expire, $type, $submit,
 	$hash));
 	
 	$this->addDisplayGroup(array(
-	'quote', 'quotedBy', 'status',
-	'expire', 'type', 'submit'),
-	 'details');
+            'quote', 'quotedBy', 'status',
+            'expire', 'type', 'submit'),
+                'details');
 
 	parent::init();      
-	
-	}
+    }
 }

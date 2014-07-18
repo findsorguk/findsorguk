@@ -428,30 +428,30 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
 
 
     public function notifyfloAction(){
-    if($this->_getParam('id',false)) {
-    $form = new NotifyFloForm();
-    $this->view->form = $form;
-    $find = $this->_finds->fetchRow($this->_finds->select()->where('id = ?', $this->_getParam('id')));
-    $this->view->find = $find->toArray();
-    if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
-    if ($form->isValid($form->getValues())) {
-    $contacts = new Contacts();
-    $to = $contacts->getNameEmail($form->getValue('flo'));
-    $cc = $this->_getAdviser($find->objecttype,$find->broadperiod);
-    $from[] = array('email' => $this->_user->email, 'name' => $this->_user->fullname);
-    $cc = array_merge($cc,$from);
-    $assignData = array_merge($find->toArray(),$form->getValues(),$to['0']);
-    
-    $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc, $from);
-    $this->_flashMessenger->addMessage('Your message has been sent');
-    $this->_redirect('database/artefacts/record/id/' . $find->id);
-    } else {
-        $form->populate($form->getValues());
-    }
-    }
-    } else {
-        throw new Pas_Exception_Param($this->_missingParameter);
-    }
+        if($this->_getParam('id',false)) {
+            $form = new NotifyFloForm();
+            $this->view->form = $form;
+            $find = $this->_finds->fetchRow($this->_finds->select()->where('id = ?', $this->_getParam('id')));
+            $this->view->find = $find->toArray();
+            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+                if ($form->isValid($form->getValues())) {
+                    $contacts = new Contacts();
+                    $to = $contacts->getNameEmail($form->getValue('flo'));
+                    $cc = $this->_getAdviser($find->objecttype,$find->broadperiod);
+                    $from[] = array('email' => $this->_user->email, 'name' => $this->_user->fullname);
+                    $cc = array_merge($cc,$from);
+                    $assignData = array_merge($find->toArray(),$form->getValues(),$to['0']);
+
+                    $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc, $from);
+                    $this->_flashMessenger->addMessage('Your message has been sent');
+                    $this->_redirect('database/artefacts/record/id/' . $find->id);
+                } else {
+                    $form->populate($form->getValues());
+                }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter);
+        }
     }
 
 	public function workflowAction(){

@@ -1,16 +1,32 @@
 <?php
 /** Form for setting up and editing preservation states
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
+ * 
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new PreservationsForm();
+ * $form->submit->setLabel('Add a new discovery method');
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/admin/controllers/TerminologyController.php
+ */
 class PreservationsForm extends Pas_Form {
 	
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
-	
 
 	$this->setName('preservations');
 
@@ -50,6 +66,7 @@ public function __construct(array $options) {
 	$this->details->setLegend('Preservation state details: ');
 	
 	$this->addDisplayGroup(array('submit'), 'buttons');
-	parent::init();  
-	}
+	
+        parent::init();  
+    }
 }

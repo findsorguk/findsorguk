@@ -1,13 +1,36 @@
 <?php
 /** Form for entering and editing post medieval coin data 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new PostMedievalCoinForm();
+ * $form->details->setLegend('Add Post Medieval numismatic data');
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses CategoriesCoins
+ * @uses Denominations
+ * @uses Statuses
+ * @uses DieAxes
+ * @uses WearTypes
+ * @uses Rulers
+ * @uses Mints
+ * @example /library/Pas/Controller/Actio/Helper/CoinFormLoader.php
 */
 class PostMedievalCoinForm extends Pas_Form {
 	
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$cats = new CategoriesCoins();
 	$cat_options = $cats->getPeriodPostMed();
@@ -18,7 +41,7 @@ public function __construct(array $options) {
 	$statuses = new Statuses();
 	$status_options = $statuses->getCoinStatus();
 	
-	$dies = new Dieaxes;
+	$dies = new DieAxes();
 	$die_options = $dies->getAxes();
 	
 	$wears = new WearTypes;
@@ -30,21 +53,27 @@ public function __construct(array $options) {
 	$mints = new Mints();
 	$mo = $mints->getPostMedievalMints();
 
-
-parent::__construct($options);
+        parent::__construct($options);
        
 	$this->setName('postmedievalcoin');
 
 	$denomination = new Zend_Form_Element_Select('denomination');
 	$denomination->setLabel('Denomination: ')
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose denomination','Available denominations' => $denomination_options))
+		->addMultiOptions(array(
+                    null => 'Choose denomination',
+                    'Available denominations' => $denomination_options
+                ))
 		->addValidator('InArray', false, array(array_keys($denomination_options)))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 
 	$denomination_qualifier = new Zend_Form_Element_Radio('denomination_qualifier');
 	$denomination_qualifier->setLabel('Denomination qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags','StringTrim'))
 		->setOptions(array('separator' => ''))
 		->addValidator('Digits');
@@ -52,27 +81,40 @@ parent::__construct($options);
 	$categoryID = new Zend_Form_Element_Select('categoryID');
 	$categoryID->setLabel('Category of coin: ')
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose category', 'Available categories' => $cat_options))
+		->addMultiOptions(array(
+                    null => 'Choose category', 
+                    'Available categories' => $cat_options
+                ))
 		->addValidator('InArray', false, array(array_keys($cat_options)))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 	
 	$ruler_id= new Zend_Form_Element_Select('ruler_id');
 	$ruler_id->setLabel('Ruler: ')
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose ruler', 'Available rulers' => $ro))
+		->addMultiOptions(array(
+                    null => 'Choose ruler', 
+                    'Available rulers' => $ro
+                ))
 		->addValidator('InArray', false, array(array_keys($ro)))
 		->addValidator('Digits')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 	
 	$ruler_qualifier = new Zend_Form_Element_Radio('ruler_qualifier');
 	$ruler_qualifier->setLabel('Issuer qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addValidator('Digits')
 		->addFilters(array('StripTags','StringTrim'));
 
 	$mint_id= new Zend_Form_Element_Select('mint_id');
 	$mint_id->setLabel('Issuing mint: ')
-		->addMultiOptions(array(NULL => 'Choose mint', 'Available mints' => $mo))
+		->addMultiOptions(array(
+                    null => 'Choose mint', 
+                    'Available mints' => $mo
+                ))
 		->addValidator('InArray', false, array(array_keys($mo)))
 		->addValidator('Digits')
 		->addFilters(array('StripTags','StringTrim'))
@@ -83,12 +125,19 @@ parent::__construct($options);
 		->setValue(1)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose coin status', 'Available status options' => $status_options))
+		->addMultiOptions(array(
+                    null => 'Choose coin status', 
+                    'Available status options' => $status_options
+                ))
 		->addValidator('InArray', false, array(array_keys($status_options)));
 	
 	$status_qualifier = new Zend_Form_Element_Radio('status_qualifier');
 	$status_qualifier->setLabel('Status qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->setValue(1)
 		->addFilters(array('StripTags','StringTrim'))
 		->setOptions(array('separator' => ''));
@@ -96,7 +145,10 @@ parent::__construct($options);
 	$degree_of_wear = new Zend_Form_Element_Select('degree_of_wear');
 	$degree_of_wear->setLabel('Degree of wear: ')
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose coin wear','Available wear options' => $wear_options))
+		->addMultiOptions(array(
+                    null => 'Choose coin wear',
+                    'Available wear options' => $wear_options
+                ))
 		->addValidator('InArray', false, array(array_keys($wear_options)))
 		->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
 	
@@ -124,13 +176,20 @@ parent::__construct($options);
 	$die_axis_measurement = new Zend_Form_Element_Select('die_axis_measurement');
 	$die_axis_measurement->setLabel('Die axis measurement: ')
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose die axis', 'Available dies' => $die_options))
+		->addMultiOptions(array(
+                    null => 'Choose die axis',
+                    'Available dies' => $die_options
+                ))
 		->addValidator('InArray', false, array(array_keys($die_options)))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 	
 	$die_axis_certainty = new Zend_Form_Element_Radio('die_axis_certainty');
 	$die_axis_certainty->setLabel('Die axis certainty: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags','StringTrim'))
 		->setOptions(array('separator' => ''));
 	
@@ -155,23 +214,24 @@ parent::__construct($options);
 	$submit = new Zend_Form_Element_Submit('submit');
 	
 	$this->addElements(array(
-	$ruler_id, $ruler_qualifier, $denomination,
-	$denomination_qualifier, $mint_id, $typeID,
-	$status, $categoryID, $status_qualifier, $degree_of_wear,
-	$obverse_description, $obverse_inscription,	$reverse_description,
-	$reverse_inscription, $die_axis_measurement, $die_axis_certainty,
-	$submit, $rev_mm, $initial,
+            $ruler_id, $ruler_qualifier, $denomination,
+            $denomination_qualifier, $mint_id, $typeID,
+            $status, $categoryID, $status_qualifier, $degree_of_wear,
+            $obverse_description, $obverse_inscription,	$reverse_description,
+            $reverse_inscription, $die_axis_measurement, $die_axis_certainty,
+            $submit, $rev_mm, $initial,
 	));
 	
 	$this->addDisplayGroup(array(
-	'categoryID', 'ruler_id', 'typeID',
-	'ruler_qualifier', 'denomination', 'denomination_qualifier',
-	'mint_id', 'status', 'status_qualifier',
-	'degree_of_wear', 'obverse_description', 'obverse_inscription',
-	'reverse_description', 'reverse_inscription', 'reverse_mintmark',
-	'initial_mark', 'die_axis_measurement', 'die_axis_certainty',
-	'submit'), 'details');
+            'categoryID', 'ruler_id', 'typeID',
+            'ruler_qualifier', 'denomination', 'denomination_qualifier',
+            'mint_id', 'status', 'status_qualifier',
+            'degree_of_wear', 'obverse_description', 'obverse_inscription',
+            'reverse_description', 'reverse_inscription', 'reverse_mintmark',
+            'initial_mark', 'die_axis_measurement', 'die_axis_certainty',
+            'submit'),
+                'details');
 
 	parent::init();
-}
+    }
 }

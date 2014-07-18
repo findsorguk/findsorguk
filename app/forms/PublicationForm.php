@@ -1,18 +1,38 @@
 <?php
 /** Form for setting up and editing publications data
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new PublicationForm();
+ * $form->submit->setLabel('Submit new');
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/modules/database/controllers/PublicationsController.php
+ * @use PublicationTypes
+ * 
 */
 class PublicationForm extends Pas_Form {
 
-public function __construct(array $options) {
-	$types = new PublicationTypes();
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
+	
+        $types = new PublicationTypes();
 	$type_options = $types->getTypes();
 
 	parent::__construct($options);
-
 
 	$this->setName('publication');
 
@@ -110,21 +130,24 @@ public function __construct(array $options) {
 	$submit = new Zend_Form_Element_Submit('submit');
 
 	$this->addElements(array(
-	$title, $authors, $publisher,
-	$publication_place,	$publication_year, 	$vol_no,
-	$edition,$in_publication, $editors,
-	$publication_type, $ISBN, $BIAB, $DOI, $submit)
+            $title, $authors, $publisher,
+            $publication_place,	$publication_year, $vol_no,
+            $edition,$in_publication, $editors,
+            $publication_type, $ISBN, $BIAB, 
+            $DOI, $submit)
 	);
 
 	$this->addDisplayGroup(array(
-	'title','authors','publisher',
-	'publication_place','publication_year','vol_no',
-	'edition','in_publication','editors',
-	'publication_type','ISBN', 'biab', 'doi'), 'details');
+            'title','authors','publisher',
+            'publication_place','publication_year','vol_no',
+            'edition','in_publication','editors',
+            'publication_type','ISBN', 'biab', 
+            'doi'), 
+                'details');
 
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
 	$this->details->setLegend('Publication details: ');
 	parent::init();
-	}
+    }
 }

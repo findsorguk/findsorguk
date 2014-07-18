@@ -1,19 +1,41 @@
 <?php
 /** Form for creating and editing organisational data
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new OrganisationForm();
+ * $form->submit->setLabel('Update organisation');
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/database/controllers/OrganisationsController.php
+ * @uses Countries
+ * @uses OsCounties
+ * @uses People
+ */
 class OrganisationForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$countries = new Countries();
 	$countries_options = $countries->getOptions();
+        
 	$counties = new OsCounties();
 	$counties_options = $counties->getCountiesID();
-	$peoples = new People();
+	
+        $peoples = new People();
 	$people_options = $peoples->getNames2();
 
 	parent::__construct($options);
@@ -33,8 +55,7 @@ public function __construct(array $options) {
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator(new Pas_Validate_Url())
 		->addErrorMessage('Please enter a valid URL')
-		->setAttrib('size',60)
-	;
+		->setAttrib('size',60);
 
 	$address1 = new Zend_Form_Element_Text('address1');
 	$address1->setLabel('Address line one: ')
@@ -65,7 +86,7 @@ public function __construct(array $options) {
 	$county->setLabel('County: ')
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Please choose a county',
+		->addMultiOptions(array(null => 'Please choose a county',
 		'Valid counties' => $counties_options))
 		->addValidator('InArray', false, array(array_keys($counties_options)));
 
@@ -75,7 +96,7 @@ public function __construct(array $options) {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setValue('GB')
 		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(NULL => 'Please choose a country', 
+		->addMultiOptions(array(null => 'Please choose a country', 
 		'Valid countries' => $countries_options))
 		->addValidator('InArray', false, array(array_keys($countries_options)));
 
@@ -101,21 +122,24 @@ public function __construct(array $options) {
 	$hash = new Zend_Form_Element_Hash('csrf');
 	$hash->setValue($this->_salt)->setTimeout(4800);
 	$this->addElements(array(
-		$name, $website, $address1, 
-		$address2, $address3, $address, 
-		$town_city, $county, $country, 
-		$postcode, $contactperson, $contactpersonID, 
-		$hash
+            $name, $website, $address1, 
+            $address2, $address3, $address, 
+            $town_city, $county, $country, 
+            $postcode, $contactperson, $contactpersonID, 
+            $hash
 	));
 
 	$this->addDisplayGroup(array(
-		'name', 'website', 'address1',
-		'address2', 'address3', 'address',
-		'town_city', 'county', 'country',
-		'postcode','contact','contactpersonID'),
+            'name', 'website', 'address1',
+            'address2', 'address3', 'address',
+            'town_city', 'county', 'country',
+            'postcode','contact','contactpersonID'),
 	 'details');
 	$this->details->setLegend('Organisation details: ');
-	$this->addDisplayGroup(array('submit'), 'buttons');
-	parent::init();
-	}
+	
+        $this->addDisplayGroup(array('submit'), 'buttons');
+	
+        parent::init();
+        
+    }
 }
