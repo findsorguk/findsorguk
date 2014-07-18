@@ -45,7 +45,7 @@ class Pas_View_Helper_LatestRecordsPublications extends Zend_View_Helper_Abstrac
     /**
      *
      */
-    public function latestRecordsPublications($q = '*:*', $fields = 'id,old_findID,objecttype,imagedir,filename,thumbnail,broadperiod', $start = 0, $limit = 4,
+    public function latestRecordsPublications($q = '*:*', $fields = 'id,old_findID,objecttype,imagedir,filename,thumbnail,broadperiod,workflow', $start = 0, $limit = 4,
         $sort = 'id', $direction = 'desc') {
     $select = array(
         'query'         => $q,
