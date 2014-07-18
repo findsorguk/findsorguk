@@ -1,5 +1,6 @@
 <?php
-/** Form for solr based single word search
+/** 
+ * Form for solr based single word search
  * 
  * An example of use:
  * 
