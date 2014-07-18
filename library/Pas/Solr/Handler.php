@@ -247,7 +247,7 @@ class Pas_Solr_Handler {
     public function getStart() {
         $params = $this->getParams();
         if(array_key_exists('page', $params) && !is_null($params['page'])){
-            $this->_start = abs(($params['page'] - 1) * $this->_getRows($params));
+            $this->_start = abs(($params['page'] - 1) * $this->getRows($params));
         } 
         return $this->_start;
     }

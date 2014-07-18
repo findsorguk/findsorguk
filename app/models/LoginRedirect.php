@@ -96,7 +96,7 @@ class LoginRedirect extends Pas_Db_Table_Abstract {
     }
 
 
-    /** Get the uri
+    /** Get the uri for the redirection
      * @access public
      * @param $uri
      */

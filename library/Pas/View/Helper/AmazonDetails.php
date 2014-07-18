@@ -97,7 +97,7 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AmazonDetails
      */
     public function amazonDetails() {
-    return $this;
+        return $this;
     }
 
     /** Magic method to render html
@@ -116,7 +116,7 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
         $isbn = $this->getIsbn();
         if (!is_null($isbn) && is_string($isbn) && strlen($isbn) < 11) {
             $key = md5($isbn);
-            if (!($this->getCache->test($key))) {
+            if (!($this->getCache()->test($key))) {
             $amazonDetails = $this->getAmazon();
             $amazon = new Zend_Service_Amazon(
                     $amazonDetails['apikey'],
@@ -137,15 +137,18 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
             $book = $this->getCache()->load($key);
             }
             return $this->parseData($book);
+        } else {
+            return '<p>Nothing returned from Amazon</p>';
         }
     }
 
     /** Parse the response
-     * @param object $book Amazon response object
+     * @access protected
+     * @param  Zend_Service_Amazon_Item $book Amazon response object
+     * @return boolean
      */
-    protected function parseData($book)
-    {
-        if (is_object($book)) {
+    protected function parseData( Zend_Service_Amazon_Item $book) {
+        if ($book instanceof  Zend_Service_Amazon_Item) {
             return $this->buildHtml($book);
         } else {
             return false;
@@ -154,12 +157,12 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
 
     /** Build the HTML for rendering
      * @access protected
-     * @param  object $book
+     * @param   Zend_Service_Amazon_Item $book
      * @return string $html
      */
-    protected function buildHtml($book) {
-
+    protected function buildHtml( Zend_Service_Amazon_Item $book) {
         $html = '';
+        if($book) {
         $html .= '<div><h3>Amazon Book Data</h3><ul>';
         if (array_key_exists('MediumImage',$book) &&
                 (!is_null($book->MediumImage))) {
@@ -234,6 +237,8 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
 
                                         $html .= '</ul>';
                                         $html .= '</div>';
-                                        return $html;
+        }
+         
+        return $html;
     }
 }
