@@ -1,16 +1,30 @@
 <?php
 /** Form for solr based single word search
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new SiteWideForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * 
 */
-class SiteWideForm extends Pas_Form
-	{
-	public function __construct(array $options) {
+class SiteWideForm extends Pas_Form {
 	
-	parent::__construct($options);
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
+	
+        parent::__construct($options);
 
 	$this->setName('siteWideSearch');
 	
@@ -18,15 +32,19 @@ class SiteWideForm extends Pas_Form
 	
 	$q = new Zend_Form_Element_Text('q');
 	$q->setLabel('Search: ')
-		->setRequired(true)
+                ->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('size', 20)
 		->addErrorMessage('Please enter a search term');
 		
-    $section = new Zend_Form_Element_Select('section');
-    $section->setLabel('Section')
-   		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-	    ->addMultiOptions(array('database' => 'Database','content' => 'Site Contents'));
+        $section = new Zend_Form_Element_Select('section');
+        $section->setLabel('Section')
+                    
+                ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+                ->addMultiOptions(array(
+                    'database' => 'Database',
+                    'content' => 'Site Contents'
+                ));
 
 	$submit = new Zend_Form_Element_Submit('submit');
 	$submit->setLabel('Search!');;
@@ -37,8 +55,7 @@ class SiteWideForm extends Pas_Form
 
 	$this->addElements(array($q, $section, $submit, $hash ));
 
-
 	$this->addDisplayGroup(array('q', 'section', 'submit'), 'Search');
 	parent::init();
-	}
+    }
 }

@@ -16,7 +16,7 @@ class AddDenomToRulerForm extends Pas_Form {
      */
     public function __construct(array $options){
 
-	parent::__construct($options);
+        parent::__construct($options);
 
 	$this->setName('MintToRuler');
 

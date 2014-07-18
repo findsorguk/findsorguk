@@ -15,6 +15,12 @@
  * @category Pas
  * @package Pas_Form
  * @example /library/Pas/Controller/Action/Helper/CoinFormLoader.php
+ * @uses Rulers
+ * @uses Denominations
+ * @uses Mints
+ * @uses Statuses
+ * @uses DieAxes
+ * @uses WearTypes
  */
 class GreekAndRomanCoinForm extends Pas_Form {
 
@@ -38,10 +44,10 @@ class GreekAndRomanCoinForm extends Pas_Form {
 	$statuses = new Statuses();
 	$status_options = $statuses->getCoinStatus();
 
-	$dies = new Dieaxes;
+	$dies = new DieAxes();
 	$die_options = $dies->getAxes();
 
-	$wears = new WearTypes;
+	$wears = new WearTypes();
 	$wear_options = $wears->getWears();
 
 	parent::__construct($options);

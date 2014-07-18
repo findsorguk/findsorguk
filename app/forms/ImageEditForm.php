@@ -9,6 +9,7 @@
  * $form->submit->setLabel('Update image..');
  * $this->view->form = $form;
  * ?>
+ * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
@@ -16,7 +17,10 @@
  * @package Pas_Form
  * @version 1
  * @example /app/modules/database/controllers/ImagesController.php
- *
+ * @uses Counties
+ * @uses Periods
+ * @uses Copyrights
+ * @uses LicenseTypes
 */
 class ImageEditForm extends Pas_Form {
 

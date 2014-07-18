@@ -1,15 +1,30 @@
 <?php
-
 /** Form for manipulating vacancies on the system
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new VacancyForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses StaffRegions
+ * @example /app/modules/admin/controllers/VacanciesController.php
 */
 class VacancyForm extends Pas_Form {
-	
-public function __construct(array $options) {
+
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	$staffregions = new StaffRegions();
 	$staffregions_options = $staffregions->getOptions();
@@ -47,7 +62,10 @@ public function __construct(array $options) {
 		->setRequired(true)
 		->addFilters(array('StringTrim', 'StripTags'))
 		->addValidator('InArray', false, array(array_keys($staffregions_options)))
-		->addMultiOptions(array(NULL => NULL,'Choose region' => $staffregions_options))
+		->addMultiOptions(array(
+                    null => 'Choose region', 
+                    'Available regions' => $staffregions_options
+                ))
 		->addErrorMessage('You must choose a region');
 	
 	$live = new ZendX_JQuery_Form_Element_DatePicker('live');
@@ -74,7 +92,11 @@ public function __construct(array $options) {
 	$status->SetLabel('Publish status: ')
 		->setRequired(true)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a status','2' => 'Publish','1' => 'Draft'))
+		->addMultiOptions(array(
+                    null => 'Choose a status',
+                    2 => 'Publish',
+                    1 => 'Draft'
+                    ))
 		->setValue(2)
 		->addFilters(array('StringTrim', 'StripTags'))
 		->addErrorMessage('You must choose a status');
@@ -85,20 +107,20 @@ public function __construct(array $options) {
 	$hash->setValue($this->_salt)->setTimeout(4800);	
 	
 	$this->addElements(array(
-	$title, $salary, $specification,
-	$regionID, $live, $expire,
-	$status, $submit, $hash));
-	
+            $title, $salary, $specification,
+            $regionID, $live, $expire,
+            $status, $submit, $hash
+                ));
 	
 	$this->addDisplayGroup(array(
-	'title', 'salary', 'specification',
-	'regionID'), 'details');
+            'title', 'salary', 'specification',
+            'regionID'), 'details');
 	
 	$this->details->setLegend('Vacancy details');
 	
 	$this->addDisplayGroup(array(
-	'live', 'expire', 'status'),
-	'dates');
+            'live', 'expire', 'status'),
+            'dates');
 	
 	$this->dates->setLegend('Publication details');
 	
@@ -107,5 +129,5 @@ public function __construct(array $options) {
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	
 	parent::init();
-	}
+    }
 }

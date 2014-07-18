@@ -1,15 +1,24 @@
 <?php
 /** Form for configuring which fields to copy for the coin form when
  * add last record is activated.
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://ww.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses Coins
+ * 
 */
 class ConfigureCoinCopyForm extends Pas_Form {
 
-	public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void 
+     */
+    public function __construct(array $options) {
 	
 	//Get the coins columns from the table's schema	
 	$finds = new Coins();
@@ -20,15 +29,15 @@ class ConfigureCoinCopyForm extends Pas_Form {
 	
 	//Which fields to remove from this as they aren't editable by the staff
 	$remove = array(
-		'id', 'secuid', 'old_findID',
-		'updated', 'created', 'updatedBy',
-		'createdBy', 'institution', 'secwfstage',
-		'secowner', 'sectag', 'old_candidate',
-		'old_finderID', 'objdate2subperiod_old', 'objdate1subperiod_old',
-		'finder2ID', 'datefound2flag', 'datefound1flag', 
-		'findID', 'phase_date_1', 'phase_date_2',
-		'context', 'depositionDate', 'volume',
-		'reference', 'classification'
+            'id', 'secuid', 'old_findID',
+            'updated', 'created', 'updatedBy',
+            'createdBy', 'institution', 'secwfstage',
+            'secowner', 'sectag', 'old_candidate',
+            'old_finderID', 'objdate2subperiod_old', 'objdate1subperiod_old',
+            'finder2ID', 'datefound2flag', 'datefound1flag', 
+            'findID', 'phase_date_1', 'phase_date_2',
+            'context', 'depositionDate', 'volume',
+            'reference', 'classification'
 	);
 	
 	//What are the friendly labels?
@@ -80,20 +89,20 @@ class ConfigureCoinCopyForm extends Pas_Form {
 	$elements = array();
 	
 	foreach(array_keys($fields) as $field){
-		$label = $field;
-	$field = new Zend_Form_Element_Checkbox($field);
-	if(array_key_exists($label,$labels)){
-		$clean = ucfirst($labels[$label]);
-	} else {
-		$clean = ucfirst($label);
-	}
+            $label = $field;
+            $field = new Zend_Form_Element_Checkbox($field);
+            if(array_key_exists($label,$labels)){
+                $clean = ucfirst($labels[$label]);
+            } else {
+                $clean = ucfirst($label);
+            }
 	
-	$field->setLabel($clean)
-		->setRequired(false)
-		->addValidator('NotEmpty','boolean');
+            $field->setLabel($clean)
+                    ->setRequired(false)
+                    ->addValidator('NotEmpty','boolean');
 
-	$elements[] = $field;
-	$this->addElement($field);
+            $elements[] = $field;
+            $this->addElement($field);
 	}
 	
 	$this->addDisplayGroup($elements, 'details');
@@ -101,7 +110,7 @@ class ConfigureCoinCopyForm extends Pas_Form {
 	$submit = new Zend_Form_Element_Submit('submit');;
 	$this->addElement( $submit);
 	$this->details->setLegend('Choose fields: ');
-    parent::init();
-	}
-
+   
+        parent::init();
+    }
 }

@@ -1,14 +1,30 @@
 <?php
 /** Form for entering and editing research projects
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new ResearchForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses ProjectTypes
+ * @version 1
+ * @example /app/modules/admin/controllers/ResearchController.php
 */
 class ResearchForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$projecttypes = new ProjectTypes();
 	$projectype_list = $projecttypes->getTypes();
@@ -18,7 +34,6 @@ public function __construct(array $options) {
 	parent::__construct($options);
 
 	$this->setName('research');
-
 
 	$investigator = new Zend_Form_Element_Text('investigator');
 	$investigator->setLabel('Principal work conducted by: ')
@@ -32,7 +47,7 @@ public function __construct(array $options) {
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => NULL,'Choose type of research' => $projectype_list))
+		->addMultiOptions(array(null => null,'Choose type of research' => $projectype_list))
 		->addValidator('inArray', false, array(array_keys($projectype_list)));
 
 	$title = new Zend_Form_Element_Text('title');
@@ -88,5 +103,5 @@ public function __construct(array $options) {
 		'valid',), 'details');
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	parent::init();
-	}
+    }
 }

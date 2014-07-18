@@ -1,47 +1,54 @@
 <?php
-/**
-* Form for adding and editing primary activities for people
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+/**  Form for adding and editing primary activities for people
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Findspots
+ * @version 1
 */
 class ConfigureFindSpotCopyForm extends Pas_Form {
 
-	public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	$finds = new Findspots();
 	$schema = $finds->info();
 
 	$fields = array_flip($schema['cols']);
 	$remove = array(
-		'id','accuracy', 'secuid',
-		'updated', 'created', 'updatedBy',
-		'createdBy', 'institution','findID',
-		'address', 'fourFigure', 'gridlen',
-		'postcode', 'easting', 'northing',
-		'declong', 'declat', 'fourFigureLat',
-		'fourFigureLon', 'woeid', 'geonamesID',
-		'osmNode', 'elevation', 'geohash', 
-		'country', 'map25k', 'map10k',
-		'old_occupierid', 'occupier', 'old_findspotid',
-		'soiltype', 'smrref', 'otherref',
-		'date'
+            'updated', 'created', 'updatedBy',
+            'createdBy', 'institution','findID',
+            'address', 'fourFigure', 'gridlen',
+            'postcode', 'easting', 'northing',
+            'declong', 'declat', 'fourFigureLat',
+            'fourFigureLon', 'woeid', 'geonamesID',
+            'osmNode', 'elevation', 'geohash', 
+            'country', 'map25k', 'map10k',
+            'soiltype', 'smrref', 'otherref',
+            'id','accuracy', 'secuid',
+            'old_occupierid', 'occupier', 'old_findspotid',
+            'date'
 	);
 	foreach($remove as $rem){
 		unset($fields[$rem]);
 	}
 	
 	$labels = array(
-		'gridref'			=> 'Grid reference',
-		'gridrefsrc'		=> 'Grid reference source',
-		'gridrefcert' 		=> 'Grid reference certainty',
-		'knownas' 			=> 'Known as',
-		'disccircum'		=> 'Discovery circumstances',
-		'landusevalue'		=> 'Land use value',
-		'landusecode'	 	=> 'Land use code',
-		'depthdiscovery'	=> 'Depth of discovery',
-		'Highsensitivity'	=> 'High sensitivity',
+            'gridrefcert' => 'Grid reference certainty',
+            'gridref' => 'Grid reference',
+            'knownas'  => 'Known as',
+            'disccircum' => 'Discovery circumstances',
+            'gridrefsrc' => 'Grid reference source',
+            'landusevalue' => 'Land use value',
+            'landusecode' => 'Land use code',
+            'depthdiscovery'	=> 'Depth of discovery',
+            'Highsensitivity'	=> 'High sensitivity',
 	);
 	
 	parent::__construct($options);
@@ -52,9 +59,9 @@ class ConfigureFindSpotCopyForm extends Pas_Form {
 			$label = $field;
 	$field = new Zend_Form_Element_Checkbox($field);
 	if(array_key_exists($label,$labels)){
-		$clean = ucfirst($labels[$label]);
+            $clean = ucfirst($labels[$label]);
 	} else {
-		$clean = ucfirst($label);
+            $clean = ucfirst($label);
 	}
 	
 	$field->setLabel($clean)
@@ -69,9 +76,7 @@ class ConfigureFindSpotCopyForm extends Pas_Form {
 		//Submit button
 	$submit = new Zend_Form_Element_Submit('submit');;
 	$this->addElement( $submit);
-//	$this->addDisplayGroup(array('submit'), 'button');
 	$this->details->setLegend('Choose fields: ');
-    parent::init();
-	}
-
+        parent::init();
+    }
 }

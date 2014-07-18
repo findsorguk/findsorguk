@@ -1,14 +1,34 @@
 <?php
 /** Form for adding and editing staff contacts
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new ContactForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses StaffRoles
+ * @uses Institutions
+ * @uses StaffRegions
+ * @uses Countries
+ * @uses Users
+ * @example /app/modules/admin/controllers/ContactsController.php
 */
-class ContactForm extends Pas_Form
-{
-	public function __construct(array $options) {
+class ContactForm extends Pas_Form {
+    
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	$roles = new StaffRoles();
 	$role_options = $roles->getOptions();
@@ -32,10 +52,10 @@ class ContactForm extends Pas_Form
 
 	$firstname = new Zend_Form_Element_Text('firstname');
 	$firstname->setLabel('First name: ')
-	->setRequired(true)
-	->addFilters(array('StripTags','StringTrim'))
-	->addErrorMessage('You must enter a firstname')
-	->addValidator('StringLength', false, array(1,200));
+                ->setRequired(true)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addErrorMessage('You must enter a firstname')
+                ->addValidator('StringLength', false, array(1,200));
 
 	$lastname = new Zend_Form_Element_Text('lastname');
 	$lastname->setLabel('Last name: ')
@@ -49,7 +69,10 @@ class ContactForm extends Pas_Form
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => NULL,'Choose a role' => $role_options))
+		->addMultiOptions(array(
+                    null => 'Choose a role',
+                    'Available roles' => $role_options
+                ))
 		->addErrorMessage('You must choose a role');
 
 	$dbaseID = new Zend_Form_Element_Select('dbaseID');
@@ -58,7 +81,10 @@ class ContactForm extends Pas_Form
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('Int')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => NULL, 'Choose account' => $users_options))
+		->addMultiOptions(array(
+                    null => 'Choose account',
+                    'Available accounts' => $users_options
+                ))
 		->addErrorMessage('You must enter a database account.');
 
 
@@ -88,104 +114,103 @@ class ContactForm extends Pas_Form
 
 	$address_2 = new Zend_Form_Element_Text('address_2');
 	$address_2->SetLabel('Address line two: ')
-	->setAttrib('size',50)
-	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('StringLength', false, array(1,200));
+                ->setAttrib('size',50)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addValidator('StringLength', false, array(1,200));
 
 	$town = new Zend_Form_Element_Text('town');
 	$town->SetLabel('Town: ')
-	->setRequired(true)
-	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('StringLength', false, array(1,200))
-	->addErrorMessage('You must enter a town');
+                ->setRequired(true)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addValidator('StringLength', false, array(1,200))
+                ->addErrorMessage('You must enter a town');
 
 	$county = new Zend_Form_Element_Text('county');
 	$county->SetLabel('County: ')
-	->setRequired(true)
-	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('StringLength', false, array(1,200))
-	->addErrorMessage('You must enter a county or unitary authority');
+                ->setRequired(true)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addValidator('StringLength', false, array(1,200))
+                ->addErrorMessage('You must enter a county or unitary authority');
 
 	$euroregion = new Zend_Form_Element_Text('euroregion');
 	$euroregion->SetLabel('Administrative region: ')
-	->setRequired(false)
-	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('StringLength', false, array(1,200));
+                ->setRequired(false)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addValidator('StringLength', false, array(1,200));
 
 	$postcode = new Zend_Form_Element_Text('postcode');
 	$postcode->SetLabel('Postcode: ')
-	->setRequired(true)
-	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('ValidPostCode')
-	->addValidator('StringLength', false, array(1,200))
-	->addErrorMessage('You must enter a postal code');
+                ->setRequired(true)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addValidator('ValidPostCode')
+                ->addValidator('StringLength', false, array(1,200))
+                ->addErrorMessage('You must enter a postal code');
 
 	$country = new Zend_Form_Element_Select('country');
 	$country->SetLabel('Country: ')
-	->setRequired(true)
-	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('StringLength', false, array(1,200))
-	->addValidator('InArray', false, array(array_keys($countries_options)));
-
+                ->setRequired(true)
+                ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addValidator('StringLength', false, array(1,200))
+                ->addValidator('InArray', false, array(array_keys($countries_options)));
 
 	$telephone = new Zend_Form_Element_Text('telephone');
 	$telephone->SetLabel('Telephone number: ')
-	->setRequired(true)
-	->setAttrib('size',50)
-	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('StringLength', false, array(1,200))
-	->addErrorMessage('You must enter a telephone number');
+                ->setRequired(true)
+                ->setAttrib('size',50)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addValidator('StringLength', false, array(1,200))
+                ->addErrorMessage('You must enter a telephone number');
 
 	$fax = new Zend_Form_Element_Text('fax');
 	$fax->SetLabel('Fax number: ')
-	->setRequired(false)
-	->setAttrib('size',50)
-	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('StringLength', false, array(1,200));
+                ->setRequired(false)
+                ->setAttrib('size',50)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addValidator('StringLength', false, array(1,200));
 
 
 	$identifier = new Zend_Form_Element_Select('identifier');
 	$identifier->SetLabel('Database entry identifier: ')
-	->setRequired(true)
-	->addMultiOptions(array(NULL => NULL, 'Choose institution' => $insts))
-	->addValidator('InArray', false, array(array_keys($insts)))
-	->addFilters(array('StripTags','StringTrim'))
-	->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-	->addValidator('StringLength', false, array(1,6));
+                ->setRequired(true)
+                ->addMultiOptions(array(null => null, 'Choose institution' => $insts))
+                ->addValidator('InArray', false, array(array_keys($insts)))
+                ->addFilters(array('StripTags','StringTrim'))
+                ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+                ->addValidator('StringLength', false, array(1,6));
 
 	$region = new Zend_Form_Element_Select('region');
 	$region->SetLabel('Recording region: ')
-	->setRequired(true)
-	->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-	->addValidator('StringLength', false, array(1,10))
-	->addValidator('InArray', false, array(array_keys($staffregions_options)))
-	->addMultiOptions(array(NULL => NULL, 'Choose staff region' => $staffregions_options));
+                ->setRequired(true)
+                ->addFilters(array('StripTags','StringTrim'))
+                        ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+                ->addValidator('StringLength', false, array(1,10))
+                ->addValidator('InArray', false, array(array_keys($staffregions_options)))
+                ->addMultiOptions(array(null => null, 'Choose staff region' => $staffregions_options));
 
 	$profile= new Pas_Form_Element_CKEditor('profile');
 	$profile->setLabel('Profile: ')
-	->setRequired(false)
-	->setAttrib('rows',10)
-	->setAttrib('cols',40)
-	->setAttrib('Height',400)
-	->setAttrib('ToolbarSet','Finds')
-	->addFilter('StringTrim')
-	->addFilter('BasicHtml')
-	->addFilter('EmptyParagraph')
-	->addFilter('WordChars');
+                ->setRequired(false)
+                ->setAttrib('rows',10)
+                ->setAttrib('cols',40)
+                ->setAttrib('Height',400)
+                ->setAttrib('ToolbarSet','Finds')
+                ->addFilter('StringTrim')
+                ->addFilter('BasicHtml')
+                ->addFilter('EmptyParagraph')
+                ->addFilter('WordChars');
 
 	$website = new Zend_Form_Element_Text('website');
 	$website->SetLabel('Employer\'s website address: ')
-	->setRequired(false)
-	->setAttrib('size',50)
-	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('StringLength', false, array(1,150));
+                ->setRequired(false)
+                ->setAttrib('size',50)
+                ->addFilters(array('StripTags','StringTrim'))
+                ->addValidator('StringLength', false, array(1,150));
 
 	$alumni = new Zend_Form_Element_Checkbox('alumni');
 	$alumni->SetLabel('Currently employed by the Scheme: ')
-	->setRequired(true)
-	->addFilters(array('StripTags','StringTrim'));
+            ->setRequired(true)
+            ->addFilters(array('StripTags','StringTrim'));
 
 	$submit = new Zend_Form_Element_Submit('submit');
 
@@ -193,28 +218,28 @@ class ContactForm extends Pas_Form
 	$hash->setValue($this->_salt)->setTimeout(4800);
 	
 	$this->addElements(array(
-	$firstname, $lastname, $role,
-	$dbaseID, $email_one, $email_two,
-	$address_1, $address_2, $town,
-	$postcode, $county,	$identifier,
-	$telephone,	$fax, $region,
-	$profile, $website, $alumni,
-	$submit, $hash));
+            $firstname, $lastname, $role,
+            $dbaseID, $email_one, $email_two,
+            $address_1, $address_2, $town,
+            $postcode, $county,	$identifier,
+            $telephone,	$fax, $region,
+            $profile, $website, $alumni,
+            $submit, $hash));
 
 
 
-	$this->addDisplayGroup(array('firstname', 'lastname', 'role',
-	'dbaseID', 'identifier', 'region',
-	'profile', 'email_one', 'email_two',
-	'address_1', 'address_2', 'town',
-	'postcode', 'county', 'telephone',
-	'fax', 'website', 'alumni'), 'details');
+	$this->addDisplayGroup(array(
+            'firstname', 'lastname', 'role',
+            'dbaseID', 'identifier', 'region',
+            'profile', 'email_one', 'email_two',
+            'address_1', 'address_2', 'town',
+            'postcode', 'county', 'telephone',
+            'fax', 'website', 'alumni'), 'details');
 
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
 	$this->details->setLegend('Contact details');
 
 	parent::init();
-	}
-
+    }
 }

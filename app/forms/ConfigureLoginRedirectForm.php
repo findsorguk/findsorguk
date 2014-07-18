@@ -1,19 +1,33 @@
 <?php
 /**
-* A form for editing login redirect page choice
-*
-* @category Pas
-* @package 		Pas_Form
-* @author 		Mary Chester-Kadwell mchester-kadwell @ britishmuseum.org
-* @copyright  	Copyright (c) 2014 Mary Chester-Kadwell
-@license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-* @version 1
-* @since 		9 May 2014
+ * A form for editing login redirect page choice
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new ConfigureLoginRedirectForm();
+ * ?>
+ * </code>
+ * @category Pas
+ * @package Pas_Form
+ * @author  Mary Chester-Kadwell mchester-kadwell @ britishmuseum.org
+ * @copyright Copyright (c) 2014 Mary Chester-Kadwell
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @since 9 May 2014
+ * @uses LoginRedirect
 */
 
-class ConfigureLoginRedirectForm extends Pas_Form
-{
+class ConfigureLoginRedirectForm extends Pas_Form {
+    
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
     public function __construct(array $options) {
+        
         parent::__construct($options);
         $loginredirect = new LoginRedirect();
         $loginredirect_options = $loginredirect->getOptions();
@@ -46,6 +60,4 @@ class ConfigureLoginRedirectForm extends Pas_Form
 
         parent::init();
     }
-
-
 }

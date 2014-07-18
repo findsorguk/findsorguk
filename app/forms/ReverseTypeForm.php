@@ -1,15 +1,32 @@
 <?php
 /** Form for manipulating Roman reverse type information 
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new ReverseTypeForm();
+ * $form->submit->setLabel('Add a new reverse type');
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Reeces
+ * @example /app/modules/admin/controllers/NumismaticsController.php
+ * 
 */
-
 class ReverseTypeForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	$reeces = new Reeces();
 	$reeces_options = $reeces->getRevTypes();
@@ -47,8 +64,11 @@ public function __construct(array $options) {
 	$reeceID->setLabel('Reece period: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->addMultiOptions(array(NULL,'Choose reason' => $reeces_options))
-		->addValidator('InArray', false, array(array_keys($reeces_options)));
+		->addMultiOptions(array(
+                    null => 'Choose a Reece period',
+                    'Available Reece period' => $reeces_options))
+		->addValidator('InArray', false, 
+                        array(array_keys($reeces_options)));
 
 	$common = new Zend_Form_Element_Radio('common');
 	$common->setLabel('Is this reverse type commonly found: ')
@@ -67,16 +87,20 @@ public function __construct(array $options) {
 		->setTimeout(4800);
 
 	$this->addElements(array(
-	$type, $gendate, $description,
-	$translation, $reeceID, $common,
-	$submit, $hash));
+            $type, $gendate, $description,
+            $translation, $reeceID, $common,
+            $submit, $hash));
 
 	$this->addDisplayGroup(array(
-	'type', 'translation', 'description',
-	'gendate', 'reeceID', 'common',
-	'submit'), 'details');
-	$this->details->setLegend('Reverse type details: ');
-	$this->details->setLegend('Issuer or ruler details: ');
-	parent::init();
-	}
+            'type', 'translation', 'description',
+            'gendate', 'reeceID', 'common',
+            'submit'), 
+                'details');
+	
+        $this->details->setLegend('Reverse type details: ');
+	
+        $this->details->setLegend('Issuer or ruler details: ');
+	
+        parent::init();
+    }
 }

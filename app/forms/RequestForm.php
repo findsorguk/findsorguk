@@ -1,14 +1,32 @@
 <?php
 /** Form for requesting publications
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code use:
+ * 
+ * <code>
+ * <?php
+ * $form = new RequestForm();
+ * $this->view->form = $form;
+ * ?>
+ * </code>
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Countries
+ * @uses OsCounties
+ * @example /app/modules/publications/controllers/IndexController.php
 */
 class RequestForm extends Pas_Form {
 
-public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	
 	$countries = new Countries();
 	$countries_options = $countries->getOptions();

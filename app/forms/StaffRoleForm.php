@@ -1,14 +1,29 @@
 <?php
 /** Form for setting up types of staff role
-* 
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code:
+ * <code>
+ * <?php
+ * $form = new StaffRoleForm();
+ * $this->view->form = $form;
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example /app/modules/admin/controllers/RolesController.php
 */
 class StaffRoleForm extends Pas_Form {
-
-public function __construct(array $options) {
+    
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 
 	parent::__construct($options);
        
@@ -24,10 +39,9 @@ public function __construct(array $options) {
 	
 	$description = new Zend_Form_Element_Textarea('description');
 	$description->setLabel('Role description: ')
-	->setRequired(true)
-	->setAttribs(array('rows' => 10, 'cols' => 80))
-	->addFilters(array('BasicHtml', 'WordChars', 'EmptyParagraph', 'StringTrim'));
-	
+                ->setRequired(true)
+                ->setAttribs(array('rows' => 10, 'cols' => 80))
+                ->addFilters(array('BasicHtml', 'WordChars', 'EmptyParagraph', 'StringTrim'));
 	
 	$valid = new Zend_Form_Element_Checkbox('valid');
 	$valid->setLabel('Is this term valid?: ');
@@ -45,7 +59,6 @@ public function __construct(array $options) {
 
 	$this->details->setLegend('Activity details: ');
 	
-    parent::init();  
-
-}
+        parent::init();  
+    }
 }

@@ -17,6 +17,12 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /library/Pas/Controller/Action/Helper/CoinFormLoader.php
+ * @uses Rulers
+ * @uses Denominations
+ * @uses Mints
+ * @uses Statuses
+ * @uses DieAxes
+ * @uses WearTypes
  */
 class ByzantineCoinForm extends Pas_Form {
 

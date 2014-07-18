@@ -1,15 +1,31 @@
 <?php
 /** Form for saving your searches
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new SaveSearchForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @example/app/modules/database/controllers/SearchController.php
 */
 class SaveSearchForm extends Pas_Form {
 
-public function __construct(array $options) {
-	parent::__construct($options);
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
+	
+        parent::__construct($options);
 
 	$this->setName('savesearch');
 
@@ -30,7 +46,9 @@ public function __construct(array $options) {
 	$public = new Zend_Form_Element_Checkbox('public');
 	$public->setLabel('Show this to public users?: ')
 		->addErrorMessage('You must set the status of this search')
-		->setDescription('By setting this option, you can show this search on your profile and allow others to make use of it');
+		->setDescription('By setting this option, you can show this '
+                        . 'search on your profile and allow others to'
+                        . ' make use of it');
 
 	$submit = new Zend_Form_Element_Submit('submit');
 
@@ -43,5 +61,5 @@ public function __construct(array $options) {
 	$this->details->setLegend('Save this search');
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	parent::init();
-	}
+    }
 }

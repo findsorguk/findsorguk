@@ -18,6 +18,8 @@
  * @category Pas
  * @package Pas_Form
  * @example /app/modules/admin/controllers/NumismaticsController.php
+ * @uses Periods
+ * @uses Materials
  */
 class DenominationForm extends Pas_Form {
 

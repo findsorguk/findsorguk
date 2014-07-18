@@ -1,13 +1,31 @@
 <?php
 /** Form for adding and editing Reece period data
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * An example of code:
+ * 
+ * <code>
+ * <?php
+ * $form = new VolunteerForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Users
+ * @uses ProjectTypes
+ * @example /app/modules/admin/controllers/VacanciesController.php
+ * @version 1
 */
 class VolunteerForm extends Pas_Form {
 
-	public function __construct(array $options) {
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 		
 	$projecttypes = new ProjectTypes();
 	$projectype_list = $projecttypes->getTypes();
@@ -55,7 +73,10 @@ class VolunteerForm extends Pas_Form {
 
 	$suitableFor = new Zend_Form_Element_Select('suitableFor');
 	$suitableFor->setLabel('Suitable for: ')
-		->addMultiOptions(array(NULL => NULL,'Choose type of research' => $projectype_list))
+		->addMultiOptions(array(
+                    null => 'Choose type of research', 
+                    'Available types' => $projectype_list
+                ))
 		->setRequired(true)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($projectype_list)))
@@ -80,19 +101,18 @@ class VolunteerForm extends Pas_Form {
 	$hash->setValue($this->_salt)->setTimeout(480);
 	
 	$this->addElements(array(
-	$title, $description, $length,
-	$valid, $managedBy, $suitableFor,
-	$location, $submit, $hash));
-
+            $title, $description, $length,
+            $valid, $managedBy, $suitableFor,
+            $location, $submit, $hash));
 	
 	$this->addDisplayGroup(array(
-	'title', 'description', 'length',
-	'location', 'suitableFor', 'managedBy',
-	'status','submit'), 'details');
+            'title', 'description', 'length',
+            'location', 'suitableFor', 'managedBy',
+            'status','submit'), 
+                'details');
 
 	$this->details->setLegend('Activity details: ');
-
 	
 	parent::init();
-}
+    }
 }

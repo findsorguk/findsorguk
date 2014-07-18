@@ -1,15 +1,36 @@
 <?php
 /** Form for entering and editing Roman coin data
-*
-* @category   Pas
-* @package    Pas_Form
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
-class RomanCoinForm extends Pas_Form
-{
-public function __construct(array $options)
-{
+ *
+ * An example of use:
+ * 
+ * <code>
+ * <?php
+ * $form = new RomanCoinForm();
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Denominations
+ * @uses Statuses
+ * @uses DieAxes
+ * @uses WearTypes
+ * @uses Mints
+ * @uses Moneyers
+ * @uses Reeces
+ * @uses RevTypes
+ * @example /library/Pas/Controller/Action/Helper/CoinFormLoader.php
+ */
+class RomanCoinForm extends Pas_Form {
+    
+    /** The constructor
+     * @access public
+     * @param array $options
+     * @return void
+     */
+    public function __construct(array $options) {
 	// Construct the select menu data
 	$denominations = new Denominations();
 	$denomination_options = $denominations->getOptionsRoman();
@@ -17,7 +38,7 @@ public function __construct(array $options)
 	$statuses = new Statuses();
 	$status_options = $statuses->getCoinStatus();
 
-	$dies = new Dieaxes;
+	$dies = new DieAxes();
 	$die_options = $dies->getAxes();
 
 	$wears = new WearTypes;
@@ -35,15 +56,10 @@ public function __construct(array $options)
 	$money = new Moneyers();
 	$moneyers = $money->getRepublicMoneyers();
 
-	$statuses = new Statuses();
-	$statuses = $statuses->getCoinStatus();
-
-	$reverses = new RevTypes();
-	$reverses = $reverses->getRevTypes();
-
+	$reverse = new RevTypes();
+	$reverses = $reverse->getRevTypes();
 
 	parent::__construct($options);
-
 
 	$this->setName('romancoin');
 
@@ -51,14 +67,20 @@ public function __construct(array $options)
 	$denomination->setLabel('Denomination: ')
 		->setRequired(true)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose denomination', 'Valid denominations' => $denomination_options))
+		->addMultiOptions(array(
+                    null => 'Choose denomination', 
+                    'Valid denominations' => $denomination_options))
 		->addValidator('InArray', false, array(array_keys($denomination_options)))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addErrorMessage('You must enter a denomination');
 
 	$denomination_qualifier = new Zend_Form_Element_Radio('denomination_qualifier');
 	$denomination_qualifier->setLabel('Denomination qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->setValue(1)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setOptions(array('separator' => ''));;
@@ -67,58 +89,89 @@ public function __construct(array $options)
 	$ruler= new Zend_Form_Element_Select('ruler_id');
 	$ruler->setLabel('Ruler: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a ruler', 'Valid rulers' => $ro))
+		->addMultiOptions(array(
+                    null => 'Choose a ruler', 
+                    'Valid rulers' => $ro
+                ))
 		->addValidator('InArray', false, array(array_keys($ro)));
 
 	$ruler_qualifier = new Zend_Form_Element_Radio('ruler_qualifier');
 	$ruler_qualifier->setLabel('Ruler qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setOptions(array('separator' => ''));
 
 	$mint_id= new Zend_Form_Element_Select('mint_id');
 	$mint_id->setLabel('Issuing mint: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a mint', 'Valid mints' => $mo))
+		->addMultiOptions(array(
+                    null => 'Choose a mint', 
+                    'Valid mints' => $mo
+                ))
 		->addValidator('InArray', false, array(array_keys($mo)))
 		->addFilters(array('StripTags', 'StringTrim'));
 
 	$mint_qualifier = new Zend_Form_Element_Radio('mint_qualifier');
 	$mint_qualifier->setLabel('Mint qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setOptions(array('separator' => ''));
 
 	$reeceID = new Zend_Form_Element_Select('reeceID');
 	$reeceID->setLabel('Reece period: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a Reece period', 'Valid periods' => $reece))
+		->addMultiOptions(array(
+                    null => 'Choose a Reece period',
+                    'Valid periods' => $reece
+                ))
 		->addValidator('InArray', false, array(array_keys($reece)))
 		->addFilters(array('StripTags', 'StringTrim'));
 
 	$moneyer = new Zend_Form_Element_Select('moneyer');
 	$moneyer->setLabel('Republican Moneyer: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a moneyer', 'Valid moneyers' => $moneyers))
+		->addMultiOptions(array(
+                    null => 'Choose a moneyer', 
+                    'Valid moneyers' => $moneyers
+                ))
 		->addValidator('InArray', false, array(array_keys($moneyers)))
 		->addFilters(array('StripTags', 'StringTrim'));
 
 	$moneyer_qualifier = new Zend_Form_Element_Radio('moneyer_qualifier');
 	$moneyer_qualifier->setLabel('Republican Moneyer qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setOptions(array('separator' => ''));
 
 	$revtypeID = new Zend_Form_Element_Select('revtypeID');
 	$revtypeID->setLabel('Reverse type: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a reverse type', 'Valid reverses' => $reverses))
+		->addMultiOptions(array(
+                    null => 'Choose a reverse type', 
+                    'Valid reverses' => $reverses
+                ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('InArray', false, array(array_keys($reverses)));
 
 	$revTypeID_qualifier = new Zend_Form_Element_Radio('revTypeID_qualifier');
 	$revTypeID_qualifier->setLabel('Reverse type qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setOptions(array('separator' => ''));
 
@@ -127,12 +180,19 @@ public function __construct(array $options)
 		->setValue(1)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose coin status', 'Valid options' => $statuses))
+		->addMultiOptions(array(
+                    null => 'Choose coin status', 
+                    'Valid options' => $statuses
+                ))
 		->addValidator('InArray', false, array(array_keys($statuses)))		;
 
 	$status_qualifier = new Zend_Form_Element_Radio('status_qualifier');
 	$status_qualifier->setLabel('Status qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->setValue(1)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setOptions(array('separator' => ''));
@@ -140,7 +200,10 @@ public function __construct(array $options)
 	$degree_of_wear = new Zend_Form_Element_Select('degree_of_wear');
 	$degree_of_wear->setLabel('Degree of wear: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose coin wear status', 'Valid options' => $wear_options))
+		->addMultiOptions(array(
+                    null => 'Choose coin wear status', 
+                    'Valid options' => $wear_options
+                ))
 		->addValidator('InArray', false, array(array_keys($wear_options)))
 		->addFilters(array('StripTags', 'StringTrim'));
 
@@ -173,13 +236,20 @@ public function __construct(array $options)
 	$die_axis_measurement = new Zend_Form_Element_Select('die_axis_measurement');
 	$die_axis_measurement->setLabel('Die axis measurement: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => NULL,'Choose die axis' => $die_options))
+		->addMultiOptions(array(
+                    null => 'Choose die axis', 
+                    'Available axes' => $die_options
+                ))
 		->addValidator('InArray', false, array(array_keys($die_options)))
 		->addFilters(array('StripTags', 'StringTrim'));
 
 	$die_axis_certainty = new Zend_Form_Element_Radio('die_axis_certainty');
 	$die_axis_certainty->setLabel('Die axis certainty: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setOptions(array('separator' => ''));
 
@@ -187,42 +257,28 @@ public function __construct(array $options)
 	//Submit button
 	$submit = new Zend_Form_Element_Submit('submit');
 
-//	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
-//	if($action == 'edit') {
-//		$rulers = new Rulers();
-//		$ruler_options = $rulers->getRomanRulers();
-//		$ruler->addMultiOptions(array(NULL => NULL,'Choose ruler' => $ruler_options))
-//			->addValidator('InArray', false, array(array_keys($ruler_options)));
-//		$mints = new Mints();
-//		$mint_options = $mints->getRomanMints();
-//		$mint_id->addMultiOptions(array(NULL => NULL,'Choose Roman mint' => $mint_options))
-//			->addValidator('InArray', false, array(array_keys($mint_options)));
-//		$reeces = new Reeces();
-//		$reece_options = $reeces->getReeces();
-//		$reeceID->addMultiOptions(array(NULL => NULL,'Choose Reece period' => $reece_options))
-//			->addValidator('InArray', false, array(array_keys($reece_options)));
-//	}
-
 	$this->addElements(array(
-	$ruler, $denomination, $moneyer,
-	$mint_id, $reeceID, $status,
-	$revtypeID, $degree_of_wear, $obverse_description,
-	$obverse_inscription, $reverse_description, $reverse_inscription,
-	$die_axis_measurement, $die_axis_certainty, $mint_qualifier,
-	$ruler_qualifier, $denomination_qualifier, $status_qualifier,
-	$revTypeID_qualifier, $reverse_mintmark,
-	$submit));
+            $ruler, $denomination, $moneyer,
+            $mint_id, $reeceID, $status,
+            $revtypeID, $degree_of_wear, $obverse_description,
+            $obverse_inscription, $reverse_description, $reverse_inscription,
+            $die_axis_measurement, $die_axis_certainty, $mint_qualifier,
+            $ruler_qualifier, $denomination_qualifier, $status_qualifier,
+            $revTypeID_qualifier, $reverse_mintmark,
+            $submit));
 
 	$this->addDisplayGroup(array(
-	'denomination','denomination_qualifier','ruler_id',
-	'ruler_qualifier','mint_id','mint_qualifier',
-	'reeceID','revtypeID','revTypeID_qualifier',
-	'moneyer','status',
-	'status_qualifier','degree_of_wear','obverse_description',
-	'obverse_inscription','reverse_description','reverse_inscription',
-	'reverse_mintmark','die_axis_measurement','die_axis_certainty'
-	), 'details');
+            'denomination','denomination_qualifier','ruler_id',
+            'ruler_qualifier','mint_id','mint_qualifier',
+            'reeceID','revtypeID','revTypeID_qualifier',
+            'moneyer','status',
+            'status_qualifier','degree_of_wear','obverse_description',
+            'obverse_inscription','reverse_description','reverse_inscription',
+            'reverse_mintmark','die_axis_measurement','die_axis_certainty'
+            ), 
+                'details');
 	$this->addDisplayGroup(array('submit'),'buttons');
-	parent::init();
-	}
+	
+        parent::init();
+    }
 }
