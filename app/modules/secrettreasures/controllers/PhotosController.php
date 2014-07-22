@@ -124,7 +124,7 @@ class Secrettreasures_PhotosController
 	$this->view->paginator = $paginator;
 	$this->view->pictures = $flickr;
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** get photos's details
@@ -184,7 +184,7 @@ class Secrettreasures_PhotosController
 	$this->view->pictures = $photos;
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 

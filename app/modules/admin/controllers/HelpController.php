@@ -63,7 +63,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin {
 	$form->populate($this->_help->fetchRow('id= '.$this->_getParam('id'))->toArray());
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Delete a help topic

@@ -33,8 +33,9 @@ class Pas_Controller_Action_Helper_LoginRedirect
     */
     private function _getUserRedirect() {
         $redirects = new LoginRedirect();
-        $redirect = $redirects->getUri();
+        $redirect = $redirects->getConfig();
         $clean = array_flip($redirect);
-        return $clean[0];
+        $uri = array_values($clean);
+        return $uri[0];
     }
 }

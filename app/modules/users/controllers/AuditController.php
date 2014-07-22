@@ -1,48 +1,70 @@
 <?php
 /** Controller for accessing specific user details for IP logins etc
-*
-* @category   Pas
-* @package    Pas_Controller
-* @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Controller
+ * @subpackage ActionAdmin
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses Logins
+ * @uses Pas_Exception_Param
+ * 
 */
 class Users_AuditController extends Pas_Controller_Action_Admin {
-	/** Set up the ACL and contexts
-	*/
-	public function init()  {
-	$this->_helper->_acl->allow('member',NULL);
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+    
+    /** The logins model
+     * @access protected
+     * @var \Logins
+     */
+    protected $_logins;
+    
+    /** Set up the ACL and contexts
+     * @access public
+     */
+    public function init()  {
+        $this->_helper->_acl->allow('member',NULL);
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->_logins = new Logins();
     }
-	/** Display logins by username
-	*/
-	public function loginsAction() {
-	$logins = new Logins();
-	$this->view->logins = $logins->myLogins((string)$this->getUsername(), (int)$this->_getParam('page'));
-	$this->view->ips = $logins->myIps($this->getUsername());
-	}
-	/** Display the ISP user has used
-	*/
-	public function ispAction() {
-	$logins = new Logins();
-	$this->view->logins = $logins->listIps((int)$this->_getParam('page'));
-	}
-	/** Work out how many people have used a certain IP address
-	*/
-	public function iptousersAction() {
+    
+    /** Display logins by username
+     * @access public
+     * @return void
+     */
+    public function loginsAction() {
+        $this->view->logins = $this->_logins->myLogins((string)$this->getUsername(), (int)$this->_getParam('page'));
+        $this->view->ips = $logins->myIps($this->getUsername());
+    }
+    
+    /** Display the ISP user has used
+     * @access public
+     * @return void
+     */
+    public function ispAction() {
+        $this->view->logins = $this->_logins->listIps((int)$this->_getParam('page'));
+    }
+
+    /** The ip to users action
+     * @access public
+     * @throws Pas_Exception_Param
+     */
+    public function iptousersAction() {
 	if($this->_getParam('ip',false)) {
-	$ip = $this->_getParam('ip');
-	$this->view->headTitle('Users who have used IP address: '. $ip);
-	$logins = new Logins();
-	$this->view->logins = $logins->users2Ip($ip);
+            $ip = $this->_getParam('ip');
+            $this->view->headTitle('Users who have used IP address: '. $ip);
+            $this->view->logins = $this->_logins->users2Ip($ip);
 	} else {
-	throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
-	}
+    }
 
-        public function iphistoryAction(){
-		$logins = new Logins();
-            $this->view->ips = $logins->myIps($this->getUsername(), $this->_getParam('page'));
-        }
-
+    /** Get the IP history for a user
+     * @access public
+     * @return void
+     */
+    public function iphistoryAction(){
+        $this->view->ips = $this->_logins->myIps($this->getUsername(), $this->_getParam('page'));
+    }
 }

@@ -32,7 +32,7 @@ class RomanNumismaticSearchForm extends Pas_Form {
     protected $_restricted = array(null, 'public','member','research');
 
 
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
         
         //Get Rally data
         $rallies = new Rallies();

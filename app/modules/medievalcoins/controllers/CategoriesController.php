@@ -43,7 +43,7 @@ class MedievalCoins_CategoriesController extends Pas_Controller_Action_Admin {
 	$this->view->types = $types->getCoinTypeCategory($id);
 	$this->view->rulers = $this->_categories->getMedievalRulersToType($id);
 	} else {
-    throw new Pas_Exception_Param($this->_missingParameter);
+    throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	
 	}

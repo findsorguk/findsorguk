@@ -27,7 +27,7 @@ class PublicationForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	
         $types = new PublicationTypes();
 	$type_options = $types->getTypes();

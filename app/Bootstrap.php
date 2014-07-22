@@ -1,6 +1,5 @@
 <?php
-/**
- * Bootstrap for the website to run
+/** Bootstrap for the website to run
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett

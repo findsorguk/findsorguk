@@ -29,7 +29,7 @@ class EventForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
 	$staffregions = new StaffRegions();
 	$staffregions_options = $staffregions->getOptions();

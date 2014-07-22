@@ -16,10 +16,9 @@
  * @license http://URL GNU
  * @category Pas
  * @package Pas_View_Helper
- * @uses registry Zend_Registry
- * @uses cache  Zend_Cache
- * @uses client Solarium_Client
- * @uses viewHelper Pas_View_Helper
+ * @uses \Zend_Registry
+ * @uses \Zend_Cache
+ * @uses \Solarium_Client
  */
 class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
 {
@@ -338,14 +337,14 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      */
     public function buildHtml( array $data ) {
         $html = '';
-        if (array_key_exists( 'images', $data )) {
-            $html .= '<h3>Latest examples recorded with images</h3>';
-            $html .= '<p>We have recorded ' . number_format($data['numberFound']);
-            $html .= ' examples.</p>';
-            $html .= '<div class="row-fluid ">';
-            $html .= $this->view->partialLoop('partials/database/imagesPaged.phtml', $data['images']);
-            $html .= '</div>';
-        }
+//        if (array_key_exists( 'images', $data )) {
+//            $html .= '<h3>Latest examples recorded with images</h3>';
+//            $html .= '<p>We have recorded ' . number_format($data['numberFound']);
+//            $html .= ' examples.</p>';
+//            $html .= '<div class="row-fluid ">';
+////            $html .= $this->view->partialLoop('partials/database/imagesPaged.phtml', $data['images']);
+//            $html .= '</div>';
+//        }
         return $html;
     }
 
@@ -356,5 +355,4 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
     public function __toString() {
         return $this->buildHtml($this->getResults());
     }
-
 }

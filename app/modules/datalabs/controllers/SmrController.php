@@ -78,7 +78,7 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
 	$gazetteers = new OsData();
 	$this->view->gazetteer = $gazetteers->getGazetteer($this->_getParam('id'));
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 
@@ -89,7 +89,7 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
 	$smrs = new ScheduledMonuments();
 	$this->view->smrs = $smrs->getSmrDetails($this->_getParam('id'));
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** SMR by WOEID
@@ -100,7 +100,7 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
 	$smrs = new ScheduledMonuments();
 	$this->view->smrs = $smrs->getSmrsByWoeid($this->_getParam('number'),$this->_getParam('page'));
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 

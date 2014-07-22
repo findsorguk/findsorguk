@@ -34,7 +34,7 @@ class Users_NamedController extends Pas_Controller_Action_Admin {
 	$this->view->totals = $this->_users->getCountFinds($this->getIdentityForForms());
 	
 	} else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 }

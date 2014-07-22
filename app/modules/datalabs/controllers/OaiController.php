@@ -1,20 +1,31 @@
 <?php
-
-/**
- * Request page controller
- *
- *
+/** The OAI controller for dealing with requests for data using the OAI-PMH 
+ * protocol. 
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Pas_Controller_Action
+ * @subpackage Admin
+ * @version 1
  * @uses Pas_OaiPmhRepository_ResponseGenerator
+ * @uses Content
  */
-class Datalabs_OaiController extends Pas_Controller_Action_Admin 
-{
-	/** Setup the contexts by action and the ACL.
-	*/
-	public function init() {
+class Datalabs_OaiController extends Pas_Controller_Action_Admin  {
+    
+    /** Setup the contexts by action and the ACL.
+     * @access public
+     * @return void
+     */
+    public function init() {
 	$this->_helper->_acl->allow(null);
 	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }
 
+    /** The index controller
+     * @access public
+     * @return void
+     */
     public function indexAction() {
 	$this->_helper->layout->setLayout('database');
 	$response = $this->getResponse();
@@ -30,39 +41,30 @@ class Datalabs_OaiController extends Pas_Controller_Action_Admin
 	$response->insert('analytics',$view->render('structure/analytics.phtml'));
 	$content = new Content();
 	$this->view->content =  $content->getFrontContent('oai');
+    }
 
-	}
-	/** Setup the requesy via get request
-	*/
+    /** Setup the request via GET (only request type supported).
+     * @access public
+     * @return void
+     * @throws Pas_Exception
+     */
     public function requestAction(){
     	$this->_helper->layout->disableLayout();
     	$request = $this->_request;
         switch($request)  {
             case $request->isGet():
-                // $query = &$_GET;
+                // GET Query only
                 $query = $this->_getAllParams();
             	break;
             case $request->isPost():
-//            	$query = &$_POST;
-            	throw new Zend_Exception('Post requests are not valid');
-            	break;
-            default: die('Error determining request type.');
+                //Forbidden
+            	throw new Pas_Exception('Post requests are not valid', 401);
+            default: 
+                throw new Pas_Exception('Error determining request type', 500);
         }
         $this->getResponse()->setHeader('Content-type', 'text/xml');
-        $clean = $this->_remove($this->_getAllParams());
-        unset($query['module']);
-        unset($query['action']);
-        unset($query['controller']);
-        $this->view->response = new Pas_OaiPmhRepository_ResponseGenerator($query);
-    }
-
-    protected function _remove($array){
-       $removeArray = array('module','csrf','controller','action');
-       foreach($array as $k => $v){
-           if(in_array($k, $removeArray)){
-               unset($array['k']);
-           }
-       }
-    return $array;
+        $cleaner = new Pas_ArrayFunctions();
+        $clean = $cleaner->array_cleanup($this->_getAllParams());
+        $this->view->response = new Pas_OaiPmhRepository_ResponseGenerator($clean);
     }
 }

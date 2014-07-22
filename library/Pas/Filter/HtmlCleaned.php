@@ -15,7 +15,7 @@ class Pas_Filter_HtmlCleaned extends Pas_Filter_HTMLPurifier {
      * @access public
      * @param array $options
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	$config = HTMLPurifier_Config::createDefault();
 	$this->_htmlPurifier = new HTMLPurifier($config);
 	$config->set('Cache.SerializerPath',  CACHE_PATH . '/htmlpurifier');

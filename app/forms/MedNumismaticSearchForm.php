@@ -48,7 +48,7 @@ class MedNumismaticSearchForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
 	$rallies = new Rallies();
 	$rally_options = $rallies->getRallies();

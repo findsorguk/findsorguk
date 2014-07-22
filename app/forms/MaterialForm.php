@@ -24,7 +24,7 @@ class MaterialForm extends Pas_Form {
      * @param array $options
      * @access public
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
 	parent::__construct($options);
 

@@ -73,7 +73,7 @@ class Database_FindspotsController
     $form->populate($form->getValues());
     }
     } else {
-    throw new Pas_Exception_Param($this->_missingParameter);
+    throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 

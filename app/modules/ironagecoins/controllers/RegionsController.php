@@ -55,7 +55,7 @@ class IronAgeCoins_RegionsController extends Pas_Controller_Action_Admin {
     $rulers = new Rulers();
     $this->view->rulers = $rulers->getIronAgeRulerToRegion($id);
     } else {
-        throw new Pas_Exception_Param($this->_missingParameter);
+        throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 

@@ -30,7 +30,7 @@ class RomanCoinForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	// Construct the select menu data
 	$denominations = new Denominations();
 	$denomination_options = $denominations->getOptionsRoman();

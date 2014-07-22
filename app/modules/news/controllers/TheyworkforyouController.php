@@ -83,7 +83,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
         }
         $this->view->data = $clean;	
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -121,7 +121,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
         $this->view->finds = $search->processResults();
         $this->view->constituency = $const;
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 

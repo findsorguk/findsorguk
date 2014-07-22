@@ -36,7 +36,7 @@ class IronAgeCoins_TribesController extends Pas_Controller_Action_Admin {
     $this->view->id = $id;
     $this->view->tribes = $this->_tribes->getTribe($id);
     } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 }

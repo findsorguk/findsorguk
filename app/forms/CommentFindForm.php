@@ -22,7 +22,7 @@ class CommentFindForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
         parent::__construct($options);
 

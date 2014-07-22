@@ -11,7 +11,8 @@ echo $this->headTitle('Database settings');
 	<?php
 	$findFields = array();
 	foreach($this->findFields as $findField){
-		$findFields[] = $this->fieldNamesDb()->setField($findField);
+            $clean = $this->fieldNamesDb()->setField($findField)->parseField();
+            $findFields[] = $clean;
 	}
 	?>
 	<p><?php echo implode(', ', $findFields);?></p>
@@ -24,7 +25,9 @@ echo $this->headTitle('Database settings');
 	<?php
 	$findSpotFields = array();
 	foreach($this->findSpotFields as $findSpotField){
-		$findSpotFields[] = $this->fieldNamesDb()->setField($findSpotField);
+            $findSpotFields[] = $this->fieldNamesDb()
+                    ->setField($findSpotField)
+                    ->parseField();
 	}
 	?>
 	<p><?php echo implode(', ', $findSpotFields);?></p>
@@ -37,7 +40,9 @@ echo $this->headTitle('Database settings');
 	<?php
 	$coinFields = array();
 	foreach($this->coinFields as $coinField){
-		$coinFields[] = $this->fieldNamesDb()->setField($coinField);
+            $coinFields[] = $this->fieldNamesDb()
+                    ->setField($coinField)
+                    ->parseField();
 	}
 	?>
 	<p><?php echo implode(', ', $coinFields);?></p>

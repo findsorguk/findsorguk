@@ -26,7 +26,7 @@ class ProvisionalValuationForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	
 	$curators = new People();
 	$assigned = $curators->getValuers();

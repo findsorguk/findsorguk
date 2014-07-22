@@ -1,0 +1,193 @@
+[development]
+resources.db.adapter = "PDO_MYSQL"
+resources.db.params.host = ""
+resources.db.params.username = ""
+resources.db.params.password = ""
+resources.db.params.charset = "utf8"
+resources.db.params.dbname = ""
+resources.db.isDefaultTableAdapter = true
+resources.db.params.profiler.enabled = "true"
+resources.db.params.profiler.class = "Zend_Db_Profiler_Firebug"
+
+autoloaderNamespaces[] = "Zend_"
+autoloaderNamespaces[] = "ZendX_"
+autoloaderNamespaces[] = "Pas_"
+autoloaderNamespaces[] = "Arc2_"
+autoloaderNamespaces[] = "EasyRdf_"
+autoloaderNamespaces[] = "Twitter_"
+autoloaderNamespaces[] = "EasyBib_"
+autoloaderNamespaces[] = "geoPHP_"
+autoloaderNamespaces[] = "Solarium_"
+autoloaderNamespaces[] = "Phlickr_"
+autoloaderNamespaces[] = "REST_"
+autoloaderNamespaces[] = "EasyBib_"
+
+bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
+bootstrap.class = "Bootstrap"
+
+;resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
+resources.frontController.moduleDirectory = APPLICATION_PATH "/modules"
+resources.frontController.moduleControllerDirectoryName = "controllers"
+resources.frontController.defaultAction = "index"
+resources.frontController.defaultModule = "default"
+resources.frontController.defaultControllerName = "index"
+resources.frontController.defaultRoute = "default"
+;resources.frontController.defaultActionName = "index"
+
+resources.router.routes.test.route = "/"
+resources.router.routes.test.defaults.module = "default"
+resources.router.routes.test.defaults.controller = "index"
+resources.router.routes.test.defaults.action = "index"
+
+resources.frontController.actionHelperPaths.Pas_Controller_Action_Helper = "Pas/Controller/Action/Helper"
+resources.frontController.baseurl = "/"
+
+resources.view.basePath = APPLICATION_PATH "/views/"
+resources.view.helperPath.Pas_View_Helper = "Pas/View/Helper"
+resources.view.helperPath.ZendX_JQuery_View_Helper  = "ZendX/JQuery/View/Helper"
+resources.view.helperPath.EasyBib_View_Helper = "EasyBib/View/Helper"
+resources.view.doctype = "XHTML1_RDFA"
+resources.view.encoding = "UTF-8"
+resources.view.contentType  = "text/html; charset=utf-8"
+
+resources.modules[] =
+
+resources.locale.default = "en_GB"
+resources.frontController.throwExceptions = 0
+
+resources.layout.layout = "home"
+resources.layout.layoutPath = APPLICATION_PATH "/layouts"
+
+resources.cachemanager.rulercache.frontend.name = Core
+resources.cachemanager.rulercache.frontend.options.cache_id_prefix = findsorguk
+resources.cachemanager.rulercache.frontend.options.lifetime = 7200
+resources.cachemanager.rulercache.frontend.options.write_control = true
+resources.cachemanager.rulercache.frontend.options.automatic_serialization = true
+resources.cachemanager.rulercache.frontend.options.automatic_cleaning_factor = 10
+
+resources.cachemanager.rulercache.backend.name = File
+resources.cachemanager.rulercache.backend.options.lifetime = 86400
+resources.cachemanager.rulercache.backend.options.cache_dir = CACHE_PATH
+
+resources.cachemanager.dbMetadataCache.frontend.name = "Core"
+resources.cachemanager.dbMetadataCache.frontend.options.automatic_serialization = 1
+resources.cachemanager.dbMetadataCache.frontend.options.caching = 1
+resources.cachemanager.dbMetadataCache.backend.name = "Apc"
+
+resources.db.defaultMetadataCache = "dbMetadataCache"
+
+resources.log.stream.writerName = "Stream"
+resources.log.stream.writerParams.stream = APPLICATION_PATH "/logs/application.log"
+resources.log.stream.writerParams.mode = "a"
+;resources.log.stream.filterName = "Priority"
+;resources.log.stream.filterParams.priority = 5
+
+resources.frontController.plugins.ErrorHandler.class = "Zend_Controller_Plugin_ErrorHandler"
+resources.frontController.plugins.ErrorHandler.options.module = "default"
+resources.frontController.plugins.ErrorHandler.options.controller = "error"
+resources.frontController.plugins.ErrorHandler.options.action = "error"
+
+resources.session.save_path = APPLICATION_PATH "/session"
+resources.session.remember_me_seconds = 864000
+resources.session.gc_maxlifetime = 864000
+
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors         = 0
+;phpsettings.error_reporting = E_ALL & ~E_NOTICE
+
+[production]
+resources.db.adapter = "PDO_MYSQL"
+resources.db.params.host = ""
+resources.db.params.username = ""
+resources.db.params.password = ""
+resources.db.params.charset = "utf8"
+resources.db.params.dbname = ""
+resources.db.isDefaultTableAdapter = true
+resources.db.params.profiler.enabled = "true"
+resources.db.params.profiler.class = "Zend_Db_Profiler_Firebug"
+
+autoloaderNamespaces[] = "Zend_"
+autoloaderNamespaces[] = "ZendX_"
+autoloaderNamespaces[] = "Pas_"
+autoloaderNamespaces[] = "Arc2_"
+autoloaderNamespaces[] = "EasyRdf_"
+autoloaderNamespaces[] = "Twitter_"
+autoloaderNamespaces[] = "EasyBib_"
+autoloaderNamespaces[] = "geoPHP_"
+autoloaderNamespaces[] = "Solarium_"
+autoloaderNamespaces[] = "Phlickr_"
+autoloaderNamespaces[] = "REST_"
+autoloaderNamespaces[] = "EasyBib_"
+
+bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
+bootstrap.class = "Bootstrap"
+
+;resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
+resources.frontController.moduleDirectory = APPLICATION_PATH "/modules"
+resources.frontController.moduleControllerDirectoryName = "controllers"
+resources.frontController.defaultAction = "index"
+resources.frontController.defaultModule = "default"
+resources.frontController.defaultControllerName = "index"
+resources.frontController.defaultRoute = "default"
+;resources.frontController.defaultActionName = "index"
+
+resources.router.routes.test.route = "/"
+resources.router.routes.test.defaults.module = "default"
+resources.router.routes.test.defaults.controller = "index"
+resources.router.routes.test.defaults.action = "index"
+
+resources.frontController.actionHelperPaths.Pas_Controller_Action_Helper = "Pas/Controller/Action/Helper"
+resources.frontController.baseurl = "/"
+
+resources.view.basePath = APPLICATION_PATH "/views/"
+resources.view.helperPath.Pas_View_Helper = "Pas/View/Helper"
+resources.view.helperPath.ZendX_JQuery_View_Helper  = "ZendX/JQuery/View/Helper"
+resources.view.helperPath.EasyBib_View_Helper = "EasyBib/View/Helper"
+resources.view.doctype = "XHTML1_RDFA"
+resources.view.encoding = "UTF-8"
+resources.view.contentType  = "text/html; charset=utf-8"
+
+resources.modules[] =
+
+resources.locale.default = "en_GB"
+resources.frontController.throwExceptions = 0
+
+resources.layout.layout = "home"
+resources.layout.layoutPath = APPLICATION_PATH "/layouts"
+
+resources.cachemanager.rulercache.frontend.name = Core
+resources.cachemanager.rulercache.frontend.options.cache_id_prefix = findsorguk
+resources.cachemanager.rulercache.frontend.options.lifetime = 7200
+resources.cachemanager.rulercache.frontend.options.write_control = true
+resources.cachemanager.rulercache.frontend.options.automatic_serialization = true
+resources.cachemanager.rulercache.frontend.options.automatic_cleaning_factor = 10
+
+resources.cachemanager.rulercache.backend.name = File
+resources.cachemanager.rulercache.backend.options.lifetime = 86400
+resources.cachemanager.rulercache.backend.options.cache_dir = CACHE_PATH
+
+resources.cachemanager.dbMetadataCache.frontend.name = "Core"
+resources.cachemanager.dbMetadataCache.frontend.options.automatic_serialization = 1
+resources.cachemanager.dbMetadataCache.frontend.options.caching = 1
+resources.cachemanager.dbMetadataCache.backend.name = "Apc"
+
+resources.db.defaultMetadataCache = "dbMetadataCache"
+
+resources.log.stream.writerName = "Stream"
+resources.log.stream.writerParams.stream = APPLICATION_PATH "/logs/application.log"
+resources.log.stream.writerParams.mode = "a"
+;resources.log.stream.filterName = "Priority"
+;resources.log.stream.filterParams.priority = 5
+
+resources.frontController.plugins.ErrorHandler.class = "Zend_Controller_Plugin_ErrorHandler"
+resources.frontController.plugins.ErrorHandler.options.module = "default"
+resources.frontController.plugins.ErrorHandler.options.controller = "error"
+resources.frontController.plugins.ErrorHandler.options.action = "error"
+
+resources.session.save_path = APPLICATION_PATH "/session"
+resources.session.remember_me_seconds = 864000
+resources.session.gc_maxlifetime = 864000
+
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors         = 0
+;phpsettings.error_reporting = E_ALL & ~E_NOTICE

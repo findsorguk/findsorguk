@@ -93,7 +93,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
 	$publications = new Publications();
 	$this->view->publications = $publications->getPublicationDetails($this->_getParam('id'));
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Add a publication
@@ -170,7 +170,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 }

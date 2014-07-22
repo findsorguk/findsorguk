@@ -16,7 +16,7 @@
  * @example /app/modules/database/views/scripts/terminology/preservation.phtml
  * @todo Probably get rid of this!
  */
-class Pas_View_Helper_SearchLink {
+class Pas_View_Helper_SearchLink extends Zend_View_Helper_Abstract {
 
     /** Id number to query
      * @access protected
@@ -81,7 +81,7 @@ class Pas_View_Helper_SearchLink {
         $string = '<p>Search the database for <a href="';
         $string .= $url;
         $string .= '" title="Search the database for examples">all examples</a>';
-        $string .= 'recorded.</p>';
+        $string .= ' recorded.</p>';
         return $string;
     }
 }

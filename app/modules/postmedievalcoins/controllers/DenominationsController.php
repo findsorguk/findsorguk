@@ -56,7 +56,7 @@ class PostMedievalCoins_DenominationsController extends Pas_Controller_Action_Ad
     $this->view->rulers = $this->_denominations->getRulerDenomination($id);
 
     } else {
-    	throw new Pas_Exception_Param($this->_missingParameter);
+    	throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 }

@@ -113,18 +113,15 @@ class LoginRedirect extends Pas_Db_Table_Abstract {
      * @return string uri of choice or default
      */
     public function getConfig(){
-        //Line flows over 80 character, so return
-        $select = $this->select()->from( $this->_name, array( 'uri' ))
+        $select = $this->select()
+                ->from( $this->_name, array( 'uri' ))
                 ->where('userID = ?', (int) $this->getUserNumber() );
-
         $uri = $this->getAdapter()->fetchAll($select);
         $dbChoice = $this->getUri($uri);
         if(!is_null($dbChoice)) {
             return $dbChoice;
-
         } else {
            return $this->getDefaultUri();
-
         }
     }
 
@@ -137,14 +134,13 @@ class LoginRedirect extends Pas_Db_Table_Abstract {
         if(array_key_exists('csrf', $data)) {
             unset($data['csrf']);
         }
-
         $updateData['uri'] = $data['uri'];
-		$updateData['created'] = $this->timeCreation();
-		$updateData['createdBy'] = $this->getUserNumber();
-		$updateData['userID'] = $this->getUserNumber();
-		//Delete the existing menu option
-		parent::delete('userID =' . $this->getUserNumber() );
-		//Insert the new option
-		return parent::insert($updateData);
-	}
+        $updateData['created'] = $this->timeCreation();
+        $updateData['createdBy'] = $this->getUserNumber();
+        $updateData['userID'] = $this->getUserNumber();
+        //Delete the existing menu option
+        parent::delete('userID =' . $this->getUserNumber() );
+        //Insert the new option
+        return parent::insert($updateData);
+    }
 }

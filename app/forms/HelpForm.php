@@ -27,7 +27,7 @@ class HelpForm extends Pas_Form {
      * @return void
      */
 
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	
 	$authors = new Users();
 	$authorOptions = $authors->getAuthors();

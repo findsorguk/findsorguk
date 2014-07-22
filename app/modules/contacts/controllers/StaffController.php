@@ -44,7 +44,7 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin
 			$accts = new OnlineAccounts();
 			$this->view->accts = $accts->getAccounts($id);
 		} else {
-			throw new Pas_Exception_Param($this->_missingParameter);
+			throw new Pas_Exception_Param($this->_missingParameter, 500);
 		}
 	}
 

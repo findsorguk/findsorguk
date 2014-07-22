@@ -1,6 +1,5 @@
 <?php
-/**
- * Access, manipulate and delete finds data. I wrote this when I was
+/** Access, manipulate and delete finds data. I wrote this when I was
  * a naive new php programmer (still am really!). It sucks in a massive way.
  *
  * An example of use:

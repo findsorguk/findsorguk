@@ -7,14 +7,21 @@
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @author Daniel Pett <dpett at britishmuseum.org>
+ * @uses Vacancies
+ * @uses Pas_Exception_Param
 */
 class About_VacanciesController extends Pas_Controller_Action_Admin {
 	
-	
+    /** The vacancies model
+     * @access protected
+     * @var \Vacancies
+     */
     protected $_vacancies;
 	
-	/** Initialise the ACL and contexts
-	*/
+    /** Initialise the ACL and contexts
+     * @access public
+     * @return void
+     */
     public function init() {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->acl->allow('public',null);
@@ -81,7 +88,7 @@ class About_VacanciesController extends Pas_Controller_Action_Admin {
         if($this->_getParam('id',false)){
             $this->view->vacs = $this->_vacancies->getJobDetails($this->_getParam('id'));
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 }

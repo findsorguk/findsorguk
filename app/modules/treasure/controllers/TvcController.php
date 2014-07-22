@@ -32,7 +32,7 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
 		$tvccases = new TvcDatesToCases();
 		$this->view->cases = $tvccases->listCases($id);
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}	
 	}
 	

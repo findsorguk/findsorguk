@@ -85,7 +85,7 @@ class Datalabs_OsdataController extends Pas_Controller_Action_Admin
 	$gazetteers = new OsData();
 	$this->view->gazetteer = $gazetteers->getGazetteer($this->_getParam('id'));
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 

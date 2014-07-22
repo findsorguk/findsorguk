@@ -25,7 +25,7 @@ class MonarchForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	
 	$rulers = new Rulers();
 	$rulers_options = $rulers-> getAllMedRulers();

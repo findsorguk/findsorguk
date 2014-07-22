@@ -96,7 +96,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
             $form->populate($this->_research->fetchRow('id='.$this->_request->getParam('id'))->toArray());
             }
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
     /** Add a suggested research topic
@@ -152,7 +152,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
             }
             }
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
     /** Delete a suggested topic

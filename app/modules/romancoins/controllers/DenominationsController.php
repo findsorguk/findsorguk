@@ -36,7 +36,7 @@ class RomanCoins_DenominationsController extends Pas_Controller_Action_Admin {
 	$emps = new Emperors();
 	$this->view->emps = $emps->getDenomEmperor($id);
 	} else {
-	throw new Pas_Exception_Param($this->_missingParameter);
+	throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 }

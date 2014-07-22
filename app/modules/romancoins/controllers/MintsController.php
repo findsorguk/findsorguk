@@ -40,7 +40,7 @@ class RomanCoins_MintsController extends Pas_Controller_Action_Admin {
 
 	$this->view->actives = $actives->getRomanMintRulerList($id);
 	} else {
-	throw new Pas_Exception_Param($this->_missingParameter);
+	throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 }
