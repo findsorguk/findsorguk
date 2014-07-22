@@ -28,7 +28,7 @@ class ContactForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
 	$roles = new StaffRoles();
 	$role_options = $roles->getOptions();

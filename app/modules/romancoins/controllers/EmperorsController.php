@@ -66,7 +66,7 @@ class RomanCoins_EmperorsController extends Pas_Controller_Action_Admin {
 	$mints = new Mints();
 	$this->view->mints = $mints->getMintEmperorList($id);
 	} else {
-	throw new Pas_Exception_Param($this->_missingParameter);
+	throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 

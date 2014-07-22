@@ -23,7 +23,7 @@ class RulerForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	
 	$periods = new Periods();
 	$period_options = $periods->getCoinsPeriod();

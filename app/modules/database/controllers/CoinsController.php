@@ -62,7 +62,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
     $form->populate($form->getValues());
     }
     } else {
-    throw new Pas_Exception_Param($this->_missingParameter);
+    throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 
@@ -106,7 +106,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
     }
     }
     } else {
-    throw new Pas_Exception_Param($this->_missingParameter);
+    throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
     /** Delete coin data via primary key
@@ -130,7 +130,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
     }
     }
     } else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 

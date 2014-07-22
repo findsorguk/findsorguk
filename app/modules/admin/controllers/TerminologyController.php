@@ -81,7 +81,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-	throw new Pas_Exception_Param($this->_missingParameter);
+	throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Delete an activity
@@ -144,7 +144,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Delete a method of discovery
@@ -241,7 +241,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Delete a decorative method
@@ -321,7 +321,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Delete a surface treatment
@@ -384,7 +384,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Delete a period
@@ -485,7 +485,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 
@@ -566,7 +566,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Delete a workflow stage
@@ -646,7 +646,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Delete a preservation state
@@ -888,7 +888,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 
@@ -1132,7 +1132,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 

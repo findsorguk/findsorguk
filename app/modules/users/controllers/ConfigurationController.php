@@ -1,22 +1,36 @@
-<?php
+<?php 
 /** Controller for configuring which fields to copy.
-*
-* @category   Pas
-* @package    Pas_Controller
-* @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Controller_Action
+ * @subpackage Admin
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses CopyFind
+ * @uses CopyFindSpot
+ * @uses CopyCoin
+ * @uses LoginRedirect
+ * @uses ConfigureFindCopyForm
+ * @uses ConfigureFindSpotCopyForm
+ * @uses ConfigureCoinCopyForm
+ * @uses ConfigureLoginRedirectForm
 */
-class Users_ConfigurationController extends Pas_Controller_Action_Admin
-{
+class Users_ConfigurationController extends Pas_Controller_Action_Admin {
+   
     /** Setup the ACL
-    */
+     * @access public
+     * @return void
+     */
     public function init() {
         $this->_helper->_acl->deny('public');
         $this->_helper->_acl->allow('member',NULL);
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }
     /** Setup the index display pages
+     * @access public
+     * @return void
     */
     public function indexAction() {
         //Get the fields from the finds form
@@ -33,6 +47,10 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin
         $this->view->redirectUri = $redirect->getConfig();
     }
 
+    /** Set up and configure which fields you will copy when copying finds
+     * @access public
+     * @return void
+     */
     public function findAction() {
         $form = new ConfigureFindCopyForm();
         $this->view->form = $form;
@@ -47,15 +65,19 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $copyFind->updateConfig($form->getValues());
-                $this->_flashMessenger->addMessage('Copy last record fields for find table updated');
+                $this->_flashMessenger
+                        ->addMessage('Copy last record fields for find table updated');
                 $this->_redirect('/users/configuration/');
             } else {
                 $form->populate($values);
-
             }
         }
     }
 
+    /** Set up and configure which findspot fields to copy when copying record
+     * @access public
+     * @return void
+     */
     public function findspotAction() {
         $form = new ConfigureFindSpotCopyForm();
         $this->view->form = $form;
@@ -70,16 +92,19 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $copyFindSpot->updateConfig($form->getValues());
-                $this->_flashMessenger->addMessage('Copy last record fields for findspot table updated');
+                $this->_flashMessenger
+                        ->addMessage('Copy last record fields for findspot table updated');
                 $this->_redirect('/users/configuration/');
-
             } else {
                 $form->populate($values);
-
             }
         }
     }
 
+    /** Set up and configure the coin copying fields for cloning a record.
+     * @access public
+     * @return void
+     */
     public function coinAction() {
         $form = new ConfigureCoinCopyForm();
         $this->view->form = $form;
@@ -95,7 +120,8 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $copyCoin->updateConfig($form->getValues());
-                $this->_flashMessenger->addMessage('Copy last record fields for coin table updated');
+                $this->_flashMessenger
+                        ->addMessage('Copy last record fields for coin table updated');
                 $this->_redirect('/users/configuration/');
             } else {
                 $form->populate($values);
@@ -103,12 +129,17 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin
         }
     }
 
+    /** Set up the redirect action for a user
+     * @access public
+     * @return void
+     */
     public function redirectAction() {
         $form = new ConfigureLoginRedirectForm();
         $this->view->form = $form;
         $loginRedirect = new LoginRedirect();
         $current = $loginRedirect->getConfig();
-        $form->populate(array('uri' => array_keys($current)[0]));
+        $currentUri = array_keys($current);
+        $form->populate(array('uri' => $currentUri[0]));
         if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
@@ -116,10 +147,8 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin
                 $loginRedirect->updateConfig($form->getValues());
                 $this->_flashMessenger->addMessage('Page after logging in updated');
                 $this->_redirect('/users/configuration/');
-
             } else {
                 $form->populate($current);
-
             }
         }
     }

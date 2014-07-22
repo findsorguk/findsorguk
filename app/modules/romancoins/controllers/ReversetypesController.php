@@ -38,7 +38,7 @@ class RomanCoins_ReverseTypesController extends Pas_Controller_Action_Admin {
 	$mints = new Mints();
 	$this->view->mints = $mints->getMintReverseType($id);
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 

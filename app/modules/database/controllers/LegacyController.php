@@ -35,7 +35,7 @@ class Database_LegacyController extends Pas_Controller_Action_Admin {
 	$this->_flashMessenger->addMessage('You have been redirected from an outdated link');
 	$this->_redirect(self::REDIRECT . $id);
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	

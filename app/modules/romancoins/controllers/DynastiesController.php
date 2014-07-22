@@ -39,7 +39,7 @@ class RomanCoins_DynastiesController extends Pas_Controller_Action_Admin {
 	$emperors = new Emperors();
 	$this->view->emperors = $emperors->getEmperorsDynasty($this->_getParam('id'));
 	} else {
-	throw new Pas_Exception_Param($this->_missingParameter);
+	throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 

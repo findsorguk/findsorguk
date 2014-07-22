@@ -5,9 +5,8 @@
  * @copyright (c) 2014, Daniel Pett
  * @version 2
  * @category Pas
- * @package Controller_Action
- * 
- * 
+ * @package Pas_Controller_Action
+ * @subpackage Admin
  */
 class ErrorController extends Pas_Controller_Action_Admin {
     

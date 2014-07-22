@@ -43,7 +43,7 @@ class ImageForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
 	$counties = new Counties();
 	$county_options = $counties->getCountyname2();

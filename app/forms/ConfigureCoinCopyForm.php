@@ -18,7 +18,7 @@ class ConfigureCoinCopyForm extends Pas_Form {
      * @param array $options
      * @return void 
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	
 	//Get the coins columns from the table's schema	
 	$finds = new Coins();

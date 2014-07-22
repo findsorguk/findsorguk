@@ -134,7 +134,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
 
     /** Set the start number
      * @access public
-     * @param  int                                 $start
+     * @param  integer $start
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
     public function setStart($start)
@@ -146,13 +146,11 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
 
     /** Set the limit of records to return
      * @access public
-     * @param  int                                 $limit
+     * @param  integer $limit
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setLimit($limit)
-    {
+    public function setLimit($limit) {
         $this->_limit =  $limit;
-
         return $this;
     }
 
@@ -161,10 +159,8 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  string $sort
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setSort( $sort)
-    {
+    public function setSort( $sort) {
         $this->_sort = $sort;
-
         return $this;
     }
 
@@ -173,10 +169,8 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  string $direction
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setDirection( $direction)
-    {
+    public function setDirection( $direction) {
         $this->_direction = $direction;
-
         return $this;
     }
 
@@ -184,8 +178,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getFields()
-    {
+    public function getFields() {
         return $this->_fields;
     }
 
@@ -194,10 +187,8 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  string $fields
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setFields( $fields)
-    {
+    public function setFields( $fields) {
         $this->_fields = $fields;
-
         return $this;
     }
 
@@ -205,8 +196,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getQ()
-    {
+    public function getQ() {
         return $this->_q;
     }
 
@@ -215,10 +205,8 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  string $q
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
-    public function setQ( $q)
-    {
+    public function setQ( $q ) {
         $this->_q = $q;
-
         return $this;
     }
 
@@ -260,7 +248,6 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      */
     public function getCache() {
         $this->_cache = Zend_Registry::get('cache');
-
         return $this->_cache;
     }
 
@@ -269,6 +256,10 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
     public function activitySolrSearch() {
+        Zend_Debug::dump($this->getQ());
+        Zend_Debug::dump($this->getData());
+//        Zend_Debug::dump($this->buildHtml());
+        exit;
         return $this;
     }
 
@@ -289,20 +280,22 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
                     ),
             'filterquery'   =>  array(),
         );
-        if ( !( $this->getCache->test( $this->getKey() ) ) ) {
-    $query = $this->getSolr()->createSelect($select);
-    $resultset = $this->getSolr()->select($query);
-    $data = array();
-    $data['numberFound'] = $resultset->getNumFound();
-    foreach ($resultset as $doc) {
-            $data['images'][] = $this->parseData($doc);
-    }
-    $this->getCache()->save($data);
-    } else {
-            $data = $this->getCache()->load( $this->getKey() );
-    }
+//        if ( !( $this->getCache()->test( $this->getKey() ) ) ) {
+            $query = $this->getSolr()->createSelect($select);
+            Zend_Debug::dump($query);
+            exit;
+            $resultset = $this->getSolr()->select($query);
+            $data = array();
+            $data['numberFound'] = $resultset->getNumFound();
+            foreach ($resultset as $doc) {
+                $data['images'][] = $this->parseData($doc);
+            }
+//            $this->getCache()->save($data);
+//        } else {
+//            $data = $this->getCache()->load( $this->getKey() );
+//        }
 
-    return $this->buildHtml($data);
+        return $this->buildHtml($data);
     }
 
     /** Parse the array of docs

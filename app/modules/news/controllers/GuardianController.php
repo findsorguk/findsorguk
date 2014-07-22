@@ -223,7 +223,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
                 $this->view->story = $results;
                 $this->view->related = $related;
                 } else {
-                    throw new Pas_Exception_Param($this->_missingParameter);
+                    throw new Pas_Exception_Param($this->_missingParameter, 500);
                 }
     }
 }

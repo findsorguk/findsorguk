@@ -65,7 +65,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
         if($this->_getParam('id',false)){
             $this->view->finds = $this->getFinds()->getWebCiteFind((int)$this->_getParam('id'));
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -79,7 +79,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
             $thumbs = new Slides;
             $this->view->thumbs = $thumbs->getThumbnails($id);
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 

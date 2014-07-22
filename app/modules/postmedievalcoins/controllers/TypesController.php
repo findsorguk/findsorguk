@@ -40,7 +40,7 @@ class PostMedievalCoins_TypesController extends Pas_Controller_Action_Admin {
     if($this->_getParam('id',false)){
     $this->view->types = $this->_types->getTypeDetails($this->_getParam('id'));
     } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 

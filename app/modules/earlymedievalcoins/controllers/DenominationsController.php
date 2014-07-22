@@ -1,55 +1,65 @@
 <?php
 /** Controller for displaying Early Medieval coin denominations
-*
-* @category   Pas
-* @package    Pas_Controller
-* @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Controller_Action
+ * @subpackage Admin
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses Denominations
+ * 
 */
 class EarlyMedievalCoins_DenominationsController extends Pas_Controller_Action_Admin {
 
+    /** The denominations model
+     * @access protected
+     * @var \Denominations
+     */
+    protected $_denominations;
+    
     /** Initialise the ACL and contexts
-    */
+     * @access public
+     * @return void
+     */
     public function init() {
-    $this->_helper->_acl->allow(null);
-    $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
-    $this->_helper->contextSwitch()
-            ->setAutoDisableLayout(true)
-            ->addActionContext('index', array('xml','json'))
-            ->addActionContext('denomination', array('xml','json'))
-            ->initContext();
+        $this->_helper->_acl->allow(null);
+        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
+        $this->_helper->contextSwitch()
+                ->setAutoDisableLayout(true)
+                ->addActionContext('index', array('xml','json'))
+                ->addActionContext('denomination', array('xml','json'))
+                ->initContext();
     }
 
     /** Internal period number for querying the database
-    */
+     * @access protected
+     * @var integer
+     */
     protected $_period = 47;
 
     /** Set up index page for denominations
-    */
+     * @access public
+     * @return void
+     */
     public function indexAction() {
-    $denominations = new Denominations();
-    $this->view->denominations = $denominations->getDenominations($this->_period,null);
-
+        $this->view->denominations = $this->_denominations
+                ->getDenominations($this->_period, null);
     }
 
     /** Get details of each individual denomination
-    * @param int $id denomination number
-    */
+     * @access public
+     * @return void
+     * @throws Pas_Exception_Param
+     */
     public function denominationAction() {
-    if($this->_getParam('id',false)) {
-
-    $id = (int)$this->_getParam('id');
-    $this->view->id = $id;
-
-    $denoms = new Denominations();
-    $this->view->denoms = $denoms->getDenom($id,(int)$this->_period);
-
-    $rulers = new Denominations();
-    $this->view->rulers = $rulers->getRulerDenomination((int)$id);
-
-    } else {
-    throw new Pas_Exception_Param($this->_missingParameter);
-    }
+        if($this->_getParam('id',false)) {
+        $this->view->id = $this->_getParam('id');
+        $this->view->denoms = $this->_denominations->getDenom($this->_getParam('id'),(int)$this->_period);
+        $this->view->rulers = $this->_denominations->getRulerDenomination($this->_getParam('id'));
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
     }
  }

@@ -26,7 +26,7 @@ class CalendarForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
 	$eventtypes = new EventTypes();
 	$event_options = $eventtypes->getTypesWords();

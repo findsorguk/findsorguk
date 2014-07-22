@@ -23,7 +23,7 @@ class SuggestedForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
 	$projecttypes = new ProjectTypes();
 	$projectype_list = $projecttypes->getTypes();

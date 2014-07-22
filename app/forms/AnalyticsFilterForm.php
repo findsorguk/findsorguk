@@ -14,7 +14,7 @@ class AnalyticsFilterForm extends Pas_Form {
      * @access public
      * @param array $options
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
         parent::__construct($options);
 

@@ -23,7 +23,7 @@ class Staffshoardsymposium_PapersController extends Pas_Controller_Action_Admin 
 		$content = new Content();
 		$this->view->content = $content->getContent('staffs', $this->_getParam('slug'));
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 

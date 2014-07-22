@@ -25,7 +25,7 @@ class InstitutionForm extends Pas_Form {
      * @return void
      * @param array $options
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
 	parent::__construct($options);
 

@@ -32,7 +32,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	$this->_images = new Slides();
 	$this->_cache = Zend_Registry::get('cache');
 	$this->_zoomifyObject = new Pas_Zoomify_FileProcessor();
-	$this->_arrayTools = new Pas_ArraysFunctions();
+	$this->_arrayTools = new Pas_ArrayFunctions();
 	}
 
 	const REDIRECT 	= 'database/images/';
@@ -392,7 +392,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	}
 	}
 	} else {
-	throw new Pas_Exception_Param($this->_missingParameter);
+	throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** Unlink an image from a record
@@ -430,7 +430,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	}
 	}
 	} else {
-	throw new Pas_Exception_Param($this->_missingParameter);
+	throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 
@@ -476,7 +476,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
 	}
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	//EOF controller

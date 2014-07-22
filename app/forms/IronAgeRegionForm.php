@@ -24,7 +24,7 @@ class IronAgeRegionForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
         $tribes = new Tribes();
 	$tribes_options = $tribes->getTribes();

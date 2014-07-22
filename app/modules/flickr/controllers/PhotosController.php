@@ -125,7 +125,7 @@ class Flickr_PhotosController
 	$this->view->pictures = $flickr;
 
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 	/** get photos's details
@@ -176,7 +176,7 @@ class Flickr_PhotosController
 	$this->view->pictures = $flickr;
 	}
 //	} else {
-//		throw new Pas_Exception_Param($this->_missingParameter);
+//		throw new Pas_Exception_Param($this->_missingParameter, 500);
 //	}
 	}
 

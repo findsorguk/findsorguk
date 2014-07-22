@@ -39,7 +39,7 @@ class GreekRomanCoins_DenominationsController extends Pas_Controller_Action_Admi
 	if($this->_getParam('id',false)){
 	$this->view->denoms = $this->_denominations->getDenom((int)$this->_getParam('id'),(int)$this->_period);
     } else {
-	throw new Pas_Exception_Param($this->_missingParameter);		
+	throw new Pas_Exception_Param($this->_missingParameter, 500);		
 	}
 	}
 	

@@ -26,7 +26,7 @@ class ReverseTypeForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	
 	$reeces = new Reeces();
 	$reeces_options = $reeces->getRevTypes();

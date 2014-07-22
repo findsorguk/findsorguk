@@ -228,7 +228,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
     $this->view->record = $record;
     }
     } else {
-        throw new Pas_Exception_Param($this->_missingParameter);
+        throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 
@@ -355,7 +355,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
     }
     }
     } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 
@@ -421,7 +421,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
     }
     }
     } else {
-        throw new Pas_Exception_Param($this->_missingParameter);
+        throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 
@@ -450,7 +450,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 }
             }
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -501,7 +501,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
     }
     }
    	} else {
-            throw new Pas_Exception_Param($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
    }
 

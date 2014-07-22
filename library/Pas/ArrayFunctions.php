@@ -21,10 +21,14 @@ class Pas_ArrayFunctions {
     /** Clean array from getAllParams method
      * @@access public
      * @param array $array
+     * @param array $extras
      * @return array
      */
-    public function array_cleanup( array $array ) {
+    public function array_cleanup( array $array, array $extras ) {
         $todelete = array('submit','action','controller','module','csrf');
+        if(is_array($extras)) {
+            $todelete = array_merge($todelete, $extras);
+        }
         foreach( $array as $key => $value ) {
             foreach($todelete as $match){
                 if($key == $match){
@@ -33,5 +37,23 @@ class Pas_ArrayFunctions {
             }
         }
         return $array;
+    }
+    
+    /** Get the unique key in a multi-dimensional array
+     * @access public
+     * @param array $array The array to search
+     * @param string $sub_key The sub key to search for
+     * @return array
+     */
+    public function unique_multi_array($array, $sub_key) {
+        $target = array();
+        $existing_sub_key_values = array();
+        foreach ($array as $key=>$sub_array) {
+            if (!in_array($sub_array[$sub_key], $existing_sub_key_values)) {
+                $existing_sub_key_values[] = $sub_array[$sub_key];
+                $target[$key] = $sub_array;
+            }
+        }
+        return $target;
     }
 }

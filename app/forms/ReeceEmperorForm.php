@@ -26,7 +26,7 @@ class ReeceEmperorForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	
 	$periods = new Reeces();
 	$period_actives = $periods->getReeces();

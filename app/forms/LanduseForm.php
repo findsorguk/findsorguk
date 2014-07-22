@@ -26,7 +26,7 @@ class LanduseForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
         $landuses = new Landuses();
 	$landuse_opts = $landuses->getUsesValid();

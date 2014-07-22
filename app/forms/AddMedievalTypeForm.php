@@ -17,7 +17,7 @@ class AddMedievalTypeForm extends Pas_Form {
      * @param type $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 
 	$cats = new CategoriesCoins();
 	$cat_options = $cats->getCategoriesAll();

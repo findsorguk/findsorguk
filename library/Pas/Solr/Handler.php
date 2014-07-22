@@ -841,12 +841,13 @@ class Pas_Solr_Handler {
 
     /** Check the field list works by core
      * @access protected
-     * @param array $fields
+     * @param string $fields
      * @return \Pas_Solr_Handler
      * @throws Pas_Solr_Exception
      */
     protected function checkFieldList($fields){
-        if(!is_null($fields)){
+       
+        if(is_null($fields)){
             $schemaFields = $this->getSchemaFields();
             $schemaFields[] = '*';
             $schemaFields[] = 'q';
@@ -856,8 +857,6 @@ class Pas_Solr_Handler {
                     throw new Pas_Solr_Exception( $message, 500);
                 }
             }
-        } else {
-            throw new Pas_Solr_Exception('The fields supplied are not an array');
         }
         return $this;
     }
@@ -949,7 +948,8 @@ class Pas_Solr_Handler {
         if(!is_null($this->getFacets())){
             $this->_createFacets($this->getFacets());
             foreach($params as $k => $v){
-                if(in_array($k,$this->getFacetFields())){
+        
+                if(in_array($k, $this->getFacetFields())){
                     $this->buildFacetQueries($k,$v);
                     unset($params['k']);
                 }

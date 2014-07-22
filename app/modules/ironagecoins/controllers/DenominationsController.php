@@ -43,7 +43,7 @@ class IronAgeCoins_DenominationsController extends Pas_Controller_Action_Admin {
     $regions = new Geography();
     $this->view->regions = $regions->getIronAgeDenomGeog($id);
     } else {
-    	throw new Pas_Exception_Param($this->_missingParameter);
+    	throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 }

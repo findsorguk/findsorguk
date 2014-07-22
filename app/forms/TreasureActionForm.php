@@ -24,7 +24,7 @@ class TreasureActionForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
 	
 	$actionTypes = new TreasureActionTypes();
 	$actionlist = $actionTypes->getList();

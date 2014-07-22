@@ -31,7 +31,7 @@ class FindSpotForm extends Pas_Form {
      * @return void
      * 
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = null) {
         
         $counties = new OsCounties();
         $county_options = $counties->getCountiesID();

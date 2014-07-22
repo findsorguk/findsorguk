@@ -58,7 +58,7 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
         $response = $this->getResponse();
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
         $route = Zend_Controller_Front::getInstance()->getRouter()->getCurrentRoute();
-        if(!in_array($ctrllr, $this->_disabled)) {
+        if(!in_array($ctrllr, $this->_disabled) && (!in_array($contextSwitch->getCurrentContext(), $this->_contexts))) {
             if(!in_array($contextSwitch->getCurrentContext(), $this->_contexts)) {
                 $module = strtolower($request->getModuleName());
                 $view->contexts = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch')
@@ -80,7 +80,7 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
                         $view->headTitle('The PAS website')
                                 ->setSeparator(' - ');
                     }
-                }
+                } 
     	if(!$route instanceOf Zend_Rest_Route){
             $response->insert('userdata', $view->render('structure/userdata.phtml'));
             $response->insert('header', $view->render('structure/header.phtml'));

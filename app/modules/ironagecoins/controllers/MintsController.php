@@ -42,7 +42,7 @@ class IronAgeCoins_MintsController extends Pas_Controller_Action_Admin {
     $this->view->id = $this->_getParam('id');
     $this->view->mints = $this->_mints->getIronAgeMint((int)$this->_getParam('id'));
     } else {
-    throw new Pas_Exception_Param($this->_missingParameter);
+    throw new Pas_Exception_Param($this->_missingParameter, 500);
     }
     }
 }

@@ -66,7 +66,7 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin {
 	. $this->_request->getParam('id'))->toArray());
 	}
 	} else {
-		throw new Pas_Exception_Param($this->_missingParameter);
+		throw new Pas_Exception_Param($this->_missingParameter, 500);
 	}
 	}
 
