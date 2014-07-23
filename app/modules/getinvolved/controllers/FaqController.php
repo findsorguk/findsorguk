@@ -1,28 +1,36 @@
 <?php
 /** Controller for manipulating the FAQ data
-* 
-* @category   Pas
-* @package    Pas_Controller
-* @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Controller_Action
+ * @subpackage Admin
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses Faqs
 */
 class GetInvolved_FaqController extends Pas_Controller_Action_Admin {
 	
-	/** Initialise the ACL and setup contexts
-	*/ 
+    /** The init function
+     * @access public
+     * @return void
+     */
     public function init() {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-		$this->_helper->acl->allow('public',null);
-		$this->_helper->contextSwitch()->setAutoJsonSerialization(false);
-		$this->_helper->contextSwitch()->setAutoDisableLayout(true)
-			 ->addActionContext('index', array('xml','json'))
-             ->initContext();
-	}
+        $this->_helper->acl->allow('public',null);
+        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
+        $this->_helper->contextSwitch()->setAutoDisableLayout(true)
+                ->addActionContext('index', array('xml','json'))
+                ->initContext();
+    }
 		
-	public function indexAction() {
-		$faqs = new Faqs();
-		$this->view->faqs = $faqs->getAll();
-	}
-
+   /** Show all frequently asked questions
+    * @access public
+    * @return void
+    */
+    public function indexAction() {
+        $faqs = new Faqs();
+        $this->view->faqs = $faqs->getAll();
+    }
 }

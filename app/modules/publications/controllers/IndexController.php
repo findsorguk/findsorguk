@@ -2,8 +2,8 @@
 /** Controller for manipulating publications data
  * 
  * @category   Pas
- * @package    Pas_Controller
- * @subpackage ActionAdmin
+ * @package Pas_Controller_Action
+ * @subpackage Admin
  * @author     Daniel Pett <dpett@britishmuseum.org>
  * @copyright  Daniel Pett <dpett@britishmuseum.org>
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
