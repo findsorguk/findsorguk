@@ -1,31 +1,40 @@
 <?php 
 /** Controller for all getting data on existing treasure cases
-* 
-* @category   Pas
-* @package    Pas_Controller
-* @subpackage ActionAdmin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett 
+ * @category   Pas
+ * @package Pas_Controller_Action
+ * @subpackage Admin
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * @uses TreasureCases
+ * 
 */
 class Treasure_CasesController extends Pas_Controller_Action_Admin {
-	
-	/** Initialise the ACL and contexts
-	*/ 
+
+    /** Init the controller
+     * @access public
+     * @return void
+     */
     public function init() {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-		$this->_helper->_acl->allow('public',NULL);
+        $this->_helper->_acl->allow('public',NULL);
     }
-	/** Render index pages
-	*/ 
-	function indexAction() {
-		$treasure = new TreasureCases();
-		$this->view->treasurecases = $treasure->getCases($this->_getAllParams());
-		$current_year = date('Y');
-		$years = range(1998, $current_year);
-		$yearslist = array();
-		foreach($years as $key => $value) {
-		$yearslist[] = array('year' => $value);
-		}
-		$this->view->years = $yearslist;
-	}
+    
+    /** The index action
+     * @access public
+     * @return void
+     */
+    public function indexAction() {
+        $treasure = new TreasureCases();
+        $this->view->treasurecases = $treasure->getCases($this->_getAllParams());
+        $current_year = date('Y');
+        $years = range(1998, $current_year);
+        $yearslist = array();
+        foreach($years as $key => $value) {
+            $yearslist[] = array('year' => $value);
+        }
+        $this->view->years = $yearslist;
+    }
 }

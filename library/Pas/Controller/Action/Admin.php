@@ -152,10 +152,10 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
     public function secuid() {
         list($usec, $sec)= explode(" ", microtime());
         $ms = dechex(round($usec * 4080));
-	while(strlen($ms) < 3) {
+        while(strlen($ms) < 3) {
             $ms = '0' . $ms;
-	}
-	return strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $ms);
+        }
+        return strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $ms);
     }
 
     /** Create an individual findID
@@ -163,9 +163,9 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @return type
      */
     public function FindUid() {
-	list($usec, $sec) = explode(" ", microtime());
-	$suffix =  strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
-	return $this->getInstitution() . '-' . $suffix;
+        list($usec, $sec) = explode(" ", microtime());
+        $suffix =  strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
+        return $this->getInstitution() . '-' . $suffix;
     }
 
     /** Retrieve the page number from pagination
@@ -177,9 +177,9 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
         if(!isset($page)){
             $start = 1;
         } else {
-            $start = $page ;
-	}
-	return $start;
+            $start = $page;
+        }
+        return $start;
     }
 
      /** Curl function to retrieve data from url
@@ -199,7 +199,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
             ),
 	);
         $client = new Zend_Http_Client($url, $config);
-	return $client->request();
+        return $client->request();
     }
 
     /** The cache object
