@@ -1,7 +1,7 @@
 <?php
-/** 
+/**
  * Controller for displaying various ajax request pages
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Controller_Action
@@ -9,8 +9,24 @@
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 2
- * 
- * 
+ * @uses Finds
+ * @uses Pas_Exception_Param
+ * @uses Slides
+ * @uses Rallies
+ * @uses Periods
+ * @uses Coins
+ * @uses Publications
+ * @uses Pas_Exception_NotAuthorised
+ * @uses Findspots
+ * @uses FindsAudit
+ * @uses FindSpotsAudit
+ * @uses CoinsAudit
+ * @uses SaveSearchForm
+ * @uses Pas_Solr_Handler
+ * @uses Pas_Solr_FieldGeneratorFinds
+ * @uses Pas_Exporter_Generate
+ * @uses JettonGroups
+ * @uses JettonTypes
 */
 class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
@@ -19,7 +35,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @var \Finds
      */
     protected $_finds;
-    
+
     /** Get the finds model
      * @access public
      * @return \Finds
@@ -30,6 +46,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
     }
     /** Setup the contexts by action and the ACL.
      * @access public
+     * @return void
      */
     public function init() {
 	$this->_helper->_acl->allow('public',NULL);
@@ -47,12 +64,13 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
     }
 
     /** The base redirect
-     * 
+     *
      */
     const REDIRECT = '/database/artefacts/';
 
     /** Redirect as no direct access
      * @access public
+     * @return void
      */
     public function indexAction() {
         $this->_redirect(self::REDIRECT);
@@ -60,6 +78,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Display the webcitation page
      * @access public
+     * @return void
+     * @throws Pas_Exception_Param
      */
     public function webciteAction()	{
         if($this->_getParam('id',false)){
@@ -71,6 +91,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Display the find embed view
      * @access public
+     * @return void
+     * @throws Pas_Exception_Param
      */
     public function embedAction() {
         if($this->_getParam('id',false)){
@@ -85,6 +107,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Retrieve the nearest finds to a lat lon point
      * @access public
+     * @return void
      */
     public function nearestAction() {
         $lat = $this->_getParam('lat');
@@ -98,6 +121,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Download a file
      * @access public
+     * @return void
+     * @throws Pas_Exception_Param
      */
     public function downloadAction() {
         if($this->_getParam('id',false)) {
@@ -122,6 +147,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Display rally data
      * @access public
+     * @return void
      */
     public function rallydataAction() {
         $rallies = new Rallies();
@@ -129,18 +155,11 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 	$this->getResponse()->setHeader('Content-type', 'text/xml');
     }
 
-    /** Display period tag cloud
-     * @access public
-     * @todo Deprecate?
-     */
-    public function tagcloudAction() {
-        $periods = new Periods();
-        $this->view->periods = $periods->getPeriodDetails($this->_getParam('id'));
-        $this->view->objects = $periods->getObjectTypesByPeriod($this->_getParam('id'));
-    }
-
     /** Record data overlay page
      * @access public
+     * @return void
+     * @throws Pas_Exception_NotAuthorised
+     * @throws Pas_Exception_Param
      */
     public function recordAction() {
         if($this->_getParam('id',false)) {
@@ -170,7 +189,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
     }
 
     /** Display a report in pdf format
+     * @return void
      * @access public
+     * @throws Pas_Exception_NotAuthorised
+     * @throws Pas_Exception_Param
      */
     public function reportAction() {
         if($this->_getParam('id',false)) {
@@ -203,6 +225,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Get a find autdit overlay
      * @access public
+     * @return void
      */
     public function auditAction() {
         $audit = new FindsAudit();
@@ -211,6 +234,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Get a findspot overlay from the audit table
      * @access public
+     * @return void
      */
     public function fsauditAction(){
         $audit = new FindSpotsAudit();
@@ -219,6 +243,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Get a coin overlay from the audit table
      * @access public
+     * @return void
      */
     public function coinauditAction(){
         $audit = new CoinsAudit();
@@ -227,6 +252,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Get a saved search overlay
      * @access public
+     * @return void
      */
     public function savesearchAction() {
         $form = new SaveSearchForm();
@@ -235,6 +261,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Copy the last find
      * @access public
+     * @return void
      */
     public function copyfindAction() {
         $finddata = $this->getFinds()->getLastRecord($this->getIdentityForForms());
@@ -245,6 +272,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Get the mapdata for layouts
      * @access public
+     * @return void
      */
     public function mapdataAction(){
 	$this->_helper->layout->disableLayout();
@@ -254,10 +282,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 	$search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
 	$search->setFields(array(
-            'id','old_findID','description', 
+            'id','old_findID','description',
             'gridref','fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
-            'district', 'parish','knownas', 
+            'district', 'parish','knownas',
             'thumbnail'
             ));
 	$search->setParams($params);
@@ -268,6 +296,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
    /** Secondary version of the mapdata function
     * @access public
     * @todo deprecate?
+    * @return void
     */
    public function mapdata2Action(){
         $params = $this->_getAllParams();
@@ -278,10 +307,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 	$search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
 	$search->setFields(array(
-            'id','old_findID','description', 
-            'gridref','fourFigure', 'longitude', 
+            'id','old_findID','description',
+            'gridref','fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
-            'district', 'parish','knownas', 
+            'district', 'parish','knownas',
             'thumbnail'
             ));
 	$search->setParams($params);
@@ -289,9 +318,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 	$this->view->results = $search->processResults();
 	$this->getResponse()->setHeader('Content-type', 'text/xml');
     }
-    
+
     /** Exporter action
      * @access public
+     * @return void
      */
     public function exporterAction(){
    	$this->_helper->layout->disableLayout();
@@ -301,10 +331,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 	$search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
 	$search->setFields(array(
-            'id','old_findID','description', 
-            'gridref','fourFigure', 'longitude', 
+            'id','old_findID','description',
+            'gridref','fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
-            'district', 'parish','knownas', 
+            'district', 'parish','knownas',
             'thumbnail'
             ));
 	$search->setParams($params);
@@ -313,7 +343,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
    }
 
    /** Create KML action
-    * 
+    * @access public
+    * @return void
     */
    public function kmlAction(){
        $exporter = new Pas_Exporter_Generate();
@@ -325,7 +356,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
     }
 
     /** The HER export action
-     * 
+     * @access public
+     * @return void
      */
    public function herAction(){
        $exporter = new Pas_Exporter_Generate();
@@ -334,7 +366,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
    }
 
    /** Create CSV export
-    * 
+    * @access public
+    * @return void
     */
    public function csvAction(){
        $exporter = new Pas_Exporter_Generate();
@@ -343,13 +376,15 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
    }
 
    /** The Norfolk exporter
-    * 
+    * @access public
+    * @return void
     */
    public function nmsAction(){
        $exporter = new Pas_Exporter_Generate();
        $exporter->setFormat('nms');
        $data = $exporter->execute();
-       $filename = 'NMSRecordsExport_For_' . $this->getUsername() . '_'. Zend_Date::now()->toString('yyyyMMddHHmmss') . '.pdf';
+       $filename = 'NMSRecordsExport_For_' . $this->getUsername()
+               . '_'. Zend_Date::now()->toString('yyyyMMddHHmmss') . '.pdf';
        $this->view->filename = $filename;
        $this->view->path = APPLICATION_PATH . '/tmp';
        $this->view->nms = $data;
@@ -357,6 +392,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
    /** An action for exporting as GIS shp files
     * @access public
+    * @return void
     */
    public function gisAction(){
        //Unused
@@ -364,6 +400,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
    /** Dump out all antiquities from the OS 1:50k
     * @access public
+    * @return void
     */
    public function osdataAction(){
    	$params = $this->_getAllParams();
@@ -387,6 +424,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
    /** Dump out SMR data
     * @access public
+    * @return void
     */
    public function smrsAction(){
    	$params = $this->_getAllParams();
@@ -404,6 +442,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
    /** The people action
     * @access public
+    * @return void
     */
    public function peopleAction(){
    	$params = $this->_getAllParams();
@@ -418,6 +457,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
         $this->view->results =  $search->processResults();
    }
 
+   /** The facet action
+    * @access public
+    * @return void
+    */
     public function facetAction(){
         $search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
@@ -438,6 +481,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** The people facet generator
      * @access public
+     * @return void
      */
     public function peoplefacetAction(){
         $search = new Pas_Solr_Handler();
@@ -457,6 +501,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** The image facet generator
      * @access public
+     * @return void
      */
     public function imagefacetAction(){
         $search = new Pas_Solr_Handler();
@@ -478,6 +523,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Generate my finds facet overlay
      * @access public
+     * @return void
      */
     public function myfindsfacetAction(){
         $search = new Pas_Solr_Handler();
@@ -500,6 +546,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** My institution facet overlay
      * @access public
+     * @return void
      */
     public function myinstitutionfacetAction(){
         $search = new Pas_Solr_Handler();
@@ -523,6 +570,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** My images facet overlay
      * @access public
+     * @return void
      */
 
     public function myimagesfacetAction(){
@@ -546,21 +594,24 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 
     /** Force an index update
      * @access public
+     * @return void
      */
    public function forceindexupdateAction(){
 	$this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
    }
-   
+
    /** Get the classes to token
     * @access public
+    * @return void
     */
    public function getclassestokenAction(){
    	$classes = new JettonGroups();
    	$this->view->json = $classes->getGroupsToClasses($this->_getParam('term'));
    }
-   
+
    /** Get jetton types
     * @access public
+    * @return void
     */
    public function gettypesgroupAction(){
    	$types = new JettonTypes();
