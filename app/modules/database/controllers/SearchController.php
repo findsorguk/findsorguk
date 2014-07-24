@@ -104,7 +104,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function indexAction() {
         $form = new SolrForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
@@ -120,7 +120,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function advancedAction(){
         $form = new AdvancedSearchForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
@@ -136,7 +136,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function byzantinenumismaticsAction() {
         $form = new ByzantineNumismaticSearchForm();
         $this->view->byzantineform = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
@@ -149,7 +149,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function earlymednumismaticsAction() {
         $form = new EarlyMedNumismaticSearchForm();
         $this->view->earlymedform = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
@@ -162,7 +162,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function mednumismaticsAction() {
         $form = new MedNumismaticSearchForm();
         $this->view->earlymedform = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
@@ -175,7 +175,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function postmednumismaticsAction() {
         $form = new PostMedNumismaticSearchForm();
         $this->view->earlymedform = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
@@ -191,7 +191,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function romannumismaticsAction() {
         $form = new RomanNumismaticSearchForm();
         $this->view->formRoman = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
@@ -226,7 +226,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function greekromanAction() {
         $form = new GreekRomanSearchForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
@@ -251,7 +251,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
             $params[$key] = $value;
         }
         $this->view->params = $params;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)) {
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $insertData = $form->getValues();
                 $insertData['searchString'] = $lastsearch->searchString;
@@ -288,7 +288,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
             $this->view->params = $params;
             $form = new EmailSearchForm();
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($_POST)){
+            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
                 if ($form->isValid($form->getValues())) {
                     $to[] = array(
                     'email' => $form->getValue('email'),
@@ -341,7 +341,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function solrAction(){
         $form = new SolrForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)) 	 {
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) 	 {
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
@@ -410,7 +410,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function spatialAction(){
         $form = new FindFilterForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $params = array(
                     'bbox' => $form->getValue('bbox'),

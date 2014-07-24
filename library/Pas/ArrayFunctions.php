@@ -25,7 +25,9 @@ class Pas_ArrayFunctions {
      * @return array
      */
     public function array_cleanup( array $array, array $extras ) {
-        $todelete = array('submit','action','controller','module','csrf');
+        $todelete = array(
+            'submit', 'action', 'controller',
+            'module', 'csrf', 'page');
         if(is_array($extras)) {
             $todelete = array_merge($todelete, $extras);
         }

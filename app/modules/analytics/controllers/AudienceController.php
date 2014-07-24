@@ -27,20 +27,6 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
         $this->_pword = $this->_helper->config()->webservice->google->password;
     }
     
-    /** Retrieve the page number
-     * @access public
-     * @return integer
-     */
-    public function getPage() {
-        $page = $this->_getParam('page');
-        if(!isset($page)){
-            $start = 1;
-        } else {
-            $start = $page;
-        }
-        return $start;
-    }
-
     /** Get the start number
      * @access public
      * @return integer
@@ -57,6 +43,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     
     /** The index action
      * @access public
+     * @return void
      */
     public function indexAction(){
     	$this->_helper->redirector('overview');

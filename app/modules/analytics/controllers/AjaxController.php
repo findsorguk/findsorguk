@@ -9,6 +9,10 @@
  * @subpackage Admin
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses Zend_Gdata_Analytics
+ * @uses Pas_Analytics_Timespan
+ * @uses Pas_Analytics_Gateway
+ * @uses Zend_Gdata_Analytics_DataQuery
  * 
  */
 class Analytics_AjaxController extends Pas_Controller_Action_Admin {
