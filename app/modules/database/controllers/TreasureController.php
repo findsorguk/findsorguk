@@ -1,217 +1,266 @@
 <?php
 /** Controller for treasure module
- * @todo finish module's functions
-* 
-* @category   Pas
-* @package Pas_Controller_Action
-* @subpackage Admin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
-*/
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @version 1
+ * @category   Pas
+ * @package Pas_Controller_Action
+ * @subpackage Admin
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @uses TreasureCases
+ * @uses Pas_Exception_Param
+ * @uses TreasureValuations
+ * @uses TreasureAssignations
+ * @uses TvcDatesToCases
+ * @uses TreasureActions
+ * @uses AgreedTreasureValuations
+ * @uses ProvisionalValuationForm
+ * 
+ */
 class Database_TreasureController extends Pas_Controller_Action_Admin {
 	
-	protected $_treasureID, $_redirect;
-	
-	public function init(){
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');	
-	$this->_helper->_acl->allow('flos',null);
-	$this->_treasureID = $this->_getParam('treasureID');
-	$this->view->id = $this->_treasureID;
-	$this->_redirect = $this->view->url(array(
-	'module' => 'database',
-	'controller' => 'treasure',
-	'action' => 'casehistory',
-	'treasureID' => $this->_treasureID)
-	,null,true);
-	}
-	
-	public function indexAction() {
-	$this->_flashMessenger->addMessage('There is no direct access to the root action for treasure');
-	$this->_redirect('/treasure/cases/');
-	}
-	
-	public function casehistoryAction(){
-	if($this->_getParam('treasureID',false)){	
-	$treasure = new TreasureCases();
-	$this->view->cases = $treasure->getCaseHistory($this->_treasureID);
-	$valuations = new TreasureValuations();
-	$this->view->values = $valuations->listvaluations($this->_treasureID);
-	$curators = new TreasureAssignations();
-	$this->view->curators = $curators->listCurators($this->_treasureID);
-	$committees = new TvcDatesToCases();
-	$this->view->tvcs = $committees->listDates($this->_treasureID);
-	$actions = new TreasureActions();
-	$this->view->actions = $actions->getActionsListed($this->_treasureID);
-	$finals = new AgreedTreasureValuations();
-	$this->view->finalvalues = $finals->listvaluations($this->_treasureID);
-	} else {
-		throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}	
-	}
-	public function eventAction(){
-	if($this->_getParam('treasureID',false)){	
-		
-	} else {
-		throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}
-	}
-	
-	public function editeventAction(){
-	if($this->_getParam('treasureID',false)){	
-		
-	} else {
-		throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}	
-	}
-	
-	public function provisionalvalueAction(){
-	if($this->_getParam('treasureID',false)){	
-	$form = new ProvisionalValuationForm();
-	$form->submit->setLabel('Add valuation');
-	$this->view->form = $form;
-	if ($this->_request->isPost()) {
-	$formData = $this->_request->getPost();
-	if ($form->isValid($formData)) {
-	$data = $form->getValues();
-	$provisionals = new TreasureValuations();
-	$insert = $provisionals->add($data);
-	$this->_redirect($this->_redirect);
-	$this->_flashMessenger->addMessage('A new provisional value has been added.');
-	} else {
-	$form->populate($formData);
-	}
-	}
-	} else {
-		throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}	
-	}
-	
-	public function editprovisionalvalueAction(){
-		
-	$form = new ProvisionalValuationForm();
-	$form->submit->setLabel('Change valuation');
-	$this->view->form = $form;
-	if ($this->_request->isPost()) {
-	$formData = $this->_request->getPost();
-	if ($form->isValid($formData)) {
-	$data = $form->getValues();
-	$provisionals = new TreasureValuations();
-	$insert = $provisionals->updateTreasure($data);
-	$this->_redirect($this->_redirect);
-	$this->_flashMessenger->addMessage('A provisional value has been updated.');
-	} else {
-	$form->populate($formData);
-	}
-	} else {
-	$provisionals = new TreasureValuations();
-	$edit = $provisionals->fetchRow($provisionals->select()->where('treasureID = ?', $this->_treasureID));
-	$form->populate($edit->toArray());
-	}
-	}
-	
-	public function deleteprovisionalvalueAction(){
-		
-	}
-	
-	public function assigncuratorAction(){
-	if($this->_getParam('treasureID',false)){	
-	$form = new TreasureAssignForm();
-	$form->submit->setLabel('Assign to curator');
-	$this->view->form = $form;
-	if ($this->_request->isPost()) {
-	$formData = $this->_request->getPost();
-	if ($form->isValid($formData)) {
-	$data = $form->getValues();
-	$curators = new TreasureAssignations();
-	$insert = $curators->add($data);
-	$this->_redirect($this->_redirect);
-	$this->_flashMessenger->addMessage('Curator has been assigned.');
-	} else {
-	$form->populate($formData);
-	}
-	}
-	} else {
-		throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}	
-	}
-	
-	public function editcuratorAction(){
-		
-	}
-	
-	public function deletecuratorAction(){
-		
-	}
-	
-	public function chasecuratorAction(){
-		
-	}
-	
-	public function tvcAction(){
-	if($this->_getParam('treasureID',false)){	
-	$form = new TVCDateForm();
-	$form->submit->setLabel('Assign to meeting date');
-	$this->view->form = $form;
-	if ($this->_request->isPost()) {
-	$formData = $this->_request->getPost();
-	if ($form->isValid($formData)) {
-	$data = $form->getValues();
-	$dates = new TvcDatesToCases();
-	$insert = $dates->add($data);
-	$this->_redirect($this->_redirect);
-	$this->_flashMessenger->addMessage('Curator has been assigned.');
-	} else {
-	$form->populate($formData);
-	}
-	}
-	} else {
-		throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}		
-	}
-	
-	public function actionAction(){
-	if($this->_getParam('treasureID',false)){	
-	$form = new TreasureActionForm();
-	$form->submit->setLabel('Add an action taken');
-	$this->view->form = $form;
-	if ($this->_request->isPost()) {
-	$formData = $this->_request->getPost();
-	if ($form->isValid($formData)) {
-	$data = $form->getValues();
-	$actions = new TreasureActions();
-	$insert = $actions->add($data);
-	$this->_redirect($this->_redirect);
-	$this->_flashMessenger->addMessage('New course of action added.');
-	} else {
-	$form->populate($formData);
-	}
-	}
-	} else {
-		throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}			
-	}
+    /** The treasure ID to query
+     * @access protected
+     * @var string
+     */
+    protected $_treasureID;
+    
+    /** Get the treasure ID from the url params
+     * @access public
+     * @return string
+     */
+    public function getTreasureID() {
+        $this->_treasureID = $this->_getParam('treasureID');
+        return $this->_treasureID;
+    }
+    
+    /** The redirect to use
+     * @access protected
+     * @var string 
+     */
+    protected $_redirect;
+    
+    /** Get the redirect
+     * @access public
+     * @return string
+     */
+    public function getRedirect() {
+        $this->_redirect = $this->view->url(
+                array(
+                    'module' => 'database',
+                    'controller' => 'treasure',
+                    'action' => 'casehistory',
+                    'treasureID' => $this->_treasureID)
+                ,null,true);
+        return $this->_redirect;
+    }
 
-	public function finalAction(){
-	if($this->_getParam('treasureID',false)){	
-	$form = new FinalValuationForm();
-	$form->submit->setLabel('Add final valuation');
-	$this->view->form = $form;
-	if ($this->_request->isPost()) {
-	$formData = $this->_request->getPost();
-	if ($form->isValid($formData)) {
-	$data = $form->getValues();
-	$provisionals = new AgreedTreasureValuations();
-	$insert = $provisionals->add($data);
-	$this->_redirect($this->_redirect);
-	$this->_flashMessenger->addMessage('A new final valuation has been added.');
-	} else {
-	$form->populate($formData);
-	}
-	}
-	} else {
-		throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}	
-	}
+    /** The init function
+     * @access public
+     * @return void
+     */
+    public function init(){
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');	
+        $this->_helper->_acl->allow('flos',null);
+        $this->view->id = $this->_treasureID;
+        
+    }
+
+    /** Index action - nothing here
+     * @access public
+     * @return void
+     */
+    public function indexAction() {
+        $this->_flashMessenger->addMessage('There is no direct access to the root action for treasure');
+        $this->_redirect('/treasure/cases/');
+    }
+
+    /** Case history for a Treasure ID
+     * @access public
+     * @return void
+     * @throws Pas_Exception_Param
+     */
+    public function casehistoryAction(){
+        if($this->_getParam('treasureID',false)){	
+        $treasure = new TreasureCases();
+        $this->view->cases = $treasure->getCaseHistory($this->_treasureID);
+        $valuations = new TreasureValuations();
+        $this->view->values = $valuations->listvaluations($this->_treasureID);
+        $curators = new TreasureAssignations();
+        $this->view->curators = $curators->listCurators($this->_treasureID);
+        $committees = new TvcDatesToCases();
+        $this->view->tvcs = $committees->listDates($this->_treasureID);
+        $actions = new TreasureActions();
+        $this->view->actions = $actions->getActionsListed($this->_treasureID);
+        $finals = new AgreedTreasureValuations();
+        $this->view->finalvalues = $finals->listvaluations($this->_treasureID);
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }	
+    }
+    
+    /** The event action related to the treasure case
+     * @access public
+     * @return void
+     * @throws Pas_Exception_Param
+     * @todo finish this
+     */
+    public function eventAction(){
+        if($this->_getParam('treasureID',false)){	
+
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+    }
+    
+    /** Edit an event
+     * @access public
+     * @return void
+     * @throws Pas_Exception_Param
+     * @todo finish this
+     */
+    public function editeventAction(){
+        if($this->_getParam('treasureID',false)){	
+
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }	
+    }
+
+    /** Enter a provisional value
+     * @access public
+     * @return void
+     * @throws Pas_Exception_Param
+     */
+    public function provisionalvalueAction(){
+        if($this->_getParam('treasureID',false)){	
+            $form = new ProvisionalValuationForm();
+            $form->submit->setLabel('Add valuation');
+            $this->view->form = $form;
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($form->isValid($formData)) {
+                    $data = $form->getValues();
+                    $provisionals = new TreasureValuations();
+                    $provisionals->add($data);
+                    $this->_redirect($this->_redirect);
+                    $this->_flashMessenger->addMessage('A new provisional value has been added.');
+                } else {
+                    $form->populate($formData);
+                }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }	
+    }
+
+    /** Edit a valuation
+     * @access public
+     * @return void
+     */
+    public function editprovisionalvalueAction(){
+        $form = new ProvisionalValuationForm();
+        $form->submit->setLabel('Change valuation');
+        $this->view->form = $form;
+        if ($this->_request->isPost()) {
+            $formData = $this->_request->getPost();
+            if ($form->isValid($formData)) {
+                $data = $form->getValues();
+                $provisionals = new TreasureValuations();
+                $provisionals->updateTreasure($data);
+                $this->_redirect($this->_redirect);
+                $this->_flashMessenger->addMessage('A provisional value has been updated.');
+            } else {
+            $form->populate($formData);
+            }
+        } else {
+        $provisionals = new TreasureValuations();
+        $edit = $provisionals->fetchRow($provisionals->select()->where('treasureID = ?', $this->_treasureID));
+        $form->populate($edit->toArray());
+        }
+    }
+
+    /** Assign a curator
+     * @access public
+     * @return void
+     * @throws Pas_Exception_Param
+     */
+    public function assigncuratorAction(){
+        if($this->_getParam('treasureID',false)){	
+            $form = new TreasureAssignForm();
+            $form->submit->setLabel('Assign to curator');
+            $this->view->form = $form;
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($form->isValid($formData)) {
+                    $data = $form->getValues();
+                    $curators = new TreasureAssignations();
+                    $insert = $curators->add($data);
+                    $this->_redirect($this->_redirect);
+                    $this->_flashMessenger->addMessage('Curator has been assigned.');
+                } else {
+                    $form->populate($formData);
+                }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }	
+    }
+
+    /** The TVC action
+     * @access public
+     * @return void
+     * @throws Pas_Exception_Param
+     */
+    public function tvcAction(){
+        if($this->_getParam('treasureID',false)){	
+            $form = new TVCDateForm();
+            $form->submit->setLabel('Assign to meeting date');
+            $this->view->form = $form;
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($form->isValid($formData)) {
+                    $data = $form->getValues();
+                    $dates = new TvcDatesToCases();
+                    $insert = $dates->add($data);
+                    $this->_redirect($this->_redirect);
+                    $this->_flashMessenger->addMessage('Curator has been assigned.');
+                } else {
+                $form->populate($formData);
+                }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }		
+    }
+
+    /** Enter final valuation
+     * @access public
+     * @return void
+     * @throws Pas_Exception_Param
+     */
+    public function finalAction(){
+        if($this->_getParam('treasureID',false)){	
+            $form = new FinalValuationForm();
+            $form->submit->setLabel('Add final valuation');
+            $this->view->form = $form;
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($form->isValid($formData)) {
+                    $data = $form->getValues();
+                    $provisionals = new AgreedTreasureValuations();
+                    $insert = $provisionals->add($data);
+                    $this->_redirect($this->_redirect);
+                    $this->_flashMessenger->addMessage('A new final valuation has been added.');
+                } else {
+                    $form->populate($formData);
+                }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }	
+    }
 }
 
 

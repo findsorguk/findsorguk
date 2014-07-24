@@ -10,7 +10,7 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @uses ResearchProjects
  * @uses SuggestedResearch
- * @uses ResearchForm
+ * @uses ResearchForm 
  * 
 */
 class Admin_ResearchController extends Pas_Controller_Action_Admin {

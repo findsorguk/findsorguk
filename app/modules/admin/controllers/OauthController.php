@@ -8,7 +8,12 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
- * 
+ * @uses OauthTokens
+ * @uses Yahoo
+ * @uses Twitter
+ * @uses Pas_Oauth_Flickr
+ * @uses Pas_Oauth_Google
+ * @uses Pas_Exception
 */
 
 class Admin_OauthController extends Pas_Controller_Action_Admin {
@@ -32,7 +37,8 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
         $this->view->tokens = $tokens->fetchAll();
     }
     
-    /** Initiate request to create a yahoo token. This can only be done when logged into Yahoo
+    /** Initiate request to create a yahoo token. This can only be done when 
+     * logged into Yahoo
      * and also as an admin
      * @access public
      * @return void
@@ -42,7 +48,8 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
         $this->_redirect($yahoo->request());
     }
     
-    /** Initiate request to create a yahoo token. This can only be done when logged into Yahoo
+    /** Initiate request to create a yahoo token. This can only be done when 
+     * logged into Yahoo
      * and also as an admin
      * @return void
      * @access public
@@ -53,7 +60,8 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
 	$this->_flashMessenger->addMessage('Token created');
 	$this->_redirect('/admin/oauth/');
     }
-    /** Initiate request to create a twitter request token. This can only be done when logged into twitter
+    /** Initiate request to create a twitter request token. This can only be 
+     * done when logged into twitter
      * and also as an admin
      * @access public
      * @return void
@@ -62,7 +70,8 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
         $twitter = new Twitter();
         $this->_redirect($twitter->request());
     }
-    /** Initiate request to create a twitter access token. This can only be done when logged into twitter
+    /** Initiate request to create a twitter access token. This can only be 
+     * done when logged into twitter
      * and also as an admin
      * @access public
      * @return void

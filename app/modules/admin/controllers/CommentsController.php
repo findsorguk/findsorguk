@@ -9,7 +9,7 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @uses Comments
- * @uses PublishCommentFindForm
+ * @uses PublishCommentFindForm 
 */
 class Admin_CommentsController extends Pas_Controller_Action_Admin {
 

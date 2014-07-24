@@ -8,6 +8,9 @@
  * @subpackage Admin
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
+ * @uses Vacancies
+ * @uses VacancyForm
+ * @uses Pas_Exception_Param
 */
 class Admin_VacanciesController extends Pas_Controller_Action_Admin {
 	
@@ -35,7 +38,8 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin {
     const REDIRECT = '/admin/vacancies';
     
     /** Setup the contexts by action and the ACL.
-     * Pu@access public
+     * @access public
+     * @return void
     */	
     public function indexAction() {
         $this->view->currentvacs = $this->_vacancies
@@ -63,6 +67,7 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin {
     
     /** Edit a vacancy
      * @access public
+     * @return void
      */		
     public function editAction() {
         if($this->_getParam('id',false)) {
@@ -87,17 +92,18 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin {
                     if(count($vac)) {
                         $form->populate($vac->toArray());
                     } else {
-                        throw new Pas_Exception_Param($this->_nothingFound);
+                        throw new Pas_Exception_Param($this->_nothingFound, 404);
                     }
                 }
             }
         } else {
-            throw new Pas_Exception_Param($this->_missingParamter);
+            throw new Pas_Exception_Param($this->_missingParamter, 500);
         }
     }
     
     /** Delete a vacancy
      * @access public
+     * @return void
      */	
     public function deleteAction() {
         if ($this->_request->isPost()) {

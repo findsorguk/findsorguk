@@ -9,7 +9,11 @@
  * @package Pas_Controller_Action
  * @subpackage Admin
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- *
+ * @uses Pas_Param_Exception
+ * @uses Finds
+ * @uses Zend_Http_Client
+ * @uses Events
+ * 
  */
 class News_AjaxController extends Pas_Controller_Action_Admin {
     
@@ -20,6 +24,8 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
     protected $_apikey;
 
     /** Initialise the ACL and contexts
+     * @access public
+     * @return void
     */ 
     public function init() {
         $this->_helper->_acl->allow(NULL);
@@ -28,10 +34,11 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
     }
 
     /** Index page, nothing happens here
-     * 
+     * @access public
+     * @return void
      */
     public function indexAction() {
-    //Dummy action
+        //Dummy action
     }
 	
     /** Curl function to retrieve data from url
@@ -54,6 +61,8 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
     }
     
     /** Action for getting mapping data for the news module
+     * @access public
+     * @return void
      */
     public function newsdataAction() {
         $news = new News();
@@ -61,6 +70,8 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
     }
 
     /** Return data for the event data ajax page
+     * @access public
+     * @return void
      */
     public function eventdataAction() {
 	$events = new Events();
@@ -68,7 +79,9 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
     }
 
     /** Find news by individual MP from theyworkforyou
-    * @todo rewrite to use YQL
+     * @todo rewrite to use YQL
+     * @access public
+     * @return void
     */ 
     public function mpAction() {
 	$id = $this->_getParam('id');
@@ -81,13 +94,16 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
     }
 
     /** Get map data for news map
-    */ 
+     * @access public
+     * @return void
+     * @throws Pas_Param_Exception
+     */
     public function mapAction()	{
 	if($this->_getParam('constituency',false)){
             $finds = new Finds();
             $this->view->finds = $finds->getFindsConstituencyMap($this->_getParam('constituency'));
 	} else {
-            throw new Exception($this->_missingParameter);
+            throw new Pas_Param_Exception($this->_missingParameter);
 	}
     }
 }

@@ -1,4 +1,6 @@
-<?php if ($this->coins) :?>
+<?php 
+$this->headTitle('Delete coin data');
+if ($this->coins) :?>
 <?php 
 echo $this->partial('partials/database/deleteCoin.phtml',$this->coins['0']);?>
 

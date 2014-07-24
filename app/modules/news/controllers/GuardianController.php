@@ -1,6 +1,5 @@
 <?php
-/** 
- * Controller retrieving data from the Guardian API
+/**  Controller retrieving data from the Guardian API
  * 
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
@@ -9,22 +8,20 @@
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
- * 
- * 
+ * @see http://www.theguardian.com/info/developer-blog/2014/jul/17/introducing-the-content-api-v2?CMP=
+ * @uses Pas_Curl
+ * @uses Pas_Exception_Param
  */
 class News_GuardianController extends Pas_Controller_Action_Admin {
     /** The format to retrieve
-     * 
      */
     const FORMAT = "json";
 
     /** The base url for the guardian api
-     * 
      */
-    const GUARDIANAPI_URL = 'http://content.guardianapis.com/';
+    const GUARDIANAPI_URL = 'http://beta.content.guardianapis.com/';
 
     /** The default query
-     * 
      */
     const QUERY = 'Portable Antiquities Scheme';
 
