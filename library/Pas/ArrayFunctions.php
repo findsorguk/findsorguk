@@ -58,4 +58,14 @@ class Pas_ArrayFunctions {
         }
         return $target;
     }
+    
+    /** Function to combine an array
+     * @access public
+     * @param array $array1
+     * @param array $array2
+     * @return array
+     */
+    public function combine(array $array1, array $array2) {
+            return array_combine($array1,$array2);
+    }
 }

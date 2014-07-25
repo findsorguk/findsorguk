@@ -1,17 +1,25 @@
 <?php
 /** Controller for displaying information about people
-*
-* @category   Pas
-* @package Pas_Controller_Action
-* @subpackage Admin
-* @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
-* @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
+ * @category   Pas
+ * @package Pas_Controller_Action
+ * @subpackage Admin
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @uses People
+ * @uses Pas_Service_Geo_Coder
+ * @uses SolrForm
+ * @uses Pas_Solr_Handler
+ * @uses PeopleForm
+ * @uses Pas_Exception_Parameter
+ * @uses Users
 */
 class Database_PeopleController extends Pas_Controller_Action_Admin {
 
     /** The people model
      * @access protected
-     * @var object
+     * @var \People
      */
     protected $_people;
     
@@ -27,8 +35,13 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
      */
     protected $_currentContext;
     
+    /** Get the current content used
+     * @access public
+     * @return string
+     */
     public function getCurrentContext() {
-        $this->_currentContext = $this->_helper->contextSwitch()->getCurrentContext();
+        $this->_currentContext = $this->_helper->contextSwitch()
+                ->getCurrentContext();
         return $this->_currentContext;
     }
 
@@ -51,6 +64,8 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     }
 
     /** Setup the contexts by action and the ACL.
+     * @access public
+     * @return void
     */
     public function init() {
         $this->_helper->_acl->allow('flos',NULL);
@@ -72,7 +87,9 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     const REDIRECT = 'database/people/';
     
     /** Index page of all people on the database
-    */
+     * @access public
+     * @return void
+     */
     public function indexAction(){
         $form = new SolrForm();
         $form->removeElement('thumbnail');
@@ -86,15 +103,14 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
         $search->setFacets(array('county','organisation','activity'));
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->_getParam('submit'))){
-        $cleaner = new Pas_Array();
-        $params = $cleaner->array_cleanup($form->getValues(), 
-                    array('submit','action','controller','module','csrf'));
-        $this->_helper->Redirector->gotoSimple('index','people','database',$params);
+            $cleaner = new Pas_ArrayFunctions();
+            $params = $cleaner->array_cleanup($form->getValues());
+            $this->_helper->Redirector->gotoSimple('index','people','database',$params);
         } else {
-        $params = $this->_getAllParams();
-        $params['sort'] = 'surname';
-        $params['direction'] = 'asc';
-        $form->populate($this->_getAllParams());
+            $params = $this->_getAllParams();
+            $params['sort'] = 'surname';
+            $params['direction'] = 'asc';
+            $form->populate($this->_getAllParams());
         }
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';
@@ -107,7 +123,9 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     }
 
     /** Display details of a person
-    */
+     * @access public
+     * @return void
+     */
     public function personAction(){
         if($this->_getParam('id',false)) {
             $params = array();
@@ -115,7 +133,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
             if($this->_helper->contextSwitch()->getCurrentContext() !== 'vcf'){
                 $search = new Pas_Solr_Handler();
                 $search->setCore('beowulf');
-                $fields = new Pas_Solr_FieldGeneratorFinds($this->_helper->contextSwitch()->getCurrentContext());
+                $fields = new Pas_Solr_FieldGeneratorFinds($this->getCurrentContext());
                 $search->setFields($fields->getFields());
                 $params['finderID'] = $person['0']['secuid'];
                 $params['page'] = $this->_getParam('page');
@@ -126,12 +144,14 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
             }
             $this->view->peoples = $person;
         } else {
-            throw new Exception($this->_missingParameter);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
     
     /** Add personal data
+     * @access public
+     * @return void
     */
     public function addAction() {
         $secuid = $this->secuid();
@@ -182,7 +202,8 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                     $address .= ',';
                     $address .= $form->getValue('postcode');
                     $coords = $this->geoCodeAddress($address);
-                    $oldData = $this->getPeople()->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    $oldData = $this->getPeople()->fetchRow('id=' 
+                            . $this->_getParam('id'))->toArray();
                     if(array_key_exists('dbaseID',$updateData)){
                         $users = new Users();
                         $userdetails = array('peopleID' => $oldData['secuid']);
@@ -218,6 +239,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     
     /** Delete a person's data
      * @access public
+     * @return void
      */
     public function deleteAction() {
         if ($this->_request->isPost()) {
@@ -241,6 +263,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     /** An action to map the people
      * @access public
      * @todo make this more useful
+     * @return void
      */
     public function mapAction(){
         //All magic happens in the view
