@@ -44,7 +44,6 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init() {
-        $this->_helper->_acl->allow('flos', $faActions);
         $this->_helper->_acl->allow(
                 array('fa', 'flos'), 
                 array('add', 'edit', 'delete', 'index')

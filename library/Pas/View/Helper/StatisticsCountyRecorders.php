@@ -10,7 +10,7 @@
  *
  * @uses viewHelper Pas_View_Helper
  */
-class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstract
+class Pas_View_Helper_StatisticsCountyRecorders extends Zend_View_Helper_Abstract
 {
     protected $_solr;
 
@@ -41,7 +41,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
     $this->_request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
     }
 
-    public function statisticsCountyPrecision()
+    public function statisticsCountyRecorders()
     {
     return $this;
     }

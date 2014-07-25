@@ -10,7 +10,7 @@
  * echo $this->menu()
  * ->setModule('news')
  * ->setController('reviews')
- * ->setAction('index')
+ * ->setSection('index')
  * ->setRoute('r');
  * ?>
  * </code>

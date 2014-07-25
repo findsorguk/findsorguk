@@ -45,7 +45,7 @@ $('a[class^=delete]').confirm({
 <span class="given-name"><?php echo $this->escape($this->firstname);?></span> 
 <span class="family-name"><?php echo $this->escape($this->lastname);?></span>
 </h2> 
-<p><a href="<?php echo $this->url(array('module' => 'admin','controller'=>'contacts','action'=>'editcontact', 'id'=>$this->number));?>">Edit</a> | <a href="<?php echo $this->url(array('module' => 'admin','controller'=>'contacts','action'=>'deletecontact', 'id'=>$this->number));?>">Delete</a></p>
+<p><a href="<?php echo $this->url(array('module' => 'admin','controller'=>'contacts','action'=>'edit', 'id'=>$this->number));?>">Edit</a> | <a href="<?php echo $this->url(array('module' => 'admin','controller'=>'contacts','action'=>'delete', 'id'=>$this->number));?>">Delete</a></p>
  <div id="image-<?php echo $this->number;?>">
  <?php if(isset($this->image)){?>
  <img src="<?php echo $this->baseUrl().'/assets/staffphotos/thumbnails/'.$this->escape($this->image);?>" />

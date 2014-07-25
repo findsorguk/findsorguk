@@ -269,7 +269,7 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
               ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_UNIQUE_PAGEVIEWS)
               ->setStartDate($this->getStart())
               ->setEndDate($this->getEnd()) ;
-            if (isset($this->getSegment())) {
+            if (!is_null($this->getSegment())) {
             $query->setSegment($this->getSegment());
             }
             $this->data = $this->getAnalytics()->getDataFeed($query);
@@ -289,10 +289,10 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      */
     private function requiredPropertiesExist() {
         //If the url is not set set and a title is set, return false. Url is required.
-        if ( ! ( isset( $this->getProfile() )  ) ) {
+        if ( !is_null( $this->getProfile()   ) ) {
             return false;
         }
-        if ( ! ( isset( $this->getStart())) && ! (isset( $this->getEnd()) )) {
+        if ( !is_null ( $this->getStart()) && !is_null( $this->getEnd() )) {
             return false;
         }
         //If none of the above conditions are met then return test positive
