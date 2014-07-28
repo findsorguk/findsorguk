@@ -32,7 +32,7 @@ class Pas_Filter_BasicHtml implements Zend_Filter_Interface {
      * @access public
      * @param array $options
      */
-    public function __construct(array $options = null) {
+    public function __construct() {
         $config = HTMLPurifier_Config::createDefault();
         $this->_htmlPurifier = new HTMLPurifier($config);
         $config->set('Cache.SerializerPath',  CACHE_PATH . '/htmlpurifier');

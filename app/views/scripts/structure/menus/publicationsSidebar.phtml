@@ -9,7 +9,14 @@
         <li <?php if($controller == 'reports' && $action == 'annual') { echo 'class="expandfirst active"';};?>>
             <a href="#"><i class="icon-folder-open"></i>Scheme Annual reports</a>
             <ul class="nav nav-pills nav-stacked menuindent">
-                <?php echo $this->menu('publications','reports','index','reps');?></ul></li>
+                <?php echo $this->menu()
+                        ->setSection('publications')
+                        ->setController('reports')
+                        ->setSection('index')
+                        ->setRoute('reps')
+                        ;?>
+            </ul>
+        </li>
         
         <li <?php if($controller == 'reports' && $action == 'treasure') { echo 'class="expandfirst"';};?> >
             <a href="#"><i class="icon-folder-open"></i>Treasure Reports</a>

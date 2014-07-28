@@ -56,7 +56,7 @@ class CalendarForm extends Pas_Form {
                 ->setAttrib('size',70)
                 ->setAttrib('class', 'span8');
 
-	$eventDescription = new Zend_Form_Element_Textarea('content');
+	$eventDescription = new Pas_Form_Element_CKEditor('content');
 	$eventDescription->setLabel('Event description: ')
                 ->setRequired(true)
                 ->addFilters(array('StringTrim','WordChars'))

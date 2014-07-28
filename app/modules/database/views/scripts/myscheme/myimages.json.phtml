@@ -7,5 +7,5 @@ $meta = array(
     'totalPages' => ceil($paginator->getTotalItemCount()/$paginator->getItemCountPerPage()));
 echo Zend_Json::prettyPrint(Zend_Json::encode( ( array(
 	'meta' => $meta, 
-	'myImages' => $this->results,
+	'records' => $this->results,
 	'facets' => $this->facets) ) ) ) ;

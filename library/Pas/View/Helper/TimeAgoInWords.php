@@ -5,41 +5,39 @@
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Zend_View_Helper_Abstract
- * @author Daniel Pett
- * @since September 25 2008
- * Examples are: 23 seconds ago, 1 minute ago, 12 hours ago, 2 weeks ago, and if longer than a month the actual date is returned. This is based upon the class found in cakephp's helpers which is distributed, used and modified under an MIT licence.
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * Examples are: 23 seconds ago, 1 minute ago, 12 hours ago, 2 weeks ago,
+ *  and if longer than a month the actual date is returned. This is based 
+ * upon the class found in cakephp's helpers which is distributed, used and
+ *  modified under an MIT licence.
 */
-class Pas_View_Helper_TimeAgoInWords extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_TimeAgoInWords extends Zend_View_Helper_Abstract {
     /** Returns a UNIX timestamp, given either a UNIX timestamp or a valid strtotime() date string.
     * @param $date_string is the datetime string drawn from your query or static value
     * @return produces a formatted date string
     * @access private
     */
-
-    private function fromString($date_string)
-    {
-    if (is_integer($date_string) || is_numeric($date_string)) {
-    return intval($date_string);
-    } else {
-    return strtotime($date_string);
-    }
+    private function fromString($date_string)  {
+        if (is_integer($date_string) || is_numeric($date_string)) {
+            return intval($date_string);
+        } else {
+            return strtotime($date_string);
+        }
     }
 
     /**  Create the time ago in words display
-    * 	To use this within your view use <?php echo $this->timeAgoInWords($query->field);?>
-    * @param string $format can be changed using php's date formatting, here it is configured for display as so: Created on Wednesday 18th June 2008
+    * To use this within your view use <?php echo $this->timeAgoInWords($query->field);?>
+    * @param string $format can be changed using php's date formatting, 
+     * here it is configured for display as so: Created on Wednesday 18th June 2008
     * @param string $datetime_string
     * @param boolean $backwards
     * @param boolean $return
     */
-
     public function timeAgoInWords($datetime_string, $format = 'l jS F Y',
     $backwards = false, $return = false) {
         $datetime = $this->fromString($datetime_string);
-
         $in_seconds = $datetime;
         if ($backwards) {
             $diff = $in_seconds - time();
@@ -99,4 +97,3 @@ class Pas_View_Helper_TimeAgoInWords extends Zend_View_Helper_Abstract
 
     }
 }
-?>

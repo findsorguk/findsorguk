@@ -66,7 +66,8 @@ $application = new Zend_Application(
             APPLICATION_PATH . '/config/application.ini',
             APPLICATION_PATH . '/config/config.ini',
             APPLICATION_PATH . '/config/webservices.ini',
-            APPLICATION_PATH . '/config/emails.ini'
+            APPLICATION_PATH . '/config/emails.ini',
+            APPLICATION_PATH . '/config/routes.ini'
     ))
 );
 $application->bootstrap()->run();

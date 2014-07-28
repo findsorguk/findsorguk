@@ -11,16 +11,16 @@
 <td><?php echo $this->county;?></td>
 <td><?php echo $this->organisation;?></td>
 <td><?php echo $this->activity;?></td>
-<td>[<a href="<?php echo $this->url(array(
+<td><a class="btn-small btn-info" href="<?php echo $this->url(array(
     'module' => 'database',
     'controller' => 'people',
     'action' => 'edit',
     'id' => $this->id),null,true);?>" title="Edit <?php echo $this->forename;?> 
-    <?php echo $this->surname;?>">Edit</a> | <a href="<?php echo 
+    <?php echo $this->surname;?>">Edit</a> <a class="btn-small btn-danger" href="<?php echo 
     $this->url(array(
     'module' => 'database',
     'controller' => 'people',
     'action' => 'delete',
     'id' => $this->id),null,true);?>" title="Delete <?php echo $this->forename;?> 
-    <?php echo $this->surname;?>">Delete</a>] </td>
+    <?php echo $this->surname;?>">Delete</a> </td>
 </tr>

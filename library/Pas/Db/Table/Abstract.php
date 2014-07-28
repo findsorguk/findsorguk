@@ -9,10 +9,12 @@
  * @subpackage	Abstract
  * @version 1
  * @since 22nd September 2011
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
- *
+ * @uses Pas_ArrayFunctions
+ * @uses Pas_User_Details
+ * @uses Zend_Registry
  */
 class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
 
@@ -39,7 +41,23 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
      * @var type 
      */
     protected $_user;
+    
+    /** The array functions class
+     * @access protected
+     * @var \Pas_ArrayFunctions
+     */
+    protected $_cleaner;
+    
+    /** The array cleaner functions
+     * @access public
+     * @return \Pas_ArrayFunctions
+     */
+    public function getCleaner() {
+        $this->_cleaner = new Pas_ArrayFunctions();
+        return $this->_cleaner;
+    }
 
+    
     /** Construct the objects
      * @access public
      */
@@ -91,10 +109,9 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
      * @param array $data
      */
 	
-    public function add(  $data){
-   	if(array_key_exists('csrf', $data)){
-            unset($data['csrf']);
-        }
+    public function add(  $data ){
+   	
+        $data = $this->getCleaner()->array_cleanup($data);
 	if(empty($data['created'])){
             $data['created'] = $this->timeCreation();
 	}
@@ -107,9 +124,24 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
             }
         }
         return parent::insert(  $data);
-
     }    
 
+    /** The update over ride
+     * @access public
+     * @param type $data
+     * @param type $where
+     * @return type
+     */
+    public function update (array $data, $where ) {
+        $data = $this->getCleaner()->array_cleanup($data);
+        if(empty($data['updated'])){
+		$data['updated'] = $this->timeCreation();
+	}
+	if(empty($data['updatedBy'])){
+		$data['updatedBy'] = $this->getUserNumber();
+	}
+	return parent::update( $data, $where);
+    }
     /** Fetch pairs from the model
      * @access public
      * @param string $sql

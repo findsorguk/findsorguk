@@ -131,7 +131,7 @@ class Pas_View_Helper_MetaBase extends Zend_View_Helper_Abstract {
      * @param string $image
      * @return \Pas_View_Helper_MetaBase
      */
-    public function setImage(type $image) {
+    public function setImage( $image ) {
         $this->_image = $image;
         return $this;
     }

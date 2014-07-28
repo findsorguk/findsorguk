@@ -13,9 +13,9 @@ class Pas_Filter_HtmlBody extends Pas_Filter_HTMLPurifier {
    
     /** The constructor
      * @access public
-     * @param array $options
+     * @return void
      */
-    public function __construct(array $options = null) {
+    public function __construct() {
         $config = HTMLPurifier_Config::createDefault();
         $this->_htmlPurifier = new HTMLPurifier($config);
         $config->set('Cache.SerializerPath',  CACHE_PATH . '/htmlpurifier');
@@ -29,7 +29,7 @@ class Pas_Filter_HtmlBody extends Pas_Filter_HTMLPurifier {
         $config->set('AutoFormat.AutoParagraph', true);
         $config->set('HTML.TidyLevel', 'medium'); 
         $config->set('Attr.AllowedRel', 'nofollow,print,lightbox');
-        parent::__construct($options);
+        parent::__construct();
     }
 
 }

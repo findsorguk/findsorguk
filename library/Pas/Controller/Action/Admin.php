@@ -207,11 +207,15 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @var \Zend_Cache
      */
     protected $_cache;
-
-    /** Create the cache
+    
+    /** Get the cache
      * @access public
+     * @return \Zend_Cache
      */
-    public function init() {
+    public function getCache() {
         $this->_cache = Zend_Registry::get('cache');
+        return $this->_cache;
     }
+
+    
 }

@@ -30,7 +30,7 @@
  * @uses ManufacturesForm
  * @uses Manufactures
  * @uses Materials
- * @uses MaterialsForm
+ * @uses MaterialForm
  * @uses DecStylesForm
  * @uses DecStyles
  * @uses Landuses

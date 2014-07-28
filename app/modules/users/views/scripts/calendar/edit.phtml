@@ -1,6 +1,8 @@
 <?php
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
 $this->headTitle('Edit shared calendar event');
-echo $this->form;
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2>
+    <?php echo $this->title();?>
+</h2>
+<?php echo $this->form;?>

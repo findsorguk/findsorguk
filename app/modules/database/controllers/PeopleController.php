@@ -14,6 +14,7 @@
  * @uses PeopleForm
  * @uses Pas_Exception_Parameter
  * @uses Users
+ * @uses Pas_ArrayFunctions
 */
 class Database_PeopleController extends Pas_Controller_Action_Admin {
 
@@ -96,7 +97,6 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
         $form->q->setLabel('Search people: ');
         $form->q->setAttrib('placeholder','Try Bland for example');
         $this->view->form = $form;
-        $params = $this->array_cleanup($this->_getAllParams());
         $search = new Pas_Solr_Handler();
         $search->setCore('beopeople');
         $search->setFields(array('*'));

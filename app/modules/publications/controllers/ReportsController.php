@@ -44,40 +44,7 @@ class Publications_ReportsController extends Pas_Controller_Action_Admin {
      * @return void
      */ 
     public function annualAction(){
-        $slug = $this->_getParam('slug');
-        if($slug == '\d+') {
-            $this->view->contents = $this->_content->getFrontContent('reports');
-            $this->view->contents = $this->_content->getFrontContent('publications');
-            $service = Zend_Gdata_Docs::AUTH_SERVICE_NAME;
-            $client = Zend_Gdata_ClientLogin::getHttpClient(
-                    $this->_helper->config()->webservice->google->username, 
-                    $this->_helper->config()->webservice->google->password, 
-                    $service
-                    );
-            $docs = new Zend_Gdata_Docs($client);
-            $docsQuery = new Zend_Gdata_Docs_Query();
-            $docsQuery->setQuery('title:Scheme Annual Report');
-            $feed = $docs->getDocumentListFeed($docsQuery);
-            $documents = array();	
-            foreach ($feed->entries as $entry) {
-            $title = $entry->title;
-            foreach ($entry->link as $link) {
-                if ($link->getRel() === 'alternate') {
-                    $altlink = $link->getHref();
-                }
-            }
-            $documents[]=array('title' => $title, 
-                'altlink' => $altlink,
-                'updated' => $entry->updated,
-                'type' => $entry->content->type,
-                'published' => $entry->published
-                    );    
-            }
-            $this->view->documents = $documents;
-        } else {
-            $this->view->contents = $this->_content
-                    ->getContent('reports',$this->_getParam('slug'));
-        }
+        //Magic in view
     }
 
     /** Render treasure report pages
@@ -85,38 +52,6 @@ class Publications_ReportsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function treasureAction() {
-        $slug = $this->_getParam('slug');
-        if($slug == '\d+') {
-        $this->view->contents = $this->_content->getFrontContent('treports');
-        $service = Zend_Gdata_Docs::AUTH_SERVICE_NAME;
-        $client = Zend_Gdata_ClientLogin::getHttpClient(
-                    $this->_helper->config()->webservice->google->username, 
-                    $this->_helper->config()->webservice->google->password, 
-                    $service
-                    );
-        $docs = new Zend_Gdata_Docs($client);
-        $docsQuery = new Zend_Gdata_Docs_Query();
-        $docsQuery->setQuery('title:Treasure Annual Report');
-        $feed = $docs->getDocumentListFeed($docsQuery);
-        $documents = array();	
-        foreach ($feed->entries as $entry) {
-            $title = $entry->title;
-            foreach ($entry->link as $link) {
-                if ($link->getRel() === 'alternate') {
-                    $altlink = $link->getHref();
-                }
-            }
-            $documents[]=array('title' => $title, 
-                'altlink' => $altlink,
-                'updated' => $entry->updated,
-                'type' => $entry->content->type,
-                'published' => $entry->published
-            );    
-        }
-        $this->view->documents = $documents;
-        } else {
-            $this->view->contents = $content
-                    ->getContent('treports',$this->_getParam('slug'));
-        }
+        //Magic in view
     }
 }
