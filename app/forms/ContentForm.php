@@ -27,7 +27,10 @@ class ContentForm extends Pas_Form {
         
         $authors = new Users();
         $authorOptions = $authors->getAuthors();
-
+        
+        $sections = new Zend_Config_Ini( APPLICATION_PATH . '/config/sections.ini', 'production');
+        $sectionList = $sections->toArray();
+        
         parent::__construct($options);
 
 	$this->setName('addcontent');
@@ -75,35 +78,7 @@ class ContentForm extends Pas_Form {
 
 	$section = new Zend_Form_Element_Select('section');
 	$section->setLabel('Set site section to appear under: ')
-                ->addMultiOptions(array(
-                'index' => 'Home page',
-                'info' => 'Site information',
-                'staffs' => 'Staffordshire Hoard Symposium',
-                'getinvolved' => 'Get involved',
-                'frg' => 'Voluntary recording guide',
-                'byzantinecoins' => 'Byzantine coin guide',
-                'greekromancoins' => 'Greek and Roman coin guide',
-                'conservation' => 'Conservation pages',
-                'news' => 'News',
-                'reviews' => 'Scheme reviews',
-                'reports' => 'Annual reports',
-                'treports' => 'Treasure annual reports',
-                'romancoins' => 'Roman coin guide',
-                'ironagecoins' => 'Iron Age coin guide',
-                'earlymedievalcoins' => 'Early Medieval coin guide',
-                'medievalcoins' => 'Medieval coin guide',
-                'postmedievalcoins' => 'Post Medieval coin guide',
-                'research' => 'Research',
-                'api' => 'Applications Programming Interface',
-                'databasehelp' => 'Database help',
-                'events' => 'Events',
-                'treasure' => 'Treasure',
-                'help' => 'Help section',
-                'publications' => 'Publications',
-                'database' => 'Database front page',
-                'oai' => 'OAI instructions',
-                'bronzeage' => 'Bronze Age guide',
-                'secret' => 'Britain\'s secret treasures'))
+                ->addMultiOptions($sectionList)
                 ->setRequired(true)
                 ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
                 ->addErrorMessage('You must choose a section for this to be filed under');

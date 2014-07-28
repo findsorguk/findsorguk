@@ -4,12 +4,13 @@ $this->headMeta('A list of all finds recorded for me, by the Scheme','descriptio
 if($this->finds) :?>
 <div class="row-fluid">
 <h2>My finds recorded by the Scheme</h2>
+
+<?php echo $this->form;?>
 <div class="span8">
         <?php echo $this->partialLoop('partials/database/findRecordList.phtml',$this->finds);?>
     </div>
     <div class="span3">
-
-      <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
+        <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
         <?php echo $this->thumbnailToggler();?>
         <?php echo $this->resultsSorter()->setResults($this->paginator);?>
         <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>

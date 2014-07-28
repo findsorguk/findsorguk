@@ -1,34 +1,27 @@
 <tr class="valid-<?php echo $this->publishState;?>">
 <td><?php echo $this->title;?></td>
-<td><?php echo $this->sectionTitle($this->section);?></td>
+<td><?php echo $this->sectionTitle()->setTitle($this->section);?></td>
 <td><?php echo $this->timeAgoInWords($this->created);?></td>
 <td><?php echo $this->createdBy;?></td>
 <td><?php echo $this->timeAgoInWords($this->updated);?></td>
 <td><?php echo $this->updatedBy;?></td>
 <td>
 <?php
-$edit = $this->Href(array(
+$edit = $this->url(array(
     'module' => 'admin',
     'controller' => 'content',
     'action' => 'edit',
-    'checkAcl' => true,
-    'acl'=>'Zend_Acl',
-    'attribs' => array('title' => 'Edit static content'),
-    'params' => array('id' => $this->id),
-    'content'=> 'Edit')
-    );
-$delete = $this->Href(array(
+    'id' => $this->id),
+        'default', true);
+$delete = $this->url(array(
     'module' => 'admin',
-    'controller' =>'content',
-    'action' =>'delete',
-    'checkAcl' => true,
-    'acl' => 'Zend_Acl',
-    'attribs' => array('title' => 'Delete ' . $this->title),
-    'params' => array('id' => $this->id),
-    'content' => 'Delete')
-    );
+    'controller' => 'content',
+    'action' => 'delete',
+    'id' => $this->id),
+        'default', true);
 
-echo implode(' | ', array($edit, $delete));
 ?>
+    <a href="<?php echo $edit;?>" class="btn-small btn-info">Edit</a> 
+    <a href="<?php echo $delete;?>" class="btn-small btn-danger">Delete</a>
 </td>
 </tr>

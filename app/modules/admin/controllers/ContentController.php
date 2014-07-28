@@ -58,7 +58,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
     	$form = new ContentSearchForm();
     	$form->submit->setLabel('Search content');
         $this->view->form = $form;
-        $params = $this->array_cleanup($this->_getAllParams());
+        $params = $this->getCleaner()->array_cleanup($this->_getAllParams());
         $search = new Pas_Solr_Handler();
         $search->setCore('beocontent');
         $search->setFields(array(
@@ -144,7 +144,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                     $this->_cache->clean(Zend_Cache::CLEANING_MODE_ALL);
                     $this->_redirect('admin/content/');
                 } else {
-                    $form->populate($form->getValues());
+                    $form->populate($this->_request->getPost());
                 }
             } else {
                 // find id is expected in $params['id']

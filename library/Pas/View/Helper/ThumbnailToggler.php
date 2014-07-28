@@ -102,43 +102,32 @@ class Pas_View_Helper_ThumbnailToggler extends Zend_View_Helper_Abstract
      */
     public function __toString() {
         $request = $this->getRequest();
-        
         $html = '';
         $html .= '<div>Only results with images:<br />';
-        $active = 'success';
-        $off = 'inverse';
-        if (array_key_exists('thumbnail', $request)) {
-            $thumbnail = $request['thumbnail'];
+        if (array_key_exists('thumbnail', $request) && $request['thumbnail'] == '1') {
+            $html .= '<a class="btn btn-small btn-';
+            $html .= $this->getActive();
+            $html .= '" href="';
+            $html .= $this->view->url($request,'default',true);
+            $html .= '">on</a> ';
+            $html .= '<a class="btn btn-small btn-';
+            $html .= $this->getInactive();
+            $html .= '" href="';
+            unset($request['thumbnail']);
+            $html .= $this->view->url($request,'default',true);
+            $html .= '">off</a>';
         } else {
-            $thumbnail = NULL;
+            $html .= '<a class="btn btn-small btn-';
+            $html .= $this->getInactive();
+            $html .= '" href="';
+            $html .= $this->view->url(array_merge($request, array('thumbnail' => 1)),'default',true);
+            $html .= '">on</a> ';
+            $html .= '<a class="btn btn-small btn-';
+            $html .= $this->getActive();
+            $html .= '" href="';
+            $html .= $this->view->url($request,'default',true);
+            $html .= '">off</a>';
         }
-        $onRequest = $request;
-        $onRequest['thumbnail'] = 1;
-        $offRequest = $request;
-        unset($offRequest['thumbnail']);
-//        if (!is_null($thumbnail)) {
-//            $html .= '<a class="btn btn-small btn-';
-//            $html .= $this->getActive();
-//            $html .= '" href="';
-//            $html .= $this->view->url($onRequest,'default',true);
-//            $html .= '">on</a> ';
-//            $html .= '<a class="btn btn-small btn-';
-//            $html .= $this->getInactive();
-//            $html .= '" href="';
-//            $html .= $this->view->url($offRequest,'default',true);
-//            $html .= '">off</a>';
-//        } else {
-//            $html .= '<a class="btn btn-small btn-';
-//            $html .= $$this->getInactive();
-//            $html .= '"  href="';
-//            $html .= $this->view->url($onRequest,'default',true);
-//            $html .= '">on</a> ';
-//            $html .= '<a class="btn btn-small btn-';
-//            $html .= $this->getActive();
-//            $html .= '"  href="';
-//            $html .= $this->view->url($offRequest,'default',true);
-//            $html .= '">off</a>';
-//        }
         $html .= '</div>';
         return $html;
      }

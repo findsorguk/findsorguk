@@ -11,14 +11,27 @@
  * @author Daniel Pett
  * @since September 13 2011
  * @todo change the class to use zend_navigation
+ * @uses Content
 */
-class Pas_View_Helper_TreasureReportsMenu
-    extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_TreasureReportsMenu extends Zend_View_Helper_Abstract {
 
-    protected $_front, $_param;
+    /** The request
+     * @access protected
+     * @var \Zend_Controller_Front
+     */
+    protected $_front;
+    
+    /** The slug parameter
+     * @access protected
+     * @var string
+     */
+    protected $_param;
 
-    public function __construct()
-    {
+    /** Construct the variables
+     * @access public
+     * @return void
+     */
+    public function __construct() {
         $this->_front = Zend_Controller_Front::getInstance()->getRequest();
         $this->_param = $this->_front->getParam('slug');
     }
@@ -27,40 +40,44 @@ class Pas_View_Helper_TreasureReportsMenu
     * @access public
     * @return string $html
     */
-    public function treasureReportsMenu()
-    {
+    public function treasureReportsMenu() {
         return $this;
     }
 
-    public function menu()
-    {
-        $treasure = new Content();
-        $treasure = $treasure->buildTMenu();
+    /** Generate the menu for display
+     * @access public
+     * @return string
+     */
+    public function menu() {
+        $content = new Content();
+        $treasure = $content->buildTMenu();
         $html = '';
         foreach ($treasure as $t) {
-        $html .= '<li class="';
-        if ($t['slug'] == $this->_param) {
-        $html .= 'active';
-        }
-        $html .= ' ">';
-        $html .= '<a href="';
-        $html .= $this->view->url(array(
-            'module' => 'treasure',
-            'controller' => 'reports',
-            'action' => 'index',
-            'slug' => $t['slug']),
-            'treps', true);
-        $html .= '" title="Read more">';
-        $html .= $t['menuTitle'];
-        $html .= '</a></li>';
+            $html .= '<li class="';
+            if ($t['slug'] == $this->_param) {
+                $html .= 'active';
+            }
+            $html .= ' ">';
+            $html .= '<a href="';
+            $html .= $this->view->url(array(
+                'module' => 'treasure',
+                'controller' => 'reports',
+                'action' => 'index',
+                'slug' => $t['slug']),
+                'treps', true);
+            $html .= '" title="Read more">';
+            $html .= $t['menuTitle'];
+            $html .= '</a></li>';
         }
 
         return $html;
     }
 
-    public function __toString()
-    {
+    /** The to string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
         return $this->menu();
     }
 }
-

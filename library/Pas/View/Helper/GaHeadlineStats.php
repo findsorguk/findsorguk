@@ -115,6 +115,9 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_GaHeadlineStats
      */
     public function setId($id) {
+        Zend_Debug::dump($id);
+        exit;
+        
         $this->_id = $id;
         return $this;
     }
@@ -173,6 +176,9 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_GaHeadlineStats
      */
     public function gaHeadlineStats(){
+       
+        Zend_Debug::dump($this->getId());
+        exit;
         return $this;
     }
 
@@ -299,8 +305,12 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
         return $this->getData();
     }
 
+    
+    /** Send data to array
+     * @access public
+     * @return array
+     */
     public function toArray() {
-        //Check if all the required properties have been set for the card metadata you are building
         if ( !$this->requiredPropertiesExist() ) {
             return array();
         }

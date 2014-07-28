@@ -126,8 +126,6 @@ class Pas_Analytics_Dates {
      * @return string Date
      */
     public function yesterday() {
-        //Instantiate the date class
-        $this->getDate() = new Zend_Date();
         //Return date
         $yesterday = $this->getDate()
                 ->now()
