@@ -141,7 +141,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                     $this->_flashMessenger->addMessage('You updated: <em>' 
                             . $form->getValue('title') 
                             . '</em> successfully. It is now available for use.');
-                    $this->_cache->clean(Zend_Cache::CLEANING_MODE_ALL);
+                    $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
                     $this->_redirect('admin/content/');
                 } else {
                     $form->populate($this->_request->getPost());
