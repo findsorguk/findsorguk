@@ -1,14 +1,14 @@
 <?php
 /** A class for exporting an array of fields to the correct HERO format
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $converter = new Pas_Exporter_ArrayToHero($this->_exegesis);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -16,10 +16,10 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /library/Pas/Exporter/Hero.php
- * 
+ *
  */
 class Pas_Exporter_ArrayToHero {
-    
+
    /** Fields to use
      * @access protected
      * @var array
@@ -59,8 +59,8 @@ class Pas_Exporter_ArrayToHero {
         $user = new Pas_User_Details();
         $this->_role = $user->getPerson()->role;
     }
-    
-       
+
+
     /** Sort an array by an array
      * @access public
      * @param array $toSort
@@ -132,7 +132,7 @@ class Pas_Exporter_ArrayToHero {
             $dat['Moneyer'] = $dat['moneyerName'];
             $dat['Obverse_description'] = $dat['obverseDescription'];
             $dat['Obverse_inscription'] = $dat['obverseLegend'];
-            $dat['Initial_mark'] = NULL;
+            $dat['Initial_mark'] = null;
             $dat['Reverse_description'] = $dat['reverseDescription'];
             $dat['Reverse_inscription']	= $dat['reverseLegend'];
             $dat['Reverse_mintmark'] = $dat['mintmark'];
@@ -147,7 +147,7 @@ class Pas_Exporter_ArrayToHero {
 //            Zend_Debug::dump($dat,"NEW");
         foreach($this->_fields as $k){
             if(!array_key_exists($k, $dat)){
-                $dat[$k] = NULL;
+                $dat[$k] = null;
             }
         }
         $nullified[] = $dat;
@@ -160,7 +160,7 @@ class Pas_Exporter_ArrayToHero {
                 }
                 foreach($record as $k => $v){
                     if($v === '' || is_null($v)){
-                        $record[$k] = NULL;
+                        $record[$k] = null;
                     }
                }
 	}

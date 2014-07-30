@@ -49,16 +49,16 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @return void
      */
     public function init() {
-	$this->_helper->_acl->allow('public',NULL);
+	$this->_helper->_acl->allow('public',null);
 	$this->_helper->_acl->deny('public',array(
             'nearest', 'kml', 'her', 'gis','workflow')
                 );
 	$this->_helper->_acl->deny('member',array(
             'nearest', 'kml', 'her', 'gis','workflow')
                 );
-	$this->_helper->_acl->allow('flos',NULL);
-	$this->_helper->_acl->allow('hero',NULL);
-	$this->_helper->_acl->allow('research',NULL);
+	$this->_helper->_acl->allow('flos',null);
+	$this->_helper->_acl->allow('hero',null);
+	$this->_helper->_acl->allow('research',null);
 	$this->_helper->layout->disableLayout();
 	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }

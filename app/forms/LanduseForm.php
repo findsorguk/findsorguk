@@ -61,7 +61,10 @@ class LanduseForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(false)
 		->addFilters(array('StripTags', 'StringTrim'))
-		->addMultiOptions(array(NULL,'Choose period:' => $landuse_opts))
+		->addMultiOptions(array(
+                    null => 'Choose a landuse',
+                    'Available landuses:' => $landuse_opts
+                ))
 		->addValidator('InArray', false, array(array_keys($landuse_opts)));
 
 	$valid = new Zend_Form_Element_Checkbox('valid');

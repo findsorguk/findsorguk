@@ -11,16 +11,16 @@
  * @uses Logins
  * @uses SolrForm
  * @uses Pas_ArrayFunctions
- * 
+ *
  */
 class Database_IndexController extends Pas_Controller_Action_Admin {
-    
+
     /** Setup the contexts by action and the ACL.
      * @access public
      * @return void
     */
     public function init() {
-        $this->_helper->_acl->allow('public',NULL);
+        $this->_helper->_acl->allow('public', null);
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }
     /** Setup index page
@@ -28,7 +28,7 @@ class Database_IndexController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-     
+
         $content = new Content();
         $this->view->contents = $content->getFrontContent('database');
 
@@ -39,7 +39,7 @@ class Database_IndexController extends Pas_Controller_Action_Admin {
         $form->q->setLabel('Search our database: ');
         $form->setMethod('post');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() 
+        if($this->getRequest()->isPost()
                 && $form->isValid($this->_request->getPost())) {
             $functions = new Pas_ArrayFunctions();
             $params = $functions->array_cleanup($form->getValues());

@@ -29,7 +29,7 @@
  * @uses Cultures
  * @uses DecorationMethods
  * @uses SurfTreatments
- * 
+ *
 */
 class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
 
@@ -38,13 +38,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @var array
      */
     protected $_contexts;
-    
+
     /** The periods model
      * @access protected
      * @var \Periods
      */
     protected $_periods;
-    
+
     /** Get the periods model
      * @access public
      * @return \Periods
@@ -59,7 +59,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @var \PrimaryActivities
      */
     protected $_primaryActivities;
-    
+
     /** Get the primary activities model
      * @access public
      * @return \PrimaryActivities
@@ -74,7 +74,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @var \DecStyles
      */
     protected $_decStyles;
-    
+
     /** Get the decoration Styles model
      * @access public
      * @return \DecStyles
@@ -83,13 +83,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $this->_decStyles = new DecStyles();
         return $this->_decStyles;
     }
-    
+
     /** The discovery methods model
      * @access protected
      * @var \DiscoMethods
      */
     protected $_discoMethods;
-    
+
     /** Get the disco methods model
      * @access public
      * @return \DiscoMethods
@@ -104,7 +104,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @var \Preservations
      */
     protected $_preservations;
-    
+
     /** Get the preservations model
      * @access public
      * @return \Preservations
@@ -152,11 +152,11 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
                  ->addActionContext('dieaxis', $this->_contexts)
                  ->addActionContext('index', $this->_contexts)
                  ->addActionContext('landuses',	$this->_contexts)
-                 ->addActionContext('landuse', $this->_contexts)		 
+                 ->addActionContext('landuse', $this->_contexts)
                  ->initContext();
-        
+
     }
-	
+
     /** Setup the index page for listing the actions to show
      * @access public
      * @return void
@@ -170,7 +170,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
             'preservations');
         $base = $this->view->serverUrl() . '/datalabs/terminology/';
         $vocab3 = sort($vocab);
-        $vocab2 = NULL;
+        $vocab2 = null;
         foreach($vocab as $v){
             $vocab2[] = array(
                 'type' => $v,
@@ -187,7 +187,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function periodsAction() {
         $this->view->periods = $this->getPeriods()->getPeriods();
     }
-    
+
     /** Details about a specific period
      * @access public
      * @return void
@@ -200,7 +200,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-    
+
     /** Show a list of primary activities
      * @access public
      * @return void
@@ -241,7 +241,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function methodsAction() {
         $this->view->methods = $this->getDiscoMethods()->getDiscMethodsList();
     }
-    
+
     /** Display details for a preservation method
      * @access public
      * @return void
@@ -255,7 +255,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-    
+
     /** Display list of preservation methods
      * @access public
      * @return void
@@ -263,13 +263,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function preservationsAction() {
         $this->view->preserves = $this->getPreservations()->getPreservationTerms();
     }
-    
+
     /** The find of note reason model
      * @access protected
      * @var \FindOfNoteReasons
      */
     protected $_findsOfNoteReasons;
-    
+
     /** Get the find of note model
      * @access public
      * @return \FindOfNoteReasons
@@ -299,7 +299,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function notesAction() {
         $this->view->notes = $this->getFindsOfNoteReasons()->getReasonsList();
     }
-    
+
     /** Get the cultures model
      * @access public
      * @var \Cultures
@@ -309,7 +309,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     /** Get the cultures model
      * @access public
      * @return \Cultures
-     * 
+     *
      */
     public function getCultures() {
         $this->_cultures = new Cultures();
@@ -329,7 +329,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-    
+
     /** Display list of ascribed cultures
      * @access public
      * @return void
@@ -337,13 +337,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function culturesAction() {
         $this->view->cultures = $this->getCultures()->getCulturesList();
     }
-    
+
     /** The materials
      * @access protected
      * @var \Materials
      */
     protected $_materials;
-    
+
     /** Get the materials model
      * @access public
      * @return \Materials
@@ -372,7 +372,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function materialsAction() {
         $this->view->materials = $this->getMaterials()->getMaterials();
     }
-    
+
     /** Display details for a decoration style
      * @access public
      * @@return void
@@ -393,13 +393,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function decorationstylesAction() {
         $this->view->decs = $this->getDecStyles()->getDecStyles();
     }
-    
+
     /** The manufactures model
      * @access protected
      * @var \Manufactures
      */
     protected $_manufactures;
-    
+
     /** Get the manufactures method
      * @access public
      * @return \Manufactures
@@ -408,7 +408,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $this->_manufactures = new Manufactures();
         return $this->_manufactures;
     }
-        
+
     /** Display details for method of manufacture
      * @access public
      * @return void
@@ -430,14 +430,14 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $this->view->manufactures = $this->getManufactures()
                 ->getManufacturesListed();
     }
-    
+
     /** The decoration methods model
      * @access protected
      * @var \DecorationMethods
-     * 
+     *
      */
     protected $_decorationMethods;
-    
+
     /** Get the decoration methods model
      * @access public
      * @return \DecorationMethods
@@ -446,7 +446,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $this->_decorationMethods = new DecMethods();
         return $this->_decorationMethods;
     }
-        
+
     /** Display details for a decorative method
      * @access public
      * @return void
@@ -460,7 +460,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-    
+
     /** Display list of decorative methods
      * @access public
      * @return void
@@ -468,7 +468,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function decorationmethodsAction() {
         $this->view->decs = $this->getDecorationMethods()->getDecorationDetailsList();
     }
-    
+
     /** The mints model
      * @access protected
      * @var \Mints
@@ -546,13 +546,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
             $this->view->mints = $mintsList;
         }
     }
-    
+
     /** The landuses model
      * @access protected
      * @var \Landuses
      */
     protected $_landuses;
-    
+
     /** Get the landuses model
      * @access public
      * @return type
@@ -582,13 +582,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function landusesAction() {
         $this->view->landuses = $this->getLanduses()->getLanduses();
     }
-    
+
     /** The workflows model
      * @access protected
      * @var \Workflows
      */
     protected $_workflows;
-    
+
     /** Get the workflow model
      * @access public
      * @return \Workflows
@@ -617,13 +617,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
     public function workflowsAction() {
         $this->view->workflows = $this->getWorkflows()->getStageNames();
     }
-    
+
     /** The surface treatment model
      * @access protected
      * @var \SurfTreatments
      */
     protected $_surfaceTreatments;
-    
+
     /** Get the surface treatment model
      * @access public
      * @return \SurfTreatments
@@ -632,7 +632,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $this->_surfaceTreatments = new SurfTreatments();
         return $this->_surfaceTreatments;
     }
-        
+
     /** Display surface treastment details
      * @access public
      * @return void
@@ -654,13 +654,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $this->view->surfaces = $this->getSurfaceTreatments()
                 ->getSurfaceTreatments();
     }
-    
+
     /** The die axes model
      * @access protected
      * @var \DieAxes
      */
     protected $_dieAxes;
-    
+
     /** Get the die axes model
      * @access public
      * @return \DieAxes
@@ -669,7 +669,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $this->_dieAxes = new DieAxes();
         return $this->_dieAxes;
     }
-        
+
     /** Display list of die axes
      * @access public
      * @return void
@@ -703,7 +703,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
                                   'totalPages' => number_format($rulerList->getTotalItemCount()/
                                 $rulerList->getCurrentItemCount(),0));
         $this->view->data = $data;
-        $rulers = NULL;
+        $rulers = null;
 
         foreach($rulerList as $k){
         $action = $k['term'];
@@ -766,13 +766,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $this->view->rulers = $rulerList;
         }
     }
-    
+
     /** The object terms model
      * @access protected
      * @var \ObjectTerms
      */
     protected $_objectTerms;
-    
+
     /** Get the object terms
      * @access public
      * @return \ObjectTerms
@@ -823,13 +823,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-    
+
     /** The completeness model
      * @access protected
      * @var \Completeness
      */
     protected $_completeness;
-    
+
     /** Get the completeness model
      * @access public
      * @return \Completeness
@@ -838,7 +838,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $this->_completeness = new Completeness();
         return $this->_completeness;
     }
-    
+
     /** Get the completeness term
      * @access public
      * @return void
@@ -852,13 +852,13 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-    
+
     /** The denomination model
      * @access protected
      * @var \Denominations
      */
     protected $_denominations;
-    
+
     /** Get the denomination model
      * @access public
      * @return \Denominations
@@ -886,7 +886,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
             $this->view->data = $data;
             $denoms = array();
             foreach($denomsList as $k){
-            
+
                 $action = $k['temporal'];
                 switch ($action) {
                     case $action == strtoupper('Roman'):

@@ -24,7 +24,7 @@ class Users_CommentsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init()  {
-        $this->_helper->_acl->allow('member',NULL);
+        $this->_helper->_acl->allow('member',null);
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_comments = new Comments();
     }
@@ -59,7 +59,7 @@ class Users_CommentsController extends Pas_Controller_Action_Admin {
         $this->view->comments = $this->_comments
                 ->getCommentsOnMyRecords(
                         $this->getIdentityForForms(),
-                        $this->_getParam('page'), 
+                        $this->_getParam('page'),
                         $this->_getParam('approved')
                         );
     }

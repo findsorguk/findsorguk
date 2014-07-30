@@ -1,14 +1,14 @@
 <?php
 /** Form for submitting an error
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $form = new ChangeWorkflowForm();
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category   Pas
@@ -25,7 +25,7 @@ class ChangeWorkFlowForm extends Pas_Form {
      * @return void
      */
     public function __construct(array $options = null) {
-	
+
 	parent::__construct($options);
 
 	$this->setName('workflowChange');
@@ -37,11 +37,11 @@ class ChangeWorkFlowForm extends Pas_Form {
                     '4' => 'Validation',
                     '3' => 'Published'))
                 ->addFilters(array('StripTags', 'StringTrim'));
-	
+
 	$finder = new Zend_Form_Element_Checkbox('finder');
 	$finder->setLabel('Inform finder of workflow change?: ');
-	$finder->setUncheckedValue(NULL);
-	
+	$finder->setUncheckedValue(null);
+
 	$content = new Pas_Form_Element_CKEditor('content');
 	$content->setLabel('Enter your comment: ')
                 ->addFilter('StringTrim')
@@ -49,16 +49,16 @@ class ChangeWorkFlowForm extends Pas_Form {
                 ->setAttrib('ToolbarSet','Basic')
                 ->addFilters(array('StringTrim','WordChars','HtmlBody','EmptyParagraph'))
                 ->addErrorMessage('Please enter something in the comments box!');
-	
+
 	$submit = new Zend_Form_Element_Submit('submit');
 	$submit->setLabel('Change status');
 
 	$this->addElements(array($wfstage, $finder, $content, $submit));
 
 	$this->addDisplayGroup(array('secwfstage','finder', 'content', ), 'details');
-	
+
 	$this->addDisplayGroup(array('submit'), 'buttons');
-	
+
 	parent::init();
 	}
 }

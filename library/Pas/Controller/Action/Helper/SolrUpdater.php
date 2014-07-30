@@ -150,7 +150,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @return array
      * @throws Exception
      */
-    public function getUpdateData($core, $id, $type = NULL){
+    public function getUpdateData($core, $id, $type = null){
 	if(in_array($core, $this->_cores)){
             switch($core){
                 case 'beowulf':
@@ -194,7 +194,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 $df1 = $data['datefound1'] . 'T00:00:00Z';
                 $data['datefound1'] = $df1;
             } else {
-                $data['datefound1'] = NULL;
+                $data['datefound1'] = null;
             }
 	}
 	if(array_key_exists('datefound2',$data)){
@@ -202,7 +202,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 $df2 = $data['datefound2'] . 'T00:00:00Z';
                 $data['datefound2'] = $df2;
             } else {
-                $data['datefound2'] = NULL;
+                $data['datefound2'] = null;
             }
 	}
 	if(array_key_exists('created',$data)){
@@ -210,7 +210,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 $created = $this->todatestamp($data['created']);
 		$data['created'] = $created;
             } else {
-                $data['created'] = NULL;
+                $data['created'] = null;
             }
 	}
 	if(array_key_exists('updated',$data)){
@@ -218,7 +218,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 $updated = $this->todatestamp($data['updated']);
                 $data['updated'] = $updated;
             } else {
-                $data['updated'] = NULL;
+                $data['updated'] = null;
             }
 	}
 	foreach($data as $k => $v){

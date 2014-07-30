@@ -1,6 +1,6 @@
 <?php
 /** A controller for running experiments with code
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -18,16 +18,16 @@ class Experiments_IndexController extends Pas_Controller_Action_Admin {
      * @var \Pas_Yql_Oauth
      */
     protected $_oauth;
-	
+
     /** Init the controller
      * @access public
      * @return void
      */
     public function init() {
-        $this->_helper->_acl->allow('public',NULL);
-    	$this->_oauth = new Pas_Yql_Oauth();  
+        $this->_helper->_acl->allow('public',null);
+    	$this->_oauth = new Pas_Yql_Oauth();
     }
-    
+
     /** The default action
      * @access public
      * @return void

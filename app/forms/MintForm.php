@@ -1,15 +1,15 @@
 <?php
-/** Form for manipulating numismatic mint data 
- * 
+/** Form for manipulating numismatic mint data
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $form = new MintForm();
  * $form->submit->setLabel('Add a new mint to the system...');
  * ?>
  * </code>
- * 
+ *
  * @category   Pas
  * @package    Pas_Form
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
@@ -26,7 +26,7 @@ class MintForm extends Pas_Form {
      * @return void
      */
     public function __construct(array $options = null) {
-	
+
 	$periods = new Periods();
 	$period_actives = $periods->getMintsActive();
 
@@ -46,33 +46,34 @@ class MintForm extends Pas_Form {
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('Int');
-	
+
 	$period = new Zend_Form_Element_Select('period');
 	$period->setLabel('Period: ')
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addMultiOptions(array(
-		NULL => 'Choose period',
-		'Available periods:' => $period_actives))
+                    null => 'Choose period',
+                    'Available periods:' => $period_actives
+                ))
 		->addValidator('InArray', false, array(array_keys($period_actives)))
 		->addErrorMessage('You must enter a period for this mint');
 
-		//Submit button 
+		//Submit button
 	$submit = new Zend_Form_Element_Submit('submit');
 
 	$hash = new Zend_Form_Element_Hash('csrf');
 	$hash->setValue($this->_salt)->setTimeout(4800);
-	
+
 	$this->addElements(array(
 	$mint_name, $valid, $period, $hash,
 	$submit));
-	
-	$this->addDisplayGroup(array('mint_name', 'period', 'valid', 
+
+	$this->addDisplayGroup(array('mint_name', 'period', 'valid',
 	'submit'), 'details');
-	
+
 	$this->details->setLegend('Mint details: ');
-	
+
 	parent::init();
 	}
 }

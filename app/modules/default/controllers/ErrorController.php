@@ -1,6 +1,6 @@
 <?php
 /** A controller for dealing with exceptions and errors
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 2
@@ -9,18 +9,18 @@
  * @subpackage Admin
  */
 class ErrorController extends Pas_Controller_Action_Admin {
-    
+
     /** Whether email can be sent - default  true
      * @access protected
      * @var boolean
      */
     protected $_email = true;
-    
-    /** The log 
+
+    /** The log
      *
      */
     protected $_log;
-    
+
     /** Get email config entry
      * @access public
      * @return boolean
@@ -29,16 +29,16 @@ class ErrorController extends Pas_Controller_Action_Admin {
         $email = $this->getInvokeArg('bootstrap')->getOption('email');
         if(!$email) {
             $this->_email = false;
-        } 
+        }
         return $this->_email;
     }
 
     /** Set up values
-     * @access public 
+     * @access public
      */
     public function init() {
         $this->_log = Zend_Registry::get('log');
-        $this->_helper->_acl->allow(NULL);
+        $this->_helper->_acl->allow(null);
         $this->_helper->layout()->setLayout('database');
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 //      $this->_cs = $this->_helper->contextSwitch();
@@ -56,7 +56,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
     private static function addPadding ($number) {
         $formattedNumber = str_pad($number, 5, '_', STR_PAD_RIGHT);
         return str_replace('_', '&nbsp;', $formattedNumber );
-    }	
+    }
 
     /** Work out who created the error
      * @access public
@@ -70,8 +70,8 @@ class ErrorController extends Pas_Controller_Action_Admin {
             $name = $user->getPerson()->fullname;
             $account = $user->getPerson()->username;
             $string = $name . ' with the account username of ' . $account;
-        }	
-        return $string; 
+        }
+        return $string;
     }
 
     /** Set up the mailer data
@@ -106,20 +106,20 @@ class ErrorController extends Pas_Controller_Action_Admin {
     public function sendEmail() {
         if($this->getEmail()) {
             $to[] = array(
-                'name' => 'Daniel Pett', 
+                'name' => 'Daniel Pett',
                 'email' => 'dpett@britishmuseum.org'
                 );
             $cc[] = array(
-                'name' => 'Daniel Pett', 
+                'name' => 'Daniel Pett',
                 'email' => 'danielpett@gmail.com'
                 );
             $from[] = array(
-                'name' => 'The Portable Antiquities Server', 
+                'name' => 'The Portable Antiquities Server',
                 'email' => 'info@finds.org.uk'
                 );
             $assignData = array_merge($this->_mailData(),$to['0']);
             return $this->_helper->mailer($assignData, 'serverError', $to, $cc, $from, null,null);
-        } 
+        }
     }
 
     /** Format values
@@ -132,7 +132,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
             if (is_object($arg)) {
                 $values[] = get_class($arg);
             } elseif (is_null($arg)) {
-                $values[] = 'NULL';
+                $values[] = 'null';
             } elseif (is_array($arg)) {
                 $values[] = 'Array('.count($arg).')';
             } elseif (is_string($arg)) {
@@ -145,7 +145,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
     }
 
     /** Generate the code block
-     * 
+     *
      * @param type $errorLine
      * @param type $filePath
      * @return type
@@ -161,7 +161,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
             $lines[ $n ] = "<span class=\"lineNumbers $errorClass\" id=\"$errorID\">$paddedNumber</span>".$lines[ $n ];
         }
         return "<div class=\"codeFile\" errorid=\"$errorID\">".implode("<br />\n", $lines).'</div>';
-    }	
+    }
 
     /** Get the log
      * @access public
@@ -181,18 +181,18 @@ class ErrorController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         //Nothing doing here
-    }	
-    
+    }
+
     /** The error action
      * @access public
      * @param type $extended
      */
-    public function errorAction($extended =false) { 
-        // Ensure the default view suffix is used so we always return good 
+    public function errorAction($extended =false) {
+        // Ensure the default view suffix is used so we always return good
         // content
         $this->_helper->viewRenderer->setViewSuffix('phtml');
         // Grab the error object from the request
-        $errors = $this->_getParam('error_handler'); 
+        $errors = $this->_getParam('error_handler');
         if($errors) {
             $data = array();
             $data['errorMessage'] = $errors['exception']->getMessage();
@@ -219,7 +219,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
                         $compiledTrace .= '<a class="openLink" ';
                         $compiledTrace .= 'href="javascript://">open</a>';
                         $compiledTrace .= $trace['file'];
-                       
+
                     } else {
                         $compiledTrace .= '<div class="filePath">';
                         $compiledTrace .= '<span class="openLink">';
@@ -272,7 +272,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
                         if ($log) {
                             $log->log($this->view->message . ' ' . $errors->exception, $priority, $errors->exception);
                             $log->log('Request Parameters' . ' ' . $errors->request->getParams(), $priority, $errors->request->getParams());
-                        }        
+                        }
                         $this->view->compiled = $compiledTrace;
                         }
                         break;
@@ -280,7 +280,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
                     switch (get_class($errors['exception'])) {
                     case 'Pas_Exception_NotAuthorised' :
                         $this->getResponse()->setHttpResponseCode(401);
-                        $this->view->message = 'This record falls outside your access levels. If you contact us, 
+                        $this->view->message = 'This record falls outside your access levels. If you contact us,
                                                 we can let you know when you can see it. This normally means the record is not on public view.';
                         $this->view->info  = $errors->exception;
                         $this->view->code  = 403;
@@ -307,11 +307,11 @@ class ErrorController extends Pas_Controller_Action_Admin {
                         $this->getResponse()->setHttpResponseCode(503);
                         $this->view->info  = $errors->exception;
                         $this->view->code = 503;
-                        $this->view->message = 'There has been an error with our SQL (that is the code that 
+                        $this->view->message = 'There has been an error with our SQL (that is the code that
                             powers database queries). Our fault entirely. This has been logged and sent to admin.' ;
                         $this->view->compiled = $compiledTrace;
                         $this->sendEmail();
-                        $this->view->headTitle('SQL error returned');	
+                        $this->view->headTitle('SQL error returned');
                         break;
                     case 'Zend_Db_Adapter_Exception':
                         $this->getResponse()->setHttpResponseCode(500);
@@ -327,7 +327,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
                             $this->getResponse()->setHttpResponseCode(500);
                             $this->view->message = 'Cache file needs a clean! Please try again.';
                             $this->view->code = 500;
-                            $this->sendEmail();	
+                            $this->sendEmail();
                             $this->view->headTitle('Cache file needs cleaning - retry.');
                             }
                             break;
@@ -385,17 +385,17 @@ class ErrorController extends Pas_Controller_Action_Admin {
                         $this->sendEmail();
                         $this->view->info  = $errors->exception;
                         $this->view->headTitle('A generic application error has been made');
-                        break;      
+                        break;
             }
             // pass the actual exception object to the view
-            $this->view->exception = $errors->exception; 
+            $this->view->exception = $errors->exception;
             // pass the request to the view
-            $this->view->request   = $errors->request; 
+            $this->view->request   = $errors->request;
             } else {
                 $this->_redirect('/error/notauthorised');
 
             }
-    } 
+    }
 
     /** Not authorised action
      * @access public
@@ -406,13 +406,13 @@ class ErrorController extends Pas_Controller_Action_Admin {
         $this->view->headTitle('None shall pass');
         $this->view->message = 'You are not authorised to view this resource';
         $this->view->code  = 401;
-    }				
+    }
 
     /** Account problems
-     * 
+     *
      */
     public function accountproblemAction(){
-        $this->sendEmail();	
+        $this->sendEmail();
     }
 
     public function databasedownAction(){
@@ -420,11 +420,11 @@ class ErrorController extends Pas_Controller_Action_Admin {
     }
 
     public function accountconnectionAction(){
-        $this->sendEmail();	
+        $this->sendEmail();
     }
 
     public function downtimeAction() {
         //Nothing doing here
     }
-	
+
 }

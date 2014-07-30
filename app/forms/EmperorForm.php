@@ -1,8 +1,8 @@
 <?php
 /** Form for manipulating emperor data
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $form = new EmperorForm();
@@ -10,14 +10,14 @@
  * $this->view->form = $form;
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Pas_Form
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @example /app/modules/admin/controllers/NumismaticsController.php  
+ * @example /app/modules/admin/controllers/NumismaticsController.php
  * @uses Reeces
  * @uses Dynasties
  * @uses Rulers
@@ -55,7 +55,10 @@ class EmperorForm extends Pas_Form {
                 ->setRequired(false)
                 ->addFilters(array('StripTags','StringTrim'))
                 ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-                ->addMultiOptions(array(NULL => NULL,'Choose a Reece period' => $reeces_options))
+                ->addMultiOptions(array(
+                    null => 'Choose a Reece period',
+                    'Available periods' => $reeces_options
+                ))
                 ->addValidator('InArray', false, array(array_keys($reeces_options)))
                 ->addValidator('Int');
 
@@ -65,7 +68,10 @@ class EmperorForm extends Pas_Form {
                 ->addFilters(array('StripTags','StringTrim'))
                 ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
                 ->addValidator('InArray', false, array(array_keys($rulers_options)))
-                ->addMultiOptions(array(NULL => NULL, 'Choose a database id' => $rulers_options))
+                ->addMultiOptions(array(
+                    null => 'Choose a database id',
+                    'Available ids' => $rulers_options
+                ))
                 ->addValidator('Int')
                 ->addErrorMessage('You must assign the bio to an existing entry');
 
@@ -97,7 +103,10 @@ class EmperorForm extends Pas_Form {
                 ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
                 ->addFilters(array('StripTags','StringTrim'))
                 ->addValidator('InArray', false, array(array_keys($dynasties_options)))
-                ->addMultiOptions(array(NULL => NULL, 'Choose a dynasty' => $dynasties_options))
+                ->addMultiOptions(array(
+                    null => 'Choose a dynasty',
+                    'Available dynasties' => $dynasties_options
+                ))
                 ->addErrorMessage('You must select a dynastic grouping');
 
 	$hash = new Zend_Form_Element_Hash('csrf');

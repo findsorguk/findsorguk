@@ -30,13 +30,13 @@ class ImageForm extends Pas_Form {
      * @access protected
      * @var \Zend_Auth
      */
-    protected $_auth = NULL;
+    protected $_auth;
 
     /** The copyright notice
      * @access protected
      * @var string
      */
-    protected $_copyright = NULL;
+    protected $_copyright;
 
     /** The constructor
      * @access public
@@ -102,7 +102,10 @@ class ImageForm extends Pas_Form {
 		->setRequired(true)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow required')
 		->addErrorMessage('You must enter a period for the image')
-		->addMultiOptions(array(NULL => 'Select a period', 'Valid periods' => $period_options))
+		->addMultiOptions(array(
+                    null => 'Select a period',
+                    'Valid periods' => $period_options
+                ))
 		->addValidator('inArray', false, array(array_keys($period_options)));
 
 	$county = new Zend_Form_Element_Select('county');
@@ -110,8 +113,10 @@ class ImageForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow required')
 		->setRequired(true)
 		->addErrorMessage('You must enter a county of origin')
-		->addMultiOptions(array(NULL => 'Select a county of origin',
-			'Valid counties' => $county_options))
+		->addMultiOptions(array(
+                    null => 'Select a county of origin',
+                    'Valid counties' => $county_options
+                ))
 		->addValidator('inArray', false, array(array_keys($county_options)));
 
 	$copyright = new Zend_Form_Element_Select('imagerights');
@@ -119,9 +124,14 @@ class ImageForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addErrorMessage('You must enter a licence holder')
-		->addMultiOptions(array(NULL => 'Select a licence holder','Valid copyrights' => $copyList))
-		->setDescription('You can set the copyright of your image here to your institution. If you are a public recorder, it
-		should default to your full name. For institutions that do not appear contact head office for getting it added.')
+		->addMultiOptions(array(
+                    null => 'Select a licence holder',
+                    'Valid copyrights' => $copyList
+                ))
+		->setDescription('You can set the copyright of your image here
+                    to your institution. If you are a public recorder, it should
+                    default to your full name. For institutions that do not
+                    appear contact head office to suggest its addition')
 		->setValue($this->_copyright);
 
 	$licenseField = new Zend_Form_Element_Select('ccLicense');
@@ -130,7 +140,10 @@ class ImageForm extends Pas_Form {
 	$licenseField->setRequired(true)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setLabel('Creative Commons license:')
-		->addMultiOptions(array(NULL => 'Select a license', 'Available licenses' => $license))
+		->addMultiOptions(array(
+                    null => 'Select a license',
+                    'Available licenses' => $license
+                ))
 		->setValue(5)
 		->addValidator('Int');
 
@@ -138,8 +151,13 @@ class ImageForm extends Pas_Form {
 	$type->setLabel('Image type: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
-		->addMultiOptions(array(NULL => 'Select the type of image',
-		'Image types' => array('digital' => 'Digital image','illustration' => 'Scanned illustration')))
+		->addMultiOptions(array(
+                    null => 'Select the type of image',
+                    'Image types' => array(
+                        'digital' => 'Digital image',
+                        'illustration' => 'Scanned illustration'
+                        )
+                    ))
 		->setValue('digital');
 
 	$submit = new Zend_Form_Element_Submit('submit');

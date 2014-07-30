@@ -37,7 +37,7 @@ class Pas_Solr_HandlerPersonal {
     protected $_facets;
 
     protected $_allowed = array('fa','flos','admin','treasure', 'research');
-    
+
     protected $_map = false;
 
     protected $_formats = array(
@@ -56,19 +56,19 @@ class Pas_Solr_HandlerPersonal {
     protected $_facetSet;
 
     protected $_query;
-    
+
     protected $_stats = false;
-    
+
     protected $_statsFields = array('quantity');
-    
+
     public function setStats($value){
     	return $this->_stats = $value;
     }
-    
+
     public function getStats(){
     	return $this->_stats;
     }
-    
+
     public function setStatsFields($fields){
 		if(is_array($fields)){
     	return $this->_statsFields = $fields;
@@ -76,11 +76,11 @@ class Pas_Solr_HandlerPersonal {
 			return $this->_statsFields;
 		}
     }
-    
+
     public function getStatsFields(){
     	return $this->_statsFields;
     }
-    
+
     public function setMap($map){
     	return $this->_map = $map;
     }
@@ -198,7 +198,7 @@ class Pas_Solr_HandlerPersonal {
      * @param array $fields
      * @return type
      */
-    public function setFields($fields = NULL){
+    public function setFields($fields = null){
     if(is_array($fields)){
         $this->_fields = $fields;
     } else {
@@ -217,20 +217,20 @@ class Pas_Solr_HandlerPersonal {
             $this->_params = $this->filterParams($params);
     	return $this->_params;
     	}
-    	
+
     }
 
     public function filterParams($params){
     	if(array_key_exists('created', $params)){
     		$created = $params['created'];
     		$queryDateA = $created . "T00:00:00.001Z";
-    		$queryDateB = $created . "T23:59:59.999Z";	
+    		$queryDateB = $created . "T23:59:59.999Z";
     		$params['created'] = $queryDateA . ' TO ' . $queryDateB ;
     	}
      	if(array_key_exists('updated', $params)){
     		$updated = $params['updated'];
     		$queryDateA = $updated . "T00:00:00.001Z";
-    		$queryDateB = $updated . "T23:59:59.999Z";	
+    		$queryDateB = $updated . "T23:59:59.999Z";
     		$params['updated'] = $queryDateA . ' TO ' . $queryDateB ;
     	}
     	if(array_key_exists('createdBefore', $params) && array_key_exists('createdAfter', $params)){
@@ -250,7 +250,7 @@ class Pas_Solr_HandlerPersonal {
     		$params['created'] = $queryDate . ' TO * ';
     		unset($params['createdAfter']);
     	}
-    	
+
     	if(array_key_exists('updatedBefore', $params) && array_key_exists('updatedAfter', $params)){
     		$queryDateA = $params['updatedBefore'] . "T00:00:00.001Z";
     		$queryDateB = $params['updatedAfter'] . "T23:59:59.999Z";
@@ -268,12 +268,12 @@ class Pas_Solr_HandlerPersonal {
     		$params['updated'] = $queryDate . ' TO * ';
     		unset($params['updatedAfter']);
     	}
-    	
-   
+
+
     	return $params;
-    	
+
     }
-    
+
     /** Set fields to highlight
      *
      * @param array $highlights
@@ -326,7 +326,7 @@ class Pas_Solr_HandlerPersonal {
             );
     }
 
-	
+
 	if(($this->_map === true) && !in_array($this->_getRole(), $this->_allowed) && ($this->_core === 'beowulf')){
 		$this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
 		$this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
@@ -424,7 +424,7 @@ class Pas_Solr_HandlerPersonal {
     }
     return $data;
     }
-    
+
     /** Process the facets
      *
      * @return boolean
@@ -508,7 +508,7 @@ class Pas_Solr_HandlerPersonal {
 
         if($rows > 50 && !is_null($this->_format)){
             $rows = 50;
-        } 
+        }
     } else {
         $rows = 20;
     }
@@ -568,23 +568,23 @@ class Pas_Solr_HandlerPersonal {
     $select['query'] = $this->_params['q'];
             unset($this->_params['q']);
     }
-    
+
     // get a select query instance based on the config
     $this->_query = $this->_solr->createSelect($select);
     if(array_key_exists('created', $this->_params)){
     $this->_query->createFilterQuery('created')->setQuery('created:[' . $this->_params['created'] .']');
-    unset($this->_params['created']);	
+    unset($this->_params['created']);
     }
     if(array_key_exists('updated', $this->_params)){
     $this->_query->createFilterQuery('updated')->setQuery('updated:[' . $this->_params['updated'] . ']');
-    unset($this->_params['updated']);	
+    unset($this->_params['updated']);
     }
       if(array_key_exists('todate', $this->_params) && array_key_exists('fromdate', $this->_params)){
     $this->_query->createFilterQuery('range')->setQuery('todate:[' . $this->_params['fromdate'] .  ' TO ' . $this->_params['todate'] . ']');
     $this->_query->createFilterQuery('rangedate')->setQuery('fromdate:[' . $this->_params['fromdate'] .  ' TO ' . $this->_params['todate'] . ']');
-    
+
     unset($this->_params['todate']);
-	unset($this->_params['fromdate']);	
+	unset($this->_params['fromdate']);
     }
     if(array_key_exists('fromdate', $this->_params)){
     $this->_query->createFilterQuery('datefrom')->setQuery('fromdate:[' . $this->_params['fromdate'] . ' TO * ]');
@@ -594,7 +594,7 @@ class Pas_Solr_HandlerPersonal {
     $this->_query->createFilterQuery('todate')->setQuery('todate:[* TO ' . $this->_params['todate'] . ']');
     unset($this->_params['todate']);
     }
-  
+
  	if($this->_core === 'beowulf'){
 		$stats = $this->_query->getStats();
 		foreach($this->getStatsFields() as $field){
@@ -625,9 +625,9 @@ class Pas_Solr_HandlerPersonal {
     return $this->_resultset;
     }
 
-    
-    
-    
+
+
+
     protected function _buildFacetQueries($k, $v){
         return $this->_query->createFilterQuery($k)->setQuery(substr($k, 2) . ':"' . $v . '"');
     }
@@ -645,7 +645,7 @@ class Pas_Solr_HandlerPersonal {
     Zend_Debug::dump($this->_processFacets($this->_resultset, $this->_facets),'The facet set');
     }
 
-  
+
     /** Create the facets
      *
      */

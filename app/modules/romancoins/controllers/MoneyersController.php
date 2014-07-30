@@ -11,7 +11,7 @@
  * @uses Pas_Exception_Param
  */
 class Romancoins_MoneyersController extends Pas_Controller_Action_Admin {
-	
+
     /** The moneyers model
      * @access protected
      * @var \Moneyers
@@ -23,9 +23,9 @@ class Romancoins_MoneyersController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init() {
-        $this->_helper->_acl->allow(NULL);
+        $this->_helper->_acl->allow(null);
         $contexts = array('xml','json');
-        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);	
+        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
                 ->addActionContext('index',$contexts)
                 ->addActionContext('called',$contexts)

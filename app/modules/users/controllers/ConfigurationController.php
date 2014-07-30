@@ -1,4 +1,4 @@
-<?php 
+<?php
 /** Controller for configuring which fields to copy.
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -18,14 +18,14 @@
  * @uses ConfigureLoginRedirectForm
 */
 class Users_ConfigurationController extends Pas_Controller_Action_Admin {
-   
+
     /** Setup the ACL
      * @access public
      * @return void
      */
     public function init() {
         $this->_helper->_acl->deny('public');
-        $this->_helper->_acl->allow('member',NULL);
+        $this->_helper->_acl->allow('member',null);
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }
     /** Setup the index display pages
@@ -143,7 +143,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
         if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
-                
+
                 $loginRedirect->updateConfig($form->getValues());
                 $this->_flashMessenger->addMessage('Page after logging in updated');
                 $this->_redirect('/users/configuration/');

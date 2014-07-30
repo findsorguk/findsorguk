@@ -35,8 +35,8 @@
  * @uses DecStyles
  * @uses Landuses
  * @uses LandusesForm
- * 
- * 
+ *
+ *
 */
 class Admin_TerminologyController extends Pas_Controller_Action_Admin {
 
@@ -47,12 +47,12 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
     protected $_redirectUrl = '/admin/terminology/';
 
     /** The update constant
-     * 
+     *
      */
     CONST UPDATE = 'Update details';
-    
+
     /** The deleted constant
-     * 
+     *
      */
     CONST DELETED = 'Record deleted!';
 
@@ -159,7 +159,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 }
         }
     }
-    
+
     /** Display a list of discovery methods
      * @access public
      * @return void
@@ -168,7 +168,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
         $methods = new DiscoMethods();
         $this->view->methods = $methods->getDiscMethodsListAdmin();
     }
-    
+
     /** Edit a method of discovery
      * @access public
      * @return void
@@ -258,7 +258,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
         $decs = new DecMethods();
         $this->view->decs = $decs->getDecorationDetailsListAdmin();
     }
-    
+
     /** Add a decorative method
      * @access public
      * @return void
@@ -278,7 +278,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** Edit a decorative method.
      * @access public
      * @return void
@@ -316,7 +316,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-    
+
     /** Delete a decorative method
      * @access public
      * @return void
@@ -340,7 +340,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** List surface treatments
      * @access public
      * @return void
@@ -405,7 +405,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-    
+
     /** Delete a surface treatment
      * @access public
      * @return void
@@ -429,7 +429,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** List periods in use
      * @access public
      * @return void
@@ -438,8 +438,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
         $periods = new Periods();
         $this->view->periods = $periods->getPeriodsAll();
     }
-    
-    
+
+
     /** Edit a specific period
      * @access public
      * @return void
@@ -477,7 +477,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-    
+
     /** Delete a period
      * @access public
      * @return void
@@ -520,7 +520,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** List ascribed cultures
      * @access public
      * @return void
@@ -529,7 +529,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
         $cultures = new Cultures();
         $this->view->cultures = $cultures->getCulturesListAdmin();
     }
-    
+
     /** Add an ascribed culture
      * @access public
      * @return void
@@ -550,7 +550,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** Edit an ascribed culture
      * @access public
      * @return void
@@ -579,7 +579,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $cultures = new Cultures();
                     $culture = $cultures->fetchRow('id = ' . $this->_getParam('id'));
-                    if(count($culture) != NULL ) {
+                    if(count($culture) != null ) {
                         $form->populate($culture->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -649,7 +649,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             $form = new WorkflowForm();
             $form->submit->setLabel( self::UPDATE );
             $this->view->form = $form;
-        
+
             if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $workflows = new Workflows();
@@ -844,7 +844,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $origins = new MapOrigins();
                     $origin = $origins->fetchRow('id = ' . $this->_getParam('id'));
-                    if(count($origin) != NULL ) {
+                    if(count($origin) != null ) {
                         $form->populate($origin->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -886,7 +886,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
         $notes = new FindOfNoteReasons();
         $this->view->notes = $notes->getReasonsListAdmin();
     }
-    
+
     /** Add a find of note reasoning
      * @access public
      * @return void
@@ -966,7 +966,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** List primary materials
      * @access public
      * @return void
@@ -975,7 +975,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
         $materials = new Materials();
         $this->view->materials = $materials->getMaterialsAdmin($this->_getParam('page'));
     }
-    
+
     /** Add a new primary material
      * @access public
      * @return void
@@ -1064,7 +1064,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
         $decs = new DecStyles();
         $this->view->decs = $decs->getDecStylesAdmin();
     }
-    
+
     /** Add a decorative style
      * @access public
      * @return void
@@ -1084,7 +1084,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** Edit a decorative style
      * @access public
      * @return void
@@ -1176,7 +1176,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
         }
     }
     /** Edit a manufacture method
-     * @access public 
+     * @access public
      * @return void
      * @throws Pas_Exception_Param
      * @throws Exception
@@ -1213,7 +1213,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Exception($this->_missingParameter);
         }
     }
-    
+
     /** Delete a manufacture method
      * @access public
      * @return void

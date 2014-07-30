@@ -3,32 +3,32 @@
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
- * @category   Pas
+ * @category Pas
  * @package Pas_Controller_Action
  * @subpackage Admin
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @uses Logins
  * @uses Pas_Exception_Param
- * 
+ *
 */
 class Users_AuditController extends Pas_Controller_Action_Admin {
-    
+
     /** The logins model
      * @access protected
      * @var \Logins
      */
     protected $_logins;
-    
+
     /** Set up the ACL and contexts
      * @access public
      */
     public function init()  {
-        $this->_helper->_acl->allow('member',NULL);
+        $this->_helper->_acl->allow('member',null);
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_logins = new Logins();
     }
-    
+
     /** Display logins by username
      * @access public
      * @return void
@@ -37,7 +37,7 @@ class Users_AuditController extends Pas_Controller_Action_Admin {
         $this->view->logins = $this->_logins->myLogins((string)$this->getUsername(), (int)$this->_getParam('page'));
         $this->view->ips = $logins->myIps($this->getUsername());
     }
-    
+
     /** Display the ISP user has used
      * @access public
      * @return void

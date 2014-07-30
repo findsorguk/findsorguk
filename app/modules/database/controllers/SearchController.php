@@ -1,7 +1,7 @@
 <?php
 /** Controller for searching for finds on database
- * 
- * @todo finish module's functions and replace with solr functionality. 
+ *
+ * @todo finish module's functions and replace with solr functionality.
  * Scripts suck the big one.
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
@@ -21,7 +21,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
      * @var \Searches
      */
     protected $_searches;
-    
+
     /** The array cleaner function
      * @access protected
      * @var \Pas_ArrayFunctions
@@ -53,34 +53,34 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
                 ->addContext('rss',array('suffix' => 'rss'))
                 ->addContext('atom',array('suffix' => 'atom'))
                 ->addContext('qrcode',array('suffix' => 'qrcode'))
-                ->addContext('geojson',array('suffix' => 'geojson', 
+                ->addContext('geojson',array('suffix' => 'geojson',
                     'headers' => array(
                         'Content-Type' => 'application/json')
                     ))
-                ->addContext('rdf',array('suffix' => 'rdf', 
+                ->addContext('rdf',array('suffix' => 'rdf',
                     'headers' => array(
                         'Content-Type' => 'application/xml')
                     ))
-                ->addContext('midas',array('suffix' => 'midas', 
+                ->addContext('midas',array('suffix' => 'midas',
                     'headers' => array(
                         'Content-Type' => 'text/xml')
                     ))
                 ->addActionContext('results', array(
                     'json', 'xml', 'rdf',
-                    'rss', 'atom', 'kml', 
+                    'rss', 'atom', 'kml',
                     'geojson', 'qrcode', 'midas'
                     ))
                 ->setAutoJsonSerialization(false);
         $this->_cleaner = new Pas_ArrayFunctions();
         $this->_helper->contextSwitch()->initContext();
 
-        if(!in_array($this->_helper->contextSwitch()->getCurrentContext(), 
+        if(!in_array($this->_helper->contextSwitch()->getCurrentContext(),
                 $this->_contexts )) {
             $this->view->googleapikey = $this->_helper->config()
                     ->webservice->googlemaps->apikey;
         }
     }
-    
+
     /** Process the form data
      * @access public
      * @param array $data
@@ -89,7 +89,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function process( array $data){
         $params = array_filter($data);
         $cleaned = $this->_cleaner->array_cleanup($params, array(
-            'finder', 'idby', 'recordby', 
+            'finder', 'idby', 'recordby',
             'idBy', 'recordername'
             ));
         $this->_flashMessenger->addMessage('Your search is complete');
@@ -128,7 +128,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** Display the byzantine search form
      * @access public
      * @return void
@@ -220,7 +220,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
         }
     }
     /** Display the greek and roman provincial pages
-     * @return void 
+     * @return void
      * @access public
     */
     public function greekromanAction() {
@@ -319,7 +319,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
         if(in_array($this->getRole(),$allowed)) {
         $private = 1;
         } else {
-        $private = NULL;
+        $private = null;
         }
         if($this->_getParam('by') === 'me'){
         $this->view->data = $this->_searches->getAllSavedSearches(
@@ -329,8 +329,8 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
                 );
         } else {
             $this->view->data = $this->_searches->getAllSavedSearches(
-                    NULL, 
-                    $this->_getParam('page'), 
+                    null,
+                    $this->_getParam('page'),
                     $private
                     );
         }
@@ -367,7 +367,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
                     'd' => $form->getValue('distance'),
                     'postcode' => $form->getValue('postcode')
                 );
-                $this->process($params); 
+                $this->process($params);
             } else {
                 $form->populate($form->getValues());
             }
@@ -386,7 +386,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     	//$search->setFields(array('*'));
         $search->setFacets(array(
             'objectType','county', 'broadperiod',
-            'institution', 'rulerName', 'denominationName', 
+            'institution', 'rulerName', 'denominationName',
             'mintName', 'materialTerm', 'workflow', 'reeceID'
             ));
         $search->setParams($params);
@@ -417,7 +417,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
                     'objectType' => $form->getValue('objecttype'),
                     'broadperiod' => $form->getValue('broadperiod')
                 );
-                $this->process($params);  
+                $this->process($params);
             } else {
                 $form->populate($form->getValues());
             }

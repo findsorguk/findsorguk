@@ -4,7 +4,7 @@
  * This class allows for various functions and variables to be made
  * available to all actions that utilise it. Probably could be stream
  * lined.
- * 
+ *
  * @category Pas
  * @package Controller_Action
  * @subpackage Admin
@@ -12,7 +12,7 @@
  * @author Daniel Pett
  * @license GNU
  * @since 23 Sept 2011
- * 
+ *
  */
 class Pas_Controller_Action_Admin extends Zend_Controller_Action {
 
@@ -207,7 +207,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @var \Zend_Cache
      */
     protected $_cache;
-    
+
     /** Get the cache
      * @access public
      * @return \Zend_Cache
@@ -217,5 +217,11 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
         return $this->_cache;
     }
 
-    
+    /** Set up the flash messenger
+     * @access public
+     * @return void 
+     */
+    public function init() {
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+    }
 }

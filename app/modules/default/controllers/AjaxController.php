@@ -163,10 +163,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	if($data){
 	$response = $data;
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No options available'));
+	$response = array(array('id' => null, 'term' => 'No options available'));
 	}
 	}  else {
-	$response = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$response = array(array('id' => null, 'term' => 'No ruler specified'));
 	}
         $data = Zend_Json::encode($response);
 	echo Zend_Json::prettyPrint($data, array("indent" => " ", 'format' => 'html'));
@@ -183,7 +183,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	echo Zend_Json::encode($data);
 	}
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$response = array(array('id' => null, 'term' => 'No ruler specified'));
 	echo  Zend_Json::encode($response);
 	}
 	}
@@ -195,11 +195,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	if ($ruler_options) {
 	echo  Zend_Json::encode($ruler_options);
 	} else {
-	$data = array(array('id' => NULL, 'term' => 'No options available.'));
+	$data = array(array('id' => null, 'term' => 'No options available.'));
 	echo Zend_Json::encode($data);
 	}
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$response = array(array('id' => null, 'term' => 'No ruler specified'));
 	echo  Zend_Json::encode($response);
 	}
 	}
@@ -211,11 +211,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	if ($mint_options) {
 	echo  Zend_Json::encode($mint_options);
 	} else {
-	$data = array(array('id' => NULL, 'term' => 'No options available'));
+	$data = array(array('id' => null, 'term' => 'No options available'));
 	echo Zend_Json::encode($data);
 	}
 	} else {
-	$data = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$data = array(array('id' => null, 'term' => 'No ruler specified'));
 	echo Zend_Json::encode($data);
 	}
 	}
@@ -226,11 +226,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$mint_options = $mints->getEarlyMedMintRuler($this->_getParam('term'));
 	if ($mint_options) {
 	echo  Zend_Json::encode($mint_options);
-	} else if($ruler == NULL) {
-	$data = array(array('id' => NULL, 'term' => 'I donated my brain to Michael'));
+	} else if($ruler == null) {
+	$data = array(array('id' => null, 'term' => 'I donated my brain to Michael'));
 	echo Zend_Json::encode($data);
 	} else {
-	$data = array(array('id' => NULL, 'term' => 'No options available'));
+	$data = array(array('id' => null, 'term' => 'No options available'));
 	echo Zend_Json::encode($data);
 	}
 	}
@@ -242,11 +242,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$mint_options = $mints->getEarlyMedMintRuler($this->_getParam('term'));
 	if ($mint_options) {
 	echo  Zend_Json::encode($mint_options);
-	} else if($ruler == NULL) {
-	$data = array(array('id' => NULL, 'term' => 'No options available'));
+	} else if($ruler == null) {
+	$data = array(array('id' => null, 'term' => 'No options available'));
 	echo Zend_Json::encode($data);
 	} else {
-	$data = array(array('id' => NULL, 'term' => 'No options available'));
+	$data = array(array('id' => null, 'term' => 'No options available'));
 	echo Zend_Json::encode($data);
 	}
 	} else {
@@ -262,11 +262,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	if ($cat_options) {
 	echo  Zend_Json::encode($cat_options);
 	} else {
-	$data = array(array('id' => NULL, 'term' => 'No options available'));
+	$data = array(array('id' => null, 'term' => 'No options available'));
 	echo Zend_Json::encode($data);
 	}
 	} else {
-	$error = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$error = array(array('id' => null, 'term' => 'No ruler specified'));
 	echo Zend_Json::encode($error);
 	}
 	}
@@ -278,11 +278,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	if ($ruler_options) {
 	echo  Zend_Json::encode($ruler_options);
 	} else {
-	$data = array(array('id' => NULL, 'term' => 'No options available'));
+	$data = array(array('id' => null, 'term' => 'No options available'));
 	echo Zend_Json::encode($data);
 	}
 	} else {
-	$data = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$data = array(array('id' => null, 'term' => 'No ruler specified'));
 	echo Zend_Json::encode($data);
 	}
 	}
@@ -299,7 +299,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	echo Zend_Json::encode($reece2_options);
 	}
 	} else {
-	$error = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$error = array(array('id' => null, 'term' => 'No ruler specified'));
 	echo Zend_Json::encode($error);
 	}
 	}
@@ -309,7 +309,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$geographies= new Geography();
 	$response = $geographies->getIronAgeGeography($this->_getParam('term'));
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$response = array(array('id' => null, 'term' => 'No ruler specified'));
 	}
 	echo  Zend_Json::encode($response);
 	}
@@ -319,7 +319,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$rulers = new Rulers();
 	$response = $rulers->getIronAgeRulerRegion($this->_getParam('term'));
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$response = array(array('id' => null, 'term' => 'No ruler specified'));
 	}
 	echo  Zend_Json::encode($response);
 	}
@@ -330,7 +330,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$cats = new CategoriesCoins();
 	$response = $cats->getCategoriesPeriod($this->_getParam('term'));
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No period specified'));
+	$response = array(array('id' => null, 'term' => 'No period specified'));
 	}
 	echo  Zend_Json::encode($response);
 	}
@@ -340,7 +340,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$rulers = new Rulers();
 	$response = $rulers->getAllRulers($this->_getParam('term'));
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No period specified.'));
+	$response = array(array('id' => null, 'term' => 'No period specified.'));
 	}
 	echo  Zend_Json::encode($response);
 	}
@@ -351,7 +351,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$tribes = new Tribes();
 	$response = $tribes->getIronAgeTribeRegion($this->_getParam('term'));
 	} else {
-	$response  = array(array('id' => NULL, 'term' => 'No region specified'));
+	$response  = array(array('id' => null, 'term' => 'No region specified'));
 	}
 	echo Zend_Json::encode($response);
 	}
@@ -363,10 +363,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	if ($type_options) {
 	$response = $type_options;
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No options available'));
+	$response = array(array('id' => null, 'term' => 'No options available'));
 	}
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$response = array(array('id' => null, 'term' => 'No ruler specified'));
 	}
 	echo Zend_Json::encode($response);
 	}
@@ -381,7 +381,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$response = array(array('id' => '', 'term' => 'No options available'));
 	}
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No ruler specified'));
+	$response = array(array('id' => null, 'term' => 'No ruler specified'));
 	}
 	echo Zend_Json::encode($response);
 	}
@@ -396,7 +396,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$response = array(array('id' => '', 'term' => 'No options available'));
 	}
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No category specified'));
+	$response = array(array('id' => null, 'term' => 'No category specified'));
 	}
 	echo Zend_Json::encode($response);
 	}
@@ -411,7 +411,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$response = array(array('id' => '', 'term' => 'No options available'));
 	}
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No category specified'));
+	$response = array(array('id' => null, 'term' => 'No category specified'));
 	}
 	echo Zend_Json::encode($response);
 	}
@@ -428,7 +428,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$response = array(array('id' => '', 'term' => 'No options available'));
 	}
 	} else {
-	$response = array(array('id' => NULL, 'term' => 'No options available'));
+	$response = array(array('id' => null, 'term' => 'No options available'));
 	}
 	echo Zend_Json::encode($response);
 	}
@@ -505,7 +505,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	$filename = $staff['image'];
 	}
 	$updateData = array();
-	$updateData['image'] = NULL;
+	$updateData['image'] = null;
 	$updateData['updated'] = $this->getTimeForForms();
 	$updateData['updatedBy'] = $this->getIdentityForForms();
 	$stafflist = new Contacts();
@@ -588,7 +588,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	echo Zend_Json::encode($json);
 	}
 
-	
+
 	public function osdistrictsbycountyAction() {
 	if($this->_getParam('term',false)){
 	$districts = new OsDistricts();
@@ -635,7 +635,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	echo Zend_Json::encode($json);
 	}
 	}
-	
+
 	public function publicationsAction() {
 	if($this->_getParam('term',false)){
 	$parishes = new Publications();

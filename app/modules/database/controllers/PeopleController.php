@@ -23,19 +23,19 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
      * @var \People
      */
     protected $_people;
-    
+
     /** The geocoder
      * @access protected
      * @var \Pas_Service_Geo_Coder
      */
     protected $_geocoder;
-    
+
     /** The current context
      * @access protected
      * @var string
      */
     protected $_currentContext;
-    
+
     /** Get the current content used
      * @access public
      * @return string
@@ -69,7 +69,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function init() {
-        $this->_helper->_acl->allow('flos',NULL);
+        $this->_helper->_acl->allow('flos',null);
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
@@ -83,10 +83,10 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     }
 
     /** Redirect base string
-     * 
+     *
      */
     const REDIRECT = 'database/people/';
-    
+
     /** Index page of all people on the database
      * @access public
      * @return void
@@ -148,7 +148,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
         }
     }
 
-    
+
     /** Add personal data
      * @access public
      * @return void
@@ -181,7 +181,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** Edit person's data
      * @access public
      * @throws Exception
@@ -202,7 +202,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                     $address .= ',';
                     $address .= $form->getValue('postcode');
                     $coords = $this->geoCodeAddress($address);
-                    $oldData = $this->getPeople()->fetchRow('id=' 
+                    $oldData = $this->getPeople()->fetchRow('id='
                             . $this->_getParam('id'))->toArray();
                     if(array_key_exists('dbaseID',$updateData)){
                         $users = new Users();
@@ -236,7 +236,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                 throw new Exception($this->_missingParameter);
             }
     }
-    
+
     /** Delete a person's data
      * @access public
      * @return void
@@ -257,7 +257,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $this->view->people = $this->getPeople()->fetchRow('id=' . $id);
                 }
-        }   
+        }
     }
 
     /** An action to map the people
@@ -268,7 +268,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     public function mapAction(){
         //All magic happens in the view
     }
-    
+
     /** Geocode the coordinates of the address
      * @access public
      * @param string $address

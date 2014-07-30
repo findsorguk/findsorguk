@@ -69,7 +69,7 @@ class Pas_View_Helper_ChangesCoins extends Zend_View_Helper_Abstract
                 'controller' => 'ajax',
                 'action' => 'coinaudit',
                 'id' => $a['editID']),
-                NULL,
+                null,
                 true);
         $html .= '" title="View all changes on this date">';
         $html .= $this->view->timeAgoInWords($a['created']);

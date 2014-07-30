@@ -1,7 +1,7 @@
 <?php
 /**
  * A controller for ajax based functions for news module
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 2
  * @since version 1
@@ -13,10 +13,10 @@
  * @uses Finds
  * @uses Zend_Http_Client
  * @uses Events
- * 
+ *
  */
 class News_AjaxController extends Pas_Controller_Action_Admin {
-    
+
     /** The they work for you api key
      * @access protected
      * @var string
@@ -26,11 +26,11 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
     /** Initialise the ACL and contexts
      * @access public
      * @return void
-    */ 
+    */
     public function init() {
-        $this->_helper->_acl->allow(NULL);
+        $this->_helper->_acl->allow(null);
         $this->_helper->layout->disableLayout();
-        $this->_apikey = $this->_helper->config()->webservice->twfy->apikey;  
+        $this->_apikey = $this->_helper->config()->webservice->twfy->apikey;
     }
 
     /** Index page, nothing happens here
@@ -40,7 +40,7 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
     public function indexAction() {
         //Dummy action
     }
-	
+
     /** Curl function to retrieve data from url
      * @access public
      * @param string $url
@@ -59,7 +59,7 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
         $client = new Zend_Http_Client($url, $config);
 	return $client->request();
     }
-    
+
     /** Action for getting mapping data for the news module
      * @access public
      * @return void
@@ -82,13 +82,13 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
      * @todo rewrite to use YQL
      * @access public
      * @return void
-    */ 
+    */
     public function mpAction() {
 	$id = $this->_getParam('id');
-	$twfy = 'http://www.theyworkforyou.com/api/getPerson?key='; 
+	$twfy = 'http://www.theyworkforyou.com/api/getPerson?key=';
         $twfy .= $this->_apikey;
         $twfy .= '&id=';
-        $twfy .= $id; 
+        $twfy .= $id;
         $twfy .= '&output=js';
 	$this->view->data = json_decode($this->get($twfy));
     }

@@ -19,7 +19,7 @@
  * @uses ChangePasswordForm
  * @uses ResetPasswordKeyForm
  * @uses AccountUpgradeForm
- * 
+ *
 */
 class Users_AccountController extends Pas_Controller_Action_Admin {
 
@@ -28,7 +28,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @var \Zend_Auth
      */
     protected $_auth;
-    
+
     /** The users model
      * @access protected
      * @var \Users
@@ -45,12 +45,12 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
             'index', 'logout', 'edit',
             'forgotusername', 'success', 'resetpassword'
             ));
-	$this->_helper->_acl->allow('member',NULL);
+	$this->_helper->_acl->allow('member',null);
 	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 	$this->_auth = Zend_Registry::get('auth');
 	$this->_users = new Users();
     }
-    
+
     /** Set up index page
      * @access public
      * @return void
@@ -66,7 +66,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
             $this->view->users = $this->_users->getUserProfile($this->getIdentityForForms());
         }
     }
-    
+
     /** Logout and clear the identity from the storage
      * @access public
      * @return void
@@ -76,7 +76,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
 	$this->_flashMessenger->addMessage('You have now logged out');
 	return $this->_redirect('/users/');
     }
-    
+
     /** Edit the user details
      * @access public
      * @return void
@@ -174,7 +174,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                         'activationKey' =>  $newKey,
                         );
                     $to = array(array(
-                        'email' => $form->getValue('email'), 
+                        'email' => $form->getValue('email'),
                         'name' => $results[0]['fullname']
                             ));
                     $assignData = array_merge(
@@ -269,16 +269,16 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
-                $data = $authAdapter->getResultRowObject(NULL,'password');
+                $data = $authAdapter->getResultRowObject(null,'password');
                 $this->_auth->getStorage()->write($data);
                 $this->_redirect( $this->_helper->loginRedirect() );
             } else {
                 $this->_auth->clearIdentity();
-                $this->_flashMessenger->addMessage('Sorry, there was a problem with your submission. 
+                $this->_flashMessenger->addMessage('Sorry, there was a problem with your submission.
                 Please check and try again');
                 $form->populate($formData);
             }
-        } 
+        }
         } else {
             $this->_redirect('/users/');
         }
@@ -376,6 +376,6 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
         else {
             $form->populate($form->getValues());
             $this->_flashMessenger->addMessage('Please review and correct problems');
-        }	
+        }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /** Controller for user module index and login
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package Pas_Controller_Action
@@ -16,7 +16,7 @@
  * @uses Zend_Registry
 */
 class Users_IndexController extends Pas_Controller_Action_Admin {
-	
+
     /** The auth instance
      * @access protected
      * @var \Zend_Auth
@@ -34,10 +34,10 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
     }
 
     /** The redirect
-     * 
+     *
      */
     const REDIRECT = '/users/account/';
-	
+
     /** Creation of the login page
      * @access public
      * @return void
@@ -50,30 +50,30 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
                 $formData = $this->_request->getPost();
                 if ($form->isValid($formData)) {
                     $authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
-                    $data = $authAdapter->getResultRowObject(NULL,'password');
+                    $data = $authAdapter->getResultRowObject(null,'password');
                     $this->_auth->getStorage()->write($data);
                     $this->_redirect( $this->_helper->loginRedirect() );
                 } else {
                     $this->_auth->clearIdentity();
-                    $this->_flashMessenger->addMessage('Sorry, there was a 
+                    $this->_flashMessenger->addMessage('Sorry, there was a
                         problem with your submission. Please check and try again');
                     $form->populate($formData);
                 }
-            } 
+            }
 	} else {
             $this->_redirect(self::REDIRECT);
 	}
     }
-	
+
     /** Can't remember why this function exists
-    */		
+    */
     public function privilegesAction() {
         $this->_forward('index');
     }
     /** Identify the user
      * @access public
      * @return void
-    */		
+    */
     public function identifyAction()  {
         if ($this->getRequest()->isPost()) {
             $formData = $this->_getFormData();
@@ -93,8 +93,8 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
-    
+
+
     /** Retrieve the login form data from _POST
      * @access protected
      * @return array
@@ -108,7 +108,7 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
 	$data['password'] = $filterChain->filter($this->getRequest()->getPost('password'));
         return $data;
     }
-    
+
     /**Set up the auth adapater for interaction with the database
      *
      * @return Zend_Auth_Adapter_DbTable

@@ -1,8 +1,8 @@
 <?php
 /** Form for creating and editing coin classification data
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $form = new CoinClassForm();
@@ -49,7 +49,10 @@ class CoinClassForm extends Pas_Form {
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('inArray', false, array(array_keys($period_actives)))
-		->addMultiOptions(array(NULL=> NULL,'Choose period:' => $period_actives))
+		->addMultiOptions(array(
+                    null => 'Choose a period',
+                    'Available periods:' => $period_actives
+                ))
 		->addErrorMessage('You must enter a period for this mint');
 
 	//Submit button

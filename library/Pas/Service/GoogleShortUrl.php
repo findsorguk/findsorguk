@@ -2,7 +2,7 @@
 /** A service class for shortening and expanding links with goo.gl
  *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $shortener = new Pas_Service_GoogleShortUrl($key);
@@ -200,10 +200,10 @@ class Pas_Service_GoogleShortUrl {
             if($code == true && $header != 'text/html;charset=UTF-8'){
                 return $this->getDecode($response);
             } else {
-                    return NULL;
+                return null;
             }
         } else {
-                return NULL;
+            return null;
         }
     }
 
