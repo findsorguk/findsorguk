@@ -23,7 +23,6 @@ class About_VacanciesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init() {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->acl->allow('public',null);
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
@@ -34,6 +33,7 @@ class About_VacanciesController extends Pas_Controller_Action_Admin {
                 ->addActionContext('vacancy', array('xml','json'))
                 ->initContext();
         $this->_vacancies = new Vacancies();
+        
     }
     /** Render the index pages and rss
      * @access public

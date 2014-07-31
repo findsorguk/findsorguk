@@ -33,8 +33,8 @@ class Admin_RolesController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('flos',array('index'));
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_staffroles = new StaffRoles();
+        
     }
     /** Display the index page
     */
@@ -60,7 +60,7 @@ class Admin_RolesController extends Pas_Controller_Action_Admin {
                 $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_staffroles->add($form->getValues());
-                $this->_flashMessenger->addMessage('A new staff role has been created.');
+                $this->getFlash()->addMessage('A new staff role has been created.');
                 $this->_redirect($this->_redirectUrl );
             } else {
                 $form->populate($form->getValues());
@@ -81,7 +81,7 @@ class Admin_RolesController extends Pas_Controller_Action_Admin {
                 $where[] = $this->_staffroles->getAdapter()->quoteInto('id = ?', 
                         $this->_getParam('id'));
                 $this->_staffroles->update($form->getValues(),$where);
-                $this->_flashMessenger->addMessage($form->getValue('role') 
+                $this->getFlash()->addMessage($form->getValue('role') 
                         . '\'s details updated.');
                 $this->_redirect($this->_redirectUrl );
             } else {
@@ -105,7 +105,7 @@ class Admin_RolesController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $this->_staffroles->delete($where);
             }
-            $this->_flashMessenger->addMessage('Role information deleted! This cannot be undone.');
+            $this->getFlash()->addMessage('Role information deleted! This cannot be undone.');
             $this->_redirect($this->_redirectUrl);
         } else {
             if ($id > 0) {

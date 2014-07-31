@@ -26,8 +26,8 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_comments = new Comments();
+        
     }
 
     /** Display all the comments
@@ -61,10 +61,10 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin {
                     $this->_comments->update($data,$where);
 
                     $this->_helper->mailer($form->getValues(),'commentPublished', $to);
-                    $this->_flashMessenger->addMessage('Comment data updated.');
+                    $this->getFlash()->addMessage('Comment data updated.');
                     $this->_redirect('/admin/comments/');
                 } else {
-                    $this->_flashMessenger->addMessage('There is a problem with the form, please check and resubmit');
+                    $this->getFlash()->addMessage('There is a problem with the form, please check and resubmit');
                     $form->populate($data);
                 }
             } else {

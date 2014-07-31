@@ -70,7 +70,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     */
     public function init() {
         $this->_helper->_acl->allow('flos',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
                 ->addContext('csv',array('suffix' => 'csv'))
@@ -175,7 +175,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                 $insert = $this->getPeople()->add($insertData);
         	$this->_helper->solrUpdater->update('beopeople', $insert);
                 $this->_redirect(self::REDIRECT . 'person/id/' . $insert);
-                $this->_flashMessenger->addMessage('Record created!');
+                $this->getFlash()->addMessage('Record created!');
             } else {
                 $form->populate($form->getValues());
             }
@@ -221,7 +221,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                     //Update the audit log
                     $this->_helper->audit($updateData, $oldData, 'PeopleAudit',
                     $this->_getParam('id'), $this->_getParam('id'));
-                    $this->_flashMessenger->addMessage('Person information updated!');
+                    $this->getFlash()->addMessage('Person information updated!');
                     $this->_redirect(self::REDIRECT . 'person/id/' . $this->_getParam('id'));
                     } else {
                         $form->populate($form->getValues());
@@ -249,7 +249,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $this->getPeople()->delete($where);
                 $this->_helper->solrUpdater->deleteById('beopeople', $id);
-                $this->_flashMessenger->addMessage('Record deleted!');
+                $this->getFlash()->addMessage('Record deleted!');
             }
             $this->_redirect(self::REDIRECT);
             }  else  {

@@ -18,7 +18,7 @@ class Admin_ErrorsController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
     }
     /** Display the index page
      * @access public

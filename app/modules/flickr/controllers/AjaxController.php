@@ -33,7 +33,7 @@ class Flickr_AjaxController extends Pas_Controller_Action_Admin {
         $this->_helper->layout->disableLayout();
         $this->_flickr = Zend_Registry::get('config')->webservice->flickr;
         $this->_api = new Pas_Yql_Flickr($this->_flickr);
-        parent::init();
+        
     }
 
     /** Display the index action for mapping flickr images

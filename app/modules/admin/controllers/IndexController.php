@@ -26,7 +26,7 @@ class Admin_IndexController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('flos',$flosActions);
         $this->_helper->_acl->allow('fa',$faActions);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
     }
     
     /** The index page for the admin section

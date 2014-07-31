@@ -32,6 +32,7 @@ class ByzantineCoins_DenominationsController extends Pas_Controller_Action_Admin
                 ->addActionContext('denomination', array('xml','json'))
                 ->initContext();
         $this->_denominations = new Denominations();
+        
     }
 
     /** The period to query

@@ -18,7 +18,8 @@ class Bronzeage_IndexController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function init(){
-    $this->_helper->_acl->allow(null);
+        $this->_helper->_acl->allow(null);
+        
     }
 
     /** Render the index pages

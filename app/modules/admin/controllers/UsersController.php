@@ -57,7 +57,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
     }
 
     /** Display a list of users in paginated format
@@ -140,7 +140,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                             $this->_getParam('id'), 
                             $this->_getParam('id')
                             );
-                    $this->_flashMessenger->addMessage('You updated: <em>' 
+                    $this->getFlash()->addMessage('You updated: <em>' 
                             . $form->getValue('fullname')
                             . '</em> successfully.');
                     $this->_redirect('/admin/users/account/username/' . $form->getValue('username'));
@@ -221,7 +221,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                 foreach ($directories as $dir){
                     mkdir($dir, 0777);
                 }
-                $this->_flashMessenger->addMessage('You successfully added a new account');
+                $this->getFlash()->addMessage('You successfully added a new account');
                 $this->_redirect('/admin/users/account/username/' 
                         . $form->getValue('username'));
             } else {
@@ -290,7 +290,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                         'name' => $form->getValue('fullname')
                             ));
                     $this->_helper->mailer($form->getValues(), 'upgradeAccount', $to);
-                    $this->_flashMessenger->addMessage('Account upgraded and project data entered');
+                    $this->getFlash()->addMessage('Account upgraded and project data entered');
                     $this->_redirect('/admin/users/upgrades');
                 } else {
                 $form->populate($form->getValues());
@@ -348,7 +348,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                         'name' => $form->getValue('fullname'))
                     );
                     $this->_helper->mailer($form->getValues(), 'upgradeRejected', $to);
-                    $this->_flashMessenger->addMessage('Account rejected');
+                    $this->getFlash()->addMessage('Account rejected');
                     $this->_redirect('/admin/users/upgrades');
                 } else {
                     $form->populate($formData);

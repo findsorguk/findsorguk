@@ -30,6 +30,7 @@ class ByzantineCoins_RulersController extends Pas_Controller_Action_Admin {
                 ->addActionContext('ruler', array('xml','json'))
                 ->initContext();
         $this->_rulers = new Rulers();
+        
     }
     
     /** Setup the index page for rulers

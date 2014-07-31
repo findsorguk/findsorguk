@@ -18,6 +18,7 @@ class About_LogoAndBrandingController extends Pas_Controller_Action_Admin {
      */
     public function init(){
         $this->_helper->acl->allow('public', null);
+        
     }
     /** Display the front page material.
      * @access public

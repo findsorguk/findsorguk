@@ -21,7 +21,7 @@ class Database_IndexController extends Pas_Controller_Action_Admin {
     */
     public function init() {
         $this->_helper->_acl->allow('public', null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
     }
     /** Setup index page
      * @access public
@@ -43,7 +43,7 @@ class Database_IndexController extends Pas_Controller_Action_Admin {
                 && $form->isValid($this->_request->getPost())) {
             $functions = new Pas_ArrayFunctions();
             $params = $functions->array_cleanup($form->getValues());
-            $this->_flashMessenger->addMessage('Your search is complete');
+            $this->getFlash()->addMessage('Your search is complete');
             $this->_helper->Redirector->gotoSimple(
                     'results', 'search', 'database', $params);
         } else {

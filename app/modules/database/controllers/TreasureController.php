@@ -61,7 +61,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init(){
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');	
+        	
         $this->_helper->_acl->allow('flos',null);
         $this->view->id = $this->_treasureID;
         
@@ -72,7 +72,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->_flashMessenger->addMessage('There is no direct access to the root action for treasure');
+        $this->getFlash()->addMessage('There is no direct access to the root action for treasure');
         $this->_redirect('/treasure/cases/');
     }
 
@@ -145,7 +145,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
                     $provisionals = new TreasureValuations();
                     $provisionals->add($data);
                     $this->_redirect($this->_redirect);
-                    $this->_flashMessenger->addMessage('A new provisional value has been added.');
+                    $this->getFlash()->addMessage('A new provisional value has been added.');
                 } else {
                     $form->populate($formData);
                 }
@@ -170,7 +170,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
                 $provisionals = new TreasureValuations();
                 $provisionals->updateTreasure($data);
                 $this->_redirect($this->_redirect);
-                $this->_flashMessenger->addMessage('A provisional value has been updated.');
+                $this->getFlash()->addMessage('A provisional value has been updated.');
             } else {
             $form->populate($formData);
             }
@@ -198,7 +198,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
                     $curators = new TreasureAssignations();
                     $insert = $curators->add($data);
                     $this->_redirect($this->_redirect);
-                    $this->_flashMessenger->addMessage('Curator has been assigned.');
+                    $this->getFlash()->addMessage('Curator has been assigned.');
                 } else {
                     $form->populate($formData);
                 }
@@ -225,7 +225,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
                     $dates = new TvcDatesToCases();
                     $insert = $dates->add($data);
                     $this->_redirect($this->_redirect);
-                    $this->_flashMessenger->addMessage('Curator has been assigned.');
+                    $this->getFlash()->addMessage('Curator has been assigned.');
                 } else {
                 $form->populate($formData);
                 }
@@ -252,7 +252,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
                     $provisionals = new AgreedTreasureValuations();
                     $insert = $provisionals->add($data);
                     $this->_redirect($this->_redirect);
-                    $this->_flashMessenger->addMessage('A new final valuation has been added.');
+                    $this->getFlash()->addMessage('A new final valuation has been added.');
                 } else {
                     $form->populate($formData);
                 }

@@ -45,7 +45,7 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('public',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $contexts = array('xml','json','foaf','vcf');
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
                 ->addContext('foaf',array('suffix' => 'foaf'))

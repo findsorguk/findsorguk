@@ -19,8 +19,9 @@ class About_ContactUsController extends Pas_Controller_Action_Admin {
      * @access public
      */
     public function init() {
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+	
 	$this->_helper->acl->allow('public',null);
+        
     }
 
     /** The action that allows people to send in requests via the contact us 
@@ -43,10 +44,10 @@ class About_ContactUsController extends Pas_Controller_Action_Admin {
                     'name' => $form->getValue('comment_author')
 		);
                 $this->_helper->mailer($insertData, 'contactUs', null, $cc, $cc);
-                $this->_flashMessenger->addMessage('Your enquiry has been submitted to the Scheme');
+                $this->getFlash()->addMessage('Your enquiry has been submitted to the Scheme');
                 $this->_redirect('about/contactus/');
             } else {
-                $this->_flashMessenger->addMessage('There are problems with your submission');
+                $this->getFlash()->addMessage('There are problems with your submission');
                 $form->populate($form->getValues());
             }
 	}

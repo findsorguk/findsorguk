@@ -37,6 +37,7 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
         $appid = $this->_helper->config()->ydnkeys->placemakerkey;
         $this->_appid = $appid;
         $this->_geoplanet = new Pas_Service_Geo_Geoplanet($this->_appid);
+        
     }
 
     /** The grid length function

@@ -21,7 +21,7 @@ class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('public',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
 	$contexts = array('xml','json');
 	$this->_helper->contextSwitch()->setAutoJsonSerialization(false);
 	$this->_helper->contextSwitch()->setAutoDisableLayout(true)

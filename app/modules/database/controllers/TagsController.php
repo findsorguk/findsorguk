@@ -26,7 +26,7 @@ class Database_TagsController extends Pas_Controller_Action_Admin {
     */	
     public function init() {
         $this->_helper->_acl->allow(null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_opencalais = new OpenCalaisModel();
     }
     /** Display index page

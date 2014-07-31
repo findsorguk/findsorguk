@@ -37,7 +37,7 @@ class Pas_Solr_FieldGeneratorFinds {
      * @return string
      */
     public function getFields(){
-	if(!in_array($this->_context,array('json', 'xml', 'kml', 'geojson'))){
+	if(!in_array($this->_context, array('json', 'xml', 'kml', 'geojson'))){
 		
             $fields = array(
                 'id','identifier','objecttype',

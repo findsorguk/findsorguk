@@ -14,7 +14,7 @@ class Getinvolved_LinksController extends Pas_Controller_Action_Admin {
     /** Initialise the ACL
     */ 
     public function init() {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_helper->acl->allow(null);
     }
     /** Render data for the index page

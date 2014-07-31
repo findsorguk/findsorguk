@@ -49,9 +49,9 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
                 array('add', 'edit', 'delete', 'index')
                 );
         $this->_helper->_acl->allow('admin', null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_geocoder = new Pas_Service_Geo_Coder();
         $this->_events = new Events();
+        
     }
     
     /** Set up index of events
@@ -74,7 +74,7 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
         $this->view->form = $form;
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $this->_events->insert($form->getValues());
-            $this->_flashMessenger->addMessage('New event created!');
+            $this->getFlash()->addMessage('New event created!');
             $this->_redirect('/admin/events/');
         } else {
             $form->populate($this->_request->getPost());
@@ -95,7 +95,7 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
             $where = array();
             $where[] = $this->_events->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
             $this->_events->update($form->getValues(),$where);
-            $this->_flashMessenger->addMessage(
+            $this->getFlash()->addMessage(
                     'You updated: <em>' 
                     . $form->getValue('eventTitle')
                     . '</em> successfully.');
@@ -110,13 +110,13 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
      */
     public function deleteAction() {
         if ($this->_request->isPost()) {
-            $this->_flashMessenger->addMessage('No changes implemented.');
+            $this->getFlash()->addMessage('No changes implemented.');
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
                 $where = 'ID = ' . $id;
                 $this->_events->delete($where);
-                $this->_flashMessenger->addMessage('Event information deleted! This cannot be undone.');
+                $this->getFlash()->addMessage('Event information deleted! This cannot be undone.');
             }
             $this->_redirect('/admin/events/');
         } else {

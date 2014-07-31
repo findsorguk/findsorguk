@@ -18,7 +18,7 @@ class Database_DataController extends Pas_Controller_Action_Admin {
     public function init()  {
 	$this->_helper->_acl->allow('member','index');
 	$this->_helper->_acl->allow('flos','backups');
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+	
     }
 
     /** The index action

@@ -26,8 +26,8 @@ class Admin_VolunteersController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_volunteers = new Volunteers();
+        
     }
     
     /** The redirect uri string
@@ -54,7 +54,7 @@ class Admin_VolunteersController extends Pas_Controller_Action_Admin {
                 && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_volunteers->add($form->getValues());
-                $this->_flashMessenger->addMessage('Volunteer role details '
+                $this->getFlash()->addMessage('Volunteer role details '
                         . 'created: ' . $form->getValue('title'));
                 $this->_redirect(self::REDIRECT);
             } else {
@@ -80,7 +80,7 @@ class Admin_VolunteersController extends Pas_Controller_Action_Admin {
                     $where[] = $this->_volunteers->getAdapter()
                             ->quoteInto('id = ?', $this->_getParam('id'));
                     $this->_volunteers->update($form->getValues(), $where);
-                    $this->_flashMessenger->addMessage('Vacancy details updated!');
+                    $this->getFlash()->addMessage('Vacancy details updated!');
                     $this->_redirect(self::REDIRECT);
                 } else {
                     $form->populate($form->getValues());
@@ -113,7 +113,7 @@ class Admin_VolunteersController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . (int)$id;
                 $this->_volunteers->delete($where);
-                $this->_flashMessenger->addMessage('Record deleted');
+                $this->getFlash()->addMessage('Record deleted');
             }
             $this->_redirect(self::REDIRECT);
         } else {
