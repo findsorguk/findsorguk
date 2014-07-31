@@ -1,15 +1,15 @@
 <?php
 /** Form for setting up and editing publications data
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $form = new PublicationForm();
  * $form->submit->setLabel('Submit new');
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
  * @category   Pas
@@ -18,7 +18,7 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/modules/database/controllers/PublicationsController.php
  * @uses PublicationTypes
- * 
+ *
 */
 class PublicationForm extends Pas_Form {
 
@@ -28,7 +28,7 @@ class PublicationForm extends Pas_Form {
      * @return void
      */
     public function __construct(array $options = null) {
-	
+
         $types = new PublicationTypes();
 	$type_options = $types->getTypes();
 
@@ -104,7 +104,10 @@ class PublicationForm extends Pas_Form {
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL,'Choose reason' => $type_options))
+		->addMultiOptions(array(
+                    null => 'Choose type',
+                    'Available types' => $type_options
+                ))
 		->addValidator('InArray', false, array(array_keys($type_options)));
 
 	$ISBN = new Zend_Form_Element_Text('ISBN');
@@ -133,7 +136,7 @@ class PublicationForm extends Pas_Form {
             $title, $authors, $publisher,
             $publication_place,	$publication_year, $vol_no,
             $edition,$in_publication, $editors,
-            $publication_type, $ISBN, $BIAB, 
+            $publication_type, $ISBN, $BIAB,
             $DOI, $submit)
 	);
 
@@ -141,8 +144,8 @@ class PublicationForm extends Pas_Form {
             'title','authors','publisher',
             'publication_place','publication_year','vol_no',
             'edition','in_publication','editors',
-            'publication_type','ISBN', 'biab', 
-            'doi'), 
+            'publication_type','ISBN', 'biab',
+            'doi'),
                 'details');
 
 	$this->addDisplayGroup(array('submit'), 'buttons');

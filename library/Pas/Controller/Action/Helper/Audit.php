@@ -1,31 +1,31 @@
 <?php
 /** Description of Config
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $this->_helper->audit(
- * $updateData, 
- * $oldData, 
- * 'FindsAudit',  
+ * $updateData,
+ * $oldData,
+ * 'FindsAudit',
  * $this->_getParam('id'),
  * $this->_getParam('id')
  * );
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @version 1
  * @category Pas
  * @package Controller_Action
  * @subpackage Helper
- * @example /app/modules/database/controllers/ArtefactsController.php 
- * 
+ * @example /app/modules/database/controllers/ArtefactsController.php
+ *
  */
 class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_Abstract {
-    
+
     /** Get a time stamp
      * @access public
      * @return string
@@ -33,15 +33,15 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
     public function getTimeForForms() {
 	return Zend_Date::now()->toString('yyyy-MM-dd HH:mm:ss');
     }
-    
+
     /** Create an edit ID
      * @access public
      * @return string
      */
     public function editID(){
-        return md5($this->getTimeForForms());   
+        return md5($this->getTimeForForms());
     }
-    
+
     /** The direct action to run the helper.
      * @access public
      * @param array $auditData
@@ -65,7 +65,7 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
                     // remove slashes (escape characters) from $newarray
                     $auditData[$item] = stripslashes($auditData[$item]);
                 } // if
-            } // foreach 
+            } // foreach
             // remove entry from $oldarray which does not exist in $newarray
             foreach ($oldData as $item => $value) {
                 if (!array_key_exists($item, $auditData)) {
@@ -102,7 +102,7 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
             $fieldarray[$ix]['editID'] = $this->editID();
             $fieldarray[$ix]['fieldName'] = $field_id;
             $fieldarray[$ix]['afterValue'] = $new_value;
-        } 
+        }
 
 
 
@@ -110,14 +110,14 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
         foreach($fieldarray as $f){
             foreach ($f as $key => $value) {
                 if (is_null($value) || $value=="") {
-                    $f[$key] = NULL;
+                    $f[$key] = null;
                 }
             }
             $audit = new $model();
             $auditing = $audit->add($f);
         }
     }
-   
+
     /** Filter the audit array
      * @access protected
      * @param array $fieldarray
@@ -128,5 +128,5 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
             return true;
         }
     }
-    
+
 }

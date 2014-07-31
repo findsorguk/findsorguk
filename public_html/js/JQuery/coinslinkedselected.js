@@ -1,18 +1,12 @@
-
-
 (function($){
 
    $.fn.linkedSelect = function(url,destination,params) {
 
       var params = $.extend({
 
-       
-
       },params);
 
       var $dest = $(destination);
-
-
 
             $.getJSON(url,{term: $$.val() }, function(j){
 
@@ -35,10 +29,9 @@
 
             }); // end getJSON
 
-       
 
-      }); // end return each
 
-   };  // end function
+      }; // end return each
+
 
 })(jQuery);

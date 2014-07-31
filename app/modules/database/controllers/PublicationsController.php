@@ -27,7 +27,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('public',array('index','publication'));
         $this->_helper->_acl->deny('public',array('add','edit','delete'));
-        $this->_helper->_acl->allow('flos',NULL);
+        $this->_helper->_acl->allow('flos',null);
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
                 ->addActionContext('publication', array('xml','json'))

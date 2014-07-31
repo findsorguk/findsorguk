@@ -8,125 +8,128 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @uses OnlineAccounts
+ * @uses SocialAccountsForm
 */
 class Users_SocialController extends Pas_Controller_Action_Admin {
+
+    /** The social accounts model
+     * @access protected
+     * @var \OnlineAccounts
+     */
+    protected $_accounts;
 
     /** Set up the ACL and contexts
      * @access public
      * @return void
      */
-	
-    public function init() {	
-	$this->_helper->_acl->allow('member',NULL);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+    public function init() {
+	$this->_helper->_acl->allow('member',null);
+        $this->_accounts = new OnlineAccounts();
+        parent::init();
     }
 
     /** Display index pages for the individual
      * @return void
      * @access public
      */
-    public function indexAction() {	
-	$services = new OnlineAccounts();
-	$this->view->services = $services->getAllAccounts( (int)$this->getIdentityForForms() );
+    public function indexAction() {
+	$this->view->services = $this->_accounts
+                ->getAllAccounts( (int)$this->getIdentityForForms() );
     }
     /** Add a new account
-    */		
+     * @access public
+     * @return void
+     */
     public function addAction()	{
-    $form = new SocialAccountsForm();
-    $form->submit->setLabel('Submit profile');
-
-    $this->view->form = $form;
-    if ($this->_request->isPost()) {
-    $formData = $this->_request->getPost();
-    if ($form->isValid($formData)) {
-    $services = new OnlineAccounts();
-
-    $insertData = array(
-    'accountName' => $form->getValue('accountName'),
-    'account' => $form->getValue('account'),
-    'public' => $form->getValue('public'),
-    'userID' => $this->getIdentityForForms(),
-    'created' => $this->getTimeForForms(), 
-    'createdBy' => $this->getIdentityForForms()
-    );
-
-    $services->insert($insertData);
-    $this->_flashMessenger->addMessage('A new account has been added to your profile.');
-    $this->_redirect('/users/');
-    } else {
-    $form->populate($formData);
-    }
-    }
+        $form = new SocialAccountsForm();
+        $form->submit->setLabel('Submit profile');
+        $this->view->form = $form;
+        if ($this->_request->isPost()) {
+            $formData = $this->_request->getPost();
+            if ($form->isValid($formData)) {
+                $insertData = array(
+                    'accountName' => $form->getValue('accountName'),
+                    'account' => $form->getValue('account'),
+                    'public' => $form->getValue('public'),
+                    'userID' => $this->getIdentityForForms(),
+                    'created' => $this->getTimeForForms(),
+                    'createdBy' => $this->getIdentityForForms()
+                );
+                $this->_accounts->insert($insertData);
+                $this->_flashMessenger->addMessage('A new account has been added to your profile.');
+                $this->_redirect('/users/');
+            } else {
+                $form->populate($this->_request->getPost());
+            }
+        }
     }
 
     /** Edit one of your social media accounts
-    */		
+     * @access public
+     * @return void
+     * @throws Pas_Exception_Param
+     */
     public function editAction(){
-    if($this->_getParam('id',false)) {
-    $form = new SocialAccountsForm();
-    $form->submit->setLabel('Save profile');
-    $this->view->form = $form;
-    if ($this->_request->isPost()) {
-    $formData = $this->_request->getPost();
-    if ($form->isValid($formData)) {
-    $services = new OnlineAccounts();	
-    $updateData = array(
-    'accountName' => $form->getValue('accountName'),
-    'account' => $form->getValue('account'),
-    'public' => $form->getValue('public'),
-    'userID' => $this->getIdentityForForms(),
-    'updated' => $this->getTimeForForms(), 
-    'updatedBy' => $this->getIdentityForForms()
-    );
-    $where = array();
-    $where[] = $services->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-    $where[] = $services->getAdapter()->quoteInto('userID = ?',$this->getIdentityForForms());
-    $update = $services->update($updateData,$where);
-    $this->_flashMessenger->addMessage('Webservice details updated.');
-    $this->_redirect('/users/');
-    } else {
-    $form->populate($formData);
-    }
-    } else {
-    // find id is expected in $params['id']
-    $id = (int)$this->_request->getParam('id', 0);
-    if ($id > 0) {
-
-    $services = new OnlineAccounts();
-    $service = $services->fetchRow('userID = '.$this->getIdentityForForms().' AND id='.$id);
-    if(count($service)) {
-    $form->populate($service->toArray());
-    } else {
-    throw new Exception($this->_nothingFound);
-    }
-    }
-    }
-    } else {
-    throw new Exception($this->_missingParameter);
-    }
+        if($this->_getParam('id',false)) {
+            $form = new SocialAccountsForm();
+            $form->submit->setLabel('Save profile');
+            $this->view->form = $form;
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($form->isValid($formData)) {
+                    $updateData = array(
+                        'accountName' => $form->getValue('accountName'),
+                        'account' => $form->getValue('account'),
+                        'public' => $form->getValue('public'),
+                        'userID' => $this->getIdentityForForms(),
+                    );
+                    $where = array();
+                    $where[] = $this->_accounts->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->_accounts->getAdapter()->quoteInto('userID = ?',$this->getIdentityForForms());
+                    $this->_accounts->update($updateData,$where);
+                    $this->_flashMessenger->addMessage('Webservice details updated.');
+                    $this->_redirect('/users/');
+                } else {
+                    $form->populate($formData);
+                }
+            } else {
+            // find id is expected in $params['id']
+            $id = (int)$this->_request->getParam('id', 0);
+            if ($id > 0) {
+                $service = $this->_accounts->fetchRow('userID = '.$this->getIdentityForForms().' AND id='.$id);
+                if(count($service)) {
+                    $form->populate($service->toArray());
+                } else {
+                    throw new Pas_Exception_Param($this->_nothingFound, 404);
+                }
+            }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
     }
     /** Delete an account from social media
-    */	
+     * @access public
+     * @return void
+     */
     public function deleteAction() {
-    if ($this->_request->isPost()) {
-    $id = (int)$this->_request->getPost('id');
-    $del = $this->_request->getPost('del');
-    if ($del == 'Yes' && $id > 0) {
-    $services = new OnlineAccounts();
-    $where = array();
-    $where[] = $services->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-    $where[] = $services->getAdapter()->quoteInto('userID = ?',$this->getIdentityForForms());
-    $services->delete($where);
+        if ($this->_request->isPost()) {
+            $id = (int)$this->_request->getPost('id');
+            $del = $this->_request->getPost('del');
+            if ($del == 'Yes' && $id > 0) {
+                $where = array();
+                $where[] = $this->_accounts->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] = $this->_accounts->getAdapter()->quoteInto('userID = ?',$this->getIdentityForForms());
+                $this->_accounts->delete($where);
+            }
+            $this->_redirect('/users/');
+            $this->_flashMessenger->addMessage('Social profile deleted!');
+        } else  {
+            $id = (int)$this->_request->getParam('id');
+            if ($id > 0) {
+                $this->view->service = $this->_accounts->fetchRow('id='.$id);
+            }
+        }
     }
-    $this->_redirect('/users/');
-    $this->_flashMessenger->addMessage('Social profile deleted!');
-    } else  {
-    $id = (int)$this->_request->getParam('id');
-    if ($id > 0) {
-    $services = new OnlineAccounts();
-    $this->view->service = $services->fetchRow('id='.$id);
-    }
-    }
-    }	
-	
+
 }

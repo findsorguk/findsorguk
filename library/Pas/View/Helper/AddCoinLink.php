@@ -1,8 +1,8 @@
 <?php
 /** A view helper for determining whether coin link should be printed.
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $this->view->addCoinLink()
@@ -13,8 +13,8 @@
  * ->setInstitution($institution);
  * ?>
  * </code>
- * 
- * 
+ *
+ *
  * @category Pas
  * @package Pas_View_Helper
  * @todo streamline code
@@ -31,7 +31,7 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_noaccess = array('public', NULL);
+    protected $_noaccess = array('public', null);
 
     /** Array of roles with restricted access
      * @access protected
@@ -107,25 +107,25 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
         $person = new Pas_User_Details();
         return $person->getPerson();
     }
-    
+
     /** The role of the user
      * @access protected
      * @var string
      */
     protected $_role = 'public';
-    
+
     /** The user's id from the model
      * @access protected
      * @var int
      */
-    protected $_userID = NULL;
-    
+    protected $_userID = null;
+
     /** The user's institution from the model
      * @access protected
      * @var string
      */
-    protected $_userInst = NULL;
-    
+    protected $_userInst = null;
+
     /** Get the user's institution
      * @access public
      * @return string
@@ -199,7 +199,7 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
         return $this->_createdBy;
     }
 
-        
+
     /** Function to check whether the institution of creator == user's
      * @access protected
      * @return boolean
@@ -371,7 +371,7 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
                 'findID' => $this->getSecuid(),
                 'returnID' => $this->getFindID()
                 );
-            $url = $this->view->url($params,NULL,TRUE);
+            $url = $this->view->url($params,null,TRUE);
             $string .= '<a class="btn btn-primary" href="';
             $string .= $url;
             $string .= '" title="Add ';

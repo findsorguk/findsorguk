@@ -7,13 +7,14 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Contacts
+ * @uses ZendX_JQuery
  */
 class AddFloRallyForm extends Pas_Form{
 
     /** The constructor
      * @access public
      * @param array $options
-     * @return void 
+     * @return void
      */
     public function __construct(array $options = null) {
 
@@ -23,13 +24,14 @@ class AddFloRallyForm extends Pas_Form{
 	parent::__construct($options);
 
 	ZendX_JQuery::enableForm($this);
+
 	$this->setName('addFlo');
 	$flo = new Zend_Form_Element_Select('staffID');
 	$flo->setLabel('Finds officer present: ')
                 ->setRequired(true)
                 ->addFilters(array('StringTrim','StripTags'))
                 ->addValidator('Int')
-                ->addMultiOptions(array(NULL => 'Choose attending officer', 
+                ->addMultiOptions(array(null => 'Choose attending officer',
                     'Our staff members' => $flos))
                 ->setAttribs(array(
                     'class' => 'input-xxlarge selectpicker show-menu-arrow'));

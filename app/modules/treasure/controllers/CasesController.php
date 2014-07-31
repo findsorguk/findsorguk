@@ -1,15 +1,15 @@
-<?php 
+<?php
 /** Controller for all getting data on existing treasure cases
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
- * @copyright (c) 2014 Daniel Pett 
+ * @copyright (c) 2014 Daniel Pett
  * @category   Pas
  * @package Pas_Controller_Action
  * @subpackage Admin
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @uses TreasureCases
- * 
+ *
 */
 class Treasure_CasesController extends Pas_Controller_Action_Admin {
 
@@ -19,9 +19,9 @@ class Treasure_CasesController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-        $this->_helper->_acl->allow('public',NULL);
+        $this->_helper->_acl->allow('public',null);
     }
-    
+
     /** The index action
      * @access public
      * @return void

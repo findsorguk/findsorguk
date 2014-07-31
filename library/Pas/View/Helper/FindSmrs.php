@@ -19,6 +19,8 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @todo move data call to solr
  * @todo build in partial
+ * @uses ScheduledMonuments
+ * 
  */
 class Pas_View_Helper_FindSmrs extends Zend_View_Helper_Abstract
 {
@@ -120,7 +122,7 @@ class Pas_View_Helper_FindSmrs extends Zend_View_Helper_Abstract
                 'controller' => 'smr',
                 'action' => 'record',
                 'id' => $s['id']),
-                NULL,
+                null,
                 true);
                 $html .= '<li><a href="';
                 $html .= $url;

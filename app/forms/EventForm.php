@@ -1,8 +1,8 @@
 <?php
 /** Form for manipulating events details
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $form = new EventForm();
@@ -11,7 +11,7 @@
  * $this->view->form = $form;
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -52,7 +52,7 @@ class EventForm extends Pas_Form {
             );
 
 	ZendX_JQuery::enableForm($this);
-	
+
         parent::__construct($options);
 
         $this->setName('event');
@@ -149,7 +149,7 @@ class EventForm extends Pas_Form {
 	->setValue('PAS')
 	->addFilters(array('StripTags','StringTrim'))
 	->addMultioptions(array(
-            NULL => 'Choose an organisation',
+            null => 'Choose an organisation',
             'Available institutions' => $orgs
 	))
 	->addValidator('InArray', false, array(array_keys($orgs)));

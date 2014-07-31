@@ -1,15 +1,15 @@
 <?php
 /** A service class for getting postcode from geo data
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $postcode = new Pas_Service_Geo_PostCodeToGeo();
  * $geo = $postcode->getData('WC1B 3DG');
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -18,7 +18,7 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/modules/contacts/controllers/StaffController.php
- * 
+ *
  */
 class Pas_Service_Geo_PostCodeToGeo {
 
@@ -42,7 +42,7 @@ class Pas_Service_Geo_PostCodeToGeo {
 
     /** The validator
      * @access protected
-     * @var \Pas_Validate_ValidPostCode 
+     * @var \Pas_Validate_ValidPostCode
      */
     protected $_validator;
 
@@ -99,7 +99,7 @@ class Pas_Service_Geo_PostCodeToGeo {
         if($code == true){
             return $response->getBody();
         } else {
-                return NULL;
+                return null;
         }
     }
 

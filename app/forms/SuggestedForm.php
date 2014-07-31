@@ -2,7 +2,7 @@
 /** Form for suggesting research topics
  *
  * An example of code:
- * 
+ *
  * <code>
  * <?php
  * $form = new SuggestedForm();
@@ -27,7 +27,7 @@ class SuggestedForm extends Pas_Form {
 
 	$projecttypes = new ProjectTypes();
 	$projectype_list = $projecttypes->getTypes();
-	
+
         $periods = new Periods();
 	$period_options = $periods->getPeriodFrom();
 
@@ -38,8 +38,10 @@ class SuggestedForm extends Pas_Form {
 	$level = new Zend_Form_Element_Select('level');
 	$level->setLabel('Level of research: ')
 		->setRequired(true)
-		->addMultiOptions(array('Please choose a level' => NULL,
-		'Research levels' => $projectype_list))
+		->addMultiOptions(array(
+                    null => 'Please choose a level',
+                    'Research levels' => $projectype_list
+                ))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($projectype_list)))
 		->addFilters(array('StringTrim', 'StripTags'));
@@ -47,8 +49,10 @@ class SuggestedForm extends Pas_Form {
 	$period = new Zend_Form_Element_Select('period');
 	$period->setLabel('Broad research period: ')
 		->setRequired(true)
-		->addMultiOptions(array('Please choose a period' => NULL,
-		'Periods available' => $period_options))
+		->addMultiOptions(array(
+                    null => 'Please choose a period',
+                    'Periods available' => $period_options
+                ))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($period_options)))
 		->addFilters(array('StringTrim', 'StripTags'));
@@ -85,7 +89,7 @@ class SuggestedForm extends Pas_Form {
 
 	$this->addDisplayGroup(array(
             'title','level','period',
-            'description','taken'), 
+            'description','taken'),
                 'details');
 	$this->addDisplayGroup(array('submit'),'buttons');
 	parent::init();

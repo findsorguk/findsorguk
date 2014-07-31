@@ -33,7 +33,7 @@ class IronAgeCoinForm extends Pas_Form {
     /** The constructor
      * @access public
      * @param array $options
-     * @return void 
+     * @return void
      */
     public function __construct(array $options = null) {
 
@@ -83,7 +83,10 @@ class IronAgeCoinForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
-		->addMultiOptions(array(NULL => 'Choose denomination', 'Available options' => $denomination_options))
+		->addMultiOptions(array(
+                    null => 'Choose denomination',
+                    'Available options' => $denomination_options
+                ))
 		->addValidator('InArray', false, array(array_keys($denomination_options)))
 		->addValidator('Int');
 
@@ -98,14 +101,21 @@ class IronAgeCoinForm extends Pas_Form {
 	$geographyID = new Zend_Form_Element_Select('geographyID');
 	$geographyID->setLabel('Geographic area: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose geography', 'Available options' => $ia_geog))
+		->addMultiOptions(array(
+                    null => 'Choose geography',
+                    'Available options' => $ia_geog
+                ))
 		->addValidator('InArray', false, array(array_keys($ia_geog)))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Digits');
 
 	$geography_qualifier = new Zend_Form_Element_Radio('geography_qualifier');
 	$geography_qualifier->setLabel('Geographic qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Digits')
 		->setOptions(array('separator' => ''));
@@ -115,11 +125,18 @@ class IronAgeCoinForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Digits')
-		->addMultiOptions(array(NULL => 'Choose primary ruler', 'Available rulers' => $ro));
+		->addMultiOptions(array(
+                    null => 'Choose primary ruler',
+                    'Available rulers' => $ro
+                ));
 
 	$ruler_qualifier = new Zend_Form_Element_Radio('ruler_qualifier');
 	$ruler_qualifier->setLabel('Issuer qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
 		->setOptions(array('separator' => ''));
@@ -129,12 +146,19 @@ class IronAgeCoinForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
-		->addMultiOptions(array(NULL => 'Choose issuing secondary ruler', 'Available rulers' => $ro))
+		->addMultiOptions(array(
+                    null => 'Choose issuing secondary ruler',
+                    'Available rulers' => $ro
+                ))
 		->addValidator('InArray', false, array(array_keys($ro)));
 
 	$ruler2_qualifier = new Zend_Form_Element_Radio('ruler2_qualifier');
 	$ruler2_qualifier->setLabel('Secondary issuer qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
 		->setOptions(array('separator' => ''));
@@ -145,7 +169,10 @@ class IronAgeCoinForm extends Pas_Form {
 		->setRegisterInArrayValidator(false)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
-		->addMultiOptions(array(NULL => 'Choose issuing mint', 'Available options' => $mint_options))
+		->addMultiOptions(array(
+                    null => 'Choose issuing mint',
+                    'Available options' => $mint_options
+                ))
 		->addValidator('InArray', false, array(array_keys($mint_options)));
 
 	$tribe= new Zend_Form_Element_Select('tribe');
@@ -154,12 +181,19 @@ class IronAgeCoinForm extends Pas_Form {
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
 		->setRegisterInArrayValidator(false)
-		->addMultiOptions(array(NULL => 'Choose tribe', 'Available options' => $to))
+		->addMultiOptions(array(
+                    null => 'Choose tribe',
+                    'Available options' => $to
+                ))
 		->addValidator('InArray', false, array(array_keys($to)));
 
 	$tribe_qualifier = new Zend_Form_Element_Radio('tribe_qualifier');
 	$tribe_qualifier->setLabel('Tribe qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
 		->setOptions(array('separator' => ''));
@@ -170,12 +204,19 @@ class IronAgeCoinForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('Int')
 		->setValue(1)
-		->addMultiOptions(array(NULL => 'Choose coin status', 'Available options' => $status_options))
+		->addMultiOptions(array(
+                    null => 'Choose coin status',
+                    'Available options' => $status_options
+                ))
 		->addValidator('InArray', false, array(array_keys($status_options)));
 
 	$status_qualifier = new Zend_Form_Element_Radio('status_qualifier');
 	$status_qualifier->setLabel('Status qualifier: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->setValue(1)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Digits')
@@ -186,7 +227,10 @@ class IronAgeCoinForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Digits')
-		->addMultiOptions(array(NULL => 'Choose wear status', 'Available options' => $wear_options))
+		->addMultiOptions(array(
+                    null => 'Choose wear status',
+                    'Available options' => $wear_options
+                ))
 		->addValidator('InArray', false, array(array_keys($wear_options)));
 
 	$obverse_inscription = new Zend_Form_Element_Text('obverse_inscription');
@@ -212,12 +256,19 @@ class IronAgeCoinForm extends Pas_Form {
 	$die_axis_measurement = new Zend_Form_Element_Select('die_axis_measurement');
 	$die_axis_measurement->setLabel('Die axis measurement: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose die axis', 'Available options' => $die_options))
+		->addMultiOptions(array(
+                    null => 'Choose die axis',
+                    'Available options' => $die_options
+                ))
 		->addValidator('InArray', false, array(array_keys($die_options)));
 
 	$die_axis_certainty = new Zend_Form_Element_Radio('die_axis_certainty');
 	$die_axis_certainty->setLabel('Die axis certainty: ')
-		->addMultiOptions(array('1' => 'Certain','2' => 'Probably','3' => 'Possibly'))
+		->addMultiOptions(array(
+                    '1' => 'Certain',
+                    '2' => 'Probably',
+                    '3' => 'Possibly'
+                    ))
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Int')
 		->setOptions(array('separator' => ''));
@@ -226,7 +277,10 @@ class IronAgeCoinForm extends Pas_Form {
 	$mack_type->setLabel('Mack Type: ')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose a Mack type','Valid types' => $macktypelist))
+		->addMultiOptions(array(
+                    null => 'Choose a Mack type',
+                    'Valid types' => $macktypelist
+                ))
 		->addValidator('InArray', false, array(array_keys($macktypelist)));
 
 	$bmc_type = new Zend_Form_Element_Text('bmc_type');
@@ -237,14 +291,20 @@ class IronAgeCoinForm extends Pas_Form {
 	$allen_type->setLabel('Allen Type: ')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose an Allen type','Valid types' => $atypelist))
+		->addMultiOptions(array(
+                    null => 'Choose an Allen type',
+                    'Valid types' => $atypelist
+                ))
 		->addValidator('InArray', false, array(array_keys($atypelist)));
 
 	$va_type = new Zend_Form_Element_Select('va_type');
 	$va_type->setLabel('Van Arsdell Number: ')
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(NULL => 'Choose Van Arsdell type','Valid types' => $vatypelist))
+		->addMultiOptions(array(
+                    null => 'Choose Van Arsdell type',
+                    'Valid types' => $vatypelist
+                ))
 		->addValidator('InArray', false, array(array_keys($vatypelist)));
 
 
@@ -252,13 +312,17 @@ class IronAgeCoinForm extends Pas_Form {
 	$cciNumber->setLabel('Celtic Coin Index Number: ')
 		->setAttrib('size',12)
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setDescription('This is the coin\'s unique CCI number, not a comparison field.  Numbers are issued by the CCI.');
+		->setDescription('This is the coin\'s unique CCI number, not a '
+                        . 'comparison field.  Numbers are issued by the CCI.');
 
 	$rudd_type = new Zend_Form_Element_Select('rudd_type');
 	$rudd_type->setLabel('Ancient British Coinage number: ')
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags', 'StringTrim','Purifier'))
-		->addMultiOptions(array(NULL => 'Choose ABC number','Valid types' => $abclist))
+		->addMultiOptions(array(
+                    null => 'Choose ABC number',
+                    'Valid types' => $abclist
+                ))
 		->addValidator('InArray', false, array(array_keys($abclist)));
 
 	$phase_date_1 = new Zend_Form_Element_Text('phase_date_1');

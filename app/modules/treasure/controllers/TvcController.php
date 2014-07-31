@@ -1,5 +1,5 @@
-<?php 
-/** Controller for TVC dates and display of data 
+<?php
+/** Controller for TVC dates and display of data
  * @category   Pas
  * @package Pas_Controller_Action
  * @subpackage Admin
@@ -19,7 +19,7 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
      * @var \TvcDates
      */
     protected $_tvc;
-    
+
     /** The redirect
      * @access protected
      * @var string
@@ -27,13 +27,13 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
     protected $_redirect;
 
     /** The init function
-     * @access public   
+     * @access public
      * @return void
      */
     public function init() {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->acl->allow('public',array('index','details'));
-        $this->_helper->acl->allow(array('treasure','admin'),NULL);
+        $this->_helper->acl->allow(array('treasure','admin'),null);
         $this->_redirect = $this->view->url(
                 array(
                     'module' => 'treasure',
@@ -46,9 +46,9 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction(){
-        $this->view->tvcdates = $this->_tvc->listDates($this->_getParam('page'));	
+        $this->view->tvcdates = $this->_tvc->listDates($this->_getParam('page'));
     }
-    
+
     /** The details action
      * @access public
      * @return void
@@ -63,7 +63,7 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
             $this->view->cases = $tvccases->listCases($id);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
-        }	
+        }
     }
 
     /** The add action
@@ -74,7 +74,7 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
         $form = new TVCForm();
         $form->submit->setLabel('Add TVC date');
         $this->view->form = $form;
-        if ($this->_request->isPost() 
+        if ($this->_request->isPost()
                 && $form->isValid($this->_request->getPost())) {
             $data = $form->getValues();
             $provisionals = new TvcDates();
@@ -85,5 +85,5 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
             $form->populate($this->_request->getPost());
         }
     }
-	
+
 }

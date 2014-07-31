@@ -1,14 +1,14 @@
 <?php
  /** An action helper for sending mail from a controller.
-  * 
+  *
   * An example of code use:
-  * 
+  *
   * <code>
   * <?php
   *  $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc, $from);
   * ?>
   * </code>
-  * 
+  *
   * @author Daniel Pett <dpett at britishmuseum.org>
   * @copyright (c) 2014 Daniel Pett
   * @category Pas
@@ -20,7 +20,7 @@
   * @uses Pas_Filter_EmailTextOnly
   * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
   * @example /app/modules/database/controllers/ArtefactsController.php
-  * 
+  *
  */
 class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_Abstract {
 
@@ -95,8 +95,8 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
      * @param array $bcc
      * @param array $attachments
      */
-    public function direct(array $assignData = NULL, $type, array $to = NULL, array $cc = NULL,
-                     array $from = NULL, array $bcc = NULL, array $attachments = NULL ){
+    public function direct(array $assignData = null, $type, array $to = null, array $cc = null,
+                     array $from = null, array $bcc = null, array $attachments = null ){
         $script = $this->_getTemplate($type);
         $message = $this->_view->setScriptPath($this->_templates);
         $this->_view->addHelperPath('Pas/View/Helper/', 'Pas_View_Helper');
@@ -126,8 +126,8 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
                 $file = file_get_contents($attach);
                 $addition = $this->_mail->createAttachment($file);
                 $addition->disposition = Zend_Mime::DISPOSITION_INLINE;
-                $addition->encoding    = Zend_Mime::ENCODING_BASE64;
-                $addition->filename	   = $filter->filter($attach);
+                $addition->encoding = Zend_Mime::ENCODING_BASE64;
+                $addition->filename = $filter->filter($attach);
             }
         } else {
 

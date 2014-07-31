@@ -1,8 +1,8 @@
 <?php
 /** A class for exporting an array to a csv file
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $converter = new Pas_Exporter_ArrayToCsv($this->_csvFields);
@@ -47,13 +47,13 @@ class Pas_Exporter_ArrayToCsv {
      * @var array
      */
     protected $_never = array('member',null,'public');
-    
+
     /** The base uri
      * @access protected
      * @var string
      */
     protected $_uri = 'http://finds.org.uk/database/artefacts/record/id/';
-    
+
     /** Construct the object
      * @access public
      * @param array $fields
@@ -87,7 +87,7 @@ class Pas_Exporter_ArrayToCsv {
         foreach($data as $dat){
             foreach($this->_fields as $k){
                 if(!array_key_exists($k, $dat)){
-                    $dat[$k] = NULL;
+                    $dat[$k] = null;
                 }
             }
             $nullified[] = $dat;
@@ -105,11 +105,11 @@ class Pas_Exporter_ArrayToCsv {
                 }
                 $record['uri'] = $this->_uri . $record['id'];
                 if(in_array($this->_role,$this->_never)){
-                    $record['gridref'] = NULL;
-                    $record['easting'] = NULL;
-                    $record['northing'] = NULL;
-                    $record['latitude'] = NULL;
-                    $record['longitude'] = NULL;
+                    $record['gridref'] = null;
+                    $record['easting'] = null;
+                    $record['northing'] = null;
+                    $record['latitude'] = null;
+                    $record['longitude'] = null;
                     if(!is_null($record['knownas']) ){
                         $record['parish'] = 'Restricted access';
                         $record['fourFigure'] = 'Restricted access';

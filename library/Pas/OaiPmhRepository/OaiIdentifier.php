@@ -43,7 +43,7 @@ class Pas_OaiPmhRepository_OaiIdentifier {
         if( $scheme != 'oai' ||
             $namespaceId != self::OAI_PMH_NAMESPACE_ID ||
             $localId < 0) {
-           return NULL;
+           return null;
         }
         return $localId;
     }

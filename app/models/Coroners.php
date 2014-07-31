@@ -1,7 +1,7 @@
 <?php
-/** 
+/**
  * Model for displaying coroner details
- * 
+ *
  * An example of use:
  * <code>
  * <?php
@@ -9,7 +9,7 @@
  * $data = $model->getCoronerDetails($id);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -28,19 +28,19 @@ class Coroners extends Pas_Db_Table_Abstract {
      * @var \Pas_Service_Geo_Geoplanet
      */
     protected $_geoPlanet;
-    
+
     /** The geocoder
      * @access protected
      * @var \Pas_Service_Geo_Coder
      */
     protected $_geoCoder;
-    
+
     /** The table name
      * @access public
      * @var string
      */
     protected $_name = 'coroners';
-	
+
     /** The primary key
      * @access public
      * @var integer
@@ -66,8 +66,8 @@ class Coroners extends Pas_Db_Table_Abstract {
         $this->_geoCoder = new Pas_Service_Geo_Coder();
         return $this->_geoCoder;
     }
-    
-	
+
+
     /** Retrieve all coroners on the system
      * @access public
      * @param array $params
@@ -129,21 +129,21 @@ class Coroners extends Pas_Db_Table_Abstract {
      * @throws Exception
      */
     protected function _geocodeAddress( array $data ) {
-        $address = $data['address_1'] . ',' . $data['address_2'] . ',' 
+        $address = $data['address_1'] . ',' . $data['address_2'] . ','
         . $data['town'] . ',' . $data['county'] . ',' . $data['postcode']
         . ',' . $data['country'];
         $coords = $this->getGeoCoder()->getCoordinates($address);
         if($coords){
             $data['latitude'] = $coords['lat'];
-            $data['longitude'] = $coords['lon']; 
+            $data['longitude'] = $coords['lon'];
             $place = $this->getGeoPlanet()->reverseGeoCode(
                     $coords['lat'], $coords['lon']
                     );
             $data['woeid'] = $place['woeid'];
         } else {
-            $data['latitude'] = NULL;
-            $data['longitude']  = NULL;
-            $data['woeid'] = NULL;
+            $data['latitude'] = null;
+            $data['longitude']  = null;
+            $data['woeid'] = null;
         }
         return $data;
     }

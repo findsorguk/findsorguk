@@ -32,9 +32,9 @@ class Pas_View_Helper_Applicants extends Zend_View_Helper_Abstract
      * @return array
      */
     public function getUsers() {
-    $users = new Users();
-    $this->_users = $users->getNewHigherLevelRequests();
-    return $this->_users;
+        $users = new Users();
+        $this->_users = $users->getNewHigherLevelRequests();
+        return $this->_users;
     }
 
     /** Return the class
@@ -56,17 +56,16 @@ class Pas_View_Helper_Applicants extends Zend_View_Helper_Abstract
             'controller' => 'users',
             'action' => 'upgrades'
             ),
-                NULL,true);
+                null,true);
         $data = $this->getUsers();
         if ($data) {
-        $html = '';
-        $html .= '<li class="purple">';
-        $html .= '<a href="';
-        $html .= $url;
-        $html .= '" title="View upgrade requests">';
-        $html .= $data['0']['applicants'];
-        $html .= ' applicants waiting</a></li>';
-
+            $html = '';
+            $html .= '<li class="purple">';
+            $html .= '<a href="';
+            $html .= $url;
+            $html .= '" title="View upgrade requests">';
+            $html .= $data['0']['applicants'];
+            $html .= ' applicants waiting</a></li>';
         }
         return $html;
     }
@@ -75,8 +74,7 @@ class Pas_View_Helper_Applicants extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->_buildHtml();
     }
 }

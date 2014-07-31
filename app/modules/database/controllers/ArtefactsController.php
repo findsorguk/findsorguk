@@ -25,16 +25,16 @@
 class Database_ArtefactsController extends Pas_Controller_Action_Admin {
 
     /** The redirect uri
-     * 
+     *
      */
     const REDIRECT = '/database/artefacts/';
-    
+
     /** The array of restricted access
      * @access protected
      * @var array restricted access roles
      */
     protected $_restricted = array(null, 'member','public');
-    
+
     /** the higher level roles
      * @access protected
      * @var array Higher level groups
@@ -61,7 +61,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
 	'Byzantine','BYZANTINE','Greek and Roman Provincial',
 	'GREEK AND ROMAN PROVINCIAL','Unknown',
 	'UNKNOWN');
-    
+
     /** An array of Roman and Prehistoric periods
      * Used for objects
      * @var array
@@ -103,15 +103,15 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
         'ics','rdf','xcs',
         'vcf','csv','pdf',
         'geojson');
-    
+
     protected $_auth;
-    
+
     protected $_comments;
-    
+
     protected $_findspots;
-    
+
     protected $_findForm;
-    
+
     public function getFindForm() {
         $this->_findForm = new FindForm();
         return $this->_findForm;
@@ -127,7 +127,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
         return $this->_comments;
     }
 
-    
+
     /** Setup the contexts by action and the ACL.
      * @access public
      * @return void
@@ -138,7 +138,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
             'index','record','errorreport',
             'notifyflo'
             ));
-        $this->_helper->_acl->allow('member',NULL);
+        $this->_helper->_acl->allow('member',null);
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false)
                 ->setAutoDisableLayout(true)
@@ -191,7 +191,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 $this->view->temporals     = $this->_finds->getFindTemporalData($id);
                 $this->view->peoples       = $this->_finds->getPersonalData($id);
                 $this->view->findotherrefs = $this->_finds->getFindOtherRefs($id);
-                
+
                 $this->view->findspots = $this->getFindspots()->getFindSpotData($id);
 
                 $rallyfind = new Rallies;
@@ -216,7 +216,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 $form = new CommentFindForm();
                 $form->submit->setLabel('Add a new comment');
                 $this->view->form = $form;
-                if($this->getRequest()->isPost() 
+                if($this->getRequest()->isPost()
                         && $form->isValid($this->_request->getPost())) {
                     if ($form->isValid($form->getValues())) {
                         $data = $this->_helper->akismet($form->getValues());
@@ -266,7 +266,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
     */
     public function addAction() {
         $user = $this->_helper->identity->getPerson();
-        if((is_null($user->peopleID) && is_null($user->canRecord)) 
+        if((is_null($user->peopleID) && is_null($user->canRecord))
         || (!is_null($user->peopleID) && is_null($user->canRecord)) ){
             $this->_redirect('/error/accountproblem');
         }
@@ -350,7 +350,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                     $updateData = $form->getValues();
                     $id2by = $form->getValue('id2by');
                     if($id2by === "" || is_null($id2by)){
-                        $updateData['identifier2ID'] = NULL;
+                        $updateData['identifier2ID'] = null;
                     }
                     unset($updateData['recordername']);
                     unset($updateData['finder']);
@@ -362,9 +362,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                     $where[] = $this->_finds->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                     $this->_finds->update($updateData, $where);
                     $this->_helper->audit(
-                            $updateData, 
-                            $oldData, 
-                            'FindsAudit',  
+                            $updateData,
+                            $oldData,
+                            'FindsAudit',
                             $this->_getParam('id'),
                             $this->_getParam('id')
                             );
@@ -440,7 +440,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 if(array_key_exists('captcha', $data)){
                     unset($data['captcha']);
                 }
-                    
+
                 $errors = new ErrorReports();
                 $errors->add($data);
                 $data = array_merge($finds['0'], $data);
@@ -510,10 +510,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 $form->finder->setDescription('No email associated with finder yet.');
                 $form->removeElement('content');
             }
-            if($this->getRequest()->isPost() 
+            if($this->getRequest()->isPost()
                     && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
-                    $updateData = array('secwfstage' => $form->getValue('secwfstage'));	
+                    $updateData = array('secwfstage' => $form->getValue('secwfstage'));
                     if(strlen($form->getValue('finder')) > 0){
                         $assignData = array(
                         'name' => $exist['0']['name'],
@@ -529,12 +529,12 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 $where[] = $this->_finds->getAdapter()->quoteInto('id = ?', $this->_getParam('findID'));
                 $this->_finds->update($updateData, $where);
                 $this->_helper->audit(
-                        $updateData, 
-                        $findStatus->toArray(), 
-                        'FindsAudit',  
+                        $updateData,
+                        $findStatus->toArray(),
+                        'FindsAudit',
                         $this->_getParam('findID'),
                         $this->_getParam('findID'));
-                $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));	
+                $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
                 $this->_flashMessenger->addMessage('Workflow status changed');
                 $this->_redirect('database/artefacts/record/id/' . $this->_getParam('findID'));
                 $this->_request->setMethod('GET');
@@ -555,19 +555,19 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
             $users = new Users();
             $responsible = $users->fetchRow('id = ' . $createdBy);
             $to = array(array(
-                'email' => $responsible->email, 
+                'email' => $responsible->email,
                 'name' => $responsible->fullname
-                    ));	
+                    ));
         } elseif (in_array($institution, array('PAS', 'DCMS', 'RAH'))) {
-            $to = array(array('email' => 'info@finds.org.uk', 'name' => 'Central Unit'));	
+            $to = array(array('email' => 'info@finds.org.uk', 'name' => 'Central Unit'));
         } else {
             $responsible = new Contacts();
             $to = $responsible->getOwner($data['comment_findID']);
         }
         $cc = $this->_getAdviser($objecttype, $broadperiod);
-        
+
         if($this->_user){
-        
+
             $from = array(array(
                 'email' => $this->_user->email,
                 'name' => $this->_user->fullname
@@ -581,7 +581,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
         $assignData = array_merge($to['0'],$data);
         $this->_helper->mailer($assignData,'errorSubmission', $to, $cc, $from);
     }
-    
+
     /** Determine adviser to email
      * @access public
      * @param string $objecttype
@@ -612,55 +612,55 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
         $this->_catchallemail = $config->findsadviser->def->email;
 
         switch($objecttype) {
-            
-            case (in_array($objecttype,$this->_coinarray) 
+
+            case (in_array($objecttype,$this->_coinarray)
                     && in_array($broadperiod,$this->_periodRomIA)):
                 $adviserdetails = $this->_romancoinsadviser;
                 $adviseremail = $this->_romancoinsadviseremail;
                 break;
-            
+
             case (in_array($objecttype,$this->_coinarray)
                     && in_array($broadperiod,$this->_earlyMed)):
                 $adviserdetails = $this->_medievalcoinsadviser;
                 $adviseremail = $this->_medievalcoinsadviseremail;
                 break;
-            
-            case (in_array($objecttype,$this->_coinarray) 
+
+            case (in_array($objecttype,$this->_coinarray)
                     && in_array($broadperiod,$this->_medieval)):
                 $adviserdetails = $this->_medievalcoinsadviser;
                 $adviseremail = $this->_medievalcoinsadviseremail;
                 break;
-            
-            case (in_array($objecttype,$this->_coinarray) 
+
+            case (in_array($objecttype,$this->_coinarray)
                     && in_array($broadperiod,$this->_postMed)):
                 $adviserdetails = $this->_medievalcoinsadviser;
                 $adviseremail = $this->_medievalcoinsadviseremail;
                 break;
-        
-            case (!in_array($objecttype,$this->_coinarray) 
+
+            case (!in_array($objecttype,$this->_coinarray)
                     && in_array($broadperiod,$this->_periodRomPrehist)):
                 $adviserdetails = $this->_romanobjects;
                 $adviseremail = $this->_romanobjectsemail;
                 break;
-        
-            case (!in_array($objecttype,$this->_coinarray) 
+
+            case (!in_array($objecttype,$this->_coinarray)
                     && in_array($broadperiod,$this->_postMed)):
                 $adviserdetails = $this->_postmedievalobjects;
                 $adviseremail = $this->_postmedievalobjectsemail;
                 break;
-        
+
             case (!in_array($objecttype,$this->_coinarray)
                     && in_array($broadperiod,$this->_medieval)):
                 $adviserdetails = $this->_medievalobjects;
                 $adviseremail = $this->_medievalobjectsemail;
                 break;
-        
-            case (!in_array($objecttype,$this->_coinarray) 
+
+            case (!in_array($objecttype,$this->_coinarray)
                     && in_array($broadperiod,$this->_earlyMed)):
                 $adviserdetails = $this->_earlymedievalobjects;
                 $adviseremail = $this->_earlymedievalobjectsemail;
                 break;
-        
+
             default:
                 $adviserdetails = $this->_catchall;
                 $adviseremail = $this->_catchallemail;

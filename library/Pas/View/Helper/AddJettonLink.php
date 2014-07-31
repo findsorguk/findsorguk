@@ -1,15 +1,15 @@
 <?php
 /** A view helper for determining whether coin link should be printed
-* 
+*
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $this->view->addJettonLink();
  * ?>
  * </code>
- * 
- * 
+ *
+ *
  * @category Pas
  * @package Pas_View_Helper
  * @todo streamline code
@@ -27,7 +27,7 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_noaccess = array('public', NULL);
+    protected $_noaccess = array('public', null);
 
     /** Array of roles with restricted access
      * @access protected
@@ -115,8 +115,8 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
     }
     }
 
-    
-    
+
+
     /** Function to check creator of record against user's id
      * @access protected
      * @return boolean
@@ -256,7 +256,7 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
                                 }
         return $this;
     }
-    
+
     /** Function to add the coin link html
      *
      * @return \Pas_View_Helper_AddJettonLink
@@ -281,7 +281,7 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
                 'findID' => $this->_secuid,
                 'returnID' => $this->_findID
     );
-    $url = $this->view->url($params,NULL,TRUE);
+    $url = $this->view->url($params,null,TRUE);
     $string = '<a class="btn btn-primary" href="' . $url . '" title="Add '
     . $this->_broadperiod . ' coin data" accesskey="m">Add ' . $this->_broadperiod
     .' token or jetton data</a>';

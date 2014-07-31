@@ -63,7 +63,10 @@ class IronAgeRegionForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
-		->addMultioptions(array(NULL => NULL,'Choose a tribe' => $tribes_options))
+		->addMultioptions(array(
+                    null => 'Choose a tribe',
+                    'Available tribes' => $tribes_options
+                ))
 		->addValidator('inArray', false, array(array_keys($tribes_options)))
 		->addErrorMessage('You must enter a tribe from the dropdown.')
 		->addValidator('Int')

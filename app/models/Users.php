@@ -89,7 +89,7 @@ class Users extends Pas_Db_Table_Abstract {
         $person = $this->getUserByUsername($data['email']);
         $updateData = array(
             'password' => SHA1($this->_config->auth->salt. $data['password']),
-            'activationKey' => NULL,
+            'activationKey' => null,
             'valid' => 1,
             'updated' => parent::timeCreation(),
             'updatedBy' => $person['id']
@@ -130,7 +130,7 @@ class Users extends Pas_Db_Table_Abstract {
         $where[] = $this->getAdapter()->quoteInto('email = ?', $data['email']);
         $data = array (
             'valid' => 1,
-            'activationKey' => NULL,
+            'activationKey' => null,
         );
         $username = $data['username'];
         $perm = 0775;

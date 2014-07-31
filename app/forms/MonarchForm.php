@@ -1,8 +1,8 @@
 <?php
 /** Form for creating monarch's data
- * 
+ *
  * An example of code:
- * 
+ *
  * <code>
  * <?php
  * $form = new MonarchForm();
@@ -26,15 +26,15 @@ class MonarchForm extends Pas_Form {
      * @return void
      */
     public function __construct(array $options = null) {
-	
+
 	$rulers = new Rulers();
 	$rulers_options = $rulers-> getAllMedRulers();
-	
+
 	$dynasties = new Dynasties();
 	$dynasties_options = $dynasties->getOptions();
 
 	parent::__construct($options);
-       
+
 	$this->setName('MonarchDetails');
 
 	$name = new Zend_Form_Element_Text('name');
@@ -60,7 +60,10 @@ class MonarchForm extends Pas_Form {
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($rulers_options)))
-		->addMultiOptions(array(NULL => NULL, 'Choose Database ID' => $rulers_options));
+		->addMultiOptions(array(
+                    null => 'Choose Database ID',
+                    'Available rulers' => $rulers_options
+                ));
 
 	$date_from = new Zend_Form_Element_Text('date_from');
 	$date_from->setLabel('Issued coins from: ')
@@ -108,31 +111,37 @@ class MonarchForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('Digits')
-		->addMultiOptions(array(NULL => NULL, 'Set status' => array('1' => 'Draft','2' => 'Published')))
+		->addMultiOptions(array(
+                    null => 'Set status',
+                    'Available status options' => array(
+                        '1' => 'Draft',
+                        '2' => 'Published'
+                        )
+                    ))
 		->setValue(1);
 
 	$submit = new Zend_Form_Element_Submit('submit');
 
 	$hash = new Zend_Form_Element_Hash('csrf');
 	$hash->setValue($this->_salt)->setTimeout(4800);
-	
+
 	$this->addElements(array(
-            $name, $styled, $alias, 
+            $name, $styled, $alias,
             $dbaseID, $date_from, $date_to,
-            $born, $died, $biography, $dynasty, 
+            $born, $died, $biography, $dynasty,
             $publishState, $submit, $hash
                 ));
-	
+
 	$this->addDisplayGroup(array('name','styled','alias'), 'names');
 	$this->names->setLegend('Nomenclature');
-	
+
 	$this->addDisplayGroup(array('dbaseID','date_from','date_to','born','died'),'periods');
 	$this->periods->setLegend('Dates');
-	
+
 	$this->addDisplayGroup(array('biography','dynasty','publishState'),'details');
 	$this->details->setLegend('Biographical details');
-	
+
 	$this->addDisplayGroup(array('submit'), 'buttons');
-	parent::init();  
+	parent::init();
 	}
 }

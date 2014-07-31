@@ -1,9 +1,9 @@
 <?php
 /**
  * A form for editing login redirect page choice
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $form = new ConfigureLoginRedirectForm();
@@ -20,14 +20,14 @@
 */
 
 class ConfigureLoginRedirectForm extends Pas_Form {
-    
+
     /** The constructor
      * @access public
      * @param array $options
      * @return void
      */
     public function __construct(array $options = null) {
-        
+
         parent::__construct($options);
         $loginredirect = new LoginRedirect();
         $loginredirect_options = $loginredirect->getOptions();
@@ -37,8 +37,10 @@ class ConfigureLoginRedirectForm extends Pas_Form {
         $uri = new Zend_Form_Element_Select('uri');
         $uri->setLabel('Page: ')
                 ->setRequired(true)
-                ->addMultiOptions(array(NULL => 'Please choose a page',
-                    'Available pages' => $loginredirect_options))
+                ->addMultiOptions(array(
+                    null => 'Please choose a page',
+                    'Available pages' => $loginredirect_options
+                ))
                 ->addValidator('InArray', false,
                         array(array_keys($loginredirect_options)))
                 ->setAttribs(array(

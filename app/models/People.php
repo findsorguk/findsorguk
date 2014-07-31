@@ -1,16 +1,16 @@
 <?php
 /**
  * Model for interacting with the people table
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $model = new People();
  * $model->getNames();
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @category Pas
@@ -91,10 +91,10 @@ class People extends Pas_Db_Table_Abstract {
     public function getPerson($id) {
         $select = $this->select()
                 ->from($this->_name, array(
-                    'id' => 'secuid', 
+                    'id' => 'secuid',
                     'term' => 'fullname'))
-                ->joinLeft('finds','finds.finderID = people.secuid', array()) 
-                ->where('fullname IS NOT NULL') 
+                ->joinLeft('finds','finds.finderID = people.secuid', array())
+                ->where('fullname IS NOT NULL')
                 ->where('finds.id = ?', (int)$id)
                 ->order('secuid');
         return $this->getAdapter()->fetchAll($select);
@@ -108,7 +108,7 @@ class People extends Pas_Db_Table_Abstract {
     public function getName($finder) {
         $select = $this->select()
                 ->from($this->_name, array(
-                    'id' => 'secuid', 
+                    'id' => 'secuid',
                     'term' => 'fullname'))
                 ->where('fullname IS NOT NULL')
                 ->where('secuid = ?', (string)$finder)
@@ -126,27 +126,27 @@ class People extends Pas_Db_Table_Abstract {
         $persons = $this->getAdapter();
         $select = $persons->select()
                 ->from($this->_name)
-                ->joinLeft('countries','people.country = countries.iso', 
+                ->joinLeft('countries','people.country = countries.iso',
                         array('abode' => 'printable_name'))
                 ->joinLeft('primaryactivities','people.primary_activity = primaryactivities.id',
                         array('role' => 'term'))
                 ->joinLeft('organisations', 'people.organisationID = organisations.secuid',
                         array(
                             'secid' => 'secuid',
-                            'orgaddress' => 'address', 
-                            'orgcounty' => 'county', 
-                            'orgpostcode' => 'postcode', 
-                            'orglat' => 'lat', 
-                            'orglon' => 'lon', 
-                            'org' => 'name', 
-                            'i' => 'id', 
-                            'orgwoeid' => 'woeid', 
+                            'orgaddress' => 'address',
+                            'orgcounty' => 'county',
+                            'orgpostcode' => 'postcode',
+                            'orglat' => 'lat',
+                            'orglon' => 'lon',
+                            'org' => 'name',
+                            'i' => 'id',
+                            'orgwoeid' => 'woeid',
                             'orgwebsite' => 'website'))
                 ->joinLeft(array('count' => 'countries'),'organisations.country = count.iso',
                         array('orgcountry' => 'printable_name'))
                 ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
                         array('creator' => 'fullname'))
-                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy', 
+                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy',
                         array('fn' => 'fullname'))
                 ->where('people.id = ?', (int)$id);
         return $persons->fetchAll($select);
@@ -161,7 +161,7 @@ class People extends Pas_Db_Table_Abstract {
         $persons = $this->getAdapter();
         $select = $persons->select()
                 ->from($this->_name, array('secuid','fullname'))
-                ->joinLeft('users',$this->_name . '.secuid = users.peopleID',array()) 
+                ->joinLeft('users',$this->_name . '.secuid = users.peopleID',array())
                 ->where('users.id = ?',(int)$id);
         return $persons->fetchAll($select);
     }
@@ -224,7 +224,7 @@ if (!$data = $this->_cache->load('valuers')) {
                 ->joinLeft('primaryactivities',$this->_name
                         . '.primary_activity = primaryactivities.id',
                         array('activity' => 'term'))
-                ->joinLeft('organisations', $this->_name 
+                ->joinLeft('organisations', $this->_name
                         . '.organisationID = organisations.secuid',
                         array('organisation' => 'name'))
                 ->where('people.id = ?',(int)$id);
@@ -241,11 +241,11 @@ if (!$data = $this->_cache->load('valuers')) {
             unset($data['csrf']);
         }
         if(empty($data['created'])){
-            $data['created'] = $this->timeCreation(); 
-            
-        } 
+            $data['created'] = $this->timeCreation();
+
+        }
         if(empty($data['createdBy'])){
-            $data['createdBy'] = $this->userNumber(); 
+            $data['createdBy'] = $this->userNumber();
         }
         if(array_key_exists('countyID', $data) && !is_null($data['countyID'])){
             $counties = new OsCounties();
@@ -253,11 +253,11 @@ if (!$data = $this->_cache->load('valuers')) {
                     $data['countyID']))->label; }
         foreach($data as $k => $v) {
             if ( $v == "") {
-                $data[$k] = NULL;
+                $data[$k] = null;
             }
         }
         $secuid = new Pas_Generator_SecuID();
-        $data['secuid'] = $secuid->secuid(); 
+        $data['secuid'] = $secuid->secuid();
         return self::insert($data);
     }
 
@@ -270,7 +270,7 @@ if (!$data = $this->_cache->load('valuers')) {
         if(is_array($data)){
             foreach($data as $k => $v) {
                 if ( $v == "") {
-                    $data[$k] = NULL;
+                    $data[$k] = null;
                 }
             }
         }

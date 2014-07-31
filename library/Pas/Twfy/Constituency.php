@@ -1,6 +1,6 @@
 <?php
 /** Retrieve details for a constituency
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @since 2/2/2012
@@ -25,14 +25,12 @@ class Pas_Twfy_Constituency extends Pas_Twfy {
      * @param string $postcode
      * @return type
      */
-    public function get($name = null, $postcode = NULL){
-     $params = array(
-         'key' => $this->_apikey,
-         'name' => $name,
-         'postcode' => $postcode
-     );
-     return parent::get(self::METHOD, $params);
+    public function get($name = null, $postcode = null){
+        $params = array(
+            'key' => $this->_apikey,
+            'name' => $name,
+            'postcode' => $postcode
+                );
+        return parent::get(self::METHOD, $params);
     }
-
 }
-

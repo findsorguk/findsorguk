@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * Controller for CRUD of rallies recorded by the Scheme. Note not attended!
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -24,25 +24,25 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
      * @var \Rallies
      */
     protected $_rallies;
-    
+
     /** The parishes model
      * @access protected
      * @var \OsParishes
      */
     protected $_parishes;
-        
+
     /** The districts model
      * @access protected
      * @var \OsDistricts
      */
     protected $_districts;
-    
+
     /** The people model
      * @access protected
      * @var \People
      */
     protected $_people;
-    
+
     /** Get the people model
      * @access public
      * @return \People
@@ -50,7 +50,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
     public function getPeople() {
         return $this->_people;
     }
-        
+
     /** The rallies model retrieved
      * @access public
      * @return \Rallies
@@ -77,13 +77,12 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
         $this->_districts = new OsDistricts();
         return $this->_districts;
     }
-            
+
     /** Initialise the ACL and contexts
      * @access public
      * @return void
      */
     public function init() {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->_acl->allow('public',array('index','rally','map'));
         $this->_helper->_acl->deny('public',array('addflo','delete','deleteflo'));
         $this->_helper->_acl->allow('flos',null);
@@ -95,12 +94,13 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
                 ->addActionContext('rally', array('xml','json'))
                 ->addActionContext('index', array('xml','json','rss','atom'))
                 ->initContext();
+        parent::init();
     }
-    
+
     /** Set up the url for redirect
     */
     const URL = '/database/rallies/';
-    
+
     /** Index page for the list of rallies.
      * @access public
      * @return void
@@ -141,9 +141,9 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
         $formData = $this->_request->getPost();
         if ($form->isValid($formData)) {
             $insert = $this->getRallies()->addAndProcess($formData);
-            $this->_cache->remove('rallydds');
+            $this->getCache()->remove('rallydds');
             $this->_redirect(self::URL . 'rally/id/' . $insert);
-            $this->_flashMessenger->addMessage('Details for ' 
+            $this->_flashMessenger->addMessage('Details for '
                     . $form->getValue('rally_name')
                     . ' have been created!');
         } else  {
@@ -185,7 +185,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
                 $where[] = $this->_rallies->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                 unset($updateData['created']);
                 $update = $this->_rallies->update($updateData, $where);
-                $this->_cache->remove('rallydds');
+                $this->getCache()->remove('rallydds');
                 $this->_flashMessenger->addMessage('Rally information updated!');
                 $this->_redirect(self::URL . 'rally/id/' . $this->_getParam('id'));
             } else {
@@ -249,7 +249,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
                 $this->getRallies()->delete($where);
-                $this->_cache->remove('rallydd');
+                $this->getCache()->remove('rallydd');
                 $this->_flashMessenger->addMessage('Record for rally deleted!');
             }
             $this->_redirect(self::URL);

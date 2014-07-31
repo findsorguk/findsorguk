@@ -22,7 +22,7 @@ class Database_CommentsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init() {
-	$this->_helper->_acl->allow('public',NULL);
+	$this->_helper->_acl->allow('public',null);
 	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 	$this->_helper->contextSwitch()
 		->setAutoJsonSerialization(false)
@@ -69,7 +69,7 @@ class Database_CommentsController extends Pas_Controller_Action_Admin {
                         . $comment['id'].'#comm');
                 $entry->addAuthor(array(
                         'name'  => $comment['comment_author'],
-                        'email' => NULL,
+                        'email' => null,
                         'uri'   => $comment['comment_author_url'],
                 ));
                 $entry->setDateModified(time());

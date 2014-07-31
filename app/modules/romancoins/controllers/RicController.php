@@ -9,13 +9,13 @@
  * @version 1
  */
 class Romancoins_RicController extends Pas_Controller_Action_Admin {
-	
+
     /** Init the controller
      * @access public
      * @return void
      */
     public function init() {
-        $this->_helper->_acl->allow(NULL);
+        $this->_helper->_acl->allow(null);
     }
 
     /** The index action

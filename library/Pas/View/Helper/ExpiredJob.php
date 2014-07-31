@@ -1,15 +1,15 @@
 <?php
 /**
  * A view helper for determining the difference between dates for expired jobs
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * echo $this->expiredJob()->setDate($this->expire)
  * ?>
  * </code>
- * 
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -56,7 +56,7 @@ class Pas_View_Helper_ExpiredJob extends Zend_View_Helper_Abstract
      * @return type
      */
     public function getToday() {
-        $this->_today = new Zend_Date(NULL,'YYYY-MM-dd');
+        $this->_today = new Zend_Date(null,'YYYY-MM-dd');
         return $this->_today;
     }
 

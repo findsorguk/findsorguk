@@ -105,7 +105,7 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
     if(isset($this->query['verb'])){
     $verb = $this->query['verb'];
     } else {
-    $verb = NULL;
+    $verb = null;
     $this->throwError(self::OAI_ERR_BAD_VERB);
 
     }
@@ -378,18 +378,18 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
         	$from = $this->query['from'];
             $fromDate = self::utcToDb($from);
         } else {
-        	$fromDate = NULL;
+        	$fromDate = null;
         }
         if(isset($this->query['until'])) {
         	$until = $this->query['until'];
             $untilDate = self::utcToDb($until);
         } else {
-        	$untilDate = NULL;
+        	$untilDate = null;
         }
     	if(isset($this->query['set'])) {
         	$set = $this->query['set'];
         } else {
-        	$set = NULL;
+        	$set = null;
         }
         $this->listResponse($this->query['verb'],
                             $this->query['metadataPrefix'],
@@ -510,17 +510,17 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
         if(isset($from)) {
             $resumptionToken->from = $from;
         } else {
-        	$resumptionToken->from = NULL;
+        	$resumptionToken->from = null;
         }
         if(isset($until)) {
             $resumptionToken->until = $until;
         } else {
-        	$resumptionToken->until = NULL;
+        	$resumptionToken->until = null;
         }
     	if(isset($set)) {
             $resumptionToken->set = $set;
         } else {
-        	$resumptionToken->set = NULL;
+        	$resumptionToken->set = null;
         }
         $resumptionToken->expiration = self::unixToDb(time() + 60 * 60);
 

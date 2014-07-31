@@ -1,15 +1,15 @@
 <?php
 /** Form for filtering finds
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $form = new FindFilterForm();
  * $this->view->form = $form;
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -21,7 +21,7 @@
  */
 
 class FindFilterForm extends Pas_Form {
-    
+
     /** The constructor
      * @access public
      * @param array $options
@@ -50,7 +50,9 @@ class FindFilterForm extends Pas_Form {
                     ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
                 ->addFilters(array('StripTags','StringTrim'))
                 ->addValidator('stringLength', false, array(1,200))
-                ->addMultiOptions(array(NULL => NULL ,'Choose period from' => $periodword_options))
+                ->addMultiOptions(array(
+                    null => 'Choose period from',
+                    'Available periods' => $periodword_options))
                 ->addValidator('InArray', false, array(array_keys($periodword_options)));
 
         $bbox = new Zend_Form_Element_Text('bbox');
@@ -58,7 +60,7 @@ class FindFilterForm extends Pas_Form {
                 ->setRequired(true)
                 ->setErrorMessages(array('You must enter a bounding box string'))
                 ->setAttrib('class','span6')
-                ->setAttrib('placeholder', 
+                ->setAttrib('placeholder',
                         'For example: 33.8978,-28.0371,82.70217,74.1357')
                 ->setDescription('This field takes the bottom left and top '
                         . 'right corners of a box drawn on the map. '
