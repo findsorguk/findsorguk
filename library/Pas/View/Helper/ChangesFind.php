@@ -71,7 +71,7 @@ class Pas_View_Helper_ChangesFind extends Zend_View_Helper_Abstract
             'controller' => 'ajax',
             'action' => 'audit',
             'id' => $a['editID']
-                ),NULL,true);
+                ),null,true);
 	$html .= '" title="View all changes on this date">';
 	$html .= $this->view->timeAgoInWords($a['created']);
 	$html .= '</a> ';

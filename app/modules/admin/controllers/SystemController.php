@@ -9,17 +9,17 @@
 */
 class Admin_SystemController extends Pas_Controller_Action_Admin {
 
-	protected $_awsKey = NULL;
-	protected $_awsSecret = NULL;
-	protected $_config = NULL;
-	protected $_s3 = NULL;
+	protected $_awsKey = null;
+	protected $_awsSecret = null;
+	protected $_config = null;
+	protected $_s3 = null;
 	protected $_mysql  		= '/usr/bin/mysql';
 	protected $_mysqldump  	= '/usr/bin/mysqldump';
 	protected $_tar  		= '/bin/tar';
-	protected $_days = NULL;
-	protected $_suffix = NULL;
-	protected $_tarDump = NULL;
-	protected $_sqlDump = NULL;
+	protected $_days = null;
+	protected $_suffix = null;
+	protected $_tarDump = null;
+	protected $_sqlDump = null;
 	protected $_path = '/home/backups/';
 	protected $_cache;
 

@@ -38,12 +38,12 @@ class Users_EventsController extends Pas_Controller_Action_Admin {
      */
     public function init() {
 	$this->_helper->_acl->allow('flos',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 	$this->view->jQuery()->addJavascriptFile($this->view->baseUrl()
                 . '/js/JQuery/ui.datepicker.js', $type='text/javascript');
 	$this->view->headLink()->appendStylesheet($this->view->baseUrl() . '/css/ui.datepicker.css');
 	$this->_geocoder = new Pas_Service_Geo_Coder();
         $this->_events = new Events();
+        parent::init();
     }
     /** List a paginated events data set
     */

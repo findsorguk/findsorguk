@@ -25,8 +25,8 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
     */
     public function init() {
         $this->_helper->_acl->allow('flos',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_gcal = new Pas_Calendar_Mapper();
+        parent::init();
     }
 
     /** Display index pages for the individual

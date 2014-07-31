@@ -26,7 +26,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->deny('public');
         $this->_helper->_acl->allow('member',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        parent::init();
     }
     /** Setup the index display pages
      * @access public

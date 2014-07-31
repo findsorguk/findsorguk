@@ -1,16 +1,16 @@
 <?php
-/** 
+/**
  * Model for pulling news data from database
- * 
+ *
  * An example of code:
- * 
+ *
  * <code>
  * <?php
  * $model = new News();
  * $data = $model->getNews();
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -19,14 +19,14 @@
  * @since 22 September 2011
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
- * 
- * 
+ *
+ *
  */
 class News extends Pas_Db_Table_Abstract {
 
    /** The table name
     * @access protected
-    * @var string 
+    * @var string
     */
     protected $_name = 'news';
 
@@ -41,19 +41,19 @@ class News extends Pas_Db_Table_Abstract {
      * @var \Pas_Service_Geo_Geoplanet
      */
     protected $_geoPlanet;
-    
+
     /** The geocoder
      * @access protected
      * @var \Pas_Service_Geo_Coder
      */
     protected $_geoCoder;
-    
+
     /** Higher level access
      * @access protected
      * @var array
      */
     protected $_higherlevel = array('admin', 'flos', 'fa');
-    
+
     /** Get the geoplanet service
      * @access public
      * @return \Pas_Service_Geo_Geoplanet
@@ -124,14 +124,14 @@ class News extends Pas_Db_Table_Abstract {
                     'updated', 'golive', 'author',
                     'contactEmail'
                     ))
-                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy', 
+                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
                         array('fullname', 'username'))
-                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy', 
+                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy',
                         array('fn' => 'fullname', 'un' => 'username'))
                 ->joinLeft('staff', 'staff.dbaseID = users.id',
                         array('personID' => 'id'))
                 ->where('golive <= NOW()')
-                ->where('publish_state > ?', (int)0)		
+                ->where('publish_state > ?', (int)0)
                 ->order('created DESC');
         $data = $news->fetchAll($select);
         $paginator = Zend_Paginator::factory($data);
@@ -151,9 +151,9 @@ class News extends Pas_Db_Table_Abstract {
         $news = $this->getAdapter();
         $select = $news->select()
                 ->from($this->_name)
-                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy', 
+                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
                         array('fullname'))
-                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy', 
+                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy',
                         array('fn' => 'fullname'))
                 ->order('id DESC');
         if(in_array($this->getUserRole(),$this->_higherlevel)) {
@@ -176,14 +176,14 @@ class News extends Pas_Db_Table_Abstract {
         $news = $this->getAdapter();
         $select = $news->select()
                 ->from($this->_name, array(
-                    'created', 'd' => 'DATE_FORMAT(datePublished,"%D %M %Y")', 
+                    'created', 'd' => 'DATE_FORMAT(datePublished,"%D %M %Y")',
                     'title', 'id', 'contents', 'link',
                     'author', 'contactName', 'contactEmail',
                     'contactTel', 'editorNotes', 'keywords',
                     'golive'))
-                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy', 
+                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
                         array('fullname'))
-                ->joinLeft('staff', 'staff.dbaseID = users.id', 
+                ->joinLeft('staff', 'staff.dbaseID = users.id',
                         array('personID' => 'id'))
                 ->where('news.id = ?',(int)$id)
                 ->order('datePublished DESC');
@@ -232,13 +232,13 @@ class News extends Pas_Db_Table_Abstract {
             $place = $this->getGeoPlanet()->reverseGeoCode($data['latitude'], $data['longitude']);
             $data['woeid'] = $place['woeid'];
         } else {
-            $data['latitude'] = NULL;
-            $data['longitude']  = NULL;
-            $data['woeid'] = NULL;
+            $data['latitude'] = null;
+            $data['longitude']  = null;
+            $data['woeid'] = null;
             }
         return $data;
     }
-    
+
     /** Add news to the database
      * @access public
      * @param array $data
@@ -260,7 +260,7 @@ class News extends Pas_Db_Table_Abstract {
             $clean = array_merge($data, $coords);
             foreach($clean as $k => $v) {
                 if ( $v == "") {
-                    $clean[$k] = NULL;
+                    $clean[$k] = null;
                 }
             }
         return parent::insert($clean);

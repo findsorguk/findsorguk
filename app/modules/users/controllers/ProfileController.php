@@ -209,74 +209,73 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
     /** Change staff profile image
     */
     public function logoAction() {
-    $contacts = new Contacts();
-    $people = $contacts->fetchRow($contacts->select()->where('dbaseID = ?' , $this->getIdentityForForms()));
-    Zend_Debug::dump($people);
-    exit;
-    $inst = $people->identifier;
-    $this->view->inst = $inst;
-    $logos = new InstLogos();
-    $logoslisted = $logos->getLogosInst($inst);
-    $this->view->logos =$logoslisted;
-    $form = new AddStaffLogoForm();
-    $form->details->setLegend('Add a logo: ');
-    $this->view->form = $form;
-    if ($this->_request->isPost()) {
-    $formData = $this->_request->getPost();	{
-    if ($form->isValid($formData)) {
-    $upload = new Zend_File_Transfer_Adapter_Http();
-    $upload->addValidator('NotExists', true, array( self::LOGOPATH ));
-    if($upload->isValid()) {
-    $filename = $form->getValue('logo');
-    $largepath = self::LOGOPATH;
-    $original = $largepath . $filename;
-    $name = substr($filename, 0, strrpos($filename, '.'));
-    $ext = '.jpg';
-    $converted = $name . $ext;
-    $insertData = array();
-    $insertData['image'] = $converted;
-    $insertData['instID'] = $inst;
-    $insertData['created'] = $this->getTimeForForms();
-    $insertData['createdBy'] = $this->getIdentityForForms();
-    foreach ($insertData as $key => $value) {
-  if (is_null($value) || $value=="") {
-    unset($insertData[$key]);
-  }
-}
-    $replace = $form->getValue('replace');
-    if( $replace == 1) {
-    foreach($logoslisted as $l) {
-    unlink(self::LOGOPATH . 'thumbnails/' . $l['image']);
-    unlink(self::LOGOPATH . $l['image']);
-    unlink(self::LOGOPATH . 'resized/' . $l['image']);
-    }
-    }
-    $smallpath = self::LOGOPATH . 'thumbnails/' . $converted;
-    $mediumpath = self::LOGOPATH . 'resized/' . $converted;
+        $contacts = new Contacts();
+        $people = $contacts->fetchRow($contacts->select()->where('dbaseID = ?' , $this->getIdentityForForms()));
 
-    //create medium size
-    $phMagick = new phMagick($original, $mediumpath);
-    $phMagick->resize(300,0);
-    $phMagick->convert();
+        $inst = $people->identifier;
+        $this->view->inst = $inst;
+        $logos = new InstLogos();
+        $logoslisted = $logos->getLogosInst($inst);
+        $this->view->logos =$logoslisted;
+        $form = new AddStaffLogoForm();
+        $form->details->setLegend('Add a logo: ');
+        $this->view->form = $form;
+        if ($this->_request->isPost()) {
+        $formData = $this->_request->getPost();	{
+        if ($form->isValid($formData)) {
+        $upload = new Zend_File_Transfer_Adapter_Http();
+        $upload->addValidator('NotExists', true, array( self::LOGOPATH ));
+        if($upload->isValid()) {
+        $filename = $form->getValue('logo');
+        $largepath = self::LOGOPATH;
+        $original = $largepath . $filename;
+        $name = substr($filename, 0, strrpos($filename, '.'));
+        $ext = '.jpg';
+        $converted = $name . $ext;
+        $insertData = array();
+        $insertData['image'] = $converted;
+        $insertData['instID'] = $inst;
+        $insertData['created'] = $this->getTimeForForms();
+        $insertData['createdBy'] = $this->getIdentityForForms();
+        foreach ($insertData as $key => $value) {
+      if (is_null($value) || $value=="") {
+        unset($insertData[$key]);
+      }
+    }
+        $replace = $form->getValue('replace');
+        if( $replace == 1) {
+        foreach($logoslisted as $l) {
+        unlink(self::LOGOPATH . 'thumbnails/' . $l['image']);
+        unlink(self::LOGOPATH . $l['image']);
+        unlink(self::LOGOPATH . 'resized/' . $l['image']);
+        }
+        }
+        $smallpath = self::LOGOPATH . 'thumbnails/' . $converted;
+        $mediumpath = self::LOGOPATH . 'resized/' . $converted;
 
-    $phMagick = new phMagick($original, $smallpath);
-    $phMagick->resize(100,0);
-    $phMagick->convert();
+        //create medium size
+        $phMagick = new phMagick($original, $mediumpath);
+        $phMagick->resize(300,0);
+        $phMagick->convert();
 
-    $logos->insert($insertData);
-    $upload->receive();
-    $this->_flashMessenger->addMessage('The image has been resized and zoomified!');
-    $this->_redirect('/users/account/');
-    } else {
-    $this->_flashMessenger->addMessage('There is a problem with your upload. Probably that image exists.');
-    $this->view->errors = $upload->getMessages();
-    }
-    } else {
-    $form->populate($formData);
-    $this->_flashMessenger->addMessage('Check your form for errors');
-    }
-    }
-    }
+        $phMagick = new phMagick($original, $smallpath);
+        $phMagick->resize(100,0);
+        $phMagick->convert();
+
+        $logos->insert($insertData);
+        $upload->receive();
+        $this->_flashMessenger->addMessage('The image has been resized and zoomified!');
+        $this->_redirect('/users/account/');
+        } else {
+        $this->_flashMessenger->addMessage('There is a problem with your upload. Probably that image exists.');
+        $this->view->errors = $upload->getMessages();
+        }
+        } else {
+        $form->populate($formData);
+        $this->_flashMessenger->addMessage('Check your form for errors');
+        }
+        }
+        }
     }
 
 }

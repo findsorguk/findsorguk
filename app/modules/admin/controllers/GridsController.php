@@ -1,6 +1,6 @@
 <?php
 /** A controller for manipulating grids
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
@@ -8,11 +8,11 @@
  * @category Pas
  * @package Pas_Controller_Action
  * @subpackage Admin
- * @uses Pas_Service_Geo_Geoplanet 
+ * @uses Pas_Service_Geo_Geoplanet
  * @uses Exception
  * @uses Pas_Service_Geo_Elevation
  * @uses Findspots
- * 
+ *
  */
 class Admin_GridsController extends Pas_Controller_Action_Admin {
 
@@ -21,13 +21,13 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
      * @var string
      */
     protected $_appid;
- 
+
     /** The geo planet coder
      * @access protected
      * @var \Pas_Service_Geo_Geoplanet
      */
     protected $_geoplanet;
- 	
+
     /** The init function
      * @access public
      * @return void
@@ -35,7 +35,7 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
     public function init() {
 	$this->_helper->_acl->allow('admin',null);
         $appid = $this->_helper->config()->ydnkeys->placemakerkey;
-        $this->_appid = $appid; 
+        $this->_appid = $appid;
         $this->_geoplanet = new Pas_Service_Geo_Geoplanet($this->_appid);
     }
 
@@ -81,7 +81,7 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
                     break;
 		case 4:
                     $acc = 1000;
-                    break; 
+                    break;
 		case 6:
                     $acc = 100;
                     break;
@@ -99,22 +99,22 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
                     break;
 		default:
                     return false;
-            }		
-	
+            }
+
 	$gridAcc = $acc;
-	return $acc;	
+	return $acc;
     }
-	
+
     /** Get the elevation
      * @access public
      * @param double $Lat
      * @param double $Long
      * @return array
      * @throws Exception
-     * 
+     *
      */
     public function getAltitudeLatLon($Lat,$Long) {
-	if($Lat == NULL && $Long == NULL) {
+	if($Lat == null && $Long == null) {
             throw new Exception('Your latitude/ longitude pair is incorrectly formed');
 	} else {
 	$config = array(
@@ -128,12 +128,12 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
             );
 	$args = 'lat=' . $Lat;
 	$args .= '&long=' . $Long;
-	$url = 'http://www.geomojo.org/cgi-bin/getaltitude.cgi?' 
+	$url = 'http://www.geomojo.org/cgi-bin/getaltitude.cgi?'
                 . $args.'&format=json';
-	
+
 	$client = new Zend_Http_Client($url, $config);
 	$response = $client->request();
-	
+
 	$data = $response->getBody();
 	$json = json_decode($data);
 	$altitude = $json->altitude;
@@ -146,22 +146,22 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function woeidupdateAction() {
-        ini_set('memory_limit', '256M'); 
-        $this->view->title = "Grid update process run and complete";	
+        ini_set('memory_limit', '256M');
+        $this->view->title = "Grid update process run and complete";
         $findspots = new Findspots();
            $select = $findspots->select()
            ->where('id >= 200')
            ->where('id <= 1000')
            ->where('declong IS NOT NULL')
            ->where('declat IS NOT NULL');
-        $rows = $findspots->fetchAll($select);	
+        $rows = $findspots->fetchAll($select);
         $place = new Pas_Service_Geo_Geoplanet($this->_appid);
 
         foreach($rows as $row) {
             $rowid = $row->id;
             $Lat = $row->declat;
             $Long = $row->declong;
-            $findelevation = $place->getElevation(NULL,$Lat,$Long);
+            $findelevation = $place->getElevation(null,$Lat,$Long);
             $findwoeid = $place->reverseGeoCode($Lat,$Long);
             $elevation = $findelevation['elevation'];
             $woeid = $findwoeid['woeid'];
@@ -171,24 +171,24 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
                 'woeid' => $woeid,
                 'elevation' => $elevation,
                 );
-            $n = $findspots->update($data, 'id = '.$rowid);	
+            $n = $findspots->update($data, 'id = '.$rowid);
         }
         echo 'Yeah baby!';
     }
 
-    
+
     /** Set grid length where missing
      * @access public
      * @return void
      */
     public function gridlengthAction(){
-	ini_set('memory_limit', '512M'); 
+	ini_set('memory_limit', '512M');
 	set_time_limit(0);
 	$missing = new Findspots();
 	$rows = $missing->missingGrids(1000);
 	foreach($rows as $r){
             $rowid = $r['id'];
-            $oldData = $missing->fetchRow('id=' 
+            $oldData = $missing->fetchRow('id='
                 . $rowid)->toArray();
             $where = array();
             $where[] = $missing->getAdapter()->quoteInto('id = ?', $rowid);
@@ -197,22 +197,22 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
                     );
             $update = $missing->update($insertData, $where);
             $this->_helper->audit(
-                    $insertData, 
-                    $oldData, 
+                    $insertData,
+                    $oldData,
                     'FindSpotsAudit',
                     $rowid,
                     $r['recordID']
                     );
-            echo 'You did it!';	
+            echo 'You did it!';
 	}
     }
-	
+
     /** Add four figure lat lon for missing ones
      * @access public
      * @return void
      */
     public function fourlatlonAction(){
-	ini_set('memory_limit', '512M'); 
+	ini_set('memory_limit', '512M');
 	set_time_limit(0);
 	$missing = new Findspots();
 	$rows = $missing->missingfour(10000);
@@ -228,11 +228,11 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
                 'fourFigureLon' => $insertData['fourFigureLon']
             );
             $update = $missing->update($new, $where);
-            echo 'updated ' . $rowid . '<br />';	
+            echo 'updated ' . $rowid . '<br />';
         }
 	echo 'You did it!';
     }
-	
+
     /** Set elevation where missing
      * @access public
      * @return void
@@ -244,7 +244,7 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
             $rowid = $r['id'];
             $oldData = $incorrect->fetchRow('id=' . $rowid)->toArray();
             $where = array();
-            $where[] = $incorrect->getAdapter()->quoteInto('id = ?',$rowid);	
+            $where[] = $incorrect->getAdapter()->quoteInto('id = ?',$rowid);
             $api = new Pas_Service_Geo_Elevation();
             $elevation = $api->getElevation($r['declong'], $r['declat']);
             $updateData = array(
@@ -255,7 +255,7 @@ class Admin_GridsController extends Pas_Controller_Action_Admin {
             sleep(1);
             $incorrect->update($updateData, $where);
             $this->_helper->audit($updateData, $oldData, 'FindSpotsAudit', $rowid, $r['recordID']);
-            echo $r['recordID'] . '<br />';	
+            echo $r['recordID'] . '<br />';
         }
     }
 }

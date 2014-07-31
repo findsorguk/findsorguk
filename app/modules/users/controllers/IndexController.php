@@ -29,8 +29,8 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
      */
     public function init() {
 	$this->_helper->_acl->allow(null);
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 	$this->_auth = Zend_Auth::getInstance();
+        parent::init();
     }
 
     /** The redirect

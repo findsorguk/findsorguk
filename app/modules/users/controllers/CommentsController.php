@@ -25,10 +25,14 @@ class Users_CommentsController extends Pas_Controller_Action_Admin {
      */
     public function init()  {
         $this->_helper->_acl->allow('member',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_comments = new Comments();
+        parent::init();
     }
 
+    /** Pointles function
+     * @access public
+     * @return array
+     */
     public function getParams() {
         return $this->_getAllParams();
     }

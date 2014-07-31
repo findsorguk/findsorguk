@@ -44,11 +44,11 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
     protected $_curl;
 
     /** Initialise everything
-     *
+     * @access public
+     * @return void
      */
     public function init() {
         $this->_helper->_acl->allow(null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
 	$this->_helper->contextSwitch()
                 ->addContext('rss',array('suffix' => 'rss'))
@@ -56,7 +56,6 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
                 ->addActionContext('index', array('xml','json','rss','atom'))
                 ->addActionContext('story', array('xml','json'))
                 ->initContext();
-	$this->_cache = Zend_Registry::get('cache');
         $this->_apikey = $this->_helper->config()->webservice->guardian->apikey;
         $this->_curl = new Pas_Curl();
     }
@@ -66,7 +65,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
 	$page = $this->_getParam('page');
-	if (!($this->_cache->test('guardianpantsSearchA'))) {
+	if (!($this->getCache()->test('guardianpantsSearchA'))) {
             $guardian = self::GUARDIANAPI_URL
                     . 'search?q=Portable+antiquities+scheme&page-size=50&order-by=newest&format='
                     . self::FORMAT . '&show-fields=all&show-tags=all&show-factboxes=all&show-references=all&api-key='
@@ -74,9 +73,9 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
             $this->_curl->setUri($guardian);
             $this->_curl->getRequest();
             $articles = $this->_curl->getJson();
-            $this->_cache->save($articles);
+            $this->getCache()->save($articles);
 	} else {
-            $articles = $this->_cache->load('guardianpantsSearchA');
+            $articles = $this->getCache()->load('guardianpantsSearchA');
 	}
 	$tags = array();
 	$results = array();
@@ -121,7 +120,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
                     );
         }
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($results));
-        Zend_Paginator::setCache($this->_cache);
+        Zend_Paginator::setCache($this->getCache());
         if(isset($page) && ($page != "")) {
             $paginator->setCurrentPageNumber((int)$page);
         }
@@ -152,7 +151,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
     public function storyAction() {
         if($this->_getParam('id',false)){
             $id = urldecode($this->_getParam('id'));
-            if (!($this->_cache->test(md5('guardianpantsStory'.$id)))) {
+            if (!($this->getCache()->test(md5('guardianpantsStory'.$id)))) {
                 $guardian = self::GUARDIANAPI_URL;
                 $guardian .= $id;
                 $guardian .= '?format=';
@@ -164,9 +163,9 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
                 $this->_curl->setUri($guardian);
                 $this->_curl->getRequest();
                 $articles = $this->_curl->getJson();
-                $this->_cache->save($articles);
+                $this->getCache()->save($articles);
             } else {
-                $articles = $this->_cache->load(md5('guardianpantsStory'.$id));
+                $articles = $this->getCache()->load(md5('guardianpantsStory'.$id));
             }
             $results = array();
             foreach ($articles as $article){

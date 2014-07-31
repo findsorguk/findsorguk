@@ -1,15 +1,15 @@
 <?php
 /** Model for interacting with rallies database table
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $rallies = new Rallies();
  * $rally_options = $rallies->getRallies();
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -24,10 +24,10 @@ class Rallies extends Pas_Db_Table_Abstract {
 
     /** The table name
      * @access protected
-     * @var string 
+     * @var string
      */
     protected $_name = 'rallies';
-    
+
     /** The primary ID
      * @access protected
      * @var integer
@@ -65,13 +65,13 @@ class Rallies extends Pas_Db_Table_Abstract {
                     'parish', 'map10k', 'map25k',
                     'created', 'updated'
                     ))
-                ->joinLeft('users','users.id = ' 
-                        . $this->_name.'.createdBy', 
+                ->joinLeft('users','users.id = '
+                        . $this->_name.'.createdBy',
                         array(
                             'fullname',
                             'personid' => 'id')
                         )
-                ->joinLeft('users','users_2.id = ' 
+                ->joinLeft('users','users_2.id = '
                         . $this->_name . '.updatedBy',
                         array('fn' => 'fullname')
                         )
@@ -115,15 +115,15 @@ class Rallies extends Pas_Db_Table_Abstract {
                     'map25k',
                     'map10k'
                     ))
-                ->joinLeft('users','users.id = ' 
+                ->joinLeft('users','users.id = '
                         . $this->_name . '.createdBy',
                         array('fullname'))
-                ->joinLeft('users','users_2.id = ' 
+                ->joinLeft('users','users_2.id = '
                         . $this->_name . '.updatedBy',
                         array('fn' => 'fullname'))
                 ->joinLeft('people',$this->_name . '.organiser = people.secuid',
                         array('organiser' => 'fullname'))
-                ->joinLeft('finds','finds.rallyID = rallies.id', 
+                ->joinLeft('finds','finds.rallyID = rallies.id',
                         array('finds' => 'SUM(quantity)')) //Maybe remove this?
                 ->where('rallies.id = ?',(int)$id)
                 ->order('date_from DESC')
@@ -176,7 +176,7 @@ class Rallies extends Pas_Db_Table_Abstract {
         $select = $rallies->select()
                 ->from($this->_name, array(
                     'id','name' => 'rally_name','df' => 'DATE_FORMAT(date_from,"%D %M %Y")',
-                    'dt' => 'DATE_FORMAT(date_to,"%D %M %Y")','lat' => 'latitude', 
+                    'dt' => 'DATE_FORMAT(date_to,"%D %M %Y")','lat' => 'latitude',
                     'lng' => 'longitude'))
                 ->where('latitude > ?',0);
         if(isset($year)){
@@ -217,7 +217,7 @@ class Rallies extends Pas_Db_Table_Abstract {
         if(is_array($data)){
             foreach($data as $k => $v) {
                 if ( $v == "") {
-                    $data[$k] = NULL;
+                    $data[$k] = null;
                 }
             }
             if(!is_null($data['gridref'])) {
@@ -264,7 +264,7 @@ class Rallies extends Pas_Db_Table_Abstract {
         if(is_array($data)){
             foreach($data as $k => $v) {
                 if ( $v == "") {
-                    $data[$k] = NULL;
+                    $data[$k] = null;
                 }
             }
             if(!is_null($data['gridref'])) {

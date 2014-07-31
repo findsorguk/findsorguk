@@ -100,7 +100,7 @@ class Pas_View_Helper_ChangesFindSpot extends Zend_View_Helper_Abstract
 		'controller' => 'ajax',
 		'action' => 'fsaudit',
 		'id' => $a['editID']),
-	NULL,true);
+	null,true);
 	$html .= '" title="View all changes on this date">';
 	$html .= $this->view->timeAgoInWords($a['created']);
 	$html .= '</a> ';

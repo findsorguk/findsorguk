@@ -13,8 +13,7 @@
  * @todo Swap the ARC2 function for easyRdf
  */
 
-class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract {
     /** The sparql class
      * @access protected
      * @var object
@@ -43,10 +42,8 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getArc()
-    {
+    public function getArc() {
         $this->_arc = new Arc2();
-
         return $this->_arc;
     }
 
@@ -54,10 +51,8 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getCache()
-    {
+    public function getCache() {
         $this->_cache = Zend_Registry::get('cache');
-
         return $this->_cache;
     }
 
@@ -65,12 +60,10 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getConfig()
-    {
+    public function getConfig() {
         $this->_config = array(
             'remote_store_endpoint' => 'http://dbpedia.org/sparql'
             );
-
         return $this->_config;
     }
 
@@ -78,8 +71,7 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getFullname()
-    {
+    public function getFullname() {
         return $this->_fullname;
     }
 
@@ -88,10 +80,8 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @param  string                 $fullname
      * @return \Pas_View_Helper_MpBio
      */
-    public function setFullname( $fullname)
-    {
+    public function setFullname( $fullname) {
         $this->_fullname = $fullname;
-
         return $this;
     }
 
@@ -99,37 +89,34 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_MpBio
      */
-    public function mpBio()
-    {
+    public function mpBio() {
         return $this;
     }
 
     /** The to string method
      * @access public
-     * @return null
+     * @return string|void
      */
-    public function __toString()
-    {
+    public function __toString() {
         if (!is_null($this->_fullname)) {
             $data = $this->sparqlQuery($this->_fullname);
             if (count($data)) {
                 $response = $this->parseResults($data);
-
                 return $this->buildHtml($response);
             } else {
-                return NULL;
+                return null;
             }
             } else {
-                return NULL;
+                return null;
             }
     }
 
     /** Perform Sparql
      * @access public
      * @param string $fullname
+     * @return array
      */
-    public function sparqlQuery($fullname)
-    {
+    public function sparqlQuery($fullname) {
         $key = md5($fullname . 'mpbio');
         if (!($this->_cache->test($key))) {
         $fullname = str_replace(array('Edward Vaizey','Nicholas Clegg'),
@@ -167,16 +154,14 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
         } else {
         $rows = $this->_cache->load($key);
         }
-
         return $rows;
     }
 
     /** Create an array from results
-     *
-     * @param unknown_type $results
+     * @access public
+     * @param array $results
      */
-    public function parseResults($results)
-    {
+    public function parseResults(array $results) {
         $mpdata = array();
         foreach ($results as $r) {
             $mpdata['thumbnail'] = $r['thumb'];
@@ -192,9 +177,9 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
     /** Build the html
      * @access public
      * @param $response
+     * @return string The html for the view
      */
-    public function buildHtml($response)
-    {
+    public function buildHtml($response) {
         $chunks = split('\. ',$response['abstract']);
         foreach ($chunks as $key=>$c) {
         $chunks[$key] = ($key%3==0) ? ($c . '.</p><p>') : ($c.'. ');
@@ -213,8 +198,6 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
                 'http://dbpedia.org/resource/'), array(' ',''),$response['uni']))
                     . '</p>';
         }
-
         return $html;
     }
-
 }

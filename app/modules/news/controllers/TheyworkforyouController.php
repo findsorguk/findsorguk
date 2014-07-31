@@ -1,6 +1,6 @@
 <?php
 /**  Controller for accessing they work for you based news
- * 
+ *
  * @category   Pas
  * @package    Pas_Controller_Action
  * @subpackage Admin
@@ -18,12 +18,12 @@
  * @uses Pas_Solr_FieldGeneratorFinds
  * @uses Pas_Twfy_FindConstituency
  * @uses PostcodeForm
- * 
- * 
+ *
+ *
 */
 class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
-    
-    /** Initialise contexts and cache
+
+    /** Initialise contexts
      * @access public
      * @return void
      */
@@ -40,7 +40,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
                 ->addActionContext('constituencies',array('xml','json'))
                 ->addActionContext('index',array('xml','json'))
                 ->initContext();
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        parent::init();
     }
 
     /** Get the index page and results for PAS search of twfy
@@ -64,7 +64,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
         $paginator = Zend_Paginator::factory($pagination['total_results']);
         $paginator->setCurrentPageNumber($pagination['page'])
                 ->setItemCountPerPage($pagination['perpage'])
-                ->setCache($this->_cache);
+                ->setCache($this->getCache());
         $this->view->data = $data;
         $this->view->paginator = $paginator;
     }
@@ -81,14 +81,14 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
         $unclean = $person->get($this->_getParam('id'));
         $clean = array();
         foreach($unclean as $object){
-            $mp = array(); 
+            $mp = array();
             $object = get_object_vars($object);
             foreach($object as $k => $v){
                 $mp[$k] = utf8_encode($v);
             }
             $clean[] = $mp;
         }
-        $this->view->data = $clean;	
+        $this->view->data = $clean;
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -144,11 +144,11 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
             foreach($dat as $k => $v){
                 $clean[] = array( 'name' => utf8_encode($v));
             }
-        } 
+        }
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($clean));
         $paginator->setCurrentPageNumber($this->getPage())
                 ->setItemCountPerPage(40)
-                ->setCache($this->_cache);
+                ->setCache($this->getCache());
         $this->view->data = $paginator;
     }
 
@@ -166,13 +166,13 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
             foreach($d as $k => $v){
                 $mp[$k] = utf8_encode($v);
             }
-            $clean[] = (object)$mp;		
+            $clean[] = (object)$mp;
         }
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($clean));
         $paginator->setCurrentPageNumber((int)$this->getPage());
         $paginator->setItemCountPerPage(30)
                 ->setPageRange(10)
-                ->setCache($this->_cache);
+                ->setCache($this->getCache());
         $this->view->data = $paginator;
     }
 
