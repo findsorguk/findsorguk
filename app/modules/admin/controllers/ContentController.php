@@ -46,8 +46,8 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_content = new Content();
+        
     }
     /** Display index page
      * Display all content in the system Solr indexed
@@ -104,7 +104,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
             $content = new Content();
             $insert = $content->add($insertData);
             $this->_helper->solrUpdater->update('beocontent', $insert, 'content');
-            $this->_flashMessenger->addMessage('Static content added');
+            $this->getFlash()->addMessage('Static content added');
             $this->_redirect('/admin/content');
             } else {
                 $form->populate($form->getValues());
@@ -138,7 +138,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                     $this->_content->update($updateData, $where);
                     $this->_helper->solrUpdater->update('beocontent', 
                             $this->_getParam('id'), 'content');  
-                    $this->_flashMessenger->addMessage('You updated: <em>' 
+                    $this->getFlash()->addMessage('You updated: <em>' 
                             . $form->getValue('title') 
                             . '</em> successfully. It is now available for use.');
                     $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
@@ -174,7 +174,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
                 $this->getContents()->delete($where);
-                $this->_flashMessenger->addMessage('Record deleted!');
+                $this->getFlash()->addMessage('Record deleted!');
                 $this->_helper->solrUpdater->deleteById('beocontent', $id);
             }
             $this->_redirect('/admin/content/');

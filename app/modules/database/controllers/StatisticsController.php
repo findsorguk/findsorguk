@@ -43,7 +43,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('public',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_finds = new Finds();
     }
 

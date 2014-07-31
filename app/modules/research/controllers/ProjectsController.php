@@ -50,6 +50,7 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin {
                 ->addActionContext('suggested',array('xml','json','rss','atom'))
                 ->addActionContext('index', array('xml','json','rss','atom'))
                 ->initContext();
+        
     }
 
     /** Set up index pages

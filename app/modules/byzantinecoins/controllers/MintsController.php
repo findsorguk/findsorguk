@@ -31,6 +31,7 @@ class ByzantineCoins_MintsController extends Pas_Controller_Action_Admin {
                 ->addActionContext('mint', array('xml','json'))
                 ->initContext();
         $this->_mints = new Mints();
+        
     }
 
     /** Set up the index pages

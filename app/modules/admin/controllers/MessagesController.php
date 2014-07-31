@@ -34,9 +34,9 @@ class Admin_MessagesController extends Pas_Controller_Action_Admin {
     public function init() {
 	$this->_helper->_acl->allow('fa',null);
 	$this->_helper->_acl->allow('admin',null);
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 	$this->_messages = new Messages();
 	$this->_replies = new Replies();
+        
     }
     
     /** Display list of messages sent
@@ -73,10 +73,10 @@ class Admin_MessagesController extends Pas_Controller_Action_Admin {
                     ));
                     $this->_helper->mailer($form->getValues(),'messageResponse', 
                             $contact, $contact);
-                    $this->_flashMessenger->addMessage('Message replied to.');
+                    $this->getFlash()->addMessage('Message replied to.');
                     $this->_redirect('/admin/messages/');
                 } else {
-                    $this->_flashMessenger->addMessage('There is a problem with '
+                    $this->getFlash()->addMessage('There is a problem with '
                             . 'the form, please check and resubmit');
                     $form->populate($form->getValues());
                 }
@@ -108,7 +108,7 @@ class Admin_MessagesController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
                 $this->_messages->delete($where);
-                $this->_flashMessenger->addMessage('Message deleted!');
+                $this->getFlash()->addMessage('Message deleted!');
             }
             $this->_redirect( '/admin/messages');
         }  else  {

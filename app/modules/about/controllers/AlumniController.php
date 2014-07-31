@@ -33,6 +33,7 @@ class About_AlumniController extends Pas_Controller_Action_Admin {
         $this->_contacts = new Contacts();
         $this->_finds = new Finds();
         $this->_helper->_acl->allow('public',null);
+        
     }
 
     /** The index action

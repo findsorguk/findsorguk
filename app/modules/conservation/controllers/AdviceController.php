@@ -18,6 +18,7 @@ class Conservation_AdviceController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->acl->allow('public',null);
+        
     }
 	
     /** Set up each page

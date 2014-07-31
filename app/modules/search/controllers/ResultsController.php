@@ -21,6 +21,7 @@ class Search_ResultsController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('public',null);
+        
     }
 
     /** The index action

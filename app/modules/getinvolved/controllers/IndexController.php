@@ -17,8 +17,8 @@ class GetInvolved_IndexController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init() {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-        $this->view->messages = $this->_flashMessenger->getMessages();
+        
+        $this->view->messages = $this->getFlash()->getMessages();
         $this->_helper->acl->allow('public',null);
     }
 	

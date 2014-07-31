@@ -26,7 +26,7 @@ class Analytics_SocialController extends Pas_Controller_Action_Admin {
         $this->_helper->Acl->allow(null);
         $this->_ID = $this->_helper->config()->webservice->google->username;
         $this->_pword = $this->_helper->config()->webservice->google->password;
-        parent::init();
+        
     }
 
     /** Retrieve the page number

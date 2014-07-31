@@ -43,7 +43,7 @@ class Users_EventsController extends Pas_Controller_Action_Admin {
 	$this->view->headLink()->appendStylesheet($this->view->baseUrl() . '/css/ui.datepicker.css');
 	$this->_geocoder = new Pas_Service_Geo_Coder();
         $this->_events = new Events();
-        parent::init();
+        
     }
     /** List a paginated events data set
     */
@@ -95,7 +95,7 @@ class Users_EventsController extends Pas_Controller_Action_Admin {
             }
     $events = new Events();
     $events->insert($insertdata);
-    $this->_flashMessenger->addMessage('New event created!');
+    $this->getFlash()->addMessage('New event created!');
     $this->_redirect('/users/events/');
     }  else  {
     $form->populate($formData);
@@ -149,7 +149,7 @@ class Users_EventsController extends Pas_Controller_Action_Admin {
     $where = array();
     $where[] = $events->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
     $events->update($insertdata,$where);
-    $this->_flashMessenger->addMessage('You updated: <em>' . $form->getValue('eventTitle')
+    $this->getFlash()->addMessage('You updated: <em>' . $form->getValue('eventTitle')
     . '</em> successfully.');
     $this->_redirect('/users/events/');
     } else  {
@@ -169,14 +169,14 @@ class Users_EventsController extends Pas_Controller_Action_Admin {
     */
     public function deleteAction() {
     if ($this->_request->isPost()) {
-    $this->_flashMessenger->addMessage('No changes implemented.');
+    $this->getFlash()->addMessage('No changes implemented.');
     $id = (int)$this->_request->getPost('id');
     $del = $this->_request->getPost('del');
     if ($del == 'Yes' && $id > 0) {
     $events = new Events();
     $where = 'ID = ' . $id;
     $events->delete($where);
-    $this->_flashMessenger->addMessage('Event information deleted! This cannot be undone.');
+    $this->getFlash()->addMessage('Event information deleted! This cannot be undone.');
     }
     $this->_redirect('/users/events/');
     } else {

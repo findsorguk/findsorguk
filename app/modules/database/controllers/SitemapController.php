@@ -21,7 +21,7 @@ class Database_SitemapController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow(null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_helper->layout->disableLayout();
         $this->getResponse()->setHeader('Content-type', 'application/xml');
         ini_set("memory_limit","512M");

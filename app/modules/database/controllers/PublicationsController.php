@@ -33,7 +33,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
                 ->addActionContext('publication', array('xml','json'))
                 ->addActionContext('index', array('xml','json'))
                 ->initContext();
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_publications = new Publications();
     }
 
@@ -116,7 +116,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
             $insert = $this->_publications->add($insertData);
             $this->_helper->solrUpdater->update('beopublications', $insert);
             $this->_redirect(self::REDIRECT . 'publication/id/' . $insert);
-            $this->_flashMessenger->addMessage('A new reference work has been '
+            $this->getFlash()->addMessage('A new reference work has been '
                     . 'created on the system!');
         } else {
             $form->populate($form->getValues());
@@ -141,7 +141,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
                 $update = $this->_publications->update($updateData,$where);
                 $this->_helper->solrUpdater->update('beopublications',
                         $this->_getParam('id'));
-                $this->_flashMessenger->addMessage('Details for "'
+                $this->getFlash()->addMessage('Details for "'
                         . $form->getValue('title') . '" updated!');
                 $this->_redirect(self::REDIRECT . 'publication/id/'
                         . $this->_getParam('id'));
@@ -170,7 +170,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
                     $where = array();
                     $where =  $this->_publications->getAdapter()
                             ->quoteInto('id = ?', $this->_getParam('id'));
-                    $this->_flashMessenger->addMessage('Record deleted!');
+                    $this->getFlash()->addMessage('Record deleted!');
                     $this->_publications->delete($where);
                     $this->_helper->solrUpdater->deleteById('beopublications', $id);
                 }

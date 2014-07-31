@@ -31,7 +31,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('flos',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_organisations = new Organisations();
     }
 
@@ -114,7 +114,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin {
                         $this->_getParam('id'),
                         $this->_getParam('id')
                         );
-                $this->_flashMessenger->addMessage('Organisation information updated!');
+                $this->getFlash()->addMessage('Organisation information updated!');
                 $this->_redirect(self::REDIRECT.'organisation/id/' . $this->_getParam('id'));
             } else {
                 $form->populate($this->_request->getPost());
@@ -141,7 +141,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin {
 
                 $insert = $this->_organisations->add($insertData);
                 $this->_redirect(self::REDIRECT . 'organisation/id/' . $insert);
-                $this->_flashMessenger->addMessage('Record created!');
+                $this->getFlash()->addMessage('Record created!');
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -162,7 +162,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin {
                     $where = 'id = ' . $id;
                     $this->_organisations->delete($where);
                 }
-                $this->_flashMessenger->addMessage('Record deleted!');
+                $this->getFlash()->addMessage('Record deleted!');
                 $this->_redirect(self::REDIRECT);
             } else {
                 $id = (int)$this->_request->getParam('id');

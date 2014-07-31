@@ -34,6 +34,7 @@ class RomanCoins_ReverseTypesController extends Pas_Controller_Action_Admin {
                 ->addActionContext('reversetype',$contexts)
                 ->initContext();
         $this->_revTypes = new RevTypes();
+        
     }
     
     /** Set up the index page

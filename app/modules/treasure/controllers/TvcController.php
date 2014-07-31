@@ -31,7 +31,6 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init() {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->acl->allow('public',array('index','details'));
         $this->_helper->acl->allow(array('treasure','admin'),null);
         $this->_redirect = $this->view->url(
@@ -39,6 +38,7 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
                     'module' => 'treasure',
                     'controller' => 'tvc'
                     ),null,true);
+        
     }
 
     /** The index action
@@ -80,7 +80,7 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
             $provisionals = new TvcDates();
             $provisionals->add($data);
             $this->_redirect($this->_redirect);
-            $this->_flashMessenger->addMessage('A new provisional value has been added.');
+            $this->getFlash()->addMessage('A new provisional value has been added.');
         } else {
             $form->populate($this->_request->getPost());
         }

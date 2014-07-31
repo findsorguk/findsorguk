@@ -33,8 +33,8 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin {
 	$this->_helper->_acl->allow('flos',null);
 	$this->_helper->_acl->allow('fa',null);
 	$this->_helper->_acl->allow('admin',null);
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 	$this->_quotes = new Quotes();
+        
     }
 	
     /** List all the quotes
@@ -58,7 +58,7 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin {
                 && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_quotes->add($form->getValues());
-                $this->_flashMessenger->addMessage('New quote/announcement entered');
+                $this->getFlash()->addMessage('New quote/announcement entered');
                 $this->_redirect( self::REDIRECT );
             } else  {
                 $form->populate($form->getValues());
@@ -82,7 +82,7 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin {
                 $where[] = $this->_quotes->getAdapter()->quoteInto('id = ?', 
                         $this->_getParam('id'));
                 $update = $this->_quotes->update($form->getValues(),$where);
-                $this->_flashMessenger->addMessage('Details updated!');
+                $this->getFlash()->addMessage('Details updated!');
                 $this->_redirect( self::REDIRECT );
                 } else {
                     $form->populate($form->getValues());
@@ -108,7 +108,7 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
                 $this->_quotes->delete($where);
-                $this->_flashMessenger->addMessage('Quote/announcement deleted!');
+                $this->getFlash()->addMessage('Quote/announcement deleted!');
             }
             $this->_redirect( self::REDIRECT);
         }  else  {

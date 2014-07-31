@@ -30,7 +30,6 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
     public function init() {
 	$this->_helper->_acl->allow(null);
 	$this->_auth = Zend_Auth::getInstance();
-        parent::init();
     }
 
     /** The redirect
@@ -46,19 +45,16 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
 	if(null === $this->_auth->getIdentity()) {
             $form = new LoginForm();
             $this->view->form = $form;
-            if ($this->_request->isPost()) {
-                $formData = $this->_request->getPost();
-                if ($form->isValid($formData)) {
+            if ($this->_request->isPost() && $form->isValid($this->_request->getPost()) ) {
                     $authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
-                    $data = $authAdapter->getResultRowObject(null,'password');
+                    $data = $authAdapter->getResultRowObject(NULL,'password');
                     $this->_auth->getStorage()->write($data);
                     $this->_redirect( $this->_helper->loginRedirect() );
-                } else {
+            } else {
                     $this->_auth->clearIdentity();
-                    $this->_flashMessenger->addMessage('Sorry, there was a
+                    $this->getFlash()->addMessage('Sorry, there was a
                         problem with your submission. Please check and try again');
-                    $form->populate($formData);
-                }
+                    $form->populate($this->_request->getPost());
             }
 	} else {
             $this->_redirect(self::REDIRECT);
@@ -78,13 +74,13 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
         if ($this->getRequest()->isPost()) {
             $formData = $this->_getFormData();
             if (empty($formData['username']) || empty($formData['password'])) {
-                $this->_flashMessenger->addMessage('Please provide a username and password.');
+                $this->getFlash()->addMessage('Please provide a username and password.');
             } else {
                 // do the authentication
                 $authAdapter = $this->_getAuthAdapter($formData);
                 $result = $this->_auth->authenticate($authAdapter);
                 if (!$result->isValid()) {
-                    $this->_flashMessenger->addMessage('Login failed');
+                    $this->getFlash()->addMessage('Login failed');
                 } else {
                     $data = $authAdapter->getResultRowObject(null, 'password');
                     $this->_auth->getStorage()->write($data);
@@ -120,8 +116,7 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
                 ->setIdentityColumn('username')
 		->setCredentialColumn('password')
 		->setCredentialTreatment('SHA1(?)');
-	$config = Zend_Registry::get('config');
-	$salt = $config->auth->salt;
+	$salt = $this->_helper->config()->auth->salt;
 	$password = $salt . $formData['password'];
 	$authAdapter->setIdentity($formData['username']);
 	$authAdapter->setCredential($password);

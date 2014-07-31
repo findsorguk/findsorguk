@@ -26,7 +26,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('flos',null);
         $this->_gcal = new Pas_Calendar_Mapper();
-        parent::init();
+        
     }
 
     /** Display index pages for the individual
@@ -58,7 +58,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
             if ($form->isValid($formData)) {
                 $formData['creator'] = $this->_helper->identity->getPerson()->fullname;
                 $insert = $this->_gcal->addEvent($formData);
-                $this->_flashMessenger->addMessage('New calendar event added');
+                $this->getFlash()->addMessage('New calendar event added');
                 $this->_redirect('/users/calendar/');
             } else {
                 $form->populate($this->_request->getPost());
@@ -95,7 +95,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
                 $formData['id'] = $this->_getParam('id');
                 $formData['creator'] = $this->_helper->identity->getPerson()->fullname;
                 $edit = $this->_gcal->editEvent($formData);
-                $this->_flashMessenger->addMessage('Calendar event updated');
+                $this->getFlash()->addMessage('Calendar event updated');
                 $this->_redirect('/users/calendar/');
             } else {
                 $form->populate($this->_request->getPost());
@@ -118,7 +118,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id == substr($event->id,strrpos($event->id,'/') +1, 26)) {
                 $event->delete();
             }
-            $this->_flashMessenger->addMessage('That event has been deleted');
+            $this->getFlash()->addMessage('That event has been deleted');
             $this->_redirect('/users/calendar');
         }
     }

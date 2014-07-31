@@ -32,7 +32,6 @@ class RomanCoins_EmperorsController extends Pas_Controller_Action_Admin {
     */
     public function init() {
         $this->_helper->_acl->allow(null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
                 ->addContext('rdf',
@@ -47,6 +46,7 @@ class RomanCoins_EmperorsController extends Pas_Controller_Action_Admin {
                 ->addActionContext('data', array('json'))
                 ->initContext();
         $this->_emperors = new Emperors();
+        
     }
     
     /** Set up the emperor index pages

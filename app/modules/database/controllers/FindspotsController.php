@@ -39,7 +39,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->deny('public',null);
         $this->_helper->_acl->allow('member',array('index','add','delete','edit'));
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_findspots = new Findspots();
     }
 
@@ -48,7 +48,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->_flashMessenger->addMessage('You cannot access the findspots index.');
+        $this->getFlash()->addMessage('You cannot access the findspots index.');
         $this->_redirect(self::REDIRECT);
     }
 
@@ -82,7 +82,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                 $this->_findspots->addAndProcess($updateData);
                 $this->_helper->solrUpdater->update('beowulf', $returnID);
                 $this->_redirect(self::REDIRECT . 'record/id/' . $returnID);
-                $this->_flashMessenger->addMessage('A new findspot has been created.');
+                $this->getFlash()->addMessage('A new findspot has been created.');
             } else {
                 $form->populate($form->getValues());
             }
@@ -116,7 +116,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                 $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit',
                 $this->_getParam('id'), $returnID);
                 $this->_helper->solrUpdater->update('beowulf', $returnID);
-                $this->_flashMessenger->addMessage('Findspot updated!');
+                $this->getFlash()->addMessage('Findspot updated!');
                 $this->_redirect(self::REDIRECT . 'record/id/' . $returnID);
 
             } else {
@@ -150,7 +150,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                     $where = 'id = ' . $id;
                     $this->_findspots->delete($where);
                         $this->_helper->solrUpdater->update('beowulf', $findID);
-                    $this->_flashMessenger->addMessage('Findspot deleted.');
+                    $this->getFlash()->addMessage('Findspot deleted.');
                 }
                 $this->_redirect(self::REDIRECT . 'record/id/' . $findID);
             } else {

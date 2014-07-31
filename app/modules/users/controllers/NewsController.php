@@ -39,7 +39,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('admin',null);
         $this->_news = new News();
         $this->_geocoder = new Pas_Service_Geo_Coder();
-        parent::init();
+        
     }
 
     /** The redirect string
@@ -92,7 +92,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
                 $row->created = $this->getTimeForForms();
                 //Save and redirect
                 $row->save();
-                $this->_flashMessenger->addMessage('News story created!');
+                $this->getFlash()->addMessage('News story created!');
                 $this->_redirect(self::REDIRECT);
             } else {
                 $form->populate($formData);
@@ -138,7 +138,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
                 $row->publish_state = $form->getValue('publish_state');
                 $row->datePublished = $this->getTimeForForms();
                 $row->save();
-                $this->_flashMessenger->addMessage('News story information updated!');
+                $this->getFlash()->addMessage('News story information updated!');
                 $this->_redirect(self::REDIRECT);
             } else {
                 $form->populate($formData);
@@ -161,7 +161,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . (int)$id;
                 $this->_news->delete($where);
-                $this->_flashMessenger->addMessage('Record deleted!');
+                $this->getFlash()->addMessage('Record deleted!');
             }
             $this->_redirect(self::REDIRECT);
         } else {

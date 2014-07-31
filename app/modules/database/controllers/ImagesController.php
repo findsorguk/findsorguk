@@ -46,7 +46,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('public',array('image','zoom','index'));
         $this->_helper->_acl->allow('member',array('add','delete','edit'));
         $this->_helper->_acl->allow('flos',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()
                 ->setAutoDisableLayout(true)
@@ -199,10 +199,10 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 $id = $this->_images->insertImage($insertData);
                 $this->_helper->solrUpdater->update('beoimages', $id);
                 $this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
-                $this->_flashMessenger->addMessage('The image has been resized and added!');
+                $this->getFlash()->addMessage('The image has been resized and added!');
                 $this->_redirect('/database/artefacts/record/id/' . $this->_getParam('id'));
             } else {
-                $this->_flashMessenger->addMessage('There is a problem with your upload. Probably that image exists.');
+                $this->getFlash()->addMessage('There is a problem with your upload. Probably that image exists.');
                 $this->view->errors = $upload->getMessages();
             }
         }
@@ -311,7 +311,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                         //Update the solr instance
                 $this->_helper->solrUpdater->update('beoimages', $this->_getParam('id'));
 
-                $this->_flashMessenger->addMessage('Image and metadata updated!');
+                $this->getFlash()->addMessage('Image and metadata updated!');
                 $this->_redirect(self::REDIRECT . 'image/id/' . $this->_getParam('id'));
 
                 } else {
@@ -369,7 +369,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 unlink(strtolower($medium));
                 unlink($zoom);
             }
-            $this->_flashMessenger->addMessage('Image and metadata deleted!');
+            $this->getFlash()->addMessage('Image and metadata deleted!');
             $this->_redirect('/database/myscheme/myimages/');
         }  else  {
             $id = (int)$this->_request->getParam('id');
@@ -403,7 +403,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                     $returns = $finds->fetchRow($finds->select()->where('secuid = ?',$findID));
                     $this->_helper->solrUpdater->update('beowulf', $findID);
                     $returnID = $returns->id;
-                    $this->_flashMessenger->addMessage('You just linked an image to this record');
+                    $this->getFlash()->addMessage('You just linked an image to this record');
                     $this->_redirect('/database/artefacts/record/id/' . $returnID);
                 }
             }
@@ -434,7 +434,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                     $linked->delete($where);
                 //	$this->_helper->solrUpdater->update('images', $imageID);
                     $this->_helper->solrUpdater->update('beowulf', $findID);
-                    $this->_flashMessenger->addMessage('Links deleted!');
+                    $this->getFlash()->addMessage('Links deleted!');
                     $this->_redirect('/database/artefacts/record/id/' . $this->_getParam('returnID'));
                 }
             } else {

@@ -17,8 +17,8 @@ class Publications_ReviewsController extends Pas_Controller_Action_Admin {
      * @return void
     */ 
     public function init() {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->acl->allow('public',null);
+        
     }
 
     /** Render index pages

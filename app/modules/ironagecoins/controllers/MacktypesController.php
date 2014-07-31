@@ -52,6 +52,7 @@ class IronAgeCoins_MacktypesController extends Pas_Controller_Action_Admin {
     /** An individual mack type
      * @access public
      * @return void
+     * @throws Pas_Exception_Param
      */
     public function typeAction(){
         if($this->_getParam('id',false)) {

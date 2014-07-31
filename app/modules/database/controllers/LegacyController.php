@@ -19,7 +19,7 @@ class Database_LegacyController extends Pas_Controller_Action_Admin {
      */
     public function init() {	
         $this->_helper->_acl->allow('public',array());
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
     }
     /** The redirect
      * 
@@ -39,7 +39,7 @@ class Database_LegacyController extends Pas_Controller_Action_Admin {
             } else {
                 throw new Pas_Exception_Param($this->_nothingFound);
             }
-            $this->_flashMessenger->addMessage('You have been redirected from an outdated link');
+            $this->getFlash()->addMessage('You have been redirected from an outdated link');
             $this->_redirect(self::REDIRECT . $id);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);

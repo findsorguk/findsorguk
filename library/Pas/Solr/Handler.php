@@ -464,6 +464,11 @@ class Pas_Solr_Handler {
      * @return 
      */
     public function getFacetFields() {
+        $facetFields = array();
+        foreach($this->getSchemaFields() as $k => $v){
+            $facetFields[$k] = 'fq' . $v;
+        }
+        $this->_facetFields = $facetFields;
         return $this->_facetFields;
     }
 

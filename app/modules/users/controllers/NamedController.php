@@ -24,7 +24,7 @@ class Users_NamedController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('member',null);
         $this->_users = new Users();
-        parent::init();
+        
     }
 
     /** Set up the index page

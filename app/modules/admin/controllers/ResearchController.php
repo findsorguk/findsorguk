@@ -34,9 +34,9 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_research = new ResearchProjects();
         $this->_suggested = new SuggestedResearch();
-        $this->_helper->_acl->allow('fa',null);
-        $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->_helper->_acl->allow('fa', null);
+        $this->_helper->_acl->allow('admin', null);
+        
     }
     /** Set up the redirect baseurl
      * @var string REDIRECT
@@ -62,7 +62,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_research->add($form->getValues());
-                $this->_flashMessenger
+                $this->getFlash()
                         ->addMessage('A new research project has been entered.');
                 $this->_redirect(self::REDIRECT);
             } else {
@@ -86,7 +86,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
                 if ($form->isValid($form->getValues())) {
                     $where =  $this->_research->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                     $update = $this->_research->update($form->getValues(),$where);
-                    $this->_flashMessenger->addMessage('Research project details updated.');
+                    $this->getFlash()->addMessage('Research project details updated.');
                     $this->_redirect(self::REDIRECT);
                 } else {
                     $form->populate($form->getValues());
@@ -110,7 +110,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_suggested->add($form->getValues());
-                $this->_flashMessenger->addMessage('A new suggested research project has been entered.');
+                $this->getFlash()->addMessage('A new suggested research project has been entered.');
                 $this->_redirect(self::REDIRECT . 'suggested/');
             } else {
                 $form->populate($form->getValues());
@@ -139,7 +139,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
                 if ($form->isValid($form->getValues())) {
                     $where =  $this->_suggested->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                     $this->_suggested->update($form->getValues(), $where);
-                    $this->_flashMessenger->addMessage('Suggested research project details updated.');
+                    $this->getFlash()->addMessage('Suggested research project details updated.');
                     $this->_redirect(self::REDIRECT . 'suggested/');
                 } else {
                     $form->populate($form->getValues());
@@ -166,7 +166,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = $this->_suggested->getAdapter()->quoteInto('id = ?', $id);
                 $suggested->delete($where);
-                $this->_flashMessenger->addMessage('Record deleted!');
+                $this->getFlash()->addMessage('Record deleted!');
                 $this->_redirect(self::REDIRECT . 'suggested/');
             }
         } else {

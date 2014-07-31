@@ -28,8 +28,9 @@ class Admin_HelpController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_help = new Help();
+        
     }
     
     /** Set up the index of help topics
@@ -52,7 +53,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin {
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
             if ($form->isValid($form->getValues())) {
                 $this->_help->add($form->getValues());
-                $this->_flashMessenger->addMessage('Help topic has been created!');
+                $this->getFlash()->addMessage('Help topic has been created!');
                 $this->_redirect('/admin/help');
             } else  {
                 $form->populate($form->getValues());
@@ -77,7 +78,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin {
             $where[] = $this->_help->getAdapter()->quoteInto('id = ?', 
                     $this->_getParam('id'));
             $this->_help->update($form->getValues(),$where);
-            $this->_flashMessenger->addMessage('You updated: <em>' 
+            $this->getFlash()->addMessage('You updated: <em>' 
                     . $form->getValue('title')
                     . '</em> successfully. It is now available for use.');
             $this->_redirect('admin/help/');
@@ -103,7 +104,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
                 $this->_help->delete($where);
-                $this->_flashMessenger->addMessage('Record deleted!');
+                $this->getFlash()->addMessage('Record deleted!');
             }
             $this->_redirect('/admin/help/');
         } else  {

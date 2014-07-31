@@ -27,7 +27,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('flos',null);
         $this->_helper->_acl->allow('member',array('add','edit','delete'));
         $this->_helper->_acl->allow('public',$publicActions);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_bibliography = new Bibliography();
     }
 
@@ -60,7 +60,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 $insertData['findID'] = $this->_getParam('secID');
                 unset($insertData['authors']);
                 $this->_bibliography->add($insertData);
-                $this->_flashMessenger->addMessage('A new reference work has been added to this record');
+                $this->getFlash()->addMessage('A new reference work has been added to this record');
                 $this->_redirect(self::REDIRECT . $this->_getParam('findID'));
             } else {
              $form->populate( $this->_request->getPost());
@@ -83,7 +83,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 $where = array();
                 $where =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                 $update = $this->_bibliography->update($formData, $where);
-                $this->_flashMessenger->addMessage('Reference details updated!');
+                $this->getFlash()->addMessage('Reference details updated!');
                 $this->_redirect(self::REDIRECT . $this->_getParam('findID'));	
             } else {
                 $form->populate($this->_request->getPost());
@@ -115,7 +115,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                     $where = array();
                     $where =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $id);
                     $this->_bibliography->delete($where);
-                    $this->_flashMessenger->addMessage('Reference deleted!');
+                    $this->getFlash()->addMessage('Reference deleted!');
                     $this->_redirect(self::REDIRECT . $findID);	
                 }
             } else {

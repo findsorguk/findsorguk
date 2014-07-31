@@ -31,13 +31,13 @@ class RomanCoins_DynastiesController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow(null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
                 ->addActionContext('index',$this->_contexts)
                 ->addActionContext('dynasty',$this->_contexts)
                 ->initContext();
         $this->_dynasties = new Dynasties();
+        
     }
 
     /** Set up the index pages

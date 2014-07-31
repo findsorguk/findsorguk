@@ -216,12 +216,13 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
-
-    /** Set up the flash messenger
-     * @access public
-     * @return void 
-     */
-    public function init() {
+    
+    
+    protected $_flashMessenger;
+    
+    public function getFlash() {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        return $this->_flashMessenger;
     }
+
 }

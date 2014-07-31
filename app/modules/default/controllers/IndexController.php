@@ -18,7 +18,7 @@ class IndexController extends Pas_Controller_Action_Admin {
      * @return void  
      */
     public function init() {
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+	
 	$this->_helper->acl->allow(null);
     }
 
@@ -39,7 +39,7 @@ class IndexController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $params = array_filter($form->getValues());
                 unset($params['csrf']);
-                $this->_flashMessenger->addMessage('Your search is complete');
+                $this->getFlash()->addMessage('Your search is complete');
                 $this->_helper->Redirector->gotoSimple('database','results','search',$params);
             } else {
                 $form->populate($form->getValues());

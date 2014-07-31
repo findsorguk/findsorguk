@@ -31,6 +31,7 @@ class Romancoins_MoneyersController extends Pas_Controller_Action_Admin {
                 ->addActionContext('called',$contexts)
                 ->initContext();
         $this->_moneyers = new Moneyers();
+        
     }
     /** Set up the index page
      * @access public

@@ -40,7 +40,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
         $this->_log = Zend_Registry::get('log');
         $this->_helper->_acl->allow(null);
         $this->_helper->layout()->setLayout('database');
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
 //      $this->_cs = $this->_helper->contextSwitch();
 //    	$this->_helper->contextSwitch()->setAutoJsonSerialization(false);
 //    	$this->_cs->setAutoDisableLayout(true)

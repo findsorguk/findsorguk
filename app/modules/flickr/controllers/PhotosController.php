@@ -36,7 +36,7 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
         $this->_helper->acl->allow('public',null);
         $this->_flickr = $this->_helper->config()->webservice->flickr;
         $this->_api = new Pas_Yql_Flickr($this->_flickr);
-        parent::init();
+        
     }
 
     /** No direct access to photos, goes to the index controller
@@ -44,7 +44,7 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->_flashMessenger->addMessage('You can only see photos at the index page');
+        $this->getFlash()->addMessage('You can only see photos at the index page');
         $this->_redirect('/flickr/');
     }
 

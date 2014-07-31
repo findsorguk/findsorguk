@@ -18,7 +18,7 @@ class Users_RecordsController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->deny('public');
         $this->_helper->_acl->allow('member',null);
-        parent::init();
+        
     }
 
     /** Set up the index list

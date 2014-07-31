@@ -24,8 +24,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
      */		
     public function init() {
 	$this->_helper->_acl->allow('admin',null);
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-	$this->view->messages = $this->_flashMessenger->getMessages();
+        
     }
 
     /** List available Oauth tokens that have been generated for use.
@@ -57,7 +56,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
     public function yahooaccessAction(){
 	$yahoo = new Yahoo();
 	$yahoo->access();
-	$this->_flashMessenger->addMessage('Token created');
+	$this->getFlash()->addMessage('Token created');
 	$this->_redirect('/admin/oauth/');
     }
     /** Initiate request to create a twitter request token. This can only be 
@@ -81,7 +80,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
         $twitter = new Twitter();
         $twitter->access();
         if(isset($twitter)){
-            $this->_flashMessenger->addMessage('Token created');
+            $this->getFlash()->addMessage('Token created');
             $this->_redirect('/admin/oauth/');
         } else {
             throw new Pas_Yql_Exception('Token creation failed', 500);
@@ -116,7 +115,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
                 ->webservice->flickr->secret);
         $access = $flickr->access();
         if($access) {
-            $this->_flashMessenger->addMessage('Token created');
+            $this->getFlash()->addMessage('Token created');
             $this->_redirect('/admin/oauth/');
         } else {
             throw new Pas_Exception('Token creation failure', 500);
@@ -151,7 +150,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
                 ->webservice->google->oauthsecret);
         $access = $google->access();
         if($access) {
-        $this->_flashMessenger->addMessage('Token created');
+        $this->getFlash()->addMessage('Token created');
         $this->_redirect('/admin/oauth/');	
         } else {
             throw new Pas_Exception('Token creation failure', 500);

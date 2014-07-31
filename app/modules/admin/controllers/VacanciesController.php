@@ -28,8 +28,8 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('flos',null);
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_vacancies = new Vacancies();
+        
     }
     
     /** The redirect constant
@@ -56,7 +56,7 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin {
                 $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_vacancies->add($form->getValues());
-                $this->_flashMessenger->addMessage('Vacancy details created: ' 
+                $this->getFlash()->addMessage('Vacancy details created: ' 
                         . $form->getValue('title'));
                 $this->_redirect(self::REDIRECT);
             } else {
@@ -79,7 +79,7 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin {
                     $where = array();
                     $where[] = $this->_vacancies->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                     $this->_vacancies->update($form->getValues(), $where);
-                    $this->_flashMessenger->addMessage('Vacancy details updated!');
+                    $this->getFlash()->addMessage('Vacancy details updated!');
                     $this->_redirect(self::REDIRECT);
                 } else {
                     $form->populate($form->getValues());
@@ -112,7 +112,7 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . (int)$id;
                 $this->_vacancies->delete($where);
-                $this->_flashMessenger->addMessage('Record deleted');
+                $this->getFlash()->addMessage('Record deleted');
             }
             $this->_redirect(self::REDIRECT);
         } else {

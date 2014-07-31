@@ -42,7 +42,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
         $this->_geocoder = new Pas_Service_Geo_Coder();
-        parent::init();
+        
     }
 
 
@@ -119,7 +119,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
                 $where[] = $this->_contacts->getAdapter()
                         ->quoteInto('dbaseID = ?', $this->getIdentityForForms());
                 $insert = $this->_contacts->update($updateData,$where);
-                $this->_flashMessenger->addMessage('Contact information for '
+                $this->getFlash()->addMessage('Contact information for '
                         . $form->getValue('firstname') . ' '
                         .$form->getValue('lastname')
                         . ' updated!');
@@ -192,15 +192,15 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
         unlink( self::PROFILEPATH . 'thumbnails/' . $currentimage);
         unlink( self::PROFILEPATH . $currentimage);
         unlink( self::PROFILEPATH . 'resized/' . $currentimage);
-        $this->_flashMessenger->addMessage('The image has been resized and added to your profile.');
+        $this->getFlash()->addMessage('The image has been resized and added to your profile.');
         $this->_redirect('/users/account/');
         } else {
-        $this->_flashMessenger->addMessage('There is a problem with your upload. Probably that image exists.');
+        $this->getFlash()->addMessage('There is a problem with your upload. Probably that image exists.');
         $this->view->errors = $upload->getMessages();
         }
         } else {
         $form->populate($formData);
-        $this->_flashMessenger->addMessage('Check your form for errors');
+        $this->getFlash()->addMessage('Check your form for errors');
         }
         }
         }
@@ -264,15 +264,15 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
 
         $logos->insert($insertData);
         $upload->receive();
-        $this->_flashMessenger->addMessage('The image has been resized and zoomified!');
+        $this->getFlash()->addMessage('The image has been resized and zoomified!');
         $this->_redirect('/users/account/');
         } else {
-        $this->_flashMessenger->addMessage('There is a problem with your upload. Probably that image exists.');
+        $this->getFlash()->addMessage('There is a problem with your upload. Probably that image exists.');
         $this->view->errors = $upload->getMessages();
         }
         } else {
         $form->populate($formData);
-        $this->_flashMessenger->addMessage('Check your form for errors');
+        $this->getFlash()->addMessage('Check your form for errors');
         }
         }
         }

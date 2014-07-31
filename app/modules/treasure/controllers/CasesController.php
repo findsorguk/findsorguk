@@ -18,8 +18,8 @@ class Treasure_CasesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init() {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->_acl->allow('public',null);
+        
     }
 
     /** The index action

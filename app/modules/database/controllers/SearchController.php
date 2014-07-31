@@ -46,7 +46,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_searches = new Searches();
         $this->_helper->_acl->allow('public',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_helper->contextSwitch()
                 ->setAutoDisableLayout(true)
                 ->addContext('kml',array('suffix' => 'kml'))
@@ -92,7 +92,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
             'finder', 'idby', 'recordby',
             'idBy', 'recordername'
             ));
-        $this->_flashMessenger->addMessage('Your search is complete');
+        $this->getFlash()->addMessage('Your search is complete');
         $this->_helper->Redirector->gotoSimple('results','search','database',
                         $cleaned);
     }
@@ -259,7 +259,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
                 $insert = $saved->add($insertData);
                 $this->_helper->Redirector->gotoSimple('results','search','database',$params);
             } else  {
-                $this->_flashMessenger->addMessage('There are problems with your submission.');
+                $this->getFlash()->addMessage('There are problems with your submission.');
                 $form->populate($form->getValues());
             }
         }
@@ -301,7 +301,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
                     $url = array('url' => $params);
                     $assignData = array_merge($form->getValues(), $from[0], $url);
                     $this->_helper->mailer($assignData,'sendSearch', $to, null, $from);
-                    $this->_flashMessenger->addMessage('Your email has been sent to ' . $form->getValue('fullname')
+                    $this->getFlash()->addMessage('Your email has been sent to ' . $form->getValue('fullname')
                     . '. Thank you for sending them some of our records.');
                     $this->_helper->Redirector->gotoSimple('results','search','database',$querystring);
                 }  else {

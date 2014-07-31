@@ -51,8 +51,8 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin {
         $flosActions = array('index');
         $this->_helper->_acl->allow('admin',null);
         $this->_helper->_acl->allow('fa',$flosActions);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_institutions = new Institutions();
+        
     }
 
     /** Display the index page
@@ -75,7 +75,7 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 
                 $this->_institutions->add($form->getValues());
-                $this->_flashMessenger->addMessage('A new recording institution has been created.');
+                $this->getFlash()->addMessage('A new recording institution has been created.');
                 $this->_redirect($this->_redirectUrl . 'institutions/');
             } else {
                 $form->populate($form->getValues());
@@ -97,7 +97,7 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin {
                 $where = array();
                 $where[] =  $this->_institutions->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                 $update = $this->_institutions->update($form->getValues(), $where);
-                $this->_flashMessenger->addMessage($form->getValue('institution') . '\'s details updated.');
+                $this->getFlash()->addMessage($form->getValue('institution') . '\'s details updated.');
                 $this->_redirect($this->_redirectUrl . 'institutions/');
                 } else {
                 $form->populate($form->getValues());

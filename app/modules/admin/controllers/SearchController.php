@@ -18,7 +18,7 @@ class Admin_SearchController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
     }
     /** Paginated list of searches made
      * @access public

@@ -26,7 +26,6 @@ class RomanCoins_PersonificationsController extends Pas_Controller_Action_Admin 
      */
     public function init() {
         $this->_helper->_acl->allow(null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $contexts = array('xml','json');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
@@ -34,6 +33,7 @@ class RomanCoins_PersonificationsController extends Pas_Controller_Action_Admin 
                 ->addActionContext('named',$contexts)
                 ->initContext();
         $this->_reverses = new Reverses();
+        
     }
 
     /** Set up the index page

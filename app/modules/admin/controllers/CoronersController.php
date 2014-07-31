@@ -32,8 +32,8 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('flos',$flosActions);
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_coroners = new Coroners();
+        
     }
 
     /** The redirect uri
@@ -61,7 +61,7 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_coroners->addCoroner($form->getValues());
-                $this->_flashMessenger->addMessage('Coroner details created!');
+                $this->getFlash()->addMessage('Coroner details created!');
                 $this->_redirect($this->_redirectUrl);
             } else {
                 $form->populate($form->getValues());
@@ -83,7 +83,7 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
                 if($form->isValid($form->getValues())) {
                     $insert = $this->_coroners->updateCoroner($form->getValues(), 
                             $this->_getParam('id'));
-                    $this->_flashMessenger->addMessage(
+                    $this->getFlash()->addMessage(
                             $form->getValue('firstname') 
                             . ' ' 
                             . $form->getValue('lastname') 
@@ -115,7 +115,7 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $this->_coroners->delete($where);
             }	
-            $this->_flashMessenger->addMessage('Coroner\'s information deleted!');
+            $this->getFlash()->addMessage('Coroner\'s information deleted!');
             $this->_redirect($this->_redirectUrl);
         } else {
             $id = (int)$this->_request->getParam('id');

@@ -21,7 +21,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('member',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $contexts = array('xml','json');
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
@@ -72,7 +72,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->_flashMessenger->addMessage('No access to index page');
+        $this->getFlash()->addMessage('No access to index page');
         $this->_redirect('/database/');
     }
 

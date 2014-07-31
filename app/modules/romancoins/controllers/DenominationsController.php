@@ -39,6 +39,7 @@ class RomanCoins_DenominationsController extends Pas_Controller_Action_Admin {
                 ->addActionContext('denomination',$this->_contexts)
                 ->initContext();
         $this->_denominations = new Denominations();
+        
     }
     /** Set up the index page
      * @access public

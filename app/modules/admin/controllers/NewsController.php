@@ -28,8 +28,8 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('flos',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_news = new News();
+        
     }
 
     /** The redirect uri
@@ -90,7 +90,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
         if ($form->isValid($form->getValues())) {
             $insert = $this->_news->addNews($form->getValues());
             $this->_helper->solrUpdater->update('content', $insert, 'news');
-            $this->_flashMessenger->addMessage('News story created!');
+            $this->getFlash()->addMessage('News story created!');
             $this->_redirect(self::REDIRECT);
         } else {
             $form->populate($this->_request->getPost());
@@ -109,7 +109,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $this->_news->updateNews($form->getValues(), $this->_getParam('id'));
                 $this->_helper->solrUpdater->update('content', $this->_getParam('id'), 'news');
-                $this->_flashMessenger->addMessage('News story information updated!');
+                $this->getFlash()->addMessage('News story information updated!');
                 $this->_redirect(self::REDIRECT);
             } else {
                 $form->populate($form->getValues());
@@ -134,7 +134,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
                 $this->_news->delete($where);
-                $this->_flashMessenger->addMessage('Record deleted!');
+                $this->getFlash()->addMessage('Record deleted!');
             }
             $this->_redirect(self::REDIRECT);
         } else {

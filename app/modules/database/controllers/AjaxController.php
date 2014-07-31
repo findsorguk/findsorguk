@@ -60,7 +60,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 	$this->_helper->_acl->allow('hero',null);
 	$this->_helper->_acl->allow('research',null);
 	$this->_helper->layout->disableLayout();
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+	
     }
 
     /** The base redirect

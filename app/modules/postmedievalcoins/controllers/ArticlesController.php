@@ -23,7 +23,7 @@ class Postmedievalcoins_ArticlesController extends Pas_Controller_Action_Admin {
     /** Set up the ACL and contexts
     */	
     public function init() {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_helper->acl->allow('public',null);
         $this->_content = new Content();
     }
