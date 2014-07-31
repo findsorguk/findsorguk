@@ -77,6 +77,8 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
 	} else {
             $articles = $this->getCache()->load('guardianpantsSearchA');
 	}
+        Zend_Debug::dump($articles);
+        exit;
 	$tags = array();
 	$results = array();
 	foreach ($articles->response->results as $article){

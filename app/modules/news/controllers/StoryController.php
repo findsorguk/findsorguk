@@ -19,7 +19,7 @@ class News_StoryController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('public',null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
                 ->addActionContext('index', array('xml','json'))
                 ->initContext();
@@ -45,9 +45,9 @@ class News_StoryController extends Pas_Controller_Action_Admin {
                 $data['comment_type'] = 'newsComment';
                 $data['comment_approved'] = 'moderation';
                 $comments->add($data);
-                $this->_flashMessenger->addMessage('Your comment has been entered and will appear shortly!');
+                $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
                 $this->_redirect('/news/stories/article/id/' . $this->_getParam('id'));
-                $this->_flashMessenger->addMessage('There are problems with your comment submission');
+                $this->getFlash()->addMessage('There are problems with your comment submission');
                 $form->populate($form->getValues());
             }
 	} else {

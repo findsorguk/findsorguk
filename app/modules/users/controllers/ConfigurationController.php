@@ -26,7 +26,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->deny('public');
         $this->_helper->_acl->allow('member',null);
-        parent::init();
+        
     }
     /** Setup the index display pages
      * @access public
@@ -65,7 +65,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $copyFind->updateConfig($form->getValues());
-                $this->_flashMessenger
+                $this->getFlash()
                         ->addMessage('Copy last record fields for find table updated');
                 $this->_redirect('/users/configuration/');
             } else {
@@ -92,7 +92,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $copyFindSpot->updateConfig($form->getValues());
-                $this->_flashMessenger
+                $this->getFlash()
                         ->addMessage('Copy last record fields for findspot table updated');
                 $this->_redirect('/users/configuration/');
             } else {
@@ -120,7 +120,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $copyCoin->updateConfig($form->getValues());
-                $this->_flashMessenger
+                $this->getFlash()
                         ->addMessage('Copy last record fields for coin table updated');
                 $this->_redirect('/users/configuration/');
             } else {
@@ -145,7 +145,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
             if ($form->isValid($formData)) {
 
                 $loginRedirect->updateConfig($form->getValues());
-                $this->_flashMessenger->addMessage('Page after logging in updated');
+                $this->getFlash()->addMessage('Page after logging in updated');
                 $this->_redirect('/users/configuration/');
             } else {
                 $form->populate($current);

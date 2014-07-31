@@ -37,6 +37,7 @@ class Search_IndexController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('public',null);
         $this->_solr = new Solarium_Client($this->_config);
+        
     }
 
     /** List of the papers available

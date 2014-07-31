@@ -25,7 +25,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin {
     public function init() {
 	$this->_helper->_acl->allow('member',null);
         $this->_accounts = new OnlineAccounts();
-        parent::init();
+        
     }
 
     /** Display index pages for the individual
@@ -56,7 +56,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin {
                     'createdBy' => $this->getIdentityForForms()
                 );
                 $this->_accounts->insert($insertData);
-                $this->_flashMessenger->addMessage('A new account has been added to your profile.');
+                $this->getFlash()->addMessage('A new account has been added to your profile.');
                 $this->_redirect('/users/');
             } else {
                 $form->populate($this->_request->getPost());
@@ -87,7 +87,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin {
                     $where[] = $this->_accounts->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                     $where[] = $this->_accounts->getAdapter()->quoteInto('userID = ?',$this->getIdentityForForms());
                     $this->_accounts->update($updateData,$where);
-                    $this->_flashMessenger->addMessage('Webservice details updated.');
+                    $this->getFlash()->addMessage('Webservice details updated.');
                     $this->_redirect('/users/');
                 } else {
                     $form->populate($formData);
@@ -123,7 +123,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin {
                 $this->_accounts->delete($where);
             }
             $this->_redirect('/users/');
-            $this->_flashMessenger->addMessage('Social profile deleted!');
+            $this->getFlash()->addMessage('Social profile deleted!');
         } else  {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

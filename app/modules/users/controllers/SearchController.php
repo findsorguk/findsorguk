@@ -26,7 +26,7 @@ class Users_SearchController extends Pas_Controller_Action_Admin  {
         $this->_searches = new Searches();
         $this->_helper->_acl->deny('public');
         $this->_helper->_acl->allow('member',null);
-        parent::init();
+        
     }
 
     /** Setup the index display pages

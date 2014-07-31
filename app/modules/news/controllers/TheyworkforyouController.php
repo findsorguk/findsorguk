@@ -40,7 +40,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
                 ->addActionContext('constituencies',array('xml','json'))
                 ->addActionContext('index',array('xml','json'))
                 ->initContext();
-        parent::init();
+        
     }
 
     /** Get the index page and results for PAS search of twfy
@@ -193,7 +193,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
             }
             $this->_redirect('/news/theyworkforyou/finds/constituency/' . $place->name);
         } else  {
-            $this->_flashMessenger->addMessage('Please check and correct errors!');
+            $this->getFlash()->addMessage('Please check and correct errors!');
             $form->populate($form->getValues());
         }
     }

@@ -18,8 +18,8 @@ class Publications_IndexController extends Pas_Controller_Action_Admin {
      * @return void
      */ 
     public function init() {
-	$this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 	$this->_helper->acl->allow(null);
+        
     }
 	
     /** Render documents on the index page
@@ -42,10 +42,10 @@ class Publications_IndexController extends Pas_Controller_Action_Admin {
                 $cc = array();
                 $cc[] = array('email' => $form->getvalue('email'),'name' => $form->getValue('fullname'));
                 $this->_helper->mailer($data, 'requestPublication', null, $cc, $cc );
-                $this->_flashMessenger->addMessage('Your request has been submitted');
+                $this->getFlash()->addMessage('Your request has been submitted');
                 $this->_redirect('getinvolved/publications/');
             } else {
-                $this->_flashMessenger->addMessage('There are problems with your submission');
+                $this->getFlash()->addMessage('There are problems with your submission');
                 $form->populate($form->getValues());
             }
         }

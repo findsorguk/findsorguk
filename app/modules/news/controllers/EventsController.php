@@ -26,7 +26,7 @@ class News_EventsController extends Pas_Controller_Action_Admin {
     /** Initialise the ACL for access levels and set up contexts
     */
     public function init() {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
         $this->_helper->acl->allow('public',null);
         $contexts = array('xml','json', 'rss', 'atom');
         $contextSwitch = $this->_helper->contextSwitch()

@@ -18,6 +18,7 @@ class Publications_ResearchController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow(null);
+        
     }
 	
     /** The index action

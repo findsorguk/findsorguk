@@ -18,7 +18,8 @@ class RomanCoins_IndexController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function init() {
-    $this->_helper->_acl->allow(null);
+        $this->_helper->_acl->allow(null);
+        
     }
     /** Set up the index page
      * @access public

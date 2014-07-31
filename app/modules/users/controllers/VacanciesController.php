@@ -31,7 +31,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('fa',null);
         $this->_helper->_acl->allow('admin',null);
         $this->_vacancies = new Vacancies();
-        parent::init();
+        
     }
     /** Display list of current vacancies
      * @access public
@@ -64,7 +64,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
                     'createdBy' => $this->getIdentityForForms()
                         );
                         $this->_vacancies->insert($insertdata);
-                $this->_flashMessenger->addMessage('Vacancy details created: ' .$form->getValue('title'));
+                $this->getFlash()->addMessage('Vacancy details created: ' .$form->getValue('title'));
                 $this->_redirect('/users/vacancies');
             } else {
                 $form->populate($this->_request->getPost());
@@ -99,7 +99,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
                         'updatedBy' => $this->getIdentityForForms()
                             );
                     $this->_vacancies->update($insertdata,$where);
-                    $this->_flashMessenger->addMessage('Vacancy details updated!');
+                    $this->getFlash()->addMessage('Vacancy details updated!');
                     $this->_redirect('/users/vacancies');
                 } else {
                     $form->populate($this->_request->getPost());
@@ -131,7 +131,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = '.(int)$id;
                 $this->_vacancies->delete($where);
-                $this->_flashMessenger->addMessage('Vacancy\'s information deleted! This cannot be undone.');
+                $this->getFlash()->addMessage('Vacancy\'s information deleted! This cannot be undone.');
             }
             $this->_redirect('/users/vacancies/');
         } else {

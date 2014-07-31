@@ -17,7 +17,7 @@ class News_MapController extends Pas_Controller_Action_Admin {
      */ 
     public function init() {
  	$this->_helper->_acl->allow(null);
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
     }
 
     /** Initialise index page. All data in the view.

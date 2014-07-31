@@ -17,6 +17,7 @@ class Tech_IndexController extends Pas_Controller_Action_Admin {
      */
     public function init(){
         $this->_helper->acl->allow('public', null);
+        
     }
     /** Display content of our linked data page.
      * @access public

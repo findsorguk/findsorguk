@@ -35,6 +35,7 @@ class RomanCoins_ReeceperiodsController extends Pas_Controller_Action_Admin {
 		->addActionContext('period',$contexts)
 		->initContext();
 	$this->_reeces = new Reeces();
+        
     }
     
     /** Set up the index page
