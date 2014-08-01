@@ -7,12 +7,12 @@
  *
  * To use this view helper is very simple:
  * <code>
- * <?php echo $this->nextFind()->setFindID($id);?>
+ * <?php 
+ * echo $this->nextFind()->setFindID($id);
+ * ?>
  * </code>
- *
- *
  * @author Daniel Pett <dpett@britishmuseum.org>
- * @license http://URL GNU
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @category Pas
  * @package Pas_View_Helper
  * @copyright (c) 2014, Daniel Pett
@@ -27,8 +27,7 @@
  * @uses viewHelper Zend_View_Helper_Partial
  * @todo Swap name of the solr core when changes made
  */
-class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract {
 
     /** The fields to query
      * @access protected
@@ -210,6 +209,7 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_NextFind
      */
     public function nextFind() {
+        
         return $this;
     }
 
@@ -218,7 +218,8 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
      * @return string
      */
     public function __toString() {
-        return $this->getSolrData($this->getFindID());
+        //return $this->getSolrData($this->getFindID());
+        return '';
     }
 
     /** Get data from solr via the ID

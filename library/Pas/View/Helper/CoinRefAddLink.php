@@ -190,8 +190,8 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
      * @return string
      */
     public function getRole() {
-        if ($this->_auth->hasIdentity()) {
-            $user = $this->_auth->getIdentity();
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
             $this->_role = $user->role;
         }
         return $this->_role;
@@ -270,12 +270,14 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
             $allowed = true;
         } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
             $allowed = true;
-        } elseif (in_array ($this->getRole, $this->_restricted)
+        } elseif (in_array ($this->getRole(), $this->_restricted)
                 && $this->checkAccessbyUserID ($this->getCreatedBy())) {
             $allowed = true;
         } elseif (in_array($this->getRole(),$this->_recorders)
                 && $institution == 'PUBLIC') {
             $allowed = true;
+        } else {
+            $allowed = false;
         }
         return $allowed;
     }

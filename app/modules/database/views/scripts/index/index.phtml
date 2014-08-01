@@ -143,7 +143,7 @@ $(document).ready(function() {
         	position: latlng,
         	map: map,
         	title: title,
-        	icon: '<?php echo $this->serverUrl();?>/assets/mapIcons/museum_archeological.png',
+        	icon: '<?php echo $this->serverUrl() . $this->baseUrl();?>/assets/mapIcons/museum_archeological.png',
         	});
         markerInfoWindow(marker, markerXML.attr("content"));
     });

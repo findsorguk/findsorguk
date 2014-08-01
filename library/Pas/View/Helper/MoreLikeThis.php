@@ -169,11 +169,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
        } else {
            $solrResponse = $this->_cache->load($this->getKey() );
        }
-       if ($solrResponse) {
-           return $this->buildHtml($solrResponse);
-        } else {
-            return false;
-        }
+       return $solrResponse;
     }
 
     /** magic method to render string
@@ -181,18 +177,21 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @return type
      */
     public function __toString() {
-        return $this->buildHtml( $this->getData() );
+        return $this->buildHtml();
     }
 
     /** Build the html
-     * @access private
+     * @access public
      * @param  array  $solrResponse
      * @return string
      */
-    private function buildHtml(array $solrResponse) {
-        $html ='<div class="row-fluid"><h3>Similar objects</h3>';
-
-        foreach ($solrResponse['results'] as $document) {
+    public function buildHtml( ) {
+        $solrResponse = $this->getData();
+        $html = '<div class="row-fluid">';
+        if(array_key_exists('results', $solrResponse)) {
+        $html .='<h3>Similar objects</h3>';
+        $data = $solrResponse['results'];
+        foreach ($data as $document) {
             if (($document->thumbnail)) {
                 $html .= '<img class="flow img-polaroid" src="/images/thumbnails/';
                 $html .= $document->thumbnail .'.jpg"/>';
@@ -201,7 +200,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                 $html .= $this->view->baseUrl();
                 $html .= '/assets/gravatar.png" />';
             }
-                $html .= '<div class="caption"><p>Find number: ';
+                $html .= '<div class="caption">';
+                $html .= '<p>Find number: ';
                 $html .= '<a href="';
                 $html .= $this->view->baseUrl();
                 $html .= '/database/artefacts/record/id/';
@@ -214,10 +214,11 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                 $html .= '<br />Workflow: ';
                 $html .= $this->view->workflowStatus()->setWorkflow($document->workflow);
                 $html .= $this->view->workflow()->setWorkflow($document->workflow);
-                $html .= '</p></div>';
+                $html .= '</p>';
                 $html .= '</div>';
         }
         $html .= '</div>';
+        }
         return $html;
     }
 }

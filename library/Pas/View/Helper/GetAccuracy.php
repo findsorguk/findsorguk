@@ -98,7 +98,7 @@ class Pas_View_Helper_GetAccuracy extends Zend_View_Helper_Abstract {
                 $acc = 'Not in range!';
                 break;
         }
-        return $acc;
+        return (string)$acc;
     }
 
 }

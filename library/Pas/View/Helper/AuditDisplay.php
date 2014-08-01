@@ -75,7 +75,7 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @throws Pas_Exception_Param
      */
     public function setTableName($tableName) {
-        if(in_array( $tableName, $this->getTableNames() )){
+        if(in_array( $tableName, $this->_tableNames )){
         $this->_tableName = $tableName;
         } else {
             throw new Pas_Exception_Param('Table not available', 500);

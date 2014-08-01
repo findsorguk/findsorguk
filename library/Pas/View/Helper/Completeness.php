@@ -43,7 +43,7 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
      * @return object
      */
     public function getValidator() {
-        $this->_validator = Zend_Validate_Int();
+        $this->_validator = new Zend_Validate_Int();
         return $this->_validator;
     }
 
