@@ -106,50 +106,53 @@ class Pas_Service_Geo_Parser {
      * @param object $place
      * @return array
      */
-    public function parsePlace(object $place) {
-        $place = $place->query->results->place;
-        $placeData = array();
-        $placeData['woeid'] = (string) $place->woeid;
-        $placeData['placeTypeName'] = (string) $place->placeTypeName->content;
-        $placeData['name'] = (string) $place->name;
-        if($place->country){
-            $placeData['country'] = (string) $place->country->content;
-        }
-        if($place->admin1) {
-            $placeData['admin1'] = (string) $place->admin1->content;
-        }
-        if($place->admin2){
-            $placeData['admin2'] = (string) $place->admin2->content;
-        }
-        if($place->admin3){
-            $placeData['admin3'] = (string) $place->admin3->content;
-        }
-        if($place->locality1){
-            $placeData['locality1'] = (string) $place->locality1->content;
-        }
-        if($place->locality2){
-            $placeData['locality2'] = (string) $place->locality2->content;
-        }
-        if($place->postal){
-            $placeData['postal'] = $place->postal->content;
-        }
-        $placeData['latitude'] = $place->centroid->latitude;
-        $placeData['longitude'] = $place->centroid->longitude;
-        $placeData['centroid'] = array(
-            'lat' => (string) $place->centroid->latitude,
-            'lng' => (string) $place->centroid->longitude
-        );
-        $placeData['boundingBox'] = array(
-            'southWest' => array(
-                'lat' => (string) $place->boundingBox->southWest->latitude, 
-                'lng' => (string) $place->boundingBox->southWest->longitude
-                ),
-            'northEast' => array(
-                'lat' => (string) $place->boundingBox->northEast->latitude,
-                'lng' => (string) $place->boundingBox->northEast->longitude
-                )
+    public function parsePlace($place) {
+        if($place) {
+            $json = json_decode($place);
+            $place = $json->query->results->place;
+            $placeData = array();
+            $placeData['woeid'] = (string) $place->woeid;
+            $placeData['placeTypeName'] = (string) $place->placeTypeName->content;
+            $placeData['name'] = (string) $place->name;
+            if($place->country){
+                $placeData['country'] = (string) $place->country->content;
+            }
+            if($place->admin1) {
+                $placeData['admin1'] = (string) $place->admin1->content;
+            }
+            if($place->admin2){
+                $placeData['admin2'] = (string) $place->admin2->content;
+            }
+            if($place->admin3){
+                $placeData['admin3'] = (string) $place->admin3->content;
+            }
+            if($place->locality1){
+                $placeData['locality1'] = (string) $place->locality1->content;
+            }
+            if($place->locality2){
+                $placeData['locality2'] = (string) $place->locality2->content;
+            }
+            if($place->postal){
+                $placeData['postal'] = $place->postal->content;
+            }
+            $placeData['latitude'] = $place->centroid->latitude;
+            $placeData['longitude'] = $place->centroid->longitude;
+            $placeData['centroid'] = array(
+                'lat' => (string) $place->centroid->latitude,
+                'lng' => (string) $place->centroid->longitude
             );
-        return $placeData;
+            $placeData['boundingBox'] = array(
+                'southWest' => array(
+                    'lat' => (string) $place->boundingBox->southWest->latitude, 
+                    'lng' => (string) $place->boundingBox->southWest->longitude
+                    ),
+                'northEast' => array(
+                    'lat' => (string) $place->boundingBox->northEast->latitude,
+                    'lng' => (string) $place->boundingBox->northEast->longitude
+                    )
+                );
+            return $placeData;
+        }
     }
 
     public function parseSinglePlace($place) {
@@ -216,12 +219,11 @@ class Pas_Service_Geo_Parser {
 
     /** Parse a geocoded response
      * @access public
-     * @param object $place
+     * @param string $json
      * @return array
      */
-    public function parseGeocoded(  $place ){
-        Zend_Debug::dump(json_decode($place));
-        exit;
+    public function parseGeocoded( $place ){
+        $place = json_decode($place);
         $pl = $place->query->results;
         if($pl){
             $placeData = array(); 
