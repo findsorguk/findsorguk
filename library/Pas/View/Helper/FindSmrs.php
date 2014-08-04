@@ -97,7 +97,7 @@ class Pas_View_Helper_FindSmrs extends Zend_View_Helper_Abstract
     public function getMonuments() {
         if($this->getLat() && $this->getLon()) {
             $mons = new ScheduledMonuments();
-            $smrs = $mons->getSMRSNearby($lat,$long);
+            $smrs = $mons->getSMRSNearby($this->getLat(), $this->getLon());
             return $this->buildHtml($smrs);
         }
     }

@@ -209,7 +209,6 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract {
      * @return \Pas_View_Helper_NextFind
      */
     public function nextFind() {
-        
         return $this;
     }
 
@@ -218,8 +217,8 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract {
      * @return string
      */
     public function __toString() {
-        //return $this->getSolrData($this->getFindID());
-        return '';
+        return $this->getSolrData($this->getFindID());
+//        return '';
     }
 
     /** Get data from solr via the ID
@@ -253,7 +252,7 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract {
                 $results = $this->_processResults($this->_resultset);
                 $this->getCache()->save($results);
                 } else {
-                    $results = $this->getCache()->load($key);
+                    $results = $this->getCache()->load($this->getKey());
                 }
 
                 if ($results) {
