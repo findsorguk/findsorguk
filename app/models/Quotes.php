@@ -23,6 +23,15 @@
  */
 class Quotes extends Pas_Db_Table_Abstract {
 
+    
+    /** Get current date
+     * @access public
+     * @return string
+     */
+    public function getTimeForForms() {
+	return Zend_Date::now()->toString('yyyy-MM-dd HH:mm:ss');
+    }
+
     /** The table name
      * @access protected
      * @var string
@@ -65,7 +74,7 @@ class Quotes extends Pas_Db_Table_Abstract {
             $quotes = $this->getAdapter();
             $select = $quotes->select()
                     ->from($this->_name,array('quote','quotedBy'))
-                    ->where('expire >= ?', $this->timeCreation())
+                    ->where('expire >= ?', $this->getTimeForForms())
                     ->where('status = ?',(int)1)
                     ->where('type = ? ', 'quote')
                     ->order('RAND()')
@@ -85,7 +94,7 @@ class Quotes extends Pas_Db_Table_Abstract {
             $quotes = $this->getAdapter();
             $select = $quotes->select()
                     ->from($this->_name,array('quote','quotedBy'))
-                    ->where('expire >= ?', $this->timeCreation())
+                    ->where('expire >= ?', $this->getTimeForForms())
                     ->where('status = ?',(int)1)
                     ->where('type = ? ', 'announcement')
                     ->order('RAND()')

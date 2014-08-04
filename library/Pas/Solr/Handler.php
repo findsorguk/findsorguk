@@ -851,7 +851,6 @@ class Pas_Solr_Handler {
      * @throws Pas_Solr_Exception
      */
     protected function checkFieldList($fields){
-       
         if(is_null($fields)){
             $schemaFields = $this->getSchemaFields();
             $schemaFields[] = '*';

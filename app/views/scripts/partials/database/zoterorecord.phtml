@@ -1,9 +1,10 @@
-m <?php
-echo $this->Coins()
+<?php
+echo $this->coins()
         ->setTitle($this->title())
         ->setAuthor($this->creator)
         ->setPublished($this->created2)
         ->setDescription($this->description);
-//end of plugin
-$this->toolbox($this->id,$this->old_findID,$this->createdBy);
-?>
+echo $this->toolbox()
+        ->setId($this->id)
+        ->setOldFindID($this->old_findID)
+        ->setCreatedBy($this->createdBy);

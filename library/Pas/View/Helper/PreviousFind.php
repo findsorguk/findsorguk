@@ -16,7 +16,7 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
- * @license GNU
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @category Pas
  * @package Pas_View_Helper
  * @uses Zend_Config
@@ -214,8 +214,8 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
             $select['start'] = 1;
             $select['rows'] = 1;
             $this->_query = $this->getSolr()->createSelect($select);
-            if (!in_array($this->_getRole(), $this->_allowed) ||
-                    is_null($this->_getRole()) ) {
+            if (!in_array($this->getRole(), $this->_allowed) ||
+                    is_null($this->getRole()) ) {
                 $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
             }
 
@@ -223,7 +223,7 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
             $results = $this->_processResults($this->_resultset);
             $this->getCache()->save($results);
             } else {
-                $results = $this->getCache()->load($key);
+                $results = $this->getCache()->load($this->getKey());
             }
 
             if ($results) {

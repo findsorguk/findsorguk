@@ -22,7 +22,7 @@ $this->googleDynamicMap();
       		map: map,
       		animation: google.maps.Animation.DROP,
       		title:"Museum location",
-      		icon: "<?php echo $this->baseUrl();?>/assets/mapIcons/museum_archeological.png" 
+      		icon: "<?php echo $this->serverUrl() . $this->baseUrl();?>/assets/mapIcons/museum_archeological.png"" 
   		});
   	google.maps.event.addListener(marker, 'click', toggleBounce);
 	

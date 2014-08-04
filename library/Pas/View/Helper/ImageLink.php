@@ -35,25 +35,25 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
      * @access protected
      * @var array $noaccess
      */
-    protected $noaccess = array('public', null);
+    protected $_noaccess = array('public', null);
 
     /** Set up the user groups with limited access
      * @access protected
      * @var array $restricted
      */
-    protected $restricted = array('member','research','hero');
+    protected $_restricted = array('member','research','hero');
 
     /** Set up the user groups with recorder access
      * @access protected
      * @var array $recorders
      */
-    protected $recorders = array('flos');
+    protected $_recorders = array('flos');
 
     /** Set up the user groups with higher level access
      * @access protected
      * @var array $higherLevel
      */
-    protected $higherLevel = array('admin','fa','treasure');
+    protected $_higherLevel = array('admin','fa','treasure');
 
     /** The auth object
      * @access protected
@@ -231,13 +231,13 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
      * @return boolean
      */
     public function checkAccessbyUserID($createdBy ) {
-            if (in_array( $this->getRole(), $this->_restricted ) ) {
+        if (in_array( $this->getRole(), $this->_restricted ) ) {
             if ($createdBy == $this->getUserID()) {
                     $allowed = true;
                 } else {
                     $allowed = false;
                 }
-            }
+        }
         return $allowed;
     }
 
@@ -268,12 +268,14 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
             $allowed = true;
         } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
             $allowed = true;
-        } elseif (in_array ($this->getRole, $this->_restricted)
+        } elseif (in_array ($this->getRole(), $this->_restricted)
                 && $this->checkAccessbyUserID ($this->getCreatedBy())) {
             $allowed = true;
         } elseif (in_array($this->getRole(),$this->_recorders)
                 && $institution == 'PUBLIC') {
             $allowed = true;
+        } else {
+            $allowed = false;
         }
         return $allowed;
     }

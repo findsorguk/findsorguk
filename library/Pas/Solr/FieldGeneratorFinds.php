@@ -23,13 +23,47 @@ class Pas_Solr_FieldGeneratorFinds {
      * @var string
      */
     protected $_context;
-	
-    /** The constructor
+    
+    /** Get the context to serve
+     * @access public
+     * @return string
+     */
+    public function getContext() {
+        return $this->_context;
+    }
+
+    /** Set the context to use
      * @access public
      * @param string $context
+     * @return \Pas_Solr_FieldGeneratorFinds
      */
-    public function __construct($context){
+    public function setContext($context) {
         $this->_context = $context;
+        return $this;
+    }
+
+    /** The contexts to send lots of fields to 
+     * @access protected
+     * @var array
+     */
+    protected $_contexts = array('json', 'xml', 'kml', 'geojson');
+    
+    /** Set the contexts
+     * @access public
+     * @param array $contexts
+     * @return \Pas_Solr_FieldGeneratorFinds
+     */
+    public function setContexts(array $contexts) {
+        $this->_contexts = $contexts;
+        return $this;
+    }
+
+    /** Get the contexts to use
+     * @access public
+     * @return type
+     */
+    public function getContexts() {
+        return $this->_contexts;
     }
 
     /** Get the fields based on the context
@@ -37,16 +71,15 @@ class Pas_Solr_FieldGeneratorFinds {
      * @return string
      */
     public function getFields(){
-	if(!in_array($this->_context, array('json', 'xml', 'kml', 'geojson'))){
-		
+	if(!in_array($this->getContext(), $this->getContexts() )){
             $fields = array(
                 'id','identifier','objecttype',
                 'title','broadperiod','description',
                 'old_findID','thumbnail', 'county',
                 'imagedir','filename', 'workflow', 
                 'fourFigure', 'knownas', 'created', 
-                'updated', 'creator');
-            
+                'updated', 'creator', 'fourFigureLat',
+                'fourFigureLon');
         } else {
             $fields = array(
 		'id','identifier', 'objecttype',
@@ -96,6 +129,7 @@ class Pas_Solr_FieldGeneratorFinds {
 		'rulerBM',  'denominationBM', 'objectType'
 		);
 	}
+      
 	return $fields;
     }
 }

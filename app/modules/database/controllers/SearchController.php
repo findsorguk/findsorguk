@@ -381,13 +381,18 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
         $search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
         $context = $this->_helper->contextSwitch->getCurrentContext();
-        $fields = new Pas_Solr_FieldGeneratorFinds($context);
-        $params['format'] = $context;
-    	//$search->setFields(array('*'));
+        $fields = new Pas_Solr_FieldGeneratorFinds();
+        $fields->setContext($context);
+        
+        if($context) {
+            $params['format'] = $context;
+        }
+    	//$search->setFields($fields->getFields());
         $search->setFacets(array(
             'objectType','county', 'broadperiod',
             'institution', 'rulerName', 'denominationName',
-            'mintName', 'materialTerm', 'workflow', 'reeceID'
+            'mintName', 'materialTerm', 'workflow', 
+            'reeceID', 
             ));
         $search->setParams($params);
         $search->execute();
