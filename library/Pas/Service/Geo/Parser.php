@@ -109,7 +109,7 @@ class Pas_Service_Geo_Parser {
     public function parsePlace($place) {
         if($place) {
             $json = json_decode($place);
-            $place = $json->query->results->place;
+                $place = $json->query->results->place;
             $placeData = array();
             $placeData['woeid'] = (string) $place->woeid;
             $placeData['placeTypeName'] = (string) $place->placeTypeName->content;
