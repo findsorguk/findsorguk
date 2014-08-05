@@ -220,7 +220,7 @@ class Contacts extends Pas_Db_Table_Abstract {
                             'staff.role = position.ID',
                             array('staffroles' => 'role'))
                     ->where('staff.role IN (1,2,3,4,24,25)')
-                    ->where('alumi = ?', (int)1)
+                    ->where('alumni = ?', (int)1)
                     ->order('lastname');
             $data =  $persons->fetchAll($select);
             $this->_cache->save($data, $key);
