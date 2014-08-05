@@ -193,8 +193,16 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
         $data = $solrResponse['results'];
         foreach ($data as $document) {
             if (($document->thumbnail)) {
-                $html .= '<img class="flow img-polaroid" src="/images/thumbnails/';
-                $html .= $document->thumbnail .'.jpg"/>';
+                $file = $this->view->baseUrl() . '/images/thumbnails/' .  $document->thumbnail . '.jpg';
+                if(file_exists($file)) {
+                    $html .= '<img class="flow img-polaroid" src="';
+                    $html .= $file;
+                    $html .= ' />';
+                } else {
+                    $html .= '<img class="flow img-circle" src="';
+                    $html .= $this->view->baseUrl();
+                    $html .= '/assets/gravatar.png" />';
+                }
             } else {
                 $html .= '<img class="flow img-circle" src="';
                 $html .= $this->view->baseUrl();

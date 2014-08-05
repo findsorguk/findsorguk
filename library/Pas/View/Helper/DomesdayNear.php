@@ -140,6 +140,7 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @return object
      */
     public function getCache() {
+        $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
 
@@ -161,7 +162,7 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
             'lng' => $this->getLon(),
             'radius' => $this->getRadius()
                 );
-        $key = md5($params);
+        $key = md5($this->getLat() . $this->getLon() . $this->getRadius());
         $response = $this->getPlacesNear( $params, $key);
         return $this->buildHtml($response, $this->getRadius());
         }
@@ -192,13 +193,14 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
 
     /** Build html string
      * @access public
-     * @param  object $response
+     * @param  array $response
      * @param  int    $radius
      * @return string
      */
-    public function buildHtml(object $response,  $radius) {
+    public function buildHtml(array $response,  $radius) {
+        $html = '';
         if ($response) {
-            $html = '<h3>Adjacent Domesday Book places</h3>';
+            $html .= '<h3>Adjacent Domesday Book places</h3>';
             $html .= '<a  href="';
             $html .= $this->_url;
             $html .= '"><img class="dec flow"';
@@ -214,9 +216,9 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
             $html .= '</ul>';
             $html .= '<p>Domesday data  within ';
             $html .= $radius;
-            $html .= ' km of discovery point is surfaced via the excellent';
+            $html .= ' km of discovery point is surfaced via the excellent ';
             $html .= '<a href="http://domesdaymap.co.uk">Open Domesday</a> website.</p>';
-            return $html;
             }
+        return $html;
     }
 }

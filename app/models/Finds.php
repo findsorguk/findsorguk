@@ -56,12 +56,6 @@ class Finds extends Pas_Db_Table_Abstract {
      */
     protected $_restricted = array(null, 'public','member','research');
 
-    /** The edit test array
-     * @access public
-     * @var array
-     */
-    protected $_edittest = array('flos','member');
-    
     /** The duplicate value error code
      * 
      */

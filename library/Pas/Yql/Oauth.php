@@ -457,8 +457,8 @@ class Pas_Yql_Oauth {
                            ('?' . $query_parameter_string) : '' );
     $response = $this->curl($request_url, 443, $headers);
     $response = $this->oauth_parse_str($response);
-    Zend_Debug::dump($response);
-    exit;
+//    Zend_Debug::dump($response);
+//    exit;
     $token = $this->createToken($response);
 
 	$this->cleanUp();

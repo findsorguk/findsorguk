@@ -44,7 +44,41 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
      * @var string
      */
     protected $_appid = null;
+    
+    protected $_woeid;
+    
+    protected $_lat;
+    
+    protected $_lon;
+    
+    public function getWoeid() {
+        return $this->_woeid;
+    }
 
+    public function getLat() {
+        return $this->_lat;
+    }
+
+    public function getLon() {
+        return $this->_lon;
+    }
+
+    public function setWoeid($woeid) {
+        $this->_woeid = $woeid;
+        return $this;
+    }
+
+    public function setLat($lat) {
+        $this->_lat = $lat;
+        return $this;
+    }
+
+    public function setLon($lon) {
+        $this->_lon = $lon;
+        return $this;
+    }
+
+    
     /** The constructor
      * @access public
      * @return void
@@ -53,25 +87,32 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
         $this->_auth = Zend_Registry::get('auth');
         $this->_cache = Zend_Registry::get('cache');
         $this->_config = Zend_Registry::get('config');
-        $this->_appid = $this->_config->webservice->ydnkeys->placemakerkey;
+        $this->_appid = $this->_config->webservice->ydnkeys->consumerkey;
         $this->_geoplanet = new Pas_Service_Geo_Geoplanet($this->_appid);
     }
+    
     /** Call the function to created findspot with geo data
      * @access public
-     * @param integer $woeid
-     * @param float $lat
-     * @param float $lon
+     * @return \Pas_View_Helper_FindspotGeo
      */
-    public function FindspotGeo($woeid, $lat, $lon) {
-        if (is_null($woeid)) {
-            $place = $this->_geoplanet->reverseGeocode($lat,$lon);
+    public function findspotGeo() {
+        return $this;
+    }
+
+    
+    /** To string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
+        if ($this->getWoeid()) {
+            $place = $this->_geoplanet->reverseGeocode($this->getLat(),$this->getLon());
             $placeData = $this->_geoplanet->getPlace($place['woeid']);
         } else {
-            $placeData = $this->_geoplanet->getPlace($woeid);
+            $placeData = $this->_geoplanet->getPlace($this->getWoeid());
         }
         return $this->buildHtml($placeData);
     }
-
     /** Function for determining whether elevation is -ve or +ve or =
      * @access public
      * @param int $elevation
