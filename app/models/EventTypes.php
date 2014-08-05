@@ -39,7 +39,7 @@ class EventTypes extends Pas_Db_Table_Abstract {
      /** Retrieves all event types that we list
       * @access public
       * @param type $type
-      * @return type
+      * @return array
       */
     public function getType($type){
         $key = md5('eventtypes' . $type );

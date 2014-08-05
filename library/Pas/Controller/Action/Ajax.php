@@ -115,7 +115,7 @@ class Pas_Controller_Action_Ajax extends Zend_Controller_Action {
      /** Curl function to retrieve data from url
       * @access public
       * @param string $url
-      * @return type
+      * @return \Zend_Http_Response
       */
     public function get( $url ){
         $config = array(

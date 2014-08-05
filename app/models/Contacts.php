@@ -83,7 +83,7 @@ class Contacts extends Pas_Db_Table_Abstract {
 
     /** Get a list of alumni
      * @access public
-     * @return type
+     * @return array
      */
     public function getAlumniList() {
         $key = md5('alumniList');
@@ -112,7 +112,7 @@ class Contacts extends Pas_Db_Table_Abstract {
 
     /** Get a list of current staff to display on the map of contacts
      * @access public
-     * @return type
+     * @return array
      */
     public function getContactsForMap() {
         $persons = $this->getAdapter();
@@ -202,7 +202,7 @@ class Contacts extends Pas_Db_Table_Abstract {
 
     /** Get a list of current staff for the central unit
      * @access public
-     * @return type
+     * @return array
      */
     public function getCentralUnit() {
         $key = md5('centralUnit');

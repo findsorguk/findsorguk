@@ -372,8 +372,8 @@ class Admin_SystemController extends Pas_Controller_Action_Admin {
     }
     /** Transfer data to amazon's server
      * @access public
-     * @param type $backup
-     * @return type
+     * @param string $backup
+     * @return void
      */
     public function transfer($backup) {
         $s3 = $this->_s3;

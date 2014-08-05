@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This class is to display the breadcrumbs
  * Load of rubbish, needs a rewrite and to use reflection maybe
@@ -12,6 +11,8 @@
  * @author Daniel Pett
  * @since September 13 2008
  * @todo change the class to use zend_navigation
+ * @uses Zend_Controller_Front
+ * 
 */
 class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
 {
@@ -68,7 +69,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
 
     /** Get the action
      * @access public
-     * @return type
+     * @return string
      */
     public function getAction() {
         $this->_action = $this->getFront()->getActionName();
@@ -111,15 +112,16 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
         return $this->_controller;
     }
 
-    /* The view helper class
-     *
+    /** The view helper class
+     * @access public
+     * @return \Pas_View_Helper_Breadcrumb
      */
     public function breadcrumb() {
         return $this;
     }
 
     /** A switch to get the nice name for the module
-     *
+     * @access public
      * @return string
      */
     public function _switchModule()
@@ -135,7 +137,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 $clean = 'Conservation advice';
                 break;
             case 'research':
-                $clean = 'research';
+                $clean = 'Research';
                 break;
             case 'treasure':
                 $clean = 'Treasure Act';
@@ -144,7 +146,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 $clean = 'news &amp; reports';
                 break;
             case 'events':
-                $clean = 'events';
+                $clean = 'Events';
                 break;
             case 'info':
                 $clean = 'Site information';
@@ -198,7 +200,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 $clean = 'Britain\'s Secret Treasures';
                 break;
             default:
-                $clean = $this->getModule();
+                $clean = ucfirst($this->getModule());
                 break;
             }
 
@@ -206,7 +208,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
     }
 
     /** A function to get the nice name for the controller
-     *
+     * @access public
      * @return string
      */
     public function _switchController()
@@ -252,14 +254,14 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 $clean = 'Data from TheyWorkForYou';
                 break;
             default:
-                $clean = $this->getController();
+                $clean = ucfirst($this->getController());
                 break;
         }
         return $clean;
     }
 
     /** A function to get the nice name for an action
-     *
+     * @access public
      * @return string
      */
     public function _switchAction() {
@@ -373,25 +375,18 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 $clean = 'In a set';
                 break;
             default:
-                $clean = $this->getAction();
+                $clean = ucfirst($this->getAction());
                 break;
         }
         return $clean;
     }
 
     /** function to build the html
-     *
+     * @access public
      * @return string
      */
     public function html() {
         $html = '';
-        // HomePage = No Breadcrumb
-
-        if ($this->getModule() == 'default' && $this->getController() == 'index'
-                && $this->getAction() == 'index') {
-            return $html;
-        }
-
         // Get our url and create a home crumb
         $homeLink = '<a href="' . $this->getUrl() . '" title="Scheme website home page">Home</a>';
         // Start crumbs
@@ -399,41 +394,58 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
 
         // If our module is default
         if ($this->getModule() == 'default') {
-
-        if ($this->getAction() == 'index') {
-            $html .= $this->_switchModule();
+            if ($this->getAction() == 'index') {
+                $html .= $this->_switchModule();
+            } else {
+                $html .= ' <a href="';
+                $html .= $this->getUrl();
+                $html .= $this->getController();
+                $html .= '" title="Return to ';
+                $html .= $this->_switchModule();
+                $html .= ' section">';
+                $html .= $this->_switchModule();
+                $html .= '</a> ';
+                $html .= $this->getSeparator();
+                $html .= $this->_switchAction();
+            }
         } else {
-            $html .= ' <a href="' . $this->getUrl() . $this->getController();
-            $html .= '" title="Return to ' . $this->_switchModule() . ' section">';
-            $html .= $this->_switchModule() . '</a> ' . $this->getSeparator();
-            $html .= $this->_switchAction();
-        }
-        } else {
-        // Non Default Module
-        if ($this->getController() == 'index' && $this->getAction() == 'index') {
-        $html .= $this->_switchModule();
-        } else {
-        $html .= '<a href="' . $this->getUrl() . $this->getModule() .'" title="Return to';
-            $html .= $this->_switchController() . ' home">';
-            $html .= $this->_switchController() . "</a> &raquo; ";
+            // Non Default Module
+            if ($this->getController() == 'index' && $this->getAction() == 'index') {
+                $html .= $this->_switchModule();
+            } else {
+                $html .= '<a href="';
+                $html .= $this->getUrl();
+                $html .= $this->getModule();
+                $html .= '" title="Return to';
+                $html .= $this->_switchController();
+                $html .= ' home">';
+                $html .= $this->_switchModule();
+                $html .= '</a> &raquo; ';
+                if ($this->getAction() == 'index') {
+                    $html .= $this->_switchController();
+                } else {
+                    $html .= ' <a href="';
+                    $html .= $this->getUrl();
+                    $html .= $this->getModule();
+                    $html .= '/';
+                    $html .= $this->getController();
+                    $html .= '" title="Return to ';
+                    $html .= $this->_switchController();
+                    $html .= ' home">';
+                    $html .= $this->_switchController();
+                    $html .= '</a>';
+                    $html .=  $this->getSeparator();
+                    $html .=  $this->_switchAction();
+                }
+            }
 
-        if ($this->getAction() == 'index') {
-        $html .= $this->_switchController();
-        } else {
-        $html .= ' <a href="' . $this->getUrl() . $this->getModule() . $this->getController();
-            $html .= '" title="Return to ' . $this->_switchController() . ' home">';
-            $html .= $this->_switchController() . '"</a>' .  $this->getSeparator() .  $this->_switchAction();
         }
-        }
-
-        }
-
         return $html;
     }
 
     /** Magic to string function
-     *
-     * @return object
+     * @access public
+     * @return string
      */
     public function __toString() {
         return $this->html();

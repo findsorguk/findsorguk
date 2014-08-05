@@ -119,7 +119,7 @@ class Pas_View_Helper_ChangesFindSpot extends Zend_View_Helper_Abstract
 
     /** To string!
      * @access public
-     * @return type
+     * @return string
      */
     public function __toString() {
         return $this->_getData();
@@ -128,13 +128,13 @@ class Pas_View_Helper_ChangesFindSpot extends Zend_View_Helper_Abstract
     /** Parse the array
      * @access public
      * @param array $array
-     * @return typ
+     * @return string
      */
     public function parseArray( array $array ) {
         $html = '';
         foreach($array as $a) {
-                    $html .= $this->buildHtml($a);
-                }
+            $html .= $this->buildHtml($a);
+        }
         return $html;
     }
 }

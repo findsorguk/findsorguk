@@ -1,7 +1,7 @@
 $(document).ready(function() {
- 		$('#username').typeahead({
+    $('#username').typeahead({
     	source: function(query, process) {
-        var $url = '/ajax/usernames/?q=' + query ;
+        var $url = '../../ajax/usernames/?q=' + query ;
         var $items = new Array;
         $items = [""];
         $.ajax({

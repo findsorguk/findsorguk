@@ -77,7 +77,7 @@ class RevTypes extends Pas_Db_Table_Abstract {
     /** Retrieve reverse types as key value pairs for form dropdown
      * @access public
      * @param integer $ruler The ruler ID
-     * @return type
+     * @return array
      */
     public function getRevTypesForm($ruler) {
         $types = $this->getAdapter();

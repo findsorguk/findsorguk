@@ -147,7 +147,7 @@ class Users extends Pas_Db_Table_Abstract {
      * @param string $key
      * @param string $username
      * @param integer $valid
-     * @return type
+     * @return array
      */
     public function activation($key, $username, $valid = 0) {
         $select = $this->select()
@@ -360,7 +360,7 @@ class Users extends Pas_Db_Table_Abstract {
 
     /** Retrieve a count of who has requested higher level access
      * @access public
-     * @return type
+     * @return array
      */
     public function getNewHigherLevelRequests()	{
         $select = $this->select()
@@ -391,7 +391,7 @@ class Users extends Pas_Db_Table_Abstract {
 
     /** Retrieve a cached list of who signed up today
      * @access public
-     * @return type
+     * @return array
      */
     public function newPeople() {
         $key = md5('newUsers');

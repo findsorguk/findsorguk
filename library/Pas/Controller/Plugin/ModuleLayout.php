@@ -9,7 +9,7 @@
  * @category Pas
  * @package Controller
  * @subpackage Plugin
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
 */
 
@@ -23,7 +23,7 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
     
     /** Get the base path for the menus
      * @access public
-     * @return type
+     * @return string
      */
     public function getBasePath() {
         return $this->_basePath;

@@ -189,7 +189,7 @@ class Pas_Solr_Handler {
         } else {
             $field = 'created';
         }
-        $allowed = array('desc','asc');
+        $allowed = array('desc', 'asc');
         if(array_key_exists('direction', $params)) {
             if(in_array($params['direction'],$allowed)){
                 $direction = $params['direction'];
@@ -200,7 +200,7 @@ class Pas_Solr_Handler {
         } else {
             $direction = 'desc';
         }
-        return $this->_sort;
+        return array($field => $direction);
     }
 
     /** The query to send to solr

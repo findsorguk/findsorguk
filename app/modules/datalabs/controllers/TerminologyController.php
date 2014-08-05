@@ -555,7 +555,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
 
     /** Get the landuses model
      * @access public
-     * @return type
+     * @return \Landuses
      */
     public function getLanduses() {
         $this->_landuses = new Landuses();

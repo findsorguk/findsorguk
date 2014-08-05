@@ -55,7 +55,7 @@ class OauthTokens extends Pas_Db_Table_Abstract {
     /** Create a token
      * @access public
      * @param object $data
-     * @return type
+     * @return array
      */
     public function create($data){
         $token = (object)$data;

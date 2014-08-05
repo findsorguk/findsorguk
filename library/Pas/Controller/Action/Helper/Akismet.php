@@ -71,7 +71,7 @@ class Pas_Controller_Action_Helper_Akismet extends Zend_Controller_Action_Helper
     /** Check the data for spam or not
      * @access public
      * @param array $data
-     * @return type
+     * @return array
      */
     public function direct(array $data){
         $cleanData = $this->_checkFields($data);
@@ -99,7 +99,7 @@ class Pas_Controller_Action_Helper_Akismet extends Zend_Controller_Action_Helper
     /** Check fields supplied
      * @access public
      * @param array $data
-     * @return type
+     * @return array
      */
     public function _checkFields(array $data){
         if(!array_key_exists('user_ip', $data)){

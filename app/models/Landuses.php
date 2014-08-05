@@ -119,8 +119,8 @@ class Landuses extends Pas_Db_Table_Abstract {
 
     /** Get list of child landuses for ajax menus 
      * @access public
-     * @param type $id
-     * @return type
+     * @param integer $id
+     * @return array
      */
     public function getLandusesChildAjax2($id) {
         $landuses = $this->getAdapter();

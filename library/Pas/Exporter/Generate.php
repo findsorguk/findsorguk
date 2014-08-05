@@ -210,7 +210,7 @@ class Pas_Exporter_Generate {
 
     /** Execute the commands
      * @access public
-     * @return type
+     * @return array
      */
     public function execute(){
         return $this->_createOutput($this->_format);

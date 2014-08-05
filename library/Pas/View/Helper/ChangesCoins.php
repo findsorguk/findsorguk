@@ -43,7 +43,7 @@ class Pas_View_Helper_ChangesCoins extends Zend_View_Helper_Abstract
 
     /** Get the role for the user
      * @access protected
-     * @return type
+     * @return string
      */
     protected function _getRole(){
         $role = new Pas_User_Details();

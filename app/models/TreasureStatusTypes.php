@@ -34,7 +34,7 @@ class TreasureStatusTypes extends Pas_Db_Table_Abstract {
 
     /** Get a cached list of actions
      * @access public
-     * @return type
+     * @return array
      */
     public function getActions(){
         $key = md5('tactions');

@@ -81,7 +81,7 @@ class AgreedTreasureValuations extends Pas_Db_Table_Abstract {
     /** List valuations
      * @access public
      * @param string $treasureID
-     * @return type
+     * @return array
      */
     public function listvaluations($treasureID){
         $select = $this->select()

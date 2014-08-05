@@ -51,10 +51,10 @@ class TreasureValuations extends Pas_Db_Table_Abstract {
 
     /** Add data to the system for a treasure value
      * @access public
-     * @param type $data
-     * @return type
+     * @param array $data
+     * @return integer
      */
-    public function add($data){
+    public function add(array $data){
         if (!isset($data['created']) || ($data['created'] instanceof Zend_Db_Expr)) {
             $data['created'] = $this->timeCreation();
 

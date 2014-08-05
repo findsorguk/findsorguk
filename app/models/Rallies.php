@@ -258,7 +258,7 @@ class Rallies extends Pas_Db_Table_Abstract {
     /** Function for updating findspots with processing of geodata
      * @access public
      * @param array $data
-     * @return type
+     * @return array
      */
     public function updateAndProcess( array $data){
         if(is_array($data)){

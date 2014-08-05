@@ -68,7 +68,7 @@ class Periods extends Pas_Db_Table_Abstract {
 
     /** Get periods for coin mints
      * @access public
-     * @return type
+     * @return array
      */
     public function getMintsActive() {
         $key = md5('activeMintsPeriods');
@@ -86,7 +86,7 @@ class Periods extends Pas_Db_Table_Abstract {
 
     /** Get periods for coins
      * @access public
-     * @return type
+     * @return array
      */
     public function getCoinsPeriod(){
         $key = md5('coinperiods');
@@ -118,7 +118,7 @@ class Periods extends Pas_Db_Table_Abstract {
     /** Get period name by period number
      * @access public
      * @param integer $id
-     * @return type
+     * @return array
      */
     public function getPeriodName($id) {
         $periods = $this->getAdapter();
@@ -176,7 +176,7 @@ class Periods extends Pas_Db_Table_Abstract {
     /** Get object types by period
      * @access public
      * @param integer $id
-     * @return type
+     * @return array
      * @todo deprecate this and move to solr
      */
     public function getObjectTypesByPeriod($id) {
