@@ -1,7 +1,7 @@
 $(document).ready(function() {
- 		$('#idBy').typeahead({
+    $('#idBy').typeahead({
     	source: function(query, process) {
-        var $url = '/ajax/people/?term=' + query ;
+        var $url = '../../ajax/people/?term=' + query ;
         var $items = new Array;
         $items = [""];
         $.ajax({

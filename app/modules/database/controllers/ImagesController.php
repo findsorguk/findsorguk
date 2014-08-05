@@ -15,7 +15,6 @@
  * @uses ImageLinkForm
  * @uses Pas_Exception_Param
  * @uses Zend_File_Transfer_Adapter_Http
- * @todo Rewrite properly
  * 
 */
 class Database_ImagesController extends Pas_Controller_Action_Admin {

@@ -1,7 +1,7 @@
 $(document).ready(function() {
- 		$('#objecttype').typeahead({
+    $('#objecttype').typeahead({
     	source: function(query, process) {
-        var $url = '/ajax/objectterm/?q=' + query ;
+        var $url = '../../ajax/objectterm/?q=' + query ;
         var $items = new Array;
         $items = [""];
         $.ajax({
@@ -50,5 +50,4 @@ $(document).ready(function() {
         return item.name;
     }
 });
- 		
-    });
+});

@@ -1,7 +1,7 @@
 $(document).ready(function() {
- 		$('#TID').typeahead({
+    $('#TID').typeahead({
     	source: function(query, process) {
-        var $url = '/ajax/treasureids/?q=' + query ;
+        var $url = '../../ajax/treasureids/?q=' + query ;
         var $items = new Array;
         $items = [""];
         $.ajax({

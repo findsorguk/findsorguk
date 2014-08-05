@@ -23,100 +23,111 @@ var acOptions = {
 };
 
 jQuery(document).ready(function($) {
+    
+    var baseUrl = '/beowulf/public_html';
 
-
-		$('#old_findID')
-        .autocomplete('/ajax/oldfindid/', acOptions)
+    $('#old_findID')
+        .autocomplete(baseURL + '/ajax/oldfindid/', acOptions)
         .attr('name', 'old_findID')
         .result(function(e, data) {$('#old_findID').val(data.term);
-		});
-		$('#mack_type')
+        });
+		
+    $('#mack_type')
         .autocomplete('/ajax/macktypes/', acOptions)
         .attr('name', 'mack_type')
         .result(function(e, data) {$('#mack_type').val(data.term);
-		});
-		$('#allen_type')
+        });
+	
+    $('#allen_type')
         .autocomplete('/ajax/allentypes/', acOptions)
         .attr('name', 'allen_type')
         .result(function(e, data) {$('#allen_type').val(data.term);
-		});
-		$('#va_type')
+        });
+	
+    $('#va_type')
         .autocomplete('/ajax/vatypes/', acOptions)
         .attr('name', 'va_type')
         .result(function(e, data) {$('#va_type').val(data.term);
-		});
-		$('#TID')
+        });
+	
+    $('#TID')
         .autocomplete('/ajax/treasureids/', acOptions)
         .attr('name', 'TID')
         .result(function(e, data) {$('#TID').val(data.term);
-		});
-		$('#otherref')
+        });
+	
+    $('#otherref')
         .autocomplete('/ajax/otherrefs/', acOptions)
         .attr('name', 'otherref')
         .result(function(e, data) {$('#otherref').val(data.term);
-		});
-		$('#objecttype')
-        .autocomplete('/ajax/objectterm/', acOptions)
+        });
+	
+    $('#objecttype')
+        .autocomplete(baseUrl + '/ajax/objectterm/', acOptions)
         .attr('name', 'objecttype')
         .result(function(e, data) {$('#objecttype').val(data.term);
-		});
-		$('#publicationtitle')
+        });
+	
+    $('#publicationtitle')
         .autocomplete('/ajax/publicationtitle/', acOptions)
         .attr('name', 'publicationtitle')
         .result(function(e, data) {	
-		$('#publicationtitle').val(data.term); 
-		$('#pubID').val(data.id);}
-		);
-		$('#finder')
+            $('#publicationtitle').val(data.term); 
+            $('#pubID').val(data.id);}
+            );
+    
+    $('#finder')
         .autocomplete('/ajax/people/', acOptions)
         .attr('name', 'finder')
         .result(function(e, data) {	
-		$('#finder').val(data.term); 
-		$('#finderID').val(data.id);}
-		);
-		$('#secondfinder')
+            $('#finder').val(data.term); 
+            $('#finderID').val(data.id);}
+            );
+	
+    $('#secondfinder')
         .autocomplete('/ajax/people/', acOptions)
         .attr('name', 'finder2ID')
-       .result(function(e, data) {	
-		$('#secondfinder').val(data.term); 
-		$('#finder2ID').val(data.id);}
-		);
-		$('#recordby')
+        .result(function(e, data) {	
+            $('#secondfinder').val(data.term); 
+            $('#finder2ID').val(data.id);}
+            );
+	
+    $('#recordby')
         .autocomplete('/ajax/people/', acOptions)
         .attr('name', 'recordby')
         .result(function(e, data) {
-		$('#recordby').val(data.term);
-		$('#recorderID').val(data.id);
-		});
+            $('#recordby').val(data.term);
+            $('#recorderID').val(data.id);
+        });
 		
-		$('#idby')
+    $('#idby')
         .autocomplete('/ajax/people/', acOptions)
         .attr('name', 'idby')
         .result(function(e, data) {
-		$('#idby').val(data.term);
-		$('#identifierID').val(data.id);
-		});
+            $('#idby').val(data.term);
+            $('#identifierID').val(data.id);
+        });
 	
-		$('#id2by')
+    $('#id2by')
         .autocomplete('/ajax/people/', acOptions)
         .attr('name', 'id2by')
         .result(function(e, data) {
-		$('#id2by').val(data.term);
-		$('#identifierID').val(data.id);
-		});
+            $('#id2by').val(data.term);
+            $('#identifierID').val(data.id);
+        });
 		
-		$('#landownername')
+    $('#landownername')
         .autocomplete('/ajax/people/', acOptions)
         .attr('name', 'landownername')
         .result(function(e, data) {	
-		$('#landownername').val(data.term); 
-		$('#landowner').val(data.id);}
-		);
+            $('#landownername').val(data.term); 
+            $('#landowner').val(data.id);}
+            );
 		
-		$('#monumentName')
+    $('#monumentName')
         .autocomplete('/ajax/monnames/', acOptions)
         .attr('name', 'monumentName')
         .result(function(e, data) {	
-		$('#monumentName').val(data.term); 
+            $('#monumentName').val(data.term); 
         });
 });
