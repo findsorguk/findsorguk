@@ -74,7 +74,7 @@ class CopyCoin extends Pas_Db_Table_Abstract {
 
     /** Get the config
      * @access public
-     * @return type
+     * @return array
      */
     public function getConfig(){
         $copy = $this->getAdapter();

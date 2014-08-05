@@ -21,7 +21,8 @@ class Pas_Controller_Action_Helper_LoginRedirect
     extends Zend_Controller_Action_Helper_Abstract {
 
     /** Direct method for getting the user's redirect
-     * @return type
+     * @access public
+     * @return string
      */
     public function direct() {
         return $this->_getUserRedirect();

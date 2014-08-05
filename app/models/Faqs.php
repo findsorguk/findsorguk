@@ -38,7 +38,7 @@ class Faqs extends Pas_Db_Table_Abstract {
 
     /** Get all frequently asked questions and their answers
      * @access public
-     * @return type
+     * @return array
      */
     public function getAll() {
         $faqs = $this->getAdapter();

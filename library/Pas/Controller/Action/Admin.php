@@ -160,7 +160,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
 
     /** Create an individual findID
      * @access public
-     * @return type
+     * @return string
      */
     public function FindUid() {
         list($usec, $sec) = explode(" ", microtime());

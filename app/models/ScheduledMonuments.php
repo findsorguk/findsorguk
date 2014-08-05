@@ -105,7 +105,7 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param string $district
      * @param string $parish
      * @param string $monumentName
-     * @return type
+     * @return array
      */
     public function getSmrs($page, $county, $district, $parish, $monumentName) {
         $nearbys = $this->getAdapter();

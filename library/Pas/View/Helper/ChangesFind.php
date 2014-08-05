@@ -21,7 +21,7 @@ class Pas_View_Helper_ChangesFind extends Zend_View_Helper_Abstract
 
     /** Get the id to query
      * @access public
-     * @return type
+     * @return integer
      */
     public function getId() {
         return $this->_id;
@@ -44,7 +44,7 @@ class Pas_View_Helper_ChangesFind extends Zend_View_Helper_Abstract
 
     /** Get the user's role
      * @access protected
-     * @return type
+     * @return string
      */
     protected function _getRole(){
         $role = new Pas_User_Details();
@@ -90,7 +90,7 @@ class Pas_View_Helper_ChangesFind extends Zend_View_Helper_Abstract
 
     /** The magic to string method
      * @access public
-     * @return type
+     * @return string
      */
     public function __toString() {
         return $this->getData();
@@ -98,7 +98,7 @@ class Pas_View_Helper_ChangesFind extends Zend_View_Helper_Abstract
 
     /** Get the data to redisplay
      * @access public
-     * @return type
+     * @return string
      */
     public function getData() {
         $html = '';

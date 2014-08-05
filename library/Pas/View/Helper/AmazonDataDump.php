@@ -190,7 +190,7 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract
 
     /** Build html for returning
      * @access protected
-     * @return type
+     * @return string
      */
     protected function _buildHtml()
     {

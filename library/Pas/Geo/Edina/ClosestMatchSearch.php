@@ -40,8 +40,8 @@ class Pas_Geo_Edina_ClosestMatchSearch extends Pas_Geo_Edina{
 
     /** Set the name to query
      * @access protected
-     * @param type $name
-     * @return type
+     * @param string $name
+     * @return string
      * @throws Pas_Geo_Edina_Exception
      */
     public function setName($name){
@@ -54,7 +54,7 @@ class Pas_Geo_Edina_ClosestMatchSearch extends Pas_Geo_Edina{
 
     /** Get the single name called via api
      * @access public
-     * @return type
+     * @return string
      */
     public function getName() {
         return $this->_name;
@@ -62,7 +62,7 @@ class Pas_Geo_Edina_ClosestMatchSearch extends Pas_Geo_Edina{
 
     /** Query the api via parent
      * @access public
-     * @return type
+     * @return \Zend_Http_Response
      */
     public function get() {
         $params = array(

@@ -237,7 +237,7 @@ class Emperors extends Pas_Db_Table_Abstract {
 
     /** Get dynasty to emperors
      * @access public
-     * @return type
+     * @return array
      */
     public function getEmperors() {
         $key = md5('emperorsJsonList');

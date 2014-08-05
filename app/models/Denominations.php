@@ -206,7 +206,7 @@ class Denominations extends Pas_Db_Table_Abstract {
     /** Get a key value pair list of early medieval rulers and denominations
      * @access public
      * @param integer $id
-     * @return type
+     * @return array
      */
     public function getEarlyMedRulerToDenominationPairs($id) {
         $select = $this->select()

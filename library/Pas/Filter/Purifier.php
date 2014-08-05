@@ -44,8 +44,8 @@ class Pas_Filter_Purifier implements Zend_Filter_Interface {
 
     /** The filter 
      * @access public
-     * @param type $value
-     * @return type
+     * @param string $value
+     * @return string
      */
     public function filter($value)  {
         return $this->_htmlPurifier->purify($value);

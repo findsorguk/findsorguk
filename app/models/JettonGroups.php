@@ -53,7 +53,7 @@ class JettonGroups extends Pas_Db_Table_Abstract {
     /** Get groups associated with classes
      * @access public
      * @param integer $classID
-     * @return type
+     * @return array
      */
     public function getGroupsToClasses( $classID ) {
     	$select = $this->select()

@@ -172,7 +172,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
    /** Strip out html using html purifier
     * @access protected
     * @param string $string
-    * @return type
+    * @return string
     */
     protected function _stripper($string){
         $clean = $this->_markdown->filter($string);

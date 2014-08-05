@@ -89,7 +89,7 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
 
     /** Get the user's role
      * @access public
-     * @return type
+     * @return string
      */
     public function getUserRole() {
         return $this->_user->getRole();
@@ -128,9 +128,9 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
 
     /** The update over ride
      * @access public
-     * @param type $data
-     * @param type $where
-     * @return type
+     * @param array $data
+     * @param array $where
+     * @return integer
      */
     public function update (array $data, $where ) {
         $data = $this->getCleaner()->array_cleanup($data);

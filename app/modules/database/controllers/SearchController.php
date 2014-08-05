@@ -396,6 +396,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin {
             ));
         $search->setParams($params);
         $search->execute();
+        $search->debugQuery();
         $this->view->facets = $search->processFacets();
         $this->view->paginator = $search->createPagination();
         $this->view->stats = $search->processStats();

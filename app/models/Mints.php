@@ -174,7 +174,7 @@ class Mints extends Pas_Db_Table_Abstract {
 
     /** Get a list of all iron age mints
      * @access public
-     * @return type
+     * @return array
      */
     public function listIronAgeMints() {
 	$select = $this->select()
@@ -267,8 +267,8 @@ class Mints extends Pas_Db_Table_Abstract {
 
     /** Get mints attached to a roman emperor
      * @access public
-     * @param type $emperorID
-     * @return type
+     * @param integer $emperorID
+     * @return array
      */
     public function getMintEmperorList($emperorID) {
         $select = $this->select()

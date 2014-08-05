@@ -80,7 +80,7 @@ class Yahoo extends Pas_Db_Table_Abstract {
     
     /** Get the date and time and add one hour
      * @access public
-     * @return type
+     * @return array
      */
     public function getDate() {
         $this->_date = new Zend_Date();
@@ -130,7 +130,7 @@ class Yahoo extends Pas_Db_Table_Abstract {
 
     /** Create the token for yahoo access and save to database.
      * @access public
-     * @return type
+     * @return array
      */
     public function access(){
         $config = array(

@@ -123,10 +123,10 @@ class ErrorController extends Pas_Controller_Action_Admin {
     }
 
     /** Format values
-     * @param type $args
-     * @return type
+     * @param array $args
+     * @return string
      */
-    private static function formatArgValues ($args) {
+    private static function formatArgValues (array $args) {
         $values = array();
         foreach($args as $arg) {
             if (is_object($arg)) {

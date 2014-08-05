@@ -49,7 +49,7 @@ class FindOfNoteReasons extends Pas_Db_Table_Abstract {
 
     /** Get all find of note reasons as a list
      * @access public
-     * @return type
+     * @return array
      */
     public function getReasonsList() {
         $reasons = $this->getAdapter();
@@ -62,7 +62,7 @@ class FindOfNoteReasons extends Pas_Db_Table_Abstract {
 
     /** Get all find of note reasons as a list for the admin interface
      * @access public
-     * @return type
+     * @return array
      */
     public function getReasonsListAdmin() {
         $reasons = $this->getAdapter();

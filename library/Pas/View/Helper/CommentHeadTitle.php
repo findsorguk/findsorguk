@@ -27,7 +27,7 @@ class Pas_View_Helper_CommentHeadTitle extends Zend_View_Helper_Abstract
 
     /** Get the parameters
      * @access public
-     * @return type
+     * @return array
      */
     public function getParams() {
         return $this->_params;
@@ -77,7 +77,7 @@ class Pas_View_Helper_CommentHeadTitle extends Zend_View_Helper_Abstract
 
     /** To string method
      * @access public
-     * @return type
+     * @return string
      */
     public function __toString() {
         return $this->assemble();

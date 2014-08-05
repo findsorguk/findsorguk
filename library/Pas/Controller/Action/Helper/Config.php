@@ -31,7 +31,7 @@ class Pas_Controller_Action_Helper_Config extends Zend_Controller_Action_Helper_
     
     /** Proxy method for accessing the config helper
      * @access public
-     * @return type
+     * @return \Zend_Config
      */
     public function direct(){
         return $this->_getConfig(); 

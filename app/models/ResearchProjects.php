@@ -84,7 +84,7 @@ class ResearchProjects extends Pas_Db_Table_Abstract {
     /** Get a specific project by id nymber
      * @access public
      * @param integer $id
-     * @return type
+     * @return array
      */
     public function getProjectDetails($id) {
         $projects = $this->getAdapter();

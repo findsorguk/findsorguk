@@ -630,10 +630,10 @@ class Finds extends Pas_Db_Table_Abstract {
     }
 
     /** Get distinct finder totals for reports by date
-     *
-     * @param type $datefrom
-     * @param type $dateto
-     * @return type
+     * @access public
+     * @param string $datefrom
+     * @param string $dateto
+     * @return array
      */
     public function getFindersTotals($datefrom,$dateto) {
         $select = $this->select()
@@ -915,10 +915,10 @@ class Finds extends Pas_Db_Table_Abstract {
 
     /** Get finds per year by county
      * @access public
-     * @param type $datefrom
-     * @param type $dateto
-     * @param type $county
-     * @return type
+     * @param string $datefrom
+     * @param string $dateto
+     * @param strig $county
+     * @return array
      */
     public function getYearFoundCounty($datefrom, $dateto, $county) {
         $select = $this->select()
@@ -1041,11 +1041,11 @@ class Finds extends Pas_Db_Table_Abstract {
     }
 
     /** Get  institution's recording stats between dates
-     *
-     * @param type $datefrom
-     * @param type $dateto
-     * @param type $institution
-     * @return type
+     * @access public
+     * @param string $datefrom
+     * @param string $dateto
+     * @param string $institution
+     * @return array
      */
     public function getInstStat($datefrom,$dateto,$institution) {
         $select = $this->select()
@@ -1117,11 +1117,11 @@ class Finds extends Pas_Db_Table_Abstract {
     }
 
     /** Get institution's number of finders between dates
-     *
-     * @param type $datefrom
-     * @param type $dateto
-     * @param type $institution
-     * @return type
+     * @access public
+     * @param string $datefrom
+     * @param string $dateto
+     * @param string $institution
+     * @return array
      */
     public function getFinderTotalsInst($datefrom, $dateto, $institution) {
         $select = $this->select()

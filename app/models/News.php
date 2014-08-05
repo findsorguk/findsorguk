@@ -272,8 +272,8 @@ class News extends Pas_Db_Table_Abstract {
     /** Update the news
      * @access public
      * @param array $data
-     * @param type $id
-     * @return type
+     * @param integer $id
+     * @return array
      */
     public function updateNews(array $data, $id){
         $coords = $this->getCoords($data['primaryNewsLocation']);

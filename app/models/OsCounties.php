@@ -48,7 +48,7 @@ class OsCounties extends Pas_Db_Table_Abstract {
 
     /** Retrieve county list as key pairs for labels
      * @access public
-     * @return type
+     * @return array
      */
     public function getCountyNames(){
         $key = md5('countyNamesList');

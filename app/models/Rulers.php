@@ -48,8 +48,8 @@ class Rulers extends Pas_Db_Table_Abstract {
 
     /** Get all issuers as an array by period
      * @access public
-     * @param type $periodID
-     * @return type
+     * @param integer $periodID
+     * @return array
      */
     public function getAllRulers($periodID) {
         $rulers = $this->getAdapter();
@@ -63,7 +63,7 @@ class Rulers extends Pas_Db_Table_Abstract {
     /** Get all issuers as an array of key value pairs for the Greek
      * and Roman Provincial period
      * @access public
-     * @return type
+     * @return array
      */
     public function getRulersGreek() {
         $select = $this->select()
@@ -151,7 +151,7 @@ class Rulers extends Pas_Db_Table_Abstract {
 
     /** Get Roman rulers, concatenated dates as a key value pair
      * @access public
-     * @return type
+     * @return array
      */
     public function getRomanRulers() {
         $select = $this->select()
@@ -317,8 +317,8 @@ class Rulers extends Pas_Db_Table_Abstract {
 
     /** Get Early Medieval rulers as an array by category ID
      * @access public 
-     * @param type $catID
-     * @return type
+     * @param integer $catID
+     * @return array
      */
     public function getEarlyMedievalRulers($catID)  {
         $rulers = $this->getAdapter();

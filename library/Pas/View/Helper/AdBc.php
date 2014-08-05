@@ -50,7 +50,7 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
 
     /** Get the prefix
      * @access public
-     * @return type
+     * @return string
      */
     public function getPrefix()
     {
@@ -59,7 +59,7 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
 
     /** Get the suffix
      * @access public
-     * @return type
+     * @return string
      */
     public function getSuffix()
     {
@@ -78,7 +78,7 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
 
     /** Get the date to use in the class
      * @access public
-     * @return type
+     * @return string
      */
     public function getDate()  {
         return $this->_date;

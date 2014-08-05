@@ -46,8 +46,8 @@ class Organisations extends Pas_Db_Table_Abstract {
     
     /** Search for organisation name via query string
      * @access public
-     * @param type $q
-     * @return type
+     * @param string $q
+     * @return array
      */
     public function getOrgNames($q) {
         $select = $this->select()
@@ -78,8 +78,8 @@ class Organisations extends Pas_Db_Table_Abstract {
 
     /** Get a list of members for organisation
      * @access public
-     * @param type $id
-     * @return type
+     * @param integer $id
+     * @return array
      */
     public function getMembers($id) {
         $orgs = $this->getAdapter();
