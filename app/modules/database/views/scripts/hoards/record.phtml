@@ -16,14 +16,14 @@
 
 
 <div typeof="crm:E22_Man-Made_Object"
-     about="<?php echo $this->serverUrl();?>/database/hoards/record/id/<?php echo $this->hoards['0']['id'];?>"
+     about="<?php echo $this->serverUrl();?>/database/hoards/record/id/<?php echo $this->hoards['id'];?>"
      class="record">
 <!--  Start of main body of record -->
 
 <div class="row-fluid">
 
-    <?php //echo $this->partialLoop('partials/database/hoards/recordheadtitle.phtml',$this->finds);?>
-    <?php //echo $this->partialLoop('partials/database/hoards/zoterorecord.phtml',$this->finds);?>
+    <?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml',$this->hoards);?>
+    <?php //echo $this->partialLoop('partials/hoards/zoterorecord.phtml',$this->hoards);?>
 
 
     <div id="workflowstatus">
@@ -34,16 +34,20 @@
     <div class="row-fluid">
 
         <div class="span8">
-            <!-- Header of section -->
-            <?php echo $this->partial('partials/database/hoards/hoardsh2section.phtml',$this->finds['0']); ?>
+            <!-- Header of section with unique ID, known as and workflow  -->
+            <?php echo $this->partial('partials/hoards/hoardsh2section.phtml',$this->hoards); ?>
             <!-- Notification message if public record -->
             <?php //echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
             <!-- The description of the object -->
-            <?php //echo $this->partial('partials/database/hoards/hoardsdescriptive.phtml',$this->finds['0']);?>
+            <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml',$this->hoards);?>
             <!-- Treasure find info -->
-            <?php //echo $this->partial('partials/database/hoards/treasurefinddetails.phtml', $this->finds['0']);?>
+            <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->hoards);?>
+            <!-- Linked coin(s) -->
+            <?php echo $this->partial('partials/hoards/linkedfinds.phtml', array('linkedCoins' => $this->linkedCoins));?>
+            <!-- Chronology -->
+            <?php echo $this->partial('partials/hoards/chronology.phtml', $this->chronology);?>
             <!-- Temporal details -->
-            <?php //echo $this->partial('partials/database/hoards/temporal.phtml', $this->temporals['0']);?>
+            <?php // echo $this->partial('partials/hoards/temporal.phtml', $this->temporals['0']);?>
             <!-- Dimensional data -->
             <?php
             if (count($this->findsdata) > 0) {
@@ -51,7 +55,7 @@
             }
             ?>
             <!-- Date found -->
-            <?php //echo $this->partial('partials/database/hoards/datefound.phtml',$this->finds['0']);?>
+            <?php echo $this->partial('partials/hoards/datefound.phtml',$this->hoards);?>
             <!-- Rally data -->
             <?php
             if (count($this->rallyfind)){
@@ -72,12 +76,10 @@
             <!-- Finds materials -->
             <?php
             if (count($this->findsmaterial)){
-                //echo $this->partial('partials/database/hoards/materials.phtml', $this->findsmaterial['0']);
+                echo $this->partial('partials/database/materials.phtml', $this->findsmaterial);
             }
             ?>
-                </div>
 
-            <?php endif;?>
 
 
         </div>
@@ -86,7 +88,7 @@
 
             <?php
             if (count($this->thumbs) > 0){
-                //echo $this->partialLoop('partials/database/thumbs.phtml',
+                echo $this->partialLoop('partials/database/thumbs.phtml',
                     array_slice($this->thumbs,0,1));
                 if(sizeof($this->thumbs) > 1):
 
@@ -95,7 +97,7 @@
                     <ul class="thumbnails">
                         <?php
                         foreach(array_slice($this->thumbs,1) as $thumb){
-                            //echo $this->partialLoop('partials/database/smallThumbnails.phtml', $thumb);
+                            echo $this->partialLoop('partials/database/smallThumbnails.phtml', $thumb);
                         }
                         ?>
                     </ul>
@@ -114,7 +116,7 @@
             }
             ?>
             <?php
-            //echo $this->imageLink()
+            echo $this->imageLink()
                 ->setFindID($this->finds['0']['id'])
                 ->setSecuID($this->finds['0']['secuid'])
                 ->setCreatedBy($this->finds['0']['createdBy'])
@@ -127,3 +129,58 @@
     <!--  End of descriptive data -->
 
 
+
+
+    <!--  Start of the references section -->
+    <div class="row-fluid" id="references">
+        <h4>References cited</h4>
+        <?php
+        if (count($this->refs) > 0) : ?>
+            <p>
+                <?php
+                echo $this->addRefLink()
+                    ->setFindID($this->finds['0']['id'])
+                    ->setSecuID($this->finds['0']['secuid'])
+                    ->setCreatedBy($this->finds['0']['createdBy'])
+                    ->setInstitution($this->finds['0']['institution']);
+                ?>
+            </p>
+
+            <ul>
+                <?php echo $this->partialLoop('partials/database/harvardbook.phtml',
+                    $this->refs);?>
+            </ul>
+        <?php else:?>
+            <p class="norefs">
+                No references cited so far.
+            </p>
+
+            <?php
+            echo $this->addRefLink()
+                ->setFindID($this->finds['0']['id'])
+                ->setSecuID($this->finds['0']['secuid'])
+                ->setCreatedBy($this->finds['0']['createdBy'])
+                ->setInstitution($this->finds['0']['institution']);
+            ?>
+        <?php endif;?>
+    </div>
+    <!--  End of references section -->
+</div>
+
+</div>
+<!--  End of main body of record -->
+
+
+
+
+
+</div>
+</div>
+
+
+<!-- Start of the Audit section -->
+<div class="row-fluid" id="audit">
+    <?php echo $this->partial('partials/database/recordaudit.phtml',$this->finds['0']); ?>
+    <?php echo $this->auditLogs()->setId($this->finds['0']['id']); ?>
+</div>
+<!-- end of audit section -->

@@ -1,0 +1,8 @@
+<?php
+$this->headTitle('Hoard ID: ' . $this->hoardID . " - " . $this->broadperiod . " HOARD", $type = 'PREPEND');
+$this->metaBase()
+        ->setDescription($this->description)
+        ->setSubject('archaeological object record')
+        ->setKeywords(array($this->broadperiod))
+        ->generate();
+?>
