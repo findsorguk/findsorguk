@@ -1,0 +1,41 @@
+<div property="pas:description">
+    <?php
+    echo $this->description;
+    ?>
+</div>
+<?php if(!is_null($this->notes)) :?>
+    <p><strong>Notes:</strong></p> <span property="pas:notes"><?php
+        echo $this->notes;?></span>
+<?php endif;?>
+<?php if(($this->findofnote === 1) && (!is_null($this->reason))){
+    echo '<p>This is a find of note and has been designated: '. $this->reason . '</p>';
+} else if (($this->findofnote == 1) && (is_null($this->reason))) {
+    echo '<p>This has been noted as an interesting find by the recorder.</p>';
+}?>
+<p>
+    <?php if(!is_null($this->classification)) : ?>
+        <strong>Class:</strong> <span property="pas:classification">
+    <?php echo $this->classification;?></span></br>
+    <?php endif;?>
+    <?php if(!is_null($this->subclass)) :?>
+        <strong>Sub class:</strong> <?php echo $this->escape($this->subclass);?><br />
+    <?php endif;?>
+    <?php if(!is_null($this->inscription)):?>
+        <strong>Inscription:</strong> <span property="pas:inscription">
+    <?php echo $this->inscription;?></span><br />
+    <?php endif;?>
+    <?php if(!is_null($this->reuse)) :?>
+        <strong>Evidence of reuse:</strong> <?php echo $this->reuse;?><br />
+    <?php endif;?>
+</p>
+<?php if(isset($this->curr_loc) || isset($this->subsequentAction)):?>
+    <h4>Subsequent actions</h4>
+    <p>
+        <?php if(isset($this->curr_loc) ):?>
+            Current location of find: <?php echo $this->curr_loc;?><br />
+        <?php endif;?>
+        <?php if(isset($this->subsequentAction)):?>
+            Subsequent action after recording: <?php echo $this->subsequentAction;?>
+        <?php endif;?>
+    </p>
+<?php endif;?>
