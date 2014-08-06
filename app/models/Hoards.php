@@ -58,29 +58,13 @@ class Hoards extends Pas_Db_Table_Abstract {
      */
     const DUPLICATE_UNIQUE_VALUE_ERROR_CODE = 23000;
 
-
-    /**  Get workflow status of a hoard record
-     * @access public
-     * @param integer $wfStageID
-     * @return array
-     */
-    public function getWorkflowstatus($wfStageID) {
-        $select = $this->select()
-            ->from($this->_name, array('secwfstage'))
-            ->joinLeft('workflowstages',
-                'hoards.secwfstage = workflowstages.id',
-                array('workflowstage'))
-            ->where('hoards.id = ?', (int)$wfStageID);
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
-    }
-
-    /** Get descriptive, temporal, discovery and recording data of a hoard record
-     * @access public
-     * @param integer $hoardId
-     * @return array
-     */
-    public function getHoardData($hoardId){
+    /** Get all data from a hoard record for non-HTML rendering
+ * @access public
+ * @param integer $hoardId
+ * @return array
+ * @todo Add big joins to other tables
+ */
+    public function getAllHoardData($hoardId){
         $select = $this->select()
             ->from($this->_name, array(
                 'id',
@@ -130,75 +114,280 @@ class Hoards extends Pas_Db_Table_Abstract {
                 'updatedBy',
                 'institution'
             ))
-            ->where('hoards.id = ?', (int)$hoardId)
-            ->group('hoards.id')
-            ->limit(1);
+            ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
+    /** Get basic hoard information
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     */
+    public function getBasicHoardData($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'id',
+                'hoardID',
+                'uniqueID' => 'secuid',
+                'broadperiod',
+                'secwfstage',
+                'treasure',
+                'recorderID',
+                'created',
+                'createdBy',
+                'updated',
+                'updatedBy',
+                'institution'
+            ))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
+    /** Get general chronology of a hoard
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     */
+    public function getChronology($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'broadperiod',
+                'period1',
+                'subperiod1',
+                'period2',
+                'subperiod2',
+                'numdate1',
+                'numdate2'
+            ))
+            ->joinLeft('periods','hoards.period1 = periods.id',
+                array('period1' => 'term'))
+            ->joinLeft('periods','hoards.period2 = periods.id',
+                array('period2' => 'term'))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
+    /** Get terminal date information of a hoard
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     */
+    public function getCoinChronology($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'lastrulerID',
+                'reeceID',
+                'terminalyear1',
+                'terminalyear2',
+                'terminalreason'
+            ))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
     }
 
     /** Get coin summary for a hoard record
      * @access public
      * @param integer $hoardId
-     * @param string $role
      * @return array
+     * @todo Loop through coinsummary table rows for this hoardID
      */
     public function getCoinSummary($hoardId){
-    // Loop through coinsummary table rows for this hoardID
+
+
+    }
+
+    /** Get hoard description and notes
+ * @access public
+ * @param integer $hoardId
+ * @return array
+ */
+    public function getHoardDescription($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'description',
+                'notes',
+                'findofnote',
+                'findofnotereason'
+            ))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
+    /** Get quality rating of a hoard
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     */
+    public function getQualityRating($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'qualityrating'
+            ))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
+    /** Get what happened to the hoard after recording
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     */
+    public function getSubsequentActions($hoardId){
+            $select = $this->select()
+                ->from($this->_name, array(
+                    'curr_loc',
+                    'subsequentAction' => 'subs_action'
+                ))
+                ->joinLeft('subsequentActions','hoards.subs_action = subsequentActions.id',
+                    array('subsequentActionTerm' => 'action'))
+                ->where('hoards.id = ?', (int)$hoardId);
+            $select->setIntegrityCheck(false);
+            return $this->getAdapter()->fetchRow($select);
+    }
+
+    /** Get any Treasure process details if the hoard is submitted for consideration as Treasure
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     * @todo Add new Treasure functions here
+     */
+    public function getTreasureDetails($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'treasureID'
+            ))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
     }
 
     /** Get the materials a hoard is made of
      * @access public
      * @param integer $hoardId
      * @return array
+     * @todo Use unserialize to create array suitable for multi-selection box
      */
     public function getMaterials($hoardId){
-    // Use unserialize to create array suitable for multi-selection box
-    // Think about whether this needs to be a separate function
+
     }
 
-    /** Get summary details of any coins record linked to a hoard
+    /** Get summary details of any coin records linked to a hoard
      * @access public
      * @param integer $hoardId
      * @return array
+     * @todo These are COIN etc. artefacts from the finds table
      */
     public function getLinkedCoins($hoardId){
-    // These are COIN artefacts from the finds table
+        $select = $this->select()
+            ->from($this->_name, array(
+                'hoardID' => 'secuid'
+            ))
+            ->joinLeft('finds',
+                'hoards.secuid = finds.hoardID',
+                array('old_findID' => 'old_findID','objecttype' => 'objecttype'))
+            ->where('hoards.id = ?', (int)$hoardId)
+            ->where('finds.objecttype = ?', 'COIN');
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchAll($select);
+
     }
 
-    /** Get summary details of any linked artefacts
+    /** Get summary details of any artefacts linked to a hoard
      * @access public
      * @param integer $hoardId
      * @return array
+     * @todo These are artefact records from the finds table
      */
     public function getLinkedArtefacts($hoardId){
-    // These are artefact records from the finds table
+
     }
 
-    /** Get summary details of any linked containers
+    /** Get summary details of any containers linked to a hoard
      * @access public
      * @param integer $hoardId
      * @return array
+     * @todo These are artefact records from the finds table with the container checkbox checked
      */
     public function getLinkedContainers($hoardId){
-    // These are artefact records from the finds table with the container checkbox checked
+
     }
 
-    /** Get the finders of the hoard
+    /** Get the recorders and identifiers of a hoard
      * @access public
      * @param integer $hoardId
      * @return array
      */
+    public function getRecordersIdentifiers($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'recorderID',
+                'identifier1ID',
+                'identifier2ID'
+            ))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+
+    }
+
+    /** Get the finders of a hoard
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     * @todo Use hoardsxfinders table to implement multiple finders functionality
+     */
     public function getFinders($hoardId){
-    // Use hoardsxfinders table to implement multiple finders functionality
+
+    }
+
+    /** Get the discovery details of a hoard
+ * @access public
+ * @param integer $hoardId
+ * @return array
+ * @todo Use hoardsxfinders table to implement multiple finders functionality
+ */
+    public function getDiscoverySummary($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'disccircum',
+                'discmethod'
+            ))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
+    /** Get reference numbers associated with a hoard
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     */
+    public function getReferenceNumbers($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'treasureID',
+                'legacyID',
+                'other_ref',
+                'smrrefno',
+                'museumAccession' => 'musaccno',
+            ))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
     }
 
     /** Get images attached to a hoard record
      * @access public
      * @param integer $id
      * @return array
+     * @todo Needs modification for Hoards
      */
-    // Needs modification for Hoards
     public function getImageToFind($id) {
         $key = md5('findtoimage' . $id);
         if (!$data = $this->_cache->load($key)) {
@@ -229,8 +418,8 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param string $q
      * @return array
+    * @todo Needs modification for Hoards
      */
-    // Needs modification for Hoards
     public function getImageLinkData($q) {
         $select = $this->select()
             ->from($this->_name, array('term' => 'old_findID','id' => 'secuid'))
@@ -243,8 +432,8 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $userId
      * @return array
+     * @todo Needs modification for Hoards
      */
-    // Needs modification for Hoards
     public function getLastRecord($userId) {
         $fieldList = new CopyFind();
         $fields = $fieldList->getConfig();

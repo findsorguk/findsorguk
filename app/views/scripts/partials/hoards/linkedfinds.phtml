@@ -1,0 +1,6 @@
+<h4>Linked coins</h4>
+<?php foreach($this->linkedCoins as $coin) : ?>
+
+    <?php echo '<p>Record ID: '.$this->escape($coin['old_findID']).'<br />Object type: '.$this->escape($coin['objecttype']).'</p>';?>
+
+<?php endforeach; ?>
