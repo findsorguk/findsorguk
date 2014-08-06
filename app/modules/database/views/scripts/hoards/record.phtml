@@ -3,11 +3,11 @@
     <ul class="pager">
 
         <!-- The previous find widget -->
-        <?php echo $this->previousFind()->setFindID($this->finds['0']['id']);?>
+        <?php //echo $this->previousFind()->setFindID($this->finds['0']['id']);?>
         <!-- End of previous find widget -->
 
         <!-- The next find widget -->
-        <?php echo $this->nextFind()->setFindID($this->finds['0']['id']);?>
+        <?php //echo $this->nextFind()->setFindID($this->finds['0']['id']);?>
         <!-- End of next find widget -->
 
     </ul>
@@ -16,14 +16,14 @@
 
 
 <div typeof="crm:E22_Man-Made_Object"
-     about="<?php echo $this->serverUrl();?>/database/hoards/record/id/<?php echo $this->finds['0']['id'];?>"
+     about="<?php echo $this->serverUrl();?>/database/hoards/record/id/<?php echo $this->hoards['0']['id'];?>"
      class="record">
 <!--  Start of main body of record -->
 
 <div class="row-fluid">
 
-    <?php echo $this->partialLoop('partials/database/hoards/recordheadtitle.phtml',$this->finds);?>
-    <?php echo $this->partialLoop('partials/database/hoards/zoterorecord.phtml',$this->finds);?>
+    <?php //echo $this->partialLoop('partials/database/hoards/recordheadtitle.phtml',$this->finds);?>
+    <?php //echo $this->partialLoop('partials/database/hoards/zoterorecord.phtml',$this->finds);?>
 
 
     <div id="workflowstatus">
@@ -37,42 +37,42 @@
             <!-- Header of section -->
             <?php echo $this->partial('partials/database/hoards/hoardsh2section.phtml',$this->finds['0']); ?>
             <!-- Notification message if public record -->
-            <?php echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
+            <?php //echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
             <!-- The description of the object -->
-            <?php echo $this->partial('partials/database/hoards/hoardsdescriptive.phtml',$this->finds['0']);?>
+            <?php //echo $this->partial('partials/database/hoards/hoardsdescriptive.phtml',$this->finds['0']);?>
             <!-- Treasure find info -->
-            <?php echo $this->partial('partials/database/hoards/treasurefinddetails.phtml', $this->finds['0']);?>
+            <?php //echo $this->partial('partials/database/hoards/treasurefinddetails.phtml', $this->finds['0']);?>
             <!-- Temporal details -->
-            <?php echo $this->partial('partials/database/hoards/temporal.phtml', $this->temporals['0']);?>
+            <?php //echo $this->partial('partials/database/hoards/temporal.phtml', $this->temporals['0']);?>
             <!-- Dimensional data -->
             <?php
             if (count($this->findsdata) > 0) {
-                echo $this->partial('partials/database/hoards/dimensions.phtml', $this->findsdata['0']);
+                //echo $this->partial('partials/database/hoards/dimensions.phtml', $this->findsdata['0']);
             }
             ?>
             <!-- Date found -->
-            <?php echo $this->partial('partials/database/hoards/datefound.phtml',$this->finds['0']);?>
+            <?php //echo $this->partial('partials/database/hoards/datefound.phtml',$this->finds['0']);?>
             <!-- Rally data -->
             <?php
             if (count($this->rallyfind)){
-                echo $this->partial('partials/database/hoards/rallyfind.phtml', $this->rallyfind['0']);
+                //echo $this->partial('partials/database/hoards/rallyfind.phtml', $this->rallyfind['0']);
             }
             ?>
             <!-- Personal data -->
             <?php if (count($this->peoples) > 0): ?>
                 <h4>Personal details</h4>
-                <?php echo $this->partial('partials/database/hoards/personal.phtml', $this->peoples['0']) ?>
+                <?php //echo $this->partial('partials/database/hoards/personal.phtml', $this->peoples['0']) ?>
             <?php endif;?>
             <!-- Other references -->
             <?php
             if ($this->findotherrefs){
-                echo $this->partial('partials/database/hoards/otherrefs.phtml', $this->findotherrefs['0']);
+                //echo $this->partial('partials/database/hoards/otherrefs.phtml', $this->findotherrefs['0']);
             }
             ?>
             <!-- Finds materials -->
             <?php
             if (count($this->findsmaterial)){
-                echo $this->partial('partials/database/hoards/materials.phtml', $this->findsmaterial['0']);
+                //echo $this->partial('partials/database/hoards/materials.phtml', $this->findsmaterial['0']);
             }
             ?>
                 </div>
@@ -86,7 +86,7 @@
 
             <?php
             if (count($this->thumbs) > 0){
-                echo $this->partialLoop('partials/database/thumbs.phtml',
+                //echo $this->partialLoop('partials/database/thumbs.phtml',
                     array_slice($this->thumbs,0,1));
                 if(sizeof($this->thumbs) > 1):
 
@@ -95,7 +95,7 @@
                     <ul class="thumbnails">
                         <?php
                         foreach(array_slice($this->thumbs,1) as $thumb){
-                            echo $this->partialLoop('partials/database/smallThumbnails.phtml', $thumb);
+                            //echo $this->partialLoop('partials/database/smallThumbnails.phtml', $thumb);
                         }
                         ?>
                     </ul>
@@ -114,7 +114,7 @@
             }
             ?>
             <?php
-            echo $this->imageLink()
+            //echo $this->imageLink()
                 ->setFindID($this->finds['0']['id'])
                 ->setSecuID($this->finds['0']['secuid'])
                 ->setCreatedBy($this->finds['0']['createdBy'])

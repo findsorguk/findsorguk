@@ -81,7 +81,60 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @return array
      */
     public function getHoardData($hoardId){
-    // From hoards table
+        $select = $this->select()
+            ->from($this->_name, array(
+                'id',
+                'hoardID',
+                'uniqueID' => 'secuid',
+                'period1',
+                'subperiod1',
+                'period2',
+                'subperiod2',
+                'numdate1',
+                'numdate2',
+                'broadperiod',
+                'lastrulerID',
+                'reeceID',
+                'terminalyear1',
+                'terminalyear2',
+                'terminalreason',
+                'description',
+                'notes',
+                'secwfstage',
+                'findofnote',
+                'findofnotereason',
+                'treasure',
+                'treasureID',
+                'qualityrating',
+                'materials',
+                'recorderID',
+                'identifier1ID',
+                'identifier2ID',
+                'finderID',
+                'finder2ID',
+                'disccircum',
+                'discmethod',
+                'datefound1',
+                'datefound2',
+                'rally',
+                'rallyID',
+                'legacyID',
+                'other_ref',
+                'smrrefno',
+                'museumAccession' => 'musaccno',
+                'curr_loc',
+                'subsequentAction' => 'subs_action',
+                'created',
+                'createdBy',
+                'updated',
+                'updatedBy',
+                'institution'
+            ))
+            ->where('hoards.id = ?', (int)$hoardId)
+            ->group('hoards.id')
+            ->limit(1);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchAll($select);
     }
 
     /** Get coin summary for a hoard record

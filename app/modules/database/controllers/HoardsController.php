@@ -156,7 +156,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
             ->addContext('geojson',array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json')))
             ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'rdf'))
             ->initContext();
-        $this->_finds = new Finds();
+        $this->_hoards = new Hoards();
         $this->_auth = Zend_Registry::get('auth');
     }
 
@@ -180,88 +180,16 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         if($this->_getParam('id',false)) {
             $this->view->recordID = $this->_getParam('id');
             $id = $this->_getParam('id');
-            $findsdata = $this->_finds->getIndividualFind($id, $this->getRole());
+            $findsdata = $this->_hoards->getHoardData($id, $this->getRole());
 
             if($findsdata) {
-                $this->view->finds = $findsdata;
+                $this->view->hoards = $findsdata;
             } else {
                 throw new Pas_Exception_NotAuthorised('You are not authorised to view this record', 401);
-            }
-            if(!in_array($this->_helper->contextSwitch()
-                ->getCurrentContext(), $this->_contexts)) {
-                $this->view->findsdata     = $this->_finds->getFindData($id);
-                $this->view->findsmaterial = $this->_finds->getFindMaterials($id);
-                $this->view->temporals     = $this->_finds->getFindTemporalData($id);
-                $this->view->peoples       = $this->_finds->getPersonalData($id);
-                $this->view->findotherrefs = $this->_finds->getFindOtherRefs($id);
-
-                $this->view->findspots = $this->getFindspots()->getFindSpotData($id);
-
-                $rallyfind = new Rallies;
-                $this->view->rallyfind = $rallyfind->getFindToRallyNames($id);
-
-                $coins = new Coins;
-                $this->view->coins = $coins->getCoinData($id);
-
-                $coinrefs = new CoinClassifications();
-                $this->view->coinrefs = $coinrefs->getAllClasses($id);
-
-                $thumbs = new Slides;
-                $this->view->thumbs = $thumbs->getThumbnails($id);
-
-                $refs = new Publications;
-                $this->view->refs = $refs->getReferences($id);
-
-                $this->view->comments = $this->getComments()->getFindComments($id);
-
-                $this->view->findspots = $this->getFindspots()->getFindSpotData($id);
-
-                $form = new CommentFindForm();
-                $form->submit->setLabel('Add a new comment');
-                $this->view->form = $form;
-                if($this->getRequest()->isPost()
-                    && $form->isValid($this->_request->getPost())) {
-                    if ($form->isValid($form->getValues())) {
-                        $data = $this->_helper->akismet($form->getValues());
-                        $data['contentID'] = $this->_getParam('id');
-                        $data['comment_type'] = 'findComment';
-                        $data['comment_approved'] = 'moderation';
-                        $this->getComments()->add($data);
-                        $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
-                        $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
-                        $this->_request->setMethod('GET');
-                    } else {
-                        $this->getFlash()->addMessage('There are problems with your comment submission');
-                        $form->populate($this->_request->getPost());
-                    }
-                }
-            } else {
-                $this->_helper->layout->disableLayout();    //disable layout
-                $record = $this->_finds->getAllData($id);
-                if(in_array($this->getRole(), $this->_restricted)) {
-                    $record['0']['gridref'] = 'Restricted information';
-                    $record['0']['easting'] = 'Restricted information';
-                    $record['0']['northing'] = 'Restricted information';
-                    $record['0']['lat'] = 'Restricted information';
-                    $record['0']['lon'] = 'Restricted information';
-                    $record['0']['finder'] = 'Restricted information';
-                    $record['0']['address'] = 'Restricted information';
-                    $record['0']['postcode'] = 'Restricted information';
-                    $record['0']['findspotdescription'] = 'Restricted information';
-                    if(!is_null($record['0']['knownas'])){
-                        $record['0']['parish'] = 'Restricted information';
-                        $record['0']['fourFigure'] = 'Restricted information';
-                        $record['0']['fourFigureLat'] = 'Restricted information';
-                        $record['0']['fourFigureLon'] = 'Restricted information';
-                    }
-                }
-                $this->view->record = $record;
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
-    }
 
     }
-
 }
