@@ -114,6 +114,8 @@ class Hoards extends Pas_Db_Table_Abstract {
                 'updatedBy',
                 'institution'
             ))
+            ->joinLeft('subsequentActions','hoards.subs_action = subsequentActions.id',
+                array('subsequentAction' => 'action'))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchRow($select);
@@ -125,21 +127,39 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @return array
      */
     public function getBasicHoardData($hoardId){
+    $select = $this->select()
+        ->from($this->_name, array(
+            'id',
+            'hoardID',
+            'uniqueID' => 'secuid',
+            'broadperiod',
+            'secwfstage',
+            'treasure',
+            'recorderID',
+            'created',
+            'createdBy',
+            'updated',
+            'updatedBy',
+            'institution'
+        ))
+        ->where('hoards.id = ?', (int)$hoardId);
+    $select->setIntegrityCheck(false);
+    return $this->getAdapter()->fetchRow($select);
+}
+
+    /** Get the names the hoard is known as
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     */
+    public function getKnownAs($hoardId){
         $select = $this->select()
             ->from($this->_name, array(
-                'id',
-                'hoardID',
-                'uniqueID' => 'secuid',
-                'broadperiod',
-                'secwfstage',
-                'treasure',
-                'recorderID',
-                'created',
-                'createdBy',
-                'updated',
-                'updatedBy',
-                'institution'
+                'hoardID' => 'secuid'
             ))
+            ->joinLeft('findspots',
+                'hoards.secuid = findspots.findID',
+                array('knownas', 'alsoknownas'))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchRow($select);
@@ -155,16 +175,16 @@ class Hoards extends Pas_Db_Table_Abstract {
             ->from($this->_name, array(
                 'broadperiod',
                 'period1',
-                'subperiod1',
+                'subPeriodFrom' => 'subperiod1',
                 'period2',
-                'subperiod2',
+                'subPeriodTo' => 'subperiod2',
                 'numdate1',
                 'numdate2'
             ))
             ->joinLeft('periods','hoards.period1 = periods.id',
-                array('period1' => 'term'))
-            ->joinLeft('periods','hoards.period2 = periods.id',
-                array('period2' => 'term'))
+                array('periodFrom' => 'term'))
+            ->joinLeft(array('periods2' => 'periods'),'hoards.period2 = periods2.id',
+                array('periodTo' => 'term'))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchRow($select);
@@ -174,16 +194,29 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $hoardId
      * @return array
+     * $todo Make this work properly for all periods of coinage
      */
     public function getCoinChronology($hoardId){
         $select = $this->select()
             ->from($this->_name, array(
                 'lastrulerID',
                 'reeceID',
-                'terminalyear1',
-                'terminalyear2',
+                'terminalDateFrom' => 'terminalyear1',
+                'terminalDateTo' => 'terminalyear2',
                 'terminalreason'
             ))
+            ->joinLeft('rulers','hoards.lastrulerID = rulers.id',
+                array(
+                    'lastRuler' => 'issuer'
+                ))
+            ->joinLeft('reeceperiods','hoards.reeceID = reeceperiods.id',
+                array(
+                    'lastReecePeriod' => 'description'
+                ))
+            ->joinLeft('terminalreason','hoards.terminalreason = terminalreason.id',
+                array(
+                    'terminalReason' => 'reason'
+                ))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchRow($select);
@@ -228,6 +261,8 @@ class Hoards extends Pas_Db_Table_Abstract {
             ->from($this->_name, array(
                 'qualityrating'
             ))
+            ->joinLeft('dataquality','hoards.qualityrating = dataquality.id',
+                array('coindataqualityrating' => 'rating'))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchRow($select);
@@ -281,16 +316,16 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $hoardId
      * @return array
-     * @todo These are COIN etc. artefacts from the finds table
+     * @todo Add more specific COIN terms to inclusion
      */
     public function getLinkedCoins($hoardId){
         $select = $this->select()
             ->from($this->_name, array(
-                'hoardID' => 'secuid'
+                'hoardID' => 'secuid',
             ))
             ->joinLeft('finds',
                 'hoards.secuid = finds.hoardID',
-                array('old_findID' => 'old_findID','objecttype' => 'objecttype'))
+                array('id','old_findID' => 'old_findID','objecttype' => 'objecttype', 'treasureID'))
             ->where('hoards.id = ?', (int)$hoardId)
             ->where('finds.objecttype = ?', 'COIN');
         $select->setIntegrityCheck(false);
@@ -302,20 +337,42 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $hoardId
      * @return array
-     * @todo These are artefact records from the finds table
+     * @todo Add more specific COIN terms to exclusion
      */
     public function getLinkedArtefacts($hoardId){
-
+        $select = $this->select()
+            ->from($this->_name, array(
+                'hoardID' => 'secuid'
+            ))
+            ->joinLeft('finds',
+                'hoards.secuid = finds.hoardID',
+                array('id','old_findID' => 'old_findID','objecttype' => 'objecttype', 'treasureID'))
+            ->where('hoards.id = ?', (int)$hoardId)
+            ->where('finds.objecttype != ?', 'COIN')
+            ->where('finds.hoardcontainer = ?', '0');
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchAll($select);
     }
 
     /** Get summary details of any containers linked to a hoard
      * @access public
      * @param integer $hoardId
      * @return array
-     * @todo These are artefact records from the finds table with the container checkbox checked
+     * @todo Add more specific COIN terms to exclusion
      */
     public function getLinkedContainers($hoardId){
-
+        $select = $this->select()
+            ->from($this->_name, array(
+                'hoardID' => 'secuid'
+            ))
+            ->joinLeft('finds',
+                'hoards.secuid = finds.hoardID',
+                array('id','old_findID' => 'old_findID','objecttype' => 'objecttype', 'treasureID'))
+            ->where('hoards.id = ?', (int)$hoardId)
+            ->where('finds.objecttype != ?', 'COIN')
+            ->where('finds.hoardcontainer = ?', '1');
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchAll($select);
     }
 
     /** Get the recorders and identifiers of a hoard
@@ -326,10 +383,26 @@ class Hoards extends Pas_Db_Table_Abstract {
     public function getRecordersIdentifiers($hoardId){
         $select = $this->select()
             ->from($this->_name, array(
-                'recorderID',
-                'identifier1ID',
+                'recorderID', 'identifier1ID',
                 'identifier2ID'
             ))
+            ->joinLeft(array('identifier1' => 'people'),
+                'hoards.identifier1ID = identifier1.secuid', array(
+                    'tit2' => 'title',
+                    'fore2' => 'forename',
+                    'sur2' => 'surname'
+                ))
+            ->joinLeft(array('identifier2' => 'people'),
+                'hoards.identifier2ID = identifier2.secuid', array(
+                    'tit5' => 'title',
+                    'fore5' => 'forename',
+                    'sur5' => 'surname'))
+            ->joinLeft(array('recorder' => 'people'),
+                'hoards.recorderID = recorder.secuid', array(
+                    'tit3' => 'title',
+                    'fore3' => 'forename',
+                    'sur3' => 'surname'
+                ))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchRow($select);
@@ -343,6 +416,19 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @todo Use hoardsxfinders table to implement multiple finders functionality
      */
     public function getFinders($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'hoardID' => 'secuid'
+            ))
+            ->joinLeft('hoardsxfinders',
+                'hoards.secuid = hoardsxfinders.hoardID',
+                array('finderID'))
+            ->joinLeft('people',
+                'hoardsxfinders.finderID = people.secuid',
+                array('title', 'forename', 'surname'))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchAll($select);
 
     }
 

@@ -182,21 +182,21 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
             $hoardsdata = $this->_hoards->getAllHoardData($id);
             if($hoardsdata) {
                 $this->view->hoards = $hoardsdata;
-
-                $this->view->chronology     = $this->_hoards->getChronology($id);
-/*                $this->view->coinChronology     = $this->_hoards->getCoinChronology($id);
-                $this->view->coinSummary     = $this->_hoards->getCoinSummary($id);
-                $this->view->hoardDescription     = $this->_hoards->getHoardDescription($id);
-                $this->view->qualityRating     = $this->_hoards->getQualityRating($id);
-                $this->view->subsequentActions     = $this->_hoards->getSubsequentActions($id);
-                $this->view->treasureDetails     = $this->_hoards->getTreasureDetails($id);
-                $this->view->materials     = $this->_hoards->getMaterials($id);*/
+                $this->view->multipleKnownAs     = $this->_hoards->getKnownAs($id);
+                $this->view->temporals     = $this->_hoards->getChronology($id);
+                $this->view->coinChronology     = $this->_hoards->getCoinChronology($id);
+//                $this->view->coinSummary     = $this->_hoards->getCoinSummary($id);
+//                $this->view->hoardDescription     = $this->_hoards->getHoardDescription($id);
+                $this->view->coinDataQuality     = $this->_hoards->getQualityRating($id);
+//                $this->view->subsequentActions     = $this->_hoards->getSubsequentActions($id);
+//                $this->view->treasureDetails     = $this->_hoards->getTreasureDetails($id);
+//                $this->view->materials     = $this->_hoards->getMaterials($id);
                 $this->view->linkedCoins     = $this->_hoards->getLinkedCoins($id);
-/*                $this->view->linkedArtefacts     = $this->_hoards->getLinkedArtefacts($id);
+                $this->view->linkedArtefacts     = $this->_hoards->getLinkedArtefacts($id);
                 $this->view->linkedContainers     = $this->_hoards->getLinkedContainers($id);
                 $this->view->recordersIdentifiers     = $this->_hoards->getRecordersIdentifiers($id);
                 $this->view->finders     = $this->_hoards->getFinders($id);
-                $this->view->discoverySummary     = $this->_hoards->getDiscoverySummary($id);
+/*                $this->view->discoverySummary     = $this->_hoards->getDiscoverySummary($id);
                 $this->view->referenceNumbers     = $this->_hoards->getReferenceNumbers($id);*/
 
 

@@ -1,29 +1,4 @@
-<p>
-<?php 
-if(isset($this->finderID)) {
-$auth = Zend_Registry::get('auth');
-if($auth->hasIdentity()){
-$user = $auth->getIdentity();
-{
-$allowed = array('fa','admin','flos','hero', 'treasure');
-if(in_array($user->role,$allowed)){ 
-?>
-Found by: <span property="pas:finder foaf:name" instanceof="foaf:person"><?php echo $this->escape($this->tit1);?> <?php echo $this->escape($this->fore);?> 
-<?php echo $this->escape($this->sur);?></span> - <span class="scope">[<a href="
-<?php echo $this->url(array('module' => 'database','controller' => 'search',
-'action' => 'results', 'finderID' => $this->secuid),null,true);?>" title="View other discoveries" >view other discoveries by this finder</a>]</span><br />
-<?php
-}
-}
-} else {
-?>
-Found by: This information is restricted for your login. <br />
-<?php 
-}
-}
-?>
-
-<?php if(!is_null($this->recorderID)) : ?> 
+<?php if(!is_null($this->recorderID)) : ?>
 Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?php echo 
 $this->escape($this->tit3);?> <?php echo $this->escape($this->fore3);?> 
 <?php echo $this->escape($this->sur3);?></span> 

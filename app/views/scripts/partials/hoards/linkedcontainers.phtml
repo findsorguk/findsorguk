@@ -1,0 +1,20 @@
+<h4>Containers linked to this hoard</h4>
+<?php foreach($this->linkedContainers as $container) : ?>
+
+    <p>Record ID:
+        <a href="
+    <?php echo $this->url(array(
+            'module'=>'database',
+            'controller' => 'artefacts',
+            'action'=>'record',
+            'id' =>  $container['id']),null,true);?>" title="View this record">
+            <?php echo $this->escape($container['old_findID']); ?></a>
+        <br />Object type:
+        <?php echo $this->escape($container['objecttype']); ?>
+        <?php if(!is_null($container['treasureID'])) :?>
+            <br />Treasure number:
+            <?php echo $this->escape($container['treasureID']); ?>
+        <?php endif;?>
+    </p>
+
+<?php endforeach; ?>

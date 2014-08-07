@@ -22,7 +22,7 @@
 
 <div class="row-fluid">
 
-    <?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml',$this->hoards);?>
+    <?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml',array('hoards' => $this->hoards));?>
     <?php //echo $this->partialLoop('partials/hoards/zoterorecord.phtml',$this->hoards);?>
 
 
@@ -34,20 +34,28 @@
     <div class="row-fluid">
 
         <div class="span8">
-            <!-- Header of section with unique ID, known as and workflow  -->
+            <!-- Header of section displaying unique ID and workflow  -->
             <?php echo $this->partial('partials/hoards/hoardsh2section.phtml',$this->hoards); ?>
             <!-- Notification message if public record -->
             <?php //echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
+            <!-- Names the hoard is known as  -->
+            <?php echo $this->partial('partials/hoards/knownas.phtml',  $this->multipleKnownAs); ?>
+            <!-- Temporal details of the hoard -->
+            <?php echo $this->partial('partials/hoards/temporal.phtml', $this->temporals);?>
+            <!-- Terminal dates of any coins -->
+            <?php echo $this->partial('partials/hoards/coinchronology.phtml', $this->coinChronology);?>
+            <!-- Coin data quality rating -->
+            <?php echo $this->partial('partials/hoards/coindataquality.phtml', $this->coinDataQuality);?>
             <!-- The description of the object -->
             <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml',$this->hoards);?>
             <!-- Treasure find info -->
             <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->hoards);?>
-            <!-- Linked coin(s) -->
-            <?php echo $this->partial('partials/hoards/linkedfinds.phtml', array('linkedCoins' => $this->linkedCoins));?>
-            <!-- Chronology -->
-            <?php echo $this->partial('partials/hoards/chronology.phtml', $this->chronology);?>
-            <!-- Temporal details -->
-            <?php // echo $this->partial('partials/hoards/temporal.phtml', $this->temporals['0']);?>
+            <!-- Linked coins -->
+            <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array('linkedCoins' => $this->linkedCoins));?>
+            <!-- Linked arefacts -->
+            <?php echo $this->partial('partials/hoards/linkedartefacts.phtml', array('linkedArtefacts' => $this->linkedArtefacts));?>
+            <!-- Linked containers -->
+            <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array('linkedContainers' => $this->linkedContainers));?>
             <!-- Dimensional data -->
             <?php
             if (count($this->findsdata) > 0) {
@@ -63,9 +71,10 @@
             }
             ?>
             <!-- Personal data -->
-            <?php if (count($this->peoples) > 0): ?>
+            <?php if (count($this->recordersIdentifiers) > 0): ?>
                 <h4>Personal details</h4>
-                <?php //echo $this->partial('partials/database/hoards/personal.phtml', $this->peoples['0']) ?>
+                <?php echo $this->partial('partials/hoards/finders.phtml', array('finders' => $this->finders)); ?>
+                <?php echo $this->partial('partials/hoards/personal.phtml', $this->recordersIdentifiers);?>
             <?php endif;?>
             <!-- Other references -->
             <?php
