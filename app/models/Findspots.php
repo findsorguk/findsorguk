@@ -110,7 +110,6 @@ class Findspots extends Pas_Db_Table_Abstract {
     * @return array $data
     */
     public function getFindSpotData($id, $table = 'finds')  {
-        $table = $db->quote($table);
         $findspotdata = $this->getAdapter();
         $select = $findspotdata->select()
                 ->from($this->_name, array(
@@ -127,7 +126,7 @@ class Findspots extends Pas_Db_Table_Abstract {
                     'districtID', 'countyID', 'regionID',
                     'parishID'
                     ))
-                ->joinLeft('hoards','hoards.secuid = findspots.findID',
+                ->joinLeft(array('recordtable' => $table),'recordtable.secuid = findspots.findID',
                         array('discmethod'))
                 ->joinLeft(array('land1' => 'landuses'),
                         'land1.id = findspots.landusecode',
@@ -151,10 +150,10 @@ class Findspots extends Pas_Db_Table_Abstract {
                             ))
                 ->joinLeft('people',$this->_name . '.landowner = people.secuid', 
                         array('landownername' => 'fullname'))
-                ->joinLeft('discmethods','hoards.discmethod = discmethods.id',
+                ->joinLeft('discmethods','recordtable.discmethod = discmethods.id',
                         array('method'))
-                ->where('hoards.id = ?', (int)$id)
-                ->group('hoards.id')
+                ->where('recordtable.id = ?', (int)$id)
+                ->group('recordtable.id')
                 ->limit('1');
         return $findspotdata->fetchAll($select);
     }
