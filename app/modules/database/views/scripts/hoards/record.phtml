@@ -137,7 +137,31 @@
     </div>
     <!--  End of descriptive data -->
 
+    <!-- Start of the spatial data -->
+    <div class="row-fluid">
+        <!-- Render the map -->
 
+        <?php if (count($this->findspots)) : ?>
+            <!-- Check for findspot data and if there render -->
+            <?php echo $this->findspot($this->findspots);?>
+        <?php else: ?>
+            <!-- Render a link for adding find spot -->
+            <div id="findspotdata">
+                <h4>Spatial data</h4>
+                <p>
+                    No spatial data available.
+                </p>
+                <?php echo $this->findSpotLink()
+                    ->setFindID($this->hoards['id'])
+                    ->setSecuID($this->hoards['hoardID'])
+                    ->setCreatedBy($this->hoards['createdBy'])
+                    ->setInstitution($this->hoards['institution']);
+                ?>
+            </div>
+        <?php endif; ?>
+        <!-- Render the map ends -->
+    </div>
+    <!--  End of spatial data -->
 
 
     <!--  Start of the references section -->

@@ -202,6 +202,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $refs = new Publications;
                 $this->view->refs = $refs->getHoardReferences($id);
 
+                $this->view->findspots = $this->getFindspots()->getFindSpotData($id);
+
             } else {
                 throw new Pas_Exception_NotAuthorised('You are not authorised to view this record', 401);
             }
