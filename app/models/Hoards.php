@@ -462,7 +462,7 @@ class Hoards extends Pas_Db_Table_Abstract {
                 'legacyID',
                 'other_ref',
                 'smrrefno',
-                'museumAccession' => 'musaccno',
+                'musaccno',
             ))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);

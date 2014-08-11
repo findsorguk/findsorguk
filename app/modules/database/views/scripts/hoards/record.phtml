@@ -78,14 +78,14 @@
             <?php endif;?>
             <!-- Other references -->
             <?php
-            if ($this->findotherrefs){
-                //echo $this->partial('partials/database/hoards/otherrefs.phtml', $this->findotherrefs['0']);
+            if ($this->referenceNumbers){
+                echo $this->partial('partials/hoards/otherrefs.phtml', $this->referenceNumbers);
             }
             ?>
             <!-- Finds materials -->
             <?php
             if (count($this->findsmaterial)){
-                echo $this->partial('partials/database/materials.phtml', $this->findsmaterial);
+                echo $this->partial('partials/materials.phtml', $this->findsmaterial);
             }
             ?>
 
