@@ -200,7 +200,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $this->view->referenceNumbers     = $this->_hoards->getReferenceNumbers($id);
 
                 $refs = new Publications;
-                $this->view->refs = $refs->getHoardReferences($id);
+                $this->view->refs = $refs->getReferences($id,'hoards');
 
                 $this->view->findspots = $this->getFindspots()->getFindSpotData($id,'hoards');
 
