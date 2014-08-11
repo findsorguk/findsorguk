@@ -112,6 +112,32 @@ class Publications extends Pas_Db_Table_Abstract {
         return $refs->fetchAll($select);
     }
 
+    /** Get all refs for a hoard
+     * @param integer $id hoard to reference
+     * @return array
+     */
+    public function getHoardReferences($id) {
+        $refs = $this->getAdapter();
+        $select = $refs->select()
+            ->from($this->_name, array(
+                'authors','title','publication_year',
+                'publication_place', 'vol_no','ISBN',
+                'publisher','medium','accessedDate',
+                'url','publication_type','id',
+                'in_publication'
+            ))
+            ->joinLeft('bibliography','publications.secuid = bibliography.pubID',
+                array('pp' => 'pages_plates','i' => 'id'))
+            ->joinLeft('hoards','hoards.secuid = bibliography.findID',
+                array('fID' => 'id','createdBy','hoardID'))
+            ->joinLeft('publicationtypes',
+                'publicationtypes.id = publications.publication_type',
+                array('term'))
+            ->where('hoards.id = ?', (int)$id)
+            ->group('publications.secuid');
+        return $refs->fetchAll($select);
+    }
+
     /** Get all reference details
     * @param integer $id reference to reference
     * @return array

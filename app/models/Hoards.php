@@ -62,7 +62,6 @@ class Hoards extends Pas_Db_Table_Abstract {
  * @access public
  * @param integer $hoardId
  * @return array
- * @todo Add big joins to other tables
  */
     public function getAllHoardData($hoardId){
         $select = $this->select()
@@ -169,6 +168,7 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $hoardId
      * @return array
+     * @todo Add date qualifier (circa etc.)
      */
     public function getChronology($hoardId){
         $select = $this->select()
@@ -272,6 +272,7 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $hoardId
      * @return array
+     * @todo Implement use of accredited museums table for current location
      */
     public function getSubsequentActions($hoardId){
             $select = $this->select()
@@ -413,7 +414,6 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $hoardId
      * @return array
-     * @todo Use hoardsxfinders table to implement multiple finders functionality
      */
     public function getFinders($hoardId){
         $select = $this->select()
@@ -436,13 +436,14 @@ class Hoards extends Pas_Db_Table_Abstract {
  * @access public
  * @param integer $hoardId
  * @return array
- * @todo Use hoardsxfinders table to implement multiple finders functionality
  */
     public function getDiscoverySummary($hoardId){
         $select = $this->select()
             ->from($this->_name, array(
                 'disccircum',
-                'discmethod'
+                'discmethod',
+                'datefound1',
+                'datefound2'
             ))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);

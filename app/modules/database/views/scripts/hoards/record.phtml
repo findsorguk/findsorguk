@@ -47,9 +47,9 @@
             <!-- Coin data quality rating -->
             <?php echo $this->partial('partials/hoards/coindataquality.phtml', $this->coinDataQuality);?>
             <!-- The description of the object -->
-            <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml',$this->hoards);?>
+            <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml',$this->hoardDescription);?>
             <!-- Treasure find info -->
-            <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->hoards);?>
+            <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->treasureDetails);?>
             <!-- Linked coins -->
             <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array('linkedCoins' => $this->linkedCoins));?>
             <!-- Linked arefacts -->
@@ -63,7 +63,7 @@
             }
             ?>
             <!-- Date found -->
-            <?php echo $this->partial('partials/hoards/datefound.phtml',$this->hoards);?>
+            <?php echo $this->partial('partials/hoards/datefound.phtml',$this->discoverySummary);?>
             <!-- Rally data -->
             <?php
             if (count($this->rallyfind)){
@@ -148,10 +148,10 @@
             <p>
                 <?php
                 echo $this->addRefLink()
-                    ->setFindID($this->finds['0']['id'])
-                    ->setSecuID($this->finds['0']['secuid'])
-                    ->setCreatedBy($this->finds['0']['createdBy'])
-                    ->setInstitution($this->finds['0']['institution']);
+                    ->setFindID($this->hoards['0']['id'])
+                    ->setSecuID($this->hoards['0']['uniqueID'])
+                    ->setCreatedBy($this->hoards['0']['createdBy'])
+                    ->setInstitution($this->hoards['0']['institution']);
                 ?>
             </p>
 
@@ -166,10 +166,10 @@
 
             <?php
             echo $this->addRefLink()
-                ->setFindID($this->finds['0']['id'])
-                ->setSecuID($this->finds['0']['secuid'])
-                ->setCreatedBy($this->finds['0']['createdBy'])
-                ->setInstitution($this->finds['0']['institution']);
+                ->setFindID($this->hoards['0']['id'])
+                ->setSecuID($this->hoards['0']['uniqueID'])
+                ->setCreatedBy($this->hoards['0']['createdBy'])
+                ->setInstitution($this->hoards['0']['institution']);
             ?>
         <?php endif;?>
     </div>
