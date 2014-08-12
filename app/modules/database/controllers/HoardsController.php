@@ -204,6 +204,9 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
 
                 $this->view->findspots = $this->getFindspots()->getFindSpotData($id,'hoards');
 
+                $archaeology = new Archaeology();
+                $this->view->archaeologicalContext = $archaeology->getArchaeologyData($id);
+
             } else {
                 throw new Pas_Exception_NotAuthorised('You are not authorised to view this record', 401);
             }

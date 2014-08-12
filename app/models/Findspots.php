@@ -10,9 +10,7 @@
  * ?>
  * </code>
  * @author Daniel Pett <dpett at britishmuseum.org>
- * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
- * @copyright (c) 2014 Mary Chester-Kadwell
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract

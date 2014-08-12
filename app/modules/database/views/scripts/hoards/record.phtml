@@ -163,6 +163,31 @@
     </div>
     <!--  End of spatial data -->
 
+    <!-- Start of the archaeological context data -->
+    <div class="row-fluid">
+
+        <?php if (count($this->findspots)) : ?>
+            <!-- Check for archaeological context data and if there is render it -->
+            <?php echo $this->findspot($this->findspots);?>
+        <?php else: ?>
+            <!-- Render a link for adding archaeological context -->
+            <div id="findspotdata">
+                <h4>Archaeological context</h4>
+                <p>
+                    No archaeological context available.
+                </p>
+                <?php echo $this->archaeologicalContextLink()
+                    ->setFindID($this->hoards['id'])
+                    ->setSecuID($this->hoards['hoardID'])
+                    ->setCreatedBy($this->hoards['createdBy'])
+                    ->setInstitution($this->hoards['institution']);
+                ?>
+            </div>
+        <?php endif; ?>
+
+    </div>
+    <!--  End of archaeological context data -->
+
 
     <!--  Start of the references section -->
     <div class="row-fluid" id="references">

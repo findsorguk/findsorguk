@@ -6,12 +6,15 @@
  *
  * <code>
  * <?php
- *
+ * $model = new Hoards();
+ * $data = $model->getAllHoardData($id);
  * ?>
  * </code>
  *
  * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Mary Chester-Kadwell
+ * @copyright (c) 2014 Daniel Pett
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
