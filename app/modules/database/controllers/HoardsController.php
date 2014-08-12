@@ -190,7 +190,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $this->view->coinDataQuality     = $this->_hoards->getQualityRating($id);
                 $this->view->subsequentActions     = $this->_hoards->getSubsequentActions($id);
                 $this->view->treasureDetails     = $this->_hoards->getTreasureDetails($id);
-//                $this->view->materials     = $this->_hoards->getMaterials($id);
+                $this->view->hoardMaterials     = $this->_hoards->getMaterials($id);
                 $this->view->linkedCoins     = $this->_hoards->getLinkedCoins($id);
                 $this->view->linkedArtefacts     = $this->_hoards->getLinkedArtefacts($id);
                 $this->view->linkedContainers     = $this->_hoards->getLinkedContainers($id);

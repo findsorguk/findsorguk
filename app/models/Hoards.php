@@ -316,10 +316,15 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $hoardId
      * @return array
-     * @todo Use unserialize to create array suitable for multi-selection box
      */
     public function getMaterials($hoardId){
-
+        $select = $this->select()
+            ->from($this->_name, array(
+                'materials'))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        $materials = $this->getAdapter()->fetchRow($select);
+        return unserialize($materials['materials']);
     }
 
     /** Get summary details of any coin records linked to a hoard

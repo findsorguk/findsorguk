@@ -84,8 +84,8 @@
             ?>
             <!-- Finds materials -->
             <?php
-            if (count($this->findsmaterial)){
-                echo $this->partial('partials/materials.phtml', $this->findsmaterial);
+            if (!is_null($this->hoardMaterials)){
+                echo $this->partial('partials/hoards/materials.phtml', array('hoardMaterials' => $this->hoardMaterials));
             }
             ?>
 
