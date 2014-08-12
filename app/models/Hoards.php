@@ -52,6 +52,15 @@ class Hoards extends Pas_Db_Table_Abstract {
      */
     protected $_restricted = array(null, 'public','member','research');
 
+    /** The array of numismatic terms
+     * @var array coins pseudonyms
+     */
+    protected $_coinarray = array(
+        'Coin','COIN','coin',
+        'token','jetton','coin weight',
+        'COIN HOARD', 'TOKEN', 'JETTON'
+    );
+
     /** The error code thrown by the MySQL database when attempting to enter
      * a duplicate value into a unique field
      *
@@ -328,7 +337,7 @@ class Hoards extends Pas_Db_Table_Abstract {
                 'hoards.secuid = finds.hoardID',
                 array('id','old_findID' => 'old_findID','objecttype' => 'objecttype', 'treasureID'))
             ->where('hoards.id = ?', (int)$hoardId)
-            ->where('finds.objecttype = ?', 'COIN');
+            ->where('finds.objecttype IN (?)', $this->_coinarray);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
 
@@ -349,7 +358,7 @@ class Hoards extends Pas_Db_Table_Abstract {
                 'hoards.secuid = finds.hoardID',
                 array('id','old_findID' => 'old_findID','objecttype' => 'objecttype', 'treasureID'))
             ->where('hoards.id = ?', (int)$hoardId)
-            ->where('finds.objecttype != ?', 'COIN')
+            ->where('finds.objecttype NOT IN (?)', $this->_coinarray)
             ->where('finds.hoardcontainer = ?', '0');
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
@@ -370,7 +379,6 @@ class Hoards extends Pas_Db_Table_Abstract {
                 'hoards.secuid = finds.hoardID',
                 array('id','old_findID' => 'old_findID','objecttype' => 'objecttype', 'treasureID'))
             ->where('hoards.id = ?', (int)$hoardId)
-            ->where('finds.objecttype != ?', 'COIN')
             ->where('finds.hoardcontainer = ?', '1');
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
