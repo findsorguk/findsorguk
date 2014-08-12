@@ -11,7 +11,9 @@
  * </code>
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
+ * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
+ * @copyright (c) 2014 Mary Chester-Kadwell
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
@@ -88,6 +90,7 @@ class Publications extends Pas_Db_Table_Abstract {
 
     /** Get all refs for a find or a hoard
     * @param integer $id find or hoard to reference
+     * @param string $table
     * @return array
     */
     public function getReferences($id, $table = 'finds') {

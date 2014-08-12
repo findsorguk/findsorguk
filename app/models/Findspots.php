@@ -10,7 +10,9 @@
  * ?>
  * </code>
  * @author Daniel Pett <dpett at britishmuseum.org>
+ * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
+ * @copyright (c) 2014 Mary Chester-Kadwell
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
@@ -107,6 +109,7 @@ class Findspots extends Pas_Db_Table_Abstract {
     }
     /** Retrieval of findspot row for display (not all columns)
     * @param integer $id
+     * @param string $table
     * @return array $data
     */
     public function getFindSpotData($id, $table = 'finds')  {
