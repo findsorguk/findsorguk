@@ -31,8 +31,16 @@
             <?php echo $this->partial('partials/hoards/coindataquality.phtml', $this->coinDataQuality);?>
             <!-- The description of the object -->
             <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml',$this->hoardDescription);?>
+            <!-- Subsequent action after recording hoard -->
+            <?php echo $this->partial('partials/hoards/subsequentaction.phtml',$this->subsequentActions);?>
             <!-- Treasure find info -->
             <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->treasureDetails);?>
+            <!-- Finds materials -->
+            <?php
+            if (!is_null($this->hoardMaterials)){
+                echo $this->partial('partials/hoards/materials.phtml', array('hoardMaterials' => $this->hoardMaterials));
+            }
+            ?>
             <!-- Linked coins -->
             <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array('linkedCoins' => $this->linkedCoins));?>
             <!-- Linked arefacts -->
@@ -65,12 +73,7 @@
                 echo $this->partial('partials/hoards/otherrefs.phtml', $this->referenceNumbers);
             }
             ?>
-            <!-- Finds materials -->
-            <?php
-            if (!is_null($this->hoardMaterials)){
-                echo $this->partial('partials/hoards/materials.phtml', array('hoardMaterials' => $this->hoardMaterials));
-            }
-            ?>
+
 
 
 
