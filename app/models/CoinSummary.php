@@ -68,6 +68,9 @@ class CoinSummary extends Pas_Db_Table_Abstract {
             ->joinLeft('mints','coinsummary.mint_id = mints.id',
                 array(
                 'mint' => 'mint_name'))
+            ->joinLeft('geographyironage','coinsummary.geographyID = geographyironage.id',
+                array(
+                    'geographicarea' => 'region'))
             ->where('hoards.id = ?', (int)$hoardId);
             $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
