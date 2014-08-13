@@ -206,7 +206,7 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $hoardId
      * @return array
-     * $todo Make this work properly for all periods of coinage
+     * @todo Make this work properly for all periods of coinage
      */
     public function getCoinChronology($hoardId){
         $select = $this->select()
@@ -232,17 +232,6 @@ class Hoards extends Pas_Db_Table_Abstract {
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchRow($select);
-    }
-
-    /** Get coin summary for a hoard record
-     * @access public
-     * @param integer $hoardId
-     * @return array
-     * @todo Loop through coinsummary table rows for this hoardID
-     */
-    public function getCoinSummary($hoardId){
-
-
     }
 
     /** Get hoard description and notes

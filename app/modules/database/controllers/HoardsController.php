@@ -185,7 +185,6 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $this->view->multipleKnownAs     = $this->_hoards->getKnownAs($id);
                 $this->view->temporals     = $this->_hoards->getChronology($id);
                 $this->view->coinChronology     = $this->_hoards->getCoinChronology($id);
-//                $this->view->coinSummary     = $this->_hoards->getCoinSummary($id);
                 $this->view->hoardDescription     = $this->_hoards->getHoardDescription($id);
                 $this->view->coinDataQuality     = $this->_hoards->getQualityRating($id);
                 $this->view->subsequentActions     = $this->_hoards->getSubsequentActions($id);
@@ -199,13 +198,16 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $this->view->discoverySummary     = $this->_hoards->getDiscoverySummary($id);
                 $this->view->referenceNumbers     = $this->_hoards->getReferenceNumbers($id);
 
-                $refs = new Publications;
-                $this->view->refs = $refs->getReferences($id,'hoards');
+                $coinsummary = new CoinSummary();
+                $this->view->coinSummary = $coinsummary->getCoinSummary($id);
 
                 $this->view->findspots = $this->getFindspots()->getFindSpotData($id,'hoards');
 
                 $archaeology = new Archaeology();
                 $this->view->archaeologicalContext = $archaeology->getArchaeologyData($id);
+
+                $refs = new Publications();
+                $this->view->refs = $refs->getReferences($id,'hoards');
 
             } else {
                 throw new Pas_Exception_NotAuthorised('You are not authorised to view this record', 401);

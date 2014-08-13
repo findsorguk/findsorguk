@@ -1,0 +1,29 @@
+<h4>Coin summary</h4>
+<table class="table table-striped">
+    <thead><tr>
+        <th>Period</th>
+        <th>Ruler</th>
+        <th>Denomination</th>
+        <th>Mint</th>
+        <th>Date from</th>
+        <th>Date to</th>
+        <th>Quantity</th>
+    </tr></thead>
+
+    <tbody>
+
+    <?php foreach($this->coinSummary as $coinrow) : ?>
+    <tr>
+        <td><?php echo $coinrow['broadperiod'];?></td>
+        <td><?php echo $coinrow['ruler'];?></td>
+        <td><?php echo $coinrow['denomination'];?></td>
+        <td><?php echo $coinrow['mint'];?></td>
+        <td><?php echo $this->adBc()->setDate($coinrow['numdate1']);?></td>
+        <td><?php echo $this->adBc()->setDate($coinrow['numdate2']);?></td>
+        <td><?php echo $coinrow['quantity'];?></td>
+    </tr>
+    <?php endforeach; ?>
+
+    </tbody>
+
+</table>
