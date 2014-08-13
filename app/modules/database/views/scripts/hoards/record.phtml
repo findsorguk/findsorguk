@@ -1,20 +1,3 @@
-<!--  Start previous next row -->
-<div class="row-fluid" id="prior-next">
-    <ul class="pager">
-
-        <!-- The previous find widget -->
-        <?php //echo $this->previousFind()->setFindID($this->finds['0']['id']);?>
-        <!-- End of previous find widget -->
-
-        <!-- The next find widget -->
-        <?php //echo $this->nextFind()->setFindID($this->finds['0']['id']);?>
-        <!-- End of next find widget -->
-
-    </ul>
-</div>
-<!--  End the previous next row -->
-
-
 <div typeof="crm:E22_Man-Made_Object"
      about="<?php echo $this->serverUrl();?>/database/hoards/record/id/<?php echo $this->hoards['id'];?>"
      class="record">
@@ -166,21 +149,21 @@
     <!-- Start of the archaeological context data -->
     <div class="row-fluid">
 
-        <?php if (count($this->findspots)) : ?>
+        <?php if (count($this->archaeologicalContext)) : ?>
             <!-- Check for archaeological context data and if there is render it -->
-            <?php echo $this->findspot($this->findspots);?>
+        <?php echo $this->partial('partials/hoards/archaeology.phtml',$this->archaeologicalContext); ?>
         <?php else: ?>
             <!-- Render a link for adding archaeological context -->
-            <div id="findspotdata">
+            <div id="archaeologicalcontextdata">
                 <h4>Archaeological context</h4>
                 <p>
                     No archaeological context available.
                 </p>
-                <?php echo $this->archaeologicalContextLink()
-                    ->setFindID($this->hoards['id'])
-                    ->setSecuID($this->hoards['hoardID'])
-                    ->setCreatedBy($this->hoards['createdBy'])
-                    ->setInstitution($this->hoards['institution']);
+                <?php // echo $this->archaeologicalContextLink()
+                    //->setFindID($this->hoards['id'])
+                   // ->setSecuID($this->hoards['hoardID'])
+//                    ->setCreatedBy($this->hoards['createdBy'])
+//                    ->setInstitution($this->hoards['institution']);
                 ?>
             </div>
         <?php endif; ?>

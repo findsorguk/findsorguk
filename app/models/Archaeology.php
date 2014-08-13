@@ -55,9 +55,13 @@ class Archaeology extends Pas_Db_Table_Abstract {
                 'yearexc1', 'yearexc2', 'description', 'contextualrating', 'archiveloc'))
             ->joinLeft('hoards','archaeology.hoardID = hoards.secuid',
                 array('old_hoardID' => 'hoardID'))
+            ->joinLeft('periods','archaeology.period1 = periods.id',
+                array('periodFrom' => 'term'))
+            ->joinLeft(array('periods2' => 'periods'),'archaeology.period2 = periods2.id',
+                array('periodTo' => 'term'))
             ->joinLeft('dataquality','archaeology.contextualrating = dataquality.id',
                 array('archaeologicalcontextqualityrating' => 'rating'))
-            ->joinLeft('recmethods','archaeology.recmethod = recmethod.id',
+            ->joinLeft('recmethods','archaeology.recmethod = recmethods.id',
                 array('recoverymethod' => 'method'))
             ->joinLeft('archsiteclass','archaeology.sitecontext = archsiteclass.id',
                 array('siteclass'))
