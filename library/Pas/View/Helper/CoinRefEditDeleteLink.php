@@ -10,136 +10,245 @@
  * @todo DRY the code
  * @author Daniel Pett
  */
-class Pas_View_Helper_CoinRefEditDeleteLink
-    extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_CoinRefEditDeleteLink extends Zend_View_Helper_Abstract {
 
-    protected $_noaccess = array('public');
+    /** The array of roles with no access 
+     * @access protected
+     * @var array
+     */
+    protected $_noaccess = array('public', null);
+    
+    /** The restricted access array
+     * @access protected
+     * @var array
+     */
     protected $_restricted = array('member','research','hero');
+    
+    /** The recorders array
+     * @access protected
+     * @var array
+     */
     protected $_recorders = array('flos');
+    
+    /** The higher level array of roles
+     * @access protected
+     * @var array
+     */
     protected $_higherLevel = array('admin','fa','treasure');
-    protected $_auth;
-
-    /** Construct the auth object
+    
+    /** The user details
+     * @access protected
+     * @var \Pas_User_Details
      */
-    public function __construct()
-    {
-    $auth = Zend_Auth::getInstance();
-    $this->_auth = $auth;
-    }
-
-    /** Get the user's role
+    protected $_user;
+    
+    /** Get the user details from the model
+     * @access public
+     * @return \Pas_User_Details
      */
-    public function getRole()
-    {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $role = $user->role;
-    } else {
-    $role = 'public';
+    public function getUser() {
+        $this->_user = new Pas_User_Details();
+        return $this->_user;
     }
 
-    return $role;
-    }
-
-    /** Get the user's ID
-    */
-    public function getUserID()
-    {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $id = $user->id;
-
-    return $id;
-    }
-    }
-
-    /** Check institution by find id
-     * @param string $oldfindID
+    /** The default role
+     * @access protected
+     * @var string
      */
-    public function checkAccessbyInstitution($oldfindID)
-    {
-    $find = explode('-', $oldfindID);
-    $id = $find['0'];
-    $inst = $this->getUserGroups();
-    if (($id == $inst)) {
-    return true;
-    } elseif ((in_array($this->getRole(),$this->recorders) && ($id == 'PUBLIC'))) {
-    return true;
-    }
-    }
-
-    /** Find out user group for person
-    */
-    public function getUserGroups()
-    {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $inst = $user->institution;
-    } else {
-    throw new Exception('User is not assigned to a group');
-    }
-
-    return $inst;
-    }
-
-    /** Check access by userID
-    * @param int $createdby
-    */
-    public function checkAccessbyUserID($createdBy)
-    {
-    if (!in_array($this->getRole(),$this->_restricted)) {
-    return true;
-    } elseif (in_array($this->getRole(),$this->_restricted)) {
-    if ($createdBy == $this->getUserID()) {
-    return true;
-    }
-    } else {
-    return false;
-    }
+    protected $_role = 'public';
+    
+    /** The id of the user default to public
+     * @access protected
+     * @var integer
+     */
+    protected $_id = 3;
+    
+    /** The default institution
+     * @access protected
+     * @var string
+     */
+    protected $_institution = 'PUBLIC';
+    
+    /** The creator of the record
+     * @access protected
+     * @var integer
+     */
+    protected $_creator;
+    
+    /** Get the creator for a record
+     * @access public
+     * @return integer
+     */
+    public function getCreator() {
+        return $this->_creator;
     }
 
-    /** Create the links
-    */
-    public function CoinRefEditDeleteLink($oldfindID,$id,$returnID,$createdBy)
-    {
-    if (in_array($this->getRole(),$this->_noaccess)) {
-    return false;
-    } elseif (in_array($this->getRole(),$this->_restricted)) {
-    $byID = $this->checkAccessbyUserID($createdBy);
-    $instID = $this->checkAccessbyInstitution($oldfindID);
-    if (($byID == true)) {
-    return $this->buildHtml($id,$returnID);
+    /** Set the creator for a record
+     * @access public
+     * @param integer $creator
+     * @return \Pas_View_Helper_CoinRefEditDeleteLink
+     */
+    public function setCreator($creator) {
+        $this->_creator = $creator;
+        return $this;
     }
-    } elseif (in_array($this->getRole(),$this->_higherLevel)) {
-    return $this->buildHtml($id,$returnID);
-    } elseif (in_array($this->getRole(),$this->_recorders)) {
-    $find = explode('-', $oldfindID);
-    $id = $find['0'];
-    $byID = $this->checkAccessbyUserID($createdBy);
-    $instID = $this->checkAccessbyInstitution($oldfindID);
 
-    $id = $find['0'];
-    if (($id == $instID) || ($byID == true && $instID == true)) {
-    return $this->buildHtml($id,$returnID);
-    } elseif ($id == 'PUBLIC') {
-    return $this->buildHtml($id,$returnID);
+    /** Get the role of the user
+     * @access public
+     * @return string
+     */
+    public function getRole() {
+        $this->_role = $this->getUser()->getPerson()->role;
+        return $this->_role;
     }
+
+    /** Get the id of the current user
+     * @access public
+     * @return integer
+     */
+    public function getId() {
+        $this->_id = $this->getUser()->getIdentityForForms();
+        return $this->_id;
     }
+
+    /** Get the institution of the user
+     * @access public
+     * @return string
+     */
+    public function getInstitution(){
+        return $this->_institution;
+    }
+    
+    /** Set the institution for the record
+     * @access public
+     * @param string $institution
+     * @return \Pas_View_Helper_CoinRefEditDeleteLink
+     */
+    public function setInstitution($institution) {
+        $this->_institution = $institution;
+        return $this;
+    }
+
+    /** The record ID number
+     * @access protected
+     * @var integer
+     */
+    protected $_recordID;
+    
+    /** The coin ID
+     * @access protected
+     * @var integer
+     */
+    protected $_coinID;
+    
+    /** Get the record ID
+     * @access public
+     * @return integer
+     */
+    public function getRecordID() {
+        return $this->_recordID;
+    }
+
+    /** Get the coin ID for the record
+     * @access public
+     * @return integer
+     */
+    public function getCoinID() {
+        return $this->_coinID;
+    }
+
+    /** Set the record ID
+     * @access public
+     * @param integer $recordID
+     * @return \Pas_View_Helper_CoinRefEditDeleteLink
+     */
+    public function setRecordID($recordID) {
+        $this->_recordID = $recordID;
+        return $this;
+    }
+
+    /** Set the coin id for the record
+     * @access public
+     * @param integer $coinID
+     * @return \Pas_View_Helper_CoinRefEditDeleteLink
+     */
+    public function setCoinID($coinID) {
+        $this->_coinID = $coinID;
+        return $this;
+    }
+
+    /** Perform checks to see whether access is allowed
+     * @access public
+     * @return boolean
+     */
+    public function performChecks() {
+        echo $this->getRole();
+        if (in_array($this->getRole(), $this->_noaccess)) {
+            //If role is in no access, false returns
+            return false;
+        } elseif (in_array($this->getRole(), $this->_restricted)) {
+            //Check if created by = their ID
+            if($this->getUser()->getPerson()->institution == 'PUBLIC' 
+                    && $this->getId() == $this->getCreator()) {
+                return true;
+            } else {
+                return false;
+            }
+        } elseif (in_array($this->getRole(), $this->_higherLevel)) {
+            //Just return true as they can do whatever they want
+            return true;
+        } elseif (in_array($this->getRole(), $this->_recorders)) {
+            //Check if institution of user = the record institution
+            if($this->getUser()->getPerson()->institution == $this->getInstitution()) {
+                return true;
+            } else {
+                return false;
+            }
+        } 
+    }
+    
+    /** The function to return
+     * @access public
+     * @return \Pas_View_Helper_CoinRefEditDeleteLink
+     */
+    public function coinRefEditDeleteCheck() {
+        return $this;
     }
 
     /** Return the HTML
+     * @access public
      * @param int $id
      * @param int $returnID
+     * @return string
      */
-    public function buildHtml($id,$returnID)
-    {
-    $string = '<a href="'
-    .$this->view->url(array('module' => 'database','controller' => 'coins','action' => 'editcoinref','id' => $id,'returnID' => $returnID),null,true)
-    .'" title="Edit this coin reference">Edit</a> | <a href="'
-    .$this->view->url(array('module' => 'database','controller' => 'coins','action' => 'deletecoinref','id' => $id,'returnID' => $returnID),null,true)
-    .'" title="Delete this reference">Delete</a>';
-
-    return $string;
+    public function buildHtml() {
+        $allowed = $this->performChecks();
+        $html = '';
+        if($allowed) {
+            $html .= '<a href="';
+            $html .= $this->view->url(array(
+                'module' => 'database',
+                'controller' => 'coins',
+                'action' => 'editcoinref',
+                'id' => $this->getCoinID(),
+                'returnID' => $this->getRecordID()),null,true);
+            $html .= '" title="Edit this coin reference">Edit</a> | <a href="';
+            $html .= $this->view->url(array(
+                'module' => 'database',
+                'controller' => 'coins',
+                'action' => 'deletecoinref',
+                'id' => $this->getCoinID(),
+                'returnID' => $this->getRecordID()),null,true);
+            $html .= '" title="Delete this reference">Delete</a>';
+        }
+        return $html;
     }
 
+    /** To string function
+     * @access public
+     * @return string
+     */
+    public function __toString() {
+        return $this->buildHtml();
+    }
 }

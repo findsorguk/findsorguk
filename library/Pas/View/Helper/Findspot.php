@@ -1,7 +1,8 @@
 1<?php
 /**
  * A view helper for determining which findspot partial to display to the user
- *
+ * 
+ * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
@@ -9,154 +10,212 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  * @todo this class can be cut substantially for the user object to come from just one call
+ * @uses Zend_Auth
  */
 
-class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract
-{
-    protected $noaccess = array('public');
-    protected $restricted = array('member');
-    protected $recorders = array('flos','research','hero');
-    protected $higherLevel = array('admin','fa','treasure');
+class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
+    
+    /** The no access array
+     * @access protected
+     * @var array
+     */
+    protected $_noaccess = array('public');
+    
+    /** The restricted array
+     * @access protected
+     * @var array
+     */
+    protected $_restricted = array('member');
+    
+    /** The recorders array
+     * @access protected
+     * @var array
+     */
+    protected $_recorders = array();
+    
+    /** The higher level array
+     * @access protected
+     * @var array
+     */
+    protected $_higherLevel = array('admin','fa','treasure', 'flos','research','hero');
+    
+    /** Message for missing group exception
+     * @access protected
+     * @var string
+     */
     protected $_missingGroup = 'User is not assigned to a group';
+    
+    /** Not allowed to edit message
+     * @access protected
+     * @var string
+     */
     protected $_message = 'You are not allowed edit rights to this record';
-    /** Create the variable for the authorisation object
-     *
-     * @var object $_auth;
+    
+    /** The auth object
+     * @access protected
+     * @var \Zend_Auth
      */
-    protected $_auth = NULL;
-
-    /** Construct the authorisation;
-     *
+    protected $_auth;
+    
+    /** Get the auth
+     * @access public
+     * @return \Zend_Auth
      */
-    public function __construct()
-    {
-    $auth = Zend_Auth::getInstance();
-    $this->_auth = $auth;
+    public function getAuth()  {
+        $this->_auth = Zend_Auth::getInstance();
+        return $this->_auth;
     }
-
-    /** Find out the user's role
-     *
+    
+    /** The default role
+     * @access protected
+     * @var string
      */
-    public function getRole()
-    {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $role = $user->role;
-    } else {
-    $role = 'public';
-    }
-
-    return $role;
-    }
-
-    /** Find out whether the user has access from their institutional ID
-     *
-     * @param string $oldfindID
+    protected $_role = 'public';
+    
+    /** Get the role of the user
+     * @access public
+     * @return string
      */
-    public function checkAccessbyInstitution($oldfindID)
-    {
-    $find = explode('-', $oldfindID);
-    $id = $find['0'];
-    $inst = $this->getInst();
-    if ($id === $inst) {
-    return true;
-    } elseif ((in_array($this->getRole(),$this->recorders) && ($id == 'PUBLIC'))) {
-    return true;
-    }
+    public function getRole() {
+        if($this->getUser() == true) {
+            $this->_role = $this->getUser()->role;
+        } 
+        return $this->_role;
     }
 
-    /** Retrieve a user's institution
-     *
+        
+    /** Get the user
+     * @access public
+     * @return \Pas_User_Details
      */
-    public function getInst()
-    {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $inst = $user->institution;
-    if (is_null($inst)) {
-    throw new Exception($this->_missingGroup);
+    public function getUser(){
+        $user = new Pas_User_Details();
+        return $user->getPerson();
     }
-
-    return $inst;
-    } else {
-    return FALSE;
-    }
-    }
-
-    /** Find a user's ID
-     *
+    
+    /** Get the user's id
+     * @access public
+     * @return integer
      */
-    public function getUserID()
-    {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $id = $user->id;
-
-    return $id;
+    public function getId() {
+        if($this->getUser() == true) {
+            $this->_id = $this->getUser()->id;
+        } else {
+            $this->_id = 3;
+        }
+        return $this->_id;
     }
-    }
-
-    /** Check if the user has access by their userid number
-     *
-     * @param int $createdBy
+    
+    /** Get the user's institution
+     * @access public
+     * @return string
      */
-    public function checkAccessbyUserID($createdBy)
-    {
-    if (!in_array($this->getRole(),$this->restricted)) {
-    return TRUE;
-    } elseif (in_array($this->getRole(),$this->restricted)) {
-    if ($createdBy === $this->getUserID()) {
-    return true;
-    }
-    } else {
-    return false;
-    }
+    public function getInstitution() {
+        if($this->getUser() == true) {
+            $this->_inst = $this->getUser()->institution;
+        } 
+        return $this->_inst;
     }
 
-    /** Find out what groups a user is in from auth object
-     *
+        /** Default institution
+     * @access protected
+     * @var string
      */
-    public function getUserGroups()
-    {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $inst = $user->institution;
+    protected $_inst = 'public';
 
-    return $inst;
-    } else {
-    return false;
-    }
+    /** The record created by 
+     * @access protected
+     * @var string
+     */
+    protected $_createdBy;
+    
+    /** Get the created by
+     * @access public
+     * @return integer
+     */
+    public function getCreatedBy() {
+        return $this->_createdBy;
     }
 
+    /** Set createdby
+     * @access public
+     * @param integer $createdBy
+     * @return \Pas_View_Helper_Findspot
+     */
+    public function setCreatedBy($createdBy) {
+        $this->_createdBy = $createdBy;
+        return $this;
+    }
+
+    /** The data to build the view
+     * @access protected
+     * @var array
+     */
+    protected $_data;
+    
+    /** Get the data to build from
+     * @access public
+     * @return array
+     */
+    public function getData() {
+        return $this->_data;
+    }
+
+    /** Set the data to use
+     * @access public
+     * @param array $data
+     * @return \Pas_View_Helper_Findspot
+     */
+    public function setData(array $data) {
+        $this->_data = $data;
+        return $this;
+    }
+
+    /** The findspot function
+     * @access public
+     * @return \Pas_View_Helper_Findspot
+     */
+    public function findspot() {
+        return $this;
+    }
+    
+    /** Check record by creator
+     * @access public
+     * @return boolean
+     */
+    public function checkByCreator() {
+        $id = $this->getCreatedBy();
+        $role = $this->getRole();
+        //If user is not higher level, but created record
+        if(!in_array($role, $this->_higherLevel) && $this->getId() == $id) {
+            return true;
+        } elseif(in_array($role, $this->_higherLevel) )  {  //If user is higher level
+            return true;
+        } else { //Default return false
+            return false;
+        }
+    }
+
+    
     /** Build the html and return the correct partial
-     *
+     * @access public
      * @param array $findspots
      */
-    public function buildHtml($findspots)
-    {
-    $byID = $this->checkAccessbyUserID($findspots['0']['createdBy']);
-    if (in_array($this->getRole(),$this->restricted)) {
-    if ($byID == TRUE) {
-    return $this->view->partial('partials/database/findspot.phtml', $findspots[0]);
-    } else {
-    return $this->view->partial('partials/database/unauthorisedfindspot.phtml', $findspots[0]);
-    }
-    } elseif (in_array($this->getRole(),$this->higherLevel)) {
-    return $this->view->partial('partials/database/findspot.phtml', $findspots[0]);
-    } elseif (in_array($this->getRole(),$this->recorders)) {
-    return $this->view->partial('partials/database/findspot.phtml', $findspots[0]);
-    } else {
-    return $this->view->partial('partials/database/unauthorisedfindspot.phtml', $findspots[0]);
-    }
+    public function buildHtml() {
+        $html = '';
+        if ($this->checkByCreator()) {
+            $html .= $this->view->partial('partials/database/findspot.phtml', $this->getData());
+        } else {
+            $html .= $this->view->partial('partials/database/unauthorisedfindspot.phtml', $this->getData());
+        }
+        return $html;
     }
 
-    /** make the call to get the findspots html
-     *
-     * @param array $findspots
+    /** Return html string
+     * @access public
+     * @return string
      */
-    public function findspot($findspots)
-    {
-    return $this->buildHtml($findspots);
+    public function __toString() {
+        return $this->buildHtml();
     }
-
 }

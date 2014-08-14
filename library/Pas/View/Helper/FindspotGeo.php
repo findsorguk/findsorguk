@@ -45,34 +45,73 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
      */
     protected $_appid = null;
     
+    /** The WOEID
+     * @access protected
+     * @var integer
+     */
     protected $_woeid;
     
+    /** The latitude
+     * @access protected
+     * @var float
+     */
     protected $_lat;
     
+    /** The longitude
+     * @access protected
+     * @var float
+     */
     protected $_lon;
     
+    /** Get the woeid
+     * @access public
+     * @return integer
+     */
     public function getWoeid() {
         return $this->_woeid;
     }
 
+    /** Get the latitude
+     * @access public
+     * @return float
+     */
     public function getLat() {
         return $this->_lat;
     }
 
+    /** Get the longitude
+     * @access public
+     * @return float
+     */
     public function getLon() {
         return $this->_lon;
     }
 
+    /** set the woeid
+     * @access public
+     * @param integer $woeid
+     * @return \Pas_View_Helper_FindspotGeo
+     */
     public function setWoeid($woeid) {
         $this->_woeid = $woeid;
         return $this;
     }
 
+    /** Set the latitude
+     * @access public
+     * @param float $lat
+     * @return \Pas_View_Helper_FindspotGeo
+     */
     public function setLat($lat) {
         $this->_lat = $lat;
         return $this;
     }
 
+    /** Set the longitude
+     * @access public
+     * @param float $lon
+     * @return \Pas_View_Helper_FindspotGeo
+     */
     public function setLon($lon) {
         $this->_lon = $lon;
         return $this;
@@ -111,8 +150,10 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
         } else {
             $placeData = $this->_geoplanet->getPlace($this->getWoeid());
         }
-        return $this->buildHtml($placeData);
+        Zend_Debug::dump($placeData);
+        return '';
     }
+    
     /** Function for determining whether elevation is -ve or +ve or =
      * @access public
      * @param int $elevation
@@ -140,7 +181,8 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
      * @return string $html
      */
     public function buildHtml(array $data) {
-        $html = '<h3>Data from Yahoo! GeoPlanet</h3>';
+        $html = '';
+        $html .= '<h3>Data from Yahoo! GeoPlanet</h3>';
         if ($data) {
             $html .= '<p>The spatially enriched data provided here was sourced from the excellent Places/Placemaker service';
             $html .= ' from Yahoo\'s geo team.<br />';

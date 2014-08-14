@@ -139,7 +139,19 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
         $this->_findID = $findID;
         return $this;
     }
+    
+    protected $_coinID;
+    
+    public function getCoinID() {
+        return $this->_coinID;
+    }
 
+    public function setCoinID($coinID) {
+        $this->_coinID = $coinID;
+        return $this;
+    }
+
+    
     /** Get the creator of the record
      * @access public
      * @return int

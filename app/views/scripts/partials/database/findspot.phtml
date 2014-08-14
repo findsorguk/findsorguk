@@ -1,15 +1,15 @@
 <?php
-$this->googleDynamicMap(null,null,true);
+    $this->googleDynamicMap(null,null,true);
 ?>
 <h3>Spatial data</h3>
-<?php echo $this->FindSpotEditDeleteLink($this->old_findspotid,$this->id,$this->createdBy);?>
+<?php echo $this->findSpotEditDeleteLink($this->old_findspotid,$this->id,$this->createdBy);?>
 
-<?php if(isset($this->declong) && isset($this->declat)) : ?>
+<?php if(isset($this->lon) && isset($this->lat)) : ?>
 
 <div id="map">
-	<noscript><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->declat;?>,
-	<?php echo $this->declong;?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
-	<?php echo $this->declat;?>,<?php echo $this->declong;?>&sensor=false" />
+	<noscript><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->lat;?>,
+	<?php echo $this->lon;?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
+	<?php echo $this->lat;?>,<?php echo $this->lon;?>&sensor=false" />
 	</noscript>
 </div>
 <?php
@@ -21,7 +21,7 @@ if(in_array($role,$allowed)):
 ?>
 <div id="radius">
 	<?php $url = $this->url(array('module' => 'database','controller' => 'search','action' => 'results',
-	'lat' => $this->declat, 'lon' => $this->declong,'d' => '2'),null,true);?>
+	'lat' => $this->lat, 'lon' => $this->lon,'d' => '2'),null,true);?>
 	<p><a class="btn btn-small btn-success" href="<?php echo $url;?>" title="Use the Haversine formula to find adjacent objects">Find objects within 2km
 	radius of this artefact</a></p>
 </div>
@@ -86,7 +86,7 @@ $(document).ready(function() {
 	   alt: "NLS Historic Map"
 	});
 	var myOptions = {
-          center: new google.maps.LatLng(<?php echo $this->declat;?>, <?php echo $this->declong;?>),
+          center: new google.maps.LatLng(<?php echo $this->lat;?>, <?php echo $this->lon;?>),
           zoom: 12,
 		  mapTypeControlOptions: {
           mapTypeIds: [
@@ -111,7 +111,7 @@ $(document).ready(function() {
         	map.mapTypes.set('Imperium',imperium);
             map.setTilt(45);
         var marker = new google.maps.Marker({
-      		position: new google.maps.LatLng(<?php echo $this->declat;?>, <?php echo $this->declong;?>),
+      		position: new google.maps.LatLng(<?php echo $this->lat;?>, <?php echo $this->lon;?>),
       		map: map,
       		animation: google.maps.Animation.DROP,
       		title:"Findspot location",
@@ -147,10 +147,10 @@ $(document).ready(function() {
 <?php
 	$bbox = new Pas_Geo_BoundBox();
 	$d = 5;  // distance
-    $path_top_right = $bbox->createPoint($this->declat ,  $this->declong, 45, $d);
-    $path_bottom_right = $bbox->createPoint($this->declat ,  $this->declong, 135, $d);
-    $path_bottom_left = $bbox->createPoint($this->declat ,  $this->declong, 225, $d);
-    $path_top_left = $bbox->createPoint($this->declat ,  $this->declong, 315, $d);
+    $path_top_right = $bbox->createPoint($this->lat ,  $this->lon, 45, $d);
+    $path_bottom_right = $bbox->createPoint($this->lat ,  $this->lon, 135, $d);
+    $path_bottom_left = $bbox->createPoint($this->lat ,  $this->lon, 225, $d);
+    $path_top_left = $bbox->createPoint($this->lat ,  $this->lon, 315, $d);
 ?>
 
   		 var latLngBounds = new google.maps.LatLngBounds(
@@ -221,7 +221,7 @@ Grid reference source: <?php echo $this->escape($this->source);?><br />
 Grid reference accurate to a <?php echo $this->getAccuracy()->setGridRef($this->gridref);?> metre square.<br />
 Grid reference length: <?php echo $this->gridlen;?><br />
 Easting: <?php echo $this->easting;?>  Northing: <?php echo $this->northing;?><br />
-Latitude: <?php echo $this->declat;?> Longitude: <?php echo $this->declong;?><br />
+Latitude: <?php echo $this->lat;?> Longitude: <?php echo $this->lon;?><br />
 Four figure Latitude: <?php echo $this->fourFigureLat; ?><br /> Four figure longitude: <?php echo $this->fourFigureLon; ?><br />
 1:25K map: <?php echo $this->map25k;?><br />
 1:10K map: <?php echo $this->map10k;?><br />
@@ -237,7 +237,10 @@ Elevation: <?php echo $this->elevation;?> metres<br />
 
 <div class="span4 noprint">
 <?php
-echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRadius(2);
+echo $this->domesdayNear()
+        ->setLat($this->lat)
+        ->setLon($this->lon)
+        ->setRadius(2);
 ?>
 </div>
 
@@ -245,7 +248,9 @@ echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRa
 
 <div class="row-fluid">
 <?php
-echo $this->findSmrs()->setLat($this->declat)->setLon($this->declong);
+echo $this->findSmrs()
+        ->setLat($this->lat)
+        ->setLon($this->lon);
 ?>
 </div>
 
@@ -255,14 +260,15 @@ echo $this->findSmrs()->setLat($this->declat)->setLon($this->declong);
 <?php
 echo $this->findspotGeo()
         ->setWoeID($this->woeid)
-        ->setLat($this->declat)
-        ->setLon($this->declong);
+        ->setLat($this->lat)
+        ->setLon($this->lon);
 ?>
 </div>
 
 <div class="span4 noprint">
 <?php
-echo $this->yahooGeoAdjacent()->setWoeid($this->woeid);
+echo $this->yahooGeoAdjacent()
+        ->setWoeid($this->woeid);
 ?>
 </div>
 
