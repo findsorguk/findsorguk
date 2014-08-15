@@ -70,6 +70,23 @@ class Hoards extends Pas_Db_Table_Abstract {
      */
     const DUPLICATE_UNIQUE_VALUE_ERROR_CODE = 23000;
 
+    /** Generates an old_hoardID for new hoard records
+     * @access 	public
+     * @return	string $hoardId The old_hoardID
+     * @throws  Pas_Exception_NotAuthorised
+     */
+    public function generateHoardId() {
+        $institution = $this->getInstitution();
+        if(!is_null($institution)) {
+            list($usec, $sec) = explode(" ", microtime());
+            $suffix =  strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
+            $hoardId = $institution . '-' . $suffix;
+            return $hoardId;
+        } else {
+            throw new Pas_Exception_Group('Institution missing', 500);
+        }
+    }
+
     /** Get all data from a hoard record for non-HTML rendering
  * @access public
  * @param integer $hoardId

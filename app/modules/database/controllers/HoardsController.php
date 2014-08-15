@@ -15,14 +15,9 @@
  * @uses Finds
  * @uses Pas_Exception_NotAuthorised
  * @uses Findspots
- * @uses Coins
- * @uses CoinClassifications
- * @uses Slides
+ * @uses Archaeology
  * @uses Publications
- * @uses Comments
- * @uses Rallies
- * @uses CommentFindForm
- * @uses FindForm
+ * @uses HoardForm
  * @uses Pas_Exception_Param
  */
 class Database_HoardsController extends Pas_Controller_Action_Admin {
@@ -113,11 +108,11 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
 
     protected $_findspots;
 
-    protected $_findForm;
+    protected $_hoardForm;
 
-    public function getFindForm() {
-        $this->_findForm = new FindForm();
-        return $this->_findForm;
+    public function getHoardForm() {
+        $this->_hoardForm = new HoardForm();
+        return $this->_hoardForm;
     }
 
     public function getFindspots() {
@@ -174,7 +169,6 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
     /** Display individual hoard record
      * @access public
      * @return void
-     * @todo move comment functionality to a model
      */
     public function recordAction() {
         if($this->_getParam('id',false)) { // Check there is a hoardID in the URL
@@ -217,4 +211,18 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         }
 
     }
+
+    /** Add a hoard
+     * @access public
+     * @return void
+     */
+    public function addAction() {
+
+        $form = $this->getHoardForm();
+        $form->submit->setLabel('Save record');
+        $this->view->form = $form;
+
+        }
+
+
 }

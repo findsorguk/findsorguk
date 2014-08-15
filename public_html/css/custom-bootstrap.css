@@ -340,6 +340,12 @@ padding: 10px;
     max-width:350px;
     font-size:11px;
 }
+
+select[multiple].select-large {
+    width: 300px;
+    height: 200px;
+}
+
 .selectpicker {
 margin-left: 0px;
 }

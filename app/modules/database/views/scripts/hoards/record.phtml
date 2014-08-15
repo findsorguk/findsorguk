@@ -50,11 +50,6 @@
             <!-- Linked containers -->
             <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array('linkedContainers' => $this->linkedContainers));?>
             <!-- Dimensional data -->
-            <?php
-            if (count($this->findsdata) > 0) {
-                //echo $this->partial('partials/database/hoards/dimensions.phtml', $this->findsdata['0']);
-            }
-            ?>
             <!-- Date found -->
             <?php echo $this->partial('partials/hoards/datefound.phtml',$this->discoverySummary);?>
             <!-- Rally data -->
