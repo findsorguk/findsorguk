@@ -30,7 +30,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract
     /** Who owns the rights
      *
      */
-    const RIGHTS_HOLDER = 'The Portable Antiquities Scheme';
+    const RIGHTS_HOLDER = '&copy; The Trustees of the British Museum and The Portable Antiquities Scheme';
 
     /** The applicable license
      *

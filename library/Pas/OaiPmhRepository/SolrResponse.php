@@ -51,7 +51,12 @@ class Pas_OaiPmhRepository_SolrResponse {
         'fourFigure', 'fromdate','todate',
         'county', 'district','materialTerm',
         'knownas', 'secondaryMaterialTerm',
-    	'fourFigureLat', 'fourFigureLon'
+    	'fourFigureLat', 'fourFigureLon',
+        'notes', 'datefound1', 'datefound2',
+        'width', 'height', 'thickness', 
+        'diameter', 'weight', 'identifier', 
+        'recorder', 'recorderID', 'identifierID', 
+        'identifier2ID', 'secondaryIdentifer'
 
     );
     $select = array(
@@ -88,16 +93,20 @@ class Pas_OaiPmhRepository_SolrResponse {
         'institution','updated','objecttype',
         'fourFigure', 'fromdate','todate',
         'county', 'district', 'materialTerm',
-        'knownas', 'secondaryMaterialTerm', 'fourFigureLat', 'fourFigureLon'
-
+        'knownas', 'secondaryMaterialTerm', 'fourFigureLat', 
+        'fourFigureLon', 'notes', 'datefound1', 
+        'datefound2', 'width', 'height',
+        'thickness', 'diameter', 'weight',
+        'identifier', 'recorder', 'recorderID',
+        'identifierID', 'identifier2ID', 'secondaryIdentifer'
     );
     $select = array(
-    'query'         => '*:*',
-    'start'         => $cursor,
-    'rows'          => self::LISTLIMIT,
-    'fields'        => $fields,
-    'sort'          => array('created' => 'asc'),
-    'filterquery' => array(),
+        'query'         => '*:*',
+        'start'         => $cursor,
+        'rows'          => self::LISTLIMIT,
+        'fields'        => $fields,
+        'sort'          => array('created' => 'desc'),
+        'filterquery' => array(),
     );
 
     if(!in_array($this->getRole(),$this->_allowed)) {
