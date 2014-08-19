@@ -403,7 +403,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
                 $eventSet->appendChild($eventDating);
                 $eventTypeCreation = $this->document->createElement('lido:eventType');
                 
-                $this->appendNewElement($eventTypeCreation, 'lido:term', 'recorder');
+                $this->appendNewElement($eventTypeCreation, 'lido:term', 'Recorder');
                 $eventDating->appendChild($eventTypeCreation);
                 $eventActor = $this->document->createElement('lido:eventActor'); 
                 $eventDating->appendChild($eventActor);
@@ -422,7 +422,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
                 
                 $eventTypeCreation = $this->document->createElement('lido:eventType');
                 
-                $this->appendNewElement($eventTypeCreation, 'lido:term', 'identifer');
+                $this->appendNewElement($eventTypeCreation, 'lido:term', 'Identifer');
                 $eventDating->appendChild($eventTypeCreation);
                 $eventActor = $this->document->createElement('lido:eventActor'); 
                 $eventDating->appendChild($eventActor);
@@ -442,7 +442,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
                 if(array_key_exists('identifier2ID', $this->item)){
                     $eventTypeCreation = $this->document->createElement('lido:eventType');
                 
-                $this->appendNewElement($eventTypeCreation, 'lido:term', 'secondary identifer');
+                $this->appendNewElement($eventTypeCreation, 'lido:term', 'Secondary identifer');
                 $eventDating->appendChild($eventTypeCreation);
                 $eventActor = $this->document->createElement('lido:eventActor'); 
                 $eventDating->appendChild($eventActor);
@@ -549,16 +549,21 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
 
                     $this->appendNewElement($representation, 'lido:linkResource', $v)
                         ->setAttribute('lido:formatResource', 'jpg');
-                    $measurementSet = $this->document->createElement('lido:resourceMeasurementsSet');
-                    $representation->appendChild($measurementSet);
-                    //Add image height
-                    $this->appendNewElement($measurementSet, 'lido:measurementType', 'height');
-                    $this->appendNewElement($measurementSet, 'lido:measurementUnit', 'pixel');
-                    $this->appendNewElement($measurementSet, 'lido:measurementValue', $height);
-                    //Add image width
-                    $this->appendNewElement($measurementSet, 'lido:measurementType', 'width');
-                    $this->appendNewElement($measurementSet, 'lido:measurementUnit', 'pixel');
-                    $this->appendNewElement($measurementSet, 'lido:measurementValue', $width);
+                    
+                    if(file_exists('./' . $this->item['imagedir'] . $this->item['filename'])) {
+                        list($width, $height) = getimagesize($v);
+                        $measurementSet = $this->document->createElement('lido:resourceMeasurementsSet');
+                        $representation->appendChild($measurementSet);
+                        //Add image height
+                        $this->appendNewElement($measurementSet, 'lido:measurementType', 'height');
+                        $this->appendNewElement($measurementSet, 'lido:measurementUnit', 'pixel');
+                        $this->appendNewElement($measurementSet, 'lido:measurementValue', $height);
+                        //Add image width
+                        $this->appendNewElement($measurementSet, 'lido:measurementType', 'width');
+                        $this->appendNewElement($measurementSet, 'lido:measurementUnit', 'pixel');
+                        $this->appendNewElement($measurementSet, 'lido:measurementValue', $width);
+                    }
+                    
                 }
                 $this->appendNewElement($resourceSet, 'lido:resourceDescription', 'Original Image');
                 $resourceSource = $this->document->createElement('lido:resourceSource');

@@ -14,8 +14,7 @@
 require_once('Pas/OaiPmhRepository/OaiXmlGeneratorAbstract.php');
 require_once('Pas/OaiPmhRepository/OaiIdentifier.php');
 
-abstract class Pas_OaiPmhRepository_Metadata_Abstract
-	extends Pas_OaiPmhRepository_OaiXmlGeneratorAbstract {
+abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhRepository_OaiXmlGeneratorAbstract {
 
     /** The base record url
      *
@@ -30,7 +29,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract
     /** Who owns the rights
      *
      */
-    const RIGHTS_HOLDER = '&copy; The Trustees of the British Museum and The Portable Antiquities Scheme';
+    const RIGHTS_HOLDER = '© The Trustees of the British Museum and The Portable Antiquities Scheme';
 
     /** The applicable license
      *
@@ -72,19 +71,23 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract
      */
     const EXTENSION = '.jpg';
 
+    /** The rights statement URI we use
+     * 
+     */
     const RIGHTS_URI = 'http://creativecommons.org/licenses/by-sa/3.0/';
 
-
+    /** The server url
+     * @access protected
+     * @var string
+     */
     protected $_serverUrl;
 
-    /**
-     * Item object for this record.
+    /** Item object for this record.
      * @var Item
      */
     protected $item;
 
-    /**
-     * Parent DOMElement element for XML output.
+    /** Parent DOMElement element for XML output.
      * @var DOMElement
      */
     protected $parentElement;
@@ -93,18 +96,19 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract
      * Metadata_Abstract constructor
      *
      * Sets base class properties.
-     *
+     * @access public
      * @param Item item Item object whose metadata will be output.
      * @param DOMElement element Parent element for XML output.
+     * @return void
      */
     public function __construct($item, $element){
-    $this->item = $item;
-    $this->parentElement = $element;
-    if(isset($element)){
-    $this->document = $element->ownerDocument;
-    }
-    $server = new Pas_OaiPmhRepository_ServerUrl();
-    $this->_serverUrl = $server->get();
+        $this->item = $item;
+        $this->parentElement = $element;
+        if(isset($element)){
+            $this->document = $element->ownerDocument;
+        }
+        $server = new Pas_OaiPmhRepository_ServerUrl();
+        $this->_serverUrl = $server->get();
     }
 
     /**
@@ -112,17 +116,17 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract
      *
      * Adds both the header and metadata elements as children of a record
      * element, which is appended to the document.
-     *
+     * @access public
      * @uses appendHeader
      * @uses appendMetadata
      */
     public function appendRecord(){
-    $record = $this->document->createElement('record');
-    $this->parentElement->appendChild($record);
-    // Sets the parent of the next append functions
-    $this->parentElement = $record;
-    $this->appendHeader();
-    $this->appendMetadata();
+        $record = $this->document->createElement('record');
+        $this->parentElement->appendChild($record);
+        // Sets the parent of the next append functions
+        $this->parentElement = $record;
+        $this->appendHeader();
+        $this->appendMetadata();
     }
 
     /**
@@ -130,30 +134,28 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract
      *
      * Adds the identifier, datestamp and setSpec to a header element, and
      * appends in to the document.
-     *
+     * @access public
      * @uses appendHeader
      * @uses appendMetadata
      */
     public function appendHeader() {
-
-    if(array_key_exists('0',$this->item)) {
-    $itemid = $this->item['0']['id'];
-    $updated = $this->item['0']['created'];
-    $collectionId = $this->item['0']['institution'];
-    } else {
-    $itemid = $this->item['id'];
-    $updated = $this->item['created'];
-    $collectionId = $this->item['institution'];
-    }
-//	$item = $table->fetchRow($table->select()->where('finds.id = ?',$itemid));
-    $object = new Pas_OaiPmhRepository_OaiIdentifier();
-    $itemNumber = $object->itemToOaiId($itemid);
-    $headerData['identifier'] = $itemNumber;
-    $headerData['datestamp'] = self::dbToUtc($updated);
-	if ($collectionId)
-    $headerData['setSpec'] = $collectionId;
-    $this->createElementWithChildren(
-    $this->parentElement, 'header', $headerData);
+        if(array_key_exists('0', $this->item)) {
+            $itemid = $this->item['0']['id'];
+            $updated = $this->item['0']['created'];
+            $collectionId = $this->item['0']['institution'];
+        } else {
+            $itemid = $this->item['id'];
+            $updated = $this->item['created'];
+            $collectionId = $this->item['institution'];
+        }
+        $object = new Pas_OaiPmhRepository_OaiIdentifier();
+        $itemNumber = $object->itemToOaiId($itemid);
+        $headerData['identifier'] = $itemNumber;
+        $headerData['datestamp'] = self::dbToUtc($updated);
+        if ($collectionId) {
+            $headerData['setSpec'] = $collectionId;
+        }
+        $this->createElementWithChildren($this->parentElement, 'header', $headerData);
     }
 
     /**
@@ -161,35 +163,37 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract
      *
      * Declares the metadataPrefix, schema URI, and namespace for the oai_dc
      * metadata format.
+     * @access public
+     * @return void
      */
     public function declareMetadataFormat(){
-    $elements = array(
-    'metadataPrefix'    => $this->getMetadataPrefix(),
-    'schema'            => $this->getMetadataSchema(),
-    'metadataNamespace' => $this->getMetadataNamespace()
-    );
-    $this->createElementWithChildren(
-    $this->parentElement, 'metadataFormat', $elements);
+        $elements = array(
+            'metadataPrefix'    => $this->getMetadataPrefix(),
+            'schema'            => $this->getMetadataSchema(),
+            'metadataNamespace' => $this->getMetadataNamespace()
+        );
+        $this->createElementWithChildren(
+        $this->parentElement, 'metadataFormat', $elements);
     }
 
 
     /** Function for escaping xml
-     *
+     * @access public
      * @param string $string data to be encoded
      * @return string $string
      */
     public function _xmlEscape($string)  {
-    $encoding = 'UTF-8';
-    if ($this->_view instanceof Zend_View_Interface && method_exists($this->_view, 'getEncoding')) {
-    $encoding = $this->_view->getEncoding();
-    }
-    if (version_compare(PHP_VERSION, '5.2.3', '>=')) {
-    return htmlspecialchars($string, ENT_QUOTES, $encoding, false);
-    } else {
-    $string = preg_replace('/&(?!(?:#\d++|[a-z]++);)/ui', '&amp;', $string);
-    $string = str_replace(array('<', '>', '\'', '"'), array('&lt;', '&gt;', '&#39;', '&quot;'), $string);
-    return $string;
-    }
+        $encoding = 'UTF-8';
+        if ($this->_view instanceof Zend_View_Interface && method_exists($this->_view, 'getEncoding')) {
+            $encoding = $this->_view->getEncoding();
+        }
+        if (version_compare(PHP_VERSION, '5.2.3', '>=')) {
+            return htmlspecialchars($string, ENT_QUOTES, $encoding, false);
+        } else {
+            $string = preg_replace('/&(?!(?:#\d++|[a-z]++);)/ui', '&amp;', $string);
+            $string = str_replace(array('<', '>', '\'', '"'), array('&lt;', '&gt;', '&#39;', '&quot;'), $string);
+            return $string;
+        }
     }
     /**
      * Returns the OAI-PMH metadata prefix for the output format.
