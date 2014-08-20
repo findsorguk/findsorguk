@@ -84,7 +84,7 @@ class HoardForm extends Pas_Form {
         $secuid->addFilters(array('StripTags','StringTrim'))->addValidator('Alnum');
 
         $old_hoardID = new Zend_Form_Element_Hidden('old_hoardID');
-        $old_hoardIDID->addFilters(array('StripTags','StringTrim'));
+        $old_hoardID->addFilters(array('StripTags','StringTrim'));
 
         ## HOARD DATING ##
         //Broadperiod:
