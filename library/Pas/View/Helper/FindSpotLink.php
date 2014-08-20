@@ -36,25 +36,25 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array $noaccess
      */
-    protected $noaccess = array('public', null);
+    protected $_noaccess = array('public', null);
 
     /** Set up the user groups with limited access
      * @access protected
      * @var array $restricted
      */
-    protected $restricted = array('member','research','hero');
+    protected $_restricted = array('member','research','hero');
 
     /** Set up the user groups with recorder access
      * @access protected
      * @var array $recorders
      */
-    protected $recorders = array('flos');
+    protected $_recorders = array('flos');
 
     /** Set up the user groups with higher level access
      * @access protected
      * @var array $higherLevel
      */
-    protected $higherLevel = array('admin','fa','treasure');
+    protected $_higherLevel = array('admin','fa','treasure');
 
     /** The auth object
      * @access protected
@@ -231,7 +231,7 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
      * @param int $createdBy
      * @return boolean
      */
-    public function checkAccessbyUserID($createdBy ) {
+    public function checkAccessbyUserID( $createdBy ) {
             if (in_array( $this->getRole(), $this->_restricted ) ) {
             if ($createdBy == $this->getUserID()) {
                     $allowed = true;

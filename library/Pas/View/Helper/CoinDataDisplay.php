@@ -302,5 +302,4 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
 
         return $html;
     }
-
-    }
+}

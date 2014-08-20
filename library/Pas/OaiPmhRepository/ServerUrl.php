@@ -1,10 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** Code moved from the Zend View Helper ServerUrl for getting the server url
  * 
  * @category Pas
@@ -13,30 +7,27 @@
  * @since 6/2/12
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @author danielpett
- *
+ * @copyright (c) 2014 Daniel Pett
  */
 class Pas_OaiPmhRepository_ServerUrl {
-    /**
-     * Scheme
-     *
+    
+    /** Url Scheme
+     * @access protected
      * @var string
      */
     protected $_scheme;
 
-    /**
-     * Host (including port)
-     *
+    /** Host (including port)
+     * @access protected
      * @var string
      */
     protected $_host;
 
-    /**
-     * Constructor
-     *
+    /** Constructor
+     * @access public
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] === true)) {
             $scheme = 'https';
         } else {
@@ -70,8 +61,7 @@ class Pas_OaiPmhRepository_ServerUrl {
      *                                     is to not append any path.
      * @return string                      server url
      */
-    public function get($requestUri = null)
-    {
+    public function get($requestUri = null) {
         if ($requestUri === true) {
             $path = $_SERVER['REQUEST_URI'];
         } else if (is_string($requestUri)) {
@@ -79,7 +69,6 @@ class Pas_OaiPmhRepository_ServerUrl {
         } else {
             $path = '';
         }
-
         return $this->getScheme() . '://' . $this->getHost() . $path;
     }
 
@@ -93,32 +82,27 @@ class Pas_OaiPmhRepository_ServerUrl {
         return $this->_host;
     }
 
-    /**
-     * Sets host
-     *
-     * @param  string $host                new host
+    /** Sets host
+     * @access public
+     * @param  string $host new host
      * @return Zend_View_Helper_ServerUrl  fluent interface, returns self
      */
-    public function setHost($host)
-    {
+    public function setHost($host) {
         $this->_host = $host;
         return $this;
     }
 
-    /**
-     * Returns scheme (typically http or https)
-     *
+    /** Returns scheme (typically http or https)
+     * @access public
      * @return string  scheme (typically http or https)
      */
-    public function getScheme()
-    {
+    public function getScheme() {
         return $this->_scheme;
     }
 
-    /**
-     * Sets scheme (typically http or https)
-     *
-     * @param  string $scheme              new scheme (typically http or https)
+    /** Sets scheme (typically http or https)
+     * @access public
+     * @param  string $scheme new scheme (typically http or https)
      * @return Zend_View_Helper_ServerUrl  fluent interface, returns self
      */
     public function setScheme($scheme)
@@ -127,5 +111,3 @@ class Pas_OaiPmhRepository_ServerUrl {
         return $this;
     }
 }
-
-

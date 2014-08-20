@@ -10,8 +10,6 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-require_once('Pas/OaiPmhRepository/Metadata/Abstract.php');
-
 class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_Abstract
 {
     /** OAI-PMH metadata prefix */
@@ -26,19 +24,16 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
     /** XML namespace for unqualified Dublin Core */
     const DC_NAMESPACE_URI = 'http://purl.org/dc/elements/1.1/';
 
-    /**
-     * Appends Dublin Core metadata.
-     *
+    /** Appends Dublin Core metadata.
      * Appends a metadata element, an child element with the required format,
      * and further children for each of the Dublin Core fields present in the
      * item.
+     * @access public
+     * @return void
      */
-
-
     public function appendMetadata() {
 	$metadataElement = $this->document->createElement('metadata');
 	$this->parentElement->appendChild($metadataElement);
-
 	$oai_dc = $this->document->createElementNS( self::METADATA_NAMESPACE, 'oai_dc:dc');
 	$metadataElement->appendChild($oai_dc);
 
@@ -47,47 +42,46 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
 	*/
 	$oai_dc->setAttribute('xmlns:dc', self::DC_NAMESPACE_URI);
 	$oai_dc->setAttribute('xmlns:xsi', parent::XML_SCHEMA_NAMESPACE_URI);
-	$oai_dc->setAttribute('xsi:schemaLocation', self::METADATA_NAMESPACE
-                . ' ' . self::METADATA_SCHEMA);
+	$oai_dc->setAttribute(
+                'xsi:schemaLocation', self::METADATA_NAMESPACE . ' ' . self::METADATA_SCHEMA);
 
 	if(!array_key_exists('0',$this->item)) {
-	$data = array(
-   	'title'			=> $this->item['broadperiod']. ' ' . $this->item['objecttype'] ,
-	'creator'		=> $this->item['creator'],
-	'subject'		=> self::SUBJECT,
-	'description'           => strip_tags($this->item['description']),
-	'publisher'             => self::RIGHTS_HOLDER,
-	'contributor'           => $this->item['institution'],
-	'date' 			=> $this->item['created'],
- 	'type' 			=> $this->item['objecttype'],
-	'format' 		=> self::FORMAT,
-	'id' 			=> $this->item['id'],
-	'identifier'            => $this->_serverUrl . self::RECORD_URI . $this->item['id'],
-	'source' 		=> self::SOURCE,
-	'language' 		=> self::LANGUAGE
-        );
+            $data = array(
+                'title' => $this->item['broadperiod']. ' ' . $this->item['objecttype'] ,
+                'creator' => $this->item['creator'],
+                'subject' => self::SUBJECT,
+                'description' => strip_tags($this->item['description']),
+                'publisher' => self::RIGHTS_HOLDER,
+                'contributor' => $this->item['institution'],
+                'date' => $this->item['created'],
+                'type' => $this->item['objecttype'],
+                'format' => self::FORMAT,
+                'id' => $this->item['id'],
+                'identifier' => $this->_serverUrl . self::RECORD_URI . $this->item['id'],
+                'source' => self::SOURCE,
+                'language' => self::LANGUAGE
+            );
 
-
-	if(isset($this->item['thumbnail'])){
-        $relation = $this->_serverUrl . '/' . $this->item['imagedir']
-               . $this->item['filename'];
-	$data['relation'] = $relation;
-	} else {
-	$data['relation'] = '';
-	}
-	$data['coverage'] = $this->item['broadperiod'];
-	$data['rights'] = self::LICENSE;
-	unset($data['id']);
-	foreach($data as $k => $v){
-	$this->appendNewElement($oai_dc, 'dc:' . $k, $v);
-	}
+            if(isset($this->item['thumbnail'])){
+                $relation = $this->_serverUrl . '/' . $this->item['imagedir']
+                       . $this->item['filename'];
+                $data['relation'] = $relation;
+            } else {
+                $data['relation'] = '';
+            }
+            $data['coverage'] = $this->item['broadperiod'];
+            $data['rights'] = self::LICENSE;
+            unset($data['id']);
+            foreach($data as $k => $v){
+                $this->appendNewElement($oai_dc, 'dc:' . $k, $v);
+            }
 	}
     }
 
 
     /**
      * Returns the OAI-PMH metadata prefix for the output format.
-     *
+     * @access public
      * @return string Metadata prefix
      */
     public function getMetadataPrefix() {
@@ -96,7 +90,7 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
 
     /**
      * Returns the XML schema for the output format.
-     *
+     * @access public
      * @return string XML schema URI
      */
     public function getMetadataSchema() {
@@ -105,7 +99,7 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
 
     /**
      * Returns the XML namespace for the output format.
-     *
+     * @access public
      * @return string XML namespace URI
      */
     public function getMetadataNamespace() {
