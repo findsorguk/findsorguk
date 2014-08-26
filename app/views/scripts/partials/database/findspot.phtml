@@ -1,16 +1,25 @@
 <?php
-    $this->googleDynamicMap(null,null,true);
+/** A partial view for rendering authorised access to a findspot
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright  Copyright (c) 2014 dpett @ britishmuseum.org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ * 
+ */
 ?>
+
+<?php $this->googleDynamicMap(null,null,true); ?>
 <h3>Spatial data</h3>
 <?php echo $this->findSpotEditDeleteLink($this->old_findspotid,$this->id,$this->createdBy);?>
 
 <?php if(isset($this->lon) && isset($this->lat)) : ?>
 
 <div id="map">
-	<noscript><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->lat;?>,
-	<?php echo $this->lon;?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
-	<?php echo $this->lat;?>,<?php echo $this->lon;?>&sensor=false" />
-	</noscript>
+    <noscript>
+    <img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->lat;?>,
+    <?php echo $this->lon;?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
+    <?php echo $this->lat;?>,<?php echo $this->lon;?>&sensor=false" />
+    </noscript>
 </div>
 <?php
 $allowed = array('hero','flos','admin','treasure','research','fa');

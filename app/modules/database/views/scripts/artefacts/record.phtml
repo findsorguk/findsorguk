@@ -3,11 +3,11 @@
     <ul class="pager">
 
         <!-- The previous find widget -->
-        <?php echo $this->previousFind()->setFindID($this->finds['0']['id']);?>
+        <?php echo $this->previousFind()->setFindID($this->finds[0]['id']);?>
         <!-- End of previous find widget -->
 
         <!-- The next find widget -->
-        <?php echo $this->nextFind()->setFindID($this->finds['0']['id']);?>
+        <?php echo $this->nextFind()->setFindID($this->finds[0]['id']);?>
         <!-- End of next find widget -->
 
     </ul>
@@ -20,8 +20,8 @@
 
 <div class="row-fluid">
 
-    <?php echo $this->partialLoop('partials/database/recordheadtitle.phtml',$this->finds);?>
-    <?php echo $this->partialLoop('partials/database/zoterorecord.phtml',$this->finds);?>
+    <?php echo $this->partialLoop('partials/database/recordHeadTitle.phtml', $this->finds);?>
+    <?php echo $this->partialLoop('partials/database/zoteroRecord.phtml', $this->finds);?>
 
 
     <div id="workflowstatus">
@@ -33,66 +33,68 @@
 
         <div class="span8">
             <!-- Header of section -->
-            <?php echo $this->partial('partials/database/recordh2section.phtml',$this->finds['0']); ?>
+            <?php echo $this->partial('partials/database/recordH2Section.phtml', $this->finds[0]); ?>
             
             <!-- Notification message if public record -->
             <?php 
                 echo $this->notifyFloPublic()
-                        ->setInstitution($this->finds['0']['institution'])
-                        ->setId($this->finds['0']['id'])
-                        ->setWorkflow($this->finds['0']['secwfstage']);
+                        ->setInstitution($this->finds[0]['institution'])
+                        ->setId($this->finds[0]['id'])
+                        ->setWorkflow($this->finds[0]['secwfstage']);
             ?>
             
             <!-- The description of the object -->
-            <?php echo $this->partial('partials/database/recorddescriptive.phtml',$this->finds['0']);?>
+            <?php echo $this->partial('partials/database/recordDescriptive.phtml', $this->finds[0]);?>
             
             <!-- Treasure find info -->
-            <?php echo $this->partial('partials/database/treasurefinddetails.phtml', $this->finds['0']);?>
+            <?php echo $this->partial('partials/database/treasureFindDetails.phtml', $this->finds[0]);?>
             
             <!-- Temporal details -->
-            <?php echo $this->partial('partials/database/temporal.phtml', $this->temporals['0']);?>
+            <?php echo $this->partial('partials/database/temporal.phtml', $this->finds[0]);?>
             
             <!-- Dimensional data -->
             <?php
                 if (count($this->finds) > 0) {
-                    echo $this->partial('partials/database/dimensions.phtml', $this->finds['0']);
+                    echo $this->partial('partials/database/dimensions.phtml', $this->finds[0]);
                 }
             ?>
             
             <!-- Date found -->
             <?php 
-                echo $this->partial('partials/database/datefound.phtml',$this->finds['0']);
+                echo $this->partial('partials/database/dateFound.phtml',$this->finds[0]);
             ?>
             
             <!-- Rally data -->
             <?php
-                echo $this->partial('partials/database/rallyfind.phtml', $this->finds['0']);
+                if($this->finds[0]['rallyID']) {
+                    echo $this->partial('partials/database/rallyFind.phtml', $this->finds[0]);
+                }
             ?>
             
             <!-- Personal data -->
-            <?php if (count($this->peoples) > 0): ?>
+            <?php if(!empty($this->peoples)): ?>
                 <h4>Personal details</h4>
-                    <?php echo $this->partial('partials/database/personal.phtml', $this->finds['0']) ?>
+                <?php echo $this->partial('partials/database/personal.phtml', $this->finds[0]) ?>
             <?php endif;?>
             
                 
             <!-- Other references -->
-            <?php
-                echo $this->partial('partials/database/otherrefs.phtml', $this->finds['0']);
+            <?php 
+                echo $this->partial('partials/database/otherRefs.phtml', $this->finds[0]);
             ?>
             
             <!-- Finds materials -->
             <?php
                 if($this->finds[0]['material1']) {    
-                    echo $this->partial('partials/database/materials.phtml', $this->finds['0']);
+                    echo $this->partial('partials/database/materials.phtml', $this->finds[0]);
                 }
             ?>
             
             <!-- Display coins data -->
             <?php
                 echo $this->coinDataDisplay()
-                    ->setObjectType($this->finds['0']['objecttype'])
-                    ->setBroadperiod($this->finds['0']['broadperiod'])
+                    ->setObjectType($this->finds[0]['objecttype'])
+                    ->setBroadperiod($this->finds[0]['broadperiod'])
                     ->setCoins($this->finds)
                     ->setFinds($this->finds);
             ?>
@@ -115,10 +117,10 @@
                     <!-- Link for adding new reference if allowed -->
                     <?php
                         echo $this->coinRefAddLink()
-                                ->setFindID($this->finds['0']['id'])
+                                ->setFindID($this->finds[0]['id'])
                                 ->setCoinID($this->finds[0]['coinID'])
-                                ->setCreatedby($this->finds['0']['createdBy'])
-                                ->setInstitution($this->finds['0']['institution']);
+                                ->setCreatedby($this->finds[0]['createdBy'])
+                                ->setInstitution($this->finds[0]['institution']);
                     ?>
                     <!-- End of coin ref link -->
             </div>
@@ -166,10 +168,10 @@
                     <!-- The image link addition -->
                     <?php
                     echo $this->imageLink()
-                            ->setFindID($this->finds['0']['id'])
-                            ->setSecuID($this->finds['0']['secuid'])
-                            ->setCreatedBy($this->finds['0']['createdBy'])
-                            ->setInstitution($this->finds['0']['institution']);
+                            ->setFindID($this->finds[0]['id'])
+                            ->setSecuID($this->finds[0]['secuid'])
+                            ->setCreatedBy($this->finds[0]['createdBy'])
+                            ->setInstitution($this->finds[0]['institution']);
                     ?>
                     <!-- End of image link if appropriate -->
             </div>
@@ -185,7 +187,7 @@
 
         <?php if ($this->finds[0]['countyID']) :  ?>
         
-        <!-- Check for findspot data and if there render -->
+        <!-- Check for findspot data and if exists render -->
             <?php 
                 echo $this->findspot()
                         ->setData($this->finds[0])
@@ -202,10 +204,10 @@
                 <!-- Work out whether user can add data -->    
                 <?php 
                     echo $this->findSpotLink()
-                            ->setFindID($this->finds['0']['id'])
-                            ->setSecuID($this->finds['0']['secuid'])
-                            ->setCreatedBy($this->finds['0']['createdBy'])
-                            ->setInstitution($this->finds['0']['institution']);
+                            ->setFindID($this->finds[0]['id'])
+                            ->setSecuID($this->finds[0]['secuid'])
+                            ->setCreatedBy($this->finds[0]['createdBy'])
+                            ->setInstitution($this->finds[0]['institution']);
                 ?>
                 <!-- End of user test -->
             </div>
@@ -223,10 +225,10 @@
         <?php if (!empty($this->refs)) : ?>
             <?php
                 echo $this->addRefLink()
-                        ->setFindID($this->finds['0']['id'])
-                        ->setSecuID($this->finds['0']['secuid'])
-                        ->setCreatedBy($this->finds['0']['createdBy'])
-                        ->setInstitution($this->finds['0']['institution']);
+                        ->setFindID($this->finds[0]['id'])
+                        ->setSecuID($this->finds[0]['secuid'])
+                        ->setCreatedBy($this->finds[0]['createdBy'])
+                        ->setInstitution($this->finds[0]['institution']);
             ?>
 
             <ul>
@@ -239,10 +241,10 @@
         <!-- Check if user can add a reference -->
             <?php
                 echo $this->addRefLink()
-                        ->setFindID($this->finds['0']['id'])
-                        ->setSecuID($this->finds['0']['secuid'])
-                        ->setCreatedBy($this->finds['0']['createdBy'])
-                        ->setInstitution($this->finds['0']['institution']);
+                        ->setFindID($this->finds[0]['id'])
+                        ->setSecuID($this->finds[0]['secuid'])
+                        ->setCreatedBy($this->finds[0]['createdBy'])
+                        ->setInstitution($this->finds[0]['institution']);
              ?>
         <!-- End of test for user adding references -->
         
@@ -256,7 +258,7 @@
 <div class="row-fluid" id="morelikethis">
     <?php 
         echo $this->moreLikeThis()
-                ->setQuery('old_findID:' . $this->finds['0']['old_findID']);
+                ->setQuery('old_findID:' . $this->finds[0]['old_findID']);
     ?>
 </div>
 <!--  End of more like this section -->
@@ -326,7 +328,7 @@
 
 <!-- Start of the Audit section -->
 <div class="row-fluid" id="audit">
-    <?php echo $this->partial('partials/database/recordaudit.phtml',$this->finds['0']); ?>
-    <?php echo $this->auditLogs()->setId($this->finds['0']['id']); ?>
+    <?php echo $this->partial('partials/database/recordaudit.phtml',$this->finds[0]); ?>
+    <?php echo $this->auditLogs()->setId($this->finds[0]['id']); ?>
 </div>
 <!-- end of audit section -->

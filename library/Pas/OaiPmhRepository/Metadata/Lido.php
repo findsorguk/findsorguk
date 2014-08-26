@@ -204,7 +204,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             $recID = $this->document->createElement('lido:lidoRecID', $lido['uri']);
             //Append the element to the LIDO element
             $lidoElement->appendChild($recID); 
-            $recID->setAttribute('lido:source', self::RIGHTS_HOLDER);
+            $recID->setAttribute('lido:source', 'The Portable Antiquities Scheme');
             $recID->setAttribute('lido:type', 'URI');
         
             //Published at
@@ -245,14 +245,14 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
         
             $typeWrap->appendChild($searchTerm);
             $searchTerm->setAttribute('lido:addedSearchTerm', 'no');
-        
+            if($this->item['thumbnail']) {
             $classification = $this->document->createElement('lido:classificationWrap');
             $classWrap->appendChild($classification);
             $class = $this->document->createElement('lido:classification');
             $classification->appendChild($class);
             $class->setAttribute('lido:type','europeana:type');
             $this->appendNewElement($class, 'lido:term', 'IMAGE');
-
+            }
             // The identifcation wrapper
             $identificationElement = $this->document->createElement('lido:objectIdentificationWrap');
             $descriptiveElement->appendChild($identificationElement);
@@ -274,8 +274,8 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             $repoSet->appendChild($repoName);
             $legalRepoName = $this->document->createElement('lido:legalBodyName');
             $repoName->appendChild($legalRepoName);
-            $this->appendNewElement($legalRepoName, 'lido:appellationValue', self::RIGHTS_HOLDER);
-            $this->appendNewElement($repoSet, 'lido:workID', $lido['old_findID'])->setAttribute('lido:type', 'record');
+            $this->appendNewElement($legalRepoName, 'lido:appellationValue', 'The British Museum and the Portable Antiquities Scheme');
+//            $this->appendNewElement($repoSet, 'lido:workID', $lido['old_findID'])->setAttribute('lido:type', 'record');
         
 //            //DisplayStateEditionWrap
 //            $displayStateWrap = $this->document->createElement('lido:displayStateEditionWrap');
@@ -292,17 +292,17 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             $identificationElement->appendChild($objDescWrap);
             $objDescSet = $this->document->createElement('lido:objectDescriptionSet');
             $objDescWrap->appendChild($objDescSet);
-            $objDescSet->setAttribute('lido:sortorder', 1);
-            $objDescSet->setAttribute('lido:type', 'object');
+//            $objDescSet->setAttribute('lido:sortorder', 1);
+//            $objDescSet->setAttribute('lido:type', 'object');
             $this->appendNewElement($objDescSet, 'lido:descriptiveNoteValue', $lido['description']);
-            if(array_key_exists('notes', $this->item)) {
-                $objDescSet = $this->document->createElement('lido:objectDescriptionSet');
-                $objDescWrap->appendChild($objDescSet);
-                $objDescSet->setAttribute('lido:sortorder', 2);
-                $objDescSet->setAttribute('lido:type', 'content description');
-                $this->appendNewElement($objDescSet, 'lido:descriptiveNoteValue', strtr($this->item['notes'], array('\x0B' => '&#x0B;'))); 
-            }
-            
+//            if(array_key_exists('notes', $this->item)) {
+//                $objDescSet = $this->document->createElement('lido:objectDescriptionSet');
+//                $objDescWrap->appendChild($objDescSet);
+//                $objDescSet->setAttribute('lido:sortorder', 2);
+//                $objDescSet->setAttribute('lido:type', 'content description');
+//                $this->appendNewElement($objDescSet, 'lido:descriptiveNoteValue', strtr($this->item['notes'], array('\x0B' => '&#x0B;'))); 
+//            }
+            if(!empty($measurements)){
             $objMeasureWrap = $this->document->createElement('lido:objectMeasurementsWrap');
             $identificationElement->appendChild($objMeasureWrap);
             $objMeasureSet = $this->document->createElement('lido:objectMeasurementsSet');
@@ -323,6 +323,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
                 $this->appendNewElement($set, 'lido:measurementUnit', 'g');
                 $this->appendNewElement($set, 'lido:measurementValue', $this->item['weight']);
             }
+            }
             //The event wrapper
             $eventElement = $this->document->createElement('lido:eventWrap');
             $descriptiveElement->appendChild($eventElement);
@@ -335,38 +336,44 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             $eventTypeCreation = $this->document->createElement('lido:eventType');
             $this->appendNewElement($eventTypeCreation, 'lido:term', 'Production');
             $eventDating->appendChild($eventTypeCreation);
+            
             $eventDate = $this->document->createElement('lido:eventDate');
             $eventDating->appendChild($eventDate);
+            $date = $this->document->createElement('lido:date');
+            $eventDate->appendChild($date);
             if(array_key_exists('fromdate', $this->item)) {
                 $eventDateTime = $this->document->createElement('lido:earliestDate', $this->item['fromdate']);
-                $eventDate->appendChild($eventDateTime);
+                $date->appendChild($eventDateTime);
             }
             if(array_key_exists('todate', $this->item)) {
                 $eventDateTime = $this->document->createElement('lido:latestDate', $this->item['todate']);
-                $eventDate->appendChild($eventDateTime);
+                $date->appendChild($eventDateTime);
             }
+            
             if(!empty($discovery)) {
+                $eventSetFinding = $this->document->createElement('lido:eventSet'); 
+                $eventElement->appendChild($eventSetFinding);
                 $eventDating = $this->document->createElement('lido:event');
-                $eventSet->appendChild($eventDating);
+                $eventSetFinding->appendChild($eventDating);
                 $eventTypeCreation = $this->document->createElement('lido:eventType');
                 $this->appendNewElement($eventTypeCreation, 'lido:term', 'Finding');
                 $eventDating->appendChild($eventTypeCreation);
-                $eventDate = $this->document->createElement('lido:eventDate');
-                $eventDating->appendChild($eventDate);
-                if(array_key_exists('datefound1', $this->item)){
-                    $eventDateTime = $this->document->createElement('lido:earliestDate', $this->item['datefound1']);
-                    $eventDate->appendChild($eventDateTime);
-                }
-                if(array_key_exists('datefound2', $this->item)){
-                    $eventDateTime = $this->document->createElement('lido:latestDate', $this->item['datefound2']);
-                    $eventDate->appendChild($eventDateTime);
-                }
-            }
-            
-            if(array_key_exists('county', $this->item)) {
+//                $eventDate = $this->document->createElement('lido:eventDate');
+//                $eventDating->appendChild($eventDate);
+//                $date = $this->document->createElement('lido:date');
+//                $eventDate->appendChild($date);
+//                if(array_key_exists('datefound1', $this->item)){
+//                    $eventDateTime = $this->document->createElement('lido:earliestDate', $this->item['datefound1']);
+//                    $date->appendChild($eventDateTime);
+//                }
+//                if(array_key_exists('datefound2', $this->item)){
+//                    $eventDateTime = $this->document->createElement('lido:latestDate', $this->item['datefound2']);
+//                    $date->appendChild($eventDateTime);
+//                }
+                if(array_key_exists('county', $this->item)) {
                 $placeType = $this->document->createElement('lido:eventPlace');
 //                $placeType->setAttribute('lido:type', 'Finding');
-                $eventSet->appendChild($placeType);
+                $eventDating->appendChild($placeType);
                 $place = array();
                 $place[] = 'United Kingdom';
                 $place[] = $this->item['county'];
@@ -399,96 +406,100 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
 //                    $gmlPoint->appendChild($coordinates);
 //                }
             }
+                
+            }
+            
+           
                        
                
-            //The identifier of the record
-                $eventSet = $this->document->createElement('lido:eventSet'); 
-                $eventElement->appendChild($eventSet);
-                //The creator of the record
-                $eventDating = $this->document->createElement('lido:event');
-                $eventSet->appendChild($eventDating);
-                $eventTypeCreation = $this->document->createElement('lido:eventType');
-                
-                $this->appendNewElement($eventTypeCreation, 'lido:term', 'Recorder');
-                $eventDating->appendChild($eventTypeCreation);
-                $eventActor = $this->document->createElement('lido:eventActor'); 
-                $eventDating->appendChild($eventActor);
-                $actorInRole = $this->document->createElement('lido:actorInRole');
-                $eventActor->appendChild($actorInRole);
-                $actor = $this->document->createElement('lido:actor');
-                $actorInRole->appendChild($actor);
-                $actorID = $this->document->createElement('lido:actorID', $this->item['recorderID']);
-                $actorID->setAttribute('lido:source', 'PAS');
-                $actorID->setAttribute('lido:type', 'local');
-                $actor->appendChild($actorID);
-                $nameActorSet = $this->document->createElement('lido:nameActorSet');
-                $actor->appendChild($nameActorSet);
-                $nameAppellationValue = $this->document->createElement('lido:appelationValue', $this->item['recorder']);
-                $nameActorSet->appendChild($nameAppellationValue);
-                
-                $eventTypeCreation = $this->document->createElement('lido:eventType');
-                if(array_key_exists('identifierID', $this->item)){
-                    $this->appendNewElement($eventTypeCreation, 'lido:term', 'Identifer');
-                    $eventDating->appendChild($eventTypeCreation);
-                    $eventActor = $this->document->createElement('lido:eventActor'); 
-                    $eventDating->appendChild($eventActor);
-                    $actorInRole = $this->document->createElement('lido:actorInRole');
-                    $eventActor->appendChild($actorInRole);
-                    $actor = $this->document->createElement('lido:actor');
-                    $actorInRole->appendChild($actor);
-                    $actorID = $this->document->createElement('lido:actorID', $this->item['identifierID']);
-                    $actorID->setAttribute('lido:source', 'PAS');
-                    $actorID->setAttribute('lido:type', 'local');
-                    $actor->appendChild($actorID);
-                    $nameActorSet = $this->document->createElement('lido:nameActorSet');
-                    $actor->appendChild($nameActorSet);
-                    $nameAppellationValue = $this->document->createElement('lido:appelationValue', 'Currently restricted info');
-                    $nameActorSet->appendChild($nameAppellationValue);
-                }
-                if(array_key_exists('identifier2D', $this->item)){
-                    $eventTypeCreation = $this->document->createElement('lido:eventType');
-
-                    $this->appendNewElement($eventTypeCreation, 'lido:term', 'Secondary identifer');
-                    $eventDating->appendChild($eventTypeCreation);
-                    $eventActor = $this->document->createElement('lido:eventActor'); 
-                    $eventDating->appendChild($eventActor);
-                    $actorInRole = $this->document->createElement('lido:actorInRole');
-                    $eventActor->appendChild($actorInRole);
-                    $actor = $this->document->createElement('lido:actor');
-                    $actorInRole->appendChild($actor);
-                    $actorID = $this->document->createElement('lido:actorID', $this->item['identifier2D']);
-                    $actorID->setAttribute('lido:source', 'PAS');
-                    $actorID->setAttribute('lido:type', 'local');
-                    $actor->appendChild($actorID);
-                    $nameActorSet = $this->document->createElement('lido:nameActorSet');
-                    $actor->appendChild($nameActorSet);
-                    $nameAppellationValue = $this->document->createElement('lido:appelationValue', $this->item['secondaryIdentifier']);
-                    
-                }
-                if(array_key_exists('creator', $this->item)){
-                    $eventTypeCreation = $this->document->createElement('lido:eventType');
-
-                    $this->appendNewElement($eventTypeCreation, 'lido:term', 'creator');
-                    $eventDating->appendChild($eventTypeCreation);
-                    $eventActor = $this->document->createElement('lido:eventActor'); 
-                    $eventDating->appendChild($eventActor);
-                    $actorInRole = $this->document->createElement('lido:actorInRole');
-                    $eventActor->appendChild($actorInRole);
-                    $actor = $this->document->createElement('lido:actor');
-                    $actorInRole->appendChild($actor);
-                    if(array_key_exists('identifierID', $this->item)){
-                        $actorID = $this->document->createElement('lido:actorID', $this->item['identifierID']);
-                    } else {
-                        $actorID = $this->document->createElement('lido:actorID', $this->item['recorderID']);
-                    }
-                    $actorID->setAttribute('lido:source', 'PAS');
-                    $actorID->setAttribute('lido:type', 'local');
-                    $actor->appendChild($actorID);
-                    $nameActorSet = $this->document->createElement('lido:nameActorSet');
-                    $actor->appendChild($nameActorSet);
-                    $nameAppellationValue = $this->document->createElement('lido:appelationValue', $this->item['creator']);
-                    $nameActorSet->appendChild($nameAppellationValue);
-                }
+//            //The identifier of the record
+//                $eventSet = $this->document->createElement('lido:eventSet'); 
+//                $eventElement->appendChild($eventSet);
+//                //The creator of the record
+//                $eventDating = $this->document->createElement('lido:event');
+//                $eventSet->appendChild($eventDating);
+//                $eventTypeCreation = $this->document->createElement('lido:eventType');
+//                
+//                $this->appendNewElement($eventTypeCreation, 'lido:term', 'Recorder');
+//                $eventDating->appendChild($eventTypeCreation);
+//                $eventActor = $this->document->createElement('lido:eventActor'); 
+//                $eventDating->appendChild($eventActor);
+//                $actorInRole = $this->document->createElement('lido:actorInRole');
+//                $eventActor->appendChild($actorInRole);
+//                $actor = $this->document->createElement('lido:actor');
+//                $actorInRole->appendChild($actor);
+//                $actorID = $this->document->createElement('lido:actorID', $this->item['recorderID']);
+//                $actorID->setAttribute('lido:source', 'PAS');
+//                $actorID->setAttribute('lido:type', 'local');
+//                $actor->appendChild($actorID);
+//                $nameActorSet = $this->document->createElement('lido:nameActorSet');
+//                $actor->appendChild($nameActorSet);
+//                $nameAppellationValue = $this->document->createElement('lido:appelationValue', $this->item['recorder']);
+//                $nameActorSet->appendChild($nameAppellationValue);
+//                
+//                $eventTypeCreation = $this->document->createElement('lido:eventType');
+//                if(array_key_exists('identifierID', $this->item)){
+//                    $this->appendNewElement($eventTypeCreation, 'lido:term', 'Identifer');
+//                    $eventDating->appendChild($eventTypeCreation);
+//                    $eventActor = $this->document->createElement('lido:eventActor'); 
+//                    $eventDating->appendChild($eventActor);
+//                    $actorInRole = $this->document->createElement('lido:actorInRole');
+//                    $eventActor->appendChild($actorInRole);
+//                    $actor = $this->document->createElement('lido:actor');
+//                    $actorInRole->appendChild($actor);
+//                    $actorID = $this->document->createElement('lido:actorID', $this->item['identifierID']);
+//                    $actorID->setAttribute('lido:source', 'PAS');
+//                    $actorID->setAttribute('lido:type', 'local');
+//                    $actor->appendChild($actorID);
+//                    $nameActorSet = $this->document->createElement('lido:nameActorSet');
+//                    $actor->appendChild($nameActorSet);
+//                    $nameAppellationValue = $this->document->createElement('lido:appelationValue', 'Currently restricted info');
+//                    $nameActorSet->appendChild($nameAppellationValue);
+//                }
+//                if(array_key_exists('identifier2D', $this->item)){
+//                    $eventTypeCreation = $this->document->createElement('lido:eventType');
+//
+//                    $this->appendNewElement($eventTypeCreation, 'lido:term', 'Secondary identifer');
+//                    $eventDating->appendChild($eventTypeCreation);
+//                    $eventActor = $this->document->createElement('lido:eventActor'); 
+//                    $eventDating->appendChild($eventActor);
+//                    $actorInRole = $this->document->createElement('lido:actorInRole');
+//                    $eventActor->appendChild($actorInRole);
+//                    $actor = $this->document->createElement('lido:actor');
+//                    $actorInRole->appendChild($actor);
+//                    $actorID = $this->document->createElement('lido:actorID', $this->item['identifier2D']);
+//                    $actorID->setAttribute('lido:source', 'PAS');
+//                    $actorID->setAttribute('lido:type', 'local');
+//                    $actor->appendChild($actorID);
+//                    $nameActorSet = $this->document->createElement('lido:nameActorSet');
+//                    $actor->appendChild($nameActorSet);
+//                    $nameAppellationValue = $this->document->createElement('lido:appelationValue', $this->item['secondaryIdentifier']);
+//                    
+//                }
+//                if(array_key_exists('creator', $this->item)){
+//                    $eventTypeCreation = $this->document->createElement('lido:eventType');
+//
+//                    $this->appendNewElement($eventTypeCreation, 'lido:term', 'creator');
+//                    $eventDating->appendChild($eventTypeCreation);
+//                    $eventActor = $this->document->createElement('lido:eventActor'); 
+//                    $eventDating->appendChild($eventActor);
+//                    $actorInRole = $this->document->createElement('lido:actorInRole');
+//                    $eventActor->appendChild($actorInRole);
+//                    $actor = $this->document->createElement('lido:actor');
+//                    $actorInRole->appendChild($actor);
+//                    if(array_key_exists('identifierID', $this->item)){
+//                        $actorID = $this->document->createElement('lido:actorID', $this->item['identifierID']);
+//                    } else {
+//                        $actorID = $this->document->createElement('lido:actorID', $this->item['recorderID']);
+//                    }
+//                    $actorID->setAttribute('lido:source', 'PAS');
+//                    $actorID->setAttribute('lido:type', 'local');
+//                    $actor->appendChild($actorID);
+//                    $nameActorSet = $this->document->createElement('lido:nameActorSet');
+//                    $actor->appendChild($nameActorSet);
+//                    $nameAppellationValue = $this->document->createElement('lido:appelationValue', $this->item['creator']);
+//                    $nameActorSet->appendChild($nameAppellationValue);
+//                }
             //The admin wrapper
             $adminElement = $this->document->createElement('lido:administrativeMetadata');
             
@@ -498,11 +509,11 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             $adminElement->appendChild($rightsWrapElement);
             $rightsWorkSet = $this->document->createElement('lido:rightsWorkSet');
             $rightsWrapElement->appendChild($rightsWorkSet);
-            $rightsType = $this->document->createElement('lido:rightsType');            
-            $rightsWorkSet->appendChild($rightsType);
-            $this->appendNewElement($rightsType, 'lido:conceptID', self::LICENSE_URI)
-                    ->setAttribute('lido:type', 'URI');
-            $this->appendNewElement($rightsType, 'lido:creditLine', self::RIGHTS_HOLDER);
+//            $rightsType = $this->document->createElement('lido:rightsType');            
+//            $rightsWorkSet->appendChild($rightsType);
+//            $this->appendNewElement($rightsType, 'lido:conceptID', self::LICENSE_URI)
+//                    ->setAttribute('lido:type', 'URI');
+            $this->appendNewElement($rightsWorkSet, 'lido:creditLine', self::RIGHTS_HOLDER);
         
             $recordWrap = $this->document->createElement('lido:recordWrap');            
             $adminElement->appendChild($recordWrap);
@@ -521,41 +532,45 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             $recordWrap->appendChild($recordSource);
             $legalBody = $this->document->createElement('lido:legalBodyName');
             $recordSource->appendChild($legalBody);
-            $this->appendNewElement($legalBody, 'lido:appellationValue', self::RIGHTS_HOLDER);
+            $this->appendNewElement($legalBody, 'lido:appellationValue', 'The British Museum and The Portable Antiquities Scheme');
             
             $this->appendNewElement($recordSource, 'lido:legalBodyWeblink', 'http://finds.org.uk');
             
             $recordInfoSet = $this->document->createElement('lido:recordInfoSet');
-            $recordSource->appendChild($recordInfoSet);
+            $recordWrap->appendChild($recordInfoSet);
             
             $url = new Pas_OaiPmhRepository_ServerUrl();
             
             $types = array( 'html');
             foreach($types as $type ) {
-                $link = $url->get() . self::RECORD_URI . $this->item['id'] . '/format/' . $type;
+                $link = $url->get() . self::RECORD_URI . $this->item['id'];
                 $this->appendNewElement($recordInfoSet, 'lido:recordInfoLink', $link)
                 ->setAttribute('lido:formatResource', $type);
             }
-            $recordInfoSet = $this->document->createElement('lido:recordInfoSet');
-            $recordSource->appendChild($recordInfoSet);
-            $this->appendNewElement($recordInfoSet, 'lido:recordInfoLink', 
-                    Pas_OaiPmhRepository_OaiIdentifier::itemToOaiId($this->item['id']))
-                    ->setAttribute('lido:formatResource', 'oai');
+//            $recordInfoSet = $this->document->createElement('lido:recordInfoSet');
+//            $recordSource->appendChild($recordInfoSet);
+//            $this->appendNewElement($recordInfoSet, 'lido:recordInfoLink', 
+//                    Pas_OaiPmhRepository_OaiIdentifier::itemToOaiId($this->item['id']))
+//                    ->setAttribute('lido:formatResource', 'oai');
             
-            //Create the resource wrap set and append to admin element
-            $resourceWrapSet = $this->document->createElement('lido:resourceWrap');
-            $adminElement->appendChild($resourceWrapSet);
+         
             
-            //Create resource set and append to resource wrap set
-            $resourceSet = $this->document->createElement('lido:resourceSet');
-            $resourceWrapSet->appendChild($resourceSet);
-            
+//            //Create resource set and append to resource wrap set
+//            $resourceSet = $this->document->createElement('lido:resourceSet');
+//            $resourceWrapSet->appendChild($resourceSet);
+//            
             
             if(array_key_exists('thumbnail', $this->item)) {
+                   //Create the resource wrap set and append to admin element
+            $resourceWrapSet = $this->document->createElement('lido:resourceWrap');
+            $adminElement->appendChild($resourceWrapSet);
+                    //Create resource set and append to resource wrap set
+            $resourceSet = $this->document->createElement('lido:resourceSet');
+            $resourceWrapSet->appendChild($resourceSet);
 //                $this->appendNewElement($resourceSet, 'lido:resourceID', $this->item['thumbnail']);
            
                 foreach($formats as $k => $v) {
-                    list($width, $height) = getimagesize($v);
+                    list($width, $height) = getimagesize('./' .  $this->item['imagedir'] . $this->item['filename']);
                     $representation = $this->document->createElement('lido:resourceRepresentation');
                     $resourceSet->appendChild($representation);
                     $representation->setAttribute('lido:type', $k);
@@ -564,17 +579,21 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
                         ->setAttribute('lido:formatResource', 'jpg');
                     
                     if(file_exists('./' . $this->item['imagedir'] . $this->item['filename'])) {
-                        list($width, $height) = getimagesize($v);
-                        $measurementSet = $this->document->createElement('lido:resourceMeasurementsSet');
-                        $representation->appendChild($measurementSet);
+                        list($width, $height) = getimagesize('./' .  $this->item['imagedir'] . $this->item['filename']);
+			//Add height measurement set
+                        $measurementSetHeight = $this->document->createElement('lido:resourceMeasurementsSet');
+                        $representation->appendChild($measurementSetHeight);
                         //Add image height
-                        $this->appendNewElement($measurementSet, 'lido:measurementType', 'height');
-                        $this->appendNewElement($measurementSet, 'lido:measurementUnit', 'pixel');
-                        $this->appendNewElement($measurementSet, 'lido:measurementValue', $height);
+                        $this->appendNewElement($measurementSetHeight, 'lido:measurementType', 'height');
+                        $this->appendNewElement($measurementSetHeight, 'lido:measurementUnit', 'pixel');
+                        $this->appendNewElement($measurementSetHeight, 'lido:measurementValue', $height);
+			//Add Width Measurement Set
+			$measurementSetWidth = $this->document->createElement('lido:resourceMeasurementsSet');
+                        $representation->appendChild($measurementSetWidth);
                         //Add image width
-                        $this->appendNewElement($measurementSet, 'lido:measurementType', 'width');
-                        $this->appendNewElement($measurementSet, 'lido:measurementUnit', 'pixel');
-                        $this->appendNewElement($measurementSet, 'lido:measurementValue', $width);
+                        $this->appendNewElement($measurementSetWidth, 'lido:measurementType', 'width');
+                        $this->appendNewElement($measurementSetWidth, 'lido:measurementUnit', 'pixel');
+                        $this->appendNewElement($measurementSetWidth, 'lido:measurementValue', $width);
                     }
                     
                 }
@@ -587,8 +606,9 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
                 $legalBodyName = $this->document->createElement('lido:legalBodyName');
                 $resourceSource->appendChild($legalBodyName);
                 $this->appendNewElement($legalBodyName, 'lido:appellationValue', 'The British Museum: Department of Britain, Europe and Prehistory');
+                
                 $rightsResource = $this->document->createElement('lido:rightsResource');
-                $resourceSource->appendChild($rightsResource);
+                $resourceSet->appendChild($rightsResource);
                 
                 $resourceRightsType = $this->document->createElement('lido:rightsType');            
                 $rightsResource->appendChild($resourceRightsType);
