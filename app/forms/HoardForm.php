@@ -100,7 +100,7 @@ class HoardForm extends Pas_Form {
             ->addValidator('InArray', false, array(array_keys($periodword_options)))
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
-        //Period from: Assigned via dropdown
+        //Sub period from: Assigned via dropdown
         $hoardsubperiod1 = new Zend_Form_Element_Select('hoardsubperiod1');
         $hoardsubperiod1->setLabel('Sub period from: ')
             ->setRequired(false)
@@ -120,7 +120,7 @@ class HoardForm extends Pas_Form {
             ->addValidator('Int')
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
-        //Period from: Assigned via dropdown
+        //Sub period to: Assigned via dropdown
         $hoardsubperiod2 = new Zend_Form_Element_Select('hoardsubperiod2');
         $hoardsubperiod2->setLabel('Sub period to: ')
             ->setRequired(false)
@@ -260,7 +260,7 @@ class HoardForm extends Pas_Form {
             ->setUncheckedValue(null)
             ->addFilters(array('StripTags','StringTrim'));
 
-        //Treasure: enumerator 1/0
+        //Treasure ID
         $treasureID = new Zend_Form_Element_Text('treasureID');
         $treasureID->setLabel('Treasure number: ')
             ->setRequired(false)
