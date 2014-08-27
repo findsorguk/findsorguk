@@ -1690,6 +1690,7 @@ class Finds extends Pas_Db_Table_Abstract {
                     'datefound2',
                     'createdBy',
                     'curr_loc',
+                    'hoardcontainer',
                     'inscription',
                     'institution'))
                 ->joinLeft('findofnotereasons',
