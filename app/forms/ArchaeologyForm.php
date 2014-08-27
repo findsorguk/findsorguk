@@ -90,7 +90,7 @@ class ArchaeologyForm extends Pas_Form {
         $siteclass->setLabel('Site class: ')
             ->addMultioptions(array(
                 null => 'Choose class of site',
-                'Choose class' => $siteclass_options
+                'Available classes' => $siteclass_options
             ))
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addValidator('InArray', false, array(array_keys($siteclass_options)))
@@ -102,7 +102,7 @@ class ArchaeologyForm extends Pas_Form {
         $landscape_topography->setLabel('Landscape and topography: ')
             ->addMultioptions(array(
                 null => 'Choose landscape term',
-                'Choose term' => $landscape_options
+                'Available terms' => $landscape_options
             ))
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addValidator('InArray', false, array(array_keys($landscape_options)))
@@ -187,7 +187,7 @@ class ArchaeologyForm extends Pas_Form {
         $arch_context->setLabel('Context: ')
             ->addMultioptions(array(
                 null => 'Choose a context',
-                'Choose a context' => $context_options
+                'Available contexts' => $context_options
             ))
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addValidator('InArray', false, array(array_keys($context_options)))
@@ -199,7 +199,7 @@ class ArchaeologyForm extends Pas_Form {
         $arch_feature->setLabel('Feature: ')
             ->addMultioptions(array(
                 null => 'Choose a feature',
-                'Choose a feature' => $feature_options
+                'Available features' => $feature_options
             ))
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addValidator('InArray', false, array(array_keys($feature_options)))
