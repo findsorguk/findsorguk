@@ -12,7 +12,7 @@ echo '<p>This is a find of note and has been designated: '. $this->reason . '</p
 } else if (($this->findofnote == 1) && (is_null($this->reason))) { 
 echo '<p>This has been noted as an interesting find by the recorder.</p>';
 }?>
-<?php if(!is_null($this->hoardcontainer)) :?>
+<?php if(($this->hoardcontainer == 1)) :?>
 <?php echo '<p>This find is a hoard container.</p>';?>
 <?php endif;?>
 <p>
