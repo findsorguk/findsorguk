@@ -265,6 +265,15 @@ class FindSpotForm extends Pas_Form {
                 ))
             ->addFilters(array('StripTags', 'StringTrim', 'Purifier'));
 
+        $alsoknownas = new Zend_Form_Element_Text('alsoknownas');
+        $alsoknownas->setLabel('Also known as: ')
+            ->setAttribs(array(
+                'placeholder' => 'Use this for old names the hoard has been known by',
+                'class' => 'span6'
+            ))
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
+            ->setDescription('Separate different names with semi-colons, e.g. Near Westbury; Gloucestershire; Severn');
+
         $landownername = new Zend_Form_Element_Text('landownername');
         $landownername->setLabel('Landowner: ')
             ->addValidators(array('NotEmpty'))
@@ -299,7 +308,7 @@ class FindSpotForm extends Pas_Form {
         if($action === 'edit') {
             $this->addElements(array(
                 $countyID, $districtID, $parishID,
-                $knownas, $description, $comments,
+                $knownas, $alsoknownas, $description, $comments,
                 $regionID, $gridref, $fourFigure,
                 $easting, $northing, $map10k,
                 $map25k, $declong, $declat,
@@ -312,7 +321,7 @@ class FindSpotForm extends Pas_Form {
         } else {
             $this->addElements(array(
                 $countyID, $districtID, $parishID,
-                $knownas, $depthdiscovery, $description,
+                $knownas, $alsoknownas, $depthdiscovery, $description,
                 $comments, $regionID, $gridref,
                 $gridrefsrc, $gridrefcert,
                 $address, $postcode, $landusevalue,
@@ -324,7 +333,7 @@ class FindSpotForm extends Pas_Form {
 
         $this->addDisplayGroup(array(
             'countyID', 'regionID', 'districtID',
-            'parishID', 'knownas', 'address', 
+            'parishID', 'knownas', 'alsoknownas', 'address',
             'postcode', 'landownername', 'landowner'),
                 'details');
 
