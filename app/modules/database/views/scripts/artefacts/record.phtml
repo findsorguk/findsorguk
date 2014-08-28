@@ -53,16 +53,10 @@
             <?php echo $this->partial('partials/database/temporal.phtml', $this->finds[0]);?>
             
             <!-- Dimensional data -->
-            <?php
-                if (count($this->finds) > 0) {
-                    echo $this->partial('partials/database/dimensions.phtml', $this->finds[0]);
-                }
-            ?>
+            <?php echo $this->partial('partials/database/dimensions.phtml', $this->finds[0]);?>
             
             <!-- Date found -->
-            <?php 
-                echo $this->partial('partials/database/dateFound.phtml',$this->finds[0]);
-            ?>
+            <?php echo $this->partial('partials/database/dateFound.phtml',$this->finds[0]);?>
             
             <!-- Rally data -->
             <?php
