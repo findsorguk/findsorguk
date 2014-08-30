@@ -271,10 +271,10 @@ class HoardForm extends Pas_Form {
         ## MATERIALS ##
         //Materials
         $materials = new Zend_Form_Element_Multiselect('primarymaterials');
-        $materials->setLabel('Primary materials of coins and artefacts in the hoard: ')
+        $materials->setLabel('Primary materials: ')
             ->addMultiOptions($materials_options)
-            ->setAttrib('class', 'select-large')
-            ->setDescription('Hold down the Ctrl (Windows) or Cmd (Mac) button to select multiple materials');
+            ->setAttrib('class', 'multiselect')
+            ->setDescription('Primary materials of coins and artefacts in the hoard');
 
         ## RECORDING DETAILS ##
         //Recorder

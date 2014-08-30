@@ -91,6 +91,8 @@ class Pas_Form extends EasyBib_Form {
                 . '/js/selectPrettify.js', $type='text/javascript');
 	$this->_view->headLink()->appendStylesheet($this->_view->baseUrl() 
                 . '/css/select2.css', $type='screen');
+    $this->_view->headLink()->appendStylesheet($this->_view->baseUrl()
+                . '/css/bootstrap-multiselect.css', $type='screen');
 	$person = new Pas_User_Details();
 	$details = $person->getPerson();
 	if($details){

@@ -8,6 +8,7 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/sec
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
 
 
 $front = Zend_Controller_Front::getInstance()->getRequest();
@@ -23,6 +24,9 @@ $(document).ready(function() {
 $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
 $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
 $("input[type='select']:first", document.forms[0]).focus();
+$('.multiselect').multiselect({
+    maxHeight: 200,
+    enableFiltering: true});
 });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 <h2><?php echo $this->title();?></h2>
