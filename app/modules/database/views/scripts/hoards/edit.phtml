@@ -1,1 +1,30 @@
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryfinder.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
+$this->headTitle('Edit hoard details');?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+$(document).ready(function() {
+$("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
+$("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
+$("input[type='text']:first", document.forms[0]).focus();
+$('.multiselect').multiselect({
+    maxHeight: 200,
+    enableFiltering: true});
+});
 
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
+
+<?php // $this->DataEditDeleteCheck($this->find->old_findID,$this->find->createdBy);
+?>
+<?php echo $this->partial('partials/hoards/editHoardH2.phtml',$this->hoard);?>
+
+<?php
+echo $this->form;
+?>

@@ -570,4 +570,77 @@ class Hoards extends Pas_Db_Table_Abstract {
         return $this->getAdapter()->fetchAll($select);
     }
 
+    /** Retrieve edit data for a hoard
+     * @access public
+     * @param integer $hoardID
+     * @return array
+     */
+    public function getEditData($hoardId)  {
+        $select = $this->select()
+            ->from($this->_name, array(
+                'id',
+                'hoardID',
+                'uniqueID' => 'secuid',
+                'hoardperiod1' => 'period1',
+                'hoardsubperiod1' => 'subperiod1',
+                'hoardperiod2' => 'period2',
+                'hoardsubperiod2' => 'subperiod2',
+                'numdate1',
+                'numdate2',
+                'broadperiod',
+                'lastrulerID',
+                'reeceID',
+                'terminaldate1' => 'terminalyear1',
+                'terminaldate2' => 'terminalyear2',
+                'terminalreason',
+                'description',
+                'notes',
+                'secwfstage',
+                'findofnote',
+                'findofnotereason',
+                'treasure',
+                'treasureID',
+                'coindataquality' => 'qualityrating',
+                'recorderID',
+                'identifier1ID',
+                'identifier2ID',
+                'finderID',
+                'finder2ID',
+                'disccircum',
+                'discmethod',
+                'datefound1',
+                'datefound2',
+                'rally',
+                'rallyID',
+                'legacy_ref' => 'legacyID',
+                'other_ref',
+                'smr_ref' => 'smrrefno',
+                'musaccno',
+                'curr_loc',
+                'subs_action',
+                'created',
+                'createdBy',
+                'updated',
+                'updatedBy',
+                'institution'
+            ))
+            ->joinLeft('people','hoards.finderID = people.secuid',
+                array('finder'  => 'fullname'))
+            ->joinLeft(array('people2' => 'people'),
+                'hoards.finder2ID = people2.secuid',
+                array('secondfinder' => 'fullname'))
+            ->joinLeft(array('ident1' => 'people'),
+                'hoards.identifier1ID = ident1.secuid',
+                array('idBy' => 'fullname'))
+            ->joinLeft(array('ident2' => 'people'),
+                'hoards.identifier2ID = ident2.secuid',
+                array('id2by' => 'fullname'))
+            ->joinLeft(array('record' => 'people'),
+                'hoards.recorderID = record.secuid',
+                array('recordername' => 'fullname'))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
 }

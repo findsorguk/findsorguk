@@ -221,7 +221,7 @@
 
 <!-- Start of the Audit section -->
 <div class="row-fluid" id="audit">
-    <?php echo $this->partial('partials/database/recordaudit.phtml',$this->finds['0']); ?>
-    <?php echo $this->auditLogs()->setId($this->finds['0']['id']); ?>
+    <?php echo $this->partial('partials/database/recordaudit.phtml',$this->hoards); ?>
+    <?php echo $this->auditLogs()->setId($this->hoards['id']); ?>
 </div>
 <!-- end of audit section -->
