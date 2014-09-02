@@ -9,7 +9,7 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/pri
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
-
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfields.js', $type='text/javascript');
 
 $front = Zend_Controller_Front::getInstance()->getRequest();
 
@@ -27,6 +27,19 @@ $("input[type='select']:first", document.forms[0]).focus();
 $('.multiselect').multiselect({
     maxHeight: 200,
     enableFiltering: true});
+
+    $("#addElement").click(
+    function() {
+    ajaxAddField();
+    }
+    );
+
+    $("#removeElement").click(
+    function() {
+    removeField();
+    }
+    );
+
 });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 <h2><?php echo $this->title();?></h2>

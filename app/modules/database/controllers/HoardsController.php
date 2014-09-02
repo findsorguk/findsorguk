@@ -296,4 +296,66 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         }
     }
 
+    /** Ajax action that returns the dynamic form field
+     * @access public
+     * @return ?
+     */
+    public function newfieldAction() {
+
+        $ajaxContext = $this->_helper->getHelper('AjaxContext');
+        $ajaxContext->addActionContext('newfield', 'html')->initContext();
+
+        $id = $this->_getParam('id2', null);
+
+        $element = new Zend_Form_Element_Text("newName$id");
+        $element->setRequired(true)->setLabel('Name');
+
+        $this->view->field = $element->__toString();
+    }
+
+    /**
+     * Adds new fields to form
+     *
+     * @param string $name
+     * @param string $value
+     * @param int    $order
+     */
+    public function addNewField($name, $value, $order) {
+
+        $this->addElement('text', $name, array(
+            'required'       => true,
+            'label'          => 'Name',
+            'value'          => $value,
+            'order'          => $order
+        ));
+    }
+
+    /**
+     * After post, pre validation hook
+     *
+     * Finds all fields where name includes 'newName' and uses addNewField to add
+     * them to the form object
+     *
+     * @param array $data $_GET or $_POST
+     */
+    public function preValidation(array $data) {
+
+        // array_filter callback
+        function findFields($field) {
+            // return field names that include 'newName'
+            if (strpos($field, 'newName') !== false) {
+                return $field;
+            }
+        }
+
+        // Search $data for dynamically added fields using findFields callback
+        $newFields = array_filter(array_keys($data), 'findFields');
+
+        foreach ($newFields as $fieldName) {
+            // strip the id number off of the field name and use it to set new order
+            $order = ltrim($fieldName, 'newName') + 2;
+            $this->addNewField($fieldName, $data[$fieldName], $order);
+        }
+    }
+
 }
