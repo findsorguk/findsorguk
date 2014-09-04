@@ -1,5 +1,5 @@
 // Get value of id - integer appended to dynamic form field names and ids
-var id = $("#id").val();
+var id = $("#hiddenfield").val();
 
 // Retrieve new element's html from controller
 function ajaxAddField() {
@@ -7,17 +7,15 @@ function ajaxAddField() {
         {
             type: "POST",
             url: "../../../ajax/newfield",
-            data: "id2=" + id,
+            data: "hiddenfield=" + id,
             success: function(newElement) {
 
                 // Insert new element before the Add button
-                $("label[for='addElement']").before(newElement);
-
-                //Visible test for success of ajax/jQuery to fire
-                $("#name123").val("Success!");
+                //$("label[for='addFinder']").parent().prev().children().last().after(newElement);
+                $("label[for='addFinder']").parent().prev().last().after(newElement);
 
                 // Increment and store id
-                $("#id2").val(++id);
+                $("#hiddenfield").val(++id);
             }
         }
     );
@@ -26,15 +24,19 @@ function ajaxAddField() {
 function removeField() {
 
     // Get the last used id
-    var lastId = $("#id2").val() - 1;
+    var lastId = $("#hiddenfield").val() - 1;
 
     // Build the attribute search string.  This will match the last added  dt and dd elements.
     // Specifically, it matches any element where the id begins with 'newName<int>-'.
-    searchString = '*[id2^=newName' + lastId + '-]';
+    //var searchString = '*[id^=newFinder' + lastId + '-]';
+    var searchId = 'newFinder' + lastId;
+    var searchStringForIds = '*[id^=' + searchId + ']';
+    var searchStringForLabels = 'label[for="' + searchId + '"' + ']';
 
     // Remove the elements that match the search string.
-    $(searchString).remove()
+    $(searchStringForIds).remove();
+    $(searchStringForLabels).remove();
 
     // Decrement and store id
-    $("#id2").val(--id);
+    $("#hiddenfield").val(--id);
 }

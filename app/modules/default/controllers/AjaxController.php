@@ -646,7 +646,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	echo Zend_Json::encode($json);
 	}
 
-    /** Ajax action that returns the dynamic form field
+    /** Ajax action that returns a dynamic form field for HoardForm
      * @access public
      * @return string
      */
@@ -655,12 +655,22 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('newfield', 'html')->initContext();
 
-        $id = $this->_getParam('id2', null);
+        $id = $this->_getParam('hiddenfield', null);
+        $uniqueLabel = "newFinder$id";
 
-        $element = new Zend_Form_Element_Text("newName$id");
-        $element->setRequired(true)->setLabel('Name');
+        $element = new Zend_Form_Element_Text("$uniqueLabel");
+        $element->setRequired(false)
+            ->setLabel('Also found by:')
+            ->addDecorators(array(
+                array('HtmlTag', array('tag' => 'div', 'class' => "controls", 'id' => "$uniqueLabel")),
+                array('Label', array('class' => 'control-label', 'id' => "$uniqueLabel")),
+                array(array('controlGroupWrapper' => 'HtmlTag'),
+                    array('tag' => 'div', 'class' => "control-group", 'id' => "$uniqueLabel")),
+            ))
+            ->addFilters(array('StripTags','StringTrim'));
 
         $this->view->field = $element->__toString();
+        $this->_helper->viewRenderer->setNoRender(false);
     }
 
 }

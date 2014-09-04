@@ -331,23 +331,22 @@ class HoardForm extends Pas_Form {
             ->addFilters(array('StripTags','StringTrim'))
             ->setOrder(27);
 
-        $id = new Zend_Form_Element_Hidden('id');
-        $id->setValue(1)
+        $hiddenfield = new Zend_Form_Element_Hidden('hiddenfield');
+        $hiddenfield->setValue(1)
             ->setOrder(28);
 
         $finder = new Zend_Form_Element_Text('finder');
         $finder->setLabel('Found by: ')
             ->addFilters(array('StripTags','StringTrim'))
-            ->setAttribs(array('id' => 'InputsWrapper'))
             ->setDescription('To make a new finder/identifier appear, you '
                 . 'first need to create them from the people menu on '
                 . 'the left hand side')
             ->setOrder(29);
 
-        $addFinderButton = new Zend_Form_Element_Button('addfinder');
+        $addFinderButton = new Zend_Form_Element_Button('addFinder');
         $addFinderButton->setOrder(50);
 
-        $removeFinderButton = new Zend_Form_Element_Button('removefinder');
+        $removeFinderButton = new Zend_Form_Element_Button('removeFinder');
         $removeFinderButton->setOrder(51);
 
         ## DISCOVERY INFORMATION ##
@@ -464,7 +463,7 @@ class HoardForm extends Pas_Form {
             $numdate1, $numdate2, $lastruler, $lastreeceperiod, $terminaldate1, $terminaldate2, $terminalreason,
             $description, $notes, $coindataquality, $findofnote, $findofnotereason, $treasure, $treasureID,
             $materials, $recorderID, $recordername, $idBy, $id2by, $identifier1ID, $identifier2ID,
-            $finder, $finderID, $id, $addFinderButton, $removeFinderButton, $discmethod, $disccircum, $datefound1,
+            $finder, $finderID, $hiddenfield, $addFinderButton, $removeFinderButton, $discmethod, $disccircum, $datefound1,
             $datefound2, $rally, $rallyID,
             $legacy_ref, $other_ref, $smrrefno, $musaccno, $curr_loc, $subs_action, $submit
             ));
@@ -499,7 +498,7 @@ class HoardForm extends Pas_Form {
             'identifier1ID','id2by','identifier2ID'), 'recorders');
         $this->recorders->setLegend('Recording details');
 
-        $this->addDisplayGroup(array('finder','finderID', 'id', 'addfinder', 'removefinder'
+        $this->addDisplayGroup(array('finder','finderID', 'hiddenfield', 'addFinder', 'removeFinder'
             ), 'discoverers');
         $this->discoverers->setLegend('Discoverer details');
 
@@ -514,27 +513,6 @@ class HoardForm extends Pas_Form {
         $this->addDisplayGroup(array(
             'submit'),
             'buttons');
-
-        $this->addElement('hidden', 'id2', array(
-            'value' => 1,
-            'order' => 100,
-        ));
-
-        $this->addElement('text', 'name123', array(
-            'required' => true,
-            'label'    => 'Name123',
-            'order'    => 102,
-        ));
-
-        $this->addElement('button', 'addElement', array(
-            'label' => 'Add',
-            'order' => 200
-        ));
-
-        $this->addElement('button', 'removeElement', array(
-            'label' => 'Remove',
-            'order' => 201
-        ));
 
         parent::init();
     }
