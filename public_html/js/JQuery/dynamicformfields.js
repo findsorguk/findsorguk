@@ -6,12 +6,15 @@ function ajaxAddField() {
     $.ajax(
         {
             type: "POST",
-            url: "newfield/format/html",
+            url: "../../../ajax/newfield",
             data: "id2=" + id,
             success: function(newElement) {
 
                 // Insert new element before the Add button
-                $("#addElement-label").before(newElement);
+                $("label[for='addElement']").before(newElement);
+
+                //Visible test for success of ajax/jQuery to fire
+                $("#name123").val("Success!");
 
                 // Increment and store id
                 $("#id2").val(++id);

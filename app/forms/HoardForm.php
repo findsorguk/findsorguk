@@ -520,9 +520,9 @@ class HoardForm extends Pas_Form {
             'order' => 100,
         ));
 
-        $this->addElement('text', 'name', array(
+        $this->addElement('text', 'name123', array(
             'required' => true,
-            'label'    => 'Name',
+            'label'    => 'Name123',
             'order'    => 102,
         ));
 
@@ -537,23 +537,6 @@ class HoardForm extends Pas_Form {
         ));
 
         parent::init();
-    }
-
-    /**
-     * Adds new fields to form
-     *
-     * @param string $name
-     * @param string $value
-     * @param int    $order
-     */
-    public function addNewField($name, $value, $order) {
-
-        $this->addElement('text', $name, array(
-            'required'       => true,
-            'label'          => 'Name',
-            'value'          => $value,
-            'order'          => $order
-        ));
     }
 
 }

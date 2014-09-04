@@ -645,4 +645,22 @@ class AjaxController extends Pas_Controller_Action_Ajax
 	}
 	echo Zend_Json::encode($json);
 	}
+
+    /** Ajax action that returns the dynamic form field
+     * @access public
+     * @return string
+     */
+    public function newfieldAction() {
+
+        $ajaxContext = $this->_helper->getHelper('AjaxContext');
+        $ajaxContext->addActionContext('newfield', 'html')->initContext();
+
+        $id = $this->_getParam('id2', null);
+
+        $element = new Zend_Form_Element_Text("newName$id");
+        $element->setRequired(true)->setLabel('Name');
+
+        $this->view->field = $element->__toString();
+    }
+
 }
