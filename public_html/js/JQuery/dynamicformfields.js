@@ -32,7 +32,7 @@ function removeField() {
     // Build the attribute search string.  This will match the last added  dt and dd elements.
     // Specifically, it matches any element where the id begins with 'newName<int>-'.
     //var searchString = '*[id^=newFinder' + lastId + '-]';
-    var searchId = 'newFinder' + lastId;
+    var searchId = 'finderNew' + lastId;
     var searchStringForIds = '*[id^=' + searchId + ']';
     var searchStringForLabels = 'label[for="' + searchId + '"' + ']';
 

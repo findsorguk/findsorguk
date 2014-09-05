@@ -656,7 +656,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $ajaxContext->addActionContext('newfield', 'html')->initContext();
 
         $id = $this->_getParam('hiddenfield', null);
-        $uniqueLabel = "newFinder$id";
+        $uniqueLabel = "finderNew$id";
 
         $element = new Zend_Form_Element_Text("$uniqueLabel");
         $element->setRequired(false)
