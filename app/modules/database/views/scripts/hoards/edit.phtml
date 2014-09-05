@@ -8,6 +8,8 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/pri
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfields.js', $type='text/javascript');
+
 $this->headTitle('Edit hoard details');?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
@@ -17,6 +19,19 @@ $("input[type='text']:first", document.forms[0]).focus();
 $('.multiselect').multiselect({
     maxHeight: 200,
     enableFiltering: true});
+
+$("#addFinder").click(
+function() {
+ajaxAddField();
+}
+);
+
+$("#removeFinder").click(
+function() {
+removeField();
+}
+);
+
 });
 
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
