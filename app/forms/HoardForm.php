@@ -344,9 +344,13 @@ class HoardForm extends Pas_Form {
             ->setOrder(29);
 
         $addFinderButton = new Zend_Form_Element_Button('addFinder');
+        $addFinderButton->setLabel('Add Finder')
+            ->setAttribs(array('class' => 'btn'));
         $addFinderButton->setOrder(50);
 
         $removeFinderButton = new Zend_Form_Element_Button('removeFinder');
+        $removeFinderButton->setLabel('Remove Finder')
+            ->setAttribs(array('class' => 'btn hidden'));
         $removeFinderButton->setOrder(51);
 
         ## DISCOVERY INFORMATION ##
@@ -515,6 +519,11 @@ class HoardForm extends Pas_Form {
             'buttons');
 
         parent::init();
+
+        $addFinderButton->removeDecorator('Label');
+        $addFinderButtonDecorator = $addFinderButton->getDecorator('HtmlTag');
+        $addFinderButtonDecorator->setOption('id', 'addFinder');
+        $removeFinderButton->removeDecorator('Label');
     }
 
 }

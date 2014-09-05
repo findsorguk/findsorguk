@@ -12,10 +12,13 @@ function ajaxAddField() {
 
                 // Insert new element before the Add button
                 //$("label[for='addFinder']").parent().prev().children().last().after(newElement);
-                $("label[for='addFinder']").parent().prev().last().after(newElement);
+                $("div#addFinder").prev().last().after(newElement);
 
                 // Increment and store id
                 $("#hiddenfield").val(++id);
+
+                // Reveal the remove button
+                $("#removeFinder").attr('class', "btn")
             }
         }
     );
@@ -39,4 +42,9 @@ function removeField() {
 
     // Decrement and store id
     $("#hiddenfield").val(--id);
+
+    // Hide remove button if no extra fields
+    if (id <= 1) {
+        $("#removeFinder").attr('class', "btn hidden")
+    };
 }
