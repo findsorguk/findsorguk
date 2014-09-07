@@ -1,9 +1,14 @@
 $(document).ready(function() {
 
-    $('fieldset#fieldset-discoverers').on("click", '[id^="finder"]', function() {
-        $(this).typeahead({
+    finderTypeahead('#finder');
+
+});
+
+function finderTypeahead(elementId){
+
+    $(elementId).typeahead({
             source: function(query, process) {
-            var $url = '../../../ajax/people/?term=' + query ;
+            var $url = '/ajax/people/?term=' + query ;
             var $items = new Array;
             $items = [""];
             $.ajax({
@@ -54,6 +59,5 @@ $(document).ready(function() {
         }
         });
 
-    });
+};
 
-});

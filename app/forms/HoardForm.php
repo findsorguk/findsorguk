@@ -522,7 +522,7 @@ class HoardForm extends Pas_Form {
 
         $addFinderButton->removeDecorator('Label');
         $addFinderButtonDecorator = $addFinderButton->getDecorator('HtmlTag');
-        $addFinderButtonDecorator->setOption('id', 'addFinder');
+        $addFinderButtonDecorator->setOption('id', 'addFinderDiv');
         $removeFinderButton->removeDecorator('Label');
     }
 

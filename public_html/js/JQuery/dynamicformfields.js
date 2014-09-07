@@ -6,19 +6,22 @@ function ajaxAddField() {
     $.ajax(
         {
             type: "POST",
-            url: "../../../ajax/newfield",
+            url: "/ajax/newfield",
             data: "hiddenfield=" + id,
             success: function(newElement) {
 
                 // Insert new element before the Add button
                 //$("label[for='addFinder']").parent().prev().children().last().after(newElement);
-                $("div#addFinder").prev().last().after(newElement);
+                $("div#addFinderDiv").prev().last().after(newElement);
+
+                finderTypeahead('input#finderNew'+ id);
 
                 // Increment and store id
                 $("#hiddenfield").val(++id);
 
                 // Reveal the remove button
                 $("#removeFinder").attr('class', "btn")
+
             }
         }
     );
