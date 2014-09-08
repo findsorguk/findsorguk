@@ -10,10 +10,10 @@ function ajaxAddField() {
             data: "hiddenfield=" + id,
             success: function(newElement) {
 
-                // Insert new element before the Add button
-                //$("label[for='addFinder']").parent().prev().children().last().after(newElement);
+                // Insert new elements before the Add button
                 $("div#addFinderDiv").prev().last().after(newElement);
 
+                // Calls the finder dropdown on the newly created input
                 finderTypeahead('input#finderNew'+ id);
 
                 // Increment and store id
@@ -32,16 +32,17 @@ function removeField() {
     // Get the last used id
     var lastId = $("#hiddenfield").val() - 1;
 
-    // Build the attribute search string.  This will match the last added  dt and dd elements.
-    // Specifically, it matches any element where the id begins with 'newName<int>-'.
-    //var searchString = '*[id^=newFinder' + lastId + '-]';
-    var searchId = 'finderNew' + lastId;
-    var searchStringForIds = '*[id^=' + searchId + ']';
-    var searchStringForLabels = 'label[for="' + searchId + '"' + ']';
+    // Builds the search strings
+    // Matches the control group that wraps the last added new finder input
+    var uniqueInput = 'finderNew' + lastId;
+    var searchStringInput = "div#" + uniqueInput + "-control-group";
+    // Matches the hidden ID field of the last added new finder input
+    var uniqueId = uniqueInput + 'ID';
+    var searchStringId = "input#" + uniqueId;
 
-    // Remove the elements that match the search string.
-    $(searchStringForIds).remove();
-    $(searchStringForLabels).remove();
+    // Remove the elements that match the search strings
+    $(searchStringInput).remove();
+    $(searchStringId).remove();
 
     // Decrement and store id
     $("#hiddenfield").val(--id);

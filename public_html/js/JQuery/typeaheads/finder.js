@@ -54,7 +54,7 @@ function finderTypeahead(elementId){
         minLength: 3,
         updater: function (item) {
             var item = JSON.parse(item);
-            $('#finderID').val(item.id);
+            $(elementId + 'ID').val(item.id);
             return item.name;
         }
         });

@@ -656,20 +656,28 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $ajaxContext->addActionContext('newfield', 'html')->initContext();
 
         $id = $this->_getParam('hiddenfield', null);
-        $uniqueLabel = "finderNew$id";
+        $uniqueTextLabel = "finderNew$id";
+        $uniqueIdLabel = $uniqueTextLabel . 'ID';
 
-        $element = new Zend_Form_Element_Text("$uniqueLabel");
-        $element->setRequired(false)
+        $finderID = new Zend_Form_Element_Hidden($uniqueIdLabel);
+        $finderID->setRequired(false)
+            ->removeDecorator('Label')
+            ->removeDecorator('HtmlTag')
+            ->addFilters(array('StripTags','StringTrim'));
+
+        $finderName = new Zend_Form_Element_Text($uniqueTextLabel);
+        $finderName->setRequired(true)
             ->setLabel('Also found by:')
             ->addDecorators(array(
-                array('HtmlTag', array('tag' => 'div', 'class' => "controls", 'id' => "$uniqueLabel")),
-                array('Label', array('class' => 'control-label', 'id' => "$uniqueLabel")),
+                array('HtmlTag', array('tag' => 'div', 'class' => "controls", 'id' => "$uniqueTextLabel-controls")),
+                array('Label', array('class' => 'control-label', 'id' => "$uniqueTextLabel")),
                 array(array('controlGroupWrapper' => 'HtmlTag'),
-                    array('tag' => 'div', 'class' => "control-group", 'id' => "$uniqueLabel")),
+                    array('tag' => 'div', 'class' => "control-group", 'id' => "$uniqueTextLabel-control-group")),
             ))
             ->addFilters(array('StripTags','StringTrim'));
 
-        $this->view->field = $element->__toString();
+        $this->view->finderName = $finderName->__toString();
+        $this->view->finderID = $finderID->__toString();
         $this->_helper->viewRenderer->setNoRender(false);
     }
 
