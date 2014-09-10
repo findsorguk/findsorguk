@@ -14,12 +14,13 @@
         ->setBroadperiod($this->broadperiod)
         ->setSecuID($this->secuid)
         ->setInstitution($this->institution)
-        ->setCreatedBy($this->createdBy);
+        ->setCreatedBy($this->createdBy)
+        ->setRecordID($this->coinID);
     ?>
 <p>
     <!-- Denomination span start -->
-    <?php if(!is_null($this->denomination)) : ?>
-    Denomination: <?php echo $this->denomination;?> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'greekromancoins','controller'=>'denominations','action'=>'denomination','id' => $this->denominationID),null,true);?>" title="Read scope note for <?php echo $this->denomination;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action'=>'results','denomination' => $this->denomination),null,true);?>" title="view all records assigned to denomination: <?php echo $this->denomination;?>">view all attributed records</a>]</span>
+    <?php if(!is_null($this->denominationID)) : ?>
+    Denomination: <?php echo $this->denomination;?> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'greekromancoins','controller'=>'denominations','action'=>'denomination','id' => $this->denominationID),null,true);?>" title="Read scope note for <?php echo $this->denomination;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action'=>'results','denomination' => $this->denominationID),null,true);?>" title="view all records assigned to denomination: <?php echo $this->denomination;?>">view all attributed records</a>]</span>
     <br />
     Denomination certainty: <?php echo $this->certainty()->setCertainty($this->denominationQualifier);?>
     <br />
@@ -41,8 +42,8 @@
     <!-- end of secondary ruler -->
     
     <!-- Start of mint --> 
-    <?php if(!is_null($this->mint_name )):?>
-    Mint or issue place: <?php echo $this->escape($this->mint_name);?> <span class="scope">[<a href="<?php echo $this->url(array('module'=>'greekromancoins','controller' => 'mints','action'=>'mint','id' => $this->mint_id),null,true);?>" title="Read scope note for <?php echo $this->mint_name;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller'=>'search','action'=>'results','mint' => $this->mint_id),null,true);?>" title="view all records assigned to <?php echo $this->mint_name;?>">view all attributed records</a>]</span>
+    <?php if(!is_null($this->mintName )):?>
+    Mint or issue place: <?php echo $this->escape($this->mintName);?> <span class="scope">[<a href="<?php echo $this->url(array('module'=>'greekromancoins','controller' => 'mints','action'=>'mint','id' => $this->mintID),null,true);?>" title="Read scope note for <?php echo $this->mintName;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller'=>'search','action'=>'results','mint' => $this->mintID),null,true);?>" title="view all records assigned to <?php echo $this->mintName;?>">view all attributed records</a>]</span>
     <br />
     Mint certainty: <?php echo $this->certainty()->setCertainty($this->mintQualifier);?>
     <br />

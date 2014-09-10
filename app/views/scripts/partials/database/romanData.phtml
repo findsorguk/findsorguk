@@ -14,13 +14,14 @@
         ->setBroadperiod($this->broadperiod)
         ->setSecuID($this->secuid)
         ->setInstitution($this->institution)
-        ->setCreatedBy($this->createdBy);
+        ->setCreatedBy($this->createdBy)
+        ->setRecordID($this->coinID);
 ?>
 <div class="awld-scope">
     <p>
 
         <!-- Start of denomination span -->
-        <?php if(!is_null($this->denomination)) : ?>
+        <?php if(!is_null($this->denominationID)) : ?>
         Denomination: <span property="nm:denomination"><?php echo $this->denomination;?></span> 
         <span class="scope">[<a href="<?php echo $this->url(array(
             'module' => 'romancoins',
@@ -47,7 +48,8 @@
         Ruler/issuer: <span property="nm:issuer" rel="owl:samesAs" resource="http://dbpedia.org/page/<?php echo $this->dbpedia;?>"><?php echo $this->escape($this->ruler1);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'romancoins','controller'=>'emperors','action'=>'emperor','id' => $this->empid),null,true);?>" title="Read scope note for <?php echo $this->period_name;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller'=>'search','action'=>'results','ruler' => $this->ruler_id),null,true);?>" title="view all records assigned to <?php echo $this->ruler1;?>">view all attributed records</a>]</span><br />
         <?php endif;?>
         <?php if(!is_null($this->rulerQualifier)):?>
-        Ruler certainty: <?php echo $this->certainty()->setCertainty($this->rulerQualifier);?><br />
+        Ruler certainty: <?php echo $this->certainty()->setCertainty($this->rulerQualifier);?>
+        <br />
         <?php endif;?>
         <!-- End of ruler span -->
 

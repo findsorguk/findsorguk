@@ -14,11 +14,12 @@
         ->setBroadperiod($this->broadperiod)
         ->setSecuID($this->secuid)
         ->setInstitution($this->institution)
-        ->setCreatedBy($this->createdBy);
+        ->setCreatedBy($this->createdBy)
+        ->setRecordID($this->coinID);
 ?>
 <p>
     <!-- Start of denomination span -->
-    <?php if(!is_null($this->denomination)) : ?>
+    <?php if(!is_null($this->denominationID)) : ?>
     Denomination: <?php echo $this->escape($this->denomination);?>
     <span class="scope">
         [<a href="<?php echo $this->url(array(
@@ -41,20 +42,20 @@
     <!-- End of denomination span -->
     
     <!-- Start of ruler span -->
-    <?php if(!is_null($this->ruler1)) : ?>
+    <?php if(!is_null($this->primaryRuler)) : ?>
     Ruler/issuer: <?php echo $this->escape($this->ruler1);?>
     <span class="scope">
         [<a href="<?php echo $this->url(array(
         'module' => 'earlymedievalcoins',
         'controller'=>'rulers',
         'action'=>'ruler',
-        'id' => $this->ruler_id),null,true);?>" title="Read scope note for
+        'id' => $this->primaryRuler),null,true);?>" title="Read scope note for
     <?php echo $this->period_name;?>">scope notes</a> | <a href="<?php echo
     $this->url(array(
         'module' => 'database',
         'controller'=>'search',
         'action'=>'results',
-        'ruler' => $this->ruler_id),null,true);?>"
+        'ruler' => $this->primaryRuler),null,true);?>"
         title="view all records assigned to <?php echo $this->ruler1;?>">
         view all attributed records</a>]
     </span>
