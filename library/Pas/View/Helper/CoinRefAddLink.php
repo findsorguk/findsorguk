@@ -351,5 +351,4 @@ class Pas_View_Helper_CoinRefAddLink extends Zend_View_Helper_Abstract {
         $html .= 'Add a coin reference</a></div>';
         return $html;
     }
-
 }

@@ -150,8 +150,8 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
         } else {
             $placeData = $this->_geoplanet->getPlace($this->getWoeid());
         }
+        return $this->buildHtml($placeData);
         Zend_Debug::dump($placeData);
-        return '';
     }
     
     /** Function for determining whether elevation is -ve or +ve or =

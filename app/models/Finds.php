@@ -195,7 +195,7 @@ class Finds extends Pas_Db_Table_Abstract {
                     'thickness', 
                     'diameter', 
                     'quantity',
-                    'other_ref',
+                    'otherRef' => 'other_ref',
                     'treasureID', 
                     'broadperiod',
                     'numdate1', 
@@ -203,6 +203,7 @@ class Finds extends Pas_Db_Table_Abstract {
                     'description',
                     'notes', 
                     'reuse', 
+                    'reusePeriodID' => 'reuse_period',
                     'created' =>'finds.created',
                     'broadperiod', 
                     'updated', 
@@ -223,6 +224,8 @@ class Finds extends Pas_Db_Table_Abstract {
                     'dateFoundToCertainty' => 'datefound2qual',
                     'subPeriodFrom' => 'objdate1subperiod',
                     'subPeriodTo' => 'objdate2subperiod',
+                    'objdate1period',
+                    'objdate2period',
                     'secuid',
                     'material1',
                     'material2',
@@ -236,7 +239,7 @@ class Finds extends Pas_Db_Table_Abstract {
                     'recorderID',
                     'identifier1ID',
                     'identifier2ID',
-                    'smr_ref',
+                    'smrRef' => 'smr_ref',
                     'createdBy',
                     'updatedBy'
                     ))
@@ -272,6 +275,8 @@ class Finds extends Pas_Db_Table_Abstract {
                         array('periodFrom' => 'term'))
                 ->joinLeft(array('p' => 'periods'),'finds.objdate2period = p.id',
                         array('periodTo' => 'term'))
+                ->joinLeft(array('p2' => 'periods'), 'finds.reuse_period = p2.id',
+                        array('reusePeriod' => 'term'))
                 ->joinLeft('cultures','finds.culture = cultures.id',
                         array('ascribedCulture' => 'term'))
                 ->joinLeft('discmethods','discmethods.id = finds.discmethod',
@@ -325,10 +330,10 @@ class Finds extends Pas_Db_Table_Abstract {
                 ->joinLeft('coins','finds.secuid = coins.findID',
                         array(
                             'coinID' => 'id',
-                            'obverse_description',
-                            'obverse_inscription',
-                            'reverse_description', 
-                            'reverse_inscription',
+                            'obverseDescription' => 'obverse_description',
+                            'obverseInscription' => 'obverse_inscription',
+                            'reverseDescription' => 'reverse_description', 
+                            'reverseInscription' => 'reverse_inscription',
                             'cciNumber',
                             'denominationID' => 'denomination',
                             'degreeOfWear' => 'degree_of_wear', 
@@ -378,10 +383,10 @@ class Finds extends Pas_Db_Table_Abstract {
                         'rulers_2.id = coins.ruler2_id',
                         array('ruler2' => 'issuer'))
                 ->joinLeft('reeceperiods','coins.reeceID = reeceperiods.id',
-                        array('period_name','date_range'))
+                        array('periodName' => 'period_name','dateRange' => 'date_range'))
                 ->joinLeft('mints','mints.id = coins.mint_ID',
                         array(
-                            'mint_name',
+                            'mintName' => 'mint_name',
                             'nomismaMintID' => 'nomismaID',
                             'pleiadesID',
                             'mintGeonamesID' => 'geonamesID',
@@ -391,7 +396,7 @@ class Finds extends Pas_Db_Table_Abstract {
                         'coins.degree_of_wear = weartypes.id',
                         array('wear' => 'term'))
                 ->joinLeft('dieaxes','coins.die_axis_measurement = dieaxes.id',
-                        array('die_axis_name'))
+                        array('dieAxisName' => 'die_axis_name'))
                 ->joinLeft('medievalcategories',
                         'medievalcategories.id = coins.categoryID',
                         array('category'))
@@ -402,7 +407,7 @@ class Finds extends Pas_Db_Table_Abstract {
                 ->joinLeft('emperors','emperors.pasID = rulers.id',
                         array('emperorID' => 'id'))
                 ->joinLeft('romanmints','romanmints.pasID = mints.id',
-                        array('mintid' => 'id'))
+                        array('romanMintID' => 'id'))
                 ->joinLeft('revtypes','coins.revtypeID = revtypes.id',
                         array('reverseType' => 'type'))
                 ->joinLeft('statuses','coins.status = statuses.id',
@@ -443,6 +448,9 @@ class Finds extends Pas_Db_Table_Abstract {
                             ))
                 ->joinLeft('people', 'findspots.landowner = people.secuid', 
                         array('landOwnerName' => 'fullname'))
+                ->joinLeft('subsequentActions',
+                        'finds.subs_action = subsequentActions.id',
+                        array('subsequentActionTerm' => 'action'))
                 ->where('finds.id = ?', (int)$findID)
                 ->group('finds.id')
                 ->limit(1);

@@ -19,17 +19,12 @@
 class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
 {
     /** The integer value to lookup
-     *
+     * @access protected
      * @var int
      */
     protected $_int;
 
-    /** The validator to use
-     *
-     * @var object
-     */
-    protected $_validator;
-
+   
     /** Get the id to query
      * @access public
      * @return int
@@ -38,14 +33,6 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
         return $this->_int;
     }
 
-    /** Get the validator
-     * @access public
-     * @return object
-     */
-    public function getValidator() {
-        $this->_validator = new Zend_Validate_Int();
-        return $this->_validator;
-    }
 
     /** Set the ID to query
      * @access public
@@ -58,7 +45,6 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
     }
 
     /** The completeness function
-     *
      * @return \Pas_View_Helper_Completeness
      */
     public function completeness() {
@@ -66,52 +52,36 @@ class Pas_View_Helper_Completeness extends Zend_View_Helper_Abstract
     }
 
     /** Generate the html
-     *
+     * pub  
      * @return string
      */
     public function html() {
-        $this->validate();
         switch ($this->getInt()) {
-            case 1:
+            case '1':
                 $comp = 'Fragment';
-        break;
-            case 2:
+                break;
+            case '2':
                 $comp = 'Incomplete';
-        break;
-            case 3:
-        $comp = 'Uncertain';
-        break;
-            case 4:
-        $comp = 'Complete';
-        break;
+                break;
+            case '3':
+                $comp = 'Uncertain';
+                break;
+            case '4':
+                $comp = 'Complete';
+                break;
             default:
-        $comp = 'Invalid completeness specified';
-        break;
-    }
-
-    return $comp;
-    }
-
-    /** Validate the value provided
-     *
-     * @return \Pas_View_Helper_Completeness
-     * @throws Zend_Exception
-     */
-    public function validate()
-    {
-        if ($this->getValidator()->isValid($this->getInt())) {
-            return $this;
-        } else {
-            throw new Zend_Exception('Invalid value specified');
+                $comp = 'Invalid completeness specified';
+                break;
         }
+        return $comp;
     }
+
 
     /** Magic method to return the string
      *
      * @return function
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->html();
     }
 }

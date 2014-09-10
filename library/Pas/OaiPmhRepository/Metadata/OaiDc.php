@@ -50,7 +50,7 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
                 'title' => $this->item['broadperiod']. ' ' . $this->item['objecttype'] ,
                 'creator' => $this->item['creator'],
                 'subject' => self::SUBJECT,
-                'description' => strip_tags($this->item['description']),
+                'description' => strip_tags(strtr($this->item['description'], array('\x0B' => '&#x0B;'))),
                 'publisher' => self::RIGHTS_HOLDER,
                 'contributor' => $this->item['institution'],
                 'date' => $this->item['created'],

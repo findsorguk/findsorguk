@@ -37,7 +37,7 @@ ul.menu li ul li a:hover {
   padding-left: 15px;
 }
 
-.stripeMe a:focus, .stripeMe a:active, {
+.stripeMe a:focus, .stripeMe a:active {
 background-color:#F4FFD1;
 }
 .stripeMe a:focus, .stripeMe a:hover {

@@ -10,7 +10,7 @@
  * <?php
  * echo $this->coinEditDeleteLink()
  * ->setFindID($this->id)
- * ->setReturnID($this->returnID)
+ * ->setRecordID($this->returnID)
  * ->setBroadperiod($this->broadperiod)
  * ->setSecuID($this->secuid)
  * ->setInstitution($this->institution)
@@ -26,9 +26,9 @@
  * @copyright Daniel Pett
  * @author Daniel Pett
  * @todo Streamline and DRY the code
- * @license GNU
  * @uses Zend_Exception
  * @uses Zend_View_Helper_Url
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract {
 

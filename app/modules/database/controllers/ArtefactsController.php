@@ -178,34 +178,33 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
         if($this->_getParam('id',false)) {
             $this->view->recordID = $this->_getParam('id');
             $id = $this->_getParam('id');
-            Zend_Debug::dump($this->_finds->getAllData($id), 'findLargeModelCall');
-                $this->view->finds = $this->_finds->getAllData($id);
-                $coinrefs = new CoinClassifications();
-                $this->view->coinrefs = $coinrefs->getAllClasses($id);
-                $thumbs = new Slides;
-                $this->view->thumbs = $thumbs->getThumbnails($id);
-                $refs = new Publications;
-                $this->view->refs = $refs->getReferences($id);
-                $this->view->comments = $this->getComments()->getFindComments($id);
-                $form = new CommentFindForm();
-                $form->submit->setLabel('Add a new comment');
-                $this->view->form = $form;
-                if($this->getRequest()->isPost()
-                        && $form->isValid($this->_request->getPost())) {
-                    if ($form->isValid($form->getValues())) {
-                        $data = $this->_helper->akismet($form->getValues());
-                        $data['contentID'] = $this->_getParam('id');
-                        $data['comment_type'] = 'findComment';
-                        $data['comment_approved'] = 'moderation';
-                        $this->getComments()->add($data);
-                        $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
-                        $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
-                        $this->_request->setMethod('GET');
-                    } else {
-                        $this->getFlash()->addMessage('There are problems with your comment submission');
-                        $form->populate($this->_request->getPost());
-                    }
+            $this->view->finds = $this->_finds->getAllData($id);
+            $coinrefs = new CoinClassifications();
+            $this->view->coinrefs = $coinrefs->getAllClasses($id);
+            $thumbs = new Slides;
+            $this->view->thumbs = $thumbs->getThumbnails($id);
+            $refs = new Publications;
+            $this->view->refs = $refs->getReferences($id);
+            $this->view->comments = $this->getComments()->getFindComments($id);
+            $form = new CommentFindForm();
+            $form->submit->setLabel('Add a new comment');
+            $this->view->form = $form;
+            if($this->getRequest()->isPost()
+                    && $form->isValid($this->_request->getPost())) {
+                if ($form->isValid($form->getValues())) {
+                    $data = $this->_helper->akismet($form->getValues());
+                    $data['contentID'] = $this->_getParam('id');
+                    $data['comment_type'] = 'findComment';
+                    $data['comment_approved'] = 'moderation';
+                    $this->getComments()->add($data);
+                    $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
+                    $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                    $this->_request->setMethod('GET');
+                } else {
+                    $this->getFlash()->addMessage('There are problems with your comment submission');
+                    $form->populate($this->_request->getPost());
                 }
+            }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

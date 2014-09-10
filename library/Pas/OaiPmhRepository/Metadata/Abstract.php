@@ -24,7 +24,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
     /** The license type for system
      *
      */
-    const LICENSE = 'CC BY-SA';
+    const LICENSE = 'CC BY';
 
     /** Who owns the rights
      *
@@ -34,7 +34,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
     /** The applicable license
      *
      */
-    const LICENSE_URI = 'http://creativecommons.org/licenses/by-sa/3.0/';
+    const LICENSE_URI = 'http://creativecommons.org/licenses/by/3.0/';
 
     /** The subject
      *

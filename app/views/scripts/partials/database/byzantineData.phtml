@@ -1,41 +1,80 @@
-<h4>Coin data (numismatics)</h4>
-<?php echo $this->CoinEditDeleteLink()
-        ->setFindID($this->id)
-        ->setBroadperiod($this->broadperiod)
-        ->setSecuID($this->secuid)
-        ->setInstitution($this->institution)
-        ->setCreatedBy($this->createdBy);
-?>
+<h4>
+    Coin data (numismatics)
+</h4>
+<?php 
+    echo $this->CoinEditDeleteLink()
+            ->setFindID($this->id)
+            ->setBroadperiod($this->broadperiod)
+            ->setSecuID($this->secuid)
+            ->setInstitution($this->institution)
+            ->setCreatedBy($this->createdBy)
+            ->setRecordID($this->coinID);
+    ?>
 
 <p>
-<?php if(!is_null($this->d)):?>
-Denomination: <?php echo $this->escape($this->d);?> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'byzantinecoins','controller'=>'denominations','action'=>'denomination','id' => $this->denom),null,true);?>" title="Read scope note for <?php echo $this->d;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action'=>'results','denomination' => $this->denom),null,true);?>" title="view all records assigned to denomination: <?php echo $this->d;?>">view all attributed records</a>]</span><br />
-<?php endif;?>
-<?php if(!is_null($this->ruler1)):?>
-Ruler/issuer: <?php echo $this->escape($this->ruler1);?> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'byzantinecoins','controller'=>'rulers','action'=>'ruler','id' => $this->ruler_id),null,true);?>" title="Read scope note for <?php echo $this->period_name;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller'=>'search','action'=>'results','ruler' => $this->ruler_id),null,true);?>" title="view all records assigned to <?php echo $this->ruler1;?>">view all attributed records</a>]</span><br />
-<?php endif;?>
-<?php if(!is_null($this->ruler2)):?>
-Secondary ruler/issuer: <?php echo $this->escape($this->ruler2);?> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'byzantinecoins','controller'=>'rulers','action'=>'ruler2_id','id' => $this->ruler2_id),null,true);?>" title="Read scope note for <?php echo $this->period_name;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller'=>'search','action'=>'results','ruler' => $this->ruler2_id),null,true);?>" title="view all records assigned to <?php echo $this->ruler2;?>">view all attributed records</a>]</span><br />
-<?php endif;?>
-<?php if(!is_null($this->mint_name)):?>
-Mint or issue place: <?php echo $this->escape($this->mint_name);?><br />
-<?php endif;?>
-<?php if(!is_null($this->obverse_description)):?>
-Obverse description: <?php echo $this->obverse_description;?><br />
-<?php endif;?>
-<?php if(!is_null($this->obverse_inscription)):?>
-Obverse inscription: <?php echo $this->obverse_inscription;?><br />
-<?php endif;?>
-<?php if(!is_null($this->reverse_description)):?>
-Reverse description: <?php echo $this->reverse_description;?><br />
-<?php endif;?>
-<?php if(!is_null($this->reverse_inscription)):?>
-Reverse inscription: <?php echo $this->reverse_inscription;?><br />
-<?php endif;?>
-<?php if(!is_null($this->die_axis_name)):?>
-Die axis measurement: <?php echo $this->escape($this->die_axis_name);?><br />
-<?php endif;?>
-<?php if(!is_null($this->wear)):?>
-Degree of wear: <?php echo $this->escape($this->wear);?>
-<?php endif;?>
+    <?php if(!is_null($this->denomination)):?>
+    Denomination: <?php echo $this->escape($this->denomination);?> 
+    <span class="scope">[<a href="<?php echo $this->url(array(
+        'module' => 'byzantinecoins',
+        'controller'=>'denominations',
+        'action'=>'denomination',
+        'id' => $this->denominationID),null,true);?>" 
+        title="Read scope note for <?php echo $this->d;?>">scope notes</a> | 
+        <a href="<?php echo $this->url(array(
+            'module' => 'database',
+            'controller' => 'search',
+            'action'=>'results',
+            'denomination' => $this->denominationID),null,true);?>" 
+            title="view all records assigned to denomination: 
+                <?php echo $this->denominationID;?>">view all attributed records</a>]</span><br />
+    <?php endif;?>
+
+    <?php if(!is_null($this->ruler1)):?>
+    Ruler/issuer: <?php echo $this->escape($this->ruler1);?> 
+    <span class="scope">[<a href="<?php echo $this->url(array(
+        'module' => 'byzantinecoins',
+        'controller'=>'rulers',
+        'action'=>'ruler',
+        'id' => $this->primaryRuler),null,true);?>" 
+        title="Read scope note for <?php echo $this->ruler1;?>">scope notes</a> | 
+        <a href="<?php echo $this->url(array(
+            'module' => 'database',
+            'controller'=>'search',
+            'action'=>'results',
+            'ruler' => $this->primaryRuler),null,true);?>" 
+            title="view all records assigned to <?php echo $this->ruler1;?>">view all attributed records</a>]</span><br />
+    <?php endif;?>
+    
+        <?php if(!is_null($this->ruler2)):?>
+    Secondary ruler/issuer: <?php echo $this->escape($this->ruler2);?> <span class="scope">[<a href="<?php echo $this->url(array('module' => 'byzantinecoins','controller'=>'rulers','action'=>'ruler2_id','id' => $this->secondaryRuler),null,true);?>" title="Read scope note for <?php echo $this->period_name;?>">scope notes</a> | <a href="<?php echo $this->url(array('module' => 'database','controller'=>'search','action'=>'results','ruler' => $this->ruler2_id),null,true);?>" title="view all records assigned to <?php echo $this->ruler2;?>">view all attributed records</a>]</span><br />
+    <?php endif;?>
+    
+        <?php if(!is_null($this->mintName)):?>
+    Mint or issue place: <?php echo $this->escape($this->mintName);?><br />
+    <?php endif;?>
+    
+    <?php if(!is_null($this->obverseDescription)):?>
+    Obverse description: <?php echo $this->obverseDescription;?><br />
+    <?php endif;?>
+    
+    <?php if(!is_null($this->obverseInscription)):?>
+    Obverse inscription: <?php echo $this->obverseInscription;?><br />
+    <?php endif;?>
+    
+    <?php if(!is_null($this->reverseDescription)):?>
+    Reverse description: <?php echo $this->reverseDescription;?><br />
+    <?php endif;?>
+
+    <?php if(!is_null($this->reverseInscription)):?>
+    Reverse inscription: <?php echo $this->reverseInscription;?><br />
+    <?php endif;?>
+    
+    <?php if(!is_null($this->dieAxisName)):?>
+    Die axis measurement: <?php echo $this->escape($this->dieAxisName);?><br />
+    <?php endif;?>
+    
+    <?php if(!is_null($this->wear)):?>
+    Degree of wear: <?php echo $this->escape($this->wear);?>
+    <?php endif;?>
+    
 </p>

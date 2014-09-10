@@ -112,7 +112,7 @@ class Pas_View_Helper_FindSmrs extends Zend_View_Helper_Abstract
         $html = '';
         if(is_array($smrs)) {
             $html .= '<div id="smralert"><h4>Scheduled monument Alert</h4>';
-            $html .= '<p>This find has been identified as being within 250;';
+            $html .= '<p>This find has been identified as being within 250';
             $html .= ' metres of the centre of a scheduled monument.';
             $html .= 'Check gridreference!</p>';
             $html .= '<ul>';
