@@ -231,60 +231,39 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @todo move update logic to model finds.php
      */
     public function editAction() {
-        if($this->_getParam('id',false)){
-            $user = $this->getAccount();
+        $id = $this->_getParam('id',false);
+        if(isset($id)){
             $form = $this->getHoardForm();
             $form->submit->setLabel('Update record');
             $this->view->form = $form;
+
+            $user = $this->getAccount();
             if(in_array($this->getRole(),$this->_restricted)) {
                 $form->removeDisplayGroup('discoverers');
                 $form->removeElement('finder');
                 $form->finderID->setValue($user->peopleID);
-                $form->removeElement('secondfinder');
                 $form->removeElement('idBy');
                 $form->recordername->setAttrib('disabled', true);
                 $form->removeElement('id2by');
             }
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
-                $data = $form->getValues();
-                if ($form->isValid($form->getValues())) {
+            if($this->getRequest()->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($form->isValid($formData)) {
                     $updateData = $form->getValues();
-                    $id2by = $form->getValue('id2by');
-                    if($id2by === "" || is_null($id2by)){
-                        $updateData['identifier2ID'] = null;
-                    }
-                    unset($updateData['recordername']);
-                    unset($updateData['finder']);
-                    unset($updateData['idBy']);
-                    unset($updateData['id2by']);
-                    unset($updateData['secondfinder']);
-                    $oldData = $this->_finds->fetchRow('id=' . $this->_getParam('id'))->toArray();
-                    $where = array();
-                    $where[] = $this->_finds->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                    $this->_finds->update($updateData, $where);
-                    $this->_helper->audit(
-                        $updateData,
-                        $oldData,
-                        'FindsAudit',
-                        $this->_getParam('id'),
-                        $this->_getParam('id')
-                    );
-                    $this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
-                    $this->getFlash()->addMessage('Artefact information updated and audited!');
-                    $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                    $update = $this->_hoards->editFind($updateData, $id);
+
+                    $this->_redirect(self::REDIRECT . 'record/id/' . $id);
                 } else {
-                    $this->view->find = $this->_finds->fetchRow('id='.$this->_getParam('id'));
-                    $form->populate($this->_request->getPost());
+                    $form->populate($formData);
                 }
             } else {
-                $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
                     $formData = $this->_hoards->getEditData($id);
                     $materialsData = $this->_hoards->getMaterials($id);
-                    $materialsData = array_keys($materialsData);
+//                    $materialsData = array_keys($materialsData);
                     if(count($formData)){
                         $form->populate($formData);
-                        $form->getElement('primarymaterials')->setValue($materialsData);
+                        $form->getElement('materials')->setValue($materialsData);
                         $this->view->hoard = $this->_hoards->fetchRow('id='.$id);
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound, 404);

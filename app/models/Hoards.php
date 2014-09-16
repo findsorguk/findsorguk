@@ -87,6 +87,32 @@ class Hoards extends Pas_Db_Table_Abstract {
         }
     }
 
+    /** Edit a hoard record
+     *
+     * @param array $updateData
+     * @param integer $id
+     * @return int
+     */
+    public function editFind(array $updateData, $id){
+        $id2by = $updateData['id2by'];
+        if($id2by === "" || is_null($id2by)){
+            $updateData['identifier2ID'] = NULL;
+        }
+        unset($updateData['recordername']);
+        unset($updateData['finder']);
+        unset($updateData['idBy']);
+        unset($updateData['id2by']);
+        unset($updateData['hiddenfield']);
+        unset($updateData['lastruler']);
+        unset($updateData['lastreeceperiod']);
+        unset($updateData['legacyID']);
+        $updateData['materials'] = serialize($updateData['materials']);
+
+        $where[0] = $this->getAdapter()->quoteInto('id = ?', $id);
+
+        return $this->update($updateData, $where);
+    }
+
     /** Get all data from a hoard record for non-HTML rendering
  * @access public
  * @param integer $hoardId
@@ -442,11 +468,11 @@ class Hoards extends Pas_Db_Table_Abstract {
             ->from($this->_name, array(
                 'hoardID' => 'secuid'
             ))
-            ->joinLeft('hoardsxfinders',
-                'hoards.secuid = hoardsxfinders.hoardID',
+            ->joinLeft('hoards_finders',
+                'hoards.secuid = hoards_finders.hoardID',
                 array('finderID'))
             ->joinLeft('people',
-                'hoardsxfinders.finderID = people.secuid',
+                'hoards_finders.finderID = people.secuid',
                 array('title', 'forename', 'surname'))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
@@ -580,18 +606,18 @@ class Hoards extends Pas_Db_Table_Abstract {
             ->from($this->_name, array(
                 'id',
                 'hoardID',
-                'uniqueID' => 'secuid',
-                'hoardperiod1' => 'period1',
-                'hoardsubperiod1' => 'subperiod1',
-                'hoardperiod2' => 'period2',
-                'hoardsubperiod2' => 'subperiod2',
+                'secuid',
+                'period1',
+                'subperiod1',
+                'period2',
+                'subperiod2',
                 'numdate1',
                 'numdate2',
                 'broadperiod',
                 'lastrulerID',
                 'reeceID',
-                'terminaldate1' => 'terminalyear1',
-                'terminaldate2' => 'terminalyear2',
+                'terminalyear1',
+                'terminalyear2',
                 'terminalreason',
                 'description',
                 'notes',
@@ -600,7 +626,7 @@ class Hoards extends Pas_Db_Table_Abstract {
                 'findofnotereason',
                 'treasure',
                 'treasureID',
-                'coindataquality' => 'qualityrating',
+                'qualityrating',
                 'recorderID',
                 'identifier1ID',
                 'identifier2ID',
@@ -612,9 +638,9 @@ class Hoards extends Pas_Db_Table_Abstract {
                 'datefound2',
                 'rally',
                 'rallyID',
-                'legacy_ref' => 'legacyID',
+                'legacyID',
                 'other_ref',
-                'smr_ref' => 'smrrefno',
+                'smrrefno',
                 'musaccno',
                 'curr_loc',
                 'subs_action',

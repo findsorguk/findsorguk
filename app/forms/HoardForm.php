@@ -83,7 +83,7 @@ class HoardForm extends Pas_Form {
         $secuid = new Zend_Form_Element_Hidden('secuid');
         $secuid->addFilters(array('StripTags','StringTrim'))->addValidator('Alnum');
 
-        $old_hoardID = new Zend_Form_Element_Hidden('old_hoardID');
+        $old_hoardID = new Zend_Form_Element_Hidden('hoardID');
         $old_hoardID->addFilters(array('StripTags','StringTrim'));
 
         ## HOARD DATING ##
@@ -102,7 +102,7 @@ class HoardForm extends Pas_Form {
             ->setOrder(1);
 
         //Sub period from: Assigned via dropdown
-        $hoardsubperiod1 = new Zend_Form_Element_Select('hoardsubperiod1');
+        $hoardsubperiod1 = new Zend_Form_Element_Select('subperiod1');
         $hoardsubperiod1->setLabel('Sub period from: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -112,7 +112,7 @@ class HoardForm extends Pas_Form {
             ->setOrder(2);
 
         //Period from: Assigned via dropdown
-        $hoardperiod1 = new Zend_Form_Element_Select('hoardperiod1');
+        $hoardperiod1 = new Zend_Form_Element_Select('period1');
         $hoardperiod1->setLabel('Period from: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -124,7 +124,7 @@ class HoardForm extends Pas_Form {
             ->setOrder(3);
 
         //Sub period to: Assigned via dropdown
-        $hoardsubperiod2 = new Zend_Form_Element_Select('hoardsubperiod2');
+        $hoardsubperiod2 = new Zend_Form_Element_Select('subperiod2');
         $hoardsubperiod2->setLabel('Sub period to: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -135,7 +135,7 @@ class HoardForm extends Pas_Form {
             ->setOrder(4);
 
         //Period to: Assigned via dropdown
-        $hoardperiod2 = new Zend_Form_Element_Select('hoardperiod2');
+        $hoardperiod2 = new Zend_Form_Element_Select('period2');
         $hoardperiod2->setLabel('Period to: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -188,7 +188,7 @@ class HoardForm extends Pas_Form {
             ->setOrder(9);
 
         //Date from: Free text Integer +ve or -ve
-        $terminaldate1 = new Zend_Form_Element_Text('terminaldate1');
+        $terminaldate1 = new Zend_Form_Element_Text('terminalyear1');
         $terminaldate1->setLabel('Terminal date from: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
@@ -197,7 +197,7 @@ class HoardForm extends Pas_Form {
             ->setOrder(10);
 
         //Date to: Free text Integer +ve or -ve
-        $terminaldate2 = new Zend_Form_Element_Text('terminaldate2');
+        $terminaldate2 = new Zend_Form_Element_Text('terminalyear2');
         $terminaldate2->setLabel('Terminal date to: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
@@ -234,7 +234,7 @@ class HoardForm extends Pas_Form {
             ->setOrder(14);
 
         //Coin data quality rating
-        $coindataquality = new Zend_Form_Element_Select('coindataquality');
+        $coindataquality = new Zend_Form_Element_Select('qualityrating');
         $coindataquality->setLabel('Coin data quality rating: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -289,7 +289,7 @@ class HoardForm extends Pas_Form {
 
         ## MATERIALS ##
         //Materials
-        $materials = new Zend_Form_Element_Multiselect('primarymaterials');
+        $materials = new Zend_Form_Element_Multiselect('materials');
         $materials->setLabel('Primary materials: ')
             ->addMultiOptions($materials_options)
             ->setAttrib('class', 'multiselect')
@@ -379,7 +379,6 @@ class HoardForm extends Pas_Form {
         $datefound1->setLabel('First discovery date: ')
             ->setAttrib('size',10)
             ->addFilters(array('StripTags','StringTrim'))
-            ->addValidator('Datetime')
             ->setOrder(54);
 
         //Date found to
@@ -387,7 +386,6 @@ class HoardForm extends Pas_Form {
         $datefound2->setLabel('Second discovery date: ')
             ->setAttrib('size',10)
             ->addFilters(array('StripTags','StringTrim'))
-            ->addValidator('Datetime')
             ->setOrder(55);
 
         //Rally details
@@ -410,7 +408,7 @@ class HoardForm extends Pas_Form {
 
         ## OTHER REFERENCE NUMBERS ##
         //Legacy hoard ID
-        $legacy_ref = new Zend_Form_Element_Text('legacy_ref');
+        $legacy_ref = new Zend_Form_Element_Text('legacyID');
         $legacy_ref->setLabel('Legacy hoard ID: ')
             ->setAttrib('size',5)
             ->addFilters(array('StripTags','StringTrim'))
@@ -425,7 +423,7 @@ class HoardForm extends Pas_Form {
             ->setOrder(59);
 
         //HER reference number
-        $smrrefno = new Zend_Form_Element_Text('smr_ref');
+        $smrrefno = new Zend_Form_Element_Text('smrrefno');
         $smrrefno->setLabel('Historic Environment Record number: ')
             ->setAttrib('size',30)
             ->addFilters(array('StripTags','StringTrim'))
@@ -473,29 +471,29 @@ class HoardForm extends Pas_Form {
             ));
 
         $this->addDisplayGroup(array(
-            'broadperiod', 'hoardsubperiod1', 'hoardperiod1',
-            'hoardsubperiod2', 'hoardperiod2',
+            'broadperiod', 'subperiod1', 'period1',
+            'subperiod2', 'period2',
             'numdate1', 'numdate2'),
             'hoarddating');
         $this->hoarddating->setLegend('Hoard dating');
 
         $this->addDisplayGroup(array(
             'lastruler', 'lastreeceperiod',
-            'terminaldate1', 'terminaldate2',
+            'terminalyear1', 'terminalyear2',
             'terminalreason'),
             'coindating');
         $this->coindating->setLegend('Coin dating');
 
         $this->addDisplayGroup(array(
-            'description', 'notes', 'coindataquality', 'findofnote', 'findofnotereason',
+            'description', 'notes', 'qualityrating', 'findofnote', 'findofnotereason',
             'treasure', 'treasureID'),
             'hoarddetails');
         $this->hoarddetails->setLegend('Hoard details');
 
         $this->addDisplayGroup(array(
-            'primarymaterials'),
-            'materials');
-        $this->materials->setLegend('Materials');
+            'materials'),
+            'primarymaterials');
+        $this->primarymaterials->setLegend('Materials');
 
         $this->addDisplayGroup(array(
             'recordername','recorderID','idBy',
@@ -510,7 +508,7 @@ class HoardForm extends Pas_Form {
             'datefound2','rally','rallyID'), 'discovery');
         $this->discovery->setLegend('Discovery details');
 
-        $this->addDisplayGroup(array('legacy_ref', 'other_ref','smr_ref','musaccno','curr_loc',
+        $this->addDisplayGroup(array('legacyID', 'other_ref','smrrefno','musaccno','curr_loc',
             'subs_action'), 'references');
         $this->references->setLegend('Reference numbers');
 
