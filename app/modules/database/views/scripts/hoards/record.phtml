@@ -40,7 +40,8 @@
             <!-- Finds materials -->
             <?php
             if (!is_null($this->hoardMaterials)){
-                echo $this->partial('partials/hoards/materials.phtml', array('hoardMaterials' => $this->hoardMaterials));
+                echo $this->hoardMaterials()
+                    ->setMaterials($this->hoardMaterials);
             }
             ?>
             <!-- Linked coins -->
