@@ -27,10 +27,54 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      */
     protected $_findspots;
 
-    /** Base Url redirect
-     *
+    /** The controller to redirect to on completion of action
+     * @access protected
+     * @var \Findspots
      */
-    const REDIRECT = '/database/artefacts/';
+    protected $_controller;
+
+    /** The redirect URL to go to on completion of action
+     * @access protected
+     * @var \Findspots
+     */
+    protected $_redirect;
+
+    /** Set the controller to redirect to on completion of action
+     * @access public
+     * @param string $recordtype
+     * @return \Findspots
+     */
+    public function setController($recordtype) {
+        $this->_controller = $recordtype;
+        return $this;
+    }
+
+    /** Set the redirect URL to go to on completion of action
+     * @access public
+     * @return \Findspots
+     */
+    public function setRedirect($controller) {
+        $module = '/database/';
+        $this->_redirect = $module . $controller . '/';
+        return $this;
+    }
+
+    /** Get the controller to redirect to on completion of action
+     * @access public
+     * @return string
+     */
+    public function getController() {
+        return $this->_controller;
+    }
+
+    /** Get the redirect URL to go to on completion of action
+     * @access public
+     * @return string
+     */
+    public function getRedirect() {
+        return $this->_redirect;
+    }
+
 
     /** Set up the ACL access and appid from config
      * @access public
@@ -39,7 +83,10 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->deny('public',null);
         $this->_helper->_acl->allow('member',array('index','add','delete','edit'));
-        
+
+        $this->setController($this->_getParam('recordtype', 'artefacts'));
+        $this->setRedirect($this->getController());
+
         $this->_findspots = new Findspots();
     }
 
@@ -49,7 +96,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $this->getFlash()->addMessage('You cannot access the findspots index.');
-        $this->_redirect(self::REDIRECT);
+        $this->_redirect($this->getRedirect());
     }
 
     /** Add a new findspot action
@@ -80,8 +127,9 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                 $updateData['findID'] = $this->_getParam('secuid');
                 $updateData['institution'] = $this->_helper->identity->getPerson()->institution;
                 $this->_findspots->addAndProcess($updateData);
-                $this->_helper->solrUpdater->update('beowulf', $returnID);
-                $this->_redirect(self::REDIRECT . 'record/id/' . $returnID);
+                // $this->_helper->solrUpdater->update('beowulf', $returnID);
+
+                $this->_redirect($this->getRedirect() . 'record/id/' . $returnID);
                 $this->getFlash()->addMessage('A new findspot has been created.');
             } else {
                 $form->populate($form->getValues());
@@ -101,7 +149,9 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
             $form = new FindSpotForm();
             $form->submit->setLabel('Update findspot');
             $this->view->form = $form;
-            $this->view->returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'));
+            $this->view->returnID = (int)$this->_findspots->getFindNumber(
+                $this->_getParam('id'), $this->_getParam('recordtype')
+            );
             if($this->getRequest()->isPost()
                     && $form->isValid($this->_request->getPost())){
                 $updateData = $form->getValues();
@@ -112,12 +162,12 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                         $this->_getParam('id'));
                 $insertData = $this->_findspots->updateAndProcess($updateData);
                 $update = $this->_findspots->update($insertData, $where);
-                $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'));
+                $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->getController());
                 $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit',
                 $this->_getParam('id'), $returnID);
-                $this->_helper->solrUpdater->update('beowulf', $returnID);
+                // $this->_helper->solrUpdater->update('beowulf', $returnID);
                 $this->getFlash()->addMessage('Findspot updated!');
-                $this->_redirect(self::REDIRECT . 'record/id/' . $returnID);
+                $this->_redirect($this->getRedirect() . 'record/id/' . $returnID);
 
             } else {
                 $id = (int)$this->_getParam('id', 0);
@@ -144,20 +194,22 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
         if($this->_getParam('id',false)){
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
-                $findID = (int)$this->_request->getPost('findID');
+                $recordID = (int)$this->_request->getPost('recordID');
+                $this->setController($this->_request->getPost('controller'));
+                $this->setRedirect($this->getController());
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = 'id = ' . $id;
                     $this->_findspots->delete($where);
-                        $this->_helper->solrUpdater->update('beowulf', $findID);
+                        // $this->_helper->solrUpdater->update('beowulf', $findID);
                     $this->getFlash()->addMessage('Findspot deleted.');
                 }
-                $this->_redirect(self::REDIRECT . 'record/id/' . $findID);
+                $this->_redirect($this->getRedirect() . 'record/id/' . $recordID);
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {
                     $this->view->findspot = $this->_findspots
-                            ->getFindtoFindspotDelete($this->_getParam('id'));
+                            ->getFindtoFindspotDelete($this->_getParam('id'), $this->getController());
                 }
             }
         } else {

@@ -1,10 +1,10 @@
-<?php if(!is_null($this->curr_loc) || !is_null($this->subsequentActionTerm)):?>
+<?php if(!empty($this->curr_loc) || !empty($this->subsequentActionTerm)):?>
     <h4>Subsequent actions</h4>
     <p>
-        <?php if(!is_null($this->curr_loc) ):?>
+        <?php if(!empty($this->curr_loc) ):?>
             Current location of find: <?php echo $this->curr_loc;?><br />
         <?php endif;?>
-        <?php if(!is_null($this->subsequentActionTerm)):?>
+        <?php if(!empty($this->subsequentActionTerm)):?>
             Subsequent action after recording: <?php echo $this->subsequentActionTerm;?>
         <?php endif;?>
     </p>

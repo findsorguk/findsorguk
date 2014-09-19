@@ -95,15 +95,17 @@ class Findspots extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return integer
      */
-    public function getFindNumber($id){
+    public function getFindNumber($id, $table = 'finds'){
+        if($table == 'artefacts') {
+            $table = 'finds';
+        }
         $findspotdata = $this->getAdapter();
         $select = $findspotdata->select()
                 ->from($this->_name,array())
-                ->joinLeft('finds', 'finds.secuid = findspots.findID',array('id'))
-                ->where('findspots.id = ?', (int)$id)
-                ->limit('1');
-        $data = $findspotdata->fetchAll($select);
-        return $data[0]['id'];
+                ->joinLeft(array('recordtable' => $table), 'recordtable.secuid = findspots.findID',array('id'))
+                ->where('findspots.id = ?', (int)$id);
+        $data = $findspotdata->fetchRow($select);
+        return $data['id'];
     }
     /** Retrieval of findspot row for display (not all columns)
     * @param integer $id
@@ -181,13 +183,20 @@ class Findspots extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function getFindtoFindspotDelete($id) {
+    public function getFindtoFindspotDelete($id, $table = 'finds') {
+        if($table == 'artefacts') {
+            $useTable = 'finds';
+        } else {
+            $useTable = $table;
+        }
         $finds = $this->getAdapter();
         $select = $finds->select()
                 ->from($this->_name)
-                ->joinLeft('finds','finds.secuid = findspots.findID', array('findID' => 'id'))
+                ->joinLeft(array('recordtable' => $useTable),'recordtable.secuid = findspots.findID', array('recordID' => 'id'))
                 ->where('findspots.id = ?' ,(int)$id);
-        return $finds->fetchAll($select);
+        $rows = $finds->fetchAll($select);
+        $rows[0]['controller'] = $table;
+        return $rows;
     }
 
     /** Retrieval of findspots data row for cloning record

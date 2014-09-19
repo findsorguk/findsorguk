@@ -561,15 +561,13 @@ class FindForm extends Pas_Form {
 	$datefound1 = new Zend_Form_Element_Text('datefound1');
 	$datefound1->setLabel('First discovery date: ')
                 ->setAttrib('size',10)
-                ->addFilters(array('StripTags','StringTrim'))
-                ->addValidator('Datetime');
+                ->addFilters(array('StripTags','StringTrim'));
 
 	//Date found to
 	$datefound2 = new Zend_Form_Element_Text('datefound2');
 	$datefound2->setLabel('Second discovery date: ')
                 ->setAttrib('size',10)
-                ->addFilters(array('StripTags','StringTrim'))
-                ->addValidator('Datetime');
+                ->addFilters(array('StripTags','StringTrim'));
 
 	##OTHER REFERENCE NUMBERS
 	//Other reference number

@@ -1,3 +1,4 @@
+<?php if(!empty($this->linkedCoins)) :?>
 <h4>Containers linked to this hoard</h4>
 <?php foreach($this->linkedContainers as $container) : ?>
 
@@ -18,3 +19,4 @@
     </p>
 
 <?php endforeach; ?>
+<?php endif;?>

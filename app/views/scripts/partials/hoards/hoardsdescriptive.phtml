@@ -4,7 +4,7 @@
     echo $this->description;
     ?>
 </div>
-<?php if(!is_null($this->notes)) :?>
+<?php if(!empty($this->notes)) :?>
     <p><strong>Notes:</strong></p> <span property="pas:notes"><?php
         echo $this->notes;?></span>
 <?php endif;?>

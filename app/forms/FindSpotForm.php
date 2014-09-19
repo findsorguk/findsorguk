@@ -308,7 +308,7 @@ class FindSpotForm extends Pas_Form {
             ->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
 
         //Findspot data quality rating
-        $findspotdataquality = new Zend_Form_Element_Select('findspotdataquality');
+        $findspotdataquality = new Zend_Form_Element_Select('qualityrating');
         $findspotdataquality->setLabel('Findspot data quality rating: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -375,7 +375,7 @@ class FindSpotForm extends Pas_Form {
 
         $this->spatial->setLegend('Spatial information');
 
-        $this->addDisplayGroup(array('description','comments', 'findspotdataquality'),'commentary');
+        $this->addDisplayGroup(array('description','comments', 'qualityrating'),'commentary');
 
         $this->commentary->setLegend('Findspot comments');
 

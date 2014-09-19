@@ -1,8 +1,9 @@
 <?php
 $this->googleDynamicMap(null,null,true);
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 ?>
 <h3>Spatial data</h3>
-<?php echo $this->FindSpotEditDeleteLink($this->old_findspotid,$this->id,$this->createdBy);?>
+<?php echo $this->FindSpotEditDeleteLink($this->old_findspotid,$this->id,$controller,$this->createdBy);?>
 
 <?php if(isset($this->declong) && isset($this->declat)) : ?>
 

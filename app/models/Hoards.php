@@ -87,6 +87,47 @@ class Hoards extends Pas_Db_Table_Abstract {
         }
     }
 
+    /** Add a new hoard record
+     * @param array
+     * @return int
+     */
+    public function addHoard($insertData){
+        $insertData['secuid'] = $this->generateSecuId();
+        $insertData['hoardID'] = $this->generateHoardId();
+        $insertData['secwfstage'] = (int)2;
+        $insertData['institution'] = $this->getInstitution();
+        unset($insertData['recordername']);
+        unset($insertData['finder']);
+        unset($insertData['idBy']);
+        unset($insertData['id2by']);
+        unset($insertData['lastruler']);
+        unset($insertData['lastreeceperiod']);
+        unset($insertData['hiddenfield']);
+
+        $i = 2;
+        while ($i > 0){
+            try {
+                $insert = $this->add($insertData);
+                break;
+            } catch(Zend_Db_Exception $e) {
+                $code = $e->getCode();
+                // If there is a duplicate unique value, generates a new old_findsID and tries again up to twice
+                if($code == self::DUPLICATE_UNIQUE_VALUE_ERROR_CODE) {
+                    usleep(100000); // Delays generation of new old_findsID to prevent further duplicate generation
+                    $insertData['hoardID'] = $this->generateHoardId();
+                    $i--;
+                } else { // Any other Zend_Db_Exception
+                    break;
+                }
+            }
+        }
+        if(isset($insert)){
+            return $insert;
+        } else {
+            return 'error';
+        }
+    }
+
     /** Edit a hoard record
      *
      * @param array $updateData

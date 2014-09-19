@@ -153,6 +153,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
             ->initContext();
         $this->_hoards = new Hoards();
         $this->_auth = Zend_Registry::get('auth');
+        $this->_user = $this->_helper->identity->getPerson();
     }
 
     /** Display a list of hoards recorded with pagination
@@ -217,12 +218,57 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function addAction() {
-
+        $user = $this->_user;
+        if(is_null($user->peopleID) || is_null($user->canRecord)){
+            $this->_redirect('/error/accountproblem');
+        }
         $form = $this->getHoardForm();
         $form->submit->setLabel('Save record');
+        if(isset($user->peopleID)){
+            $form->recorderID->setValue($user->peopleID);
+            $form->recordername->setValue($user->fullname);
+            $form->identifier1ID->setValue($user->peopleID);
+            $form->idBy->setValue($user->fullname);
+        }
+        if(in_array($user->role,$this->_restricted)) {
+            $form->finderID->setValue($user->peopleID);
+            $form->removeDisplayGroup('discoverers');
+            $form->removeElement('finder');
+            $form->removeElement('secondfinder');
+            $form->removeElement('idBy');
+            $form->recordername->setAttrib('disabled', true);
+            $form->removeElement('id2by');
+        }
+
         $this->view->form = $form;
 
-
+        $last = $this->_getParam('copy');
+        if($last == 'last') {
+            $finddata = $this->_hoards->getLastRecord($this->getIdentityForForms());
+            foreach($finddata as $finddataflat) {
+                $form->populate($finddataflat);
+                if(isset($user->peopleID)){
+                    $form->recorderID->setValue($user->peopleID);
+                    $form->recordername->setValue($user->fullname);
+                }
+            }
+        }
+        if($this->getRequest()->isPost()) {
+            $formData = $this->_request->getPost();
+            if ($form->isValid($formData)) {
+                $insertData = $form->getValues();
+                $insert = $this->_hoards->addHoard($insertData);
+                if ($insert != 'error'){
+                    $this->_redirect(self::REDIRECT . 'record/id/' . $insert);
+                } else { // If there is a database error, repopulate form so users don't lose their work
+                    // $this->_flashMessenger->addMessage('Database error. Please try submitting again or contact support.');
+                    $form->populate($formData);
+                }
+            } else  {
+                $this->_flashMessenger->addMessage('Please check and correct errors!');
+                $form->populate($formData);
+            }
+        }
     }
 
     /** Edit a hoard

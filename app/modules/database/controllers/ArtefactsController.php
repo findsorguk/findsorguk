@@ -315,7 +315,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 unset($insertData['id2by']);
                 unset($insertData['secondfinder']);
                 $insert = $this->_finds->add($insertData);
-                $this->_helper->solrUpdater->update('beowulf', $insert);
+                // $this->_helper->solrUpdater->update('beowulf', $insert);
                 $this->_redirect(self::REDIRECT . 'record/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else  {
@@ -368,7 +368,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                             $this->_getParam('id'),
                             $this->_getParam('id')
                             );
-                    $this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
+                    //$this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
                     $this->getFlash()->addMessage('Artefact information updated and audited!');
                     $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
                 } else {

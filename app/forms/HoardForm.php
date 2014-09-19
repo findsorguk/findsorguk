@@ -105,7 +105,7 @@ class HoardForm extends Pas_Form {
         $hoardsubperiod1 = new Zend_Form_Element_Select('subperiod1');
         $hoardsubperiod1->setLabel('Sub period from: ')
             ->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(null => 'Choose a subperiod' ,
                 'Valid sub periods' => array('1' => 'Early','2' => 'Middle', '3' => 'Late')))
             ->setAttribs(array('class' => 'selectpicker show-menu-arrow'))
@@ -115,7 +115,7 @@ class HoardForm extends Pas_Form {
         $hoardperiod1 = new Zend_Form_Element_Select('period1');
         $hoardperiod1->setLabel('Period from: ')
             ->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(null => 'Choose a period from' ,
                 'Available periods' => $period_options))
             ->addValidator('InArray', false, array(array_keys($period_options)))
@@ -127,7 +127,7 @@ class HoardForm extends Pas_Form {
         $hoardsubperiod2 = new Zend_Form_Element_Select('subperiod2');
         $hoardsubperiod2->setLabel('Sub period to: ')
             ->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(null => 'Choose a subperiod' ,
                 'Valid sub periods' => array('1' => 'Early','2' => 'Middle', '3' => 'Late')))
             ->addValidator('Digits')
@@ -138,7 +138,7 @@ class HoardForm extends Pas_Form {
         $hoardperiod2 = new Zend_Form_Element_Select('period2');
         $hoardperiod2->setLabel('Period to: ')
             ->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(null => 'Choose period to',
                 'Available periods' => $period_options))
             ->addValidator('InArray', false, array(array_keys($period_options)))
@@ -151,7 +151,7 @@ class HoardForm extends Pas_Form {
         $numdate1->setLabel('Date from: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addValidator('Int')
             ->setOrder(6);
 
@@ -160,7 +160,7 @@ class HoardForm extends Pas_Form {
         $numdate2->setLabel('Date to: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addValidator('Int')
             ->setOrder(7);
 
@@ -169,7 +169,7 @@ class HoardForm extends Pas_Form {
         $lastruler = new Zend_Form_Element_Select('lastruler');
         $lastruler->setLabel('Last ruler: ')
             ->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(
                 null => 'Choose ruler after broad period'
             ))
@@ -180,7 +180,7 @@ class HoardForm extends Pas_Form {
         $lastreeceperiod = new Zend_Form_Element_Select('lastreeceperiod');
         $lastreeceperiod->setLabel('Last Reece period: ')
             ->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(
                 null => 'Choose Reece period'
             ))
@@ -192,7 +192,7 @@ class HoardForm extends Pas_Form {
         $terminaldate1->setLabel('Terminal date from: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addValidator('Int')
             ->setOrder(10);
 
@@ -201,7 +201,7 @@ class HoardForm extends Pas_Form {
         $terminaldate2->setLabel('Terminal date to: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addValidator('Int')
             ->setOrder(11);
 
@@ -209,7 +209,7 @@ class HoardForm extends Pas_Form {
         $terminalreason = new Zend_Form_Element_Select('terminalreason');
         $terminalreason->setLabel('Terminal reason: ')
             ->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(
                 null => 'Choose a reasoning',
                 'Available reasons' => $terminalreason_options))
@@ -237,7 +237,7 @@ class HoardForm extends Pas_Form {
         $coindataquality = new Zend_Form_Element_Select('qualityrating');
         $coindataquality->setLabel('Coin data quality rating: ')
             ->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(
                 null => 'Choose a rating',
                 'Available ratings' => $qualityrating_options))
@@ -252,7 +252,7 @@ class HoardForm extends Pas_Form {
             ->setRequired(false)
             ->setCheckedValue('1')
             ->setUncheckedValue(null)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addValidator('NotEmpty','Int')
             ->setOrder(16);
 
@@ -260,7 +260,7 @@ class HoardForm extends Pas_Form {
         $findofnotereason = new Zend_Form_Element_Select('findofnotereason');
         $findofnotereason->setLabel('Why this find is considered noteworthy: ')
             ->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(
                 null => 'Choose a reasoning',
                 'Available reasons' => $reason_options))
@@ -275,7 +275,7 @@ class HoardForm extends Pas_Form {
             ->setRequired(false)
             ->setCheckedValue('1')
             ->setUncheckedValue(null)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(18);
 
         //Treasure ID
@@ -294,41 +294,46 @@ class HoardForm extends Pas_Form {
             ->addMultiOptions($materials_options)
             ->setAttrib('class', 'multiselect')
             ->setDescription('Primary materials of coins and artefacts in the hoard')
+            ->addFilters(array('Null'))
             ->setOrder(20);
 
         ## RECORDING DETAILS ##
         //Recorder
         $recorderID = new Zend_Form_Element_Hidden('recorderID');
-        $recorderID->addFilters(array('StripTags','StringTrim'))
+        $recorderID->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(21);
 
         $recordername = new Zend_Form_Element_Text('recordername');
-        $recordername->setLabel('Recorded by: ')->addFilters(array('StripTags','StringTrim'))
+        $recordername->setLabel('Recorded by: ')
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(22);
 
         //Primary Identifier
         $idBy = new Zend_Form_Element_Text('idBy');
-        $idBy->setLabel('Primary identifier: ')->addFilters(array('StripTags','StringTrim'))
+        $idBy->setLabel('Primary identifier: ')
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(23);
 
         $identifier1ID = new Zend_Form_Element_Hidden('identifier1ID');
-        $identifier1ID->addFilters(array('StripTags','StringTrim'))
+        $identifier1ID->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(24);
 
         $id2by = new Zend_Form_Element_Text('id2by');
-        $id2by->setLabel('Secondary Identifier: ')->addFilters(array('StripTags','StringTrim'))
+        $id2by->setLabel('Secondary Identifier: ')
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(25);
 
         //Secondary Identifier
         $identifier2ID = new Zend_Form_Element_Hidden('identifier2ID');
-        $identifier2ID->setRequired(false)->addFilters(array('StripTags','StringTrim'))
+        $identifier2ID->setRequired(false)
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(26);
 
         ## DISCOVERER DETAILS ##
         //Finder
         $finderID = new Zend_Form_Element_Hidden('finderID');
         $finderID->setRequired(false)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(27);
 
         $hiddenfield = new Zend_Form_Element_Hidden('hiddenfield');
@@ -337,7 +342,7 @@ class HoardForm extends Pas_Form {
 
         $finder = new Zend_Form_Element_Text('finder');
         $finder->setLabel('Found by: ')
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setDescription('To make a new finder/identifier appear, you '
                 . 'first need to create them from the people menu on '
                 . 'the left hand side')
@@ -359,7 +364,7 @@ class HoardForm extends Pas_Form {
         $discmethod->setLabel('Discovery method: ')
             ->setRequired(true)
             ->setValue(1)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addValidator('Int')
             ->addValidator('inArray', true, array(array_keys($disc_options)))
             ->addMultiOptions(array(null => 'Choose method of discovery','Available methods' => $disc_options))
@@ -371,21 +376,21 @@ class HoardForm extends Pas_Form {
         $disccircum->setLabel('Discovery circumstances: ')
             ->setAttrib('size',50)
             ->setAttrib('class' , 'span6')
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(53);
 
         //Date found from
         $datefound1 = new Zend_Form_Element_Text('datefound1');
         $datefound1->setLabel('First discovery date: ')
             ->setAttrib('size',10)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(54);
 
         //Date found to
         $datefound2 = new Zend_Form_Element_Text('datefound2');
         $datefound2->setLabel('Second discovery date: ')
             ->setAttrib('size',10)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(55);
 
         //Rally details
@@ -393,13 +398,13 @@ class HoardForm extends Pas_Form {
         $rally->setLabel('Rally find: ')
             ->setCheckedValue('1')
             ->setUncheckedValue(null)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addValidator('Int')
             ->setOrder(56);
 
         $rallyID =  new Zend_Form_Element_Select('rallyID');
         $rallyID->setLabel('Found at this rally: ')
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(null => 'Choose rally name',
                 'Available rallies' => $rally_options))
             ->addValidator('InArray', false, array(array_keys($rally_options)))
@@ -411,7 +416,7 @@ class HoardForm extends Pas_Form {
         $legacy_ref = new Zend_Form_Element_Text('legacyID');
         $legacy_ref->setLabel('Legacy hoard ID: ')
             ->setAttrib('size',5)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(58)
             ->disabled = true;
 
@@ -419,34 +424,34 @@ class HoardForm extends Pas_Form {
         $other_ref = new Zend_Form_Element_Text('other_ref');
         $other_ref->setLabel('Other reference: ')
             ->setAttrib('size',50)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(59);
 
         //HER reference number
         $smrrefno = new Zend_Form_Element_Text('smrrefno');
         $smrrefno->setLabel('Historic Environment Record number: ')
             ->setAttrib('size',30)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(60);
 
         //Museum accession number
         $musaccno = new Zend_Form_Element_Text('musaccno');
         $musaccno->setLabel('Museum accession number: ')
             ->setAttrib('size',50)
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(61);
 
         //Current location of object
         $curr_loc = new Zend_Form_Element_Text('curr_loc');
         $curr_loc->setLabel('Current location: ')
             ->setAttrib('class','span6')
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(62);
 
         //Current location of object
         $subs_action = new Zend_Form_Element_Select('subs_action');
         $subs_action->setLabel('Subsequent action: ')
-            ->addFilters(array('StripTags','StringTrim'))
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setAttrib('class','span6')
             ->addMultiOptions(array(null => 'Choose a subsequent action',
                 'Available options' => $actionsDD))
@@ -461,7 +466,7 @@ class HoardForm extends Pas_Form {
         $submit->setOrder(64);
 
         $this->addElements(array(
-            $secuid, $old_hoardID, $hoardperiod1, $hoardperiod2, $hoardsubperiod1, $hoardsubperiod2,
+            $secuid, $old_hoardID, $broadperiod, $hoardperiod1, $hoardperiod2, $hoardsubperiod1, $hoardsubperiod2,
             $numdate1, $numdate2, $lastruler, $lastreeceperiod, $terminaldate1, $terminaldate2, $terminalreason,
             $description, $notes, $coindataquality, $findofnote, $findofnotereason, $treasure, $treasureID,
             $materials, $recorderID, $recordername, $idBy, $id2by, $identifier1ID, $identifier2ID,

@@ -1,3 +1,4 @@
+<?php if(!empty($this->linkedArtefacts)) :?>
 <h4>Artefacts linked to this hoard</h4>
 <?php foreach($this->linkedArtefacts as $artefact) : ?>
 
@@ -18,3 +19,4 @@
     </p>
 
 <?php endforeach; ?>
+<?php endif;?>

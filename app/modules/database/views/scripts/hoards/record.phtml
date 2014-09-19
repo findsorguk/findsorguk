@@ -39,7 +39,7 @@
             <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->treasureDetails);?>
             <!-- Finds materials -->
             <?php
-            if (!is_null($this->hoardMaterials)){
+            if (!empty($this->hoardMaterials)){
                 echo $this->hoardMaterials()
                     ->setMaterials($this->hoardMaterials);
             }
@@ -56,7 +56,7 @@
             <!-- Rally data -->
             <?php
             if (count($this->rallyfind)){
-                //echo $this->partial('partials/database/hoards/rallyfind.phtml', $this->rallyfind['0']);
+                echo $this->partial('partials/database/hoards/rallyfind.phtml', $this->rallyfind['0']);
             }
             ?>
             <!-- Personal data -->
@@ -66,11 +66,7 @@
                 <?php echo $this->partial('partials/hoards/personal.phtml', $this->recordersIdentifiers);?>
             <?php endif;?>
             <!-- Other references -->
-            <?php
-            if ($this->referenceNumbers){
-                echo $this->partial('partials/hoards/otherrefs.phtml', $this->referenceNumbers);
-            }
-            ?>
+            <?php echo $this->partial('partials/hoards/otherrefs.phtml', $this->referenceNumbers); ?>
 
 
 
@@ -135,9 +131,9 @@
                 <p>
                     No spatial data available.
                 </p>
-                <?php echo $this->findSpotLink()
+                <?php  echo $this->findSpotLink()
                     ->setFindID($this->hoards['id'])
-                    ->setSecuID($this->hoards['hoardID'])
+                    ->setSecuID($this->hoards['uniqueID'])
                     ->setCreatedBy($this->hoards['createdBy'])
                     ->setInstitution($this->hoards['institution']);
                 ?>
@@ -150,7 +146,7 @@
     <!-- Start of the archaeological context data -->
     <div class="row-fluid">
 
-        <?php if (count($this->archaeologicalContext)) : ?>
+        <?php if (!empty($this->archaeologicalContext)) : ?>
             <!-- Check for archaeological context data and if there is render it -->
         <?php echo $this->partial('partials/hoards/archaeology.phtml',$this->archaeologicalContext); ?>
         <?php else: ?>

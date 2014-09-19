@@ -90,40 +90,42 @@ class Pas_View_Helper_FindSpotEditDeleteLink
      *
      * @param string $findspotID
      * @param int    $ID
+     * @param string $controller
      * @param int    $createdBy
+     * @param string    $institution
      */
-    public function FindSpotEditDeleteLink($findspotID, $ID, $createdBy, $institution = 'PUBLIC')
+    public function FindSpotEditDeleteLink($findspotID, $ID, $controller, $createdBy, $institution = 'PUBLIC')
     {
     $byID = $this->checkAccessbyUserID($createdBy);
     $instID = $this->checkAccessbyInstitution($findspotID);
 
     if (in_array($this->getPerson()->role,$this->_restricted)) {
     if (($byID == TRUE && $instID== TRUE) || ($byID == TRUE && $instID == FALSE)) {
-    return $this->buildHtml($ID);
+    return $this->buildHtml($ID, $controller);
     }
     } elseif (in_array($this->getPerson()->role,$this->_higherLevel)) {
-    return $this->buildHtml($ID);
+    return $this->buildHtml($ID, $controller);
     } elseif (in_array($this->getPerson()->role,$this->_recorders)) {
     if(($instID == TRUE && $byID == FALSE) || ($byID == true && $instID == true) ||
     ($byID == false && $instID == true)) {
-    return $this->buildHtml($ID);
+    return $this->buildHtml($ID, $controller);
     }
     }
     }
 
     /** Build the HTML links
      *
-     * @param  int    $ID
+     * @param  int    $ID, $controller
      * @return string $html
      */
-    public function buildHtml($ID)
+    public function buildHtml($ID, $controller)
     {
     $editClass = 'btn btn-small btn-warning';
     $deleteClass = 'btn btn-small btn-danger';
     $editurl = $this->view->url(array('module' => 'database','controller' => 'findspots','action' => 'edit',
-    'id' => $ID),null,true);
+    'id' => $ID, 'recordtype' => $controller),null,true);
     $deleteurl = $this->view->url(array('module' => 'database','controller' => 'findspots','action' => 'delete',
-    'id' => $ID),null,true);
+    'id' => $ID, 'recordtype' => $controller),null,true);
     $html = '<p><a class="' .$editClass . '" href="' . $editurl
     . '" title="Edit spatial data for this record">Edit findspot <i class="icon-edit icon-white"></i></a> <a class="' . $deleteClass . '" href="' . $deleteurl
     . '" title="Delete spatial data">Delete findspot <i class="icon-trash icon-white"></i></a></p>';
