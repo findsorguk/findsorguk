@@ -59,6 +59,18 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
      * @var integer 
      */
     protected $_createdBy;
+
+    /** The controller from which the call originates
+     * @access protected
+     * @var integer
+     */
+    protected $_controller;
+
+    /** The record type that should be created, edited, deleted etc.
+     * @access protected
+     * @var integer
+     */
+    protected $_recordType;
     
     /** Get an id
      * @access public
@@ -113,6 +125,29 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
         $this->_createdBy = $createdBy;
         return $this;
     }
+
+    /** Get the controller
+     * @access public
+     * @return object
+     */
+    public function getController() {
+        $this->_controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+        return $this->_controller;
+    }
+
+    /** Get the record type
+     * @access public
+     * @param string  $controller
+     * @return object
+     */
+    public function getRecordType($controller) {
+        if($controller == 'artefacts'){
+            $this->_recordType = 'artefact';
+        } elseif($controller == 'hoards'){
+            $this->_recordType = 'hoard';
+        }
+        return $this->_recordType;
+    }
     
     /** Display the toolbox, crappy code
      *
@@ -134,6 +169,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
     
     /** Return html string
      * @access public
+     * @param string $controller
      * @return string
      */
     public function buildHtml() {
@@ -163,17 +199,18 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
         $html .= $this->view->RecordEditDeleteLinks(
                 $this->getId(),
                 $this->getOldFindID(),
+                $this->getController(),
                 $this->getCreatedBy()
                 );
         $html .=' <a class="' . $class . '" href="#print" id="print">Print';
         $html .= '<i class="icon-print icon-white"></i></a> ';
         $html .= $this->view->Href(array(
             'module' => 'database',
-            'controller'=>'artefacts',
+            'controller'=>$this->getController(),
             'action'=>'add',
             'checkAcl'=>true,
             'acl'=>'Zend_Acl',
-            'content'=>'Add record <i class="icon-white icon-plus"></i>',
+            'content'=>'Add ' . $this->getRecordType($this->_controller) . ' <i class="icon-white icon-plus"></i>',
             'attribs' => array(
                 'title' => 'Add new object',
                 'accesskey' => 'a',
@@ -183,16 +220,16 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
             $html .= ' <a class="btn btn-small btn-danger" href="';
             $html .= $this->view->url(array(
                 'module' => 'database',
-                'controller'=>'artefacts',
+                'controller'=>$this->getController(),
                 'action'=>'workflow',
-                'findID' => $this->getId()),null,true);
+                'id' => $this->getId()),null,true);
             $html .= '">Change workflow</a>';
             $html .= ' <a class="' . $class . '"  href="';
             $html .= $this->view->url(array(
                 'module' => 'database',
                 'controller'=>'ajax',
                 'action'=>'forceindexupdate',
-                'findID' => $this->getId()),null,true);
+                'id' => $this->getId()),null,true);
             $html .= '">Force index update</a>';
         }
         $html .= '</p></div>';

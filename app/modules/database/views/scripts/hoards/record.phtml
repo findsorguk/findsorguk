@@ -6,7 +6,7 @@
 <div class="row-fluid">
 
     <?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml',array('hoards' => $this->hoards));?>
-    <?php //echo $this->partialLoop('partials/hoards/zoterorecord.phtml',$this->hoards);?>
+    <?php echo $this->partialLoop('partials/hoards/zoterorecord.phtml',array('hoards' => $this->hoards));?>
 
 
     <div id="workflowstatus">
@@ -177,10 +177,10 @@
             <p>
                 <?php
                 echo $this->addRefLink()
-                    ->setFindID($this->hoards['0']['id'])
-                    ->setSecuID($this->hoards['0']['uniqueID'])
-                    ->setCreatedBy($this->hoards['0']['createdBy'])
-                    ->setInstitution($this->hoards['0']['institution']);
+                    ->setFindID($this->hoards['id'])
+                    ->setSecuID($this->hoards['uniqueID'])
+                    ->setCreatedBy($this->hoards['createdBy'])
+                    ->setInstitution($this->hoards['institution']);
                 ?>
             </p>
 
@@ -195,10 +195,10 @@
 
             <?php
             echo $this->addRefLink()
-                ->setFindID($this->hoards['0']['id'])
-                ->setSecuID($this->hoards['0']['uniqueID'])
-                ->setCreatedBy($this->hoards['0']['createdBy'])
-                ->setInstitution($this->hoards['0']['institution']);
+                ->setFindID($this->hoards['id'])
+                ->setSecuID($this->hoards['uniqueID'])
+                ->setCreatedBy($this->hoards['createdBy'])
+                ->setInstitution($this->hoards['institution']);
             ?>
         <?php endif;?>
     </div>

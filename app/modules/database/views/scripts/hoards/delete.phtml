@@ -1,1 +1,20 @@
+<?php
+$this->headTitle('Delete hoard');
+if ($this->hoard) :?>
+    <h2>Delete <?php echo $this->escape($this->hoard->hoardID). ' - '. 'HOARD'; ?></h2>
+    <p>Are you sure that you want to delete
+        'HOARD'
+    </p>
+    <form action="<?php echo $this->url(array('module' => 'database','controller' => 'hoards','action'=>'delete'),null,true); ?>"
+          method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->hoard->id; ?>" />
+            <input type="hidden" name="secuid" value="<?php echo $this->hoard->secuid; ?>" />
 
+            <input type="submit" name="del" value="Yes" />
+            <input type="submit" name="del" value="No" />
+        </div>
+    </form>
+<?php else: ?>
+    <p>Cannot find the item requested.</p>
+<?php endif;?>

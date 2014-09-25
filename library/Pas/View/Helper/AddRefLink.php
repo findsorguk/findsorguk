@@ -220,6 +220,15 @@ class Pas_View_Helper_AddRefLink extends Zend_View_Helper_Abstract {
         return $this->_inst;
     }
 
+    /** Get the controller
+     * @access public
+     * @return object
+     */
+    public function getController() {
+        $this->_controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+        return $this->_controller;
+    }
+
     /** Check whether access is allowed by userid for that record
      *
      * This function conditionally checks to see if a user is in the restricted
@@ -314,7 +323,8 @@ class Pas_View_Helper_AddRefLink extends Zend_View_Helper_Abstract {
             'controller' => 'references',
             'action' => 'add',
             'secID' => $this->getSecuID(),
-            'findID' => $this->getFindID()
+            'findID' => $this->getFindID(),
+            'recordtype' => $this->getController()
         );
         return $url;
     }

@@ -114,13 +114,13 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
      * @param  string  $oldfindID The old find ID number
      * @return string  $html The code for the strings of links
      */
-    private function buildHtml($findID, $oldfindID)
+    private function buildHtml($findID, $oldfindID, $controller)
     {
         $class = 'btn btn-small btn-warning';
         $classDanger = 'btn btn-small btn-danger';
-    $editurl = $this->view->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'edit',
+    $editurl = $this->view->url(array('module' => 'database', 'controller' => $controller, 'action' => 'edit',
     'id' => $findID),null,true);
-    $deleteurl = $this->view->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'delete',
+    $deleteurl = $this->view->url(array('module' => 'database', 'controller' => $controller, 'action' => 'delete',
     'id' => $findID),null,true);
     $html = ' <a class="' . $class . '" href="';
     $html .= $editurl;
@@ -143,7 +143,7 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
      * @param  integer $createdBy Created by number
      * @return string
      */
-    public function RecordEditDeleteLinks($findID, $oldfindID ,$createdBy)
+    public function RecordEditDeleteLinks($findID, $oldfindID, $controller, $createdBy)
     {
     $byID = $this->checkAccessbyUserID($createdBy);
     $instID = $this->checkAccessbyInstitution($oldfindID);
@@ -151,17 +151,17 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
     return FALSE;
     } elseif (in_array($this->getRole(),$this->restricted)) {
     if (($byID == TRUE && $instID == TRUE) || ($byID == TRUE && $instID == FALSE)) {
-    return $this->buildHtml($findID,$oldfindID);
+    return $this->buildHtml($findID,$oldfindID,$controller);
     }
     } elseif (in_array($this->getRole(),$this->recorders)) {
     if(($byID == true && $instID == true) || ($byID == true && $instID == FALSE)
     || ($byID == FALSE && $instID == true)){
-    return $this->buildHtml($findID,$oldfindID);
+    return $this->buildHtml($findID,$oldfindID,$controller);
     } else {
     return FALSE;
     }
     } elseif (in_array($this->getRole(),$this->higherLevel)) {
-    return $this->buildHtml($findID,$oldfindID);
+    return $this->buildHtml($findID,$oldfindID,$controller);
     }
     }
 }

@@ -74,7 +74,7 @@ class Publications extends Pas_Db_Table_Abstract {
                 ->where('authors = ?', $author)
                 ->order('title ASC')
                 ->group('title');
-        $data = $publications->fetchPairs($select);
+        return $publications->fetchPairs($select);
     }
 
     /** Get the secuids

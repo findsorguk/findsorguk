@@ -321,6 +321,92 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         }
     }
 
+    /** Delete a hoard
+     * @access public
+     * @return void
+     */
+    public function deleteAction() {
+        if ($this->_request->isPost()) {
+            $id = (int)$this->_request->getPost('id');
+            $del = $this->_request->getPost('del');
+            if ($del == 'Yes' && $id > 0) {
+                $where = $this->_hoards->getAdapter()->quoteInto('id = ?', $id);
+                $this->_hoards->delete($where);
+                $secuid = $this->_request->getPost('secuid');
+                $whereFindspots = array();
+                $whereFindspots[] = $this->getFindspots()->getAdapter()->quoteInto('findID  = ?',
+                    $secuid);
+                $this->getFlash()->addMessage('Record deleted!');
+                $this->getFindspots()->delete($whereFindspots);
+                // $this->_helper->solrUpdater->deleteById('beowulf', $id);
+                $this->_redirect('database');
+            }
+            $this->getFlash()->addMessage('No changes made!');
+            $this->_redirect('database/hoards/record/id/' . $id);
+        } else {
+            $this->view->hoard = $this->_hoards->fetchRow('id=' . $this->_request->getParam('id'));
+        }
+    }
+
+    /** Change workflow status of a hoard
+     * @access public
+     * @return void
+     */
+    public function workflowAction(){
+        if($this->_getParam('id',false)){
+            $people = new People();
+            $exist = $people->checkEmailOwner($this->_getParam('id'));
+            $person = $this->getAccount();
+            $from = array('name' => $person->fullname, 'email' => $person->email);
+            $this->view->from = $exist;
+            $form = new ChangeWorkFlowForm();
+            $findStatus = $this->_hoards->fetchRow($this->_hoards->select()->where('id = ?', $this->_getParam('id')));
+            $this->view->find = $findStatus->hoardID;
+            $form->populate($findStatus->toArray());
+            $this->view->form = $form;
+            if(is_null($exist['0']['email'])){
+                $form->finder->setAttrib('disabled', 'disabled');
+                $form->finder->setDescription('No email associated with finder yet.');
+                $form->removeElement('content');
+            }
+            if($this->getRequest()->isPost()
+                && $form->isValid($this->_request->getPost())) {
+                if ($form->isValid($form->getValues())) {
+                    $updateData = array('secwfstage' => $form->getValue('secwfstage'));
+                    if(strlen($form->getValue('finder')) > 0){
+                        $assignData = array(
+                            'name' => $exist['0']['name'],
+                            'hoardID' => $findStatus->hoardID,
+                            'id' => $this->_getParam('id'),
+                            'from' => $person->fullname,
+                            'workflow' => $form->getValue('secwfstage'),
+                            'content' => $form->getValue('content')
+                        );
+                        $this->_helper->mailer($assignData, 'informFinderWorkflow', $exist, array($from), array($from),null,null);
+                    }
+                    $where = array();
+                    $where[] = $this->_hoards->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $this->_hoards->update($updateData, $where);
+                    $this->_helper->audit(
+                        $updateData,
+                        $findStatus->toArray(),
+                        'FindsAudit',
+                        $this->_getParam('id'),
+                        $this->_getParam('id'));
+                    // $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
+                    $this->getFlash()->addMessage('Workflow status changed');
+                    $this->_redirect('database/hoards/record/id/' . $this->_getParam('id'));
+                    $this->_request->setMethod('GET');
+                } else {
+                    $this->getFlash()->addMessage('There were problems changing the workflow');
+                    $form->populate($this->_request->getPost());
+                }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+    }
+
 
     /**
      * Adds new fields to form during form submission

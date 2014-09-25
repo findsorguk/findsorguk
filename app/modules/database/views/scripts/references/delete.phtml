@@ -9,6 +9,7 @@ method="post">
 <div>
 <input type="hidden" name="id" value="<?php echo $this->id; ?>" />
 <input type="hidden" name="findID" value="<?php echo $this->bib['0']['id']; ?>" />
+    <input type="hidden" name="controller" value="<?php echo $this->bib['0']['controller'];?>"/>
 <input type="submit" name="del" value="Yes" class="large"/>
 <input type="submit" name="del" value="No" class="large"/>
 </div>
