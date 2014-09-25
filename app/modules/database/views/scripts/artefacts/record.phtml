@@ -97,14 +97,18 @@
 	    <?php if(in_array($this->finds[0]['objecttype'], array('coin', 'COIN','Coin'))):?>
 
             <div id="coinrefslinked">
-                <h4>Coin references</h4>
+                <h4>
+                    Coin references
+                </h4>
                     <!-- existing coin references -->
                     <?php if(!empty($this->coinrefs)):?>
                         <ul>
                             <?php echo $this->partial('partials/numismatics/coinrefs.phtml',$this->coinrefs['0']);?>
                         </ul>
                     <?php else:?>
-                        <p>No coin references available.</p>
+                        <p>
+                            No coin references available.
+                        </p>
                     <?php endif;?>
                     <!-- End of existing references>
 
@@ -144,7 +148,9 @@
                     <!-- End small thumbnails -->
                     <?php endif;?>
 
-                    <h4>Image use policy</h4>
+                    <h4>
+                        Image use policy
+                    </h4>
                         <p>
                             Our images can be used under a <a href="https://creativecommons.org/licenses/by-sa/2.0/" >CC
                             BY-SA licence</a> (unless stated otherwise).
@@ -191,10 +197,12 @@
         <?php else: ?>
             <!-- Render a link for adding find spot -->
             <div id="findspotdata">
-                <h4>Spatial data</h4>
-                    <p>
-                        No spatial data available.
-                    </p>
+                <h4>
+                    Spatial data
+                </h4>
+                <p>
+                    No spatial data available.
+                </p>
                 <!-- Work out whether user can add data -->    
                 <?php 
                     echo $this->findSpotLink()
@@ -249,55 +257,60 @@
 </div>
 
 <!-- The more like this section -->
-<div class="row-fluid" id="morelikethis">
-    <?php 
-        echo $this->moreLikeThis()
-                ->setQuery('old_findID:' . $this->finds[0]['old_findID']);
-    ?>
-</div>
+    <div class="row-fluid" id="morelikethis">
+        <?php 
+            echo $this->moreLikeThis()
+                    ->setQuery('old_findID:' . $this->finds[0]['old_findID']);
+        ?>
+    </div>
 <!--  End of more like this section -->
 
 </div>
 <!--  End of main body of record -->
 
 <!--  Start of commentary section -->
-<div class="row-fluid" id="commentary">
+    <div class="row-fluid" id="commentary">
 
-<p>
-<a class="btn btn-small btn-warning" href="<?php echo $this->url(array(
-	'module' => 'database',
-	'controller' => 'artefacts',
-	'action' => 'errorreport'));?>"
-        title="Send message to the allotted National Finds Adviser"><i class="icon-warning-sign"></i> Report a mistake</a>
-</p>
-
-<div id="comm">
-<?php if($this->comments) : ?>
-<h3>
-<?php if(count($this->comments) == 1) : ?>
-<?php echo count($this->comments);?> comment
-<?php elseif(count($this->comments) > 1) : ?>
-<?php echo count($this->comments);?> comments
-<?php endif;?>
-</h3>
-
-
-<ul>
-<?php echo $this->partialLoop('partials/database/comments.phtml', $this->comments) ;?>
-</ul>
-<?php endif;?>
-</div>
-
-<!-- Start of commentary section -->
-<div id="commentform">
-    <div>
-    <h2>Comment on this artefact's record</h2>
-
-        <div>
         <p>
-            Your comment will be checked before being posted. We also check for spam using
-            <a href="http://akismet.com/" title="The Aksimet anti-spam detection service">akismet</a>.
+            <a class="btn btn-small btn-warning" href="<?php echo $this->url(array(
+                    'module' => 'database',
+                    'controller' => 'artefacts',
+                    'action' => 'errorreport'));?>"
+                    title="Send message to the allotted National Finds Adviser"><i class="icon-warning-sign"></i> Report a mistake</a>
         </p>
+
+        <div id="comm">
+            <?php if($this->comments) : ?>
+            <h3>
+                <?php if(count($this->comments) == 1) : ?>
+                <?php echo count($this->comments);?> comment
+                <?php elseif(count($this->comments) > 1) : ?>
+                <?php echo count($this->comments);?> comments
+                <?php endif;?>
+            </h3>
+
+
+            <ul>
+                <?php 
+                    echo $this->partialLoop('partials/database/comments.phtml', 
+                            $this->comments);
+                ?>
+            </ul>
+            <?php endif;?>
+        </div>
+
+    <!-- Start of commentary section -->
+    <div id="commentform">
+        <div>
+            <h2>
+                Comment on this artefact's record
+            </h2>
+
+            <div>
+                <p>
+                    Your comment will be checked before being posted. We also check for spam using
+                    <a href="http://akismet.com/" title="The Aksimet anti-spam detection service">akismet</a>.
+                </p>
 
                 <?php
                 $auth = Zend_Registry::get('auth');
@@ -309,14 +322,11 @@
                 echo $this->form;
                 ?>
 
+            </div>
         </div>
     </div>
-</div>
-<!--  The end of the commentary section -->
-
-
-
-</div>
+    <!--  The end of the commentary section -->
+    </div>
 </div>
 
 
