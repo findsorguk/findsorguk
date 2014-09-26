@@ -47,6 +47,10 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
      * @var \Pas_ArrayFunctions
      */
     protected $_cleaner;
+
+    const DBASE_ID = 'PAS';
+
+    const SECURE_ID = '001';
     
     /** The array cleaner functions
      * @access public
@@ -102,6 +106,38 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract {
      */
     public function timeCreation(){
         return Zend_Date::now()->toString('yyyy-MM-dd HH:mm:ss');
+    }
+
+    /** Get the institution of the user
+     * @access 	protected
+     * @uses 	Pas_User_Details
+     * @return  array
+     * @throws Pas_Exception_BadJuJu
+     */
+    protected function getInstitution(){
+        $user = new Pas_User_Details();
+        $person = $user->getPerson();
+        if($person){
+            return $person->institution;
+        } else {
+            throw new Pas_Exception_BadJuJu('No user credentials found', 500);
+        }
+    }
+
+    /** Generates a secuid for various types of new records
+     * @access 	public
+     * @uses	Pas_GenerateSecuID
+     * @return	string $secuid The secuID
+     */
+    protected function generateSecuId() {
+        list($usec, $sec) = explode(" ", microtime());
+        $ms = dechex(round($usec * 4080));
+        while(strlen($ms) < 3) {
+            $ms = '0' . $ms;
+        }
+        $secuid = strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $ms);
+
+        return $secuid;
     }
 
     /** Add the data to the model

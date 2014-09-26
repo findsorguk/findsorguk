@@ -24,11 +24,11 @@ class Pas_ArrayFunctions {
      * @param array $extras
      * @return array
      */
-    public function array_cleanup( array $array, array $extras ) {
+    public function array_cleanup( array $array, array $extras = array() ) {
         $todelete = array(
             'submit', 'action', 'controller',
             'module', 'csrf', 'page');
-        if(is_array($extras)) {
+        if(!empty($extras)) {
             $todelete = array_merge($todelete, $extras);
         }
         foreach( $array as $key => $value ) {
