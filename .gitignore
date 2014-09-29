@@ -160,3 +160,4 @@ config.ini
 webservices.ini
 *.sh
 nbproject*
+.idea/*
