@@ -158,6 +158,9 @@ pip-log.txt
 config.ini
 
 webservices.ini
+application.ini
+config.ini
 *.sh
 nbproject*
 .idea/*
+cache/*
