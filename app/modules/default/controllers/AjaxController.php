@@ -681,4 +681,18 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $this->_helper->viewRenderer->setNoRender(false);
     }
 
+    /** Action to generate the last ruler based off broadperiod
+     * @access public
+     *
+     */
+    public function lastrulerAction() {
+        if($this->_getParam('term',false)){
+            $rulers = new Rulers();
+            $json = $rulers->getLastRulers($this->_getParam('term'));
+        } else {
+            $json = array(null => 'You must choose a broad period first');
+        }
+        echo Zend_Json::encode($json);
+    }
+
 }

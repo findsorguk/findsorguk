@@ -11,6 +11,7 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/sec
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfields.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type='text/javascript');
 
 $front = Zend_Controller_Front::getInstance()->getRequest();
 
@@ -22,6 +23,7 @@ if(!is_null($copy)){
 
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
+$('#broadperiod').linkedSelect('/ajax/lastruler','#lastruler',{firstOption: 'Please select a ruler'});
 $('#lastreeceperiod').attr('disabled','disabled');
 $('select[name="broadperiod"]').on('change',function(){
 var period = $(this).val();

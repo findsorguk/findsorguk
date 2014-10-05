@@ -808,4 +808,24 @@ class Rulers extends Pas_Db_Table_Abstract {
         }
         return $data;
     }
+
+    /** Get a list of all rulers based off broadperiod
+     * @access public
+     * @param string $broadperiod
+     * @return array
+     */
+    public function getLastRulers( $period) {
+        $key = md5('lastRulers' . $period);
+        if (!$data = $this->_cache->load($key)) {
+            $rulers = $this->getAdapter();
+            $select = $rulers->select()
+                ->from($this->_name, array('id','term' => 'CONCAT(issuer," (",date1," - ",date2,")")'))
+                ->joinLeft('periods','periods.id = rulers.period', array())
+                ->where('broadperiod = ?', $period)
+                ->order('id');
+            $data = $rulers->fetchPairs($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
+    }
 }
