@@ -1,7 +1,8 @@
 <?php
+$this->headTitle('Add a new hoard');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type='text/javascript');
-$this->headTitle('Add a new hoard');
+
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryfinder.js', $type='text/javascript');
@@ -21,6 +22,16 @@ if(!is_null($copy)){
 
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
+$('#lastreeceperiod').attr('disabled','disabled');
+$('select[name="broadperiod"]').on('change',function(){
+var period = $(this).val();
+if(period == "ROMAN"){
+    $('#lastreeceperiod').removeAttr('disabled');
+}else{
+    $('#lastreeceperiod').attr('disabled','disabled');
+}
+
+});
 $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
 $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
 $("input[type='select']:first", document.forms[0]).focus();
@@ -42,7 +53,9 @@ $('.multiselect').multiselect({
 
 });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
-<h2><?php echo $this->title();?></h2>
+<h2>
+    <?php echo $this->title();?>
+</h2>
 <p><a class="btn btn-success btn-large" href="<?php echo $this->url(array(
             'module' => 'database',
             'controller' => 'hoards',

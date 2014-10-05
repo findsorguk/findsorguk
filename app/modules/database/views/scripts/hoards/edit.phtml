@@ -13,6 +13,16 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfie
 $this->headTitle('Edit hoard details');?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
+$('#lastreeceperiod').attr('disabled','disabled');
+$('select[name="broadperiod"]').on('change',function(){
+var period = $(this).val();
+if(period == "ROMAN"){
+$('#lastreeceperiod').removeAttr('disabled');
+}else{
+$('#lastreeceperiod').attr('disabled','disabled');
+}
+
+});
 $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
 $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
 $("input[type='text']:first", document.forms[0]).focus();
