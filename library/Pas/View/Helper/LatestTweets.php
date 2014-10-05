@@ -157,6 +157,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_LatestTweets
      */
     public function latestTweets() {
+        $this->_callTwitter();
         return $this;
     }
 

@@ -74,7 +74,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
     /** The rights statement URI we use
      * 
      */
-    const RIGHTS_URI = 'http://creativecommons.org/licenses/by-sa/3.0/';
+    const RIGHTS_URI = 'http://creativecommons.org/licenses/by/3.0/';
 
     /** The server url
      * @access protected

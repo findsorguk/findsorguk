@@ -5,7 +5,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/>.
 : a void:Dataset;
     dcterms:description "Pleiades URIs appearing within the Portable Antiquities Scheme database";
-    dcterms:license <http://creativecommons.org/licenses/by-sa/3.0/>;
+    dcterms:license <http://creativecommons.org/licenses/by/3.0/>;
     dcterms:subject <http://dbpedia.org/resource/Annotation>;
     dcterms:title "Pelagios Annotations from the Portable Antiquities Scheme";
     foaf:homepage <http://finds.org.uk/>; 
