@@ -158,5 +158,8 @@ pip-log.txt
 config.ini
 
 webservices.ini
+application.ini
 *.sh
 nbproject*
+.idea/*
+cache/zend_*
