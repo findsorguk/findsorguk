@@ -36,6 +36,7 @@ set_include_path(
         . PATH_SEPARATOR . '../library/Zend/'
         . PATH_SEPARATOR . '../library/ZendX/'
         . PATH_SEPARATOR . '../library/Pas/'
+        . PATH_SEPARATOR . '../library/HTMLPurifier/library/'
         . PATH_SEPARATOR . '../library/Arc2/'
         . PATH_SEPARATOR . '../library/EasyBib/'
         . PATH_SEPARATOR . '../library/tcpdf/'
@@ -55,6 +56,8 @@ $autoloader->registerNamespace('ZendX_');
 $autoloader->registerNamespace('EasyBib_');
 $autoloader->suppressNotFoundWarnings(false);
 $autoloader->setFallbackAutoloader(true);
+require_once 'HTMLPurifier/Bootstrap.php';
+
 $autoloader->pushAutoloader('HTMLPurifier_Bootstrap', 'autoload');
 /** Zend_Application */
 require_once 'Zend/Application.php';
