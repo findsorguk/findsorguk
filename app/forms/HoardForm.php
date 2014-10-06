@@ -71,6 +71,9 @@ class HoardForm extends Pas_Form {
         //Get Subsequent actions for select menu
         $actions = new SubsequentActions();
         $actionsDD = $actions->getSubActionsDD();
+        //Get the reece periods for inclusion
+        $reece = new Reeces();
+        $reeces = $reece->getReeces();
 
         //End of select options construction
         $this->addElementPrefixPath('Pas_Filter', 'Pas/Filter/', 'filter');
@@ -182,7 +185,7 @@ class HoardForm extends Pas_Form {
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(
-                null => 'Choose Reece period'
+                null => 'Choose Reece period', 'Available periods' => $reeces
             ))
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
             ->setOrder(9);

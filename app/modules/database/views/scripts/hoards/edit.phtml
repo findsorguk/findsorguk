@@ -9,7 +9,7 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/sec
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfields.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type='text/javascript');
 $this->headTitle('Edit hoard details');?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
@@ -49,15 +49,7 @@ removeField();
 
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 
-<?php
-$this->jQuery()->javascriptCaptureStart()
-$(document).ready(function()
-{
 
-
-});
-$this->jQuery()->javascriptCaptureEnd()
-?>
 
 <?php // $this->DataEditDeleteCheck($this->find->old_findID,$this->find->createdBy);
 ?>

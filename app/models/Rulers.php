@@ -815,15 +815,15 @@ class Rulers extends Pas_Db_Table_Abstract {
      * @return array
      */
     public function getLastRulers( $period) {
-        $key = md5('lastRulers' . $period);
+        $key = md5('lastRulersHoard' . $period);
         if (!$data = $this->_cache->load($key)) {
             $rulers = $this->getAdapter();
             $select = $rulers->select()
                 ->from($this->_name, array('id','term' => 'CONCAT(issuer," (",date1," - ",date2,")")'))
                 ->joinLeft('periods','periods.id = rulers.period', array())
-                ->where('broadperiod = ?', $period)
-                ->order('id');
-            $data = $rulers->fetchPairs($select);
+                ->where('term = ?', $period)
+                ->order('rulers.date1');
+            $data = $rulers->fetchAll($select);
             $this->_cache->save($data, $key);
         }
         return $data;
