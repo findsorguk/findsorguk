@@ -100,8 +100,6 @@ class Hoards extends Pas_Db_Table_Abstract {
         unset($insertData['finder']);
         unset($insertData['idBy']);
         unset($insertData['id2by']);
-        unset($insertData['lastruler']);
-        unset($insertData['lastreeceperiod']);
         unset($insertData['hiddenfield']);
 
         $i = 2;

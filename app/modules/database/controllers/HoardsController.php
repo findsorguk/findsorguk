@@ -265,7 +265,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                     $form->populate($formData);
                 }
             } else  {
-                $this->_flashMessenger->addMessage('Please check and correct errors!');
+                //$this->_flashMessenger->addMessage('Please check and correct errors!');
                 $form->populate($formData);
             }
         }
@@ -306,7 +306,6 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $formData = $this->_hoards->getEditData($id);
                     $materialsData = $this->_hoards->getMaterials($id);
-//                    $materialsData = array_keys($materialsData);
                     if(count($formData)){
                         $form->populate($formData);
                         $form->getElement('materials')->setValue($materialsData);

@@ -169,24 +169,26 @@ class HoardForm extends Pas_Form {
 
         ## COIN DATING ##
         //Ruler of latest coins in hoard:
-        $lastruler = new Zend_Form_Element_Select('lastruler');
+        $lastruler = new Zend_Form_Element_Select('lastrulerID');
         $lastruler->setLabel('Last ruler: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(
                 null => 'Choose ruler after broad period'
             ))
+            ->setRegisterInArrayValidator(false)
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
             ->setOrder(8);
 
         //Ruler of latest coins in hoard:
-        $lastreeceperiod = new Zend_Form_Element_Select('lastreeceperiod');
+        $lastreeceperiod = new Zend_Form_Element_Select('reeceID');
         $lastreeceperiod->setLabel('Last Reece period: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addMultiOptions(array(
                 null => 'Choose Reece period', 'Available periods' => $reeces
             ))
+            ->setRegisterInArrayValidator(false)
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
             ->setOrder(9);
 
@@ -486,7 +488,7 @@ class HoardForm extends Pas_Form {
         $this->hoarddating->setLegend('Hoard dating');
 
         $this->addDisplayGroup(array(
-            'lastruler', 'lastreeceperiod',
+            'lastrulerID', 'reeceID',
             'terminalyear1', 'terminalyear2',
             'terminalreason'),
             'coindating');

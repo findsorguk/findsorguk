@@ -13,14 +13,14 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLin
 $this->headTitle('Edit hoard details');?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
-$('#broadperiod').linkedSelect('/ajax/lastruler','#lastruler',{firstOption: 'Please select a ruler'});
-$('#lastreeceperiod').attr('disabled','disabled');
+$('#broadperiod').linkedSelect('/ajax/lastruler','#lastrulerID',{firstOption: 'Please select a ruler'});
+$('#reeceID').attr('disabled','disabled');
 $('select[name="broadperiod"]').on('change',function(){
 var period = $(this).val();
 if(period == "ROMAN"){
-$('#lastreeceperiod').removeAttr('disabled');
+$('#reeceID').removeAttr('disabled');
 }else{
-$('#lastreeceperiod').attr('disabled','disabled');
+$('#reeceID').attr('disabled','disabled');
 }
 
 });
