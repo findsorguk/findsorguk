@@ -59,6 +59,7 @@ acl.roles.research = member
 acl.roles.flos     = member
 acl.roles.fa       = flos
 acl.roles.treasure = flos
+acl.roles.hoard    = flos
 acl.roles.admin    = fa
 
 auth.salt = 
@@ -126,6 +127,7 @@ acl.roles.research = member
 acl.roles.flos     = member
 acl.roles.fa       = flos
 acl.roles.treasure = flos
+acl.roles.hoard    = flos
 acl.roles.admin    = fa
 
 auth.salt = 
