@@ -1,0 +1,1 @@
+ALTER TABLE `hoards` CHANGE `lastrulerID` `lastrulerID` INT(10) UNSIGNED NULL DEFAULT NULL;
