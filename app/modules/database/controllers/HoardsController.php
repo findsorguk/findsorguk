@@ -296,8 +296,15 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $formData = $this->_request->getPost();
                 if ($form->isValid($formData)) {
                     $updateData = $form->getValues();
-                    $update = $this->_hoards->editFind($updateData, $id);
-
+                    $oldData = $this->_hoards->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    $this->_hoards->editFind($updateData, $id);
+                    $this->_helper->audit(
+                        $updateData,
+                        $oldData,
+                        'HoardsAudit',
+                        $this->_getParam('id'),
+                        $this->_getParam('id')
+                    );
                     $this->_redirect(self::REDIRECT . 'record/id/' . $id);
                 } else {
                     $form->populate($formData);

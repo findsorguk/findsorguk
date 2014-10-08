@@ -31,7 +31,7 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
      * @return string
      */
     public function getTimeForForms() {
-	return Zend_Date::now()->toString('yyyy-MM-dd HH:mm:ss');
+	    return Zend_Date::now()->toString('yyyy-MM-dd HH:mm:ss');
     }
 
     /** Create an edit ID

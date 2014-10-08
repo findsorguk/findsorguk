@@ -1,12 +1,12 @@
 <?php
 /**
- * Model for manipulating audit data for finds
+ * Model for manipulating audit data for hoards
  *
  * An example of use:
  *
  * <code>
  * <?php
- * $model = new FindsAudit();
+ * $model = new HoardsAudit();
  * $data = $model->getChange($id);
  * ?>
  * </code>
@@ -22,13 +22,13 @@
  * @since 22 September 2011
  * @example /app/modules/database/controllers/AjaxController.php
 */
-class FindsAudit extends Pas_Db_Table_Abstract {
+class HoardsAudit extends Pas_Db_Table_Abstract {
 
     /** The table name
      * @access protected
      * @var string
      */
-    protected $_name = 'findsAudit';
+    protected $_name = 'hoardsAudit';
 
     /** the primary key
      * @access protected
