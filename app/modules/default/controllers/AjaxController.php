@@ -688,11 +688,14 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function lastrulerAction() {
         if($this->_getParam('term',false)){
             $rulers = new Rulers();
-            $json = $rulers->getLastRulers($this->_getParam('term'));
+            $data = $rulers->getLastRulers($this->_getParam('term'));
+            if(empty($data)) {
+                $data = array(array( 'id' => null, 'term' => 'No Options'));
+            }
         } else {
             $json = array(null => 'You must choose a broad period first');
         }
-        echo Zend_Json::encode($json);
+        echo Zend_Json::encode($data);
     }
 
 }

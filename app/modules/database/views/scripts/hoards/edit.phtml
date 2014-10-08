@@ -13,37 +13,51 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLin
 $this->headTitle('Edit hoard details');?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
-$('#broadperiod').linkedSelect('/ajax/lastruler','#lastrulerID',{firstOption: 'Please select a ruler'});
-$('#reeceID').attr('disabled','disabled');
-$('select[name="broadperiod"]').on('change',function(){
-var period = $(this).val();
-if(period == "ROMAN"){
-$('#reeceID').removeAttr('disabled');
-}else{
-$('#reeceID').attr('disabled','disabled');
-}
+    var nonRulers = ['BRONZE AGE', 'MESOLITHIC', 'NEOLITHIC', 'PALAEOLITHIC', 'UNKNOWN', 'MODERN'];
+    var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
+    'GREEK AND ROMAN PROVINCIAL'];
+    var romani = ['ROMAN'];
 
-});
+    $('#broadperiod').linkedSelect('/ajax/lastruler','#lastrulerID',{firstOption: 'Please select a ruler'});
 
+    $('select[name="broadperiod"]').on('change',function(){
 
-$("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
-$("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
-$("input[type='text']:first", document.forms[0]).focus();
-$('.multiselect').multiselect({
-    maxHeight: 200,
-    enableFiltering: true});
+    var period = $(this).val();
 
-$("#addFinder").click(
-function() {
-ajaxAddField();
-}
-);
+    if(jQuery.inArray(period, nonRulers) !== -1) {
+        console.log('In missing ruler array');
+            $("#lastrulerID").select2('val', 'All');
+            $("#reeceID").select2('val', 'All');
+            $('#reeceID').attr('disabled','disabled');
+        } else if(jQuery.inArray(period, rulerPeriods) !== -1) {
+            $('#lastrulerID').removeAttr('disabled');
+            console.log('In  ruler array');
+            $('#reeceID').attr('disabled','disabled');
+        } else if (jQuery.inArray(period, romani) !== -1) {
+            $('#reeceID').removeAttr('disabled');
+            $('#lastrulerID').removeAttr('disabled');
+            console.log('In Roman array');
+        }
+    });
+    $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
+    $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
+    $("input[type='text']:first", document.forms[0]).focus();
+    $('.multiselect').multiselect({
+        maxHeight: 200,
+        enableFiltering: true});
 
-$("#removeFinder").click(
-function() {
-removeField();
-}
-);
+    $("#addFinder").click(
+        function() {
+            ajaxAddField();
+        }
+    );
+
+    $("#removeFinder").click(
+        function() {
+            removeField();
+        }
+    );
+
 
 });
 
@@ -56,5 +70,15 @@ removeField();
 <?php echo $this->partial('partials/hoards/editHoardH2.phtml',$this->hoard);?>
 
 <?php
+
+$rulers = array('ROMAN', 'IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE', 'GREEK AND ROMAN PROVINCIAL');
+if(in_array($this->hoard->broadperiod, $rulers)) {
+    $rulers = new Rulers();
+    $data = $rulers->getLastRulersPairs($this->hoard->broadperiod);
+    $this->form->lastrulerID->addMultiOptions(array(
+        null => 'Please choose a ruler', 'Available rulers' => $data
+    ));
+    $this->form->lastrulerID->setValue((int)$this->hoard->lastrulerID);
+}
 echo $this->form;
 ?>
