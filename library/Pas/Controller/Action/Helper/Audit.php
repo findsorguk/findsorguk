@@ -51,7 +51,7 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
      * @param integer $entityID
      */
     public function direct( array $auditData, array $oldData, $model, $recordID, $entityID ){
-	$model = new $model();
+	    $model = new $model();
         if (!empty($auditData)) {
             unset($auditData['csrf']);
             // look for new fields with empty/null values
