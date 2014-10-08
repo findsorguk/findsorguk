@@ -23,6 +23,10 @@
  */
 class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
 {
+
+    public function getController() {
+        return Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+    }
     /** The roles allowed to view audit logs
      * @access protected
      * @var array
@@ -104,14 +108,22 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
     public function buildHtml($id) {
         $html = '';
         if (!is_null($this->getRole() && is_int($id))) {
-        $html .= '<ul id="tab" class="nav nav-tabs">';
-        $html .= '<li class="active"><a href="#findAudit" data-toggle="tab">Finds audit</a></li>';
-        $html .= '<li><a href="#fspot" data-toggle="tab">Findspot audit</a></li>';
-        $html .= '<li><a href="#coinAudit" data-toggle="tab">Numismatic audit</a></li>';
-        $html .= '</ul>';
-        $html .= '<div id="myTabContent" class="tab-content">';
-        $html .= '<div class="tab-pane fade in active" id="findAudit">';
-        $html .= $this->view->auditDisplay()->setId($id)->setTableName('finds');
+            $html .= '<ul id="tab" class="nav nav-tabs">';
+            if ($this->getController() == 'artefacts') {
+                $html .= '<li class="active"><a href="#findAudit" data-toggle="tab">Finds audit</a></li>';
+            } else {
+                $html .= '<li class="active"><a href="#findAudit" data-toggle="tab">Hoards audit</a></li>';
+            }
+            $html .= '<li><a href="#fspot" data-toggle="tab">Findspot audit</a></li>';
+            $html .= '<li><a href="#coinAudit" data-toggle="tab">Numismatic audit</a></li>';
+            $html .= '</ul>';
+            $html .= '<div id="myTabContent" class="tab-content">';
+            $html .= '<div class="tab-pane fade in active" id="findAudit">';
+            if ($this->getController() == 'artefacts') {
+                $html .= $this->view->auditDisplay()->setId($id)->setTableName('finds');
+            } else {
+                $html .= $this->view->auditDisplay()->setId($id)->setTableName('hoards');
+            }
         $html .= '</div>';
         $html .= '<div class="tab-pane fade" id="fspot">';
         $html .= $this->view->auditDisplay()->setId($id)->setTableName('findspots');

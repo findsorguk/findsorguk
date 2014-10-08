@@ -67,7 +67,11 @@ $(document).ready(function() {
 
 <?php // $this->DataEditDeleteCheck($this->find->old_findID,$this->find->createdBy);
 ?>
-<?php echo $this->partial('partials/hoards/editHoardH2.phtml',$this->hoard);?>
+<?php
+    echo $this->partial('partials/hoards/editHoardH2.phtml',$this->hoard);
+?>
+
+<a href="<?php echo $this->url(array('module' => 'database','controller' => 'hoards', 'action' => 'record', 'id' => $this->hoard-id), 'default', true);?>" title="Return to record" class="btn btn-small btn-default">Return to hoard record</a>
 
 <?php
 

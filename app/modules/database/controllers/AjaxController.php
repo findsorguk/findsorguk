@@ -60,7 +60,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
 	$this->_helper->_acl->allow('hero',null);
 	$this->_helper->_acl->allow('research',null);
 	$this->_helper->layout->disableLayout();
-	
+
     }
 
     /** The base redirect
@@ -152,7 +152,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
     public function rallydataAction() {
         $rallies = new Rallies();
         $this->view->mapping = $rallies->getMapdata();
-	$this->getResponse()->setHeader('Content-type', 'text/xml');
+	    $this->getResponse()->setHeader('Content-type', 'text/xml');
     }
 
     /** Record data overlay page
@@ -223,7 +223,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
         }
     }
 
-    /** Get a find autdit overlay
+    /** Get a find audit overlay
      * @access public
      * @return void
      */
@@ -247,6 +247,15 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      */
     public function coinauditAction(){
         $audit = new CoinsAudit();
+        $this->view->audit = $audit->getChange($this->_getParam('id'));
+    }
+
+    /** Get a coin overlay from the audit table
+     * @access public
+     * @return void
+     */
+    public function hoardsauditAction(){
+        $audit = new HoardsAudit();
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
 
