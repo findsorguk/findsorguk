@@ -819,7 +819,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         if (!$data = $this->_cache->load($key)) {
             $rulers = $this->getAdapter();
             $select = $rulers->select()
-                ->from($this->_name, array('id','term' => 'CONCAT(issuer," (",date1," - ",date2,")")'))
+                ->from($this->_name, array('id','term' => 'CONCAT_WS(" ", issuer, CONCAT(": From ", date1, " - ", date2))'))
                 ->joinLeft('periods','periods.id = rulers.period', array())
                 ->where('term = ?', $period)
                 ->order('rulers.date1');

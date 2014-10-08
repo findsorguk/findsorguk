@@ -71,6 +71,7 @@ class HoardForm extends Pas_Form {
         //Get Subsequent actions for select menu
         $actions = new SubsequentActions();
         $actionsDD = $actions->getSubActionsDD();
+
         //Get the reece periods for inclusion
         $reece = new Reeces();
         $reeces = $reece->getReeces();
@@ -471,13 +472,22 @@ class HoardForm extends Pas_Form {
         $submit->setOrder(64);
 
         $this->addElements(array(
-            $secuid, $old_hoardID, $broadperiod, $hoardperiod1, $hoardperiod2, $hoardsubperiod1, $hoardsubperiod2,
-            $numdate1, $numdate2, $lastruler, $lastreeceperiod, $terminaldate1, $terminaldate2, $terminalreason,
-            $description, $notes, $coindataquality, $findofnote, $findofnotereason, $treasure, $treasureID,
-            $materials, $recorderID, $recordername, $idBy, $id2by, $identifier1ID, $identifier2ID,
-            $finder, $finderID, $hiddenfield, $addFinderButton, $removeFinderButton, $discmethod, $disccircum, $datefound1,
+            $secuid, $old_hoardID, $broadperiod,
+            $hoardperiod1, $hoardperiod2, $hoardsubperiod1,
+            $hoardsubperiod2, $numdate1, $numdate2,
+            $lastruler, $lastreeceperiod, $terminaldate1,
+            $terminaldate2, $terminalreason, $description,
+            $notes, $coindataquality, $findofnote,
+            $findofnotereason, $treasure, $treasureID,
+            $materials, $recorderID, $recordername,
+            $idBy, $id2by, $identifier1ID,
+            $identifier2ID, $finder, $finderID,
+            $hiddenfield, $addFinderButton, $removeFinderButton,
+            $discmethod, $disccircum, $datefound1,
             $datefound2, $rally, $rallyID,
-            $legacy_ref, $other_ref, $smrrefno, $musaccno, $curr_loc, $subs_action, $submit
+            $legacy_ref, $other_ref, $smrrefno,
+            $musaccno, $curr_loc, $subs_action,
+            $submit
             ));
 
         $this->addDisplayGroup(array(
