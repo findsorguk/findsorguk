@@ -251,6 +251,7 @@ class HoardForm extends Pas_Form {
                 'Available ratings' => $qualityrating_options))
             ->addValidator('InArray', false, array(array_keys($qualityrating_options)))
             ->setAttrib('class', 'input-large selectpicker show-menu-arrow')
+            ->setDescription('The quality field can only be completed by project staff')
             ->addValidator('Int')
             ->setOrder(15);
 
@@ -544,6 +545,13 @@ class HoardForm extends Pas_Form {
         $addFinderButtonDecorator = $addFinderButton->getDecorator('HtmlTag');
         $addFinderButtonDecorator->setOption('id', 'addFinderDiv');
         $removeFinderButton->removeDecorator('Label');
+
+        $person = new Pas_User_Details();
+        $role = $person->getRole();
+        $projectTeam = array('hoard', 'admin');
+        if(!in_array($role, $projectTeam)){
+            $coindataquality->disabled=true;
+        }
     }
 
 }
