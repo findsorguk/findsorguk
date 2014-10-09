@@ -45,9 +45,9 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init() {
-        $this->_helper->_acl->deny('public',null);
-        $this->_helper->_acl->allow('member',array('index','add','delete','edit'));
-
+        $this->_helper->_acl->deny('public', null);
+        $this->_helper->_acl->allow('member', array('index'));
+        $this->_helper->_acl->allow('flos', array(,'add','delete','edit'));
         $this->_archaeology = new Archaeology();
     }
 
@@ -58,6 +58,8 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
     public function indexAction() {
         $this->getFlash()->addMessage('You cannot access the archaeological context index.');
         $this->_redirect(self::REDIRECT);
+        $this->getResponse()->setHttpResponseCode(301)
+            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
     }
 
     /** Add a new archaeological context
@@ -67,12 +69,30 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function addAction() {
-
-            $form = $this->getArchaeologyForm();
-            $form->submit->setLabel('Add archaeological context');
-            $this->view->form = $form;
+        $form = $this->getArchaeologyForm();
+        $form->submit->setLabel('Add archaeological context');
+        $this->view->form = $form;
 
     }
 
+    /** Edit the archaeological context
+     * @return void
+     * @access public
+     * @throws Pas_Exception_Param
+     */
+    public function editAction(){
+        $form = $this->getArchaeologyForm();
+        $form->submit->setLabel('Add archaeological context');
+        $this->view->form = $form;
+    }
+
+    /** Delete the archaeological context
+     * @return void
+     * @access public
+     *
+     */
+    public function deleteAction() {
+
+    }
 
 }
