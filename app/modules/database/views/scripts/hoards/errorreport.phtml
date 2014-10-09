@@ -1,0 +1,21 @@
+<?php echo $this->partial('partials/database/relevantAdviser.phtml',$this->finds['0']);?>
+<p>You are submitting an error report on: <br />
+<?php echo $this->partialLoop('partials/database/embedDataFindError.phtml', $this->finds); ?></p>
+
+<?php 
+$auth = Zend_Auth::getInstance();
+
+if($auth->hasIdentity())
+{
+$user = $auth->getIdentity();
+$this->form->comment_author->setValue($user->fullname);
+$this->form->comment_author_email->setValue($user->email);
+}
+foreach($this->finds as $find)
+{
+$this->form->comment_findID->setValue($find['id']);
+$this->form->comment_subject->setValue('Error report submission for '.$find['old_findID']);
+}
+echo $this->form;
+
+?>

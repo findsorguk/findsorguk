@@ -455,4 +455,47 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         }
     }
 
+    /** Enter an error report
+     * @access public
+     * @return void
+     * @todo move insert logic to model
+     */
+    public function errorreportAction() {
+        if($this->_getParam('id',false)) {
+            $form = new CommentOnErrorFindForm();
+            $form->submit->setLabel('Submit your error report');
+            $finds = $this->_finds->getRelevantAdviserFind($this->_getParam('id',0));
+            $this->view->form = $form;
+            $this->view->finds = $finds;
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+                $data = $form->getValues();
+                if ($this->_helper->akismet($data)) {
+                    $data['comment_approved'] = 'spam';
+                }  else  {
+                    $data['comment_approved'] =  1;
+                }
+                if(array_key_exists('captcha', $data)){
+                    unset($data['captcha']);
+                }
+
+                $errors = new ErrorReports();
+                $errors->add($data);
+                $data = array_merge($finds['0'], $data);
+
+                $this->notify(
+                    $finds['0']['objecttype'],
+                    $finds['0']['broadperiod'],
+                    $finds['0']['institution'],
+                    $finds['0']['createdBy'],
+                    $data
+                );
+                $this->getFlash()->addMessage('Your error report has been submitted. Thank you!');
+                $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+            }else {
+                $form->populate($this->_request->getPost());
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+    }
 }
