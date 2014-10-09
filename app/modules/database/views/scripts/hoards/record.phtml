@@ -5,8 +5,8 @@
 
 <div class="row-fluid">
 
-    <?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml',array('hoards' => $this->hoards));?>
-    <?php echo $this->partialLoop('partials/hoards/zoterorecord.phtml',array('hoards' => $this->hoards));?>
+    <?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml', array('hoards' => $this->hoards));?>
+    <?php echo $this->partialLoop('partials/hoards/zoterorecord.phtml', array('hoards' => $this->hoards));?>
 
 
     <div id="workflowstatus">
@@ -18,13 +18,13 @@
 
         <div class="span8">
             <!-- Header of section displaying unique ID and workflow  -->
-            <?php echo $this->partial('partials/hoards/hoardsh2section.phtml',$this->hoards); ?>
+            <?php echo $this->partial('partials/hoards/hoardsh2section.phtml', $this->hoards); ?>
             <!-- Notification message if public record -->
             <?php //echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
             <!-- Names the hoard is known as  -->
             <?php echo $this->partial('partials/hoards/knownas.phtml',  $this->multipleKnownAs); ?>
             <!-- Hoard quantities -->
-            <?php echo $this->partial('partials/hoards/quantities   .phtml', $this->quantities); ?>
+            <?php echo $this->partial('partials/hoards/quantities.phtml', $this->quantities); ?>
             <!-- Temporal details of the hoard -->
             <?php echo $this->partial('partials/hoards/temporal.phtml', $this->temporals);?>
             <!-- Terminal dates of any coins -->

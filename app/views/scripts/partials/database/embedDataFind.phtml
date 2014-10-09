@@ -2,4 +2,7 @@
 Object type: <?php echo $this->escape(ucfirst(strtolower($this->objecttype)));?><br />
 Broadperiod: <?php echo $this->escape(ucwords(strtolower($this->broadperiod)));?><br />
 County of discovery: <?php echo $this->escape(ucwords(strtolower($this->county)));?><br />
-Stable url: <a href="<?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),null,true);?>" title="<?php echo $this->old_findID;?>: a <?php echo $this->escape(ucwords(strtolower($this->broadperiod)));?> <?php echo $this->escape(ucfirst(strtolower($this->objecttype)));?>"><?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),null,true);?></a>
+Stable url: <a href="<?php echo $this->serverUrl();?><?php echo $this->url(array(
+    'module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),null,true);?>"
+               title="<?php echo $this->old_findID;?>: a <?php echo $this->escape(ucwords(strtolower($this->broadperiod)));?>
+               <?php echo $this->escape(ucfirst(strtolower($this->objecttype)));?>"><?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),null,true);?></a>
