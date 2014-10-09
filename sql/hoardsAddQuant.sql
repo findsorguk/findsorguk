@@ -1,0 +1,1 @@
+ALTER TABLE `hoards` ADD `quantityCoins` INT(11) NULL DEFAULT NULL AFTER `reeceID`, ADD `quantityArtefacts` INT(11) NULL DEFAULT NULL AFTER `quantityCoins`, ADD `quantityContainers` INT(11) NULL DEFAULT NULL AFTER `quantityArtefacts`;

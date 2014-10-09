@@ -470,9 +470,25 @@ class HoardForm extends Pas_Form {
             ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'))
             ->setOrder(63);
 
+        ## Quantities ##
+        $quantityCoins = new Zend_Form_Element_Text('quantityCoins');
+        $quantityCoins->setLabel('Quantity of coins: ')
+            ->addValidator('Int')
+            ->setValue(1);
+
+        $quantityArtefacts = new Zend_Form_Element_Text('quantityArtefacts');
+        $quantityArtefacts->setLabel('Quantity of artefacts: ')
+            ->addValidator('Int')
+            ->setValue(1);
+
+        $quantityContainers = new Zend_Form_Element_Text('quantityContainers');
+        $quantityContainers->setLabel('Quantity of containers: ')
+            ->addValidator('Int')
+            ->setValue(1);
+
         ## SUBMIT BUTTON ##
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setOrder(64);
+        $submit->setOrder(67);
 
         $this->addElements(array(
             $secuid, $old_hoardID, $broadperiod,
@@ -490,6 +506,7 @@ class HoardForm extends Pas_Form {
             $datefound2, $rally, $rallyID,
             $legacy_ref, $other_ref, $smrrefno,
             $musaccno, $curr_loc, $subs_action,
+            $quantityArtefacts, $quantityCoins, $quantityContainers,
             $submit
             ));
 
@@ -534,6 +551,9 @@ class HoardForm extends Pas_Form {
         $this->addDisplayGroup(array('legacyID', 'other_ref','smrrefno','musaccno','curr_loc',
             'subs_action'), 'references');
         $this->references->setLegend('Reference numbers');
+
+        $this->addDisplayGroup(array('quantityCoins', 'quantityArtefacts', 'quantityContainers'), 'quantities');
+        $this->quantities->setLegend('Quantities');
 
         $this->addDisplayGroup(array(
             'submit'),
