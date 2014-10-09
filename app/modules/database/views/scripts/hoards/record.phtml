@@ -23,6 +23,8 @@
             <?php //echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
             <!-- Names the hoard is known as  -->
             <?php echo $this->partial('partials/hoards/knownas.phtml',  $this->multipleKnownAs); ?>
+            <!-- Hoard quantities -->
+            <?php echo $this->partial('partials/hoards/quantities.phtml', $this->quantities); ?>
             <!-- Temporal details of the hoard -->
             <?php echo $this->partial('partials/hoards/temporal.phtml', $this->temporals);?>
             <!-- Terminal dates of any coins -->

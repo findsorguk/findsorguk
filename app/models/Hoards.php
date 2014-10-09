@@ -556,6 +556,23 @@ class Hoards extends Pas_Db_Table_Abstract {
         return $this->getAdapter()->fetchRow($select);
     }
 
+    /** Get quantities associated with a hoard
+     * @access public
+     * @param integer $hoardId
+     * @return array
+     */
+    public function getQuantities($hoardId){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'quantityCoins',
+                'quantityArtefacts',
+                'quantityContainers'
+            ))
+            ->where('hoards.id = ?', (int)$hoardId);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
     /** Get images attached to a hoard record
      * @access public
      * @param integer $id

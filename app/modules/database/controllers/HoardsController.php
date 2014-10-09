@@ -188,7 +188,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $this->view->finders     = $this->_hoards->getFinders($id);
                 $this->view->discoverySummary     = $this->_hoards->getDiscoverySummary($id);
                 $this->view->referenceNumbers     = $this->_hoards->getReferenceNumbers($id);
-
+                $this->view->quantities = $this->_hoards->getQuantities($id);
                 $coinsummary = new CoinSummary();
                 $this->view->coinSummary = $coinsummary->getCoinSummary($id);
 
