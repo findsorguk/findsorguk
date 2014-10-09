@@ -47,7 +47,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->deny('public', null);
         $this->_helper->_acl->allow('member', array('index'));
-        $this->_helper->_acl->allow('flos', array(,'add','delete','edit'));
+        $this->_helper->_acl->allow('flos', array('add','delete','edit'));
         $this->_archaeology = new Archaeology();
     }
 

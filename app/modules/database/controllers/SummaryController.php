@@ -22,7 +22,7 @@ class SummaryController extends Zend_Controller_Action
     {
         $this->_helper->_acl->deny('public', null);
         $this->_helper->_acl->allow('member', array('index'));
-        $this->_helper->_acl->allow('flos', array(,'add','delete','edit'));
+        $this->_helper->_acl->allow('flos', array('add','delete','edit'));
     }
 
     /** Index action for coin summary
