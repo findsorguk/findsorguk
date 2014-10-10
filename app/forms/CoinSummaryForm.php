@@ -33,14 +33,7 @@ class CoinSummaryForm extends Pas_Form
 
         $this->setName('coinsummary');
 
-        $quantity = new Zend_Form_Element_Text('quantity');
-        $quantity->setLabel('Quantity: ')
-            ->addValidator('Int')
-            ->setErrorMessages(array('That is not a number'))
-            ->setValue(1)
-            ->addFilters(array('StripTags', 'StringTrim'))
-            ->setAttribs(array('class'=> 'input-small'))
-            ->setOrder(1);
+
 
         $broadperiod = new Zend_Form_Element_Select('broadperiod');
         $broadperiod->setLabel('Broad period: ')
@@ -52,6 +45,11 @@ class CoinSummaryForm extends Pas_Form
                 'Available periods' => $periodWord
             ))
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
+            ->setOrder(1);
+
+        $ruler_id = new Zend_Form_Element_Select('ruler_id');
+        $ruler_id->setLabel('Ruler: ')
+            ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow disabled'))
             ->setOrder(2);
 
         $denomination = new Zend_Form_Element_Select('denomination');
@@ -59,28 +57,32 @@ class CoinSummaryForm extends Pas_Form
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
             ->setOrder(3);
 
-        $ruler_id = new Zend_Form_Element_Select('ruler_id');
-        $ruler_id->setLabel('Ruler: ')
-            ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow disabled'))
-            ->setOrder(4);
-
         $mint_id = new Zend_Form_Element_Select('mint_id');
         $mint_id->setLabel('Issuing mint: ')
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
-            ->setOrder(5);
+            ->setOrder(4);
 
         $geographyID = new Zend_Form_Element_Select('geographyID');
         $geographyID->setLabel('Iron Age geography: ')
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
-            ->setOrder(6);
+            ->setOrder(5);
 
         $numdate1 = new Zend_Form_Element_Text('numdate1');
         $numdate1->setLabel('Date from: ')
             ->setAttribs(array('class'=> 'input-small'))
-            ->setOrder(7);
+            ->setOrder(6);
 
         $numdate2 = new Zend_Form_Element_Text('numdate2');
         $numdate2->setLabel('Date to: ')
+            ->setAttribs(array('class'=> 'input-small'))
+            ->setOrder(7);
+
+        $quantity = new Zend_Form_Element_Text('quantity');
+        $quantity->setLabel('Quantity: ')
+            ->addValidator('Int')
+            ->setErrorMessages(array('That is not a number'))
+            ->setValue(1)
+            ->addFilters(array('StripTags', 'StringTrim'))
             ->setAttribs(array('class'=> 'input-small'))
             ->setOrder(8);
 
