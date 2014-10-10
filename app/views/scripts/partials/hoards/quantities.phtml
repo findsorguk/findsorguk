@@ -1,3 +1,4 @@
+<?php if(($this->quantityCoins > 0) || ($this->quantityArtefacts > 0) || ($this->quantityContainers > 0)): ?>
 <h4>Quantity summary</h4>
 
 <ul>
@@ -5,3 +6,4 @@
     <li>Artefacts in hoard: <?php echo $this->quantityArtefacts;?></li>
     <li>Containers for the hoard: <?php echo $this->quantityContainers;?></li>
 </ul>
+<?php endif;?>
