@@ -11,7 +11,7 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  */
-class SummaryController extends Zend_Controller_Action
+class Database_SummaryController extends Pas_Controller_Action_Admin
 {
 
     /** Init all the permissions in ACL.
@@ -42,7 +42,8 @@ class SummaryController extends Zend_Controller_Action
      */
     public function addAction()
     {
-
+        $form = new CoinSummaryForm();
+        $this->view->form = $form;
     }
 
     /** Edit action for coin summary

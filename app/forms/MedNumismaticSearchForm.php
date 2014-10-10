@@ -53,9 +53,6 @@ class MedNumismaticSearchForm extends Pas_Form {
 	$rallies = new Rallies();
 	$rally_options = $rallies->getRallies();
 
-	$hoards = new Hoards();
-	$hoard_options = $hoards->getHoards();
-
 	$counties = new OsCounties();
 	$county_options = $counties->getCountiesID();
 
@@ -133,19 +130,6 @@ class MedNumismaticSearchForm extends Pas_Form {
 		->addMultiOptions(array(null => 'Choose rally name',
 			'Available rallies' => $rally_options))
 		->addValidator('InArray', false, array(array_keys($rally_options)));
-
-	$hoard = new Zend_Form_Element_Checkbox('hoard');
-	$hoard->setLabel('Hoard find: ')
-		->addFilters(array('StripTags', 'StringTrim'))
-		->addValidator('Int')
-		->setUncheckedValue(null);
-
-	$hoardID =  new Zend_Form_Element_Select('hID');
-	$hoardID->setLabel('Part of this hoard: ')
-		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(null => 'Choose hoard name', 'Available hoards' => $hoard_options))
-		->addValidator('InArray', false, array(array_keys($hoard_options)));
 
 	$county = new Zend_Form_Element_Select('countyID');
 	$county->setLabel('County: ')
@@ -299,16 +283,16 @@ class MedNumismaticSearchForm extends Pas_Form {
 		'Available institutions' => $inst_options));
 
 	$this->addElements(array(
-            $old_findID, $type, $description,
-            $workflow, $rally, $rallyID,
-            $hoard, $hoardID, $county,
-            $regionID, $district, $parish,
-            $fourFigure, $gridref, $denomination,
-            $ruler,$mint,$axis,
-            $obverseinsc, $obversedesc,$reverseinsc,
-            $reversedesc, $objecttype, $broadperiod,
-            $cat, $submit,$hash, $institution
-                ));
+        $old_findID, $type, $description,
+        $workflow, $rally, $rallyID,
+        $county, $regionID, $district,
+        $parish, $fourFigure, $gridref,
+        $denomination, $ruler, $mint,
+        $axis, $obverseinsc, $obversedesc,
+        $reverseinsc, $reversedesc, $objecttype,
+        $broadperiod, $cat, $submit,
+        $hash, $institution
+    ));
 
 	$this->addDisplayGroup(array(
             'category', 'ruler','type',
@@ -321,8 +305,7 @@ class MedNumismaticSearchForm extends Pas_Form {
 
 	$this->addDisplayGroup(array(
             'old_findID','description','rally',
-            'rallyID','hoard','hID',
-            'workflow'),
+            'rallyID', 'workflow'),
                 'details');
 
 	$this->details->setLegend('Object details:');

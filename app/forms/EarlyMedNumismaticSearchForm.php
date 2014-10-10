@@ -19,7 +19,6 @@
  * @example /app/modules/database/controllers/SearchController.php
  * @uses Institutions
  * @uses Rallies
- * @uses Hoards
  * @uses OsCounties
  * @uses Rulers
  * @uses Denominations
@@ -56,9 +55,6 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 
 	$rallies = new Rallies();
 	$rally_options = $rallies->getRallies();
-
-	$hoards = new Hoards();
-	$hoard_options = $hoards->getHoards();
 
 	$counties = new OsCounties();
 	$county_options = $counties->getCountiesID();
@@ -100,9 +96,8 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
 		->addErrorMessage('Please enter a valid term');
-
         $workflow = new Zend_Form_Element_Select('workflow');
-	$workflow->setLabel('Workflow stage: ')
+        $workflow->setLabel('Workflow stage: ')
                 ->setRequired(false)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StringTrim','StripTags'))
@@ -141,21 +136,6 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StringTrim','StripTags'))
 		->addMultiOptions(array(null => 'Choose a rally','Available rallies' => $rally_options));
-
-	$hoard = new Zend_Form_Element_Checkbox('hoard');
-	$hoard->setLabel('Hoard find: ')
-		->setRequired(false)
-		->addFilters(array('StringTrim','StripTags'))
-		->setUncheckedValue(null);
-
-	$hoardID =  new Zend_Form_Element_Select('hID');
-	$hoardID->setLabel('Part of this hoard: ')
-		->setRequired(false)
-		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addFilters(array('StringTrim','StripTags'))
-		->addMultiOptions(array(
-	             null => 'Available hoards',
-	            'Choose a hoard' => $hoard_options));
 
 
 	$county = new Zend_Form_Element_Select('countyID');
@@ -324,16 +304,15 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$hash->setValue($this->_salt)->setTimeout(4800);
 
 	$this->addElements(array(
-            $old_findID, $type, $description,
-            $workflow, $rally, $rallyID,
-            $hoard, $hoardID, $county,
-            $regionID, $district, $parish,
-            $fourFigure, $gridref, $denomination,
-            $ruler, $mint, $axis,
-            $obverseinsc, $obversedesc, $reverseinsc,
-            $reversedesc, $objecttype, $broadperiod,
-            $cat, $submit, $institution,
-            $hash));
+        $old_findID, $type, $description,
+        $workflow, $rally, $rallyID,
+        $county, $regionID, $district,
+        $parish, $fourFigure, $gridref,
+        $denomination, $ruler, $mint,
+        $axis, $obverseinsc, $obversedesc,
+        $reverseinsc, $reversedesc, $objecttype,
+        $broadperiod, $cat, $submit,
+        $institution, $hash));
 
 	$this->addDisplayGroup(array(
             'category', 'ruler','type',
@@ -343,8 +322,8 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
                 'numismatics');
 	$this->numismatics->setLegend('Numismatic details: ');
 	$this->addDisplayGroup(array(
-            'old_findID','description','rally',
-            'rallyID','hoard','hID','workflow'),
+            'old_findID', 'description', 'rally',
+            'rallyID', 'workflow'),
                 'details');
 
 	$this->details->setLegend('Object details: ');

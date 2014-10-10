@@ -1,0 +1,20 @@
+<?php
+    $this->headTitle('Add coin summary details');
+    $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type='text/javascript');
+
+?>
+<h2 class="lead">
+    Add coin summary
+</h2>
+<?php echo $this->form;?>
+
+<?php
+    $this->jQuery()->javascriptCaptureStart();
+?>
+    $(document).ready(function() {
+        $('#broadperiod').linkedSelect('/ajax/lastruler','#ruler_id',{firstOption: 'Please select a ruler'});
+    });
+
+<?php
+    $this->jQuery()->javascriptCaptureEnd();
+?>

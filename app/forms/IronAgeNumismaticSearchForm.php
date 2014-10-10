@@ -47,9 +47,6 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
         //Get Rally data
         $rallies = new Rallies();
         $rally_options = $rallies->getRallies();
-        //Get Hoard data
-        $hoards = new Hoards();
-        $hoard_options = $hoards->getHoards();
 
         $counties = new OsCounties();
         $county_options = $counties->getCountiesID();
@@ -153,24 +150,6 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
                     'Available rallies' => $rally_options
                 ))
                 ->addValidator('inArray', false, array(array_keys($rally_options)))
-                ->addValidator('Int');
-
-        $hoard = new Zend_Form_Element_Checkbox('hoard');
-        $hoard->setLabel('Hoard find: ')
-                ->setRequired(false)
-                ->addFilters(array('StripTags', 'StringTrim'))
-                ->setUncheckedValue(null);
-
-        $hoardID =  new Zend_Form_Element_Select('hID');
-        $hoardID->setLabel('Part of this hoard: ')
-                ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-                ->setRequired(false)
-                ->addFilters(array('StripTags', 'StringTrim'))
-                ->addMultiOptions(array(
-                    null => 'Choose a hoard',
-                    'Available hoards' => $hoard_options
-                ))
-                ->addValidator('inArray', false, array(array_keys($hoard_options)))
                 ->addValidator('Int');
 
         $county = new Zend_Form_Element_Select('countyID');
@@ -412,8 +391,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 
         $this->addElements(array(
             $old_findID, $description, $workflow,
-            $rally, $rallyID, $hoard,
-            $hoardID, $county, $regionID,
+            $rally, $rallyID, $county, $regionID,
             $district, $parish, $fourFigure,
             $gridref, $denomination, $ruler,
             $mint, $axis, $obverseinsc,
@@ -441,8 +419,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
 
         $this->addDisplayGroup(array(
             'old_findID','description','rally',
-            'rallyID','hoard','hID',
-            'workflow'), 'details')
+            'rallyID', 'workflow'), 'details')
                 ->removeDecorator('HtmlTag');
 
         $this->details->setLegend('Object details: ');

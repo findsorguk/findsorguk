@@ -38,10 +38,6 @@ class RomanNumismaticSearchForm extends Pas_Form {
         $rallies = new Rallies();
         $rally_options = $rallies->getRallies();
 
-        //Get Hoard data
-        $hoards = new Hoards();
-        $hoard_options = $hoards->getHoards();
-
         $counties = new OsCounties();
         $county_options = $counties->getCountiesID();
 
@@ -129,20 +125,6 @@ class RomanNumismaticSearchForm extends Pas_Form {
                 ))
                     ->addValidator('InArray', false, array(array_keys($rally_options)));
 
-        $hoard = new Zend_Form_Element_Checkbox('hoard');
-        $hoard->setLabel('Hoard find: ')
-                    ->addFilters(array('StripTags', 'StringTrim'))
-                    ->setUncheckedValue(null);
-
-        $hoardID =  new Zend_Form_Element_Select('hID');
-        $hoardID->setLabel('Part of this hoard: ')
-                    ->addFilters(array('StripTags', 'StringTrim'))
-                    ->addMultiOptions(array(
-                        null => 'Choose hoard name', 
-                        'Available hoards' => $hoard_options
-                ))
-                    ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-                    ->addValidator('InArray', false, array(array_keys($hoard_options)));
 
         $county = new Zend_Form_Element_Select('countyID');
         $county->setLabel('County: ')
@@ -319,15 +301,14 @@ class RomanNumismaticSearchForm extends Pas_Form {
 
         $this->addElements(array(
             $old_findID, $description, $workflow,
-            $rally, $rallyID, $hoard,
-            $hoardID, $county, $regionID,
-            $district, $parish, $fourFigure,
-            $gridref,$denomination, $ruler,
-            $mint, $axis, $reece,
-            $reverse,$obverseinsc, $obversedesc,
-            $reverseinsc, $reversedesc, $moneyer,
-            $objecttype, $broadperiod, $submit,
-            $hash, $institution));
+            $rally, $rallyID, $county,
+            $regionID, $district, $parish,
+            $fourFigure, $gridref, $denomination,
+            $ruler, $mint, $axis,
+            $reece, $reverse, $obverseinsc,
+            $obversedesc, $reverseinsc, $reversedesc,
+            $moneyer, $objecttype, $broadperiod,
+            $submit, $hash, $institution));
 
         $this->addDisplayGroup(array(
             'denomination','ruler', 'mint',
@@ -339,7 +320,7 @@ class RomanNumismaticSearchForm extends Pas_Form {
 
         $this->addDisplayGroup(array(
             'old_findID','description','rally',
-            'rallyID','hoard','hID','workflow'),
+            'rallyID','workflow'),
                 'details');
 
         $this->addDisplayGroup(array(

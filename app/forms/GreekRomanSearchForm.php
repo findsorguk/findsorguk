@@ -18,7 +18,6 @@
  * @example /app/modules/database/controllers/SearchController.php
  * @uses Materials
  * @uses Rallies
- * @uses Hoards
  * @uses OsCounties
  * @uses Rulers
  * @uses Denominations
@@ -55,9 +54,6 @@ class GreekRomanSearchForm extends Pas_Form {
 	$rallies = new Rallies();
 	$rally_options = $rallies->getRallies();
 
-	//Get Hoard data
-	$hoards = new Hoards();
-	$hoard_options = $hoards->getHoards();
 
 	$counties = new OsCounties();
 	$county_options = $counties->getCountiesID();
@@ -134,19 +130,6 @@ class GreekRomanSearchForm extends Pas_Form {
                 ->addValidator('Int')
                 ->addValidator('InArray', false, array(array_keys($rally_options)));
 
-        $hoard = new Zend_Form_Element_Checkbox('hoard');
-	$hoard->setLabel('Hoard find: ')
-                ->setRequired(false)
-                ->addFilters(array('StringTrim','StripTags'))
-                ->setUncheckedValue(null);
-
-	$hoardID =  new Zend_Form_Element_Select('hID');
-	$hoardID->setLabel('Part of this hoard: ')
-                ->setRequired(false)
-                ->addFilters(array('StringTrim','StripTags'))
-                ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-                ->addMultiOptions(array(null => 'Choose hoard name', 'Available hoards' => $hoard_options))
-                ->addValidator('InArray', false, array(array_keys($hoard_options)));
 
 	$county = new Zend_Form_Element_Select('countyID');
 	$county->setLabel('County: ')
@@ -278,14 +261,14 @@ class GreekRomanSearchForm extends Pas_Form {
 	$submit->setLabel('Search..');
 
 	$this->addElements(array(
-            $old_findID, $description, $workflow,
-            $rally, $rallyID, $hoard,
-            $hoardID, $county, $regionID,
-            $district, $parish, $fourFigure,
-            $gridref, $denomination, $ruler,
-            $mint, $axis, $obverseinsc,
-            $obversedesc, $reverseinsc, $reversedesc,
-            $objecttype, $broadperiod, $submit));
+        $old_findID, $description, $workflow,
+        $rally, $rallyID, $county,
+        $regionID, $district, $parish,
+        $fourFigure, $gridref, $denomination,
+        $ruler, $mint, $axis,
+        $obverseinsc, $obversedesc, $reverseinsc,
+        $reversedesc, $objecttype, $broadperiod,
+        $submit));
 
 	$this->addDisplayGroup(array(
             'denomination','ruler','mint',
@@ -295,8 +278,7 @@ class GreekRomanSearchForm extends Pas_Form {
 
 	$this->addDisplayGroup(array(
             'old_findID','description','rally',
-            'rallyID','hoard','hID',
-            'workflow'), 'details');
+            'rallyID','workflow'), 'details');
 
 	$this->addDisplayGroup(array(
             'countyID','regionID','districtID',
