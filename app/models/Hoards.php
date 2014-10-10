@@ -142,8 +142,6 @@ class Hoards extends Pas_Db_Table_Abstract {
         unset($updateData['idBy']);
         unset($updateData['id2by']);
         unset($updateData['hiddenfield']);
-        unset($updateData['lastruler']);
-        unset($updateData['lastreeceperiod']);
         unset($updateData['legacyID']);
         $updateData['materials'] = serialize($updateData['materials']);
 
@@ -672,6 +670,9 @@ class Hoards extends Pas_Db_Table_Abstract {
                 'broadperiod',
                 'lastrulerID',
                 'reeceID',
+                'quantityCoins',
+                'quantityArtefacts',
+                'quantityContainers',
                 'terminalyear1',
                 'terminalyear2',
                 'terminalreason',
