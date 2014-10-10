@@ -132,7 +132,7 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return int
      */
-    public function editFind(array $updateData, $id){
+    public function editHoard(array $updateData, $id){
         $id2by = $updateData['id2by'];
         if($id2by === "" || is_null($id2by)){
             $updateData['identifier2ID'] = NULL;
