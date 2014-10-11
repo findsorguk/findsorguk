@@ -140,7 +140,10 @@ class Pas_View_Helper_NextFind extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_allowed =  array('fa','flos','admin','treasure');
+    protected $_allowed =  array(
+        'fa', 'flos', 'admin',
+        'treasure', 'hoard'
+    );
 
     /** The key to use when accessing the cache
      * @access protected

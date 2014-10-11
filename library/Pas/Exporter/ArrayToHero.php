@@ -36,7 +36,7 @@ class Pas_Exporter_ArrayToHero {
      * @access protected
      * @var array
      */
-    protected $_allowed = array('admin','flos','fa','treasure');
+    protected $_allowed = array('admin', 'flos', 'fa', 'treasure', 'hoard');
 
     /** Maybe allowed
      * @access protected

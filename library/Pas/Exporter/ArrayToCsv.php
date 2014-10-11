@@ -34,7 +34,7 @@ class Pas_Exporter_ArrayToCsv {
      * @access protected
      * @var array
      */
-    protected $_allowed = array('admin','flos','fa','treasure');
+    protected $_allowed = array('admin', 'flos', 'fa', 'treasure', 'hoard');
 
     /** Maybe allowed
      * @access protected

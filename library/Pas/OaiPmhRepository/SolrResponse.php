@@ -22,7 +22,7 @@ class Pas_OaiPmhRepository_SolrResponse {
 
     protected $_cache;
 
-    protected $_allowed =  array('fa','flos','admin','treasure');
+    protected $_allowed =  array('fa', 'flos', 'admin', 'treasure', 'hoard');
 
     public function __construct(){
     $this->_cache = Zend_Registry::get('cache');

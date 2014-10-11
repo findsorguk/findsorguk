@@ -23,7 +23,11 @@ class Pas_Solr_SensitiveFields {
      * @access public
      * @var array
      */
-    protected $_allowed = array('fa','flos','admin','treasure', 'research', 'hero');
+    protected $_allowed = array(
+        'fa', 'flos', 'admin',
+        'treasure', 'research', 'hero',
+        'hoard'
+    );
 
     /** The array of people who can see the personal data set.
      * @access public

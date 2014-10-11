@@ -47,7 +47,7 @@ $(document).ready(initialize);
         }else {
             $role = NULL;
         }
-	$allowed = array('admin', 'fa', 'flos', 'research', 'treasure');
+	$allowed = array('admin', 'fa', 'flos', 'research', 'treasure', 'hoard');
 	if(in_array($role, $allowed)) {
 		$maxzoom = 18;
 		$minzoom = 1;
@@ -104,12 +104,7 @@ function initialize() {
     });
 
 }
-
-
 function trunc(x) {
     return Math.round(x * 1000) / 1000;
 }
-
-
-
 <?php $this->inlineScript()->captureEnd();?>

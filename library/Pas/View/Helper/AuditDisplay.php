@@ -46,7 +46,10 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array
      */
-    protected $_allowed = array('treasure', 'flos', 'fa','admin');
+    protected $_allowed = array(
+        'treasure', 'flos', 'fa',
+        'admin', 'hoard'
+    );
 
     /** The default table name
      * @access protected

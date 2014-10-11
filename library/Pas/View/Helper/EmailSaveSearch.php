@@ -29,7 +29,11 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
      * @access public
      * @var array
      */
-    protected $_allowed = array('member', 'flos', 'admin', 'treasure', 'hero', 'fa' );
+    protected $_allowed = array(
+        'member', 'flos', 'admin',
+        'treasure', 'hero', 'fa',
+        'hoard'
+    );
 
     /** The simple link parameters for sending to the url helper
      *

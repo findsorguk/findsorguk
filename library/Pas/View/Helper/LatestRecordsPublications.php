@@ -20,7 +20,10 @@ class Pas_View_Helper_LatestRecordsPublications extends Zend_View_Helper_Abstrac
 
     protected $_cache;
 
-    protected $_allowed =  array('fa','flos','admin','treasure');
+    protected $_allowed =  array(
+        'fa', 'flos', 'admin',
+        'treasure', 'hoard'
+    );
 
     public function __construct()
     {

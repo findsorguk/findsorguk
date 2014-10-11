@@ -63,7 +63,10 @@ class Pas_View_Helper_ChangesFindSpot extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_allowed = array('treasure', 'flos', 'fa','admin');
+    protected $_allowed = array(
+        'treasure', 'flos', 'fa',
+        'admin', 'hoard'
+    );
 
     /** Get the data to render
      * @access private

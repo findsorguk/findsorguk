@@ -37,7 +37,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access protected
      * @var array Higher level groups
      */
-    protected $_higherLevel = array('treasure', 'flos', 'admin', 'hero', 'fa' );
+    protected $_higherLevel = array('treasure', 'flos', 'admin', 'hero', 'fa', 'hoard' );
 
     /** The array of numismatic terms
      * @var array coins pseudonyms

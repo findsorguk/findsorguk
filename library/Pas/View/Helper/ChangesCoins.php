@@ -55,7 +55,10 @@ class Pas_View_Helper_ChangesCoins extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_allowed = array('treasure', 'flos', 'fa','admin', 'hero');
+    protected $_allowed = array(
+        'treasure', 'flos', 'fa',
+        'admin', 'hero', 'hoard'
+    );
 
     /** Build the html from data array
      * @param array $a

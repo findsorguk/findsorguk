@@ -17,7 +17,10 @@ class Pas_View_Helper_PeopleToolbox extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array
      */
-    protected $_allowed = array('fa','flos','admin','treasure');
+    protected $_allowed = array(
+        'fa', 'flos', 'admin',
+        'treasure', 'hoard'
+    );
 
     /** The id of the user
      * @access protected

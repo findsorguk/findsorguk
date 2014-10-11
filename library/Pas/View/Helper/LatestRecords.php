@@ -51,7 +51,10 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_allowed =  array('fa','flos','admin','treasure');
+    protected $_allowed =  array(
+        'fa', 'flos', 'admin',
+        'treasure', 'hoard'
+    );
 
 
     /** Get the allowed roles

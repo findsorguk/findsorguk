@@ -31,7 +31,10 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_allowed = array('flos', 'hero', 'treasure', 'fa', 'admin');
+    protected $_allowed = array(
+        'flos', 'hero', 'treasure',
+        'fa', 'admin', 'hoard'
+    );
 
     /** The user's role
      * @access protected

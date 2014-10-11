@@ -36,7 +36,10 @@ class Pas_Solr_HandlerPersonal {
 
     protected $_facets;
 
-    protected $_allowed = array('fa','flos','admin','treasure', 'research');
+    protected $_allowed = array(
+        'fa', 'flos', 'admin',
+        'treasure', 'research', 'hoard'
+    );
 
     protected $_map = false;
 

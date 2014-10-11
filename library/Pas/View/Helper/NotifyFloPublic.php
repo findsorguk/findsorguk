@@ -10,7 +10,11 @@
  */
 class Pas_View_Helper_NotifyFloPublic
      extends Zend_View_Helper_Abstract {
-    protected $_allowed = array( 'member', 'flos', 'treasure', 'admin', 'fa' );
+
+    protected $_allowed = array(
+        'member', 'flos', 'treasure',
+        'admin', 'fa', 'hoard'
+    );
 
     /* The user object
      *

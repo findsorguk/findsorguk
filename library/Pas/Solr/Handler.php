@@ -84,7 +84,7 @@ class Pas_Solr_Handler {
      * @access protected
      * @var array
      */
-    protected $_allowed = array('fa','flos','admin','treasure', 'research');
+    protected $_allowed = array('fa','flos','admin','treasure', 'research', 'hoard');
     
     /** The default map option
      * @access protected
