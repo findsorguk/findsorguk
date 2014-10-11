@@ -19,7 +19,6 @@
  * @uses FindOfNoteReasons
  * @uses Preservations
  * @uses Rallies
- * @uses Hoards
  * @uses OsCounties
  * @uses OsRegions();
 */
@@ -85,9 +84,6 @@ class AdvancedSearchForm extends Pas_Form {
 
 	$rallies = new Rallies();
 	$rally_options = $rallies->getRallies();
-
-	$hoards = new Hoards();
-	$hoard_options = $hoards->getHoards();
 
 	$counties = new OsCounties();
 	$county_options = $counties->getCountiesID();
@@ -205,7 +201,6 @@ class AdvancedSearchForm extends Pas_Form {
                     'Available periods' => $period_options))
                 ->setAttribs(array(
                     'class' => 'input-xlarge selectpicker show-menu-arrow'));
-     
         $culture = new Zend_Form_Element_Select('culture');
 	$culture->setLabel('Ascribed culture: ')
                 ->addFilters(array('StringTrim','StripTags'))
@@ -284,20 +279,6 @@ class AdvancedSearchForm extends Pas_Form {
                 ->setAttribs(array(
                     'class' => 'input-xlarge selectpicker show-menu-arrow'));
 
-	$hoard = new Zend_Form_Element_Checkbox('hoard');
-	$hoard->setLabel('Hoard find: ')
-                ->addFilters(array('StringTrim','StripTags'))
-                ->setUncheckedValue(null);
-	
-
-	$hoardID =  new Zend_Form_Element_Select('hID');
-	$hoardID->setLabel('Part of this hoard: ')
-                ->addFilters(array('StringTrim','StripTags'))
-                ->addMultiOptions(array(
-                    null => 'Available hoards',
-                    'Choose a hoard' => $hoard_options))
-                ->setAttribs(array(
-                    'class' => 'input-xlarge selectpicker show-menu-arrow'));
 
 	$other_ref = new Zend_Form_Element_Text('otherRef');
 	$other_ref->setLabel('Other reference: ')
@@ -493,28 +474,26 @@ class AdvancedSearchForm extends Pas_Form {
                 $old_findID, $objecttype, $broadperiod,
                 $description, $from, $to,
                 $workflow, $findofnote, $findofnotereason,
-                $rally, $rallyID, $hoard,
-                $hoardID, $other_ref, $manmethod,
-                $notes, $objdate1period, $objdate2period, 
-                $county, $regionID, $district, 
-                $parish, $fourFigure, $objdate1subperiod, 
-                $objdate2subperiod, $treasure, $treasureID, 
-                $discoverydate, $created, $created2, 
-                $updated, $updated2, $culture, 
-                $surftreat, $submit, $material1, 
-                $elevation, $woeid, $institution, 
-                $hash, $smrRef
+                $rally, $rallyID, $other_ref,
+                $manmethod, $notes, $objdate1period,
+                $objdate2period,  $county, $regionID,
+                $district, $parish, $fourFigure,
+                $objdate1subperiod, $objdate2subperiod, $treasure,
+                $treasureID, $discoverydate, $created,
+                $created2, $updated, $updated2,
+                $culture, $surftreat, $submit,
+                $material1, $elevation, $woeid,
+                $institution, $hash, $smrRef
                 ));
         } else {
             $this->addElements(array(
                 $old_findID, $objecttype, $broadperiod,
                 $description, $from, $to,
                 $workflow, $findofnote, $findofnotereason,
-                $rally, $rallyID, $hoard,
-                $hoardID, $other_ref, $manmethod,
-                $notes, $objdate1period, $objdate2period, 
-                $county, $regionID, $district, 
-                $parish, $fourFigure, $elevation, $woeid,
+                $rally, $rallyID, $other_ref,
+                $manmethod, $notes, $objdate1period,
+                $objdate2period, $county, $regionID,
+                $district, $parish, $fourFigure, $elevation, $woeid,
                 $objdate1subperiod, $objdate2subperiod, $treasure,
                 $treasureID, $discoverydate, $created,
                 $created2, $updated, $updated2, $idBy, $finder,
@@ -529,9 +508,9 @@ class AdvancedSearchForm extends Pas_Form {
             'old_findID', 'objecttype', 'description',
             'notes', 'note', 'reason',
             'treasure', 'TID', 'rally',
-            'rallyID', 'hoard', 'hID',
-            'workflow', 'otherRef', 'smrRef',
-            'material',	'manufacture','surface'), 
+            'rallyID', 'workflow', 'otherRef',
+            'smrRef', 'material', 'manufacture',
+            'surface'),
             'details');
 	$this->details->setLegend('Main details: ');
 

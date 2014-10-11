@@ -13,6 +13,23 @@
 ?>
     $(document).ready(function() {
         $('#broadperiod').linkedSelect('/ajax/lastruler','#ruler_id',{firstOption: 'Please select a ruler'});
+        var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
+        'GREEK AND ROMAN PROVINCIAL'];
+        var IA = ['IRON AGE'];
+        $('#geographyID').attr('disabled','disabled');
+        $('#denomination').attr('disabled','disabled');
+        $('#ruler_id').attr('disabled','disabled');
+        $('#mint_id').attr('disabled','disabled');
+        $('select[name="broadperiod"]').on('change',function(){
+            var period = $(this).val();
+            if(jQuery.inArray(period, rulerPeriods) !== -1) {
+                console.log('In ruler array');
+
+            }
+            if (jQuery.inArray(period, IA) !== -1) {
+                console.log('In IA array');
+            }
+        });
     });
 
 <?php
