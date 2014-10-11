@@ -96,7 +96,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
                 $formData['creator'] = $this->_helper->identity->getPerson()->fullname;
                 $edit = $this->_gcal->editEvent($formData);
                 $this->getFlash()->addMessage('Calendar event updated');
-                $$this->redirect(/users/calendar/');
+                $this->redirect('/users/calendar/');
             } else {
                 $form->populate($this->_request->getPost());
             }

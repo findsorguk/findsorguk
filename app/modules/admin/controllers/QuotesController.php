@@ -83,7 +83,7 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin {
                         $this->_getParam('id'));
                 $update = $this->_quotes->update($form->getValues(),$where);
                 $this->getFlash()->addMessage('Details updated!');
-                $$this->redirect(self::REDIRECT );
+                $this->redirect(self::REDIRECT );
                 } else {
                     $form->populate($form->getValues());
                 }

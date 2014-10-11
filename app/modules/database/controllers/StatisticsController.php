@@ -156,7 +156,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
                 foreach($params as $key => $value) {
                     $query .= $key.'/'.$value.'/';
                 }
-                $$this->redirect(/database/statistics/county/'.$query);
+                $this->redirect('/database/statistics/county/'.$query);
             } else {
                 $form->populate($data);
             }

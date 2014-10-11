@@ -88,7 +88,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin {
                     $where[] = $this->_accounts->getAdapter()->quoteInto('userID = ?',$this->getIdentityForForms());
                     $this->_accounts->update($updateData,$where);
                     $this->getFlash()->addMessage('Webservice details updated.');
-                    $$this->redirect(/users/');
+                    $this->redirect('/users/');
                 } else {
                     $form->populate($formData);
                 }

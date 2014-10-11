@@ -94,7 +94,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
                 $copyFindSpot->updateConfig($form->getValues());
                 $this->getFlash()
                         ->addMessage('Copy last record fields for findspot table updated');
-                $$this->redirect(/users/configuration/');
+                $this->redirect('/users/configuration/');
             } else {
                 $form->populate($values);
             }

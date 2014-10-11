@@ -57,7 +57,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
 	$yahoo = new Yahoo();
 	$yahoo->access();
 	$this->getFlash()->addMessage('Token created');
-	$$this->redirect(/admin/oauth/');
+	$this->redirect('/admin/oauth/');
     }
     /** Initiate request to create a twitter request token. This can only be 
      * done when logged into twitter

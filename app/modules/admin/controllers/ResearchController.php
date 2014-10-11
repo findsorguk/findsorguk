@@ -85,9 +85,9 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
             if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $where =  $this->_research->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                    $update = $this->_research->update($form->getValues(),$where);
+                    $this->_research->update($form->getValues(),$where);
                     $this->getFlash()->addMessage('Research project details updated.');
-                    $$this->redirect(elf::REDIRECT);
+                    $this->redirect(self::REDIRECT);
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -111,7 +111,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $this->_suggested->add($form->getValues());
                 $this->getFlash()->addMessage('A new suggested research project has been entered.');
-                $t$this->redirect(lf::REDIRECT . 'suggested/');
+                $this->redirect(self::REDIRECT . 'suggested/');
             } else {
                 $form->populate($form->getValues());
             }
@@ -140,7 +140,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
                     $where =  $this->_suggested->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                     $this->_suggested->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Suggested research project details updated.');
-                    $th$this->redirect(f::REDIRECT . 'suggested/');
+                    $this->redirect(self::REDIRECT . 'suggested/');
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -165,9 +165,9 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
                 $where = $this->_suggested->getAdapter()->quoteInto('id = ?', $id);
-                $suggested->delete($where);
+                $this->_suggested->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                $this->_redirect(self::REDIRECT . 'suggested/');
+                $this->redirect(self::REDIRECT . 'suggested/');
             }
         } else {
             $id = (int)$this->_request->getParam('id');

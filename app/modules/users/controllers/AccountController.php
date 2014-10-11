@@ -92,7 +92,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                 $where[] = $this->_users->getAdapter()->quoteInto('id = ?', $this->getIdentityForForms());
                 $this->_users->update($form->getValues(), $where);
                 $this->getFlash()->addMessage('You updated your profile successfully.');
-                $$this->redirect(/users/account/');
+                $this->redirect('/users/account/');
             } else {
                 $form->populate($form->getValues());
                 $this->getFlash()->addMessage('You have some errors with your submission.');

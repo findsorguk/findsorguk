@@ -257,7 +257,7 @@ class Admin_SystemController extends Pas_Controller_Action_Admin {
         $this->_helper->viewRenderer->setNoRender();
         $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
         $this->getFlash()->addMessage('Cache cleaned');
-        $$this->redirect(/admin/system/');
+        $this->redirect('/admin/system/');
     }
     /** Clean just the old cached data
      * @access public

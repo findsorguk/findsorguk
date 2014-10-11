@@ -57,7 +57,7 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
                     $form->populate($this->_request->getPost());
             }
 	} else {
-            $$this->redirect(elf::REDIRECT);
+            $this->redirect(self::REDIRECT);
 	}
     }
 

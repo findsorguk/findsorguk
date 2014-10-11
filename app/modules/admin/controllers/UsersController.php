@@ -143,7 +143,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                     $this->getFlash()->addMessage('You updated: <em>' 
                             . $form->getValue('fullname')
                             . '</em> successfully.');
-                    $$this->redirect(/admin/users/account/username/' . $form->getValue('username'));
+                    $this->redirect('/admin/users/account/username/' . $form->getValue('username'));
                 } else {
                 $form->populate($formData);
                 }

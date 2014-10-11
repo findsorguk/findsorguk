@@ -139,7 +139,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
                 $row->datePublished = $this->getTimeForForms();
                 $row->save();
                 $this->getFlash()->addMessage('News story information updated!');
-                $$this->redirect(elf::REDIRECT);
+                $this->redirect(self::REDIRECT);
             } else {
                 $form->populate($formData);
             }

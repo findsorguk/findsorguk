@@ -81,7 +81,7 @@ class Admin_VolunteersController extends Pas_Controller_Action_Admin {
                             ->quoteInto('id = ?', $this->_getParam('id'));
                     $this->_volunteers->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Vacancy details updated!');
-                    $$this->redirect(elf::REDIRECT);
+                    $this->redirect(self::REDIRECT);
                 } else {
                     $form->populate($form->getValues());
                 }

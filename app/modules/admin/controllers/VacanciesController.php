@@ -80,7 +80,7 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin {
                     $where[] = $this->_vacancies->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                     $this->_vacancies->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Vacancy details updated!');
-                    $$this->redirect(elf::REDIRECT);
+                    $this->redirect(self::REDIRECT);
                 } else {
                     $form->populate($form->getValues());
                 }
