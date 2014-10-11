@@ -12,21 +12,34 @@
     $this->jQuery()->javascriptCaptureStart();
 ?>
     $(document).ready(function() {
+
         $('#broadperiod').linkedSelect('/ajax/lastruler','#ruler_id',{firstOption: 'Please select a ruler'});
+        $('#broadperiod').linkedSelect('/ajax/getdenominations','#denomination',{firstOption: 'Please select a denomination'});
+        $('#broadperiod').linkedSelect('/ajax/getmints','#mint_id',{firstOption: 'Please select a ruler'});
+
         var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
         'GREEK AND ROMAN PROVINCIAL'];
+
         var IA = ['IRON AGE'];
-        $('#geographyID').attr('disabled','disabled');
+
+    $('#geographyID').attr('disabled','disabled');
         $('#denomination').attr('disabled','disabled');
         $('#ruler_id').attr('disabled','disabled');
         $('#mint_id').attr('disabled','disabled');
+
         $('select[name="broadperiod"]').on('change',function(){
+            $('#ruler_id').select2('val', 'All');
+            $('#mint_id').select2('val', 'All');
+            $('#denomination').select2('val', 'All');
+            $('#geographyID').select2('val', 'All');
+
             var period = $(this).val();
             if(jQuery.inArray(period, rulerPeriods) !== -1) {
                 console.log('In ruler array');
 
             }
             if (jQuery.inArray(period, IA) !== -1) {
+                $('#ruler_id').linkedSelect('/ajax/iageography','#geographyID',{firstOption: 'Please select a ruler'});
                 console.log('In IA array');
             }
         });

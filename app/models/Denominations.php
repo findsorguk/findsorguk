@@ -442,4 +442,21 @@ class Denominations extends Pas_Db_Table_Abstract {
         }
         return $data;
     }
+
+    public function getDenominationByBroadPeriod( $broadperiod ) {
+        $key = md5('denominationsByBroadperiod' . $broadperiod);
+        if (!$data = $this->_cache->load($key)) {
+            $denoms = $this->getAdapter();
+            $select = $denoms->select()
+                ->from($this->_name,array('id','term' => 'denomination'))
+                ->joinLeft('periods', 'periods.id = denominations.period', array())
+                ->where($this->_name . '.valid = ?', (int)1)
+                ->where('periods.term = ?',(string)$broadperiod)
+                ->order('denomination');
+            $data = $denoms->fetchAll($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
+    }
+
 }

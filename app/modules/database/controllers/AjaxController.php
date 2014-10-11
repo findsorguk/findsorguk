@@ -626,4 +626,17 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
    	$types = new JettonTypes();
    	$this->view->json = $types->getTypesToGroups($this->_getParam('term'));
    }
+
+
+    public function getdenominationsAction() {
+
+    }
+
+    public function getMintsAction(){
+
+    }
+
+    public function getIaGeographyAction() {
+
+    }
 }

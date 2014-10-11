@@ -16,7 +16,7 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 22 September 2011
  * @todo add caching
@@ -183,4 +183,24 @@ class Geography extends Pas_Db_Table_Abstract {
                 ->where('rulers.id = ?', (int)$id);
         return $regions->fetchAll($select);
 	}
+
+    /** Get all Iron Age geographical regions to rulers
+     * @access public
+     * @param integer $id
+     * @return array
+     */
+    public function getIronAgeRegionToRulerSearch($id) {
+        $regions = $this->getAdapter();
+        $select = $regions->select()
+            ->from($this->_name,array('id','term' => 'area'))
+            ->joinLeft('ironagerulerxregion',
+                'ironagerulerxregion.regionID = geographyironage.id',
+                array())
+            ->joinLeft('rulers','rulers.id = ironagerulerxregion.rulerID',
+                array())
+            ->where('rulers.id = ?', (int)$id);
+        return $regions->fetchAll($select);
+    }
+
+
 }

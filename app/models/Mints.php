@@ -464,4 +464,19 @@ class Mints extends Pas_Db_Table_Abstract {
         $mint = $mints->fetchRow($this->select()->where('id =' . $mint));
         return $mint->pleiadesID;
     }
+
+    public function getMintbyBroadperiod( $period ) {
+            $key = md5('mintbybroadperiod' . $period);
+            if (!$data = $this->_cache->load($key)) {
+                $select = $this->select()
+                    ->from($this->_name, array('id', 'term' => 'mint_name', ))
+                    ->joinLeft('periods','periods.id = mints.period',array())
+                    ->where('periods.term = ?', $period)
+                    ->where('mints.valid = ?', (int)1)
+                    ->order('mints.id ASC');
+                $data = $this->getAdapter()->fetchAll($select);
+                $this->_cache->save($data, $key);
+            }
+            return $data;
+    }
 }

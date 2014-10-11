@@ -14,6 +14,8 @@
 class Database_SummaryController extends Pas_Controller_Action_Admin
 {
 
+    const REDIRECT = '/';
+
     /** Init all the permissions in ACL.
      * @access public
      * @return void
