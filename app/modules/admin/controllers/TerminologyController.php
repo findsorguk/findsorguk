@@ -70,6 +70,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
     public function indexAction(){
         //Nothing doing here - redirect>
     }
+
     /** Display a list of activities for finders.
      * @access public
      * @return void
