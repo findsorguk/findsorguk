@@ -91,7 +91,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function indexAction(){
-        $this->_redirect('/database/publications');
+        $this->redirect('/database/publications');
         $this->getResponse()->setHttpResponseCode(301)
                         ->setRawHeader('HTTP/1.1 301 Moved Permanently');
     }
@@ -112,7 +112,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 unset($insertData['authors']);
                 $this->_bibliography->add($insertData);
                 $this->getFlash()->addMessage('A new reference work has been added to this record');
-                $this->_redirect($this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
+                $$this->redirect(this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
             } else {
              $form->populate( $this->_request->getPost());
             }
@@ -135,7 +135,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 $where =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                 $update = $this->_bibliography->update($formData, $where);
                 $this->getFlash()->addMessage('Reference details updated!');
-                $this->_redirect($this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
+                $t$this->redirect(his->getRedirect() . 'record/id/' . $this->_getParam('findID'));
             } else {
                 $form->populate($this->_request->getPost());
             }

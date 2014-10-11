@@ -45,7 +45,7 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $this->getFlash()->addMessage('You can only see photos at the index page');
-        $this->_redirect('/flickr/');
+        $this->redirect('/flickr/');
     }
 
 

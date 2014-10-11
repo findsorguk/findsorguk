@@ -73,7 +73,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $this->getFlash()->addMessage('There is no direct access to the root action for treasure');
-        $this->_redirect('/treasure/cases/');
+        $this->redirect('/treasure/cases/');
     }
 
     /** Case history for a Treasure ID
@@ -144,7 +144,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
                     $data = $form->getValues();
                     $provisionals = new TreasureValuations();
                     $provisionals->add($data);
-                    $this->_redirect($this->_redirect);
+                    $$this->redirect(this->_redirect);
                     $this->getFlash()->addMessage('A new provisional value has been added.');
                 } else {
                     $form->populate($formData);
@@ -169,7 +169,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
                 $data = $form->getValues();
                 $provisionals = new TreasureValuations();
                 $provisionals->updateTreasure($data);
-                $this->_redirect($this->_redirect);
+                $t$this->redirect(his->_redirect);
                 $this->getFlash()->addMessage('A provisional value has been updated.');
             } else {
             $form->populate($formData);
@@ -197,7 +197,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
                     $data = $form->getValues();
                     $curators = new TreasureAssignations();
                     $insert = $curators->add($data);
-                    $this->_redirect($this->_redirect);
+                    $th$this->redirect(is->_redirect);
                     $this->getFlash()->addMessage('Curator has been assigned.');
                 } else {
                     $form->populate($formData);
@@ -224,7 +224,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin {
                     $data = $form->getValues();
                     $dates = new TvcDatesToCases();
                     $insert = $dates->add($data);
-                    $this->_redirect($this->_redirect);
+                    $thi$this->redirect(s->_redirect);
                     $this->getFlash()->addMessage('Curator has been assigned.');
                 } else {
                 $form->populate($formData);

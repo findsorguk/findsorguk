@@ -73,7 +73,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $this->getFlash()->addMessage('No access to index page');
-        $this->_redirect('/database/');
+        $this->redirect('/database/');
     }
 
     /** List of user's finds that they have entered.
@@ -161,7 +161,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
             $this->view->facets = $search->processFacets();
             $this->view->stats = $search->processStats();
         } else {
-            $this->_redirect('/error/accountproblem');
+            $this->redirect('/error/accountproblem');
         }
     }
 

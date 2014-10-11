@@ -57,7 +57,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin {
                 );
                 $this->_accounts->insert($insertData);
                 $this->getFlash()->addMessage('A new account has been added to your profile.');
-                $this->_redirect('/users/');
+                $this->redirect('/users/');
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -88,7 +88,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin {
                     $where[] = $this->_accounts->getAdapter()->quoteInto('userID = ?',$this->getIdentityForForms());
                     $this->_accounts->update($updateData,$where);
                     $this->getFlash()->addMessage('Webservice details updated.');
-                    $this->_redirect('/users/');
+                    $$this->redirect(/users/');
                 } else {
                     $form->populate($formData);
                 }

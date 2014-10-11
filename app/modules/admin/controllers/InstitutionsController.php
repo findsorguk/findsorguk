@@ -76,7 +76,7 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin {
                 
                 $this->_institutions->add($form->getValues());
                 $this->getFlash()->addMessage('A new recording institution has been created.');
-                $this->_redirect($this->_redirectUrl . 'institutions/');
+                $this->redirect($this->_redirectUrl . 'institutions/');
             } else {
                 $form->populate($form->getValues());
             }

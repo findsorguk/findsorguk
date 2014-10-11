@@ -75,7 +75,7 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $this->_events->insert($form->getValues());
             $this->getFlash()->addMessage('New event created!');
-            $this->_redirect('/admin/events/');
+            $this->redirect('/admin/events/');
         } else {
             $form->populate($this->_request->getPost());
         }
@@ -99,7 +99,7 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
                     'You updated: <em>' 
                     . $form->getValue('eventTitle')
                     . '</em> successfully.');
-            $this->_redirect('/admin/events/');
+            $this->redirect('/admin/events/');
         } else {
             $form->populate($this->_request->getPost());
         }
@@ -118,7 +118,7 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
                 $this->_events->delete($where);
                 $this->getFlash()->addMessage('Event information deleted! This cannot be undone.');
             }
-            $this->_redirect('/admin/events/');
+            $this->redirect('/admin/events/');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

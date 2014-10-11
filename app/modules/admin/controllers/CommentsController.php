@@ -62,7 +62,7 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin {
 
                     $this->_helper->mailer($form->getValues(),'commentPublished', $to);
                     $this->getFlash()->addMessage('Comment data updated.');
-                    $this->_redirect('/admin/comments/');
+                    $this->redirect('/admin/comments/');
                 } else {
                     $this->getFlash()->addMessage('There is a problem with the form, please check and resubmit');
                     $form->populate($data);

@@ -62,7 +62,7 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $this->_coroners->addCoroner($form->getValues());
                 $this->getFlash()->addMessage('Coroner details created!');
-                $this->_redirect($this->_redirectUrl);
+                $this->redirect($this->_redirectUrl);
             } else {
                 $form->populate($form->getValues());
             }
@@ -88,7 +88,7 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
                             . ' ' 
                             . $form->getValue('lastname') 
                             . '\'s information updated!');
-                    $this->_redirect($this->_redirectUrl);
+                    $this->redirect($this->_redirectUrl);
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -116,7 +116,7 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
                 $this->_coroners->delete($where);
             }	
             $this->getFlash()->addMessage('Coroner\'s information deleted!');
-            $this->_redirect($this->_redirectUrl);
+            $this->redirect($this->_redirectUrl);
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

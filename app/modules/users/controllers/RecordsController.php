@@ -47,7 +47,7 @@ class Users_RecordsController extends Pas_Controller_Action_Admin {
             $this->view->finds = $search->processResults();
             $this->view->facets = $search->processFacets();
         } else {
-            $this->_redirect('/error/accountconnection');
+            $this->redirect('/error/accountconnection');
         }
     }
     /** Display the map

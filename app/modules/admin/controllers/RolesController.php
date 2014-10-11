@@ -61,7 +61,7 @@ class Admin_RolesController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $this->_staffroles->add($form->getValues());
                 $this->getFlash()->addMessage('A new staff role has been created.');
-                $this->_redirect($this->_redirectUrl );
+                $this->redirect($this->_redirectUrl );
             } else {
                 $form->populate($form->getValues());
             }
@@ -83,7 +83,7 @@ class Admin_RolesController extends Pas_Controller_Action_Admin {
                 $this->_staffroles->update($form->getValues(),$where);
                 $this->getFlash()->addMessage($form->getValue('role') 
                         . '\'s details updated.');
-                $this->_redirect($this->_redirectUrl );
+                $$this->redirect(this->_redirectUrl );
             } else {
                 $form->populate($form->getValues());
             }

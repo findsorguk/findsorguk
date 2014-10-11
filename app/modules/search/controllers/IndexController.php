@@ -56,7 +56,7 @@ class Search_IndexController extends Pas_Controller_Action_Admin {
             if ($this->_request->isPost()) {
                 $data = $this->_getAllParams();
                 if ($form->isValid($data)) {
-                    $this->_redirect($this->view->url(
+                    $this->redirect($this->view->url(
                             array(
                                 'module' => 'search',
                                 'controller' => 'results',

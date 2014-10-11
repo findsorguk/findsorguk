@@ -44,7 +44,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
      */	
     public function yahooAction() {
         $yahoo = new Yahoo();
-        $this->_redirect($yahoo->request());
+        $this->redirect($yahoo->request());
     }
     
     /** Initiate request to create a yahoo token. This can only be done when 
@@ -57,7 +57,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
 	$yahoo = new Yahoo();
 	$yahoo->access();
 	$this->getFlash()->addMessage('Token created');
-	$this->_redirect('/admin/oauth/');
+	$$this->redirect(/admin/oauth/');
     }
     /** Initiate request to create a twitter request token. This can only be 
      * done when logged into twitter
@@ -67,7 +67,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
      */	
     public function twitterAction(){
         $twitter = new Twitter();
-        $this->_redirect($twitter->request());
+        $t$this->redirect(witter->request());
     }
     /** Initiate request to create a twitter access token. This can only be 
      * done when logged into twitter
@@ -81,7 +81,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
         $twitter->access();
         if(isset($twitter)){
             $this->getFlash()->addMessage('Token created');
-            $this->_redirect('/admin/oauth/');
+            $th$this->redirect(dmin/oauth/');
         } else {
             throw new Pas_Yql_Exception('Token creation failed', 500);
         }
@@ -116,7 +116,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
         $access = $flickr->access();
         if($access) {
             $this->getFlash()->addMessage('Token created');
-            $this->_redirect('/admin/oauth/');
+            $thi$this->redirect(min/oauth/');
         } else {
             throw new Pas_Exception('Token creation failure', 500);
         }

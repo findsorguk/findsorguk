@@ -59,7 +59,7 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->_redirect('contacts');
+        $this->redirect('contacts');
     }
 
     /** Profile page

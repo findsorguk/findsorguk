@@ -96,7 +96,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $this->getFlash()->addMessage('You cannot access the findspots index.');
-        $this->_redirect($this->getRedirect());
+        $this->redirect($this->getRedirect());
     }
 
     /** Add a new findspot action
@@ -129,7 +129,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                 $this->_findspots->addAndProcess($updateData);
                 // $this->_helper->solrUpdater->update('beowulf', $returnID);
 
-                $this->_redirect($this->getRedirect() . 'record/id/' . $returnID);
+                $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                 $this->getFlash()->addMessage('A new findspot has been created.');
             } else {
                 $form->populate($form->getValues());
@@ -167,7 +167,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                 $this->_getParam('id'), $returnID);
                 // $this->_helper->solrUpdater->update('beowulf', $returnID);
                 $this->getFlash()->addMessage('Findspot updated!');
-                $this->_redirect($this->getRedirect() . 'record/id/' . $returnID);
+                $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
 
             } else {
                 $id = (int)$this->_getParam('id', 0);
@@ -204,7 +204,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                         // $this->_helper->solrUpdater->update('beowulf', $findID);
                     $this->getFlash()->addMessage('Findspot deleted.');
                 }
-                $this->_redirect($this->getRedirect() . 'record/id/' . $recordID);
+                $this->redirect($this->getRedirect() . 'record/id/' . $recordID);
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {

@@ -91,7 +91,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
             $insert = $this->_news->addNews($form->getValues());
             $this->_helper->solrUpdater->update('content', $insert, 'news');
             $this->getFlash()->addMessage('News story created!');
-            $this->_redirect(self::REDIRECT);
+            $this->redirect(self::REDIRECT);
         } else {
             $form->populate($this->_request->getPost());
         }
@@ -110,7 +110,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
                 $this->_news->updateNews($form->getValues(), $this->_getParam('id'));
                 $this->_helper->solrUpdater->update('content', $this->_getParam('id'), 'news');
                 $this->getFlash()->addMessage('News story information updated!');
-                $this->_redirect(self::REDIRECT);
+                $$this->redirect(elf::REDIRECT);
             } else {
                 $form->populate($form->getValues());
             }

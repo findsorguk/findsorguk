@@ -79,7 +79,7 @@ class Treasure_TvcController extends Pas_Controller_Action_Admin {
             $data = $form->getValues();
             $provisionals = new TvcDates();
             $provisionals->add($data);
-            $this->_redirect($this->_redirect);
+            $this->redirect($this->_redirect);
             $this->getFlash()->addMessage('A new provisional value has been added.');
         } else {
             $form->populate($this->_request->getPost());

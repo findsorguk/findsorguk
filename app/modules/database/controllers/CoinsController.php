@@ -46,7 +46,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $this->_helper->flashMessenger->addMessage('No access to root page.');
-        $this->_redirect(Zend_Controller_Request_Http::getServer('referer'));
+        $this->redirect(Zend_Controller_Request_Http::getServer('referer'));
     }
     /** Add a coin's data
      * @access public
@@ -80,7 +80,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
                 $this->_helper->solrUpdater->update('beowulf',
                         $this->_getParam('returnID'));
                 $this->_helper->flashMessenger->addMessage('Coin data saved.');
-                $this->_redirect(self::REDIRECT . 'record/id/'
+                $this->redirect(self::REDIRECT . 'record/id/'
                         . $this->_getParam('returnID'));
             } else {
                 $form->populate($this->_request->getPost());
@@ -117,7 +117,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
                     //Update solr index
                     $this->_helper->solrUpdater->update('beowulf', $this->_getParam('returnID'));
                     $this->_helper->flashMessenger->addMessage('Numismatic details updated.');
-                    $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
                 } else {
                     $form->populate($this->_request->getPost());
                 }
@@ -147,7 +147,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
                     $where = 'id = ' . $id;
                     $this->_coins->delete($where);
                     $this->_helper->flashMessenger->addMessage('Numismatic data deleted!');
-                    $this->_redirect(self::REDIRECT . 'record/id/' . $returnID);
+                    $this->redirect(self::REDIRECT . 'record/id/' . $returnID);
                 }
             } else {
                 $id = (int)$this->_request->getParam('id');
@@ -192,7 +192,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
                 );
                 $coins->insert($insertData);
                 $this->_helper->flashMessenger->addMessage('Coin reference data saved.');
-                $this->_redirect(self::REDIRECT.'record/id/' . $this->_getParam('returnID'));
+                $this->redirect(self::REDIRECT.'record/id/' . $this->_getParam('returnID'));
             } else {
                 $form->populate($formData);
             }
@@ -222,7 +222,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
                 $where[] = $coins->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                 $coins->update($updateData,$where);
                 $this->_helper->flashMessenger->addMessage('Coin reference updated!');
-                $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
+                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
             }  else {
                 $form->populate($this->_request->getPost());
             }
@@ -251,9 +251,9 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
                 $this->_helper->solrUpdater->update('beowulf', $returnID);
                 $this->_helper->flashMessenger->addMessage('Record deleted!');
                 $coins->delete($where);
-                $this->_redirect(self::REDIRECT . 'record/id/' . $returnID);
+                $this->redirect(self::REDIRECT . 'record/id/' . $returnID);
             }
-            $this->_redirect('database/artefacts/record/id/' . $returnID);
+            $this->redirect('database/artefacts/record/id/' . $returnID);
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

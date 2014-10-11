@@ -117,7 +117,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
             foreach($params as $key => $value) {
                 $query .= $key . '/' . $value . '/';
             }
-            $this->_redirect('/database/statistics/annual/' . $query);
+            $this->redirect('/database/statistics/annual/' . $query);
         } else {
             $form->populate($this->_request->getPost());
         }
@@ -156,7 +156,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
                 foreach($params as $key => $value) {
                     $query .= $key.'/'.$value.'/';
                 }
-                $this->_redirect('/database/statistics/county/'.$query);
+                $$this->redirect(/database/statistics/county/'.$query);
             } else {
                 $form->populate($data);
             }
@@ -199,7 +199,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
                 foreach($params as $key => $value) {
                     $query .= $key.'/'.$value.'/';
                 }
-                $this->_redirect('/database/statistics/regional/'.$query);
+                $t$this->redirect(database/statistics/regional/'.$query);
             } else {
                 $form->populate($data);
             }

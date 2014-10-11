@@ -158,7 +158,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction(){
-        $this->_redirect('database/search/results/');
+        $this->redirect('database/search/results/');
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
     }
@@ -216,7 +216,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
     public function addAction() {
         $user = $this->_user;
         if(is_null($user->peopleID) || is_null($user->canRecord)){
-            $this->_redirect('/error/accountproblem');
+            $this->redirect('/error/accountproblem');
         }
         $form = $this->getHoardForm();
         $form->submit->setLabel('Save record');
@@ -255,7 +255,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $insertData = $form->getValues();
                 $insert = $this->_hoards->addHoard($insertData);
                 if ($insert != 'error'){
-                    $this->_redirect(self::REDIRECT . 'record/id/' . $insert);
+                    $this->redirect(self::REDIRECT . 'record/id/' . $insert);
                 } else { // If there is a database error, repopulate form so users don't lose their work
                     // $this->_flashMessenger->addMessage('Database error. Please try submitting again or contact support.');
                     $form->populate($formData);
@@ -301,7 +301,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                         $this->_getParam('id'),
                         $this->_getParam('id')
                     );
-                    $this->_redirect(self::REDIRECT . 'record/id/' . $id);
+                    $this->redirect(self::REDIRECT . 'record/id/' . $id);
                 } else {
                     $form->populate($formData);
                 }
@@ -341,10 +341,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->getFindspots()->delete($whereFindspots);
                 // $this->_helper->solrUpdater->deleteById('beowulf', $id);
-                $this->_redirect('database');
+                $this->redirect('database');
             }
             $this->getFlash()->addMessage('No changes made!');
-            $this->_redirect('database/hoards/record/id/' . $id);
+            $this->redirect('database/hoards/record/id/' . $id);
         } else {
             $this->view->hoard = $this->_hoards->fetchRow('id=' . $this->_request->getParam('id'));
         }
@@ -397,7 +397,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                         $this->_getParam('id'));
                     // $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
                     $this->getFlash()->addMessage('Workflow status changed');
-                    $this->_redirect('database/hoards/record/id/' . $this->_getParam('id'));
+                    $this->redirect('database/hoards/record/id/' . $this->_getParam('id'));
                     $this->_request->setMethod('GET');
                 } else {
                     $this->getFlash()->addMessage('There were problems changing the workflow');
@@ -490,7 +490,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                     $data
                 );
                 $this->getFlash()->addMessage('Your error report has been submitted. Thank you!');
-                $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
             }else {
                 $form->populate($this->_request->getPost());
             }

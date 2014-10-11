@@ -115,7 +115,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
             $insertData['secuid'] = $secuid;
             $insert = $this->_publications->add($insertData);
             $this->_helper->solrUpdater->update('beopublications', $insert);
-            $this->_redirect(self::REDIRECT . 'publication/id/' . $insert);
+            $this->redirect(self::REDIRECT . 'publication/id/' . $insert);
             $this->getFlash()->addMessage('A new reference work has been '
                     . 'created on the system!');
         } else {
@@ -143,7 +143,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
                         $this->_getParam('id'));
                 $this->getFlash()->addMessage('Details for "'
                         . $form->getValue('title') . '" updated!');
-                $this->_redirect(self::REDIRECT . 'publication/id/'
+                $$this->redirect(elf::REDIRECT . 'publication/id/'
                         . $this->_getParam('id'));
             } else {
                 $form->populate($form->getValues());

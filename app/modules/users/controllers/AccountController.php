@@ -73,7 +73,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
     public function logoutAction() {
 	$this->_auth->clearIdentity();
 	$this->getFlash()->addMessage('You have now logged out');
-	return $this->_redirect('/users/');
+	return $this->redirect('/users/');
     }
 
     /** Edit the user details
@@ -92,7 +92,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                 $where[] = $this->_users->getAdapter()->quoteInto('id = ?', $this->getIdentityForForms());
                 $this->_users->update($form->getValues(), $where);
                 $this->getFlash()->addMessage('You updated your profile successfully.');
-                $this->_redirect('/users/account/');
+                $$this->redirect(/users/account/');
             } else {
                 $form->populate($form->getValues());
                 $this->getFlash()->addMessage('You have some errors with your submission.');
@@ -117,7 +117,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
     public function forgotusernameAction() {
         if ($this->_auth->getIdentity()) {
             $this->getFlash()->addMessage('You are already logged in!');
-            $this->_redirect('/users');
+            $t$this->redirect(users');
         } else {
             $form = new ForgotUsernameForm();
             $this->view->form = $form;
@@ -130,7 +130,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                         );
                     $this->_helper->mailer($userData[0], 'forgottenUsername', $to);
                     $this->getFlash()->addMessage('Account reminder sent to your email address');
-                    $this->_redirect('/users/');
+                    $th$this->redirect(sers/');
                 } else {
                     $this->getFlash()->addMessage('Problems have been found with your submission');
                     $form->populate($form->getValues());
@@ -146,7 +146,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
     public function forgottenAction() {
         if ($this->_auth->getIdentity()) {
             $this->getFlash()->addMessage('You are already logged in.');
-            $this->_redirect('/users');
+            $thi$this->redirect(ers');
         }
         $form = new ForgotPasswordForm();
         $this->view->form = $form;
@@ -190,7 +190,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                     $this->_users->update($updatesdata, $where);
                     $assignData = array_merge($updatesdata,$form->getValues());
                     $this->getFlash()->addMessage('Please check your email');
-                    $this->_redirect('/users/account/resetpassword');
+                    $this$this->redirect(rs/account/resetpassword');
                 } else {
                     $this->getFlash()->addMessage('Either your email address/or username is incorrect.');
                 }
@@ -207,7 +207,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
     public function registerAction() {
         if($this->_auth->hasIdentity()) {
             $this->getFlash()->addMessage('You are already logged in and registered.');
-            $this->_redirect('/users/account');
+            $this-$this->redirect(s/account');
         } else {
             $salt = $this->_helper->config()->auth->salt;
             $form = new RegisterForm();
@@ -225,7 +225,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                 $this->_users->register($form->getValues());
                 $this->_helper->mailer($emailData, 'activateAccount', $to);
                 $this->getFlash()->addMessage('Your account has been created. Please check your email.');
-                $this->_redirect('/users/account/activate/');
+                $this->$this->redirect(/account/activate/');
                 $form->populate($form->getValues());
                 $this->getFlash()->addMessage('There are a few problems with your registration<br/>
         Please review and correct them.');
@@ -239,7 +239,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      */
     public function activateAction(){
         if (!is_null($this->_auth->getIdentity())) {
-            $this->_redirect('users/account/');
+            $this->_$this->redirect(ccount/');
         }
         $form = new ActivateForm();
         $this->view->form = $form;
@@ -247,7 +247,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $this->_users->activate($form->getValues());
                 $this->getFlash()->addMessage('Your account has been activated.');
-                $this->_redirect('users/account/success/');
+                $this->_r$this->redirect(count/success/');
             } else {
                 $form->populate($form->getValues());
                 $this->getFlash()->addMessage('Please review and correct problems');
@@ -270,7 +270,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                 $authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
                 $data = $authAdapter->getResultRowObject(null,'password');
                 $this->_auth->getStorage()->write($data);
-                $this->_redirect( $this->_helper->loginRedirect() );
+                $this->_re$this->redirect(elper->loginRedirect() );
             } else {
                 $this->_auth->clearIdentity();
                 $this->getFlash()->addMessage('Sorry, there was a problem with your submission.
@@ -279,7 +279,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
             }
         }
         } else {
-            $this->_redirect('/users/');
+            $this->_red$this->redirect(
         }
     }
     /** List user's logins
@@ -307,7 +307,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                 $where[] = $this->_users->getAdapter()->quoteInto('id = ?', $this->getIdentityForForms());
                 $this->_users->update(array('password' => $password), $where);
                 $this->getFlash()->addMessage('You have changed your password');
-                $this->_redirect('/users/account/');
+                $this->_redi$this->redirect(unt/');
             } else {
                 $form->populate($form->getValues());
             }
@@ -335,7 +335,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                     $assignData = array_merge($to[0], $form->getValues());
                     $this->_helper->mailer($assignData, 'upgradeRequested', null, $to, $to, null, $attachments);
                     $this->getFlash()->addMessage('Thank you! We have received your request.');
-                    $this->_redirect('/users/account/');
+                    $this->_redir$this->redirect(nt/');
                 } else {
                     $form->populate($form->getValues());
                     $this->getFlash()->addMessage('There are a few problems with your registration<br>
@@ -344,7 +344,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
             }
         } else {
             $this->getFlash()->addMessage('You can\'t request an upgrade as you already have ' . $role . ' status!');
-            $this->_redirect('/users/account/');
+            $this->_redire$this->redirect(t/');
         }
     }
 
@@ -363,7 +363,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      */
     public function resetpasswordAction(){
         if (!is_null($this->_auth->getIdentity())) {
-            $this->_redirect('users/account/');
+            $this->_redirec$this->redirect(');
         }
         $form = new ResetPasswordKeyForm();
         $this->view->form = $form;

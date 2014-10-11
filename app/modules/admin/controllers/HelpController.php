@@ -54,7 +54,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $this->_help->add($form->getValues());
                 $this->getFlash()->addMessage('Help topic has been created!');
-                $this->_redirect('/admin/help');
+                $this->redirect('/admin/help');
             } else  {
                 $form->populate($form->getValues());
             }
@@ -81,7 +81,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin {
             $this->getFlash()->addMessage('You updated: <em>' 
                     . $form->getValue('title')
                     . '</em> successfully. It is now available for use.');
-            $this->_redirect('admin/help/');
+            $this->redirect('admin/help/');
         } else {
             $form->populate($form->getValues());
         }
@@ -106,7 +106,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin {
                 $this->_help->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
             }
-            $this->_redirect('/admin/help/');
+            $this->redirect('/admin/help/');
         } else  {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

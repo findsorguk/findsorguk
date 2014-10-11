@@ -73,7 +73,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @return void
      */
     public function indexAction() {
-        $this->_redirect(self::REDIRECT);
+        $this->redirect(self::REDIRECT);
     }
 
     /** Display the webcitation page

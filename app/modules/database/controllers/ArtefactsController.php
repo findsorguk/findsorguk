@@ -163,7 +163,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function indexAction(){
-        $this->_redirect('database/search/results/');
+        $this->redirect('database/search/results/');
         $this->getResponse()->setHttpResponseCode(301)
                     ->setRawHeader('HTTP/1.1 301 Moved Permanently');
     }
@@ -225,7 +225,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                         $data['comment_approved'] = 'moderation';
                         $this->getComments()->add($data);
                         $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
-                        $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                        $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
                         $this->_request->setMethod('GET');
                     } else {
                         $this->getFlash()->addMessage('There are problems with your comment submission');
@@ -268,7 +268,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
         $user = $this->_helper->identity->getPerson();
         if((is_null($user->peopleID) && is_null($user->canRecord))
         || (!is_null($user->peopleID) && is_null($user->canRecord)) ){
-            $this->_redirect('/error/accountproblem');
+            $this->redirect('/error/accountproblem');
         }
         $last = $this->_getParam('copy');
         $this->view->secuid = $this->secuid();
@@ -316,7 +316,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 unset($insertData['secondfinder']);
                 $insert = $this->_finds->add($insertData);
                 // $this->_helper->solrUpdater->update('beowulf', $insert);
-                $this->_redirect(self::REDIRECT . 'record/id/' . $insert);
+                $this->redirect(self::REDIRECT . 'record/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else  {
                 $this->getFlash()->addMessage('Please check and correct errors!');
@@ -370,7 +370,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                             );
                     //$this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
                     $this->getFlash()->addMessage('Artefact information updated and audited!');
-                    $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
                 } else {
                     $this->view->find = $this->_finds->fetchRow('id='.$this->_getParam('id'));
                     $form->populate($this->_request->getPost());
@@ -410,10 +410,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->getFindspots()->delete($whereFindspots);
                 $this->_helper->solrUpdater->deleteById('beowulf', $id);
-                $this->_redirect(self::REDIRECT);
+                $this->redirect(self::REDIRECT);
             }
             $this->getFlash()->addMessage('No changes made!');
-            $this->_redirect('database/artefacts/record/id/' . $id);
+            $this->redirect('database/artefacts/record/id/' . $id);
         } else {
             $this->view->find = $this->_finds->fetchRow('id=' . $this->_request->getParam('id'));
         }
@@ -453,7 +453,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                         $data
                         );
                 $this->getFlash()->addMessage('Your error report has been submitted. Thank you!');
-                $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
             }else {
                 $form->populate($this->_request->getPost());
             }
@@ -483,7 +483,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                     $assignData = array_merge($find->toArray(),$form->getValues(),$to['0']);
                     $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc, $from);
                     $this->getFlash()->addMessage('Your message has been sent');
-                    $this->_redirect('database/artefacts/record/id/' . $find->id);
+                    $this->redirect('database/artefacts/record/id/' . $find->id);
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -536,7 +536,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                         $this->_getParam('findID'));
                 $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
                 $this->getFlash()->addMessage('Workflow status changed');
-                $this->_redirect('database/artefacts/record/id/' . $this->_getParam('findID'));
+                $this->redirect('database/artefacts/record/id/' . $this->_getParam('findID'));
                 $this->_request->setMethod('GET');
                 } else {
                     $this->getFlash()->addMessage('There were problems changing the workflow');

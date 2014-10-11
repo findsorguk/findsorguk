@@ -81,7 +81,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                 }
             $whereString = implode('/', $where);
             $query = $whereString;
-            $this->_redirect('admin/users/index/' . $query . '/');
+            $this->redirect('admin/users/index/' . $query . '/');
             } else {
                 $form->populate($formData);
             }
@@ -143,7 +143,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                     $this->getFlash()->addMessage('You updated: <em>' 
                             . $form->getValue('fullname')
                             . '</em> successfully.');
-                    $this->_redirect('/admin/users/account/username/' . $form->getValue('username'));
+                    $$this->redirect(/admin/users/account/username/' . $form->getValue('username'));
                 } else {
                 $form->populate($formData);
                 }
@@ -222,7 +222,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                     mkdir($dir, 0777);
                 }
                 $this->getFlash()->addMessage('You successfully added a new account');
-                $this->_redirect('/admin/users/account/username/' 
+                $t$this->redirect(admin/users/account/username/'
                         . $form->getValue('username'));
             } else {
                 $form->populate($formData);
@@ -291,7 +291,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                             ));
                     $this->_helper->mailer($form->getValues(), 'upgradeAccount', $to);
                     $this->getFlash()->addMessage('Account upgraded and project data entered');
-                    $this->_redirect('/admin/users/upgrades');
+                    $th$this->redirect(dmin/users/upgrades');
                 } else {
                 $form->populate($form->getValues());
                 }

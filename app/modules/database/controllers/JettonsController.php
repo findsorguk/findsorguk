@@ -44,7 +44,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $this->_helper->flashMessenger->addMessage('There is not a root action for jettons');
-        $this->_redirect(Zend_Controller_Request_Http::getServer('referer'));
+        $this->redirect(Zend_Controller_Request_Http::getServer('referer'));
     }
     
     /** Add jetton data
@@ -93,7 +93,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
                     $insert = $this->_coins->add($insertData);
                         $this->_helper->solrUpdater->update('beowulf', $this->_getParam('returnID'));
                     $this->_helper->flashMessenger->addMessage('Jetton data saved for this record.');
-                    $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
                 }  else {
                     $form->populate($this->_request->getPost());
                 }
@@ -146,7 +146,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
 
                     $this->_helper->flashMessenger->addMessage('Numismatic details updated.');
 
-                    $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
 
                     $this->_helper->solrUpdater->update('beowulf', $this->_getParam('returnID'));
 
@@ -181,7 +181,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
                     $this->_coins->delete($where);
                     $this->_helper->flashMessenger->addMessage('Numismatic data deleted!');
                     $this->_helper->solrUpdater->update('beowulf', $returnID);
-                    $this->_redirect(self::REDIRECT.'record/id/' . $returnID);
+                    $this->redirect(self::REDIRECT.'record/id/' . $returnID);
                 }
             } else {
                 $id = (int)$this->_request->getParam('id');

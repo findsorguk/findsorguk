@@ -16,6 +16,19 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
 
     const REDIRECT = '/';
 
+    protected $_form;
+
+    /**
+     * @return mixed
+     */
+    public function getForm()
+    {
+        $this->_form = new CoinSummaryForm();
+        return $this->_form;
+    }
+
+
+
     /** Init all the permissions in ACL.
      * @access public
      * @return void
@@ -34,7 +47,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->getFlash()->addMessage('You cannot access the summary index.');
-        $this->_redirect(self::REDIRECT);
+        $this->redirect(self::REDIRECT);
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
     }
@@ -44,15 +57,20 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
      */
     public function addAction()
     {
-        $form = new CoinSummaryForm();
+        $form = $this->getForm();
         $this->view->form = $form;
-    }
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+
+        } else {
+            $form->populate($this->_request->getPost());
+        }
+        }
 
     /** Edit action for coin summary
      */
     public function editAction()
     {
-
+        $this->view->form = $this->getForm();
     }
 
     /** Delete action for coin summary

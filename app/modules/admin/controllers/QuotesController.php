@@ -59,7 +59,7 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $this->_quotes->add($form->getValues());
                 $this->getFlash()->addMessage('New quote/announcement entered');
-                $this->_redirect( self::REDIRECT );
+                $this->redirect( self::REDIRECT );
             } else  {
                 $form->populate($form->getValues());
             }
@@ -83,7 +83,7 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin {
                         $this->_getParam('id'));
                 $update = $this->_quotes->update($form->getValues(),$where);
                 $this->getFlash()->addMessage('Details updated!');
-                $this->_redirect( self::REDIRECT );
+                $$this->redirect(self::REDIRECT );
                 } else {
                     $form->populate($form->getValues());
                 }

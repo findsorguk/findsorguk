@@ -191,7 +191,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $place = $constituency->get($form->getValue('postcode'));
             }
-            $this->_redirect('/news/theyworkforyou/finds/constituency/' . $place->name);
+            $this->redirect('/news/theyworkforyou/finds/constituency/' . $place->name);
         } else  {
             $this->getFlash()->addMessage('Please check and correct errors!');
             $form->populate($form->getValues());

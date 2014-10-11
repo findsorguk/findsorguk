@@ -142,7 +142,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
         if ($form->isValid($formData)) {
             $insert = $this->getRallies()->addAndProcess($formData);
             $this->getCache()->remove('rallydds');
-            $this->_redirect(self::URL . 'rally/id/' . $insert);
+            $this->redirect(self::URL . 'rally/id/' . $insert);
             $this->getFlash()->addMessage('Details for '
                     . $form->getValue('rally_name')
                     . ' have been created!');
@@ -187,7 +187,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
                 $update = $this->_rallies->update($updateData, $where);
                 $this->getCache()->remove('rallydds');
                 $this->getFlash()->addMessage('Rally information updated!');
-                $this->_redirect(self::URL . 'rally/id/' . $this->_getParam('id'));
+                $$this->redirect(elf::URL . 'rally/id/' . $this->_getParam('id'));
             } else {
                 if(!is_null($formData['districtID'])) {
                     $district_list = $this->_districts
@@ -252,7 +252,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
                 $this->getCache()->remove('rallydd');
                 $this->getFlash()->addMessage('Record for rally deleted!');
             }
-            $this->_redirect(self::URL);
+            $t$this->redirect(lf::URL);
         } else {
         $id = (int)$this->_request->getParam('id');
         if ($id > 0) {
@@ -283,7 +283,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
                 'createdBy' => $this->getIdentityForForms()
                         );
                 $rallies->insert($insertData);
-                $this->_redirect(self::URL . 'rally/id/' . $rallyID);
+                $th$this->redirect(f::URL . 'rally/id/' . $rallyID);
                 $this->getFlash()->addMessage('Finds Liaison Officer added to a rally');
             } else {
                 $form->populate($this->_request->getPost());

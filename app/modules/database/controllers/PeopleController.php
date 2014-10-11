@@ -174,7 +174,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                 $insertData = array_merge($updateData, $coords);
                 $insert = $this->getPeople()->add($insertData);
         	$this->_helper->solrUpdater->update('beopeople', $insert);
-                $this->_redirect(self::REDIRECT . 'person/id/' . $insert);
+                $this->redirect(self::REDIRECT . 'person/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else {
                 $form->populate($form->getValues());
@@ -222,7 +222,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                     $this->_helper->audit($updateData, $oldData, 'PeopleAudit',
                     $this->_getParam('id'), $this->_getParam('id'));
                     $this->getFlash()->addMessage('Person information updated!');
-                    $this->_redirect(self::REDIRECT . 'person/id/' . $this->_getParam('id'));
+                    $$this->redirect(elf::REDIRECT . 'person/id/' . $this->_getParam('id'));
                     } else {
                         $form->populate($form->getValues());
                     }

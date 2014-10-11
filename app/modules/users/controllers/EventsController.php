@@ -96,7 +96,7 @@ class Users_EventsController extends Pas_Controller_Action_Admin {
     $events = new Events();
     $events->insert($insertdata);
     $this->getFlash()->addMessage('New event created!');
-    $this->_redirect('/users/events/');
+    $this->redirect('/users/events/');
     }  else  {
     $form->populate($formData);
     }
@@ -151,7 +151,7 @@ class Users_EventsController extends Pas_Controller_Action_Admin {
     $events->update($insertdata,$where);
     $this->getFlash()->addMessage('You updated: <em>' . $form->getValue('eventTitle')
     . '</em> successfully.');
-    $this->_redirect('/users/events/');
+    $$this->redirect(/users/events/');
     } else  {
     $form->populate($formData);
     }

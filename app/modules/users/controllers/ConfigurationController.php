@@ -67,7 +67,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
                 $copyFind->updateConfig($form->getValues());
                 $this->getFlash()
                         ->addMessage('Copy last record fields for find table updated');
-                $this->_redirect('/users/configuration/');
+                $this->redirect('/users/configuration/');
             } else {
                 $form->populate($values);
             }
@@ -94,7 +94,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
                 $copyFindSpot->updateConfig($form->getValues());
                 $this->getFlash()
                         ->addMessage('Copy last record fields for findspot table updated');
-                $this->_redirect('/users/configuration/');
+                $$this->redirect(/users/configuration/');
             } else {
                 $form->populate($values);
             }
@@ -122,7 +122,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
                 $copyCoin->updateConfig($form->getValues());
                 $this->getFlash()
                         ->addMessage('Copy last record fields for coin table updated');
-                $this->_redirect('/users/configuration/');
+                $t$this->redirect(users/configuration/');
             } else {
                 $form->populate($values);
             }

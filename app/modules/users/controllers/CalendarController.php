@@ -59,7 +59,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
                 $formData['creator'] = $this->_helper->identity->getPerson()->fullname;
                 $insert = $this->_gcal->addEvent($formData);
                 $this->getFlash()->addMessage('New calendar event added');
-                $this->_redirect('/users/calendar/');
+                $this->redirect('/users/calendar/');
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -96,7 +96,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
                 $formData['creator'] = $this->_helper->identity->getPerson()->fullname;
                 $edit = $this->_gcal->editEvent($formData);
                 $this->getFlash()->addMessage('Calendar event updated');
-                $this->_redirect('/users/calendar/');
+                $$this->redirect(/users/calendar/');
             } else {
                 $form->populate($this->_request->getPost());
             }

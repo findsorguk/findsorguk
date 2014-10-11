@@ -58,7 +58,7 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $this->_acronyms->add($form->getValues());
                 $this->getFlash()->addMessage('A new acronym has been created.');
-                $this->_redirect(self::REDIRECT);
+                $this->redirect(self::REDIRECT);
             } else 	{
                 $form->populate($this->_request->getPost());
             }
@@ -85,7 +85,7 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin {
                             $this->_getParam('id'));
                     $update = $this->_acronyms->update($updateData,$where);
                     $this->getFlash()->addMessage('Acronym details updated.');
-                    $this->_redirect(self::REDIRECT);
+                    $this->redirect(self::REDIRECT);
                 } else {
                     $form->populate($this->_request->getPost());
                 }
@@ -114,7 +114,7 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $this->_acronyms->delete($where);
             }
-            $this->_redirect(self::REDIRECT);
+            $this->redirect(self::REDIRECT);
             $this->getFlash()->addMessage('Record deleted!');
         } else {
             $id = (int)$this->_request->getParam('id');

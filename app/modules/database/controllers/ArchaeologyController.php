@@ -57,7 +57,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $this->getFlash()->addMessage('You cannot access the archaeological context index.');
-        $this->_redirect(self::REDIRECT);
+        $this->redirect(self::REDIRECT);
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
     }

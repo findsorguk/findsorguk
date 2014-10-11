@@ -67,7 +67,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin {
 
                 $whereString = implode('/', $where);
                 $query = $whereString;
-                $this->_redirect(self::REDIRECT.'index/'.$query.'/');
+                $this->redirect(self::REDIRECT.'index/'.$query.'/');
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -115,7 +115,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin {
                         $this->_getParam('id')
                         );
                 $this->getFlash()->addMessage('Organisation information updated!');
-                $this->_redirect(self::REDIRECT.'organisation/id/' . $this->_getParam('id'));
+                $this->redirect(self::REDIRECT.'organisation/id/' . $this->_getParam('id'));
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -140,7 +140,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin {
             if ($form->isValid($formData)) {
 
                 $insert = $this->_organisations->add($insertData);
-                $this->_redirect(self::REDIRECT . 'organisation/id/' . $insert);
+                $this->redirect(self::REDIRECT . 'organisation/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else {
                 $form->populate($this->_request->getPost());
@@ -163,7 +163,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin {
                     $this->_organisations->delete($where);
                 }
                 $this->getFlash()->addMessage('Record deleted!');
-                $this->_redirect(self::REDIRECT);
+                $this->redirect(self::REDIRECT);
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {

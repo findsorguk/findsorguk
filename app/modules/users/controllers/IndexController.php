@@ -49,7 +49,7 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
                     $authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
                     $data = $authAdapter->getResultRowObject(NULL,'password');
                     $this->_auth->getStorage()->write($data);
-                    $this->_redirect( $this->_helper->loginRedirect() );
+                    $this->redirect( $this->_helper->loginRedirect() );
             } else {
                     $this->_auth->clearIdentity();
                     $this->getFlash()->addMessage('Sorry, there was a
@@ -57,7 +57,7 @@ class Users_IndexController extends Pas_Controller_Action_Admin {
                     $form->populate($this->_request->getPost());
             }
 	} else {
-            $this->_redirect(self::REDIRECT);
+            $$this->redirect(elf::REDIRECT);
 	}
     }
 

@@ -74,7 +74,7 @@ class Admin_MessagesController extends Pas_Controller_Action_Admin {
                     $this->_helper->mailer($form->getValues(),'messageResponse', 
                             $contact, $contact);
                     $this->getFlash()->addMessage('Message replied to.');
-                    $this->_redirect('/admin/messages/');
+                    $this->redirect('/admin/messages/');
                 } else {
                     $this->getFlash()->addMessage('There is a problem with '
                             . 'the form, please check and resubmit');

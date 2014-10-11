@@ -48,7 +48,7 @@ class Admin_HerController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $this->_hers->add($form->getValues());
                 $this->getFlash()->addMessage('A new HER signatory has been created.');
-                $this->_redirect('/admin/her/');
+                $this->redirect('/admin/her/');
             } else {
                 $form->populate($form->getValues());
             }
@@ -69,7 +69,7 @@ class Admin_HerController extends Pas_Controller_Action_Admin {
                 $where[] =  $this->_hers->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                 $this->_hers->update($form->getValues(),$where);
                 $this->getFlash()->addMessage($form->getValue('name') . '\'s details updated.');
-                $this->_redirect('/admin/her/');
+                $this->redirect('/admin/her/');
             } else {
                 $form->populate($form->getValues());
             }

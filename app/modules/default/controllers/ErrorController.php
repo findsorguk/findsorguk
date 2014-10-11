@@ -392,7 +392,7 @@ class ErrorController extends Pas_Controller_Action_Admin {
             // pass the request to the view
             $this->view->request   = $errors->request;
             } else {
-                $this->_redirect('/error/notauthorised');
+                $this->redirect('/error/notauthorised');
 
             }
     }

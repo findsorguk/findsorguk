@@ -1,0 +1,13 @@
+<?php
+$this->headTitle('Edit coin summary details');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type='text/javascript');
+$this->metaBase()
+    ->setDescription()
+    ->setKeywords()
+    ->generate();
+?>
+    <h2 class="lead">
+        <?php echo $this->title();?>
+    </h2>
+<a href="" class="btn btn-small btn-default" title="Return to record">Return to record</a>
+<?php echo $this->form;?>

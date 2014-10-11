@@ -105,7 +105,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
             $insert = $content->add($insertData);
             $this->_helper->solrUpdater->update('beocontent', $insert, 'content');
             $this->getFlash()->addMessage('Static content added');
-            $this->_redirect('/admin/content');
+            $this->redirect('/admin/content');
             } else {
                 $form->populate($form->getValues());
             }
@@ -142,7 +142,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                             . $form->getValue('title') 
                             . '</em> successfully. It is now available for use.');
                     $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
-                    $this->_redirect('admin/content/');
+                    $this->redirect('admin/content/');
                 } else {
                     $form->populate($this->_request->getPost());
                 }
@@ -177,7 +177,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->_helper->solrUpdater->deleteById('beocontent', $id);
             }
-            $this->_redirect('/admin/content/');
+            $this->redirect('/admin/content/');
         }  else  {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

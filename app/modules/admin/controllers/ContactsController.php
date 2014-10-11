@@ -178,7 +178,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
                         );
                 $insert = $this->getContacts()->insert($insertData);
                 $this->getFlash()->addMessage('Scheme contact created!');
-                $this->_redirect($this->_redirectUrl . 'contact/id/' . $insert);
+                $this->redirect($this->_redirectUrl . 'contact/id/' . $insert);
             } else {
                 $form->populate($formData);
             }
@@ -241,7 +241,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
                 $insert = $this->getContacts()->update($updateData,$where);
                 $this->getFlash()->addMessage('Contact information for ' . $form->getValue('firstname') . ' '
                 . $form->getValue('lastname') . ' updated!');
-                $this->_redirect($this->_redirectUrl . 'contact/id/' . $this->_getParam('id'));
+                $this->redirect($this->_redirectUrl . 'contact/id/' . $this->_getParam('id'));
             } else {
                 $form->populate($formData);
             }
@@ -267,7 +267,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
                 $this->getContacts()->delete($where);
             }
             $this->getFlash()->addMessage('Contact information deleted! This cannot be undone.');
-            $this->_redirect($this->_redirectUrl);
+            $this->redirect($this->_redirectUrl);
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -320,7 +320,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
                     $staffs->update($insertData,$where);
                     $upload->receive();
                     $this->getFlash()->addMessage('The image has been resized and zoomified!');
-                    $this->_redirect('/admin/contacts/contact/id/' . $this->_getParam('id'));
+                    $this->redirect('/admin/contacts/contact/id/' . $this->_getParam('id'));
                 } else {
                 $this->getFlash()->addMessage('There is a problem with your upload.
                 Probably that image exists.');
@@ -384,7 +384,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
                     $regions->update($insertData,$where);
                     $upload->receive();
                     $this->getFlash()->addMessage('The image has been resized and zoomified!');
-                    $this->_redirect('/admin/contacts/institution/id/' . $this->_getParam('id'));
+                    $this->redirect('/admin/contacts/institution/id/' . $this->_getParam('id'));
                 } else {
                 $this->getFlash()->addMessage('There is a problem with your upload.
                 Probably that image exists.');

@@ -43,7 +43,7 @@ class Publications_IndexController extends Pas_Controller_Action_Admin {
                 $cc[] = array('email' => $form->getvalue('email'),'name' => $form->getValue('fullname'));
                 $this->_helper->mailer($data, 'requestPublication', null, $cc, $cc );
                 $this->getFlash()->addMessage('Your request has been submitted');
-                $this->_redirect('getinvolved/publications/');
+                $this->redirect('getinvolved/publications/');
             } else {
                 $this->getFlash()->addMessage('There are problems with your submission');
                 $form->populate($form->getValues());
