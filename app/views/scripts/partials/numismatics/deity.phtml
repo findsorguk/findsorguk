@@ -1,45 +1,62 @@
 <?php
-$this->headTitle('Details of '.$this->name.' personified');
-$this->headMeta($this->curUrl(),'dc.identifier')
-    ->headMeta('Daniel Pett','dc.creator')
-    ->headMeta('The Portable Antiquities Scheme','dc.publisher')
-    ->headMeta('CC BY-SA','dc.rights');
+$this->headTitle('Details of ' . $this->name . ' personified');
+$this->headMeta($this->curUrl(), 'dc.identifier')
+    ->headMeta('Daniel Pett', 'dc.creator')
+    ->headMeta('The Portable Antiquities Scheme', 'dc.publisher')
+    ->headMeta('CC BY-SA', 'dc.rights');
 ?>
-<div about="personifcation-<?php echo $this->name;?>">
-<h2>Details of <?php echo $this->name;?> personified on coins</h2>
-<?php if(isset($this->image) && file_exists('./images/coins/reverses/'.$this->image)):?>
-<img src="/images/coins/reverses/<?php echo $this->image;?>" alt="Thumbnail image of a reverse depicting <?php echo $this->name;?>" property="foaf:depiction" class="flow"/>
-<?php endif;?>
-<p><?php echo $this->description;?></p>
-<?php if(!is_null($this->attrib1)):?>
-<h4>Attributes</h4>
-<ul>
-<li><?php echo $this->attrib1?></li>
+<div about="personifcation-<?php echo $this->name; ?>">
+    <h2>
+        <?php echo $this->title(); ?>
+    </h2>
+    <?php if (isset($this->image) && file_exists(IMAGE_PATH . '/images/coins/reverses/' . $this->image)): ?>
+        <img src="<?php echo IMAGE_PATH;?>/coins/reverses/<?php echo $this->image; ?>"
+             alt="Thumbnail image of a reverse depicting <?php echo $this->name; ?>" property="foaf:depiction"
+             class="flow"/>
+    <?php endif; ?>
+    <p>
+        <?php echo $this->description; ?>
+    </p>
+    <?php if (!is_null($this->attrib1)): ?>
+        <h4>
+            Attributes
+        </h4>
+        <ul>
+            <li>
+                <?php echo $this->attrib1; ?>
+            </li>
 
-<?php if(!is_null($this->attrib2)):?>
-<li><?php echo $this->attrib2;?></li>
-<?php endif;?>
+            <?php if (!is_null($this->attrib2)): ?>
+                <li>
+                    <?php echo $this->attrib2; ?>
+                </li>
+            <?php endif; ?>
 
-<?php if(isset($this->attrib3)):?>
-<li><?php echo $this->attrib3;?></li>
-<?php endif;?>
+            <?php if (isset($this->attrib3)): ?>
+                <li>
+                    <?php echo $this->attrib3; ?>
+                </li>
+            <?php endif; ?>
+        </ul>
+    <?php endif; ?>
 
-</ul>
-<?php endif;?>
+    <?php if (isset($this->greek)): ?>
+        <h4>
+            Greek counterpart
+        </h4>
+        <p>
+            <?php echo $this->name; ?> can be identified with the Greek deity <?php echo $this->greek; ?>
+        </p>
+    <?php endif; ?>
 
-<?php if(isset($this->greek)):?>
-<h4>Greek counterpart</h4>
-<p><?php echo $this->name;?> can be identified with the Greek deity <?php echo $this->greek;?></p>
-<?php endif;?>
 
-
-<?php
-ini_set('display_errors', '0');     # don't show any errors...
-//error_reporting(E_ALL | E_STRICT);  # ...but do log them		
-$config = array('remote_store_endpoint' => 'http://dbpedia.org/sparql');
-$store = ARC2::getRemoteStore($config);
-//build the SPARQL query
-$q = '
+    <?php
+    ini_set('display_errors', '0');     # don't show any errors...
+    //error_reporting(E_ALL | E_STRICT);  # ...but do log them
+    $config = array('remote_store_endpoint' => 'http://dbpedia.org/sparql');
+    $store = ARC2::getRemoteStore($config);
+    //build the SPARQL query
+    $q = '
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -55,7 +72,7 @@ PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
 SELECT *
 
 WHERE {
-?deity foaf:page <http://en.wikipedia.org/wiki/'.urlencode(str_replace(array(' '),array('_'),$this->wikipediaName)).'> .
+?deity foaf:page <http://en.wikipedia.org/wiki/' . urlencode(str_replace(array(' '), array('_'), $this->wikipediaName)) . '> .
 ?deity dbpedia-owl:abstract ?abstract .
 OPTIONAL {?deity dbpedia2:siblings ?siblings}.
 OPTIONAL {?deity dbpedia2:parents ?parents}.
@@ -69,49 +86,49 @@ FILTER langMatches( lang(?abstract), "en")
 }
 LIMIT 1
 ';
-//process the results
+    //process the results
 
-//Zend_Debug::dump($q);
-//Zend_Debug::dump($store->query($q, 'rows'));
-$results = array();
-if ($rows = $store->query($q, 'rows')) {
-foreach ($rows as $row) {
+    //Zend_Debug::dump($q);
+    //Zend_Debug::dump($store->query($q, 'rows'));
+    $results = array();
+    if ($rows = $store->query($q, 'rows')) {
+        foreach ($rows as $row) {
 //Zend_Debug::dump($row);
-$chunks = split('\. ',str_replace(array('c.','d.'),array('circa','died'),$row['abstract']));
-  foreach($chunks as $key=>$c){
-    $chunks[$key] = ($key%3==0) ? ($c . '.</p><p>') : ($c.'. ');
-  }
- $abs = '<p>'.join($chunks).'</p>';
- $trimmed = $this->ellipsisString()->setString($abs)->setMax(200);
-$this->headMeta($trimmed,'description');
-echo '<h4>Wikipedia derived information</h4>';
-if(isset($row['thumb'])) {
-echo '<a href="'.$row['depiction'].'" rel="lightbox" title="' .str_replace('"','',$row['caption']) .'"><img src="'.$row['thumb'].'" class="flow" alt="' .str_replace('"','',$row['caption']) .'" width="'.$row['imgw'].'"/></a>';
-}
-echo $abs;
-echo '<p>';
-if(isset($row['title'])) {
-echo 'Title: '. $row['title'] . '<br />';
-}
+            $chunks = split('\. ', str_replace(array('c.', 'd.'), array('circa', 'died'), $row['abstract']));
+            foreach ($chunks as $key => $c) {
+                $chunks[$key] = ($key % 3 == 0) ? ($c . '.</p><p>') : ($c . '. ');
+            }
+            $abs = '<p>' . join($chunks) . '</p>';
+            $trimmed = $this->ellipsisString()->setString($abs)->setMax(200);
+            $this->headMeta($trimmed, 'description');
+            echo '<h4>Wikipedia derived information</h4>';
+            if (isset($row['thumb'])) {
+                echo '<a href="' . $row['depiction'] . '" rel="lightbox" title="' . str_replace('"', '', $row['caption']) . '"><img src="' . $row['thumb'] . '" class="flow" alt="' . str_replace('"', '', $row['caption']) . '" width="' . $row['imgw'] . '"/></a>';
+            }
+            echo $abs;
+            echo '<p>';
+            if (isset($row['title'])) {
+                echo 'Title: ' . $row['title'] . '<br />';
+            }
 
-if(isset($row['mother'])){
-echo 'Mother: '.str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),rawurldecode($row['mother'])).'<br />';
-}
-if(isset($row['father'])){
-echo 'Father: '.rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['father'])).'<br />';
-}
-if(isset($row['godof'])) {
-echo 'God of: ' .str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['godof']).'<br />';
-}
-if(isset($row['alt'])) {
-echo 'Alternative names: '.$row['alt'].'<br />';
-}
-echo 'Wikipedia page: <a href="' . urldecode($row['page']) . '" title="Go to the Wikipedia entry for '.$row['deity'].'">' . urldecode($row['page']) . '</a></p>';
+            if (isset($row['mother'])) {
+                echo 'Mother: ' . str_replace(array('http://dbpedia.org/resource/', '_'), array('', ' '), rawurldecode($row['mother'])) . '<br />';
+            }
+            if (isset($row['father'])) {
+                echo 'Father: ' . rawurldecode(str_replace(array('http://dbpedia.org/resource/', '_'), array('', ' '), $row['father'])) . '<br />';
+            }
+            if (isset($row['godof'])) {
+                echo 'God of: ' . str_replace(array('http://dbpedia.org/resource/', '_'), array('', ' '), $row['godof']) . '<br />';
+            }
+            if (isset($row['alt'])) {
+                echo 'Alternative names: ' . $row['alt'] . '<br />';
+            }
+            echo 'Wikipedia page: <a href="' . urldecode($row['page']) . '" title="Go to the Wikipedia entry for ' . $row['deity'] . '">' . urldecode($row['page']) . '</a></p>';
 
-echo '<p>This data is sourced from dbpedia, and as such should be treated with caution.';
-echo '</p>';
+            echo '<p>This data is sourced from dbpedia, and as such should be treated with caution.';
+            echo '</p>';
 
-}
-}
-?> 
+        }
+    }
+    ?>
 </div>

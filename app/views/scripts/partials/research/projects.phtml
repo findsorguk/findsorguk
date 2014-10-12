@@ -1,10 +1,19 @@
 <tr id="project-<?php echo $this->id;?>">
-<td><?php echo $this->investigator;?></td>
-<td><a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects','action' => 'project','id' => $this->id),'default',true);?>" title="View project details"><?php echo $this->title;?></a><br />
-<?php echo strip_tags($this->ellipsisString()->setString($this->description)->setMax(300));?></td>
-<td><a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects','action' => 'index','level' => $this->level),'default',true);?>" title="View all projects at the level of research equal to: <?php echo $this->type;?>"><?php echo $this->type;?></a></td>
-<td><?php if($this->finish != '0000'){
-echo $this->finish;} else {
-echo 'Unknown';
-}?></td>
+    <td>
+        <?php echo $this->investigator;?>
+    </td>
+    <td>
+        <a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects','action' => 'project','id' => $this->id),'default',true);?>" title="View project details"><?php echo $this->title;?></a>
+        <br />
+        <?php echo strip_tags($this->ellipsisString()->setString($this->description)->setMax(300));?>
+    </td>
+    <td>
+        <a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects','action' => 'index','level' => $this->level),'default',true);?>" title="View all projects at the level of research equal to: <?php echo $this->type;?>"><?php echo $this->type;?></a>
+    </td>
+    <td>
+        <?php if($this->finish != '0000'){
+            echo $this->finish;} else {
+            echo 'Unknown';
+        }?>
+    </td>
 </tr>

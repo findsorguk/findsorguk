@@ -1,16 +1,17 @@
 <tr>
-<td>
-<a href="<?php echo $this->url(array(
-'module' => 'ironagecoins',
-'controller' => 'allentypes',
-'action' => 'type',
-'id' => $this->type)
-,NULL,true);?>" title="Get details for <?php echo $this->type;?>" ><?php echo $this->type;?></a>
-<a href="<?php echo $this->url(array(
-'module' => 'database',
-'controller' => 'search',
-'action' => 'results',
-'allenType' => $this->type)
-,NULL,true);?>" title="Search database for all examples of Allen Type <?php echo $this->type;?>">
-<?php echo $this->totals;?>(view all recorded examples)</a></td>
+    <td>
+        <a href="<?php echo $this->url(array(
+                'module' => 'ironagecoins',
+                'controller' => 'allentypes',
+                'action' => 'type',
+                'id' => $this->type)
+            ,'default',true);?>" title="Get details for <?php echo $this->type;?>" ><?php echo $this->type;?></a>
+        <a href="<?php echo $this->url(array(
+                'module' => 'database',
+                'controller' => 'search',
+                'action' => 'results',
+                'allenType' => $this->type)
+            ,'default',true);?>" title="Search database for all examples of Allen Type <?php echo $this->type;?>">
+            <?php echo $this->totals;?>(view all recorded examples)</a>
+    </td>
 </tr>

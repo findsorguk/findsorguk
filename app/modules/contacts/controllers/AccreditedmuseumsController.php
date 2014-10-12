@@ -11,9 +11,11 @@
  * @version 1
  * @uses AccreditedMuseums
  *
-*/
+ */
 class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin {
 
+    /** Accredited model
+     */
     protected $_accredited;
     /** Initialise the ACL and contexts
      * @access public
@@ -21,12 +23,11 @@ class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin {
      */
     public function init() {
         $this->_helper->_acl->allow('public',null);
-        
-	$contexts = array('xml','json');
-	$this->_helper->contextSwitch()->setAutoJsonSerialization(false);
-	$this->_helper->contextSwitch()->setAutoDisableLayout(true)
-                ->addActionContext('index',$contexts)
-                ->initContext();
+        $contexts = array('xml','json');
+        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
+        $this->_helper->contextSwitch()->setAutoDisableLayout(true)
+            ->addActionContext('index',$contexts)
+            ->initContext();
         $this->_accredited = new AccreditedMuseums();
     }
 

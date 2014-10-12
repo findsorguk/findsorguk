@@ -26,7 +26,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
      *
      */
     public function indexAction(){
-        throw new Exception('No access to index action', 500);
+        $this->getFlash()->addMessage('There is not a root action available to you.');
+        $this->getResponse()->setHttpResponseCode(301)
+            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('/');
+
     }
 
     /** Get an ajax list of available counties

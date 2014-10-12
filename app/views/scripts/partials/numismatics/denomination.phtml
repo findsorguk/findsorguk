@@ -1,2 +1,8 @@
-<?php $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();?>
-<li><a href="<?php echo $this->url(array('module' => $module,'controller' => 'denominations','action' => 'denomination','id' => $this->id),NULL,true);?>" title="View details for <?php echo $this->denomination;?>"><?php echo $this->escape(ucfirst($this->denomination)); ?></a></li>
+<?php
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+$url = array('module' => $module,'controller' => 'denominations','action' => 'denomination','id' => $this->id);
+?>
+<li>
+    <a href="<?php echo $this->url($url, 'default', true);?>" title="View details
+    for <?php echo $this->denomination;?>"><?php echo ucfirst($this->denomination); ?></a>
+</li>

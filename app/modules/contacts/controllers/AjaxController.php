@@ -23,7 +23,7 @@ class Contacts_AjaxController extends Pas_Controller_Action_Ajax {
      */
     public function init() {
         $this->_helper->_acl->allow('public', null);
-	$this->_helper->layout->disableLayout();
+        $this->_helper->layout->disableLayout();
         $this->_coroners = new Coroners();
     }
 

@@ -91,9 +91,10 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function indexAction(){
-        $this->redirect('/database/publications');
+        $this->getFlash()->addMessage('No access to root file for reference');
         $this->getResponse()->setHttpResponseCode(301)
                         ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('/database/publications');
     }
 
 
@@ -112,7 +113,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 unset($insertData['authors']);
                 $this->_bibliography->add($insertData);
                 $this->getFlash()->addMessage('A new reference work has been added to this record');
-                $$this->redirect(this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
+                $this->redirect($this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
             } else {
              $form->populate( $this->_request->getPost());
             }
@@ -132,10 +133,10 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 unset($formData['authors']);
                 unset($formData['submit']);
                 $where = array();
-                $where =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                $update = $this->_bibliography->update($formData, $where);
+                $where[] =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $this->_bibliography->update($formData, $where);
                 $this->getFlash()->addMessage('Reference details updated!');
-                $t$this->redirect(his->getRedirect() . 'record/id/' . $this->_getParam('findID'));
+                $this->redirect($this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -166,10 +167,10 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = array();
-                    $where =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $id);
+                    $where[] =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $id);
                     $this->_bibliography->delete($where);
                     $this->getFlash()->addMessage('Reference deleted!');
-                    $this->_redirect($this->getRedirect() . 'record/id/' . $findID);
+                    $this->redirect($this->getRedirect() . 'record/id/' . $findID);
                 }
             } else {
                 $id = (int)$this->_getParam('id');

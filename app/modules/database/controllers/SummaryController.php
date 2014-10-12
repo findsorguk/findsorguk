@@ -47,9 +47,9 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->getFlash()->addMessage('You cannot access the summary index.');
-        $this->redirect(self::REDIRECT);
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect(self::REDIRECT);
     }
 
     /** Action for adding coin summary

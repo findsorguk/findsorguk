@@ -1,19 +1,23 @@
-<?php 
+<?php
 $this->headTitle('Full details for numismatic category: ' . $this->term);
 $this->headMeta($this->curUrl(),'dc.identifier')
-->headMeta('Early Medieval numismatics','dc.subject')
-->headMeta('numismatics,early medieval,coins,categories','dc.keywords')
-->headMeta('The Early Medieval numismatic period is broken down into a series of categories that 
+    ->headMeta('Early Medieval numismatics','dc.subject')
+    ->headMeta('numismatics,early medieval,coins,categories','dc.keywords')
+    ->headMeta('The Early Medieval numismatic period is broken down into a series of categories that
 can be used to categorise the coinage issued. This pages describes ' . $this->term,'description')
-->headMeta('Daniel Pett','dc.creator')
-->headMeta('The Portable Antiquities Scheme','dc.publisher');
+    ->headMeta('Daniel Pett','dc.creator')
+    ->headMeta('The Portable Antiquities Scheme','dc.publisher');
 
 ?>
-<h2><?php echo $this->term;?></h2>
-<p><a href="<?php echo $this->url(array(
-    'module' => 'database',
-    'controller' => 'search',
-    'action' => 'results', 
-    'category' => $this->id),
-        null,true);?>" title="View all records for category of <?php echo 
-        $this->term;?>">View all records</a> attributed to this category on our database.</p>
+<h2>
+    <?php echo $this->title();?>
+</h2>
+<p>
+    <a href="<?php echo $this->url(array(
+            'module' => 'database',
+            'controller' => 'search',
+            'action' => 'results',
+            'category' => $this->id),
+        null,true);?>" title="View all records for category of <?php echo
+    $this->term;?>">View all records</a> attributed to this category on our database.
+</p>

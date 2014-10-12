@@ -1,27 +1,39 @@
-<?php 
+<?php
 $this->headTitle('Project details for: '.$this->escape($this->title));
 $this->metaBase()
-        ->setDescription(
-                $this->ellipsisString()
-                ->setString($this->description)
-                ->setMax(200)
-                )
-        ->setSubject('Research project')
-        ->setKeywords('research,projects')
-        ->generate();
+    ->setDescription(
+        $this->ellipsisString()
+            ->setString($this->description)
+            ->setMax(200)
+    )
+    ->setSubject('Research project')
+    ->setKeywords('research,projects')
+    ->generate();
 ?>
 <h2 class="lead">
     <?php echo $this->escape($this->title);?>
 </h2>
-<p><strong>Principal investigator:</strong> <?php echo $this->investigator;?><br />
-<strong>Level:</strong> <?php echo $this->type;?></p>
+<p>
+    <strong>Principal investigator:</strong> <?php echo $this->investigator;?><br />
+    <strong>Level:</strong> <?php echo $this->type;?>
+</p>
 <?php echo $this->description;?>
-<h3>Audit data</h3>
+<h3>
+    Audit data
+</h3>
 <ul>
-<li>Created: <?php echo $this->timeAgoInWords($this->created);?></li>
-<li>Created by: <?php echo $this->nameThem()->setName($this->fullname);?></li>
-<?php if(isset($this->updated)):?>
-<li>Updated: <?php echo $this->timeAgoInWords($this->created);?></li>
-<li>Updated by: <?php echo $this->nameThem()->setName($this->fn);?></li>
-<?php endif;?>
+    <li>
+        Created: <?php echo $this->timeAgoInWords($this->created);?>
+    </li>
+    <li>
+        Created by: <?php echo $this->nameThem()->setName($this->fullname);?>
+    </li>
+    <?php if(!is_null($this->updated)):?>
+        <li>
+            Updated: <?php echo $this->timeAgoInWords($this->created);?>
+        </li>
+        <li>
+            Updated by: <?php echo $this->nameThem()->setName($this->fn);?>
+        </li>
+    <?php endif;?>
 </ul>
