@@ -12,17 +12,17 @@
  * @uses Pas_Exception_Param
  */
 class Database_LegacyController extends Pas_Controller_Action_Admin {
-	
+
     /** The init function
      * @access public
      * @return void
      */
-    public function init() {	
+    public function init() {
         $this->_helper->_acl->allow('public',array());
-        
+
     }
     /** The redirect
-     * 
+     *
      */
     const REDIRECT = '/database/artefacts/record/id/';
 
@@ -35,7 +35,7 @@ class Database_LegacyController extends Pas_Controller_Action_Admin {
             $finds = new Finds();
             $results = $finds->fetchRow($finds->select()->where('secuid = ?', $this->_getParam('id')));
             if(!is_null($results)){
-                $id = (int)$results ->id;	
+                $id = (int)$results ->id;
             } else {
                 throw new Pas_Exception_Param($this->_nothingFound);
             }

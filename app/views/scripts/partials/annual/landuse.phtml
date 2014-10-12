@@ -1,7 +1,16 @@
 <tr>
-<td><?php if($this->landuse == NULL){
-echo 'No landuse recorded';}
-else { echo $this->landuse;}?></td>
-<td><?php echo $this->finds;?></td>
-<td><?php echo $this->records;?></td>
+    <td>
+        <?php if ($this->landuse == NULL) { ?>
+            No land use recorded.
+        <?php
+        } else {
+            echo $this->landuse;
+        }?>
+    </td>
+    <td>
+        <?php echo $this->finds; ?>
+    </td>
+    <td>
+        <?php echo $this->records; ?>
+    </td>
 </tr>

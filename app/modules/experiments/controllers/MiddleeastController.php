@@ -21,6 +21,7 @@ class Experiments_MiddleeastController extends Pas_Controller_Action_Admin {
     public function init() {
         $this->_helper->_acl->allow('public',null);
     }
+
     /** The default action
      * @access public
      * @return void
@@ -28,6 +29,7 @@ class Experiments_MiddleeastController extends Pas_Controller_Action_Admin {
     public function indexAction() {
         //Action and magic in view
     }
+
     /** Look up an individual person
      * @access public
      * @return void
