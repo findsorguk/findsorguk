@@ -22,7 +22,7 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/modules/admin/controllers/AcronymsController.php Controller for acronyms
  * @uses Zend_Cache
-*/
+ */
 
 class Acronyms extends Pas_Db_Table_Abstract {
 
@@ -39,15 +39,15 @@ class Acronyms extends Pas_Db_Table_Abstract {
     protected $_name = 'abbreviations';
 
     /** Get all valid acronyms
-    * @access public
-    * @return array
-    */
+     * @access public
+     * @return array
+     */
     public function getValid() {
         if (!$data = $this->_cache->load('acronymsSite')) {
             $acros = $this->getAdapter();
             $select = $acros->select()
-                    ->from($this->_name, array('abbreviation','expanded'))
-                    ->where('valid = 1');
+                ->from($this->_name, array('abbreviation','expanded'))
+                ->where('valid = 1');
             $data =  $acros->fetchPairs($select);
             $this->_cache->save($data, 'acronymsSite');
         }
@@ -55,25 +55,25 @@ class Acronyms extends Pas_Db_Table_Abstract {
     }
 
     /** Get list of all acronyms and paginator them
-    * @access public
-    * @return array
-    * @param  array $params sent via controller
-    */
+     * @access public
+     * @return array
+     * @param  array $params sent via controller
+     */
     public function getAllAcronyms(array $params) {
         $acros = $this->getAdapter();
         $select = $acros->select()
-                ->from($this->_name, array(
-                    'id', 'abbreviation', 'expanded',
-                    'updated'))
-                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
-                        array('fullname'))
-                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy',
-                        array('fn' => 'fullname'))
-                ->order('abbreviation');
+            ->from($this->_name, array(
+                'id', 'abbreviation', 'expanded',
+                'updated'))
+            ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
+                array('fullname'))
+            ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy',
+                array('fn' => 'fullname'))
+            ->order('abbreviation');
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(20)
-                ->setPageRange(10)
-                ->setCache( $this->_cache );
+            ->setPageRange(10)
+            ->setCache( $this->_cache );
         if(isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber($params['page']);
         }

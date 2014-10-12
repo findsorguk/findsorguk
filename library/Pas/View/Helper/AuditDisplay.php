@@ -17,7 +17,7 @@
  * @uses Pas_View_Helper_TimeAgoInWords
  * @uses Zend_View_Helper_Url
  * @license GNU
- * @copyright DEJ PETT
+ * @copyright 2014 Daniel Pett
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 2
  * @since September 29 2011

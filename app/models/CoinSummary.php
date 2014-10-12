@@ -46,6 +46,7 @@ class CoinSummary extends Pas_Db_Table_Abstract {
     public function getCoinSummary($hoardId){
         $select = $this->select()
             ->from($this->_name, array(
+                'summaryID' => 'id',
                 'hoardID',
                 'broadperiod',
                 'denomination',

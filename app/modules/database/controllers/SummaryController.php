@@ -14,20 +14,20 @@
 class Database_SummaryController extends Pas_Controller_Action_Admin
 {
 
+    /** The redirect for index */
     const REDIRECT = '/';
 
+    /** The form */
     protected $_form;
 
-    /**
-     * @return mixed
+    /** Get the form
+     * @return \CoinSummaryForm
      */
     public function getForm()
     {
         $this->_form = new CoinSummaryForm();
         return $this->_form;
     }
-
-
 
     /** Init all the permissions in ACL.
      * @access public
@@ -61,16 +61,26 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
         $this->view->form = $form;
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
 
+            $this->getFlash()->addMessage('You have added a summary record');
+            $this->redirect();
         } else {
             $form->populate($this->_request->getPost());
         }
-        }
+    }
 
     /** Edit action for coin summary
      */
     public function editAction()
     {
-        $this->view->form = $this->getForm();
+        $form = $this->getForm();
+        $this->view->form = $form;
+        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+
+            $this->getFlash()->addMessage('You have edited data successfully');
+            $this->redirect();
+        } else {
+            $form->populate($this->_request->getPost());
+        }
     }
 
     /** Delete action for coin summary

@@ -1,0 +1,22 @@
+<?php
+    $editUrl = array(
+        'module' => 'database',
+        'controller' => 'summary',
+        'action' => 'edit',
+        'id' => $this->id,
+        'hoardID' => $this->hoardID
+    );
+    $deleteUrl = array(
+        'module' => 'database',
+        'controller' => 'summary',
+        'action' => 'delete',
+        'id' => $this->id,
+        'hoardID' => $this->hoardID
+    );
+?>
+<td>
+    <div c]ass="btn-group">
+        <a href="<?php echo $this->url($editUrl, 'default', true);?>" class="btn btn-small btn-primary">Edit</a>
+        <a href="<?php echo $this->url($deleteUrl, 'default', true);?>" class="btn btn-small btn-danger">Delete</a>
+    </div>
+</td>
