@@ -666,14 +666,14 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $ajaxContext->addActionContext('newfield', 'html')->initContext();
 
         $id = $this->_getParam('hiddenfield', null);
-        $uniqueTextLabel = "finderNew$id";
+        $uniqueTextLabel = "finder$id";
         $uniqueIdLabel = $uniqueTextLabel . 'ID';
 
         $finderID = new Zend_Form_Element_Hidden($uniqueIdLabel);
         $finderID->setRequired(false)
             ->removeDecorator('Label')
             ->removeDecorator('HtmlTag')
-            ->addFilters(array('StripTags','StringTrim'));
+            ->addFilters(array('StripTags','StringTrim', 'Null'));
 
         $finderName = new Zend_Form_Element_Text($uniqueTextLabel);
         $finderName->setRequired(true)
@@ -684,7 +684,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
                 array(array('controlGroupWrapper' => 'HtmlTag'),
                     array('tag' => 'div', 'class' => "control-group", 'id' => "$uniqueTextLabel-control-group")),
             ))
-            ->addFilters(array('StripTags','StringTrim'));
+            ->addFilters(array('StripTags','StringTrim', 'Null'));
 
         $this->view->finderName = $finderName->__toString();
         $this->view->finderID = $finderID->__toString();

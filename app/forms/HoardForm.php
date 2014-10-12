@@ -75,9 +75,7 @@ class HoardForm extends Pas_Form {
         //Get the reece periods for inclusion
         $reece = new Reeces();
         $reeces = $reece->getReeces();
-
-
-
+        
         //End of select options construction
         $this->addElementPrefixPath('Pas_Filter', 'Pas/Filter/', 'filter');
 
@@ -340,17 +338,17 @@ class HoardForm extends Pas_Form {
 
         ## DISCOVERER DETAILS ##
         //Finder
-        $finderID = new Zend_Form_Element_Hidden('finderID');
-        $finderID->setRequired(false)
+        $finder1ID = new Zend_Form_Element_Hidden('finder1ID');
+        $finder1ID->setRequired(false)
             ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setOrder(27);
 
         $hiddenfield = new Zend_Form_Element_Hidden('hiddenfield');
-        $hiddenfield->setValue(1)
+        $hiddenfield->setValue(2)
             ->setOrder(28);
 
-        $finder = new Zend_Form_Element_Text('finder');
-        $finder->setLabel('Found by: ')
+        $finder1 = new Zend_Form_Element_Text('finder1');
+        $finder1->setLabel('Found by: ')
             ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->setDescription('To make a new finder/identifier appear, you '
                 . 'first need to create them from the people menu on '
@@ -358,13 +356,13 @@ class HoardForm extends Pas_Form {
             ->setOrder(29);
 
         $addFinderButton = new Zend_Form_Element_Button('addFinder');
-        $addFinderButton->setLabel('Add Finder')
-            ->setAttribs(array('class' => 'btn'));
+        $addFinderButton->setLabel('Add Additional Finder')
+            ->setAttribs(array('class' => 'btn btn-info'));
         $addFinderButton->setOrder(50);
 
         $removeFinderButton = new Zend_Form_Element_Button('removeFinder');
-        $removeFinderButton->setLabel('Remove Finder')
-            ->setAttribs(array('class' => 'btn hidden'));
+        $removeFinderButton->setLabel('Remove Last Finder')
+            ->setAttribs(array('class' => 'btn btn-warning hidden'));
         $removeFinderButton->setOrder(51);
 
         ## DISCOVERY INFORMATION ##
@@ -500,7 +498,7 @@ class HoardForm extends Pas_Form {
             $findofnotereason, $treasure, $treasureID,
             $materials, $recorderID, $recordername,
             $idBy, $id2by, $identifier1ID,
-            $identifier2ID, $finder, $finderID,
+            $identifier2ID, $finder1, $finder1ID,
             $hiddenfield, $addFinderButton, $removeFinderButton,
             $discmethod, $disccircum, $datefound1,
             $datefound2, $rally, $rallyID,
@@ -540,7 +538,7 @@ class HoardForm extends Pas_Form {
             'identifier1ID','id2by','identifier2ID'), 'recorders');
         $this->recorders->setLegend('Recording details');
 
-        $this->addDisplayGroup(array('finder','finderID', 'hiddenfield', 'addFinder', 'removeFinder'
+        $this->addDisplayGroup(array('finder1','finder1ID', 'hiddenfield', 'addFinder', 'removeFinder'
             ), 'discoverers');
         $this->discoverers->setLegend('Discoverer details');
 
@@ -571,6 +569,88 @@ class HoardForm extends Pas_Form {
         $projectTeam = array('hoard', 'admin');
         if(!in_array($role, $projectTeam)){
             $coindataquality->disabled=true;
+        }
+    }
+
+    /**
+     * Adds new text fields to form during form submission
+     *
+     * @param string $name
+     * @param string $value
+     * @param int    $order
+     */
+    public function addNewTextField($name, $value, $order) {
+
+        $this->addElement('text', $name, array(
+            'label'          => 'Also found by',
+            'value'          => $value,
+            'order'          => $order,
+        ));
+        $this->getElement($name)
+            ->setRequired(false)
+            ->removeDecorator('BootstrapTag')
+            ->addDecorators(array(
+                array('HtmlTag', array('tag' => 'div', 'class' => "controls", 'id' => "$name-controls")),
+                array('Label', array('class' => 'control-label', 'id' => "$name")),
+                array(array('controlGroupWrapper' => 'HtmlTag'),
+                    array('tag' => 'div', 'class' => "control-group", 'id' => "$name-control-group")),
+            ));
+    }
+
+    /**
+     * Adds new hidden fields to form during form submission
+     *
+     * @param string $name
+     * @param string $value
+     * @param int    $order
+     */
+    public function addNewHiddenField($name, $value, $order) {
+
+        $this->addElement('hidden', $name, array(
+            'value'          => $value,
+            'order'          => $order,
+        ));
+        $this->getElement($name)
+            ->setRequired(false)
+            ->addFilters(array('StripTags','StringTrim', 'Null'))
+            ->setDecorators(array('ViewHelper'));
+    }
+
+    /**
+     * After form is posted, finds all new fields where name includes 'finder'.
+     * Uses addNewTextField or addNewHiddenField
+     * to add them to the form object
+     *
+     * @param array $data
+     */
+    public function preValidation(array $data) {
+
+        function findFields($field) {
+            // Return field names that include 'finder' but not the first finder
+            if((strpos($field, 'finder') !== false) && ($field != 'finder1') && ($field != 'finder1ID'))  {
+                return $field;
+            }
+        }
+
+        // Search $data for dynamically added fields using findFields callback
+        $newFields = array_filter(array_keys($data), 'findFields');
+
+        // Get the order of the first finder field
+        // so that new fields can be placed after it in the display group
+        $orderFinder1 = $this->getElement('finder1')->getOrder();
+
+        foreach ($newFields as $fieldName) {
+            // Add either hidden or text field
+            if (strpos($fieldName, 'ID') !== false){
+                // Isolate the id number from the field name and use it to set new order
+                $order = (2 * (trim($fieldName, 'finderID')) - 2) + $orderFinder1;
+                $this->addNewHiddenField($fieldName, $data[$fieldName], $order);
+            } else {
+                $order = (2 * (trim($fieldName, 'finder')) - 1) + $orderFinder1;
+                $this->addNewTextField($fieldName, $data[$fieldName], $order);
+            }
+            $discoverers = $this->getDisplayGroup('discoverers');
+            $discoverers->addElement($this->getElement($fieldName));
         }
     }
 

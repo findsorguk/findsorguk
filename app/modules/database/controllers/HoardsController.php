@@ -108,6 +108,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
 
     protected $_findspots;
 
+    protected $_hoardsFinders;
+
     protected $_hoardForm;
 
     public function getHoardForm() {
@@ -118,6 +120,11 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
     public function getFindspots() {
         $this->_findspots = new Findspots();
         return $this->_findspots;
+    }
+
+    public function getHoardsFinders() {
+        $this->_hoardsFinders = new HoardsFinders();
+        return $this->_hoardsFinders;
     }
 
     public function getComments() {
@@ -185,7 +192,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $this->view->linkedArtefacts     = $this->_hoards->getLinkedArtefacts($id);
                 $this->view->linkedContainers     = $this->_hoards->getLinkedContainers($id);
                 $this->view->recordersIdentifiers     = $this->_hoards->getRecordersIdentifiers($id);
-                $this->view->finders     = $this->_hoards->getFinders($id);
+                $this->view->finders     = array_reverse($this->_hoards->getFinders($id));
                 $this->view->discoverySummary     = $this->_hoards->getDiscoverySummary($id);
                 $this->view->referenceNumbers     = $this->_hoards->getReferenceNumbers($id);
                 $this->view->quantities = $this->_hoards->getQuantities($id);
@@ -251,17 +258,18 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         }
         if($this->getRequest()->isPost()) {
             $formData = $this->_request->getPost();
+            $form->preValidation($formData);
             if ($form->isValid($formData)) {
                 $insertData = $form->getValues();
                 $insert = $this->_hoards->addHoard($insertData);
                 if ($insert != 'error'){
                     $this->redirect(self::REDIRECT . 'record/id/' . $insert);
                 } else { // If there is a database error, repopulate form so users don't lose their work
-                    // $this->_flashMessenger->addMessage('Database error. Please try submitting again or contact support.');
+                    $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
                     $form->populate($formData);
                 }
             } else  {
-                //$this->_flashMessenger->addMessage('Please check and correct errors!');
+                $this->getFlash()->addMessage('Please check and correct errors!');
                 $form->populate($formData);
             }
         }
@@ -338,8 +346,12 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $whereFindspots = array();
                 $whereFindspots[] = $this->getFindspots()->getAdapter()->quoteInto('findID  = ?',
                     $secuid);
+                $whereHoardsFinders = array();
+                $whereHoardsFinders[] = $this->getHoardsFinders()->getAdapter()->quoteInto('hoardID  = ?',
+                    $secuid);
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->getFindspots()->delete($whereFindspots);
+                $this->getHoardsFinders()->delete($whereHoardsFinders);
                 // $this->_helper->solrUpdater->deleteById('beowulf', $id);
                 $this->redirect('database');
             }
@@ -409,51 +421,6 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         }
     }
 
-
-    /**
-     * Adds new fields to form during form submission
-     *
-     * @param string $name
-     * @param string $value
-     * @param int    $order
-     */
-    public function addNewField($name, $value, $order) {
-
-        $this->addElement('text', $name, array(
-            'required'       => true,
-            'label'          => 'Name',
-            'value'          => $value,
-            'order'          => $order
-        ));
-    }
-
-    /**
-     * After post, pre validation hook
-     *
-     * Finds all fields where name includes 'newName' and uses addNewField to add
-     * them to the form object
-     *
-     * @param array $data $_GET or $_POST
-     */
-    public function preValidation(array $data) {
-
-        // array_filter callback
-        function findFields($field) {
-            // return field names that include 'newName'
-            if (strpos($field, 'newName') !== false) {
-                return $field;
-            }
-        }
-
-        // Search $data for dynamically added fields using findFields callback
-        $newFields = array_filter(array_keys($data), 'findFields');
-
-        foreach ($newFields as $fieldName) {
-            // strip the id number off of the field name and use it to set new order
-            $order = ltrim($fieldName, 'newName') + 2;
-            $this->addNewField($fieldName, $data[$fieldName], $order);
-        }
-    }
 
     /** Enter an error report
      * @access public
