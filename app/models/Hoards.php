@@ -87,11 +87,25 @@ class Hoards extends Pas_Db_Table_Abstract {
         }
     }
 
+    /** Prepare hoard finders into an array for database insertion
+     * @access 	public
+     * @return	array $finders
+     */
+    public function prepareFinders($insertData) {
+        $finders = array();
+        foreach ($insertData as $field => $value){
+            if((strpos($field,'finder') !== false) && strpos($field,'ID') !== false){
+                $finders[$field] = $value;
+            }
+        }
+        return $finders;
+    }
+
     /** Add a new hoard record
      * @param array
      * @return int
      */
-    public function addHoard($insertData){
+    public function addHoard($insertData) {
         $insertData['secuid'] = $this->generateSecuId();
         $insertData['hoardID'] = $this->generateHoardId();
         $insertData['secwfstage'] = (int)2;
@@ -101,16 +115,27 @@ class Hoards extends Pas_Db_Table_Abstract {
         unset($insertData['idBy']);
         unset($insertData['id2by']);
         unset($insertData['hiddenfield']);
+        $insertData['materials'] = serialize($insertData['materials']);
+
+        $findersData['finderID'] = $this->prepareFinders($insertData);
+        foreach ($insertData as $field => $value) {
+            if (strpos($field, 'finder') !== false) {
+                unset($insertData[$field]);
+            }
+        }
+        $findersData['hoardID'] = $insertData['secuid'];
+        $findersTable = new HoardsFinders();
 
         $i = 2;
-        while ($i > 0){
+        while ($i > 0) {
             try {
                 $insert = $this->add($insertData);
+                $insertFinders = $findersTable->addFinders($findersData);
                 break;
-            } catch(Zend_Db_Exception $e) {
+            } catch (Zend_Db_Exception $e) {
                 $code = $e->getCode();
                 // If there is a duplicate unique value, generates a new old_findsID and tries again up to twice
-                if($code == self::DUPLICATE_UNIQUE_VALUE_ERROR_CODE) {
+                if ($code == self::DUPLICATE_UNIQUE_VALUE_ERROR_CODE) {
                     usleep(100000); // Delays generation of new old_findsID to prevent further duplicate generation
                     $insertData['hoardID'] = $this->generateHoardId();
                     $i--;
@@ -119,7 +144,7 @@ class Hoards extends Pas_Db_Table_Abstract {
                 }
             }
         }
-        if(isset($insert)){
+        if (isset($insert)) {
             return $insert;
         } else {
             return 'error';
@@ -138,7 +163,7 @@ class Hoards extends Pas_Db_Table_Abstract {
             $updateData['identifier2ID'] = NULL;
         }
         unset($updateData['recordername']);
-        unset($updateData['finder']);
+        unset($updateData['finder1']);
         unset($updateData['idBy']);
         unset($updateData['id2by']);
         unset($updateData['hiddenfield']);

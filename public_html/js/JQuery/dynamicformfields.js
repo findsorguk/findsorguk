@@ -14,13 +14,18 @@ function ajaxAddField() {
                 $("div#addFinderDiv").prev().last().after(newElement);
 
                 // Calls the finder dropdown on the newly created input
-                finderTypeahead('input#finderNew'+ id);
+                finderTypeahead('input#finder'+ id);
 
                 // Increment and store id
                 $("#hiddenfield").val(++id);
 
                 // Reveal the remove button
-                $("#removeFinder").attr('class', "btn")
+                $("#removeFinder").attr('class', "btn btn-warning");
+
+                // Prevent more than 10 finders being added
+                if(id >= 11){
+                    $("#addFinder").attr('class', "btn btn-info hidden");
+                }
 
             }
         }
@@ -34,10 +39,10 @@ function removeField() {
 
     // Builds the search strings
     // Matches the control group that wraps the last added new finder input
-    var uniqueInput = 'finderNew' + lastId;
+    var uniqueInput = 'finder' + lastId;
     var searchStringInput = "div#" + uniqueInput + "-control-group";
     // Matches the hidden ID field of the last added new finder input
-    var uniqueId = uniqueInput + 'ID';
+    var uniqueId = 'finder' + lastId + 'ID';
     var searchStringId = "input#" + uniqueId;
 
     // Remove the elements that match the search strings
@@ -48,7 +53,12 @@ function removeField() {
     $("#hiddenfield").val(--id);
 
     // Hide remove button if no extra fields
-    if (id <= 1) {
-        $("#removeFinder").attr('class', "btn hidden")
+    if (id <= 2) {
+        $("#removeFinder").attr('class', "btn btn-warning hidden")
     };
+
+    // Show add button if there are fewer than 10 finders
+    if(id < 11){
+        $("#addFinder").attr('class', "btn btn-info");
+    }
 }

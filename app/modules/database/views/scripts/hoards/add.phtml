@@ -3,8 +3,7 @@ $this->headTitle('Add a new hoard');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryfinder.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder-hoards.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
@@ -69,6 +68,15 @@ $(document).ready(function() {
             removeField();
         }
     );
+
+    // Show the Remove Finder button on error repopulate if more than 1 finder
+    if($("#hiddenfield").val() > 2) {
+        $("#removeFinder").attr('class', "btn btn-warning")
+    };
+    // Hide the Add Finder button on error repopulate if more than 10 finders
+    if($("#hiddenfield").val() >= 11) {
+        $("#addFinder").attr('class', "btn btn-info hidden")
+    };
 
 });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
