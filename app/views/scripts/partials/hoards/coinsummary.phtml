@@ -1,84 +1,115 @@
-<?php if(!empty($this->coinSummary)) :?>
-<?php
+<?php if (!empty($this->coinSummary)) : ?>
+    <?php
     $broadperiodarray = array();
     foreach ($this->coinSummary as $row) {
         $broadperiodarray[] = $row['broadperiod'];
     }
-?>
-<h4>Coin summary</h4>
-<table class="table table-striped">
-    <thead><tr>
-        <th>Period</th>
+    ?>
+    <h4>Coin summary</h4>
 
-        <?php if(in_array('ROMAN', $broadperiodarray)) :?>
-        <th>Ruler</th>
-        <?php endif;?>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                Period
+            </th>
 
-        <th>Denomination</th>
+            <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
+                <th>
+                    Ruler
+                </th>
+            <?php endif; ?>
 
-        <?php if(in_array('ROMAN', $broadperiodarray)) :?>
-            <th>Mint</th>
-        <?php endif;?>
-        <?php if(in_array('IRON AGE', $broadperiodarray)) :?>
-            <th>Geographic area</th>
-        <?php endif;?>
+            <th>
+                Denomination
+            </th>
 
-        <th>Date from</th>
-        <th>Date to</th>
-        <th>Quantity</th>
-    </tr></thead>
+            <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
+                <th>
+                    Mint
+                </th>
+            <?php endif; ?>
+            <?php if (in_array('IRON AGE', $broadperiodarray)) : ?>
+                <th>
+                    Geographic area
+                </th>
+            <?php endif; ?>
 
-    <tbody>
+            <th>
+                Date from
+            </th>
+            <th>
+                Date to
+            </th>
+            <th>
+                Quantity
+            </th>
+        </tr>
+        </thead>
 
-    <?php foreach($this->coinSummary as $coinrow) : ?>
-    <tr>
-        <td><?php echo $coinrow['broadperiod'];?></td>
+        <tbody>
 
-        <?php if(in_array('ROMAN', $broadperiodarray)) :?>
-        <td>
-            <?php if(!is_null($coinrow['ruler'])) :?>
-                <?php echo $coinrow['ruler'];?>
-            <?php else:?>
-                -
-            <?php endif;?>
-        </td>
-        <?php endif;?>
+        <?php foreach ($this->coinSummary as $coinrow) : ?>
+            <tr>
+                <td>
+                    <?php echo $coinrow['broadperiod']; ?>
+                </td>
 
-        <td><?php echo $coinrow['denomination'];?></td>
+                <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
+                    <td>
+                        <?php if (!is_null($coinrow['ruler'])) : ?>
+                            <?php echo $coinrow['ruler']; ?>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                    </td>
+                <?php endif; ?>
 
-        <?php if(in_array('ROMAN', $broadperiodarray)) :?>
-        <td>
-            <?php if(!is_null($coinrow['mint'])) :?>
-                <?php echo $coinrow['mint'];?>
-            <?php else:?>
-                -
-            <?php endif;?>
-        </td>
-        <?php endif;?>
+                <td>
+                    <?php echo $coinrow['denomination']; ?>
+                </td>
 
-        <?php if(in_array('IRON AGE', $broadperiodarray)) :?>
-        <td>
-            <?php if(!is_null($coinrow['geographicarea'])) :?>
-                <?php echo $coinrow['geographicarea'];?>
-            <?php else:?>
-                -
-            <?php endif;?>
+                <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
+                    <td>
+                        <?php if (!is_null($coinrow['mint'])) : ?>
+                            <?php echo $coinrow['mint']; ?>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                    </td>
+                <?php endif; ?>
 
-        </td>
-        <?php endif;?>
+                <?php if (in_array('IRON AGE', $broadperiodarray)) : ?>
+                    <td>
+                        <?php if (!is_null($coinrow['geographicarea'])) : ?>
+                            <?php echo $coinrow['geographicarea']; ?>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
 
-        <td><?php echo $this->adBc()->setDate($coinrow['numdate1']);?></td>
-        <td><?php echo $this->adBc()->setDate($coinrow['numdate2']);?></td>
-        <td><?php echo $coinrow['quantity'];?></td>
-        <?php
-            echo $this->editDeleteSummary()
-                ->setID($coinrow['summaryID'])
-                ->setHoardID($coinrow['id']);
-        ?>
-    </tr>
-    <?php endforeach; ?>
+                    </td>
+                <?php endif; ?>
 
-    </tbody>
+                <td>
+                    <?php echo $this->adBc()->setDate($coinrow['numdate1']); ?>
+                </td>
+                <td>
+                    <?php echo $this->adBc()->setDate($coinrow['numdate2']); ?>
+                </td>
+                <td>
+                    <?php echo $coinrow['quantity']; ?>
+                </td>
+                <?php
+                echo $this->editDeleteSummary()
+                    ->setID($coinrow['summaryID'])
+                    ->setHoardID($coinrow['id'])
+                    ->setCreatedBy($coinrow['createdBy'])
+                    ->setInstitution($coinrow['institution']);
+                ?>
+            </tr>
+        <?php endforeach; ?>
 
-</table>
-<?php endif;?>
+        </tbody>
+
+    </table>
+<?php endif; ?>

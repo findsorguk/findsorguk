@@ -54,7 +54,7 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array $higherLevel
      */
-    protected $_higherLevel = array('admin','fa','treasure');
+    protected $_higherLevel = array('admin','fa','treasure', 'hoard');
 
     /** The auth object
      * @access protected
@@ -349,7 +349,7 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
         $html .= '<a class="btn btn-small btn-success" href="';
         $html .= $url;
         $html .= '" title="Add spatial details for this find"';
-        $html .= ' accesslkey="f">';
+        $html .= ' accesskey="f">';
         $html .= 'Add a find spot</a></div>';
         return $html;
     }

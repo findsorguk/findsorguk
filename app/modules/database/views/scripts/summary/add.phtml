@@ -1,16 +1,17 @@
 <?php
     $this->headTitle('Add coin summary details');
     $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type='text/javascript');
-
+    $this->metaBase()
+    ->setDescription('Add coin summary data to hoard record')
+    ->setKeywords('coin,summary,numismatics,archaeology')
+    ->generate();
 ?>
 <h2 class="lead">
     <?php echo $this->title();?>
 </h2>
 <?php echo $this->form;?>
 
-<?php
-    $this->jQuery()->javascriptCaptureStart();
-?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
     $(document).ready(function() {
 
         $('#broadperiod').linkedSelect('/ajax/lastruler','#ruler_id',{firstOption: 'Please select a ruler'});
@@ -45,6 +46,4 @@
         });
     });
 
-<?php
-    $this->jQuery()->javascriptCaptureEnd();
-?>
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>
