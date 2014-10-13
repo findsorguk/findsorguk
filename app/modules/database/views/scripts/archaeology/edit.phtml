@@ -1,0 +1,13 @@
+<?php
+$this->headTitle('Edit archaeological context');
+$this->metaBase()
+    ->setDescription('A form for editing the archaeological data attached to this hoard.')
+    ->setKeywords('context,archaeology')
+    ->generate();
+?>
+    <h2 class="lead">
+        <?php echo $this->title(); ?>
+    </h2>
+<?php
+echo $this->form;
+?>

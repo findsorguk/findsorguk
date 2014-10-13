@@ -320,6 +320,13 @@ class ArchaeologyForm extends Pas_Form {
                 'submit'),
             'buttons');
 
+        $person = new Pas_User_Details();
+        $role = $person->getRole();
+        $projectTeam = array('hoard', 'admin');
+        if(!in_array($role, $projectTeam)){
+            $contextualdataquality->disabled=true;
+        }
+
         parent::init();
 
     }

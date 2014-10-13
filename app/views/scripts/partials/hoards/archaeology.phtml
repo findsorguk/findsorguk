@@ -1,5 +1,13 @@
-<h3>Archaeological context</h3>
-<?php //echo $this->archaeologicalContextEditDeleteLink($this->hoardId,$this->id,$this->createdBy);?>
+<h3>
+    Archaeological context
+</h3>
+<?php
+    echo $this->editDeleteArchaeology()
+        ->setHoardID($this->hoardId)
+        ->setID($this->id)
+        ->setCreatedBy($this->createdBy)
+        ->setInstitution($this->institution);
+?>
 
 <div class="row-fluid">
 

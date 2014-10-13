@@ -49,10 +49,16 @@ class Archaeology extends Pas_Db_Table_Abstract {
     public function getArchaeologyData($id)  {
         $select = $this->select()
             ->from($this->_name, array(
-                'id', 'hoardID', 'secuid', 'knownsite', 'excavated', 'sitecontext',
-                'broadperiod', 'period1', 'subperiod1', 'period2', 'subperiod2', 'sitedateyear1', 'sitedateyear2',
-                'sitetype', 'feature', 'featuredateyear1', 'featuredateyear2', 'landscapetopography', 'recmethod',
-                'yearexc1', 'yearexc2', 'description', 'contextualrating', 'archiveloc'))
+                'id', 'hoardID', 'secuid', 'knownsite',
+                'excavated', 'sitecontext', 'broadperiod',
+                'period1', 'subperiod1', 'period2',
+                'subperiod2', 'sitedateyear1', 'sitedateyear2',
+                'sitetype', 'feature', 'featuredateyear1',
+                'featuredateyear2', 'landscapetopography', 'recmethod',
+                'yearexc1', 'yearexc2', 'description',
+                'contextualrating', 'archiveloc', 'institution',
+                'createdBy'
+            ))
             ->joinLeft('hoards','archaeology.hoardID = hoards.secuid',
                 array('old_hoardID' => 'hoardID'))
             ->joinLeft('periods','archaeology.period1 = periods.id',
