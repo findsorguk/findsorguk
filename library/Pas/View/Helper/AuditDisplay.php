@@ -61,7 +61,10 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array
      */
-    protected $_tableNames = array('finds', 'findspots', 'coins', 'hoards');
+    protected $_tableNames = array(
+        'finds', 'findspots', 'coins',
+        'hoards', 'summary', 'archaeology'
+    );
 
     /** Get the table name
      * @access public

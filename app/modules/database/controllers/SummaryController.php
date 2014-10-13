@@ -1,4 +1,5 @@
 <?php
+
 /** The coin summary controller.
  * This is used for adding coin summaries for the hoard record.
  * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
@@ -17,8 +18,16 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
     /** The redirect for index */
     const REDIRECT = '/';
 
-    /** The form */
+    /** The form
+     * @access protected
+     */
     protected $_form;
+
+    /** Get the Summary model
+     * @access protected
+     * @var
+     */
+    protected $_model;
 
     /** Get the form
      * @return \CoinSummaryForm
@@ -29,6 +38,16 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
         return $this->_form;
     }
 
+    /** Get the model
+     * @access public
+     * @return \CoinSummary
+     */
+    public function getModel()
+    {
+        $model = new CoinSummary();
+        return $model;
+    }
+
     /** Init all the permissions in ACL.
      * @access public
      * @return void
@@ -37,7 +56,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->deny('public', null);
         $this->_helper->_acl->allow('member', array('index'));
-        $this->_helper->_acl->allow('flos', array('add','delete','edit'));
+        $this->_helper->_acl->allow('member', array('add', 'delete', 'edit'));
     }
 
     /** Index action for coin summary
@@ -59,8 +78,9 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
     {
         $form = $this->getForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
-
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            // Get the data to add
+            $this->getModel()->add($form->getValues());
             $this->getFlash()->addMessage('You have added a summary record');
             $this->redirect();
         } else {
@@ -69,17 +89,37 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
     }
 
     /** Edit action for coin summary
+     * @access public
      */
     public function editAction()
     {
-        $form = $this->getForm();
-        $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+        if ($this->_getParam('id', false)) {
+            $form = $this->getForm();
+            $this->view->form = $form;
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+                //Where array
+                $where = array();
+                $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                //Set up auditing
+                $oldData = $this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray();
 
-            $this->getFlash()->addMessage('You have edited data successfully');
-            $this->redirect();
+                //Get the data and update based on where value
+                $this->getModel()->update($form->getValues(), $where);
+                $this->_helper->audit(
+                    $updateData,
+                    $oldData,
+                    'SummaryAudit',
+                    $this->_getParam('id'),
+                    $this->_getParam('id')
+                );
+                $this->getFlash()->addMessage('You have edited data successfully');
+                $this->redirect();
+            } else {
+                $form->populate($this->_request->getPost());
+            }
+
         } else {
-            $form->populate($this->_request->getPost());
+            throw new Pas_Exception($this->_missingParameter, 500);
         }
     }
 

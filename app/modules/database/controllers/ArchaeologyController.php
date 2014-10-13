@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for manipulating the archaeological context data
  *
  * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
@@ -16,7 +17,8 @@
  * @uses Publications
  * @uses HoardForm
  */
-class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
+class Database_ArchaeologyController extends Pas_Controller_Action_Admin
+{
 
     /** The archaeological context model
      * @access protected
@@ -35,19 +37,37 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
      */
     const REDIRECT = '/database/hoards/';
 
-    public function getArchaeologyForm() {
+    /** Get the archaeology form
+     * @access public
+     * @return \ArchaeologyForm
+     */
+    public function getArchaeologyForm()
+    {
         $this->_archaeologyForm = new ArchaeologyForm();
         return $this->_archaeologyForm;
+    }
+
+    /** The archaeology model */
+    protected $_model;
+
+    /** Get the archaeology model
+     * @return mixed \Archaeology
+     */
+    public function getModel()
+    {
+        $this->_model = new Archaeology();
+        return $this->_model;
     }
 
     /** Set up the ACL access and appid from config
      * @access public
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         $this->_helper->_acl->deny('public', null);
         $this->_helper->_acl->allow('member', array('index'));
-        $this->_helper->_acl->allow('flos', array('add','delete','edit'));
+        $this->_helper->_acl->allow('member', array('add', 'delete', 'edit'));
         $this->_archaeology = new Archaeology();
     }
 
@@ -55,7 +75,8 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->getFlash()->addMessage('You cannot access the archaeological context index.');
         $this->redirect(self::REDIRECT);
         $this->getResponse()->setHttpResponseCode(301)
@@ -68,11 +89,19 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
      * @throws Exception
      * @throws Pas_Exception_Param
      */
-    public function addAction() {
+    public function addAction()
+    {
         $form = $this->getArchaeologyForm();
         $form->submit->setLabel('Add archaeological context');
         $this->view->form = $form;
-
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            // Get the data to add
+            $this->getModel()->add($form->getValues());
+            $this->getFlash()->addMessage('You have added archaeology to the record');
+            $this->redirect();
+        } else {
+            $form->populate($this->_request->getPost());
+        }
     }
 
     /** Edit the archaeological context
@@ -80,10 +109,36 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @throws Pas_Exception_Param
      */
-    public function editAction(){
-        $form = $this->getArchaeologyForm();
-        $form->submit->setLabel('Add archaeological context');
-        $this->view->form = $form;
+    public function editAction()
+    {
+        if($this->getParam('id',false)) {
+            $form = $this->getArchaeologyForm();
+            $form->submit->setLabel('Edit archaeological context');
+            $this->view->form = $form;
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+                //Where array
+                $where = array();
+                $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                //Set up auditing
+                $oldData = $this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray();
+
+                //Get the data and update based on where value
+                $this->getModel()->update($form->getValues(), $where);
+                $this->_helper->audit(
+                    $updateData,
+                    $oldData,
+                    'ArchaeologyAudit',
+                    $this->_getParam('id'),
+                    $this->_getParam('id')
+                );
+                $this->getFlash()->addMessage('You have edited some archaeology successfully');
+                $this->redirect();
+            } else {
+                $form->populate($this->_request->getPost());
+            }
+        } else {
+            throw new Pas_Exception($this->_missingParameter, 500);
+        }
     }
 
     /** Delete the archaeological context
@@ -91,7 +146,8 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin {
      * @access public
      *
      */
-    public function deleteAction() {
+    public function deleteAction()
+    {
 
     }
 
