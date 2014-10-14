@@ -29,46 +29,6 @@
             <?php echo $this->partial('partials/hoards/temporal.phtml', $this->temporals);?>
             <!-- Terminal dates of any coins -->
             <?php echo $this->partial('partials/hoards/coinchronology.phtml', $this->coinChronology);?>
-            <!-- Summary details of the coins in the hoard -->
-            <?php echo $this->partial('partials/hoards/coinsummary.phtml', array('coinSummary' => $this->coinSummary, 'hoards' => $this->hoards));?>
-            <!-- Coin data quality rating -->
-            <?php echo $this->partial('partials/hoards/coindataquality.phtml', $this->coinDataQuality);?>
-            <!-- The description of the object -->
-            <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml',$this->hoardDescription);?>
-            <!-- Subsequent action after recording hoard -->
-            <?php echo $this->partial('partials/hoards/subsequentaction.phtml',$this->subsequentActions);?>
-            <!-- Treasure find info -->
-            <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->treasureDetails);?>
-            <!-- Finds materials -->
-            <?php
-            if (!empty($this->hoardMaterials)){
-                echo $this->hoardMaterials()->setMaterials($this->hoardMaterials);
-            }
-            ?>
-            <!-- Linked coins -->
-            <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array('linkedCoins' => $this->linkedCoins));?>
-            <!-- Linked arefacts -->
-            <?php echo $this->partial('partials/hoards/linkedartefacts.phtml', array('linkedArtefacts' => $this->linkedArtefacts));?>
-            <!-- Linked containers -->
-            <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array('linkedContainers' => $this->linkedContainers));?>
-            <!-- Dimensional data -->
-            <!-- Date found -->
-            <?php echo $this->partial('partials/hoards/datefound.phtml', $this->discoverySummary);?>
-            <!-- Rally data -->
-            <?php
-            if (count($this->rallyfind)){
-                echo $this->partial('partials/database/hoards/rallyfind.phtml', $this->rallyfind['0']);
-            }
-            ?>
-            <!-- Personal data -->
-            <?php if (count($this->recordersIdentifiers) > 0): ?>
-                <h4>Personal details</h4>
-                <?php echo $this->partial('partials/hoards/finders.phtml', array('finders' => $this->finders)); ?>
-                <?php echo $this->partial('partials/hoards/personal.phtml', $this->recordersIdentifiers);?>
-            <?php endif;?>
-            <!-- Other references -->
-            <?php echo $this->partial('partials/hoards/otherrefs.phtml', $this->referenceNumbers); ?>
-
 
 
 
@@ -117,6 +77,51 @@
             ?>
         </div>
         <!-- End of the image pane -->
+
+
+    </div>
+
+    <div class="row-fluid">
+        <!-- Summary details of the coins in the hoard -->
+        <?php echo $this->partial('partials/hoards/coinsummary.phtml', array('coinSummary' => $this->coinSummary, 'hoards' => $this->hoards));?>
+        <!-- Coin data quality rating -->
+        <?php echo $this->partial('partials/hoards/coindataquality.phtml', $this->coinDataQuality);?>
+        <!-- The description of the object -->
+        <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml',$this->hoardDescription);?>
+        <!-- Subsequent action after recording hoard -->
+        <?php echo $this->partial('partials/hoards/subsequentaction.phtml',$this->subsequentActions);?>
+        <!-- Treasure find info -->
+        <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->treasureDetails);?>
+        <!-- Finds materials -->
+        <?php
+        if (!empty($this->hoardMaterials)){
+            echo $this->hoardMaterials()->setMaterials($this->hoardMaterials);
+        }
+        ?>
+        <!-- Linked coins -->
+        <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array('linkedCoins' => $this->linkedCoins));?>
+        <!-- Linked arefacts -->
+        <?php echo $this->partial('partials/hoards/linkedartefacts.phtml', array('linkedArtefacts' => $this->linkedArtefacts));?>
+        <!-- Linked containers -->
+        <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array('linkedContainers' => $this->linkedContainers));?>
+        <!-- Dimensional data -->
+        <!-- Date found -->
+        <?php echo $this->partial('partials/hoards/datefound.phtml', $this->discoverySummary);?>
+        <!-- Rally data -->
+        <?php
+        if (count($this->rallyfind)){
+            echo $this->partial('partials/database/hoards/rallyfind.phtml', $this->rallyfind['0']);
+        }
+        ?>
+        <!-- Personal data -->
+        <?php if (count($this->recordersIdentifiers) > 0): ?>
+            <h4>Personal details</h4>
+            <?php echo $this->partial('partials/hoards/finders.phtml', array('finders' => $this->finders)); ?>
+            <?php echo $this->partial('partials/hoards/personal.phtml', $this->recordersIdentifiers);?>
+        <?php endif;?>
+        <!-- Other references -->
+        <?php echo $this->partial('partials/hoards/otherrefs.phtml', $this->referenceNumbers); ?>
+
 
     </div>
     <!--  End of descriptive data -->
