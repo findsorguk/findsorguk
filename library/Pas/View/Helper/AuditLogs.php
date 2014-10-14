@@ -124,11 +124,12 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
             $html .= '<ul id="tab" class="nav nav-tabs">';
             if ($this->getController() == 'artefacts') {
                 $html .= '<li class="active"><a href="#findAudit" data-toggle="tab">Finds audit</a></li>';
+                $html .= '<li><a href="#coinAudit" data-toggle="tab">Numismatic audit</a></li>';
+
             } else {
                 $html .= '<li class="active"><a href="#findAudit" data-toggle="tab">Hoards audit</a></li>';
             }
             $html .= '<li><a href="#fspot" data-toggle="tab">Findspot audit</a></li>';
-            $html .= '<li><a href="#coinAudit" data-toggle="tab">Numismatic audit</a></li>';
 
             if ($this->getController() == 'hoards') {
                 $html .= '<li><a href="#summary" data-toggle="tab">Coin summary audit</a></li>';

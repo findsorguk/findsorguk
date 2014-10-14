@@ -1,7 +1,8 @@
-<h4>Materials of coins and artefacts in the hoard</h4>
+<h4>
+    Materials of coins and artefacts in the hoard
+</h4>
 
 <ul>
-
     <?php foreach ($this->hoardMaterials as $matId => $material) : ?>
         <li>
         <span property="pas:primaryMaterial"><?php echo $this->escape($material); ?></span>
@@ -16,8 +17,5 @@
             " title="Find all records assigned to  <?php echo $this->material; ?>
             ">view all attributed records</a>]</span>
         </li>
-
     <?php endforeach; ?>
-
-
 </ul>
