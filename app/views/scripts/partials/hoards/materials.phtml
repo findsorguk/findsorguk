@@ -1,23 +1,23 @@
 <h4>Materials of coins and artefacts in the hoard</h4>
 
-<p>
+<ul>
 
-    <?php foreach($this->hoardMaterials as $matId => $material) : ?>
-    <span property="pas:primaryMaterial">
-        <?php echo $this->escape($material);?>
-    </span>
+    <?php foreach ($this->hoardMaterials as $matId => $material) : ?>
+        <li>
+        <span property="pas:primaryMaterial"><?php echo $this->escape($material); ?></span>
 
         <span class="scope">[<a href="<?php echo $this->url(array(
-                'module' => 'datalabs','controller' => 'terminology',
-                'action' => 'material','id' => $matId),null,true);?>
-            " title="View scope notes for <?php echo $this->escape($this->material);?>">scope notes</a> |
+                'module' => 'datalabs', 'controller' => 'terminology',
+                'action' => 'material', 'id' => $matId), null, true);?>
+            " title="View scope notes for <?php echo $this->escape($this->material); ?>">scope notes</a> |
         <a href="<?php echo $this->url(array(
-            'module' => 'database','controller' => 'search','action' => 'results',
-            'material' => $matId),null,true);?>
-            " title="Find all records assigned to  <?php echo $this->material;?>
-            ">view all attributed records</a>]</span><br />
+            'module' => 'database', 'controller' => 'search', 'action' => 'results',
+            'material' => $matId), null, true);?>
+            " title="Find all records assigned to  <?php echo $this->material; ?>
+            ">view all attributed records</a>]</span>
+        </li>
 
     <?php endforeach; ?>
 
 
-</p>
+</ul>
