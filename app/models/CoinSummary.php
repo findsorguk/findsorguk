@@ -77,4 +77,17 @@ class CoinSummary extends Pas_Db_Table_Abstract {
         return $this->getAdapter()->fetchAll($select);
 
     }
+
+    public function add( $data )
+    {
+        if(empty($data['secuid'])) {
+            $data['secuid'] = $this->generateSecuId();
+        }
+        foreach($data as $k => $v) {
+            if ( $v == "") {
+                $data[$k] = NULL;
+            }
+        }
+        return parent::insert( $data );
+    }
 }

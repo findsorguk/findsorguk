@@ -58,6 +58,7 @@ class CoinSummaryForm extends Pas_Form
         $ruler_id = new Zend_Form_Element_Select('ruler_id');
         $ruler_id->setLabel('Ruler: ')
             ->addValidator('Int')
+            ->setRegisterInArrayValidator(false)
             ->setRequired(true)
             ->addFilters(array('StripTags','StringTrim'))
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
@@ -70,6 +71,7 @@ class CoinSummaryForm extends Pas_Form
         $denomination = new Zend_Form_Element_Select('denomination');
         $denomination->setLabel('Denomination: ')
             ->addValidator('Int')
+            ->setRegisterInArrayValidator(false)
             ->setRequired(true)
             ->addFilters(array('StripTags','StringTrim'))
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
@@ -82,6 +84,7 @@ class CoinSummaryForm extends Pas_Form
         $mint_id = new Zend_Form_Element_Select('mint_id');
         $mint_id->setLabel('Issuing mint: ')
             ->addValidator('Int')
+            ->setRegisterInArrayValidator(false)
             ->setRequired(true)
             ->addFilters(array('StripTags','StringTrim'))
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
@@ -93,6 +96,7 @@ class CoinSummaryForm extends Pas_Form
         $geographyID = new Zend_Form_Element_Select('geographyID');
         $geographyID->setLabel('Iron Age geography: ')
             ->addValidator('Int')
+            ->setRegisterInArrayValidator(false)
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
             ->setOrder(5);
 

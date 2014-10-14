@@ -112,4 +112,12 @@
         </tbody>
 
     </table>
+<?php else: ?>
+    <?php
+    echo $this->addCoinSummary()
+        ->setSecUID($this->hoards['uniqueID'])
+        ->setID($this->hoards['id'])
+        ->setCreatedBy($this->hoards['createdBy'])
+        ->setInstitution($this->hoards['institution']);
+    ?>
 <?php endif; ?>

@@ -76,15 +76,20 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
      */
     public function addAction()
     {
-        $form = $this->getForm();
-        $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            // Get the data to add
-            $this->getModel()->add($form->getValues());
-            $this->getFlash()->addMessage('You have added a summary record');
-            $this->redirect();
+        if ( $this->_getParam('id', false) || $this->getParam('secUID', false) ) {
+            $form = $this->getForm();
+            $this->view->form = $form;
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+                $data = $form->getValues();
+                $data['hoardID'] = $this->_getParam('secUID');
+                $this->getModel()->add($data);
+                $this->getFlash()->addMessage('You have added a summary record');
+                $this->redirect('/database/hoards/record/id/' . $this->_getParam('id') );
+            } else {
+                $form->populate($this->_request->getPost());
+            }
         } else {
-            $form->populate($this->_request->getPost());
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 

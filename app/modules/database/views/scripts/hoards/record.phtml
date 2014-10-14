@@ -30,7 +30,7 @@
             <!-- Terminal dates of any coins -->
             <?php echo $this->partial('partials/hoards/coinchronology.phtml', $this->coinChronology);?>
             <!-- Summary details of the coins in the hoard -->
-            <?php echo $this->partial('partials/hoards/coinsummary.phtml', array('coinSummary' => $this->coinSummary));?>
+            <?php echo $this->partial('partials/hoards/coinsummary.phtml', array('coinSummary' => $this->coinSummary, 'hoards' => $this->hoards));?>
             <!-- Coin data quality rating -->
             <?php echo $this->partial('partials/hoards/coindataquality.phtml', $this->coinDataQuality);?>
             <!-- The description of the object -->
