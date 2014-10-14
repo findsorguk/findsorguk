@@ -53,7 +53,7 @@
             <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array('linkedContainers' => $this->linkedContainers));?>
             <!-- Dimensional data -->
             <!-- Date found -->
-            <?php echo $this->partial('partials/hoards/datefound.phtml',$this->discoverySummary);?>
+            <?php echo $this->partial('partials/hoards/datefound.phtml', $this->discoverySummary);?>
             <!-- Rally data -->
             <?php
             if (count($this->rallyfind)){
@@ -152,7 +152,7 @@
 
         <?php if (!empty($this->archaeologicalContext)) : ?>
             <!-- Check for archaeological context data and if there is render it -->
-        <?php echo $this->partial('partials/hoards/archaeology.phtml',$this->archaeologicalContext); ?>
+        <?php echo $this->partial('partials/hoards/archaeology.phtml', $this->archaeologicalContext); ?>
         <?php else: ?>
             <!-- Render a link for adding archaeological context -->
             <div id="archaeologicalcontextdata">
@@ -161,11 +161,10 @@
                     No archaeological context available.
                 </p>
                 <?php
-//                    echo $this->archaeologicalContextLink()
-//                        ->setFindID($this->hoards['id'])
-//                        ->setSecuID($this->hoards['hoardID'])
-//                        ->setCreatedBy($this->hoards['createdBy'])
-//                        ->setInstitution($this->hoards['institution']);
+                    echo $this->addArchaeology()
+                        ->setHoardID($this->hoards['uniqueID'])
+                        ->setID($this->hoards['id'])
+
                 ?>
             </div>
         <?php endif; ?>

@@ -82,4 +82,18 @@ class Archaeology extends Pas_Db_Table_Abstract {
         return $this->getAdapter()->fetchRow($select);
     }
 
+    /** Over ride the abstract add and create secuid etc
+     */
+    public function add( array $data )
+    {
+        if(empty($data['secuid'])) {
+            $data['secuid'] = $this->generateSecuId();
+        }
+        foreach($data as $k => $v) {
+        if ( $v == "") {
+            $data[$k] = NULL;
+        }
+    }
+        return parent::insert( $data );
+    }
 }

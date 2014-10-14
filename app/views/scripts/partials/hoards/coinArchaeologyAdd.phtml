@@ -1,0 +1,13 @@
+<?php
+$url = array(
+    'module' => 'database',
+    'controller' => 'archaeology',
+    'action' => 'add',
+    'id' => $this->id,
+    'hoardID' => $this->hoardID
+);
+?>
+<div c]ass="btn-group">
+    <a href="<?php echo $this->url($url, 'default', true); ?>"
+       class="btn btn-mini btn-primary">Add archaeological context data</a>
+</div>

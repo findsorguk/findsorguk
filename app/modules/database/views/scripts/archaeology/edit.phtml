@@ -8,6 +8,9 @@ $this->metaBase()
     <h2 class="lead">
         <?php echo $this->title(); ?>
     </h2>
+<?php $url = array('module' => 'database', 'controller' => 'hoards', 'action' => 'record', 'id' => $this->id); ?>
+    <a href="<?php echo $this->url($url, 'default', true); ?>" title="Return to record"
+       class="btn btn-small btn-default">Return to hoard record</a>
 <?php
 echo $this->form;
 ?>

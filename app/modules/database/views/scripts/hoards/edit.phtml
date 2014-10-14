@@ -9,7 +9,12 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/rec
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfields.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type='text/javascript');
-$this->headTitle('Edit hoard details');?>
+$this->headTitle('Edit hoard details');
+$this->metaBase()
+    ->setDescription('Edit a hoard\'s details')
+    ->setKeywords('hoard,roman,iron age')
+    ->generate();
+?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
     var nonRulers = ['BRONZE AGE', 'MESOLITHIC', 'NEOLITHIC', 'PALAEOLITHIC', 'UNKNOWN', 'MODERN'];
@@ -62,19 +67,21 @@ $(document).ready(function() {
 
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 
-
-
 <?php // $this->DataEditDeleteCheck($this->find->old_findID,$this->find->createdBy);
 ?>
 <?php
     echo $this->partial('partials/hoards/editHoardH2.phtml',$this->hoard);
 ?>
-
-<a href="<?php echo $this->url(array('module' => 'database','controller' => 'hoards', 'action' => 'record', 'id' => $this->hoard-id), 'default', true);?>" title="Return to record" class="btn btn-small btn-default">Return to hoard record</a>
+<?php $url = array('module' => 'database','controller' => 'hoards', 'action' => 'record', 'id' => $this->hoard->id);?>
+<a href="<?php echo $this->url($url, 'default', true);?>" title="Return to record"
+   class="btn btn-small btn-default">Return to hoard record</a>
 
 <?php
-
-$rulers = array('ROMAN', 'IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE', 'GREEK AND ROMAN PROVINCIAL');
+$rulers = array(
+    'ROMAN', 'IRON AGE', 'EARLY MEDIEVAL',
+    'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
+    'GREEK AND ROMAN PROVINCIAL'
+);
 if(in_array($this->hoard->broadperiod, $rulers)) {
     $rulers = new Rulers();
     $data = $rulers->getLastRulersPairs($this->hoard->broadperiod);

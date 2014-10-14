@@ -78,7 +78,7 @@ class ArchaeologyForm extends Pas_Form {
             ->addFilters(array('StripTags','StringTrim'));
 
         //Excavated checkbox
-        $excavated = new Zend_Form_Element_Checkbox('excavatedsite');
+        $excavated = new Zend_Form_Element_Checkbox('excavated');
         $excavated->setLabel('Excavated site: ')
             ->setRequired(false)
             ->setCheckedValue('1')
@@ -86,7 +86,7 @@ class ArchaeologyForm extends Pas_Form {
             ->addFilters(array('StripTags','StringTrim'));
 
         //Site class menu: Assigned via dropdown
-        $siteclass = new Zend_Form_Element_Select('siteclass');
+        $siteclass = new Zend_Form_Element_Select('sitecontext');
         $siteclass->setLabel('Site class: ')
             ->addMultioptions(array(
                 null => 'Choose class of site',
@@ -125,7 +125,7 @@ class ArchaeologyForm extends Pas_Form {
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
         //Sub period from: Assigned via dropdown
-        $sitesubperiod1 = new Zend_Form_Element_Select('sitesubperiod1');
+        $sitesubperiod1 = new Zend_Form_Element_Select('subperiod1');
         $sitesubperiod1->setLabel('Sub period from: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -134,7 +134,7 @@ class ArchaeologyForm extends Pas_Form {
             ->setAttribs(array('class' => 'selectpicker show-menu-arrow'));
 
         //Period from: Assigned via dropdown
-        $siteperiod1 = new Zend_Form_Element_Select('siteperiod1');
+        $siteperiod1 = new Zend_Form_Element_Select('period1');
         $siteperiod1->setLabel('Period from: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -145,7 +145,7 @@ class ArchaeologyForm extends Pas_Form {
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
         //Sub period to: Assigned via dropdown
-        $sitesubperiod2 = new Zend_Form_Element_Select('sitesubperiod2');
+        $sitesubperiod2 = new Zend_Form_Element_Select('subperiod2');
         $sitesubperiod2->setLabel('Sub period to: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -155,7 +155,7 @@ class ArchaeologyForm extends Pas_Form {
             ->setAttribs(array('class' => 'selectpicker show-menu-arrow'));
 
         //Period to: Assigned via dropdown
-        $siteperiod2 = new Zend_Form_Element_Select('siteperiod2');
+        $siteperiod2 = new Zend_Form_Element_Select('period2');
         $siteperiod2->setLabel('Period to: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -166,7 +166,7 @@ class ArchaeologyForm extends Pas_Form {
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
 
         //Date from: Free text Integer +ve or -ve
-        $numdate1 = new Zend_Form_Element_Text('numdate1');
+        $numdate1 = new Zend_Form_Element_Text('sitedateyear1');
         $numdate1->setLabel('Date from: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
@@ -174,7 +174,7 @@ class ArchaeologyForm extends Pas_Form {
             ->addValidator('Int');
 
         //Date to: Free text Integer +ve or -ve
-        $numdate2 = new Zend_Form_Element_Text('numdate2');
+        $numdate2 = new Zend_Form_Element_Text('sitedateyear2');
         $numdate2->setLabel('Date to: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
@@ -183,7 +183,7 @@ class ArchaeologyForm extends Pas_Form {
 
         ## CONTEXT DETAILS ##
         //Archaeological context: Assigned via dropdown
-        $arch_context = new Zend_Form_Element_Select('arch_context');
+        $arch_context = new Zend_Form_Element_Select('sitetype');
         $arch_context->setLabel('Context: ')
             ->addMultioptions(array(
                 null => 'Choose a context',
@@ -195,7 +195,7 @@ class ArchaeologyForm extends Pas_Form {
             ->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
 
         //Archaeological feature: Assigned via dropdown
-        $arch_feature = new Zend_Form_Element_Select('$arch_feature');
+        $arch_feature = new Zend_Form_Element_Select('feature');
         $arch_feature->setLabel('Feature: ')
             ->addMultioptions(array(
                 null => 'Choose a feature',
@@ -207,7 +207,7 @@ class ArchaeologyForm extends Pas_Form {
             ->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
 
         //Feature date from: Free text Integer +ve or -ve
-        $featuredate1 = new Zend_Form_Element_Text('featuredate1');
+        $featuredate1 = new Zend_Form_Element_Text('featuredateyear1');
         $featuredate1->setLabel('Feature date from: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
@@ -215,7 +215,7 @@ class ArchaeologyForm extends Pas_Form {
             ->addValidator('Int');
 
         //Feature date to: Free text Integer +ve or -ve
-        $featuredate2 = new Zend_Form_Element_Text('featuredate2');
+        $featuredate2 = new Zend_Form_Element_Text('featuredateyear2');
         $featuredate2->setLabel('Feature date to: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
@@ -235,7 +235,7 @@ class ArchaeologyForm extends Pas_Form {
             ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
         //First excavation year: Free text Integer +ve or -ve
-        $excavationyear1 = new Zend_Form_Element_Text('excavationyear1');
+        $excavationyear1 = new Zend_Form_Element_Text('yearexc1');
         $excavationyear1->setLabel('First excavation year: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
@@ -243,7 +243,7 @@ class ArchaeologyForm extends Pas_Form {
             ->addValidator('Int');
 
         //Second excavation year: Free text Integer +ve or -ve
-        $excavationyear2 = new Zend_Form_Element_Text('excavationyear2');
+        $excavationyear2 = new Zend_Form_Element_Text('yearexc2');
         $excavationyear2->setLabel('Second excavation year: ')
             ->setAttrib('size',10)
             ->setAttribs(array('placeholder' => 'Year in format YYYY'))
@@ -258,7 +258,7 @@ class ArchaeologyForm extends Pas_Form {
             ->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
 
         //Contextual data quality rating: Assigned via dropdown
-        $contextualdataquality = new Zend_Form_Element_Select('contextualdataquality');
+        $contextualdataquality = new Zend_Form_Element_Select('contextualrating');
         $contextualdataquality->setLabel('Context data quality rating: ')
             ->setRequired(false)
             ->addFilters(array('StripTags','StringTrim'))
@@ -271,7 +271,7 @@ class ArchaeologyForm extends Pas_Form {
 
         ## ARCHIVE LOCATION ##
         //Archive location: free text field
-        $archive_loc = new Zend_Form_Element_Text('archive_loc');
+        $archive_loc = new Zend_Form_Element_Text('archiveloc');
         $archive_loc->setLabel('Archive location: ')
             ->setAttrib('class','span6')
             ->addFilters(array('StripTags','StringTrim'));
@@ -287,32 +287,32 @@ class ArchaeologyForm extends Pas_Form {
         ));
 
         $this->addDisplayGroup(array(
-                'knownsite','excavatedsite','siteclass','landscapetopography'),
+                'knownsite','excavated','sitecontext','landscapetopography'),
             'siteinfo');
         $this->siteinfo->setLegend('Site information');
 
         $this->addDisplayGroup(array(
-                'broadperiod','sitesubperiod1','siteperiod1','sitesubperiod2','siteperiod2','numdate1','numdate2'),
+                'broadperiod','subperiod1','period1','subperiod2','period2','sitedateyear1','sitedateyear2'),
             'sitedating');
         $this->sitedating->setLegend('Site dating');
 
         $this->addDisplayGroup(array(
-                'arch_context','arch_feature','featuredate1','featuredate2'),
+                'sitetype','feature','featuredateyear1','featuredateyear2'),
             'contextdetails');
         $this->contextdetails->setLegend('Context details');
 
         $this->addDisplayGroup(array(
-                'recmethod','excavationyear1','excavationyear2'),
+                'recmethod','yearexc1','yearexc2'),
             'recoveryinfo');
         $this->recoveryinfo->setLegend('Recovery information');
 
         $this->addDisplayGroup(array(
-                'description','contextualdataquality'),
+                'description','contextualrating'),
             'archaeologicaldetails');
         $this->archaeologicaldetails->setLegend('Archaeological details');
 
         $this->addDisplayGroup(array(
-                'archive_loc'),
+                'archiveloc'),
             'archivelocation');
         $this->archivelocation->setLegend('Archive location');
 
