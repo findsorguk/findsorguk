@@ -360,3 +360,15 @@ margin-left: 0px;
 #dims  abbr {
 text-transform: lowercase;
 }
+.btn-mini [class^="icon-"],
+.btn-mini [class*=" icon-"] {
+    margin-top: -1px;
+}
+
+.btn-mini {
+    padding: 0 6px;
+    font-size: 10.5px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
