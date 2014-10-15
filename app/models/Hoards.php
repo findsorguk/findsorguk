@@ -649,27 +649,27 @@ class Hoards extends Pas_Db_Table_Abstract {
      * @todo Needs modification for Hoards
      */
     public function getLastRecord($userId) {
-        $fieldList = new CopyFind();
+        $fieldList = new CopyHoards();
         $fields = $fieldList->getConfig();
         $select = $this->select()
             ->from($this->_name,$fields)
             ->joinLeft(array('finderOne' => 'people'),
-                'finderOne.secuid = finds.finderID',
+                'finderOne.secuid = hoards.finderID',
                 array('finder' => 'fullname'))
             ->joinLeft(array('finderTwo' => 'people'),
-                'finderTwo.secuid = finds.finder2ID',
+                'finderTwo.secuid = hoards.finder2ID',
                 array('secondfinder' => 'fullname'))
             ->joinLeft(array('identifier' => 'people'),
-                'identifier.secuid = finds.identifier1ID',
+                'identifier.secuid = hoards.identifier1ID',
                 array('idby' => 'fullname'))
             ->joinLeft(array('identifierTwo' => 'people'),
-                'identifierTwo.secuid = finds.identifier2ID',
+                'identifierTwo.secuid = hoards.identifier2ID',
                 array('id2by' => 'fullname'))
             ->joinLeft(array('recorder' => 'people'),
-                'recorder.secuid = finds.finderID',
+                'recorder.secuid = hoards.finderID',
                 array('recordername' => 'fullname'))
-            ->where('finds.createdBy = ?', (int)$userId)
-            ->order('finds.id DESC')
+            ->where('hoards.createdBy = ?', (int)$userId)
+            ->order('hoards.id DESC')
             ->limit(1);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);

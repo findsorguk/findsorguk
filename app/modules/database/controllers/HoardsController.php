@@ -247,7 +247,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
 
         $last = $this->_getParam('copy');
         if($last == 'last') {
-            $form->populate($this->_hoards->fetchRow('createdBy = ' . $this->getIdentityForForms())->toArray());
+            $data = $this->_hoards->getLastRecord($this->getIdentityForForms());
+            $form->populate($data[0]);
         }
         if($this->getRequest()->isPost()) {
             $formData = $this->_request->getPost();
