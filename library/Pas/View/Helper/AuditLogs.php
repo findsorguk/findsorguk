@@ -120,7 +120,7 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
     public function buildHtml($id)
     {
         $html = '';
-        if (!is_null($this->getRole() && is_int($id))) {
+        if (in_array($this->getRole(), $this->_allowed)) {
             $html .= '<ul id="tab" class="nav nav-tabs">';
             if ($this->getController() == 'artefacts') {
                 $html .= '<li class="active"><a href="#findAudit" data-toggle="tab">Finds audit</a></li>';
