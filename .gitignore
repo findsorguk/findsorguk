@@ -106,8 +106,9 @@ ClientBin
 stylecop.*
 ~$*
 *.dbmdl
-Generated_Code #added for RIA/Silverlight projects
 
+# added for RIA/Silverlight projects
+Generated_Code
 
 
 ############
