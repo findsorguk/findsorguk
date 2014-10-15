@@ -472,17 +472,17 @@ class HoardForm extends Pas_Form {
         $quantityCoins = new Zend_Form_Element_Text('quantityCoins');
         $quantityCoins->setLabel('Quantity of coins: ')
             ->addValidator('Int')
-            ->setValue(1);
+            ->setValue(null);
 
         $quantityArtefacts = new Zend_Form_Element_Text('quantityArtefacts');
         $quantityArtefacts->setLabel('Quantity of artefacts: ')
             ->addValidator('Int')
-            ->setValue(1);
+            ->setValue(null);
 
         $quantityContainers = new Zend_Form_Element_Text('quantityContainers');
         $quantityContainers->setLabel('Quantity of containers: ')
             ->addValidator('Int')
-            ->setValue(1);
+            ->setValue(null);
 
         ## SUBMIT BUTTON ##
         $submit = new Zend_Form_Element_Submit('submit');
