@@ -431,6 +431,7 @@ class HoardForm extends Pas_Form {
             ->addMultiOptions(array(null => 'Choose rally name',
                 'Available rallies' => $rally_options))
             ->addValidator('InArray', false, array(array_keys($rally_options)))
+            ->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'))
             ->addValidator('Int')
             ->setOrder(57);
 
