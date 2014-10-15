@@ -294,6 +294,22 @@ class HoardForm extends Pas_Form {
             ->addFilters(array('StripTags','StringTrim', 'StringToUpper'))
             ->setOrder(19);
 
+        ## QUANTITIES ##
+        $quantityCoins = new Zend_Form_Element_Text('quantityCoins');
+        $quantityCoins->setLabel('Quantity of coins: ')
+            ->addValidator('Int')
+            ->setOrder(20);
+
+        $quantityArtefacts = new Zend_Form_Element_Text('quantityArtefacts');
+        $quantityArtefacts->setLabel('Quantity of artefacts: ')
+            ->addValidator('Int')
+            ->setOrder(21);
+
+        $quantityContainers = new Zend_Form_Element_Text('quantityContainers');
+        $quantityContainers->setLabel('Quantity of containers: ')
+            ->addValidator('Int')
+            ->setOrder(22);
+
         ## MATERIALS ##
         //Materials
         $materials = new Zend_Form_Element_Multiselect('materials');
@@ -302,50 +318,50 @@ class HoardForm extends Pas_Form {
             ->setAttrib('class', 'multiselect')
             ->setDescription('Primary materials of coins and artefacts in the hoard')
             ->addFilters(array('Null'))
-            ->setOrder(20);
+            ->setOrder(23);
 
         ## RECORDING DETAILS ##
         //Recorder
         $recorderID = new Zend_Form_Element_Hidden('recorderID');
         $recorderID->addFilters(array('StripTags','StringTrim', 'Null'))
-            ->setOrder(21);
+            ->setOrder(24);
 
         $recordername = new Zend_Form_Element_Text('recordername');
         $recordername->setLabel('Recorded by: ')
             ->addFilters(array('StripTags','StringTrim', 'Null'))
-            ->setOrder(22);
+            ->setOrder(25);
 
         //Primary Identifier
         $idBy = new Zend_Form_Element_Text('idBy');
         $idBy->setLabel('Primary identifier: ')
             ->addFilters(array('StripTags','StringTrim', 'Null'))
-            ->setOrder(23);
+            ->setOrder(26);
 
         $identifier1ID = new Zend_Form_Element_Hidden('identifier1ID');
         $identifier1ID->addFilters(array('StripTags','StringTrim', 'Null'))
-            ->setOrder(24);
+            ->setOrder(27);
 
         $id2by = new Zend_Form_Element_Text('id2by');
         $id2by->setLabel('Secondary Identifier: ')
             ->addFilters(array('StripTags','StringTrim', 'Null'))
-            ->setOrder(25);
+            ->setOrder(28);
 
         //Secondary Identifier
         $identifier2ID = new Zend_Form_Element_Hidden('identifier2ID');
         $identifier2ID->setRequired(false)
             ->addFilters(array('StripTags','StringTrim', 'Null'))
-            ->setOrder(26);
+            ->setOrder(29);
 
         ## DISCOVERER DETAILS ##
         //Finder
         $finder1ID = new Zend_Form_Element_Hidden('finder1ID');
         $finder1ID->setRequired(false)
             ->addFilters(array('StripTags','StringTrim', 'Null'))
-            ->setOrder(27);
+            ->setOrder(30);
 
         $hiddenfield = new Zend_Form_Element_Hidden('hiddenfield');
         $hiddenfield->setValue(2)
-            ->setOrder(28);
+            ->setOrder(31);
 
         $finder1 = new Zend_Form_Element_Text('finder1');
         $finder1->setLabel('Found by: ')
@@ -353,7 +369,7 @@ class HoardForm extends Pas_Form {
             ->setDescription('To make a new finder/identifier appear, you '
                 . 'first need to create them from the people menu on '
                 . 'the left hand side')
-            ->setOrder(29);
+            ->setOrder(32);
 
         $addFinderButton = new Zend_Form_Element_Button('addFinder');
         $addFinderButton->setLabel('Add Additional Finder')
@@ -496,6 +512,7 @@ class HoardForm extends Pas_Form {
             $terminaldate2, $terminalreason, $description,
             $notes, $coindataquality, $findofnote,
             $findofnotereason, $treasure, $treasureID,
+            $quantityArtefacts, $quantityCoins, $quantityContainers,
             $materials, $recorderID, $recordername,
             $idBy, $id2by, $identifier1ID,
             $identifier2ID, $finder1, $finder1ID,
@@ -504,7 +521,6 @@ class HoardForm extends Pas_Form {
             $datefound2, $rally, $rallyID,
             $legacy_ref, $other_ref, $smrrefno,
             $musaccno, $curr_loc, $subs_action,
-            $quantityArtefacts, $quantityCoins, $quantityContainers,
             $submit
             ));
 
@@ -528,6 +544,9 @@ class HoardForm extends Pas_Form {
             'hoarddetails');
         $this->hoarddetails->setLegend('Hoard details');
 
+        $this->addDisplayGroup(array('quantityCoins', 'quantityArtefacts', 'quantityContainers'), 'quantities');
+        $this->quantities->setLegend('Quantities');
+
         $this->addDisplayGroup(array(
             'materials'),
             'primarymaterials');
@@ -549,9 +568,6 @@ class HoardForm extends Pas_Form {
         $this->addDisplayGroup(array('legacyID', 'other_ref','smrrefno','musaccno','curr_loc',
             'subs_action'), 'references');
         $this->references->setLegend('Reference numbers');
-
-        $this->addDisplayGroup(array('quantityCoins', 'quantityArtefacts', 'quantityContainers'), 'quantities');
-        $this->quantities->setLegend('Quantities');
 
         $this->addDisplayGroup(array(
             'submit'),
