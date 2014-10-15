@@ -71,7 +71,7 @@ echo $this->headTitle('Database settings');
             $hoardFields = array();
             foreach($this->hoards as $hoardField){
                 $hoardFields[] = $this->fieldNamesDb()
-                    ->setField($hoardField)
+                    ->setField(lcfirst($hoardField))
                     ->parseField();
             }
             ?>
