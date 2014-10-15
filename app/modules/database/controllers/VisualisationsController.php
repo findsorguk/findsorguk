@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for displaying information about coins
  *
  * @category   Pas
@@ -10,13 +11,15 @@
  * @uses Pas_Solr_Handler
  *
  */
-class Database_VisualisationsController extends Pas_Controller_Action_Admin {
+class Database_VisualisationsController extends Pas_Controller_Action_Admin
+{
 
     /** Init the controller
      * @access public
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         $this->_helper->_acl->allow(null);
     }
 
@@ -25,7 +28,8 @@ class Database_VisualisationsController extends Pas_Controller_Action_Admin {
      * @return void
      * @todo put something in the view!
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         //Nothing here now!
     }
 
@@ -33,7 +37,8 @@ class Database_VisualisationsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function objectsAction(){
+    public function objectsAction()
+    {
         //Magic in view
     }
 
@@ -41,17 +46,18 @@ class Database_VisualisationsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function heatmapAction(){
+    public function heatmapAction()
+    {
         $params['show'] = 50000;
-	$params['format'] = 'kml';
-	$params['q'] = '*:*';
-	$search = new Pas_Solr_Handler();
+        $params['format'] = 'kml';
+        $params['q'] = '*:*';
+        $search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
-	$search->setFields(array(
-            'fourFigureLat', 'fourFigureLon')
-	);
-	$search->setParams($params);
-	$search->execute();
-	$this->view->results = $search->processResults();
+        $search->setFields(array(
+                'fourFigureLat', 'fourFigureLon')
+        );
+        $search->setParams($params);
+        $search->execute();
+        $this->view->results = $search->processResults();
     }
 }

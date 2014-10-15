@@ -89,12 +89,12 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
     public function addAction()
     {
         // Check if data already added, if so redirect back.
-        if($this->getModel()->fetchRow('id=' . $this->_getParam('id'))){
+        if ($this->getModel()->fetchRow('id=' . $this->_getParam('id'))) {
             $this->getFlash()->addMessage('Archaeological context already exists on record');
             // Redirect back to the record
             $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
         }
-        if($this->_getParam('id', false) || $this->_getParam('hoardID', false)) {
+        if ($this->_getParam('id', false) || $this->_getParam('hoardID', false)) {
             $form = $this->getArchaeologyForm();
             $form->submit->setLabel('Add archaeological context');
             $this->view->form = $form;
@@ -178,7 +178,25 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-
+        if ($this->_request->isPost()) {
+            $id = (int)$this->_request->getPost('id');
+            $del = $this->_request->getPost('del');
+            $hoardID = $this->_request->getPost('hoardID');
+            if ($del == 'Yes' && $id > 0) {
+                $where = array();
+                $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $id);
+                $where[] = $this->getModel()->getAdapter()->quoteInto('hoardID = ?', $hoardID);
+                $this->getModel()->delete($where);
+                $this->getFlash()->addMessage('Record deleted!');
+                //$this->_helper->solrUpdater->deleteById('beowulf', $id);
+                $this->redirect('database/hoards/record/id/' . $id);
+            } elseif ($del == 'No' && $id > 0) {
+                $this->getFlash()->addMessage('No changes made!');
+                $this->redirect('database/hoards/record/id/' . $id);
+            }
+        } else {
+            $this->view->hoard = $this->getModel()->fetchRow('id=' . $this->_request->getParam('id'));
+        }
     }
 
 }
