@@ -136,6 +136,24 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-
+        if ($this->_request->isPost()) {
+            $id = (int)$this->_request->getPost('id');
+            $del = $this->_request->getPost('del');
+            $hoardID = $this->_request->getPost('hoardID');
+            if ($del == 'Yes' && $id > 0) {
+                $where = array();
+                $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $id);
+                $where[] = $this->getModel()->getAdapter()->quoteInto('hoardID = ?', $hoardID);
+                $this->getModel()->delete($where);
+                $this->getFlash()->addMessage('Record deleted!');
+                //$this->_helper->solrUpdater->deleteById('beowulf', $id);
+                $this->redirect('database/hoards/record/id/' . $id);
+            } elseif ($del == 'No' && $id > 0) {
+                $this->getFlash()->addMessage('No changes made!');
+                $this->redirect('database/hoards/record/id/' . $id);
+            }
+        } else {
+            $this->view->summary = $this->getModel()->fetchRow('id=' . $this->_request->getParam('id'));
+        }
     }
 }
