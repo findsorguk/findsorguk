@@ -185,7 +185,7 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
         $params = array(
             'module' => 'database',
             'controller' => 'ajax',
-            'action' => $this->getTableName() . 'audit',
+            'action' => strtolower($this->getTableName()) . 'audit',
             'id' => $editID
             );
         return $params;

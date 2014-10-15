@@ -112,6 +112,26 @@ class Pas_View_Helper_FieldNamesDb extends Zend_View_Helper_Abstract
         'landusecode'   => 'Land use code',
         'depthdiscovery'    => 'Depth of discovery',
         'Highsensitivity'   => 'High sensitivity',
+        'recordername'  => 'Recorder name',
+        'legacyID'  => 'Legacy ID number',
+        'idBy'  => 'Identified by',
+        'id2by' => 'Secondary identifier',
+        'quantityCoins' => 'Quantity of coins',
+        'quantityContainers' => 'Quantity of containers',
+        'quantityArtefacts' => 'Quantity of artefacts',
+        'declong' => 'Decimal longitude',
+        'declat'    => 'Decimal latitude',
+        'fourFigureLat' => 'Four figure latitude',
+        'fourFigureLon' => 'Four figure longitude',
+        'sitecontext' => 'Site context',
+        'recmethod' => 'Recording method',
+        'knownsite' => 'Known site',
+        'sitedateyear1' => 'Site dates from',
+        'sitedateyear2' => 'Site dates to',
+        'landscapetopography' => 'Landscape topography',
+        'subperiod1' => 'Sub-period from',
+        'subperiod2' => 'Sub-period to'
+
     );
 
     /** Get the field

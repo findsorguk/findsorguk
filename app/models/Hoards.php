@@ -751,4 +751,8 @@ class Hoards extends Pas_Db_Table_Abstract {
         return $this->getAdapter()->fetchRow($select);
     }
 
+    public function copyLastHoard( $userID )
+    {
+    }
+
 }

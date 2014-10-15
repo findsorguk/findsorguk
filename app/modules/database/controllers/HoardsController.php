@@ -247,14 +247,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
 
         $last = $this->_getParam('copy');
         if($last == 'last') {
-            $finddata = $this->_hoards->getLastRecord($this->getIdentityForForms());
-            foreach($finddata as $finddataflat) {
-                $form->populate($finddataflat);
-                if(isset($user->peopleID)){
-                    $form->recorderID->setValue($user->peopleID);
-                    $form->recordername->setValue($user->fullname);
-                }
-            }
+            $form->populate($this->_hoards->fetchRow('createdBy = ' . $this->getIdentityForForms())->toArray());
         }
         if($this->getRequest()->isPost()) {
             $formData = $this->_request->getPost();

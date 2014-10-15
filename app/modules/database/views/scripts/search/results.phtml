@@ -11,7 +11,7 @@
  <p><a href="<?php echo $this->url($url,null,true);?>" class="btn-small btn">Map results<i class="icon-map-marker"></i></a> <?php echo $this->searchExportTools($this->paginator->getTotalItemCount());?></p>
 
 <div class="row-fluid">
-<ul><?php echo $this->SearchParams(Zend_Controller_Front::getInstance()->getRequest()->getParams());?></ul>
+<ul><?php echo $this->searchParams(Zend_Controller_Front::getInstance()->getRequest()->getParams());?></ul>
 </div>
 
 <div class="row-fluid">

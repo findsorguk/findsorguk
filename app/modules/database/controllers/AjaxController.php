@@ -227,7 +227,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function auditAction() {
+    public function findsauditAction() {
         $audit = new FindsAudit();
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
@@ -236,7 +236,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function fsauditAction(){
+    public function findspotsauditAction(){
         $audit = new FindSpotsAudit();
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
@@ -258,6 +258,16 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
         $audit = new HoardsAudit();
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
+
+    /** Get a archaeology overlay from the audit table
+     * @access public
+     * @return void
+     */
+    public function archaeologyauditAction(){
+        $audit = new ArchaeologyAudit();
+        $this->view->audit = $audit->getChange($this->_getParam('id'));
+    }
+
 
     /** Get a saved search overlay
      * @access public

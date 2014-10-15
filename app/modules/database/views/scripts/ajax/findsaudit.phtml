@@ -1,11 +1,12 @@
 <div class="modal-header">
-    <a class="close" data-dismiss="modal">x</a>
-
     <h2 class="lead">
-        Audit of coin changes
+        Audit of artefact changes
     </h2>
+    <a class="close" data-dismiss="modal">x</a>
 </div>
 <div class="modal-body">
+
+
     <ul>
         <li>
             Audit changes made <?php echo $this->timeAgoInWords($this->audit['0']['created']); ?>
@@ -34,8 +35,7 @@
                     <?php echo $this->fieldNamesDb()->setField($audit['fieldName']); ?>
                 </td>
                 <td>
-                    <?php echo $audit['beforeValue']; ?>
-                </td>
+                    <?php echo $audit['beforeValue']; ?></td>
                 <td>
                     <?php echo $audit['afterValue']; ?>
                 </td>
