@@ -1,0 +1,26 @@
+<?php
+$this->headTitle('Delete hoard record');
+?>
+<?php if ($this->hoard) : ?>
+    <h2>
+        Delete <?php echo $this->hoard->hoardID; ?>
+    </h2>
+    <p>
+        Are you sure that you want to delete <?php echo $this->hoard->hoardID; ?>
+    </p>
+    <?php $url = array('module' => 'database', 'controller' => 'archaeology', 'action' => 'delete'); ?>
+    <form action="<?php echo $this->url($url, 'default', true); ?>"
+          method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->hoard->id; ?>"/>
+            <input type="hidden" name="hoardID" value="<?php echo $this->hoard->hoardID; ?>"/>
+
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
+    </form>
+<?php else: ?>
+    <p>
+        Cannot find the item requested.
+    </p>
+<?php endif; ?>
