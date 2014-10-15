@@ -40,7 +40,7 @@ class ConfigureHoardCopyForm extends Pas_Form
             'finder2ID', 'datefound2flag', 'datefound1flag',
             'findID', 'phase_date_1', 'phase_date_2',
             'context', 'depositionDate', 'volume',
-            'reference', 'classification'
+            'reference', 'classification', 'hoardID'
         );
 
         //What are the friendly labels?
@@ -110,7 +110,8 @@ class ConfigureHoardCopyForm extends Pas_Form
 
         $this->addDisplayGroup($elements, 'details');
         //Submit button
-        $submit = new Zend_Form_Element_Submit('submit');;
+        $submit = new Zend_Form_Element_Submit('submit');
+        $submit->setLabel('Submit hoard form configuration');
         $this->addElement($submit);
         $this->details->setLegend('Choose fields: ');
 
