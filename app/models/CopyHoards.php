@@ -22,13 +22,13 @@
  * @example  /app/modules/users/controllers/ConfigurationController.php
  */
 
-class CopyHoard extends Pas_Db_Table_Abstract {
+class CopyHoards extends Pas_Db_Table_Abstract {
 
     /** The table name
      * @access protected
      * @var type
      */
-    protected $_name = 'copyHoard';
+    protected $_name = 'copyHoards';
 
     /** The primary key
      * @access protected
@@ -41,24 +41,20 @@ class CopyHoard extends Pas_Db_Table_Abstract {
      * @var array
      */
     protected $_default = array(
-        'description', 'finderID', 'other_ref',
-        'datefound1', 'datefound2', 'culture',
-        'discmethod', 'disccircum', 'notes',
-        'objecttype', 'classification', 'subclass',
-        'inscription', 'objdate1period', 'objdate2period',
-        'broadperiod', 'numdate1', 'numdate2',
-        'material1', 'material2', 'manmethod',
-        'decmethod', 'surftreat', 'decstyle',
-        'preservation', 'completeness', 'reuse',
-        'reuse_period', 'length', 'width',
-        'thickness', 'diameter', 'weight',
-        'height', 'quantity', 'curr_loc',
-        'recorderID', 'finder2ID', 'identifier1ID',
-        'identifier2ID', 'findofnotereason', 'findofnote',
-        'numdate1qual', 'numdate2qual','objdate1cert',
-        'objdate2cert',	'treasure', 'treasureID',
-        'subs_action', 'musaccno', 'smr_ref',
-        'objdate1subperiod','objdate2subperiod'
+        'broadperiod', 'period1', 'subperiod1',
+        'period2', 'subperiod2', 'numdate1',
+        'numdate2', 'lastrulerID', 'reeceID',
+        'quantityCoins', 'quantityArtefacts', 'quantityContainers',
+        'terminalyear1', 'terminalyear2', 'terminalreason',
+        'description', 'notes', 'secwfstage',
+        'findofnote', 'findofnotereason', 'treasure',
+        'treasureID', 'qualityrating', 'materials',
+        'recorderID', 'identifier1ID', 'identifier2ID',
+        'finderID', 'finder2ID', 'disccircum',
+        'discmethod', 'datefound1', 'datefound2',
+        'rally', 'rallyID', 'legacyID',
+        'other_ref', 'smrrefno', 'musaccno',
+        'curr_loc', 'subs_action'
         );
 
     /** Get the base config

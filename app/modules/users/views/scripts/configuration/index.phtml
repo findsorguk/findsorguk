@@ -63,4 +63,20 @@ echo $this->headTitle('Database settings');
 	</blockquote>
 	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'redirect'),'default',true);?>">Change page</a></p>
 </div>
+
+    <div class="row span8">
+        <h3>Coin hoard</h3>
+        <blockquote >
+            <?php
+            $hoardFields = array();
+            foreach($this->hoards as $hoardField){
+                $hoardFields[] = $this->fieldNamesDb()
+                    ->setField($hoardField)
+                    ->parseField();
+            }
+            ?>
+            <p><?php echo implode(', ', $hoardFields);?></p>
+        </blockquote>
+        <p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'hoard'),'default',true);?>">Change hoard</a></p>
+    </div>
 </div>
