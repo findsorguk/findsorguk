@@ -85,7 +85,6 @@ class CoinSummaryForm extends Pas_Form
         $mint_id->setLabel('Issuing mint: ')
             ->addValidator('Int')
             ->setRegisterInArrayValidator(false)
-            ->setRequired(true)
             ->addFilters(array('StripTags','StringTrim'))
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
             ->setOrder(4);
