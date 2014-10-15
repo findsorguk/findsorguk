@@ -1,13 +1,20 @@
 <?php
 $this->headTitle('Edit coin summary details');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type = 'text/javascript');
 $this->metaBase()
     ->setDescription()
     ->setKeywords()
     ->generate();
 ?>
     <h2 class="lead">
-        <?php echo $this->title();?>
+        <?php echo $this->title(); ?>
     </h2>
-<a href="" class="btn btn-small btn-default" title="Return to record">Return to record</a>
-<?php echo $this->form;?>
+<?php $url = array(
+    'module' => 'database',
+    'controller' => 'hoards',
+    'action' => 'record',
+    'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('hoardID'));
+?>
+    <a href="<?php echo $this->url($url, 'default', true); ?>" class="btn btn-small btn-default"
+       title="Return to record">Return to record</a>
+<?php echo $this->form; ?>

@@ -76,7 +76,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
      */
     public function addAction()
     {
-        if ( $this->_getParam('id', false) || $this->getParam('secUID', false) ) {
+        if ($this->_getParam('id', false) || $this->getParam('secUID', false)) {
             $form = $this->getForm();
             $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
@@ -84,7 +84,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
                 $data['hoardID'] = $this->_getParam('secUID');
                 $this->getModel()->add($data);
                 $this->getFlash()->addMessage('You have added a summary record');
-                $this->redirect('/database/hoards/record/id/' . $this->_getParam('id') );
+                $this->redirect('/database/hoards/record/id/' . $this->_getParam('id'));
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -98,33 +98,37 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->_getParam('id', false) || $this->_getParam('hoardID', false)) {
             $form = $this->getForm();
             $this->view->form = $form;
-            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                //Where array
-                $where = array();
-                $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                //Set up auditing
-                $oldData = $this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray();
-
-                //Get the data and update based on where value
-                $this->getModel()->update($form->getValues(), $where);
-                $this->_helper->audit(
-                    $updateData,
-                    $oldData,
-                    'SummaryAudit',
-                    $this->_getParam('id'),
-                    $this->_getParam('id')
-                );
-                $this->getFlash()->addMessage('You have edited data successfully');
-                $this->redirect();
+            // Check if POST
+            if ($this->getRequest()->isPost()) {
+                // Check if form is valid
+                if ($form->isValid($this->_request->getPost())) {
+                    //Where array
+                    $where = array();
+                    $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    //Set up auditing
+                    $oldData = $this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    //Get the data and update based on where value
+                    $this->getModel()->update($form->getValues(), $where);
+                    $this->_helper->audit(
+                        $updateData,
+                        $oldData,
+                        'SummaryAudit',
+                        $this->_getParam('id'),
+                        $this->_getParam('id')
+                    );
+                    $this->getFlash()->addMessage('You have edited data successfully');
+                    $this->redirect('/database/hoards/record/id/' );
+                } else {
+                    $form->populate($this->_request->getPost());
+                }
             } else {
-                $form->populate($this->_request->getPost());
+                $form->populate($this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray());
             }
-
         } else {
-            throw new Pas_Exception($this->_missingParameter, 500);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 

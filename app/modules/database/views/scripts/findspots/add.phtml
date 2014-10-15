@@ -1,39 +1,40 @@
 <?php
 $this->headTitle('Add a findspot');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/bootstrap-typeahead.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/typeaheads/landowner.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jQueryLinkedSelect.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedSelect.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedQuery.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/landowner.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedSelect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedQuery.js', $type = 'text/javascript');
 $front = Zend_Controller_Front::getInstance()->getRequest();
 $copy = $front->getParam('copy');
-if(!is_null($copy)){
-$this->headTitle(' copied from last record');
+if (!is_null($copy)) {
+    $this->headTitle(' copied from last record');
 }
 ?>
-<h2><?php echo $this->title();?></h2>
-<?php $id = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');?>
+<h2><?php echo $this->title(); ?></h2>
+<?php $params = Zend_Controller_Front::getInstance()->getRequest()->getParams(); ?>
 <p><a href="<?php echo $this->url(array(
-	'module' => 'database',
-	'controller' => 'findspots',
-	'action' => 'add',
-	'copy' => 'last'),null,false);?>" title="Autofill form fields from last record you created"
-	id="populate" accesskey="c" class="btn btn-success">Copy last record</a>
-	<a class="btn btn-success" href="<?php echo $this->url(array(
-	'module' => 'database',
-	'controller' => 'artefacts',
-	'action' => 'record', 'id' => $id),null,true);?>" title="return to the record">Return to record</a></p>
+        'module' => 'database',
+        'controller' => 'findspots',
+        'action' => 'add',
+        'copy' => 'last'), null, false);?>" title="Autofill form fields from last record you created"
+      id="populate" accesskey="c" class="btn btn-success">Copy last record</a>
+    <a class="btn btn-success" href="<?php echo $this->url(array(
+        'module' => 'database',
+        'controller' => $params['recordtype'],
+        'action' => 'record', 'id' => $params['id']), null, true);?>" title="return to the record">Return to record</a></p>
 <div class="alert alert-danger">
-If your menus don't change on selection of county or parish, you might need to clear your browser cache - ctrl and f5 together on this page.
+    If your menus don't change on selection of county or parish, you might need to clear your browser cache - ctrl and
+    f5 together on this page.
 </div>
 <?php
 echo $this->form;
 ?>
 
-<?php $this->jQuery()->javascriptCaptureStart();?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
 $(document).ready(function() {
 
-		// focus on the first text input field in the first field on the page
-		$("input[type='select']:first", document.forms[0]).focus();
-    });
-<?php $this->jQuery()->javascriptCaptureEnd();?>
+// focus on the first text input field in the first field on the page
+$("input[type='select']:first", document.forms[0]).focus();
+});
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>
