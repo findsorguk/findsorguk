@@ -1,19 +1,19 @@
 <?php
 $this->headTitle('Add a new hoard');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder-hoards.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfields.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder-hoards.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfields.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type = 'text/javascript');
 
 $front = Zend_Controller_Front::getInstance()->getRequest();
 $copy = $front->getParam('copy');
-if(!is_null($copy)){
+if (!is_null($copy)) {
     $this->headTitle(' copied from last record');
 }
 ?>
@@ -21,67 +21,67 @@ if(!is_null($copy)){
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
 
-    var nonRulers = ['BRONZE AGE', 'MESOLITHIC', 'NEOLITHIC', 'PALAEOLITHIC', 'UNKNOWN', 'MODERN'];
-    var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
-    'GREEK AND ROMAN PROVINCIAL'];
-    var romani = ['ROMAN'];
+var nonRulers = ['BRONZE AGE', 'MESOLITHIC', 'NEOLITHIC', 'PALAEOLITHIC', 'UNKNOWN', 'MODERN'];
+var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
+'GREEK AND ROMAN PROVINCIAL'];
+var romani = ['ROMAN'];
 
-    $('#broadperiod').linkedSelect('/ajax/lastruler','#lastrulerID',{firstOption: 'Please select a ruler'});
+$('#broadperiod').linkedSelect('/ajax/lastruler','#lastrulerID',{firstOption: 'Please select a ruler'});
 
-    $('select[name="broadperiod"]').on('change',function(){
+$('select[name="broadperiod"]').on('change',function(){
 
 
-        var period = $(this).val();
+var period = $(this).val();
 
-        if(jQuery.inArray(period, nonRulers) !== -1) {
-            console.log('In missing ruler array');
-            $("#lastrulerID").select2('val', 'All');
-            $("#reeceID").select2('val', 'ALL');
-            $('#reeceID').attr('disabled','disabled');
-        } else if(jQuery.inArray(period, rulerPeriods) !== -1) {
-            $('#lastrulerID').removeAttr('disabled');
-            console.log('In  ruler array');
-            $('#reeceID').attr('disabled','disabled');
-        } else if (jQuery.inArray(period, romani) !== -1) {
-            $('#reeceID').removeAttr('disabled');
-            $('#lastrulerID').removeAttr('disabled');
-            console.log('In Roman array');
-        }
-    });
+if(jQuery.inArray(period, nonRulers) !== -1) {
+console.log('In missing ruler array');
+$("#lastrulerID").select2('val', 'All');
+$("#reeceID").select2('val', 'ALL');
+$('#reeceID').attr('disabled','disabled');
+} else if(jQuery.inArray(period, rulerPeriods) !== -1) {
+$('#lastrulerID').removeAttr('disabled');
+console.log('In  ruler array');
+$('#reeceID').attr('disabled','disabled');
+} else if (jQuery.inArray(period, romani) !== -1) {
+$('#reeceID').removeAttr('disabled');
+$('#lastrulerID').removeAttr('disabled');
+console.log('In Roman array');
+}
+});
 
-    $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
-    $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
-    $("input[type='select']:first", document.forms[0]).focus();
-    $('.multiselect').multiselect({
-        maxHeight: 200,
-        enableFiltering: true
-    });
+$("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
+$("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
+$("input[type='select']:first", document.forms[0]).focus();
+$('.multiselect').multiselect({
+maxHeight: 200,
+enableFiltering: true
+});
 
-    $("#addFinder").click(
-        function() {
-            ajaxAddField();
-        }
-    );
+$("#addFinder").click(
+function() {
+ajaxAddField();
+}
+);
 
-    $("#removeFinder").click(
-        function() {
-            removeField();
-        }
-    );
+$("#removeFinder").click(
+function() {
+removeField();
+}
+);
 
-    // Show the Remove Finder button on error repopulate if more than 1 finder
-    if($("#hiddenfield").val() > 2) {
-        $("#removeFinder").attr('class', "btn btn-warning")
-    };
-    // Hide the Add Finder button on error repopulate if more than 10 finders
-    if($("#hiddenfield").val() >= 11) {
-        $("#addFinder").attr('class', "btn btn-info hidden")
-    };
+// Show the Remove Finder button on error repopulate if more than 1 finder
+if($("#hiddenfield").val() > 2) {
+$("#removeFinder").attr('class', "btn btn-warning")
+};
+// Hide the Add Finder button on error repopulate if more than 10 finders
+if($("#hiddenfield").val() >= 11) {
+$("#addFinder").attr('class', "btn btn-info hidden")
+};
 
 });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 <h2>
-    <?php echo $this->title();?>
+    <?php echo $this->title(); ?>
 </h2>
 <p>
     <a class="btn btn-success btn-small" href="<?php echo $this->url(array(
@@ -89,8 +89,8 @@ $(document).ready(function() {
             'controller' => 'hoards',
             'action' => 'add',
             'copy' => 'last'),
-        null,true);?>"
-      title="Autofill form fields from last record you created" id="populate" accesskey="c">Copy last record</a>
+        null, true);?>"
+       title="Autofill form fields from last record you created" id="populate" accesskey="c">Copy last record</a>
 </p>
 <?php
 $rulers = array(
@@ -98,7 +98,7 @@ $rulers = array(
     'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
     'GREEK AND ROMAN PROVINCIAL'
 );
-if(in_array($this->hoard->broadperiod, $rulers)) {
+if (in_array($this->hoard->broadperiod, $rulers)) {
     $rulers = new Rulers();
     $data = $rulers->getLastRulersPairs($this->hoard->broadperiod);
     $this->form->lastrulerID->addMultiOptions(array(
@@ -106,5 +106,5 @@ if(in_array($this->hoard->broadperiod, $rulers)) {
     ));
     $this->form->lastrulerID->setValue((int)$this->hoard->lastrulerID);
 }
-    echo $this->form;
+echo $this->form;
 ?>

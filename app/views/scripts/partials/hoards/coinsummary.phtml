@@ -91,10 +91,18 @@
                 <?php endif; ?>
 
                 <td>
-                    <?php echo $this->adBc()->setDate($coinrow['numdate1']); ?>
+                    <?php if (!is_null($coinrow['numdate1'])): ?>
+                        <?php echo $this->adBc()->setDate($coinrow['numdate1']); ?>
+                    <?php else: ?>
+                        -
+                    <?php endif; ?>
                 </td>
                 <td>
-                    <?php echo $this->adBc()->setDate($coinrow['numdate2']); ?>
+                    <?php if (!is_null($coinrow['numdate2'])): ?>
+                        <?php echo $this->adBc()->setDate($coinrow['numdate2']); ?>
+                    <?php else: ?>
+                        -
+                    <?php endif; ?>
                 </td>
                 <td>
                     <?php echo $coinrow['quantity']; ?>
