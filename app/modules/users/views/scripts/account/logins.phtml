@@ -1,30 +1,39 @@
-<?php $this->headTitle('My login history');?>
-<h2>My login history</h2>
-<?php if($this->logins):?>
+<?php $this->headTitle('My login history'); ?>
+    <h2 class="lead">
+        <?php $this->title(); ?>
+    </h2>
+<?php if ($this->logins): ?>
 
-<p>You have used the following IP addresses:</p>
-<ul>
-<?php foreach($this->ips as $i) {
-echo '<li>IP Address: '.$i['ipAddress'].' '.$i['count'].' times</li>';
-}?>
-</ul>
+    <p>
+        You have used the following IP addresses:
+    </p>
 
-<table class="table table-striped" summary="A list of my login history">
-<caption>Tabulated list of your logins</caption>
-<thead>
-<tr>
-<th>Login</th>
-<th>IP address</th>
-<th>User agent</th>
-<th>Userid</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/users/logins.phtml',$this->logins);?>
-</tbody>
-</table>
-<?php echo $this->paginationControl($this->logins, 'Sliding', 'structure/pagination.phtml'); ?>
+    <ul>
+        <?php foreach ($this->ips as $ip) { ?>
+            <li>
+                IP Address: <?php $ip['ipAddress']; ?>  <?php $ip['count']; ?> times
+            </li>'
+        <?php } ?>
+    </ul>
 
-<?php else:?>
-<p>There is no login history available for you. Which is an error!</p>
-<?php endif;?>
+    <table class="table table-striped" summary="A list of my login history">
+        <caption>Tabulated list of your logins</caption>
+        <thead>
+        <tr>
+            <th>Login</th>
+            <th>IP address</th>
+            <th>User agent</th>
+            <th>Userid</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/users/logins.phtml', $this->logins); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->logins, 'Sliding', 'structure/pagination.phtml'); ?>
+
+<?php else: ?>
+    <p>
+        There is no login history available for you. Which is an error!
+    </p>
+<?php endif; ?>
