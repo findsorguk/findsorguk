@@ -1,9 +1,6 @@
-<?php if(($this->findofnote > 0 ) && (!is_null($this->reason))):?>
-<p>
-    This is a find of note and has been designated: <?php echo $this->reason;?>
-</p>
-<?php elseif((($this->findofnote > 0) && (is_null($this->reason))):?>
-<p>
-    This has been noted as an interesting find by the recorder.
-</p>
-<?php endif;?>
+<?php if(($this->findofnote === 1) && (!is_null($this->reason))){
+echo '<p>This is a find of note and has been designated: '. $this->reason . '</p>';
+} else if (($this->findofnote == 1) && (!is_null($this->reason))) { 
+echo '<p>This has been noted as an interesting find by the recorder.</p>';
+}
+ ?>
