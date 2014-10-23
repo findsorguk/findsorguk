@@ -141,6 +141,42 @@ class Finds extends Pas_Db_Table_Abstract {
         return $this->update($updateData, $where);
     }
 
+    /** Get id of find from secuid
+     *
+     * @param string $secuid
+     * @return int
+     */
+    public function getIdFromSecuid($secuid){
+        $select = $this->select()
+            ->from($this->_name, array('id'))
+            ->where('secuid = ?', $secuid)
+            ->limit(1);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
+    /** Link a find record to a hoard record
+     *
+     * @param array $updateData
+     * @param integer $id
+     * @return int
+     */
+    public function linkFind(array $updateData, $id){
+        $where[0] = $this->getAdapter()->quoteInto('id = ?', $id);
+        return $this->update($updateData, $where);
+    }
+
+    /** Unlink a find record to a hoard record
+     *
+     * @param array $updateData
+     * @param integer $id
+     * @return int
+     */
+    public function unlinkFind($id){
+        $where[0] = $this->getAdapter()->quoteInto('id = ?', $id);
+        return $this->update(NULL, $where);
+    }
+
     /** Get a find's secure unique id for the jquery autocomplete
      * @access public
      * @param string $q
