@@ -476,7 +476,7 @@ class Mints extends Pas_Db_Table_Abstract {
                 $select = $this->select()
                     ->from($this->_name, array('id', 'term' => 'mint_name', ))
                     ->joinLeft('periods','periods.id = mints.period',array())
-                    ->where('periods.term = ?', $period)
+                    ->where('periods.term = ?', $broadperiod)
                     ->where('mints.valid = ?', (int)1)
                     ->order('mints.id ASC');
                 $data = $this->getAdapter()->fetchAll($select);
@@ -496,7 +496,7 @@ class Mints extends Pas_Db_Table_Abstract {
             $select = $this->select()
                 ->from($this->_name, array('id', 'term' => 'mint_name', ))
                 ->joinLeft('periods','periods.id = mints.period',array())
-                ->where('periods.term = ?', $period)
+                ->where('periods.term = ?', $broadperiod)
                 ->where('mints.valid = ?', (int)1)
                 ->order('mints.id ASC');
             $data = $this->getAdapter()->fetchPairs($select);
