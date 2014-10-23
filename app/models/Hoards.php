@@ -7,7 +7,7 @@
  * <code>
  * <?php
  * $model = new Hoards();
- * $data = $model->getAllHoardData($id);
+ * $data = $model->getBasicHoardData($id);
  * ?>
  * </code>
  *
@@ -437,7 +437,7 @@ class Hoards extends Pas_Db_Table_Abstract {
             ))
             ->joinLeft('finds',
                 'hoards.secuid = finds.hoardID',
-                array('id','old_findID' => 'old_findID','objecttype' => 'objecttype', 'treasureID'))
+                array('id','old_findID','objecttype', 'treasureID'))
             ->where('hoards.id = ?', (int)$hoardId)
             ->where('finds.objecttype IN (?)', $this->_coinarray);
         $select->setIntegrityCheck(false);
@@ -458,10 +458,10 @@ class Hoards extends Pas_Db_Table_Abstract {
             ))
             ->joinLeft('finds',
                 'hoards.secuid = finds.hoardID',
-                array('id','old_findID' => 'old_findID','objecttype' => 'objecttype', 'treasureID'))
+                array('id','old_findID','objecttype', 'treasureID', 'hoardcontainer'))
             ->where('hoards.id = ?', (int)$hoardId)
             ->where('finds.objecttype NOT IN (?)', $this->_coinarray)
-            ->where('finds.hoardcontainer = ?', '0');
+            ->where('finds.hoardcontainer IS NULL');
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
     }
@@ -479,9 +479,9 @@ class Hoards extends Pas_Db_Table_Abstract {
             ))
             ->joinLeft('finds',
                 'hoards.secuid = finds.hoardID',
-                array('id','old_findID' => 'old_findID','objecttype' => 'objecttype', 'treasureID'))
+                array('id','old_findID', 'objecttype', 'treasureID', 'hoardcontainer'))
             ->where('hoards.id = ?', (int)$hoardId)
-            ->where('finds.hoardcontainer = ?', '1');
+            ->where('finds.hoardcontainer = 1');
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
     }
