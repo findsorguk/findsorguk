@@ -174,7 +174,7 @@ class Finds extends Pas_Db_Table_Abstract {
      */
     public function unlinkFind($id){
         $where[0] = $this->getAdapter()->quoteInto('id = ?', $id);
-        return $this->update(NULL, $where);
+        return $this->update(array('hoardID' => NULL), $where);
     }
 
     /** Get a find's secure unique id for the jquery autocomplete

@@ -379,21 +379,71 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         if($this->_getParam('secuid',false) || $this->_getParam('id',false))  {
             $form = $this->getArtefactLinkForm();
             $this->view->form = $form;
+
             if ($this->_request->isPost()) {
                 $formData = $this->_request->getPost();
+
                 if ($form->isValid($formData)) {
+                    // The secuid of the hoard is retrieved from the url
                     $updateData['hoardID'] = $this->_getParam('secuid');
-                    // The secuid of the artefact to link is passed from the form
+
+                    // The secuid of the artefact to link is retrieved from the form
                     $findSecuid = $form->getValue('findID');
+
                     // The id of the artefact to link is retrieved from the database
                     $findRow = $this->getFinds()->fetchRow($this->getFinds()->select()->where(
                         'secuid = ?', $findSecuid
                     ));
                     $findID = $findRow['id'];
+
+                    // Update the Find table with the hoard secuid
                     $success = $this->getFinds()->linkFind($updateData, $findID);
+
                     // $this->_helper->solrUpdater->update('beowulf', $findID);
                     $this->getFlash()->addMessage('Success! Coin, artefact or container linked to this hoard');
                     $this->redirect('/database/hoards/record/id/' . $this->_getParam('id'));
+                }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+    }
+
+    /** Unlink an artefact record from a hoard record
+     * @access public
+     * @return void
+     */
+    public function unlinkAction() {
+        if($this->_getParam('findID',false) || $this->_getParam('hoardID',false) || $this->_getParam('secuid',false)) {
+            // Pass the hoard secuid and id into the view from the url
+            $this->view->hoardSecuid = $this->_getParam('secuid');
+            $this->view->hoardID = $this->_getParam('hoardID');
+
+            if ($this->_request->isPost()) {
+                // The find id is retrieved from the form
+                $findID = (int)$this->_request->getPost('findID');
+
+                // If POST and 'Yes' to confirm unlinking
+                $delete = $this->_request->getPost('del');
+                if ($delete == 'Yes' && $findID > 0) {
+
+                    // The artefact is unlinked
+                    $this->getFinds()->unlinkFind($findID);
+
+                    //	$this->_helper->solrUpdater->update('finds', $findID);
+
+                    $this->getFlash()->addMessage('Link deleted!');
+                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('hoardID'));
+
+                } else { // If 'No' to cancel unlinking
+                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('hoardID'));
+                }
+            } else { // If not POST view the confirmation
+                $findID = (int)$this->_request->getParam('findID');
+                if ((int)$findID > 0) {
+                    $this->view->find = $this->getFinds()->fetchRow($this->getFinds()->select()->where(
+                        'id = ?', $findID
+                    ));
                 }
             }
         } else {
