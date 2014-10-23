@@ -1615,7 +1615,7 @@ class Finds extends Pas_Db_Table_Abstract {
         $select = $this->select()
                 ->from($this->_name, array(
                     'broadperiod', 'id', 'objecttype',
-                    'old_findID', 'c' => 'DATE_FORMAT(finds.created,"%Y")'
+                    'old_findID', 'created' => 'DATE_FORMAT(finds.created,"%Y")'
                     ))
                 ->joinLeft('periods','finds.objdate1period = periods.id',
                         array('t' => 'term'))

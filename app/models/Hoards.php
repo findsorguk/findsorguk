@@ -817,7 +817,7 @@ class Hoards extends Pas_Db_Table_Abstract
             ->from($this->_name, array(
                 'broadperiod', 'id',
                 'hoardID',
-                'c' => 'DATE_FORMAT(hoards.created,"%Y")'
+                'created' => 'DATE_FORMAT(hoards.created,"%Y")'
             ))
             ->joinLeft('periods', 'hoards.period1 = periods.id',
                 array('t' => 'term'))
