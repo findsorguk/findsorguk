@@ -103,7 +103,12 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function webciteAction()
     {
         if ($this->_getParam('id', false)) {
-            $this->view->finds = $this->getFinds()->getWebCiteFind((int)$this->_getParam('id'));
+            $this->view->type = $this->_getParam('type');
+            if($this->_getParam('type') == 'artefact') {
+                $this->view->finds = $this->getFinds()->getWebCiteFind($this->_getParam('id'));
+            } else {
+                $this->view->finds = $this->getHoards()->getWebCiteHoard($this->_getParam('id'));
+            }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

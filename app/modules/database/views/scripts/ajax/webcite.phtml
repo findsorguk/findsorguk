@@ -12,12 +12,22 @@
     <p>
         This record can be cited in the Harvard bibliographic style using the text below:
     </p>
-    <?php echo $this->partialLoop('partials/database/webCiteData.phtml',$this->finds);?>
+    <?php if($this->type == 'artefact'):?>
+        <?php echo $this->partial('partials/database/webCiteData.phtml',$this->finds[0]);?>
+    <?php else:?>
+        <?php echo $this->partial('partials/database/webCiteHoard.phtml', $this->finds[0]);?>
+    <?php endif;?>
 
     <h3>
         Wikipedia citation
     </h3>
-    <pre><?php echo $this->partial('partials/database/wikiCite.phtml', $this->finds['0']);?></pre>
+    <pre>
+        <?php if($this->type == 'artefact'):?>
+            <?php echo $this->partial('partials/database/wikiCite.phtml', $this->finds[0]);?>
+        <?php else:?>
+            <?php echo $this->partial('partials/database/wikiCiteHoard.phtml', $this->finds[0]);?>
+        <?php endif;?>
+    </pre>
 </div>
 
 <div class="modal-footer">

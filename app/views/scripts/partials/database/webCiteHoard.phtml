@@ -1,0 +1,23 @@
+<?php
+$date = Zend_Date::now();
+?>
+<span class="row-fluid">
+<p>
+    <?php echo $this->sur3; ?>, <?php echo substr($this->fore3, 0, 1); ?>  (<?php echo $this->c; ?>
+    )<em><?php echo $this->hoardID; ?> A
+        <?php echo $this->broadperiod; ?> hoard</em> Webpage available at: <a
+        href="<?php echo $this->serverUrl(); ?><?php echo $this->url(array(
+            'module' => 'database', 'controller' => 'hoards', 'action' => 'record',
+            'id' => $this->id), null, true); ?>"><?php echo $this->serverUrl(); ?><?php echo $this->url(array(
+            'module' => 'database', 'controller' => 'hoards', 'action' => 'record',
+            'id' => $this->id), null, true); ?></a>
+    [Accessed: <?php echo $date; ?>]
+</p>
+
+<pre><?php echo $this->sur3;?>,<?php echo substr($this->fore3, 0, 1);?> (<?php echo $this->c;?>)
+    <?php echo $this->hoardID; ?> A <?php echo $this->broadperiod;?> hoard. Webpage available at:
+    <?php echo $this->serverUrl();?><?php echo $this->url(array(
+            'module' => 'database','controller' => 'hoards','action' => 'record',
+            'id' => $this->id),null,true);?> [Accessed: <?php echo $date;?>]
+</pre>
+</span>
