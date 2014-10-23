@@ -190,16 +190,20 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
             'module' => 'database',
             'controller' => 'ajax',
             'action' => 'webcite',
-            'id' => $this->getId()),null,true);
+            'id' => $this->getId(),
+            'type' => $this->getRecordType($this->getController())
+            ),null,true);
         $html .= '" title="Get citation information">Cite record</a> <a class="'; 
         $html .= $class . '" href="';
         $html .= $this->view->url(array(
             'module' => 'database',
             'controller' => 'ajax', 
             'action' => 'embed', 
-            'id' =>  $this->getId()),null,true);
+            'id' =>  $this->getId(),
+            'type' => $this->getRecordType($this->getController())
+        ),null,true);
         $html .= '" title="Get code to embed this record in your webpage">Embed record</a> ';
-        $html .= $this->view->RecordEditDeleteLinks(
+        $html .= $this->view->recordEditDeleteLinks(
                 $this->getId(),
                 $this->getOldFindID(),
                 $this->getController(),
@@ -213,7 +217,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
             'action'=>'add',
             'checkAcl'=>true,
             'acl'=>'Zend_Acl',
-            'content'=>'Add ' . $this->getRecordType($this->_controller) . ' <i class="icon-white icon-plus"></i>',
+            'content'=>'Add ' . $this->getRecordType($this->getController()) . ' <i class="icon-white icon-plus"></i>',
             'attribs' => array(
                 'title' => 'Add new object',
                 'accesskey' => 'a',

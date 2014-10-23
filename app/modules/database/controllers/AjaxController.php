@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Controller for displaying various ajax request pages
  *
@@ -27,8 +28,9 @@
  * @uses Pas_Exporter_Generate
  * @uses JettonGroups
  * @uses JettonTypes
-*/
-class Database_AjaxController extends Pas_Controller_Action_Ajax {
+ */
+class Database_AjaxController extends Pas_Controller_Action_Ajax
+{
 
     /** The finds model
      * @access protected
@@ -36,30 +38,46 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      */
     protected $_finds;
 
+    protected $_hoards;
+
+    /**
+     * @return mixed
+     */
+    public function getHoards()
+    {
+        $this->_hoards = new Hoards();
+        return $this->_hoards;
+    }
+
+
+
     /** Get the finds model
      * @access public
      * @return \Finds
      */
-    public function getFinds() {
+    public function getFinds()
+    {
         $this->_finds = new Finds();
         return $this->_finds;
     }
+
     /** Setup the contexts by action and the ACL.
      * @access public
      * @return void
      */
-    public function init() {
-	$this->_helper->_acl->allow('public',null);
-	$this->_helper->_acl->deny('public',array(
-            'nearest', 'kml', 'her', 'gis','workflow')
-                );
-	$this->_helper->_acl->deny('member',array(
-            'nearest', 'kml', 'her', 'gis','workflow')
-                );
-	$this->_helper->_acl->allow('flos',null);
-	$this->_helper->_acl->allow('hero',null);
-	$this->_helper->_acl->allow('research',null);
-	$this->_helper->layout->disableLayout();
+    public function init()
+    {
+        $this->_helper->_acl->allow('public', null);
+        $this->_helper->_acl->deny('public', array(
+                'nearest', 'kml', 'her', 'gis', 'workflow')
+        );
+        $this->_helper->_acl->deny('member', array(
+                'nearest', 'kml', 'her', 'gis', 'workflow')
+        );
+        $this->_helper->_acl->allow('flos', null);
+        $this->_helper->_acl->allow('hero', null);
+        $this->_helper->_acl->allow('research', null);
+        $this->_helper->layout->disableLayout();
 
     }
 
@@ -72,7 +90,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->redirect(self::REDIRECT);
     }
 
@@ -81,8 +100,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function webciteAction()	{
-        if($this->_getParam('id',false)){
+    public function webciteAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->finds = $this->getFinds()->getWebCiteFind((int)$this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -93,13 +113,21 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      * @throws Pas_Exception_Param
+     * @todo add Hoard Images or use Solr method when ready
      */
-    public function embedAction() {
-        if($this->_getParam('id',false)){
+    public function embedAction()
+    {
+        if ($this->_getParam('id', false)) {
             $id = (int)$this->_getParam('id');
-            $this->view->finds = $this->getFinds()->getEmbedFind($id);
-            $thumbs = new Slides;
-            $this->view->thumbs = $thumbs->getThumbnails($id);
+            $this->view->type = $this->_getParam('type');
+            if ($this->_getParam('type') == 'artefact') {
+                $this->view->finds = $this->getFinds()->getEmbedFind($id);
+                $thumbs = new Slides;
+                $this->view->thumbs = $thumbs->getThumbnails($id);
+            } else {
+                $this->view->finds = $this->getHoards()->getEmbedHoard($id);
+            }
+
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -109,7 +137,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function nearestAction() {
+    public function nearestAction()
+    {
         $lat = $this->_getParam('lat');
         $long = $this->_getParam('long');
         $distance = (int)$this->_getParam('distance');
@@ -124,11 +153,12 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function downloadAction() {
-        if($this->_getParam('id',false)) {
+    public function downloadAction()
+    {
+        if ($this->_getParam('id', false)) {
             $images = new Slides();
             $download = $images->getFileName($this->_getParam('id'));
-            foreach($download as $d) {
+            foreach ($download as $d) {
                 $filename = $d['f'];
                 $path = $d['imagedir'];
             }
@@ -136,7 +166,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
             $mime_type = mime_content_type($file);
             if (file_exists($file)) {
                 $this->_helper->viewRenderer->setNoRender();
-                $this->_helper->sendFile($file,$mime_type);
+                $this->_helper->sendFile($file, $mime_type);
             } else {
                 throw new Pas_Exception_Param('That file does not exist', 404);
             }
@@ -149,10 +179,11 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function rallydataAction() {
+    public function rallydataAction()
+    {
         $rallies = new Rallies();
         $this->view->mapping = $rallies->getMapdata();
-	    $this->getResponse()->setHeader('Content-type', 'text/xml');
+        $this->getResponse()->setHeader('Content-type', 'text/xml');
     }
 
     /** Record data overlay page
@@ -161,12 +192,13 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @throws Pas_Exception_NotAuthorised
      * @throws Pas_Exception_Param
      */
-    public function recordAction() {
-        if($this->_getParam('id',false)) {
+    public function recordAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->recordID = $this->_getParam('id');
             $id = $this->_getParam('id');
-            $findsdata = $this->getFinds()->getIndividualFind($id,$this->getRole());
-            if(!empty($findsdata)) {
+            $findsdata = $this->getFinds()->getIndividualFind($id, $this->getRole());
+            if (!empty($findsdata)) {
                 $this->view->finds = $findsdata;
             } else {
                 throw new Pas_Exception_NotAuthorised('You are not authorised to view this record');
@@ -183,9 +215,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
             $this->view->thumbs = $thumbs->getThumbnails($id);
             $refs = new Publications;
             $this->view->refs = $refs->getReferences($id);
-            } else {
-                throw new Pas_Exception_Param($this->_missingParameter,500);
-            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
     }
 
     /** Display a report in pdf format
@@ -194,12 +226,13 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @throws Pas_Exception_NotAuthorised
      * @throws Pas_Exception_Param
      */
-    public function reportAction() {
-        if($this->_getParam('id',false)) {
+    public function reportAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->recordID = $this->_getParam('id');
             $id = $this->_getParam('id');
-            $findsdata = $this->getFinds()->getIndividualFind($id,$this->getRole());
-            if(count($findsdata)) {
+            $findsdata = $this->getFinds()->getIndividualFind($id, $this->getRole());
+            if (count($findsdata)) {
                 $this->view->finds = $findsdata;
             } else {
                 throw new Pas_Exception_NotAuthorised('You are not authorised to view this record');
@@ -219,7 +252,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
             $findspotsdata = new Findspots();
             $this->view->findspots = $findspotsdata->getFindSpotData($id);
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter,500);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -227,7 +260,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function findsauditAction() {
+    public function findsauditAction()
+    {
         $audit = new FindsAudit();
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
@@ -236,7 +270,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function findspotsauditAction(){
+    public function findspotsauditAction()
+    {
         $audit = new FindSpotsAudit();
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
@@ -245,7 +280,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function coinauditAction(){
+    public function coinauditAction()
+    {
         $audit = new CoinsAudit();
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
@@ -254,7 +290,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function hoardsauditAction(){
+    public function hoardsauditAction()
+    {
         $audit = new HoardsAudit();
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
@@ -263,7 +300,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function archaeologyauditAction(){
+    public function archaeologyauditAction()
+    {
         $audit = new ArchaeologyAudit();
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
@@ -273,7 +311,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function savesearchAction() {
+    public function savesearchAction()
+    {
         $form = new SaveSearchForm();
         $this->view->form = $form;
     }
@@ -282,7 +321,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function copyfindAction() {
+    public function copyfindAction()
+    {
         $finddata = $this->getFinds()->getLastRecord($this->getIdentityForForms());
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
@@ -293,204 +333,216 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function mapdataAction(){
-	$this->_helper->layout->disableLayout();
+    public function mapdataAction()
+    {
+        $this->_helper->layout->disableLayout();
         $params = $this->_getAllParams();
-	$params['show'] = 2000;
-	$params['format'] = 'json';
-	$search = new Pas_Solr_Handler();
+        $params['show'] = 2000;
+        $params['format'] = 'json';
+        $search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
-	$search->setFields(array(
-            'id','old_findID','description',
-            'gridref','fourFigure', 'longitude',
+        $search->setFields(array(
+            'id', 'old_findID', 'description',
+            'gridref', 'fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
-            'district', 'parish','knownas',
+            'district', 'parish', 'knownas',
             'thumbnail'
-            ));
-	$search->setParams($params);
-	$search->execute();
+        ));
+        $search->setParams($params);
+        $search->execute();
         $this->view->results = $search->processResults();
-   }
+    }
 
-   /** Secondary version of the mapdata function
-    * @access public
-    * @todo deprecate?
-    * @return void
-    */
-   public function mapdata2Action(){
+    /** Secondary version of the mapdata function
+     * @access public
+     * @todo deprecate?
+     * @return void
+     */
+    public function mapdata2Action()
+    {
         $params = $this->_getAllParams();
-        if(!isset($params['show'])){
+        if (!isset($params['show'])) {
             $params['show'] = 2000;
         }
-	$params['format'] = 'kml';
-	$search = new Pas_Solr_Handler();
+        $params['format'] = 'kml';
+        $search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
-	$search->setFields(array(
-            'id','old_findID','description',
-            'gridref','fourFigure', 'longitude',
+        $search->setFields(array(
+            'id', 'old_findID', 'description',
+            'gridref', 'fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
-            'district', 'parish','knownas',
+            'district', 'parish', 'knownas',
             'thumbnail'
-            ));
-	$search->setParams($params);
-	$search->execute();
-	$this->view->results = $search->processResults();
-	$this->getResponse()->setHeader('Content-type', 'text/xml');
+        ));
+        $search->setParams($params);
+        $search->execute();
+        $this->view->results = $search->processResults();
+        $this->getResponse()->setHeader('Content-type', 'text/xml');
     }
 
     /** Exporter action
      * @access public
      * @return void
      */
-    public function exporterAction(){
-   	$this->_helper->layout->disableLayout();
+    public function exporterAction()
+    {
+        $this->_helper->layout->disableLayout();
         $params = $this->_getAllParams();
-	$params['show'] = 15000;
-	$params['format'] = 'json';
-	$search = new Pas_Solr_Handler();
+        $params['show'] = 15000;
+        $params['format'] = 'json';
+        $search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
-	$search->setFields(array(
-            'id','old_findID','description',
-            'gridref','fourFigure', 'longitude',
+        $search->setFields(array(
+            'id', 'old_findID', 'description',
+            'gridref', 'fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
-            'district', 'parish','knownas',
+            'district', 'parish', 'knownas',
             'thumbnail'
-            ));
-	$search->setParams($params);
-	$search->execute();
-    $this->view->results = $search->processResults();
-   }
+        ));
+        $search->setParams($params);
+        $search->execute();
+        $this->view->results = $search->processResults();
+    }
 
-   /** Create KML action
-    * @access public
-    * @return void
-    */
-   public function kmlAction(){
-       $exporter = new Pas_Exporter_Generate();
-       $exporter->setFormat('kml');
-       $this->view->results = $exporter->execute();
-       $filename = 'KMLExport_' . Zend_Date::now()->toString('yyyyMMddHHmmss') . '.kml';
-       $this->getResponse()->setHeader('Content-type', 'application/vnd.google-earth.kml+xml')
-               ->setHeader('Content-Disposition', 'attachment; filename=' . $filename);
+    /** Create KML action
+     * @access public
+     * @return void
+     */
+    public function kmlAction()
+    {
+        $exporter = new Pas_Exporter_Generate();
+        $exporter->setFormat('kml');
+        $this->view->results = $exporter->execute();
+        $filename = 'KMLExport_' . Zend_Date::now()->toString('yyyyMMddHHmmss') . '.kml';
+        $this->getResponse()->setHeader('Content-type', 'application/vnd.google-earth.kml+xml')
+            ->setHeader('Content-Disposition', 'attachment; filename=' . $filename);
     }
 
     /** The HER export action
      * @access public
      * @return void
      */
-   public function herAction(){
-       $exporter = new Pas_Exporter_Generate();
-       $exporter->setFormat('hero');
-       $exporter->execute();
-   }
+    public function herAction()
+    {
+        $exporter = new Pas_Exporter_Generate();
+        $exporter->setFormat('hero');
+        $exporter->execute();
+    }
 
-   /** Create CSV export
-    * @access public
-    * @return void
-    */
-   public function csvAction(){
-       $exporter = new Pas_Exporter_Generate();
-       $exporter->setFormat('csv');
-       $exporter->execute();
-   }
+    /** Create CSV export
+     * @access public
+     * @return void
+     */
+    public function csvAction()
+    {
+        $exporter = new Pas_Exporter_Generate();
+        $exporter->setFormat('csv');
+        $exporter->execute();
+    }
 
-   /** The Norfolk exporter
-    * @access public
-    * @return void
-    */
-   public function nmsAction(){
-       $exporter = new Pas_Exporter_Generate();
-       $exporter->setFormat('nms');
-       $data = $exporter->execute();
-       $filename = 'NMSRecordsExport_For_' . $this->getUsername()
-               . '_'. Zend_Date::now()->toString('yyyyMMddHHmmss') . '.pdf';
-       $this->view->filename = $filename;
-       $this->view->path = APPLICATION_PATH . '/tmp';
-       $this->view->nms = $data;
-   }
+    /** The Norfolk exporter
+     * @access public
+     * @return void
+     */
+    public function nmsAction()
+    {
+        $exporter = new Pas_Exporter_Generate();
+        $exporter->setFormat('nms');
+        $data = $exporter->execute();
+        $filename = 'NMSRecordsExport_For_' . $this->getUsername()
+            . '_' . Zend_Date::now()->toString('yyyyMMddHHmmss') . '.pdf';
+        $this->view->filename = $filename;
+        $this->view->path = APPLICATION_PATH . '/tmp';
+        $this->view->nms = $data;
+    }
 
-   /** An action for exporting as GIS shp files
-    * @access public
-    * @return void
-    */
-   public function gisAction(){
-       //Unused
-   }
+    /** An action for exporting as GIS shp files
+     * @access public
+     * @return void
+     */
+    public function gisAction()
+    {
+        //Unused
+    }
 
-   /** Dump out all antiquities from the OS 1:50k
-    * @access public
-    * @return void
-    */
-   public function osdataAction(){
-   	$params = $this->_getAllParams();
-	$params['show'] = 5489;
-	$params['format'] = 'json';
-	$params['source'] = 'osdata';
-	$params['sort'] = 'id';
+    /** Dump out all antiquities from the OS 1:50k
+     * @access public
+     * @return void
+     */
+    public function osdataAction()
+    {
+        $params = $this->_getAllParams();
+        $params['show'] = 5489;
+        $params['format'] = 'json';
+        $params['source'] = 'osdata';
+        $params['sort'] = 'id';
         $q = $this->_getParam('q');
-	if(is_null($q)){
+        if (is_null($q)) {
             $params['q'] = 'type:R OR type:A';
-	} else {
+        } else {
             $params['q'] = 'type:R || type:A && ' . $q;
-	}
-	$search = new Pas_Solr_Handler();
+        }
+        $search = new Pas_Solr_Handler();
         $search->setCore('beogeodata');
-	$search->setParams($params);
-	$search->setFields(array('*'));
-	$search->execute();
-        $this->view->results =  $search->processResults();
-   }
+        $search->setParams($params);
+        $search->setFields(array('*'));
+        $search->execute();
+        $this->view->results = $search->processResults();
+    }
 
-   /** Dump out SMR data
-    * @access public
-    * @return void
-    */
-   public function smrsAction(){
-   	$params = $this->_getAllParams();
-	$params['show'] = 25046;
-	$params['format'] = 'json';
-	$params['sort'] = 'id';
-	$params['source'] = 'smrdata';
-	$search = new Pas_Solr_Handler();
+    /** Dump out SMR data
+     * @access public
+     * @return void
+     */
+    public function smrsAction()
+    {
+        $params = $this->_getAllParams();
+        $params['show'] = 25046;
+        $params['format'] = 'json';
+        $params['sort'] = 'id';
+        $params['source'] = 'smrdata';
+        $search = new Pas_Solr_Handler();
         $search->setCore('beogeodata');
-	$search->setParams($params);
-	$search->setFields(array('*'));
-	$search->execute();
-        $this->view->results =  $search->processResults();
-   }
+        $search->setParams($params);
+        $search->setFields(array('*'));
+        $search->execute();
+        $this->view->results = $search->processResults();
+    }
 
-   /** The people action
-    * @access public
-    * @return void
-    */
-   public function peopleAction(){
-   	$params = $this->_getAllParams();
-	$params['show'] = 5000;
-	$params['format'] = 'json';
-	$params['sort'] = 'id';
-	$search = new Pas_Solr_Handler();
+    /** The people action
+     * @access public
+     * @return void
+     */
+    public function peopleAction()
+    {
+        $params = $this->_getAllParams();
+        $params['show'] = 5000;
+        $params['format'] = 'json';
+        $params['sort'] = 'id';
+        $search = new Pas_Solr_Handler();
         $search->setCore('beopeople');
-	$search->setParams($params);
-	$search->setFields(array('*'));
-	$search->execute();
-        $this->view->results =  $search->processResults();
-   }
+        $search->setParams($params);
+        $search->setFields(array('*'));
+        $search->execute();
+        $this->view->results = $search->processResults();
+    }
 
-   /** The facet action
-    * @access public
-    * @return void
-    */
-    public function facetAction(){
+    /** The facet action
+     * @access public
+     * @return void
+     */
+    public function facetAction()
+    {
         $search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
-    //	$search->setFields($fields->getFields());
+        //	$search->setFields($fields->getFields());
         $search->setFacets(array(
-            'objectType','county', 'broadperiod',
+            'objectType', 'county', 'broadperiod',
             'institution', 'rulerName', 'denominationName',
             'mintName', 'materialTerm', 'workflow'
-            ));
+        ));
         $search->setParams($this->_getAllParams());
         $search->execute();
         $data = array('facets' => $search->processFacets());
@@ -502,7 +554,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function peoplefacetAction(){
+    public function peoplefacetAction()
+    {
         $search = new Pas_Solr_Handler();
         $search->setCore('beopeople');
         $context = $this->_helper->contextSwitch->getCurrentContext();
@@ -522,16 +575,17 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function imagefacetAction(){
+    public function imagefacetAction()
+    {
         $search = new Pas_Solr_Handler();
         $search->setCode('beoimages');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());
         $search->setFacets(array(
-            'licenseAcronym','broadperiod','county',
-            'objecttype','institution'
-            ));
+            'licenseAcronym', 'broadperiod', 'county',
+            'objecttype', 'institution'
+        ));
         $search->setParams($this->_getAllParams());
         $search->execute();
         $data = array('facets' => $search->processFacets());
@@ -544,17 +598,18 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function myfindsfacetAction(){
+    public function myfindsfacetAction()
+    {
         $search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());
         $search->setFacets(array(
-            'objectType','county', 'broadperiod',
+            'objectType', 'county', 'broadperiod',
             'institution', 'rulerName', 'denominationName',
             'mintName', 'materialTerm', 'workflow'
-            ));
+        ));
         $params['createdBy'] = $this->getIdentityForForms();
         $search->setParams($params);
         $search->execute();
@@ -567,17 +622,18 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-    public function myinstitutionfacetAction(){
+    public function myinstitutionfacetAction()
+    {
         $search = new Pas_Solr_Handler();
         $search->setCore('beowulf');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());
         $search->setFacets(array(
-            'objectType','county', 'broadperiod',
+            'objectType', 'county', 'broadperiod',
             'institution', 'rulerName', 'denominationName',
             'mintName', 'materialTerm', 'workflow'
-            ));
+        ));
         $params['institution'] = $this->getInstitution();
         $search->setParams($params);
         $search->execute();
@@ -592,16 +648,17 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @return void
      */
 
-    public function myimagesfacetAction(){
+    public function myimagesfacetAction()
+    {
         $search = new Pas_Solr_Handler();
         $search->setCore('beoimages');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());
         $search->setFacets(array(
-            'licenseAcronym','broadperiod','county',
-            'objecttype','institution'
-            ));
+            'licenseAcronym', 'broadperiod', 'county',
+            'objecttype', 'institution'
+        ));
         $params = $this->_getAllParams();
         $params['createdBy'] = $this->getIdentityForForms();
         $search->setParams($params);
@@ -615,38 +672,44 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax {
      * @access public
      * @return void
      */
-   public function forceindexupdateAction(){
-	$this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
-   }
+    public function forceindexupdateAction()
+    {
+        $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
+    }
 
-   /** Get the classes to token
-    * @access public
-    * @return void
-    */
-   public function getclassestokenAction(){
-   	$classes = new JettonGroups();
-   	$this->view->json = $classes->getGroupsToClasses($this->_getParam('term'));
-   }
+    /** Get the classes to token
+     * @access public
+     * @return void
+     */
+    public function getclassestokenAction()
+    {
+        $classes = new JettonGroups();
+        $this->view->json = $classes->getGroupsToClasses($this->_getParam('term'));
+    }
 
-   /** Get jetton types
-    * @access public
-    * @return void
-    */
-   public function gettypesgroupAction(){
-   	$types = new JettonTypes();
-   	$this->view->json = $types->getTypesToGroups($this->_getParam('term'));
-   }
+    /** Get jetton types
+     * @access public
+     * @return void
+     */
+    public function gettypesgroupAction()
+    {
+        $types = new JettonTypes();
+        $this->view->json = $types->getTypesToGroups($this->_getParam('term'));
+    }
 
 
-    public function getdenominationsAction() {
+    public function getdenominationsAction()
+    {
 
     }
 
-    public function getMintsAction(){
+    public function getMintsAction()
+    {
 
     }
 
-    public function getIaGeographyAction() {
+    public function getIaGeographyAction()
+    {
 
     }
 }

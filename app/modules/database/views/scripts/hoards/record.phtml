@@ -140,7 +140,7 @@
                 <p>
                     No spatial data available.
                 </p>
-                <?php  echo $this->findSpotLink()
+                <?php echo $this->findSpotLink()
                     ->setFindID($this->hoards['id'])
                     ->setSecuID($this->hoards['uniqueID'])
                     ->setCreatedBy($this->hoards['createdBy'])
@@ -165,12 +165,7 @@
                 <p>
                     No archaeological context available.
                 </p>
-                <?php
-                    echo $this->addArchaeology()
-                        ->setHoardID($this->hoards['uniqueID'])
-                        ->setID($this->hoards['id'])
-
-                ?>
+                <?php echo $this->addArchaeology()->setHoardID($this->hoards['uniqueID'])->setID($this->hoards['id']);?>
             </div>
         <?php endif; ?>
 

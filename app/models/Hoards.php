@@ -755,4 +755,27 @@ class Hoards extends Pas_Db_Table_Abstract {
     {
     }
 
+    /** get data for embedding a find
+     * @access public
+     * @param integer $findID
+     * @return array
+     */
+    public function getEmbedHoard($hoardID) {
+        $select = $this->select()
+            ->from($this->_name)
+            ->joinLeft('periods','hoards.period1 = periods.id',
+                array('t' => 'term'))
+            ->joinLeft('findspots','hoards.secuid = findspots.findID',
+                array(
+                    'gridref', 'easting', 'northing',
+                    'parish', 'county', 'regionID',
+                    'district', 'declat', 'declong',
+                    'smrref', 'map25k', 'map10k',
+                    'knownas'
+                ))
+            ->where('hoards.id= ?',(int)$hoardID);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchAll($select);
+    }
+
 }
