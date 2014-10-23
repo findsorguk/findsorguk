@@ -465,8 +465,13 @@ class Mints extends Pas_Db_Table_Abstract {
         return $mint->pleiadesID;
     }
 
-    public function getMintbyBroadperiod( $period ) {
-            $key = md5('mintbybroadperiod' . $period);
+    /** Get a mint by broad period
+     * @access public
+     * @param string $broadperiod
+     * @return array
+     */
+    public function getMintbyBroadperiod( $broadperiod ) {
+            $key = md5('mintbybroadperiod' . $broadperiod);
             if (!$data = $this->_cache->load($key)) {
                 $select = $this->select()
                     ->from($this->_name, array('id', 'term' => 'mint_name', ))
@@ -478,5 +483,25 @@ class Mints extends Pas_Db_Table_Abstract {
                 $this->_cache->save($data, $key);
             }
             return $data;
+    }
+
+    /** Get mints by broadperiods as pairs
+     * @access public
+     * @param string $broadperiod
+     * @return array
+     */
+    public function getMintbyBroadperiodPairs( $broadperiod ) {
+        $key = md5('mintbybroadperiodPairs' . $broadperiod);
+        if (!$data = $this->_cache->load($key)) {
+            $select = $this->select()
+                ->from($this->_name, array('id', 'term' => 'mint_name', ))
+                ->joinLeft('periods','periods.id = mints.period',array())
+                ->where('periods.term = ?', $period)
+                ->where('mints.valid = ?', (int)1)
+                ->order('mints.id ASC');
+            $data = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
     }
 }

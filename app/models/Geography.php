@@ -202,5 +202,4 @@ class Geography extends Pas_Db_Table_Abstract {
         return $regions->fetchAll($select);
     }
 
-
 }

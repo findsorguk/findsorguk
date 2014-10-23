@@ -1,338 +1,362 @@
 <?php
-$this->googleDynamicMap(null,null,true);
+$this->googleDynamicMap(null, null, true);
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 ?>
 <h3>Spatial data</h3>
-<?php echo $this->FindSpotEditDeleteLink($this->old_findspotid,$this->id,$controller,$this->createdBy);?>
+<?php echo $this->FindSpotEditDeleteLink($this->old_findspotid, $this->id, $controller, $this->createdBy); ?>
 
-<?php if(isset($this->declong) && isset($this->declat)) : ?>
+<?php if (isset($this->declong) && isset($this->declat)) : ?>
 
 <div id="map">
-	<noscript><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->declat;?>,
-	<?php echo $this->declong;?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
-	<?php echo $this->declat;?>,<?php echo $this->declong;?>&sensor=false" />
-	</noscript>
+    <noscript><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->declat; ?>,
+	<?php echo $this->declong; ?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
+	<?php echo $this->declat; ?>,<?php echo $this->declong; ?>&sensor=false"/>
+    </noscript>
 </div>
 <?php
-$allowed = array('hero','flos','admin','treasure','research','fa');
+$allowed = array(
+    'hero', 'flos', 'admin',
+    'treasure', 'research', 'fa',
+    'hoard'
+);
 $auth = Zend_registry::get('auth');
 $identity = $auth->getIdentity();
 $role = $identity->role;
-if(in_array($role,$allowed)):
-?>
-<div id="radius">
-	<?php $url = $this->url(array('module' => 'database','controller' => 'search','action' => 'results',
-	'lat' => $this->declat, 'lon' => $this->declong,'d' => '2'),null,true);?>
-	<p><a class="btn btn-small btn-success" href="<?php echo $url;?>" title="Use the Haversine formula to find adjacent objects">Find objects within 2km
-	radius of this artefact</a></p>
-</div>
-<?php endif;?>
-<?php $this->inlineScript()->captureStart();?>
+if (in_array($role, $allowed)):
+    ?>
+    <div id="radius">
+        <?php
+        $url = $this->url(array(
+            'module' => 'database', 'controller' => 'search', 'action' => 'results',
+            'lat' => $this->declat, 'lon' => $this->declong, 'd' => '2'
+        ), null, true);?>
+        <p>
+            <a class="btn btn-small btn-success" href="<?php echo $url; ?>"
+               title="Use the Haversine formula to find adjacent objects">Find objects within 2km
+                radius of this artefact</a>
+        </p>
+    </div>
+<?php endif; ?>
+<?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function() {
 <?php
-	$user = new Pas_User_Details();
-	$person = $user->getPerson();
-	if($person){
-		$role = $person->role;
-	} else {
-		$role = NULL;
-	}
-	$allowed = array('admin', 'fa', 'flos', 'research', 'treasure', 'hero');
-	if(in_array($role, $allowed)) {
-		$maxzoom = 18;
-		$minzoom = 1;
-	} else {
-		$maxzoom = 11;
-		$minzoom = 1;
-	}
+$user = new Pas_User_Details();
+$person = $user->getPerson();
+if ($person) {
+    $role = $person->role;
+} else {
+    $role = NULL;
+}
+$allowed = array(
+    'admin', 'fa', 'flos',
+    'research', 'treasure', 'hero',
+    'hoard'
+);
+if (in_array($role, $allowed)) {
+    $maxzoom = 18;
+    $minzoom = 1;
+} else {
+    $maxzoom = 11;
+    $minzoom = 1;
+}
 ?>
 
-	var max = <?php echo $maxzoom;?>;
-	var min = <?php echo $minzoom;?>;
+var max = <?php echo $maxzoom; ?>;
+var min = <?php echo $minzoom; ?>;
 
-	var imperium = new google.maps.ImageMapType({
-        getTileUrl: function (coord, zoom) {
-            return "http://finds.org.uk/imperium/" +
-                zoom + "/" + coord.x + "/" + coord.y + ".png";
+var imperium = new google.maps.ImageMapType({
+getTileUrl: function (coord, zoom) {
+return "http://finds.org.uk/imperium/" +
+zoom + "/" + coord.x + "/" + coord.y + ".png";
 
-        },
-        tileSize: new google.maps.Size(256, 256),
-        isPng: true,
-        alt: "Imperium layer",
-        name: "Imperium",
-        maxZoom: 11,
-		minZoom:3
-    });
-
-	var osmMapType = new google.maps.ImageMapType({
-        getTileUrl: function (coord, zoom) {
-            return "http://tile.openstreetmap.org/" +
-                zoom + "/" + coord.x + "/" + coord.y + ".png";
-
-        },
-        tileSize: new google.maps.Size(256, 256),
-        isPng: true,
-        alt: "OpenStreetMap layer",
-        name: "OSM",
-        maxZoom: max
-    });
-
-    var nlsmap = new google.maps.ImageMapType({
-	   getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
-	   tileSize: new google.maps.Size(256, 256),
-	   isPng: false,
-	   maxZoom: max,
-	   minZoom: min,
-	   name: 'Historic',
-	   alt: "NLS Historic Map"
-	});
-	var myOptions = {
-          center: new google.maps.LatLng(<?php echo $this->declat;?>, <?php echo $this->declong;?>),
-          zoom: 12,
-		  mapTypeControlOptions: {
-          mapTypeIds: [
-          google.maps.MapTypeId.ROADMAP,
-          google.maps.MapTypeId.HYBRID,
-          google.maps.MapTypeId.TERRAIN,
-          google.maps.MapTypeId.SATELLITE,
-          'OSM',
-          'Imperium',
-          ]
-    	  },
-    	  mapTypeControl: true,
-    	  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-          scaleControl: true,
-    	  zoomControl: true,
-          mapTypeId: 'OSM',
-          scrollwheel: false,
-        };
-        var map = new google.maps.Map(document.getElementById("map"),
-            myOptions);
-            map.mapTypes.set('OSM',osmMapType);
-        	map.mapTypes.set('Imperium',imperium);
-            map.setTilt(45);
-        var marker = new google.maps.Marker({
-      		position: new google.maps.LatLng(<?php echo $this->declat;?>, <?php echo $this->declong;?>),
-      		map: map,
-      		animation: google.maps.Animation.DROP,
-      		title:"Findspot location",
-      		icon: "<?php echo $this->serverUrl() . $this->baseUrl();?>/assets/mapIcons/museum_archeological.png"
-  		});
-
-  		var myTitle = document.createElement('h1');
-		myTitle.style.color = '#444444';
-		myTitle.style.font = "10px sans-serif";
-		myTitle.innerHTML = 'Imperium layer from the <a href="http://pelagios-project.blogspot.co.uk/2012/09/a-digital-map-of-roman-empire.html">Pelagios project<\/a> <a href="http://creativecommons.org/licenses/by/3.0/">CC-BY<\/a> | Historical maps from <a href="http://geo.nls.uk/maps/api/">NLS Maps API<\/a> | OSM &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap<\/a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA<\/a>';
-
-		var myTextDiv = document.createElement('div');
-		myTextDiv.appendChild(myTitle);
-
-		map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
-
-  		var region = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/regions/<?php echo strtoupper(str_replace(array(' ', ')','(', '.' ,"'", '-'),array('', '', '', ''),$this->region));?>.kmz',
-                                                 {preserveViewport: true, suppressInfoWindows: false });
-		region.setMap(map);
-
-  		var parish = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/parishes/<?php echo strtoupper(str_replace(array(' ', ')','(', '.' ,"'", '-', ','),array('', '', '', '',''),$this->parish));?>.kmz',
-                                                 {preserveViewport: true, suppressInfoWindows: false });
-		parish.setMap(map);
-
-		var county = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/counties/<?php echo strtoupper(str_replace(array(' ', ')','(', '.' ,"'", '-'),array('', '', '', ''),$this->county));?>.kmz',
-                                                 {preserveViewport: true, suppressInfoWindows: false });
-		county.setMap(map);
-
-		var district = new google.maps.KmlLayer('<?php echo $this->serverUrl();?>/kml/districts/<?php echo strtoupper(str_replace(array(' ', ')','(', '.' ,"'", '-'),array('', '', '', ''),$this->district));?>.kmz',
-                                                 {preserveViewport: true, suppressInfoWindows: false });
-		district.setMap(map);
-
-<?php
-	$bbox = new Pas_Geo_BoundBox();
-	$d = 5;  // distance
-    $path_top_right = $bbox->createPoint($this->declat ,  $this->declong, 45, $d);
-    $path_bottom_right = $bbox->createPoint($this->declat ,  $this->declong, 135, $d);
-    $path_bottom_left = $bbox->createPoint($this->declat ,  $this->declong, 225, $d);
-    $path_top_left = $bbox->createPoint($this->declat ,  $this->declong, 315, $d);
-?>
-
-  		 var latLngBounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng(<?php echo $path_bottom_left;?>),
-          new google.maps.LatLng(<?php echo $path_top_right;?>)
-        );
-    	map.fitBounds(latLngBounds);
-  		google.maps.event.addListener(marker, 'click', toggleBounce);
-
-	function toggleBounce() {
-		if (marker.getAnimation() != null) {
-    		marker.setAnimation(null);
-  		} else {
-    		marker.setAnimation(google.maps.Animation.BOUNCE);
-  		}
-  		}
+},
+tileSize: new google.maps.Size(256, 256),
+isPng: true,
+alt: "Imperium layer",
+name: "Imperium",
+maxZoom: 11,
+minZoom:3
 });
-<?php $this->inlineScript()->captureEnd();?>
-<?php endif;?>
+
+var osmMapType = new google.maps.ImageMapType({
+getTileUrl: function (coord, zoom) {
+return "http://tile.openstreetmap.org/" +
+zoom + "/" + coord.x + "/" + coord.y + ".png";
+
+},
+tileSize: new google.maps.Size(256, 256),
+isPng: true,
+alt: "OpenStreetMap layer",
+name: "OSM",
+maxZoom: max
+});
+
+var nlsmap = new google.maps.ImageMapType({
+getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
+tileSize: new google.maps.Size(256, 256),
+isPng: false,
+maxZoom: max,
+minZoom: min,
+name: 'Historic',
+alt: "NLS Historic Map"
+});
+var myOptions = {
+center: new google.maps.LatLng(<?php echo $this->declat; ?>, <?php echo $this->declong; ?>),
+zoom: 12,
+mapTypeControlOptions: {
+mapTypeIds: [
+google.maps.MapTypeId.ROADMAP,
+google.maps.MapTypeId.HYBRID,
+google.maps.MapTypeId.TERRAIN,
+google.maps.MapTypeId.SATELLITE,
+'OSM',
+'Imperium',
+]
+},
+mapTypeControl: true,
+style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+scaleControl: true,
+zoomControl: true,
+mapTypeId: 'OSM',
+scrollwheel: false,
+};
+var map = new google.maps.Map(document.getElementById("map"),
+myOptions);
+map.mapTypes.set('OSM',osmMapType);
+map.mapTypes.set('Imperium',imperium);
+map.setTilt(45);
+var marker = new google.maps.Marker({
+position: new google.maps.LatLng(<?php echo $this->declat; ?>, <?php echo $this->declong; ?>),
+map: map,
+animation: google.maps.Animation.DROP,
+title:"Findspot location",
+icon: "<?php echo $this->serverUrl() . $this->baseUrl(); ?>/assets/mapIcons/museum_archeological.png"
+});
+
+var myTitle = document.createElement('h1');
+myTitle.style.color = '#444444';
+myTitle.style.font = "10px sans-serif";
+
+
+var myTextDiv = document.createElement('div');
+myTextDiv.appendChild(myTitle);
+
+map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
+
+var region = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>
+/kml/regions/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-'), array('', '', '', ''), $this->region)); ?>
+.kmz',
+{preserveViewport: true, suppressInfoWindows: false });
+region.setMap(map);
+
+var parish = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>
+/kml/parishes/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-', ','), array('', '', '', '', ''), $this->parish)); ?>
+.kmz',
+{preserveViewport: true, suppressInfoWindows: false });
+parish.setMap(map);
+
+var county = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>
+/kml/counties/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-'), array('', '', '', ''), $this->county)); ?>
+.kmz',
+{preserveViewport: true, suppressInfoWindows: false });
+county.setMap(map);
+
+var district = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>
+/kml/districts/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-'), array('', '', '', ''), $this->district)); ?>
+.kmz',
+{preserveViewport: true, suppressInfoWindows: false });
+district.setMap(map);
+
+<?php
+$bbox = new Pas_Geo_BoundBox();
+$d = 5;  // distance
+$path_top_right = $bbox->createPoint($this->declat, $this->declong, 45, $d);
+$path_bottom_right = $bbox->createPoint($this->declat, $this->declong, 135, $d);
+$path_bottom_left = $bbox->createPoint($this->declat, $this->declong, 225, $d);
+$path_top_left = $bbox->createPoint($this->declat, $this->declong, 315, $d);
+?>
+
+var latLngBounds = new google.maps.LatLngBounds(
+new google.maps.LatLng(<?php echo $path_bottom_left; ?>),
+new google.maps.LatLng(<?php echo $path_top_right; ?>)
+);
+map.fitBounds(latLngBounds);
+google.maps.event.addListener(marker, 'click', toggleBounce);
+
+function toggleBounce() {
+if (marker.getAnimation() != null) {
+marker.setAnimation(null);
+} else {
+marker.setAnimation(google.maps.Animation.BOUNCE);
+}
+}
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<?php endif; ?>
 <div class="row-fluid">
 
-<div class="span4">
-<h3>Spatial metadata</h3>
-<p>
-<?php if(!is_null($this->region)) :?>
-Region: <a href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->regionID, 6 , '0', STR_PAD_LEFT);?>"><?php echo $this->region;?></a><br />
-<?php endif;?>
-<?php if(!is_null($this->county)) :?>
-County or Unitary authority: <a href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->countyID, 6 , '0', STR_PAD_LEFT);?>"><?php echo $this->county;?></a> <?php if(!is_null($this->countyType)):?>
- (<?php echo $this->countyType;?>)
-<?php endif;?><br />
-<?php endif;?>
-<?php if(!is_null($this->district)) :?>
-District: <a href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->districtID, 6 , '0', STR_PAD_LEFT);?>"><?php echo $this->district;?></a>
-<?php if(!is_null($this->districtType)):?>
- (<?php echo $this->districtType;?>)
-<?php endif;?>
+    <div class="span4">
+        <h3>Spatial metadata</h3>
 
-<?php endif;?>
-<?php if(!is_null($this->parish)) :?>
-<br />
-Parish or ward: <a href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->parishID, 6 , '0', STR_PAD_LEFT);?>"><?php echo $this->parish;?></a> <?php if(!is_null($this->parishType)):?>
- (<?php echo $this->parishType;?>)
-<?php endif;?>
-<?php endif;?>
-<?php if(!is_null($this->knownas)) :?>
-<br /><span class="knownas">To be known as: <?php echo $this->escape($this->knownas);?></span>
-<?php endif;?>
-<?php if($this->centreLat):?>
-<br />Centre of parish as LatLon pair: <?php echo $this->centreLat;?>,<?php echo $this->centreLon;?><br />
-Centre of parish as Grid ref: <?php echo $this->gridRef($this->centreLat,$this->centreLon);?>
-<?php endif;?>
-</p>
-<?php
-//echo $this->osTouchesRdf()->setUri($this->parishID);
-?>
+        <p>
+            <?php if (!is_null($this->region)) : ?>
+                Region: <a
+                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->regionID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->region; ?></a>
+                <br/>
+            <?php endif; ?>
+            <?php if (!is_null($this->county)) : ?>
+                County or Unitary authority: <a
+                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->countyID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->county; ?></a> <?php if (!is_null($this->countyType)): ?>
+                    (<?php echo $this->countyType; ?>)
+                <?php endif; ?><br/>
+            <?php endif; ?>
+            <?php if (!is_null($this->district)) : ?>
+                District: <a
+                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->districtID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->district; ?></a>
+                <?php if (!is_null($this->districtType)): ?>
+                    (<?php echo $this->districtType; ?>)
+                <?php endif; ?>
+
+            <?php endif; ?>
+            <?php if (!is_null($this->parish)) : ?>
+                <br/>
+                Parish or ward: <a
+                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->parishID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->parish; ?></a> <?php if (!is_null($this->parishType)): ?>
+                    (<?php echo $this->parishType; ?>)
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if (!is_null($this->knownas)) : ?>
+                <br/><span class="knownas">To be known as: <?php echo $this->escape($this->knownas); ?></span>
+            <?php endif; ?>
+            <?php if ($this->centreLat): ?>
+                <br/>Centre of parish as LatLon pair: <?php echo $this->centreLat; ?>,<?php echo $this->centreLon; ?>
+                <br/>
+                Centre of parish as Grid ref: <?php echo $this->gridRef($this->centreLat, $this->centreLon); ?>
+            <?php endif; ?>
+        </p>
+        <?php
+        //echo $this->osTouchesRdf()->setUri($this->parishID);
+        ?>
+    </div>
+
+    <div class="span4">
+        <?php if (!is_null($this->gridref)): ?>
+        <h3>Spatial coordinates</h3>
+
+        <p>
+            Grid reference: <?php echo $this->stripGrid()->setGrid($this->gridref); ?><br/>
+            <span class="fourfigure">4 Figure: <?php echo $this->fourFigure; ?></span><br/>
+            <?php if (!is_null($this->source)): ?>
+                Grid reference source: <?php echo $this->escape($this->source); ?><br/>
+            <?php endif; ?>
+            Grid reference accurate to a <?php echo $this->getAccuracy()->setGridRef($this->gridref); ?> metre
+            square.<br/>
+            Grid reference length: <?php echo $this->gridlen; ?><br/>
+            Easting: <?php echo $this->easting; ?>  Northing: <?php echo $this->northing; ?><br/>
+            Latitude: <?php echo $this->declat; ?> Longitude: <?php echo $this->declong; ?><br/>
+            Four figure Latitude: <?php echo $this->fourFigureLat; ?><br/> Four figure
+            longitude: <?php echo $this->fourFigureLon; ?><br/>
+            1:25K map: <?php echo $this->map25k; ?><br/>
+            1:10K map: <?php echo $this->map10k; ?><br/>
+            <?php if ((!is_null($this->woeid)) && is_null($this->knownas)): ?>
+                WOEID: <a href="http://woe.spum.org/id/<?php echo $this->woeid; ?>"><?php echo $this->woeid; ?></a><br/>
+            <?php endif; ?>
+            <?php if (!is_null($this->elevation)): ?>
+                Elevation: <?php echo $this->elevation; ?> metres<br/>
+            <?php endif; ?>
+        </p>
+
+    </div>
+
+    <div class="span4 noprint">
+        <?php echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRadius(2); ?>
+    </div>
+
 </div>
 
-<div class="span4">
-<?php if(!is_null($this->gridref)): ?>
-<h3>Spatial coordinates</h3>
-<p>
-Grid reference: <?php echo $this->stripGrid()->setGrid($this->gridref);?><br />
-<span class="fourfigure">4 Figure: <?php echo $this->fourFigure;?></span><br />
-<?php if(!is_null($this->source)):?>
-Grid reference source: <?php echo $this->escape($this->source);?><br />
-<?php endif;?>
-Grid reference accurate to a <?php echo $this->getAccuracy()->setGridRef($this->gridref);?> metre square.<br />
-Grid reference length: <?php echo $this->gridlen;?><br />
-Easting: <?php echo $this->easting;?>  Northing: <?php echo $this->northing;?><br />
-Latitude: <?php echo $this->declat;?> Longitude: <?php echo $this->declong;?><br />
-Four figure Latitude: <?php echo $this->fourFigureLat; ?><br /> Four figure longitude: <?php echo $this->fourFigureLon; ?><br />
-1:25K map: <?php echo $this->map25k;?><br />
-1:10K map: <?php echo $this->map10k;?><br />
-<?php if((!is_null($this->woeid)) && is_null($this->knownas)):?>
-WOEID: <a href="http://woe.spum.org/id/<?php echo $this->woeid;?>"><?php echo $this->woeid;?></a><br />
-<?php endif;?>
-<?php if(!is_null($this->elevation)):?>
-Elevation: <?php echo $this->elevation;?> metres<br />
-<?php endif;?>
-</p>
+    <div class="row-fluid">
+        <?php echo $this->findSmrs()->setLat($this->declat)->setLon($this->declong); ?>
+    </div>
 
-</div>
+    <div class="row-fluid">
 
-<div class="span4 noprint">
-<?php
-// echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRadius(2);
-?>
-</div>
+        <div class="span4 noprint">
+            <?php echo $this->findspotGeo()->setWoeID($this->woeid)->setLat($this->declat)->setLon($this->declong); ?>
+        </div>
 
-</div>
+        <div class="span4 noprint">
+            <?php echo $this->yahooGeoAdjacent()->setWoeid($this->woeid); ?>
+        </div>
 
-<div class="row-fluid">
-<?php
-echo $this->findSmrs()->setLat($this->declat)->setLon($this->declong);
-?>
-</div>
+        <div class="span4">
+            <h3>Discovery metadata</h3>
 
-<div class="row-fluid">
+            <p>
+                <?php if (!is_null($this->method)) : ?>
+                    Method of discovery: <?php echo $this->escape($this->method); ?>
+                    <span class="scope">[<a href="<?php echo $this->url(array(
+                            'module' => 'database',
+                            'controller' => 'terminology',
+                            'action' => 'method',
+                            'id' => $this->discmethod), null, true);?>"
+                                            title="Read scope note for <?php echo $this->method; ?>">scope
+                            notes</a>]</span><br/>
+                <?php endif; ?>
 
-<div class="span4 noprint">
-<?php
-echo $this->findspotGeo()
-        ->setWoeID($this->woeid)
-        ->setLat($this->declat)
-        ->setLon($this->declong);
-?>
-</div>
+                <?php if (!is_null($this->disccircum)) : ?>
+                    Discovery circumstances:  <?php echo $this->escape($this->disccircum); ?> <br/>
+                <?php endif; ?>
 
-<div class="span4 noprint">
-<?php
-echo $this->yahooGeoAdjacent()->setWoeid($this->woeid);
-?>
-</div>
+                <?php if (!is_null($this->curr_loc)) : ?>
+                    Current location: <?php echo $this->escape($this->curr_loc); ?> <br/>
+                <?php endif; ?>
 
-<div class="span4">
-<h3>Discovery metadata</h3>
-<p>
-<?php if(!is_null($this->method)) :?>
-Method of discovery: <?php echo $this->escape($this->method);?>
- <span class="scope">[<a href="<?php echo $this->url(array(
-     'module' => 'database',
-     'controller'=>'terminology',
-     'action'=>'method',
-     'id' => $this->discmethod),null,true);?>"
- title="Read scope note for <?php echo $this->method;?>">scope notes</a>]</span><br />
-<?php endif;?>
-
-<?php if(!is_null($this->disccircum)) :?>
-Discovery circumstances:  <?php echo $this->escape($this->disccircum);?> <br />
-<?php endif;?>
-
-<?php if(!is_null($this->curr_loc)) :?>
-Current location: <?php echo $this->escape($this->curr_loc);?> <br />
-<?php endif;?>
-
-<?php if(!is_null($this->landvalue)) :?>
-General landuse: <?php echo $this->landvalue;?>
-<span class="scope">[<a href="<?php echo $this->url(array(
-    'module' => 'database',
-    'controller' => 'terminology',
-    'action' => 'landuse',
-    'id' => $this->landusevalue)
-	,NULL, true);?>" title="View scope notes for <?php echo $this->landvalue;?>">scope notes</a>]
-</span><br />
-<?php endif;?>
-
-<?php if(!is_null($this->landuse)) :?>
-Specific landuse: <?php echo $this->escape($this->landuse);?>
-<span class="scope">[<a href="<?php echo $this->url(array(
-    'module' => 'database',
-    'controller'=>'terminology',
-    'action'=> 'landuse',
-    'id' => $this->landusecode),null,true);?>"
-    title="Read scope note for <?php echo $this->landuse;?>">scope notes</a>]
+                <?php if (!is_null($this->landvalue)) : ?>
+                    General landuse: <?php echo $this->landvalue; ?>
+                    <span class="scope">[<a href="<?php echo $this->url(array(
+                                'module' => 'database',
+                                'controller' => 'terminology',
+                                'action' => 'landuse',
+                                'id' => $this->landusevalue)
+                            , NULL, true);?>" title="View scope notes for <?php echo $this->landvalue; ?>">scope
+                            notes</a>]
 </span><br/>
-<?php endif;?>
-</p>
-</div>
-</div>
+                <?php endif; ?>
+
+                <?php if (!is_null($this->landuse)) : ?>
+                    Specific landuse: <?php echo $this->escape($this->landuse); ?>
+                    <span class="scope">[<a href="<?php echo $this->url(array(
+                            'module' => 'database',
+                            'controller' => 'terminology',
+                            'action' => 'landuse',
+                            'id' => $this->landusecode), null, true);?>"
+                                            title="Read scope note for <?php echo $this->landuse; ?>">scope notes</a>]
+</span><br/>
+                <?php endif; ?>
+            </p>
+        </div>
+    </div>
 <?php endif; ?>
 
 <!-- uncomment tag when more of hoards/record.phtml is complete -->
 <!-- </div> -->
 
 <div class="row-fluid">
-<?php if(!is_null($this->description) && ($this->description != '')):?>
-<p>Findspot description: <?php echo strip_tags($this->description);?><br />
-<?php endif;?>
-<?php if(!is_null($this->comments) && ($this->comments != '')):?>
-Findspot comments: <?php echo strip_tags($this->comments);?><br />
-<?php endif;?>
+    <?php if (!is_null($this->description) && ($this->description != '')): ?>
+    <p>Findspot description: <?php echo strip_tags($this->description); ?><br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->comments) && ($this->comments != '')): ?>
+            Findspot comments: <?php echo strip_tags($this->comments); ?><br/>
+        <?php endif; ?>
 
-<?php if(!is_null($this->landownername)):?>
-Land is owned by: <?php echo $this->landownername;?><br />
-<?php endif;?>
-<?php if(!is_null($this->address)):?>
-Address: <?php echo $this->escape($this->address);?><br />
-<?php  endif;?>
-<?php if(!is_null($this->postcode)):?>
-Postcode: <?php echo $this->escape($this->postcode);?>
-<?php  endif;?>
-</p>
+        <?php if (!is_null($this->landownername)): ?>
+            Land is owned by: <?php echo $this->landownername; ?><br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->address)): ?>
+            Address: <?php echo $this->escape($this->address); ?><br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->postcode)): ?>
+            Postcode: <?php echo $this->escape($this->postcode); ?>
+        <?php endif; ?>
+    </p>
 </div>

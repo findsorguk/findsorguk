@@ -86,9 +86,13 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
                 $this->getFlash()->addMessage('You have added a summary record');
                 $this->redirect('/database/hoards/record/id/' . $this->_getParam('id'));
             } else {
+                // Populate the form with the posted values
                 $form->populate($this->_request->getPost());
+                // Configure the dropdowns with correct menu values
+                $this->_helper->coinSummaryFormLoaderOptions($this->_request->getPost());
             }
         } else {
+            //Parameters missing so through exception
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
@@ -105,27 +109,30 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
             if ($this->getRequest()->isPost()) {
                 // Check if form is valid
                 if ($form->isValid($this->_request->getPost())) {
-                    //Where array
+                    // Where array
                     $where = array();
                     $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                    //Set up auditing
+                    // Set up auditing
                     $oldData = $this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray();
-                    //Get the data and update based on where value
+                    // Get the data and update based on where value
                     $this->getModel()->update($form->getValues(), $where);
-                    $this->_helper->audit(
-                        $updateData,
-                        $oldData,
-                        'SummaryAudit',
-                        $this->_getParam('id'),
-                        $this->_getParam('id')
-                    );
+                    // Audit the data being entered
+                    $this->_helper->audit( $updateData, $oldData, 'SummaryAudit', $this->_getParam('id'), $this->_getParam('id'));
+                    // Add flash message
                     $this->getFlash()->addMessage('You have edited data successfully');
-                    $this->redirect('/database/hoards/record/id/' );
+                    // Redirect back to record
+                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('id') );
                 } else {
+                    // Error thrown, populate form with values
                     $form->populate($this->_request->getPost());
+                    // Configure with correct values based on choices
+                    $this->_helper->coinSummaryFormLoaderOptions($this->_request->getPost());
                 }
             } else {
+                // As GET request, populate with data
                 $form->populate($this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray());
+                // Configure menus appropriately
+                $this->_helper->coinSummaryFormLoaderOptions($this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray());
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);

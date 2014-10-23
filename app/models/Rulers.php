@@ -829,7 +829,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         return $data;
     }
 
-    /** Get a list of all rulers based off broadperiod
+    /** Get a list of all rulers based off broadperiod as key pairs
      * @access public
      * @param string $broadperiod
      * @return array
