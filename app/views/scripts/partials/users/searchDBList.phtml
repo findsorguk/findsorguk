@@ -1,21 +1,23 @@
-<?php 
+<?php
 $string = unserialize($this->searchString);
-if(!array_key_exists('module',$string)){
-	$string['module'] = 'database';
+Zend_Debug::dump($string);
+
+if (!array_key_exists('module', $string)) {
+    $string['module'] = 'database';
 }
-if(!array_key_exists('controller',$string)){
-	$string['controller'] = 'search';
+if (!array_key_exists('controller', $string)) {
+    $string['controller'] = 'search';
 }
-if(!array_key_exists('action',$string)){
-	$string['action'] = 'results';
+if (!array_key_exists('action', $string)) {
+    $string['action'] = 'results';
 }
 $url = $this->serverUrl() . $this->url($string, null, true);
 ?>
 <li>
-Search name: <?php echo strip_tags($this->title);?><br />
-Created by username: <?php echo $this->username;?><br />
-Search performed: <span class="published timestamp" data="{time:'<?php echo date('W3C',$this->created);?>'}">
-<?php echo $this->timeAgoInWords($this->created);?></span> 
-<br />
-<a href="<?php echo $url;?>" title="Permanent link">Permalink to search</a> 
+    Search name: <?php echo strip_tags($this->title); ?><br/>
+    Created by username: <?php echo $this->username; ?><br/>
+    Search performed: <span class="published timestamp" data="{time:'<?php echo date('W3C', $this->created); ?>'}">
+<?php echo $this->timeAgoInWords($this->created); ?></span>
+    <br/>
+    <a href="<?php echo $url; ?>" title="Permanent link">Permalink to search</a>
 </li>

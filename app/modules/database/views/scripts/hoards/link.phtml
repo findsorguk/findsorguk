@@ -1,9 +1,10 @@
 <?php
-	$this->headTitle('Add a link to a coin, artefact or container for this hoard');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocomplete.pack.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteimage.js',$type='text/javascript'); 
-$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css')
+$this->headTitle('Add a link to a coin, artefact or container for this hoard');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.autocomplete.pack.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/autocompleteimage.js', $type = 'text/javascript');
+$this->headLink()->appendStylesheet($this->baseUrl() . '/css/autocomplete.css')
 ?>
-
-<h2>Link coin, artefact or container to this hoard</h2>
-<?php echo $this->form;?>
+    <h2>
+        <?php echo $this->title(); ?>
+    </h2>
+<?php echo $this->form; ?>

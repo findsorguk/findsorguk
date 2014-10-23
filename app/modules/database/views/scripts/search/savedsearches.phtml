@@ -1,12 +1,18 @@
-<h2>Saved searches</h2>
-<?php 
+<?php
 $this->headTitle('Saved searches available');
-if($this->data):
+$this->metaBase()->setDescription('A list of saved searches available to you.')
+    ->setKeywords('searches, examples, saved, database')
+    ->generate();
 ?>
-<ul>
-<?php echo $this->partialLoop('partials/users/searchDBList.phtml', $this->data) ?>
-</ul>
-<?php echo $this->paginationControl($this->data, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>No search history available to you at present.</p>
-<?php endif;?> 
+
+<h2 class="lead">
+    Saved searches
+</h2>
+<?php if ($this->data): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/users/searchDBList.phtml', $this->data) ?>
+    </ul>
+    <?php echo $this->paginationControl($this->data, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No search history available to you at present.</p>
+<?php endif; ?>
