@@ -108,9 +108,13 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
 
     protected $_findspots;
 
+    protected $_finds;
+
     protected $_hoardsFinders;
 
     protected $_hoardForm;
+
+    protected $_artefactLinkForm;
 
     public function getHoardForm() {
         $this->_hoardForm = new HoardForm();
@@ -122,6 +126,11 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         return $this->_findspots;
     }
 
+    public function getFinds() {
+        $this->_finds = new Finds();
+        return $this->_finds;
+    }
+
     public function getHoardsFinders() {
         $this->_hoardsFinders = new HoardsFinders();
         return $this->_hoardsFinders;
@@ -130,6 +139,11 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
     public function getComments() {
         $this->_comments = new Comments();
         return $this->_comments;
+    }
+
+    public function getArtefactLinkForm() {
+        $this->_artefactLinkForm = new ArtefactLinkForm();
+        return $this->_artefactLinkForm;
     }
 
 
@@ -353,6 +367,37 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
             $this->redirect('database/hoards/record/id/' . $id);
         } else {
             $this->view->hoard = $this->_hoards->fetchRow('id=' . $this->_request->getParam('id'));
+        }
+    }
+
+    /** Links an artefact record to a hoard record
+     * @access public
+     * @return void
+     */
+    public function linkAction() {
+        // The secuid and id of the hoard is passed in the url
+        if($this->_getParam('secuid',false) || $this->_getParam('id',false))  {
+            $form = $this->getArtefactLinkForm();
+            $this->view->form = $form;
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($form->isValid($formData)) {
+                    $updateData['hoardID'] = $this->_getParam('secuid');
+                    // The secuid of the artefact to link is passed from the form
+                    $findSecuid = $form->getValue('findID');
+                    // The id of the artefact to link is retrieved from the database
+                    $findRow = $this->getFinds()->fetchRow($this->getFinds()->select()->where(
+                        'secuid = ?', $findSecuid
+                    ));
+                    $findID = $findRow['id'];
+                    $success = $this->getFinds()->linkFind($updateData, $findID);
+                    // $this->_helper->solrUpdater->update('beowulf', $findID);
+                    $this->getFlash()->addMessage('Success! Coin, artefact or container linked to this hoard');
+                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('id'));
+                }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
