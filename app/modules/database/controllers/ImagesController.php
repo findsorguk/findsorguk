@@ -107,7 +107,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
         $this->view->form = $form;
         $params = $this->_arrayTools->array_cleanup($this->_getAllParams());
         $search = new Pas_Solr_Handler();
-        $search->setCore('beoimages');
+        $search->setCore('images');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod', 'imagedir',
@@ -196,7 +196,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                     $upload->receive();
                 }
                 $id = $this->_images->insertImage($insertData);
-                $this->_helper->solrUpdater->update('beoimages', $id);
+                $this->_helper->solrUpdater->update('images', $id);
                 $this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
                 $this->getFlash()->addMessage('The image has been resized and added!');
                 $this->redirect('/database/artefacts/record/id/' . $this->_getParam('id'));
@@ -308,7 +308,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
 
                 $update = $this->_images->update($updateData, $where);
                         //Update the solr instance
-                $this->_helper->solrUpdater->update('beoimages', $this->_getParam('id'));
+                $this->_helper->solrUpdater->update('images', $this->_getParam('id'));
 
                 $this->getFlash()->addMessage('Image and metadata updated!');
                 $this->redirect(self::REDIRECT . 'image/id/' . $this->_getParam('id'));

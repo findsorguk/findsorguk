@@ -244,7 +244,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
         $this->view->form = $form;
         $params = $this->_getAllParams();
         $search = $this->getSolr();
-        $search->setCore('beoimages');
+        $search->setCore('images');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod', 'imagedir',

@@ -28,7 +28,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @todo change core names through out site
      */
     protected $_cores = array(
-        'beowulf', 'beopeople', 'beoimages',
+        'beowulf', 'beopeople', 'images',
         'beopublications','beobiblio','beocontent'
         );
 
@@ -127,7 +127,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 case 'beobiblio':
                     $identifier = 'biblio-';
                     break;
-                case 'beoimages':
+                case 'images':
                     $identifier = 'images-';
                     break;
                 case 'beopublications':
@@ -153,7 +153,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
     public function getUpdateData($core, $id, $type = null){
 	if(in_array($core, $this->_cores)){
             switch($core){
-                case 'beowulf':
+                case 'objects':
                     $model = new Finds();
                     break;
                 case 'beopeople':
@@ -166,7 +166,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 case 'beobiblio':
                     $model = new Bibliography();
                     break;
-                case 'beoimages':
+                case 'images':
                     $model = new Slides();
                     break;
                 case 'beopublications':

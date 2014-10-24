@@ -592,7 +592,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function imagefacetAction()
     {
         $search = new Pas_Solr_Handler();
-        $search->setCode('beoimages');
+        $search->setCode('images');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());
@@ -665,7 +665,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function myimagesfacetAction()
     {
         $search = new Pas_Solr_Handler();
-        $search->setCore('beoimages');
+        $search->setCore('images');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());
