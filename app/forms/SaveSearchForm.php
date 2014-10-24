@@ -33,14 +33,14 @@ class SaveSearchForm extends Pas_Form {
 	$title->setLabel('Search title : ')
 		->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('size',30)
+        ->setAttribs(array('class' => 'span8'))
 		->addErrorMessage('Please enter a valid title!');
 
-	$description = new Zend_Form_Element_Textarea('description');
+	$description = new Zend_Form_Element_Text('searchDescription');
 	$description->setLabel('Description of search: ')
 		->setRequired(true)
-		->addFilters(array('BasicHtml', 'StringTrim', 'WordChars', 'EmptyParagraph'))
-		->setAttribs(array('rows' => 10, 'cols' => 30))
+        ->setAttribs(array('class' => 'span8'))
+        ->addFilters(array('BasicHtml', 'StringTrim', 'WordChars', 'EmptyParagraph'))
 		->addErrorMessage('Please enter a valid description!');
 
 	$public = new Zend_Form_Element_Checkbox('public');
@@ -57,7 +57,7 @@ class SaveSearchForm extends Pas_Form {
 
 	$this->addElements(array($title, $description, $public, $submit, $hash));
 
-	$this->addDisplayGroup(array('title','description','public'), 'details');
+	$this->addDisplayGroup(array('title','searchDescription','public'), 'details');
 	$this->details->setLegend('Save this search');
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	parent::init();

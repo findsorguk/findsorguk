@@ -96,12 +96,10 @@ class Pas_View_Helper_SearchParams
      * @param  array  $params
      * @return string
      */
-    public function SearchParams($params = NULL)
+    public function searchParams($params = NULL)
     {
-    $params = array_slice($params,3);
-    if (array_key_exists('page',$params)) {
-        unset($params['page']);
-    }
+
+
 
     $params = $this->cleanParams($params);
     $html = '<p>You searched for: ';
@@ -200,6 +198,9 @@ class Pas_View_Helper_SearchParams
      */
     public function cleanParams($params)
     {
+        unset($params['module']);
+        unset($params['controller']);
+        unset($params['action']);
     foreach ($params as $key => $value) {
     switch ($key) {
         case 'regionID':
