@@ -354,7 +354,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $params['show'] = 2000;
         $params['format'] = 'json';
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'old_findID', 'description',
             'gridref', 'fourFigure', 'longitude',
@@ -380,7 +380,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         }
         $params['format'] = 'kml';
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'old_findID', 'description',
             'gridref', 'fourFigure', 'longitude',
@@ -405,7 +405,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $params['show'] = 15000;
         $params['format'] = 'json';
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'old_findID', 'description',
             'gridref', 'fourFigure', 'longitude',
@@ -548,7 +548,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function facetAction()
     {
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         //	$search->setFields($fields->getFields());
@@ -615,7 +615,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function myfindsfacetAction()
     {
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());
@@ -639,7 +639,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function myinstitutionfacetAction()
     {
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());
@@ -688,7 +688,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function forceindexupdateAction()
     {
-        $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
+        $this->_helper->solrUpdater->update('objects', $this->_getParam('findID'));
     }
 
     /** Get the classes to token

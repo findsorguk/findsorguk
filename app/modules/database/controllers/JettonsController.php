@@ -93,7 +93,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
                     $insertData['secuid'] = $this->secuid();
                     $insertData['findID'] = $this->_getParam('findID');
                     $insert = $this->_coins->add($insertData);
-                    $this->_helper->solrUpdater->update('beowulf', $this->_getParam('returnID'));
+                    $this->_helper->solrUpdater->update('objects', $this->_getParam('returnID'));
                     $this->_helper->flashMessenger->addMessage('Jetton data saved for this record.');
                     $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
                 }  else {
@@ -150,7 +150,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
 
                     $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
 
-                    $this->_helper->solrUpdater->update('beowulf', $this->_getParam('returnID'));
+                    $this->_helper->solrUpdater->update('objects', $this->_getParam('returnID'));
 
                 } else {
                     $this->_helper->flashMessenger->addMessage('Please check your form for errors');
@@ -182,7 +182,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
                     $where = 'id = ' . $id;
                     $this->_coins->delete($where);
                     $this->_helper->flashMessenger->addMessage('Numismatic data deleted!');
-                    $this->_helper->solrUpdater->update('beowulf', $returnID);
+                    $this->_helper->solrUpdater->update('objects', $returnID);
                     $this->redirect(self::REDIRECT.'record/id/' . $returnID);
                 }
             } else {

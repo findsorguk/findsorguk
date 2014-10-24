@@ -145,7 +145,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $updateData['findID'] = $this->_getParam('secuid');
                     $updateData['institution'] = $this->_helper->identity->getPerson()->institution;
                     $this->_findspots->addAndProcess($updateData);
-                    // $this->_helper->solrUpdater->update('beowulf', $returnID);
+                    // $this->_helper->solrUpdater->update('objects', $returnID);
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                     $this->getFlash()->addMessage('A new findspot has been created.');
                 } else {
@@ -183,7 +183,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->getController());
                     $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit',
                         $this->_getParam('id'), $returnID);
-                    // $this->_helper->solrUpdater->update('beowulf', $returnID);
+                    // $this->_helper->solrUpdater->update('objects', $returnID);
                     $this->getFlash()->addMessage('Findspot updated!');
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                 } else {
@@ -221,7 +221,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                 if ($del == 'Yes' && $id > 0) {
                     $where = 'id = ' . $id;
                     $this->_findspots->delete($where);
-                    // $this->_helper->solrUpdater->update('beowulf', $findID);
+                    // $this->_helper->solrUpdater->update('objects', $findID);
                     $this->getFlash()->addMessage('Findspot deleted.');
                 }
                 $this->redirect($this->getRedirect() . 'record/id/' . $recordID);

@@ -404,9 +404,9 @@ class Database_SearchController extends Pas_Controller_Action_Admin
      */
     public function resultsAction()
     {
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds();
         $fields->setContext($context);

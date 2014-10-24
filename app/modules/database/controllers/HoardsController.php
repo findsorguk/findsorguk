@@ -374,7 +374,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->getFindspots()->delete($whereFindspots);
                 $this->getHoardsFinders()->delete($whereHoardsFinders);
-                // $this->_helper->solrUpdater->deleteById('beowulf', $id);
+                // $this->_helper->solrUpdater->deleteById('objects', $id);
                 $this->redirect('database');
             }
             $this->getFlash()->addMessage('No changes made!');
@@ -414,7 +414,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                     // Update the Find table with the hoard secuid
                     $success = $this->getFinds()->linkFind($updateData, $findID);
 
-                    // $this->_helper->solrUpdater->update('beowulf', $findID);
+                    // $this->_helper->solrUpdater->update('objects', $findID);
                     $this->getFlash()->addMessage('Success! Coin, artefact or container linked to this hoard');
                     $this->redirect('/database/hoards/record/id/' . $this->_getParam('id'));
                 }
@@ -514,7 +514,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         'FindsAudit',
                         $this->_getParam('id'),
                         $this->_getParam('id'));
-                    // $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
+                    // $this->_helper->solrUpdater->update('objects', $this->_getParam('findID'));
                     $this->getFlash()->addMessage('Workflow status changed');
                     $this->redirect('database/hoards/record/id/' . $this->_getParam('id'));
                     $this->_request->setMethod('GET');

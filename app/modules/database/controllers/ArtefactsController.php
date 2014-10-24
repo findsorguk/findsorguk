@@ -315,7 +315,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 unset($insertData['id2by']);
                 unset($insertData['secondfinder']);
                 $insert = $this->_finds->add($insertData);
-                // $this->_helper->solrUpdater->update('beowulf', $insert);
+                // $this->_helper->solrUpdater->update('objects', $insert);
                 $this->redirect(self::REDIRECT . 'record/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else  {
@@ -368,7 +368,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                             $this->_getParam('id'),
                             $this->_getParam('id')
                             );
-                    //$this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
+                    //$this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
                     $this->getFlash()->addMessage('Artefact information updated and audited!');
                     $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
                 } else {
@@ -409,7 +409,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                         $findID);
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->getFindspots()->delete($whereFindspots);
-                $this->_helper->solrUpdater->deleteById('beowulf', $id);
+                $this->_helper->solrUpdater->deleteById('objects', $id);
                 $this->redirect(self::REDIRECT);
             }
             $this->getFlash()->addMessage('No changes made!');
@@ -534,7 +534,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                         'FindsAudit',
                         $this->_getParam('findID'),
                         $this->_getParam('findID'));
-                $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
+                $this->_helper->solrUpdater->update('objects', $this->_getParam('findID'));
                 $this->getFlash()->addMessage('Workflow status changed');
                 $this->redirect('database/artefacts/record/id/' . $this->_getParam('findID'));
                 $this->_request->setMethod('GET');

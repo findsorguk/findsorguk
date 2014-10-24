@@ -132,7 +132,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
             $person = $this->_peoples->getPersonDetails($this->_getParam('id'));
             if($this->_helper->contextSwitch()->getCurrentContext() !== 'vcf'){
                 $search = new Pas_Solr_Handler();
-                $search->setCore('beowulf');
+                $search->setCore('objects');
                 $fields = new Pas_Solr_FieldGeneratorFinds($this->getCurrentContext());
                 $search->setFields($fields->getFields());
                 $params['finderID'] = $person['0']['secuid'];

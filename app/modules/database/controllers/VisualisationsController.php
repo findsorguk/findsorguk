@@ -52,7 +52,7 @@ class Database_VisualisationsController extends Pas_Controller_Action_Admin
         $params['format'] = 'kml';
         $params['q'] = '*:*';
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
                 'fourFigureLat', 'fourFigureLon')
         );

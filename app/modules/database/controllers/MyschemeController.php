@@ -86,7 +86,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
         $this->view->form = $form;
         $params = $this->_getAllParams();
         $search = $this->getSolr();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',
@@ -131,7 +131,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
             $params['finderID'] = $this->getAccount()->peopleID;
             $params['-createdBy'] = $this->getAccount()->id;
             $search = $this->getSolr();
-            $search->setCore('beowulf');
+            $search->setCore('objects');
             $search->setFields(array(
                 'id', 'identifier', 'objecttype',
                 'title', 'broadperiod','imagedir',
@@ -191,7 +191,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
         $this->view->form = $form;
         $params = $this->_getAllParams();
         $search = $this->getSolr();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',
@@ -292,7 +292,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
         $this->view->form = $form;
         $params = $this->_getAllParams();
         $search = $this->getSolr();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',
