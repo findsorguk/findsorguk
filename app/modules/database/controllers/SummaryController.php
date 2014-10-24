@@ -117,11 +117,11 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
                     // Get the data and update based on where value
                     $this->getModel()->update($form->getValues(), $where);
                     // Audit the data being entered
-                    $this->_helper->audit( $updateData, $oldData, 'SummaryAudit', $this->_getParam('id'), $this->_getParam('id'));
+                    $this->_helper->audit( $form->getValues(), $oldData, 'SummaryAudit', $this->_getParam('hoardID'), $this->_getParam('hoardID'));
                     // Add flash message
                     $this->getFlash()->addMessage('You have edited data successfully');
                     // Redirect back to record
-                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('id') );
+                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('hoardID') );
                 } else {
                     // Error thrown, populate form with values
                     $form->populate($this->_request->getPost());

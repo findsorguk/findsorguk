@@ -311,6 +311,15 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $this->view->audit = $audit->getChange($this->_getParam('id'));
     }
 
+    /** Get a archaeology overlay from the audit table
+     * @access public
+     * @return void
+     */
+    public function summaryauditAction()
+    {
+        $audit = new SummaryAudit();
+        $this->view->audit = $audit->getChange($this->_getParam('id'));
+    }
 
     /** Get a saved search overlay
      * @access public
