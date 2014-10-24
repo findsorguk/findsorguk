@@ -131,7 +131,6 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_EmailSaveSearch
      */
     public function emailSaveSearch() {
-        Zend_Debug::dump($this->cleanParameters());
         return $this;
     }
     /** The function to return string of html

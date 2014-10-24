@@ -263,20 +263,36 @@ class Database_SearchController extends Pas_Controller_Action_Admin
         $form = new SaveSearchForm();
         $form->submit->setLabel('Save search');
         $this->view->form = $form;
-        $this->view->params = $this->getAllParams();
+        // Clean up the parameters that are to be parsed.
+        $params = $this->cleanParams($this->getAllParams(), array('searchDescription', 'public', 'title'));
+        $this->view->params = $params;
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                $insertData = $form->getValues();
-                $insertData['searchString'] = $params;
-                $saved = new SavedSearches();
-                $saved->add($insertData);
-                $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $params);
+            $insertData = $form->getValues();
+            //Serialize the search string
+            $insertData['searchString'] = serialize($params);
+            $saved = new SavedSearches();
+            $saved->add($insertData);
+            // Redirect back to that search
+            $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $params);
         } else {
+            // Error in submission of the form
             $this->getFlash()->addMessage('There are problems with your submission.');
-            $cleaner = new Pas_ArrayFunctions();
-            $form->populate($cleaner->array_cleanup($this->getAllParams()));
+            //Populate with the error
+            $form->populate($params);
         }
     }
 
+    /** Function for cleaning an array efficiently
+     * @access public
+     * @param array $params
+     * @param array $extras
+     * @return array
+     */
+    public function cleanParams(array $params, array $extras)
+    {
+        $cleaner = new Pas_ArrayFunctions();
+        return $cleaner->array_cleanup($params, $extras);
+    }
 
     /** Email a search result
      * @access public
@@ -285,42 +301,32 @@ class Database_SearchController extends Pas_Controller_Action_Admin
     public function emailAction()
     {
         $user = $this->_helper->identity->getPerson();
-        if (!$user->id) {
-            $userid = 3;
+        // Clean up the parameters that are to be parsed.
+        $params = $this->cleanParams($this->getAllParams(), array(
+            'searchDescription', 'public', 'title',
+            'fullname', 'email', 'messageToUser'
+        ));
+        $this->view->params = $params;
+        $form = new EmailSearchForm();
+        $this->view->form = $form;
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+                $to[] = array(
+                    'email' => $form->getValue('email'),
+                    'name' => $form->getValue('fullname')
+                );
+                $from[] = array(
+                    'email' => $user->email,
+                    'name' => $user->fullname
+                );
+                $url = array('url' => $params);
+
+                $assignData = array_merge($form->getValues(), $from[0], $url);
+                $this->_helper->mailer($assignData, 'sendSearch', $to, null, $from);
+
+                $this->getFlash()->addMessage('Your email has been sent to ' . $form->getValue('fullname'));
+                $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $params);
         } else {
-            $userid = $user->id;
-        }
-        $lastsearch = $this->_searches->fetchRow($this->_searches->select()->where('userid = ?',
-            $userid)->order('id DESC'));
-        if ($lastsearch) {
-            $querystring = unserialize($lastsearch->searchString);
-            $params = array();
-            foreach ($querystring as $key => $value) {
-                $params[$key] = $value;
-            }
-            $this->view->params = $params;
-            $form = new EmailSearchForm();
-            $this->view->form = $form;
-            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                if ($form->isValid($form->getValues())) {
-                    $to[] = array(
-                        'email' => $form->getValue('email'),
-                        'name' => $form->getValue('fullname')
-                    );
-                    $from[] = array(
-                        'email' => $user->email,
-                        'name' => $user->fullname
-                    );
-                    $url = array('url' => $params);
-                    $assignData = array_merge($form->getValues(), $from[0], $url);
-                    $this->_helper->mailer($assignData, 'sendSearch', $to, null, $from);
-                    $this->getFlash()->addMessage('Your email has been sent to ' . $form->getValue('fullname')
-                        . '. Thank you for sending them some of our records.');
-                    $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $querystring);
-                } else {
-                    $form->populate($form->getValues());
-                }
-            }
+            $form->populate($params);
         }
     }
 
