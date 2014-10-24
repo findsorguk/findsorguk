@@ -30,7 +30,7 @@ class Pas_View_Helper_LatestRecordsPublications extends Zend_View_Helper_Abstrac
         $this->_cache = Zend_Registry::get('cache');
         $this->_config = Zend_Registry::get('config');
         $this->_solrConfig = $this->_config->solr->toArray();
-        $this->_solrConfig['core'] = 'beobiblio';
+        $this->_solrConfig['core'] = 'bibliography';
         $this->_solr = new Solarium_Client(array('adapteroptions' => ($this->_solrConfig)));
     }
 

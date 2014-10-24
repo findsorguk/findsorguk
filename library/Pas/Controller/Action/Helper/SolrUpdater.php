@@ -28,8 +28,8 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @todo change core names through out site
      */
     protected $_cores = array(
-        'beowulf', 'beopeople', 'images',
-        'publications','beobiblio','content'
+        'objects', 'beopeople', 'images',
+        'publications','bibliography','content'
         );
 
     /** The solr object
@@ -124,7 +124,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 case 'content':
                     $identifier = 'content-';
                     break;
-                case 'beobiblio':
+                case 'bibliography':
                     $identifier = 'biblio-';
                     break;
                 case 'images':
@@ -163,7 +163,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                     $type = ucfirst($type);
                     $model = new $type;
                     break;
-                case 'beobiblio':
+                case 'bibliography':
                     $model = new Bibliography();
                     break;
                 case 'images':
