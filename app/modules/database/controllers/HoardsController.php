@@ -532,7 +532,6 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     /** Enter an error report
      * @access public
      * @return void
-     * @todo move insert logic to model
      */
     public function errorAction()
     {
@@ -569,6 +568,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     }
 
     /** Provide a notification for an object
+     * @param string $institution
+     * @param integer $createdBy
+     * @param array $data
+     * @return void
      */
     protected function notify($institution, $createdBy, $data)
     {

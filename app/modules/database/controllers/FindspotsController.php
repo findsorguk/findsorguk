@@ -1,4 +1,5 @@
 <?php
+
 /** The find spots controller for CRUD to database
  *
  *  This class allows for the creation, editing, updating and deletion of findspot
@@ -19,7 +20,8 @@
  * @uses FindSpotForm
  * @uses Pas_Form_Findspot
  */
-class Database_FindspotsController extends Pas_Controller_Action_Admin {
+class Database_FindspotsController extends Pas_Controller_Action_Admin
+{
 
     /** The findspots model
      * @access protected
@@ -44,7 +46,8 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @param string $recordtype
      * @return \Findspots
      */
-    public function setController($recordtype) {
+    public function setController($recordtype)
+    {
         $this->_controller = $recordtype;
         return $this;
     }
@@ -53,7 +56,8 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return \Findspots
      */
-    public function setRedirect($controller) {
+    public function setRedirect($controller)
+    {
         $module = '/database/';
         $this->_redirect = $module . $controller . '/';
         return $this;
@@ -63,7 +67,8 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return string
      */
-    public function getController() {
+    public function getController()
+    {
         return $this->_controller;
     }
 
@@ -71,7 +76,8 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return string
      */
-    public function getRedirect() {
+    public function getRedirect()
+    {
         return $this->_redirect;
     }
 
@@ -80,9 +86,10 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->deny('public',null);
-        $this->_helper->_acl->allow('member',array('index','add','delete','edit'));
+    public function init()
+    {
+        $this->_helper->_acl->deny('public', null);
+        $this->_helper->_acl->allow('member', array('index', 'add', 'delete', 'edit'));
 
         $this->setController($this->_getParam('recordtype', 'artefacts'));
         $this->setRedirect($this->getController());
@@ -94,9 +101,12 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->getFlash()->addMessage('You cannot access the findspots index.');
         $this->redirect($this->getRedirect());
+        $this->getResponse()->setHttpResponseCode(301)
+            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
     }
 
     /** Add a new findspot action
@@ -106,33 +116,41 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @throws Exception
      * @throws Pas_Exception_Param
      */
-    public function addAction() {
+    public function addAction()
+    {
         $finds = $this->_findspots->getFindtoFindspotsAdmin(
-                $this->_getParam('id'),
-                $this->_getParam('secuid')
-                );
-        if(sizeof($finds) > 0){
+            $this->_getParam('id'),
+            $this->_getParam('secuid')
+        );
+        if (sizeof($finds) > 0) {
             throw new Exception('A findspot already exists for this record.', 500);
         }
-        if($this->_getParam('id',false)){
+        //Check for parameter
+        if ($this->_getParam('id', false)) {
+
             $form = new FindSpotForm();
             $returnID = $this->_getParam('id');
             $form->submit->setLabel('Add a findspot');
-                $this->view->form = $form;
-            if($this->_getParam('copy') === 'last') {
+
+            $this->view->form = $form;
+
+            if ($this->_getParam('copy') === 'last') {
                 $this->_helper->findspotFormOptions();
             }
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
-                $updateData = $form->getValues();
-                $updateData['findID'] = $this->_getParam('secuid');
-                $updateData['institution'] = $this->_helper->identity->getPerson()->institution;
-                $this->_findspots->addAndProcess($updateData);
-                // $this->_helper->solrUpdater->update('beowulf', $returnID);
-
-                $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
-                $this->getFlash()->addMessage('A new findspot has been created.');
-            } else {
-                $form->populate($form->getValues());
+            // Check if post
+            if ($this->getRequest()->isPost()) {
+                // Check if valid
+                if ($form->isValid($this->_request->getPost())) {
+                    $updateData = $form->getValues();
+                    $updateData['findID'] = $this->_getParam('secuid');
+                    $updateData['institution'] = $this->_helper->identity->getPerson()->institution;
+                    $this->_findspots->addAndProcess($updateData);
+                    // $this->_helper->solrUpdater->update('beowulf', $returnID);
+                    $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
+                    $this->getFlash()->addMessage('A new findspot has been created.');
+                } else {
+                    $form->populate($this->_request->getPost());
+                }
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -144,44 +162,45 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Exception
      */
-    public function editAction() {
-        if($this->_getParam('id',false)) {
+    public function editAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new FindSpotForm();
             $form->submit->setLabel('Update findspot');
             $this->view->form = $form;
-            $this->view->returnID = (int)$this->_findspots->getFindNumber(
-                $this->_getParam('id'), $this->_getParam('recordtype')
-            );
-            if($this->getRequest()->isPost()
-                    && $form->isValid($this->_request->getPost())){
-                $updateData = $form->getValues();
-                $oldData = $this->_findspots->fetchRow('id='
-                        . $this->_getParam('id'))->toArray();
-                $where = array();
-                $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?',
-                        $this->_getParam('id'));
-                $insertData = $this->_findspots->updateAndProcess($updateData);
-                $update = $this->_findspots->update($insertData, $where);
-                $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->getController());
-                $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit',
-                $this->_getParam('id'), $returnID);
-                // $this->_helper->solrUpdater->update('beowulf', $returnID);
-                $this->getFlash()->addMessage('Findspot updated!');
-                $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
-
-            } else {
-                $id = (int)$this->_getParam('id', 0);
-                if ($id > 0) {
+            $this->view->returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->_getParam('recordtype'));
+            //Check if POST
+            if ($this->getRequest()->isPost()) {
+                // Check if valid
+                if ($form->isValid($this->_request->getPost())) {
+                    $updateData = $form->getValues();
+                    $oldData = $this->_findspots->fetchRow('id=' . $this->_getParam('id'))->toArray();
                     $where = array();
-                    $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                    $findspot = $this->_findspots->fetchRow($where);
-                    $this->view->findspot = $findspot;
-                    $fill = new Pas_Form_Findspot();
-                    $fill->populate($findspot->toArray());
+                    $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?',
+                        $this->_getParam('id'));
+                    $insertData = $this->_findspots->updateAndProcess($updateData);
+                    $this->_findspots->update($insertData, $where);
+                    $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->getController());
+                    $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit',
+                        $this->_getParam('id'), $returnID);
+                    // $this->_helper->solrUpdater->update('beowulf', $returnID);
+                    $this->getFlash()->addMessage('Findspot updated!');
+                    $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
+                } else {
+                    // If error fill with posted values
+                    $form->populate($this->_request->getPost());
                 }
+            } else {
+                // As GET, refill from db
+                $where = array();
+                $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $findspot = $this->_findspots->fetchRow($where);
+                $this->view->findspot = $findspot;
+                $fill = new Pas_Form_Findspot();
+                $fill->populate($findspot->toArray());
             }
         } else {
-            throw new Exception($this->_missingParameter,500);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -190,8 +209,9 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function deleteAction() {
-        if($this->_getParam('id',false)){
+    public function deleteAction()
+    {
+        if ($this->_getParam('id', false)) {
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $recordID = (int)$this->_request->getPost('recordID');
@@ -201,7 +221,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                 if ($del == 'Yes' && $id > 0) {
                     $where = 'id = ' . $id;
                     $this->_findspots->delete($where);
-                        // $this->_helper->solrUpdater->update('beowulf', $findID);
+                    // $this->_helper->solrUpdater->update('beowulf', $findID);
                     $this->getFlash()->addMessage('Findspot deleted.');
                 }
                 $this->redirect($this->getRedirect() . 'record/id/' . $recordID);
@@ -209,11 +229,11 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {
                     $this->view->findspot = $this->_findspots
-                            ->getFindtoFindspotDelete($this->_getParam('id'), $this->getController());
+                        ->getFindtoFindspotDelete($this->_getParam('id'), $this->getController());
                 }
             }
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter,500);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 }
