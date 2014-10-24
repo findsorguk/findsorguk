@@ -1,0 +1,29 @@
+<?php $this->mail->setSubject('An error report has been entered for ' . $this->hoardID );?>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name));?>,</p>
+
+<?php if($this->institution === 'PUBLIC'):?>
+<p>As the creator of the record, an error report has been submitted by <?php echo
+$this->escape($this->comment_author);?> for action to be taken by you or the finds adviser for the period.</p>
+<?php else:?>
+<p>As the current FLO for your region, an error report has been submitted by <?php echo
+$this->escape($this->comment_author);?> for action to be taken.</p>
+<?php endif; ?>
+<p>This error report is related to: <?php echo $this->comment_type;?></p>
+
+<h3>Error details</h3>
+
+<?php echo $this->purify()->setValue($this->comment_content);?>
+
+<ul>
+<li>Error report issued on: <a href="<?php echo $this->serverUrl();?>/database/hoards/record/id/<?php echo $this->comment_findID;?>">
+<?php echo $this->serverUrl();?>/database/hoards/record/id/<?php echo $this->comment_findID;?></a></li>
+<li>Object type: Hoard</li>
+<li>Find number: <?php echo $this->hoardID;?></li>
+<li>Originally created by: <?php echo $this->name;?></li>
+<li>Date created: <?php echo $this->timeAgoInWords($this->created);?></li>
+</ul>
+<p>Thank you for taking the time to submit an error to us.<br />
+We appreciate that you have taken the time to improve our database.
+</p>
+<p>Yours sincerely,</p>
+<p>The Scheme's Central Unit.</p>

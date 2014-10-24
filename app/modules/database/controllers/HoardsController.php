@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for manipulating the hoards data
  *
  * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
@@ -20,7 +21,8 @@
  * @uses HoardForm
  * @uses Pas_Exception_Param
  */
-class Database_HoardsController extends Pas_Controller_Action_Admin {
+class Database_HoardsController extends Pas_Controller_Action_Admin
+{
 
     /** The redirect uri
      *
@@ -31,20 +33,20 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access protected
      * @var array restricted access roles
      */
-    protected $_restricted = array(null, 'member','public');
+    protected $_restricted = array(null, 'member', 'public');
 
     /** the higher level roles
      * @access protected
      * @var array Higher level groups
      */
-    protected $_higherLevel = array('treasure', 'flos', 'admin', 'hero', 'fa', 'hoard' );
+    protected $_higherLevel = array('treasure', 'flos', 'admin', 'hero', 'fa', 'hoard');
 
     /** The array of numismatic terms
      * @var array coins pseudonyms
      */
     protected $_coinarray = array(
-        'Coin','COIN','coin',
-        'token','jetton','coin weight',
+        'Coin', 'COIN', 'coin',
+        'token', 'jetton', 'coin weight',
         'COIN HOARD', 'TOKEN', 'JETTON'
     );
 
@@ -54,10 +56,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @var array Romanic periods
      */
     protected $_periodRomIA = array(
-        'Roman','ROMAN','roman',
-        'Iron Age','Iron age','IRON AGE',
-        'Byzantine','BYZANTINE','Greek and Roman Provincial',
-        'GREEK AND ROMAN PROVINCIAL','Unknown',
+        'Roman', 'ROMAN', 'roman',
+        'Iron Age', 'Iron age', 'IRON AGE',
+        'Byzantine', 'BYZANTINE', 'Greek and Roman Provincial',
+        'GREEK AND ROMAN PROVINCIAL', 'Unknown',
         'UNKNOWN');
 
     /** An array of Roman and Prehistoric periods
@@ -79,27 +81,27 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access protected
      * @var array
      */
-    protected $_earlyMed = array('Early Medieval','EARLY MEDIEVAL');
+    protected $_earlyMed = array('Early Medieval', 'EARLY MEDIEVAL');
 
     /** An array of Medieval periods
      * Used for coins and objects
      * @access protected
      * @var array
      */
-    protected $_medieval = array('Medieval','MEDIEVAL');
+    protected $_medieval = array('Medieval', 'MEDIEVAL');
 
     /** An array of Post Medieval periods
      * Used for coins and objects
      * @access protected
      * @var array
      */
-    protected $_postMed = array('Post Medieval','POST MEDIEVAL','Modern', 'MODERN');
+    protected $_postMed = array('Post Medieval', 'POST MEDIEVAL', 'Modern', 'MODERN');
 
     protected $_contexts = array(
-        'xml','rss','json',
-        'atom','kml','georss',
-        'ics','rdf','xcs',
-        'vcf','csv','pdf',
+        'xml', 'rss', 'json',
+        'atom', 'kml', 'georss',
+        'ics', 'rdf', 'xcs',
+        'vcf', 'csv', 'pdf',
         'geojson');
 
     protected $_auth;
@@ -116,32 +118,38 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
 
     protected $_artefactLinkForm;
 
-    public function getHoardForm() {
+    public function getHoardForm()
+    {
         $this->_hoardForm = new HoardForm();
         return $this->_hoardForm;
     }
 
-    public function getFindspots() {
+    public function getFindspots()
+    {
         $this->_findspots = new Findspots();
         return $this->_findspots;
     }
 
-    public function getFinds() {
+    public function getFinds()
+    {
         $this->_finds = new Finds();
         return $this->_finds;
     }
 
-    public function getHoardsFinders() {
+    public function getHoardsFinders()
+    {
         $this->_hoardsFinders = new HoardsFinders();
         return $this->_hoardsFinders;
     }
 
-    public function getComments() {
+    public function getComments()
+    {
         $this->_comments = new Comments();
         return $this->_comments;
     }
 
-    public function getArtefactLinkForm() {
+    public function getArtefactLinkForm()
+    {
         $this->_artefactLinkForm = new ArtefactLinkForm();
         return $this->_artefactLinkForm;
     }
@@ -151,21 +159,22 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init()  {
-        $this->_helper->_acl->deny('public',array('add','edit'));
-        $this->_helper->_acl->allow('public',array(
-            'index','record','errorreport',
+    public function init()
+    {
+        $this->_helper->_acl->deny('public', array('add', 'edit'));
+        $this->_helper->_acl->allow('public', array(
+            'index', 'record', 'error',
             'notifyflo'
         ));
-        $this->_helper->_acl->allow('member',null);
+        $this->_helper->_acl->allow('member', null);
 
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false)
             ->setAutoDisableLayout(true)
-            ->addContext('csv',array('suffix' => 'csv'))
-            ->addContext('rss',array('suffix' => 'rss'))
-            ->addContext('rdf',array('suffix' => 'rdf','headers' => array('Content-Type' => 'application/xml')))
-            ->addContext('qrcode',array('suffix' => 'qrcode'))
-            ->addContext('geojson',array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json')))
+            ->addContext('csv', array('suffix' => 'csv'))
+            ->addContext('rss', array('suffix' => 'rss'))
+            ->addContext('rdf', array('suffix' => 'rdf', 'headers' => array('Content-Type' => 'application/xml')))
+            ->addContext('qrcode', array('suffix' => 'qrcode'))
+            ->addContext('geojson', array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json')))
             ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'rdf'))
             ->initContext();
         $this->_hoards = new Hoards();
@@ -178,7 +187,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         $this->redirect('database/search/results/');
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
@@ -188,38 +198,39 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function recordAction() {
-        if($this->_getParam('id',false)) { // Check there is a hoardID in the URL
+    public function recordAction()
+    {
+        if ($this->_getParam('id', false)) { // Check there is a hoardID in the URL
             $id = $this->_getParam('id');
             $hoardsdata = $this->_hoards->getBasicHoardData($id);
-            if($hoardsdata) {
+            if ($hoardsdata) {
                 $this->view->hoards = $hoardsdata;
-                $this->view->multipleKnownAs     = $this->_hoards->getKnownAs($id);
-                $this->view->temporals     = $this->_hoards->getChronology($id);
-                $this->view->coinChronology     = $this->_hoards->getCoinChronology($id);
-                $this->view->hoardDescription     = $this->_hoards->getHoardDescription($id);
-                $this->view->coinDataQuality     = $this->_hoards->getQualityRating($id);
-                $this->view->subsequentActions     = $this->_hoards->getSubsequentActions($id);
-                $this->view->treasureDetails     = $this->_hoards->getTreasureDetails($id);
-                $this->view->hoardMaterials     = $this->_hoards->getMaterials($id);
-                $this->view->linkedCoins     = $this->_hoards->getLinkedCoins($id);
-                $this->view->linkedArtefacts     = $this->_hoards->getLinkedArtefacts($id);
-                $this->view->linkedContainers     = $this->_hoards->getLinkedContainers($id);
-                $this->view->recordersIdentifiers     = $this->_hoards->getRecordersIdentifiers($id);
-                $this->view->finders     = array_reverse($this->_hoards->getFinders($id));
-                $this->view->discoverySummary     = $this->_hoards->getDiscoverySummary($id);
-                $this->view->referenceNumbers     = $this->_hoards->getReferenceNumbers($id);
+                $this->view->multipleKnownAs = $this->_hoards->getKnownAs($id);
+                $this->view->temporals = $this->_hoards->getChronology($id);
+                $this->view->coinChronology = $this->_hoards->getCoinChronology($id);
+                $this->view->hoardDescription = $this->_hoards->getHoardDescription($id);
+                $this->view->coinDataQuality = $this->_hoards->getQualityRating($id);
+                $this->view->subsequentActions = $this->_hoards->getSubsequentActions($id);
+                $this->view->treasureDetails = $this->_hoards->getTreasureDetails($id);
+                $this->view->hoardMaterials = $this->_hoards->getMaterials($id);
+                $this->view->linkedCoins = $this->_hoards->getLinkedCoins($id);
+                $this->view->linkedArtefacts = $this->_hoards->getLinkedArtefacts($id);
+                $this->view->linkedContainers = $this->_hoards->getLinkedContainers($id);
+                $this->view->recordersIdentifiers = $this->_hoards->getRecordersIdentifiers($id);
+                $this->view->finders = array_reverse($this->_hoards->getFinders($id));
+                $this->view->discoverySummary = $this->_hoards->getDiscoverySummary($id);
+                $this->view->referenceNumbers = $this->_hoards->getReferenceNumbers($id);
                 $this->view->quantities = $this->_hoards->getQuantities($id);
                 $coinsummary = new CoinSummary();
                 $this->view->coinSummary = $coinsummary->getCoinSummary($id);
 
-                $this->view->findspots = $this->getFindspots()->getFindSpotData($id,'hoards');
+                $this->view->findspots = $this->getFindspots()->getFindSpotData($id, 'hoards');
 
                 $archaeology = new Archaeology();
                 $this->view->archaeologicalContext = $archaeology->getArchaeologyData($id);
 
                 $refs = new Publications();
-                $this->view->refs = $refs->getReferences($id,'hoards');
+                $this->view->refs = $refs->getReferences($id, 'hoards');
 
             } else {
                 throw new Pas_Exception_NotAuthorised('You are not authorised to view this record', 401);
@@ -234,20 +245,21 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addAction() {
+    public function addAction()
+    {
         $user = $this->_user;
-        if(is_null($user->peopleID) || is_null($user->canRecord)){
+        if (is_null($user->peopleID) || is_null($user->canRecord)) {
             $this->redirect('/error/accountproblem');
         }
         $form = $this->getHoardForm();
         $form->submit->setLabel('Save record');
-        if(isset($user->peopleID)){
+        if (isset($user->peopleID)) {
             $form->recorderID->setValue($user->peopleID);
             $form->recordername->setValue($user->fullname);
             $form->identifier1ID->setValue($user->peopleID);
             $form->idBy->setValue($user->fullname);
         }
-        if(in_array($user->role,$this->_restricted)) {
+        if (in_array($user->role, $this->_restricted)) {
             $form->finderID->setValue($user->peopleID);
             $form->removeDisplayGroup('discoverers');
             $form->removeElement('finder');
@@ -260,23 +272,23 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
         $this->view->form = $form;
 
         $last = $this->_getParam('copy');
-        if($last == 'last') {
+        if ($last == 'last') {
             $data = $this->_hoards->getLastRecord($this->getIdentityForForms());
             $form->populate($data[0]);
         }
-        if($this->getRequest()->isPost()) {
+        if ($this->getRequest()->isPost()) {
             $formData = $this->_request->getPost();
             $form->preValidation($formData);
             if ($form->isValid($formData)) {
                 $insertData = $form->getValues();
                 $insert = $this->_hoards->addHoard($insertData);
-                if ($insert != 'error'){
+                if ($insert != 'error') {
                     $this->redirect(self::REDIRECT . 'record/id/' . $insert);
                 } else { // If there is a database error, repopulate form so users don't lose their work
                     $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
                     $form->populate($formData);
                 }
-            } else  {
+            } else {
                 $this->getFlash()->addMessage('Please check and correct errors!');
                 $form->populate($formData);
             }
@@ -288,15 +300,16 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @return void
      * @todo move update logic to model finds.php
      */
-    public function editAction() {
-        $id = $this->_getParam('id',false);
-        if(isset($id)){
+    public function editAction()
+    {
+        $id = $this->_getParam('id', false);
+        if (isset($id)) {
             $form = $this->getHoardForm();
             $form->submit->setLabel('Update record');
             $this->view->form = $form;
 
             $user = $this->getAccount();
-            if(in_array($this->getRole(),$this->_restricted)) {
+            if (in_array($this->getRole(), $this->_restricted)) {
                 $form->removeDisplayGroup('discoverers');
                 $form->removeElement('finder');
                 $form->finderID->setValue($user->peopleID);
@@ -304,7 +317,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 $form->recordername->setAttrib('disabled', true);
                 $form->removeElement('id2by');
             }
-            if($this->getRequest()->isPost()) {
+            if ($this->getRequest()->isPost()) {
                 $formData = $this->_request->getPost();
                 if ($form->isValid($formData)) {
                     $updateData = $form->getValues();
@@ -325,10 +338,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $formData = $this->_hoards->getEditData($id);
                     $materialsData = $this->_hoards->getMaterials($id);
-                    if(count($formData)){
+                    if (count($formData)) {
                         $form->populate($formData);
                         $form->getElement('materials')->setValue($materialsData);
-                        $this->view->hoard = $this->_hoards->fetchRow('id='.$id);
+                        $this->view->hoard = $this->_hoards->fetchRow('id=' . $id);
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound, 404);
                     }
@@ -343,7 +356,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deleteAction() {
+    public function deleteAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -374,9 +388,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function linkAction() {
+    public function linkAction()
+    {
         // The secuid and id of the hoard is passed in the url
-        if($this->_getParam('secuid',false) || $this->_getParam('id',false))  {
+        if ($this->_getParam('secuid', false) || $this->_getParam('id', false)) {
             $form = $this->getArtefactLinkForm();
             $this->view->form = $form;
 
@@ -413,8 +428,9 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function unlinkAction() {
-        if($this->_getParam('findID',false) || $this->_getParam('hoardID',false) || $this->_getParam('secuid',false)) {
+    public function unlinkAction()
+    {
+        if ($this->_getParam('findID', false) || $this->_getParam('hoardID', false) || $this->_getParam('secuid', false)) {
             // Pass the hoard secuid and id into the view from the url
             $this->view->hoardSecuid = $this->_getParam('secuid');
             $this->view->hoardID = $this->_getParam('hoardID');
@@ -455,8 +471,9 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function workflowAction(){
-        if($this->_getParam('id',false)){
+    public function workflowAction()
+    {
+        if ($this->_getParam('id', false)) {
             $people = new People();
             $exist = $people->checkEmailOwner($this->_getParam('id'));
             $person = $this->getAccount();
@@ -467,16 +484,17 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
             $this->view->find = $findStatus->hoardID;
             $form->populate($findStatus->toArray());
             $this->view->form = $form;
-            if(is_null($exist['0']['email'])){
+            if (is_null($exist['0']['email'])) {
                 $form->finder->setAttrib('disabled', 'disabled');
                 $form->finder->setDescription('No email associated with finder yet.');
                 $form->removeElement('content');
             }
-            if($this->getRequest()->isPost()
-                && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost()
+                && $form->isValid($this->_request->getPost())
+            ) {
                 if ($form->isValid($form->getValues())) {
                     $updateData = array('secwfstage' => $form->getValue('secwfstage'));
-                    if(strlen($form->getValue('finder')) > 0){
+                    if (strlen($form->getValue('finder')) > 0) {
                         $assignData = array(
                             'name' => $exist['0']['name'],
                             'hoardID' => $findStatus->hoardID,
@@ -485,7 +503,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
                             'workflow' => $form->getValue('secwfstage'),
                             'content' => $form->getValue('content')
                         );
-                        $this->_helper->mailer($assignData, 'informFinderWorkflow', $exist, array($from), array($from),null,null);
+                        $this->_helper->mailer($assignData, 'informFinderWorkflow', $exist, array($from), array($from), null, null);
                     }
                     $where = array();
                     $where[] = $this->_hoards->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
@@ -516,42 +534,81 @@ class Database_HoardsController extends Pas_Controller_Action_Admin {
      * @return void
      * @todo move insert logic to model
      */
-    public function errorreportAction() {
-        if($this->_getParam('id',false)) {
+    public function errorAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new CommentOnErrorFindForm();
             $form->submit->setLabel('Submit your error report');
-            $finds = $this->_finds->getRelevantAdviserFind($this->_getParam('id',0));
-            $this->view->form = $form;
+            $finds = $this->_hoards->fetchRow($this->_hoards->select()->where('id = ?', $this->_getParam('id')))->toArray();
             $this->view->finds = $finds;
+            $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 $data = $form->getValues();
+
                 if ($this->_helper->akismet($data)) {
                     $data['comment_approved'] = 'spam';
-                }  else  {
-                    $data['comment_approved'] =  1;
+                } else {
+                    $data['comment_approved'] = 1;
                 }
-                if(array_key_exists('captcha', $data)){
-                    unset($data['captcha']);
-                }
-
                 $errors = new ErrorReports();
                 $errors->add($data);
-                $data = array_merge($finds['0'], $data);
-
+                $data = array_merge($finds, $data);
                 $this->notify(
-                    $finds['0']['objecttype'],
-                    $finds['0']['broadperiod'],
-                    $finds['0']['institution'],
-                    $finds['0']['createdBy'],
+                    $finds['institution'],
+                    $finds['createdBy'],
                     $data
                 );
                 $this->getFlash()->addMessage('Your error report has been submitted. Thank you!');
                 $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
-            }else {
+            } else {
                 $form->populate($this->_request->getPost());
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
+    }
+
+    /** Provide a notification for an object
+     */
+    protected function notify($institution, $createdBy, $data)
+    {
+        $to = array();
+        if ($institution === 'PUBLIC') {
+            $users = new Users();
+            $responsible = $users->fetchRow('id = ' . $createdBy);
+            $to[] = array(
+                'email' => $responsible->email,
+                'name' => $responsible->fullname
+            );
+        } elseif (in_array($institution, array('PAS', 'DCMS', 'RAH'))) {
+            $to = array('email' => 'info@finds.org.uk', 'name' => 'Central Unit');
+        } else {
+            $responsible = new Contacts();
+            $to = $responsible->getOwnerHoard($data['comment_findID']);
+        }
+
+        $cc = array();
+
+        $team = new Users();
+        $advisers = $team->getHoardsTeam();
+
+        foreach ($advisers as $adviser) {
+            $cc[] = array('email' => $adviser['email'], 'name' => $adviser['fullname']);
+        }
+
+        if ($this->_user) {
+            $from = array(array(
+                'email' => $this->_user->email,
+                'name' => $this->_user->fullname
+            ));
+        } else {
+            $from = array(array(
+                'email' => $data['comment_author_email'],
+                'name' => $data['comment_author']
+            ));
+        }
+        $assignData = array_merge($to['0'], $data);
+
+        $this->_helper->mailer($assignData, 'errorHoard', $to, $cc, $from);
     }
 }

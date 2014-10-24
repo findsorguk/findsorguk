@@ -374,6 +374,9 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'inaset':
                 $clean = 'In a set';
                 break;
+            case 'savedsearches':
+                $clean = 'Saved searches';
+                break;
             default:
                 $clean = ucfirst($this->getAction());
                 break;

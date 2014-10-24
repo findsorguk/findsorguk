@@ -1,202 +1,186 @@
 <div typeof="crm:E22_Man-Made_Object"
-     about="<?php echo $this->serverUrl();?>/database/hoards/record/id/<?php echo $this->hoards['id'];?>"
+     about="<?php echo $this->serverUrl(); ?>/database/hoards/record/id/<?php echo $this->hoards['id']; ?>"
      class="record">
 <!--  Start of main body of record -->
 
 <div class="row-fluid">
 
-    <?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml', array('hoards' => $this->hoards));?>
-    <?php echo $this->partialLoop('partials/hoards/zoterorecord.phtml', array('hoards' => $this->hoards));?>
+<?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml', array('hoards' => $this->hoards)); ?>
+<?php echo $this->partialLoop('partials/hoards/zoterorecord.phtml', array('hoards' => $this->hoards)); ?>
 
 
-    <div id="workflowstatus">
-        <!-- Empty div that updates with the workflow message -->
+<div id="workflowstatus">
+    <!-- Empty div that updates with the workflow message -->
+</div>
+
+<!--  Start of descriptive data -->
+<div class="row-fluid">
+
+    <div class="span8">
+        <!-- Header of section displaying unique ID and workflow  -->
+        <?php echo $this->partial('partials/hoards/hoardsh2section.phtml', $this->hoards); ?>
+        <!-- Notification message if public record -->
+        <?php //echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
+        <!-- Names the hoard is known as  -->
+        <?php echo $this->partial('partials/hoards/knownas.phtml', $this->multipleKnownAs); ?>
+        <!-- Hoard quantities -->
+        <?php echo $this->partial('partials/hoards/quantities.phtml', $this->quantities); ?>
+        <!-- Temporal details of the hoard -->
+        <?php echo $this->partial('partials/hoards/temporal.phtml', $this->temporals); ?>
+        <!-- Terminal dates of any coins -->
+        <?php echo $this->partial('partials/hoards/coinchronology.phtml', $this->coinChronology); ?>
+
+
     </div>
+    <!-- Start of image pane -->
+    <div class="span3 well" id="imagepane">
 
-    <!--  Start of descriptive data -->
-    <div class="row-fluid">
+        <?php
+        if (count($this->thumbs) > 0) {
+            echo $this->partialLoop('partials/database/thumbs.phtml',
+                array_slice($this->thumbs, 0, 1));
+            if (sizeof($this->thumbs) > 1):
 
-        <div class="span8">
-            <!-- Header of section displaying unique ID and workflow  -->
-            <?php echo $this->partial('partials/hoards/hoardsh2section.phtml', $this->hoards); ?>
-            <!-- Notification message if public record -->
-            <?php //echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
-            <!-- Names the hoard is known as  -->
-            <?php echo $this->partial('partials/hoards/knownas.phtml',  $this->multipleKnownAs); ?>
-            <!-- Hoard quantities -->
-            <?php echo $this->partial('partials/hoards/quantities.phtml', $this->quantities); ?>
-            <!-- Temporal details of the hoard -->
-            <?php echo $this->partial('partials/hoards/temporal.phtml', $this->temporals);?>
-            <!-- Terminal dates of any coins -->
-            <?php echo $this->partial('partials/hoards/coinchronology.phtml', $this->coinChronology);?>
-
-
-
-        </div>
-        <!-- Start of image pane -->
-        <div class="span3 well" id="imagepane">
-
-            <?php
-            if (count($this->thumbs) > 0){
-                echo $this->partialLoop('partials/database/thumbs.phtml',
-                    array_slice($this->thumbs,0,1));
-                if(sizeof($this->thumbs) > 1):
-
+                ?>
+                <!-- Start small thumbnails -->
+                <ul class="thumbnails">
+                    <?php
+                    foreach (array_slice($this->thumbs, 1) as $thumb) {
+                        echo $this->partialLoop('partials/database/smallThumbnails.phtml', $thumb);
+                    }
                     ?>
-                    <!-- Start small thumbnails -->
-                    <ul class="thumbnails">
-                        <?php
-                        foreach(array_slice($this->thumbs,1) as $thumb){
-                            echo $this->partialLoop('partials/database/smallThumbnails.phtml', $thumb);
-                        }
-                        ?>
-                    </ul>
-                    <!-- End small thumbnails -->
-                <?php endif;?>
+                </ul>
+                <!-- End small thumbnails -->
+            <?php endif; ?>
 
-                <h4>
-                    Image use policy
-                </h4>
-                <p>
-                    Our images can be used under a <a href="https://creativecommons.org/licenses/by/2.0/" >CC BY
-                        licence</a> (unless stated otherwise).
-                </p>
-            <?php
-            } else {?>
-                <p>There are currently no images available.<br />
-                    If you own this object please send us a picture of it.</p>
-            <?php
-            }
+            <h4>
+                Image use policy
+            </h4>
+            <p>
+                Our images can be used under a <a href="https://creativecommons.org/licenses/by/2.0/">CC BY
+                    licence</a> (unless stated otherwise).
+            </p>
+        <?php
+        } else {
             ?>
-            <?php
-            echo $this->imageLink()
-                ->setFindID($this->finds['0']['id'])
-                ->setSecuID($this->finds['0']['secuid'])
-                ->setCreatedBy($this->finds['0']['createdBy'])
-                ->setInstitution($this->finds['0']['institution']);
+            <p>There are currently no images available.<br/>
+                If you own this object please send us a picture of it.</p>
+        <?php
+        }
+        ?>
+        <?php
+        echo $this->imageLink()
+            ->setFindID($this->finds['0']['id'])
+            ->setSecuID($this->finds['0']['secuid'])
+            ->setCreatedBy($this->finds['0']['createdBy'])
+            ->setInstitution($this->finds['0']['institution']);
+        ?>
+    </div>
+    <!-- End of the image pane -->
+
+
+</div>
+
+<div class="row-fluid">
+    <!-- Summary details of the coins in the hoard -->
+    <?php echo $this->partial('partials/hoards/coinsummary.phtml', array('coinSummary' => $this->coinSummary, 'hoards' => $this->hoards)); ?>
+    <!-- Coin data quality rating -->
+    <?php echo $this->partial('partials/hoards/coindataquality.phtml', $this->coinDataQuality); ?>
+    <!-- The description of the object -->
+    <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml', $this->hoardDescription); ?>
+    <!-- Subsequent action after recording hoard -->
+    <?php echo $this->partial('partials/hoards/subsequentaction.phtml', $this->subsequentActions); ?>
+    <!-- Treasure find info -->
+    <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->treasureDetails); ?>
+    <!-- Finds materials -->
+    <?php
+    if (!empty($this->hoardMaterials)) {
+        echo $this->hoardMaterials()->setMaterials($this->hoardMaterials);
+    }
+    ?>
+    <!-- Linked coins -->
+    <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array('linkedCoins' => $this->linkedCoins)); ?>
+    <!-- Linked arefacts -->
+    <?php echo $this->partial('partials/hoards/linkedartefacts.phtml', array('linkedArtefacts' => $this->linkedArtefacts)); ?>
+    <!-- Linked containers -->
+    <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array('linkedContainers' => $this->linkedContainers)); ?>
+    <!-- Dimensional data -->
+    <!-- Date found -->
+    <?php echo $this->partial('partials/hoards/datefound.phtml', $this->discoverySummary); ?>
+    <!-- Rally data -->
+    <?php
+    if (count($this->rallyfind)) {
+        echo $this->partial('partials/database/hoards/rallyfind.phtml', $this->rallyfind['0']);
+    }
+    ?>
+    <!-- Personal data -->
+    <?php if (count($this->recordersIdentifiers) > 0): ?>
+        <h4>Personal details</h4>
+        <?php echo $this->partial('partials/hoards/finders.phtml', array('finders' => $this->finders)); ?>
+        <?php echo $this->partial('partials/hoards/personal.phtml', $this->recordersIdentifiers); ?>
+    <?php endif; ?>
+    <!-- Other references -->
+    <?php echo $this->partial('partials/hoards/otherrefs.phtml', $this->referenceNumbers); ?>
+
+
+</div>
+<!--  End of descriptive data -->
+
+<!-- Start of the spatial data -->
+<div class="row-fluid">
+    <!-- Render the map -->
+
+    <?php if (count($this->findspots)) : ?>
+        <!-- Check for findspot data and if there render -->
+        <?php echo $this->findspot($this->findspots); ?>
+    <?php else: ?>
+        <!-- Render a link for adding find spot -->
+        <div id="findspotdata">
+            <h4>Spatial data</h4>
+
+            <p>
+                No spatial data available.
+            </p>
+            <?php echo $this->findSpotLink()
+                ->setFindID($this->hoards['id'])
+                ->setSecuID($this->hoards['uniqueID'])
+                ->setCreatedBy($this->hoards['createdBy'])
+                ->setInstitution($this->hoards['institution']);
             ?>
         </div>
-        <!-- End of the image pane -->
+    <?php endif; ?>
+    <!-- Render the map ends -->
+</div>
+<!--  End of spatial data -->
 
+<!-- Start of the archaeological context data -->
+<div class="row-fluid">
 
-    </div>
-
-    <div class="row-fluid">
-        <!-- Summary details of the coins in the hoard -->
-        <?php echo $this->partial('partials/hoards/coinsummary.phtml', array('coinSummary' => $this->coinSummary, 'hoards' => $this->hoards));?>
-        <!-- Coin data quality rating -->
-        <?php echo $this->partial('partials/hoards/coindataquality.phtml', $this->coinDataQuality);?>
-        <!-- The description of the object -->
-        <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml',$this->hoardDescription);?>
-        <!-- Subsequent action after recording hoard -->
-        <?php echo $this->partial('partials/hoards/subsequentaction.phtml',$this->subsequentActions);?>
-        <!-- Treasure find info -->
-        <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->treasureDetails);?>
-        <!-- Finds materials -->
-        <?php
-        if (!empty($this->hoardMaterials)){
-            echo $this->hoardMaterials()->setMaterials($this->hoardMaterials);
-        }
-        ?>
-        <!-- Linked coins -->
-        <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array('linkedCoins' => $this->linkedCoins));?>
-        <!-- Linked arefacts -->
-        <?php echo $this->partial('partials/hoards/linkedartefacts.phtml', array('linkedArtefacts' => $this->linkedArtefacts));?>
-        <!-- Linked containers -->
-        <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array('linkedContainers' => $this->linkedContainers));?>
-        <!-- Dimensional data -->
-        <!-- Date found -->
-        <?php echo $this->partial('partials/hoards/datefound.phtml', $this->discoverySummary);?>
-        <!-- Rally data -->
-        <?php
-        if (count($this->rallyfind)){
-            echo $this->partial('partials/database/hoards/rallyfind.phtml', $this->rallyfind['0']);
-        }
-        ?>
-        <!-- Personal data -->
-        <?php if (count($this->recordersIdentifiers) > 0): ?>
-            <h4>Personal details</h4>
-            <?php echo $this->partial('partials/hoards/finders.phtml', array('finders' => $this->finders)); ?>
-            <?php echo $this->partial('partials/hoards/personal.phtml', $this->recordersIdentifiers);?>
-        <?php endif;?>
-        <!-- Other references -->
-        <?php echo $this->partial('partials/hoards/otherrefs.phtml', $this->referenceNumbers); ?>
-
-
-    </div>
-    <!--  End of descriptive data -->
-
-    <!-- Start of the spatial data -->
-    <div class="row-fluid">
-        <!-- Render the map -->
-
-        <?php if (count($this->findspots)) : ?>
-            <!-- Check for findspot data and if there render -->
-            <?php echo $this->findspot($this->findspots);?>
-        <?php else: ?>
-            <!-- Render a link for adding find spot -->
-            <div id="findspotdata">
-                <h4>Spatial data</h4>
-                <p>
-                    No spatial data available.
-                </p>
-                <?php echo $this->findSpotLink()
-                    ->setFindID($this->hoards['id'])
-                    ->setSecuID($this->hoards['uniqueID'])
-                    ->setCreatedBy($this->hoards['createdBy'])
-                    ->setInstitution($this->hoards['institution']);
-                ?>
-            </div>
-        <?php endif; ?>
-        <!-- Render the map ends -->
-    </div>
-    <!--  End of spatial data -->
-
-    <!-- Start of the archaeological context data -->
-    <div class="row-fluid">
-
-        <?php if (!empty($this->archaeologicalContext)) : ?>
-            <!-- Check for archaeological context data and if there is render it -->
+    <?php if (!empty($this->archaeologicalContext)) : ?>
+        <!-- Check for archaeological context data and if there is render it -->
         <?php echo $this->partial('partials/hoards/archaeology.phtml', $this->archaeologicalContext); ?>
-        <?php else: ?>
-            <!-- Render a link for adding archaeological context -->
-            <div id="archaeologicalcontextdata">
-                <h4>Archaeological context</h4>
-                <p>
-                    No archaeological context available.
-                </p>
-                <?php echo $this->addArchaeology()->setHoardID($this->hoards['uniqueID'])->setID($this->hoards['id']);?>
-            </div>
-        <?php endif; ?>
+    <?php else: ?>
+        <!-- Render a link for adding archaeological context -->
+        <div id="archaeologicalcontextdata">
+            <h4>Archaeological context</h4>
 
-    </div>
-    <!--  End of archaeological context data -->
-
-
-    <!--  Start of the references section -->
-    <div class="row-fluid" id="references">
-        <h4>References cited</h4>
-        <?php
-        if (count($this->refs) > 0) : ?>
             <p>
-                <?php
-                echo $this->addRefLink()
-                    ->setFindID($this->hoards['id'])
-                    ->setSecuID($this->hoards['uniqueID'])
-                    ->setCreatedBy($this->hoards['createdBy'])
-                    ->setInstitution($this->hoards['institution']);
-                ?>
+                No archaeological context available.
             </p>
+            <?php echo $this->addArchaeology()->setHoardID($this->hoards['uniqueID'])->setID($this->hoards['id']); ?>
+        </div>
+    <?php endif; ?>
 
-            <ul>
-                <?php echo $this->partialLoop('partials/database/harvardbook.phtml',
-                    $this->refs);?>
-            </ul>
-        <?php else:?>
-            <p class="norefs">
-                No references cited so far.
-            </p>
+</div>
+<!--  End of archaeological context data -->
 
+
+<!--  Start of the references section -->
+<div class="row-fluid" id="references">
+    <h4>References cited</h4>
+    <?php
+    if (count($this->refs) > 0) : ?>
+        <p>
             <?php
             echo $this->addRefLink()
                 ->setFindID($this->hoards['id'])
@@ -204,13 +188,46 @@
                 ->setCreatedBy($this->hoards['createdBy'])
                 ->setInstitution($this->hoards['institution']);
             ?>
-        <?php endif;?>
-    </div>
-    <!--  End of references section -->
+        </p>
+
+        <ul>
+            <?php echo $this->partialLoop('partials/database/harvardbook.phtml',
+                $this->refs);?>
+        </ul>
+    <?php else: ?>
+        <p class="norefs">
+            No references cited so far.
+        </p>
+
+        <?php
+        echo $this->addRefLink()
+            ->setFindID($this->hoards['id'])
+            ->setSecuID($this->hoards['uniqueID'])
+            ->setCreatedBy($this->hoards['createdBy'])
+            ->setInstitution($this->hoards['institution']);
+        ?>
+    <?php endif; ?>
+</div>
+<!--  End of references section -->
 </div>
 
 </div>
 <!--  End of main body of record -->
+
+<!--  Start of commentary section -->
+<div class="row-fluid" id="commentary">
+
+    <p>
+        <a class="btn btn-small btn-warning" href="<?php echo $this->url(array(
+            'module' => 'database',
+            'controller' => 'hoards',
+            'action' => 'error',
+            'id' => $this->hoards['id']
+        ));?>"
+           title="Send message to the allotted National Finds Adviser"><i class="icon-warning-sign"></i> Report a mistake</a>
+    </p>
+</div>
+
 
 </div>
 </div>
@@ -218,7 +235,7 @@
 
 <!-- Start of the Audit section -->
 <div class="row-fluid" id="audit">
-    <?php echo $this->partial('partials/database/recordaudit.phtml',$this->hoards); ?>
+    <?php echo $this->partial('partials/database/recordaudit.phtml', $this->hoards); ?>
     <?php echo $this->auditLogs()->setId($this->hoards['id']); ?>
 </div>
 <!-- end of audit section -->

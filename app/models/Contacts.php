@@ -420,4 +420,27 @@ class Contacts extends Pas_Db_Table_Abstract {
         }
         return $accounts;
     }
+
+    /** Retrieve the owner of a find record
+     * @param integer $findID the find record ID number
+     * @return array
+     */
+    public function getOwnerHoard($hoardID) {
+        $key = 'ownerofhoard' . $hoardID;
+        if (!$accounts = $this->_cache->load($key)) {
+            $users = $this->getAdapter();
+            $select = $users->select()
+                ->from($this->_name,array(
+                    'name' => 'CONCAT(firstname," ", lastname)',
+                    'email' => 'email_one'
+                ))
+                ->joinLeft('hoards','hoards.institution = '
+                    . $this->_name . '.identifier',array())
+                ->where('hoards.id = ?', (int)$hoardID)
+                ->where($this->_name . '.alumni = ?', 1);
+            $accounts = $users->fetchAll($select);
+            $this->_cache->save($accounts, $key);
+        }
+        return $accounts;
+    }
 }
