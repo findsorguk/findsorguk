@@ -226,7 +226,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
     public function getSolrConfig() {
         $config = $this->getConfig()->solr->toArray();
         $config['path'] = '/solr/';
-        $config['core'] = 'beopeople';
+        $config['core'] = 'people';
         $this->_solrConfig = array(
             'adapteroptions' => $config
                 );

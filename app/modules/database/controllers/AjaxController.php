@@ -534,7 +534,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $params['format'] = 'json';
         $params['sort'] = 'id';
         $search = new Pas_Solr_Handler();
-        $search->setCore('beopeople');
+        $search->setCore('people');
         $search->setParams($params);
         $search->setFields(array('*'));
         $search->execute();
@@ -571,7 +571,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function peoplefacetAction()
     {
         $search = new Pas_Solr_Handler();
-        $search->setCore('beopeople');
+        $search->setCore('people');
         $context = $this->_helper->contextSwitch->getCurrentContext();
         $fields = new Pas_Solr_FieldGeneratorFinds($context);
         $search->setFields($fields->getFields());

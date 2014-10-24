@@ -28,7 +28,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @todo change core names through out site
      */
     protected $_cores = array(
-        'objects', 'beopeople', 'images',
+        'objects', 'people', 'images',
         'publications','bibliography','content'
         );
 
@@ -115,10 +115,10 @@ class Pas_Controller_Action_Helper_SolrUpdater
     protected function _getIdentifier($core){
 	if(in_array($core, $this->_cores)){
             switch($core) {
-                case 'beowulf':
+                case 'objects':
                     $identifier = 'finds-';
                     break;
-                case 'beopeople':
+                case 'people':
                     $identifier = 'people-';
                     break;
                 case 'content':
@@ -156,7 +156,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 case 'objects':
                     $model = new Finds();
                     break;
-                case 'beopeople':
+                case 'people':
                     $model = new People();
                     break;
                 case 'content':

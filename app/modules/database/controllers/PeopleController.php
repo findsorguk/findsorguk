@@ -98,7 +98,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
         $form->q->setAttrib('placeholder','Try Bland for example');
         $this->view->form = $form;
         $search = new Pas_Solr_Handler();
-        $search->setCore('beopeople');
+        $search->setCore('people');
         $search->setFields(array('*'));
         $search->setFacets(array('county','organisation','activity'));
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
@@ -173,7 +173,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                 $coords = $this->geoCodeAddress($address);
                 $insertData = array_merge($updateData, $coords);
                 $insert = $this->getPeople()->add($insertData);
-        	$this->_helper->solrUpdater->update('beopeople', $insert);
+        	$this->_helper->solrUpdater->update('people', $insert);
                 $this->redirect(self::REDIRECT . 'person/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else {
@@ -217,7 +217,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                     $clean= $this->getPeople()->updateAndProcess($merged);
                     //Update the solr instance
                     $this->getPeople()->update($clean, $where);
-                    $this->_helper->solrUpdater->update('beopeople', $this->_getParam('id'));
+                    $this->_helper->solrUpdater->update('people', $this->_getParam('id'));
                     //Update the audit log
                     $this->_helper->audit($updateData, $oldData, 'PeopleAudit',
                     $this->_getParam('id'), $this->_getParam('id'));
@@ -248,7 +248,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
                 $this->getPeople()->delete($where);
-                $this->_helper->solrUpdater->deleteById('beopeople', $id);
+                $this->_helper->solrUpdater->deleteById('people', $id);
                 $this->getFlash()->addMessage('Record deleted!');
             }
             $this->_redirect(self::REDIRECT);
