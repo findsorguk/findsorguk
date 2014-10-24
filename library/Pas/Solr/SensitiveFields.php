@@ -42,7 +42,7 @@ class Pas_Solr_SensitiveFields {
      * @param string $core
      */    
     public function cleanData( $data, $role, $core ){
-        if(!in_array($role, $this->_allowed) && $core == 'beowulf'){
+        if(!in_array($role, $this->_allowed) && $core == 'objects'){
            return $this->_processGeoData($data, $role);
         } else {
             return $data;

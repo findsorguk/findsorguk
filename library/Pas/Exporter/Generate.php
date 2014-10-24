@@ -133,7 +133,7 @@ class Pas_Exporter_Generate {
         $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
         $this->_params = $this->_cleanParams($params);
         $this->_search = new Pas_Solr_Handler();
-        $this->_search->setCore('beowulf');
+        $this->_search->setCore('objects');
     }
 
     /** Set the number of rows per export

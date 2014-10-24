@@ -110,7 +110,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
                 $cons->max_lon
                     );
             $search = new Pas_Solr_Handler();
-            $search->setCore('beowulf');
+            $search->setCore('objects');
             $context = $this->_helper->contextSwitch->getCurrentContext();
             $fields = new Pas_Solr_FieldGeneratorFinds($context);
             $search->setFields($fields->getFields());

@@ -62,7 +62,7 @@ class Pas_Solr_Handler {
      * @var string
      * @todo change option when we rename cores
      */
-    protected $_core = 'beowulf';
+    protected $_core = 'objects';
     
     /** The solr object
      * @access protected
@@ -429,7 +429,7 @@ class Pas_Solr_Handler {
         $master = $this->getConfig()->solr->master->toArray();
         $asgard  = $this->getConfig()->solr->asgard->toArray();
         $valhalla = $this->getConfig()->solr->valhalla->toArray();
-        $loadbalancer->addServer('beowulf', $master, 100);
+        $loadbalancer->addServer('objects', $master, 100);
 	$loadbalancer->addServer('asgard', $asgard, 200);
 	$loadbalancer->addServer('valhalla', $valhalla, 150);
 	$loadbalancer->setFailoverEnabled(true);
@@ -696,10 +696,10 @@ class Pas_Solr_Handler {
                 }
                 $map = $this->getMap();
                 if(($map === true) && !in_array($this->getRole(), 
-                        $this->getAllowed()) && ($this->getCore() === 'beowulf')){
+                        $this->getAllowed()) && ($this->getCore() === 'objects')){
                     $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
                     $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
-                } elseif($map === true && ($this->getCore() === 'beowulf')) {
+                } elseif($map === true && ($this->getCore() === 'objects')) {
                     $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
                 }
                 if(array_key_exists('bbox',$params)){
@@ -930,7 +930,7 @@ class Pas_Solr_Handler {
             unset($params['todate']);
         }
   	//Statistics are only enabled in this instance for the finds index
- 	if($this->getCore() === 'beowulf'){
+ 	if($this->getCore() === 'objects'){
             $stats = $this->_query->getStats();
             foreach($this->getStatsFields() as $field){
                 $stats->createField($field);
@@ -941,10 +941,10 @@ class Pas_Solr_Handler {
                 $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
             }
             if((array_key_exists('parish', $params) 
-                    || array_key_exists('fourFigure', $params)) && ($this->getCore() === 'beowulf')){
+                    || array_key_exists('fourFigure', $params)) && ($this->getCore() === 'objects')){
                 $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
             }
-            if($this->getFormat() === 'kml' && ($this->getCore() === 'beowulf')){
+            if($this->getFormat() === 'kml' && ($this->getCore() === 'objects')){
                 $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
                 $this->_query->createFilterQuery('geopresent')->setQuery('gridref:[* TO *]');
             }

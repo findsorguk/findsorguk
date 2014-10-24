@@ -65,7 +65,7 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @var string
      * @todo update name of core when change made
      */
-    protected $_core = 'beowulf';
+    protected $_core = 'objects';
 
     /** The default role
      * @access protected

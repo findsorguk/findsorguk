@@ -34,7 +34,7 @@ class Pas_View_Helper_MapFacetCreatorMyFinds extends Zend_View_Helper_Abstract
      $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
     $params['createdBy'] = $this->_id;
     $search = new Pas_Solr_Handler();
-    $search->setCore('beowulf');
+    $search->setCore('objects');
     $search->setParams($params);
     $search->setFacets(array(
         'objectType','county','broadperiod',

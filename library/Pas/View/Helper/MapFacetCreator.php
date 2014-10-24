@@ -32,7 +32,7 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
     {
     $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
     $search = new Pas_Solr_Handler();
-    $search->setCore('beowulf');
+    $search->setCore('objects');
 //	$search->setFields(array(
 //		'id','old_findID','description', 'gridref','fourFigure',
 //		'longitude', 'latitude', 'county', 'woeid',

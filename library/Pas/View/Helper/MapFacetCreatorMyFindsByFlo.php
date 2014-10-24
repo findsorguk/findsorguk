@@ -45,7 +45,7 @@ class Pas_View_Helper_MapFacetCreatorMyFindsByFlo extends Zend_View_Helper_Abstr
      $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
         $params['finderID'] = $this->_id;
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setParams($params);
         $search->setFacets(array(
             'objectType','county','broadperiod',

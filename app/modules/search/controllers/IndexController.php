@@ -27,7 +27,7 @@ class Search_IndexController extends Pas_Controller_Action_Admin {
         'adapteroptions' => array(
         'host' => '127.0.0.1',
         'port' => 8080,
-        'path' => '/solr/beowulf/',
+        'path' => '/solr/objects/',
         ));
     
     /** Set up the ACL

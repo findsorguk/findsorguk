@@ -330,10 +330,10 @@ class Pas_Solr_HandlerPersonal {
     }
 
 
-	if(($this->_map === true) && !in_array($this->_getRole(), $this->_allowed) && ($this->_core === 'beowulf')){
+	if(($this->_map === true) && !in_array($this->_getRole(), $this->_allowed) && ($this->_core === 'objects')){
 		$this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
 		$this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
-	} elseif($this->_map === true && ($this->_core === 'beowulf')) {
+	} elseif($this->_map === true && ($this->_core === 'objects')) {
 		$this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
 	}
 
@@ -455,7 +455,7 @@ class Pas_Solr_HandlerPersonal {
      * @param array $fields
      * @throws Pas_Solr_Exception
      */
-    protected function _checkFieldList($core = 'beowulf',  $fields){
+    protected function _checkFieldList($core = 'objects',  $fields){
     if(!is_null($fields)){
     $this->_schemaFields[] = '*';
     $this->_schemaFields[] = 'q';
@@ -598,14 +598,14 @@ class Pas_Solr_HandlerPersonal {
     unset($this->_params['todate']);
     }
 
- 	if($this->_core === 'beowulf'){
+ 	if($this->_core === 'objects'){
 		$stats = $this->_query->getStats();
 		foreach($this->getStatsFields() as $field){
 			$stats->createField($field);
 		}
  	}
     if(!in_array($this->_getRole(), $this->_allowed) || is_null($this->_getRole()) ) {
-    if((array_key_exists('parish', $this->_params) || array_key_exists('fourFigure', $this->_params)) && ($this->_core === 'beowulf')){
+    if((array_key_exists('parish', $this->_params) || array_key_exists('fourFigure', $this->_params)) && ($this->_core === 'objects')){
     $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
 	}
     }

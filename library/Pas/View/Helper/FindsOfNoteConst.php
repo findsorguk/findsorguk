@@ -117,7 +117,7 @@ class Pas_View_Helper_FindsOfNoteConst extends Zend_View_Helper_Abstract
             $geometry->max_lat,
             $geometry->max_lon);
         $search = new Pas_Solr_Handler();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',

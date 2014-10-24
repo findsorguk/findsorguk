@@ -12,7 +12,7 @@ class Pas_Exporter_Fetch extends Pas_Exporter_Generate {
              $this->_params['page'] = $page;
          }
          $this->_search = new Pas_Solr_Handler();
-         $this->_search->setCore('beowulf');
+         $this->_search->setCore('objects');
          switch($this->_format){
              case 'csv':
                  $this->_search->setFields($this->_csvFields);

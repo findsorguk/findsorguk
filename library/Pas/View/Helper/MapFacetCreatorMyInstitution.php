@@ -45,7 +45,7 @@ class Pas_View_Helper_MapFacetCreatorMyInstitution extends Zend_View_Helper_Abst
     $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
     $params['institution'] = $this->_inst;
     $search = new Pas_Solr_Handler();
-    $search->setCore('beowulf');
+    $search->setCore('objects');
     $search->setParams($params);
     $search->setFacets(array('objectType','county','broadperiod',
         'institution', 'rulerName', 'denominationName', 'mintName',
