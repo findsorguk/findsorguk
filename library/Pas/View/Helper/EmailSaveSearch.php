@@ -141,6 +141,10 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
         return $this->buildHtml();
     }
 
+    /** Clean up parameters
+     * @access public
+     * @return array
+     */
     public function cleanParameters()
     {
         $cleaner = new Pas_ArrayFunctions();
