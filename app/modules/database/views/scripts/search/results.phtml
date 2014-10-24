@@ -1,16 +1,17 @@
 <?php
+$params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 $this->headTitle('Database search results');
 $this->metaBase()->setDescription('A completed search on the Scheme database')
-    ->setKeywords(implode(',',Zend_Controller_Front::getInstance()->getRequest()->getParams()))
+    ->setKeywords(implode(',', $params))
     ->generate();
 ?>
     <h2 class="lead">
-        <?php echo $this->title();?>
+        <?php echo $this->title(); ?>
     </h2>
 <?php if ($this->results): ?>
     <?php echo $this->emailSaveSearch(); ?>
     <?php
-    $url = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+    $url = $params;
     unset($url['page']);
     unset($url['show']);
     $url['action'] = 'map';
@@ -21,7 +22,9 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
     </p>
 
     <div class="row-fluid">
-        <ul><?php echo $this->searchParams(Zend_Controller_Front::getInstance()->getRequest()->getParams()); ?></ul>
+        <ul>
+            <?php echo $this->searchParams($params); ?>
+        </ul>
     </div>
 
     <div class="row-fluid">
@@ -38,7 +41,7 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
                 <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
                 <p>
                     Total results available: <?php echo number_format($this->paginator->getTotalItemCount()); ?><br/>
-                    Server farm key: <?php echo $this->server; ?>
+                    Search server index: <?php echo $this->server; ?>
                 </p>
                 <?php echo $this->paginationControl($this->paginator, 'elastic', 'structure/paginationSolr.phtml'); ?>
                 <?php echo $this->statGenerator()->setStats($this->stats); ?>
@@ -46,7 +49,9 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
             </div>
         <?php else: ?>
 
-            <p>No records are available.</p>
+            <p>
+                No records are available at the moment.
+            </p>
 
         <?php endif; ?>
 
@@ -58,11 +63,13 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
 
 <?php else : ?>
     <ul>
-        <?php echo $this->SearchParams(Zend_Controller_Front::getInstance()->getRequest()->getParams()); ?>
+        <?php echo $this->SearchParams($params); ?>
     </ul>
 
-    <p>Your search has produced no results. Please refine your query. If you are expecting more results,
-        you may have insufficient access for their workflow stage.</p>
+    <p>
+        Your search has produced no results. Please refine your query. If you are expecting more results,
+        you may have insufficient access for their workflow stage.
+    </p>
 <?php endif; ?>
 <?php
 $this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type = 'text/javascript');
