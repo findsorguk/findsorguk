@@ -1,4 +1,12 @@
-<h2>Search results</h2>
+<?php
+$this->headTitle('Database search results');
+$this->metaBase()->setDescription('A completed search on the Scheme database')
+    ->setKeywords(implode(',',Zend_Controller_Front::getInstance()->getRequest()->getParams()))
+    ->generate();
+?>
+    <h2 class="lead">
+        <?php echo $this->title();?>
+    </h2>
 <?php if ($this->results): ?>
     <?php echo $this->emailSaveSearch(); ?>
     <?php
@@ -18,11 +26,7 @@
 
     <div class="row-fluid">
 
-        <?php if ($this->results):
-            ?>
-
-
-
+        <?php if ($this->results): ?>
 
             <div class="span9">
 
@@ -64,24 +68,24 @@
 $this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type = 'text/javascript');
 $this->inlineScript()->captureStart();
 ?>
-$(document).ready(function() {
-$('#print').click(function() {
-window.print();
-return false;
-});
+    $(document).ready(function() {
+    $('#print').click(function() {
+    window.print();
+    return false;
+    });
 
-$('.overlay').click(function(e) {
-e.preventDefault();
-var href = $(e.target).attr('href');
-if (href.indexOf('#') == 0) {
-$(href).modal('open');
-} else {
-$.get(href, function(data) {
-$('
-<div class="modal fade">' + data + '</div>').modal();
-});
-}
-});
+    $('.overlay').click(function(e) {
+    e.preventDefault();
+    var href = $(e.target).attr('href');
+    if (href.indexOf('#') == 0) {
+    $(href).modal('open');
+    } else {
+    $.get(href, function(data) {
+    $('
+    <div class="modal fade">' + data + '</div>').modal();
+    });
+    }
+    });
 
-});
+    });
 <?php $this->inlineScript()->captureEnd(); ?>
