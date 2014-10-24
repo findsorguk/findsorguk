@@ -29,7 +29,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
      */
     protected $_cores = array(
         'beowulf', 'beopeople', 'images',
-        'beopublications','beobiblio','beocontent'
+        'beopublications','beobiblio','content'
         );
 
     /** The solr object
@@ -121,7 +121,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 case 'beopeople':
                     $identifier = 'people-';
                     break;
-                case 'beocontent':
+                case 'content':
                     $identifier = 'content-';
                     break;
                 case 'beobiblio':
@@ -159,7 +159,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 case 'beopeople':
                     $model = new People();
                     break;
-                case 'beocontent':
+                case 'content':
                     $type = ucfirst($type);
                     $model = new $type;
                     break;

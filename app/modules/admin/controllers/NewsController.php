@@ -49,7 +49,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
         $cleaner = new Pas_ArrayFunctions();
         $params = $cleaner->array_cleanup($this->_getAllParams());
         $search = new Pas_Solr_Handler();
-        $search->setCore('beocontent');
+        $search->setCore('content');
         $search->setFields(array(
             'updated', 'updatedBy', 'publishState',
             'title', 'created', 'createdBy'

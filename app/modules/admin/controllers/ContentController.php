@@ -60,7 +60,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
         $this->view->form = $form;
         $params = $this->getCleaner()->array_cleanup($this->_getAllParams());
         $search = new Pas_Solr_Handler();
-        $search->setCore('beocontent');
+        $search->setCore('content');
         $search->setFields(array(
             'id', 'title', 'section', 
             'publishState', 'created', 'updated', 
@@ -103,7 +103,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
             $insertData = $form->getValues();
             $content = new Content();
             $insert = $content->add($insertData);
-            $this->_helper->solrUpdater->update('beocontent', $insert, 'content');
+            $this->_helper->solrUpdater->update('content', $insert, 'content');
             $this->getFlash()->addMessage('Static content added');
             $this->redirect('/admin/content');
             } else {
@@ -136,7 +136,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                     $this->_helper->audit($updateData, $oldData, 'ContentAudit', 
                             $this->_getParam('id'), $this->_getParam('id'));
                     $this->_content->update($updateData, $where);
-                    $this->_helper->solrUpdater->update('beocontent', 
+                    $this->_helper->solrUpdater->update('content',
                             $this->_getParam('id'), 'content');  
                     $this->getFlash()->addMessage('You updated: <em>' 
                             . $form->getValue('title') 
@@ -175,7 +175,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $this->getContents()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                $this->_helper->solrUpdater->deleteById('beocontent', $id);
+                $this->_helper->solrUpdater->deleteById('content', $id);
             }
             $this->redirect('/admin/content/');
         }  else  {
