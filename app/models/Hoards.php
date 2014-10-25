@@ -806,7 +806,7 @@ class Hoards extends Pas_Db_Table_Abstract
         return $this->getAdapter()->fetchAll($select);
     }
 
-    /** gGt data for citation of a hoard
+    /** Get data for citation of a hoard
      * @access public
      * @param integer $hoardID
      * @return array
@@ -833,4 +833,18 @@ class Hoards extends Pas_Db_Table_Abstract
         return $this->getAdapter()->fetchAll($select);
     }
 
+    /** Get data for solr updater
+     * @access public
+     * @param integer $hoardID
+     * @return array
+     * @todo add in foreign tables for joins
+     */
+    public function getSolrData( $hoardID )
+    {
+        $select = $this->select()
+            ->from($this->_name)
+            ->where($this->_name . '.id = ?', $hoardID);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchAll($select);
+    }
 }

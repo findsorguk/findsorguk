@@ -133,6 +133,9 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 case 'publications':
                     $identifier = 'publications-';
                     break;
+                case 'hoards':
+                    $identifier = 'hoards-';
+                    break;
                 default:
                     throw new Exception('Your core does not exist',500);
 		}
@@ -171,6 +174,9 @@ class Pas_Controller_Action_Helper_SolrUpdater
                     break;
                 case 'publications':
                     $model = new Publications();
+                    break;
+                case 'hoards':
+                    $model = new Hoards();
                     break;
                 default:
                     throw new Exception('Your core does not exist',500);
