@@ -109,14 +109,7 @@ class Pas_Controller_Action_Helper_FindspotFailedOptions extends Zend_Controller
                         'Available landuses' => $landusecode_options
                     ));
         }
-        
-        if(array_key_exists('landowner', $data)) {
-            $finders = new People();
-            $finders = $finders->getName($findspot['landowner']);
-            foreach($finders as $finder) {
-                $form->landownername->setValue($finder['term']);
-            }
-        }
+
         return $this;
     }
 }

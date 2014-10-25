@@ -1,5 +1,9 @@
 <?php
 $this->headTitle('Edit a findspot');
+$this->metaBase()
+    ->setDescription('Edit a findspot and geo data')
+    ->setKeywords('ordnance, survey, coordinates')
+    ->generate();
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/landowner.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
@@ -8,11 +12,9 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinked
 ?>
 
 
-<?php
-$this->FindSpotEditCheck($this->findspot->old_findspotid, $this->findspot->createdBy);
-?>
-
-    <h2><?php echo $this->title(); ?></h2>
+    <h2 class="lead">
+        <?php echo $this->title(); ?>
+    </h2>
 <?php
 $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 ?>
@@ -23,11 +25,10 @@ $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
                'module' => 'database',
                'controller' => $params['recordtype'],
                'action' => 'record', 'id' => $this->returnID), null, false); ?>"
-           title="return to the record">Return to record</a></p>
+           title="return to the record">Return to record</a>
+    </p>
 
-<?php
-echo $this->form;
-?>
+<?php echo $this->form; ?>
 
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
     $(document).ready(function() {

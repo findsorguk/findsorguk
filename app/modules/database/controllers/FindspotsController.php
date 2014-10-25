@@ -90,10 +90,8 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->deny('public', null);
         $this->_helper->_acl->allow('member', array('index', 'add', 'delete', 'edit'));
-
         $this->setController($this->_getParam('recordtype', 'artefacts'));
         $this->setRedirect($this->getController());
-
         $this->_findspots = new Findspots();
     }
 
