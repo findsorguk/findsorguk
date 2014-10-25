@@ -214,6 +214,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $findspot = new Pas_Controller_Action_Helper_FindspotFormOptions();
         Zend_Controller_Action_HelperBroker::addHelper($findspot);
 
+        $findspotFail = new Pas_Controller_Action_Helper_FindspotFailedOptions();
+        Zend_Controller_Action_HelperBroker::addHelper($findspotFail);
+
         $secuid = new Pas_Controller_Action_Helper_GenerateSecuID();
         Zend_Controller_Action_HelperBroker::addHelper($secuid);
 
