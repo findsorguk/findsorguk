@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Solr handler class for retrieving data from the solr indexes
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $search = new Pas_Solr_Handler();
@@ -12,7 +13,7 @@
  * $search->setParams($params);
  * $search->execute();
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @category Pas
@@ -23,16 +24,17 @@
  * @uses Pas_Solr_SensitiveFields
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/modules/database/controllers/SearchController.php
- * 
+ *
  */
-class Pas_Solr_Handler {
-    
+class Pas_Solr_Handler
+{
+
     /** The config
      * @access protected
      * @var \Zend_Config
      */
     protected $_config;
-    
+
     /** The default location for the schema file
      * @access protected
      * @var string
@@ -44,26 +46,26 @@ class Pas_Solr_Handler {
      * @var string
      */
     protected $_schemaPath;
-    
+
     /** The cache object
      * @access protected
      * @var \Zend_Cache
      */
     protected $_cache;
-    
+
     /** The solr config object
      * @access protected
-     * @var type 
+     * @var type
      */
     protected $_solrConfig;
-    
+
     /** The default core
      * @access protected
      * @var string
      * @todo change option when we rename cores
      */
     protected $_core = 'objects';
-    
+
     /** The solr object
      * @access protected
      * @var \Solarium_Client
@@ -78,80 +80,83 @@ class Pas_Solr_Handler {
         'json', 'csv', 'xml',
         'midas', 'rdf', 'n3',
         'rss', 'atom', 'kml',
-    	'pdf', 'geojson', 'sitemap');
-    
+        'pdf', 'geojson', 'sitemap');
+
     /** The array of allowed higher level access
      * @access protected
      * @var array
      */
-    protected $_allowed = array('fa','flos','admin','treasure', 'research', 'hoard');
-    
+    protected $_allowed = array(
+        'fa', 'flos', 'admin',
+        'treasure', 'research', 'hoard'
+    );
+
     /** The default map option
      * @access protected
      * @var boolean
      */
     protected $_map = false;
-    
+
     /** The load balancer plugin
      * @access protected
      * @var object
      */
     protected $_loadbalancer;
-    
+
     /** The default set of fields to query
      * @access protected
      * @var array
-     */    
+     */
     protected $_fields = array('*');
-    
+
     /** The array of fields in a schema
      * @access protected
      * @var array
      */
     protected $_schemaFields = array();
-    
+
     /** The array of cores in the system
      * @access protected
      * @var array
      */
     protected $_cores = array();
-    
+
     /** The array of parameters to query
      * @access protected
      * @var array
      */
     protected $_params = array();
-    
+
     /** The array of fields to highlight
      * @access protected
      * @var array
      */
     protected $_highlights = array();
-    
+
     /** The start value for the query to run from
      * @access protected
      * @var int
      */
     protected $_start = 0;
-    
+
     /** The start page
      * @access protected
      * @var int
      */
     protected $_page = 1;
-    
+
     /** Set the maximum rows to return
      * @access protected
      * @var int
      */
     protected $_rows = 20;
-    
+
     /** The format to parse
      * @access protected
      * @var string
      */
     protected $_format = 'json';
-    
+
     /** Boolean field for processing stats
      * @access protected
      * @var boolean
@@ -163,35 +168,36 @@ class Pas_Solr_Handler {
      * @var array
      */
     protected $_statsFields = array('quantity');
-    
+
     /** The default direction of sort
      * @access protected
-     * @var array 
+     * @var array
      */
     protected $_sort = array('created' => 'desc');
-    
+
     /** The facets array
      * @access protected
      * @var array
      */
     protected $_facets = array();
-    
+
     /** Get the sort array
      * @access public
      * @return array
      * @throws Pas_Solr_Exception
      */
-    public function getSort() {
+    public function getSort()
+    {
         $params = $this->getParams();
-        if(array_key_exists('sort',$params)){
+        if (array_key_exists('sort', $params)) {
             $this->checkFieldList(array($params['sort']));
             $field = $params['sort'];
         } else {
             $field = 'created';
         }
         $allowed = array('desc', 'asc');
-        if(array_key_exists('direction', $params)) {
-            if(in_array($params['direction'],$allowed)){
+        if (array_key_exists('direction', $params)) {
+            if (in_array($params['direction'], $allowed)) {
                 $direction = $params['direction'];
             } else {
                 $message = 'That directional sort does not exist';
@@ -208,22 +214,23 @@ class Pas_Solr_Handler {
      * @var object
      */
     protected $_query;
-    
+
     protected $_facetFields;
 
     protected $_facetSet;
-    
+
     /** Process format key
      * @access protected
      * @return boolean
      */
-    public function getFormat(){
+    public function getFormat()
+    {
         $params = $this->getParams();
-        if(array_key_exists('format', $params)) {
+        if (array_key_exists('format', $params)) {
             $format = $params['format'];
-            if(in_array($format, $this->getFormats())){
+            if (in_array($format, $this->getFormats())) {
                 $this->_format = $format;
-            } 
+            }
         }
         return $this->_format;
     }
@@ -232,60 +239,65 @@ class Pas_Solr_Handler {
      * @access public
      * @return int
      */
-    public function getPage(){
+    public function getPage()
+    {
         $params = $this->getParams();
-        if(array_key_exists('page', $params)){
+        if (array_key_exists('page', $params)) {
             $this->_page = $params['page'];
-        } 
+        }
         return $this->_page;
     }
-    
+
     /** Get the starting numbef for the query
      * @access public
      * @return int
      */
-    public function getStart() {
+    public function getStart()
+    {
         $params = $this->getParams();
-        if(array_key_exists('page', $params) && !is_null($params['page'])){
+        if (array_key_exists('page', $params) && !is_null($params['page'])) {
             $this->_start = abs(($params['page'] - 1) * $this->getRows($params));
-        } 
+        }
         return $this->_start;
     }
-    
+
     /** Get the rows
      * @access public
      * @return int
      */
-    public function getRows(){
+    public function getRows()
+    {
         $params = $this->getParams();
         $format = $this->getFormat();
-        if(isset($params['show']) && in_array($format, 
-                array('json', 'xml', 'geojson', null))){
+        if (isset($params['show']) && in_array($format,
+                array('json', 'xml', 'geojson', null))
+        ) {
             $rows = $params['show'];
-            if($rows > 100){
+            if ($rows > 100) {
                 $this->_rows = 100;
             }
-            } elseif($format === 'kml'){
-                if(!isset($params['show'])){
-                    $this->_rows = 1200;
-                } else {
-                    $this->_rows = $params['show'];
-                }
-                } elseif($format === 'pdf'){
-                    $this->_rows = 500;
-                } elseif($format === 'sitemap'){
-                    $this->_rows = 1000;
-                } 
-    
+        } elseif ($format === 'kml') {
+            if (!isset($params['show'])) {
+                $this->_rows = 1200;
+            } else {
+                $this->_rows = $params['show'];
+            }
+        } elseif ($format === 'pdf') {
+            $this->_rows = 500;
+        } elseif ($format === 'sitemap') {
+            $this->_rows = 1000;
+        }
+
         return $this->_rows;
     }
-    
+
 
     /** Get the schema path
      * @access public
      * @return string
      */
-    public function getSchemaPath() {
+    public function getSchemaPath()
+    {
         $this->_schemaPath = $this->getConfig()->solr->schema->path;
         return $this->_schemaPath;
     }
@@ -295,35 +307,39 @@ class Pas_Solr_Handler {
      * @access public
      * @return string
      */
-    public function getSchemaFile() {
+    public function getSchemaFile()
+    {
         $this->_schemaFile = $this->getConfig()->solr->schema->file;
         return $this->_schemaFile;
     }
-                
+
     /** Set the field on which to generate stats
      * @access public
      * @param string $value
      * @return string
      */
-    public function setStats($value){
-    	return $this->_stats = $value;
+    public function setStats($value)
+    {
+        return $this->_stats = $value;
     }
 
     /** Get the field on which to generate stats
      * @access public
      * @return type
      */
-    public function getStats(){
-    	return $this->_stats;
+    public function getStats()
+    {
+        return $this->_stats;
     }
-    
+
     /** Set whether the function is producing mapping data
      * @access public
      * @param string $map
      * @return \Pas_Solr_Handler
      */
-    public function setMap($map){
-    	$this->_map = $map;
+    public function setMap($map)
+    {
+        $this->_map = $map;
         return $this;
     }
 
@@ -331,7 +347,8 @@ class Pas_Solr_Handler {
      * @access public
      * @return boolean
      */
-    public function getMap() {
+    public function getMap()
+    {
         return $this->_map;
     }
 
@@ -340,10 +357,11 @@ class Pas_Solr_Handler {
      * @param array $fields
      * @return \Pas_Solr_Handler
      */
-    public function setStatsFields(array $fields){
-        if(is_array($fields)){
+    public function setStatsFields(array $fields)
+    {
+        if (is_array($fields)) {
             $this->_statsFields = $fields;
-        } 
+        }
         return $this;
     }
 
@@ -351,15 +369,17 @@ class Pas_Solr_Handler {
      * @access public
      * @return array
      */
-    public function getStatsFields(){
-    	return $this->_statsFields;
+    public function getStatsFields()
+    {
+        return $this->_statsFields;
     }
 
     /** Return the formats that can be queried
      * @access public
      * @return array
      */
-    public function getFormats() {
+    public function getFormats()
+    {
         return $this->_formats;
     }
 
@@ -367,15 +387,17 @@ class Pas_Solr_Handler {
      * @access public
      * @return array
      */
-    public function getAllowed() {
+    public function getAllowed()
+    {
         return $this->_allowed;
     }
-        
+
     /** Get the cache object
      * @access public
      * @return \Zend_Cache
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
@@ -384,16 +406,18 @@ class Pas_Solr_Handler {
      * @access public
      * @return \Zend_Config
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         $this->_config = Zend_Registry::get('config');
         return $this->_config;
     }
-    
+
     /** Get the core to search
      * @access public
      * @return string
      */
-    public function getCore() {
+    public function getCore()
+    {
         return $this->_core;
     }
 
@@ -402,7 +426,8 @@ class Pas_Solr_Handler {
      * @param string $core
      * @return \Pas_Solr_Handler
      */
-    public function setCore($core) {
+    public function setCore($core)
+    {
         $this->_core = $core;
         return $this;
     }
@@ -411,7 +436,8 @@ class Pas_Solr_Handler {
      * @access public
      * @return array
      */
-    public function getSolrConfig() {
+    public function getSolrConfig()
+    {
         $config = $this->getConfig()->solr->master->toArray();
         $config['core'] = $this->getCore();
         return $this->_solrConfig = array('adapteroptions' => $config);
@@ -421,18 +447,19 @@ class Pas_Solr_Handler {
      * @access public
      * @return \Solarium_Client
      */
-    public function getSolr() {
+    public function getSolr()
+    {
         $this->_solr = new Solarium_Client($this->getSolrConfig());
         $this->_solr->setAdapter('Solarium_Client_Adapter_ZendHttp');
         $this->_solr->getAdapter()->getZendHttp();
         $loadbalancer = $this->_solr->getPlugin('loadbalancer');
         $master = $this->getConfig()->solr->master->toArray();
-        $asgard  = $this->getConfig()->solr->asgard->toArray();
+        $asgard = $this->getConfig()->solr->asgard->toArray();
         $valhalla = $this->getConfig()->solr->valhalla->toArray();
         $loadbalancer->addServer('objects', $master, 100);
-	$loadbalancer->addServer('asgard', $asgard, 200);
-	$loadbalancer->addServer('valhalla', $valhalla, 150);
-	$loadbalancer->setFailoverEnabled(true);
+        $loadbalancer->addServer('asgard', $asgard, 200);
+        $loadbalancer->addServer('valhalla', $valhalla, 150);
+        $loadbalancer->setFailoverEnabled(true);
         $this->_solr->getAdapter()->getZendHttp();
         $this->_loadbalancer = $loadbalancer;
         return $this->_solr;
@@ -442,30 +469,33 @@ class Pas_Solr_Handler {
      * @access public
      * @return type
      */
-    public function getLoadbalancer() {
+    public function getLoadbalancer()
+    {
         return $this->_loadbalancer;
     }
 
     /** Set the facet fields
      * @access public
      * @return \Pas_Solr_Handler
-     */             
-    protected function setFacetFields(){
+     */
+    protected function setFacetFields()
+    {
         $facetFields = array();
-        foreach($this->getSchemaFields() as $k => $v){
+        foreach ($this->getSchemaFields() as $k => $v) {
             $facetFields[$k] = 'fq' . $v;
         }
         $this->_facetFields = $facetFields;
         return $this;
     }
-    
+
     /** Get the facet fields
      * @access public
-     * @return 
+     * @return
      */
-    public function getFacetFields() {
+    public function getFacetFields()
+    {
         $facetFields = array();
-        foreach($this->getSchemaFields() as $k => $v){
+        foreach ($this->getSchemaFields() as $k => $v) {
             $facetFields[$k] = 'fq' . $v;
         }
         $this->_facetFields = $facetFields;
@@ -476,12 +506,13 @@ class Pas_Solr_Handler {
      * @access public
      * @return array
      */
-    public function getCores() {
+    public function getCores()
+    {
         if (!($this->getCache()->test('solrCores'))) {
             $dir = new DirectoryIterator($this->getSchemaPath());
             $cores = array();
             foreach ($dir as $dirEntry) {
-                if($dirEntry->isDir() && !$dirEntry->isDot()){
+                if ($dirEntry->isDir() && !$dirEntry->isDot()) {
                     $cores[] = $dirEntry->getFilename();
                 }
             }
@@ -496,20 +527,21 @@ class Pas_Solr_Handler {
      * @access public
      * @return array
      */
-    public function getSchemaFields(){
+    public function getSchemaFields()
+    {
         $file = $this->getSchemaPath() . $this->getCore() . $this->getSchemaFile();
         $key = md5($file);
         if (!($this->getCache()->test($key))) {
-            if(file_exists($file)){
+            if (file_exists($file)) {
                 $xml = simplexml_load_file($file);
                 $schemaFields = array();
-                foreach($xml->fields->field as $field){
+                foreach ($xml->fields->field as $field) {
                     $string = get_object_vars($field->attributes());
                     //This bit looks honky, couldn't get it to work with object notation
                     $schemaFields[] = $string["@attributes"]['name'];
                 }
             } else {
-                throw new Zend_Exception('That path does not exist',500);
+                throw new Zend_Exception('That path does not exist', 500);
             }
             $this->getCache()->save($schemaFields);
         } else {
@@ -524,19 +556,21 @@ class Pas_Solr_Handler {
      * @return boolean
      * @throws Pas_Solr_Exception
      */
-    protected function checkCoreExists(){
-        if(!in_array($this->getCore(), $this->getCores())){
-            throw new Pas_Solr_Exception('That is not a valid core',500);
+    protected function checkCoreExists()
+    {
+        if (!in_array($this->getCore(), $this->getCores())) {
+            throw new Pas_Solr_Exception('That is not a valid core', 500);
         } else {
             return true;
         }
     }
-    
+
     /** Get the user's role
      * @access public
      * @return string
      */
-    public function getRole(){
+    public function getRole()
+    {
         $user = new Pas_User_Details();
         return $user->getRole();
     }
@@ -545,7 +579,8 @@ class Pas_Solr_Handler {
      * @access public
      * @return array
      */
-    public function getFields(){
+    public function getFields()
+    {
         return $this->_fields;
     }
 
@@ -553,7 +588,8 @@ class Pas_Solr_Handler {
      * @access public
      * @return type
      */
-    public function setFields( $fields ){
+    public function setFields($fields)
+    {
         $this->checkFieldList($fields);
         $this->_fields = $fields;
         return $this->_fields;
@@ -564,81 +600,84 @@ class Pas_Solr_Handler {
      * @param array $params
      * @return array
      */
-    public function setParams(array $params){
-    	if(is_array($params)){
+    public function setParams(array $params)
+    {
+        if (is_array($params)) {
             $this->_params = $this->filterParams($params);
-    	}
+        }
         return $this->_params;
     }
-    
+
     /** Get the parameters to query
      * @access public
      * @return array
      */
-    public function getParams() {
+    public function getParams()
+    {
         return $this->_params;
     }
 
-    
+
     /** Filter parameters being passed to search
      * @access public
      * @param array $params
      * @return array
      */
-    public function filterParams(array $params){
-    	if(array_key_exists('created', $params)){
-    		$created = $params['created'];
-    		$queryDateA = $created . "T00:00:00.001Z";
-    		$queryDateB = $created . "T23:59:59.99Z";
-    		$params['created'] = $queryDateA . ' TO ' . $queryDateB ;
-    	}
-     	if(array_key_exists('updated', $params)){
-    		$updated = $params['updated'];
-    		$queryDateA = $updated . "T00:00:00.001Z";
-    		$queryDateB = $updated . "T23:59:59.99Z";
-    		$params['updated'] = $queryDateA . ' TO ' . $queryDateB ;
-    	}
-    	if(array_key_exists('createdBefore', $params) && array_key_exists('createdAfter', $params)){
-    		$queryDateA = $params['createdAfter'] . "T00:00:00.001Z";
-    		$queryDateB = $params['createdBefore'] . "T23:59:59.99Z";
-    		$params['created'] = $queryDateA . ' TO ' . $queryDateB;
-    		unset($params['createdBefore']);
-    		unset($params['createdAfter']);
-    	}
-    	if(array_key_exists('createdBefore', $params)){
-    		$queryDate = $params['createdBefore'] . "T23:59:59.99Z";
-    		$params['created'] = '* TO ' . $queryDate;
-    		unset($params['createdBefore']);
-    	}
-    	if(array_key_exists('createdAfter', $params)){
-    		$queryDate = $params['createdAfter'] . "T00:00:00.001Z";
-    		$params['created'] = $queryDate . ' TO * ';
-    		unset($params['createdAfter']);
-    	}
+    public function filterParams(array $params)
+    {
+        if (array_key_exists('created', $params)) {
+            $created = $params['created'];
+            $queryDateA = $created . "T00:00:00.001Z";
+            $queryDateB = $created . "T23:59:59.99Z";
+            $params['created'] = $queryDateA . ' TO ' . $queryDateB;
+        }
+        if (array_key_exists('updated', $params)) {
+            $updated = $params['updated'];
+            $queryDateA = $updated . "T00:00:00.001Z";
+            $queryDateB = $updated . "T23:59:59.99Z";
+            $params['updated'] = $queryDateA . ' TO ' . $queryDateB;
+        }
+        if (array_key_exists('createdBefore', $params) && array_key_exists('createdAfter', $params)) {
+            $queryDateA = $params['createdAfter'] . "T00:00:00.001Z";
+            $queryDateB = $params['createdBefore'] . "T23:59:59.99Z";
+            $params['created'] = $queryDateA . ' TO ' . $queryDateB;
+            unset($params['createdBefore']);
+            unset($params['createdAfter']);
+        }
+        if (array_key_exists('createdBefore', $params)) {
+            $queryDate = $params['createdBefore'] . "T23:59:59.99Z";
+            $params['created'] = '* TO ' . $queryDate;
+            unset($params['createdBefore']);
+        }
+        if (array_key_exists('createdAfter', $params)) {
+            $queryDate = $params['createdAfter'] . "T00:00:00.001Z";
+            $params['created'] = $queryDate . ' TO * ';
+            unset($params['createdAfter']);
+        }
 
-    	if(array_key_exists('updatedBefore', $params) && array_key_exists('updatedAfter', $params)){
-    		$queryDateA = $params['updatedAfter'] . "T00:00:00.001Z";
-    		$queryDateB = $params['updatedBefore'] . "T23:59:59.99Z";
-    		$params['updated'] = $queryDateA . ' TO ' . $queryDateB;
-    		unset($params['updatedBefore']);
-    		unset($params['updatedAfter']);
-    	}
-    	if(array_key_exists('updatedBefore', $params)){
-    		$queryDate = $params['updatedBefore'] . "T23:59:59.99Z";
-    		$params['updated'] = '* TO ' . $queryDate;
-    		unset($params['updatedBefore']);
-    	}
-    	if(array_key_exists('updatedAfter', $params)){
-    		$queryDate = $params['updatedAfter'] . "T00:00:00.001Z";
-    		$params['updated'] = $queryDate . ' TO NOW ';
-    		unset($params['updatedAfter']);
-    	}
-    	foreach($params as $k => $v){
-    		if(is_null($v) || ($v === '')){
-    			unset($params[$k]);
-    		}
-    	}
-    	return $params;
+        if (array_key_exists('updatedBefore', $params) && array_key_exists('updatedAfter', $params)) {
+            $queryDateA = $params['updatedAfter'] . "T00:00:00.001Z";
+            $queryDateB = $params['updatedBefore'] . "T23:59:59.99Z";
+            $params['updated'] = $queryDateA . ' TO ' . $queryDateB;
+            unset($params['updatedBefore']);
+            unset($params['updatedAfter']);
+        }
+        if (array_key_exists('updatedBefore', $params)) {
+            $queryDate = $params['updatedBefore'] . "T23:59:59.99Z";
+            $params['updated'] = '* TO ' . $queryDate;
+            unset($params['updatedBefore']);
+        }
+        if (array_key_exists('updatedAfter', $params)) {
+            $queryDate = $params['updatedAfter'] . "T00:00:00.001Z";
+            $params['updated'] = $queryDate . ' TO NOW ';
+            unset($params['updatedAfter']);
+        }
+        foreach ($params as $k => $v) {
+            if (is_null($v) || ($v === '')) {
+                unset($params[$k]);
+            }
+        }
+        return $params;
     }
 
     /** Set fields to highlight
@@ -646,8 +685,9 @@ class Pas_Solr_Handler {
      * @param array $highlights
      * @return array
      */
-    public function setHighlights(array $highlights){
-        if(is_array($highlights)){
+    public function setHighlights(array $highlights)
+    {
+        if (is_array($highlights)) {
             $this->_highlights = $highlights;
         }
         return $this->_highlights;
@@ -657,9 +697,10 @@ class Pas_Solr_Handler {
      * @access public
      * @return array
      */
-    public function createHighlighting(){
+    public function createHighlighting()
+    {
         $hl = $this->_query->getHighlighting();
-        $hl->setFields(implode($this->_highlights,','));
+        $hl->setFields(implode($this->_highlights, ','));
         $hl->setSimplePrefix('<span class="hl">');
         $hl->setSimplePostfix('</span>');
         return $hl;
@@ -669,62 +710,65 @@ class Pas_Solr_Handler {
      * @access public
      * @return type
      */
-    public function getHighlights(){
-        if($this->_highlights){
+    public function getHighlights()
+    {
+        if ($this->_highlights) {
             return $this->_resultset->getHighlighting();
         }
     }
 
-    /** Create filters 
+    /** Create filters
      * @access protected
      * @param array $params
      * @throws Pas_Solr_Exception
      */
-    protected function _createFilters( array $params ){
-        if(is_array($params)){
-            if(array_key_exists('d', $params) && array_key_exists('lon',$params) && array_key_exists('lat',$params)){
-                if(!is_null($params['d']) && !is_null($params['lon']) && !is_null($params['lat'])){
+    protected function _createFilters(array $params)
+    {
+        if (is_array($params)) {
+            if (array_key_exists('d', $params) && array_key_exists('lon', $params) && array_key_exists('lat', $params)) {
+                if (!is_null($params['d']) && !is_null($params['lon']) && !is_null($params['lat'])) {
                     $helper = $this->_query->getHelper();
                     $this->_query->createFilterQuery('geo')->setQuery(
-                            $helper->geofilt(
-                                    $params['lat'],
-                                    $params['lon'],
-                                    'coordinates',
-                                    $params['d'])
-                            );
-                    }
+                        $helper->geofilt(
+                            $params['lat'],
+                            $params['lon'],
+                            'coordinates',
+                            $params['d'])
+                    );
                 }
-                $map = $this->getMap();
-                if(($map === true) && !in_array($this->getRole(), 
-                        $this->getAllowed()) && ($this->getCore() === 'objects')){
-                    $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
-                    $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
-                } elseif($map === true && ($this->getCore() === 'objects')) {
-                    $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
+            }
+            $map = $this->getMap();
+            if (($map === true) && !in_array($this->getRole(),
+                    $this->getAllowed()) && ($this->getCore() === 'objects')
+            ) {
+                $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
+                $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
+            } elseif ($map === true && ($this->getCore() === 'objects')) {
+                $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
+            }
+            if (array_key_exists('bbox', $params)) {
+                $coords = new Pas_Solr_BoundingBoxCheck($params['bbox']);
+                $bbox = $coords->checkCoordinates();
+                $this->_query->createFilterQuery('bbox')->setQuery($bbox);
+            }
+            foreach ($params as $key => $value) {
+                if (!in_array($key, $this->_schemaFields)) {
+                    unset($params[$key]);
                 }
-                if(array_key_exists('bbox',$params)){
-                    $coords = new Pas_Solr_BoundingBoxCheck($params['bbox']);
-                    $bbox = $coords->checkCoordinates();
-                    $this->_query->createFilterQuery('bbox')->setQuery($bbox);
-                }
-                foreach($params as $key => $value){
-                    if(!in_array($key, $this->_schemaFields))   {
-                        unset($params[$key]);
-                    }
-                }
-                if(isset($params['thumbnail'])){
-                    $this->_query->createFilterQuery('thumbnails')->setQuery('thumbnail:[1 TO *]');
-                    unset($params['thumbnail']);
-                }
+            }
+            if (isset($params['thumbnail'])) {
+                $this->_query->createFilterQuery('thumbnails')->setQuery('thumbnail:[1 TO *]');
+                unset($params['thumbnail']);
+            }
 
-                $this->checkFieldList(array_keys($params));
-                foreach($params as $key => $value){
-                    $this->_query->createFilterQuery($key . $value)->setQuery($key . ':"'
-                            . $value . '"');
-                }
-                } else {
-                    throw new Pas_Solr_Exception('The search params must be an array');
-                }
+            $this->checkFieldList(array_keys($params));
+            foreach ($params as $key => $value) {
+                $this->_query->createFilterQuery($key . $value)->setQuery($key . ':"'
+                    . $value . '"');
+            }
+        } else {
+            throw new Pas_Solr_Exception('The search params must be an array');
+        }
     }
 
     /** Set the facets array up
@@ -732,27 +776,30 @@ class Pas_Solr_Handler {
      * @param array $facets
      * @return \Pas_Solr_Handler
      */
-    public function setFacets(array $facets){
-    	if(is_array($facets)){
+    public function setFacets(array $facets)
+    {
+        if (is_array($facets)) {
             $this->setFacetFields($facets);
             $this->_facets = $facets;
-    	}
+        }
         return $this;
     }
-    
+
     /** Get the facets that have been sent
      * @access public
      * @return array
      */
-    public function getFacets() {
+    public function getFacets()
+    {
         return $this->_facets;
     }
-    
+
     /** Get the number of results from a result set
      * @access public
      * @return int
      */
-    public function getNumber(){
+    public function getNumber()
+    {
         return $this->_resultset->getNumFound();
     }
 
@@ -760,11 +807,12 @@ class Pas_Solr_Handler {
      * @access public
      * @return type
      */
-    public function createPagination(){
+    public function createPagination()
+    {
         $paginator = Zend_Paginator::factory($this->getNumber());
         $paginator->setCurrentPageNumber($this->getPage())
-                ->setItemCountPerPage($this->getRows())
-                ->setPageRange(10);
+            ->setItemCountPerPage($this->getRows())
+            ->setPageRange(10);
         return $paginator;
     }
 
@@ -772,24 +820,25 @@ class Pas_Solr_Handler {
      * @access public
      * @return array $data
      */
-    public function processResults(){
+    public function processResults()
+    {
         $data = array();
-        foreach($this->_resultset as $doc){
+        foreach ($this->_resultset as $doc) {
             $fields = array();
-            foreach($doc as $key => $value){
+            foreach ($doc as $key => $value) {
                 $fields[$key] = $value;
-                }
+            }
             $data[] = $fields;
         }
-        if($this->getFormat() != 'kml'){
+        if ($this->getFormat() != 'kml') {
             $processor = new Pas_Solr_SensitiveFields();
             $clean = $processor->cleanData($data, $this->getRole(), $this->_core);
         } else {
             $clean = $data;
         }
         $return = array();
-        foreach($clean as $d){
-            if(array_key_exists('_version_', $d)){
+        foreach ($clean as $d) {
+            if (array_key_exists('_version_', $d)) {
                 unset($d['_version_']);
             }
             $return[] = $d;
@@ -801,9 +850,10 @@ class Pas_Solr_Handler {
      * @access public
      * @return array
      */
-    public function processStats(){
+    public function processStats()
+    {
         $stats = $this->_resultset->getStats();
-        foreach($stats as $stat){
+        foreach ($stats as $stat) {
             $data = array(
                 'stdDeviation' => $stat->getStddev(),
                 'mean' => $stat->getMean(),
@@ -811,11 +861,11 @@ class Pas_Solr_Handler {
                 'query' => $stat->getName(),
                 'minima' => $stat->getMin(),
                 'maxima' => $stat->getMax(),
-		'count' =>  $stat->getCount(),
+                'count' => $stat->getCount(),
                 'missing' => $stat->getMissing(),
                 'sumOfSquares' => $stat->getSumOfSquares(),
                 'mean' => $stat->getMean()
-                );
+            );
         }
         return $data;
     }
@@ -824,16 +874,17 @@ class Pas_Solr_Handler {
      * @access public
      * @return boolean
      */
-    public function processFacets(){
+    public function processFacets()
+    {
         $facets = $this->getFacets();
-        if($facets){
+        if ($facets) {
             $facetData = array();
-            foreach($facets as $k){
+            foreach ($facets as $k) {
                 $facetData[$k] = array();
                 $facet = $this->_resultset->getFacetSet()->getFacet($k);
-                if($facet){
-                    foreach($facet as $value => $count) {
-                        $facetData[$k][ $value ]  = $count;
+                if ($facet) {
+                    foreach ($facet as $value => $count) {
+                        $facetData[$k][$value] = $count;
                     }
                 }
             }
@@ -841,7 +892,7 @@ class Pas_Solr_Handler {
         } else {
             return false;
         }
-         
+
     }
 
     /** Check the field list works by core
@@ -850,111 +901,115 @@ class Pas_Solr_Handler {
      * @return \Pas_Solr_Handler
      * @throws Pas_Solr_Exception
      */
-    protected function checkFieldList($fields){
-        if(is_null($fields)){
+    protected function checkFieldList($fields)
+    {
+        if (is_null($fields)) {
             $schemaFields = $this->getSchemaFields();
             $schemaFields[] = '*';
             $schemaFields[] = 'q';
-            foreach($fields as $field){
-                if(!in_array($field, array_flip($schemaFields))){
+            foreach ($fields as $field) {
+                if (!in_array($field, array_flip($schemaFields))) {
                     $message = 'The field ' . $field . ' is not in the schema';
-                    throw new Pas_Solr_Exception( $message, 500);
+                    throw new Pas_Solr_Exception($message, 500);
                 }
             }
         }
         return $this;
     }
+
     /** Execute the query
      * @access public
      * @return object
      */
-    public function execute(){
+    public function execute()
+    {
         $params = $this->getParams();
         $select = array(
-            'query'         => '*:*',
+            'query' => '*:*',
             //'fields'        => array('*'),
             'filterquery' => array(),
-            );
-	$select['fields'] = $this->getFields();
+        );
+        $select['fields'] = $this->getFields();
         $select['sort'] = $this->getSort();
         $select['start'] = $this->getStart();
-        if(array_key_exists('format', $params)){
+        if (array_key_exists('format', $params)) {
             $this->getFormats($params);
         }
         $select['rows'] = $this->getRows();
-        if(array_key_exists('q',$params)){
+        if (array_key_exists('q', $params)) {
             $select['query'] = $params['q'];
             unset($params['q']);
         }
-        
+
         // get a select query instance based on the config
         $this->_query = $this->getSolr()->createSelect($select);
 
-        if(array_key_exists('created', $params)){
-            $this->_query->createFilterQuery('created')->setQuery('created:[' . $params['created'] .']');
+        if (array_key_exists('created', $params)) {
+            $this->_query->createFilterQuery('created')->setQuery('created:[' . $params['created'] . ']');
             unset($params['created']);
         }
-        if(array_key_exists('updated', $params)){
+        if (array_key_exists('updated', $params)) {
             $this->_query->createFilterQuery('updated')->setQuery('updated:[' . $params['updated'] . ']');
             unset($params['updated']);
         }
-        if(array_key_exists('todate', $params) && array_key_exists('fromdate', $params)){
+        if (array_key_exists('todate', $params) && array_key_exists('fromdate', $params)) {
             $this->_query->createFilterQuery('range')
-                    ->setQuery('todate:[' 
-                            . $params['fromdate'] 
-                            .  ' TO ' . $params['todate'] . ']'
-                            );
+                ->setQuery('todate:['
+                    . $params['fromdate']
+                    . ' TO ' . $params['todate'] . ']'
+                );
             $this->_query->createFilterQuery('rangedate')
-                    ->setQuery('fromdate:[' 
-                            . $params['fromdate'] 
-                            .  ' TO ' 
-                            . $params['todate'] . ']'
-                            );
+                ->setQuery('fromdate:['
+                    . $params['fromdate']
+                    . ' TO '
+                    . $params['todate'] . ']'
+                );
             unset($params['todate']);
             unset($params['fromdate']);
         }
-        if(array_key_exists('fromdate', $params)){
+        if (array_key_exists('fromdate', $params)) {
             $this->_query->createFilterQuery('datefrom')
-                    ->setQuery('fromdate:[' 
-                            . $params['fromdate'] 
-                            . ' TO * ]'
-                            );
+                ->setQuery('fromdate:['
+                    . $params['fromdate']
+                    . ' TO * ]'
+                );
             unset($params['fromdate']);
         }
-        if(array_key_exists('todate', $params)){
+        if (array_key_exists('todate', $params)) {
             $this->_query->createFilterQuery('todate')
-                    ->setQuery('todate:[* TO ' 
-                            . $params['todate'] 
-                            . ']'
-                            );
+                ->setQuery('todate:[* TO '
+                    . $params['todate']
+                    . ']'
+                );
             unset($params['todate']);
         }
-  	//Statistics are only enabled in this instance for the finds index
- 	if($this->getCore() === 'objects'){
+        //Statistics are only enabled in this instance for the finds index
+        if ($this->getCore() === 'objects') {
             $stats = $this->_query->getStats();
-            foreach($this->getStatsFields() as $field){
+            foreach ($this->getStatsFields() as $field) {
                 $stats->createField($field);
-		}
- 	}
-        if(!in_array($this->getRole(), $this->getAllowed()) || is_null($this->getRole()) ) {
-            if(array_key_exists('workflow', array_flip($this->getSchemaFields()))){
+            }
+        }
+        if (!in_array($this->getRole(), $this->getAllowed()) || is_null($this->getRole())) {
+            if (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
                 $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
             }
-            if((array_key_exists('parish', $params) 
-                    || array_key_exists('fourFigure', $params)) && ($this->getCore() === 'objects')){
+            if ((array_key_exists('parish', $params)
+                    || array_key_exists('fourFigure', $params)) && ($this->getCore() === 'objects')
+            ) {
                 $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
             }
-            if($this->getFormat() === 'kml' && ($this->getCore() === 'objects')){
+            if ($this->getFormat() === 'kml' && ($this->getCore() === 'objects')) {
                 $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
                 $this->_query->createFilterQuery('geopresent')->setQuery('gridref:[* TO *]');
             }
-        }   
-        if(!is_null($this->getFacets())){
+        }
+        if (!is_null($this->getFacets())) {
             $this->_createFacets($this->getFacets());
-            foreach($params as $k => $v){
-        
-                if(in_array($k, $this->getFacetFields())){
-                    $this->buildFacetQueries($k,$v);
+            foreach ($params as $k => $v) {
+
+                if (in_array($k, $this->getFacetFields())) {
+                    $this->buildFacetQueries($k, $v);
                     unset($params['k']);
                 }
             }
@@ -969,17 +1024,19 @@ class Pas_Solr_Handler {
      * @param string $k
      * @param string $v
      */
-    public function buildFacetQueries($k, $v){
-        return $this->_query->createFilterQuery($k)->setQuery(substr($k, 2) 
-                . ':"' . $v . '"');
+    public function buildFacetQueries($k, $v)
+    {
+        return $this->_query->createFilterQuery($k)->setQuery(substr($k, 2)
+            . ':"' . $v . '"');
     }
 
     /** Debug a query
      * @access public
      * @return \Pas_Solr_Handler
      */
-    public function debugQuery(){
-        Zend_Debug::dump($this->getParams(),'The params sent');
+    public function debugQuery()
+    {
+        Zend_Debug::dump($this->getParams(), 'The params sent');
         Zend_Debug::dump($this->_query, 'The Query');
         Zend_Debug::dump($this->getFields(), 'The field list');
         Zend_Debug::dump($this->getSchemaFields(), 'The schema fields');
@@ -991,7 +1048,8 @@ class Pas_Solr_Handler {
      * @access public
      * @return \Pas_Solr_Handler
      */
-    public function debugProcessing(){
+    public function debugProcessing()
+    {
         Zend_Debug::dump($this->createPagination($this->_resultset), 'Pagination');
         Zend_Debug::dump($this->processResults($this->_resultset), 'Processed results');
         Zend_Debug::dump($this->processFacets(), 'The facet set');
@@ -1004,23 +1062,26 @@ class Pas_Solr_Handler {
      * @access protected
      * @return \Pas_Solr_Handler
      */
-    protected function _createFacets(){
+    protected function _createFacets()
+    {
         $this->checkFieldList($this->getFacets());
         $facetSet = $this->_query->getFacetSet();
         $facetSet->setMinCount(1);
         $facetSet->setLimit(-1);
         $facetSet->setSort('count');
-            foreach($this->getFacets() as $key){
-                $facetSet->createFacetField($key)->setField($key);
-            }
+        foreach ($this->getFacets() as $key) {
+            $facetSet->createFacetField($key)->setField($key);
+        }
         return $this;
     }
+
     /**
      * Return the loadbalancer key
      * @return string
      * @access public
      */
-    public function getLoadBalancerKey() {
-    	return $this->getLoadbalancer()->getLastServerKey();
+    public function getLoadBalancerKey()
+    {
+        return $this->getLoadbalancer()->getLastServerKey();
     }
 }

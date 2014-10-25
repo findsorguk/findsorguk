@@ -1865,8 +1865,6 @@ class Finds extends Pas_Db_Table_Abstract {
                             'todate' => 'numdate2',
                             'treasure',
                             'rally',
-                            'hoard',
-                            'hID' => 'hoardID',
                             'rallyID',
                             'TID' => 'treasureID',
                             'note' => 'findofnote',
