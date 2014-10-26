@@ -318,6 +318,7 @@ class FindSpotForm extends Pas_Form {
                 'Available ratings' => $qualityrating_options))
             ->addValidator('InArray', false, array(array_keys($qualityrating_options)))
             ->setAttrib('class', 'input-large selectpicker show-menu-arrow')
+            ->setDescription('This data quality field can only be completed by hoards project staff')
             ->addValidator('Int');
 
         $submit = new Zend_Form_Element_Submit('submit');
@@ -381,6 +382,13 @@ class FindSpotForm extends Pas_Form {
         $this->commentary->setLegend('Findspot comments');
 
         $this->addDisplayGroup(array('submit'), 'buttons');
+
+        $person = new Pas_User_Details();
+        $role = $person->getRole();
+        $projectTeam = array('hoard', 'admin');
+        if(!in_array($role, $projectTeam)){
+            $findspotdataquality->disabled=true;
+        }
 
         parent::init();
     }
