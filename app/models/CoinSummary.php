@@ -55,7 +55,9 @@ class CoinSummary extends Pas_Db_Table_Abstract {
                 'mint_id',
                 'numdate1',
                 'numdate2',
-                'quantity'
+                'quantity',
+                'createdBy',
+                'institution'
             ))
             ->joinLeft('hoards','coinsummary.hoardID = hoards.secuid',
                 array(
@@ -80,6 +82,13 @@ class CoinSummary extends Pas_Db_Table_Abstract {
 
     public function add( $data )
     {
+        if(empty($data['created'])){
+            $data['created'] = $this->timeCreation();
+        }
+        if(empty($data['createdBy'])){
+            $data['createdBy'] = $this->getUserNumber();
+        }
+
         if(empty($data['secuid'])) {
             $data['secuid'] = $this->generateSecuId();
         }
