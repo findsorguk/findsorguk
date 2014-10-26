@@ -391,7 +391,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     public function linkAction()
     {
         // The secuid and id of the hoard is passed in the url
-        if ($this->_getParam('secuid', false) || $this->_getParam('id', false)) {
+        if ($this->_getParam('hoardID', false) || $this->_getParam('id', false)) {
             $form = $this->getArtefactLinkForm();
             $this->view->form = $form;
 
@@ -400,7 +400,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
 
                 if ($form->isValid($formData)) {
                     // The secuid of the hoard is retrieved from the url
-                    $updateData['hoardID'] = $this->_getParam('secuid');
+                    $updateData['hoardID'] = $this->_getParam('hoardID');
 
                     // The secuid of the artefact to link is retrieved from the form
                     $findSecuid = $form->getValue('findID');

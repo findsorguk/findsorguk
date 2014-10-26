@@ -99,11 +99,22 @@
     }
     ?>
     <!-- Linked coins -->
-    <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array('linkedCoins' => $this->linkedCoins)); ?>
-    <!-- Linked arefacts -->
-    <?php echo $this->partial('partials/hoards/linkedartefacts.phtml', array('linkedArtefacts' => $this->linkedArtefacts)); ?>
+    <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array(
+        'linkedCoins' => $this->linkedCoins,
+        'hoards' => $this->hoards
+    )); ?>
+    <!-- Linked aretfacts -->
+    <?php echo $this->partial('partials/hoards/linkedartefacts.phtml', array(
+        'linkedArtefacts' => $this->linkedArtefacts,
+        'hoards' => $this->hoards
+    )); ?>
     <!-- Linked containers -->
-    <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array('linkedContainers' => $this->linkedContainers)); ?>
+    <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array(
+        'linkedContainers' => $this->linkedContainers,
+        'hoards' => $this->hoards
+    )); ?>
+    <!-- Render a button for linking coins, artefacts and containers to the hoard -->
+    <?php echo $this->linkCoinArtefactContainer()->setHoardID($this->hoards['uniqueID'])->setID($this->hoards['id']); ?>
     <!-- Dimensional data -->
     <!-- Date found -->
     <?php echo $this->partial('partials/hoards/datefound.phtml', $this->discoverySummary); ?>

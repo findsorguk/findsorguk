@@ -453,7 +453,9 @@ class Hoards extends Pas_Db_Table_Abstract
             ))
             ->joinLeft('finds',
                 'hoards.secuid = finds.hoardID',
-                array('id', 'old_findID', 'objecttype', 'treasureID'))
+                array('id', 'old_findID', 'objecttype', 'broadperiod',
+                    'treasureID', 'createdBy', 'institution'
+                ))
             ->where('hoards.id = ?', (int)$hoardId)
             ->where('finds.objecttype IN (?)', $this->_coinarray);
         $select->setIntegrityCheck(false);
@@ -475,7 +477,9 @@ class Hoards extends Pas_Db_Table_Abstract
             ))
             ->joinLeft('finds',
                 'hoards.secuid = finds.hoardID',
-                array('id', 'old_findID', 'objecttype', 'treasureID', 'hoardcontainer'))
+                array('id', 'old_findID', 'objecttype',  'broadperiod',
+                    'treasureID', 'hoardcontainer', 'createdBy', 'institution'
+                ))
             ->where('hoards.id = ?', (int)$hoardId)
             ->where('finds.objecttype NOT IN (?)', $this->_coinarray)
             ->where('finds.hoardcontainer IS NULL');
@@ -497,7 +501,9 @@ class Hoards extends Pas_Db_Table_Abstract
             ))
             ->joinLeft('finds',
                 'hoards.secuid = finds.hoardID',
-                array('id', 'old_findID', 'objecttype', 'treasureID', 'hoardcontainer'))
+                array('id', 'old_findID', 'objecttype',  'broadperiod',
+                    'treasureID', 'hoardcontainer', 'createdBy', 'institution'
+                ))
             ->where('hoards.id = ?', (int)$hoardId)
             ->where('finds.hoardcontainer = 1');
         $select->setIntegrityCheck(false);
