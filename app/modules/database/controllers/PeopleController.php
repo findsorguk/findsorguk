@@ -129,7 +129,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     public function personAction(){
         if($this->_getParam('id',false)) {
             $params = array();
-            $person = $this->_peoples->getPersonDetails($this->_getParam('id'));
+            $person = $this->getPeople()->getPersonDetails($this->_getParam('id'));
             if($this->_helper->contextSwitch()->getCurrentContext() !== 'vcf'){
                 $search = new Pas_Solr_Handler();
                 $search->setCore('objects');

@@ -222,7 +222,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                     mkdir($dir, 0777);
                 }
                 $this->getFlash()->addMessage('You successfully added a new account');
-                $t$this->redirect(admin/users/account/username/'
+                $this->redirect('admin/users/account/username/'
                         . $form->getValue('username'));
             } else {
                 $form->populate($formData);
@@ -291,7 +291,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                             ));
                     $this->_helper->mailer($form->getValues(), 'upgradeAccount', $to);
                     $this->getFlash()->addMessage('Account upgraded and project data entered');
-                    $th$this->redirect(dmin/users/upgrades');
+                    $this->redirect('admin/users/upgrades');
                 } else {
                 $form->populate($form->getValues());
                 }
