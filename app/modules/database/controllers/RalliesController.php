@@ -252,7 +252,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
                 $this->getCache()->remove('rallydd');
                 $this->getFlash()->addMessage('Record for rally deleted!');
             }
-            $t$this->redirect(lf::URL);
+            $this->redirect(self::URL);
         } else {
         $id = (int)$this->_request->getParam('id');
         if ($id > 0) {
@@ -283,7 +283,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
                 'createdBy' => $this->getIdentityForForms()
                         );
                 $rallies->insert($insertData);
-                $th$this->redirect(f::URL . 'rally/id/' . $rallyID);
+                $this->redirect(self::URL . 'rally/id/' . $rallyID);
                 $this->getFlash()->addMessage('Finds Liaison Officer added to a rally');
             } else {
                 $form->populate($this->_request->getPost());
@@ -309,7 +309,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
                 $rallies->delete($where);
                 $this->getFlash()->addMessage('Attending FLO for rally deleted!');
             }
-            $this->_redirect(self::URL.'rally/id/' . $rallyID);
+            $this->redirect(self::URL.'rally/id/' . $rallyID);
         } else {
             $rallyID = (int)$this->_request->getParam('rallyID');
             $staffID = (int)$this->_request->getParam('staffID');
