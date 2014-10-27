@@ -58,7 +58,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
     	$form = new ContentSearchForm();
     	$form->submit->setLabel('Search content');
         $this->view->form = $form;
-        $params = $this->getCleaner()->array_cleanup($this->_getAllParams());
+        $params = $this->getCleaner()->array_cleanup($this->getAllParams());
         $search = new Pas_Solr_Handler();
         $search->setCore('content');
         $search->setFields(array(
@@ -76,7 +76,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                 $params = $form->getValues();
             }
         } else {
-            $form->populate($this->_getAllParams());
+            $form->populate($this->getAllParams());
         }
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';

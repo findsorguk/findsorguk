@@ -25,8 +25,8 @@ class Admin_ErrorsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->params = $this->_getAllParams();
+        $this->view->params = $this->getAllParams();
         $errors = new ErrorReports();
-        $this->view->errors = $errors->getMessages($this->_getAllParams());
+        $this->view->errors = $errors->getMessages($this->getAllParams());
     }
 }

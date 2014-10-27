@@ -60,7 +60,7 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->insts = $this->_institutions->getValidInsts($this->_getAllParams());
+        $this->view->insts = $this->_institutions->getValidInsts($this->getAllParams());
     }
     
     /** Add an institution

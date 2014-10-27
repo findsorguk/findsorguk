@@ -35,8 +35,8 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->params = $this->_getAllParams();
-        $this->view->comments = $this->_comments->getComments($this->_getAllParams());
+        $this->view->params = $this->getAllParams();
+        $this->view->comments = $this->_comments->getComments($this->getAllParams());
     }
 
     /** Publish a comment
