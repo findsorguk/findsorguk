@@ -1,4 +1,5 @@
 <?php
+
 /** Action admin controller; an extension of the zend controller action
  *
  * This class allows for various functions and variables to be made
@@ -14,7 +15,8 @@
  * @since 23 Sept 2011
  *
  */
-class Pas_Controller_Action_Admin extends Zend_Controller_Action {
+class Pas_Controller_Action_Admin extends Zend_Controller_Action
+{
 
     /**Database ID constant
      *
@@ -76,18 +78,20 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * request to the disabled message.
      * @access public
      */
-    public function preDispatch(){
+    public function preDispatch()
+    {
         $disabled = $this->_helper->config()->disabled->toArray();
         $module = $this->getRequest()->getModuleName();
-        if(in_array($module, $disabled)){
+        if (in_array($module, $disabled)) {
             $this->redirect('/error/downtime');
-	}
+        }
     }
 
     /** Post dispatch function
      * @access public
      */
-    public function postDispatch() {
+    public function postDispatch()
+    {
         $this->view->announcements = $this->_helper->announcements();
     }
 
@@ -95,37 +99,41 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @access public
      * @return string
      */
-    public function getInstitution() {
-	return $this->_helper->identity->getPerson()->institution;
+    public function getInstitution()
+    {
+        return $this->_helper->identity->getPerson()->institution;
     }
 
     /** Get the user's ID number for use in controllers
      * @access public
      * @return int
      */
-    public function getIdentityForForms() {
-	return $this->_helper->identity->getIdentityForForms();
+    public function getIdentityForForms()
+    {
+        return $this->_helper->identity->getIdentityForForms();
     }
 
     /** Get the user's username for use in controllers
      * @access public
      * @return string
      */
-    public function getUsername(){
-	return $this->_helper->identity->getPerson()->username;
+    public function getUsername()
+    {
+        return $this->_helper->identity->getPerson()->username;
     }
 
     /** Get the user's role
      * @access public
      * @return string
      */
-    public function getRole() {
-	$person = $this->_helper->identity->getPerson();
-	if(!$person){
+    public function getRole()
+    {
+        $person = $this->_helper->identity->getPerson();
+        if (!$person) {
             $role = 'public';
-	} else {
+        } else {
             $role = $person->role;
-	}
+        }
         return $role;
     }
 
@@ -133,26 +141,29 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @access public
      * @return object
      */
-    public function getAccount() {
-	return $this->_helper->identity->getPerson();
+    public function getAccount()
+    {
+        return $this->_helper->identity->getPerson();
     }
 
     /** Get current date
      * @access public
      * @return string
      */
-    public function getTimeForForms() {
-	return Zend_Date::now()->toString('yyyy-MM-dd HH:mm:ss');
+    public function getTimeForForms()
+    {
+        return Zend_Date::now()->toString('yyyy-MM-dd HH:mm:ss');
     }
 
     /** Create a secuid
      * @access public
      * @return string
      */
-    public function secuid() {
-        list($usec, $sec)= explode(" ", microtime());
+    public function secuid()
+    {
+        list($usec, $sec) = explode(" ", microtime());
         $ms = dechex(round($usec * 4080));
-        while(strlen($ms) < 3) {
+        while (strlen($ms) < 3) {
             $ms = '0' . $ms;
         }
         return strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $ms);
@@ -162,9 +173,10 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @access public
      * @return string
      */
-    public function FindUid() {
+    public function FindUid()
+    {
         list($usec, $sec) = explode(" ", microtime());
-        $suffix =  strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
+        $suffix = strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
         return $this->getInstitution() . '-' . $suffix;
     }
 
@@ -172,9 +184,10 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @access public
      * @return int
      */
-    public function getPage(){
+    public function getPage()
+    {
         $page = $this->_getParam('page');
-        if(!isset($page)){
+        if (!isset($page)) {
             $start = 1;
         } else {
             $start = $page;
@@ -182,22 +195,23 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
         return $start;
     }
 
-     /** Curl function to retrieve data from url
+    /** Curl function to retrieve data from url
      * @access public
      * @param string $url
      */
-    public function get( $url ){
+    public function get($url)
+    {
         $useragent = new Zend_Http_UserAgent();
         $config = array(
-            'adapter'   => 'Zend_Http_Client_Adapter_Curl',
+            'adapter' => 'Zend_Http_Client_Adapter_Curl',
             'curloptions' => array(
-                CURLOPT_POST =>  true,
-                CURLOPT_USERAGENT =>  $useragent->getUserAgent(),
+                CURLOPT_POST => true,
+                CURLOPT_USERAGENT => $useragent->getUserAgent(),
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HEADER => false,
                 CURLOPT_RETURNTRANSFER => true,
             ),
-	);
+        );
         $client = new Zend_Http_Client($url, $config);
         return $client->request();
     }
@@ -212,15 +226,17 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
      * @access public
      * @return \Zend_Cache
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
-    
-    
+
+
     protected $_flashMessenger;
-    
-    public function getFlash() {
+
+    public function getFlash()
+    {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         return $this->_flashMessenger;
     }

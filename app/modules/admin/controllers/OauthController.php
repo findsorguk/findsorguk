@@ -1,6 +1,7 @@
 <?php
+
 /** Controller for administering oauth and setting up tokens
- * 
+ *
  * @category   Pas
  * @package    Controller_Action
  * @subpackage Admin
@@ -14,74 +15,82 @@
  * @uses Pas_Oauth_Flickr
  * @uses Pas_Oauth_Google
  * @uses Pas_Exception
-*/
+ */
+class Admin_OauthController extends Pas_Controller_Action_Admin
+{
 
-class Admin_OauthController extends Pas_Controller_Action_Admin {
-	
     /** Set up the ACL and resources
      * @access public
      * @return void
-     */		
-    public function init() {
-	$this->_helper->_acl->allow('admin',null);
-        
+     */
+    public function init()
+    {
+        $this->_helper->_acl->allow('admin', null);
+
     }
 
     /** List available Oauth tokens that have been generated for use.
      * @access public
-     * @return void 
+     * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $tokens = new OauthTokens();
         $this->view->tokens = $tokens->fetchAll();
     }
-    
-    /** Initiate request to create a yahoo token. This can only be done when 
+
+    /** Initiate request to create a yahoo token. This can only be done when
      * logged into Yahoo
      * and also as an admin
      * @access public
      * @return void
-     */	
-    public function yahooAction() {
+     */
+    public function yahooAction()
+    {
         $yahoo = new Yahoo();
         $this->redirect($yahoo->request());
     }
-    
-    /** Initiate request to create a yahoo token. This can only be done when 
+
+    /** Initiate request to create a yahoo token. This can only be done when
      * logged into Yahoo
      * and also as an admin
      * @return void
      * @access public
-    */	
-    public function yahooaccessAction(){
-	$yahoo = new Yahoo();
-	$yahoo->access();
-	$this->getFlash()->addMessage('Token created');
-	$this->redirect('/admin/oauth/');
+     */
+    public function yahooaccessAction()
+    {
+        $yahoo = new Yahoo();
+        $yahoo->access();
+        $this->getFlash()->addMessage('Token created');
+        $this->redirect('/admin/oauth/');
     }
-    /** Initiate request to create a twitter request token. This can only be 
+
+    /** Initiate request to create a twitter request token. This can only be
      * done when logged into twitter
      * and also as an admin
      * @access public
      * @return void
-     */	
-    public function twitterAction(){
+     */
+    public function twitterAction()
+    {
         $twitter = new Twitter();
-        $t$this->redirect(witter->request());
+        $this->redirect($twitter->request());
     }
-    /** Initiate request to create a twitter access token. This can only be 
+
+    /** Initiate request to create a twitter access token. This can only be
      * done when logged into twitter
      * and also as an admin
      * @access public
      * @return void
      * @throws Pas_Yql_Exception
      */
-    public function twitteraccessAction(){
+    public function twitteraccessAction()
+    {
         $twitter = new Twitter();
         $twitter->access();
-        if(isset($twitter)){
+        if (isset($twitter)) {
             $this->getFlash()->addMessage('Token created');
-            $th$this->redirect(dmin/oauth/');
+            $this->redirect('admin/oauth/');
         } else {
             throw new Pas_Yql_Exception('Token creation failed', 500);
         }
@@ -91,13 +100,14 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function flickrAction(){
+    public function flickrAction()
+    {
         $flickr = new Pas_Oauth_Flickr();
         $flickr->setCallback('/admin/oauth/flickraccess');
         $flickr->setConsumerKey($this->_helper->config()
-                ->webservice->flickr->apikey);
+            ->webservice->flickr->apikey);
         $flickr->setConsumerSecret($this->_helper->config()
-                ->webservice->flickr->secret);
+            ->webservice->flickr->secret);
         $flickr->generate();
     }
 
@@ -106,17 +116,18 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception
      */
-    public function flickraccessAction(){
+    public function flickraccessAction()
+    {
         $flickr = new Pas_Oauth_Flickr();
         $flickr->setCallback('/admin/oauth/flickraccess');
         $flickr->setConsumerKey($this->_helper->config()
-                ->webservice->flickr->apikey);
+            ->webservice->flickr->apikey);
         $flickr->setConsumerSecret($this->_helper->config()
-                ->webservice->flickr->secret);
+            ->webservice->flickr->secret);
         $access = $flickr->access();
-        if($access) {
+        if ($access) {
             $this->getFlash()->addMessage('Token created');
-            $thi$this->redirect(min/oauth/');
+            $this->redirect('admin/oauth/');
         } else {
             throw new Pas_Exception('Token creation failure', 500);
         }
@@ -126,14 +137,15 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function googleAction() {
+    public function googleAction()
+    {
         $google = new Pas_Oauth_Google();
         $google->setCallback('/admin/oauth/googleaccess');
         $google->setConsumerKey($this->_helper->config()
-                ->webservice->google->oauthconsumerkey);
+            ->webservice->google->oauthconsumerkey);
         $google->setConsumerSecret($this->_helper->config()
-                ->webservice->google->oauthsecret);
-        $google->generate();	
+            ->webservice->google->oauthsecret);
+        $google->generate();
     }
 
     /** Get an access token
@@ -141,17 +153,18 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception
      */
-    public function googleaccessAction(){
+    public function googleaccessAction()
+    {
         $google = new Pas_Oauth_Google();
         $google->setCallback('/admin/oauth/googleaccess');
         $google->setConsumerKey($this->_helper->config()
-                ->webservice->google->oauthconsumerkey);
+            ->webservice->google->oauthconsumerkey);
         $google->setConsumerSecret($this->_helper->config()
-                ->webservice->google->oauthsecret);
+            ->webservice->google->oauthsecret);
         $access = $google->access();
-        if($access) {
-        $this->getFlash()->addMessage('Token created');
-        $this->redirect('/admin/oauth/');
+        if ($access) {
+            $this->getFlash()->addMessage('Token created');
+            $this->redirect('/admin/oauth/');
         } else {
             throw new Pas_Exception('Token creation failure', 500);
         }
