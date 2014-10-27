@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for displaying Roman articles within the coin guide
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
@@ -10,8 +11,9 @@
  * @version 1
  * @uses Pas_Calendar_Mapper
  * @uses CalendarForm
-*/
-class Users_CalendarController extends Pas_Controller_Action_Admin {
+ */
+class Users_CalendarController extends Pas_Controller_Action_Admin
+{
 
     /** The calendar class
      * @access protected
@@ -22,18 +24,20 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
     /** Set up the ACL and contexts
      * @access public
      * @return void
-    */
-    public function init() {
-        $this->_helper->_acl->allow('flos',null);
+     */
+    public function init()
+    {
+        $this->_helper->_acl->allow('flos', null);
         $this->_gcal = new Pas_Calendar_Mapper();
-        
+
     }
 
     /** Display index pages for the individual
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->view->eventFeed = $this->_gcal->getEventFeed();
     }
 
@@ -41,7 +45,8 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function eventAction() {
+    public function eventAction()
+    {
         $this->view->event = $this->_gcal->getEvent($this->_getParam('id'));
     }
 
@@ -49,7 +54,8 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addAction() {
+    public function addAction()
+    {
         $form = new CalendarForm();
         $form->details->setLegend('Add a new event');
         $this->view->form = $form;
@@ -70,23 +76,24 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function editAction() {
+    public function editAction()
+    {
         $form = new CalendarForm();
         $form->details->setLegend('Edit an event');
         $this->view->form = $form;
         $event = $this->_gcal->getEvent($this->_getParam('id'));
         $eventData = array(
-            'title' 		=> $event->title,
-            'id' 		=> substr($event->id,strrpos($event->id,'/') +1, 26),
-            'startTime' 	=> date('G:i', strtotime($event->when[0]->startTime)),
-            'endTime'   	=> date('G:i', strtotime($event->when[0]->endTime)),
-            'startDate' 	=> date('Y-m-d', strtotime($event->when[0]->startTime)),
-            'endDate'   	=> date('Y-m-d', strtotime($event->when[0]->startTime)),
-            'location' 		=> $event->where[0],
-            'updated' 		=> $event->updated,
-            'content' 		=> $event->content,
-            'type'		=> $event->extendedProperty[0],
-            'creator'		=> $event->extendedProperty[1],
+            'title' => $event->title,
+            'id' => substr($event->id, strrpos($event->id, '/') + 1, 26),
+            'startTime' => date('G:i', strtotime($event->when[0]->startTime)),
+            'endTime' => date('G:i', strtotime($event->when[0]->endTime)),
+            'startDate' => date('Y-m-d', strtotime($event->when[0]->startTime)),
+            'endDate' => date('Y-m-d', strtotime($event->when[0]->startTime)),
+            'location' => $event->where[0],
+            'updated' => $event->updated,
+            'content' => $event->content,
+            'type' => $event->extendedProperty[0],
+            'creator' => $event->extendedProperty[1],
         );
         $form->populate($eventData);
         if ($this->_request->isPost()) {
@@ -107,19 +114,20 @@ class Users_CalendarController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deleteAction() {
+    public function deleteAction()
+    {
         $event = $this->_gcal->getEvent($this->_getParam('id'));
-        $this->view->id = substr($event->id,strrpos($event->id,'/')+1,26);
+        $this->view->id = substr($event->id, strrpos($event->id, '/') + 1, 26);
         $this->view->title = $event->title;
         if ($this->_request->isPost()) {
             $id = $this->_request->getPost('id');
             $del = $this->_request->getPost('del');
             //Check if delete parameter is set and that the string is correct
-            if ($del == 'Yes' && $id == substr($event->id,strrpos($event->id,'/') +1, 26)) {
+            if ($del == 'Yes' && $id == substr($event->id, strrpos($event->id, '/') + 1, 26)) {
                 $event->delete();
             }
             $this->getFlash()->addMessage('That event has been deleted');
-            $this->_redirect('/users/calendar');
+            $this->xredirect('/users/calendar');
         }
     }
 }

@@ -122,7 +122,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin {
                 $where[] = $this->_accounts->getAdapter()->quoteInto('userID = ?',$this->getIdentityForForms());
                 $this->_accounts->delete($where);
             }
-            $this->_redirect('/users/');
+            $this->redirect('/users/');
             $this->getFlash()->addMessage('Social profile deleted!');
         } else  {
             $id = (int)$this->_request->getParam('id');

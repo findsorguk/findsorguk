@@ -1390,9 +1390,9 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
                 $denoms->insert($insertData);
                 $this->getFlash()->addMessage('A new denomination has been added.');
                 if($period == 21){
-                    $this->_redirect($this->redirectUrl . 'romanruler/id/' . $rulerid);
+                    $this->redirect($this->redirectUrl . 'romanruler/id/' . $rulerid);
                 } else {
-                    $this->_redirect($this->redirectUrl . 'medruler/id/' . $rulerid);
+                    $this->redirect($this->redirectUrl . 'medruler/id/' . $rulerid);
                 }
             } else {
                 $this->getFlash()->addMessage($this->_formErrors);
@@ -1557,7 +1557,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $this->getTribes()->delete($where);
             }
-            $this->_redirect('/admin/tribes/');
+            $this->redirect('/admin/tribes/');
             $this->getFlash()->addMessage('Tribe deleted!');
         } else {
             $id = (int)$this->_request->getParam('id');

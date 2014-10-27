@@ -80,7 +80,7 @@ class Pas_Controller_Action_Admin extends Zend_Controller_Action {
         $disabled = $this->_helper->config()->disabled->toArray();
         $module = $this->getRequest()->getModuleName();
         if(in_array($module, $disabled)){
-            $this->_redirect('/error/downtime');
+            $this->redirect('/error/downtime');
 	}
     }
 

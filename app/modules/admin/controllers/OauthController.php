@@ -151,7 +151,7 @@ class Admin_OauthController extends Pas_Controller_Action_Admin {
         $access = $google->access();
         if($access) {
         $this->getFlash()->addMessage('Token created');
-        $this->_redirect('/admin/oauth/');	
+        $this->redirect('/admin/oauth/');
         } else {
             throw new Pas_Exception('Token creation failure', 500);
         }

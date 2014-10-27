@@ -349,14 +349,14 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                     );
                     $this->_helper->mailer($form->getValues(), 'upgradeRejected', $to);
                     $this->getFlash()->addMessage('Account rejected');
-                    $this->_redirect('/admin/users/upgrades');
+                    $this->redirect('/admin/users/upgrades');
                 } else {
                     $form->populate($formData);
                 }
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $user = $this_>getUsers()->fetchRow('id ='.$id);
+                    $user = $this->getUsers()->fetchRow('id ='.$id);
                     if(count($user)) {
                         $form->populate($user->toArray());
                     } else {

@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for accessing user account stuff
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -20,8 +21,9 @@
  * @uses ResetPasswordKeyForm
  * @uses AccountUpgradeForm
  *
-*/
-class Users_AccountController extends Pas_Controller_Action_Admin {
+ */
+class Users_AccountController extends Pas_Controller_Action_Admin
+{
 
     /** The auth class
      * @access protected
@@ -39,28 +41,30 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
-	$this->_helper->_acl->allow('public',array(
+    public function init()
+    {
+        $this->_helper->_acl->allow('public', array(
             'forgotten', 'register', 'activate',
             'index', 'logout', 'edit',
             'forgotusername', 'success', 'resetpassword'
-            ));
-	$this->_helper->_acl->allow('member',null);
-	$this->_auth = Zend_Registry::get('auth');
-	$this->_users = new Users();
+        ));
+        $this->_helper->_acl->allow('member', null);
+        $this->_auth = Zend_Registry::get('auth');
+        $this->_users = new Users();
     }
 
     /** Set up index page
      * @access public
      * @return void
-    */
-    public function indexAction() {
+     */
+    public function indexAction()
+    {
         // If user isn't logged in, show login form
         if (is_null($this->_auth->getIdentity())) {
             $this->_helper->redirector->gotoRouteAndExit(
-                    array(
-                        'module' => 'users', 'controller' => 'index'
-                        ));
+                array(
+                    'module' => 'users', 'controller' => 'index'
+                ));
         } else {
             $this->view->users = $this->_users->getUserProfile($this->getIdentityForForms());
         }
@@ -70,10 +74,11 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function logoutAction() {
-	$this->_auth->clearIdentity();
-	$this->getFlash()->addMessage('You have now logged out');
-	return $this->_redirect('/users/');
+    public function logoutAction()
+    {
+        $this->_auth->clearIdentity();
+        $this->getFlash()->addMessage('You have now logged out');
+        return $this->redirect('/users/');
     }
 
     /** Edit the user details
@@ -81,12 +86,13 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception
      */
-    public function editAction() {
+    public function editAction()
+    {
         $form = new ProfileForm();
         $form->removeElement('username');
         $form->removeElement('password');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $where = array();
                 $where[] = $this->_users->getAdapter()->quoteInto('id = ?', $this->getIdentityForForms());
@@ -101,7 +107,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
             $id = (int)$this->getIdentityForForms();
             if ($id > 0) {
                 $user = $this->_users->fetchRow('id =' . $this->getIdentityForForms())->toArray();
-                if($user) {
+                if ($user) {
                     $form->populate($user);
                 } else {
                     throw new Pas_Exception('No user account found with that id', 500);
@@ -114,20 +120,21 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function forgotusernameAction() {
+    public function forgotusernameAction()
+    {
         if ($this->_auth->getIdentity()) {
             $this->getFlash()->addMessage('You are already logged in!');
             $this->_redirect('/users');
         } else {
             $form = new ForgotUsernameForm();
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $userData = $this->_users->getUserByUsername($form->getValue('email'));
                     $to = array(array(
                         'email' => $form->getValue('email'),
                         'name' => $userData[0]['fullname'])
-                        );
+                    );
                     $this->_helper->mailer($userData[0], 'forgottenUsername', $to);
                     $this->getFlash()->addMessage('Account reminder sent to your email address');
                     $this->_redirect('/users/');
@@ -143,17 +150,18 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function forgottenAction() {
+    public function forgottenAction()
+    {
         if ($this->_auth->getIdentity()) {
             $this->getFlash()->addMessage('You are already logged in.');
             $this->_redirect('/users');
         }
         $form = new ForgotPasswordForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $results = $this->_users->findUser($form->getValue('email'), $form->getValue('username'));
-                if($results) {
+                if ($results) {
                     $length = 6;
                     $newKey = "";
                     // define possible characters
@@ -161,34 +169,34 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
                     $i = 0;
                     // add random characters to $password until $length is reached
                     while ($i < $length) {
-                    // pick a random character from the possible ones
-                        $char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
+                        // pick a random character from the possible ones
+                        $char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
                         // we don't want this character if it's already in the password
                         if (!strstr($newKey, $char)) {
                             $newKey .= $char;
                             $i++;
                         }
                     }
-                    $updatesdata = array (
-                        'activationKey' =>  $newKey,
-                        );
+                    $updatesdata = array(
+                        'activationKey' => $newKey,
+                    );
                     $to = array(array(
                         'email' => $form->getValue('email'),
                         'name' => $results[0]['fullname']
-                            ));
+                    ));
                     $assignData = array_merge(
-                            $results[0],
-                            array('activationKey' => $newKey)
-                            ,$form->getValues()
-                            );
-                    $this->_helper->mailer($assignData, 'forgottenPassword', $to );
+                        $results[0],
+                        array('activationKey' => $newKey)
+                        , $form->getValues()
+                    );
+                    $this->_helper->mailer($assignData, 'forgottenPassword', $to);
                     $where = array();
                     $where[] = $this->_users->getAdapter()
-                            ->quoteInto('username = ?', (string)$form->getValue('username'));
+                        ->quoteInto('username = ?', (string)$form->getValue('username'));
                     $where[] = $this->_users->getAdapter()
-                            ->quoteInto('email = ?', (string)$form->getValue('email'));
+                        ->quoteInto('email = ?', (string)$form->getValue('email'));
                     $this->_users->update($updatesdata, $where);
-                    $assignData = array_merge($updatesdata,$form->getValues());
+                    $assignData = array_merge($updatesdata, $form->getValues());
                     $this->getFlash()->addMessage('Please check your email');
                     $this->_redirect('/users/account/resetpassword');
                 } else {
@@ -204,28 +212,29 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function registerAction() {
-        if($this->_auth->hasIdentity()) {
+    public function registerAction()
+    {
+        if ($this->_auth->hasIdentity()) {
             $this->getFlash()->addMessage('You are already logged in and registered.');
             $this->_redirect('/users/account');
         } else {
             $salt = $this->_helper->config()->auth->salt;
             $form = new RegisterForm();
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 $to = array(array(
                     'email' => $form->getValue('email'),
                     'name' => $form->getValue('first_name') . ' ' . $form->getValue('last_name'))
-                    );
+                );
                 $emailData = array(
                     'email' => $form->getValue('email'),
                     'name' => $form->getValue('first_name') . ' ' . $form->getValue('last_name'),
                     'activationKey' => md5($form->getValue('username') . $form->getValue('first_name'))
-                    );
+                );
                 $this->_users->register($form->getValues());
                 $this->_helper->mailer($emailData, 'activateAccount', $to);
                 $this->getFlash()->addMessage('Your account has been created. Please check your email.');
-                $this->_redirect('/users/account/activate/');
+                $this->redirect('/users/account/activate/');
                 $form->populate($form->getValues());
                 $this->getFlash()->addMessage('There are a few problems with your registration<br/>
         Please review and correct them.');
@@ -237,17 +246,18 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function activateAction(){
+    public function activateAction()
+    {
         if (!is_null($this->_auth->getIdentity())) {
-            $this->_redirect('users/account/');
+            $this->redirect('users/account/');
         }
         $form = new ActivateForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_users->activate($form->getValues());
                 $this->getFlash()->addMessage('Your account has been activated.');
-                $this->_redirect('users/account/success/');
+                $this->redirect('users/account/success/');
             } else {
                 $form->populate($form->getValues());
                 $this->getFlash()->addMessage('Please review and correct problems');
@@ -259,36 +269,39 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function successAction(){
-        if(null === $this->_auth->getIdentity()) {
+    public function successAction()
+    {
+        if (null === $this->_auth->getIdentity()) {
             $this->view->headTitle('Login to the system');
             $form = new LoginForm();
             $this->view->form = $form;
-        if ($this->_request->isPost()) {
-            $formData = $this->_request->getPost();
-            if ($form->isValid($formData)) {
-                $authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
-                $data = $authAdapter->getResultRowObject(null,'password');
-                $this->_auth->getStorage()->write($data);
-                $this->_redirect( $this->_helper->loginRedirect() );
-            } else {
-                $this->_auth->clearIdentity();
-                $this->getFlash()->addMessage('Sorry, there was a problem with your submission.
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($form->isValid($formData)) {
+                    $authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
+                    $data = $authAdapter->getResultRowObject(null, 'password');
+                    $this->_auth->getStorage()->write($data);
+                    $this->redirect($this->_helper->loginRedirect());
+                } else {
+                    $this->_auth->clearIdentity();
+                    $this->getFlash()->addMessage('Sorry, there was a problem with your submission.
                 Please check and try again');
-                $form->populate($formData);
+                    $form->populate($formData);
+                }
             }
-        }
         } else {
-            $this->_redirect('/users/');
+            $this->redirect('/users/');
         }
     }
+
     /** List user's logins
      * @access public
      * @return void
-    */
-    public function loginsAction() {
+     */
+    public function loginsAction()
+    {
         $logins = new Logins();
-        $this->view->logins = $logins->myLogins($this->getUsername(),$this->_getParam('page'));
+        $this->view->logins = $logins->myLogins($this->getUsername(), $this->_getParam('page'));
         $this->view->ips = $logins->myIps($this->getUsername());
     }
 
@@ -297,45 +310,48 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function changepasswordAction() {
+    public function changepasswordAction()
+    {
         $form = new ChangePasswordForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $password = SHA1($this->_helper->config()->auth->salt . $form->getValue('password'));
                 $where = array();
                 $where[] = $this->_users->getAdapter()->quoteInto('id = ?', $this->getIdentityForForms());
                 $this->_users->update(array('password' => $password), $where);
                 $this->getFlash()->addMessage('You have changed your password');
-                $this->_redirect('/users/account/');
+                $this->redirect('/users/account/');
             } else {
                 $form->populate($form->getValues());
             }
         }
     }
+
     /** Upgrade an account
      * @access public
      * @return void
      */
-    public function upgradeAction() {
-        $allowed = array('public','member');
-        if(in_array($this->getRole(), $allowed)) {
+    public function upgradeAction()
+    {
+        $allowed = array('public', 'member');
+        if (in_array($this->getRole(), $allowed)) {
             $user = $this->getAccount();
             $form = new AccountUpgradeForm();
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $where = array();
-                    $where[] =  $this->_users->getAdapter()->quoteInto('id = ?', (int)$this->getAccount()->id);
+                    $where[] = $this->_users->getAdapter()->quoteInto('id = ?', (int)$this->getAccount()->id);
                     $updateData = $form->getValues();
                     $updateData['higherLevel'] = 1;
-                    $update = $this->_users->update($updateData, $where);
+                    $this->_users->update($updateData, $where);
                     $to = array(array('email' => $user->email, 'name' => $user->fullname));
-                    $attachments = array( ROOT_PATH . '/public_html/documents/tac.pdf' );
+                    $attachments = array(ROOT_PATH . '/public_html/documents/tac.pdf');
                     $assignData = array_merge($to[0], $form->getValues());
                     $this->_helper->mailer($assignData, 'upgradeRequested', null, $to, $to, null, $attachments);
                     $this->getFlash()->addMessage('Thank you! We have received your request.');
-                    $this->_redirect('/users/account/');
+                    $this->redirect('/users/account/');
                 } else {
                     $form->populate($form->getValues());
                     $this->getFlash()->addMessage('There are a few problems with your registration<br>
@@ -353,7 +369,8 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function configurecopyAction(){
+    public function configurecopyAction()
+    {
         //View only
     }
 
@@ -361,18 +378,18 @@ class Users_AccountController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function resetpasswordAction(){
+    public function resetpasswordAction()
+    {
         if (!is_null($this->_auth->getIdentity())) {
-            $this->_redirect('users/account/');
+            $this->redirect('users/account/');
         }
         $form = new ResetPasswordKeyForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             $this->_users->resetPassword($form->getValues());
             $this->getFlash()->addMessage('Your password has been reset.');
-            $this->_redirect('users/account/success/');
-        }
-        else {
+            $this->redirect('users/account/success/');
+        } else {
             $form->populate($form->getValues());
             $this->getFlash()->addMessage('Please review and correct problems');
         }

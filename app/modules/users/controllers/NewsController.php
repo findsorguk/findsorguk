@@ -163,7 +163,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
                 $this->_news->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
             }
-            $this->_redirect(self::REDIRECT);
+            $this->redirect(self::REDIRECT);
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
