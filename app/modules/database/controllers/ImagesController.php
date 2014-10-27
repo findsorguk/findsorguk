@@ -105,7 +105,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
         $form = new SolrForm();
         $form->removeElement('thumbnail');
         $this->view->form = $form;
-        $params = $this->_arrayTools->array_cleanup($this->_getAllParams());
+        $params = $this->_arrayTools->array_cleanup($this->getAllParams());
         $search = new Pas_Solr_Handler();
         $search->setCore('images');
         $search->setFields(array(
@@ -128,8 +128,8 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
         //If q parameter is not set or is '', set default query
         if(!isset($params['q']) || $params['q'] == ''){
@@ -440,7 +440,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 $id = (int)$this->_request->getParam('id');
                 if ((int)$id > 0) {
                     $this->view->slide = $this->_images->fetchRow($this->_images->select()->where('imageID = ?', $id));
-                    $this->view->params = $this->_getAllParams();
+                    $this->view->params = $this->getAllParams();
                 }
             }
         } else {

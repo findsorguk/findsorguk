@@ -44,8 +44,8 @@ class Admin_MessagesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() 	{
-        $this->view->params = $this->_getAllParams();
-        $this->view->messages = $this->_messages->getMessages($this->_getAllParams());
+        $this->view->params = $this->getAllParams();
+        $this->view->messages = $this->_messages->getMessages($this->getAllParams());
     }
     /** Reply to a stored message
      * @access public

@@ -47,7 +47,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
         $form->submit->setLabel('Search content');
         $this->view->form = $form;
         $cleaner = new Pas_ArrayFunctions();
-        $params = $cleaner->array_cleanup($this->_getAllParams());
+        $params = $cleaner->array_cleanup($this->getAllParams());
         $search = new Pas_Solr_Handler();
         $search->setCore('content');
         $search->setFields(array(
@@ -65,8 +65,8 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
                 $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';

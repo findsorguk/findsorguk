@@ -350,7 +350,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function mapdataAction()
     {
         $this->_helper->layout->disableLayout();
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $params['show'] = 2000;
         $params['format'] = 'json';
         $search = new Pas_Solr_Handler();
@@ -374,7 +374,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function mapdata2Action()
     {
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         if (!isset($params['show'])) {
             $params['show'] = 2000;
         }
@@ -401,7 +401,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function exporterAction()
     {
         $this->_helper->layout->disableLayout();
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $params['show'] = 15000;
         $params['format'] = 'json';
         $search = new Pas_Solr_Handler();
@@ -485,7 +485,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function osdataAction()
     {
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $params['show'] = 5489;
         $params['format'] = 'json';
         $params['source'] = 'osdata';
@@ -510,7 +510,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function smrsAction()
     {
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $params['show'] = 25046;
         $params['format'] = 'json';
         $params['sort'] = 'id';
@@ -529,7 +529,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function peopleAction()
     {
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $params['show'] = 5000;
         $params['format'] = 'json';
         $params['sort'] = 'id';
@@ -557,7 +557,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             'institution', 'rulerName', 'denominationName',
             'mintName', 'materialTerm', 'workflow'
         ));
-        $search->setParams($this->_getAllParams());
+        $search->setParams($this->getAllParams());
         $search->execute();
         $data = array('facets' => $search->processFacets());
         $this->view->data = $data;
@@ -577,7 +577,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $search->setFields($fields->getFields());
         $search->setFacets(array(
             'county', 'organisation', 'activity'));
-        $search->setParams($this->_getAllParams());
+        $search->setParams($this->getAllParams());
         $search->execute();
         $data = array('facets' => $search->processFacets());
         $this->view->data = $data;
@@ -600,7 +600,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             'licenseAcronym', 'broadperiod', 'county',
             'objecttype', 'institution'
         ));
-        $search->setParams($this->_getAllParams());
+        $search->setParams($this->getAllParams());
         $search->execute();
         $data = array('facets' => $search->processFacets());
         $this->view->data = $data;
@@ -673,7 +673,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             'licenseAcronym', 'broadperiod', 'county',
             'objecttype', 'institution'
         ));
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $params['createdBy'] = $this->getIdentityForForms();
         $search->setParams($params);
         $search->execute();

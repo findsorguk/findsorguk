@@ -36,7 +36,7 @@ class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->museums =  $this->_accredited->listMuseums($this->_getAllParams());
+        $this->view->museums =  $this->_accredited->listMuseums($this->getAllParams());
     }
 
     /** Get individual museum data

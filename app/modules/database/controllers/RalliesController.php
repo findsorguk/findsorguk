@@ -106,7 +106,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->rallies  = $this->getRallies()->getRallyNames((array)$this->_getAllParams());
+        $this->view->rallies  = $this->getRallies()->getRallyNames((array)$this->getAllParams());
     }
     /** Individual rally details
      * @access public

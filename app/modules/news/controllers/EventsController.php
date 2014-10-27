@@ -85,6 +85,6 @@ class News_EventsController extends Pas_Controller_Action_Admin {
      * @return void
      */	
     public function archiveAction() {
-        $this->view->events = $this->_events->getArchivedEventsList($this->_getAllParams());
+        $this->view->events = $this->_events->getArchivedEventsList($this->getAllParams());
     }
 }

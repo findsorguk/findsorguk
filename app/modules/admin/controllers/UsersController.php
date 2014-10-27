@@ -63,7 +63,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
     /** Display a list of users in paginated format
     */
     public function indexAction() {
-        $this->view->paginator = $this->getUsers()->getUsersAdmin($this->_getAllParams());
+        $this->view->paginator = $this->getUsers()->getUsersAdmin($this->getAllParams());
         $form = new UserFilterForm();
         $this->view->form = $form;
         $form->username->setValue($this->_getParam('username'));

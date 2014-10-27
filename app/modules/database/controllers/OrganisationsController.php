@@ -45,7 +45,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $paginator = $this->_organisations->getOrganisations((array)$this->_getAllParams());
+        $paginator = $this->_organisations->getOrganisations((array)$this->getAllParams());
         $this->view->paginator = $paginator;
         $form = new OrganisationFilterForm();
         $this->view->form = $form;

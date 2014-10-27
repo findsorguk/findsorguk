@@ -54,7 +54,7 @@ class Search_IndexController extends Pas_Controller_Action_Admin {
             $form->removeElement('thumbnail');
             $this->view->form = $form;
             if ($this->_request->isPost()) {
-                $data = $this->_getAllParams();
+                $data = $this->getAllParams();
                 if ($form->isValid($data)) {
                     $this->redirect($this->view->url(
                             array(

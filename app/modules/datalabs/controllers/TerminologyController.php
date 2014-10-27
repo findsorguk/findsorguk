@@ -534,7 +534,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function mintsAction()
     {
-        $mintsList = $this->getMints()->getMintsListAll($this->_getAllParams());
+        $mintsList = $this->getMints()->getMintsListAll($this->getAllParams());
         if (in_array($this->_helper->contextSwitch()->getCurrentContext(), $this->_contexts)) {
             $data = array(
                 'pageNumber' => $mintsList->getCurrentPageNumber(),
@@ -760,7 +760,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
     public function rulersAction()
     {
         $rulers = new Rulers();
-        $rulerList = $rulers->getRulerList($this->_getAllParams());
+        $rulerList = $rulers->getRulerList($this->getAllParams());
         if (in_array($this->_helper->contextSwitch()->getCurrentContext(), $this->_contexts)) {
             $data = array('pageNumber' => $rulerList->getCurrentPageNumber(),
                 'total' => number_format($rulerList->getTotalItemCount(), 0),
@@ -854,7 +854,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function objectsAction()
     {
-        $objectTerms = $this->getObjectTerms()->getAllObjectData($this->_getAllParams());
+        $objectTerms = $this->getObjectTerms()->getAllObjectData($this->getAllParams());
         if (in_array($this->_helper->contextSwitch()->getCurrentContext(), $this->_contexts)) {
             $data = array(
                 'pageNumber' => $objectTerms->getCurrentPageNumber(),
@@ -945,7 +945,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function denominationsAction()
     {
-        $denomsList = $this->getDenominations()->getDenomsValid($this->_getAllParams());
+        $denomsList = $this->getDenominations()->getDenomsValid($this->getAllParams());
         if (in_array($this->_helper->contextSwitch()->getCurrentContext(), $this->_contexts)) {
             $data = array(
                 'pageNumber' => $denomsList->getCurrentPageNumber(),

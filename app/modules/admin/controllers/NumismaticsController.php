@@ -390,7 +390,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
      */
     public function mintsAction() {
         $mints = new Mints();
-        $this->view->paginator = $mints->getMintsListAllAdmin($this->_getAllParams());
+        $this->view->paginator = $mints->getMintsListAllAdmin($this->getAllParams());
     }
 
     /** Add a new mint
@@ -502,7 +502,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
         $form->ruler->setValue($ruler);
         $this->view->form = $form;
         $rulers = new Rulers();
-        $this->view->paginator = $rulers->getRulerListAdmin($this->_getAllParams());
+        $this->view->paginator = $rulers->getRulerListAdmin($this->getAllParams());
         if ($this->_request->isPost() && !is_null($this->_getParam('submit'))) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
@@ -1793,7 +1793,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin {
      */
     public function typesAction() {
         $types = new MedievalTypes();
-        $this->view->paginator = $types->getTypesByPeriodAdmin($this->_getAllParams());
+        $this->view->paginator = $types->getTypesByPeriodAdmin($this->getAllParams());
     }
     /** Add a medieval type
      * @access public

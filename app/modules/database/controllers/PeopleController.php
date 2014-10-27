@@ -107,10 +107,10 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
             $params = $cleaner->array_cleanup($form->getValues());
             $this->_helper->Redirector->gotoSimple('index','people','database',$params);
         } else {
-            $params = $this->_getAllParams();
+            $params = $this->getAllParams();
             $params['sort'] = 'surname';
             $params['direction'] = 'asc';
-            $form->populate($this->_getAllParams());
+            $form->populate($this->getAllParams());
         }
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';

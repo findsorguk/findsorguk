@@ -50,7 +50,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
     /** Set up the index page
     */
     public function indexAction() {
-        $this->view->news = $this->_news->getAllNewsArticlesAdmin($this->_getAllParams());
+        $this->view->news = $this->_news->getAllNewsArticlesAdmin($this->getAllParams());
     }
     /** Add a news story
      * @access public

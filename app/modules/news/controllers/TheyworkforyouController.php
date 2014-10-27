@@ -114,7 +114,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin {
             $context = $this->_helper->contextSwitch->getCurrentContext();
             $fields = new Pas_Solr_FieldGeneratorFinds($context);
             $search->setFields($fields->getFields());
-            $params = $this->_getAllParams();
+            $params = $this->getAllParams();
             $params['bbox'] = implode(',',$bbox);
             $search->setFacets(array(
                 'objectType', 'county', 'broadperiod',

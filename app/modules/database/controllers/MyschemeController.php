@@ -84,7 +84,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
         $form = new SolrForm();
 	$form->q->setLabel('Search the database: ');
         $this->view->form = $form;
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $search = $this->getSolr();
         $search->setCore('objects');
         $search->setFields(array(
@@ -104,7 +104,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                     'myfinds','myscheme','database',
                     $params);
         } else {
-            $form->populate($this->_getAllParams());
+            $form->populate($this->getAllParams());
         }
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';
@@ -127,7 +127,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
             $form = new SolrForm();
             $form->q->setLabel('Search the database: ');
             $this->view->form = $form;
-            $params = $this->_getAllParams();
+            $params = $this->getAllParams();
             $params['finderID'] = $this->getAccount()->peopleID;
             $params['-createdBy'] = $this->getAccount()->id;
             $search = $this->getSolr();
@@ -149,7 +149,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                     'recordedbyflos','myscheme','database',
                     $params);
             } else {
-                $form->populate($this->_getAllParams());
+                $form->populate($this->getAllParams());
             }
             if(!isset($params['q']) || $params['q'] == ''){
                 $params['q'] = '*';
@@ -189,7 +189,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
         $form = new SolrForm();
         $form->q->setLabel('Search the database: ');
         $this->view->form = $form;
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $search = $this->getSolr();
         $search->setCore('objects');
         $search->setFields(array(
@@ -219,8 +219,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                 $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
 
         if(!isset($params['q']) || $params['q'] == ''){
@@ -242,7 +242,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
         $form = new SolrForm();
         $form->removeElement('thumbnail');
         $this->view->form = $form;
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $search = $this->getSolr();
         $search->setCore('images');
         $search->setFields(array(
@@ -267,8 +267,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                 $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
         $params['show'] = 18;
         if(!isset($params['q']) || $params['q'] == ''){
@@ -290,7 +290,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     public function mytreasurecasesAction(){
         $form = new SolrForm();
         $this->view->form = $form;
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $search = $this->getSolr();
         $search->setCore('objects');
         $search->setFields(array(
@@ -319,8 +319,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
             $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
 
         if(!isset($params['q']) || $params['q'] == ''){

@@ -48,7 +48,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction(){
-        $this->view->research = $this->_research->getAllProjects($this->_getAllParams());
+        $this->view->research = $this->_research->getAllProjects($this->getAllParams());
     }
     
     /** Add a new research topic
@@ -122,7 +122,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function suggestedAction(){
-        $this->view->suggested = $this->_suggested->getAll($this->_getAllParams());
+        $this->view->suggested = $this->_suggested->getAll($this->getAllParams());
     }
 
     /** Edit a suggested topic
