@@ -23,7 +23,8 @@
  * @since 4 August 2014
  * @example /app/modules/database/controllers/HoardsController.php
  */
-class Archaeology extends Pas_Db_Table_Abstract {
+class Archaeology extends Pas_Db_Table_Abstract
+{
 
     /** The table name
      * @access protected
@@ -46,7 +47,8 @@ class Archaeology extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function getArchaeologyData($id)  {
+    public function getArchaeologyData($id)
+    {
         $select = $this->select()
             ->from($this->_name, array(
                 'id', 'hoardID', 'secuid', 'knownsite',
@@ -59,23 +61,23 @@ class Archaeology extends Pas_Db_Table_Abstract {
                 'contextualrating', 'archiveloc', 'institution',
                 'createdBy'
             ))
-            ->joinLeft('hoards','archaeology.hoardID = hoards.secuid',
+            ->joinLeft('hoards', 'archaeology.hoardID = hoards.secuid',
                 array('old_hoardID' => 'hoardID'))
-            ->joinLeft('periods','archaeology.period1 = periods.id',
+            ->joinLeft('periods', 'archaeology.period1 = periods.id',
                 array('periodFrom' => 'term'))
-            ->joinLeft(array('periods2' => 'periods'),'archaeology.period2 = periods2.id',
+            ->joinLeft(array('periods2' => 'periods'), 'archaeology.period2 = periods2.id',
                 array('periodTo' => 'term'))
-            ->joinLeft('dataquality','archaeology.contextualrating = dataquality.id',
+            ->joinLeft('dataquality', 'archaeology.contextualrating = dataquality.id',
                 array('archaeologicalcontextqualityrating' => 'rating'))
-            ->joinLeft('recmethods','archaeology.recmethod = recmethods.id',
+            ->joinLeft('recmethods', 'archaeology.recmethod = recmethods.id',
                 array('recoverymethod' => 'method'))
-            ->joinLeft('archsiteclass','archaeology.sitecontext = archsiteclass.id',
+            ->joinLeft('archsiteclass', 'archaeology.sitecontext = archsiteclass.id',
                 array('siteclass'))
-            ->joinLeft('archsitetype','archaeology.sitetype = archsitetype.id',
+            ->joinLeft('archsitetype', 'archaeology.sitetype = archsitetype.id',
                 array('sitetype'))
-            ->joinLeft('archfeature','archaeology.feature = archfeature.id',
+            ->joinLeft('archfeature', 'archaeology.feature = archfeature.id',
                 array('feature'))
-            ->joinLeft('landscapetopography','archaeology.landscapetopography = landscapetopography.id',
+            ->joinLeft('landscapetopography', 'archaeology.landscapetopography = landscapetopography.id',
                 array('landscapefeature' => 'feature'))
             ->where('hoards.id = ?', (int)$id);
         $select->setIntegrityCheck(false);
@@ -84,16 +86,18 @@ class Archaeology extends Pas_Db_Table_Abstract {
 
     /** Over ride the abstract add and create secuid etc
      */
-    public function add( array $data )
+    public function add(array $data)
     {
-        if(empty($data['secuid'])) {
+        $data = $this->getCleaner()->array_cleanup($data);
+
+        if (empty($data['secuid'])) {
             $data['secuid'] = $this->generateSecuId();
         }
-        foreach($data as $k => $v) {
-        if ( $v == "") {
-            $data[$k] = NULL;
+        foreach ($data as $k => $v) {
+            if ($v == "") {
+                $data[$k] = NULL;
+            }
         }
-    }
-        return parent::insert( $data );
+        return parent::insert($data);
     }
 }

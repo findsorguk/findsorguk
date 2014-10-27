@@ -98,8 +98,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
             'idBy', 'recordername'
         ));
         $this->getFlash()->addMessage('Your search is complete');
-        $this->_helper->Redirector->gotoSimple('results', 'search', 'database',
-            $cleaned);
+        $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $cleaned);
     }
 
     /** Display the basic what/where/when page.
@@ -114,7 +113,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
             if ($form->isValid($form->getValues())) {
                 $this->process($form->getValues());
             } else {
-                $form->populate($form->getValues());
+                $form->populate($this->_request->getPost());
             }
         }
     }
@@ -423,7 +422,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
         ));
         $search->setParams($params);
         $search->execute();
-//        $search->debugQuery();
+        $search->debugQuery();
         $this->view->facets = $search->processFacets();
         $this->view->paginator = $search->createPagination();
         $this->view->stats = $search->processStats();
