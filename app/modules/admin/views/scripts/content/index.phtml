@@ -9,8 +9,7 @@ $this->metaBase()
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 
 <?php echo $this->form; ?>
-<?php if ($this->contents):
-    Zend_Debug::dump($this->contents);?>
+<?php if ($this->contents):?>
 
 
     <p><a class="btn btn-large btn-success"
@@ -26,25 +25,13 @@ $this->metaBase()
             <th>Created by</th>
             <th>Updated</th>
             <th>Updated by</th>
-            <th>Status</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <?php echo $this->partialLoop('partials/admin/contentTable.phtml', $this->contents); ?>
         </tbody>
-        <tfoot>
-        <tr>
-            <th>Title</th>
-            <th>Section</th>
-            <th>Created</th>
-            <th>Created by</th>
-            <th>Updated</th>
-            <th>Updated by</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        </tfoot>
+
     </table>
     <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else: ?>
