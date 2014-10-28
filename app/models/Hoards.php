@@ -784,8 +784,6 @@ class Hoards extends Pas_Db_Table_Abstract
                 'recorderID',
                 'identifier1ID',
                 'identifier2ID',
-                'finderID',
-                'finder2ID',
                 'disccircum',
                 'discmethod',
                 'datefound1',
@@ -804,11 +802,6 @@ class Hoards extends Pas_Db_Table_Abstract
                 'updatedBy',
                 'institution'
             ))
-            ->joinLeft('people', 'hoards.finderID = people.secuid',
-                array('finder' => 'fullname'))
-            ->joinLeft(array('people2' => 'people'),
-                'hoards.finder2ID = people2.secuid',
-                array('secondfinder' => 'fullname'))
             ->joinLeft(array('ident1' => 'people'),
                 'hoards.identifier1ID = ident1.secuid',
                 array('idBy' => 'fullname'))

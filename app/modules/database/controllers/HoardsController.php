@@ -343,7 +343,9 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 if ($id > 0) {
                     $formData = $this->_hoards->getEditData($id);
                     $materialsData = $this->_hoards->getMaterials($id);
+                    $findersData = $this->getHoardsFinders()->getFinders($formData['secuid']);
                     if (count($formData)) {
+                        $form->addFinders($findersData);
                         $form->populate($formData);
                         $form->getElement('materials')->setValue($materialsData);
                         $this->view->hoard = $this->_hoards->fetchRow('id=' . $id);

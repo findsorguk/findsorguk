@@ -1,6 +1,10 @@
 $(document).ready(function() {
 
-    finderTypeahead('#finder1');
+    // Add typeahead for every finder field loaded
+    $numberOfFinders = ($("#hiddenfield").val()) - 1;
+    for (var i = $numberOfFinders; i > 0 ; i--){
+        finderTypeahead('input#finder'+ i);
+        }
 
 });
 

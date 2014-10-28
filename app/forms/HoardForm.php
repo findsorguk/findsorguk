@@ -634,6 +634,51 @@ class HoardForm extends Pas_Form {
     }
 
     /**
+     * On Edit of the form, adds new fields to accommodate all the finders.
+     * Uses addNewTextField or addNewHiddenField
+     * to add them to the form object
+     *
+     * @param array $data
+     */
+    public function addFinders(array $findersData) {
+        // Get the order of the first finder field
+        // so that new fields can be placed after it in the display group
+        $orderFinder1 = $this->getElement('finder1')->getOrder();
+        // Get the display group so that new elements can be added to it
+        $discoverers = $this->getDisplayGroup('discoverers');
+        // Loop through the $findersdata
+        foreach ($findersData as $finder) {
+            // Just populate the first finder which is already on the form
+            if ($finder['order'] == 1) {
+                $finder1 = $this->getElement('finder1');
+                $finder1->setValue($finder['finder']);
+                $finder1ID = $this->getElement('finder1ID');
+                $finder1ID->setValue($finder['finderID']);
+            } else { // For all extra ones, add them
+                // Use order number to set new form order
+                $orderHidden = (2 * $finder['order'] - 2) + $orderFinder1;
+                // Add hidden field
+                $hiddenFieldName = 'finder'.$finder['order'].'ID';
+                $this->addNewHiddenField($hiddenFieldName, $finder['finderID'], $orderHidden);
+
+                // Use order number to set new form order
+                $orderText = (2 * $finder['order'] - 1) + $orderFinder1;
+                // Add text field
+                $textFieldName = 'finder'.$finder['order'];
+                $this->addNewTextField($textFieldName, $finder['finder'], $orderText);
+
+                $discoverers->addElement($this->getElement($hiddenFieldName));
+                $discoverers->addElement($this->getElement($textFieldName));
+            }
+
+        }
+        // Update the hiddenfield so that the add new finder fields jQuery works properly
+        $hiddenfield = $this->getElement('hiddenfield');
+        $hiddenvalue = count($findersData) + 1;
+        $hiddenfield->setValue($hiddenvalue);
+    }
+
+    /**
      * After form is posted, finds all new fields where name includes 'finder'.
      * Uses addNewTextField or addNewHiddenField
      * to add them to the form object

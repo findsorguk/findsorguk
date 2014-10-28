@@ -29,6 +29,25 @@ class HoardsFinders extends Pas_Db_Table_Abstract {
      * @param array
      * @return int
      */
+    public function getFinders($hoardID){
+        $select = $this->select()
+            ->from($this->_name, array(
+                'id',
+                'hoardID',
+                'finderID',
+                'order'
+            ))
+            ->joinLeft('people', 'hoards_finders.finderID = people.secuid',
+                array('finder' => 'fullname'))
+            ->where('hoardID = ?', $hoardID);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchAll($select);
+    }
+
+    /** Add new finders of a hoard
+     * @param array
+     * @return int
+     */
     public function addFinders($findersData){
         $insertData['hoardID'] = $findersData['hoardID'];
         foreach ($findersData['finderID'] as $finder) {
