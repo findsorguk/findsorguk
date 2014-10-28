@@ -1,4 +1,4 @@
-<div class="page-header"><h2><?php echo date('d-m-Y', strtotime($this->starts));?>: <?php echo $this->title;?></h2></div>
+<div class="page-header"><h2 class="lead"><?php echo date('d-m-Y', strtotime($this->starts));?>: <?php echo $this->title;?></h2></div>
 <?php if($this->content != ''):?>
 <blockquote><?php echo $this->paragraphRemove($this->purify($this->content));?></blockquote>
 <?php endif;?>

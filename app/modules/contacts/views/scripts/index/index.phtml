@@ -22,28 +22,28 @@ $this->headLink()->appendAlternate($this->baseUrl() . '/contacts/index/index/for
     </p>
 
 
-    <h2> Finds Liaison Officers</h2>
+    <h2 class="lead"> Finds Liaison Officers</h2>
 
     <p>
         The Scheme currently employs <strong><?php echo count($this->flos); ?></strong> Finds Liaison Officers.
     </p>
     <?php echo $this->partialLoop('partials/contacts/vcard.phtml', $this->flos); ?>
 
-    <h2>Central Unit team</h2>
+    <h2 class="lead">Central Unit team</h2>
 
     <p>
         The Scheme currently employs <strong><?php echo count($this->centrals); ?></strong> Central Unit staff members.
     </p>
     <?php echo $this->partialLoop('partials/contacts/vcard.phtml', $this->centrals); ?>
 
-    <h2>National Finds Advisers</h2>
+    <h2 class="lead">National Finds Advisers</h2>
 
     <p>
         The Scheme currently employs <strong><?php echo count($this->advisers); ?></strong> National Finds Advisers.
     </p>
     <?php echo $this->partialLoop('partials/contacts/vcard.phtml', $this->advisers); ?>
 
-    <h2>Treasure Administration team</h2>
+    <h2 class="lead">Treasure Administration team</h2>
 
     <p>
         The Scheme currently employs <strong><?php echo count($this->treasures); ?></strong> in the Treasure team.

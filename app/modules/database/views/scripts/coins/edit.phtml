@@ -2,7 +2,7 @@
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type='text/javascript'); 
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/coinslinkedselect.js', $type='text/javascript'); 
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title();?></h2>
 <?php $id = Zend_Controller_Front::getInstance()->getRequest()->getParam('returnID');?>
 <p><a class="btn btn-success" href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record', 'id' => $id),null,true);?>" title="return to the record">Return to record</a></p>
 

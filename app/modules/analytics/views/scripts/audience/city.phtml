@@ -1,7 +1,7 @@
 <?php
 $this->headTitle('City analytical data provided via Google Analytics ' . $this->timeSpanParameter());
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title();?></h2>
 <p><?php echo $this->timeSpansGa();?></p>
 
 <p><a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'audience', 'action' => 'map'),'default',true);?>" class="btn btn small">View top 500 locations on a map <i class="marker-geo"></i></a></p>

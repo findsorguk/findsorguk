@@ -10,7 +10,7 @@ $this->headLink()->appendAlternate($this->baseUrl()
         . '/database/search/results/denomination/' . $this->id . '/format/atom/',
 	'application/rss+xml', 'Latest recorded finds feed for '
         . $this->escape($this->denomination));?>
-<h2>The <?php echo $this->denomination;?></h2>
+<h2 class="lead">The <?php echo $this->denomination;?></h2>
 <?php echo $this->description;?>
 <?php if(!is_null($this->rarity)):?>
 <p><?php echo $this->rarity; ?></p>

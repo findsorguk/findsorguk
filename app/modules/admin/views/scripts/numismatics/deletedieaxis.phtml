@@ -3,7 +3,7 @@ $this->headTitle("Delete a dieaxis from the system");
 if ($this->dieaxis) :?>
 <?php 
 ?>
-<h2>Delete a Dynastic listing</h2>
+<h2 class="lead">Delete a Dynastic listing</h2>
 <p>Are you sure that you want to delete
 '<?php echo $this->escape($this->dieaxis->term); ?>'
 </p>
@@ -21,6 +21,6 @@ $this->headTitle("Error deleting die axis term");
 
 ?>
 
-<h2>An error has occurred</h2>
+<h2 class="lead">An error has occurred</h2>
 <p>Cannot find the item requested.</p>
 <?php endif;?>

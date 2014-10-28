@@ -18,7 +18,7 @@ foreach ($this->gazetteer as $g) {
     $point = $place->getPlace($placedata['woeid']);
 
     ?>
-    <h2>1:50K Gazetteer data for <?php echo $g['name']; ?></h2>
+    <h2 class="lead">1:50K Gazetteer data for <?php echo $g['name']; ?></h2>
     <img
         src="http://maps.google.com/maps/api/staticmap?center=<?php echo $g['latitude']; ?>,<?php echo $g['longitude']; ?>&zoom=14&size=300x300&maptype=terrain&markers=color:green|label:G|
 <?php echo $g['latitude']; ?>,<?php echo $g['longitude']; ?>&sensor=false" class="flow"/>

@@ -5,7 +5,7 @@ $this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
 $this->headTitle('Organisations registered with the Scheme');
 ?>
 
-<h2>Organisations registered with the Scheme</h2>
+<h2 class="lead">Organisations registered with the Scheme</h2>
 <?php
 echo $this->Href(array('module' => 'database','controller'=>'organisations', 'action'=>'add', 'checkAcl'=>true,
 'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'div'), 'content'=>'Add an organisation','attribs' => array(

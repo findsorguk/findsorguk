@@ -7,7 +7,7 @@ $this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
 $this->headTitle('All finds created by my institution');
 ?>
 <?php $this->headTitle('All finds created by ' . $this->institution()->setInstitution($this->inst)); ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title();?></h2>
 <?php echo $this->loggedInLinks();?>
 <?php if($this->params):?>
 <?php echo $this->SearchParams($this->params);?>

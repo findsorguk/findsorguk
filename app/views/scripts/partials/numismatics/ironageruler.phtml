@@ -1,5 +1,5 @@
 <?php $this->headTitle($this->issuer);?>
-<h2><?php echo $this->escape($this->issuer); ?></h2>
+<h2 class="lead"><?php echo $this->escape($this->issuer); ?></h2>
 <p>View all <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action'=> 'results','ruler' => $this->id),null,true);?>" title="Search the database for all coins attributed to <?php echo $this->issuer;?>">attributed examples</a> on our database</p>
 <?php 
 ini_set('display_errors', '0');     # don't show any errors...

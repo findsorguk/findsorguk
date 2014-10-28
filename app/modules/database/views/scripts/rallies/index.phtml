@@ -10,7 +10,7 @@ with a resource management issue','description')
 $this->headTitle('Rallies known to the Scheme');
 ?>
 
-<h2>Metal Detecting Rallies</h2>
+<h2 class="lead">Metal Detecting Rallies</h2>
 <?php
 echo $this->Href(array('module' => 'database','controller'=>'rallies', 'action'=>'add', 'checkAcl'=>true,
 'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'div','id' => 'action'), 'content'=>'Add a rally','attribs' => array('title' => 'Add an organisation','class' => 'btn btn-large btn-primary',)));

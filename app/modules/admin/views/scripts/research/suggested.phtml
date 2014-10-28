@@ -1,5 +1,5 @@
 <?php $this->headTitle('All suggested research topics');?>
-<h2>All topics for suggested research</h2>
+<h2 class="lead">All topics for suggested research</h2>
 <p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'research','action' => 'addsuggested'),'default',true);?>" title="Add a new research topic">Add a new topic</a></p>
 <?php if($this->suggested):?>
 <table class="table table-striped" summary="A list of all available suggested research topics">

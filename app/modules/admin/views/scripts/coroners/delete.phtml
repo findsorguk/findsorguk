@@ -1,6 +1,6 @@
 <?php $this->headTitle('Delete coroners details');?>
 <?php if ($this->coroner) :?>
-<h2>Delete a coroner's details</h2>
+<h2 class="lead">Delete a coroner's details</h2>
 <p>Are you sure that you want to delete
 '<?php echo $this->escape($this->coroner->firstname); ?> <?php echo $this->escape($this->coroner->lastname); ?>' 
 </p>
@@ -12,6 +12,6 @@ method="post">
 <input type="submit" name="del" value="No" />
 </div>
 </form>
-<?php else: ?><h2>An error has occured</h2>
+<<h2 class="lead"> else: ?><h2 class="lead">An error has occured</h2>
 <p>Cannot find the requested person's details.</p>
 <?php endif;?>

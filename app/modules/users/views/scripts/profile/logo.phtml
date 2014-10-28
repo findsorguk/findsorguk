@@ -1,6 +1,6 @@
 <?php $this->headMeta('Add an institutional logo','description');
 	$this->headTitle('Add a logo to an institution profile');?>
-<h2>Add an institutional logo</h2>
+<h2 class="lead">Add an institutional logo</h2>
 <?php if(count($this->logos)) :?>
 <?php foreach($this->logos as $l) {?>
 <img src="<?php echo $this->baseUrl();?>/assets/logos/resized/<?php echo $l['image'];?>" alt="Current logo for <?php echo $this->escape($this->inst);?>" />

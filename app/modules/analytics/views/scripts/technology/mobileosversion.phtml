@@ -1,7 +1,7 @@
 <?php
 $this->headTitle($this->os . ' operating system version ' . $this->timeSpanParameter());
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title();?></h2>
 <?php echo $this->timeSpansGa();?>
 <a href="<?php echo $this->url(array('module' => 'analytics', 'controller' => 'technology', 'action' => 'mobileos'),'default', true);?>" class="btn btn-small">Return to operating system lists</a>
 

@@ -1,7 +1,7 @@
 <?php $this->headTitle('Zooming image of '. $this->escape($this->label));
 ?>
 
-<h2>High resolution image view of <?php echo $this->escape($this->label);?> </h2>
+<h2 class="lead">High resolution image view of <?php echo $this->escape($this->label);?> </h2>
 
 <p><a href="<?php echo $this->url(array('module' => 'databae','controller' => 'artefacts','action' => 'record','id' => $this->id),NULL,true);?>" title="Return to the object's full details">Return to object</a> | <a href="<?php echo $this->url(array('module' => 'databae','controller' => 'images','action' => 'image','id' => $this->imageID),NULL,true);?>" title="Go back to all the details for this image">Return to full image details</a></p>
 <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 

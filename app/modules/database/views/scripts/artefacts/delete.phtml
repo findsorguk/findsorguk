@@ -1,7 +1,7 @@
 <?php 
 $this->headTitle('Delete find');
 if ($this->find) :?>
-<h2>Delete <?php echo $this->escape($this->find->old_findID). ' - '.$this->escape($this->find->objecttype); ?></h2>
+<h2 class="lead">Delete <?php echo $this->escape($this->find->old_findID). ' - '.$this->escape($this->find->objecttype); ?></h2>
 <p>Are you sure that you want to delete
 '<?php echo $this->escape($this->find->objecttype); ?>' 
 </p>

@@ -8,7 +8,7 @@ outlines the available denominations catalogued on our database','description')
 ->headMeta($this->curUrl(),'dc.identifier')
 ->headMeta('CC BY-SA','dc.rights');
 ?>
-<h2>Roman denominations</h2>
+<h2 class="lead">Roman denominations</h2>
 <p>The following coins were issued during the Roman Empire.</p>
 <ul>
 <?php echo $this->partialLoop('partials/numismatics/denominations.phtml',$this->denominations);?>

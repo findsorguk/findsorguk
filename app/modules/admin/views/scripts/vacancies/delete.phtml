@@ -1,7 +1,7 @@
 <?php 
 	$this->headTitle('Delete a vacancy');
 if ($this->vac) :?>
-<h2>Delete vacancy details for: <?php echo $this->escape($this->vac->title); ?></h2>
+<h2 class="lead">Delete vacancy details for: <?php echo $this->escape($this->vac->title); ?></h2>
 <p>Are you sure that you want to delete
 '<?php echo $this->escape($this->vac->title); ?> ' 
 </p>
@@ -13,6 +13,6 @@ method="post">
 <input type="submit" name="del" value="No" />
 </div>
 </form>
-<?php else: ?><h2>An error has occured</h2>
+<?php else: ?><h2 class="lead">An error has occured</h2>
 <p>Cannot find the requested vacancy's details.</p>
 <?php endif;?>

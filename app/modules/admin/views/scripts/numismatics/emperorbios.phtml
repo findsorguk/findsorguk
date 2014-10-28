@@ -1,7 +1,7 @@
 <?php
 $this->headTitle('Emperor biographies');
 ?>
-<h2>List of Emperor's biographies on database</h2>
+<h2 class="lead">List of Emperor's biographies on database</h2>
 <p><a class="btn btn-large btn-success" href="<?php echo $this->url(array(
     'module' => 'admin','controller' => 'numismatics','action' => 'addemperor'),null,true);?>" title="Add a new emperor's biography">Add a new biography</a></p>
 <?php if (count($this->paginator)): ?>

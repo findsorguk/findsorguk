@@ -1,7 +1,7 @@
 <?php 
 	$this->headTitle("Delete a preservation state");
 if ($this->preserve) :?>
-<h2>Delete a preservation state</h2>
+<h2 class="lead">Delete a preservation state</h2>
 <p>Are you sure that you want to delete
 '<?php echo $this->escape($this->preserve->term); ?>' 
 </p>
@@ -14,6 +14,6 @@ method="post">
 </div>
 </form>
 <?php else: ?>
-<h2>There has been an error</h2>
+<h2 class="lead">There has been an error</h2>
 <p>Cannot find the person that you requested.</p>
 <?php endif;?>

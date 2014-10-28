@@ -7,7 +7,7 @@ $this->headMeta('Daniel Pett','dc.creator')
     coins issued throughout the Empire','description')
 ->headMeta('roman,coins,numismatics,reverses,empire','dc.keywords');
 ?>
-<h2>Most common reverse types</h2>
+<h2 class="lead">Most common reverse types</h2>
 <table class="table table-striped" summary="The most common reverse types">
 	<caption>The most common reverse types</caption>
 	<thead>
@@ -22,7 +22,7 @@ $this->headMeta('Daniel Pett','dc.creator')
 	<?php echo $this->partialLoop('partials/numismatics/revtypelist2.phtml',$this->reverses);?>
 	</tbody>
 </table>
-<h2>Less frequently found reverses</h2>
+<h2 class="lead">Less frequently found reverses</h2>
 <table class="table table-striped" summary="The most common reverse types">
 	<caption>The most common reverse types</caption>
 	<thead>

@@ -1,5 +1,5 @@
 <?php $this->headTitle('Our bookmarks tagged '.$this->tag);?>
-<h2>Bookmarks tagged with <?php echo $this->tag;?></h2>
+<h2 class="lead">Bookmarks tagged with <?php echo $this->tag;?></h2>
 <?php 
 	$config = Zend_Registry::get('config');
 	$cachemain = Zend_Registry::get('cache');

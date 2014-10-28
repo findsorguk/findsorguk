@@ -1,5 +1,5 @@
 <?php $this->headTitle('Staff roles in use on the database');?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title();?></h2>
 <?php
 echo $this->Href(array('module' => 'admin','controller'=>'roles', 'action'=>'add', 'checkAcl'=>true,
 'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'),

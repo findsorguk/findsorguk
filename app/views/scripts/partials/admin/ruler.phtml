@@ -1,7 +1,7 @@
 <?php 
 $this->headTitle('Database details for '.$this->issuer);
 ?>
-<h2>Details for <?php echo $this->issuer;?></h2>
+<h2 class="lead">Details for <?php echo $this->issuer;?></h2>
 <p>Name: <?php echo $this->issuer;?><br />
 Date issued from: <?php echo $this->adBc()->setDate($this->date1);?><br />
 Date issued to: <?php echo $this->adBc()->setDate($this->date2);?><br />

@@ -11,7 +11,7 @@ if (!is_null($copy)) {
     $this->headTitle(' copied from last record');
 }
 ?>
-<h2><?php echo $this->title(); ?></h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php $params = Zend_Controller_Front::getInstance()->getRequest()->getParams(); ?>
 <p><a href="<?php echo $this->url(array(
         'module' => 'database',

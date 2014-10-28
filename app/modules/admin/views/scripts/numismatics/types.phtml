@@ -1,5 +1,5 @@
 <?php $this->headTitle('List of Medieval types available');?>
-<h2>Medieval types registered on database</h2>
+<h2 class="lead">Medieval types registered on database</h2>
 <p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addtype'),null,true);?>" title="Add a new medieval type">Add a new type</a></p>
 <?php if (count($this->paginator)): ?>
 

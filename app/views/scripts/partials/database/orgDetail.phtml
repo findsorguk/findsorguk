@@ -1,6 +1,6 @@
 <?php $this->headTitle('Details for '.$this->escape($this->name));?>
 
-<h2><?php echo $this->escape($this->name); ?></h2>
+<h2 class="lead"><?php echo $this->escape($this->name); ?></h2>
 
 <?php if(isset($this->lat)):?> 
 <?php echo $this->googleDynamicMap();?>

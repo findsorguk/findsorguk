@@ -34,7 +34,7 @@ $('a.delete').confirm({
 
 <?php $this->jQuery()->javascriptCaptureEnd();?>
 
-<h2>Research projects conducted on Scheme data</h2>
+<h2 class="lead">Research projects conducted on Scheme data</h2>
 <p><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'research','action' => 'add'),null,true);?>"
       class="btn btn-large btn-warning" title="Add a new research project to the register">Add a new project</a></p>
 <?php if (count($this->research)): ?>

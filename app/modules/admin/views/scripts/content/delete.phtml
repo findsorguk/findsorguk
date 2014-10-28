@@ -1,7 +1,7 @@
 
 <?php if ($this->content) :?>
 <?php $this->headTitle('Delete '.$this->escape($this->content->title)); ?>
-<h2>Delete content</h2>
+<h2 class="lead">Delete content</h2>
 <p>Are you sure that you want to delete
 '<?php echo $this->escape($this->content->title); ?>' 
 </p>
@@ -13,6 +13,6 @@ method="post">
 <input type="submit" name="del" value="No" />
 </div>
 </form>
-<?php else: ?><h2>An error has occured</h2>
+<<h2 class="lead"> else: ?><h2 class="lead">An error has occured</h2>
 <p>Cannot find the requested content details.</p>
 <?php endif;?>

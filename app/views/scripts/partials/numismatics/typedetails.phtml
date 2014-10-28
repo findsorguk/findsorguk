@@ -10,7 +10,7 @@ $this->headMeta('Details and examples for medieval coin type: '.$this->type,'des
 
 <?php $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();?>
 
-<h2><?php echo $this->type;?></h2>
+<h2 class="lead"><?php echo $this->type;?></h2>
 <p>This type was issued by <a href="<?php echo $this->url(array(
     'module' => $module,
     'controller' => 'rulers',

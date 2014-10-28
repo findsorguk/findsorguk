@@ -13,7 +13,7 @@ $resp = $op->getData('search', $params );
 	$resp = $cache->load($key);
 	}
 if($resp){?>
-<h2>Blue Plaque data (via Openplaques json)</h2>
+<h2 class="lead">Blue Plaque data (via Openplaques json)</h2>
 <?php 
 foreach ($resp as $r){
 	

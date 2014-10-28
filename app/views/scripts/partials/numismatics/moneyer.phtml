@@ -7,7 +7,7 @@ $this->headMeta('Eleanor Ghey','dc.creator')
         . ' with images where available','description')
 ->headMeta($this->curUrl(),'dc.identifier');
 ?>
-<h2><?php echo $this->name;?></h2>
+<h2 class="lead"><?php echo $this->name;?></h2>
 <p>Issued: <?php echo $this->date_1;?> <?php if(isset($this->date_2)) { echo $this->date_2;}?></p>
 
 <?php if(!is_null($this->bio)):?>

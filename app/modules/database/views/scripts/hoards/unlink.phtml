@@ -3,7 +3,7 @@
     if ($this->find) :
 ?>
 
-        <h2>Delete link to <?php echo $this->escape($this->find->old_findID); ?></h2>
+        <h2 class="lead">Delete link to <?php echo $this->escape($this->find->old_findID); ?></h2>
         <p>Are you sure that you want to delete the link to this coin, artefact or container? It cannot be undone.</p>
 
         <form action="<?php echo $this->url(array('module' => 'database','controller' => 'hoards',

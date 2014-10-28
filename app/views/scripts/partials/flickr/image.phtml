@@ -16,7 +16,7 @@ $config = Zend_Registry::get('config');
 $apikey = $config->googlemaps->apikey;
 $this->headScript()->appendFile('http://maps.google.com/maps?file=api&amp;v=2.x&key='.$apikey,$type='text/javascript')->appendFile('http://gmaps-utility-library.googlecode.com/svn/trunk/mapiconmaker/1.0/src/mapiconmaker.js',$type='text/javascript');?>
 
-<h2><?php echo $this->title;?></h2>
+<h2 class="lead"><?php echo $this->title;?></h2>
 
 <img src="<?php echo $this->mediumimage;?>" width="<?php echo $this->sizes['-']['0'];?>" height="<?php echo $this->sizes['-']['1'];?>" alt="<?php echo $this->title;?>"/>
 

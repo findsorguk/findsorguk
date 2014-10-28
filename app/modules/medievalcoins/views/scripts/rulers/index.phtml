@@ -9,7 +9,7 @@ $this->headMeta($this->curUrl(),'dc.identifier')
     ->headMeta('medieval,coins,numismatics,archaeology,medieval,england,wales','dc.keywords');
 
 ?>
-<h2>Issuing rulers of the Medieval period</h2>
+<h2 class="lead">Issuing rulers of the Medieval period</h2>
 
 <?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->normans['0']) ; ?>
 <p>This period had <?php echo count($this->normans);?> issuers.</p>

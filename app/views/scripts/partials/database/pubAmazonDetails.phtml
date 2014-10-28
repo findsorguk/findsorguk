@@ -7,7 +7,7 @@ $this->headMeta($this->c,'dc.date.created');
 $this->headMeta('Archaeology','dc.subject');
 ?>
 <div about="<?php echo $this->CurUrl();?>" typeof="bibo:AcademicArticle">
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title();?></h2>
 
 <ul>
 <li>Full title: <span property="dc:title"><?php echo $this->escape($this->title);?></span></li>

@@ -1,7 +1,7 @@
 <?php
 $this->headTitle('Details for ' . $this->museum->museumName);
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title();?></h2>
 <ul><li>Accreditation Number: <?php echo $this->museum->accreditedNumber;?></li></ul>
 <?php
 if(!is_null($this->museum->lat) && !is_null($this->museum->lon)):

@@ -1,6 +1,6 @@
 <?php
 $this->headTitle('Materials available for use on the database');?>
-<h2>Materials</h2>
+<h2 class="lead">Materials</h2>
 <p><a clsss="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'addmaterial'),null,true);?>" title="Add a new material">Add a new material</a></p>
 <?php if (count($this->materials)): ?>
 <table class="table table-striped" summary="List of materials available">
