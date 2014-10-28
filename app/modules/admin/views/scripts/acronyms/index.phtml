@@ -1,33 +1,35 @@
-<?php
-$this->headTitle('All active acronyms on the system');
-$this->headMeta('A list of all acronyms/ abbreviations on the database',
-        'description');?>
+<?php $this->headTitle('All active acronyms on the system'); ?>
+<?php echo $this->metaBase()->setDescription('A list of all acronyms on the System')
+    ->setSubject('Acronyms and abbreviations')
+    ->setKeywords('acronyms,abbreviations,shortened')
+    ->generate();
+?>
 
-<h2>Active acronyms</h2>
-<?php if(count($this->acronyms)):?>
-<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array(
-    'module' => 'admin',
-    'controller' => 'acronyms',
-    'action' => 'add',
-    'id' => $this->id),
-        null, true);?>" title="add a new acronym">Add a new acronym</a></p>
-<table class="table table-striped" summary="All active acronyms">
-<caption>All acronyms</caption>
-<thead>
-<tr>
-<th>Acronym</th>
-<th>Expanded</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/acronyms.phtml',$this->acronyms);?>
-</tbody>
-</table>
-<?php echo $this->paginationControl($this->acronyms, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>There are no acronyms in use at the moment.</p>
-<?php endif;?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (count($this->acronyms)): ?>
+    <p><a class="btn btn-large btn-success" href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'acronyms',
+                'action' => 'add',
+                'id' => $this->id),
+            null, true);?>" title="add a new acronym">Add a new acronym</a></p>
+    <table class="table table-striped" summary="All active acronyms">
+        <caption>All acronyms</caption>
+        <thead>
+        <tr>
+            <th>Acronym</th>
+            <th>Expanded</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/acronyms.phtml', $this->acronyms); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->acronyms, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>There are no acronyms in use at the moment.</p>
+<?php endif; ?>

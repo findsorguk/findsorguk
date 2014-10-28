@@ -11,7 +11,7 @@ echo $this->googleDynamicMap();
 $this->inlineScript()->appendFile('http://maps.stamen.com/js/tile.stamen.js',$type = 'text/javascript');
 ?>
 
-<h2>
+<h2 class="lead">
     <?php echo $this->title();?>
 </h2>
 
@@ -29,7 +29,7 @@ $this->inlineScript()->appendFile('http://maps.stamen.com/js/tile.stamen.js',$ty
     </div>
 
     <div>
-	<?php echo $this->StatisticsDatabase();?>
+	<?php echo $this->statisticsDatabase();?>
     </div>
     
 </div>
