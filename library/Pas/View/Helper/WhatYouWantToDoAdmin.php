@@ -82,12 +82,13 @@ class Pas_View_Helper_WhatYouWantToDoAdmin extends Zend_View_Helper_Abstract {
     public function adminAcct() {
         $urlUsers = $this->view->url(array(
             'module' => 'admin',
-            'controller' => 'users'
-            ),null,true);
+            'controller' => 'users',
+            'action' => 'index'
+            ),'default',true);
         $html = '';
-        $html .= '<li class="purple">';
+        $html .= '<li >';
         $html .= '<a href="';
-        $html. $urlUsers;
+        $html .= $urlUsers;
         $html .= '" title="Administer users">User accounts</a>';
         $html .= '</li>';
         return $html;
