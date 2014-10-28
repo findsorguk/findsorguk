@@ -649,22 +649,22 @@ class HoardForm extends Pas_Form {
         // Loop through the $findersdata
         foreach ($findersData as $finder) {
             // Just populate the first finder which is already on the form
-            if ($finder['order'] == 1) {
+            if ($finder['viewOrder'] == 1) {
                 $finder1 = $this->getElement('finder1');
                 $finder1->setValue($finder['finder']);
                 $finder1ID = $this->getElement('finder1ID');
                 $finder1ID->setValue($finder['finderID']);
             } else { // For all extra ones, add them
                 // Use order number to set new form order
-                $orderHidden = (2 * $finder['order'] - 2) + $orderFinder1;
+                $orderHidden = (2 * $finder['viewOrder'] - 2) + $orderFinder1;
                 // Add hidden field
-                $hiddenFieldName = 'finder'.$finder['order'].'ID';
+                $hiddenFieldName = 'finder'.$finder['viewOrder'].'ID';
                 $this->addNewHiddenField($hiddenFieldName, $finder['finderID'], $orderHidden);
 
                 // Use order number to set new form order
-                $orderText = (2 * $finder['order'] - 1) + $orderFinder1;
+                $orderText = (2 * $finder['viewOrder'] - 1) + $orderFinder1;
                 // Add text field
-                $textFieldName = 'finder'.$finder['order'];
+                $textFieldName = 'finder'.$finder['viewOrder'];
                 $this->addNewTextField($textFieldName, $finder['finder'], $orderText);
 
                 $discoverers->addElement($this->getElement($hiddenFieldName));

@@ -114,7 +114,7 @@ class Hoards extends Pas_Db_Table_Abstract
         $order = 1;
         foreach ($insertData as $field => $value) {
             if(!empty($value)){
-                $finders[] = array('finderID' => $value, 'order' => $order);
+                $finders[] = array('finderID' => $value, 'viewOrder' => $order);
                 $order += 1;
             }
         }
@@ -596,12 +596,12 @@ class Hoards extends Pas_Db_Table_Abstract
             ))
             ->joinLeft('hoards_finders',
                 'hoards.secuid = hoards_finders.hoardID',
-                array('finderID', 'order'))
+                array('finderID', 'viewOrder'))
             ->joinLeft('people',
                 'hoards_finders.finderID = people.secuid',
                 array('title', 'forename', 'surname'))
             ->where('hoards.id = ?', (int)$hoardId)
-            ->order(array('order ASC'));
+            ->order(array('viewOrder ASC'));
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
 

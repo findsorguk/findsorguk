@@ -35,7 +35,7 @@ class HoardsFinders extends Pas_Db_Table_Abstract {
                 'id',
                 'hoardID',
                 'finderID',
-                'order'
+                'viewOrder'
             ))
             ->joinLeft('people', 'hoards_finders.finderID = people.secuid',
                 array('finder' => 'fullname'))
@@ -53,7 +53,7 @@ class HoardsFinders extends Pas_Db_Table_Abstract {
         foreach ($findersData['finderID'] as $finder) {
                     if($finder['finderID'] != NULL) {
                         $insertData['finderID'] = $finder['finderID'];
-                        $insertData['order'] = $finder['order'];
+                        $insertData['viewOrder'] = $finder['viewOrder'];
                         $insertFinder = $this->add($insertData);
             }
         }
@@ -72,16 +72,16 @@ class HoardsFinders extends Pas_Db_Table_Abstract {
         foreach ($findersData['finderID'] as $finder) {
             if($finder['finderID'] != NULL) {
                 $updateData['finderID'] = $finder['finderID'];
-                $updateData['order'] = $finder['order'];
-                $where[1] = $this->getAdapter()->quoteInto('`order` = ?', $finder['order']);
+                $updateData['viewOrder'] = $finder['viewOrder'];
+                $where[1] = $this->getAdapter()->quoteInto('viewOrder = ?', $finder['viewOrder']);
 
                 // Check if finder row already exists
                 $select = $this->select()
                     ->from($this->_name, array(
-                        'hoardID', 'order'
+                        'hoardID', 'viewOrder'
                     ))
                     ->where('hoardID = ?', $updateData['hoardID'])
-                    ->where('`order` = ?', $finder['order']);
+                    ->where('viewOrder = ?', $finder['viewOrder']);
                 $select->setIntegrityCheck(false);
                 $row = $this->getAdapter()->fetchRow($select);
                 if($row != false){ // If exists, update
@@ -96,7 +96,7 @@ class HoardsFinders extends Pas_Db_Table_Abstract {
         $numberOfNewFinders = count($findersData['finderID']);
         $select = $this->select()
             ->from($this->_name, array(
-                'hoardID', 'order'
+                'hoardID', 'viewOrder'
             ))
             ->where('hoardID = ?', $updateData['hoardID']);
         $rowset = $this->getAdapter()->fetchAll($select);
