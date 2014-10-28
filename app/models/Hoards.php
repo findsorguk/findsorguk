@@ -91,14 +91,31 @@ class Hoards extends Pas_Db_Table_Abstract
 
     /** Prepare hoard finders into an array for database insertion
      * @access    public
-     * @return    array $finders
+     * @return    array of arrays $finders
      */
-    public function prepareFinders($insertData)
-    {
-        $finders = array();
+    public function prepareFinders($insertData) {
+        // This loop removes non-finder fields
+        // And empties finder IDs for empty finder names
         foreach ($insertData as $field => $value) {
-            if ((strpos($field, 'finder') !== false) && strpos($field, 'ID') !== false) {
-                $finders[$field] = $value;
+            if ((strpos($field, 'finder') === false)) {
+                unset($insertData[$field]);
+            } elseif (strpos($field, 'ID') === false) {
+                if (empty($value)) {
+                    $insertData[$field . 'ID'] = "";
+                }
+                unset($insertData[$field]);
+            }
+        }
+        // Make sure the finders are sorted in ascending order
+        ksort($insertData);
+        // This loop gives each finder ID a suitable order integer
+        // compensating for empty finder IDs
+        $finders = array();
+        $order = 1;
+        foreach ($insertData as $field => $value) {
+            if(!empty($value)){
+                $finders[] = array('finderID' => $value, 'order' => $order);
+                $order += 1;
             }
         }
         return $finders;
@@ -115,18 +132,21 @@ class Hoards extends Pas_Db_Table_Abstract
         $insertData['secwfstage'] = (int)2;
         $insertData['institution'] = $this->getInstitution();
         unset($insertData['recordername']);
-        unset($insertData['finder']);
         unset($insertData['idBy']);
         unset($insertData['id2by']);
         unset($insertData['hiddenfield']);
         $insertData['materials'] = serialize($insertData['materials']);
 
+        // Takes the arbitrarily long list of finders and prepares an array suitable
+        // for inserting into the Hoards_Finders table
         $findersData['finderID'] = $this->prepareFinders($insertData);
+        // Removes the old finder ID values from the data to be inserted into Hoards table
         foreach ($insertData as $field => $value) {
             if (strpos($field, 'finder') !== false) {
                 unset($insertData[$field]);
             }
         }
+        // Adds the hoard ID to the array of finders for insertion into Hoards_Finders table
         $findersData['hoardID'] = $insertData['secuid'];
         $findersTable = new HoardsFinders();
 
@@ -168,7 +188,6 @@ class Hoards extends Pas_Db_Table_Abstract
             $updateData['identifier2ID'] = NULL;
         }
         unset($updateData['recordername']);
-        unset($updateData['finder1']);
         unset($updateData['idBy']);
         unset($updateData['id2by']);
         unset($updateData['hiddenfield']);
@@ -177,7 +196,26 @@ class Hoards extends Pas_Db_Table_Abstract
 
         $where[0] = $this->getAdapter()->quoteInto('id = ?', $id);
 
-        return $this->update($updateData, $where);
+        // Takes the arbitrarily long list of finders and prepares an array suitable
+        // for updating/inserting into the Hoards_Finders table
+        $findersData['finderID'] = $this->prepareFinders($updateData);
+        // Removes the old finder ID values from the data to be inserted into Hoards table
+        foreach ($updateData as $field => $value) {
+            if (strpos($field, 'finder') !== false) {
+                unset($updateData[$field]);
+            }
+        }
+        // Adds the hoard ID to the array of finders for insertion into Hoards_Finders table
+        $findersData['hoardID'] = $updateData['secuid'];
+        $findersTable = new HoardsFinders();
+
+        try {
+            $update = $this->update($updateData, $where);
+            $updateFinders = $findersTable->updateFinders($findersData);
+        } catch (Zend_Db_Exception $e) {
+            return 'error';
+        }
+        return $update;
     }
 
     /** Get all data from a hoard record for non-HTML rendering
@@ -558,11 +596,12 @@ class Hoards extends Pas_Db_Table_Abstract
             ))
             ->joinLeft('hoards_finders',
                 'hoards.secuid = hoards_finders.hoardID',
-                array('finderID'))
+                array('finderID', 'order'))
             ->joinLeft('people',
                 'hoards_finders.finderID = people.secuid',
                 array('title', 'forename', 'surname'))
-            ->where('hoards.id = ?', (int)$hoardId);
+            ->where('hoards.id = ?', (int)$hoardId)
+            ->order(array('order ASC'));
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
 

@@ -217,7 +217,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $this->view->linkedArtefacts = $this->_hoards->getLinkedArtefacts($id);
                 $this->view->linkedContainers = $this->_hoards->getLinkedContainers($id);
                 $this->view->recordersIdentifiers = $this->_hoards->getRecordersIdentifiers($id);
-                $this->view->finders = array_reverse($this->_hoards->getFinders($id));
+                $this->view->finders = $this->_hoards->getFinders($id);
                 $this->view->discoverySummary = $this->_hoards->getDiscoverySummary($id);
                 $this->view->referenceNumbers = $this->_hoards->getReferenceNumbers($id);
                 $this->view->quantities = $this->_hoards->getQuantities($id);
@@ -262,8 +262,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         if (in_array($user->role, $this->_restricted)) {
             $form->finderID->setValue($user->peopleID);
             $form->removeDisplayGroup('discoverers');
-            $form->removeElement('finder');
-            $form->removeElement('secondfinder');
+            $form->removeElement('finder1');
             $form->removeElement('idBy');
             $form->recordername->setAttrib('disabled', true);
             $form->removeElement('id2by');
@@ -319,10 +318,11 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
             }
             if ($this->getRequest()->isPost()) {
                 $formData = $this->_request->getPost();
+                $form->preValidation($formData);
                 if ($form->isValid($formData)) {
                     $updateData = $form->getValues();
                     $oldData = $this->_hoards->fetchRow('id=' . $this->_getParam('id'))->toArray();
-                    $this->_hoards->editHoard($updateData, $id);
+                    $update = $this->_hoards->editHoard($updateData, $id);
                     $this->_helper->audit(
                         $updateData,
                         $oldData,
@@ -330,7 +330,12 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         $this->_getParam('id'),
                         $this->_getParam('id')
                     );
-                    $this->redirect(self::REDIRECT . 'record/id/' . $id);
+                    if ($update != 'error') {
+                        $this->redirect(self::REDIRECT . 'record/id/' . $id);
+                    } else { // If there is a database error, repopulate form so users don't lose their work
+                        $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
+                        $form->populate($formData);
+                    }
                 } else {
                     $form->populate($formData);
                 }
