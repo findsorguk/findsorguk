@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for adding static contents to the Scheme website
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
@@ -14,27 +15,29 @@
  * @uses ContentForm
  * @uses Pas_Exception_Param
  * @uses Pas_ArrayFunctions
- * 
+ *
  */
-class Admin_ContentController extends Pas_Controller_Action_Admin {
-	
+class Admin_ContentController extends Pas_Controller_Action_Admin
+{
+
     /** The content model
      * @access protected
      * @var \Content
      */
     protected $_content;
-    
+
     /** The cleaning class
      * @access protected
      * @var \Pas_ArrayFunctions
      */
     protected $_cleaner;
-    
+
     /** The array class
      * @access public
      * @return \Pas_ArrayFunctions
      */
-    public function getCleaner() {
+    public function getCleaner()
+    {
         $this->_cleaner = new Pas_ArrayFunctions();
         return $this->_cleaner;
     }
@@ -43,42 +46,42 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('fa',null);
-        $this->_helper->_acl->allow('admin',null);
+    public function init()
+    {
+        $this->_helper->_acl->allow('fa', null);
+        $this->_helper->_acl->allow('admin', null);
         $this->_content = new Content();
-        
+
     }
+
     /** Display index page
      * Display all content in the system Solr indexed
      * @access public
      * @return void
      */
-    public function indexAction() {
-    	$form = new ContentSearchForm();
-    	$form->submit->setLabel('Search content');
+    public function indexAction()
+    {
+        $form = new ContentSearchForm();
+        $form->submit->setLabel('Search content');
         $this->view->form = $form;
-        $params = $this->getCleaner()->array_cleanup($this->_getAllParams());
+        $params = $this->getCleaner()->array_cleanup($this->getAllParams());
         $search = new Pas_Solr_Handler();
         $search->setCore('content');
-        $search->setFields(array(
-            'id', 'title', 'section', 
-            'publishState', 'created', 'updated', 
-            'type', 'createdBy', 'updatedBy'
-            ));
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-                && !is_null($this->_getParam('submit'))){
+
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
+            && !is_null($this->_getParam('submit'))
+        ) {
             if ($form->isValid($form->getValues())) {
                 $params = $this->getCleaner()->array_cleanup($form->getValues());
-                $this->_helper->Redirector->gotoSimple('index','content','admin',$params);
+                $this->_helper->Redirector->gotoSimple('index', 'content', 'admin', $params);
             } else {
                 $form->populate($form->getValues());
                 $params = $form->getValues();
             }
         } else {
-            $form->populate($this->_getAllParams());
+            $form->populate($this->getAllParams());
         }
-        if(!isset($params['q']) || $params['q'] == ''){
+        if (!isset($params['q']) || $params['q'] == '') {
             $params['q'] = '*';
         }
         $params['type'] = 'sitecontent';
@@ -87,25 +90,27 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
         $this->view->paginator = $search->createPagination();
         $this->view->contents = $search->processResults();
     }
-    
+
     /** Add new content
      * @access public
      * @return void
      */
-    public function addAction() {
+    public function addAction()
+    {
         $form = new ContentForm();
         $form->submit->setLabel('Add new content to system');
         $form->author->setValue($this->getIdentityForForms());
         $this->view->form = $form;
-        if($this->getRequest()->isPost() 
-                && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost()
+            && $form->isValid($this->_request->getPost())
+        ) {
             if ($form->isValid($form->getValues())) {
-            $insertData = $form->getValues();
-            $content = new Content();
-            $insert = $content->add($insertData);
-            $this->_helper->solrUpdater->update('content', $insert, 'content');
-            $this->getFlash()->addMessage('Static content added');
-            $this->redirect('/admin/content');
+                $insertData = $form->getValues();
+                $content = new Content();
+                $insert = $content->add($insertData);
+                $this->_helper->solrUpdater->update('content', $insert, 'content');
+                $this->getFlash()->addMessage('Static content added');
+                $this->redirect('/admin/content');
             } else {
                 $form->populate($form->getValues());
             }
@@ -117,30 +122,32 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editAction() {
-        if($this->_getParam('id',false)) {
+    public function editAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new ContentForm();
             $form->submit->setLabel('Submit changes');
             $form->author->setValue($this->getIdentityForForms());
             $this->view->form = $form;
-            if($this->getRequest()->isPost() 
-                    && $form->isValid($this->_request->getPost())){
+            if ($this->getRequest()->isPost()
+                && $form->isValid($this->_request->getPost())
+            ) {
                 if ($form->isValid($form->getValues())) {
                     $updateData = $form->getValues();
                     $where = array();
                     $where[] = $this->_content->getAdapter()
-                            ->quoteInto('id = ?', $this->_getParam('id'));
+                        ->quoteInto('id = ?', $this->_getParam('id'));
                     $oldData = $this->_content->fetchRow($this->_content
-                            ->select()->where('id= ?' , 
-                                    (int)$this->_getParam('id')))->toArray();
-                    $this->_helper->audit($updateData, $oldData, 'ContentAudit', 
-                            $this->_getParam('id'), $this->_getParam('id'));
+                        ->select()->where('id= ?',
+                            (int)$this->_getParam('id')))->toArray();
+                    $this->_helper->audit($updateData, $oldData, 'ContentAudit',
+                        $this->_getParam('id'), $this->_getParam('id'));
                     $this->_content->update($updateData, $where);
                     $this->_helper->solrUpdater->update('content',
-                            $this->_getParam('id'), 'content');  
-                    $this->getFlash()->addMessage('You updated: <em>' 
-                            . $form->getValue('title') 
-                            . '</em> successfully. It is now available for use.');
+                        $this->_getParam('id'), 'content');
+                    $this->getFlash()->addMessage('You updated: <em>'
+                        . $form->getValue('title')
+                        . '</em> successfully. It is now available for use.');
                     $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
                     $this->redirect('admin/content/');
                 } else {
@@ -151,7 +158,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
                     $content = $this->_content->fetchRow('id=' . (int)$id)->toArray();
-                    if($content) {
+                    if ($content) {
                         $form->populate($content);
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -167,7 +174,8 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deleteAction() {
+    public function deleteAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -178,7 +186,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin {
                 $this->_helper->solrUpdater->deleteById('content', $id);
             }
             $this->redirect('/admin/content/');
-        }  else  {
+        } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
                 $this->view->content = $this->getContents()->fetchRow('id=' . $id);

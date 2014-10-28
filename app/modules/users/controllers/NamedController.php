@@ -32,7 +32,7 @@ class Users_NamedController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction(){
-        $this->view->users = $this->_users->getUsersAdmin($this->_getAllParams());
+        $this->view->users = $this->_users->getUsersAdmin($this->getAllParams());
     }
     
     /** View the individual person's account

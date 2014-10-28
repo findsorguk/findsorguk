@@ -53,7 +53,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
         $form->q->setAttrib('placeholder', 'Try Geake for example');
         $this->view->form = $form;
         $cleaner = new Pas_ArrayFunctions();
-        $params = $cleaner->array_cleanup($this->_getAllParams());
+        $params = $cleaner->array_cleanup($this->getAllParams());
         $search = new Pas_Solr_Handler();
         $search->setCore('publications');
         $search->setFields(array('*'));
@@ -71,8 +71,8 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
                 $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
 
         if(!isset($params['q']) || $params['q'] == ''){
@@ -168,13 +168,13 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = array();
-                    $where =  $this->_publications->getAdapter()
+                    $where[] =  $this->_publications->getAdapter()
                             ->quoteInto('id = ?', $this->_getParam('id'));
                     $this->getFlash()->addMessage('Record deleted!');
                     $this->_publications->delete($where);
                     $this->_helper->solrUpdater->deleteById('publications', $id);
                 }
-                $this->_redirect(self::REDIRECT);
+                $this->redirect(self::REDIRECT);
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {

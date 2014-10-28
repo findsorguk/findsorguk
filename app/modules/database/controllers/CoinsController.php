@@ -166,7 +166,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function coinrefAction() {
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         if(!isset($params['returnID']) && !isset($params['findID'])) {
             throw new Pas_Exception_Param('Find ID and return ID missing');
         }

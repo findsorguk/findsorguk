@@ -34,6 +34,6 @@ class News_IndexController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $news = new News();
-	$this->view->news = $news->getAllNewsArticles($this->_getAllParams());
+	$this->view->news = $news->getAllNewsArticles($this->getAllParams());
     }
 }

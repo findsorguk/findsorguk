@@ -41,7 +41,7 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction(){
-        $this->view->acronyms = $this->_acronyms->getAllAcronyms($this->_getAllParams());
+        $this->view->acronyms = $this->_acronyms->getAllAcronyms($this->getAllParams());
     }
    
     /** Add a new acronym

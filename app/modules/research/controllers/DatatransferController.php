@@ -37,7 +37,7 @@ class Research_DatatransferController extends Pas_Controller_Action_Admin {
      */
     public function hersAction() {
         $hers = new Hers();
-        $this->view->hers = $hers->getAll($this->_getAllParams());
+        $this->view->hers = $hers->getAll($this->getAllParams());
     }
 	
 }

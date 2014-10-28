@@ -107,10 +107,10 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
             $params = $cleaner->array_cleanup($form->getValues());
             $this->_helper->Redirector->gotoSimple('index','people','database',$params);
         } else {
-            $params = $this->_getAllParams();
+            $params = $this->getAllParams();
             $params['sort'] = 'surname';
             $params['direction'] = 'asc';
-            $form->populate($this->_getAllParams());
+            $form->populate($this->getAllParams());
         }
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';
@@ -251,7 +251,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                 $this->_helper->solrUpdater->deleteById('people', $id);
                 $this->getFlash()->addMessage('Record deleted!');
             }
-            $this->_redirect(self::REDIRECT);
+            $this->redirect(self::REDIRECT);
             }  else  {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {

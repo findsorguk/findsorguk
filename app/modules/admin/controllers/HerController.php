@@ -33,7 +33,7 @@ class Admin_HerController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->hers = $this->_hers->getAll($this->_getAllParams());
+        $this->view->hers = $this->_hers->getAll($this->getAllParams());
     }
     
     /** Add a signatory

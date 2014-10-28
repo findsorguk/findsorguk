@@ -28,7 +28,7 @@ class Treasure_CasesController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $treasure = new TreasureCases();
-        $this->view->treasurecases = $treasure->getCases($this->_getAllParams());
+        $this->view->treasurecases = $treasure->getCases($this->getAllParams());
         $current_year = date('Y');
         $years = range(1998, $current_year);
         $yearslist = array();

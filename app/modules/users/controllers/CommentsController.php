@@ -34,7 +34,7 @@ class Users_CommentsController extends Pas_Controller_Action_Admin {
      * @return array
      */
     public function getParams() {
-        return $this->_getAllParams();
+        return $this->getAllParams();
     }
     /** No access to the index page, redirect to the comments you made
      * @access public

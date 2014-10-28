@@ -44,8 +44,8 @@ class Admin_MessagesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() 	{
-        $this->view->params = $this->_getAllParams();
-        $this->view->messages = $this->_messages->getMessages($this->_getAllParams());
+        $this->view->params = $this->getAllParams();
+        $this->view->messages = $this->_messages->getMessages($this->getAllParams());
     }
     /** Reply to a stored message
      * @access public
@@ -110,7 +110,7 @@ class Admin_MessagesController extends Pas_Controller_Action_Admin {
                 $this->_messages->delete($where);
                 $this->getFlash()->addMessage('Message deleted!');
             }
-            $this->_redirect( '/admin/messages');
+            $this->redirect('/admin/messages');
         }  else  {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for displaying object terminologies we employ
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -30,8 +31,9 @@
  * @uses DecorationMethods
  * @uses SurfTreatments
  *
-*/
-class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
+ */
+class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
+{
 
     /** The contexts array
      * @access protected
@@ -49,7 +51,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \Periods
      */
-    public function getPeriods() {
+    public function getPeriods()
+    {
         $this->_periods = new Periods();
         return $this->_periods;
     }
@@ -64,7 +67,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \PrimaryActivities
      */
-    public function getPrimaryActivities() {
+    public function getPrimaryActivities()
+    {
         $this->_primaryActivities = new PrimaryActivities();
         return $this->_primaryActivities;
     }
@@ -79,7 +83,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \DecStyles
      */
-    public function getDecStyles() {
+    public function getDecStyles()
+    {
         $this->_decStyles = new DecStyles();
         return $this->_decStyles;
     }
@@ -94,7 +99,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \DiscoMethods
      */
-    public function getDiscoMethods() {
+    public function getDiscoMethods()
+    {
         $this->_discoMethods = new DiscoMethods();
         return $this->_discoMethods;
     }
@@ -109,51 +115,54 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \Preservations
      */
-    public function getPreservations() {
+    public function getPreservations()
+    {
         $this->_preservations = new Preservations();
         return $this->_preservations;
     }
+
     /** Setup the contexts by action and the ACL.
      * @access public
      * @return void
-    */
-    public function init() {
-        $this->_helper->_acl->allow('public',null);
-        
-        $this->_contexts = array('xml','json');
+     */
+    public function init()
+    {
+        $this->_helper->_acl->allow('public', null);
+
+        $this->_contexts = array('xml', 'json');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
-                 ->addActionContext('periods', $this->_contexts)
-                 ->addActionContext('period', $this->_contexts)
-                 ->addActionContext('activities', $this->_contexts)
-                 ->addActionContext('activity', $this->_contexts)
-                 ->addActionContext('cultures', $this->_contexts)
-                 ->addActionContext('culture', $this->_contexts)
-                 ->addActionContext('methods', $this->_contexts)
-                 ->addActionContext('method', $this->_contexts)
-                 ->addActionContext('preservations',$this->_contexts)
-                 ->addActionContext('preservation', $this->_contexts)
-                 ->addActionContext('notes', $this->_contexts)
-                 ->addActionContext('note', $this->_contexts)
-                 ->addActionContext('materials', $this->_contexts)
-                 ->addActionContext('material',	$this->_contexts)
-                 ->addActionContext('workflows', $this->_contexts)
-                 ->addActionContext('workflow',	$this->_contexts)
-                 ->addActionContext('manufactures',$this->_contexts)
-                 ->addActionContext('manufacture', $this->_contexts)
-                 ->addActionContext('surfaces', $this->_contexts)
-                 ->addActionContext('surface', $this->_contexts)
-                 ->addActionContext('objects', $this->_contexts)
-                 ->addActionContext('object', $this->_contexts)
-                 ->addActionContext('rulers', $this->_contexts)
-                 ->addActionContext('mints', $this->_contexts)
-                 ->addActionContext('denominations',$this->_contexts)
-                 ->addActionContext('dieaxes', $this->_contexts)
-                 ->addActionContext('dieaxis', $this->_contexts)
-                 ->addActionContext('index', $this->_contexts)
-                 ->addActionContext('landuses',	$this->_contexts)
-                 ->addActionContext('landuse', $this->_contexts)
-                 ->initContext();
+            ->addActionContext('periods', $this->_contexts)
+            ->addActionContext('period', $this->_contexts)
+            ->addActionContext('activities', $this->_contexts)
+            ->addActionContext('activity', $this->_contexts)
+            ->addActionContext('cultures', $this->_contexts)
+            ->addActionContext('culture', $this->_contexts)
+            ->addActionContext('methods', $this->_contexts)
+            ->addActionContext('method', $this->_contexts)
+            ->addActionContext('preservations', $this->_contexts)
+            ->addActionContext('preservation', $this->_contexts)
+            ->addActionContext('notes', $this->_contexts)
+            ->addActionContext('note', $this->_contexts)
+            ->addActionContext('materials', $this->_contexts)
+            ->addActionContext('material', $this->_contexts)
+            ->addActionContext('workflows', $this->_contexts)
+            ->addActionContext('workflow', $this->_contexts)
+            ->addActionContext('manufactures', $this->_contexts)
+            ->addActionContext('manufacture', $this->_contexts)
+            ->addActionContext('surfaces', $this->_contexts)
+            ->addActionContext('surface', $this->_contexts)
+            ->addActionContext('objects', $this->_contexts)
+            ->addActionContext('object', $this->_contexts)
+            ->addActionContext('rulers', $this->_contexts)
+            ->addActionContext('mints', $this->_contexts)
+            ->addActionContext('denominations', $this->_contexts)
+            ->addActionContext('dieaxes', $this->_contexts)
+            ->addActionContext('dieaxis', $this->_contexts)
+            ->addActionContext('index', $this->_contexts)
+            ->addActionContext('landuses', $this->_contexts)
+            ->addActionContext('landuse', $this->_contexts)
+            ->initContext();
 
     }
 
@@ -161,7 +170,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $vocab = array(
             'activities', 'periods', 'cultures',
             'denominations', 'rulers', 'surfaces',
@@ -171,20 +181,22 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
         $base = $this->view->serverUrl() . '/datalabs/terminology/';
         $vocab3 = sort($vocab);
         $vocab2 = null;
-        foreach($vocab as $v){
+        foreach ($vocab as $v) {
             $vocab2[] = array(
                 'type' => $v,
-                'html' =>  $base . $v,
+                'html' => $base . $v,
                 'xml' => $base . $v . '/format/xml',
                 'json' => $base . $v . '/format/json');
         }
         $this->view->vocabularies = $vocab2;
     }
+
     /** Display a list of periods
      * @access public
      * @return void
      */
-    public function periodsAction() {
+    public function periodsAction()
+    {
         $this->view->periods = $this->getPeriods()->getPeriods();
     }
 
@@ -193,9 +205,10 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function periodAction() {
-        if($this->_getParam('id',false)){
-        $this->view->periods = $this->getPeriods()->getPeriodDetails($this->_getParam('id'));
+    public function periodAction()
+    {
+        if ($this->_getParam('id', false)) {
+            $this->view->periods = $this->getPeriods()->getPeriodDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -206,39 +219,46 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function activityAction() {
-        if($this->_getParam('id',false)){
+    public function activityAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->activities = $this->getPrimaryActivities()
-                    ->getActivityDetails($this->_getParam('id'));
+                ->getActivityDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Show details of an activity
      * @access public
      * @return void
      */
-    public function activitiesAction() {
+    public function activitiesAction()
+    {
         $this->view->activities = $this->getPrimaryActivities()
-                ->getActivitiesList();
+            ->getActivitiesList();
     }
+
     /** Show details of a method
      * @access public
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function methodAction()  {
-        if($this->_getParam('id',false)) {
+    public function methodAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->methods = $this->getDiscoMethods()->getDiscmethodInformation($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Display a list of methods
      * @access public
      * @return void
-    */
-    public function methodsAction() {
+     */
+    public function methodsAction()
+    {
         $this->view->methods = $this->getDiscoMethods()->getDiscMethodsList();
     }
 
@@ -247,10 +267,11 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function preservationAction() {
-        if($this->_getParam('id',false)) {
+    public function preservationAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->preserves = $this->getPreservations()
-                    ->getPreservationDetails($this->_getParam('id'));
+                ->getPreservationDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -260,7 +281,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return void
      */
-    public function preservationsAction() {
+    public function preservationsAction()
+    {
         $this->view->preserves = $this->getPreservations()->getPreservationTerms();
     }
 
@@ -274,7 +296,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \FindOfNoteReasons
      */
-    public function getFindsOfNoteReasons() {
+    public function getFindsOfNoteReasons()
+    {
         $this->_findsOfNoteReasons = new FindOfNoteReasons();
         return $this->_findsOfNoteReasons;
     }
@@ -284,19 +307,22 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function noteAction() {
-        if($this->_getParam('id',false)) {
+    public function noteAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->notes = $this->getFindsOfNoteReasons()
-                    ->getReasonDetails($this->_getParam('id'));
+                ->getReasonDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Display details for notes
      * @access public
      * @return void
      */
-    public function notesAction() {
+    public function notesAction()
+    {
         $this->view->notes = $this->getFindsOfNoteReasons()->getReasonsList();
     }
 
@@ -311,7 +337,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return \Cultures
      *
      */
-    public function getCultures() {
+    public function getCultures()
+    {
         $this->_cultures = new Cultures();
         return $this->_cultures;
     }
@@ -321,10 +348,11 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function cultureAction() {
-        if($this->_getParam('id',false)) {
+    public function cultureAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->cultures = $this->getCultures()
-                    ->getCulture($this->_getParam('id'));
+                ->getCulture($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -334,7 +362,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return void
      */
-    public function culturesAction() {
+    public function culturesAction()
+    {
         $this->view->cultures = $this->getCultures()->getCulturesList();
     }
 
@@ -348,7 +377,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \Materials
      */
-    public function getMaterials() {
+    public function getMaterials()
+    {
         $this->_materials = new Materials();
         return $this->_materials;
     }
@@ -358,18 +388,21 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function materialAction() {
-        if($this->_getParam('id',false)) {
+    public function materialAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->materials = $this->getMaterials()->getMaterialDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Display list of materials
      * @access public
      * @return void
      */
-    public function materialsAction() {
+    public function materialsAction()
+    {
         $this->view->materials = $this->getMaterials()->getMaterials();
     }
 
@@ -378,19 +411,22 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @@return void
      * @throws Pas_Exception_Param
      */
-    public function decorationstyleAction() {
-        if($this->_getParam('id',false)) {
+    public function decorationstyleAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->decs = $this->getDecStyles()
-                    ->getDecStyleDetails($this->_getParam('id'));
+                ->getDecStyleDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Display list of decoration styles
      * @access public
      * @return void
      */
-    public function decorationstylesAction() {
+    public function decorationstylesAction()
+    {
         $this->view->decs = $this->getDecStyles()->getDecStyles();
     }
 
@@ -404,7 +440,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \Manufactures
      */
-    public function getManufactures() {
+    public function getManufactures()
+    {
         $this->_manufactures = new Manufactures();
         return $this->_manufactures;
     }
@@ -414,21 +451,24 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function manufactureAction() {
-        if($this->_getParam('id',false)) {
+    public function manufactureAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->manufactures = $this->getManufactures()
-                    ->getManufactureDetails($this->_getParam('id'));
+                ->getManufactureDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Display list of manufacturing methods
      * @access public
      * @return void
      */
-    public function manufacturesAction() {
+    public function manufacturesAction()
+    {
         $this->view->manufactures = $this->getManufactures()
-                ->getManufacturesListed();
+            ->getManufacturesListed();
     }
 
     /** The decoration methods model
@@ -442,7 +482,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \DecorationMethods
      */
-    public function getDecorationMethods() {
+    public function getDecorationMethods()
+    {
         $this->_decorationMethods = new DecMethods();
         return $this->_decorationMethods;
     }
@@ -452,10 +493,11 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function decorationmethodAction() {
-        if($this->_getParam('id',false)) {
+    public function decorationmethodAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->decs = $this->getDecorationMethods()
-                    ->getDecorationDetails($this->_getParam('id'));
+                ->getDecorationDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -465,7 +507,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return void
      */
-    public function decorationmethodsAction() {
+    public function decorationmethodsAction()
+    {
         $this->view->decs = $this->getDecorationMethods()->getDecorationDetailsList();
     }
 
@@ -479,7 +522,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \Mints
      */
-    public function getMints() {
+    public function getMints()
+    {
         $this->_mints = new Mints();
         return $this->_mints;
     }
@@ -488,17 +532,20 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return void
      */
-    public function mintsAction() {
-        $mintsList = $this->getMints()->getMintsListAll($this->_getAllParams());
-        if(in_array($this->_helper->contextSwitch()->getCurrentContext(),$this->_contexts)) {
-            $data = array('pageNumber' => $mintsList->getCurrentPageNumber(),
-                                      'total' => number_format($mintsList->getTotalItemCount(),0),
-                                      'itemsReturned' => $mintsList->getCurrentItemCount(),
-                                      'totalPages' => number_format($mintsList->getTotalItemCount()/
-                                    $mintsList->getCurrentItemCount(),0));
+    public function mintsAction()
+    {
+        $mintsList = $this->getMints()->getMintsListAll($this->getAllParams());
+        if (in_array($this->_helper->contextSwitch()->getCurrentContext(), $this->_contexts)) {
+            $data = array(
+                'pageNumber' => $mintsList->getCurrentPageNumber(),
+                'total' => number_format($mintsList->getTotalItemCount(), 0),
+                'itemsReturned' => $mintsList->getCurrentItemCount(),
+                'totalPages' => number_format($mintsList->getTotalItemCount() /
+                    $mintsList->getCurrentItemCount(), 0)
+            );
             $this->view->data = $data;
             $mints = array();
-            foreach($mintsList as $k){
+            foreach ($mintsList as $k) {
                 $action = $k['t'];
                 switch ($action) {
                     case $action == strtoupper('Roman'):
@@ -532,14 +579,14 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
                     default:
                         $actionset = 'mint';
                         $module = 'medievalcoins';
-                    }
+                }
                 $mints[] = array(
                     'id' => $k['id'],
                     'name' => $k['mint_name'],
                     'period' => $k['t'],
                     'url' => Zend_Registry::get('siteurl') . $this->view->url(array('module' => $module,
-                        'controller' => $actionset.'s' ,'action' => $actionset,'id' => $k['id']),null,true)
-                    );
+                            'controller' => $actionset . 's', 'action' => $actionset, 'id' => $k['id']), null, true)
+                );
             }
             $this->view->mints = $mints;
         } else {
@@ -557,7 +604,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \Landuses
      */
-    public function getLanduses() {
+    public function getLanduses()
+    {
         $this->_landuses = new Landuses();
         return $this->_landuses;
     }
@@ -567,19 +615,22 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function landuseAction() {
-        if($this->_getParam('id',false)) {
+    public function landuseAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->landuses = $this->getLanduses()->getLanduseDetails($this->_getParam('id'));
             $this->view->landuses2 = $this->getLanduses()->getLandusesChild($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Display list of landuses
      * @access public
      * @return void
-    */
-    public function landusesAction() {
+     */
+    public function landusesAction()
+    {
         $this->view->landuses = $this->getLanduses()->getLanduses();
     }
 
@@ -593,7 +644,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \Workflows
      */
-    public function getWorkflows() {
+    public function getWorkflows()
+    {
         $this->_workflows = new Workflows();
         return $this->_workflows;
     }
@@ -603,18 +655,21 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function workflowAction() {
-        if($this->_getParam('id',false)) {
+    public function workflowAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->workflows = $this->getWorkflows()->getStageName($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Display list of workflows
      * @access public
      * @return void
      */
-    public function workflowsAction() {
+    public function workflowsAction()
+    {
         $this->view->workflows = $this->getWorkflows()->getStageNames();
     }
 
@@ -628,7 +683,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \SurfTreatments
      */
-    public function getSurfaceTreatments() {
+    public function getSurfaceTreatments()
+    {
         $this->_surfaceTreatments = new SurfTreatments();
         return $this->_surfaceTreatments;
     }
@@ -638,21 +694,24 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function surfaceAction() {
-        if($this->_getparam('id',false)) {
+    public function surfaceAction()
+    {
+        if ($this->_getparam('id', false)) {
             $this->view->surfaces = $this->getSurfaceTreatments()
-                    ->getSurfaceTreatmentDetails($this->_getParam('id'));
+                ->getSurfaceTreatmentDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Display list of surface treatments
      * @access public
      * @return void
      */
-    public function surfacesAction() {
+    public function surfacesAction()
+    {
         $this->view->surfaces = $this->getSurfaceTreatments()
-                ->getSurfaceTreatments();
+            ->getSurfaceTreatments();
     }
 
     /** The die axes model
@@ -665,7 +724,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \DieAxes
      */
-    public function getDieAxes() {
+    public function getDieAxes()
+    {
         $this->_dieAxes = new DieAxes();
         return $this->_dieAxes;
     }
@@ -674,96 +734,101 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return void
      */
-    public function dieaxesAction() {
+    public function dieaxesAction()
+    {
         $this->view->dieaxes = $this->getDieAxes()->getDieList();
     }
+
     /** Display details of die axis
      * @access public
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function dieaxisAction() {
-        if($this->_getParam('id',false)){
+    public function dieaxisAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->dieaxes = $this->getDieAxes()->getDieAxesDetails((int)$this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Display list of rulers
      * @access public
      * @return void
      */
-    public function rulersAction() {
+    public function rulersAction()
+    {
         $rulers = new Rulers();
-        $rulerList = $rulers->getRulerList($this->_getAllParams());
-        if(in_array($this->_helper->contextSwitch()->getCurrentContext(),$this->_contexts)) {
-        $data = array('pageNumber' => $rulerList->getCurrentPageNumber(),
-                                  'total' => number_format($rulerList->getTotalItemCount(),0),
-                                  'itemsReturned' => $rulerList->getCurrentItemCount(),
-                                  'totalPages' => number_format($rulerList->getTotalItemCount()/
-                                $rulerList->getCurrentItemCount(),0));
-        $this->view->data = $data;
-        $rulers = null;
+        $rulerList = $rulers->getRulerList($this->getAllParams());
+        if (in_array($this->_helper->contextSwitch()->getCurrentContext(), $this->_contexts)) {
+            $data = array('pageNumber' => $rulerList->getCurrentPageNumber(),
+                'total' => number_format($rulerList->getTotalItemCount(), 0),
+                'itemsReturned' => $rulerList->getCurrentItemCount(),
+                'totalPages' => number_format($rulerList->getTotalItemCount() /
+                    $rulerList->getCurrentItemCount(), 0));
+            $this->view->data = $data;
+            $rulers = null;
 
-        foreach($rulerList as $k){
-        $action = $k['term'];
-        switch ($action) {
-                case $action == strtoupper('Roman'):
+            foreach ($rulerList as $k) {
+                $action = $k['term'];
+                switch ($action) {
+                    case $action == strtoupper('Roman'):
                         $actionset = 'emperor';
                         $module = 'romancoins';
                         break;
-                case $action == strtoupper('Byzantine'):
+                    case $action == strtoupper('Byzantine'):
                         $module = 'byzantinecoins';
                         $actionset = 'ruler';
                         break;
-                case $action == strtoupper('Greek and Roman Provincial');
+                    case $action == strtoupper('Greek and Roman Provincial');
                         $module = 'greekromancoins';
                         $actionset = 'ruler';
                         break;
-                case $action == strtoupper('Post Medieval'):
+                    case $action == strtoupper('Post Medieval'):
                         $module = 'postmedievalcoins';
                         $actionset = 'ruler';
                         break;
-                case $action == strtoupper('Early Medieval'):
+                    case $action == strtoupper('Early Medieval'):
                         $module = 'earlymedievalcoins';
                         $actionset = 'ruler';
                         break;
-                case $action == strtoupper('Iron Age'):
+                    case $action == strtoupper('Iron Age'):
                         $module = 'ironagecoins';
                         $actionset = 'ruler';
                         break;
-                case $action == strtoupper('medieval');
+                    case $action == strtoupper('medieval');
                         $module = 'medievalcoins';
                         $actionset = 'ruler';
                         break;
-                        default:
+                    default:
                         $actionset = 'ruler';
                         $module = 'medievalcoins';
 
-        }
+                }
 
 
-        if($k['term'] == 'ROMAN'){
-                $id = $k['pasID'];
+                if ($k['term'] == 'ROMAN') {
+                    $id = $k['pasID'];
+                } else {
+                    $id = $k['id'];
+                }
+                $rulers[] = array(
+                    'id' => $id,
+                    'name' => $k['issuer'],
+                    'period' => $k['term'],
+                    'dateFrom' => $k['date1'],
+                    'dateTo' => $k['date2'],
+                    'pasID' => $k['pasID'],
+                    'url' => $this->view->serverUrl() . $this->view->url(array('module' => $module,
+                            'controller' => $actionset . 's', 'action' => $actionset, 'id' => $id), null, true)
+                );
+
+            }
+
+            $this->view->rulers = $rulers;
         } else {
-                $id = $k['id'];
-        }
-        $rulers[] = array(
-        'id' => $id,
-        'name' => $k['issuer'],
-        'period' => $k['term'],
-        'dateFrom' => $k['date1'],
-        'dateTo' => $k['date2'],
-        'pasID' => $k['pasID'],
-        'url' => $this->view->serverUrl() . $this->view->url(array('module' => $module,
-        'controller' => $actionset . 's' ,'action' => $actionset,'id' => $id),null,true)
-        );
-
-        }
-
-        $this->view->rulers = $rulers;
-        } else {
-        $this->view->rulers = $rulerList;
+            $this->view->rulers = $rulerList;
         }
     }
 
@@ -777,7 +842,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \ObjectTerms
      */
-    public function getObjectTerms() {
+    public function getObjectTerms()
+    {
         $this->_objectTerms = new ObjectTerms();
         return $this->_objectTerms;
     }
@@ -786,21 +852,22 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return void
      */
-    public function objectsAction() {
-        $objectTerms = $this->getObjectTerms()->getAllObjectData($this->_getAllParams());
-        if(in_array($this->_helper->contextSwitch()->getCurrentContext(),$this->_contexts)) {
+    public function objectsAction()
+    {
+        $objectTerms = $this->getObjectTerms()->getAllObjectData($this->getAllParams());
+        if (in_array($this->_helper->contextSwitch()->getCurrentContext(), $this->_contexts)) {
             $data = array(
                 'pageNumber' => $objectTerms->getCurrentPageNumber(),
-                'total' => number_format($objectTerms->getTotalItemCount(),0),
+                'total' => number_format($objectTerms->getTotalItemCount(), 0),
                 'itemsReturned' => $objectTerms->getCurrentItemCount(),
                 'totalPages' => number_format(
-                        $objectTerms->getTotalItemCount()/
-                        $objectTerms->getCurrentItemCount(),
-                        0));
+                    $objectTerms->getTotalItemCount() /
+                    $objectTerms->getCurrentItemCount(),
+                    0));
             $this->view->data = $data;
             $objectterms = array();
 
-            foreach($objectTerms as $k => $v){
+            foreach ($objectTerms as $k => $v) {
                 $objectterms[$k] = $v;
             }
 
@@ -815,10 +882,11 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function objectAction() {
-        if($this->_getParam('term',false)) {
+    public function objectAction()
+    {
+        if ($this->_getParam('term', false)) {
             $this->view->objectdata = $this->getObjectTerms()
-                    ->getObjectTermDetail($this->_getParam('term'));
+                ->getObjectTermDetail($this->_getParam('term'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -834,7 +902,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \Completeness
      */
-    public function getCompleteness() {
+    public function getCompleteness()
+    {
         $this->_completeness = new Completeness();
         return $this->_completeness;
     }
@@ -844,10 +913,11 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function completenessAction() {
-        if($this->_getParam('id',false)) {
+    public function completenessAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->comps = $this->getCompleteness()
-                    ->getDetails($this->_getParam('id'));
+                ->getDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -863,7 +933,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return \Denominations
      */
-    public function getDenominations() {
+    public function getDenominations()
+    {
         $this->_denominations = new Denominations();
         return $this->_denominations;
     }
@@ -872,20 +943,21 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
      * @access public
      * @return void
      */
-    public function denominationsAction() {
-        $denomsList = $this->getDenominations()->getDenomsValid($this->_getAllParams());
-        if(in_array($this->_helper->contextSwitch()->getCurrentContext(),$this->_contexts)) {
+    public function denominationsAction()
+    {
+        $denomsList = $this->getDenominations()->getDenomsValid($this->getAllParams());
+        if (in_array($this->_helper->contextSwitch()->getCurrentContext(), $this->_contexts)) {
             $data = array(
                 'pageNumber' => $denomsList->getCurrentPageNumber(),
-                'total' => number_format($denomsList->getTotalItemCount(),0),
+                'total' => number_format($denomsList->getTotalItemCount(), 0),
                 'itemsReturned' => $denomsList->getCurrentItemCount(),
                 'totalPages' => number_format(
-                        $denomsList->getTotalItemCount()/
-                        $denomsList->getCurrentItemCount(),0)
-                );
+                    $denomsList->getTotalItemCount() /
+                    $denomsList->getCurrentItemCount(), 0)
+            );
             $this->view->data = $data;
             $denoms = array();
-            foreach($denomsList as $k){
+            foreach ($denomsList as $k) {
 
                 $action = $k['temporal'];
                 switch ($action) {
@@ -921,17 +993,17 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin  {
                         $actionset = 'denomination';
                         $module = 'medievalcoins';
                 }
-            $denoms[] = array(
-                'id' => $k['id'],
-                'name' => $k['denomination'],
-                'period' => $k['temporal'],
-                'url' => $this->view->serverUrl() . $this->view->url(array(
-                    'module' => $module,
-                    'controller' => $actionset.'s',
-                    'action' => $actionset,
-                    'id' => $k['id']
-                    ),null,true)
-            );
+                $denoms[] = array(
+                    'id' => $k['id'],
+                    'name' => $k['denomination'],
+                    'period' => $k['temporal'],
+                    'url' => $this->view->serverUrl() . $this->view->url(array(
+                            'module' => $module,
+                            'controller' => $actionset . 's',
+                            'action' => $actionset,
+                            'id' => $k['id']
+                        ), null, true)
+                );
             }
             $this->view->denominations = $denoms;
         } else {

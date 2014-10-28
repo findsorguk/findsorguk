@@ -60,7 +60,7 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->insts = $this->_institutions->getValidInsts($this->_getAllParams());
+        $this->view->insts = $this->_institutions->getValidInsts($this->getAllParams());
     }
     
     /** Add an institution
@@ -96,9 +96,9 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin {
             if ($form->isValid($form->getValues())) {
                 $where = array();
                 $where[] =  $this->_institutions->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                $update = $this->_institutions->update($form->getValues(), $where);
+                $this->_institutions->update($form->getValues(), $where);
                 $this->getFlash()->addMessage($form->getValue('institution') . '\'s details updated.');
-                $this->_redirect($this->_redirectUrl . 'institutions/');
+                $this->redirect($this->_redirectUrl . 'institutions/');
                 } else {
                 $form->populate($form->getValues());
                 }
@@ -106,9 +106,8 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin {
             // find id is expected in $params['id']
             $id = (int)$this->_request->getParam('id', 0);
             if ($id > 0) {
-                $insts = $this->_institutions->fetchRow('id='.$id);
-                $this->view->inst = $this->_institutions->toArray();
-                $form->populate($this->_institutions->toArray());
+                $this->view->inst = $this->_institutions->fetchRow('id='.$id)->toArray();
+                $form->populate($this->_institutions->fetchRow('id='.$id)->toArray());
             }
         }
     }

@@ -44,7 +44,7 @@ class RomanCoins_ReeceperiodsController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
 	$select = array( 'query' => 'reeceID:[* TO *]' );
-	$params = $this->_getAllParams();
+	$params = $this->getAllParams();
 	$search = new Pas_Solr_Handler();
         $search->setCore('objects');
 	$context = $this->_helper->contextSwitch->getCurrentContext();

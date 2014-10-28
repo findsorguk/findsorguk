@@ -41,7 +41,7 @@ class GetInvolved_VolunteeringController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->vols = $this->_volunteers->getCurrentOpps($this->_getAllParams());
+        $this->view->vols = $this->_volunteers->getCurrentOpps($this->getAllParams());
     }
 
     /** Render individual role

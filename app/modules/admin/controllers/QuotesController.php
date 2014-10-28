@@ -110,7 +110,7 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin {
                 $this->_quotes->delete($where);
                 $this->getFlash()->addMessage('Quote/announcement deleted!');
             }
-            $this->_redirect( self::REDIRECT);
+            $this->redirect( self::REDIRECT);
         }  else  {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

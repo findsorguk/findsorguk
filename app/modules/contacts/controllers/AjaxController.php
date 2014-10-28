@@ -40,7 +40,7 @@ class Contacts_AjaxController extends Pas_Controller_Action_Ajax {
      * @return void
      */
     public function coronersAction(){
-        $data = $this->_coroners->getAll($this->_getAllParams());
+        $data = $this->_coroners->getAll($this->getAllParams());
         $details = $data->setItemCountPerPage(150);
         $this->view->coroners = $details;
     }

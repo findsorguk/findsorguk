@@ -101,7 +101,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction(){
-        $this->view->contacts = $this->getContacts()->getContacts($this->_getAllParams());
+        $this->view->contacts = $this->getContacts()->getContacts($this->getAllParams());
     }
 
     /** View index page for alumni
@@ -109,7 +109,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function alumniAction(){
-        $this->view->contacts = $this->getContacts()->getAlumni($this->_getAllParams());
+        $this->view->contacts = $this->getContacts()->getAlumni($this->getAllParams());
     }
     
     /** View a contact's details

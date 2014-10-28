@@ -178,7 +178,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
 
                 $loginRedirect->updateConfig($form->getValues());
                 $this->getFlash()->addMessage('Page after logging in updated');
-                $this->_redirect('/users/configuration/');
+                $this->redirect('/users/configuration/');
             } else {
                 $form->populate($current);
             }

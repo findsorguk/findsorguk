@@ -59,7 +59,7 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $projects = new ResearchProjects();
-        $this->view->projects = $projects->getAllProjects($this->_getAllParams());
+        $this->view->projects = $projects->getAllProjects($this->getAllParams());
     }
 
     /** Get an individual project
@@ -84,7 +84,7 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin {
         $projects = new SuggestedResearch();
         if(in_array($this->_helper->contextSwitch->getCurrentContext(),
                 array('xml','json','rss','atom'))) {
-            $this->view->suggested = $projects->getAll($this->_getAllParams(),0);
+            $this->view->suggested = $projects->getAll($this->getAllParams(),0);
         } else {
             $this->view->undergrad = $projects->getTopicByType(1);
             $this->view->masters = $projects->getTopicByType(2);
