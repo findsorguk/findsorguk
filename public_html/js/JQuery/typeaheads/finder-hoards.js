@@ -6,6 +6,11 @@ $(document).ready(function() {
         finderTypeahead('input#finder'+ i);
         }
 
+    // Show remove button if there are extra fields
+    if ($numberOfFinders > 1) {
+        $("#removeFinder").attr('class', "btn btn-warning")
+    };
+
 });
 
 function finderTypeahead(elementId){
