@@ -1,0 +1,1 @@
+ALTER TABLE `finds` CHANGE `hoardcontainer` `hoardcontainer` INT(1) UNSIGNED NULL DEFAULT NULL;
