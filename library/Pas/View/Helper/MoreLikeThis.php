@@ -189,7 +189,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
         $solrResponse = $this->getData();
         $html = '<div class="row-fluid">';
         if(array_key_exists('results', $solrResponse)) {
-        $html .='<h3>Similar objects</h3>';
+        $html .='<h3 class="lead">Similar objects</h3>';
         $data = $solrResponse['results'];
         foreach ($data as $document) {
             if (($document->thumbnail)) {

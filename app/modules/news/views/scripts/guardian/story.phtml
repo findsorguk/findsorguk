@@ -1,7 +1,7 @@
 <?php 
 echo $this->partialLoop('partials/news/guardianNewsArticle.phtml',$this->story);
 ?>
-<h3>Related Content</h3>
+<h3 class="lead">Related Content</h3>
 <ul>
 <?php foreach($this->related as $related): ?>
     <?php $params = array(

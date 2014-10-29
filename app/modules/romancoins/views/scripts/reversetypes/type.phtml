@@ -26,7 +26,7 @@ echo $this->partialLoop('partials/numismatics/revtypedetail.phtml',$this->revers
 		
 		<div class="tab-pane fade in active" id="issuers">
 		<?php if(count($this->emps)):?>
-		<h3>Issuers</h3>
+		<h3 class="lead">Issuers</h3>
 			<ul >
 				<?php echo $this->partialLoop('partials/numismatics/revtypeemp.phtml',$this->emps);?>
 			</ul>
@@ -35,7 +35,7 @@ echo $this->partialLoop('partials/numismatics/revtypedetail.phtml',$this->revers
         
         <div class="tab-pane fade" id="mints">
 		<?php if($this->mints):?>
-		<h3>Issuing mints</h3>
+		<h3 class="lead">Issuing mints</h3>
 			<ul>
 				<?php echo $this->partialLoop('partials/numismatics/revtypemints.phtml',$this->mints);?>
 			</ul>

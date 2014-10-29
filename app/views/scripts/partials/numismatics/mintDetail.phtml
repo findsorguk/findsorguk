@@ -25,7 +25,7 @@ Abbreviation: <?php echo $this->abbrev;?>
 <?php if(!is_null($this->description)):?>
 <span property="skos:definition"><?php echo $this->description;?></span>
 <?php endif;?>
-<h3>Related resources</h3>
+<h3 class="lead">Related resources</h3>
 
 <ul>
 <?php if(!is_null($this->pleiadesID)):?>
@@ -44,17 +44,17 @@ Abbreviation: <?php echo $this->abbrev;?>
 <li><a property="skos:related" resource="http://www.geonames.org/<?php echo $this->geonamesID;?>" href="http://www.geonames.org/<?php echo $this->geonamesID;?>">Geonames</a></li>
 <?php endif;?>
 </ul>
-<h3>Data from Nomisma</h3>
+<h3 class="lead">Data from Nomisma</h3>
 <?php echo $this->nomismaRdf()->setUri("http://nomisma.org/id/" . $this->nomismaID);?>
 
 
 <?php 
 if($this->dbpediaID){
-	echo '<h3>Data from wikipedia</h3>';
+	echo '<h3 class="lead">Data from wikipedia</h3>';
 	echo $this->dbPediaMintRdf()->setUri("http://dbpedia.org/resource/" . $this->dbpediaID );
 }?>
 <?php if($this->pleiadesID):?>
-<h3>Data from Pleiades</h3>
+<h3 class="lead">Data from Pleiades</h3>
 <?php echo $this->pleiadesMintRdf()->setUri($this->pleiadesID ); ?>
 <?php echo $this->pelagiosAnnotations()->setPleiadesPlace($this->pleiadesID);?>
 <?php echo $this->pleiadesFlickrImages($this->pleiadesID); ?>

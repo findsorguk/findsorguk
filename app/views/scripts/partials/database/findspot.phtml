@@ -2,7 +2,7 @@
 $this->googleDynamicMap(null, null, true);
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 ?>
-<h3>Spatial data</h3>
+<h3 class="lead">Spatial data</h3>
 <?php echo $this->FindSpotEditDeleteLink($this->old_findspotid, $this->id, $controller, $this->createdBy); ?>
 
 <?php if (isset($this->declong) && isset($this->declat)) : ?>
@@ -196,7 +196,7 @@ marker.setAnimation(google.maps.Animation.BOUNCE);
 <div class="row-fluid">
 
     <div class="span4">
-        <h3>Spatial metadata</h3>
+        <h3 class="lead">Spatial metadata</h3>
 
         <p>
             <?php if (!is_null($this->region)) : ?>
@@ -241,7 +241,7 @@ marker.setAnimation(google.maps.Animation.BOUNCE);
 
     <div class="span4">
         <?php if (!is_null($this->gridref)): ?>
-        <h3>Spatial coordinates</h3>
+        <h3 class="lead">Spatial coordinates</h3>
 
         <p>
             Grid reference: <?php echo $this->stripGrid()->setGrid($this->gridref); ?><br/>
@@ -289,7 +289,7 @@ marker.setAnimation(google.maps.Animation.BOUNCE);
         </div>
 
         <div class="span4">
-            <h3>Discovery metadata</h3>
+            <h3 class="lead">Discovery metadata</h3>
 
             <p>
                 <?php if (!is_null($this->method)) : ?>

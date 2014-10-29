@@ -5,8 +5,8 @@ echo $this->headTitle('Database settings');
 <div class="row-fluid">
 	<p>View and change your database settings.</p>
 <div class="row span8">
-	<h3>Copy last record options</h3>
-	<h4>Finds</h4>
+	<h3 class="lead">Copy last record options</h3>
+	<h4 class="lead">Finds</h4>
 	<blockquote >
 	<?php
 	$findFields = array();
@@ -20,7 +20,7 @@ echo $this->headTitle('Database settings');
 	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'find'),'default',true);?>">Change finds form</a></p>
 </div>
 <div class="row span8">
-	<h4>Findspots</h4>
+	<h4 class="lead">Findspots</h4>
 	<blockquote >
 	<?php
 	$findSpotFields = array();
@@ -35,7 +35,7 @@ echo $this->headTitle('Database settings');
 	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'findspot'),'default',true);?>">Change findspot form</a></p>
 </div>
 <div class="row span8">
-	<h4>Coins</h4>
+	<h4 class="lead">Coins</h4>
 	<blockquote >
 	<?php
 	$coinFields = array();
@@ -50,7 +50,7 @@ echo $this->headTitle('Database settings');
 	<p><a class="btn" href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration', 'action' => 'coin'),'default',true);?>">Change coins form</a></p>
 </div>
 <div class="row span8">
-	<h3>Page after logging in</h3>
+	<h3 class="lead">Page after logging in</h3>
 	<blockquote >
         <?php
 
@@ -65,7 +65,7 @@ echo $this->headTitle('Database settings');
 </div>
 
     <div class="row span8">
-        <h3>Coin hoard</h3>
+        <h3 class="lead">Coin hoard</h3>
         <blockquote >
             <?php
             $hoardFields = array();

@@ -74,7 +74,7 @@ class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract {
         $places = $this->getPlaces();
         if (count($places)) {
             $html .= '<div id="adjacentsmr">';
-            $html .= '<h3>Adjacent places</h3>';
+            $html .= '<h3 class="lead">Adjacent places</h3>';
             $html .= '<ul>';
             foreach ($places as $p) {
                 $url = $this->view->url(array(

@@ -319,7 +319,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
         $html = '';
         $data = $this->getData();
         if (array_key_exists('images', $data )) {
-            $html = '<h3>Number of people assigned</h3>';
+            $html = '<h3 class="lead">Number of people assigned</h3>';
             $html .= '<p>We have recorded ' . $data['numberFound'];
             $html .= ' people.</p>';
         }

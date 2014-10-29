@@ -60,7 +60,7 @@
             ?>
             <!-- Personal data -->
             <?php if (count($this->peoples) > 0): ?>
-            <h4>Personal details</h4>
+            <h4 class="lead">Personal details</h4>
             <?php echo $this->partial('partials/database/personal.phtml', $this->peoples['0']) ?>
             <?php endif;?>
             <!-- Other references -->
@@ -88,7 +88,7 @@
 	    <?php if(in_array($this->finds[0]['objecttype'], array('coin', 'COIN','Coin'))):?>
 
             <div id="coinrefslinked">
-                <h4>Coin references</h4>
+                <h4 class="lead">Coin references</h4>
                     <!-- existing coin references -->
                     <?php if(count($this->coinrefs)):?>
                     <ul>
@@ -135,7 +135,7 @@
                     <!-- End small thumbnails -->
                     <?php endif;?>
 
-                    <h4>Image use policy</h4>
+                    <h4 class="lead">Image use policy</h4>
                     <p>Our images can be used under a
                         <a href="https://creativecommons.org/licenses/by-sa/2.0/" >CC
                             BY-SA licence</a> (unless stated otherwise).</p>
@@ -170,7 +170,7 @@
         <?php else: ?>
             <!-- Render a link for adding find spot -->
             <div id="findspotdata">
-                <h4>Spatial data</h4>
+                <h4 class="lead">Spatial data</h4>
                     <p>
                         No spatial data available.
                     </p>
@@ -188,7 +188,7 @@
 
 <!--  Start of the references section -->
     <div class="row-fluid" id="references">
-        <h4>References cited</h4>
+        <h4 class="lead">References cited</h4>
         <?php
         if (count($this->refs) > 0) : ?>
         <p>
@@ -243,7 +243,7 @@
 
 <div id="comm">
 <?php if($this->comments) : ?>
-<h3>
+<h3 class="lead">
 <?php if(count($this->comments) == 1) : ?>
 <?php echo count($this->comments);?> comment
 <?php elseif(count($this->comments) > 1) : ?>

@@ -4,7 +4,7 @@ $this->headTitle('Full details for ' . $this->niceShortDate()->setDate($this->de
 <h2 class="lead">TVC held <?php echo $this->niceShortDate()->setDate($this->details['0']['date']);?></h2>
 <p>Location: <?php echo $this->details['0']['location'];?></p>
 
-<h3>Cases assessed</h3>
+<h3 class="lead">Cases assessed</h3>
 <?php if($this->cases):?>
 <ul>
 <?php foreach($this->cases as $case):?>
@@ -17,18 +17,18 @@ $this->headTitle('Full details for ' . $this->niceShortDate()->setDate($this->de
 <?php endif;?>
 
 
-<h3>Minutes</h3>
+<h3 class="lead">Minutes</h3>
 <?php if($this->minutes):?>
 <?php else:?>
 <p>No minutes have been made available yet.</p>
 <?php endif;?>
 
 
-<h3>Associated documents</h3>
+<h3 class="lead">Associated documents</h3>
 <?php if($this->documents):?>
 <?php else:?>
 <p>No documents currently associated with this meeting.</p>
 <?php endif;?>
 
-<h3>Sample images of cases considered</h3>
+<h3 class="lead">Sample images of cases considered</h3>
 <?php echo $this->partialLoop('partials/database/imagesPaged.phtml', $this->images);?>

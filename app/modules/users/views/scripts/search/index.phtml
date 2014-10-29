@@ -6,7 +6,7 @@
 <p>You have yet to search our database!</p>
 <?php endif;?>
 <?php if(count($this->tops)):?>
-<h3>Your 5 most frequent searches</h3>
+<h3 class="lead">Your 5 most frequent searches</h3>
 <ol id="timeline" class="statuses">
 
 <?php echo $this->partialLoop('partials/users/searchHistory.phtml', $this->tops) ?>

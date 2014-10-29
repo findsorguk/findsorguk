@@ -34,7 +34,7 @@ echo '<a href="'.$this->baseUrl().'/assets/rulers/'.$this->escape($this->filenam
 
 <?php echo $this->biography;?>
 <?php echo $this->latestRecords()->setQuery('ruler:' . $this->pasID);?>
-<h3>Other resources about <?php echo $this->name;?></h3>
+<h3 class="lead">Other resources about <?php echo $this->name;?></h3>
 <ul>
 <li>Dbpedia: <a property="skos:related"  resource="http://dbpedia.org/resource/<?php echo $this->dbpedia;?>" href="http://dbpedia.org/resource/<?php echo $this->dbpedia;?>">http://dbpedia.org/resource/<?php echo $this->dbpedia;?></a></li>
 <li>Wikipedia: <a property="skos:related"  resource="http://en.wikipedia.org/wiki/<?php echo $this->dbpedia;?>" href="http://en.wikipedia.org/wiki/<?php echo $this->dbpedia;?>">http://en.wikipedia.org/wiki/<?php echo $this->dbpedia;?></a></li>

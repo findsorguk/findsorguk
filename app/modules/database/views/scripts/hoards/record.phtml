@@ -53,7 +53,7 @@
                 <!-- End small thumbnails -->
             <?php endif; ?>
 
-            <h4>
+            <h4 class="lead">
                 Image use policy
             </h4>
             <p>
@@ -126,7 +126,7 @@
     ?>
     <!-- Personal data -->
     <?php if (count($this->recordersIdentifiers) > 0): ?>
-        <h4>Personal details</h4>
+        <h4 class="lead">Personal details</h4>
         <?php echo $this->partial('partials/hoards/finders.phtml', array('finders' => $this->finders)); ?>
         <?php echo $this->partial('partials/hoards/personal.phtml', $this->recordersIdentifiers); ?>
     <?php endif; ?>
@@ -147,7 +147,7 @@
     <?php else: ?>
         <!-- Render a link for adding find spot -->
         <div id="findspotdata">
-            <h4>Spatial data</h4>
+            <h4 class="lead">Spatial data</h4>
 
             <p>
                 No spatial data available.
@@ -173,7 +173,7 @@
     <?php else: ?>
         <!-- Render a link for adding archaeological context -->
         <div id="archaeologicalcontextdata">
-            <h4>Archaeological context</h4>
+            <h4 class="lead">Archaeological context</h4>
 
             <p>
                 No archaeological context available.
@@ -188,7 +188,7 @@
 
 <!--  Start of the references section -->
 <div class="row-fluid" id="references">
-    <h4>References cited</h4>
+    <h4 class="lead">References cited</h4>
     <?php
     if (count($this->refs) > 0) : ?>
         <p>

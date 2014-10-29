@@ -1,7 +1,7 @@
 <?php 
 $this->headTitle('Details for rally: ');
 echo $this->partial('partials/database/rally.phtml', $this->rallies['0']) ?>
-<h4>Attending Scheme staff</h4>
+<h4 class="lead">Attending Scheme staff</h4>
 <?php if($this->atts):?>
 <ul>
 <?php echo $this->partialLoop('partials/database/attendingFlos.phtml',$this->atts);?>

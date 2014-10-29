@@ -18,7 +18,7 @@ $this->headMeta($this->curUrl(), 'dc.identifier')
         <?php echo $this->description; ?>
     </p>
     <?php if (!is_null($this->attrib1)): ?>
-        <h4>
+        <h4 class="lead">
             Attributes
         </h4>
         <ul>
@@ -41,7 +41,7 @@ $this->headMeta($this->curUrl(), 'dc.identifier')
     <?php endif; ?>
 
     <?php if (isset($this->greek)): ?>
-        <h4>
+        <h4 class="lead">
             Greek counterpart
         </h4>
         <p>
@@ -101,7 +101,7 @@ LIMIT 1
             $abs = '<p>' . join($chunks) . '</p>';
             $trimmed = $this->ellipsisString()->setString($abs)->setMax(200);
             $this->headMeta($trimmed, 'description');
-            echo '<h4>Wikipedia derived information</h4>';
+            echo '<h4 class="lead">Wikipedia derived information</h4>';
             if (isset($row['thumb'])) {
                 echo '<a href="' . $row['depiction'] . '" rel="lightbox" title="' . str_replace('"', '', $row['caption']) . '"><img src="' . $row['thumb'] . '" class="flow" alt="' . str_replace('"', '', $row['caption']) . '" width="' . $row['imgw'] . '"/></a>';
             }

@@ -53,7 +53,7 @@ $('a[class^=delete]').confirm({
 
 <?php $this->jQuery()->javascriptCaptureEnd();?>
  <div id="image-<?php echo $this->contacts['id'];?>">
-<h3>Your current image!</h3>
+<h3 class="lead">Your current image!</h3>
 
 <p><img property="foaf:img google:photo" src="<?php echo $this->baseUrl(); ?>/assets/staffphotos/thumbnails/<?php echo $this->contacts['image'];?>" title="Image of <?php echo $this->escape($this->contacts['firstname']);?> <?php echo $this->escape($this->contacts['lastname']);?>"> <br />
 <a href="#" class="deleteimage" title="Delete this image">Delete this image</a></p> 

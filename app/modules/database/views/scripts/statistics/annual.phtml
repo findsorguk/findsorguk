@@ -18,12 +18,12 @@ $this->jQuery()->javascriptCaptureEnd();
 <p>You can also choose your own date ranges. You must choose a date from and a date to to interrogate this properly.</p>
 <?php echo $this->form;?>
 
-<h3>Quantities of objects and records found</h3>
+<h3 class="lead">Quantities of objects and records found</h3>
 <ul>
 <?php echo $this->partialLoop('partials/statistics/rawquant.phtml',$this->annualsum);?>
 </ul>
 
-<h3>Quantities recorded per Officer and assistants</h3>
+<h3 class="lead">Quantities recorded per Officer and assistants</h3>
 
 <table class="table table-striped">
 <tr>
@@ -62,7 +62,7 @@ $recordsOffTotal = array_sum($records_officers);
 </tr>
 </table>
 
-<h3>Quantities recorded per Institution</h3>
+<h3 class="lead">Quantities recorded per Institution</h3>
 
 <table class="table table-striped">
 <tr>
@@ -91,7 +91,7 @@ $recordsInstTotal = array_sum($records_inst);
 
 </tr>
 </table>
-<h3>Quantities by period</h3>
+<h3 class="lead">Quantities by period</h3>
 
 <table class="table table-striped">
 <tr>
@@ -120,7 +120,7 @@ $recordsPeriodTotal = array_sum($records_period);
 
 </tr>
 </table>
-<h3>Number of recorders per insitution</h3>
+<h3 class="lead">Number of recorders per insitution</h3>
 
 <table class="table table-striped">
 <tr>
@@ -144,7 +144,7 @@ $finderstotal = array_sum($finders);
 
 </tr>
 </table>
-<h3>Average per month</h3>
+<h3 class="lead">Average per month</h3>
 <table class="table table-striped">
 <tr>
 <th>Month</th>
@@ -173,7 +173,7 @@ $recordsMeanTotal = array_sum($records_mean);
 </tr>
 </table>
 
-<h3>Year of discovery</h3>
+<h3 class="lead">Year of discovery</h3>
 <table class="table table-striped">
 <tr>
 <th>Year</th>
@@ -202,7 +202,7 @@ $recordsYearTotal = array_sum($records_year);
 </tr>
 </table>
 
-<h3>Discovery method</h3>
+<h3 class="lead">Discovery method</h3>
 <table class="table table-striped">
 <tr>
 <th>Discovery method</th>
@@ -231,7 +231,7 @@ $recordsDiscYearTotal = array_sum($records_disc);
 </tr>
 </table>
 
-<h3>Type of landuse</h3>
+<h3 class="lead">Type of landuse</h3>
 <table class="table table-striped">
 <tr>
 <th>Landuse</th>
@@ -260,7 +260,7 @@ $recordsLanduseTotal = array_sum($records_inst);
 </tr>
 </table>
 
-<h3>Findspot precision</h3>
+<h3 class="lead">Findspot precision</h3>
 <table class="table table-striped">
 <tr>
 <th>Grid reference precision</th>

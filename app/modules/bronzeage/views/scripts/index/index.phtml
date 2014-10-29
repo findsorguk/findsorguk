@@ -1,7 +1,7 @@
 <?php 
 echo $this->partialLoop('partials/content/article.phtml',$this->content);?>
 <?php if($this->images):?>
-<h3>Latest examples recorded</h3>
+<h3 class="lead">Latest examples recorded</h3>
 <div id="latest">
 <?php echo $this->partialLoop('partials/database/imagesPaged.phtml',$this->images);?>
 </div>

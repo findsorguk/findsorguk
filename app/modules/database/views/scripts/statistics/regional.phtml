@@ -23,7 +23,7 @@ echo $this->partialLoop('partials/database/archiveYearsStats.phtml',
 <?php echo $this->form;?>
 
 <?php if($this->region == NULL) :?>
-<h3>Finds per Region</h3>
+<h3 class="lead">Finds per Region</h3>
 <table class="table table-striped">
 <tr>
 <th>Region</th>
@@ -34,7 +34,7 @@ echo $this->partialLoop('partials/database/archiveYearsStats.phtml',
 </table>
 <?php else : ?>
 
-<h3>Finds recorded for this period</h3>
+<h3 class="lead">Finds recorded for this period</h3>
 <table class="table table-striped">
 <tr>
 <th>County</th>
@@ -45,7 +45,7 @@ echo $this->partialLoop('partials/database/archiveYearsStats.phtml',
 </table>
 
 
-<h3>Finds recorded by these <?php echo count($this->creators);?> users</h3>
+<h3 class="lead">Finds recorded by these <?php echo count($this->creators);?> users</h3>
 <table class="table table-striped">
 <tr>
 <th>Fullname</th>
@@ -77,7 +77,7 @@ $recordsUsersTotal = array_sum($records_users);
 
 </tr>
 </table>
-<h3>Quantities by period</h3>
+<h3 class="lead">Quantities by period</h3>
 
 <table class="table table-striped">
 <tr>
@@ -108,7 +108,7 @@ $recordsPeriodTotal = array_sum($records_period);
 </table>
 
 
-<h3>Number of recorders per insitution</h3>
+<h3 class="lead">Number of recorders per insitution</h3>
 
 <table class="table table-striped">
 <tr>
@@ -133,7 +133,7 @@ $finderstotal = array_sum($finders);
 </tr>
 </table>
 
-<h3>Average per month</h3>
+<h3 class="lead">Average per month</h3>
 <table class="table table-striped">
 <tr>
 <th>Month</th>
@@ -162,7 +162,7 @@ $recordsMonthTotal = array_sum($records_month);
 </tr>
 </table>
 
-<h3>Year of discovery</h3>
+<h3 class="lead">Year of discovery</h3>
 <table class="table table-striped">
 <tr>
 <th>Year</th>
@@ -191,7 +191,7 @@ $recordsDiscoTotal = array_sum($records_disco);
 </tr>
 </table>
 
-<h3>Discovery method</h3>
+<h3 class="lead">Discovery method</h3>
 <table class="table table-striped">
 <tr>
 <th>Discovery method</th>
@@ -220,7 +220,7 @@ $recordsDiscoMethodTotal = array_sum($records_discomethod);
 </tr>
 </table>
 
-<h3>Type of landuse</h3>
+<h3 class="lead">Type of landuse</h3>
 <table class="table table-striped">
 <tr>
 <th>Landuse</th>
@@ -249,7 +249,7 @@ $recordsLanduseTotal = array_sum($records_landuse);
 </tr>
 </table>
 
-<h3>Findspot precision</h3>
+<h3 class="lead">Findspot precision</h3>
 <table class="table table-striped">
 <tr>
 <th>Grid reference precision</th>

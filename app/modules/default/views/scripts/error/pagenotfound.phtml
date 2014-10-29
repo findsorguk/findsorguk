@@ -4,13 +4,13 @@
 
 <p><strong><?php echo $this->code;?></strong></p>
 
-<h3>Exception information:</h3>
+<h3 class="lead">Exception information:</h3>
 <p>
 <strong>Message:</strong> <?php echo $this->exception->getMessage(); $this->actionErrors()?>
 </p>
 
-<h3>Stack trace:</h3>
+<h3 class="lead">Stack trace:</h3>
 <p class="errors"><?php echo $this->exception->getTraceAsString() ?></p>
 
-<h3>Request Parameters:</h3>
+<h3 class="lead">Request Parameters:</h3>
 <p><?php echo var_dump($this->request->getParams()) ?></p>

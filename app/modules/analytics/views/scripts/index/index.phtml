@@ -5,7 +5,7 @@
 <div class="row fluid">
 
 <div class="span3 well" >
-<h3>This week</h3>
+<h3 class="lead">This week</h3>
 <?php 
 $date = new Zend_Date();
 $date->setYear($date->get(Zend_Date::YEAR))
@@ -35,7 +35,7 @@ echo $this->gaHeadlineStats()
 </div>
 
 <div class="span3 well" >
-<h3>This month</h3>
+<h3 class="lead">This month</h3>
 <?php 
 $date = new Zend_Date();
 echo $this->gaHeadlineStats()
@@ -53,7 +53,7 @@ echo $this->gaHeadlineStats()
 </div>
 
 <div class="span3 well" >
-<h3>This year</h3>
+<h3 class="lead">This year</h3>
 <?php 
 echo $this->gaHeadlineStats()
         ->setId($this->username)
@@ -68,7 +68,7 @@ echo $this->gaHeadlineStats()
 <div class="row fluid">
 
     <div class="span3 well" >
-        <h3>Last week</h3>
+        <h3 class="lead">Last week</h3>
             <?php 
             $date = new Zend_Date();
             $date->setYear($date->get(Zend_Date::YEAR))
@@ -99,7 +99,7 @@ echo $this->gaHeadlineStats()
     </div>
 
     <div class="span3 well" >
-        <h3>Last month</h3>
+        <h3 class="lead">Last month</h3>
         <?php 
         $date = new Zend_Date();
         $date->setYear($date->get(Zend_Date::YEAR))
@@ -116,7 +116,7 @@ echo $this->gaHeadlineStats()
     </div>
 
     <div class="span3 well" >
-        <h3>Last year</h3>
+        <h3 class="lead">Last year</h3>
             <?php 
             echo $this->gaHeadlineStats()
                     ->setId($this->username)

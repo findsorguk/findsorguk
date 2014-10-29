@@ -54,7 +54,7 @@ $chunks = split('\. ',str_replace('c.','circa',$abstract));
   }
  $abs = '<p>'.join($chunks).'</p>';
  $abs = str_replace('..','.',$abs);
-echo '<h4>Wikipedia derived information</h4>';
+echo '<h4 class="lead">Wikipedia derived information</h4>';
 if(isset($row['thumb'])) {
 echo '<a href="'.$row['depiction'].'" rel="lightbox" title="' .str_replace('"','',$row['caption']) .'"><img rel="foaf:depiction" src="'.$row['thumb'].'" class="flow" alt="' .str_replace('"','',$row['caption']) .'" width="'.$row['imgw'].'"/></a>';
 }
@@ -124,7 +124,7 @@ echo '</p>';
 		
 		<div class="tab-pane fade in active" id="denoms">
 		<?php if (count($this->denominations > 0)):?>
-		<h3>Denominations issued</h3>
+		<h3 class="lead">Denominations issued</h3>
 			<ul>
 			<?php echo $this->partialLoop('partials/numismatics/denomination.phtml', $this->denominations);?>
 			</ul>
@@ -133,7 +133,7 @@ echo '</p>';
         
         <div class="tab-pane fade" id="mints">
 		<?php if(count($this->mints > 0)):?>
-		<h3>Active Mints</h3>
+		<h3 class="lead">Active Mints</h3>
 		<ul>
 			<?php echo $this->partialLoop('partials/numismatics/medmintsList.phtml', $this->mints);?>
 		</ul>
@@ -142,7 +142,7 @@ echo '</p>';
 		
 		<div class="tab-pane fade" id="types">
 		<?php if(count($this->types > 0 )):?>
-		<h3><?php echo count($this->types) . ' coin types issued';?></h3>
+		<h3 class="lead"><?php echo count($this->types) . ' coin types issued';?></h3>
 		<ul>
 			<?php echo $this->partialLoop('partials/numismatics/types.phtml', $this->types);?>
 		</ul>

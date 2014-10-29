@@ -37,7 +37,7 @@ $this->inlineScript()->captureStart();
               ?>
           var url = "<?php echo $this->serverUrl() . $newsArticle ;?>/" + id;
           var content = markers[i].getAttribute("content")
-          var html = "<h3><a href='" + url + "'>"+ title + "</a></h3>" + content;
+          var html = "<h3 class="lead"><a href='" + url + "'>"+ title + "</a></h3>" + content;
           var marker = new google.maps.Marker({
             map: map,
             position: point,

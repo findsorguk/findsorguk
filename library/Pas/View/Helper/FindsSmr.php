@@ -22,7 +22,7 @@ public function FindsSmr($lat,$lon,$distance)
 public function buildHtml($smrs)
     {
     $html = '';
-    $html .= '<h3>Finds within 250 metres of centre of SMR</h3><ul>';
+    $html .= '<h3 class="lead">Finds within 250 metres of centre of SMR</h3><ul>';
     foreach ($smrs as $s) {
     $html .= '<li><a href="';
     $html .= $this->view->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $s['id']),NULL, true);

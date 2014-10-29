@@ -11,7 +11,7 @@ foreach($this->coroners as $coroner){
 	$url = $this->serverUrl() .  '/contacts/coroners/profile/id/';
     if(!is_null($coroner['longitude'])){
         $title = $coroner['firstname'] . ' ' . $coroner['lastname'];
-		$content = '<a href="' . $url . $coroner['id'] . '"><h3>' . $title . '</h3></a>';
+		$content = '<a href="' . $url . $coroner['id'] . '"><h3 class="lead">' . $title . '</h3></a>';
 		$content .= '<p>Responsible for: ' . $coroner['region_name'] . '</p>';
 		
 		$marker = $dom->createElement('marker');

@@ -74,7 +74,7 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
         $html = '';
         $places = $this->getPlaces();
         if (!empty($places) && !is_null($places[0]['Name'])) {
-            $html .= '<h3>Adjacent places</h3>';
+            $html .= '<h3 class="lead">Adjacent places</h3>';
             $html .= '<ul>';
             foreach ($places as $p) {
                 $url = $this->view->url(array(

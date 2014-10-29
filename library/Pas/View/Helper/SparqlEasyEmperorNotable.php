@@ -210,7 +210,7 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
         $html = '';
         $dataSparql = $this->getSparqlData();
         if (sizeof($dataSparql) > 0) {
-        $html .= '<h3>Notable commands</h3>';
+        $html .= '<h3 class="lead">Notable commands</h3>';
         $html .= '<ul>';
         foreach ($dataSparql as $data) {
             $html .='<li>';

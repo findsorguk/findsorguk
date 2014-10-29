@@ -82,7 +82,7 @@ class Pas_View_Helper_SparqlDbpedia extends Zend_View_Helper_Abstract
             }
 
             if (array_key_exists('birthDate', $data)) {
-                $html .= '<h3>Dates and places</h3>';
+                $html .= '<h3 class="lead">Dates and places</h3>';
                 $html .= '<ul><li>Date of birth: ' . $data['birthDate'] .'</li>';
                 $html .= '<li>Date of death: ' . $data['deathDate'] . '</li>';
             }
@@ -94,7 +94,7 @@ class Pas_View_Helper_SparqlDbpedia extends Zend_View_Helper_Abstract
 
             foreach ($dataRaw as $d) {
                 if (array_key_exists('knownFor', $d)) {
-                    $html .= '<h3>Known for</h3>';
+                    $html .= '<h3 class="lead">Known for</h3>';
                     $html .= strip_tags(rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$d['knownFor'])));
                 }
             }

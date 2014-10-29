@@ -66,7 +66,7 @@ $this->metaBase()
 	<div id="myTabContent" class="tab-content">
 
             <div class="tab-pane fade in active" id="meta">
-                <h3>Image meta data</h3>
+                <h3 class="lead">Image meta data</h3>
                 <ul>
                     <li>Label: <?php echo $this->label;?></li>
                     <li>Broadperiod: <?php echo $this->broadperiod;?></li>
@@ -78,7 +78,7 @@ $this->metaBase()
             </div>
 
             <div class="tab-pane fade " id="others">
-                <h4>Other sizes</h4>
+                <h4 class="lead">Other sizes</h4>
                 <?php
                 $thumb = './images/thumbnails/'.$this->id.'.jpg';
                 if(file_exists($thumb)) { ?>
@@ -108,7 +108,7 @@ $this->metaBase()
             </div>
 
         <div class="tab-pane fade" id="exif">
-            <h3>Extracted data</h3>
+            <h3 class="lead">Extracted data</h3>
 		<ul>
 		<?php  $img = getimagesize($location);
 		//Zend_Debug::dump($img);

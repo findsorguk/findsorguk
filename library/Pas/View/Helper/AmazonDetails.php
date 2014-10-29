@@ -163,7 +163,7 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
     protected function buildHtml( Zend_Service_Amazon_Item $book) {
         $html = '';
         if($book) {
-        $html .= '<div><h3>Amazon Book Data</h3><ul>';
+        $html .= '<div><h3 class="lead">Amazon Book Data</h3><ul>';
         if (array_key_exists('MediumImage',$book) &&
                 (!is_null($book->MediumImage))) {
                     $html .= '<img class="flow" src="';
@@ -221,14 +221,14 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
 
                             if (array_key_exists('EditorialReviews', $book)) {
                                 $html .= '</ul>';
-                                $html .= '<h3>Amazon editoral review</h3>';
+                                $html .= '<h3 class="lead">Amazon editoral review</h3>';
                                 foreach ($book->EditorialReviews as $review) {
                                     $html .= '<p>' . $review->Content . '</p>';
                                 }
                                 }
 
                                 if ($book->SimilarProducts) {
-                                    $html .= '<h3>Similar books</h3>';
+                                    $html .= '<h3 class="lead">Similar books</h3>';
                                     $html .= '<ul>';
                                     foreach ($book->SimilarProducts AS $sim) {
                                         $html .= "<li>{$sim->Title}</li>";

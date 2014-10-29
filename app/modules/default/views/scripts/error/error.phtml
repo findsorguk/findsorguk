@@ -22,7 +22,7 @@ if($person){
 $allowed = array('admin', null);
 if(in_array($role,$allowed)):
 ?>
-<h3>Exception information:</h3>
+<h3 class="lead">Exception information:</h3>
     <p>
         <b>Message:</b>
 		<?php echo $this->exception->getMessage();
@@ -39,18 +39,18 @@ if(in_array($role,$allowed)):
           <div id="myTabContent" class="tab-content">
 
             <div class="tab-pane fade in active" id="request">
-			<h3>Stack trace:</h3>
+			<h3 class="lead">Stack trace:</h3>
     		<p><?php echo $this->exception->getTraceAsString(); ?></p>
 			</div>
 
             <div class="tab-pane fade" id="trace">
-			<h3>Issuing mints</h3>
-    		<h3>Request Parameters:</h3>
+			<h3 class="lead">Issuing mints</h3>
+    		<h3 class="lead">Request Parameters:</h3>
     		<p><?php var_dump($this->request->getParams()) ?></p>
 			</div>
 
             <div class="tab-pane fade" id="compiled">
-            <h3>Compiled stack trace</h3>
+            <h3 class="lead">Compiled stack trace</h3>
             <ul>
 			<?php echo $this->compiled;?>
 			</ul>

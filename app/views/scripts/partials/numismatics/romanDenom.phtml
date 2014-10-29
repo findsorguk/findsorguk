@@ -104,7 +104,7 @@ $chunks = split('\. ',str_replace(array('c.','d.','pl.'),array('circa','died','p
  $abs = '<p>'.join($chunks).'</p>';
  $trimmed = $this->ellipsisString()->setString($abs)->setMax(200);
 $this->headMeta($trimmed,'description');
-echo '<h4>Wikipedia derived information</h4>';
+echo '<h4 class="lead">Wikipedia derived information</h4>';
 if(isset($row['thumb']) && isset($row['caption'])) {
 echo '<a href="'.$row['depiction'].'" rel="lightbox" title="' .str_replace('"','',$row['caption']) .'"><img src="'.$row['thumb'].'" class="flow" alt="' .str_replace('"','',$row['caption']) .'" width="'.$row['imgw'].'"/></a>';
 } else if(isset($row['thumb'])) {

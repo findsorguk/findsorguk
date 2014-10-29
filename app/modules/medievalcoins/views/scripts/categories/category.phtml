@@ -20,7 +20,7 @@ echo $this->latestRecords()->setQuery('category:'
 		
 		<div class="tab-pane fade in active" id="rulers">
 		<?php if (count($this->denominations > 0)):?>
-			<h3>Associated rulers</h3>
+			<h3 class="lead">Associated rulers</h3>
 			<ul>
 				<?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?>
 			</ul> 
@@ -28,7 +28,7 @@ echo $this->latestRecords()->setQuery('category:'
 		</div>
         
         <div class="tab-pane fade" id="types">
-		<h3>Types of coin associated with this category</h3>
+		<h3 class="lead">Types of coin associated with this category</h3>
 		<ul>
 			<?php echo $this->partialLoop('partials/numismatics/types.phtml', $this->types) ?>
 		</ul>

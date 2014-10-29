@@ -854,7 +854,7 @@ class Pas_Solr_Handler
     {
         $stats = $this->_resultset->getStats();
 
-        if(is_array($stats)) {
+        if(is_object($stats)) {
             foreach ($stats as $stat) {
                 $data = array(
                     'stdDeviation' => $stat->getStddev(),
@@ -871,7 +871,7 @@ class Pas_Solr_Handler
             }
             return $data;
         } else {
-            return false;
+            return $data = array();
         }
     }
 

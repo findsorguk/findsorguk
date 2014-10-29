@@ -1,6 +1,6 @@
 <?php echo $this->partialLoop('partials/content/article.phtml',$this->contents);?>
 <?php if(count($this->documents)) { ?>
-<h3>Scheme publications in google doc format</h3>
+<h3 class="lead">Scheme publications in google doc format</h3>
 <ul>
 <?php foreach($this->documents as $d) {
 $types = explode('/',$d['type']);

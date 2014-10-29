@@ -16,7 +16,7 @@ foreach($this->results as $result){
         $url = '/images/thumbnails/';
         $description = '<img src="' . $this->serverUrl() . $url . $result['thumbnail'] . '.jpg" style="float:right;"/>';
         }
-        $description .= '<h3>';
+        $description .= '<h3 class="lead">';
         $description .= $result['old_findID'];
         $description .= '</h3>';
         if(array_key_exists('description', $result)){

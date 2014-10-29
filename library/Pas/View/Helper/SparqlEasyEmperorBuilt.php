@@ -207,7 +207,7 @@ class Pas_View_Helper_SparqlEasyEmperorBuilt extends Zend_View_Helper_Abstract
         $html = '';
         $dataSparql = $this->getSparqlData();
         if (sizeof($dataSparql) > 0) {
-        $html .= '<h3>Monumental building</h3>';
+        $html .= '<h3 class="lead">Monumental building</h3>';
         $html .= '<ul>';
         foreach ($dataSparql as $data) {
             $html .='<li>';

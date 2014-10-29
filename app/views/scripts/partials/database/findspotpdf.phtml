@@ -1,7 +1,7 @@
 <?php 
 $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
 ?>
-<h4>Spatial data</h4> 
+<h4 class="lead">Spatial data</h4>
 <p>
 <?php if(!is_null($this->region)) :?>
 Region: <?php echo $this->escape(ucwords(strtolower($this->region)));?><br />

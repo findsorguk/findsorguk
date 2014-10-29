@@ -29,7 +29,7 @@ class Pas_View_Helper_Slideshare extends Zend_View_Helper_Abstract
     public function buildHtml($ss_user)
     {
     if ($ss_user) {
-    $html = '<div class="row"><h3>Most recent presentations</h3>';
+    $html = '<div class="row"><h3 class="lead">Most recent presentations</h3>';
     $html .= '<ul class="thumbnails">';
     foreach ($ss_user as $slideshow) {
     $html .= '<li class="span2">';

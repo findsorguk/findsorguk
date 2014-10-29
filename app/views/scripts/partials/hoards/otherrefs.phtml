@@ -1,6 +1,6 @@
 <?php if(!empty($this->legacyID) || !empty($this->smrrefno) || !empty($this->other_ref)
 || !empty($this->treasureID) || !empty($this->musaccno)):?>
-<h4>Other reference numbers</h4>
+<h4 class="lead">Other reference numbers</h4>
 <p>
     <?php if(isset($this->legacyID)):?>
         Legacy hoard number: <?php echo $this->escape($this->legacyID);?><br />

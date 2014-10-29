@@ -1,7 +1,7 @@
 <?php echo $this->partialLoop('partials/content/article.phtml',$this->front);?>
 <?php
 if(count($this->contents)):?>
-<h3>The Hoard papers</h3>
+<h3 class="lead">The Hoard papers</h3>
 <ul>
 <?php foreach($this->contents as $content):?>
 <li><a href="<?php echo $this->url(array('module' => 'staffshoardsymposium','controller' => 'papers',

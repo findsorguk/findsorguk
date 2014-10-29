@@ -207,7 +207,7 @@ class Pas_View_Helper_SparqlEasy extends Zend_View_Helper_Abstract
         $dataSparql = $this->getSparqlData();
         $html = '';
         if (sizeof($dataSparql) > 0) {
-        $html .= '<h3>Commander during battles</h3>';
+        $html .= '<h3 class="lead">Commander during battles</h3>';
         $html .= '<ul>';
         foreach ($dataSparql as $data) {
             $html .='<li>';

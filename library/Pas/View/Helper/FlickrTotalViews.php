@@ -91,7 +91,7 @@ class Pas_View_Helper_FlickrTotalViews {
      * @return string
      */
     public function buildHtml(array$flickr) {
-        $html = '<h3>Photo Statistics</h3>';
+        $html = '<h3 class="lead">Photo Statistics</h3>';
         if (array_key_exists('stats' , $flickr)) {
             $html .= '<p>';
             $stats = array();

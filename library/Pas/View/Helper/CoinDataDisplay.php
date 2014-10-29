@@ -271,13 +271,13 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
             }
 
         } else {
-            $html .= '<h4>An error has been detected</h4>';
+            $html .= '<h4 class="lead">An error has been detected</h4>';
             $html .= 'You can either not have a coin of that period, or we are';
             $html .= ' not set up for that period.';
         }
         } else {
             $html .= '<div>';
-            $html .= '<h4>Numismatic data</h4>';
+            $html .= '<h4 class="lead">Numismatic data</h4>';
             $html .= '<p>No numismatic data has been recorded for this coin yet.</p>';
             $html .= '<div class="noprint">';
             if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {

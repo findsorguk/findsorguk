@@ -10,20 +10,20 @@ $this->metaBase()
     <?php echo $this->title();?>
 </h2>
 <?php if($this->undergrad):?>
-<h3>Undergraduate</h3>
+<h3 class="lead">Undergraduate</h3>
 <ul>
 <?php echo $this->partialLoop('partials/research/suggested.phtml',$this->undergrad);?>
 </ul>
 <?php endif;?>
 <?php if($this->masters):?>
-<h3>Masters</h3>
+<h3 class="lead">Masters</h3>
 <ul>
 <?php echo $this->partialLoop('partials/research/suggested.phtml',$this->masters);?>
 </ul>
 <?php endif;?>
 
 <?php if($this->phd):?>
-<h3>PhD</h3>
+<h3 class="lead">PhD</h3>
 <ul>
 <?php echo $this->partialLoop('partials/research/suggested.phtml',$this->phd);?>
 </ul>

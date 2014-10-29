@@ -52,7 +52,7 @@ class Pas_View_Helper_FacetCreatorPeople extends Zend_View_Helper_Abstract {
         $html = '';
         $facets = $this->getFacets();
         if (is_array($facets)) {
-            $html .= '<h3>Filter or refine your search</h3>';
+            $html .= '<h3 class="lead">Filter or refine your search</h3>';
             foreach ($facets as $facetName => $facet) {
                 $html .= $this->_processFacet($facet, $facetName);
             }
@@ -71,7 +71,7 @@ class Pas_View_Helper_FacetCreatorPeople extends Zend_View_Helper_Abstract {
         if (is_array($facet)) {
             if (count($facet)) {
         $html = '<div id="facet-' . $facetName .'">';
-        $html .= '<h4>' . $this->_prettyName($facetName) . '</h4>';
+        $html .= '<h4 class="lead">' . $this->_prettyName($facetName) . '</h4>';
         $html .= '<ul class="navpills nav-stacked nav">';
 
         if ($facetName !== 'workflow') {

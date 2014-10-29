@@ -6,7 +6,7 @@ $this->mail->setSubject('A request for publications has been submitted by '
 <p>Thank you for requesting publications from the Scheme. Your request is as follows:</p>
 
 <?php if($this->reports):?>
-<h3>Treasure reports</h3>
+<h3 class="lead">Treasure reports</h3>
 <ul>
 <?php foreach($this->reports as $k => $v):?>	
 <li>Annual report: <?php echo $v;?></li>
@@ -15,7 +15,7 @@ $this->mail->setSubject('A request for publications has been submitted by '
 <?php endif;?>
 
 <?php if($this->treasure):?>
-<h3>Treasure reports</h3>
+<h3 class="lead">Treasure reports</h3>
 <ul>
 <?php foreach($this->treasure as $k => $v):?>	
 <li>Treasure report: <?php echo $v;?></li>
@@ -24,7 +24,7 @@ $this->mail->setSubject('A request for publications has been submitted by '
 <?php endif;?>
 
 <?php if($this->codes):?>
-<h3>Codes of practice</h3>
+<h3 class="lead">Codes of practice</h3>
 <ul>
 <?php foreach($this->codes as $k => $v):?>	
 <li>Code: <?php echo $v;?></li>
@@ -33,7 +33,7 @@ $this->mail->setSubject('A request for publications has been submitted by '
 <?php endif;?>
 
 <?php if($this->leaflets):?>
-<h3>Leaflets</h3>
+<h3 class="lead">Leaflets</h3>
 <ul>
 <?php foreach($this->leaflets as $k => $v):?>	
 <li>Treasure report: <?php echo $v;?></li>

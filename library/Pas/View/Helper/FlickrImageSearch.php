@@ -134,7 +134,7 @@ class Pas_View_Helper_FlickrImageSearch extends Zend_View_Helper_Abstract
         $html = '<div class="row-fluid">';
         if ($photos->photo) {
             $html .= '<h2>Flickr images via YQL</h2>';
-            $html .= '<h3>Photos associated with ';
+            $html .= '<h3 class="lead">Photos associated with ';
             $html .= $term;
             $html .= '</h3>';
         if (is_array($photos->photo)) {

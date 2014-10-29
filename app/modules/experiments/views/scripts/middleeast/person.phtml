@@ -18,11 +18,11 @@ if($resp){?>
 foreach ($resp as $r){
 	
 if($r->person){
-	echo '<h4>Roles: ' .  $r->person->name . '</h4>';
+	echo '<h4 class="lead">Roles: ' .  $r->person->name . '</h4>';
 	foreach($r->person->roles as $role){
 		echo ucfirst($role->name) . '<br />';
 	}
-	echo '<h4>Personal connections</h4>';
+	echo '<h4 class="lead">Personal connections</h4>';
 	echo '<ul>';
 	foreach($r->person->personal_connections as $connection){
 		echo '<li>Address: ' . $connection->location->name . ', ' . $connection->location->area->name . '<br />';

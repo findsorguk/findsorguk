@@ -1,6 +1,6 @@
 <?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms) ;?>
 <?php if(count($this->emps)):?>
-<h3>Issued by</h3>
+<h3 class="lead">Issued by</h3>
 <ul>
 <?php echo $this->partialLoop('partials/numismatics/empDenom.phtml', $this->emps);?>
 </ul>

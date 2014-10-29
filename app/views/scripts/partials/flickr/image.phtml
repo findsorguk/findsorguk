@@ -149,7 +149,7 @@ var tinyIcon = new GIcon();
 <?php endif;?>
 
 <?php if($this->tags) :?>
-<h3>Tagged as</h3>
+<h3 class="lead">Tagged as</h3>
 <ul>
 <?php foreach($this->tags as $t) {
 echo '<li><a href="' .$this->url(array('module' => 'flickr','controller' => 'photos','action' => 'tagged','as' => $t),NULL,true) . '" title="Find other photos tagged with '.$t.'">'.$t.'</a></li>';

@@ -136,13 +136,13 @@ function markerInfoWindow(marker, information){
           </ul>
           <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade in active" id="denoms">
-			<h3>Denominations issued</h3>
+			<h3 class="lead">Denominations issued</h3>
 			<ul>
 			<?php echo $this->partialLoop('partials/numismatics/denomruler.phtml',$this->denoms);?>
 			</ul>
 			</div>
             <div class="tab-pane fade" id="mints">
-			<h3>Issuing mints</h3>
+			<h3 class="lead">Issuing mints</h3>
 			<ul>
 			<?php echo $this->partialLoop('partials/numismatics/mintsRoman.phtml',$this->mints);?>
 			</ul>

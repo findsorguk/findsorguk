@@ -200,7 +200,7 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
     public function buildHtml(array $response,  $radius) {
         $html = '';
         if ($response) {
-            $html .= '<h3>Adjacent Domesday Book places</h3>';
+            $html .= '<h3 class="lead">Adjacent Domesday Book places</h3>';
             $html .= '<a  href="';
             $html .= $this->_url;
             $html .= '"><img class="dec flow"';

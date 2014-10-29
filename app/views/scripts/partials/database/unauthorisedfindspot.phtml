@@ -148,7 +148,7 @@ $(document).ready(function() {
 <div class="row-fluid">
 
 <div class="span4">
-<h3>Spatial metadata</h3>
+<h3 class="lead">Spatial metadata</h3>
 <p>
 <?php if(!is_null($this->region)) :?>
 Region: <?php echo $this->escape(ucwords(strtolower($this->region)));?><br />
@@ -171,7 +171,7 @@ District: <?php echo $this->escape(ucwords(strtolower($this->district)));?>
 
 <div class="span4">
 <?php if(!is_null($this->gridref)): ?>
-<h3>Spatial coordinates</h3>
+<h3 class="lead">Spatial coordinates</h3>
 <p>
 <?php if(!is_null($this->gridref) && is_null($this->knownas)):?>
 <span class="fourfigure">4 Figure: <?php echo $this->fourFigure;?></span><br />
@@ -193,7 +193,7 @@ Unmasked grid reference accurate to a <?php echo $this->getAccuracy()->setGridRe
 
 
 <div class="span4">
-<h3>Discovery metadata</h3>
+<h3 class="lead">Discovery metadata</h3>
 <p>
 <?php if(!is_null($this->method)) :?>
 Method of discovery: <?php echo $this->escape($this->method);?>

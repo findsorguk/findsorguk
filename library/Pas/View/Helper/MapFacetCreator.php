@@ -47,7 +47,7 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
         $total = $search->getNumber();
     if (is_array($facets)) {
         $html = '<p>Total results available: ' . number_format($total) . '<br />These results might differ to the expected results. We only allow you to see records available to you</p>';
-        $html .= '<h3>Search facets</h3>';
+        $html .= '<h3 class="lead">Search facets</h3>';
         foreach ($facets as $facetName => $facet) {
             $html .= $this->_processFacet($facet, $facetName);
         }
@@ -72,7 +72,7 @@ class Pas_View_Helper_MapFacetCreator extends Zend_View_Helper_Abstract
         if (is_array($facet)) {
             if (count($facet)) {
         $html = '<div id="facet-' . $facetName .'">';
-        $html .= '<h4>' . $this->_prettyName($facetName) . '</h4>';
+        $html .= '<h4 class="lead">' . $this->_prettyName($facetName) . '</h4>';
         $html .= '<ul class="navpills nav-stacked nav">';
 
         if ($facetName !== 'workflow') {

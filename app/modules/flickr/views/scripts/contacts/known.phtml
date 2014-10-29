@@ -23,7 +23,7 @@ $this->metaBase()
 </ul>
 <img src="<?php echo $this->details->buddyiconurl;?>" alt="<?php echo $this->details->username;?>'s icon" />
 
-<h3><?php echo $this->details->username;?>'s public photos</h3>
+<h3 class="lead"><?php echo $this->details->username;?>'s public photos</h3>
 <?php if($this->photos):?>
 <?php foreach($this->photos as $photo):?>
 <a rel="lightbox" href="<?php echo $photo->url_m;?>" title="View larger image of <?php echo $photo->title;?>">

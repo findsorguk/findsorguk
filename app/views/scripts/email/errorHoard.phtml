@@ -10,7 +10,7 @@ $this->escape($this->comment_author);?> for action to be taken.</p>
 <?php endif; ?>
 <p>This error report is related to: <?php echo $this->comment_type;?></p>
 
-<h3>Error details</h3>
+<h3 class="lead">Error details</h3>
 
 <?php echo $this->purify()->setValue($this->comment_content);?>
 

@@ -3,7 +3,7 @@
 <p>Date range: <?php echo $this->adBc()->setDate($this->fromdate);?> to <?php echo $this->adBc()->setDate($this->todate);?></p>
 <p>Notes: </p> <?php echo $this->notes;?>
 
-<h3>Linked data</h3>
+<h3 class="lead">Linked data</h3>
 <ul>
 <?php if(!is_null($this->ehTerm)):?>
 <li>SENESCHAL URI: <a href="http://purl.org/heritagedata/schemes/eh_period/concepts/<?php echo $this->ehTerm;?>">http://purl.org/heritagedata/schemes/eh_period/concepts/<?php echo $this->ehTerm;?></a></li>

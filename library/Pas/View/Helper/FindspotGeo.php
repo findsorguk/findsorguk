@@ -140,7 +140,7 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
      * @return string $html
      */
     public function buildHtml(array $data) {
-        $html = '<h3>Data from Yahoo! GeoPlanet</h3>';
+        $html = '<h3 class="lead">Data from Yahoo! GeoPlanet</h3>';
         if ($data) {
             $html .= '<p>The spatially enriched data provided here was sourced from the excellent Places/Placemaker service';
             $html .= ' from Yahoo\'s geo team.<br />';

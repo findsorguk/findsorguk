@@ -1,4 +1,4 @@
-<h3>
+<h3 class="lead">
     Archaeological context
 </h3>
 <?php
@@ -46,7 +46,7 @@
 
     <?php if(!is_null($this->siteclass) || !is_null($this->sitetype) || !is_null($this->landscapefeature)) :?>
         <div class="span4">
-            <h4>Site details</h4>
+            <h4 class="lead">Site details</h4>
             <p>
                 <?php if(!is_null($this->siteclass)) :?>
                     Site class: <?php echo $this->siteclass;?>
@@ -66,7 +66,7 @@
 
     <?php if(!is_null($this->broadperiod)) :?>
     <div class="span4">
-        <h4>Site chronology</h4>
+        <h4 class="lead">Site chronology</h4>
             <p>
                 <?php if(!is_null($this->broadperiod)) :?>
                     Broad period: <?php echo $this->broadperiod;?>
@@ -106,7 +106,7 @@
     <?php if(!is_null($this->feature) || !is_null($this->featuredateyear1)
         || !is_null($this->featuredateyear2) || !is_null($this->recoverymethod)) :?>
         <div class="span4">
-            <h4>Context details</h4>
+            <h4 class="lead">Context details</h4>
             <p>
                 <?php if(!is_null($this->feature)) :?>
                     Feature: <?php echo $this->escape($this->feature);?>
@@ -131,7 +131,7 @@
 
 <div class="row-fluid">
     <?php if(!is_null($this->description) && ($this->description != '')):?>
-    <h4>Archaeological context description </h4>
+    <h4 class="lead">Archaeological context description </h4>
         <p><?php echo strip_tags($this->description);?><br />
     <?php endif;?>
 

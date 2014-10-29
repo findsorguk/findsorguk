@@ -69,7 +69,7 @@ class Pas_View_Helper_NewPeople extends Zend_View_Helper_Abstract
         $html = '';
         $people = $this->getNew();
         if($people){
-            $html .= '<h4>Welcome to today\'s new joiners</h4>';
+            $html .= '<h4 class="lead">Welcome to today\'s new joiners</h4>';
             $html .= '<ul>';
             foreach ($people as $person) {
                 $url =

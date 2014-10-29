@@ -138,10 +138,10 @@ class Pas_View_Helper_CoinStatsSolr extends Zend_View_Helper_Abstract {
         $html = '';
         $data = $this->getSolrResults($this->getDenomination());
         if($data) {
-            $html .= '<h3>Statistics for coins recorded</h3>';
+            $html .= '<h3 class="lead">Statistics for coins recorded</h3>';
             $html .= '<p>This will possibly highlight a lot of mistakes in data entry.</p>';
             foreach ($data as $key => $value) {
-                $html .= '<h4>';
+                $html .= '<h4 class="lead">';
                 $html .= ucfirst($key); 
                 $html .= '</h4><ul>';
                 if ($key != 'quantity') {

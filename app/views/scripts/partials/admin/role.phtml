@@ -2,7 +2,7 @@
 <h2 class="lead">Details for the role of <?php echo $this->role;?></h2>
 <p><a class="btn btn-large btn-warning" href="<?php echo $this->url(array('module' => 'admin','controller' => 'roles','action' => 'edit','id' => $this->id),null,true);?>" title="Edit the role of <?php echo $this->role;?>">Edit</a></p>
 <?php echo $this->description;?>
-<h3>Audit data</h3>
+<h3 class="lead">Audit data</h3>
 <ul>
 <?php if(isset($this->created)):?>
 <li>Created: <?php echo $this->timeAgoInWords($this->created);?></li>

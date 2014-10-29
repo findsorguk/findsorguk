@@ -64,7 +64,7 @@ class Pas_View_Helper_PleiadesFlickrImages extends Zend_View_Helper_Abstract {
                     $photos = $photos->photo;
                 }
                 if (is_array($photos)) {
-                    $html .= '<div class="row-fluid"><h3>Photos linked to this Pleiades ID</h3>';
+                    $html .= '<div class="row-fluid"><h3 class="lead">Photos linked to this Pleiades ID</h3>';
                     $html .= $this->view->partialLoop('partials/flickr/mints.phtml', $photos);
                     $html .= '</div>';
                     return $html;

@@ -75,7 +75,7 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
     public function buildFacets(array $facets) {
         $html = '';
         if (is_array($facets)) {
-            $html .= '<h3>Search facets</h3>';
+            $html .= '<h3 class="lead">Search facets</h3>';
             foreach ($facets as $facetName => $facet) {
                 $html .= $this->_processFacet($facet, $facetName);
             }
@@ -95,7 +95,7 @@ class Pas_View_Helper_FacetCreatorContent extends Zend_View_Helper_Abstract {
         $html = '';
         if (is_array($facet)) {
             $html .= '<div id="facet-' . $facetName .'">';
-            $html .= '<h4>' . $this->_prettyName($facetName) . '</h4>';
+            $html .= '<h4 class="lead">' . $this->_prettyName($facetName) . '</h4>';
             $html .= '<ul class="navpills nav-stacked nav">';
             foreach ($facet as $key => $value) {
                 $url = $this->view->url(array(

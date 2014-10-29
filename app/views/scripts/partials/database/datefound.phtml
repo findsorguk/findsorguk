@@ -1,5 +1,5 @@
 <?php if(!is_null($this->datefound1)) :?>
-<h4>Discovery dates</h4>
+<h4 class="lead">Discovery dates</h4>
 <p>Date(s) of discovery: 
 <span property="pas:firstDateFound" datatype="xsd:date" content="<?php echo $this->datefound1;?>"><?php echo $this->niceShortDate()->setDate($this->datefound1);?></span> 
 <?php if(!is_null($this->datefound2)) { ?>

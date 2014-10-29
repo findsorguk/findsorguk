@@ -14,7 +14,7 @@ $this->metaBase()
 if($this->photos):?>
 <?php if(!is_array($this->photos->photoset)):?>
 <div class="span10 well">
-<h3><?php echo $this->photos->photoset->title;?></h3>
+<h3 class="lead"><?php echo $this->photos->photoset->title;?></h3>
 <p>
 <a href="<?php echo $this->flickrImage()
         ->setFarm($this->photos->photoset->farm)
@@ -34,7 +34,7 @@ This set contains <?php echo $this->photos->photoset->photos;?> photographs<?php
 <?php else:?>
 <?php foreach($this->photos->photoset as $d) :?>
 <div class="span10 well">
-<h3><?php echo $d->title;?></h3>
+<h3 class="lead"><?php echo $d->title;?></h3>
 <p>
 <a href="<?php echo $this->FlickrImage()
         ->setFarm($d->farm)
