@@ -24,8 +24,8 @@
 
         $('#broadperiod').linkedSelect('/ajax/lastruler','#ruler_id',{firstOption: 'Please select a ruler'});
         $('#broadperiod').linkedSelect('/ajax/getdenominations','#denomination',{firstOption: 'Please select a denomination'});
-        $('#broadperiod').linkedSelect('/ajax/getmints','#mint_id',{firstOption: 'Please select a ruler'});
-
+        $('#broadperiod').linkedSelect('/ajax/getmints','#mint_id',{firstOption: 'Please select a mint'});
+        $('#broadperiod').linkedSelect('/database/ajax/getgeography','#geographyID',{firstOption: 'Please select a geography'});
         var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
         'GREEK AND ROMAN PROVINCIAL'];
 

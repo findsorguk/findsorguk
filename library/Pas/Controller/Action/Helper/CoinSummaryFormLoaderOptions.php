@@ -1,4 +1,5 @@
 <?php
+
 /** An action helper for adding correct options to a form
  *
  * An example of use:
@@ -23,7 +24,8 @@
  * @uses Moneyers
  * @uses MedievalTypes
  */
-class Pas_Controller_Action_Helper_CoinSummaryFormLoaderOptions extends Zend_Controller_Action_Helper_Abstract {
+class Pas_Controller_Action_Helper_CoinSummaryFormLoaderOptions extends Zend_Controller_Action_Helper_Abstract
+{
 
     /** The view object
      * @access protected
@@ -35,8 +37,9 @@ class Pas_Controller_Action_Helper_CoinSummaryFormLoaderOptions extends Zend_Con
      * @access public
      * @return void
      */
-    public function preDispatch(){
-	$this->_view = $this->_actionController->view;
+    public function preDispatch()
+    {
+        $this->_view = $this->_actionController->view;
     }
 
     /** The direct action
@@ -44,7 +47,8 @@ class Pas_Controller_Action_Helper_CoinSummaryFormLoaderOptions extends Zend_Con
      * @param array $coinDataFlat
      * @return void
      */
-    public function direct( array $coinDataFlat ){
+    public function direct(array $coinDataFlat)
+    {
         return $this->optionsAddClone($coinDataFlat);
     }
 
@@ -53,7 +57,8 @@ class Pas_Controller_Action_Helper_CoinSummaryFormLoaderOptions extends Zend_Con
      * @access public
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_filter = new Zend_Filter_StringToUpper();
     }
 
@@ -62,35 +67,36 @@ class Pas_Controller_Action_Helper_CoinSummaryFormLoaderOptions extends Zend_Con
      * @var array
      */
     protected $_periods = array(
-        'ROMAN','IRON AGE', 'EARLY MEDIEVAL',
+        'ROMAN', 'IRON AGE', 'EARLY MEDIEVAL',
         'POST MEDIEVAL', 'MEDIEVAL', 'BYZANTINE',
         'GREEK AND ROMAN PROVINCIAL'
-        );
+    );
 
     /** add and clone last record
      * @access public
      * @param array $coinDataFlat
      * @return void
      */
-    public function optionsAddClone( $coinData ){
+    public function optionsAddClone($coinData)
+    {
 
-        if(!is_null($coinData['ruler_id'])) {
+        if (array_key_exists('ruler_id', $coinData)) {
             $rulers = new Rulers();
             $this->_view->form->ruler_id->addMultiOptions(array(
-                NULL => 'Please choose a ruler',
-                'Available rulers' => $rulers->getLastRulersPairs($coinData['broadperiod']))
+                    NULL => 'Please choose a ruler',
+                    'Available rulers' => $rulers->getLastRulersPairs($coinData['broadperiod']))
             );
         }
 
-        if(!is_null($coinData['denomination'])) {
+        if (array_key_exists('denomination', $coinData)) {
             $denominations = new Denominations();
             $this->_view->form->denomination->addMultiOptions(array(
-                NULL => 'Please choose a denomination',
-                'Available choices' => $denominations->getDenominationByBroadPeriodPairs($coinData['broadperiod']))
+                    NULL => 'Please choose a denomination',
+                    'Available choices' => $denominations->getDenominationByBroadPeriodPairs($coinData['broadperiod']))
             );
         }
 
-        if(!is_null($coinData['mint_id'])) {
+        if (array_key_exists('mint_id', $coinData)) {
             $mints = new Mints();
             $this->_view->form->mint_id->addMultiOptions(array(
                     NULL => 'Please choose a mint',
@@ -98,12 +104,14 @@ class Pas_Controller_Action_Helper_CoinSummaryFormLoaderOptions extends Zend_Con
             );
         }
 
-        if($coinData['broadperiod'] == 'IRON AGE') {
-            $geography = new Geography();
-            $this->_view->form->geographyID->addMultiOptions(array(
-                NULL => 'Please choose a geography if applicable',
-                'Available choices' => $geography->getIronAgeGeographyDD())
-            );
+        if (array_key_exists('broadperiod', $coinData)) {
+            if ($coinData['broadperiod'] == 'IRON AGE') {
+                $geography = new Geography();
+                $this->_view->form->geographyID->addMultiOptions(array(
+                        NULL => 'Please choose a geography if applicable',
+                        'Available choices' => $geography->getIronAgeGeographyDD())
+                );
+            }
         }
 
     }

@@ -35,7 +35,7 @@ class CoinSummaryForm extends Pas_Form
         //Set the coin form name
         $this->setName('coinsummary');
 
-        $this->setAction();
+//        $this->setAction();
 
         /** Set up broadperiod form element
          * @var $broadperiod
@@ -138,6 +138,7 @@ class CoinSummaryForm extends Pas_Form
          * @var $submit
          */
         $submit = new Zend_Form_Element_Submit('submit');
+        $submit->setLabel('Submit details');
 
         /** Add the elements to the form
          */

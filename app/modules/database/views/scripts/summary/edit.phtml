@@ -2,8 +2,8 @@
 $this->headTitle('Edit coin summary details');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type = 'text/javascript');
 $this->metaBase()
-    ->setDescription()
-    ->setKeywords()
+    ->setDescription('Edit a coin summary record')
+    ->setKeywords('Edit, coin, numismatic,summary')
     ->generate();
 ?>
     <h2 class="lead">
@@ -24,7 +24,8 @@ $this->metaBase()
 
     $('#broadperiod').linkedSelect('/ajax/lastruler','#ruler_id',{firstOption: 'Please select a ruler'});
     $('#broadperiod').linkedSelect('/ajax/getdenominations','#denomination',{firstOption: 'Please select a denomination'});
-    $('#broadperiod').linkedSelect('/ajax/getmints','#mint_id',{firstOption: 'Please select a ruler'});
+    $('#broadperiod').linkedSelect('/ajax/getmints','#mint_id',{firstOption: 'Please select a mint'});
+    $('#broadperiod').linkedSelect('/database/ajax/getgeography','#geographyID',{firstOption: 'Please select a geography'});
 
     var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
     'GREEK AND ROMAN PROVINCIAL'];

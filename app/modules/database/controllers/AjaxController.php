@@ -722,8 +722,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
 
     }
 
-    public function getIaGeographyAction()
+    public function getgeographyAction()
     {
-
+        $geography = new Geography();
+        $this->view->json = $geography->getIronAgeGeographyAll();
     }
 }

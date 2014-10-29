@@ -75,9 +75,9 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->getFlash()->addMessage('You cannot access the archaeological context index.');
-        $this->redirect('/');
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('/');
     }
 
     /** Add a new archaeological context
@@ -153,6 +153,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                     );
                     // Add SOLR update logic here when ready
 
+                    $this->_helper->solrUpdater->update('hoards',  $this->getParam('id'));
                     // Add flash message and redirect back to record
                     $this->getFlash()->addMessage('You have edited some archaeology successfully');
                     // Now redirect to the correct URL
@@ -188,7 +189,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                 $where[] = $this->getModel()->getAdapter()->quoteInto('hoardID = ?', $hoardID);
                 $this->getModel()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                //$this->_helper->solrUpdater->deleteById('objects', $id);
+                $this->_helper->solrUpdater->update('hoards', $hoardID);
                 $this->redirect('database/hoards/record/id/' . $hoardID);
             } elseif ($del == 'No' && $id > 0) {
                 $this->getFlash()->addMessage('No changes made!');

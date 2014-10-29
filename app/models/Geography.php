@@ -75,6 +75,23 @@ class Geography extends Pas_Db_Table_Abstract {
         return $this->getAdapter()->fetchPairs($select);
     }
 
+    /** Get Iron Age geographical regions as key value pairs for dropdown listing
+     * @access public
+     * @return array
+     * @todo add caching
+     */
+    public function getIronAgeGeographyAll() {
+        $regions = $this->getAdapter();
+        $select = $regions->select()
+            ->from($this->_name, array(
+                'id', 'term' => 'CONCAT(region,"  ",IFNULL(area,""),"  ",IFNULL(tribe,""))'
+            ))
+            ->where('valid = ?', (int)1)
+            ->order('region');
+        return $this->getAdapter()->fetchAll($select);
+    }
+
+
     /** Get Iron Age geographical region by region id
      * @access public
      * @param integer $region

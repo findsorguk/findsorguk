@@ -99,4 +99,40 @@ class CoinSummary extends Pas_Db_Table_Abstract {
         }
         return parent::insert( $data );
     }
+
+    /** A function for getting data for updating coin summary solr index
+     * IMPORTANT: If you change this, you must change the solr config files too.
+     * @access public
+     * @param integer $id
+     * @return array
+     */
+    public function getSolrData( $id )
+    {
+        $slides = $this->getAdapter();
+        $select = $slides->select()
+            ->from($this->_name,array(
+                'summaryIdentifier' => 'CONCAT("coinsummary-",coinsummary.id)',
+                'id' => 'coinsummary.id',
+                'broadperiod',
+                'fromDate' => 'numdate1',
+                'toDate' => 'numdate2',
+                'denominationID' => 'denomination',
+                'mintID' => 'mint_id',
+                'quantity',
+                'geographyID',
+                'updatedBy',
+                'createdBy',
+                'updated',
+                'created'
+            ))
+            ->joinLeft('hoards', 'coinsummary.hoardID = hoards.secuid', array('hoardID' => 'id'))
+            ->joinLeft('denominations', 'coinsummary.denomination = denominations.id', array('denomination'))
+            ->joinLeft('mints', 'coinsummary.mint_id = mints.id', array('mint' => 'mint_name'))
+            ->joinLeft('geographyironage', 'coinsummary.geographyID = geographyironage.id',
+                array('geography' => 'CONCAT(region, " " , area, " " , tribe)'))
+            ->joinLeft('users', 'coinsummary.createdBy = users.id', array('creator' => 'fullname'))
+            ->joinLeft(array('users2' => 'users'), 'coinsummary.updatedBy = users2.id', array('updater' => 'fullname'))
+            ->where('coinsummary.id = ?',(int)$id);
+        return $slides->fetchAll($select);
+    }
 }
