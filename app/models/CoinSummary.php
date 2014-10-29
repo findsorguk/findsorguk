@@ -118,6 +118,7 @@ class CoinSummary extends Pas_Db_Table_Abstract {
                 'toDate' => 'numdate2',
                 'denominationID' => 'denomination',
                 'mintID' => 'mint_id',
+                'rulerID' => 'ruler_id',
                 'quantity',
                 'geographyID',
                 'updatedBy',
@@ -125,11 +126,12 @@ class CoinSummary extends Pas_Db_Table_Abstract {
                 'updated',
                 'created'
             ))
-            ->joinLeft('hoards', 'coinsummary.hoardID = hoards.secuid', array('hoardID' => 'id'))
+            ->joinLeft('hoards', 'coinsummary.hoardID = hoards.secuid', array('hoardID' => 'id', 'hoard' => 'hoardID'))
             ->joinLeft('denominations', 'coinsummary.denomination = denominations.id', array('denomination'))
             ->joinLeft('mints', 'coinsummary.mint_id = mints.id', array('mint' => 'mint_name'))
             ->joinLeft('geographyironage', 'coinsummary.geographyID = geographyironage.id',
                 array('geography' => 'CONCAT(region, " " , area, " " , tribe)'))
+            ->joinLeft('rulers', 'coinsummary.ruler_id = rulers.id', array('ruler' => 'issuer'))
             ->joinLeft('users', 'coinsummary.createdBy = users.id', array('creator' => 'fullname'))
             ->joinLeft(array('users2' => 'users'), 'coinsummary.updatedBy = users2.id', array('updater' => 'fullname'))
             ->where('coinsummary.id = ?',(int)$id);
