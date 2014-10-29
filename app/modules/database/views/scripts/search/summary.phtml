@@ -1,0 +1,15 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 29/10/14
+ * Time: 11:58
+ */
+$this->headTitle('Search coin summaries from hoards');
+$this->headLink()->appendStylesheet('//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css', 'screen');
+$this->metaBase()->setDescription('A search form for interrogating coin summaries attached to hoard records')
+    ->setKeywords('hoard,search,summaries')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form;?>

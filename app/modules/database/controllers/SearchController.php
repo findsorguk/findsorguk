@@ -422,7 +422,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
         ));
         $search->setParams($params);
         $search->execute();
-        $search->debugQuery();
+        //$search->debugQuery();
         $this->view->facets = $search->processFacets();
         $this->view->paginator = $search->createPagination();
         $this->view->stats = $search->processStats();
@@ -455,6 +455,60 @@ class Database_SearchController extends Pas_Controller_Action_Admin
             } else {
                 $form->populate($form->getValues());
             }
+        }
+    }
+
+    public function summaryAction()
+    {
+        $form = new CoinSummarySearchForm();
+        $this->view->form = $form;
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($form->isValid($form->getValues())) {
+                $this->processSummary($form->getValues());
+            } else {
+                $form->populate($$this->_request->getPost());
+            }
+        }
+    }
+
+    /** Process the form data
+     * @access public
+     * @param array $data
+     * void
+     */
+    public function processSummary(array $data)
+    {
+        $params = array_filter($data);
+        $cleaned = $this->_cleaner->array_cleanup($params, array(
+            'finder', 'idby', 'recordby',
+            'idBy', 'recordername'
+        ));
+        $this->getFlash()->addMessage('Your search is complete');
+        $this->_helper->Redirector->gotoSimple('summaries', 'search', 'database', $cleaned);
+    }
+
+    /** Display the index page.
+     */
+    public function summariesAction()
+    {
+        $params = $this->getAllParams();
+        $search = new Pas_Solr_Handler();
+        $search->setCore('coinsummary');
+        $search->setFields('quantity,hoardID,broadperiod,ruler,mint,geography,denomination,hoard');
+        $context = $this->_helper->contextSwitch->getCurrentContext();
+
+
+        if ($context) {
+            $params['format'] = $context;
+        }
+
+        $search->setParams($params);
+        $search->execute();
+        $this->view->paginator = $search->createPagination();
+        $this->view->results = $search->processResults();
+        if (array_key_exists('submit', $params)) {
+            $queries = new Searches();
+            $queries->insertResults(serialize($params));
         }
     }
 }

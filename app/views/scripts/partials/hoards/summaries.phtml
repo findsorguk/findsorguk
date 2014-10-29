@@ -1,0 +1,18 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 29/10/14
+ * Time: 13:46
+ */
+?>
+<tr>
+    <?php $url = array('module' => 'database','controller' => 'hoards', 'action' => 'record', 'id' => $this->hoardID);?>
+    <td><a href="<?php echo $this->url($url,'default', true);?>"><?php echo $this->hoard;?></a></td>
+    <td><?php echo $this->broadperiod;?></td>
+    <td><?php echo $this->quantity;?></td>
+    <td><?php echo $this->denomination;?></td>
+    <td><?php echo $this->ruler;?></td>
+    <td><?php echo $this->mint;?></td>
+    <td><?php echo $this->geography;?></td>
+</tr>

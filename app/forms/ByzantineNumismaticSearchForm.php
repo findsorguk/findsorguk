@@ -43,7 +43,7 @@ class ByzantineNumismaticSearchForm extends Pas_Form {
     
     /** The constructor
      * @access public
-     * @param type $options
+     * @param array $options
      * @return void
      */
     public function __construct(array $options = null) {

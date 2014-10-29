@@ -1,0 +1,45 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 29/10/14
+ * Time: 13:20
+ */
+$this->headTitle('Search results from coin hoard summaries');
+$this->metaBase()->setDescription('A set of results from the coin hoard summary tables')
+    ->setKeywords('hoards, coin,summary')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<div class="row-fluid">
+
+<?php if ($this->results): ?>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Hoard ID</th>
+            <th>Broad period</th>
+            <th>Quantity</th>
+            <th>Denomination</th>
+            <th>Ruler</th>
+            <th>Mint</th>
+            <th>Geography</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/hoards/summaries.phtml', $this->results); ?>
+        </tbody>
+    </table>
+
+    </div>
+
+    <div class="row-fluid">
+        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+    </div>
+<?php else: ?>
+
+    <p>
+        No records are available at the moment.
+    </p>
+
+<?php endif;

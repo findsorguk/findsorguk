@@ -853,21 +853,26 @@ class Pas_Solr_Handler
     public function processStats()
     {
         $stats = $this->_resultset->getStats();
-        foreach ($stats as $stat) {
-            $data = array(
-                'stdDeviation' => $stat->getStddev(),
-                'mean' => $stat->getMean(),
-                'sum' => $stat->getSum(),
-                'query' => $stat->getName(),
-                'minima' => $stat->getMin(),
-                'maxima' => $stat->getMax(),
-                'count' => $stat->getCount(),
-                'missing' => $stat->getMissing(),
-                'sumOfSquares' => $stat->getSumOfSquares(),
-                'mean' => $stat->getMean()
-            );
+
+        if(is_array($stats)) {
+            foreach ($stats as $stat) {
+                $data = array(
+                    'stdDeviation' => $stat->getStddev(),
+                    'mean' => $stat->getMean(),
+                    'sum' => $stat->getSum(),
+                    'query' => $stat->getName(),
+                    'minima' => $stat->getMin(),
+                    'maxima' => $stat->getMax(),
+                    'count' => $stat->getCount(),
+                    'missing' => $stat->getMissing(),
+                    'sumOfSquares' => $stat->getSumOfSquares(),
+                    'mean' => $stat->getMean()
+                );
+            }
+            return $data;
+        } else {
+            return false;
         }
-        return $data;
     }
 
     /** Process facets for display
