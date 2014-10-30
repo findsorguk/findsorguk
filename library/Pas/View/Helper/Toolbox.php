@@ -183,34 +183,15 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 $this->view->baseUrl() . '/js/functionsRecord.js', 
                 $type='text/javascript');
 
-        $class = 'btn btn-small btn-primary overlay';
-        $html = '<div id="toolBox"><p>';
-        $html .= '<a class="' . $class . '"  href="';
-        $html .= $this->view->serverUrl() . $this->view->url(array(
-            'module' => 'database',
-            'controller' => 'ajax',
-            'action' => 'webcite',
-            'id' => $this->getId(),
-            'type' => $this->getRecordType($this->getController())
-            ),null,true);
-        $html .= '" title="Get citation information">Cite record</a> <a class="'; 
-        $html .= $class . '" href="';
-        $html .= $this->view->url(array(
-            'module' => 'database',
-            'controller' => 'ajax', 
-            'action' => 'embed', 
-            'id' =>  $this->getId(),
-            'type' => $this->getRecordType($this->getController())
-        ),null,true);
-        $html .= '" title="Get code to embed this record in your webpage">Embed record</a> ';
+        $class = 'btn btn-small btn-primary';
+        $html = '<div id="toolBox" class="btn-group">';
+
         $html .= $this->view->recordEditDeleteLinks(
                 $this->getId(),
                 $this->getOldFindID(),
                 $this->getController(),
                 $this->getCreatedBy()
                 );
-        $html .=' <a class="' . $class . '" href="#print" id="print">Print';
-        $html .= '<i class="icon-print icon-white"></i></a> ';
         $html .= $this->view->Href(array(
             'module' => 'database',
             'controller'=>$this->getController(),
@@ -222,7 +203,9 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 'title' => 'Add new object',
                 'accesskey' => 'a',
                 'class' => 'btn btn-small btn-primary')
-            ));
+        ));
+
+
         if (in_array($this->getRole(),$this->_allowed)) {
             $html .= ' <a class="btn btn-small btn-danger" href="';
             $html .= $this->view->url(array(
@@ -238,8 +221,28 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 'action'=>'forceindexupdate',
                 'id' => $this->getId()),null,true);
             $html .= '">Force index update</a>';
+            $html .= '<a class="' . $class . '"  href="';
+            $html .= $this->view->serverUrl() . $this->view->url(array(
+                    'module' => 'database',
+                    'controller' => 'ajax',
+                    'action' => 'webcite',
+                    'id' => $this->getId(),
+                    'type' => $this->getRecordType($this->getController())
+                ),null,true);
+            $html .= '" title="Get citation information">Cite record</a> <a class="';
+            $html .= $class . '" href="';
+            $html .= $this->view->url(array(
+                'module' => 'database',
+                'controller' => 'ajax',
+                'action' => 'embed',
+                'id' =>  $this->getId(),
+                'type' => $this->getRecordType($this->getController())
+            ),null,true);
+            $html .= '" title="Get code to embed this record in your webpage">Embed record</a> ';
+            $html .=' <a class="' . $class . '" href="#print" id="print">Print';
+            $html .= '<i class="icon-print icon-white"></i></a> ';
         }
-        $html .= '</p></div>';
+        $html .= '</div>';
         return $html;
     }
 }

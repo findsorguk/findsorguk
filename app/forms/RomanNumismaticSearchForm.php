@@ -27,7 +27,7 @@ class RomanNumismaticSearchForm extends Pas_Form {
 
     /** The restricted array of roles
      *
-     * @var type 
+     * @var array
      */
     protected $_restricted = array(null, 'public','member','research');
 

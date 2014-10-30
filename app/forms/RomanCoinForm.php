@@ -182,10 +182,9 @@ class RomanCoinForm extends Pas_Form {
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addMultiOptions(array(
                     null => 'Choose coin status', 
-                    'Valid options' => $statuses
+                    'Valid options' => $status_options
                 ))
-		->addValidator('InArray', false, array(array_keys($statuses)))		;
-
+		->addValidator('InArray', false, array(array_keys($status_options)))		;
 	$status_qualifier = new Zend_Form_Element_Radio('status_qualifier');
 	$status_qualifier->setLabel('Status qualifier: ')
 		->addMultiOptions(array(
