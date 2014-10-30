@@ -417,9 +417,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         'secuid = ?', $findSecuid
                     ));
                     $findID = $findRow['id'];
-
                     // Update the Find table with the hoard secuid
-                    $success = $this->getFinds()->linkFind($updateData, $findID);
+                    $this->getFinds()->linkFind($updateData, $findID);
 
                     // $this->_helper->solrUpdater->update('objects', $findID);
                     $this->getFlash()->addMessage('Success! Coin, artefact or container linked to this hoard');

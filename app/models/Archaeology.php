@@ -86,7 +86,7 @@ class Archaeology extends Pas_Db_Table_Abstract
 
     /** Over ride the abstract add and create secuid etc
      */
-    public function add(array $data)
+    public function add($data)
     {
         $data = $this->getCleaner()->array_cleanup($data);
 
