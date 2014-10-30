@@ -442,3 +442,6 @@ select[multiple].select-large {
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+#toolBox {
+    margin-bottom: 10px;
+}

@@ -189,9 +189,9 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->redirect('database/search/results/');
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('database/search/results/');
     }
 
     /** Display individual hoard record
