@@ -105,7 +105,7 @@ class Pas_View_Helper_ThumbnailToggler extends Zend_View_Helper_Abstract
         $html = '';
         $html .= '<div>Only results with images:<br />';
         if (array_key_exists('thumbnail', $request) && $request['thumbnail'] == '1') {
-            $html .= '<a class="btn btn-small btn-';
+            $html .= '<div class="btn-group"><a class="btn btn-small btn-';
             $html .= $this->getActive();
             $html .= '" href="';
             $html .= $this->view->url($request,'default',true);
@@ -115,9 +115,9 @@ class Pas_View_Helper_ThumbnailToggler extends Zend_View_Helper_Abstract
             $html .= '" href="';
             unset($request['thumbnail']);
             $html .= $this->view->url($request,'default',true);
-            $html .= '">off</a>';
+            $html .= '">off</a></div>';
         } else {
-            $html .= '<a class="btn btn-small btn-';
+            $html .= '<div class="btn-group"><a class="btn btn-small btn-';
             $html .= $this->getInactive();
             $html .= '" href="';
             $html .= $this->view->url(array_merge($request, array('thumbnail' => 1)),'default',true);
@@ -126,7 +126,7 @@ class Pas_View_Helper_ThumbnailToggler extends Zend_View_Helper_Abstract
             $html .= $this->getActive();
             $html .= '" href="';
             $html .= $this->view->url($request,'default',true);
-            $html .= '">off</a>';
+            $html .= '">off</a></div>';
         }
         $html .= '</div>';
         return $html;
