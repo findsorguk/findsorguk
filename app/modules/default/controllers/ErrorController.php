@@ -248,16 +248,16 @@ class ErrorController extends Pas_Controller_Action_Admin {
                 case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
                 // 404 error -- controller or action not found
                     $this->getResponse()->setHttpResponseCode(404);
-                    $this->renderScript('error/notfound.phtml');
-                    $this->view->message = 'Page not found';
-                    $this->view->code  = 404;
-                    if ($errors->type == Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER) {
-                        $this->view->info = sprintf(
-                                'Unable to find controller "%s" in module "%s"',
-                                $errors->request->getControllerName(),
-                                $errors->request->getModuleName()
-                                );
-                    }
+//                    $this->renderScript('error/notfound.phtml');
+//                    $this->view->message = 'Page not found';
+//                    $this->view->code  = 404;
+//                    if ($errors->type == Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER) {
+//                        $this->view->info = sprintf(
+//                                'Unable to find controller "%s" in module "%s"',
+//                                $errors->request->getControllerName(),
+//                                $errors->request->getModuleName()
+//                                );
+//                    }
                     if ($errors->type == Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION) {
                         $this->renderScript('error/notfound.phtml');
                         $this->view->code  = 404;

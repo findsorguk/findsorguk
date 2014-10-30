@@ -213,6 +213,9 @@ class Pas_View_Helper_FacetCreator extends Zend_View_Helper_Abstract {
             case 'createdBy':
                 $clean = 'Created by user';
                 break;
+            case 'reeceID':
+                $clean = 'Reece Period';
+                break;
             default:
                 $clean = ucfirst($name);
                 break;

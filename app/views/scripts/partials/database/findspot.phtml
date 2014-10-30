@@ -25,15 +25,20 @@ $role = $identity->role;
 if (in_array($role, $allowed)):
     ?>
     <div id="radius">
-        <?php
-        $url = $this->url(array(
-            'module' => 'database', 'controller' => 'search', 'action' => 'results',
-            'lat' => $this->declat, 'lon' => $this->declong, 'd' => '2'
-        ), null, true);?>
+        <?php $distance = array(1,2,3,4,5,10,20,50,100,200); ?>
         <p>
-            <a class="btn btn-small btn-success" href="<?php echo $url; ?>"
-               title="Use the Haversine formula to find adjacent objects">Find objects within 2km
-                radius of this artefact</a>
+            Find objects within:
+            <div class="btn-group">
+            <?php foreach($distance as $range):?>
+            <a class="btn btn-small btn-success" href="<?php echo $this->url(array(
+                'module' => 'database', 'controller' => 'search', 'action' => 'results',
+                'lat' => $this->declat, 'lon' => $this->declong, 'd' => $range
+            ), null, true); ?>"
+               title="Use the Haversine formula to find adjacent objects"> <?php echo $range;?> km
+                radius </a>
+    <?php endforeach;?>
+            </div>
+
         </p>
     </div>
 <?php endif; ?>
