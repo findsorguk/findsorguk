@@ -8,6 +8,14 @@ $this->metaBase()
     <h2 class="lead">
         <?php echo $this->title(); ?>
     </h2>
+    <img src="<?php echo $this->serverUrl(); ?>/assets/logos/openPlatformLogo_620x100.gif" width="342" height="100"
+         alt="Guardian open platform logo" class="pull-right"/>
+    <p>All information displaued on these pages has been retrieved for the search "portable antiquities scheme archaeology" and is
+        returned
+        via the <a href="http://www.theguardian.com/open-platform">Guardian Platform</a> using their applications programming interface
+        <abbr title="Applications Programming Interface">API</abbr>.</p>
+    <p>The search returns data that is outside the Scheme's control, and we are not responsible for cntent on the
+        Guardian website. We do however, hope that you find this function useful.</p>
 <?php if ($this->data): ?>
     <?php echo $this->partialLoop('partials/news/guardianNews.phtml', $this->data); ?>
     <?php echo $this->paginationControl($this->data, 'Sliding', 'structure/pagination.phtml'); ?>
