@@ -39,7 +39,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
      * @access protected
      * @var array Higher level groups
      */
-    protected $_higherLevel = array('treasure', 'flos', 'admin', 'hero', 'fa', 'hoard' );
+    protected $_higherLevel = array('treasure', 'flos', 'admin', 'hero', 'fa' );
 
     /** The array of numismatic terms
     * @var array coins pseudonyms
@@ -122,7 +122,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
         return $this->_findspots;
     }
 
-        public function getComments() {
+        
+    public function getComments() {
         $this->_comments = new Comments();
         return $this->_comments;
     }
@@ -163,7 +164,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function indexAction(){
-        $this->redirect('database/search/results/');
+        $this->_redirect('database/search/results/');
         $this->getResponse()->setHttpResponseCode(301)
                     ->setRawHeader('HTTP/1.1 301 Moved Permanently');
     }
@@ -177,82 +178,32 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
         if($this->_getParam('id',false)) {
             $this->view->recordID = $this->_getParam('id');
             $id = $this->_getParam('id');
-            $findsdata = $this->_finds->getIndividualFind($id, $this->getRole());
-           
-            if($findsdata) {
-                $this->view->finds = $findsdata;
-            } else {
-                throw new Pas_Exception_NotAuthorised('You are not authorised to view this record', 401);
-            }
-            if(!in_array($this->_helper->contextSwitch()
-                    ->getCurrentContext(), $this->_contexts)) {
-                $this->view->findsdata     = $this->_finds->getFindData($id);
-                $this->view->findsmaterial = $this->_finds->getFindMaterials($id);
-                $this->view->temporals     = $this->_finds->getFindTemporalData($id);
-                $this->view->peoples       = $this->_finds->getPersonalData($id);
-                $this->view->findotherrefs = $this->_finds->getFindOtherRefs($id);
-
-                $this->view->findspots = $this->getFindspots()->getFindSpotData($id);
-
-                $rallyfind = new Rallies;
-                $this->view->rallyfind = $rallyfind->getFindToRallyNames($id);
-
-                $coins = new Coins;
-                $this->view->coins = $coins->getCoinData($id);
-
-                $coinrefs = new CoinClassifications();
-                $this->view->coinrefs = $coinrefs->getAllClasses($id);
-
-                $thumbs = new Slides;
-                $this->view->thumbs = $thumbs->getThumbnails($id);
-
-                $refs = new Publications;
-                $this->view->refs = $refs->getReferences($id);
-
-                $this->view->comments = $this->getComments()->getFindComments($id);
-
-                $this->view->findspots = $this->getFindspots()->getFindSpotData($id);
-
-                $form = new CommentFindForm();
-                $form->submit->setLabel('Add a new comment');
-                $this->view->form = $form;
-                if($this->getRequest()->isPost()
-                        && $form->isValid($this->_request->getPost())) {
-                    if ($form->isValid($form->getValues())) {
-                        $data = $this->_helper->akismet($form->getValues());
-                        $data['contentID'] = $this->_getParam('id');
-                        $data['comment_type'] = 'findComment';
-                        $data['comment_approved'] = 'moderation';
-                        $this->getComments()->add($data);
-                        $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
-                        $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
-                        $this->_request->setMethod('GET');
-                    } else {
-                        $this->getFlash()->addMessage('There are problems with your comment submission');
-                        $form->populate($this->_request->getPost());
-                    }
+            $this->view->finds = $this->_finds->getAllData($id);
+            $coinrefs = new CoinClassifications();
+            $this->view->coinrefs = $coinrefs->getAllClasses($id);
+            $thumbs = new Slides;
+            $this->view->thumbs = $thumbs->getThumbnails($id);
+            $refs = new Publications;
+            $this->view->refs = $refs->getReferences($id);
+            $this->view->comments = $this->getComments()->getFindComments($id);
+            $form = new CommentFindForm();
+            $form->submit->setLabel('Add a new comment');
+            $this->view->form = $form;
+            if($this->getRequest()->isPost()
+                    && $form->isValid($this->_request->getPost())) {
+                if ($form->isValid($form->getValues())) {
+                    $data = $this->_helper->akismet($form->getValues());
+                    $data['contentID'] = $this->_getParam('id');
+                    $data['comment_type'] = 'findComment';
+                    $data['comment_approved'] = 'moderation';
+                    $this->getComments()->add($data);
+                    $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
+                    $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                    $this->_request->setMethod('GET');
+                } else {
+                    $this->getFlash()->addMessage('There are problems with your comment submission');
+                    $form->populate($this->_request->getPost());
                 }
-            } else {
-                $this->_helper->layout->disableLayout();    //disable layout
-                $record = $this->_finds->getAllData($id);
-                if(in_array($this->getRole(), $this->_restricted)) {
-                    $record['0']['gridref'] = 'Restricted information';
-                    $record['0']['easting'] = 'Restricted information';
-                    $record['0']['northing'] = 'Restricted information';
-                    $record['0']['lat'] = 'Restricted information';
-                    $record['0']['lon'] = 'Restricted information';
-                    $record['0']['finder'] = 'Restricted information';
-                    $record['0']['address'] = 'Restricted information';
-                    $record['0']['postcode'] = 'Restricted information';
-                    $record['0']['findspotdescription'] = 'Restricted information';
-                    if(!is_null($record['0']['knownas'])){
-                        $record['0']['parish'] = 'Restricted information';
-                        $record['0']['fourFigure'] = 'Restricted information';
-                        $record['0']['fourFigureLat'] = 'Restricted information';
-                        $record['0']['fourFigureLon'] = 'Restricted information';
-                    }
-                }
-                $this->view->record = $record;
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -268,7 +219,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
         $user = $this->_helper->identity->getPerson();
         if((is_null($user->peopleID) && is_null($user->canRecord))
         || (!is_null($user->peopleID) && is_null($user->canRecord)) ){
-            $this->redirect('/error/accountproblem');
+            $this->_redirect('/error/accountproblem');
         }
         $last = $this->_getParam('copy');
         $this->view->secuid = $this->secuid();
@@ -315,8 +266,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                 unset($insertData['id2by']);
                 unset($insertData['secondfinder']);
                 $insert = $this->_finds->add($insertData);
-                // $this->_helper->solrUpdater->update('objects', $insert);
-                $this->redirect(self::REDIRECT . 'record/id/' . $insert);
+                $this->_helper->solrUpdater->update('beowulf', $insert);
+                $this->_redirect(self::REDIRECT . 'record/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else  {
                 $this->getFlash()->addMessage('Please check and correct errors!');
@@ -368,9 +319,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                             $this->_getParam('id'),
                             $this->_getParam('id')
                             );
-                    //$this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
+                    $this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
                     $this->getFlash()->addMessage('Artefact information updated and audited!');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                    $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
                 } else {
                     $this->view->find = $this->_finds->fetchRow('id='.$this->_getParam('id'));
                     $form->populate($this->_request->getPost());
@@ -409,11 +360,11 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                         $findID);
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->getFindspots()->delete($whereFindspots);
-                $this->_helper->solrUpdater->deleteById('objects', $id);
-                $this->redirect(self::REDIRECT);
+                $this->_helper->solrUpdater->deleteById('beowulf', $id);
+                $this->_redirect(self::REDIRECT);
             }
             $this->getFlash()->addMessage('No changes made!');
-            $this->redirect('database/artefacts/record/id/' . $id);
+            $this->_redirect('database/artefacts/record/id/' . $id);
         } else {
             $this->view->find = $this->_finds->fetchRow('id=' . $this->_request->getParam('id'));
         }
@@ -453,7 +404,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                         $data
                         );
                 $this->getFlash()->addMessage('Your error report has been submitted. Thank you!');
-                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                $this->_redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
             }else {
                 $form->populate($this->_request->getPost());
             }
@@ -483,7 +434,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                     $assignData = array_merge($find->toArray(),$form->getValues(),$to['0']);
                     $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc, $from);
                     $this->getFlash()->addMessage('Your message has been sent');
-                    $this->redirect('database/artefacts/record/id/' . $find->id);
+                    $this->_redirect('database/artefacts/record/id/' . $find->id);
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -534,9 +485,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
                         'FindsAudit',
                         $this->_getParam('findID'),
                         $this->_getParam('findID'));
-                $this->_helper->solrUpdater->update('objects', $this->_getParam('findID'));
+                $this->_helper->solrUpdater->update('beowulf', $this->_getParam('findID'));
                 $this->getFlash()->addMessage('Workflow status changed');
-                $this->redirect('database/artefacts/record/id/' . $this->_getParam('findID'));
+                $this->_redirect('database/artefacts/record/id/' . $this->_getParam('findID'));
                 $this->_request->setMethod('GET');
                 } else {
                     $this->getFlash()->addMessage('There were problems changing the workflow');

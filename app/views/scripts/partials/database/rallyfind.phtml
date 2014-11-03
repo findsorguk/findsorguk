@@ -1,13 +1,14 @@
 <h4 class="lead">Rally details.</h4>
-<p>This object was found at <a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies','action' => 'rally','id' => $this->id),null,true);?>" title="Details for <?php echo $this->rally_name;?>"><?php echo $this->rally_name;?></a>
+<p>This object was found at <a
+        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'rallies', 'action' => 'rally', 'id' => $this->id), null, true); ?>"
+        title="Details for <?php echo $this->rally_name; ?>"><?php echo $this->rally_name; ?></a>
 
-<?php if(isset($this->df))
-{ 
-echo ' held '.$this->niceShortDate()->setDate($this->df); 
-if(isset($this->dt))
-{ 
-echo ' - '.$this->niceShortDate()->setDate($this->dt);
-}
-}
-?>
- </p>
+    <?php if (isset($this->df)) { ?>
+        held <?php echo $this->niceShortDate()->setDate($this->df); ?>
+        <?php if (isset($this->dt)) { ?>
+            - <?php echo $this->niceShortDate()->setDate($this->dt); ?>
+        <?php
+        }
+    }
+    ?>
+</p>

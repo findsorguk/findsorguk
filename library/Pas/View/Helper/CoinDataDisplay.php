@@ -26,7 +26,6 @@
  * @copyright (c) 2014, Daniel Pett
  *
  */
-
 class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
 {
 
@@ -299,8 +298,6 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
             $html .= '</div></div>';
         }
         }
-
         return $html;
     }
-
-    }
+}

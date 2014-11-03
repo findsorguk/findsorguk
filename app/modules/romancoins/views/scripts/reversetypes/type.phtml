@@ -5,7 +5,7 @@ $this->headMeta('This page provides details for the fourth century reverse type 
 ->headMeta($this->curUrl(),'dc.identifier')
 ->headMeta('Daniel Pett','dc.creator')
 ->headMeta('The Portable Antiquities Scheme','dc.publisher')
-->headMeta('CC BY-SA','dc.rights');
+->headMeta('CC BY','dc.rights');
 if(count($this->reverses > 0)) {
 echo $this->partialLoop('partials/numismatics/revtypedetail.phtml',$this->reverses);
 }

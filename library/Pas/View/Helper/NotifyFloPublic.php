@@ -1,4 +1,5 @@
 <?php
+
 /** A view helper for rendering links for checking records
  * @category Pas
  * @package Pas_View
@@ -9,7 +10,8 @@
  * @copyright DEJ PETT
  */
 class Pas_View_Helper_NotifyFloPublic
-     extends Zend_View_Helper_Abstract {
+    extends Zend_View_Helper_Abstract
+{
 
     protected $_allowed = array(
         'member', 'flos', 'treasure',
@@ -26,24 +28,25 @@ class Pas_View_Helper_NotifyFloPublic
      */
     public function __construct()
     {
-    $user = new Pas_User_Details();
-    if ($user) {
-    $this->_user = $user->getPerson();
-    } else {
-        throw new Pas_Exception('No user credentials found');
-    }
+        $user = new Pas_User_Details();
+        if ($user) {
+            $this->_user = $user->getPerson();
+        } else {
+            throw new Pas_Exception('No user credentials found');
+        }
     }
 
     /** Check if able to render
      *
      * @param string $institution
-     * @param int    $id
-     * @param int    $workflow
+     * @param int $id
+     * @param int $workflow
      */
     public function notifyFloPublic($institution, $id, $workflow)
     {
-        if(($workflow < 3) && ($institution === 'PUBLIC')
-            && in_array($this->_user->role, $this->_allowed)){
+        if (($workflow < 3) && ($institution === 'PUBLIC')
+            && in_array($this->_user->role, $this->_allowed)
+        ) {
             return $this->_buildHtml($id);
         } else {
             return false;

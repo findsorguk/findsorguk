@@ -55,7 +55,7 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_Certainty
      */
     public function setCertainty($certainty) {
-        $this->_certainty = $certainty;
+        $this->_certainty = (int)$certainty;
         return $this;
     }
 
@@ -87,18 +87,18 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
     public function html() {
         $this->_checkValid();
         switch ($this->getCertainty()) {
-        case 1:
-                    $html = 'Certain';
-                    break;
-        case 2:
-                    $html = 'Probably';
-                    break;
-        case 3:
-                    $html = 'Possibly';
-                    break;
-        default:
-                    $html = '';
-                    break;
+            case 1:
+                $html = 'Certain';
+                break;
+            case 2:
+                $html = 'Probably';
+                break;
+            case 3:
+                $html = 'Possibly';
+                break;
+            default:
+                $html = 'Certain';
+                break;
         }
     return $html;
     }

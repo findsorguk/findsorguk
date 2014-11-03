@@ -218,17 +218,40 @@ class Finds extends Pas_Db_Table_Abstract {
     public function getAllData($findID) {
         $select = $this->select()
                 ->from($this->_name, array(
-                    'id', 'old_findID', 'uniqueID' => 'secuid',
-                    'objecttype', 'classification', 'subclass',
-                    'length', 'height', 'width', 'weight',
-                    'thickness', 'diameter', 'quantity',
-                    'other_ref', 'treasureID', 'broadperiod',
-                    'numdate1', 'numdate2', 'description',
-                    'notes', 'reuse', 'created' =>'finds.created',
-                    'broadperiod', 'updated', 'treasureID',
-                    'secwfstage', 'findofnote', 'objecttypecert',
-                    'datefound1', 'datefound2', 'inscription',
-                    'disccircum', 'museumAccession' => 'musaccno',
+                    'id', 
+                    'old_findID', 
+                    'uniqueID' => 'secuid',
+                    'objecttype', 
+                    'classification', 
+                    'subclass',
+                    'length', 
+                    'height', 
+                    'width', 
+                    'weight',
+                    'thickness', 
+                    'diameter', 
+                    'quantity',
+                    'otherRef' => 'other_ref',
+                    'treasureID', 
+                    'broadperiod',
+                    'numdate1', 
+                    'numdate2', 
+                    'description',
+                    'notes', 
+                    'reuse', 
+                    'reusePeriodID' => 'reuse_period',
+                    'created' =>'finds.created',
+                    'broadperiod', 
+                    'updated', 
+                    'treasureID',
+                    'secwfstage', 
+                    'findofnote', 
+                    'objecttypecert',
+                    'datefound1', 
+                    'datefound2', 
+                    'inscription',
+                    'disccircum', 
+                    'museumAccession' => 'musaccno',
                     'subsequentAction' => 'subs_action',
                     'objectCertainty' => 'objecttypecert',
                     'dateFromCertainty' => 'numdate1qual',
@@ -237,7 +260,24 @@ class Finds extends Pas_Db_Table_Abstract {
                     'dateFoundToCertainty' => 'datefound2qual',
                     'subPeriodFrom' => 'objdate1subperiod',
                     'subPeriodTo' => 'objdate2subperiod',
-                    'secuid'
+                    'objdate1period',
+                    'objdate2period',
+                    'secuid',
+                    'material1',
+                    'material2',
+                    'manmethod',
+                    'decmethod',
+                    'decstyle',
+                    'complete' => 'completeness',
+                    'surftreat',
+                    'culture',
+                    'finderID',
+                    'recorderID',
+                    'identifier1ID',
+                    'identifier2ID',
+                    'smrRef' => 'smr_ref',
+                    'createdBy',
+                    'updatedBy'
                     ))
                 ->joinLeft('findofnotereasons',
                         'finds.findofnotereason = findofnotereasons.id',
@@ -266,13 +306,15 @@ class Finds extends Pas_Db_Table_Abstract {
                 ->joinLeft('preservations','finds.preservation = preservations.id',
                         array('preservation' => 'term'))
                 ->joinLeft('certaintytypes','certaintytypes.id = finds.objecttypecert',
-                        array('cert' => 'term'))
+                        array('objectCertainty' => 'term'))
                 ->joinLeft('periods','finds.objdate1period = periods.id',
                         array('periodFrom' => 'term'))
                 ->joinLeft(array('p' => 'periods'),'finds.objdate2period = p.id',
                         array('periodTo' => 'term'))
+                ->joinLeft(array('p2' => 'periods'), 'finds.reuse_period = p2.id',
+                        array('reusePeriod' => 'term'))
                 ->joinLeft('cultures','finds.culture = cultures.id',
-                        array('culture' => 'term'))
+                        array('ascribedCulture' => 'term'))
                 ->joinLeft('discmethods','discmethods.id = finds.discmethod',
                         array('discmethod' => 'method'))
                 ->joinLeft('people','finds.finderID = people.secuid',
@@ -283,38 +325,77 @@ class Finds extends Pas_Db_Table_Abstract {
                         array('secondaryIdentifier' => 'CONCAT(ident2.title," ",ident2.forename," ",ident2.surname)'))
                 ->joinLeft(array('record' => 'people'),'finds.recorderID = record.secuid',
                         array('recorder' => 'CONCAT(record.title," ",record.forename," ",record.surname)'))
+                ->joinLeft(array('circa1' => 'datequalifiers'), $this->_name
+                        . '.numdate1qual = circa1.id',
+                        array('fromCirca' => 'term'))
+                ->joinLeft(array('circa2' => 'datequalifiers'), $this->_name
+                        . '.numdate2qual = circa2.id',
+                        array('toCirca' => 'term'))
                 ->joinLeft('findspots','finds.secuid = findspots.findID',
                         array(
-                            'county', 'parish', 'district',
-                            'easting', 'northing', 'gridref',
-                            'fourFigure', 'map25k', 'map10k',
-                            'address', 'postcode', 'findspotdescription' => 'description',
-                            'lat' => 'declat', 'lon' => 'declong', 'knownas',
-                            'fourFigureLat', 'fourFigureLon', 'geohash',
-                            'woeid'
+                            'findSpotID' => 'id',
+                            'countyID',
+                            'parishID',
+                            'districtID',
+                            'regionID',
+                            'easting', 
+                            'northing', 
+                            'gridref',
+                            'fourFigure', 
+                            'map25k', 
+                            'map10k',
+                            'address', 
+                            'postcode', 
+                            'findspotDescription' => 'description',
+                            'lat' => 'declat', 
+                            'lon' => 'declong', 
+                            'knownas',
+                            'fourFigureLat', 
+                            'fourFigureLon', 
+                            'geohash',
+                            'woeid',
+                            'comments',
+                            'elevation',
+                            'gridlen',
+                            'geonamesID',
+                            'accuracy',
                             ))
                 ->joinLeft('gridrefsources',
                         'gridrefsources.ID = findspots.gridrefsrc',
                         array('source' => 'term'))
                 ->joinLeft('coins','finds.secuid = coins.findID',
                         array(
-                            'obverse_description', 'obverse_inscription',
-                            'reverse_description', 'reverse_inscription',
+                            'coinID' => 'id',
+                            'obverseDescription' => 'obverse_description',
+                            'obverseInscription' => 'obverse_inscription',
+                            'reverseDescription' => 'reverse_description', 
+                            'reverseInscription' => 'reverse_inscription',
+                            'cciNumber',
                             'denominationID' => 'denomination',
-                            'degree_of_wear', 'allen_type', 'va_type',
-                            'mack' => 'mack_type', 'reeceID',
-                            'die' => 'die_axis_measurement',
-                            'wearID'=> 'degree_of_wear', 'moneyer', 'revtypeID',
-                            'categoryID', 'typeID', 'tribeID' => 'tribe',
-                            'status', 'rulerQualifier' => 'ruler_qualifier',
+                            'degreeOfWear' => 'degree_of_wear', 
+                            'allenType' => 'allen_type', 
+                            'vaType' => 'va_type',
+                            'mackType' => 'mack_type', 
+                            'abcType' => 'rudd_type',
+                            'bmcType' => 'bmc_type',
+                            'reeceID',
+                            'dieAxis' => 'die_axis_measurement',
+                            'moneyer', 
+                            'revtypeID',
+                            'categoryID', 
+                            'typeID', 
+                            'tribeID' => 'tribe',
+                            'status', 
+                            'rulerQualifier' => 'ruler_qualifier',
                             'denominationQualifier' => 'denomination_qualifier',
                             'mintQualifier' => 'mint_qualifier',
                             'dieAxisCertainty' => 'die_axis_certainty',
                             'initialMark' => 'initial_mark',
                             'reverseMintMark' => 'reverse_mintmark',
                             'statusQualifier' => 'status_qualifier',
-                            'ruler_id',
-                            'mint_id'
+                            'primaryRuler' => 'ruler_id',
+                            'secondaryRuler' => 'ruler2_id',
+                            'mintID' => 'mint_id'
                             ))
                 ->joinLeft('ironagetribes','coins.tribe = ironagetribes.id',
                         array('tribe'))
@@ -338,10 +419,10 @@ class Finds extends Pas_Db_Table_Abstract {
                         'rulers_2.id = coins.ruler2_id',
                         array('ruler2' => 'issuer'))
                 ->joinLeft('reeceperiods','coins.reeceID = reeceperiods.id',
-                        array('period_name','date_range'))
+                        array('periodName' => 'period_name','dateRange' => 'date_range'))
                 ->joinLeft('mints','mints.id = coins.mint_ID',
                         array(
-                            'mint_name',
+                            'mintName' => 'mint_name',
                             'nomismaMintID' => 'nomismaID',
                             'pleiadesID',
                             'mintGeonamesID' => 'geonamesID',
@@ -351,7 +432,7 @@ class Finds extends Pas_Db_Table_Abstract {
                         'coins.degree_of_wear = weartypes.id',
                         array('wear' => 'term'))
                 ->joinLeft('dieaxes','coins.die_axis_measurement = dieaxes.id',
-                        array('die_axis_name'))
+                        array('dieAxisName' => 'die_axis_name'))
                 ->joinLeft('medievalcategories',
                         'medievalcategories.id = coins.categoryID',
                         array('category'))
@@ -362,7 +443,7 @@ class Finds extends Pas_Db_Table_Abstract {
                 ->joinLeft('emperors','emperors.pasID = rulers.id',
                         array('emperorID' => 'id'))
                 ->joinLeft('romanmints','romanmints.pasID = mints.id',
-                        array('mintid' => 'id'))
+                        array('romanMintID' => 'id'))
                 ->joinLeft('revtypes','coins.revtypeID = revtypes.id',
                         array('reverseType' => 'type'))
                 ->joinLeft('statuses','coins.status = statuses.id',
@@ -372,9 +453,40 @@ class Finds extends Pas_Db_Table_Abstract {
                 ->joinLeft('slides','slides.secuid = finds_images.image_id',
                         array('thumbnail' => 'imageID', 'filename'))
                 ->joinLeft(array('u' => 'users'),'slides.createdBy = u.id',
-                        array('imagedir'))
+                        array('imagedir')
+                        )
                 ->joinLeft('regions', 'findspots.regionID = regions.id',
                         array('region'))
+                ->joinLeft('rallies', 'rallies.id = finds.rallyID', 
+                        array(
+                            'rallyID' => 'id', 'rallyName' => 'rally_name', 
+                            'rallyDateFrom' => 'date_from', 'rallyDateTo' => 'date_to')
+                        )
+                ->joinLeft(array('land1' => 'landuses'),
+                        'land1.id = findspots.landusecode',
+                        array('landuse' => 'term'))
+                ->joinLeft(array('land2' =>'landuses'),
+                        'land2.id = findspots.landusevalue',
+                        array('landvalue' => 'term'))
+                ->joinLeft('maporigins','maporigins.id = findspots.gridrefsrc',
+                        array('source' => 'term'))
+                ->joinLeft('osRegions','findspots.regionID = osRegions.osID',
+                        array('region' => 'label'))
+                ->joinLeft('osCounties', 'findspots.countyID = osCounties.osID', 
+                        array('countyType' => 'type'))
+                ->joinLeft('osDistricts', 'findspots.districtID = osDistricts.osID', 
+                        array('districtType' => 'type'))
+                ->joinLeft('osParishes', 'findspots.parishID = osParishes.osID', 
+                        array(
+                            'parishType' => 'type', 
+                            'centreLat' => 'lat', 
+                            'centreLon' => 'lon'
+                            ))
+                ->joinLeft('people', 'findspots.landowner = people.secuid', 
+                        array('landOwnerName' => 'fullname'))
+                ->joinLeft('subsequentActions',
+                        'finds.subs_action = subsequentActions.id',
+                        array('subsequentActionTerm' => 'action'))
                 ->where('finds.id = ?', (int)$findID)
                 ->group('finds.id')
                 ->limit(1);

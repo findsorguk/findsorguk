@@ -11,11 +11,10 @@
  * </code>
  * 
  * @category Pas
- * @package Pas_View
- * @subpackage Helper
- * @license GNU
+ * @package Pas_View_Helper
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @copyright Daniel Pett
- * @author Daniel Pett
  * @version 1
  * @since 2/2/12
  * @uses viewHelper Pas_View_Helper extends Zend_View_Helper_Abstract

@@ -1,5 +1,6 @@
 <?php
-/**
+/** Parent class for all XML-generating classes for the OAI repo
+ * 
  * @package OaiPmhRepository
  * @subpackage Libraries
  * @author John Flatness, Yu-Hsun Lin
@@ -7,14 +8,11 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-/**
- * Parent class for all XML-generating classes.
- *
- * @package OaiPmhRepository
- * @subpackage Libraries
- */
-class Pas_OaiPmhRepository_XmlGeneratorAbstract
-{
+class Pas_OaiPmhRepository_XmlGeneratorAbstract {
+    
+    /** the xml namespace
+     * 
+     */
     const XML_SCHEMA_NAMESPACE_URI = 'http://www.w3.org/2001/XMLSchema-instance';
 
     /**
@@ -35,12 +33,10 @@ class Pas_OaiPmhRepository_XmlGeneratorAbstract
      * @param array $children Child names and values, as name => value.
      * @return DomElement The new tree of elements.
      */
-    protected function createElementWithChildren($parent, $name, $children)
-    {
+    protected function createElementWithChildren($parent, $name, $children) {
         $document = $this->document;
         $newElement = $document->createElement($name);
-        foreach($children as $tag => $value)
-        {
+        foreach($children as $tag => $value) {
             $newElement->appendChild($document->createElement($tag, $value));
         }
         $parent->appendChild($newElement);
@@ -57,8 +53,7 @@ class Pas_OaiPmhRepository_XmlGeneratorAbstract
      * @param string $text Text of the new element.
      * @return DomElement The new element.
      */
-    protected function appendNewElement($parent, $name, $text = null)
-    {
+    protected function appendNewElement($parent, $name, $text = null) {
         $document = $this->document;
         $newElement = $document->createElement($name);
         // Use a TextNode, causes escaping of input text

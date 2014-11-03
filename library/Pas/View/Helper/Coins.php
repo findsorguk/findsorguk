@@ -106,7 +106,7 @@ class Pas_View_Helper_Coins extends Zend_View_Helper_Abstract {
      * @access protected
      * @var string
      */
-    protected $_rights = 'CC BY-SA';
+    protected $_rights = 'CC BY';
     
     /** Language of choice - English by default
      * @access protected

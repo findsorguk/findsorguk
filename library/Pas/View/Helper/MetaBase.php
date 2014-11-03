@@ -247,8 +247,8 @@ class Pas_View_Helper_MetaBase extends Zend_View_Helper_Abstract {
                 ->headMeta()->setProperty('twitter:image:width', $this->getImageWidth())
                 ->headMeta()->setProperty('twitter:image:height', $this->getImageHeight())
                 ->headMeta()->setProperty('twitter:image:src', $this->getImage())
-                ->headMeta()->setProperty('dc.rights','Creative Commons BY-SA')
-                ->headMeta('CC BY-SA','dc.rights');
+                ->headMeta()->setProperty('dc.rights','Creative Commons BY')
+                ->headMeta('CC BY','dc.rights');
         $this->view->headRdf($this->view->curUrl(),'og:url');
         $this->view->headRdf($this->getDescription(),'og:description');
         $this->view->headRdf($this->getImage(),'og:image');
