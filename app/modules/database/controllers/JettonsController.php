@@ -46,7 +46,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
         $this->getFlash()->addMessage('There is not a root action for jettons');
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
-        $this->redirect(Zend_Controller_Request_Http::getServer('referer'));
+        $this->redirect(self::REDIRECT);
     }
 
     /** Add jetton data

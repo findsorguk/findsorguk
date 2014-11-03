@@ -48,7 +48,7 @@ class Pas_View_Helper_Treasuremenu
         'module' => 'treasure',
         'controller' => 'advice',
         'action' => 'legal',
-        'slug' => $t['slug']), 't', true);
+        'slug' => $t['slug']), 'treasure', true);
         $html .= '" title="Read more">';
         $html .= $t['menuTitle'];
         $html .= '</a></li>';

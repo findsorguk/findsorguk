@@ -51,7 +51,7 @@ class LoginForm extends Pas_Form {
 
         $this->addElement($hash);
 
-	$submit = $this->addElement('submit', 'submit' , array('label' => 'Login...'));
+	$submit = $this->addElement('submit', 'submit' , array('label' => 'Login'));
 
 	$this->addDisplayGroup(array('username','password','submit'), 'details');
 

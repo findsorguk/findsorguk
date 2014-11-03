@@ -1,8 +1,9 @@
 <?php
+
 /** Form for creating and editing organisational data
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $form = new OrganisationForm();
@@ -20,126 +21,125 @@
  * @uses OsCounties
  * @uses People
  */
-class OrganisationForm extends Pas_Form {
+class OrganisationForm extends Pas_Form
+{
 
     /** The constructor
      * @access public
      * @param array $options
      * @return void
      */
-    public function __construct(array $options = null) {
+    public function __construct(array $options = null)
+    {
 
-	$countries = new Countries();
-	$countries_options = $countries->getOptions();
-        
-	$counties = new OsCounties();
-	$counties_options = $counties->getCountiesID();
-	
-        $peoples = new People();
-	$people_options = $peoples->getNames2();
+        $countries = new Countries();
+        $countries_options = $countries->getOptions();
 
-	parent::__construct($options);
-	
-	$this->setName('organisation');
+        $counties = new OsCounties();
+        $counties_options = $counties->getCountiesID();
 
-	$name = new Zend_Form_Element_Text('name');
-	$name->setLabel('Organisation name: ')
-		->setRequired(true)
-		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size',60)
-		->addErrorMessage('Please enter an organisation name: ')
-		->addValidator('Alnum',false, array('allowWhiteSpace' => true));
+        parent::__construct($options);
 
-	$website = new Zend_Form_Element_Text('website');
-	$website->setLabel('Organisation website: ')
-		->addFilters(array('StripTags','StringTrim'))
-		->addValidator(new Pas_Validate_Url())
-		->addErrorMessage('Please enter a valid URL')
-		->setAttrib('size',60);
+        $this->setName('organisation');
 
-	$address1 = new Zend_Form_Element_Text('address1');
-	$address1->setLabel('Address line one: ')
-		->addFilters(array('StripTags','StringTrim', 'Purifier'))
-		->setAttrib('size',200);
+        $name = new Zend_Form_Element_Text('name');
+        $name->setLabel('Organisation name: ')
+            ->setRequired(true)
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->setAttrib('size', 60)
+            ->addErrorMessage('Please enter an organisation name')
+            ->addValidator('Alnum', false, array('allowWhiteSpace' => true));
 
-	$address2 = new Zend_Form_Element_Text('address2');
-	$address2->setLabel('Address line two: ')
-		->addFilters(array('StripTags','StringTrim', 'Purifier'))
-		->setAttrib('size',200);
+        $website = new Zend_Form_Element_Text('website');
+        $website->setLabel('Organisation website: ')
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->addValidator(new Pas_Validate_Url())
+            ->addErrorMessage('Please enter a valid URL')
+            ->setAttrib('size', 60);
 
-	$address3 = new Zend_Form_Element_Text('address3');
-	$address3->setLabel('Address line three: ')
-		->addFilters(array('StripTags','StringTrim', 'Purifier'))
-		->setAttrib('size',200);
+        $address1 = new Zend_Form_Element_Text('address1');
+        $address1->setLabel('Address line one: ')
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
+            ->setAttrib('size', 200);
 
-	$address = new Zend_Form_Element_Text('address');
-	$address->setLabel('Full address: ')
-		->addFilters(array('StripTags','StringTrim', 'Purifier'))
-		->setAttrib('size',200);
+        $address2 = new Zend_Form_Element_Text('address2');
+        $address2->setLabel('Address line two: ')
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
+            ->setAttrib('size', 200);
 
-	$town_city = new Zend_Form_Element_Text('town_city');
-	$town_city->setLabel('Town or city: ')
-		->addFilters(array('StripTags','StringTrim', 'Purifier'))
-		->setAttrib('size',60);
+        $address3 = new Zend_Form_Element_Text('address3');
+        $address3->setLabel('Address line three: ')
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
+            ->setAttrib('size', 200);
 
-	$county = new Zend_Form_Element_Select('county');
-	$county->setLabel('County: ')
-		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->addMultiOptions(array(null => 'Please choose a county',
-		'Valid counties' => $counties_options))
-		->addValidator('InArray', false, array(array_keys($counties_options)));
+        $address = new Zend_Form_Element_Text('address');
+        $address->setLabel('Full address: ')
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
+            ->setAttrib('size', 200);
 
-	$country = new Zend_Form_Element_Select('country');
-	$country->SetLabel('Country: ')
-		->setRequired(true)
-		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->setValue('GB')
-		->addFilters(array('StripTags','StringTrim'))
-		->addMultiOptions(array(null => 'Please choose a country', 
-		'Valid countries' => $countries_options))
-		->addValidator('InArray', false, array(array_keys($countries_options)));
+        $town_city = new Zend_Form_Element_Text('town_city');
+        $town_city->setLabel('Town or city: ')
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
+            ->setAttrib('size', 60);
 
-	$postcode = new Zend_Form_Element_Text('postcode');
-	$postcode->setLabel('Postcode: ')
-		->addFilters(array('StripTags','StringTrim', 'Purifier'))
-		->addValidator('StringLength', false, array(1,10))
-		->addValidator('ValidPostCode')
-		->addErrorMessage('Please enter a valid postcode')
-		->setAttrib('size',10);
+        $county = new Zend_Form_Element_Select('county');
+        $county->setLabel('County: ')
+            ->setRequired(true)
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+            ->addMultiOptions(array(null => 'Please choose a county',
+                'Valid counties' => $counties_options))
+            ->addValidator('InArray', false, array(array_keys($counties_options)));
 
-	$contactperson = new Zend_Form_Element_Text('contact');
-	$contactperson->setLabel('Organisation\'s lead contact: ')
-		->addFilters(array('StripTags','StringTrim', 'Purifier'))
-		->addValidator('StringLength', false, array(1,200))
-		->setAttrib('size',50);
+        $country = new Zend_Form_Element_Select('country');
+        $country->SetLabel('Country: ')
+            ->setRequired(true)
+            ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+            ->setValue('GB')
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->addMultiOptions(array(null => 'Please choose a country',
+                'Valid countries' => $countries_options))
+            ->addValidator('InArray', false, array(array_keys($countries_options)));
 
-	$contactpersonID = new Zend_Form_Element_Hidden('contactpersonID');
-	$contactpersonID->addFilters(array('StripTags','StringTrim'));
+        $postcode = new Zend_Form_Element_Text('postcode');
+        $postcode->setLabel('Postcode: ')
+            ->setRequired(true)
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
+            ->addValidator('StringLength', false, array(1, 10))
+            ->addValidator('ValidPostCode')
+            ->addErrorMessage('Please enter a valid postcode')
+            ->setAttrib('size', 10);
 
-	$submit = $this->addElement('submit', 'submit' , array('label' => 'Login...'));
-	
-	$hash = new Zend_Form_Element_Hash('csrf');
-	$hash->setValue($this->_salt)->setTimeout(4800);
-	$this->addElements(array(
-            $name, $website, $address1, 
-            $address2, $address3, $address, 
-            $town_city, $county, $country, 
-            $postcode, $contactperson, $contactpersonID, 
-            $hash
-	));
+        $contactperson = new Zend_Form_Element_Text('contact');
+        $contactperson->setLabel('Lead contact: ')
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
+            ->addValidator('StringLength', false, array(1, 200))
+            ->setAttrib('size', 50);
 
-	$this->addDisplayGroup(array(
-            'name', 'website', 'address1',
-            'address2', 'address3', 'address',
-            'town_city', 'county', 'country',
-            'postcode','contact','contactpersonID'),
-	 'details');
-	$this->details->setLegend('Organisation details: ');
-	
+        $contactpersonID = new Zend_Form_Element_Hidden('contactpersonID');
+        $contactpersonID->addFilters(array('StripTags', 'StringTrim'));
+
+        $submit = $this->addElement('submit', 'submit', array('label' => 'Login...'));
+
+        $this->addElements(array(
+            $name, $website, $address1,
+            $address2, $address3, $address,
+            $town_city, $county, $country,
+            $postcode, $contactperson, $contactpersonID,
+            $submit
+        ));
+
+        $this->addDisplayGroup(array(
+                'name', 'website', 'address1',
+                'address2', 'address3', 'address',
+                'town_city', 'county', 'country',
+                'postcode', 'contact', 'contactpersonID'),
+            'details');
+        $this->details->setLegend('Organisation details: ');
+
         $this->addDisplayGroup(array('submit'), 'buttons');
-	
+
         parent::init();
-        
+
     }
 }

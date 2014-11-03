@@ -10,40 +10,25 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>
-                Period
-            </th>
+            <th>Period</th>
 
             <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
-                <th>
-                    Ruler
-                </th>
+                <th>Ruler</th>
             <?php endif; ?>
 
-            <th>
-                Denomination
-            </th>
+            <th>Denomination</th>
 
             <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
-                <th>
-                    Mint
-                </th>
+                <th>Mint</th>
             <?php endif; ?>
             <?php if (in_array('IRON AGE', $broadperiodarray)) : ?>
-                <th>
-                    Geographic area
-                </th>
+                <th>Geog. area</th>
             <?php endif; ?>
 
-            <th>
-                Date from
-            </th>
-            <th>
-                Date to
-            </th>
-            <th>
-                Quantity
-            </th>
+            <th>From</th>
+            <th>To</th>
+            <th>Quantity</th>
+            <th></th>
         </tr>
         </thead>
 
@@ -107,6 +92,7 @@
                 <td>
                     <?php echo $coinrow['quantity']; ?>
                 </td>
+                <td>
                 <?php
                 echo $this->editDeleteSummary()
                     ->setID($coinrow['summaryID'])
@@ -114,6 +100,7 @@
                     ->setCreatedBy($coinrow['createdBy'])
                     ->setInstitution($coinrow['institution']);
                 ?>
+                </td>
             </tr>
         <?php endforeach; ?>
 

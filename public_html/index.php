@@ -33,7 +33,7 @@ ini_set('upload_max_filesize','16M');
 // directory setup and class loading
 set_include_path(
         '.' . PATH_SEPARATOR . '../library/'
-        . PATH_SEPARATOR . '../library/Zend/'
+        . PATH_SEPARATOR . '../library/Zend/library'
         . PATH_SEPARATOR . '../library/ZendX/'
         . PATH_SEPARATOR . '../library/Pas/'
         . PATH_SEPARATOR . '../library/HTMLPurifier/library/'

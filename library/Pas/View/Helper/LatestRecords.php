@@ -340,14 +340,14 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      */
     public function buildHtml( array $data ) {
         $html = '';
-//        if (array_key_exists( 'images', $data )) {
-//            $html .= '<h3 class="lead">Latest examples recorded with images</h3>';
-//            $html .= '<p>We have recorded ' . number_format($data['numberFound']);
-//            $html .= ' examples.</p>';
-//            $html .= '<div class="row-fluid ">';
-////            $html .= $this->view->partialLoop('partials/database/imagesPaged.phtml', $data['images']);
-//            $html .= '</div>';
-//        }
+        if (array_key_exists( 'images', $data )) {
+            $html .= '<h3 class="lead">Latest examples recorded with images</h3>';
+            $html .= '<p>We have recorded ' . number_format($data['numberFound']);
+            $html .= ' examples.</p>';
+            $html .= '<div class="row-fluid ">';
+//            $html .= $this->view->partialLoop('partials/database/imagesPaged.phtml', $data['images']);
+            $html .= '</div>';
+        }
         return $html;
     }
 

@@ -1,30 +1,65 @@
-<div class="sidebar-nav col-md-3" >
-<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
-	<li <?php echo $this->currentPage()->active('romancoins','index','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins'),'default', true);?>">Introduction</a></li>
-	<li <?php echo $this->currentPage()->active('romancoins','articles','index');?>><a href="<?php echo $this->url(array('controller'=>'romancoins','action'=>'articles'),'default',true);?>" title="View introductory articles">General articles</a></li>
-	<li <?php echo $this->currentPage()->active('romancoins','emperors','index');?>><a href="<?php echo $this->url(array('controller'=>'romancoins','action'=>'emperors'),'default',true);?>" title="View our guide to Roman emperors issuing coins">Emperor guide</a></li>
-	<li <?php echo $this->currentPage()->active('romancoins','dynasties','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=> 'dynasties'),'default', true);?>">Dynasties</a></li>
-	<li <?php echo $this->currentPage()->active('romancoins','denominations','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'denominations'),'default', true);?>">Denominations</a></li>
-	<li <?php echo $this->currentPage()->active('romancoins','mints','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'mints'),'default', true);?>">Active mints</a></li>
-	<li <?php echo $this->currentPage()->active('romancoins','reversetypes','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'reversetypes'),'default', true);?>">Fourth Century reverses</a></li>
-	<li <?php echo $this->currentPage()->active('romancoins','reeceperiods','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'reeceperiods'),'default', true);?>">Reece Periods</a></li>
-	<li <?php echo $this->currentPage()->active('romancoins','personifications','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'personifications'),'default', true);?>" title="Read about personifications found on the reverse of coins">Reverse personifications</a></li>
-	<li <?php echo $this->currentPage()->active('romancoins','moneyers','index');?>><a href="<?php echo $this->url(array('module'=>'romancoins','controller'=>'moneyers'),'default', true);?>" title="Learn more about the moneyers of Republican Rome">Republican moneyers</a></li>
-	<li><a href="<?php echo $this->url(array('module'=>'database','controller'=>'search', 'action' => 'romannumismatics'),'default', true);?>" title="Search our coins">Search</a></li>
-<li><a href="#"><i class="icon-folder-open"></i>Other numismatic periods</a>
-	<ul class="nav nav-stacked nav-pills menuindent">
-	<li><a href="<?php echo $this->url(array('controller'=>'byzantinecoins','action'=>'index'),'default', true);?>">Byzantine coins</a></li>
-	<li><a href="<?php echo $this->url(array('controller'=>'ironagecoins','action'=>'index'),'default', true);?>">Iron Age coins</a></li>
-	<li><a href="<?php echo $this->url(array('controller'=>'earlymedievalcoins','action'=>'index'),'default', true);?>">Early Medieval coins</a></li>
-	<li><a href="<?php echo $this->url(array('controller'=>'greekromancoins','action'=>'index'),'default', true);?>">Greek &amp; Roman coins</a></li>
-	<li><a href="<?php echo $this->url(array('controller'=>'medievalcoins','action'=>'index'),'default', true);?>">Medieval coins</a></li>
-	<li><a href="<?php echo $this->url(array('controller'=>'postmedievalcoins','action'=>'index'),'default', true);?>">Post Medieval  coins</a></li>
-	</ul>
-</li>
-</ul>
+<div class="sidebar-nav col-md-3">
+    <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('romancoins', 'index', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'romancoins'), 'default', true); ?>">Introduction</a></li>
+        <li <?php echo $this->currentPage()->active('romancoins', 'articles', 'index'); ?>><a
+                href="<?php echo $this->url(array('controller' => 'romancoins', 'action' => 'articles'), 'default', true); ?>"
+                title="View introductory articles">General articles</a></li>
+        <li <?php echo $this->currentPage()->active('romancoins', 'emperors', 'index'); ?>><a
+                href="<?php echo $this->url(array('controller' => 'romancoins', 'action' => 'emperors'), 'default', true); ?>"
+                title="View our guide to Roman emperors issuing coins">Emperor guide</a></li>
+        <li <?php echo $this->currentPage()->active('romancoins', 'dynasties', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'dynasties'), 'default', true); ?>">Dynasties</a>
+        </li>
+        <li <?php echo $this->currentPage()->active('romancoins', 'denominations', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'denominations'), 'default', true); ?>">Denominations</a>
+        </li>
+        <li <?php echo $this->currentPage()->active('romancoins', 'mints', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'mints'), 'default', true); ?>">Active
+                mints</a></li>
+        <li <?php echo $this->currentPage()->active('romancoins', 'reversetypes', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'reversetypes'), 'default', true); ?>">Fourth
+                Century reverses</a></li>
+        <li <?php echo $this->currentPage()->active('romancoins', 'reeceperiods', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'reeceperiods'), 'default', true); ?>">Reece
+                Periods</a></li>
+        <li <?php echo $this->currentPage()->active('romancoins', 'personifications', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'personifications'), 'default', true); ?>"
+                title="Read about personifications found on the reverse of coins">Reverse personifications</a></li>
+        <li <?php echo $this->currentPage()->active('romancoins', 'moneyers', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'moneyers'), 'default', true); ?>"
+                title="Learn more about the moneyers of Republican Rome">Republican moneyers</a></li>
+        <li>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'romannumismatics'), 'default', true); ?>"
+               title="Search our coins">Search</a></li>
+        <li><a href="#"><i class="icon-folder-open"></i>Other numismatic periods</a>
+            <ul class="nav nav-stacked nav-pills menuindent">
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'byzantinecoins', 'action' => 'index'), 'default', true); ?>">Byzantine
+                        coins</a></li>
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'ironagecoins', 'action' => 'index'), 'default', true); ?>">Iron
+                        Age coins</a></li>
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'earlymedievalcoins', 'action' => 'index'), 'default', true); ?>">Early
+                        Medieval coins</a></li>
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'greekromancoins', 'action' => 'index'), 'default', true); ?>">Greek
+                        &amp; Roman coins</a></li>
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'medievalcoins', 'action' => 'index'), 'default', true); ?>">Medieval
+                        coins</a></li>
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'postmedievalcoins', 'action' => 'index'), 'default', true); ?>">Post
+                        Medieval coins</a></li>
+            </ul>
+        </li>
+    </ul>
 
-<h3 class="lead">Enhanced by</h3>
+    <h3 class="lead">Enhanced by</h3>
 
-<a href="http://nomisma.org" title="The Nomisma project"><img src="<?php echo $this->baseUrl();?>/assets/logos/nomisma.png" height="48" width="48" alt="The Nomisma logo"/></a>
- 
+    <a href="http://nomisma.org" title="The Nomisma project"><img
+            src="<?php echo $this->baseUrl(); ?>/assets/logos/nomisma.png" height="48" width="48"
+            alt="The Nomisma logo"/></a>
+
 </div>

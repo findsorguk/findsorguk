@@ -14,4 +14,11 @@
         } else {
             echo 'N/A';
         } ?></td>
+    <td>
+        <div class="btn-group"><a class="btn btn-mini btn-default"
+                                  href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
+                                  title="Edit details for <?php echo $this->title; ?>">Edit</a><a
+                class="btn btn-mini btn-warning" href="#" title="Delete this project" class="delete">Delete</a>
+    </td>
+    </div>
 </tr>

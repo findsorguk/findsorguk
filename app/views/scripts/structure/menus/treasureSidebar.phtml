@@ -9,7 +9,7 @@
         
         <li <?php if($controller == 'reports') { echo 'class="expandfirst "';};?> >
             <a href="#"><i class="icon-folder-open"></i>Treasure Reports</a>
-            <ul class="nav nav-pills nav-stacked menuindent"><?php echo $this->TreasureReportsMenu();?></ul></li>
+            <ul class="nav nav-pills nav-stacked menuindent"><?php echo $this->treasureReportsMenu();?></ul></li>
         
         <li <?php echo $this->currentPage()->active('treasure','cases','index');?>>
             <a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'cases'),'default',true);?>" title="Case history">Cases</a></li>
