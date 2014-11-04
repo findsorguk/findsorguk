@@ -1,5 +1,4 @@
 <?php
-
 /** A view helper for determining whether a find is within a set distance
  * of a point.
  *
@@ -20,8 +19,7 @@
  * @example path description
  *
  */
-class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
-{
+class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract {
 
     /** The latitude to query
      * @access protected
@@ -45,8 +43,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @access public
      * @return double
      */
-    public function getLat()
-    {
+    public function getLat() {
         return $this->_lat;
     }
 
@@ -54,8 +51,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @access public
      * @return double
      */
-    public function getLon()
-    {
+    public function getLon() {
         return $this->_lon;
     }
 
@@ -63,8 +59,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @access public
      * @return integer
      */
-    public function getDistance()
-    {
+    public function getDistance() {
         return $this->_distance;
     }
 
@@ -72,8 +67,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @access public
      * @param double $_lat
      */
-    public function setLat($_lat)
-    {
+    public function setLat($_lat) {
         $this->_lat = $_lat;
     }
 
@@ -81,8 +75,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @access public
      * @param double $_lon
      */
-    public function setLon($_lon)
-    {
+    public function setLon($_lon) {
         $this->_lon = $_lon;
     }
 
@@ -90,8 +83,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @access public
      * @param integer $_distance
      */
-    public function setDistance($_distance)
-    {
+    public function setDistance($_distance) {
         $this->_distance = $_distance;
     }
 
@@ -102,8 +94,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @param integer $distance
      * @return boolean
      */
-    public function getData($lat, $lon, $distance)
-    {
+    public function getData($lat, $lon, $distance) {
         $smr = new ScheduledMonuments();
         $smrs = $smr->getSMRSNearbyFinds($lat, $lon, $distance);
         if (!empty($smrs)) {
@@ -117,8 +108,8 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_FindsSmr
      */
-    public function findsSmr()
-    {
+    public function findsSmr() {
+        exit;
         return $this;
     }
 
@@ -126,19 +117,18 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function buildHtml()
-    {
+    public function buildHtml() {
         $data = $this->getData($this->get_lat(), $this->get_lon(), $this->get_distance());
         $html = '';
-        if ($data) {
+        if($data){
             $html .= '<h3>Finds within 250 metres of centre of SMR</h3><ul>';
             foreach ($smrs as $s) {
                 $html .= '<li><a href="';
-                $html .= $this->view->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $s['id']), NULL, true);
-                $html .= '" title="View details for ' . $s['old_findID'] . '">';
+                $html .= $this->view->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $s['id']),NULL, true);
+                $html .= '" title="View details for '.$s['old_findID'].'">';
                 $html .= $s['old_findID'];
                 $html .= '</a>';
-                $html .= '-  a ' . $s['objecttype'] . ' from ' . $s['county'] . ' at a distance of ' . number_format(($s['distance'] * 1000), 3) . ' metres.';
+                $html .= '-  a '.$s['objecttype'].' from '.$s['county'].' at a distance of '.number_format(($s['distance']*1000),3).' metres.';
                 $html .= '</li>';
             }
             $html .= '</ul>';
