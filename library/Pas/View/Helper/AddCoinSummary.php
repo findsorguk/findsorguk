@@ -23,8 +23,9 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
      */
     protected $_hoardID;
 
-
-
+    /** The role variable
+     * @var $_role */
+    protected $_role;
     /** Get the user's role
      * @access public
      * @return string

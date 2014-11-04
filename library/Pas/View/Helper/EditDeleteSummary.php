@@ -21,7 +21,7 @@ class Pas_View_Helper_EditDeleteSummary extends Zend_View_Helper_Abstract {
      */
     protected $_hoardID;
 
-
+    protected $_role;
 
     /** Get the user's role
      * @access public

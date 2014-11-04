@@ -41,7 +41,7 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
     protected $_hoardID;
 
 
-
+    protected $_role;
     /** Get the user's role
      * @access public
      * @return string

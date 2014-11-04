@@ -43,6 +43,10 @@ class Pas_View_Helper_UnlinkCoinArtefactContainer extends Zend_View_Helper_Abstr
      */
     protected $_hoardSecuID;
 
+    /** The role of the user
+     * @var  $_role */
+    protected $_role;
+
     /** Get the user's role
      * @access public
      * @return string
