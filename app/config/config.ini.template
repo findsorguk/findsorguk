@@ -31,8 +31,13 @@ solr.slave.host = 81.29.66.141
 solr.slave.port = 8080
 solr.slave.path = /solr/
 
-solr.schema.path = 
-solr.schema.file = 
+;windows
+;solr.schema.path = 'C:\wamp\www\New folder\example\solr\'
+;OSX
+solr.schema.path = '/Library/Tomcat/findsorguk-solr/solr/'
+;Unix
+;solr.schema.path = '/var/solr/'
+solr.schema.file = '/conf/schema.xml'
 
 rest.default = xml
 rest.formats[] = json
@@ -98,9 +103,13 @@ solr.grendel.path =
 solr.slave.host = 
 solr.slave.port = 
 solr.slave.path = 
-
-solr.schema.path = 
-solr.schema.file = 
+;windows
+;solr.schema.path = 'C:\wamp\www\New folder\example\solr\'
+;OSX
+solr.schema.path = '/Library/Tomcat/findsorguk-solr/solr/'
+;Unix
+;solr.schema.path = '/var/solr/'
+solr.schema.file = '/conf/schema.xml'
 
 rest.default = xml
 rest.formats[] = json
