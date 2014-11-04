@@ -15,7 +15,7 @@ echo $this->partial('partials/database/recordh2section.phtml',$this->finds['0'])
 
 
 <?php
-echo $this->partialLoop('partials/database/recorddescriptive.phtml',$this->finds);
+echo $this->partialLoop('partials/database/recordDescriptive.phtml',$this->finds);
 echo $this->partial('partials/database/treasurefinddetails.phtml', $this->finds['0']);
 echo $this->partial('partials/database/temporal.phtml', $this->temporals['0']);
 ?>
@@ -25,7 +25,7 @@ echo $this->partial('partials/database/temporal.phtml', $this->temporals['0']);
 $objectarray = array('coin','COIN','Coin');
 if ((count($this->coins)) && in_Array($this->finds['0']['objecttype'],$objectarray)) { ?>
 <?php if (($this->finds['0']['broadperiod']) == 'Iron Age' ) : ?>
-<?php echo $this->partial('partials/database/ironagedata.phtml', $this->coins['0']) ?>
+<?php echo $this->partial('partials/database/ironageData.phtml', $this->coins['0']) ?>
 <?php endif; ?>
 <?php if (($this->finds['0']['broadperiod']) == 'Byzantine' ) : ?>
 <?php echo $this->partial('partials/database/byzantinedata.phtml', $this->coins['0']) ?>
@@ -60,7 +60,7 @@ if((!count($this->coins)) && in_Array($this->finds['0']['objecttype'],$objectarr
 
 
 <?php if (count($this->rallyfind) > 0) : ?>
-<?php echo $this->partialLoop('partials/database/rallyfind.phtml', $this->rallyfind) ?>
+<?php echo $this->partialLoop('partials/database/rallyFind.phtml', $this->rallyfind) ?>
 <?php endif;?>
 
 
@@ -96,5 +96,5 @@ if (count($this->refs) > 0) : ?>
 <?php endif;?>
 </div>
 
-<?php echo $this->partial('partials/database/recordaudit.phtml',$this->finds['0']);?>
+<?php echo $this->partial('partials/database/recordAudit.phtml',$this->finds['0']);?>
 </div>

@@ -121,7 +121,7 @@
     <!-- Rally data -->
     <?php
     if (count($this->rallyfind)) {
-        echo $this->partial('partials/database/hoards/rallyfind.phtml', $this->rallyfind['0']);
+        echo $this->partial('partials/database/hoards/rallyFind.phtml', $this->rallyfind['0']);
     }
     ?>
     <!-- Personal data -->
@@ -246,7 +246,7 @@
 
 <!-- Start of the Audit section -->
 <div class="row-fluid" id="audit">
-    <?php echo $this->partial('partials/database/recordaudit.phtml', $this->hoards); ?>
+    <?php echo $this->partial('partials/database/recordAudit.phtml', $this->hoards); ?>
     <?php echo $this->auditLogs()->setId($this->hoards['id']); ?>
 </div>
 <!-- end of audit section -->

@@ -13,7 +13,7 @@
     </ul>
 </div>
 <!--  End the previous next row -->
-<?php //Zend_Debug::dump($this->finds);?>
+<?php Zend_Debug::dump($this->finds);?>
 
 <div typeof="crm:E22_Man-Made_Object" about="<?php echo $this->curUrl(); ?>" class="record">
 <!--  Start of main body of record -->
@@ -73,9 +73,7 @@
 
 
         <!-- Other references -->
-        <?php
-        echo $this->partial('partials/database/otherRefs.phtml', $this->finds[0]);
-        ?>
+        <?php echo $this->partial('partials/database/otherRefs.phtml', $this->finds[0]); ?>
 
         <!-- Finds materials -->
         <?php
@@ -293,9 +291,7 @@
 
 
             <ul>
-                <?php
-                echo $this->partialLoop('partials/database/comments.phtml',
-                    $this->comments);
+                <?php echo $this->partialLoop('partials/database/comments.phtml', $this->comments);
                 ?>
             </ul>
         <?php endif; ?>
@@ -304,7 +300,7 @@
     <!-- Start of commentary section -->
     <div id="commentform">
         <div>
-            <h2>
+            <h2 class="lead">
                 Comment on this artefact's record
             </h2>
 
@@ -313,17 +309,7 @@
                     Your comment will be checked before being posted. We also check for spam using
                     <a href="http://akismet.com/" title="The Aksimet anti-spam detection service">akismet</a>.
                 </p>
-
-                <?php
-                $auth = Zend_Registry::get('auth');
-                if ($auth->hasIdentity()) {
-                    $user = $auth->getIdentity();
-                    $this->form->comment_author->setValue($user->fullname);
-                    $this->form->comment_author_email->setValue($user->email);
-                }
-                echo $this->form;
-                ?>
-
+                <?php echo $this->form; ?>
             </div>
         </div>
     </div>
@@ -334,7 +320,7 @@
 
 <!-- Start of the Audit section -->
 <div class="row-fluid" id="audit">
-    <?php echo $this->partial('partials/database/recordaudit.phtml', $this->finds[0]); ?>
+    <?php echo $this->partial('partials/database/recordAudit.phtml', $this->finds[0]); ?>
     <?php echo $this->auditLogs()->setId($this->finds[0]['id']); ?>
 </div>
 <!-- end of audit section -->

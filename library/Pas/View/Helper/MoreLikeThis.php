@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MoreLikeThis view helper for compiling an html render of 4 objects that are similar to
  * the current one being viewed.
@@ -61,16 +62,18 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access protected
      * @return string
      */
-    public function getQuery() {
+    public function getQuery()
+    {
         return $this->_query;
     }
 
     /** Set the query
      * @access public
-     * @param  string  $query
+     * @param  string $query
      * @return \Pas_View_Helper_MoreLikeThis
      */
-    public function setQuery( $query ) {
+    public function setQuery($query)
+    {
         $this->_query = $query;
         return $this;
     }
@@ -79,16 +82,18 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         $this->_config = Zend_Registry::get('config');
         return $this->_config;
     }
 
     /** Get the cache object
-    /** Construct all the objects
+     * /** Construct all the objects
      *
      */
-    public function getCache()  {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
@@ -98,7 +103,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @todo might need deprecating as I think this is set elsewhere
      * @return type
      */
-    public function getSolrConfig() {
+    public function getSolrConfig()
+    {
         $this->_solrConfig = $this->_config->solr->toArray();
         return $this->_solrConfig;
     }
@@ -107,7 +113,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getSolr() {
+    public function getSolr()
+    {
         $this->_solr = new Pas_Solr_MoreLikeThis();
         return $this->_solr;
     }
@@ -116,7 +123,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return boolean
      */
-    public function getRole()  {
+    public function getRole()
+    {
         $user = new Pas_User_Details();
         $person = $user->getPerson();
         if ($person) {
@@ -141,8 +149,9 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getKey() {
-        $this->_key = md5( $this->_keyBase . $this->getQuery() . $this->getRole());
+    public function getKey()
+    {
+        $this->_key = md5($this->_keyBase . $this->getQuery() . $this->getRole());
         return $this->_key;
     }
 
@@ -150,7 +159,8 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_MoreLikeThis
      */
-    public function moreLikeThis() {
+    public function moreLikeThis()
+    {
         return $this;
     }
 
@@ -158,74 +168,80 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
      * @access public
      * @return boolean
      */
-    public function getData() {
-       if (!($this->getCache()->test($this->getKey()))) {
-           $mlt = $this->getSolr();
-           $mlt->setFields(array('objecttype','broadperiod','description','notes'));
-           $mlt->setQuery($this->getQuery());
-           $solrResponse =  $mlt->executeQuery();
-           $this->getCache()->save($solrResponse);
+    public function getData()
+    {
+        if (!($this->getCache()->test($this->getKey()))) {
+            $mlt = $this->getSolr();
+            $mlt->setFields(array('objecttype', 'broadperiod', 'description', 'notes'));
+            $mlt->setQuery($this->getQuery());
+            $solrResponse = $mlt->executeQuery();
+            $this->getCache()->save($solrResponse);
 
-       } else {
-           $solrResponse = $this->_cache->load($this->getKey() );
-       }
-       return $solrResponse;
+        } else {
+            $solrResponse = $this->_cache->load($this->getKey());
+        }
+        return $solrResponse;
     }
 
     /** magic method to render string
      * @access public
      * @return type
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildHtml();
     }
 
     /** Build the html
      * @access public
-     * @param  array  $solrResponse
+     * @param  array $solrResponse
      * @return string
      */
-    public function buildHtml( ) {
+    public function buildHtml()
+    {
+        $html = '';
         $solrResponse = $this->getData();
-        $html = '<div class="row-fluid">';
-        if(array_key_exists('results', $solrResponse)) {
-        $html .='<h3 class="lead">Similar objects</h3>';
-        $data = $solrResponse['results'];
-        foreach ($data as $document) {
-            if (($document->thumbnail)) {
-                $file = $this->view->baseUrl() . '/images/thumbnails/' .  $document->thumbnail . '.jpg';
-                if(file_exists($file)) {
-                    $html .= '<img class="flow img-polaroid" src="';
-                    $html .= $file;
-                    $html .= ' />';
-                } else {
-                    $html .= '<img class="flow img-circle" src="';
+        if ($solrResponse) {
+            $html .= '<div class="row-fluid">';
+            if (array_key_exists('results', $solrResponse)) {
+                $html .= '<h3 class="lead">Similar objects</h3>';
+                $data = $solrResponse['results'];
+                foreach ($data as $document) {
+                    if (($document->thumbnail)) {
+                        $file = $this->view->baseUrl() . '/images/thumbnails/' . $document->thumbnail . '.jpg';
+                        if (file_exists($file)) {
+                            $html .= '<img class="flow img-polaroid" src="';
+                            $html .= $file;
+                            $html .= ' />';
+                        } else {
+                            $html .= '<img class="flow img-circle" src="';
+                            $html .= $this->view->baseUrl();
+                            $html .= '/assets/gravatar.png" />';
+                        }
+                    } else {
+                        $html .= '<img class="flow img-circle" src="';
+                        $html .= $this->view->baseUrl();
+                        $html .= '/assets/gravatar.png" />';
+                    }
+                    $html .= '<div class="caption">';
+                    $html .= '<p>Find number: ';
+                    $html .= '<a href="';
                     $html .= $this->view->baseUrl();
-                    $html .= '/assets/gravatar.png" />';
+                    $html .= '/database/artefacts/record/id/';
+                    $html .= $document->id . '">';
+                    $html .= $document->old_findID;
+                    $html .= '</a><br />Object type: ' . $document->objecttype;
+                    $html .= '<br />Broadperiod: ' . $document->broadperiod;
+                    $html .= '<br/>';
+                    $html .= $this->view->ellipsisString()->setString($document->description)->setMax(150);
+                    $html .= '<br />Workflow: ';
+                    $html .= $this->view->workflowStatus()->setWorkflow($document->workflow);
+                    $html .= $this->view->workflow()->setWorkflow($document->workflow);
+                    $html .= '</p>';
+                    $html .= '</div>';
                 }
-            } else {
-                $html .= '<img class="flow img-circle" src="';
-                $html .= $this->view->baseUrl();
-                $html .= '/assets/gravatar.png" />';
-            }
-                $html .= '<div class="caption">';
-                $html .= '<p>Find number: ';
-                $html .= '<a href="';
-                $html .= $this->view->baseUrl();
-                $html .= '/database/artefacts/record/id/';
-                $html .= $document->id . '">';
-                $html .= $document->old_findID;
-                $html .= '</a><br />Object type: ' . $document->objecttype;
-                $html .= '<br />Broadperiod: ' . $document->broadperiod;
-                $html .= '<br/>';
-                $html .= $this->view->ellipsisString()->setString($document->description)->setMax(150);
-                $html .= '<br />Workflow: ';
-                $html .= $this->view->workflowStatus()->setWorkflow($document->workflow);
-                $html .= $this->view->workflow()->setWorkflow($document->workflow);
-                $html .= '</p>';
                 $html .= '</div>';
-        }
-        $html .= '</div>';
+            }
         }
         return $html;
     }

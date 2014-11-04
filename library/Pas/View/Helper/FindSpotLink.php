@@ -290,6 +290,8 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
         } elseif (in_array($this->getRole(),$this->_recorders)
                 && $institution == 'PUBLIC') {
             $allowed = true;
+        } else {
+            $allowed = false;
         }
         return $allowed;
     }

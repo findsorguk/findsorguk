@@ -1,9 +1,9 @@
 <h4 class="lead">Audit data</h4>
-<p>Created: <span property="dc:created" datatype="xsd:datetime" content="<?php echo $this->created;?>">
-<?php echo $this->timeAgoInWords($this->created);?></span>
-<?php if(!is_null($this->updated)): ?>
-<br />
-<span property="dc:modified" datatype="xsd:datetime" content="<?php echo $this->updated;?>">
-Updated: <?php echo $this->timeAgoInWords($this->updated);?></span>
-<?php endif;?> 
+<p>Created: <span property="dc:created" datatype="xsd:datetime" content="<?php echo $this->created; ?>">
+<?php echo $this->timeAgoInWords($this->created); ?></span>
+    <?php if (!is_null($this->updated)): ?>
+        <br/>
+        <span property="dc:modified" datatype="xsd:datetime" content="<?php echo $this->updated; ?>">
+Updated: <?php echo $this->timeAgoInWords($this->updated); ?></span>
+    <?php endif; ?>
 </p>
