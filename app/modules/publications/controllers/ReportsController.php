@@ -45,6 +45,8 @@ class Publications_ReportsController extends Pas_Controller_Action_Admin {
      */ 
     public function annualAction(){
         //Magic in view
+        $content = new Content();
+        $this->view->contents = $content->getContent('reports', $this->_getParam('slug'));
     }
 
     /** Render treasure report pages
@@ -53,5 +55,7 @@ class Publications_ReportsController extends Pas_Controller_Action_Admin {
      */
     public function treasureAction() {
         //Magic in view
+        $content = new Content();
+        $this->view->contents = $content->getContent('treports', $this->_getParam('slug'));
     }
 }
