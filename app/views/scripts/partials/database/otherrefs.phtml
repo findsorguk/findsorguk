@@ -4,16 +4,16 @@
     <h4 class="lead">Other reference numbers</h4>
     <p>
         <?php if (isset($this->smr_ref) || ($this->smr_ref != '')): ?>
-            SMR reference number: <?php echo $this->escape($this->smr_ref); ?><br/>
+            SMR reference number: <?php echo $this->smr_ref; ?><br/>
         <?php endif; ?>
         <?php if (isset($this->other_ref)): ?>
-            Other reference: <?php echo $this->escape($this->other_ref); ?><br/>
+            Other reference: <?php echo $this->other_ref; ?><br/>
         <?php endif; ?>
         <?php if (isset($this->treasureID)): ?>
-            Treasure case number: <?php echo $this->escape($this->treasureID); ?><br/>
+            Treasure case number: <?php echo $this->treasureID; ?><br/>
         <?php endif; ?>
         <?php if (isset($this->musaccno)): ?>
-            Museum accession number: <?php echo $this->escape($this->musaccno); ?>
+            Museum accession number: <?php echo $this->musaccno; ?>
         <?php endif; ?>
     </p>
 <?php endif; ?>
