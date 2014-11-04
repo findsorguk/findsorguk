@@ -177,7 +177,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
             'denominations', 'rulers', 'surfaces',
             'mints', 'objects', 'manufactures',
             'workflows', 'notes', 'methods',
-            'preservations');
+            'preservations', 'weartypes');
         $base = $this->view->serverUrl() . '/datalabs/terminology/';
         $vocab3 = sort($vocab);
         $vocab2 = null;
@@ -1008,6 +1008,29 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
             $this->view->denominations = $denoms;
         } else {
             $this->view->denominations = $denomsList;
+        }
+    }
+
+    /** A list of wear types
+     * @access public
+     * @return void
+     */
+    public function weartypesAction()
+    {
+        $wear = new WearTypes();
+        $this->view->wear = $wear->getWearTypesAdmin();
+    }
+
+    /** A wear type individual record
+     * @access public
+     */
+    public function weartypeAction()
+    {
+        if($this->_getParam('id', false)) {
+            $wear = new WearTypes();
+            $this->view->wear = $wear->getWearType($this->_getParam('id'));
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 }

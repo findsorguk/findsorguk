@@ -19,7 +19,7 @@
  * @since 30 September 2011
  * @uses Zend_View_Helper_Url
  * @author Daniel Pett <dpett at britishmuseum.org>
- * @example /app/views/scripts/partials/database/smrrecord.phtml 
+ * @example /app/views/scripts/partials/database/smrRecord.phtml
  * 
  */
 class Pas_View_Helper_YahooGeoAdjacentSmr extends Zend_View_Helper_Abstract {
