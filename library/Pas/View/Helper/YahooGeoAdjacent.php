@@ -21,7 +21,7 @@
  * @uses Zend_View_Helper_Url
  * @uses GeoPlaces
  * @author Daniel Pett <dpett at britishmuseum.org>
- * @example /app/views/scripts/partials/database/findspot.phtml
+ * @example /app/views/scripts/partials/database/findSpot.phtml
  *
  */
 class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract

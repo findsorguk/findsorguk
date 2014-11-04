@@ -16,7 +16,7 @@ echo $this->partial('partials/database/recordh2section.phtml',$this->finds['0'])
 
 <?php
 echo $this->partialLoop('partials/database/recordDescriptive.phtml',$this->finds);
-echo $this->partial('partials/database/treasurefinddetails.phtml', $this->finds['0']);
+echo $this->partial('partials/database/treasureFindDetails.phtml', $this->finds['0']);
 echo $this->partial('partials/database/temporal.phtml', $this->temporals['0']);
 ?>
 
@@ -56,7 +56,7 @@ if((!count($this->coins)) && in_Array($this->finds['0']['objecttype'],$objectarr
 <?php }?>
 
 
-<?php echo $this->partial('partials/database/datefound.phtml',$this->finds['0']);?>
+<?php echo $this->partial('partials/database/dateFound.phtml',$this->finds['0']);?>
 
 
 <?php if (count($this->rallyfind) > 0) : ?>
@@ -89,7 +89,7 @@ if((!count($this->coins)) && in_Array($this->finds['0']['objecttype'],$objectarr
 <?php
 if (count($this->refs) > 0) : ?>
 <ul>
-<?php echo $this->partialLoop('partials/database/harvardbook.phtml', $this->refs);?>
+<?php echo $this->partialLoop('partials/database/harvardBook.phtml', $this->refs);?>
 </ul>
 <?php else:?>
 <p class="norefs">No references cited so far.</p>

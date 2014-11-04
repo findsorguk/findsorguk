@@ -6,7 +6,7 @@
 <div class="row-fluid">
 
 <?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml', array('hoards' => $this->hoards)); ?>
-<?php echo $this->partialLoop('partials/hoards/zoterorecord.phtml', array('hoards' => $this->hoards)); ?>
+<?php echo $this->partialLoop('partials/hoards/zoteroRecord.phtml', array('hoards' => $this->hoards)); ?>
 
 
 <div id="workflowstatus">
@@ -91,7 +91,7 @@
     <!-- Subsequent action after recording hoard -->
     <?php echo $this->partial('partials/hoards/subsequentaction.phtml', $this->subsequentActions); ?>
     <!-- Treasure find info -->
-    <?php echo $this->partial('partials/hoards/treasurefinddetails.phtml', $this->treasureDetails); ?>
+    <?php echo $this->partial('partials/hoards/treasureFindDetails.phtml', $this->treasureDetails); ?>
     <!-- Finds materials -->
     <?php
     if (!empty($this->hoardMaterials)) {
@@ -117,7 +117,7 @@
     <?php echo $this->linkCoinArtefactContainer()->setHoardID($this->hoards['uniqueID'])->setID($this->hoards['id']); ?>
     <!-- Dimensional data -->
     <!-- Date found -->
-    <?php echo $this->partial('partials/hoards/datefound.phtml', $this->discoverySummary); ?>
+    <?php echo $this->partial('partials/hoards/dateFound.phtml', $this->discoverySummary); ?>
     <!-- Rally data -->
     <?php
     if (count($this->rallyfind)) {
@@ -202,7 +202,7 @@
         </p>
 
         <ul>
-            <?php echo $this->partialLoop('partials/database/harvardbook.phtml',
+            <?php echo $this->partialLoop('partials/database/harvardBook.phtml',
                 $this->refs);?>
         </ul>
     <?php else: ?>

@@ -5,7 +5,7 @@ $this->headTitle('Published comments on our database');
 <div class="row-fluid">
 <?php
 if($this->comments):?>
-	<?php echo $this->partialLoop('partials/database/commentsonfinds.phtml',$this->comments);?>
+	<?php echo $this->partialLoop('partials/database/commentsOnFinds.phtml',$this->comments);?>
 </div>
 <div class="row-fluid">
 <?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>

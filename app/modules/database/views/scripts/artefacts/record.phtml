@@ -101,7 +101,7 @@
                 <!-- existing coin references -->
                 <?php if (!empty($this->coinrefs)): ?>
                     <ul>
-                        <?php echo $this->partial('partials/numismatics/coinrefs.phtml', $this->coinrefs['0']); ?>
+                        <?php echo $this->partial('partials/numismatics/coinRefs.phtml', $this->coinrefs['0']); ?>
                     </ul>
                 <?php else: ?>
                     <p>
@@ -233,7 +233,7 @@
         ?>
 
         <ul>
-            <?php echo $this->partialLoop('partials/database/harvardbook.phtml', $this->refs); ?>
+            <?php echo $this->partialLoop('partials/database/harvardBook.phtml', $this->refs); ?>
         </ul>
     <?php else: ?>
         <p class="norefs">

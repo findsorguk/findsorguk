@@ -22,7 +22,7 @@
  * @license GNU
  * @category Pas
  * @package Pas_View_Helper
- * @example /app/views/scripts/partials/database/findspot.phtml
+ * @example /app/views/scripts/partials/database/findSpot.phtml
  */
 class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
 {
