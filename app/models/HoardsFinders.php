@@ -102,7 +102,7 @@ class HoardsFinders extends Pas_Db_Table_Abstract {
         $rowset = $this->getAdapter()->fetchAll($select);
         $numberOfOldFinders = count($rowset);
         for ($i = $numberOfNewFinders + 1; $i <= $numberOfOldFinders; $i++) {
-                $where[1] = $this->getAdapter()->quoteInto('`order` = ?', $i);
+                $where[1] = $this->getAdapter()->quoteInto('viewOrder = ?', $i);
                 $deleteFinder = $this->delete($where);
             }
 
