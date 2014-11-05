@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#objecttype').typeahead({
     	source: function(query, process) {
-        var $url = '../../ajax/objectterm/?q=' + query ;
+        var $url = '/ajax/objectterm/?q=' + query ;
         var $items = new Array;
         $items = [""];
         $.ajax({
