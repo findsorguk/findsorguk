@@ -401,6 +401,10 @@ class Hoards extends Pas_Db_Table_Abstract
                 'findofnote',
                 'findofnotereason'
             ))
+            ->joinLeft('findofnotereasons', 'hoards.findofnotereason = findofnotereasons.id',
+                array(
+                    'reason' => 'term'
+                ))
             ->where('hoards.id = ?', (int)$hoardId);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchRow($select);
