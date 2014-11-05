@@ -73,7 +73,7 @@ class ReferenceFindForm extends Pas_Form {
 
 	$this->addDisplayGroup(array('authors', 'pubID', 'pages_plates', 'reference'), 'details');
 	
-	$this->details->setLegend('Add a new reference');
+	$this->details->setLegend('Reference details: ');
 	$this->addDisplayGroup(array('submit'),'buttons');
 	parent::init();
     }
