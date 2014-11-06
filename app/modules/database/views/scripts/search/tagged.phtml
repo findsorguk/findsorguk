@@ -1,0 +1,95 @@
+<?php
+$params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+$this->headTitle('Database tag search results');
+$this->metaBase()->setDescription('A completed search on the Scheme database for a specific tag')
+    ->setKeywords(implode(',', $params))
+    ->generate();
+?>
+    <h2 class="lead">
+        <?php echo $this->title(); ?>
+    </h2>
+<?php if ($this->results): ?>
+    <?php echo $this->emailSaveSearch(); ?>
+    <?php
+    $url = $params;
+    unset($url['page']);
+    unset($url['show']);
+    $url['action'] = 'map';
+    ?>
+
+    <div class="btn-group" id="toolBox"><a href="<?php echo $this->url($url, null, true); ?>" class="btn-small btn">Map results<i
+                class="icon-map-marker"></i></a> <?php echo $this->searchExportTools($this->paginator->getTotalItemCount()); ?>
+    </div>
+
+    <div class="row-fluid">
+        <ul>
+            <?php echo $this->searchParams($params); ?>
+        </ul>
+    </div>
+
+    <div class="row-fluid">
+
+        <?php if ($this->results): ?>
+
+            <div class="span9">
+
+                <?php echo $this->partialLoop('partials/database/findRecordList.phtml', $this->results); ?>
+            </div>
+            <div class="span3">
+                <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
+                <?php echo $this->thumbnailToggler(); ?>
+                <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
+                <p>
+                    Total results available: <?php echo number_format($this->paginator->getTotalItemCount()); ?><br/>
+                    Search server index: <?php echo $this->server; ?>
+                </p>
+                <?php echo $this->paginationControl($this->paginator, 'elastic', 'structure/paginationSolr.phtml'); ?>
+            </div>
+        <?php else: ?>
+
+            <p>
+                No records are available at the moment.
+            </p>
+
+        <?php endif; ?>
+
+    </div>
+    <div class="row-fluid">
+        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+    </div>
+
+
+<?php else : ?>
+    <ul>
+        <?php echo $this->searchParams($params); ?>
+    </ul>
+
+    <p>
+        Your search has produced no results. Please refine your query. If you are expecting more results,
+        you may have insufficient access for their workflow stage.
+    </p>
+<?php endif; ?>
+<?php
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type = 'text/javascript');
+$this->inlineScript()->captureStart();
+?>
+    $(document).ready(function() {
+        $('#print').click(function() {
+            window.print();
+            return false;
+        });
+
+        $('.overlay').click(function(e) {
+            e.preventDefault();
+            var href = $(e.target).attr('href');
+            if (href.indexOf('#') == 0) {
+            $(href).modal('open');
+        } else {
+            $.get(href, function(data) {
+                $('<div class="modal fade">' + data + '</div>').modal();
+            });
+            }
+        });
+
+    });
+<?php $this->inlineScript()->captureEnd(); ?>
