@@ -511,4 +511,25 @@ class Database_SearchController extends Pas_Controller_Action_Admin
             $queries->insertResults(serialize($params));
         }
     }
+
+    public function taggedAction()
+    {
+        if($this->_getParam('term', false)) {
+            $params = $this->getAllParams();
+            $search = new Pas_Solr_Handler();
+            $search->setCore('tags');
+            $context = $this->_helper->contextSwitch->getCurrentContext();
+            if ($context) {
+                $params['format'] = $context;
+            }
+            $search->setParams($params);
+            $search->execute();
+            $this->view->paginator = $search->createPagination();
+            $this->view->results = $search->processResults();
+            $this->view->server = $search->getLoadBalancerKey();
+
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+    }
 }
