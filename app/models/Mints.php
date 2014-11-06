@@ -198,6 +198,7 @@ class Mints extends Pas_Db_Table_Abstract
             ->where('period = ?', (int)16)
             ->where($this->_name . '.valid = ?', (int)1)
             ->order('mints.id');
+        $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -280,6 +281,7 @@ class Mints extends Pas_Db_Table_Abstract
             ->joinLeft('periods', 'periods.id = mints.period', array('period' => 'term'))
             ->where('rulers.id = ?', $rulerID)
             ->order('mints.mint_name ASC');
+        $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -301,6 +303,8 @@ class Mints extends Pas_Db_Table_Abstract
             ->joinLeft('emperors', 'mints_rulers.ruler_id = emperors.pasID',
                 array('pasID', 'name', 'id'))
             ->where('emperors.id = ?', (int)$emperorID);
+        $select->setIntegrityCheck(false);
+
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -319,6 +323,8 @@ class Mints extends Pas_Db_Table_Abstract
                 array())
             ->where('rulers.id = ?', (int)$rulerID)
             ->order('mints.mint_name ASC');
+        $select->setIntegrityCheck(false);
+
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -337,6 +343,8 @@ class Mints extends Pas_Db_Table_Abstract
                 array())
             ->where('rulers.id = ?', (int)$rulerID)
             ->order('mints.mint_name ASC');
+        $select->setIntegrityCheck(false);
+
         return $this->getAdapter()->fetchPairs($select);
     }
 
@@ -372,6 +380,7 @@ class Mints extends Pas_Db_Table_Abstract
             ->joinLeft('periods', 'periods.id = mints.period', array('term'))
             ->where('mints.id = ?', (int)$mintID)
             ->limit(1);
+        $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
     }
 

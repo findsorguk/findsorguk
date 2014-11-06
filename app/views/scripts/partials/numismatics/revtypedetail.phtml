@@ -1,11 +1,30 @@
-<?php $this->headTitle('Reverse type: ' . $this->type);?>
-<h2 class="lead"><?php echo $this->title();?></h2>
-<p>Translation: <?php echo $this->translation;?><br />
-Description: <?php echo $this->description;?><br />
-Reece period: <a href="<?php echo $this->url(array(
-    'module' => 'romancoins',
-    'controller' => 'reeceperiods',
-    'action'=> 'period',
-    'id' => $this->i),null,true);?>"><?php echo $this->period_name;?></a> [ 
-    <?php echo $this->adBc()->setDate($this->date_range);?>]<br />
-General date: <?php echo $this->gendate;?></p>
+<?php
+$this->headTitle('Details for reverse type: ' . $this->type);
+$this->metaBase()->setDescription($this->title())
+    ->setKeywords('reverse,fourth,century.roman,type' . $this->type)
+    ->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<p>
+    <?php if (!is_null($this->translation)): ?>
+        Translation: <?php echo $this->translation; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->description)): ?>
+        Description: <?php echo $this->description; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->period_name)): ?>
+        Reece period: <a href="<?php echo $this->url(array(
+            'module' => 'romancoins',
+            'controller' => 'reeceperiods',
+            'action' => 'period',
+            'id' => $this->i), null, true);?>"><?php echo $this->period_name; ?></a> [
+        <?php echo $this->date_range; ?>]<br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->gendate)): ?>
+        General date: <?php echo $this->gendate; ?>
+    <?php endif; ?>
+</p>
+<p>
+    <?php $url = array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'reverse' => $this->id); ?>
+    View <a href="<?php echo $this->url($url, 'default', true); ?>">all records recorded</a> of this type (if available).
+</p>
