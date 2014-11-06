@@ -131,6 +131,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
         $viewRenderer->setView($view);
         // Return it, so that it can be stored by the bootstrap
+        $view->placeholder('tag');
         return $view;
     }
 
@@ -245,4 +246,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $router->addConfig($config, 'routes');
     }
 
+    protected function _initTag()
+    {
+        $this->bootstrap('View');
+        $view = $this->getResource('View');
+
+        $view->placeholder('tag');
+    }
 }
