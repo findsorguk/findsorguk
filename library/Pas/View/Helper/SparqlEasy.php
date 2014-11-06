@@ -102,9 +102,9 @@ class Pas_View_Helper_SparqlEasy extends Zend_View_Helper_Abstract
      */
     protected $_nameSpaces = array(
             'category' => 'http://dbpedia.org/resource/Category:',
-            'dbpedia', 'http://dbpedia.org/resource/',
-            'dbo', 'http://dbpedia.org/ontology/',
-            'dbp', 'http://dbpedia.org/property/'
+            'dbpedia' => 'http://dbpedia.org/resource/',
+            'dbo' =>  'http://dbpedia.org/ontology/',
+            'dbp' => 'http://dbpedia.org/property/'
         );
     
     /** Get the namespaces

@@ -10,3 +10,6 @@
 [submodule "library/EasyBib"]
 	path = library/EasyBib
 	url = git://github.com/easybib/EasyBib_Form_Decorator.git
+[submodule "library/easyrdf"]
+	path = library/easyrdf
+	url = https://github.com/njh/easyrdf

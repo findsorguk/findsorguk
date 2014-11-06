@@ -1,7 +1,8 @@
 <?php
+
 /**
  * SparqlEasy helper for pulling back notable bits for an emperor
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
@@ -15,21 +16,22 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
 {
     /** The endpoint
      * @access protected
-     * @var object 
+     * @var object
      */
     protected $_endpoint;
-    
+
     /** The default endpoint Uri
      * @access protected
      * @var string
      */
     protected $_endpointUri = 'http://live.dbpedia.org/sparql';
-    
+
     /** Get the endpoint uri
      * @access public
      * @return string
      */
-    public function getEndpointUri() {
+    public function getEndpointUri()
+    {
         return $this->_endpointUri;
     }
 
@@ -38,11 +40,12 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
      * @param string $endpointUri
      * @return \Pas_View_Helper_SparqlEasy
      */
-    public function setEndpointUri( $endpointUri) {
+    public function setEndpointUri($endpointUri)
+    {
         $this->_endpointUri = $endpointUri;
         return $this;
     }
-    
+
     /** The client
      * @access protected
      * @var object
@@ -60,12 +63,13 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
      * @var object
      */
     protected $_cache;
-    
+
     /** Get the ID to query
      * @access protected
      * @return string
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->_id;
     }
 
@@ -74,26 +78,29 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
      * @param string $id
      * @return \Pas_View_Helper_SparqlEasy
      */
-    public function setId( $id) {
+    public function setId($id)
+    {
         $this->_id = $id;
         return $this;
     }
 
-        /** Get the endpoint
+    /** Get the endpoint
      * We're using the live sparql endpount
      * @access public
      * @return object
      */
-    public function getEndpoint() {
+    public function getEndpoint()
+    {
         $this->_endpoint = new EasyRdf_Sparql_Client($this->getEndpointUri());
         return $this->_endpoint;
     }
 
-    /** Get the client 
+    /** Get the client
      * @access public
      * @return object
      */
-    public function getClient() {
+    public function getClient()
+    {
         $this->_client = new Pas_RDF_Client();
         return $this->_client;
     }
@@ -103,17 +110,18 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
      * @var array
      */
     protected $_nameSpaces = array(
-            'category' => 'http://dbpedia.org/resource/Category:',
-            'dbpedia', 'http://dbpedia.org/resource/',
-            'dbo', 'http://dbpedia.org/ontology/',
-            'dbp', 'http://dbpedia.org/property/'
-        );
-    
+        'category' => 'http://dbpedia.org/resource/Category:',
+        'dbpedia' =>  'http://dbpedia.org/resource/',
+        'dbo' => 'http://dbpedia.org/ontology/',
+        'dbp' => 'http://dbpedia.org/property/'
+    );
+
     /** Get the namespaces
      * @access public
      * @return array
      */
-    public function getNameSpaces() {
+    public function getNameSpaces()
+    {
         return $this->_nameSpaces;
     }
 
@@ -122,54 +130,59 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
      * @param array $nameSpaces
      * @return \Pas_View_Helper_SparqlEasy
      */
-    public function setNameSpaces( array $nameSpaces) {
+    public function setNameSpaces(array $nameSpaces)
+    {
         $this->_nameSpaces = $nameSpaces;
         return $this;
     }
-    
+
     /** Register the namespaces with EasyRdf
      * @access public
      * @return \Pas_View_Helper_SparqlEasy
      */
-    public function registerNameSpaces() {
-        foreach($this->getNameSpaces() as $k => $v){
+    public function registerNameSpaces()
+    {
+        foreach ($this->getNameSpaces() as $k => $v) {
             EasyRdf_Namespace::set($k, $v);
         }
         return $this;
     }
-    
+
     /** Get the cache object
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
-    
+
     /** Function to return
      * @access public
      * @return \Pas_View_Helper_SparqlEasyEmperorNotable
      */
-    public function sparqlEasyEmperorNotable(){
+    public function sparqlEasyEmperorNotable()
+    {
         $this->registerNameSpaces();
         return $this;
     }
 
     /** Get the data via sparql
-     * 
+     *
      * @return object
      */
-    public function getSparqlData(){
+    public function getSparqlData()
+    {
         $query = 'SELECT DISTINCT * WHERE { ?x dbo:notableCommander dbpedia:';
         $query .= $this->getId();
         $query .= '}';
         $key = md5($query);
         if (!($this->getCache()->test($key))) {
-        $data = $this->getEndpoint()->query($query);
-        $this->getCache()->save($data);
+            $data = $this->getEndpoint()->query($query);
+            $this->getCache()->save($data);
         } else {
-        $data = $this->getCache()->load($key);
+            $data = $this->getCache()->load($key);
         }
 
         return $data;
@@ -180,9 +193,10 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
      * @param string $string
      * @return type
      */
-    protected function _cleaner( $string) {
+    protected function _cleaner($string)
+    {
         $html = str_replace(array('http://dbpedia.org/resource/', 'Category:',
-            '_'),array('','',' '), $string);
+            '_'), array('', '', ' '), $string);
         return $html;
     }
 
@@ -191,9 +205,10 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
      * @param string $string
      * @return string
      */
-    protected function _wikiLink( $string) {
+    protected function _wikiLink($string)
+    {
         $cleaned = str_replace(array('http://dbpedia.org/resource/'),
-                array('http://en.wikipedia.org/wiki/'), $string);
+            array('http://en.wikipedia.org/wiki/'), $string);
         $html = '<a href="';
         $html .= $cleaned;
         $html .= '">';
@@ -206,18 +221,19 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function render() {
+    public function render()
+    {
         $html = '';
         $dataSparql = $this->getSparqlData();
         if (sizeof($dataSparql) > 0) {
-        $html .= '<h3 class="lead">Notable commands</h3>';
-        $html .= '<ul>';
-        foreach ($dataSparql as $data) {
-            $html .='<li>';
-            $html .= $this->_wikiLink($data->x);
-            $html .= '</li>';
-        }
-        $html .= '</ul>';
+            $html .= '<h3 class="lead">Notable commands</h3>';
+            $html .= '<ul>';
+            foreach ($dataSparql as $data) {
+                $html .= '<li>';
+                $html .= $this->_wikiLink($data->x);
+                $html .= '</li>';
+            }
+            $html .= '</ul>';
         }
         return $html;
     }
@@ -226,7 +242,8 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString()  {
+    public function __toString()
+    {
         return $this->render();
     }
 
