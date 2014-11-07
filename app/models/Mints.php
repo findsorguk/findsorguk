@@ -240,13 +240,15 @@ class Mints extends Pas_Db_Table_Abstract
         $select = $this->select()
             ->from($this->_name, array(
                 'pasID' => 'id', 'name' => 'mint_name', 'updated',
-                'created'
+                'created', 'nomismaID'
             ))
             ->joinLeft('periods', 'periods.id = mints.period',
-                array('p' => 'term', 'i' => 'id'))
+                array('period' => 'term', 'periodID' => 'id'))
             ->where('mints.id = ?', (int)$mintID)
             ->where('period = ?', (int)16)
             ->order('mints.id ASC');
+        $select->setIntegrityCheck(false);
+
         return $this->getAdapter()->fetchAll($select);
     }
 
