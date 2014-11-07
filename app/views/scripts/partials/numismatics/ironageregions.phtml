@@ -1,1 +1,4 @@
-<li><a href="<?php echo $this->url(array('module' => 'ironagecoins','controller' => 'regions','action' => 'region','id' => $this->escape($this->id)),null,true); ?>" title=""><?php echo $this->escape($this->area); ?>  - <?php echo $this->escape($this->region); ?> - <?php echo $this->escape($this->tribe); ?> </a></li>
+<li>
+    <a href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'regions', 'action' => 'region', 'id' => $this->escape($this->id)), null, true); ?>"
+       title=""><?php echo $this->area; ?> <?php if ($this->region): ?><?php echo $this->region; ?><?php endif; ?>
+        <?php if ($this->tribe): ?><?php echo $this->tribe; ?><?php endif; ?></a></li>

@@ -1,4 +1,4 @@
 <?php 
-echo $this->partialLoop('partials/numismatics/medMintDetail.phtml',$this->greeks);
+echo $this->partialLoop('partials/numismatics/medievalMintDetail.phtml',$this->greeks);
 echo $this->latestRecords()->setQuery('mint:'  
         .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));

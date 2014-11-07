@@ -253,6 +253,21 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'theyworkforyou':
                 $clean = 'Data from TheyWorkForYou';
                 break;
+            case 'reeceperiods':
+                $clean = 'Reece Periods';
+                break;
+            case 'reversetypes':
+                $clean = 'Fourth century reverse types';
+                break;
+            case 'moneyers':
+                $clean = 'Republican Moneyers';
+                break;
+            case 'macktypes':
+                $clean = 'Mack types';
+                break;
+            case 'allentypes':
+                $clean = 'Allen types';
+                break;
             default:
                 $clean = ucfirst($this->getController());
                 break;

@@ -1,7 +1,7 @@
 <?php echo $this->partial('partials/contacts/staff.phtml',$this->persons['0']);?>
 
 <?php if(count($this->periodtotals)): ?>
-<?php echo $this->partial('partials/contacts/searchfinds.phtml',$this->persons['0']);?>
+<?php echo $this->partial('partials/contacts/searchFinds.phtml',$this->persons['0']);?>
 <?php
 $this->inlineScript()->appendFile($this->baseUrl().'/js/bootstrap-tab.js',
         $type='text/javascript');?>
@@ -34,7 +34,7 @@ $(".tabs").tabs();
 			</tr>
 			</thead>
 			<tbody>
-			<?php echo $this->partialLoop('partials/statistics/periodtotals.phtml', $this->periodtotals);?>
+			<?php echo $this->partialLoop('partials/statistics/periodTotals.phtml', $this->periodtotals);?>
 			</tbody>
 			</table>
 
@@ -67,7 +67,7 @@ $(".tabs").tabs();
 			</tr>
 			</thead>
 			<tbody>
-			<?php echo $this->partialLoop('partials/statistics/quartertotals.phtml', $this->findstotals);?>
+			<?php echo $this->partialLoop('partials/statistics/quarterTotals.phtml', $this->findstotals);?>
 			</tbody>
 			</table>
 			<?php endif;?>

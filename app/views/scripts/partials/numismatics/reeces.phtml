@@ -1,14 +1,14 @@
 <tr>
-<td>
-<a href="<?php echo $this->url(array(
-    'module' => 'romancoins',
-    'controller' => 'reeceperiods',
-    'action'=>'period', 
-    'id'=>$this->id),null,true);?>" title="View details for 
-<?php echo $this->escape($this->period_name); ?>" ><?php echo 
-$this->escape($this->period_name); ?></a>
-</td>
-<td>
-<strong><?php echo $this->description; ?></strong>
-</td>
+    <td>
+        <a href="<?php echo $this->url(array(
+            'module' => 'romancoins',
+            'controller' => 'reeceperiods',
+            'action' => 'period',
+            'id' => $this->id), null, true);?>" title="View details for
+<?php echo $this->escape($this->period_name); ?>"><?php echo
+            $this->escape($this->period_name); ?></a>
+    </td>
+    <td>
+        <strong><?php echo $this->description; ?></strong>
+    </td>
 </tr>

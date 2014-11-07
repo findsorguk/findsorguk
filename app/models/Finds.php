@@ -393,8 +393,8 @@ class Finds extends Pas_Db_Table_Abstract {
                             'initialMark' => 'initial_mark',
                             'reverseMintMark' => 'reverse_mintmark',
                             'statusQualifier' => 'status_qualifier',
-                            'primaryRuler' => 'ruler_id',
-                            'secondaryRuler' => 'ruler2_id',
+                            'ruler1' => 'ruler_id',
+                            'ruler2' => 'ruler2_id',
                             'mintID' => 'mint_id'
                             ))
                 ->joinLeft('ironagetribes','coins.tribe = ironagetribes.id',
@@ -410,14 +410,14 @@ class Finds extends Pas_Db_Table_Abstract {
                             ))
                 ->joinLeft('rulers','rulers.id = coins.ruler_id',
                         array(
-                            'ruler1' => 'issuer',
+                            'primaryRuler' => 'issuer',
                             'viaf',
                             'rulerDbpedia' => 'dbpedia',
                             'nomismaRulerID' => 'nomismaID'
                             ))
                 ->joinLeft(array('rulers_2' => 'rulers'),
                         'rulers_2.id = coins.ruler2_id',
-                        array('ruler2' => 'issuer'))
+                        array('secondaryRuler' => 'issuer'))
                 ->joinLeft('reeceperiods','coins.reeceID = reeceperiods.id',
                         array('periodName' => 'period_name','dateRange' => 'date_range'))
                 ->joinLeft('mints','mints.id = coins.mint_ID',
@@ -471,16 +471,17 @@ class Finds extends Pas_Db_Table_Abstract {
                 ->joinLeft('maporigins','maporigins.id = findspots.gridrefsrc',
                         array('source' => 'term'))
                 ->joinLeft('osRegions','findspots.regionID = osRegions.osID',
-                        array('region' => 'label'))
+                        array('regionType' => 'type', 'region' => 'label'))
                 ->joinLeft('osCounties', 'findspots.countyID = osCounties.osID', 
-                        array('countyType' => 'type'))
+                        array('countyType' => 'type', 'county' => 'label'))
                 ->joinLeft('osDistricts', 'findspots.districtID = osDistricts.osID', 
-                        array('districtType' => 'type'))
+                        array('districtType' => 'type', 'district' => 'label'))
                 ->joinLeft('osParishes', 'findspots.parishID = osParishes.osID', 
                         array(
                             'parishType' => 'type', 
                             'centreLat' => 'lat', 
-                            'centreLon' => 'lon'
+                            'centreLon' => 'lon',
+                            'parish' => 'label'
                             ))
                 ->joinLeft('people', 'findspots.landowner = people.secuid', 
                         array('landOwnerName' => 'fullname'))

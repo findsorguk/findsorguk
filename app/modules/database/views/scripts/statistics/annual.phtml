@@ -20,7 +20,7 @@ $this->jQuery()->javascriptCaptureEnd();
 
 <h3 class="lead">Quantities of objects and records found</h3>
 <ul>
-<?php echo $this->partialLoop('partials/statistics/rawquant.phtml',$this->annualsum);?>
+<?php echo $this->partialLoop('partials/statistics/rawQuantities.phtml',$this->annualsum);?>
 </ul>
 
 <h3 class="lead">Quantities recorded per Officer and assistants</h3>
@@ -151,7 +151,7 @@ $finderstotal = array_sum($finders);
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/averagemonth.phtml',$this->averages);?>
+<?php echo $this->partialLoop('partials/annual/averageMonth.phtml',$this->averages);?>
 <tr>
 <?php 
 $finds_mean = array();

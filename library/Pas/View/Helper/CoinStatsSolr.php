@@ -127,6 +127,7 @@ class Pas_View_Helper_CoinStatsSolr extends Zend_View_Helper_Abstract {
      * @return \Pas_View_Helper_CoinStatsSolr
      */
     public function coinStatsSolr(){
+
         return $this;
     }
 

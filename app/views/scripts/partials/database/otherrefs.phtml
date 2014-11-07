@@ -1,19 +1,19 @@
-<?php if (!is_null($this->smr_ref) || !is_null($this->other_ref)
-    || !is_null($this->treasureID || !is_null($this->musaccno))
-):?>
+<?php
+$numbers = array( $this->smrRef, $this->otherRef, $this->treasureID, $this->museumAccession);
+if(array_filter($numbers)):?>
     <h4 class="lead">Other reference numbers</h4>
     <p>
-        <?php if (isset($this->smr_ref) || ($this->smr_ref != '')): ?>
-            SMR reference number: <?php echo $this->smr_ref; ?><br/>
+        <?php if (!is_null($this->smrRef)): ?>
+            SMR reference number: <?php echo $this->smrRef; ?><br/>
         <?php endif; ?>
-        <?php if (isset($this->other_ref)): ?>
-            Other reference: <?php echo $this->other_ref; ?><br/>
+        <?php if (!is_null($this->otherRef)): ?>
+            Other reference: <?php echo $this->otherRef; ?><br/>
         <?php endif; ?>
-        <?php if (isset($this->treasureID)): ?>
+        <?php if (!is_null($this->treasureID)): ?>
             Treasure case number: <?php echo $this->treasureID; ?><br/>
         <?php endif; ?>
-        <?php if (isset($this->musaccno)): ?>
-            Museum accession number: <?php echo $this->musaccno; ?>
+        <?php if (!is_null($this->musaccno)): ?>
+            Museum accession number: <?php echo $this->museumAccession; ?>
         <?php endif; ?>
     </p>
-<?php endif; ?>
+<?php endif;?>

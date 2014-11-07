@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('Project details for: '.$this->escape($this->title));
+$this->headTitle('Project details for: ' . $this->escape($this->title));
 $this->metaBase()
     ->setDescription(
         $this->ellipsisString()
@@ -11,29 +11,29 @@ $this->metaBase()
     ->generate();
 ?>
 <h2 class="lead">
-    <?php echo $this->escape($this->title);?>
+    <?php echo $this->escape($this->title); ?>
 </h2>
 <p>
-    <strong>Principal investigator:</strong> <?php echo $this->investigator;?><br />
-    <strong>Level:</strong> <?php echo $this->type;?>
+    <strong>Principal investigator:</strong> <?php echo $this->investigator; ?><br/>
+    <strong>Level:</strong> <?php echo $this->type; ?>
 </p>
-<?php echo $this->description;?>
+<?php echo $this->description; ?>
 <h3 class="lead">
     Audit data
 </h3>
 <ul>
     <li>
-        Created: <?php echo $this->timeAgoInWords($this->created);?>
+        Created: <?php echo $this->timeAgoInWords($this->created); ?>
     </li>
     <li>
-        Created by: <?php echo $this->nameThem()->setName($this->fullname);?>
+        Created by: <?php echo $this->nameThem()->setName($this->fullname); ?>
     </li>
-    <?php if(!is_null($this->updated)):?>
+    <?php if (!is_null($this->updated)): ?>
         <li>
-            Updated: <?php echo $this->timeAgoInWords($this->created);?>
+            Updated: <?php echo $this->timeAgoInWords($this->created); ?>
         </li>
         <li>
-            Updated by: <?php echo $this->nameThem()->setName($this->fn);?>
+            Updated by: <?php echo $this->nameThem()->setName($this->fn); ?>
         </li>
-    <?php endif;?>
+    <?php endif; ?>
 </ul>

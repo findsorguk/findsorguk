@@ -13,7 +13,7 @@
     </ul>
 </div>
 <!--  End the previous next row -->
-<?php Zend_Debug::dump($this->finds);?>
+<?php Zend_Debug::dump($this->finds); ?>
 
 <div typeof="crm:E22_Man-Made_Object" about="<?php echo $this->curUrl(); ?>" class="record">
 <!--  Start of main body of record -->
@@ -219,7 +219,7 @@
 
 <!--  Start of the references section -->
 <div class="row-fluid" id="references">
-    <h4>
+    <h4 class="lead">
         References cited
     </h4>
 
@@ -324,3 +324,7 @@
     <?php echo $this->auditLogs()->setId($this->finds[0]['id']); ?>
 </div>
 <!-- end of audit section -->
+
+<?php $this->placeholder('tags')->captureStart() ?>
+<?php echo $this->semanticTags()->setQuery('id:' . $this->finds[0]['id'] . ' ' . 'contentType:findsrecord'); ?>
+<?php $this->placeholder('tags')->captureEnd() ?>

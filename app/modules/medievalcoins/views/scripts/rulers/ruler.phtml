@@ -32,7 +32,7 @@ echo $this->partialLoop('partials/numismatics/rulerProfile.phtml', $this->monarc
             <?php if (count($this->mints > 0)): ?>
                 <h3 class="lead">Active Mints</h3>
                 <ul>
-                    <?php echo $this->partialLoop('partials/numismatics/medmintsList.phtml', $this->mints); ?>
+                    <?php echo $this->partialLoop('partials/numismatics/medievalMintsList.phtml', $this->mints); ?>
                 </ul>
             <?php endif; ?>
         </div>

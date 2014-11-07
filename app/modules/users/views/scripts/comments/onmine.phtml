@@ -9,7 +9,7 @@
 </ul>
 <ol id="timeline" class="statuses">
 
-<?php echo $this->partialLoop('partials/users/allcomments.phtml', $this->comments) ?>
+<?php echo $this->partialLoop('partials/users/allComments.phtml', $this->comments) ?>
 </ol>
 <?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>

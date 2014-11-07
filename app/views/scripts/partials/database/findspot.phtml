@@ -5,12 +5,12 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 <h3 class="lead">Spatial data</h3>
 <?php echo $this->FindSpotEditDeleteLink($this->old_findspotid, $this->id, $controller, $this->createdBy); ?>
 
-<?php if (isset($this->declong) && isset($this->declat)) : ?>
+<?php if (isset($this->lon) && isset($this->lat)) : ?>
 
     <div id="map">
-        <noscript><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->declat; ?>,
-	<?php echo $this->declong; ?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
-	<?php echo $this->declat; ?>,<?php echo $this->declong; ?>&sensor=false"/>
+        <noscript><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->lat; ?>,
+	<?php echo $this->lon; ?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
+	<?php echo $this->lat; ?>,<?php echo $this->lon; ?>&sensor=false"/>
         </noscript>
     </div>
     <?php
@@ -33,7 +33,7 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
                 <?php foreach ($distance as $range): ?>
                     <a class="btn btn-small btn-success" href="<?php echo $this->url(array(
                         'module' => 'database', 'controller' => 'search', 'action' => 'results',
-                        'lat' => $this->declat, 'lon' => $this->declong, 'd' => $range
+                        'lat' => $this->lat, 'lon' => $this->lon, 'd' => $range
                     ), null, true); ?>"
                        title="Use the Haversine formula to find adjacent objects"> <?php echo $range; ?> km
                         radius </a>
@@ -107,7 +107,7 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
     alt: "NLS Historic Map"
     });
     var myOptions = {
-    center: new google.maps.LatLng(<?php echo $this->declat; ?>, <?php echo $this->declong; ?>),
+    center: new google.maps.LatLng(<?php echo $this->lat; ?>, <?php echo $this->lon; ?>),
     zoom: 12,
     mapTypeControlOptions: {
     mapTypeIds: [
@@ -132,7 +132,7 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
     map.mapTypes.set('Imperium',imperium);
     map.setTilt(45);
     var marker = new google.maps.Marker({
-    position: new google.maps.LatLng(<?php echo $this->declat; ?>, <?php echo $this->declong; ?>),
+    position: new google.maps.LatLng(<?php echo $this->lat; ?>, <?php echo $this->lon; ?>),
     map: map,
     animation: google.maps.Animation.DROP,
     title:"Findspot location",
@@ -176,10 +176,10 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
     <?php
     $bbox = new Pas_Geo_BoundBox();
     $d = 5;  // distance
-    $path_top_right = $bbox->createPoint($this->declat, $this->declong, 45, $d);
-    $path_bottom_right = $bbox->createPoint($this->declat, $this->declong, 135, $d);
-    $path_bottom_left = $bbox->createPoint($this->declat, $this->declong, 225, $d);
-    $path_top_left = $bbox->createPoint($this->declat, $this->declong, 315, $d);
+    $path_top_right = $bbox->createPoint($this->lat, $this->lon, 45, $d);
+    $path_bottom_right = $bbox->createPoint($this->lat, $this->lon, 135, $d);
+    $path_bottom_left = $bbox->createPoint($this->lat, $this->lon, 225, $d);
+    $path_top_left = $bbox->createPoint($this->lat, $this->lon, 315, $d);
     ?>
 
     var latLngBounds = new google.maps.LatLngBounds(
@@ -208,6 +208,10 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
             <?php if (!is_null($this->region)) : ?>
                 Region: <a
                     href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->regionID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->region; ?></a>
+
+                <?php if (!is_null($this->regionType)): ?>
+                    (<?php echo $this->regionType; ?>)
+                <?php endif; ?>
                 <br/>
             <?php endif; ?>
             <?php if (!is_null($this->county)) : ?>
@@ -235,14 +239,13 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
                 <br/><span class="knownas">To be known as: <?php echo $this->escape($this->knownas); ?></span>
             <?php endif; ?>
             <?php if ($this->centreLat): ?>
-                <br/>Centre of parish as LatLon pair: <?php echo $this->centreLat; ?>,<?php echo $this->centreLon; ?>
                 <br/>
-                Centre of parish as Grid ref: <?php echo $this->gridRef($this->centreLat, $this->centreLon); ?>
+                Centre of parish as LatLon pair: <?php echo $this->centreLat; ?>,<?php echo $this->centreLon; ?>
+                <br/>
+                Centre of parish <?php echo $this->gridRef($this->centreLat, $this->centreLon); ?>
             <?php endif; ?>
         </p>
-        <?php
-        //echo $this->osTouchesRdf()->setUri($this->parishID);
-        ?>
+
     </div>
 
     <div class="span4">
@@ -275,13 +278,13 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
     </div>
 
     <div class="span4 noprint">
-        <?php echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRadius(2); ?>
+        <?php //echo $this->domesdayNear()->setLat($this->declat)->setLon($this->declong)->setRadius(2); ?>
     </div>
 
 </div>
 
     <div class="row-fluid">
-        <?php echo $this->findsSmrs()->setLat($this->declat)->setLon($this->declong); ?>
+        <?php //echo $this->findsSmrs()->setLat($this->declat)->setLon($this->declong); ?>
     </div>
 
     <div class="row-fluid">

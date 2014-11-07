@@ -21,6 +21,8 @@ class Pas_View_Helper_EditDeleteArchaeology extends Zend_View_Helper_Abstract {
      */
     protected $_hoardID;
 
+    /** The role of the user
+     * @var $_role */
     protected $_role;
 
     /** Get the user's role

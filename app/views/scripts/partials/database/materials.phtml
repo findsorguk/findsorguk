@@ -1,8 +1,8 @@
 <h4 class="lead">Materials and construction</h4>
 
 <p>
-    <?php if (!is_null($this->mat1)) : ?>
-        Primary material: <span property="pas:primaryMaterial"><?php echo $this->mat1; ?></span> <span class="scope">[<a
+    <?php if (!is_null($this->material1)) : ?>
+        Primary material: <span property="pas:primaryMaterial"><?php echo $this->primaryMaterial; ?></span> <span class="scope">[<a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'material', 'id' => $this->material1), NULL, true); ?>"
                 title="View scope notes for <?php echo $this->escape($this->mat1); ?>">scope notes</a> | <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'material' => $this->material1), NULL, true); ?>"
@@ -46,12 +46,12 @@
     <?php endif; ?>
     <?php if (!is_null($this->completeness)) : ?>
         Completeness: <span
-            property="pas:completeness"><?php echo $this->completeness()->setInt($this->completeness); ?></span> <span
+            property="pas:completeness"><?php echo $this->completeness()->setInt($this->complete); ?></span> <span
             class="scope">[<a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'completeness', 'id' => $this->completeness), NULL, true); ?>"
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'completeness', 'id' => $this->complete), NULL, true); ?>"
                 title="View scope notes for <?php echo $this->completeness()->setInt($this->completeness); ?>">scope
                 notes</a> | <a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'complete' => $this->completeness), NULL, true); ?>"
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'complete' => $this->complete), NULL, true); ?>"
                 title="Find all records assigned to  <?php echo $this->completeness()->setInt($this->completeness); ?>">view
                 all attributed records]</a></span><br/>
     <?php endif; ?>

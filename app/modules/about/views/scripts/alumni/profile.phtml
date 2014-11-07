@@ -9,7 +9,7 @@ $('#tabs').tabs({ fx: { opacity: 'toggle' } });
 
 <?php echo $this->partial('partials/about/alumniprofile.phtml',$this->staffs['0']);?>
 <?php if(count($this->periodtotals) > 0): ?>
-<?php echo $this->partial('partials/contacts/searchfinds.phtml',$this->staffs['0']);?>
+<?php echo $this->partial('partials/contacts/searchFinds.phtml',$this->staffs['0']);?>
 <?php endif;?>
 <?php
     $finds_officers = array();
@@ -43,7 +43,7 @@ $('#tabs').tabs({ fx: { opacity: 'toggle' } });
          </thead>
         <tbody>
            <?php 
-           echo $this->partialLoop('partials/statistics/periodtotals.phtml', 
+           echo $this->partialLoop('partials/statistics/periodTotals.phtml',
                    $this->periodtotals);
            ?>
            <tr>
@@ -74,7 +74,7 @@ $('#tabs').tabs({ fx: { opacity: 'toggle' } });
             </tr>
         </thead>
         <tbody>
-            <?php echo $this->partialLoop('partials/statistics/quartertotals.phtml', $this->findstotals);?>
+            <?php echo $this->partialLoop('partials/statistics/quarterTotals.phtml', $this->findstotals);?>
             <tr>
                 <th></th>
                 <th></th>

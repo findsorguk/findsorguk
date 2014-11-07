@@ -13,6 +13,18 @@
  */
 class IronAgeCoins_TribesController extends Pas_Controller_Action_Admin {
 
+    protected $_tribes;
+
+    /**
+     * @return mixed
+     */
+    public function getModel()
+    {
+        $this->_tribes = new Tribes();
+        return $this->_tribes;
+    }
+
+
     /** Setup the contexts by action and the ACL.
     */
     public function init() {
@@ -22,7 +34,6 @@ class IronAgeCoins_TribesController extends Pas_Controller_Action_Admin {
                 ->addActionContext('index', array('xml','json'))
                 ->addActionContext('tribe', array('xml','json'))
                 ->initContext();
-        $this->_tribes = new Tribes();
     }
 
     /** Setup the index page for Iron Age tribes
@@ -30,7 +41,7 @@ class IronAgeCoins_TribesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->tribes = $this->_tribes->getTribesList();
+        $this->view->tribes = $this->getModel()->getTribesList();
     }
     /** Setup individual tribe page
      * @access public
@@ -41,7 +52,7 @@ class IronAgeCoins_TribesController extends Pas_Controller_Action_Admin {
         if($this->_getParam('id',false)) {
             $id = (int)$this->_getParam('id');
             $this->view->id = $id;
-            $this->view->tribes = $this->_tribes->getTribe($id);
+            $this->view->tribes = $this->getModel()->getTribe($id);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

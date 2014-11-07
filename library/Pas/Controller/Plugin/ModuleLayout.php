@@ -92,9 +92,10 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
             $response->insert('analytics', $view->render('structure/analytics.phtml'));
             $response->insert('searchfacet', $view->render('structure/facetsearch.phtml'));
             $response->insert('announcements', $view->render('structure/announcements.phtml'));
-            $response->insert('bronzeage', $view->render('structure/bronzeage.phtml'));
+            $response->insert('bronzeage', $view->render('structure/bronzeAge.phtml'));
             $response->insert('staffs', $view->render('structure/staffs.phtml'));
             $response->insert('searchForm', $view->render('structure/searchForm.phtml'));
+            $response->insert('tags', $view->render('structure/tag.phtml'));
     	}
         $template = Zend_Layout::getMvcInstance();
             if ($template->getMvcEnabled() ) {

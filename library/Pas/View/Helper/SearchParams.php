@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This class is to display search params
  * @category   Pas
@@ -10,9 +11,10 @@
  * @author Daniel Pett
  * @version 2
  * @since march 14 2012
-*/
+ */
 class Pas_View_Helper_SearchParams
-    extends Zend_View_Helper_Abstract {
+    extends Zend_View_Helper_Abstract
+{
 
     /** The cache object
      *
@@ -93,61 +95,60 @@ class Pas_View_Helper_SearchParams
 
     /** Generate the search string from parameters submitted
      * @access public
-     * @param  array  $params
+     * @param  array $params
      * @return string
      */
     public function searchParams($params = NULL)
     {
 
 
+        $params = $this->cleanParams($params);
+        $html = '<p>You searched for: ';
+        if (sizeof($params) > 0) {
+            $html .= '</p><ul>';
+            $searches = array();
+            foreach ($params as $k => $v) {
+                switch ($k) {
+                    case 'fromdate':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->adBc()->setDate($v) . '</li>';
+                        break;
+                    case 'todate':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->adBc()->setDate($v) . '</li>';
+                        break;
+                    case 'updated':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
+                        break;
+                    case 'created':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
+                        break;
+                    case 'updatedAfter':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
+                        break;
+                    case 'updatedBefore':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
+                        break;
+                    case 'createdBefore':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
+                        break;
+                    case 'createdAfter':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
+                        break;
+                    default:
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $v . '</li>';
+                        break;
+                }
+                $searches[] = $this->cleanKey($k) . ' ' . $v;
 
-    $params = $this->cleanParams($params);
-    $html = '<p>You searched for: ';
-    if (sizeof($params) > 0 ) {
-    $html .= '</p><ul>';
-    $searches = array();
-    foreach ($params as $k => $v) {
-        switch ($k) {
-            case 'fromdate':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->adBc()->setDate($v) . '</li>';
-                break;
-            case 'todate':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->adBc()->setDate($v) . '</li>';
-                break;
-            case 'updated':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
-                break;
-            case 'created':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
-                break;
-            case 'updatedAfter':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
-                break;
-            case 'updatedBefore':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
-                break;
-            case 'createdBefore':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
-                break;
-            case 'createdAfter':
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
-                break;
-            default:
-                $html .= '<li>' . $this->cleanKey($k) .': ' . $v . '</li>';
-                break;
+            }
+            $this->view->headTitle('Search results from the database');
+            $this->view->headMeta(implode(' - ', $searches), 'description');
+            $this->view->headMeta(implode(',', $searches), 'keywords');
+            $html .= '</ul>';
+        } else {
+            $html .= 'Everything we have</p>';
         }
-        $searches[] = $this->cleanKey($k) . ' ' . $v;
 
-    }
-        $this->view->headTitle('Search results from the database');
-        $this->view->headMeta(implode(' - ', $searches), 'description');
-        $this->view->headMeta(implode(',', $searches), 'keywords');
-    $html .= '</ul>';
-    } else {
-        $html .= 'Everything we have</p>';
-    }
-
-    return $html;
+        return $html;
     }
 
     /** Clean the key for nicename
@@ -157,43 +158,43 @@ class Pas_View_Helper_SearchParams
      */
     public function cleanKey($string)
     {
-    if (in_array($string,array_keys($this->_niceNames))) {
-    $text = "$string";
-    foreach ($this->_niceNames as $key => $value) {
-    $text = preg_replace( "|(?!<[^<>]*?)(?<![?.&])\b$key\b(?!:)(?![^<>]*?>)|msU",
-    $value , $text );
-    }
-    } else {
-    $text = $string;
-    }
+        if (in_array($string, array_keys($this->_niceNames))) {
+            $text = "$string";
+            foreach ($this->_niceNames as $key => $value) {
+                $text = preg_replace("|(?!<[^<>]*?)(?<![?.&])\b$key\b(?!:)(?![^<>]*?>)|msU",
+                    $value, $text);
+            }
+        } else {
+            $text = $string;
+        }
 
-    return ucfirst($text);
+        return ucfirst($text);
     }
 
     /** Look up the correct value and cache the results
      * @access public
-     * @param  string $name  The model name
+     * @param  string $name The model name
      * @param  string $field The field to return
      * @param  string $value The value to lookup
      * @return string
      */
     public function getData($name, $field, $value, $idField = 'id')
     {
-    $key = md5($name . $field . $value . $idField);
-    if (!($this->_cache->test($key))) {
-    $model = new $name();
-    $data = $model->fetchRow($model->select()->where($idField . ' = ?', $value));
-    $this->_cache->save($data);
-    } else {
-    $data = $this->_cache->load($key);
-    }
+        $key = md5($name . $field . $value . $idField);
+        if (!($this->_cache->test($key))) {
+            $model = new $name();
+            $data = $model->fetchRow($model->select()->where($idField . ' = ?', $value));
+            $this->_cache->save($data);
+        } else {
+            $data = $this->_cache->load($key);
+        }
 
-    return $data->$field;
+        return $data->$field;
     }
 
     /** Clean up the parameters submitted
      * @access public
-     * @param  array  $params The parameters submitted
+     * @param  array $params The parameters submitted
      * @return string
      */
     public function cleanParams($params)
@@ -201,120 +202,123 @@ class Pas_View_Helper_SearchParams
         unset($params['module']);
         unset($params['controller']);
         unset($params['action']);
-    foreach ($params as $key => $value) {
-    switch ($key) {
-        case 'regionID':
-            $params[$key] = $this->getData('Regions','region', $value);
-            break;
-        case 'denomination':
-            $params[$key] = $this->getData('Denominations','denomination', $value);
-            break;
-        case 'ruler':
-            $params[$key] = $this->getData('Rulers','issuer', $value);
-            break;
-        case 'mint':
-            $params[$key] = $this->getData('Mints','mint_name', $value);
-            break;
-        case 'material':
-            $params[$key] = $this->getData('Materials','term', $value);
-            break;
-        case 'hID':
-            $params[$key] = $this->getData('Hoards','term', $value);
-            break;
-        case 'countyID':
-            $params[$key] = $this->getData('OsCounties', 'label', $value, 'osID');
-            break;
-        case 'regionID':
-            $params[$key] = $this->getData('OsRegions', 'label', $value, 'osID');
-            break;
-        case 'parishID':
-            $params[$key] = $this->getData('OsParishes', 'label', $value, 'osID');
-            break;
-        case 'districtID':
-            $params[$key] = $this->getData('OsDistricts', 'label', $value, 'osID');
-            break;
-        case 'treasure' :
-            $params[$key] = 'yes';
-            break;
-        case 'rally' :
-            $params[$key] = 'yes';
-            break;
-        case 'note':
-            $params[$key] = 'yes';
-            break;
-        case 'hoard':
-            $params[$key] = 'yes';
-            break;
-        case 'thumbnail':
-            $params[$key] = 'Only records with images please';
-            break;
-        case 'surface':
-            $params[$key] = $this->getData('Surftreatments','term', $value);
-            break;
-        case 'workflow':
-            $params[$key] = $this->getData('Workflows','workflowstage', $value);
-            break;
-        case 'manufacture':
-            $params[$key] = $this->getData('Manufactures','term', $value);
-            break;
-        case 'decoration':
-            $params[$key] = $this->getData('Decmethods','term', $value);
-            break;
-        case 'category':
-            $params[$key] = $this->getData('CategoriesCoins','category', $value);
-            break;
-        case 'reason':
-            $params[$key] = $this->getData('Findofnotereasons','term', $value);
-            break;
-        case 'type':
-            $params[$key] = $this->getData('MedievalTypes','type', $value);
-            break;
-        case 'rallyID':
-            $params[$key] = $this->getData('Rallies','rally_name', $value);
-            break;
-        case 'createdBy':
-            $params[$key] = $this->getData('Users','fullname', $value);
-            break;
-        case 'fromsubperiod':
-            $params[$key] = $this->getData('SubPeriods','term', $value);
-            break;
-        case 'tosubperiod':
-            $params[$key] = $this->getData('SubPeriods','term', $value);
-            break;
-        case 'periodFrom':
-            $params[$key] = $this->getData('Periods','term', $value);
-            break;
-        case 'periodTo':
-            $params[$key] = $this->getData('Periods','term', $value);
-            break;
-        case 'culture':
-            $params[$key] = $this->getData('Cultures','term', $value);
-            break;
-        case 'tribe':
-            $params[$key] = $this->getData('Tribes','tribe', $value);
-            break;
-        case 'geographyID':
-            $params[$key] = $this->getData('Geography','area', $value);
-            break;
-        case 'axis':
-            $params[$key] = $this->getData('Dieaxes','die_axis_name', $value);
-            break;
-        case 'moneyer':
-            $params[$key] = $this->getData('Moneyers','name', $value);
-            break;
-        case 'reeceID':
-            $params[$key] = 'Period ' . $value . ': ' . $this->getData('Reeces','description', $value);
-            break;
-        case 'regionID':
-            $params[$key] = $this->getData('OsRegions','label', $value, 'osID');
-            break;
-        default:
-            $params[$key] = $value;
-            break;
-    }
+        foreach ($params as $key => $value) {
+            switch ($key) {
+                case 'regionID':
+                    $params[$key] = $this->getData('Regions', 'region', $value);
+                    break;
+                case 'denomination':
+                    $params[$key] = $this->getData('Denominations', 'denomination', $value);
+                    break;
+                case 'ruler':
+                    $params[$key] = $this->getData('Rulers', 'issuer', $value);
+                    break;
+                case 'mint':
+                    $params[$key] = $this->getData('Mints', 'mint_name', $value);
+                    break;
+                case 'material':
+                    $params[$key] = $this->getData('Materials', 'term', $value);
+                    break;
+                case 'hID':
+                    $params[$key] = $this->getData('Hoards', 'term', $value);
+                    break;
+                case 'countyID':
+                    $params[$key] = $this->getData('OsCounties', 'label', $value, 'osID');
+                    break;
+                case 'regionID':
+                    $params[$key] = $this->getData('OsRegions', 'label', $value, 'osID');
+                    break;
+                case 'parishID':
+                    $params[$key] = $this->getData('OsParishes', 'label', $value, 'osID');
+                    break;
+                case 'districtID':
+                    $params[$key] = $this->getData('OsDistricts', 'label', $value, 'osID');
+                    break;
+                case 'treasure' :
+                    $params[$key] = 'yes';
+                    break;
+                case 'rally' :
+                    $params[$key] = 'yes';
+                    break;
+                case 'note':
+                    $params[$key] = 'yes';
+                    break;
+                case 'hoard':
+                    $params[$key] = 'yes';
+                    break;
+                case 'thumbnail':
+                    $params[$key] = 'Only records with images please';
+                    break;
+                case 'surface':
+                    $params[$key] = $this->getData('Surftreatments', 'term', $value);
+                    break;
+                case 'workflow':
+                    $params[$key] = $this->getData('Workflows', 'workflowstage', $value);
+                    break;
+                case 'manufacture':
+                    $params[$key] = $this->getData('Manufactures', 'term', $value);
+                    break;
+                case 'decoration':
+                    $params[$key] = $this->getData('Decmethods', 'term', $value);
+                    break;
+                case 'category':
+                    $params[$key] = $this->getData('CategoriesCoins', 'category', $value);
+                    break;
+                case 'reason':
+                    $params[$key] = $this->getData('Findofnotereasons', 'term', $value);
+                    break;
+                case 'type':
+                    $params[$key] = $this->getData('MedievalTypes', 'type', $value);
+                    break;
+                case 'rallyID':
+                    $params[$key] = $this->getData('Rallies', 'rally_name', $value);
+                    break;
+                case 'createdBy':
+                    $params[$key] = $this->getData('Users', 'fullname', $value);
+                    break;
+                case 'fromsubperiod':
+                    $params[$key] = $this->getData('SubPeriods', 'term', $value);
+                    break;
+                case 'tosubperiod':
+                    $params[$key] = $this->getData('SubPeriods', 'term', $value);
+                    break;
+                case 'periodFrom':
+                    $params[$key] = $this->getData('Periods', 'term', $value);
+                    break;
+                case 'periodTo':
+                    $params[$key] = $this->getData('Periods', 'term', $value);
+                    break;
+                case 'culture':
+                    $params[$key] = $this->getData('Cultures', 'term', $value);
+                    break;
+                case 'tribe':
+                    $params[$key] = $this->getData('Tribes', 'tribe', $value);
+                    break;
+                case 'geographyID':
+                    $params[$key] = $this->getData('Geography', 'area', $value);
+                    break;
+                case 'axis':
+                    $params[$key] = $this->getData('Dieaxes', 'die_axis_name', $value);
+                    break;
+                case 'moneyer':
+                    $params[$key] = $this->getData('Moneyers', 'name', $value);
+                    break;
+                case 'reeceID':
+                    $params[$key] = 'Period ' . $value . ': ' . $this->getData('Reeces', 'description', $value);
+                    break;
+                case 'regionID':
+                    $params[$key] = $this->getData('OsRegions', 'label', $value, 'osID');
+                    break;
+                case 'reverse':
+                    $params[$key] = $this->getData('RevTypes', 'type' , $value);
+                    break;
+                default:
+                    $params[$key] = $value;
+                    break;
+            }
+        }
+
+        return $params;
     }
 
-    return $params;
-    }
-
-    }
+}

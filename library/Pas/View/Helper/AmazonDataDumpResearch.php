@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AmazonDataDumpResearch helper
  * @author Daniel Pett <dpett @britishmuseum.org>
@@ -14,7 +15,6 @@
  */
 class Pas_View_Helper_AmazonDataDumpResearch extends Zend_View_Helper_Abstract
 {
-
     /** The S3 Object
      * @access protected
      * @var object
@@ -68,7 +68,7 @@ class Pas_View_Helper_AmazonDataDumpResearch extends Zend_View_Helper_Abstract
 
     /** Set a different bucket to the default
      * @access public
-     * @param  type                            $bucket
+     * @param  type $bucket
      * @return \Pas_View_Helper_AmazonDataDump
      */
     public function setBucket($bucket)
@@ -89,7 +89,7 @@ class Pas_View_Helper_AmazonDataDumpResearch extends Zend_View_Helper_Abstract
 
     /** Set a different cache key
      * @access public
-     * @param  type                            $cacheKey
+     * @param  type $cacheKey
      * @return \Pas_View_Helper_AmazonDataDump
      */
     public function setCacheKey($cacheKey)
@@ -106,7 +106,7 @@ class Pas_View_Helper_AmazonDataDumpResearch extends Zend_View_Helper_Abstract
     public function getS3()
     {
         $this->_S3 = new Zend_Service_Amazon_S3($this->getAwsKey(),
-                $this->getAwsSecret());
+            $this->getAwsSecret());
 
         return $this->_S3;
     }
@@ -167,8 +167,9 @@ class Pas_View_Helper_AmazonDataDumpResearch extends Zend_View_Helper_Abstract
      */
     protected $_roles = array(
         'admin', 'research', 'flos',
-        'treasure', 'hero', 'fa'
-        );
+        'treasure', 'hero', 'fa',
+        'hoard'
+    );
 
     /** Get the role of the user
      * @access public
@@ -177,7 +178,11 @@ class Pas_View_Helper_AmazonDataDumpResearch extends Zend_View_Helper_Abstract
     public function getRole()
     {
         $user = new Pas_User_Details();
-        $this->_role = $user->getPerson()->role;
+        if ($user->getPerson()) {
+            $this->_role = $user->getPerson()->role;
+        } else {
+            $this->_role = NULL;
+        }
 
         return $this->_role;
     }
@@ -205,31 +210,24 @@ class Pas_View_Helper_AmazonDataDumpResearch extends Zend_View_Helper_Abstract
     public function getData()
     {
         if (in_array($this->getRole(), $this->_roles)) {
-    $key = md5( $this->getCacheKey() );
-    if (!($this->getCache()->test($key))) {
-            $list = $this->getS3()->getObjectsByBucket( $this->getBucket() );
-            $data = array();
-            foreach ($list as $name) {
-                $data[] = array(
-                    'filename' => $name,
-                    'properties' => $this->getS3()->getInfo($this->getBucket()
-                            . $name )
+            //$key = md5($this->getCacheKey());
+//            if (!($this->getCache()->test($key))) {
+                $list = $this->getS3()->getObjectsByBucket($this->getBucket());
+                $data = array();
+                foreach ($list as $name) {
+                    $data[] = array(
+                        'filename' => $name,
+                        'properties' => $this->getS3()->getInfo($this->getBucket() . $name)
                     );
                 }
-
                 $this->getCache()->save($data);
-
-            } else {
-                $data = $this->getCache()->load($key);
-
-            }
-
+//            } else {
+//                $data = $this->getCache()->load($key);
+//            }
             return $this->_buildHtml($data);
-
-            } else {
-                return false;
-
-            }
+        } else {
+            return false;
+        }
     }
 
     /** Return a string of data
@@ -241,17 +239,23 @@ class Pas_View_Helper_AmazonDataDumpResearch extends Zend_View_Helper_Abstract
         return $this->_buildHtml();
     }
 
-    protected function _buildHtml()
+    /** Build the html to return
+     * @access public
+     * @return string $html
+     */
+    public function _buildHtml()
     {
-        $html = '<h2>Daily research data dumps of entire database</h2>';
-    $html .= '<p>These data are licensed under CC-BY and includes the following fields and objects from workflow stages validation and published. Other stages are not available to your login; this dump is generated at 5am GMT daily.</p>';
-        $html .= '<blockquote><p>';
-        $html .= 'id, objecttype, broadperiod, periodFromName, periodToName, fromdate, todate, description, notes, workflow, materialTerm, secondaryMaterialTerm, , subsequentActionTerm, discoveryMethod, datefound1, datefound2, TID, rallyName, weight, height, diameter, thickness, length, quantity, finder, identifier, recorder, denominationName, rulerName, mintName, obverseDescription, obverseLegend, reverseDescription, reverseLegend, tribeName, reeceID, cciNumber, mintmark, abcType, categoryTerm, typeTerm, moneyerName, reverseType, regionName, county, district, parish, knownas, gridref, gridSource, fourFigure, easting, northing, latitude, longitude, geohash, coordinates, fourFigureLat, fourFigureLon';
-        $html .= '</blockquote></p>';
         $data = $this->getData();
-        $html .=$this->view->partialLoop('partials/admin/fileListResearch.phtml',
-                $data);
-
+        Zend_Debug::dump($data);
+        $html = '';
+        if(!empty($data)) {
+            $html .= '<h2 class="lead">Daily research data dumps of entire database</h2>';
+            $html .= '<p>These data are licensed under CC-BY and includes the following fields and objects from workflow stages validation and published. Other stages are not available to your login; this dump is generated at 5am GMT daily.</p>';
+            $html .= '<blockquote><p>';
+            $html .= 'id, objecttype, broadperiod, periodFromName, periodToName, fromdate, todate, description, notes, workflow, materialTerm, secondaryMaterialTerm, , subsequentActionTerm, discoveryMethod, datefound1, datefound2, TID, rallyName, weight, height, diameter, thickness, length, quantity, finder, identifier, recorder, denominationName, rulerName, mintName, obverseDescription, obverseLegend, reverseDescription, reverseLegend, tribeName, reeceID, cciNumber, mintmark, abcType, categoryTerm, typeTerm, moneyerName, reverseType, regionName, county, district, parish, knownas, gridref, gridSource, fourFigure, easting, northing, latitude, longitude, geohash, coordinates, fourFigureLat, fourFigureLon';
+            $html .= '</blockquote></p>';
+            $html .= $this->view->partialLoop('partials/admin/fileListResearch.phtml', $data);
+        }
         return $html;
 
     }

@@ -13,7 +13,7 @@
  * @uses Zend_Auth
  */
 
-class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_FindSpot extends Zend_View_Helper_Abstract {
     
     /** The no access array
      * @access protected
@@ -175,7 +175,7 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_Findspot
      */
-    public function findspot() {
+    public function findSpot() {
         return $this;
     }
     
@@ -206,7 +206,7 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
         if ($this->checkByCreator()) {
             $html .= $this->view->partial('partials/database/findSpot.phtml', $this->getData());
         } else {
-            $html .= $this->view->partial('partials/database/unauthorisedfindspot.phtml', $this->getData());
+            $html .= $this->view->partial('partials/database/unauthorisedFindspot.phtml', $this->getData());
         }
         return $html;
     }

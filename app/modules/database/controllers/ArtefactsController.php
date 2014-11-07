@@ -164,9 +164,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function indexAction(){
-        $this->_redirect('database/search/results/');
+        $this->getFlash()->addMessage('You cannot access the root page for artefacts');
         $this->getResponse()->setHttpResponseCode(301)
-                    ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('database/search/results/');
     }
 
     /** Display individual record
