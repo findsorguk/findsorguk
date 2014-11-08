@@ -1,4 +1,5 @@
 <h4 class="lead">Coin data (numismatics)</h4>
+
 <?php echo $this->CoinEditDeleteLink()
     ->setFindID($this->id)
     ->setReturnID($this->id)
@@ -15,14 +16,15 @@
         'module' => 'postmedievalcoins',
         'controller' => 'denominations',
         'action' => 'denomination',
-        'id' => $this->denominationID), null, true);?>" title="Read scope note for <?php
-    echo $this->denomination;?>">scope notes</a> |  <a href="<?php
+        'id' => $this->denominationID), null, true);?>"
+       title="Read scope note for <?php
+       echo $this->denomination;?>">scope notes</a> |  <a href="<?php
             echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
                 'denomination' => $this->denominationID), null, true);?>"
-                                            title="view all records assigned to denomination:
+                                                          title="view all records assigned to denomination:
         <?php echo $this->denomination; ?>">view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
@@ -32,14 +34,15 @@
         'module' => 'postmedievalcoins',
         'controller' => 'rulers',
         'action' => 'ruler',
-        'id' => $this->ruler1), null, true);?>" title="Read scope note for
-    <?php echo $this->primaryRuler; ?>">scope notes</a> | <a href="<?php
+        'id' => $this->ruler1), null, true);?>"
+       title="Read scope note for
+        <?php echo $this->primaryRuler; ?>">scope notes</a> | <a href="<?php
             echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
                 'ruler' => $this->ruler1), null, true);?>"
-                                                       title="view all records assigned to <?php echo $this->ruler1; ?>">
+                                                                 title="view all records assigned to <?php echo $this->ruler1; ?>">
                 view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
@@ -49,8 +52,8 @@
                 'module' => 'postmedievalcoins',
                 'controller' => 'mints',
                 'action' => 'mint',
-                'id' => $this->mintID), null, true);?>" title="Read scope note for
-<?php echo $this->mintName; ?>">scope notes</a> | <a href="<?php echo
+                'id' => $this->mintID), null, true);?>" title="Read scope note for <?php echo $this->mintName; ?>">scope
+                notes</a> | <a href="<?php echo
             $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',

@@ -126,9 +126,9 @@ class Pas_View_Helper_FindSpotEditDeleteLink
     'id' => $ID, 'recordtype' => $controller),null,true);
     $deleteurl = $this->view->url(array('module' => 'database','controller' => 'findspots','action' => 'delete',
     'id' => $ID, 'recordtype' => $controller),null,true);
-    $html = '<p><a class="' .$editClass . '" href="' . $editurl
+    $html = '<div class="btn-group"><a class="' .$editClass . '" href="' . $editurl
     . '" title="Edit spatial data for this record">Edit findspot <i class="icon-edit icon-white"></i></a> <a class="' . $deleteClass . '" href="' . $deleteurl
-    . '" title="Delete spatial data">Delete findspot <i class="icon-trash icon-white"></i></a></p>';
+    . '" title="Delete spatial data">Delete findspot <i class="icon-trash icon-white"></i></a></div>';
 
     return $html;
     }

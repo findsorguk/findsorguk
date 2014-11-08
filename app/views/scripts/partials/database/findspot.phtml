@@ -2,10 +2,16 @@
 $this->googleDynamicMap(null, null, true);
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 ?>
-<h3 class="lead">Spatial data</h3>
-<?php echo $this->FindSpotEditDeleteLink($this->old_findspotid, $this->id, $controller, $this->createdBy); ?>
 
-<?php if (isset($this->lon) && isset($this->lat)) : ?>
+
+
+
+
+
+<h3 class="lead">Spatial data</h3>
+<?php echo $this->findSpotEditDeleteLink($this->old_findspotid, $this->id, $controller, $this->createdBy); ?>
+
+<?php if (!is_null($this->lon) && !is_null($this->lat)) : ?>
 
     <div id="map">
         <noscript><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->lat; ?>,
@@ -290,13 +296,13 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 
     <div class="row-fluid">
 
-        <div class="span4 noprint">
+       <!-- <div class="span4 noprint">
             <?php //echo $this->findspotGeo()->setWoeID($this->woeid)->setLat($this->declat)->setLon($this->declong); ?>
-        </div>
+        </div> -->
 
-        <div class="span4 noprint">
+        <!-- <div class="span4 noprint">
             <?php //echo $this->yahooGeoAdjacent()->setWoeid($this->woeid); ?>
-        </div>
+        </div> -->
 
         <div class="span4">
             <h3 class="lead">Discovery metadata</h3>

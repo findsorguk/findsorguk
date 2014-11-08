@@ -13,7 +13,6 @@
     </ul>
 </div>
 <!--  End the previous next row -->
-<?php Zend_Debug::dump($this->finds); ?>
 
 <div typeof="crm:E22_Man-Made_Object" about="<?php echo $this->curUrl(); ?>" class="record">
 <!--  Start of main body of record -->
@@ -183,19 +182,18 @@
 <div class="row-fluid">
     <!-- Render the map and findspot data -->
 
-    <?php if ($this->finds[0]['countyID']) : ?>
+    <?php if (array_key_exists('countyID',$this->finds[0])) : ?>
 
         <!-- Check for findspot data and if exists render -->
+
         <?php
-        echo $this->findspot()
-            ->setData($this->finds[0])
-            ->setCreatedBy($this->finds[0]['createdBy']);
+        echo $this->findspot()->setData($this->finds[0])->setCreatedBy($this->finds[0]['createdBy']);
         ?>
 
     <?php else: ?>
         <!-- Render a link for adding find spot -->
         <div id="findspotdata">
-            <h4>
+            <h4 class="lead">
                 Spatial data
             </h4>
 
@@ -328,3 +326,5 @@
 <?php $this->placeholder('tags')->captureStart() ?>
 <?php echo $this->semanticTags()->setQuery('id:' . $this->finds[0]['id'] . ' ' . 'contentType:findsrecord'); ?>
 <?php $this->placeholder('tags')->captureEnd() ?>
+
+<?php Zend_Debug::dump($this->finds); ?>
