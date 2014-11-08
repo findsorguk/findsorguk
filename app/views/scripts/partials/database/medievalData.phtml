@@ -8,54 +8,54 @@
     ->setCreatedBy($this->createdBy);
 ?>
 <p>
-    <?php if (!is_null($this->d)) : ?>
-        Denomination: <?php echo $this->escape($this->d); ?> <span class="scope">[
+    <?php if (!is_null($this->denomination)) : ?>
+        Denomination: <?php echo $this->escape($this->denomination); ?> <span class="scope">[
     <a href="<?php echo $this->url(array(
         'module' => 'medievalcoins',
         'controller' => 'denominations',
         'action' => 'denomination',
-        'id' => $this->denom), null, true);?>" title="Read scope note for
-    <?php echo $this->d; ?>">scope notes</a> |  <a href="<?php echo
+        'id' => $this->denominationID), null, true);?>" title="Read scope note for
+    <?php echo $this->denomination; ?>">scope notes</a> |  <a href="<?php echo
             $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'denomination' => $this->denom), null, true);?>"
-                                                   title="view all records assigned to denomination:
-    <?php echo $this->d; ?>">view all attributed records</a>]</span><br/>
+                'denomination' => $this->denominationID), null, true);?>"
+                                                              title="view all records assigned to denomination:
+    <?php echo $this->denomination; ?>">view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->ruler1)) : ?>
-        Ruler/issuer: <?php echo $this->escape($this->ruler1); ?> <span class="scope">[
+        Ruler/issuer: <?php echo $this->primaryRuler; ?> <span class="scope">[
     <a href="<?php echo $this->url(array(
         'module' => 'medievalcoins',
         'controller' => 'rulers',
         'action' => 'ruler',
-        'id' => $this->ruler_id), null, true);?>" title="Read scope note for
-    <?php echo $this->ruler1; ?>">scope notes</a> | <a href="<?php echo
+        'id' => $this->ruler1), null, true);?>" title="Read scope note for
+    <?php echo $this->primaryRuler; ?>">scope notes</a> | <a href="<?php echo
             $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
                 'ruler' => $this->ruler_id), null, true);?>"
-                                                       title="view all records assigned to <?php echo $this->ruler1; ?>">
+                                                             title="view all records assigned to <?php echo $this->primaryRuler; ?>">
                 view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->mint_name)): ?>
-        Mint or issue place: <?php echo $this->escape($this->mint_name); ?>
+    <?php if (!is_null($this->mint)): ?>
+        Mint or issue place: <?php echo $this->escape($this->mint); ?>
         <span class="scope">[<a href="<?php echo $this->url(array(
                 'module' => 'medievalcoins',
                 'controller' => 'mints',
                 'action' => 'mint',
-                'id' => $this->mint_id), null, true);?>" title="Read scope note for
-<?php echo $this->mint_name; ?>">scope notes</a> | <a href="<?php echo
+                'id' => $this->mintID), null, true);?>" title="Read scope note for
+<?php echo $this->mint; ?>">scope notes</a> | <a href="<?php echo
             $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'mint' => $this->mint_id), null, true);?>"
-                                                      title="view all records assigned to <?php echo $this->mint_name; ?>">
+                'mint' => $this->mintID), null, true);?>"
+                                                      title="view all records assigned to <?php echo $this->mint    ; ?>">
                 view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
@@ -93,44 +93,44 @@
 </span><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->obverse_description)): ?>
-        Obverse description: <?php echo ucfirst($this->escape($this->obverse_description)); ?><br/>
+    <?php if (!is_null($this->obverseDescription)): ?>
+        Obverse description: <?php echo ucfirst($this->obverseDescription); ?><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->obverse_inscription)): ?>
-        Obverse inscription: <?php echo ucfirst($this->obverse_inscription); ?><br/>
+    <?php if (!is_null($this->obverseInscription)): ?>
+        Obverse inscription: <?php echo ucfirst($this->obverseInscription); ?><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->reverse_description)): ?>
-        Reverse description: <?php echo ucfirst($this->reverse_description); ?><br/>
+    <?php if (!is_null($this->reverseDescription)): ?>
+        Reverse description: <?php echo ucfirst($this->reverseDescription); ?><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->reverse_inscription)): ?>
-        Reverse inscription: <?php echo ucfirst($this->reverse_inscription); ?><br/>
+    <?php if (!is_null($this->reverseInscription)): ?>
+        Reverse inscription: <?php echo ucfirst($this->reverseInscription); ?><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->reverse_mintmark)) : ?>
-        Reverse mintmark: <?php echo $this->escape($this->reverse_mintmark); ?><br/>
+    <?php if (!is_null($this->reverseMintmark)) : ?>
+        Reverse mintmark: <?php echo $this->escape($this->reverseMintmark); ?><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->initial_mark)) : ?>
-        Initial mark: <?php echo $this->escape($this->initial_mark); ?><br/>
+    <?php if (!is_null($this->initialMark)) : ?>
+        Initial mark: <?php echo $this->escape($this->initialMark); ?><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->die_axis_name)): ?>
+    <?php if (!is_null($this->dieAxisName)): ?>
         Die axis measurement: <?php echo $this->escape($this->die_axis_name); ?> <span
             class="scope">[<a href="<?php echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'terminology',
                 'action' => 'dieaxis',
-                'id' => $this->die), null, true);?>" title="Read scope note for
-    <?php echo $this->die_axis_name; ?>">scope notes</a> | <a href="<?php
+                'id' => $this->dieAxis), null, true);?>" title="Read scope note for
+    <?php echo $this->dieAxisName; ?>">scope notes</a> | <a href="<?php
             echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'axis' => $this->die), null, true);?>" title="view all records assigned to
-<?php echo $this->die_axis_name; ?>">view all attributed records</a>]</span><br/>
+                'axis' => $this->dieAxis), null, true);?>" title="view all records assigned to
+<?php echo $this->dieAxisName; ?>">view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->wear)): ?>

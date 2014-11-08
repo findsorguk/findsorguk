@@ -1,59 +1,60 @@
 <h3 class="lead">Coin data (numismatics)</h3>
 <?php echo $this->CoinEditDeleteLink()
     ->setFindID($this->id)
+    ->setRecordID($this->coinID)
     ->setBroadperiod($this->broadperiod)
     ->setSecuID($this->secuid)
     ->setInstitution($this->institution)
     ->setCreatedBy($this->createdBy);
 ?>
 <p>
-    <?php if (!is_null($this->d)) : ?>
-        Denomination: <?php echo $this->escape($this->d); ?>
+    <?php if (!is_null($this->denomination)) : ?>
+        Denomination: <?php echo $this->denomination; ?>
         <span class="scope">[<a href="<?php echo $this->url(array(
                 'module' => 'earlymedievalcoins',
                 'controller' => 'denominations',
                 'action' => 'denomination',
-                'id' => $this->denom), null, true);?>" title="Read scope note for <?php echo
-            $this->d;?>">scope notes</a> |  <a href="<?php echo $this->url(array(
+                'id' => $this->denominationID), null, true);?>" title="Read scope note for <?php echo
+            $this->denomination;?>">scope notes</a> |  <a href="<?php echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'denomination' => $this->denom), null, true);?>"
-                                               title="view all records assigned to denomination:
-    <?php echo $this->d; ?>">view all attributed records</a>]</span><br/>
+                'denomination' => $this->denominationID), null, true);?>"
+                                                          title="view all records assigned to denomination:
+    <?php echo $this->denomination; ?>">view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->ruler1)) : ?>
-        Ruler/issuer: <?php echo $this->escape($this->ruler1); ?>
+        Ruler/issuer: <?php echo $this->primaryRuler; ?>
         <span class="scope">[<a href="<?php echo $this->url(array(
                 'module' => 'earlymedievalcoins',
                 'controller' => 'rulers',
                 'action' => 'ruler',
-                'id' => $this->ruler_id), null, true);?>" title="Read scope note for
-<?php echo $this->period_name; ?>">scope notes</a> | <a href="<?php echo
+                'id' => $this->ruler1), null, true);?>" title="Read scope note for
+<?php echo $this->primaryRuler; ?>">scope notes</a> | <a href="<?php echo
             $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'ruler' => $this->ruler_id), null, true);?>"
-                                                        title="view all records assigned to <?php echo $this->ruler1; ?>">
+                'ruler' => $this->ruler1), null, true);?>"
+                                                         title="view all records assigned to <?php echo $this->primaryRuler; ?>">
                 view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->mint_name)) : ?>
-        Mint or issue place: <?php echo $this->escape($this->mint_name); ?>
+    <?php if (!is_null($this->mintName)) : ?>
+        Mint or issue place: <?php echo $this->mintName; ?>
         <span class="scope">[<a href="<?php echo $this->url(array(
                 'module' => 'earlymedievalcoins',
                 'controller' => 'mints',
                 'action' => 'mint',
-                'id' => $this->mint_id), null, true);?>" title="Read scope note for
+                'id' => $this->mintID), null, true);?>" title="Read scope note for
 <?php echo $this->mint_name; ?>">scope notes</a> | <a href="
 <?php echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'mint' => $this->mint_id), null, true);?>" title="view all records assigned to
-<?php echo $this->mint_name; ?>">view all attributed records</a>]</span><br/>
+                'mint' => $this->mintID), null, true);?>" title="view all records assigned to
+<?php echo $this->mintName; ?>">view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->category)) : ?>
@@ -74,6 +75,7 @@
     <?php endif; ?>
 
     <?php if (!is_null($this->type)) : ?>
+        <br />
         Type: <?php echo $this->escape($this->type); ?> <span class="scope">[<a href="
 <?php echo $this->url(array(
                 'module' => 'earlymedievalcoins',
@@ -86,31 +88,33 @@
                 'action' => 'results',
                 'typeID' => $this->typeID), null, true);?>" title="view all records
         assigned to <?php echo $this->type; ?>">view all attributed records</a>]
-</span><br/>
+</span>
     <?php endif; ?>
 
-    <?php if (!is_null($this->obverse_description)) : ?>
-        Obverse description: <?php echo $this->obverse_description; ?><br/>
+    <?php if (!is_null($this->obverseDescription)) : ?>
+        <br />
+        Obverse description: <?php echo ucfirst($this->obverseDescription); ?>
     <?php endif; ?>
 
-    <?php if (!is_null($this->obverse_inscription)) : ?>
-        Obverse inscription: <?php echo $this->obverse_inscription; ?><br/>
+    <?php if (!is_null($this->obverseInscription)) : ?>
+        <br />
+        Obverse inscription: <?php echo $this->obverseInscription; ?>
     <?php endif; ?>
 
-    <?php if (!is_null($this->reverse_description)) : ?>
-        Reverse description: <?php echo $this->reverse_description; ?><br/>
+    <?php if (!is_null($this->reverseDescription)) : ?>
+        Reverse description: <?php echo $this->reverseDescription; ?><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->reverse_inscription)) : ?>
-        Reverse inscription: <?php echo $this->reverse_inscription; ?><br/>
+    <?php if (!is_null($this->reverseInscription)) : ?>
+        Reverse inscription: <?php echo $this->reverseInscription; ?><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->reverse_mintmark)) : ?>
-        Reverse mintmark: <?php echo $this->escape($this->reverse_mintmark); ?><br/>
+    <?php if (!is_null($this->reverseMintmark)) : ?>
+        Reverse mintmark: <?php echo $this->reverseMintmark; ?><br/>
     <?php endif; ?>
 
-    <?php if (!is_null($this->initial_mark)) : ?>
-        Initial mark: <?php echo $this->escape($this->initial_mark); ?><br/>
+    <?php if (!is_null($this->initialMark)) : ?>
+        Initial mark: <?php echo $this->initialMark; ?><br/>
     <?php endif; ?>
 
 

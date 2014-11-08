@@ -9,8 +9,8 @@
                 title="Find all records assigned to  <?php echo $this->mat1; ?>">view all attributed records</a>]</span>
         <br/>
     <?php endif; ?>
-    <?php if (!is_null($this->mat2)) : ?>
-        Secondary material: <span property="pas:secondaryMaterial"><?php echo $this->mat2; ?></span> <span
+    <?php if (!is_null($this->material2)) : ?>
+        Secondary material: <span property="pas:secondaryMaterial"><?php echo $this->secondaryMaterial; ?></span> <span
             class="scope">[<a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'material', 'id' => $this->material2), NULL, true); ?>"
                 title="View scope notes for <?php echo $this->escape($this->mat2); ?>">scope notes</a>| <a
