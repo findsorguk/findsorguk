@@ -1,3 +1,12 @@
-<h2 class="lead">Die Axis term: <?php echo $this->escape($this->die_axis_name);?></h2>
+<?php
+$this->headTitle('Die Axis term: ' . $this->die_axis_name);
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('archaeology,numismatics,die axed')
+    ->generate();
+?>
+    <h2 class="lead"><?php $this->title(); ?></h2>
 
-<p>View all records on the database for this dieaxis.</p>
+    <p>View all records on the database for this die axis.</p>
+
+<?php echo $this->latestRecords()->setQuery('axis:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>

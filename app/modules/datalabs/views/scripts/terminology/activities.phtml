@@ -1,15 +1,15 @@
 <?php
 $this->headTitle('Primary Activities');
 $this->metaBase()
-        ->setDescription('This page outlines the majority of activities in which finders engage when 
+    ->setDescription('This page outlines the majority of activities in which finders engage when
 discovering artefacts')
-        ->setSubject('discovery')
-        ->setKeywords('metal detecting,fieldwalking,,methods,discovery,personal')
-        ->generate();
+    ->setSubject('discovery')
+    ->setKeywords('metal detecting,fieldwalking,,methods,discovery,personal')
+    ->generate();
 ?>
 <h2 class="lead">
-    <?php echo $this->title();?>
+    <?php echo $this->title(); ?>
 </h2>
 <ul>
-    <?php echo $this->partialLoop('partials/datalabs/activityList.phtml',$this->activities);?>
+    <?php echo $this->partialLoop('partials/datalabs/activityList.phtml', $this->activities); ?>
 </ul>

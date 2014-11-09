@@ -1,3 +1,17 @@
-<h2 class="lead">Ascribed culture term: <?php echo $this->escape($this->term);?></h2>
-<?php echo $this->termdesc;?>
-<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','culture' => $this->id),null,true);?>" title="Search database for all attributed records">all records</a> assigned to <?php echo $this->term;?>.</p>
+<?php $this->headTitle('Details for cultural term ' . $this->term);
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('Terminology')
+    ->setKeywords('archaeology,cultures')
+    ->generate();
+?>
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->termdesc; ?>
+<p>View <a href="<?php echo $this->url(array(
+        'module' => 'database',
+        'controller' => 'search',
+        'action' => 'results',
+        'culture' => $this->id), null, true);?>"
+           title="Search database for all attributed records">all records</a> assigned to <?php echo $this->term; ?>.
+</p>
+<?php echo $this->latestRecords()->setQuery('culture:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>

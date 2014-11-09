@@ -1,3 +1,27 @@
-<h2 class="lead">Details for: <?php echo ucfirst(strtolower($this->escape($this->term)));?></h2>
-<p><?php echo $this->scopeNote;?></p>
-<p>Search our database for <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','objecttype' => strtolower($this->term)),null,true);?>" title="Search database for <?php echo $this->term;?>">all examples recorded.</a></p>
+<?php
+$this->headTitle('Details for object type: ' . $this->term);
+$this->metaBase()->setDescription('Details for object type use ' . $this->term)
+    ->setKeywords('object,types,thesauri')
+    ->generate();
+?>
+
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->scopeNote)): ?>
+    <p><?php echo $this->scopeNote; ?></p>
+<?php else: ?>
+    <p>No scope note available at present.</p>
+<?php endif; ?>
+    <p>Search our database for <a
+            href="<?php echo $this->url(array(
+                'module' => 'database', 'controller' => 'search', 'action' => 'results',
+                'objecttype' => strtolower($this->term)), null, true); ?>"
+            title="Search database for <?php echo $this->term; ?>">all examples recorded.</a></p>
+<?php echo $this->latestRecords('objectType:"' . $this->term . '"'); ?>
+<h3 class="lead">Linked data</h3>
+<?php if(!is_null($this->bmID)):?>
+    British Museum URI: <?php echo $this->bmID;?>
+<?php endif;?>
+<?php if(!is_null($this->ehID)):?>
+    <br />
+    Seneschal URI: <?php echo $this->ehID;?>
+<?php endif;?>

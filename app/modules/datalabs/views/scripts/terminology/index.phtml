@@ -1,11 +1,14 @@
-<?php $this->headTitle('Learn about our various controlled terminologies');
-$this->headMeta('archaeology,thesauri,terminology,preferred terms','dc.keywords');
-$this->headMeta('This page gives you access to our range of vocabularies 
-    employed by the Scheme on the database','description');
+<?php
+$this->headTitle('Learn about our various controlled terminologies');
+$this->metaBase()->setKeywords('archaeology,thesauri,terminology,preferred terms')
+    ->setDescription('This page gives you access to our range of vocabularies employed by the Scheme on the database')
+    ->setSubject('terminology')
+    ->generate();
 ?>
-<h2 class="lead">Controlled terminologies</h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <ul>
-<?php foreach($this->vocabularies as $k):?>
-<li><a href="<?php echo $k['html']?>" title="learn more about the <?php echo $k['type'];?> vocab"><?php echo ucfirst($k['type']);?></a></li>
-<?php endforeach;?>
+    <?php foreach ($this->vocabularies as $k): ?>
+        <li><a href="<?php echo $k['html'] ?>"
+               title="learn more about the <?php echo $k['type']; ?> vocab"><?php echo ucfirst($k['type']); ?></a></li>
+    <?php endforeach; ?>
 </ul>

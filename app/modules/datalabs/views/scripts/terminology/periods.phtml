@@ -1,16 +1,24 @@
-<h2 class="lead">Periods used on the database</h2>
+<?php
+$this->headTitle('Periods used on the database');
+$this->metaBase()->setDescription('A list of time periods in use on the PAS database')
+    ->setKeywords('periods, time, temporal')
+    ->setSubject('Terminology')
+    ->generate();
+?>
+
+<h2 class="lead"><?php echo $this->title();?></h2>
 
 <table class="table table-striped" summary="All periods in use on the database">
-<caption>All periods that the Scheme uses</caption>
-<thead>
-<tr>
-<th>Period name</th>
-<th>Date begins</th>
-<th>Date ends</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/datalabs/periodsTableList.phtml',$this->periods);?>
-</tbody>
+    <caption>All periods that the Scheme uses</caption>
+    <thead>
+    <tr>
+        <th>Period name</th>
+        <th>Date begins</th>
+        <th>Date ends</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php echo $this->partialLoop('partials/datalabs/periodsTableList.phtml', $this->periods); ?>
+    </tbody>
 </table>
 

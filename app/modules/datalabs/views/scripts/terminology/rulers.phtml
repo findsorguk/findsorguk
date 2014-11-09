@@ -15,7 +15,7 @@ $this->headTitle('All available rulers');
         </tr>
     </thead>
 <tbody>
-<?php echo $this->partialLoop('partials/database/rulerListsCTerms.phtml',$this->rulers);?>
+<?php echo $this->partialLoop('partials/datalabs/rulerListsCTerms.phtml',$this->rulers);?>
 </tbody>
 </table>
 <?php echo $this->paginationControl($this->rulers, 'Sliding', 'structure/pagination.phtml'); ?>

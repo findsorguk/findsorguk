@@ -215,7 +215,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @return object
      */
     public function getSolr() {
-        $this->_solr = new Solarium_Client($this->_solrConfig);
+        $this->_solr = new Solarium_Client($this->getSolrConfig());
         return $this->_solr;
     }
 
@@ -256,10 +256,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_ActivitySolrSearch
      */
     public function activitySolrSearch() {
-        Zend_Debug::dump($this->getQ());
-        Zend_Debug::dump($this->getData());
-//        Zend_Debug::dump($this->buildHtml());
-        exit;
+
         return $this;
     }
 
@@ -280,22 +277,21 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
                     ),
             'filterquery'   =>  array(),
         );
-//        if ( !( $this->getCache()->test( $this->getKey() ) ) ) {
+        if ( !( $this->getCache()->test( $this->getKey() ) ) ) {
             $query = $this->getSolr()->createSelect($select);
-            Zend_Debug::dump($query);
-            exit;
             $resultset = $this->getSolr()->select($query);
             $data = array();
+
             $data['numberFound'] = $resultset->getNumFound();
             foreach ($resultset as $doc) {
-                $data['images'][] = $this->parseData($doc);
+                $data['results'][] = $this->parseData($doc);
             }
-//            $this->getCache()->save($data);
-//        } else {
-//            $data = $this->getCache()->load( $this->getKey() );
-//        }
+            $this->getCache()->save($data);
+        } else {
+            $data = $this->getCache()->load($this->getKey());
+        }
 
-        return $this->buildHtml($data);
+        return $data;
     }
 
     /** Parse the array of docs
@@ -303,7 +299,7 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @param  array $doc
      * @return array
      */
-    public function parseData(array $doc) {
+    public function parseData(Solarium_Document_ReadOnly $doc) {
         $fields = array();
         foreach ($doc as $key => $value) {
             $fields[$key] = $value;
@@ -315,10 +311,9 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function buildHtml() {
+    public function buildHtml($data) {
         $html = '';
-        $data = $this->getData();
-        if (array_key_exists('images', $data )) {
+        if (array_key_exists('results', $data )) {
             $html = '<h3 class="lead">Number of people assigned</h3>';
             $html .= '<p>We have recorded ' . $data['numberFound'];
             $html .= ' people.</p>';
@@ -331,6 +326,6 @@ class Pas_View_Helper_ActivitySolrSearch extends Zend_View_Helper_Abstract
      * @return object
      */
     public function __toString() {
-        return $this->buildHtml();
+        return $this->buildHtml($this->getData());
     }
 }

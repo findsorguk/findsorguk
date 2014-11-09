@@ -1,22 +1,27 @@
-<?php $this->headTitle('All denominations in use on the Scheme\'s database');?>
-<h2 class="lead">Denominations</h2>
+<?php
+$this->headTitle('All denominations in use on the Scheme\'s database');
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('terminology,archaeology,numismatics')
+    ->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
 <?php if (count($this->denominations)): ?>
-<table class="table table-striped">
-<caption>All available denominations on the database</caption>
-    <thead>
+    <table class="table table-striped">
+        <caption>All available denominations on the database</caption>
+        <thead>
         <tr>
             <th>Denomination</th>
             <th>Material</th>
             <th>Period</th>
         </tr>
-    </thead>
-    <tbody>
-        <?php echo $this->partialLoop('partials/database/denomsTerminology.phtml',$this->denominations);?>
-    </tbody>
-</table>
-<?php echo  $this->paginationControl($this->denominations, 'Elastic', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>There are no denominations available to you.</p>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/datalabs/denomsTerminology.phtml', $this->denominations); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->denominations, 'Elastic', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>There are no denominations available to you.</p>
 <?php endif; ?>
-

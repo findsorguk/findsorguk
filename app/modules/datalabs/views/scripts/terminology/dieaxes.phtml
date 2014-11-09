@@ -1,2 +1,9 @@
-<h2 class="lead">Die Axes in use on the database</h2>
-<ul><?php echo $this->partialLoop('partials/database/dies.phtml',$this->dieaxes) ;?></ul>
+<?php
+$this->headTitle('Die Axes in use on the database');
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('numismatics,archaeology')
+    ->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<ul><?php echo $this->partialLoop('partials/datalabs/dies.phtml', $this->dieaxes); ?></ul>
