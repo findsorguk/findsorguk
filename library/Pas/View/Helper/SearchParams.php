@@ -318,6 +318,9 @@ class Pas_View_Helper_SearchParams
                 case 'discovery':
                     $params[$key] = $this->getData('DiscoMethods', 'method' , $value);
                     break;
+                case 'decstyle':
+                    $params[$key] = $this->getData('DecStyles', 'term' , $value);
+                    break;
                 default:
                     $params[$key] = $value;
                     break;

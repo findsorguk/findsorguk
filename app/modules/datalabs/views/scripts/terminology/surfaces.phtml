@@ -1,6 +1,15 @@
-<?php if($this->surfaces > 0):?>
-<h2 class="lead">Surface treatments</h2>
-<ul id="related">
-<?php echo $this->partialLoop('partials/datalabs/surfaceList.phtml',$this->surfaces);?>
-</ul>
-<?php endif;?>
+<?php
+$this->headTitle('Surface treatments');
+$this->metaBase()->setSubject('terminology')
+    ->setDescription('Surface treatment terminology is use on the database')
+    ->setKeywords('terminology,surface,treatment')
+    ->generate();
+?>
+<?php if (!empty($this->surfaces)): ?>
+    <h2 class="lead">Surface treatments</h2>
+    <ul id="related">
+        <?php echo $this->partialLoop('partials/datalabs/surfaceList.phtml', $this->surfaces); ?>
+    </ul>
+<?php else: ?>
+    <p>No surface treatments available.</p>
+<?php endif; ?>

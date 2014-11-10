@@ -10,13 +10,5 @@
 <?php else: ?>
     <p>No scope note has been entered yet.</p>
 <?php endif; ?>
-<p>View <a
-        href="<?php echo $this->url(
-            array(
-                'module' => 'database',
-                'controller' => 'search',
-                'action' => 'results',
-                'manufacture' => $this->id), 'default', true); ?>"
-        title="Search for all recorded examples on the Scheme's database">all recorded</a> examples on the Scheme's
-    database.</p>
+<?php echo $this->searchLink()->setField('manufacture')->setId($this-id);?>
 <?php echo $this->latestRecords()->setQuery('manufacture:' .  $this->id);?>

@@ -1,1 +1,7 @@
-<li><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'decorationstyle', 'id'=>$this->id),null,true);?>" title="View details for this term"><?php echo $this->escape($this->term);?></a></li>
+<li><a href="<?php echo $this->url(
+        array(
+            'module' => 'datalabs',
+            'controller' => 'terminology',
+            'action' => 'decorationstyle',
+            'id' => $this->id), 'default', true);?>"
+       title="View details for this term"><?php echo $this->term; ?></a></li>

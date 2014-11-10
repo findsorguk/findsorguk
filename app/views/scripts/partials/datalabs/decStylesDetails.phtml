@@ -1,3 +1,17 @@
-<h2 class="lead">Decoration style: <?php echo $this->escape($this->term);?></h2>
-<?php echo $this->termdesc;?>
-<p>View <a href="<?php echo $this->url(array('module' => 'database', 'controller'=>'search','action'=>'results','decstyle' => $this->id),null,true);?>" title="Search our database for all records">all records</a> on our database.</p> 
+<?php
+$this->headTitle('Decoration style:' . $this->term);
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('archaeology,terminology,decorative,styles')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title();?></h2>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note entered.</p>
+<?php endif;?>
+<?php if(!is_null($this->id)):?>
+<?php echo $this->searchLink()->setId($this->id)->setField('decstyle');?>
+<?php echo $this->latestRecords()->setQuery('decstyle:' . $this->id);?>
+<?php endif;?>

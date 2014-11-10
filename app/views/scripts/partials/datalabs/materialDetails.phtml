@@ -6,15 +6,13 @@ $this->metaBase()->setDescription('Details for construction material' . $this->t
     ->generate();
 ?>
 
-<h2 class="lead">Material type: <?php echo $this->escape($this->term); ?></h2>
-<?php echo $this->termdesc; ?>
-<p>View <a href="<?php echo $this->url(
-        array(
-            'module' => 'database',
-            'controller' => 'search',
-            'action' => 'results',
-            'material' => $this->id), 'default', true);?>"
-           title="Search database for all examples">all recorded</a> examples on the database.</p>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note entered</p>
+<?php endif; ?>
+<?php echo $this->searchLink()->setField('material')->setId($this->id); ?>
 <?php if (!is_null($this->bmID)): ?>
     <h3 class="lead">Linked data</h3>
     <p>

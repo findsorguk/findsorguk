@@ -1,0 +1,17 @@
+<?php
+$this->headTitle('Details for surface detail ' . $this->term);
+$this->metaBase()->setSubject('terminology')
+    ->setDescription($this->title())
+    ->setKeywords('terminology,thesauri,archaeology')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note has been entered.</p>
+<?php endif; ?>
+    <p>View <a
+            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'surface' => $this->id), null, true); ?>"
+            title="Search database for all attributed records.">all records</a> on our database.</p>
+<?php echo $this->latestRecords()->setQuery('surface:' . $this->id); ?>

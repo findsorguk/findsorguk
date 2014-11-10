@@ -6,15 +6,10 @@ $this->metaBase()->setDescription($this->title())
     ->generate();
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
-<?php echo $this->termdesc; ?>
-    <p>View <a href="<?php echo $this->url(
-            array(
-                'module' => 'database',
-                'controller' => 'search',
-                'action' => 'results',
-                'note' => 1,
-                'reason' => $this->id),
-            'default', true);?>"
-               title="View all records that have been denoted as <?php echo $this->term; ?>">all records</a>
-        assigned to this reason.</p>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note entered.</p>
+<?php endif; ?>
+<?php echo $this->searchLink()->setField('reason')->setId($this->id); ?>
 <?php echo $this->latestRecords()->setQuery('reason:' . $this->id); ?>

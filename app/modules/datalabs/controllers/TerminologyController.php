@@ -414,8 +414,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
     public function decorationstyleAction()
     {
         if ($this->_getParam('id', false)) {
-            $this->view->decs = $this->getDecStyles()
-                ->getDecStyleDetails($this->_getParam('id'));
+            $this->view->decs = $this->getDecStyles()->getDecStyleDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

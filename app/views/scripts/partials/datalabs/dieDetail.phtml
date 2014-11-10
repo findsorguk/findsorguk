@@ -5,8 +5,12 @@ $this->metaBase()->setDescription($this->title())
     ->setKeywords('archaeology,numismatics,die axed')
     ->generate();
 ?>
-    <h2 class="lead"><?php $this->title(); ?></h2>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note entered.</p>
+<?php endif; ?>
 
-    <p>View all records on the database for this die axis.</p>
-
-<?php echo $this->latestRecords()->setQuery('axis:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>
+<?php echo $this->searchLink()->setId($this->id)->setField('axis'); ?>
+<?php echo $this->latestRecords()->setQuery('axis:' . $this->id); ?>
