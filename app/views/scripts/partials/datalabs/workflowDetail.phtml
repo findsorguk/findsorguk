@@ -1,4 +1,19 @@
-<?php $this->headTitle('Details for '.$this->workflowstage);?>
-<h2 class="lead">Workflow stage: <?php echo $this->escape($this->workflowstage);?></h2>
-<?php echo $this->termdesc;?>
-<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','workflow' => $this->id),null,true);?>" title="Search the database for this workflow stage">all records</a> assigned to this workflow stage.</p>
+<?php $this->headTitle('Details for workflow stage ' . $this->workflowstage); ?>
+<?php $this->metaBase()->setDescription($this->title())
+    ->setKeywords('workflow,management,records')
+    ->setSubject('terminology')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note has been entered.</p>
+<?php endif; ?>
+    <p>View <a href="<?php echo $this->url(array(
+            'module' => 'database',
+            'controller' => 'search',
+            'action' => 'results',
+            'workflow' => $this->id), null, true);?>"
+               title="Search the database for this workflow stage">all records</a> assigned to this workflow stage.</p>
+<?php echo $this->latestRecords()->setQuery('workflow:' . $this->id); ?>

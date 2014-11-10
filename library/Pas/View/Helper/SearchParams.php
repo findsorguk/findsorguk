@@ -312,6 +312,12 @@ class Pas_View_Helper_SearchParams
                 case 'reverse':
                     $params[$key] = $this->getData('RevTypes', 'type' , $value);
                     break;
+                case 'preservation':
+                    $params[$key] = $this->getData('Preservations', 'term' , $value);
+                    break;
+                case 'discovery':
+                    $params[$key] = $this->getData('DiscoMethods', 'method' , $value);
+                    break;
                 default:
                     $params[$key] = $value;
                     break;

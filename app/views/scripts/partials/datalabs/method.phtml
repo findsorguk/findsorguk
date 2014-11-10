@@ -1,13 +1,15 @@
-<?php $this->headTitle('Discovery method ' . lcfirst($this->method)); ?>
 <?php
+$this->headTitle('Discovery method ' . lcfirst($this->method));
 $this->metaBase()->setDescription('Details for discovery method ' . $this->method)
     ->setKeywords('discovery,method')
     ->generate();
 ?>
-    <h2 class="lead"><?php echo $this->title() ; ?></h2>
-<?php if (!is_null($this->termdesc)): ?>
-    <?php echo $this->termdesc; ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->scopeNote)): ?>
+    <?php echo $this->scopeNote; ?>
 <?php else: ?>
     <p>No term description is available at present.</p>
 <?php endif; ?>
-<?php echo $this->latestRecords()->setQuery('discovery:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>
+
+<?php echo $this->searchLink()->setId($this->id)->setField('discovery'); ?>
+<?php echo $this->latestRecords()->setQuery('discoveryMethod:"' . $this->term . '"'); ?>

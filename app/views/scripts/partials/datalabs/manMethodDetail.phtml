@@ -1,4 +1,22 @@
-<?php $this->headTitle('Details for '.$this->term); ?>
-<h2 class="lead">Manufacture method: <?php echo $this->escape($this->term);?></h2>
-<?php echo $this->termdesc;?>
-<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','manufacture' => $this->id),null,true);?>" title="Search for all recorded examples on the Scheme's database">all recorded</a> examples on the Scheme's database.</p>
+<?php $this->headTitle('Details manufacture term: ' . $this->term); ?>
+<?php $this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('terminology,thesauri,terms')
+    ->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note has been entered yet.</p>
+<?php endif; ?>
+<p>View <a
+        href="<?php echo $this->url(
+            array(
+                'module' => 'database',
+                'controller' => 'search',
+                'action' => 'results',
+                'manufacture' => $this->id), 'default', true); ?>"
+        title="Search for all recorded examples on the Scheme's database">all recorded</a> examples on the Scheme's
+    database.</p>
+<?php echo $this->latestRecords()->setQuery('manufacture:' .  $this->id);?>

@@ -1,24 +1,34 @@
-<?php $this->headTitle('Object types that the Scheme uses - MDA');?>
+<?php
+$this->headTitle('Object types that the Scheme uses');
+$this->metaBase()->setDescription('This set of pages details the object type list we employ.')
+    ->setSubject('terminology')
+    ->setKeywords('terminology, british,museum, thesaurus')
+    ->generate();
+?>
 
-<h2 class="lead">Object terms in use on the Scheme's database.</h2>
-<p>These terms are from the BM/MDA thesaurus of archaeological object terms.</p>
-<?php if (count($this->paginator)): ?>
-<table class="table table-striped" summary="All object terms in use on the Scheme's database">
-<thead>
-<tr>
-<th>Term</th>
-<th>Scope note</th>
-<th>Term type</th>
-</tr>
-</thead>
+    <h2 class="lead"><?php $this->title(); ?></h2>
 
-<tbody>
+    <p>These terms are from the British Museum /MDA thesaurus of archaeological object terms.</p>
 
-<?php echo $this->partialLoop('partials/datalabs/objectLister.phtml',$this->paginator);?>
-</tbody>
-</table>
-<?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>
+<?php if (!empty($this->paginator)): ?>
+    <table class="table table-striped" summary="All object terms in use on the Scheme's database">
+        <thead>
+        <tr>
+            <th>Term</th>
+            <th>Scope note</th>
+            <th>Term type</th>
+            <th>SENESCHAL URI</th>
+            <th>British Museum URI</th>
+        </tr>
+        </thead>
 
-<?php else:?>
-<p>No object terms available.</p>
+        <tbody>
+
+        <?php echo $this->partialLoop('partials/datalabs/objectLister.phtml', $this->paginator); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>
+
+<?php else: ?>
+    <p>No object terms available.</p>
 <?php endif; ?>

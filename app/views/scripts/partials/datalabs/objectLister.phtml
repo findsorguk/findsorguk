@@ -1,3 +1,27 @@
-<tr><td><a href="<?php echo $this->url(array('module' => 'datalabs','controller' => 'terminology','action' => 'object','term' => strtolower($this->term)),null,true);?>" title="View term's details"><?php echo $this->term;?></a></td><td>
-<?php echo $this->scopeNote;?></td><td><?php echo $this->preferNarrow()->setTerm($this->status);?></td></tr>
+<tr>
+    <td>
+        <a href="<?php echo $this->url(
+            array(
+                'module' => 'datalabs',
+                'controller' => 'terminology',
+                'action' => 'object',
+                'term' => strtolower($this->term)), 'default', true); ?>"
+           title="View term's details"><?php echo $this->term; ?></a></td>
+    <td><?php echo $this->scopeNote; ?></td>
+    <td><?php echo $this->preferNarrow()->setTerm($this->status); ?></td>
+    <td>
+        <?php if (!is_null($this->ehID)): ?>
+            <?php echo $this->ehID; ?>
+        <?php else: ?>
+            -
+        <?php endif; ?>
+    </td>
+    <td>
+        <?php if (!is_null($this->bmID)): ?>
+            <?php echo $this->bmID; ?>
+        <?php else: ?>
+            -
+        <?php endif; ?>
+    </td>
+</tr>
 

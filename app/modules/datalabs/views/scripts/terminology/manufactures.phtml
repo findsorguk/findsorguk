@@ -1,4 +1,15 @@
-<h2 class="lead">Methods of manufacture</h2>
-<ul>
-<?php echo $this->partialLoop('partials/datalabs/manMethodList.phtml',$this->manufactures);?>
-</ul>
+<?php
+$this->headTitle('Methods of manufacture');
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('methods,terminology,manufacture')
+    ->generate();
+?>
+    <h2 class="lead">Methods of manufacture</h2>
+<?php if (!empty($this->manufactures)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/manMethodList.phtml', $this->manufactures); ?>
+    </ul>
+<?php else: ?>
+    <p>There are no methods available to you.</p>
+<?php endif; ?>

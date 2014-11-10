@@ -1,2 +1,1 @@
 <?php echo $this->partial('partials/datalabs/noteDetail.phtml',$this->notes['0']); ?>
-<?php echo $this->latestRecords()->setQuery('reason:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>

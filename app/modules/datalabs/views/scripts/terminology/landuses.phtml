@@ -1,9 +1,14 @@
-<h2 class="lead">Landuse types</h2>
+<?php $this->headTitle('Land uses characterisations in use');?>
+<?php $this->metaBase()->setDescription($this->title())
+    ->setKeywords('terminology,landuse,thesaurus')
+    ->setSubject('terminology')
+    ->generate();?>
+<h2 class="lead"><?php echo $this->title();?></h2>
 <table class="table table-striped" summary="List of Landuses that the Scheme uses">
     <thead>
     <tr>
         <th>Landuse type</th>
-        <th>Old landuse code</th>
+        <th>Landuse code</th>
     </tr>
     </thead>
     <tbody>

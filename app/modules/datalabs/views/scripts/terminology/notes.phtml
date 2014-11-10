@@ -1,9 +1,18 @@
-<?php 
+<?php
 $this->headTitle('Reasons for an object being noteworthy');
+$this->metaBase()->setDescription($this->title())
+    ->setKeywords('archaeology,reasoning,noteworthy,terminology')
+    ->setSubject('terminology')
+    ->generate();
 ?>
-<h2 class="lead">
-    <?php echo $this->title();?>
-</h2>
-<ul>
-    <?php echo $this->partialLoop('partials/datalabs/notesListed.phtml',$this->notes);?>
-</ul>
+
+    <h2 class="lead">
+        <?php echo $this->title(); ?>
+    </h2>
+<?php if (!empty($this->notes)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/notesListed.phtml', $this->notes); ?>
+    </ul>
+<?php else: ?>
+    <p>No reasoning available.</p>
+<?php endif; ?>

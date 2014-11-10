@@ -1,2 +1,15 @@
-<h2 class="lead">Preservation state: <?php echo $this->escape($this->term);?></h2>
-<?php echo $this->termdesc;?>
+<?php
+$this->headTitle('Preservation state: ' . $this->term);
+$this->metaBase()->setDescription('Details for ' . lcfirst($this->title()))
+    ->setSubject('terminology')
+    ->setKeywords('archaeology,preservation,terms, thesauri')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note provided.</p>
+<?php endif; ?>
+<?php echo $this->searchLink()->setId($this->id); ?>
+<?php echo $this->latestRecords()->setQuery('preservation:' . $this->id); ?>

@@ -1,1 +1,8 @@
-<li><a href="<?php echo $this->url(array('module' => 'datalabs','controller'=>'terminology','action'=>'method', 'id'=>$this->id),null,true);?>"><?php echo $this->escape($this->method);?></a></li>
+<li>
+    <a href="<?php echo $this->url(
+        array(
+            'module' => 'datalabs',
+            'controller' => 'terminology',
+            'action' => 'method',
+            'id' => $this->id), null, true); ?>"><?php echo $this->method; ?></a>
+</li>

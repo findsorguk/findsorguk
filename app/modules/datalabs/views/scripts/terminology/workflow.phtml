@@ -1,4 +1,1 @@
-<?php 
-echo $this->partial('partials/datalabs/workflowDetail.phtml',$this->workflows['0']);
-echo $this->latestRecords()->setQuery('workflow:' 
-        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
+<?php echo $this->partial('partials/datalabs/workflowDetail.phtml',$this->workflows['0']);
