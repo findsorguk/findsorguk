@@ -7,7 +7,7 @@ $this->metaBase()->setSubject('terminology')
 ?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<?php if (count($this->rulers)): ?>
+<?php if (!empty($this->rulers)): ?>
     <table class="table table-striped" summary="List of all active rulers on the Scheme's database">
         <caption>Active rulers on the Scheme database</caption>
         <thead>

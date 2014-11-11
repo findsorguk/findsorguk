@@ -5,7 +5,12 @@ $this->metaBase()->setDescription('States of preservation employed by the Scheme
     ->setKeywords('terminology,preservation,archaeology')
     ->generate();
 ?>
-<h2 class="lead"><?php echo $this->title();?></h2>
-<ul>
-    <?php echo $this->partialLoop('partials/datalabs/presList.phtml',$this->preserves);?>
-</ul>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php if (!empty($this->preserves)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/presList.phtml', $this->preserves); ?>
+    </ul>
+<?php else: ?>
+    <p>No preservation states available.</p>
+<?php endif; ?>

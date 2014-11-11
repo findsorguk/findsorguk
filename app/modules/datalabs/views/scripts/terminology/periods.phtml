@@ -6,19 +6,22 @@ $this->metaBase()->setDescription('A list of time periods in use on the PAS data
     ->generate();
 ?>
 
-<h2 class="lead"><?php echo $this->title();?></h2>
-
-<table class="table table-striped" summary="All periods in use on the database">
-    <caption>All periods that the Scheme uses</caption>
-    <thead>
-    <tr>
-        <th>Period name</th>
-        <th>Date begins</th>
-        <th>Date ends</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php echo $this->partialLoop('partials/datalabs/periodsTableList.phtml', $this->periods); ?>
-    </tbody>
-</table>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->periods)): ?>
+    <table class="table table-striped" summary="All periods in use on the database">
+        <caption>All periods that the Scheme uses</caption>
+        <thead>
+        <tr>
+            <th>Period name</th>
+            <th>Date begins</th>
+            <th>Date ends</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/datalabs/periodsTableList.phtml', $this->periods); ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No periods available.</p>
+<?php endif; ?>
 

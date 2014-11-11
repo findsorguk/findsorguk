@@ -5,5 +5,11 @@ $this->metaBase()->setDescription($this->title())
     ->setKeywords('numismatics,archaeology')
     ->generate();
 ?>
-<h2 class="lead"><?php echo $this->title(); ?></h2>
-<ul><?php echo $this->partialLoop('partials/datalabs/dies.phtml', $this->dieaxes); ?></ul>
+<?php if (!empty($this->dieaxes)): ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/dies.phtml', $this->dieaxes); ?>
+    </ul>
+<?php else: ?>
+    <p>No die axes available.</p>
+<?php endif; ?>
