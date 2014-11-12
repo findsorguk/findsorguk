@@ -1,3 +1,11 @@
+<?php
+$materials = array(
+        $this->material1, $this->material2, $this->manufacture,
+        $this->decoration, $this->style, $this->completeness,
+        $this->surface
+    );
+?>
+<?php if(array_filter($materials)):?>
 <h4 class="lead">Materials and construction</h4>
 
 <p>
@@ -65,3 +73,4 @@
                 records]</a></span>
     <?php endif; ?>
 </p>
+<?php endif;?>

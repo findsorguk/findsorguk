@@ -76,19 +76,7 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
         if (!empty($places) && !is_null($places[0]['Name'])) {
             $html .= '<h3 class="lead">Adjacent places</h3>';
             $html .= '<ul>';
-            foreach ($places as $p) {
-                $url = $this->view->url(array(
-                    'module' => 'database',
-                    'controller' => 'search',
-                    'action' => 'results',
-                    'woeid' => $p['WOE_ID']),
-                        null, true);
-                $html .= '<li><a href="';
-                $html .=  $url;
-                $html .= '" title="Find all objects associated with this WOEID">';
-                $html .= $p['Name'];
-                $html .= '</a></li>';
-            }
+            $html .= $this->view->partialLoop('partials/database/yahooAdjacent.phtml', $places);
             $html .= '</ul>';
         }
         return $html;

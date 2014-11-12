@@ -2,12 +2,12 @@
 $this->headTitle('Details for issuing mint located at ' . $this->name);
 $this->metaBase('Full details for issuing  mint at ' . $this->name . ' describing location and recent examples.')
     ->setKeywords('mint,details,pleiades,nomisma')
+    ->setSubject('numismatics')
     ->generate();
 ?>
 
     <h2 class="lead"><?php echo $this->title(); ?></h2>
     <p>
-
         <?php if (!is_null($this->name)): ?>
             Mint: <span property="skos:prefLabel"><?php echo $this->escape($this->name); ?></span> <br/>
         <?php endif; ?>
@@ -36,31 +36,35 @@ $this->metaBase('Full details for issuing  mint at ' . $this->name . ' describin
             <li><a property="skos:related" resource="http://nomisma.org/id/<?php echo $this->nomismaID; ?>"
                    href="http://nomisma.org/id/<?php echo $this->nomismaID; ?>">Nomisma</a></li>
         <?php endif; ?>
+
         <?php if (!is_null($this->bmID)): ?>
             <li><a property="skos:related"
                    resource="http://collection.britishmuseum.org/id/place/x<?php echo $this->bmID; ?>"
                    href="http://collection.britishmuseum.org/id/place/x<?php echo $this->bmID; ?>">British Museum</a>
             </li>
         <?php endif; ?>
+
         <?php if (!is_null($this->dbpediaID)): ?>
             <li><a property="skos:related" resource="http://wikipedia.org/wiki/<?php echo $this->dbpediaID; ?>"
                    href="http://wikipedia.org/wiki/<?php echo $this->dbpediaID; ?>">Wikipedia</a></li>
         <?php endif; ?>
+
         <?php if (!is_null($this->geonamesID)): ?>
             <li><a property="skos:related" resource="http://www.geonames.org/<?php echo $this->geonamesID; ?>"
                    href="http://www.geonames.org/<?php echo $this->geonamesID; ?>">Geonames</a></li>
         <?php endif; ?>
     </ul>
-    <h3 class="lead">Data from Nomisma</h3>
-    <?php echo $this->nomismaRdf()->setUri("http://nomisma.org/id/" . $this->nomismaID); ?>
 
+    <?php if (!is_null($this->nomismaID)): ?>
+        <h3 class="lead">Data from Nomisma</h3>
+        <?php echo $this->nomismaRdf()->setUri("http://nomisma.org/id/" . $this->nomismaID); ?>
+    <?php endif; ?>
 
-    <?php
-    if ($this->dbpediaID) {
-        echo '<h3 class="lead">Data from wikipedia</h3>';
-        echo $this->dbPediaMintRdf()->setUri("http://dbpedia.org/resource/" . $this->dbpediaID);
-    }?>
-    <?php if ($this->pleiadesID): ?>
+    <?php if (!is_null($this->dbpediaID)): ?>
+        <h3 class="lead">Data from wikipedia</h3>
+        <?php echo $this->dbPediaMintRdf()->setUri("http://dbpedia.org/resource/" . $this->dbpediaID); ?>
+    <?php endif; ?>
+    <?php if (!is_null($this->pleiadesID)): ?>
         <h3 class="lead">Data from Pleiades</h3>
         <?php echo $this->pleiadesMintRdf()->setUri($this->pleiadesID); ?>
         <?php echo $this->pelagiosAnnotations()->setPleiadesPlace($this->pleiadesID); ?>

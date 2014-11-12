@@ -23,5 +23,5 @@ $this->metaBase()->setDescription($this->title())
             </li>
         <?php endif; ?>
     </ul>
-
+<?php echo $this->searchLink()->setField('periodFrom')->setId($this->id); ?>
 <?php echo $this->latestRecords()->setQuery('broadperiod:"' . $this->term . '"'); ?>

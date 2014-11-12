@@ -58,28 +58,17 @@
         <?php echo $this->partial('partials/database/dateFound.phtml', $this->finds[0]); ?>
 
         <!-- Rally data -->
-        <?php
-        if ($this->finds[0]['rallyID']) {
-            echo $this->partial('partials/database/rallyFind.phtml', $this->finds[0]);
-        }
-        ?>
+        <?php echo $this->partial('partials/database/rallyFind.phtml', $this->finds[0]); ?>
 
         <!-- Personal data -->
-        <?php if (!empty($this->peoples)): ?>
-            <h4>Personal details</h4>
-            <?php echo $this->partial('partials/database/personal.phtml', $this->finds[0]) ?>
-        <?php endif; ?>
+        <?php echo $this->partial('partials/database/personal.phtml', $this->finds[0]) ?>
 
 
         <!-- Other references -->
         <?php echo $this->partial('partials/database/otherRefs.phtml', $this->finds[0]); ?>
 
         <!-- Finds materials -->
-        <?php
-        if ($this->finds[0]['material1']) {
-            echo $this->partial('partials/database/materials.phtml', $this->finds[0]);
-        }
-        ?>
+        <?php echo $this->partial('partials/database/materials.phtml', $this->finds[0]); ?>
 
         <!-- Display coins data -->
         <?php
@@ -182,13 +171,11 @@
 <div class="row-fluid">
     <!-- Render the map and findspot data -->
 
-    <?php if (array_key_exists('countyID',$this->finds[0])) : ?>
+    <?php if (array_key_exists('countyID', $this->finds[0])) : ?>
 
         <!-- Check for findspot data and if exists render -->
 
-        <?php
-        echo $this->findspot()->setData($this->finds[0])->setCreatedBy($this->finds[0]['createdBy']);
-        ?>
+        <?php echo $this->findspot()->setData($this->finds[0])->setCreatedBy($this->finds[0]['createdBy']); ?>
 
     <?php else: ?>
         <!-- Render a link for adding find spot -->

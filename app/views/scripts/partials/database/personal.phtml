@@ -1,73 +1,71 @@
-<p>
-    <?php
-    if (isset($this->finderID)) {
-        $auth = Zend_Registry::get('auth');
-        if ($auth->hasIdentity()) {
-            $user = $auth->getIdentity();
-            {
-                $allowed = array('fa', 'admin', 'flos', 'hero', 'treasure');
-                if (in_array($user->role, $allowed)) {
-                    ?>
-                    Found by: <span property="pas:finder foaf:name"
-                                    instanceof="foaf:person"><?php echo $this->escape($this->tit1); ?> <?php echo $this->escape($this->fore); ?>
-                        <?php echo $this->escape($this->sur); ?></span> - <span class="scope">[<a href="
-<?php echo $this->url(array('module' => 'database', 'controller' => 'search',
-                            'action' => 'results', 'finderID' => $this->secuid), null, true);?>"
-                                                                                                  title="View other discoveries">view
-                            other discoveries by this finder</a>]</span><br/>
-                <?php
-                }
-            }
-        } else {
-            ?>
-            Found by: This information is restricted for your login. <br/>
-        <?php
-        }
-    }
-    ?>
+<?php
+$people = array($this->finder, $this->recorder, $this->identifier, $this->secondaryIdentifier);
+if (array_filter($people)):?>
+    <h4 class="lead">Personal details</h4>
 
-    <?php if (!is_null($this->recorderID)) : ?>
-        Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?php echo
-            $this->escape($this->tit3);?> <?php echo $this->escape($this->fore3); ?>
-            <?php echo $this->escape($this->sur3); ?></span>
-        - <span class="scope">[
+    <p>
+        <?php
+        if (isset($this->finderID)) {
+            $auth = Zend_Registry::get('auth');
+            if ($auth->hasIdentity()) {
+                $user = $auth->getIdentity();
+                {
+                    $allowed = array('fa', 'admin', 'flos', 'hero', 'treasure');
+                    if (in_array($user->role, $allowed)) {
+                        ?>
+                        Found by: <span property="pas:finder foaf:name"
+                                        instanceof="foaf:person"><?php echo $this->finder; ?></span> - <span
+                            class="scope">[<a href="
+<?php echo $this->url(array('module' => 'database', 'controller' => 'search',
+                                'action' => 'results', 'finderID' => $this->finderID), null, true);?>"
+                                              title="View other discoveries">view other discoveries by this finder</a>]</span>
+                        <br/>
+                    <?php
+                    }
+                }
+            } else {
+                ?>
+                Found by: This information is restricted for your login. <br/>
+            <?php
+            }
+        }
+        ?>
+
+        <?php if (!is_null($this->recorderID)) : ?>
+            Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?php echo
+                $this->recorder; ?></span>
+            - <span class="scope">[
 <a href="<?php echo $this->url(array(
     'module' => 'database',
     'controller' => 'search',
     'action' => 'results',
     'recorderID' => $this->recorderID), null, true);?>"
-   title="Search database for all records recorded by <?php echo
-   $this->escape($this->tit3);?> <?php echo $this->escape($this->fore3); ?>
-    <?php echo $this->escape($this->sur3); ?>">view all attributed records</a>]
+   title="Search database for all records recorded by <?php echo $this->recorderID; ?>">view all attributed records</a>]
 </span><br/>
-    <?php endif; ?>
+        <?php endif; ?>
 
-    <?php if (!is_null($this->identifier1ID)) : ?>
-        Identified by: <span property="pas:identifier foaf:name" instanceof="foaf:person"><?php echo
-            $this->escape($this->tit2);?> <?php echo $this->escape($this->fore2); ?>
-            <?php echo $this->escape($this->sur2); ?></span> - <span class="scope">[<a href="
-<?php echo $this->url(array(
-                'module' => 'database',
-                'controller' => 'search',
-                'action' => 'results',
-                'identifierID' => $this->identifier1ID), null, true);?>" title="Search database for
-    all records identified by <?php echo $this->escape($this->tit2); ?>
-<?php echo $this->escape($this->fore2); ?> <?php echo $this->escape($this->sur2);
-            ?>">view all attributed records</a>]</span><br/>
-    <?php endif; ?>
+        <?php if (!is_null($this->identifier1ID)) : ?>
+            Identified by: <span property="pas:identifier foaf:name"
+                                 instanceof="foaf:person"><?php echo $this->identifier; ?></span> - <span class="scope">[<a
+                    href="
+        <?php echo $this->url(array(
+                        'module' => 'database',
+                        'controller' => 'search',
+                        'action' => 'results',
+                        'identifierID' => $this->identifier1ID), null, true);?>" title="Search database for
+    all records identified by <?php echo $this->identifier; ?>">view all attributed records</a>]</span><br/>
+        <?php endif; ?>
 
-    <?php if (!is_null($this->identifier2ID)) : ?>
-        Secondary identifier: <span property="pas:identifierSecondary foaf:name"
-                                    instanceof="foaf:person">
-<?php echo $this->escape($this->tit5); ?> <?php echo $this->escape($this->fore5); ?>
-<?php echo $this->escape($this->sur5); ?></span> - <span class="scope">[<a href="
+        <?php if (!is_null($this->identifier2ID)) : ?>
+            Secondary identifier: <span property="pas:identifierSecondary foaf:name"
+                                        instanceof="foaf:person">
+<?php echo $this->secondaryIdentifier; ?></span> - <span class="scope">[<a href="
  <?php echo $this->url(array(
-                'module' => 'database',
-                'controller' => 'search',
-                'action' => 'results',
-                'identifier2ID' => $this->identifier2ID), null, true);?>" title="Search database for
-     all records identifed by <?php echo $this->escape($this->tit5); ?>
-     <?php echo $this->escape($this->fore5); ?> <?php echo $this->escape($this->sur5); ?>">
-                view all attributed records</a>]</span><br/>
-    <?php endif; ?>
-</p>
+                    'module' => 'database',
+                    'controller' => 'search',
+                    'action' => 'results',
+                    'identifier2ID' => $this->identifier2ID), null, true);?>" title="Search database for
+     all records identifed by <?php echo $this->secondaryIdentifier; ?>">view all attributed records</a>]</span><br/>
+        <?php endif; ?>
+    </p>
+<?php endif; ?>

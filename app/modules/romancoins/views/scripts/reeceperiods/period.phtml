@@ -1,4 +1,5 @@
 <?php echo $this->partialLoop('partials/numismatics/reeceDetail.phtml', $this->periods); ?>
+<?php if (!empty($this->reeces)): ?>
     <h3 class="lead">
         Issuers associated with this period
     </h3>
@@ -6,8 +7,9 @@
     <ul>
         <?php echo $this->partialLoop('partials/numismatics/emperorList.phtml', $this->reeces); ?>
     </ul>
+<?php endif; ?>
 
-<?php if ($this->reverses) : ?>
+<?php if (!empty($this->reverses)) : ?>
     <h3 class="lead">
         Associated reverse types
     </h3>
@@ -17,4 +19,4 @@
     </ul>
 <?php endif; ?>
 
-<?php echo $this->latestRecords()->setQuery('reeceID:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->latestRecords()->setQuery('reeceID:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>

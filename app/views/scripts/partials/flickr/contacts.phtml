@@ -1,13 +1,15 @@
 <?php
 $type = '.jpg';
-$url = 'http://farm'. $c->iconfarm . '.static.flickr.com/' . $c->iconserver . '/buddyicons/' . $c->nsid . $type;
+$url = 'http://farm' . $c->iconfarm . '.static.flickr.com/' . $c->iconserver . '/buddyicons/' . $c->nsid . $type;
 $alturl = 'http://www.flickr.com/images/buddyicon.jpg';
-$link = $this->url(array('module' => 'flickr','controller' => 'contacts','action' => 'known','as' => $c->username),'default',true);
-if($c->iconfarm != 0) {
-?>
-<a href="<?php echo $link;?>" title="Go to <?php echo $c->username;?>'s profile on flickr" rel="friend"><img src="<?php echo $url;?>" height="48" width="48" alt="View <?php echo $c->username;?>'s images" /></a>
-<?php 
+$link = $this->url(array('module' => 'flickr', 'controller' => 'contacts', 'action' => 'known', 'as' => $c->username), 'default', true);
+if ($c->iconfarm != 0) {
+    ?>
+    <a href="<?php echo $link; ?>" title="Go to <?php echo $c->username; ?>'s profile on flickr" rel="friend"><img
+            src="<?php echo $url; ?>" height="48" width="48" alt="View <?php echo $c->username; ?>'s images"/></a>
+<?php
 } else {
-?>
-<a href="<?php echo $link;?>" title="View this <?php echo $c->username;?>'s profile " rel="friend"><img src="<?php echo $alturl;?>" height="48" width="48" alt="View <?php echo $c->username;?>'s images" /></a>
+    ?>
+    <a href="<?php echo $link; ?>" title="View this <?php echo $c->username; ?>'s profile " rel="friend"><img
+            src="<?php echo $alturl; ?>" height="48" width="48" alt="View <?php echo $c->username; ?>'s images"/></a>
 <?php } ?>

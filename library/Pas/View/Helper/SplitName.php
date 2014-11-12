@@ -1,4 +1,5 @@
 <?php
+
 /** A view helper to split names and retrieve first name
  * @copyright Daniel Pett <dpett at britishmuseum.org>
  * @author Daniel Pett <dpett@britishmuseum.org>
@@ -19,7 +20,8 @@ class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getName(){
+    public function getName()
+    {
         return $this->_name;
     }
 
@@ -28,7 +30,8 @@ class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
      * @param  string $name
      * @return \Pas_View_Helper_SplitName
      */
-    public function setName($name){
+    public function setName($name)
+    {
         $this->_name = $name;
 
         return $this;
@@ -38,7 +41,8 @@ class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_SplitName
      */
-    public function splitName(){
+    public function splitName()
+    {
         return $this;
     }
 
@@ -46,7 +50,8 @@ class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function firstName(){
+    public function firstName()
+    {
         list($first, $last) = explode(' ', $this->getName());
         return $first;
     }
@@ -55,7 +60,8 @@ class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->firstName();
     }
 }

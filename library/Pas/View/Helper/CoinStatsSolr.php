@@ -80,7 +80,7 @@ class Pas_View_Helper_CoinStatsSolr extends Zend_View_Helper_Abstract {
      * @return \Solarium_Client $_solr;
      */
     public function getSolr() {
-        $this->_solr = new Solarium_Client($this->_solrConfig);
+        $this->_solr = new Solarium_Client($this->getSolrConfig());
         return $this->_solr;
     }
 

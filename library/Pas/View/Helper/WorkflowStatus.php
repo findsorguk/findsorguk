@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for displaying workflow as a textual representation
  *
@@ -9,18 +10,19 @@
  * echo $this->workflowStatus()->setWorkflow(1);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @example /app/views/scripts/email/informFinderWorkflow.phtml 
+ * @example /app/views/scripts/email/informFinderWorkflow.phtml
  */
-class Pas_View_Helper_WorkflowStatus {
+class Pas_View_Helper_WorkflowStatus
+{
 
-     /** Default workflow status
+    /** Default workflow status
      * @access protected
      * @var int
      */
@@ -30,7 +32,8 @@ class Pas_View_Helper_WorkflowStatus {
      * @access public
      * @return type
      */
-    public function getSecwfstage() {
+    public function getSecwfstage()
+    {
         return $this->_secwfstage;
     }
 
@@ -39,7 +42,8 @@ class Pas_View_Helper_WorkflowStatus {
      * @param  int $secwfstage
      * @return \Pas_View_Helper_Workflow
      */
-    public function setWorkflow($secwfstage) {
+    public function setWorkflow($secwfstage)
+    {
         $this->_secwfstage = $secwfstage;
         return $this;
     }
@@ -48,7 +52,8 @@ class Pas_View_Helper_WorkflowStatus {
      * @access public
      * @return \Pas_View_Helper_Workflow
      */
-    public function workflow() {
+    public function workflow()
+    {
         return $this;
     }
 
@@ -56,7 +61,8 @@ class Pas_View_Helper_WorkflowStatus {
      * @access public
      * @return type
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->_buildHtml();
     }
 
@@ -64,14 +70,15 @@ class Pas_View_Helper_WorkflowStatus {
      * @access public
      * @return string
      */
-    public function _buildHtml()  {
-        switch ( $this->getSecwfstage() ) {
+    public function _buildHtml()
+    {
+        switch ($this->getSecwfstage()) {
             case 1:
-        $wf = 'Quarantine';
+                $wf = 'Quarantine';
                 break;
             case 2:
                 $wf = 'On review';
-        break;
+                break;
             case 4:
                 $wf = 'Awaiting validation';
                 break;
@@ -84,12 +91,13 @@ class Pas_View_Helper_WorkflowStatus {
         }
         return $wf;
     }
-    
+
     /** The function to call
      * @access public
      * @return \Pas_View_Helper_WorkflowStatus
      */
-    public function workflowStatus() {
+    public function workflowStatus()
+    {
         return $this;
     }
 }

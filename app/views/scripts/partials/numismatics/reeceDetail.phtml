@@ -2,6 +2,7 @@
 $this->headTitle('Details for ' . $this->period_name);
 $this->metaBase()->setDescription('Full description for the Roman coin classification series: ' . $this->period_name)
     ->setKeywords('coins,coin,roman,reece,periods,' . $this->period_name)
+    ->setSubject('numismatics')
     ->generate();
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
@@ -12,6 +13,5 @@ $this->metaBase()->setDescription('Full description for the Roman coin classific
 
 <?php if (!is_null($this->description)): ?>
     <p>Description: <?php echo $this->escape($this->description); ?></p>
-    <p> <?php $url = array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'reeceID' => $this->id);?>
-        View <a href="<?php echo $this->url($url,'default', true);?>">all records available</a> for this period.</p>
+    <?php echo $this->searchLink()->setField('reeceID')->setId($this->id); ?>
 <?php endif; ?>

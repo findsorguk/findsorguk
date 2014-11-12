@@ -1,7 +1,8 @@
 <?php
+
 /**
  * SecondsToMinutes helper
- * 
+ *
  * A view helper to convert seconds to minutes.
  * An example of use:
  * <code>
@@ -18,19 +19,21 @@
  * @example /app/modules/analytics/views/scripts/audience/city.phtml
  * @uses viewHelper Pas_View_Helper
  */
-class Pas_View_Helper_SecondsToMinutes  {
-    
+class Pas_View_Helper_SecondsToMinutes
+{
+
     /** Second to convert
      * @access protected
      * @var int
      */
     protected $_seconds;
-    
+
     /** The function to return
      * @access public
      * @return \Pas_View_Helper_SecondsToMinutes
      */
-    public function secondsToMinutes() {
+    public function secondsToMinutes()
+    {
         return $this;
     }
 
@@ -39,7 +42,8 @@ class Pas_View_Helper_SecondsToMinutes  {
      * @param int $seconds
      * @return \Pas_View_Helper_SecondsToMinutes
      */
-    public function setSeconds($seconds) {
+    public function setSeconds($seconds)
+    {
         $this->_seconds = $seconds;
         return $this;
     }
@@ -48,22 +52,24 @@ class Pas_View_Helper_SecondsToMinutes  {
      * @access public
      * @return string
      */
-    public function convert() {
+    public function convert()
+    {
         $html = '';
         if ($this->_seconds > 0) {
             $time = new Zend_Date($this->_seconds, Zend_Date::SECOND);
             $html .= $time->toString('mm.ss');
-            } else {
+        } else {
             $html .= 'cannot be computed';
         }
-        return $html;   
+        return $html;
     }
-    
+
     /** Render the seconds as a string
      * @access public
      * @return string
      */
-    public function __toString(){
+    public function __toString()
+    {
         return $this->convert();
     }
 }

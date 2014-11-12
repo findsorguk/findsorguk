@@ -34,3 +34,7 @@ $this->headLink()->appendAlternate($this->baseUrl()
         Metal: <?php echo $this->term; ?>
     <?php endif; ?>
 </p>
+
+<?php echo $this->latestRecords()->setQuery('denomination:' . $this->id); ?>
+<?php echo $this->searchLink()->setField('denomination')->setId($this->id);?>
+<?php echo $this->coinStatsSolr()->setDenomination($this->id); ?>
