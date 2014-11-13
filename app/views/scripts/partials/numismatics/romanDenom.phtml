@@ -1,23 +1,18 @@
-<?php $this->headTitle('Details for denomination: ' . $this->denomination);
-$this->headMeta($this->curUrl(), 'dc.identifier')
-    ->headMeta('CC NC-SA-BY', 'dc.rights')
-    ->headMeta('Daniel Pett', 'dc.creator')
-    ->headMeta('The Portable Antiquities Scheme', 'dc.publisher');
-$this->headMeta('This page outlines detail for the denomination of '
-    . $this->denomination . ' as used on the Scheme\'s database.
-            When possible, this has been enhanced with dbpedia.', 'description');
-$this->headLink()->appendAlternate($this->baseUrl()
-    . '/database/search/results/denomination/' . $this->id . '/format/atom/',
-    'application/rss+xml', 'Latest recorded finds feed for '
-    . $this->escape($this->denomination));?>
-<h2 class="lead">The <?php echo $this->denomination; ?></h2>
+<?php
+$this->headTitle('Details for denomination: ' . $this->denomination);
+$this->metaBase()->setDescription('This page outlines detail for the denomination of ' . $this->denomination . ' as used on the Scheme\'s database When possible, this has been enhanced with dbpedia.', 'description')
+    ->setSubject('numismatics')
+    ->setKeywords('denomination,archaeology,numismatics,' . $this->denomination)
+    ->generate();
+$this->headLink()->appendAlternate($this->baseUrl() . '/database/search/results/denomination/' . $this->id . '/format/atom/',
+    'application/rss+xml', 'Latest recorded finds feed for ' . $this->denomination);?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php echo $this->description; ?>
 <?php if (!is_null($this->rarity)): ?>
     <p><?php echo $this->rarity; ?></p>
 <?php endif; ?>
 
 <p>
-
     <?php if (!is_null($this->weight)): ?>
         Weight: <?php echo $this->weight; ?> g<br/>
     <?php endif; ?>
@@ -36,5 +31,5 @@ $this->headLink()->appendAlternate($this->baseUrl()
 </p>
 
 <?php echo $this->latestRecords()->setQuery('denomination:' . $this->id); ?>
-<?php echo $this->searchLink()->setField('denomination')->setId($this->id);?>
+<?php echo $this->searchLink()->setField('denomination')->setId($this->id); ?>
 <?php echo $this->coinStatsSolr()->setDenomination($this->id); ?>

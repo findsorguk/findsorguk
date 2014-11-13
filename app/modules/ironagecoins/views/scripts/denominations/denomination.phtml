@@ -1,10 +1,5 @@
 <?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms) ;?>
-<h3 class="lead">
-    Geographic regions producing this coinage
-</h3>
+<h3 class="lead">Geographic regions producing this coinage</h3>
 <ul>
-    <?php echo $this->partialLoop('partials/numismatics/ironAgeRegions.phtml',
-            $this->regions);?>
+    <?php echo $this->partialLoop('partials/numismatics/ironAgeRegions.phtml', $this->regions);?>
 </ul>
-<?php echo $this->latestRecords()->setQuery('denomination:' 
-        . $this->escape($this->id));

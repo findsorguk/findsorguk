@@ -1,20 +1,24 @@
-<?php     
+<?php
 $this->headTitle('Allen types listed');
+$this->metaBase()->setSubject('Iron Age numismatics')
+    ->setDescription('A list of Iron Age classifications know as Allen Types')
+    ->setSubject('iron age, numismatics,archaeology,celtic')
+    ->generate();
 ?>
-<h2 class="lead">Allen types</h2>
-<?php if($this->allens):?> 
-<table summary="A list of all Allen types in use" class="table table-striped">
-<caption>All Allen types</caption>
-<thead>
-<tr>
-<th>Type name</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/numismatics/allen.phtml',$this->allens);?>
-</tbody>
-</table>
-<?php echo  $this->paginationControl($this->allens, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>No Allen types available</p>
-<?php endif;?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if ($this->allens): ?>
+    <table summary="A list of all Allen types in use" class="table table-striped">
+        <caption>All Allen types</caption>
+        <thead>
+        <tr>
+            <th>Type name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/numismatics/allen.phtml', $this->allens); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->allens, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No Allen types available</p>
+<?php endif; ?>

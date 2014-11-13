@@ -1,8 +1,6 @@
 <?php
-$this->headTitle('Details for Mack Type:"' . $this->type->type);
+$this->headTitle('Details for Mack Type: ' . $this->type->type);
 ?>
-<h2 class="lead">
-    <?php echo $this->title();?>
-</h2>
-<?php echo $this->latestRecords()->setQuery('mackType:"' 
-        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id') . '"');
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->searchLink()->setField('mackType')->setId($this->type->type); ?>
+<?php echo $this->latestRecords()->setQuery('mackType:"' . $this->type->type . '"');

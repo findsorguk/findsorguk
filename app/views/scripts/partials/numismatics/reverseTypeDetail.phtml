@@ -24,8 +24,6 @@ $this->metaBase()->setDescription($this->title())
         General date: <?php echo $this->gendate; ?>
     <?php endif; ?>
 </p>
-<p>
-    <?php $url = array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'reverse' => $this->id); ?>
-    View <a href="<?php echo $this->url($url, 'default', true); ?>">all records recorded</a> of this type (if
-    available).
-</p>
+
+<?php echo $this->searchLink()->setField('reverse')->setId($this->id); ?>
+<?php echo $this->latestRecords()->setQuery('reverse:' . $this->id); ?>
