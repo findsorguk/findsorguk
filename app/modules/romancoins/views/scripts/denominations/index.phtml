@@ -1,16 +1,14 @@
 <?php
 $this->headTitle('Denominations issued during the Roman Empire');
-$this->headMeta('Daniel Pett','dc.creator')
-->headMeta('The Portable Antiquities Scheme','dc.publisher')
-->headMeta('The Roman Empire issued a variety of denominations through different mints and issuers. This page
-outlines the available denominations catalogued on our database','description')
-->headMeta('roman,coins,denominations,empire,in use,portable antiquities,numismatics','dc.keywords')
-->headMeta($this->curUrl(),'dc.identifier')
-->headMeta('CC BY','dc.rights');
+$this->metaBase()->setDescription('The Roman Empire issued a variety of denominations through different mints and issuers. This page
+outlines the available denominations catalogued on our database')
+    ->setKeywords('roman,coins,denominations,empire,in use,portable antiquities,numismatics')
+    ->setSubject('Roman Numismatics')
+    ->generate();
 ?>
-<h2 class="lead">Roman denominations</h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <p>The following coins were issued during the Roman Empire.</p>
 <ul>
-<?php echo $this->partialLoop('partials/numismatics/denominations.phtml',$this->denominations);?>
+    <?php echo $this->partialLoop('partials/numismatics/denominations.phtml', $this->denominations); ?>
 </ul>
 

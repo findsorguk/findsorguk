@@ -27,6 +27,6 @@ class Datalabs_RssController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $content = new Content();
-        $this->view->contents = $content->getFrontContent('rss');
+        $this->view->contents = $content->getContent('datalabs', 'rss');
     }
 }

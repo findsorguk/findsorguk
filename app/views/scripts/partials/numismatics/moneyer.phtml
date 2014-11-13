@@ -4,39 +4,40 @@ $this->metaBase()->setDescription('Details for the Republican Moneyer ' . $this-
     ->setKeywords('republic,moneyer,crawford,ghey,leins')
     ->generate();
 ?>
-<h2 class="lead"><?php echo $this->title(); ?></h2>
-<p>
-    <?php
-    $dates = array($this->date_1, $this->date_2);
-    if(is_null($dates[1])){
-        $dates = array_slice($dates,0,1);
-    }
-    ?>
-    Issued: <?php echo implode(' to ', $dates);?>
-</p>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>
+        <?php
+        $dates = array($this->date_1, $this->date_2);
+        if (is_null($dates[1])) {
+            $dates = array_slice($dates, 0, 1);
+        }
+        ?>
+        Issued: <?php echo implode(' to ', $dates); ?>
+    </p>
 
 <?php if (!is_null($this->bio)): ?>
     <p><?php echo $this->bio; ?></p>
 <?php endif; ?>
 
 
-<p>
-    <?php if (!is_null($this->RRC)): ?>
-        <abbr title="Roman Republican Coinage number">RRC number</abbr>: <?php echo $this->RRC; ?><br/>
-    <?php endif; ?>
+    <p>
+        <?php if (!is_null($this->RRC)): ?>
+            <abbr title="Roman Republican Coinage number">RRC number</abbr>: <?php echo $this->RRC; ?><br/>
+        <?php endif; ?>
 
-    <?php if (!is_null($this->appear)): ?>
-        Appearance: <?php echo $this->appear; ?><br/>
-    <?php endif; ?>
+        <?php if (!is_null($this->appear)): ?>
+            Appearance: <?php echo $this->appear; ?><br/>
+        <?php endif; ?>
 
-    <?php if (!is_null($this->mint)): ?>
-        Mint: <?php echo $this->mint; ?><br />
-    <?php endif; ?>
+        <?php if (!is_null($this->mint)): ?>
+            Mint: <?php echo $this->mint; ?><br/>
+        <?php endif; ?>
 
-    <?php if(!is_null($this->nomismaID)):?>
-        Nomisma ID: <?php echo $this->nomismaID;?><br />
-    <?php endif;?>
-    <?php $url = array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'moneyer' => $this->id);?>
-    View <a href="<?php echo $this->url($url,'default', true);?>">all records available</a> for this moneyer.
-</p>
+        <?php if (!is_null($this->nomismaID)): ?>
+            Nomisma ID: <?php echo $this->nomismaID; ?><br/>
+        <?php endif; ?>
 
+        <?php echo $this->searchLink()->setField('moneyer')->setId($this->id); ?>
+    </p>
+
+<?php echo $this->latestRecords()->setQuery('moneyer:' . $this->id); ?>

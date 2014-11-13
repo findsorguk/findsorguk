@@ -6,7 +6,7 @@
  * Class implementing metadata output for the required LIDO metadata format.
  * Also uses grid reference stripping and redisplay tools. This builds on the
  * OAI classes generated for the Omeka system. This was created in August 2014
- * at the request of the Collections Trust AS A FAVOUR.
+ * at the request of the Collections Trust *AS A FAVOUR*.
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett

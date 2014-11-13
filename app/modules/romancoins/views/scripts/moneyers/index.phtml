@@ -1,30 +1,29 @@
 <?php $this->headTitle('Republican moneyers');
-$this->headMeta('CC NC-SA-BY','dc.rights')
-->headMeta('This page lists all of the currently documented moneyers for Roman 
-    Republican coins','description')
-->headMeta('The Portable Antiquities Scheme','dc.publisher')
-->headMeta('Daniel Pett','dc.creator')
-->headMeta($this->curUrl(),'dc.identifier');
+$this->metaBase()->setDescription('This page lists all of the currently documented moneyers for Roman
+    Republican coins')
+    ->setSubject('Roman Numismatics')
+    ->setKeywords('roman,moneyers,republic')
+    ->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<h2 class="lead">Republican moneyers</h2>
-<?php if(count($this->moneyers)):?>
-<table class="table table-striped" summary="A list of available Roman moneyers on the Scheme's database">
-<caption>A list of available moneyers</caption>
-<thead>
-<tr>
-<th>Name</th>
-<th>Date from</th>
-<th>Date to</th>
-<th>RRC appearance</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/numismatics/moneyers.phtml',$this->moneyers);?>
-</tbody>
-</table>
-<?php echo $this->paginationControl($this->moneyers, 'Elastic', 'structure/pagination.phtml'); ?>
+<?php if (!empty($this->moneyers)): ?>
+    <table class="table table-striped" summary="A list of available Roman moneyers on the Scheme's database">
+        <caption>A list of available moneyers</caption>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date from</th>
+            <th>Date to</th>
+            <th>RRC appearance</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/numismatics/moneyers.phtml', $this->moneyers); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->moneyers, 'Elastic', 'structure/pagination.phtml'); ?>
 
-<?php else:?>
-<p>There are no moneyers available to you.</p>
-<?php endif;?>
+<?php else: ?>
+    <p>There are no moneyers available to you.</p>
+<?php endif; ?>

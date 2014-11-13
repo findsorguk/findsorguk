@@ -1,47 +1,44 @@
-<?php if($this->reverses):?>
-<?php
-    echo $this->partialLoop('partials/numismatics/reverseTypeDetail.phtml', $this->reverses);
-?>
+<?php if ($this->reverses): ?>
+    <?php echo $this->partialLoop('partials/numismatics/reverseTypeDetail.phtml', $this->reverses); ?>
 
 
-<div class="row-fluid">
-    <!--  Navigation for tabs  -->
-    <ul id="tab" class="nav nav-tabs">
-        <li class="active"><a href="#issuers" data-toggle="tab">Issuers</a></li>
-        <li><a href="#mints" data-toggle="tab">Issuing mints</a></li>
-        <li><a href="#map" data-toggle="tab">Map</a></li>
-    </ul>
-    <!--  End of Tabs navigation -->
+    <div class="row-fluid">
+        <!--  Navigation for tabs  -->
+        <ul id="tab" class="nav nav-tabs">
+            <li class="active"><a href="#issuers" data-toggle="tab">Issuers</a></li>
+            <li><a href="#mints" data-toggle="tab">Issuing mints</a></li>
+            <li><a href="#map" data-toggle="tab">Map</a></li>
+        </ul>
+        <!--  End of Tabs navigation -->
 
-    <!-- Start of tabbed content div -->
-    <div id="myTabContent" class="tab-content">
+        <!-- Start of tabbed content div -->
+        <div id="myTabContent" class="tab-content">
 
-        <div class="tab-pane fade in active" id="issuers">
-            <?php if (count($this->emps)): ?>
-                <h3 class="lead">Issuers</h3>
-                <ul>
-                    <?php echo $this->partialLoop('partials/numismatics/reverseTypeEmperor.phtml', $this->emps); ?>
-                </ul>
-            <?php endif; ?>
+            <div class="tab-pane fade in active" id="issuers">
+                <?php if (count($this->emps)): ?>
+                    <h3 class="lead">Issuers</h3>
+                    <ul>
+                        <?php echo $this->partialLoop('partials/numismatics/reverseTypeEmperor.phtml', $this->emps); ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
+
+            <div class="tab-pane fade" id="mints">
+                <?php if ($this->mints): ?>
+                    <h3 class="lead">Issuing mints</h3>
+                    <ul>
+                        <?php echo $this->partialLoop('partials/numismatics/reverseTypeMints.phtml', $this->mints); ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
+
+            <div class="tab-pane fade" id="map">
+
+            </div>
         </div>
+        <!--  End of tabbed content div -->
 
-        <div class="tab-pane fade" id="mints">
-            <?php if ($this->mints): ?>
-                <h3 class="lead">Issuing mints</h3>
-                <ul>
-                    <?php echo $this->partialLoop('partials/numismatics/reverseTypeMints.phtml', $this->mints); ?>
-                </ul>
-            <?php endif; ?>
-        </div>
-
-        <div class="tab-pane fade" id="map">
-
-        </div>
     </div>
-    <!--  End of tabbed content div -->
-
-</div>
-
-<?php echo $this->latestRecords()->setQuery('reverse:'
-    . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>
-<?php endif;?>
+    <?php echo $this->searchLink()->setField('reverse')->setId($this->id); ?>
+    <?php echo $this->latestRecords()->setQuery('reverse:' . $this->id); ?>
+<?php endif; ?>

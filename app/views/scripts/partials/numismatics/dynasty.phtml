@@ -6,5 +6,9 @@ $this->metaBase()->setDescription('Details for ' . lcfirst($this->title))
 ?>
 
 <h2 class="lead"><?php echo $this->title(); ?></h2>
-<p>Date in power from: <?php echo $this->adBc()->setDate($this->date_from); ?><br/>
-    Date in power until: <?php echo $this->adBc()->setDate($this->date_to); ?> </p>
+<p>
+    Date in power from: <?php echo $this->adBc()->setDate($this->date_from); ?><br/>
+    <?php if (!is_null($this->date_to)): ?>
+        Date in power until: <?php echo $this->adBc()->setDate($this->date_to); ?>
+    <?php endif; ?>
+</p>

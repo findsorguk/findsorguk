@@ -1,16 +1,14 @@
 <?php
 $this->headTitle('Details of ' . $this->name . ' personified');
-$this->headMeta($this->curUrl(), 'dc.identifier')
-    ->headMeta('Daniel Pett', 'dc.creator')
-    ->headMeta('The Portable Antiquities Scheme', 'dc.publisher')
-    ->headMeta('CC BY-SA', 'dc.rights');
+$this->metaBase()->setDescription('Details for the Roman personfication identified as ' . $this->name)
+    ->setSubject('Roman Numismatics')
+    ->setKeywords('roman,numismatics,archaeology,deities')
+    ->generate();
 ?>
 <div about="personifcation-<?php echo $this->name; ?>">
-    <h2 class="lead">
-        <?php echo $this->title(); ?>
-    </h2>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
     <?php if (isset($this->image) && file_exists(IMAGE_PATH . '/images/coins/reverses/' . $this->image)): ?>
-        <img src="<?php echo IMAGE_PATH;?>/coins/reverses/<?php echo $this->image; ?>"
+        <img src="<?php echo IMAGE_PATH; ?>/coins/reverses/<?php echo $this->image; ?>"
              alt="Thumbnail image of a reverse depicting <?php echo $this->name; ?>" property="foaf:depiction"
              class="flow"/>
     <?php endif; ?>

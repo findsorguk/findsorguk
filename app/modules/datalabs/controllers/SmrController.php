@@ -10,13 +10,21 @@
  */
 class Datalabs_SmrController extends Pas_Controller_Action_Admin
 {
+
+    protected $_smrs;
+
+    public function getSmrs()
+    {
+        $this->_smrs = new ScheduledMonuments();
+        return $this->_smrs;
+    }
+
     /** Initialise the ACL and contexts
      */
     public function init()
     {
         $this->_helper->_acl->allow('flos', null);
         $this->_helper->_acl->allow('hero', null);
-
         $this->_contexts = array('xml', 'json');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
@@ -45,7 +53,6 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
         $search->setFacets(array('county', 'district'));
 
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
         ) {
 
             if ($form->isValid($form->getValues())) {
@@ -57,13 +64,11 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
                 $params = $form->getValues();
             }
         } else {
-
             $params = $this->getAllParams();
             $form->populate($this->getAllParams());
 
 
         }
-
         if (!isset($params['q']) || $params['q'] == '') {
             $params['q'] = '*';
         }
@@ -94,8 +99,7 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
     public function recordAction()
     {
         if ($this->_getParam('id', false)) {
-            $smrs = new ScheduledMonuments();
-            $this->view->smrs = $smrs->getSmrDetails($this->_getParam('id'));
+            $this->view->smrs = $this->getSmrs()->getSmrDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -107,15 +111,18 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
     {
         if ($this->_getParam('number', false)) {
             $this->view->woeid = $this->_getParam('number');
-            $smrs = new ScheduledMonuments();
-            $this->view->smrs = $smrs->getSmrsByWoeid($this->_getParam('number'), $this->_getParam('page'));
+            $this->view->smrs = $this->getSmrs()->getSmrsByWoeid($this->_getParam('number'), $this->_getParam('page'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
+    /** A map of the SMRS
+     * @access public
+     * @returns void
+     */
     public function mapAction()
     {
-
+        //Magic in view
     }
 }

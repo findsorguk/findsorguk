@@ -497,7 +497,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             $params['q'] = 'type:R || type:A && ' . $q;
         }
         $search = new Pas_Solr_Handler();
-        $search->setCore('beogeodata');
+        $search->setCore('geodata');
         $search->setParams($params);
         $search->setFields(array('*'));
         $search->execute();
@@ -511,12 +511,12 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function smrsAction()
     {
         $params = $this->getAllParams();
-        $params['show'] = 25046;
-        $params['format'] = 'json';
+        $params['show'] = 1000;
+        $params['format'] = 'kml';
         $params['sort'] = 'id';
         $params['source'] = 'smrdata';
         $search = new Pas_Solr_Handler();
-        $search->setCore('beogeodata');
+        $search->setCore('geodata');
         $search->setParams($params);
         $search->setFields(array('*'));
         $search->execute();

@@ -1,0 +1,12 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 13/11/14
+ * Time: 14:37
+ */
+$url = array('module' => 'romancoins', 'controller' => 'personifications', 'action' => 'named', 'as' => $this->name);
+?>
+
+<li about="<?php echo $this->name; ?>"><a href="<?php echo $this->url($url, 'default', true); ?>"
+                                          title="Read details for <?php echo $this->name; ?>"><?php echo $this->name; ?></a></li>

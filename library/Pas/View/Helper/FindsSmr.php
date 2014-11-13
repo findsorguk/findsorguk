@@ -1,4 +1,5 @@
 <?php
+
 /** A view helper for determining whether a find is within a set distance
  * of a point.
  *
@@ -19,7 +20,8 @@
  * @example path description
  *
  */
-class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
+{
 
     /** The latitude to query
      * @access protected
@@ -43,7 +45,8 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract {
      * @access public
      * @return double
      */
-    public function getLat() {
+    public function getLat()
+    {
         return $this->_lat;
     }
 
@@ -51,7 +54,8 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract {
      * @access public
      * @return double
      */
-    public function getLon() {
+    public function getLon()
+    {
         return $this->_lon;
     }
 
@@ -59,7 +63,8 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract {
      * @access public
      * @return integer
      */
-    public function getDistance() {
+    public function getDistance()
+    {
         return $this->_distance;
     }
 
@@ -67,24 +72,30 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract {
      * @access public
      * @param double $_lat
      */
-    public function setLat($_lat) {
-        $this->_lat = $_lat;
+    public function setLat($lat)
+    {
+        $this->_lat = $lat;
+        return $this;
     }
 
     /** Set the longitude
      * @access public
      * @param double $_lon
      */
-    public function setLon($_lon) {
-        $this->_lon = $_lon;
+    public function setLon($lon)
+    {
+        $this->_lon = $lon;
+        return $this;
     }
 
     /** Set the distance
      * @access public
      * @param integer $_distance
      */
-    public function setDistance($_distance) {
-        $this->_distance = $_distance;
+    public function setDistance($distance)
+    {
+        $this->_distance = $distance;
+        return $this;
     }
 
     /** Get the data from the model
@@ -94,22 +105,18 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract {
      * @param integer $distance
      * @return boolean
      */
-    public function getData($lat, $lon, $distance) {
+    public function getData()
+    {
         $smr = new ScheduledMonuments();
-        $smrs = $smr->getSMRSNearbyFinds($lat, $lon, $distance);
-        if (!empty($smrs)) {
-            return $this->buildHtml($smrs);
-        } else {
-            return false;
-        }
+        return $smr->getSMRSNearby($this->getLat(), $this->getLon(), $this->getDistance());
     }
 
     /** The main function
      * @access public
      * @return \Pas_View_Helper_FindsSmr
      */
-    public function findsSmr() {
-        exit;
+    public function findsSmr()
+    {
         return $this;
     }
 
@@ -117,22 +124,20 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function buildHtml() {
-        $data = $this->getData($this->get_lat(), $this->get_lon(), $this->get_distance());
+    public function buildHtml($data)
+    {
         $html = '';
-        if($data){
-            $html .= '<h3>Finds within 250 metres of centre of SMR</h3><ul>';
-            foreach ($smrs as $s) {
-                $html .= '<li><a href="';
-                $html .= $this->view->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $s['id']),NULL, true);
-                $html .= '" title="View details for '.$s['old_findID'].'">';
-                $html .= $s['old_findID'];
-                $html .= '</a>';
-                $html .= '-  a '.$s['objecttype'].' from '.$s['county'].' at a distance of '.number_format(($s['distance']*1000),3).' metres.';
-                $html .= '</li>';
-            }
+        if (!empty($data)) {
+            $html .= '<h3 class="lead">Scheduled monuments within 250 metres of this find</h3>';
+            $html .= '<ul>';
+            $html .= $this->view->partialLoop('partials/database/proximity.phtml', $data);
             $html .= '</ul>';
         }
         return $html;
+    }
+
+    public function __toString()
+    {
+        return $this->buildHtml($this->getData());
     }
 }

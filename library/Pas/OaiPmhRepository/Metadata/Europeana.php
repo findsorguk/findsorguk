@@ -1,7 +1,8 @@
 <?php
+
 /** Metadata generator for creating ESE OAI outputs
  *
- * Class implmenting metadata output for the required ESE metadata format.
+ * Class implementing metadata output for the required ESE metadata format.
  * Also uses grid reference stripping and redisplay tools. This builds on the
  * OAI classes generated for the Omeka system.
  *
@@ -12,25 +13,26 @@
  * @version  1
  * @since    22 September 2011
  */
-class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metadata_Abstract {
+class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metadata_Abstract
+{
 
-	/** OAI-PMH metadata prefix */
-    const METADATA_PREFIX       = 'ese';
+    /** OAI-PMH metadata prefix */
+    const METADATA_PREFIX = 'ese';
 
     /** XML namespace for output format */
-    const METADATA_NAMESPACE 	= 'http://www.europeana.eu/schemas/ese/';
+    const METADATA_NAMESPACE = 'http://www.europeana.eu/schemas/ese/';
 
     /** XML schema for output format */
-    const METADATA_SCHEMA 	= 'http://www.europeana.eu/schemas/ese/ESE-V3.3.xsd';
+    const METADATA_SCHEMA = 'http://www.europeana.eu/schemas/ese/ESE-V3.3.xsd';
 
     /** XML namespace for unqualified Dublin Core */
-    const DC_NAMESPACE_URI 	= 'http://purl.org/dc/elements/1.1/';
+    const DC_NAMESPACE_URI = 'http://purl.org/dc/elements/1.1/';
 
     /** DC metadata namespace **/
     const DC_METADATA_NAMESPACE = 'http://www.openarchives.org/OAI/2.0/oai_dc/';
 
     /** DC terms namespace */
-    const DC_TERMS_NAMESPACE	= 'http://purl.org/dc/terms/';
+    const DC_TERMS_NAMESPACE = 'http://purl.org/dc/terms/';
 
     /** The view object
      * @access protected
@@ -42,42 +44,44 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
      * @access public
      * @return \Zend_View
      */
-    public function init(){
+    public function init()
+    {
         $this->_view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
     }
-	
+
     /** Add meta data to the xml response in this ESE
      * @access public
      * @return void
      */
-    public function appendMetadata() {
+    public function appendMetadata()
+    {
         $metadataElement = $this->document->createElement('metadata');
         $this->parentElement->appendChild($metadataElement);
-        $europeana = $this->document->createElementNS( self::METADATA_NAMESPACE, 'ese:record');
+        $europeana = $this->document->createElementNS(self::METADATA_NAMESPACE, 'ese:record');
         $metadataElement->appendChild($europeana);
-        $europeana->setAttribute('xmlns:dc',self:: DC_NAMESPACE_URI);
-        $europeana->setAttribute('xmlns:oai_dc',self::DC_METADATA_NAMESPACE);
+        $europeana->setAttribute('xmlns:dc', self:: DC_NAMESPACE_URI);
+        $europeana->setAttribute('xmlns:oai_dc', self::DC_METADATA_NAMESPACE);
         $europeana->setAttribute('xmlns:ese', self::DC_NAMESPACE_URI);
         $europeana->setAttribute('xmlns:xsi', parent::XML_SCHEMA_NAMESPACE_URI);
         $europeana->setAttribute('xsi:schemaLocation', self::METADATA_NAMESPACE . ' ' . self::METADATA_SCHEMA);
-        $europeana->setAttribute('xmlns:dcterms',self::DC_TERMS_NAMESPACE);
+        $europeana->setAttribute('xmlns:dcterms', self::DC_TERMS_NAMESPACE);
         //Create the dublin core metadata from an array of objects
-        if(!array_key_exists('0',$this->item))  {
+        if (!array_key_exists('0', $this->item)) {
             $dc = array(
-                'title'         => $this->item['broadperiod'] . ' ' . $this->item['objecttype'] ,
-                'creator'       => $this->item['identifier'],
-                'subject'       => self::SUBJECT . ' - ' . $this->item['broadperiod'],
-                'description'   => strip_tags(str_replace(array("\n","\r",'    '),array('','',' '),$this->item['description'])),
-                'publisher'     => self::RIGHTS_HOLDER,
-                'contributor'   => $this->institution($this->item['institution']),
-                'date'          => $this->item['created'],
-                'type'          => $this->item['objecttype'],
-                'format'        => self::FORMAT,
-                'source'        => self::SOURCE,
-                'language'      => self::LANGUAGE,
-                'identifier'    => $this->item['old_findID'],
-                'coverage'      => $this->item['broadperiod'],
-                'rights'        => self::LICENSE,
+                'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
+                'creator' => $this->item['identifier'],
+                'subject' => self::SUBJECT . ' - ' . $this->item['broadperiod'],
+                'description' => strip_tags(str_replace(array("\n", "\r", '    '), array('', '', ' '), $this->item['description'])),
+                'publisher' => self::RIGHTS_HOLDER,
+                'contributor' => $this->institution($this->item['institution']),
+                'date' => $this->item['created'],
+                'type' => $this->item['objecttype'],
+                'format' => self::FORMAT,
+                'source' => self::SOURCE,
+                'language' => self::LANGUAGE,
+                'identifier' => $this->item['old_findID'],
+                'coverage' => $this->item['broadperiod'],
+                'rights' => self::LICENSE,
             );
             //Create the spatial arrray
             $spatial = array(
@@ -85,21 +89,21 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
                 'district' => $this->item['district']
             );
             //Check for availability of NGR and therefore latlon conversions
-            if(is_null($this->item['knownas']) && !is_null($this->item['fourFigure'])){
+            if (is_null($this->item['knownas']) && !is_null($this->item['fourFigure'])) {
                 $lat = $this->item['fourFigureLat'];
                 $lon = $this->item['fourFigureLon'];
                 $spatial['coords'] = $lat . ',' . $lon;
             }
 
             $dcterms = array(
-                'created' => date('Y-m-d',strtotime($this->item['created'])),
+                'created' => date('Y-m-d', strtotime($this->item['created'])),
                 'medium' => $this->item['materialTerm'],
                 'isPartOf' => self::SOURCE,
                 'provenance' => self::PROVENANCE
             );
             $ese = array();
             $ese['provider'] = self::RIGHTS_HOLDER;
-            $ese['type']     = 'TEXT';
+            $ese['type'] = 'TEXT';
 
             $temporal = array(
                 'year1' => $this->item['fromdate'],
@@ -108,28 +112,28 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
 
             $formats = array();
 
-            if(!is_null($this->item['thumbnail'])){
+            if (!is_null($this->item['thumbnail'])) {
                 $ese['isShownBy'] = $this->_serverUrl . self::THUMB_PATH . $this->item['thumbnail'] . self::EXTENSION;
                 $formats[] = $this->_serverUrl . '/' . $this->item['imagedir'] . $this->item['filename'];
             }
             $ese['isShownAt'] = $this->_serverUrl . self::RECORD_URI . $this->item['id'];
-            foreach($dc as $k => $v) {
+            foreach ($dc as $k => $v) {
                 $this->appendNewElement($europeana, 'dc:' . $k, $v);
             }
-            foreach($dcterms as $k => $v){
+            foreach ($dcterms as $k => $v) {
                 $this->appendNewElement($europeana, 'dcterms:' . $k, $v);
             }
-            foreach($formats as $k => $v) {
-                $this->appendNewElement($europeana, 'dcterms:hasFormat',$v);
+            foreach ($formats as $k => $v) {
+                $this->appendNewElement($europeana, 'dcterms:hasFormat', $v);
             }
-            foreach($temporal as $k => $v){
+            foreach ($temporal as $k => $v) {
                 $this->appendNewElement($europeana, 'dcterms:temporal', $v);
             }
-            foreach($spatial as $k => $v) {
+            foreach ($spatial as $k => $v) {
                 $this->appendNewElement($europeana, 'dcterms:spatial', $v);
             }
-            foreach($ese as $k => $v) {
-            $this->appendNewElement($europeana, 'ese:'.$k, $v);
+            foreach ($ese as $k => $v) {
+                $this->appendNewElement($europeana, 'ese:' . $k, $v);
             }
         }
     }
@@ -139,8 +143,9 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
      * @access public
      * @return string Metadata prefix
      */
-    public function getMetadataPrefix()  {
-	return self::METADATA_PREFIX;
+    public function getMetadataPrefix()
+    {
+        return self::METADATA_PREFIX;
     }
 
     /**
@@ -148,8 +153,9 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
      * @access public
      * @return string XML schema URI
      */
-    public function getMetadataSchema() {
-  	return self::METADATA_SCHEMA;
+    public function getMetadataSchema()
+    {
+        return self::METADATA_SCHEMA;
     }
 
     /**
@@ -157,7 +163,8 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
      * @access public
      * @return string XML namespace URI
      */
-    public function getMetadataNamespace()  {
+    public function getMetadataNamespace()
+    {
         return self::METADATA_NAMESPACE;
     }
 
@@ -166,17 +173,18 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
      * @param string $inst
      * @return string
      */
-    public function institution($inst) {
-        if(!is_null($inst)){
-        $institutions = new Institutions();
-        $where = array();
-        $where[] = $institutions->getAdapter()->quoteInto('institution = ?',$inst);
-        $institution = $institutions->fetchRow($where);
-        if(!is_null($institution)){
-        return $institution->description;
-        }
+    public function institution($inst)
+    {
+        if (!is_null($inst)) {
+            $institutions = new Institutions();
+            $where = array();
+            $where[] = $institutions->getAdapter()->quoteInto('institution = ?', $inst);
+            $institution = $institutions->fetchRow($where);
+            if (!is_null($institution)) {
+                return $institution->description;
+            }
         } else {
-        return 'The Portable Antiquities Scheme';
+            return 'The Portable Antiquities Scheme';
         }
     }
 }

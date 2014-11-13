@@ -1,4 +1,5 @@
 <?php
+
 /** Class implmenting metadata output for the required oai_dc metadata format.
  * oai_dc is output of the 15 unqualified Dublin Core fields. Slight modifications
  * applied by Daniel Pett, 6/2/12
@@ -9,7 +10,6 @@
  * @copyright Copyright 2009 John Flatness, Yu-Hsun Lin
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
  */
-
 class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_Abstract
 {
     /** OAI-PMH metadata prefix */
@@ -31,23 +31,24 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
      * @access public
      * @return void
      */
-    public function appendMetadata() {
-	$metadataElement = $this->document->createElement('metadata');
-	$this->parentElement->appendChild($metadataElement);
-	$oai_dc = $this->document->createElementNS( self::METADATA_NAMESPACE, 'oai_dc:dc');
-	$metadataElement->appendChild($oai_dc);
+    public function appendMetadata()
+    {
+        $metadataElement = $this->document->createElement('metadata');
+        $this->parentElement->appendChild($metadataElement);
+        $oai_dc = $this->document->createElementNS(self::METADATA_NAMESPACE, 'oai_dc:dc');
+        $metadataElement->appendChild($oai_dc);
 
-	/* Must manually specify XML schema uri per spec, but DOM won't include
-	* a redundant xmlns:xsi attribute, so we just set the attribute
-	*/
-	$oai_dc->setAttribute('xmlns:dc', self::DC_NAMESPACE_URI);
-	$oai_dc->setAttribute('xmlns:xsi', parent::XML_SCHEMA_NAMESPACE_URI);
-	$oai_dc->setAttribute(
-                'xsi:schemaLocation', self::METADATA_NAMESPACE . ' ' . self::METADATA_SCHEMA);
+        /* Must manually specify XML schema uri per spec, but DOM won't include
+        * a redundant xmlns:xsi attribute, so we just set the attribute
+        */
+        $oai_dc->setAttribute('xmlns:dc', self::DC_NAMESPACE_URI);
+        $oai_dc->setAttribute('xmlns:xsi', parent::XML_SCHEMA_NAMESPACE_URI);
+        $oai_dc->setAttribute(
+            'xsi:schemaLocation', self::METADATA_NAMESPACE . ' ' . self::METADATA_SCHEMA);
 
-	if(!array_key_exists('0',$this->item)) {
+        if (!array_key_exists('0', $this->item)) {
             $data = array(
-                'title' => $this->item['broadperiod']. ' ' . $this->item['objecttype'] ,
+                'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
                 'creator' => $this->item['creator'],
                 'subject' => self::SUBJECT,
                 'description' => strip_tags(strtr($this->item['description'], array('\x0B' => '&#x0B;'))),
@@ -62,9 +63,9 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
                 'language' => self::LANGUAGE
             );
 
-            if(isset($this->item['thumbnail'])){
+            if (isset($this->item['thumbnail'])) {
                 $relation = $this->_serverUrl . '/' . $this->item['imagedir']
-                       . $this->item['filename'];
+                    . $this->item['filename'];
                 $data['relation'] = $relation;
             } else {
                 $data['relation'] = '';
@@ -72,10 +73,10 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
             $data['coverage'] = $this->item['broadperiod'];
             $data['rights'] = self::LICENSE;
             unset($data['id']);
-            foreach($data as $k => $v){
+            foreach ($data as $k => $v) {
                 $this->appendNewElement($oai_dc, 'dc:' . $k, $v);
             }
-	}
+        }
     }
 
 
@@ -84,7 +85,8 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
      * @access public
      * @return string Metadata prefix
      */
-    public function getMetadataPrefix() {
+    public function getMetadataPrefix()
+    {
         return self::METADATA_PREFIX;
     }
 
@@ -93,7 +95,8 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
      * @access public
      * @return string XML schema URI
      */
-    public function getMetadataSchema() {
+    public function getMetadataSchema()
+    {
         return self::METADATA_SCHEMA;
     }
 
@@ -102,7 +105,8 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
      * @access public
      * @return string XML namespace URI
      */
-    public function getMetadataNamespace() {
+    public function getMetadataNamespace()
+    {
         return self::METADATA_NAMESPACE;
     }
 }

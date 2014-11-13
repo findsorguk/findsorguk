@@ -6,7 +6,7 @@ $this->metaBase()
     ->generate();
 $this->googleDynamicMap(null, true);
 ?>
-<h2 class="lead"><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php $this->inlineScript()->captureStart() ?>
 $(document).ready(function() {
 var center = new google.maps.LatLng(54.70235509327093, -3.2080078125);

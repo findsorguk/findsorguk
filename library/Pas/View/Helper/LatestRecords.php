@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LatestRecords helper
  *
@@ -51,7 +52,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_allowed =  array(
+    protected $_allowed = array(
         'fa', 'flos', 'admin',
         'treasure', 'hoard'
     );
@@ -61,9 +62,11 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getAllowed() {
+    public function getAllowed()
+    {
         return $this->_allowed;
     }
+
     /** The query to call
      * @access protected
      * @var string
@@ -99,7 +102,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access protected
      * @var int
      */
-    protected $_limit = 5;
+    protected $_limit = 4;
 
     /** The default role
      * @access protected
@@ -111,7 +114,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getQuery() {
+    public function getQuery()
+    {
         return $this->_query;
     }
 
@@ -120,7 +124,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  string $query
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setQuery( $query )  {
+    public function setQuery($query)
+    {
         $this->_query = $query;
         return $this;
     }
@@ -129,16 +134,18 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getFields() {
+    public function getFields()
+    {
         return $this->_fields;
     }
 
     /** Set the fields for searching on
      * @access public
-     * @param  string  $fields
+     * @param  string $fields
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setFields( $fields ) {
+    public function setFields($fields)
+    {
         $this->_fields = $fields;
 
         return $this;
@@ -148,7 +155,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getDirection() {
+    public function getDirection()
+    {
         return $this->_direction;
     }
 
@@ -158,7 +166,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  type $direction
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setDirection( $direction ) {
+    public function setDirection($direction)
+    {
         $this->_direction = $direction;
         return $this;
     }
@@ -167,7 +176,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getSort() {
+    public function getSort()
+    {
         return $this->_sort;
     }
 
@@ -175,7 +185,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getStart() {
+    public function getStart()
+    {
         return $this->_start;
     }
 
@@ -183,7 +194,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access  public
      * @return int
      */
-    public function getLimit() {
+    public function getLimit()
+    {
         return $this->_limit;
     }
 
@@ -192,27 +204,30 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  string $sort
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setSort( $sort ) {
+    public function setSort($sort)
+    {
         $this->_sort = $sort;
         return $this;
     }
 
     /** Set the start number
      * @access public
-     * @param  int  $start
+     * @param  int $start
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setStart( $start ) {
+    public function setStart($start)
+    {
         $this->_start = $start;
         return $this;
     }
 
     /** set the limit
      * @access public
-     * @param  int  $limit
+     * @param  int $limit
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function setLimit( $limit ){
+    public function setLimit($limit)
+    {
         $this->_limit = $limit;
         return $this;
     }
@@ -221,23 +236,27 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getCacheKey() {
-       return md5( $this->getQuery() . $this->getRole() );
+    public function getCacheKey()
+    {
+        return md5($this->getQuery() . $this->getRole());
     }
 
     /** get the cache object
      * @access public
      * @return Zend_Cache
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
+
     /** Get the config object
      * @access public
      * @return Zend_Config
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         $this->_config = Zend_Registry::get('config');
         return $this->_config;
     }
@@ -246,10 +265,11 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getSolrConfig() {
+    public function getSolrConfig()
+    {
         $this->_solrConfig = array(
             'adapteroptions' => $this->getConfig()->solr->toArray()
-                );
+        );
         return $this->_solrConfig;
     }
 
@@ -257,7 +277,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getSolr() {
+    public function getSolr()
+    {
         $this->_solr = new Solarium_Client($this->getSolrConfig());
         return $this->_solr;
     }
@@ -266,11 +287,12 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return boolean
      */
-    public function getRole()  {
+    public function getRole()
+    {
         $user = new Pas_User_Details();
         $person = $user->getPerson();
         if ($person) {
-            $this->_role =  $user->getPerson()->role;
+            $this->_role = $user->getPerson()->role;
         }
         return $this->_role;
     }
@@ -279,36 +301,37 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getResults( ) {
+    public function getResults()
+    {
         $select = array(
-            'query' =>  $this->getQuery(),
-            'start' =>  $this->getStart(),
-            'rows'  =>  $this->getLimit(),
+            'query' => $this->getQuery(),
+            'start' => $this->getStart(),
+            'rows' => $this->getLimit(),
             'fields' => array($this->getFields()),
-            'sort'  => array(
+            'sort' => array(
                 $this->getSort() => $this->getDirection()
-                    ),
+            ),
             'filterquery' => array(),
-            );
-        if (!in_array($this->getRole(),$this->getAllowed())) {
+        );
+        if (!in_array($this->getRole(), $this->getAllowed())) {
             $select['filterquery']['workflow'] = array(
                 'query' => 'workflow:[3 TO 4]');
         }
         $select['filterquery']['images'] = array('query' => 'thumbnail:[1 TO *]');
 
-        
-        if ( !( $this->getCache()->test( $this->getCacheKey() ) ) ) {
-            $query = $this->getSolr()->createSelect( $select );
-            $resultset = $this->getSolr()->select( $query );
+
+        if (!($this->getCache()->test($this->getCacheKey()))) {
+            $query = $this->getSolr()->createSelect($select);
+            $resultset = $this->getSolr()->select($query);
             $data = array();
             $data['numberFound'] = $resultset->getNumFound();
             foreach ($resultset as $doc) {
                 $data['images'][] = $this->parseResults($doc);
             }
             $this->getCache()->save($data);
-            } else {
-                $data = $this->getCache()->load($this->getCacheKey());
-            }
+        } else {
+            $data = $this->getCache()->load($this->getCacheKey());
+        }
         return $data;
     }
 
@@ -317,7 +340,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @param  Solarium_Document_ReadOnly $doc
      * @return array
      */
-    public function parseResults( Solarium_Document_ReadOnly $doc ) {
+    public function parseResults(Solarium_Document_ReadOnly $doc)
+    {
         $fields = array();
         foreach ($doc as $key => $value) {
             $fields[$key] = $value;
@@ -329,7 +353,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_LatestRecords
      */
-    public function latestRecords() {
+    public function latestRecords()
+    {
         return $this;
     }
 
@@ -338,14 +363,15 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @return string
      * @param array $data
      */
-    public function buildHtml( array $data ) {
+    public function buildHtml(array $data)
+    {
         $html = '';
-        if (array_key_exists( 'images', $data )) {
+        if (array_key_exists('images', $data)) {
             $html .= '<h3 class="lead">Latest examples recorded with images</h3>';
             $html .= '<p>We have recorded ' . number_format($data['numberFound']);
             $html .= ' examples.</p>';
             $html .= '<div class="row-fluid ">';
-//            $html .= $this->view->partialLoop('partials/database/imagesPaged.phtml', $data['images']);
+            $html .= $this->view->partialLoop('partials/database/imagesPaged.phtml', $data['images']);
             $html .= '</div>';
         }
         return $html;
@@ -355,7 +381,8 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildHtml($this->getResults());
     }
 }

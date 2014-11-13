@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Utility class for dealing with OAI identifiers
  *
@@ -13,19 +14,20 @@
  * @copyright Copyright 2009 John Flatness, Yu-Hsun Lin
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
  */
-class Pas_OaiPmhRepository_OaiIdentifier {
+class Pas_OaiPmhRepository_OaiIdentifier
+{
 
     /** The OAI namespace */
-    const OAI_IDENTIFIER_NAMESPACE_URI =  'http://www.openarchives.org/OAI/2.0/oai-identifier';
+    const OAI_IDENTIFIER_NAMESPACE_URI = 'http://www.openarchives.org/OAI/2.0/oai-identifier';
 
     /** The schema identifier */
-    const OAI_IDENTIFIER_SCHEMA_URI =  'http://www.openarchives.org/OAI/2.0/oai-identifier.xsd';
+    const OAI_IDENTIFIER_SCHEMA_URI = 'http://www.openarchives.org/OAI/2.0/oai-identifier.xsd';
 
     /** The site namespace */
     const OAI_PMH_NAMESPACE_ID = 'finds.org.uk';
 
     /** The XML schema namespace */
-    const XML_SCHEMA_NAMESPACE_URI ='http://www.w3.org/2001/XMLSchema-instance';
+    const XML_SCHEMA_NAMESPACE_URI = 'http://www.w3.org/2001/XMLSchema-instance';
 
     /**
      * Converts the given OAI identifier to an Omeka item ID.
@@ -33,14 +35,16 @@ class Pas_OaiPmhRepository_OaiIdentifier {
      * @param string $oaiId OAI identifier.
      * @return string Omeka item ID.
      */
-    public static function oaiIdToItem($oaiId) {
+    public static function oaiIdToItem($oaiId)
+    {
         $scheme = strtok($oaiId, ':');
         $namespaceId = strtok(':');
         $localId = strtok(':');
-        if( $scheme != 'oai' ||
+        if ($scheme != 'oai' ||
             $namespaceId != self::OAI_PMH_NAMESPACE_ID ||
-            $localId < 0) {
-           return null;
+            $localId < 0
+        ) {
+            return null;
         }
         return $localId;
     }
@@ -51,8 +55,9 @@ class Pas_OaiPmhRepository_OaiIdentifier {
      * @param mixed $itemId Omeka item ID.
      * @return string OAI identifier.
      */
-    public static function itemToOaiId($itemId) {
-        return 'oai:'.self::OAI_PMH_NAMESPACE_ID.':'.$itemId;
+    public static function itemToOaiId($itemId)
+    {
+        return 'oai:' . self::OAI_PMH_NAMESPACE_ID . ':' . $itemId;
     }
 
     /**
@@ -61,14 +66,15 @@ class Pas_OaiPmhRepository_OaiIdentifier {
      *
      * @param DOMElement $parentElement Parent DOM element for XML output
      */
-    public static function describeIdentifier($parentElement) {
+    public static function describeIdentifier($parentElement)
+    {
         $elements = array(
-            'scheme'               => 'oai',
+            'scheme' => 'oai',
             'repositoryIdentifier' => self::OAI_PMH_NAMESPACE_ID,
-            'delimiter'            => ':',
-            'sampleIdentifier'     => self::itemtoOaiId(1) );
+            'delimiter' => ':',
+            'sampleIdentifier' => self::itemtoOaiId(1));
         $oaiIdentifier = $parentElement->ownerDocument->createElement('oai-identifier');
-        foreach($elements as $tag => $value) {
+        foreach ($elements as $tag => $value) {
             $oaiIdentifier->appendChild($parentElement->ownerDocument->createElement($tag, $value));
         }
         $parentElement->appendChild($oaiIdentifier);
@@ -77,7 +83,7 @@ class Pas_OaiPmhRepository_OaiIdentifier {
         //default: prefix to element name
         $oaiIdentifier->setAttribute('xmlns', self::OAI_IDENTIFIER_NAMESPACE_URI);
         $oaiIdentifier->setAttributeNS(self::XML_SCHEMA_NAMESPACE_URI,
-                'xsi:schemaLocation',
-                self::OAI_IDENTIFIER_NAMESPACE_URI.' '.self::OAI_IDENTIFIER_SCHEMA_URI);
-   }
+            'xsi:schemaLocation',
+            self::OAI_IDENTIFIER_NAMESPACE_URI . ' ' . self::OAI_IDENTIFIER_SCHEMA_URI);
+    }
 }
