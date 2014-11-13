@@ -19,7 +19,7 @@ $this->metaBase()
         </tr>
     </thead>
     <tbody>
-        <?php echo $this->partialLoop('partials/admin/allerrors.phtml', $this->errors) ?>
+        <?php echo $this->partialLoop('partials/admin/allErrors.phtml', $this->errors) ?>
     </tbody>
 </table>
 <?php echo $this->paginationControl($this->errors, 'Sliding', 'structure/pagination.phtml'); ?>

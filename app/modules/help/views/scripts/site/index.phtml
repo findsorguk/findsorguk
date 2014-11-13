@@ -3,7 +3,7 @@
 	$this->headTitle('Site help topics');
 if($this->help):?>
 <ol>
-<?php echo $this->partialLoop('partials/help/topiclist.phtml',$this->help);?>
+<?php echo $this->partialLoop('partials/help/topicList.phtml',$this->help);?>
 </ol>
 <?php echo $this->paginationControl($this->help, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>

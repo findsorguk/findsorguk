@@ -39,7 +39,7 @@ $data = array();
 foreach($this->officers as $of) {
 $data[] = array_merge($dates,$of);
 }
-echo $this->partialLoop('partials/annual/perofficer.phtml',$data);?>
+echo $this->partialLoop('partials/annual/perOfficer.phtml',$data);?>
 
 <?php 
 $finds_officers = array();
@@ -70,7 +70,7 @@ $recordsOffTotal = array_sum($records_officers);
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/perinst.phtml',$this->institution);?>
+<?php echo $this->partialLoop('partials/annual/perInstitution.phtml',$this->institution);?>
 <tr>
 <?php 
 $finds_inst = array();
@@ -99,7 +99,7 @@ $recordsInstTotal = array_sum($records_inst);
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/objectperiods.phtml',$this->periods);?>
+<?php echo $this->partialLoop('partials/annual/objectPeriods.phtml',$this->periods);?>
 <tr>
 <?php 
 $finds_period = array();
@@ -127,7 +127,7 @@ $recordsPeriodTotal = array_sum($records_period);
 <th>Institution</th>
 <th>Number of finders</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/finderquants.phtml',$this->finders);?>
+<?php echo $this->partialLoop('partials/annual/finderQuantities.phtml',$this->finders);?>
 <tr>
 <?php 
 $finders = array();
@@ -209,7 +209,7 @@ $recordsYearTotal = array_sum($records_year);
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/discoinferno.phtml',$this->discovery);?>
+<?php echo $this->partialLoop('partials/annual/dicovery.phtml',$this->discovery);?>
 <tr>
 <?php 
 $finds_disc = array();

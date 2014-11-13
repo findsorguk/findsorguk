@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Model for interacting with macktypes table. This is an Iron Age coin
  * classification type
@@ -17,14 +18,15 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 22 September 2011
  * @todo add, edit and delete functions to be created and moved from controllers
  * @example /app/forms/IronAgeCoinForm.php
  *
  */
-class MackTypes extends Pas_Db_Table_Abstract {
+class MackTypes extends Pas_Db_Table_Abstract
+{
 
     /** The table name
      * @access protected
@@ -42,10 +44,11 @@ class MackTypes extends Pas_Db_Table_Abstract {
      * @access public
      * @return array $paginator
      */
-    public function getMackTypesDD(){
+    public function getMackTypesDD()
+    {
         $select = $this->select()
-                ->from($this->_name, array('type', 'type'))
-                ->order('type');
+            ->from($this->_name, array('type', 'type'))
+            ->order('type');
         $options = $this->getAdapter()->fetchPairs($select);
         return $options;
     }
@@ -56,14 +59,15 @@ class MackTypes extends Pas_Db_Table_Abstract {
      * @return array $paginator
      * @todo reckon this can be made more efficient in the controller action
      */
-    public function getTypes($q) {
+    public function getTypes($q)
+    {
         $types = $this->getAdapter();
         $select = $types->select()
-                ->from($this->_name, array('id','term' => 'type'))
-                ->where('type LIKE ? ', $q . '%')
-                ->order('type')
-                ->limit(10);
-       return $types->fetchAll($select);
+            ->from($this->_name, array('id', 'term' => 'type'))
+            ->where('type LIKE ? ', $q . '%')
+            ->order('type')
+            ->limit(10);
+        return $types->fetchAll($select);
     }
 
     /** Retrieve paginated mack types
@@ -71,18 +75,19 @@ class MackTypes extends Pas_Db_Table_Abstract {
      * @param integer $page
      * @return array $paginator
      */
-    public function getMackTypes($params) {
+    public function getMackTypes($params)
+    {
         $types = $this->getAdapter();
         $select = $types->select()
-                ->from($this->_name)
-                ->joinLeft('coins','coins.mack_type = macktypes.type',array())
-                ->order($this->_name . '.type')
-                ->group($this->_name . '.type');
+            ->from($this->_name)
+            ->joinLeft('coins', 'coins.mack_type = macktypes.type', array())
+            ->order($this->_name . '.type')
+            ->group($this->_name . '.type');
         $paginator = Zend_Paginator::factory($select);
         Zend_Paginator::setCache($this->_cache);
         $paginator->setItemCountPerPage(30)
-                ->setPageRange(10);
-        if(isset($params['page']) && ($params['page'] != "")) {
+            ->setPageRange(10);
+        if (isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber($params['page']);
         }
         return $paginator;

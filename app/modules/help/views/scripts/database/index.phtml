@@ -1,7 +1,7 @@
 <h2 class="lead">Help topics for our database</h2>
 <?php if($this->help):?>
 <ol>
-<?php echo $this->partialLoop('partials/help/topiclist.phtml',$this->help);?>
+<?php echo $this->partialLoop('partials/help/topicList.phtml',$this->help);?>
 </ol>
 <?php echo $this->paginationControl($this->help, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
