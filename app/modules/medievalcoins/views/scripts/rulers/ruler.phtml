@@ -3,9 +3,6 @@ $this->jQuery()->addJavascriptFile('http://jquery-ui.googlecode.com/svn/tags/lat
 echo $this->partialLoop('partials/numismatics/rulerProfile.phtml', $this->monarchs);
 ?>
 
-
-<?php echo $this->latestRecords()->setQuery('ruler:'
-    . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
 <div class="row-fluid">
     <!--  Navigation for tabs  -->
     <ul id="tab" class="nav nav-tabs">

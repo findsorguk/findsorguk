@@ -1,1 +1,12 @@
-<h2 class="lead">The tribe of the <?php echo $this->escape($this->tribe); ?></h2>
+<?php
+$this->headTitle('The tribe of the ' . $this->tribe);
+$this->metaBase()->setKeywords('tribes,units,archaeology,iron age')
+    ->setKeywords('iron age, numismatics,archaeology')
+    ->setDescription('Details for an iron age tribe called ' . $this->tribe)
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php
+echo $this->searchLink()->setField('tribe')->setId($this->id);
+echo $this->latestRecords()->setQuery('tribe:' . $this->id);
+?>

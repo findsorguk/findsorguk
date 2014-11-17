@@ -73,13 +73,8 @@ $this->metaBase('Full details for issuing  mint at ' . $this->name . ' describin
     <?php endif; ?>
 
     <?php if (!is_null($this->pasID)): ?>
-        <p>View <a href="<?php echo $this->url(array(
-                    'module' => 'database',
-                    'controller' => 'search',
-                    'action' => 'results',
-                    'mint' => $this->pasID),
-                null, true);?>" title="View all records">all coins recorded</a>,
-            which are attributed to <?php echo $this->escape($this->name); ?>.
-        </p>
+        <?php echo $this->searchLink()->setField('mint')->setId($this->pasID); ?>
     <?php endif; ?>
 <?php endif; ?>
+
+<?php echo $this->latestRecords()->setQuery('mint:' . $this->pasID); ?>

@@ -9,25 +9,25 @@ $this->headTitle("Issuing rulers of the Early Medieval period");
 
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->francia['0']); ?>
+<?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->francia['0']); ?>
 <p>This period had <?php echo count($this->francia); ?> issuers.</p>
 <ul>
     <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->francia); ?>
 </ul>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->islamic['0']); ?>
+<?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->islamic['0']); ?>
 <p>This period had <?php echo count($this->islamic); ?> issuers.</p>
 <ul>
     <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->islamic); ?>
 </ul>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->hiberno['0']); ?>
+<?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->hiberno['0']); ?>
 <p>This period had <?php echo count($this->hiberno); ?> issuers.</p>
 <ul>
     <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->hiberno); ?>
 </ul>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->french['0']); ?>
+<?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->french['0']); ?>
 <p>This period had <?php echo count($this->french); ?> issuers.</p>
 <ul>
     <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->french); ?>

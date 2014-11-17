@@ -1,5 +1,16 @@
-<h2 class="lead">Post Medieval coin categories</h2>
+<?php
+$this->headTitle('Post Medieval coin categories');
+$this->metaBase()->setSubject('Post medieval numismatics')
+    ->setDescription('A list of post medieval categories')
+    ->setKeywords('post,medieval,typology')
+    ->generate();
+?>
 
-<ul>
-<?php echo $this->partialLoop('partials/numismatics/categories.phtml',$this->categories);?> 
-</ul>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->categories)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/categories.phtml', $this->categories); ?>
+    </ul>
+<?php else: ?>
+    <p>No categories avaiable.</p>
+<?php endif; ?>

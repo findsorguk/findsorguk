@@ -1,9 +1,13 @@
-<?php 	
-$this->headTitle('Categories of coin produced');
+<?php
+$this->headTitle('Medieval coin categories');
+$this->metaBase()->setSubject('Medieval numismatics')
+    ->setDescription('A list of medieval coin categories')
+    ->setKeywords('medieval,numismatics,coin,categories')
+    ->generate();
 ?>
 
-<h2 class="lead">Medieval coin categories</h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
 <ul>
-<?php echo $this->partialLoop('partials/numismatics/categories.phtml',$this->categories);?> 
+    <?php echo $this->partialLoop('partials/numismatics/categories.phtml', $this->categories); ?>
 </ul>

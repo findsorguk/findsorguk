@@ -1,6 +1,10 @@
-<?php $this->headTitle($this->issuer); ?>
-<h2 class="lead"><?php echo $this->escape($this->issuer); ?></h2>
-<p>View all <a
-        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->id), null, true); ?>"
-        title="Search the database for all coins attributed to <?php echo $this->issuer; ?>">attributed examples</a> on
-    our database</p>
+<?php
+$this->headTitle('Details for issuer: ' . $this->issuer);
+$this->metaBase()->setSubject('Iron Age Numismatics')
+    ->setDescription('An entry for Iron Age ruler issuing coins')
+    ->setKeywords('iron age,numismatics,coins')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->searchLink()->setField('ruler')->setId($this->id); ?>
+<?php echo $this->latestRecords()->setQuery('ruler:' . $this->id);

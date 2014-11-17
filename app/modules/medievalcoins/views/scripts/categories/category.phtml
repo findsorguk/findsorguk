@@ -1,8 +1,4 @@
-<?php 
-echo $this->partialLoop('partials/numismatics/category.phtml',$this->categories);
-echo $this->latestRecords()->setQuery('category:' 
-        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
-?>
+<?php echo $this->partialLoop('partials/numismatics/category.phtml',$this->categories);?>
 
 
 
@@ -19,7 +15,7 @@ echo $this->latestRecords()->setQuery('category:'
 	<div id="myTabContent" class="tab-content">
 		
 		<div class="tab-pane fade in active" id="rulers">
-		<?php if (count($this->denominations > 0)):?>
+		<?php if (!empty($this->denominations)):?>
 			<h3 class="lead">Associated rulers</h3>
 			<ul>
 				<?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?>

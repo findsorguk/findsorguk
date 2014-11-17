@@ -1,9 +1,13 @@
 <?php
 $this->headTitle('Denominations issued during the Post Medieval period');
+$this->metaBase()->setSubject('Post medieval numismatics')
+    ->setKeywords('post,medieval,numismatics')
+    ->setDescription('A list of denominations in use in the post medieval period')
+    ->generate();
 ?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 <p>The following coins were issued during the Post Medieval period.</p>
-<?php if (count($this->denominations)): ?>
+<?php if (!empty($this->denominations)): ?>
     <ul>
         <?php echo $this->partialLoop('partials/numismatics/denominations.phtml', $this->denominations); ?>
     </ul>

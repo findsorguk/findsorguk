@@ -1,10 +1,14 @@
-<?php 	
+<?php
 $this->headTitle('Issuing mints of the Iron Age');
+$this->metaBase()->setSubject('Iron Age numismatics')
+    ->setKeywords('coins,numismatics,iron age')
+    ->setDescription('This page lists the 3 known British Iron Age mints in operation.')
+    ->generate();
 ?>
-<h2 class="lead">Issuing Iron Age mints for England and Wales</h2>
-<?php if (count($this->mints) > 0): ?>
-<ul>
-<?php echo $this->partialLoop('partials/numismatics/mints.phtml', $this->mints) ?></ul>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->mints)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/mints.phtml', $this->mints) ?></ul>
 <?php else: ?>
-    <p class="error">There are no mints available for this period.</p>
+    <p>There are no mints available for this period.</p>
 <?php endif; ?>
