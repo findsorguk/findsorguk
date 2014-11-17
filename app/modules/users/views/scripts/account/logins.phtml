@@ -1,20 +1,12 @@
 <?php $this->headTitle('My login history'); ?>
-    <h2 class="lead">
-        <?php $this->title(); ?>
-    </h2>
-<?php if ($this->logins): ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->logins)): ?>
 
     <p>
         You have used the following IP addresses:
     </p>
 
-    <ul>
-        <?php foreach ($this->ips as $ip) { ?>
-            <li>
-                IP Address: <?php $ip['ipAddress']; ?>  <?php $ip['count']; ?> times
-            </li>'
-        <?php } ?>
-    </ul>
+    <ul><?php echo $this->partialLoop('partials/users/ip.phtml', $this->ips); ?></ul>
 
     <table class="table table-striped" summary="A list of my login history">
         <caption>Tabulated list of your logins</caption>
