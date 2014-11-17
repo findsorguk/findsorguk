@@ -1,0 +1,13 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 17/11/14
+ * Time: 12:18
+ */
+?>
+<?php
+$url = array('module' => 'staffshoardsymposium', 'controller' => 'papers', 'action' => 'index', 'slug' => $this->slug);
+?>
+<li><a href="<?php echo $this->url($url, 'staffs', true); ?>"><?php echo $this->menuTitle; ?></a>
+    ~ <?php echo $this->title; ?></li>

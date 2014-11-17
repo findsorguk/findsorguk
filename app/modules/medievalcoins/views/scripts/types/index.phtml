@@ -1,15 +1,14 @@
 <?php
-$this->headTitle('A list of Early Medieval coin types ');
-$this->metaBase()->setDescription('The Early Medieval period for numismatics is broken down into a series of coin typologies. These
-types are closely aligned to the Fitzwilliam\'s Early Medieval coin corpus')
-    ->setKeywords('types,early medieval,coins,numsimatics,corpus,index')
-    ->setSubject('Early Medieval Numismatics')
+$this->headTitle('Medieval coin types');
+$this->metaBase()->setSubject('Medieval numismatics')
+    ->setDescription('A list of coin types used on the Scheme database')
     ->generate();
 ?>
+
     <h2 class="lead"><?php echo $this->title(); ?></h2>
-<?php if (!empty($this->types)): ?>
-    <table class="table table-striped" summary="<?php echo $this->title(); ?>">
-        <caption><?php echo $this->title(); ?></caption>
+<?php if (count($this->types)): ?>
+    <table class="table table-striped" summary="A list of available  Medieval Coin types">
+        <caption>Medieval coin types</caption>
         <thead>
         <tr>
             <th>Coin type</th>

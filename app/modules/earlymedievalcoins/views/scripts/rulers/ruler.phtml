@@ -1,3 +1,4 @@
+<?php if(!empty($this->monarchs)):?>
 <?php
 $config = Zend_Registry::get('config');
 $apikey = $config->webservice->googlemaps->apikey;
@@ -188,9 +189,8 @@ return marker;
 
 <?php $this->inlineScript()->captureEnd();?>
 
-<?php echo $this->partialLoop('partials/numismatics/rulerProfile.phtml', $this->monarchs) ?>
 
-<?php echo $this->latestRecords()->setQuery('ruler:'  .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->partialLoop('partials/numismatics/rulerProfile.phtml', $this->monarchs) ?>
 
 <div class="row-fluid">
 	<!--  Navigation for tabs  -->
@@ -239,3 +239,6 @@ return marker;
 	<!--  End of tabbed content div -->
 
 </div>
+    <?php else:?>
+    <p>No data available.</p>
+<?php endif;?>

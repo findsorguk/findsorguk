@@ -1,10 +1,14 @@
-<?php 
+<?php
 $this->headTitle($this->title);
 $this->metaBase()
-        ->setDescription($this->ellipsisString()->setString($this->body)->setMax(200))
-        ->generate();
+    ->setDescription($this->ellipsisString()->setString($this->body)->setMax(200))
+    ->generate();
 ?>
-<h2 class="lead">
-    <?php echo $this->title;?>
-</h2>
-<?php echo $this->body;?>
+    <h2 class="lead">
+        <?php echo $this->title; ?>
+    </h2>
+<?php if (!is_null($this->body)): ?>
+    <?php echo $this->body; ?>
+<?php else: ?>
+    <p>No content has been created for the body of this article.</p>
+<?php endif; ?>

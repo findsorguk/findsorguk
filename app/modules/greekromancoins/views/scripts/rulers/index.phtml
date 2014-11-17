@@ -1,11 +1,16 @@
-<?php 
+<?php
 $this->headTitle("Issuing rulers of the Greek and Roman Provincial period");
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('Greek numismatics')
+    ->generate();
 ?>
 
-<h2 class="lead">Issuing rulers of the Greek and Roman Provincial period</h2>
-<?php if (count($this->greeks)): ?>
-
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->greeks) ?></ul>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->greeks)): ?>
+    <ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->greeks); ?></ul>
+    <?php echo $this->paginationControl($this->greeks, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No records available.</p>
 <?php endif; ?>
 
-<?php echo $this->paginationControl($this->greeks, 'Sliding', 'structure/pagination.phtml'); ?>
+

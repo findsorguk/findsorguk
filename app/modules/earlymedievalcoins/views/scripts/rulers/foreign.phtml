@@ -1,6 +1,7 @@
 <?php
 $this->metaBase()->setDescription('A list of all foreign issuing rulers  during the Early Medieval period, broken down into
 category. This expands as more are added to our database')
+    ->setSubject('Early Medieval Numismatics')
     ->setKeywords('rulers,early medieval,king,queen,archbishop,coins,numismatics')
     ->generate();
 
@@ -9,26 +10,36 @@ $this->headTitle("Issuing rulers of the Early Medieval period");
 
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 
+<?php if(!empty($this->francia)):?>
 <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->francia['0']); ?>
 <p>This period had <?php echo count($this->francia); ?> issuers.</p>
 <ul>
     <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->francia); ?>
 </ul>
+<?php endif;?>
 
+
+<?php if(!empty($this->islamic)):?>
 <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->islamic['0']); ?>
 <p>This period had <?php echo count($this->islamic); ?> issuers.</p>
 <ul>
     <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->islamic); ?>
 </ul>
+<?php endif;?>
 
+
+<?php if(!empty($this->hiberno)):?>
 <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->hiberno['0']); ?>
 <p>This period had <?php echo count($this->hiberno); ?> issuers.</p>
 <ul>
     <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->hiberno); ?>
 </ul>
+<?php endif;?>
 
+<?php if(!empty($this->french)):?>
 <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->french['0']); ?>
 <p>This period had <?php echo count($this->french); ?> issuers.</p>
 <ul>
     <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->french); ?>
 </ul>
+<?php endif;?>

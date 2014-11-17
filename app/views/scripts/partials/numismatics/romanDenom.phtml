@@ -7,28 +7,35 @@ $this->metaBase()->setDescription('This page outlines detail for the denominatio
 $this->headLink()->appendAlternate($this->baseUrl() . '/database/search/results/denomination/' . $this->id . '/format/atom/',
     'application/rss+xml', 'Latest recorded finds feed for ' . $this->denomination);?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
-<?php echo $this->description; ?>
+
+<?php if (!is_null($this->description)): ?>
+    <?php echo $this->description; ?>
+<?php endif; ?>
+
 <?php if (!is_null($this->rarity)): ?>
     <p><?php echo $this->rarity; ?></p>
 <?php endif; ?>
 
-<p>
-    <?php if (!is_null($this->weight)): ?>
-        Weight: <?php echo $this->weight; ?> g<br/>
-    <?php endif; ?>
+<?php $dims = array($this->weight, $this->thickness, $this->diameter, $this->term); ?>
+<?php if (array_filter($dims)): ?>
+    <p>
+        <?php if (!is_null($this->weight)): ?>
+            Weight: <?php echo $this->weight; ?> g<br/>
+        <?php endif; ?>
 
-    <?php if (!is_null($this->thickness)): ?>
-        Thickness: <?php echo $this->thickness; ?> mm<br/>
-    <?php endif; ?>
+        <?php if (!is_null($this->thickness)): ?>
+            Thickness: <?php echo $this->thickness; ?> mm<br/>
+        <?php endif; ?>
 
-    <?php if (!is_null($this->diameter)): ?>
-        Diameter: <?php echo $this->diameter; ?> mm<br/>
-    <?php endif; ?>
+        <?php if (!is_null($this->diameter)): ?>
+            Diameter: <?php echo $this->diameter; ?> mm<br/>
+        <?php endif; ?>
 
-    <?php if (!is_null($this->term)): ?>
-        Metal: <?php echo $this->term; ?>
-    <?php endif; ?>
-</p>
+        <?php if (!is_null($this->term)): ?>
+            Metal: <?php echo $this->term; ?>
+        <?php endif; ?>
+    </p>
+<?php endif; ?>
 
 <?php echo $this->latestRecords()->setQuery('denomination:' . $this->id); ?>
 <?php echo $this->searchLink()->setField('denomination')->setId($this->id); ?>

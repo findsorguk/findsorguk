@@ -18,6 +18,17 @@ class EarlyMedievalCoins_DenominationsController extends Pas_Controller_Action_A
      * @var \Denominations
      */
     protected $_denominations;
+
+    /**
+     * @return Denominations
+     */
+    public function getDenominations()
+    {
+        $this->_denominations = new Denominations();
+        return $this->_denominations;
+    }
+
+
     
     /** Initialise the ACL and contexts
      * @access public
@@ -44,8 +55,7 @@ class EarlyMedievalCoins_DenominationsController extends Pas_Controller_Action_A
      * @return void
      */
     public function indexAction() {
-        $this->view->denominations = $this->_denominations
-                ->getDenominations($this->_period, null);
+        $this->view->denominations = $this->getDenominations()->getDenominations($this->_period, null);
     }
 
     /** Get details of each individual denomination
@@ -56,8 +66,8 @@ class EarlyMedievalCoins_DenominationsController extends Pas_Controller_Action_A
     public function denominationAction() {
         if($this->_getParam('id',false)) {
         $this->view->id = $this->_getParam('id');
-        $this->view->denoms = $this->_denominations->getDenom($this->_getParam('id'),(int)$this->_period);
-        $this->view->rulers = $this->_denominations->getRulerDenomination($this->_getParam('id'));
+        $this->view->denoms = $this->getDenominations()->getDenom($this->_getParam('id'),(int)$this->_period);
+        $this->view->rulers = $this->getDenominations()->getRulerDenomination($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

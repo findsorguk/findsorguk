@@ -1,1 +1,5 @@
-<?php echo $this->partialLoop('partials/content/article.phtml',$this->content);?>
+<?php if (!empty($this->content)): ?>
+    <?php echo $this->partialLoop('partials/content/article.phtml', $this->content); ?>
+<?php else: ?>
+    <p>No content available.</p>
+<?php endif; ?>

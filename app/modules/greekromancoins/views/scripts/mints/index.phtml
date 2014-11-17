@@ -1,15 +1,14 @@
-<?php 
+<?php
 $this->headTitle('Issuing mints of the Greek and Roman Provincial period');
-$this->headMeta('A list of all issuing mints of the Greek and Roman provincial period. 
-This comes from the SNG.','description')
-->headMeta('greek,roman,provincial,mints,issued,','dc.keywords')
-->headMeta($this->curUrl(),'dc.identifier')
-->headMeta('The Portable Antiquities Scheme and the British Museum','dc.publisher')
-->headMeta('Daniel Pett','dc.creator');
+$this->metaBase()->setDescription('A list of all issuing mints of the Greek and Roman provincial period.
+This comes from the SNG.')
+    ->setKeywords('greek,roman,provincial,mints,issued,')
+    ->setSubject('Greek numismatics')
+    ->generate();
 ?>
 
-<h2 class="lead">Issuing Mints of the Greek and Roman Provincial period</h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
 <ul>
-<?php echo $this->partialLoop(('partials/numismatics/mints.phtml'),$this->greeks);?>
+    <?php echo $this->partialLoop(('partials/numismatics/mints.phtml'), $this->greeks); ?>
 </ul>

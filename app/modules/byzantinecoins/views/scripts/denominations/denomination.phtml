@@ -1,1 +1,5 @@
-<?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms) ;?>
+<?php if (!empty($this->denoms)): ?>
+    <?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms); ?>
+<?php else: ?>
+    <p>No denomination data available.</p>
+<?php endif; ?>

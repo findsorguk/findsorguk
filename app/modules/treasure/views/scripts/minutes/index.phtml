@@ -1,45 +1,45 @@
-<?php 
+<?php
 $this->headTitle('Minutes of the Treasure Valuation Committee');
 $this->metaBase()
-	->setDescription('The minutes of the Treasure valuation committee are published retrospectively here')
-        ->setSubject('Minutes')
-	->setKeywords('treasure,valuation,committee,minutes,recommendations')
-        ->generate();
+    ->setDescription('The minutes of the Treasure valuation committee are published retrospectively here')
+    ->setSubject('Minutes')
+    ->setKeywords('treasure,valuation,committee,minutes,recommendations')
+    ->generate();
 ?>
 <h2 class="lead">
-    <?php echo $this->title();?>
+    <?php echo $this->title(); ?>
 </h2>
 
 <p>
-    One of the recommendations of the 2012 Review of the Treasure Valuation 
-    Committee by the DCMS was that historic minutes of the Committee's 
-    meetings should be made available to the public once all of the cases 
-    discussed therein had been processed to their conclusion.  The Committee 
-    was happy to accept this recommendation and asked the Secretariat to make 
-    public these minutes when possible, ensuring that personal information 
-    and other sensitive information was appropriately redacted.  The Department
-    of Portable Antiquities and Treasure has begun to prepare the minutes 
-    for publication accordingly, and you can find those available by following 
+    One of the recommendations of the 2012 Review of the Treasure Valuation
+    Committee by the DCMS was that historic minutes of the Committee's
+    meetings should be made available to the public once all of the cases
+    discussed therein had been processed to their conclusion. The Committee
+    was happy to accept this recommendation and asked the Secretariat to make
+    public these minutes when possible, ensuring that personal information
+    and other sensitive information was appropriately redacted. The Department
+    of Portable Antiquities and Treasure has begun to prepare the minutes
+    for publication accordingly, and you can find those available by following
     the links below.
 </p>
- 
- <ul>
+
+<ul>
     <?php
     $minutes = array();
     foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/treasureMinutes/') as $fileInfo) {
-    if($fileInfo->isDot()) {
-        continue;
-    }
-    list($root, $ext) = explode('.',$fileInfo->getFilename());
-    $minutes[$fileInfo->getFilename()] = $root;
+        if ($fileInfo->isDot()) {
+            continue;
+        }
+        list($root, $ext) = explode('.', $fileInfo->getFilename());
+        $minutes[$fileInfo->getFilename()] = $root;
     }
     $minutes = array_flip($minutes);
     ksort($minutes, SORT_NUMERIC);
     ?>
-    <?php foreach($minutes as $k => $v):?>
-    <li>
-        <a href="<?php echo $this->serverUrl();?>/documents/treasureMinutes/<?php
-    echo $v;
-    ?>"><?php echo $this->niceShortDate()->setDate($k);?></a></li>
-    <?php endforeach;?>
+    <?php foreach ($minutes as $k => $v): ?>
+        <li>
+            <a href="<?php echo $this->serverUrl(); ?>/documents/treasureMinutes/<?php
+            echo $v;
+            ?>"><?php echo $this->niceShortDate()->setDate($k); ?></a></li>
+    <?php endforeach; ?>
 </ul>

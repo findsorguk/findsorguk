@@ -1,3 +1,1 @@
-<?php
-echo $this->partialLoop('partials/numismatics/byzantineIssuer.phtml', $this->greek);
-echo $this->latestRecords()->setQuery('ruler:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->partialLoop('partials/numismatics/byzantineIssuer.phtml', $this->greek);
