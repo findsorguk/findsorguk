@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for setting up and manipulating staff contacts
  *
  * @category   Pas
@@ -19,15 +20,16 @@
  * @uses StaffRegions
  * @uses AddStaffLogoForm
  */
-class Admin_ContactsController extends Pas_Controller_Action_Admin {
-	
-   /** The path for logos for contacts and orgs
-    * 
-    */
+class Admin_ContactsController extends Pas_Controller_Action_Admin
+{
+
+    /** The path for logos for contacts and orgs
+     *
+     */
     const LOGOPATH = './assets/logos/';
 
     /** The path for staff photos
-     * 
+     *
      */
     const STAFFPATH = './assets/staffphotos/';
 
@@ -36,15 +38,16 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
      * @var \Pas_Service_Geo_Geoplanet
      */
     protected $_geoPlanet;
-    
+
     /** Get the geo planet class
      * @access public
      * @return \Pas_Service_Geo_Geoplanet
      */
-    public function getGeoPlanet() {
+    public function getGeoPlanet()
+    {
         $this->_geoPlanet = new Pas_Service_Geo_Geoplanet(
-                $this->_helper->config()->webservice->ydnkeys->appid
-                );
+            $this->_helper->config()->webservice->ydnkeys->appid
+        );
         return $this->_geoPlanet;
     }
 
@@ -52,8 +55,9 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return \Pas_Service_Geo_Coder
      */
-    public function getGeocoder() {
-        $this->_geocoder =  new Pas_Service_Geo_Coder();
+    public function getGeocoder()
+    {
+        $this->_geocoder = new Pas_Service_Geo_Coder();
         return $this->_geocoder;
     }
 
@@ -61,17 +65,18 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return \Contacts
      */
-    public function getContacts() {
+    public function getContacts()
+    {
         $this->_contacts = new Contacts();
         return $this->_contacts;
     }
-    
+
     /** The geocoding class
      * @access protected
      * @var \Pas_Service_Geo_Coder
      */
     protected $_geocoder;
-        
+
     /** The contacts model
      * @access protected
      * @var \Contacts
@@ -88,19 +93,21 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
-	$flosActions = array('index',);
-	$this->_helper->_acl->allow('flos',$flosActions);
-	$this->_helper->_acl->allow('fa',null);
-	$this->_helper->_acl->allow('admin',null);
-        
+    public function init()
+    {
+        $flosActions = array('index',);
+        $this->_helper->_acl->allow('flos', $flosActions);
+        $this->_helper->_acl->allow('fa', null);
+        $this->_helper->_acl->allow('admin', null);
+
     }
-    
+
     /** Display the index page for contacts
      * @access public
      * @return void
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         $this->view->contacts = $this->getContacts()->getContacts($this->getAllParams());
     }
 
@@ -108,28 +115,32 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function alumniAction(){
+    public function alumniAction()
+    {
         $this->view->contacts = $this->getContacts()->getAlumni($this->getAllParams());
     }
-    
+
     /** View a contact's details
      * @access public
      * @return void
      */
-    public function contactAction() {
-        if($this->_getParam('format') == ('vcf')) {
-            $this->_helper->layout->disableLayout();    
+    public function contactAction()
+    {
+        if ($this->_getParam('format') == ('vcf')) {
+            $this->_helper->layout->disableLayout();
             $this->view->persons = $this->getContacts()->getPersonDetails($this->_getParam('id'));
         } else {
             $this->view->staffs = $this->getContacts()->getPersonDetails($this->_getParam('id'));
         }
     }
+
     /** Add new staff member
      * @access public
      * @return void
      * @todo move data manipulation to contacts model
      */
-    public function addAction(){
+    public function addAction()
+    {
         $form = new ContactForm();
         $form->submit->setLabel('Add a new Scheme contact');
         $this->view->form = $form;
@@ -137,13 +148,13 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $address = $form->getValue('address_1') . ',' . $form->getValue('address_2') . ','
-                . $form->getValue('town') . ',' . $form->getValue('county') . ','
-                . $form->getValue('postcode') . ', UK';
+                    . $form->getValue('town') . ',' . $form->getValue('county') . ','
+                    . $form->getValue('postcode') . ', UK';
                 $coords = $this->getGeocoder()->getCoordinates($address);
-                if($coords){
+                if ($coords) {
                     $lat = $coords['lat'];
                     $lon = $coords['lon'];
-                    $place = $this->getGeoPlanet()->reverseGeoCode($lat,$lon);
+                    $place = $this->getGeoPlanet()->reverseGeoCode($lat, $lon);
                     $woeid = $place['woeid'];
                 } else {
                     $lat = null;
@@ -175,7 +186,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
                     'latitude' => $lat,
                     'longitude' => $lon,
                     'woeid' => $woeid
-                        );
+                );
                 $insert = $this->getContacts()->insert($insertData);
                 $this->getFlash()->addMessage('Scheme contact created!');
                 $this->redirect($this->_redirectUrl . 'contact/id/' . $insert);
@@ -189,21 +200,22 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function editAction() {
+    public function editAction()
+    {
         $form = new ContactForm();
         $form->submit->setLabel('Save');
         $this->view->form = $form;
-        if ($this->_request->isPost())  {
+        if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $address = $form->getValue('address_1') . ',' . $form->getValue('address_2') . ','
-                . $form->getValue('town') . ',' . $form->getValue('county') . ','
-                . $form->getValue('postcode') . ', UK';
+                    . $form->getValue('town') . ',' . $form->getValue('county') . ','
+                    . $form->getValue('postcode') . ', UK';
                 $coords = $this->_geocoder->getCoordinates($address);
-                if($coords){
+                if ($coords) {
                     $lat = $coords['lat'];
                     $lon = $coords['lon'];
-                    $place = $this->getGeoPlanet()->reverseGeoCode($lat,$lon);
+                    $place = $this->getGeoPlanet()->reverseGeoCode($lat, $lon);
                     $woeid = $place['woeid'];
                 } else {
                     $lat = null;
@@ -235,12 +247,12 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
                     'latitude' => $lat,
                     'longitude' => $lon,
                     'woeid' => $woeid
-                        );
+                );
                 $where = array();
                 $where[] = $this->getContacts()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                $insert = $this->getContacts()->update($updateData,$where);
+                $insert = $this->getContacts()->update($updateData, $where);
                 $this->getFlash()->addMessage('Contact information for ' . $form->getValue('firstname') . ' '
-                . $form->getValue('lastname') . ' updated!');
+                    . $form->getValue('lastname') . ' updated!');
                 $this->redirect($this->_redirectUrl . 'contact/id/' . $this->_getParam('id'));
             } else {
                 $form->populate($formData);
@@ -248,16 +260,18 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
         } else {
             $id = (int)$this->_request->getParam('id', 0);
             if ($id > 0) {
-                $contact = $this->getContacts()->fetchRow('id='.$id);
+                $contact = $this->getContacts()->fetchRow('id=' . $id);
                 $form->populate($contact->toArray());
             }
         }
     }
+
     /** Delete a contact
      * @access public
      * @return void
      */
-    public function deleteAction() {
+    public function deleteAction()
+    {
         $this->getFlash()->addMessage($this->_noChange);
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
@@ -275,61 +289,64 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** provide an avatar for a contact
      * @access public
      * @return void
      */
-    public function avatarAction() {
+    public function avatarAction()
+    {
         $form = new AddStaffPhotoForm();
         $this->view->form = $form;
         if ($this->_request->isPost()) {
-        $formData = $this->_request->getPost();	{
-            if ($form->isValid($formData)) {
-                $upload = new Zend_File_Transfer_Adapter_Http();
-                $upload->addValidator('NotExists', true, array(self::STAFFPATH));
-                if($upload->isValid()) {
-                    $filename = $form->getValue('image');
-                    $insertData = array();
-                    $insertData['image'] = $filename;
-                    $insertData['updated'] = $this->getTimeForForms();
-                    $insertData['updatedBy'] = $this->getIdentityForForms();
-                    foreach ($insertData as $key => $value) {
-                        if (is_null($value) || $value=="") {
-                            unset($insertData[$key]);
+            $formData = $this->_request->getPost();
+            {
+                if ($form->isValid($formData)) {
+                    $upload = new Zend_File_Transfer_Adapter_Http();
+                    $upload->addValidator('NotExists', true, array(self::STAFFPATH));
+                    if ($upload->isValid()) {
+                        $filename = $form->getValue('image');
+                        $insertData = array();
+                        $insertData['image'] = $filename;
+                        $insertData['updated'] = $this->getTimeForForms();
+                        $insertData['updatedBy'] = $this->getIdentityForForms();
+                        foreach ($insertData as $key => $value) {
+                            if (is_null($value) || $value == "") {
+                                unset($insertData[$key]);
+                            }
                         }
-                    }
-                    $original   = self::STAFFPATH . $filename;
-                    $name       = substr($filename, 0, strrpos($filename, '.'));
-                    $ext        = '.jpg';
-                    $converted  = $name . $ext;
-                    //Small path
-                    $smallpath  = self::STAFFPATH . 'thumbnails/' . $converted;
-                    $mediumpath = self::STAFFPATH . 'resized/' . $converted;
-                    //create medium size
-                    $phMagick = new phMagick($original, $mediumpath);
-                    $phMagick->resize(300,0);
-                    $phMagick->convert();
-                   
-                    $phMagick = new phMagick($original, $smallpath);
-                    $phMagick->resize(100,0);
-                    $phMagick->convert();
+                        $original = self::STAFFPATH . $filename;
+                        $name = substr($filename, 0, strrpos($filename, '.'));
+                        $ext = '.jpg';
+                        $converted = $name . $ext;
+                        //Small path
+                        $smallpath = self::STAFFPATH . 'thumbnails/' . $converted;
+                        $mediumpath = self::STAFFPATH . 'resized/' . $converted;
+                        //create medium size
+                        $phMagick = new phMagick($original, $mediumpath);
+                        $phMagick->resize(300, 0);
+                        $phMagick->convert();
 
-                    $staffs = new Contacts();
-                    $where = array();
-                    $where[] = $staffs->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                    $staffs->update($insertData,$where);
-                    $upload->receive();
-                    $this->getFlash()->addMessage('The image has been resized and zoomified!');
-                    $this->redirect('/admin/contacts/contact/id/' . $this->_getParam('id'));
-                } else {
-                $this->getFlash()->addMessage('There is a problem with your upload.
+                        $phMagick = new phMagick($original, $smallpath);
+                        $phMagick->resize(100, 0);
+                        $phMagick->convert();
+
+                        $staffs = new Contacts();
+                        $where = array();
+                        $where[] = $staffs->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                        $staffs->update($insertData, $where);
+                        $upload->receive();
+                        $this->getFlash()->addMessage('The image has been resized and zoomified!');
+                        $this->redirect('/admin/contacts/contact/id/' . $this->_getParam('id'));
+                    } else {
+                        $this->getFlash()->addMessage('There is a problem with your upload.
                 Probably that image exists.');
-                $this->view->errors = $upload->getMessages();
+                        $this->view->errors = $upload->getMessages();
+                    }
+                } else {
+                    $form->populate($formData);
+                    $this->getFlash()->addMessage('Check your form for errors');
                 }
-            } else {
-                $form->populate($formData);
-                $this->getFlash()->addMessage('Check your form for errors');
-            }
             }
         }
     }
@@ -337,62 +354,63 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin {
     /** Give them a logo
      * @access public
      * void
-     * 
+     *
      */
-    public function logoAction() {
+    public function logoAction()
+    {
         $form = new AddStaffLogoForm();
         $form->details->setLegend('Add a logo: ');
         $this->view->form = $form;
         if ($this->_request->isPost()) {
-            $formData = $this->_request->getPost();	
+            $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $upload = new Zend_File_Transfer_Adapter_Http();
-                $upload->addValidator('NotExists', true,array(self::LOGOPATH));
-                if($upload->isValid()) {
+                $upload->addValidator('NotExists', true, array(self::LOGOPATH));
+                if ($upload->isValid()) {
                     $filename = $form->getValue('image');
                     $insertData = array();
                     $insertData['host'] = $filename;
                     $insertData['updated'] = $this->getTimeForForms();
                     $insertData['updatedBy'] = $this->getIdentityForForms();
                     foreach ($insertData as $key => $value) {
-                        if (is_null($value) || $value=="") {
+                        if (is_null($value) || $value == "") {
                             unset($insertData[$key]);
                         }
                     }
-                    $original  = self::LOGOPATH . $filename;
-                    $name      = substr($filename, 0, strrpos($filename, '.'));
-                    $ext       = '.jpg';
-                    $converted = $name.$ext;
+                    $original = self::LOGOPATH . $filename;
+                    $name = substr($filename, 0, strrpos($filename, '.'));
+                    $ext = '.jpg';
+                    $converted = $name . $ext;
 
-                    $smallpath  = self::LOGOPATH . 'thumbnails/' . $converted;
+                    $smallpath = self::LOGOPATH . 'thumbnails/' . $converted;
                     $mediumpath = self::LOGOPATH . 'resized/' . $converted;
 
                     //create medium size
                     $phMagick = new phMagick($original, $mediumpath);
-                    $phMagick->resize(300,0);
+                    $phMagick->resize(300, 0);
                     $phMagick->convert();
                     /* Zend_Debug::dump($convertsmall);
                     Zend_Debug::dump($phMagick);
                     exit; */
                     $phMagick = new phMagick($original, $smallpath);
-                    $phMagick->resize(100,0);
+                    $phMagick->resize(100, 0);
                     $phMagick->convert();
 
                     $regions = new StaffRegions();
                     $where = array();
                     $where[] = $regions->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                    $regions->update($insertData,$where);
+                    $regions->update($insertData, $where);
                     $upload->receive();
                     $this->getFlash()->addMessage('The image has been resized and zoomified!');
                     $this->redirect('/admin/contacts/institution/id/' . $this->_getParam('id'));
                 } else {
-                $this->getFlash()->addMessage('There is a problem with your upload.
+                    $this->getFlash()->addMessage('There is a problem with your upload.
                 Probably that image exists.');
-                $this->view->errors = $upload->getMessages();
+                    $this->view->errors = $upload->getMessages();
                 }
             } else {
-            $form->populate($formData);
-            $this->getFlash()->addMessage('Check your form for errors');
+                $form->populate($formData);
+                $this->getFlash()->addMessage('Check your form for errors');
             }
         }
     }

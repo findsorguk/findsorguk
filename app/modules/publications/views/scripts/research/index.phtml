@@ -1,88 +1,88 @@
 <?php
-    $this->headTitle('Scheme research publications');
-    $this->metaBase()
-            ->setDescription('A list of our research publications')
-            ->setImage('http://farm6.staticflickr.com/5296/5555344805_9e2f5d0c6f.jpg')
-            ->setImageWidth(500)
-            ->setImageHeight(375)
-            ->setSubject('Archaeological research')
-            ->setKeywords('research,reports,publications,pdfs')
-            ->generate();
+$this->headTitle('Scheme research publications');
+$this->metaBase()
+    ->setDescription('A list of our research publications')
+    ->setImage('http://farm6.staticflickr.com/5296/5555344805_9e2f5d0c6f.jpg')
+    ->setImageWidth(500)
+    ->setImageHeight(375)
+    ->setSubject('Archaeological research')
+    ->setKeywords('research,reports,publications,pdfs')
+    ->generate();
 ?>
 
 <h2 class="lead">
-    <?php echo $this->title();?>
+    <?php echo $this->title(); ?>
 </h2>
 
 <p>
-    The Portable Antiquities Scheme produces period round-ups for the majority 
+    The Portable Antiquities Scheme produces period round-ups for the majority
     of the major research journals.
 </p>
 
 <h3 class="lead">
     Britannia
 </h3>
-    <ul>
-       <?php
-           foreach (new DirectoryIterator(
-                   ROOT_PATH . '/public_html/documents/britannia/'
-                   ) as $fileInfo) {
-           if($fileInfo->isDot()) continue;
-       ?>
-     <li>
-     <?php list($root, $ext) = explode('.',$fileInfo->getFilename());
-       if ( !$root ) {
-       $root = $filename;
-       }?>
-     <a href="documents/britannia/<?php
-       echo $fileInfo->getFilename();
-       ?>"><?php echo $root;?></a>
-     </li>
-       <?php
-   }
-               ?>
+<ul>
+    <?php
+    foreach (new DirectoryIterator(
+                 ROOT_PATH . '/public_html/documents/britannia/'
+             ) as $fileInfo) {
+        if ($fileInfo->isDot()) continue;
+        ?>
+        <li>
+            <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
+            if (!$root) {
+                $root = $filename;
+            }?>
+            <a href="documents/britannia/<?php
+            echo $fileInfo->getFilename();
+            ?>"><?php echo $root; ?></a>
+        </li>
+    <?php
+    }
+    ?>
 
-   </ul>
+</ul>
 
 <h3 class="lead">
     Medieval Archaeology
 </h3>
-    <ul>
+<ul>
     <?php
-        foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/medieval/') as $fileInfo) {
-        if($fileInfo->isDot()) continue;
-      ?>
-      <li>
-      <?php list($root, $ext) = explode('.',$fileInfo->getFilename());
-        if ( !$root ) {
-        $root = $filename;
-        }?>
-      <a href="<?php echo $this->baseUrl();?>/documents/medieval/<?php
-        echo $fileInfo->getFilename();
-        ?>"><?php echo $root;?></a></li><!--  -->
-        <?php
+    foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/medieval/') as $fileInfo) {
+        if ($fileInfo->isDot()) continue;
+        ?>
+        <li>
+            <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
+            if (!$root) {
+                $root = $filename;
+            }?>
+            <a href="<?php echo $this->baseUrl(); ?>/documents/medieval/<?php
+            echo $fileInfo->getFilename();
+            ?>"><?php echo $root; ?></a></li><!--  -->
+    <?php
     }
-                ?>
+    ?>
 
-    </ul>
+</ul>
 
 <h3 class="lead">
     Post Medieval Archaeology
 </h3>
 
-    <ul>
+<ul>
     <?php
     foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/postmedieval/') as $fileInfo) {
-    if($fileInfo->isDot()) continue;
-  ?>
-  <li>
-  <?php list($root, $ext) = explode('.',$fileInfo->getFilename());
-    if ( !$root ) {
-    $root = $filename;
-    }?>
-    <a href="<?php echo $this->baseUrl();?>/documents/postmedieval/<?php
-        echo $fileInfo->getFilename();
-    ?>"><?php echo $root;?></a></li><!--  -->
-    <?php }?>
+        if ($fileInfo->isDot()) continue;
+        ?>
+        <li>
+            <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
+            if (!$root) {
+                $root = $filename;
+            }?>
+            <a href="<?php echo $this->baseUrl(); ?>/documents/postmedieval/<?php
+            echo $fileInfo->getFilename();
+            ?>"><?php echo $root; ?></a></li><!--  -->
+    <?php } ?>
 
-    </ul>
+</ul>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Model for interacting with macktypes table
  *
@@ -19,7 +20,8 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/forms/IronAgeCoinForm.php
  */
-class AbcNumbers extends Pas_Db_Table_Abstract {
+class AbcNumbers extends Pas_Db_Table_Abstract
+{
 
     /** The name of the database table
      * @access protected
@@ -38,7 +40,8 @@ class AbcNumbers extends Pas_Db_Table_Abstract {
      * @access public
      * @return array $options
      */
-    public function getTerms(){
+    public function getTerms()
+    {
         if (!$options = $this->_cache->load('abcNumbers')) {
             $select = $this->select()
                 ->from($this->_name, array('term', 'term'))

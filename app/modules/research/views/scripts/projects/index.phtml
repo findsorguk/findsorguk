@@ -6,12 +6,12 @@ $this->metaBase()
     ->setKeywords('archaeology,romans,saxons,phd,undergraduate,museum,danelaw')
     ->generate();
 ?>
-    <h2 class="lead">
-        <?php if (isset($this->name)) {
-            echo $this->name . ' ';
-        } ?>Research in progress using our data
-    </h2>
-<?php if (count($this->projects)): ?>
+<h2 class="lead">
+    <?php if (!is_null($this->name)): ?>
+        <?php echo $this->name; ?>
+    <?php endif; ?> Research in progress using our data
+</h2>
+<?php if (!empty($this->projects)): ?>
     <p>There are <?php echo $this->paginationControl($this->projects, 'Sliding', 'structure/queryCounts.phtml'); ?>
         projects in progress that you can read about. If you're not listed here, then please do let us know and we'll
         add you.</p>
@@ -30,7 +30,7 @@ $this->metaBase()
         <?php echo $this->partialLoop('partials/research/projects.phtml', $this->projects); ?>
         </tbody>
     </table>
+    <?php echo $this->paginationControl($this->projects, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else: ?>
     <p>There are no projects available to you.</p>
 <?php endif; ?>
-<?php echo $this->paginationControl($this->projects, 'Sliding', 'structure/pagination.phtml'); ?>

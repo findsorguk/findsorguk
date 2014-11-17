@@ -1,6 +1,5 @@
 <?php echo $this->partialLoop('partials/content/article.phtml', $this->front); ?>
-<?php
-if (!empty($this->contents)):?>
+<?php if (!empty($this->contents)):?>
     <h3 class="lead">The Hoard papers</h3>
     <ul><?php echo $this->partialLoop('partials/content/staffordshireHoardContents.phtml', $this->contents); ?></ul>
 <?php else: ?>

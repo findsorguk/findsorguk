@@ -1,6 +1,7 @@
 <?php
+
 /** Controller for administering coroner details
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
  * @category   Pas
@@ -12,28 +13,30 @@
  * @uses Coroners
  * @uses CoronerForm
  * @uses Pas_Exception_Param
- * 
- * 
-*/
-class Admin_CoronersController extends Pas_Controller_Action_Admin {
-	
+ *
+ *
+ */
+class Admin_CoronersController extends Pas_Controller_Action_Admin
+{
+
     /** The coroners model
      * @access protected
      * @var \Coroners
      */
     protected $_coroners;
-    
+
     /** Set up the ACL and contexts
      * @access public
      * @return void
      */
-    public function init()  {
+    public function init()
+    {
         $flosActions = array('index');
-        $this->_helper->_acl->allow('flos',$flosActions);
-        $this->_helper->_acl->allow('fa',null);
-        $this->_helper->_acl->allow('admin',null);
+        $this->_helper->_acl->allow('flos', $flosActions);
+        $this->_helper->_acl->allow('fa', null);
+        $this->_helper->_acl->allow('admin', null);
         $this->_coroners = new Coroners();
-        
+
     }
 
     /** The redirect uri
@@ -46,7 +49,8 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function indexAction()  {
+    public function indexAction()
+    {
         $this->view->coroners = $this->_coroners->getAll($this->getAllParams());
     }
 
@@ -54,11 +58,12 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addAction()  {
+    public function addAction()
+    {
         $form = new CoronerForm();
         $form->submit->setLabel('Add a new coroner');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_coroners->addCoroner($form->getValues());
                 $this->getFlash()->addMessage('Coroner details created!');
@@ -72,22 +77,24 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
     /** Edit a coroner
      * @access public
      * @return void
-     */	
-    public function editAction()  {
-        if($this->_getParam('id',false)) {
+     */
+    public function editAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new CoronerForm();
             $form->submit->setLabel('Save');
             $this->view->form = $form;
-            if($this->getRequest()->isPost() 
-                    && $form->isValid($this->_request->getPost())) {
-                if($form->isValid($form->getValues())) {
-                    $insert = $this->_coroners->updateCoroner($form->getValues(), 
-                            $this->_getParam('id'));
+            if ($this->getRequest()->isPost()
+                && $form->isValid($this->_request->getPost())
+            ) {
+                if ($form->isValid($form->getValues())) {
+                    $insert = $this->_coroners->updateCoroner($form->getValues(),
+                        $this->_getParam('id'));
                     $this->getFlash()->addMessage(
-                            $form->getValue('firstname') 
-                            . ' ' 
-                            . $form->getValue('lastname') 
-                            . '\'s information updated!');
+                        $form->getValue('firstname')
+                        . ' '
+                        . $form->getValue('lastname')
+                        . '\'s information updated!');
                     $this->redirect($this->_redirectUrl);
                 } else {
                     $form->populate($form->getValues());
@@ -106,15 +113,16 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin {
     /** Delete a coroner
      * @access public
      * @return void
-     */		
-    public function deleteAction(){
+     */
+    public function deleteAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
                 $this->_coroners->delete($where);
-            }	
+            }
             $this->getFlash()->addMessage('Coroner\'s information deleted!');
             $this->redirect($this->_redirectUrl);
         } else {

@@ -1,4 +1,5 @@
 <?php
+
 /** Controller viewing the current configuration variables
  *
  * @category   Pas
@@ -9,23 +10,26 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
  */
-class Admin_ConfigurationController extends Pas_Controller_Action_Admin {
+class Admin_ConfigurationController extends Pas_Controller_Action_Admin
+{
 
     /** Set up the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('admin',null);
+    public function init()
+    {
+        $this->_helper->_acl->allow('admin', null);
         $this->_config = $this->_helper->config();
-        
+
     }
 
     /** Display the index page
      * @access public
      * @return void
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         //Magic in view
     }
 
@@ -33,7 +37,8 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function webserviceAction(){
+    public function webserviceAction()
+    {
         $this->view->webservice = $this->_config->webservice->toArray();
     }
 
@@ -41,7 +46,8 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function systemAction(){
+    public function systemAction()
+    {
         $this->view->resources = $this->_config->resources->toArray();
     }
 
@@ -49,7 +55,8 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function routingAction(){
+    public function routingAction()
+    {
         $this->view->routing = $this->_config->routes->toArray();
     }
 
@@ -57,7 +64,8 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function aclAction(){
+    public function aclAction()
+    {
         $this->view->acl = $this->_config->acl->toArray();
     }
 
@@ -65,7 +73,8 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function saltsAction(){
+    public function saltsAction()
+    {
         $this->view->salt = $this->_config->form->salt;
         $this->view->authority = $this->_config->auth->salt;
     }

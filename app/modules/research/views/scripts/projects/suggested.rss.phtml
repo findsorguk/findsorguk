@@ -3,7 +3,7 @@
  * A view file for sending a rss feed of suggested research topics
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
- * 
+ *
  */
 $feedArray = array(
     'title' => 'Suggested research projects on Scheme data',
@@ -18,20 +18,20 @@ $feedArray = array(
     'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
     'language' => 'en',
     'entries' => array()
-    );
+);
 
 foreach ($this->suggested as $suggest) {
 
     $feedArray['entries'][] = array(
-				
+
         'title' => $suggest['title'],
-        'link' => Zend_Registry::get('siteurl').'/research/projects/topic/id/'.$suggest['id'],
-        'guid' => Zend_Registry::get('siteurl').'/research/projects/topic/id/'.$suggest['id'],
-        'description' => strip_tags($this->ellipsisString()->setString(str_replace('£','&pound;',$suggest['description']))->setMax(300)),
+        'link' => Zend_Registry::get('siteurl') . '/research/projects/topic/id/' . $suggest['id'],
+        'guid' => Zend_Registry::get('siteurl') . '/research/projects/topic/id/' . $suggest['id'],
+        'description' => strip_tags($this->ellipsisString()->setString(str_replace('£', '&pound;', $suggest['description']))->setMax(300)),
         'lastUpdate' => strtotime($suggest['updated']),
-        'content' => strip_tags(str_replace('£','&pound;',$suggest['description']),''),
-        );
+        'content' => strip_tags(str_replace('£', '&pound;', $suggest['description']), ''),
+    );
 }
 
-$feed = Zend_Feed::importArray($feedArray,'rss');
+$feed = Zend_Feed::importArray($feedArray, 'rss');
 $feed->send();

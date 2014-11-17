@@ -101,7 +101,7 @@ $this->headMeta($this->serverUrl() . '/assets/logos/axe.jpg', 'twitter:image');
             <img class="img-circle" src="assets/logos/bird.jpg">
 
             <h2 class="lead">Latest tweets</h2>
-                <?php echo $this->LatestTweets(); ?>
+            <?php echo $this->LatestTweets(); ?>
         </div>
         <!-- /.span4 -->
     </div><!-- /.row -->
@@ -208,14 +208,6 @@ $this->headMeta($this->serverUrl() . '/assets/logos/axe.jpg', 'twitter:image');
     });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 
-
-
-
-
 <?php $this->placeholder('searchForm')->captureStart(); ?>
-<?php
-echo $this->form;
-?>
+<?php echo $this->form; ?>
 <?php $this->placeholder('searchForm')->captureEnd();
-
-

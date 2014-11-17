@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for administering users and accounts
  *
  * @category   Pas
@@ -16,36 +17,39 @@
  * @uses EditAccountForm
  * @uses RejectUpgradeForm
  * @uses ApproveReject
- * 
+ *
  */
-class Admin_UsersController extends Pas_Controller_Action_Admin {
-    
+class Admin_UsersController extends Pas_Controller_Action_Admin
+{
+
     /** The users model
      * @access protected
      * @var \Users
      */
     protected $_users;
-    
+
     /** The array functions class
      * @access protected
      * @var \Pas_ArrayFunctions
      */
     protected $_arrayFunctions;
-    
+
     /** Get the model for use
-     * @access public 
+     * @access public
      * @return \Users
      */
-    public function getUsers() {
+    public function getUsers()
+    {
         $this->_users = new Users();
         return $this->_users;
     }
-      
+
     /** Get the array function class
-     *  @access public
+     * @access public
      * @return \Pas_ArrayFunctions
      */
-    public function getArrayFunctions() {
+    public function getArrayFunctions()
+    {
         $this->_arrayFunctions = new Pas_ArrayFunctions();
         return $this->_arrayFunctions;
     }
@@ -54,15 +58,17 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('fa',null);
-        $this->_helper->_acl->allow('admin',null);
-        
+    public function init()
+    {
+        $this->_helper->_acl->allow('fa', null);
+        $this->_helper->_acl->allow('admin', null);
+
     }
 
     /** Display a list of users in paginated format
-    */
-    public function indexAction() {
+     */
+    public function indexAction()
+    {
         $this->view->paginator = $this->getUsers()->getUsersAdmin($this->getAllParams());
         $form = new UserFilterForm();
         $this->view->form = $form;
@@ -74,38 +80,41 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
             if ($form->isValid($formData)) {
                 $params = $this->getArrayFunctions()->array_cleanup($formData);
                 $where = array();
-                foreach($params as $key => $value) {
-                    if(!is_null($value)){
+                foreach ($params as $key => $value) {
+                    if (!is_null($value)) {
                         $where[] = $key . '/' . urlencode(strip_tags($value));
                     }
                 }
-            $whereString = implode('/', $where);
-            $query = $whereString;
-            $this->redirect('admin/users/index/' . $query . '/');
+                $whereString = implode('/', $where);
+                $query = $whereString;
+                $this->redirect('admin/users/index/' . $query . '/');
             } else {
                 $form->populate($formData);
             }
         }
     }
+
     /** View a user's account
      * @access public
      * @return void
      */
-    public function accountAction() {
-        if($this->_getParam('username',false)) {
+    public function accountAction()
+    {
+        if ($this->_getParam('username', false)) {
             $this->view->users = $this->getUsers()->findUserAccount((string)$this->_getParam('username'));
         } else {
             throw new Pas_Exception_Param('Parameter not found');
         }
     }
-    
+
     /** Edit a user's account
      * @access public
-     * @return void 
+     * @return void
      * @throws Pas_Exception_Param
      */
-    public function editAction() {
-        if($this->_getParam('id',false)) {
+    public function editAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new EditAccountForm();
             $form->submit->setLabel('Edit account details');
             $form->removeElement('password');
@@ -131,33 +140,32 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                     $where = array();
                     $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $id);
                     $oldData = $this->getUsers()->fetchRow('id=' . $this->_getParam('id'))->toArray();
-                    $this->getUsers()->update($updateData,$where);
+                    $this->getUsers()->update($updateData, $where);
 
                     $this->_helper->audit(
-                            $updateData, 
-                            $oldData, 
-                            'UsersAudit', 
-                            $this->_getParam('id'), 
-                            $this->_getParam('id')
-                            );
-                    $this->getFlash()->addMessage('You updated: <em>' 
-                            . $form->getValue('fullname')
-                            . '</em> successfully.');
+                        $updateData,
+                        $oldData,
+                        'UsersAudit',
+                        $this->_getParam('id'),
+                        $this->_getParam('id')
+                    );
+                    $this->getFlash()->addMessage('You updated: <em>'
+                        . $form->getValue('fullname')
+                        . '</em> successfully.');
                     $this->redirect('/admin/users/account/username/' . $form->getValue('username'));
                 } else {
-                $form->populate($formData);
+                    $form->populate($formData);
                 }
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $user = $this->getUsers()->fetchRow('id ='.$id);
-                    if(count($user)) {
+                    $user = $this->getUsers()->fetchRow('id =' . $id);
+                    if (count($user)) {
                         $data = $this->getUsers()->toArray();
-                        if(isset($data['peopleID'])) {
+                        if (isset($data['peopleID'])) {
                             $people = new People();
-                            $person = $people->fetchRow($people->select(
-                                    )->where('secuid = ?', $data['peopleID']));
-                            if($person){
+                            $person = $people->fetchRow($people->select()->where('secuid = ?', $data['peopleID']));
+                            if ($person) {
                                 $person = $person->toArray();
                                 $form->peopleID->setValue($person['secuid']);
                                 $form->person->setValue($person['fullname']);
@@ -173,19 +181,21 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param('No parameter found on url string');
         }
     }
+
     /** Add a new user
      * @access public
      * @return void
-    */
-    public function addAction() {
+     */
+    public function addAction()
+    {
         $form = new EditAccountForm();
         $form->setLegend('New account: ');
         $form->submit->setLabel('Create account details');
-        $form->username->addValidator('Db_NoRecordExists', false, 
-                array(
-                    'table' => 'users',
-                    'field' => 'username'
-                    ));
+        $form->username->addValidator('Db_NoRecordExists', false,
+            array(
+                'table' => 'users',
+                'field' => 'username'
+            ));
         $form->institution->setRequired(true);
         $form->role->setRequired(true);
         $form->institution->setRequired(true);
@@ -211,44 +221,48 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                 $username = $form->getValue('username');
                 $this->getUsers()->add($insertData);
                 $directories = array(
-                IMAGE_PATH . $username,
-                IMAGE_PATH . $username . '/small/',
-                IMAGE_PATH . $username . '/medium/',
-                IMAGE_PATH . $username . '/display/',
-                IMAGE_PATH . $username . '/zoom/'
+                    IMAGE_PATH . $username,
+                    IMAGE_PATH . $username . '/small/',
+                    IMAGE_PATH . $username . '/medium/',
+                    IMAGE_PATH . $username . '/display/',
+                    IMAGE_PATH . $username . '/zoom/'
                 );
 
-                foreach ($directories as $dir){
+                foreach ($directories as $dir) {
                     mkdir($dir, 0777);
                 }
                 $this->getFlash()->addMessage('You successfully added a new account');
                 $this->redirect('admin/users/account/username/'
-                        . $form->getValue('username'));
+                    . $form->getValue('username'));
             } else {
                 $form->populate($formData);
             }
         }
     }
+
     /** List people wanting an upgrade, paginated
      * @access public
      * @return void
      */
-    public function upgradesAction() {
+    public function upgradesAction()
+    {
         $this->view->users = $this->getUsers()->getUpgrades($this->_getParam('page'));
     }
-    
+
     /** Upgrade a user's account to research status
      * @access public
      * @return void
-    */
-    public function upgradeAction() {
-        if($this->_getParam('id',false)) {
+     */
+    public function upgradeAction()
+    {
+        if ($this->_getParam('id', false)) {
             $id = $this->_getParam('id');
             $form = new AcceptUpgradeForm();
             $form->role->removeMultiOption('admin');
             $this->view->form = $form;
-            if($this->getRequest()->isPost()
-            && $form->isValid($this->_request->getPost())){
+            if ($this->getRequest()->isPost()
+                && $form->isValid($this->_request->getPost())
+            ) {
                 if ($form->isValid($form->getValues())) {
                     $approvalData = array(
                         'status' => 'approved',
@@ -256,7 +270,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                         'createdBy' => $this->getIdentityForForms(),
                         'created' => $this->getTimeForForms()
                     );
-                    if(($form->getValue('already') != 1) && ($form->getValue('insert') == 1)) {
+                    if (($form->getValue('already') != 1) && ($form->getValue('insert') == 1)) {
                         $researchData = array(
                             'title' => $form->getValue('title'),
                             'investigator' => $form->getValue('fullname'),
@@ -264,9 +278,9 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                             'level' => $form->getValue('level'),
                             'createdBy' => $this->getIdentityForForms(),
                             'created' => $this->getTimeForForms(),
-                            'startDate'=> $form->getValue('startDate'),
+                            'startDate' => $form->getValue('startDate'),
                             'valid' => 1,
-                            'endDate'=> $form->getValue('endDate')
+                            'endDate' => $form->getValue('endDate')
                         );
                         $research = new ResearchProjects();
                         $research->insert($researchData);
@@ -280,26 +294,26 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
 
                     $where = array();
                     $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $id);
-                    $this->getUsers()->update($userData,$where);
+                    $this->getUsers()->update($userData, $where);
 
                     $approvals = new ApproveReject();
                     $approvals->insert($approvalData);
 
                     $to = array(array(
-                        'email' => $form->getValue('email') ,
+                        'email' => $form->getValue('email'),
                         'name' => $form->getValue('fullname')
-                            ));
+                    ));
                     $this->_helper->mailer($form->getValues(), 'upgradeAccount', $to);
                     $this->getFlash()->addMessage('Account upgraded and project data entered');
                     $this->redirect('admin/users/upgrades');
                 } else {
-                $form->populate($form->getValues());
+                    $form->populate($form->getValues());
                 }
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $user = $this->getUsers()->fetchRow('id ='.$id);
-                    if(count($user)) {
+                    $user = $this->getUsers()->fetchRow('id =' . $id);
+                    if (count($user)) {
                         $form->populate($user->toArray());
                     } else {
                         throw new Pas_Exception_Param('No user account found with that id', 404);
@@ -310,12 +324,14 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Reject a user's account
      * @access public
      * @return void
-    */
-    public function rejectAction() {
-        if($this->_getParam('id',false)) {
+     */
+    public function rejectAction()
+    {
+        if ($this->_getParam('id', false)) {
             $id = $this->_getParam('id');
             $form = new RejectUpgradeForm();
             $this->view->form = $form;
@@ -336,7 +352,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                     );
                     $where = array();
                     $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $id);
-                    $this->getUsers()->update($userUpdateData,$where);
+                    $this->getUsers()->update($userUpdateData, $where);
 
                     $approvals = new ApproveReject();
                     $approvals->insert($rejectData);
@@ -344,7 +360,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
                     $researchOutline = $form->getValue('researchOutline');
                     $role = $form->getValue('role');
                     $to = array(array(
-                        'email' => $form->getValue('email') ,
+                        'email' => $form->getValue('email'),
                         'name' => $form->getValue('fullname'))
                     );
                     $this->_helper->mailer($form->getValues(), 'upgradeRejected', $to);
@@ -356,8 +372,8 @@ class Admin_UsersController extends Pas_Controller_Action_Admin {
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $user = $this->getUsers()->fetchRow('id ='.$id);
-                    if(count($user)) {
+                    $user = $this->getUsers()->fetchRow('id =' . $id);
+                    if (count($user)) {
                         $form->populate($user->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);

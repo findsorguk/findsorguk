@@ -1,6 +1,7 @@
 <?php
-/** The default controller for the index 
- * 
+
+/** The default controller for the index
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @version 1
@@ -11,39 +12,42 @@
  * @uses SolrForm
  * @uses Content
  */
-class IndexController extends Pas_Controller_Action_Admin {
+class IndexController extends Pas_Controller_Action_Admin
+{
 
     /** Init the controller
      * @access public
-     * @return void  
+     * @return void
      */
-    public function init() {
-	
-	$this->_helper->acl->allow(null);
+    public function init()
+    {
+
+        $this->_helper->acl->allow(null);
     }
 
     /** The index action
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $content = new Content();
-	$this->view->contents = $content->getFrontContent('index');
+        $this->view->contents = $content->getFrontContent('index');
         $form = new SolrForm();
- 	$form->setAttrib('class', 'form-inline');
+        $form->setAttrib('class', 'form-inline');
         $this->view->form = $form;
         $form->removeElement('thumbnail');
         $form->q->removeDecorator('label');
-        $form->q->setAttrib('class','input-large');
-        if($this->getRequest()->isPost() && $form->isValid($_POST)){
+        $form->q->setAttrib('class', 'input-large');
+        if ($this->getRequest()->isPost() && $form->isValid($_POST)) {
             if ($form->isValid($form->getValues())) {
                 $params = array_filter($form->getValues());
                 unset($params['csrf']);
                 $this->getFlash()->addMessage('Your search is complete');
-                $this->_helper->Redirector->gotoSimple('database','results','search',$params);
+                $this->_helper->Redirector->gotoSimple('database', 'results', 'search', $params);
             } else {
                 $form->populate($form->getValues());
             }
-	}
+        }
     }
 }

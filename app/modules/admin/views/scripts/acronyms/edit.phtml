@@ -1,3 +1,10 @@
-<?php $this->headTitle('Edit acronym');?>
-<h2 class="lead"><?php echo $this->title();?></h2>
-<?php echo $this->form;?>
+<?php
+$this->headTitle('Edit acronym');
+$this->metaBase()->setSubject('Acronyms')->setDescription('Edit acronyms in use on the DB')->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if ($this->form): ?>
+    <?php echo $this->form; ?>
+<?php else: ?>
+    <p>Form not initiated.</p>
+<?php endif; ?>

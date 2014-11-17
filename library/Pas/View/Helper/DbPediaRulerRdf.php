@@ -80,7 +80,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
 
     /** The uri to query
      * @access protected
-     * @var type
+     * @var string
      */
     protected $_uri;
 
@@ -100,7 +100,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
 
     /** Set the uri to query
      * @access public
-     * @param type $uri
+     * @param string $uri
      * @return \Pas_View_Helper_DbPediaRulerRdf
      * @throws Pas_Exception_Url
      */
@@ -115,7 +115,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
 
     /** Get the uri to query
      * @access public
-     * @return type
+     * @return string
      */
     public function getUri() {
         return $this->_uri;

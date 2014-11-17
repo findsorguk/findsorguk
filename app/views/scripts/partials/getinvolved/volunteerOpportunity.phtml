@@ -6,4 +6,8 @@ $this->metaBase()->setSubject('Job and volunteer opportunities')
     ->generate();
 ?>
     <h2 class="lead"><?php echo $this->title; ?></h2>
-<?php echo $this->description; ?>
+<?php if (!is_null($this->description)): ?>
+    <?php echo $this->description; ?>
+<?php else: ?>
+    <p>No description entered.</p>
+<?php endif; ?>

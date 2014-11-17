@@ -1,9 +1,9 @@
-<?php 
+<?php
 $site = $this->serverUrl();
 
 
-$dom 	  = new DomDocument("1.0", "UTF-8");
-$sitemap  = $dom->createElement('configdata');
+$dom = new DomDocument("1.0", "UTF-8");
+$sitemap = $dom->createElement('configdata');
 
 //1st item
 $nav = $dom->createElement('nav');
@@ -17,22 +17,22 @@ $news->appendChild($dom->createElement('changefreq', 'daily'));
 $news->appendChild($dom->createElement('priority', '0.9'));
 $nav->appendChild($news);
 $pages = $dom->createElement('pages');
-foreach($this->news as $n){
-	$story = $dom->createElement( 'news' .$n['id']);
-	$story->appendChild($dom->createElement('label', $n['title']));
-	$story->appendChild($dom->createElement('module', 'news'));
-	$story->appendChild($dom->createElement('controller', 'stories'));
-	$story->appendChild($dom->createElement('action', 'article'));
-	$story->appendChild($dom->createElement('changefreq', 'weekly'));
-	$story->appendChild($dom->createElement('lastmod', $n['updated']));
-	$story->appendChild($dom->createElement('priority', 0.2));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $n['id']));
-	$story->appendChild($params);
-	$pages->appendChild($story);
+foreach ($this->news as $n) {
+    $story = $dom->createElement('news' . $n['id']);
+    $story->appendChild($dom->createElement('label', $n['title']));
+    $story->appendChild($dom->createElement('module', 'news'));
+    $story->appendChild($dom->createElement('controller', 'stories'));
+    $story->appendChild($dom->createElement('action', 'article'));
+    $story->appendChild($dom->createElement('changefreq', 'weekly'));
+    $story->appendChild($dom->createElement('lastmod', $n['updated']));
+    $story->appendChild($dom->createElement('priority', 0.2));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $n['id']));
+    $story->appendChild($params);
+    $pages->appendChild($story);
 }
-					
-$news->appendChild( $pages );
+
+$news->appendChild($pages);
 #end of news section
 
 #treasure section 
@@ -43,23 +43,23 @@ $treasure->appendChild($dom->createElement('changefreq', 'monthly'));
 $treasure->appendChild($dom->createElement('priority', '0.9'));
 $nav->appendChild($treasure);
 $pages = $dom->createElement('pages');
-foreach($this->treasure as $t){
-	$page = $dom->createElement( 'treasure' .$t['slug']);
-	$page->appendChild($dom->createElement('label', $t['menuTitle']));
-	$page->appendChild($dom->createElement('module', 'treasure'));
-	$page->appendChild($dom->createElement('controller', 'advice'));
-	$page->appendChild($dom->createElement('action', 'index'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $t['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 't'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('slug', $t['slug']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->treasure as $t) {
+    $page = $dom->createElement('treasure' . $t['slug']);
+    $page->appendChild($dom->createElement('label', $t['menuTitle']));
+    $page->appendChild($dom->createElement('module', 'treasure'));
+    $page->appendChild($dom->createElement('controller', 'advice'));
+    $page->appendChild($dom->createElement('action', 'index'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $t['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 't'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('slug', $t['slug']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-					
-$treasure->appendChild( $pages );
+
+$treasure->appendChild($pages);
 #end of treasure section
 
 #postmedievalcoins section start
@@ -70,84 +70,84 @@ $postMed->appendChild($dom->createElement('changefreq', 'weekly'));
 $postMed->appendChild($dom->createElement('priority', '0.9'));
 $nav->appendChild($postMed);
 $pages = $dom->createElement('pages');
-foreach($this->postmedrulers  as $r){
-	$page = $dom->createElement( 'postmedrulers' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['issuer']));
-	$page->appendChild($dom->createElement('module', 'postmedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'rulers'));
-	$page->appendChild($dom->createElement('action', 'ruler'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->postmedrulers as $r) {
+    $page = $dom->createElement('postmedrulers' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['issuer']));
+    $page->appendChild($dom->createElement('module', 'postmedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'rulers'));
+    $page->appendChild($dom->createElement('action', 'ruler'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->postMedDenoms as $r){
-	$page = $dom->createElement( 'postmeddenoms' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['denomination']));
-	$page->appendChild($dom->createElement('module', 'postmedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'denominations'));
-	$page->appendChild($dom->createElement('action', 'denomination'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->postMedDenoms as $r) {
+    $page = $dom->createElement('postmeddenoms' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['denomination']));
+    $page->appendChild($dom->createElement('module', 'postmedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'denominations'));
+    $page->appendChild($dom->createElement('action', 'denomination'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->postmedMints as $r){
-	$page = $dom->createElement( 'postmedmints' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['mint_name']));
-	$page->appendChild($dom->createElement('module', 'postmedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'mints'));
-	$page->appendChild($dom->createElement('action', 'mint'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->postmedMints as $r) {
+    $page = $dom->createElement('postmedmints' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['mint_name']));
+    $page->appendChild($dom->createElement('module', 'postmedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'mints'));
+    $page->appendChild($dom->createElement('action', 'mint'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->postmedcats as $r) {
-	$page = $dom->createElement( 'postmedcats' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['category']));
-	$page->appendChild($dom->createElement('module', 'postmedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'categories'));
-	$page->appendChild($dom->createElement('action', 'category'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
-}			
-
-foreach($this->postmedtypes as $r){
-	$page = $dom->createElement( 'postmedcats' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['type']));
-	$page->appendChild($dom->createElement('module', 'postmedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'types'));
-	$page->appendChild($dom->createElement('action', 'type'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->postmedcats as $r) {
+    $page = $dom->createElement('postmedcats' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['category']));
+    $page->appendChild($dom->createElement('module', 'postmedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'categories'));
+    $page->appendChild($dom->createElement('action', 'category'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
 
-$postMed->appendChild( $pages );
+foreach ($this->postmedtypes as $r) {
+    $page = $dom->createElement('postmedcats' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['type']));
+    $page->appendChild($dom->createElement('module', 'postmedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'types'));
+    $page->appendChild($dom->createElement('action', 'type'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
+}
+
+$postMed->appendChild($pages);
 #end of postmedieval coins
 
 #medievalcoins section start
@@ -158,84 +158,84 @@ $med->appendChild($dom->createElement('changefreq', 'weekly'));
 $med->appendChild($dom->createElement('priority', '0.9'));
 $nav->appendChild($med);
 $pages = $dom->createElement('pages');
-foreach($this->medrulers as $r){
-	$page = $dom->createElement( 'medrulers' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['issuer']));
-	$page->appendChild($dom->createElement('module', 'medievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'rulers'));
-	$page->appendChild($dom->createElement('action', 'ruler'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->medrulers as $r) {
+    $page = $dom->createElement('medrulers' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['issuer']));
+    $page->appendChild($dom->createElement('module', 'medievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'rulers'));
+    $page->appendChild($dom->createElement('action', 'ruler'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->medievalDenoms  as $r){
-	$page = $dom->createElement( 'meddenoms' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['denomination']));
-	$page->appendChild($dom->createElement('module', 'medievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'denominations'));
-	$page->appendChild($dom->createElement('action', 'denomination'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->medievalDenoms as $r) {
+    $page = $dom->createElement('meddenoms' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['denomination']));
+    $page->appendChild($dom->createElement('module', 'medievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'denominations'));
+    $page->appendChild($dom->createElement('action', 'denomination'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->postmedMints as $r){
-	$page = $dom->createElement( 'medMints' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['mint_name']));
-	$page->appendChild($dom->createElement('module', 'medievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'mints'));
-	$page->appendChild($dom->createElement('action', 'mint'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->postmedMints as $r) {
+    $page = $dom->createElement('medMints' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['mint_name']));
+    $page->appendChild($dom->createElement('module', 'medievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'mints'));
+    $page->appendChild($dom->createElement('action', 'mint'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->medcats as $r) {
-	$page = $dom->createElement( 'medcats' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['category']));
-	$page->appendChild($dom->createElement('module', 'medievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'categories'));
-	$page->appendChild($dom->createElement('action', 'category'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
-}			
-
-foreach($this->medtypes as $r){
-	$page = $dom->createElement( 'medcats' .$r['id']);
-	$page->appendChild($dom->createElement('label', urlencode($r['type'])));
-	$page->appendChild($dom->createElement('module', 'medievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'types'));
-	$page->appendChild($dom->createElement('action', 'type'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->medcats as $r) {
+    $page = $dom->createElement('medcats' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['category']));
+    $page->appendChild($dom->createElement('module', 'medievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'categories'));
+    $page->appendChild($dom->createElement('action', 'category'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
 
-$med->appendChild( $pages );
+foreach ($this->medtypes as $r) {
+    $page = $dom->createElement('medcats' . $r['id']);
+    $page->appendChild($dom->createElement('label', urlencode($r['type'])));
+    $page->appendChild($dom->createElement('module', 'medievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'types'));
+    $page->appendChild($dom->createElement('action', 'type'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
+}
+
+$med->appendChild($pages);
 #end of medieval coins
 
 #earlymedievalcoins section start
@@ -246,84 +246,84 @@ $med->appendChild($dom->createElement('changefreq', 'weekly'));
 $med->appendChild($dom->createElement('priority', '0.9'));
 $nav->appendChild($med);
 $pages = $dom->createElement('pages');
-foreach($this->earlymedrulers as $r){
-	$page = $dom->createElement( 'earlymedrulers' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['issuer']));
-	$page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'rulers'));
-	$page->appendChild($dom->createElement('action', 'ruler'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->earlymedrulers as $r) {
+    $page = $dom->createElement('earlymedrulers' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['issuer']));
+    $page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'rulers'));
+    $page->appendChild($dom->createElement('action', 'ruler'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->earlymedDenoms   as $r){
-	$page = $dom->createElement( 'earlymeddenoms' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['denomination']));
-	$page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'denominations'));
-	$page->appendChild($dom->createElement('action', 'denomination'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->earlymedDenoms as $r) {
+    $page = $dom->createElement('earlymeddenoms' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['denomination']));
+    $page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'denominations'));
+    $page->appendChild($dom->createElement('action', 'denomination'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->earlymedMints  as $r){
-	$page = $dom->createElement( 'earlymedMints' .$r['id']);
-	$page->appendChild($dom->createElement('label', utf8_encode($r['id'])));
-	$page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'mints'));
-	$page->appendChild($dom->createElement('action', 'mint'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->earlymedMints as $r) {
+    $page = $dom->createElement('earlymedMints' . $r['id']);
+    $page->appendChild($dom->createElement('label', utf8_encode($r['id'])));
+    $page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'mints'));
+    $page->appendChild($dom->createElement('action', 'mint'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->earlymedcats as $r) {
-	$page = $dom->createElement( 'earlymedcats' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['category']));
-	$page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'categories'));
-	$page->appendChild($dom->createElement('action', 'category'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
-}			
-
-foreach($this->earlymedtypes as $r){
-	$page = $dom->createElement( 'earlymedtypes' .$r['id']);
-	$page->appendChild($dom->createElement('label', urlencode($r['type'])));
-	$page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
-	$page->appendChild($dom->createElement('controller', 'types'));
-	$page->appendChild($dom->createElement('action', 'type'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->earlymedcats as $r) {
+    $page = $dom->createElement('earlymedcats' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['category']));
+    $page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'categories'));
+    $page->appendChild($dom->createElement('action', 'category'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
 
-$med->appendChild( $pages );
+foreach ($this->earlymedtypes as $r) {
+    $page = $dom->createElement('earlymedtypes' . $r['id']);
+    $page->appendChild($dom->createElement('label', urlencode($r['type'])));
+    $page->appendChild($dom->createElement('module', 'earlymedievalcoins'));
+    $page->appendChild($dom->createElement('controller', 'types'));
+    $page->appendChild($dom->createElement('action', 'type'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
+}
+
+$med->appendChild($pages);
 #end of medieval coins
 
 #ironagecoins section start
@@ -334,71 +334,71 @@ $ia->appendChild($dom->createElement('changefreq', 'weekly'));
 $ia->appendChild($dom->createElement('priority', '0.9'));
 $nav->appendChild($ia);
 $pages = $dom->createElement('pages');
-foreach($this->ironagerulers as $r){
-	$page = $dom->createElement( 'ironagerulers' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['issuer']));
-	$page->appendChild($dom->createElement('module', 'ironagecoins'));
-	$page->appendChild($dom->createElement('controller', 'rulers'));
-	$page->appendChild($dom->createElement('action', 'ruler'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->ironagerulers as $r) {
+    $page = $dom->createElement('ironagerulers' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['issuer']));
+    $page->appendChild($dom->createElement('module', 'ironagecoins'));
+    $page->appendChild($dom->createElement('controller', 'rulers'));
+    $page->appendChild($dom->createElement('action', 'ruler'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->ironageDenoms   as $r){
-	$page = $dom->createElement( 'ironageDenoms' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['denomination']));
-	$page->appendChild($dom->createElement('module', 'ironagecoins'));
-	$page->appendChild($dom->createElement('controller', 'denominations'));
-	$page->appendChild($dom->createElement('action', 'denomination'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->ironageDenoms as $r) {
+    $page = $dom->createElement('ironageDenoms' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['denomination']));
+    $page->appendChild($dom->createElement('module', 'ironagecoins'));
+    $page->appendChild($dom->createElement('controller', 'denominations'));
+    $page->appendChild($dom->createElement('action', 'denomination'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->ironageMints  as $r){
-	$page = $dom->createElement( 'ironageMints' .$r['id']);
-	$page->appendChild($dom->createElement('label', utf8_encode($r['id'])));
-	$page->appendChild($dom->createElement('module', 'ironagecoins'));
-	$page->appendChild($dom->createElement('controller', 'mints'));
-	$page->appendChild($dom->createElement('action', 'mint'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
+foreach ($this->ironageMints as $r) {
+    $page = $dom->createElement('ironageMints' . $r['id']);
+    $page->appendChild($dom->createElement('label', utf8_encode($r['id'])));
+    $page->appendChild($dom->createElement('module', 'ironagecoins'));
+    $page->appendChild($dom->createElement('controller', 'mints'));
+    $page->appendChild($dom->createElement('action', 'mint'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
 }
-foreach($this->tribes as $r) {
-	$page = $dom->createElement( 'tribes' .$r['id']);
-	$page->appendChild($dom->createElement('label', $r['category']));
-	$page->appendChild($dom->createElement('module', 'ironagecoins'));
-	$page->appendChild($dom->createElement('controller', 'tribes'));
-	$page->appendChild($dom->createElement('action', 'tribe'));
-	$page->appendChild($dom->createElement('changefreq', 'weekly'));
-	$page->appendChild($dom->createElement('lastmod', $r['updated']));
-	$page->appendChild($dom->createElement('priority', 0.2));
-	$page->appendChild($dom->createElement('route', 'default'));
-	$params = $dom->createElement('params');
-	$params->appendChild($dom->createElement('id', $r['id']));
-	$page->appendChild($params);
-	$pages->appendChild($page);
-}			
+foreach ($this->tribes as $r) {
+    $page = $dom->createElement('tribes' . $r['id']);
+    $page->appendChild($dom->createElement('label', $r['category']));
+    $page->appendChild($dom->createElement('module', 'ironagecoins'));
+    $page->appendChild($dom->createElement('controller', 'tribes'));
+    $page->appendChild($dom->createElement('action', 'tribe'));
+    $page->appendChild($dom->createElement('changefreq', 'weekly'));
+    $page->appendChild($dom->createElement('lastmod', $r['updated']));
+    $page->appendChild($dom->createElement('priority', 0.2));
+    $page->appendChild($dom->createElement('route', 'default'));
+    $params = $dom->createElement('params');
+    $params->appendChild($dom->createElement('id', $r['id']));
+    $page->appendChild($params);
+    $pages->appendChild($page);
+}
 
-$ia->appendChild( $pages );
+$ia->appendChild($pages);
 #end of medieval coins
 
-$dom->appendChild( $sitemap );
+$dom->appendChild($sitemap);
 
-$xmlData  = $dom->saveXML();
+$xmlData = $dom->saveXML();
 echo $xmlData;

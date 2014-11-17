@@ -1,15 +1,16 @@
-  <div class="modal-header">
+<div class="modal-header">
     <a class="close" data-dismiss="modal">x</a>
+
     <h3 class="lead">Reply sent</h3>
-  </div>
-  <div class="modal-body">
-  <?php if($this->replies):?>
-  <?php echo $this->replies->messagetext;?>
-  <?php else:?>
-  <p>Unfortunately the reply wasn't saved as Dan is a numpty and forgot to turn the table on.</p>
-  <img src="http://farm6.staticflickr.com/5181/5672882616_6a50814cb6.jpg" />
-  <?php endif;?>
-  </div>
-  <div class="modal-footer">
+</div>
+<div class="modal-body">
+    <?php if ($this->replies): ?>
+        <?php echo $this->replies->messagetext; ?>
+    <?php else: ?>
+        <p>Unfortunately the reply wasn't saved as Dan is a numpty and forgot to turn the table on.</p>
+        <img src="http://farm6.staticflickr.com/5181/5672882616_6a50814cb6.jpg"/>
+    <?php endif; ?>
+</div>
+<div class="modal-footer">
     <a href="#" data-dismiss="modal" class="btn">Close</a>
-  </div>
+</div>

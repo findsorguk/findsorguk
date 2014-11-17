@@ -1,6 +1,7 @@
 <?php
+
 /** Controller for all getting research projects out of system
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package Pas_Controller_Action
@@ -11,21 +12,22 @@
  * @uses ResearchProjects
  * @uses SuggestedResearch
  * @uses Pas_Exception_Param
- * 
+ *
  */
-class Research_ProjectsController extends Pas_Controller_Action_Admin {
+class Research_ProjectsController extends Pas_Controller_Action_Admin
+{
 
     /** The higher level array
      * @access protected
      * @var array
      */
-    protected $higherLevel = array('admin','flos');
+    protected $higherLevel = array('admin', 'flos');
 
     /** The research level array
      * @access protected
      * @var array
      */
-    protected $researchLevel = array('member','heros','research');
+    protected $researchLevel = array('member', 'heros', 'research');
 
     /** The restricted array
      * @access protected
@@ -33,33 +35,46 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin {
      */
     protected $restricted = array('public', null);
 
+    /** The research projects model */
+    protected $_researchProjects;
+
+    /**
+     * @return mixed
+     */
+    public function getResearchProjects()
+    {
+        $this->_researchProjects = new ResearchProjects();
+        return $this->_researchProjects;
+    }
+
+
     /** Initialise the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         $this->_helper->_acl->allow(null);
         $this->_helper->contextSwitch()
-                ->setAutoJsonSerialization(false);
+            ->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()
-                ->setAutoDisableLayout(true)
-                ->addContext('rss',array('suffix' => 'rss'))
-                ->addContext('atom',array('suffix' => 'atom'))
-                ->addActionContext('project',array('xml','json'))
-                ->addActionContext('topic',array('xml','json'))
-                ->addActionContext('suggested',array('xml','json','rss','atom'))
-                ->addActionContext('index', array('xml','json','rss','atom'))
-                ->initContext();
-        
+            ->setAutoDisableLayout(true)
+            ->addContext('rss', array('suffix' => 'rss'))
+            ->addContext('atom', array('suffix' => 'atom'))
+            ->addActionContext('project', array('xml', 'json'))
+            ->addActionContext('topic', array('xml', 'json'))
+            ->addActionContext('suggested', array('xml', 'json', 'rss', 'atom'))
+            ->addActionContext('index', array('xml', 'json', 'rss', 'atom'))
+            ->initContext();
     }
 
     /** Set up index pages
      * @access public
      * @return void
      */
-    public function indexAction() {
-        $projects = new ResearchProjects();
-        $this->view->projects = $projects->getAllProjects($this->getAllParams());
+    public function indexAction()
+    {
+        $this->view->projects = $this->getResearchProjects()->getAllProjects($this->getAllParams());
     }
 
     /** Get an individual project
@@ -67,10 +82,10 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function projectAction(){
-        if($this->_getParam('id',false)){
-            $projects = new ResearchProjects();
-            $this->view->projects = $projects->getProjectDetails($this->_getParam('id'));
+    public function projectAction()
+    {
+        if ($this->_getParam('id', false)) {
+            $this->view->projects = $this->getResearchProjects()->getProjectDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter);
         }
@@ -80,11 +95,12 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function suggestedAction() {
+    public function suggestedAction()
+    {
         $projects = new SuggestedResearch();
-        if(in_array($this->_helper->contextSwitch->getCurrentContext(),
-                array('xml','json','rss','atom'))) {
-            $this->view->suggested = $projects->getAll($this->getAllParams(),0);
+        if (in_array($this->_helper->contextSwitch->getCurrentContext(),
+            array('xml', 'json', 'rss', 'atom'))) {
+            $this->view->suggested = $projects->getAll($this->getAllParams(), 0);
         } else {
             $this->view->undergrad = $projects->getTopicByType(1);
             $this->view->masters = $projects->getTopicByType(2);
@@ -97,8 +113,9 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function topicAction() {
-        if($this->_getParam('id',false)){
+    public function topicAction()
+    {
+        if ($this->_getParam('id', false)) {
             $topic = new SuggestedResearch();
             $this->view->topic = $topic->getTopic($this->_getParam('id'));
         } else {

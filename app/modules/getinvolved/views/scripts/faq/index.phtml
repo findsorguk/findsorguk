@@ -1,3 +1,10 @@
-<?php $this->headTitle('Frequently asked questions about the Scheme and its work');?>
-<h2 class="lead">Frequently asked questions and their answers</h2>
-<?php echo $this->partialLoop('partials/getinvolved/faq.phtml',$this->faqs);?>
+<?php
+$this->headTitle('Frequently asked questions about the Scheme and its work');
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('Frequently asked questions')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->faqs)): ?>
+    <?php echo $this->partialLoop('partials/getinvolved/faq.phtml', $this->faqs); ?>
+<?php endif; ?>

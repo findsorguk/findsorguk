@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for all getting data on existing treasure cases
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -10,29 +11,32 @@
  * @version 1
  * @uses TreasureCases
  *
-*/
-class Treasure_CasesController extends Pas_Controller_Action_Admin {
+ */
+class Treasure_CasesController extends Pas_Controller_Action_Admin
+{
 
     /** Init the controller
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('public',null);
-        
+    public function init()
+    {
+        $this->_helper->_acl->allow('public', null);
+
     }
 
     /** The index action
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $treasure = new TreasureCases();
         $this->view->treasurecases = $treasure->getCases($this->getAllParams());
         $current_year = date('Y');
         $years = range(1998, $current_year);
         $yearslist = array();
-        foreach($years as $key => $value) {
+        foreach ($years as $key => $value) {
             $yearslist[] = array('year' => $value);
         }
         $this->view->years = $yearslist;

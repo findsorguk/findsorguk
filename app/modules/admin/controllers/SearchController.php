@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for manipulating search queries
  *
  * @category   Pas
@@ -10,21 +11,25 @@
  * @version 1
  * @uses Searches
  */
-class Admin_SearchController extends Pas_Controller_Action_Admin {
+class Admin_SearchController extends Pas_Controller_Action_Admin
+{
 
     /** Set up the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('admin',null);
-        
+    public function init()
+    {
+        $this->_helper->_acl->allow('admin', null);
+
     }
+
     /** Paginated list of searches made
      * @access public
      * @return void
      */
-    public function indexAction()  {
+    public function indexAction()
+    {
         $search = new Searches();
         $this->view->searches = $search->getAllSearchesAdmin($this->_getParam('page'));
     }

@@ -1,6 +1,7 @@
 <?php
+
 /** Controller for managing latest news on the website
- * 
+ *
  * @category   Pas
  * @package Pas_Controller_Action
  * @subpackage Admin
@@ -12,24 +13,26 @@
  * @uses NewsStoryForm
  * @uses Pas_ArrayFunctions
  * @uses Pas_Solr_Handler
- * 
+ *
  */
-class Admin_NewsController extends Pas_Controller_Action_Admin {
+class Admin_NewsController extends Pas_Controller_Action_Admin
+{
 
     /** The news Model
      * @access protected
      * @var \News
      */
     protected $_news;
-    
+
     /** Set up the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('flos',null);
+    public function init()
+    {
+        $this->_helper->_acl->allow('flos', null);
         $this->_news = new News();
-        
+
     }
 
     /** The redirect uri
@@ -42,7 +45,8 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         $form = new ContentSearchForm();
         $form->submit->setLabel('Search content');
         $this->view->form = $form;
@@ -53,13 +57,14 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
         $search->setFields(array(
             'updated', 'updatedBy', 'publishState',
             'title', 'created', 'createdBy'
-            ));
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-                && !is_null($this->_getParam('submit'))){
+        ));
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
+            && !is_null($this->_getParam('submit'))
+        ) {
 
             if ($form->isValid($form->getValues())) {
                 $params = $cleaner->array_cleanup($form->getValues());
-                $this->_helper->Redirector->gotoSimple('index','news','admin',$params);
+                $this->_helper->Redirector->gotoSimple('index', 'news', 'admin', $params);
             } else {
                 $form->populate($form->getValues());
                 $params = $form->getValues();
@@ -68,7 +73,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
             $params = $this->getAllParams();
             $form->populate($this->getAllParams());
         }
-        if(!isset($params['q']) || $params['q'] == ''){
+        if (!isset($params['q']) || $params['q'] == '') {
             $params['q'] = '*';
         }
         $params['type'] = 'news';
@@ -77,35 +82,38 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
         $this->view->paginator = $search->createPagination();
         $this->view->news = $search->processResults();
     }
-    
+
     /** Add and geocode a news story
      * @access public
      * @return void
      */
-    public function addAction(){
+    public function addAction()
+    {
         $form = new NewsStoryForm();
         $form->submit->setLabel('Add story');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
-        if ($form->isValid($form->getValues())) {
-            $insert = $this->_news->addNews($form->getValues());
-            $this->_helper->solrUpdater->update('content', $insert, 'news');
-            $this->getFlash()->addMessage('News story created!');
-            $this->redirect(self::REDIRECT);
-        } else {
-            $form->populate($this->_request->getPost());
-        }
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($form->isValid($form->getValues())) {
+                $insert = $this->_news->addNews($form->getValues());
+                $this->_helper->solrUpdater->update('content', $insert, 'news');
+                $this->getFlash()->addMessage('News story created!');
+                $this->redirect(self::REDIRECT);
+            } else {
+                $form->populate($this->_request->getPost());
+            }
         }
     }
+
     /** Edit a news story
      * @access public
      * @return void
      */
-    public function editAction(){
+    public function editAction()
+    {
         $form = new NewsStoryForm();
         $form->submit->setLabel('Update story');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $this->_news->updateNews($form->getValues(), $this->_getParam('id'));
                 $this->_helper->solrUpdater->update('content', $this->_getParam('id'), 'news');
@@ -122,12 +130,13 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
             }
         }
     }
-    
+
     /** Delete a news story
      * @access public
      * @return void
      */
-    public function deleteAction(){
+    public function deleteAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -140,7 +149,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin {
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
-                $this->view->new = $this->_news->fetchRow('id='.$id);
+                $this->view->new = $this->_news->fetchRow('id=' . $id);
             }
         }
     }
