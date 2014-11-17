@@ -1,4 +1,8 @@
-<?php 	$this->headTitle('Edit profile details');?>
-<h2 class="lead">Edit your personal data</h2>
-<?php 
+<?php $this->headTitle('Edit profile details');
+$this->metaBase()->setDescription('Edit your profile details')
+    ->setSubject('User account')
+    ->generate();
+?>
+    <h2 class="lead">Edit your personal data</h2>
+<?php
 echo $this->form;?>

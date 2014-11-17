@@ -18,7 +18,7 @@ $this->metaBase()
     <p>The Scheduled Monuments listed below were provided by Martin Newman from English Heritage. We accept no
         responsibility for E&amp;O.</p>
 <?php echo $this->form; ?>
-<?php if (count($this->results) > 0): ?>
+<?php if (!empty($this->results)): ?>
     <div class="row-fluid">
         <div class="span9">
             <table class="table table-striped" summary="A list of all scheduled monuments in England">

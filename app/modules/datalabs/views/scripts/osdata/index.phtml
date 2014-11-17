@@ -66,7 +66,8 @@ $this->inlineScript()->captureStart();
     $(href).modal('open');
     } else {
     $.get(href, function(data) {
-    $('<div class="modal fade">' + data + '</div>').modal();
+    $('
+    <div class="modal fade">' + data + '</div>').modal();
     });
     }
     });
