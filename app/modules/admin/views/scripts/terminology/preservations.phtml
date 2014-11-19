@@ -1,18 +1,29 @@
-<?php 	$this->headTitle('Preservation states');?>
-<h2 class="lead">States of preservation</h2>
-<p><a class="btn btn-success btn-large"href="<?php echo $this->url(array('module' => 'admin','controller'=>'terminology','action'=>'addpreservation'),null,true);?>">Add a new preservation state</a></p>
-<table class="table table-striped" summary="List of preservation states available">
-<thead>
-<tr>
-<th>State</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/preservationTable.phtml',$this->preserves);?>
-</tbody>
-</table>
+<?php
+$this->headTitle('Preservation states');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead">States of preservation</h2>
+
+    <a class="btn btn-success btn-large"
+       href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'addpreservation'), null, true); ?>">Add
+        a new preservation state</a>
+    <hr/>
+<?php if (!empty($this->preserves)): ?>
+    <table class="table table-striped" summary="<?php echo $this->title(); ?>">
+        <thead>
+        <tr>
+            <th>State</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/preservationTable.phtml', $this->preserves); ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No preservation states available.</p>
+<?php endif; ?>

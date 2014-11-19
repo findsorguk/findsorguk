@@ -1,18 +1,20 @@
-<?php 
-	$this->headTitle("Delete a decoration style");
-if ($this->dec) :?>
-<h2 class="lead">Delete <?php echo $this->escape($this->dec->term); ?></h2>
-<p>Are you sure that you want to delete
-'<?php echo $this->escape($this->dec->term); ?>' 
-</p>
-<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action'=>'deletedecorationstyle'),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->dec->id; ?>" />
-<input type="submit" name="del" value="Yes" />
-<input type="submit" name="del" value="No" />
-</div>
-</form>
+<?php
+$this->headTitle("Delete a decoration style");
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<?php if (!is_null($this->dec)) : ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>Are you sure that you want to delete <?php echo $this->dec->term; ?></p>
+    <form
+        action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'deletedecorationstyle'), null, true); ?>"
+        method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->dec->id; ?>"/>
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
+    </form>
 <?php else: ?>
-<p>Cannot find the item requested.</p>
-<?php endif;?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>

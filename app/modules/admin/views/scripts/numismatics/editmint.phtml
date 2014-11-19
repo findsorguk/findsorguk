@@ -1,5 +1,7 @@
-<h2 class="lead">Edit mint's details</h2>
-<?php 
-	$this->headTitle("Edit a mint");
-echo $this->form;
+<?php
+$this->headTitle("Edit a mint");
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php echo $this->form; ?>

@@ -1,16 +1,23 @@
-<h2 class="lead">Oauth Tokens in the database</h2>
-
-<table class="table table-striped"><caption>Oauth tokens that exist on the database</caption>
-<tr><th>Service</th><th>Created</th><th>Expiry date</th></tr>
-
 <?php
+$this->headTitle('Oauth Tokens in the database');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
-$tokens = ((object)$this->tokens);
-foreach($tokens as $t){
-?><tr><td><?php echo $t->service; ?></td>
-<td><?php echo $t->created;?> </td>
-<td><?php echo $t->expires;?> </td>
-</tr>
-<?php
-}?>
+<table class="table table-striped">
+    <caption>Oauth tokens that exist on the database</caption>
+    <tr>
+        <th>Service</th>
+        <th>Created</th>
+        <th>Expiry date</th>
+    </tr>
+
+    <?php $tokens = ((object)$this->tokens); ?>
+    <?php foreach ($tokens as $t) : ?>
+        <tr>
+            <td><?php echo $t->service; ?></td>
+            <td><?php echo $t->created; ?> </td>
+            <td><?php echo $t->expires; ?> </td>
+        </tr>
+    <?php endforeach; ?>
 </table>

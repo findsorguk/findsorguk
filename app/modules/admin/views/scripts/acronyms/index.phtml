@@ -7,14 +7,15 @@
 
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php if (count($this->acronyms)): ?>
-    <p><a class="btn btn-large btn-success" href="<?php echo $this->url(array(
+    <p><a class="btn btn-large btn-success" href="<?php echo $this->url(
+            array(
                 'module' => 'admin',
                 'controller' => 'acronyms',
                 'action' => 'add',
                 'id' => $this->id),
             null, true);?>" title="add a new acronym">Add a new acronym</a></p>
-    <table class="table table-striped" summary="All active acronyms">
-        <caption>All acronyms</caption>
+    <table class="table table-striped" summary="<?php echo $this->title(); ?>">
+        <caption><?php echo $this->title(); ?></caption>
         <thead>
         <tr>
             <th>Acronym</th>

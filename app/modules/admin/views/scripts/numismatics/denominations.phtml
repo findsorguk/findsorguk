@@ -1,18 +1,20 @@
-<?php echo $this->headTitle('Manage '. $this->adminPeriod()->setPeriod($this->period) 
-        . ' denominations.');?>
-<h2 class="lead"><?php echo $this->title();?></h2>
+<?php
+$this->headTitle('Manage ' . $this->adminPeriod()->setPeriod($this->period) . ' denominations');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<p><a class="btn btn-success btn-large" href="<?php echo $this->url(
+<p><a class="btn btn-success btn-small" href="<?php echo $this->url(
         array(
             'module' => 'admin',
             'controller' => 'numismatics',
             'action' => 'adddenomination'),
-        null,true);?>" title="Add a new denomination">Add new denomination</a></p>
+        null, true);?>" title="Add a new denomination">Add new denomination</a></p>
 
-<?php if (count($this->paginator)): ?>
-<table class="table table-striped" summary="All denominations available for the 
-    <?php echo $this->adminPeriod()->setPeriod($this->period);?>">
-    <thead>
+<?php if (!empty($this->paginator)): ?>
+    <table class="table table-striped" summary="All denominations available for the
+    <?php echo $this->adminPeriod()->setPeriod($this->period); ?>">
+        <thead>
         <tr>
             <th>Denomination</th>
             <th>Created</th>
@@ -22,12 +24,12 @@
             <th>Validity</th>
             <th>Actions</th>
         </tr>
-    </thead>
-    <tbody>
-    <?php echo $this->partialLoop('partials/admin/denominationsTable.phtml',$this->paginator);?>
-    </tbody>
-</table>
-<?php else: ?>
-<p>No denominations available to you.</p>
-<?php endif; ?>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/denominationsTable.phtml', $this->paginator); ?>
+        </tbody>
+    </table>
     <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No denominations available to you.</p>
+<?php endif; ?>

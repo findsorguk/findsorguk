@@ -1,6 +1,7 @@
-<?php 
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
 $this->headTitle('Add a new event');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
-<h2 class="lead"><?php echo $this->title();?></h2>
-<?php echo $this->form;?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

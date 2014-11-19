@@ -1,4 +1,6 @@
-<?php 
-	$this->headTitle('Add a new Reece Period');
-echo $this->form;
+<?php
+$this->headTitle('Add a Reece period');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

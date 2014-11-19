@@ -1,10 +1,14 @@
-<?php 
-	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
-	$this->headTitle('Edit quote/ announcement');?>
+<?php
+$this->headTitle('Edit quote/ announcement');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php echo $this->form; ?>
+
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
-$(document).ready(function() {
-$("#expire").datepicker({ maxDate: '+1y' });
-});
+    $(document).ready(function() {
+    $("#expire").datepicker({ maxDate: '+1y' });
+    });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
-<h2 class="lead"><?php echo $this->title();?></h2>
-<?php echo $this->form;?>

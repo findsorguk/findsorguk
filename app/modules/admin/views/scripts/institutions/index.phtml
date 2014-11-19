@@ -1,27 +1,33 @@
 <?php
-$this->headTitle('Institutions available on the database');?>
-<h2 class="lead">Institutions available on the database</h2>
+$this->headTitle('Institutions available on the database');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts','action' => 'add'),null,true);?>" title="Add a new institution">Add a new institution</a></p>
-<?php if (count($this->insts)): ?>
+<p><a class="btn btn-small btn-success" href="<?php echo $this->url(
+        array(
+            'module' => 'admin', 'controller' => 'contacts', 'action' => 'add'
+        ), null, true); ?>" title="Add a new institution">Add a new institution</a></p>
+<?php if (!empty($this->insts)): ?>
 
-<table class="table table-striped" summary="All available recording institutions available on database">
-    <caption>All institutions</caption>
+    <table class="table table-striped" summary="All available recording institutions available on database">
+        <caption>All institutions</caption>
         <thead>
-            <tr>
-                <th>Institution</th>
-                <th>Created</th>
-                <th>Created by</th>
-                <th>Updated</th>
-                <th>Updated by</th>
-                <th>Action</th>
-            </tr>
+        <tr>
+            <th>Institution</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Action</th>
+        </tr>
         </thead>
-    <tbody>
-    <?php echo $this->partialLoop('partials/admin/instTable.phtml',$this->insts);?>
-    </tbody>
-</table>
-<?php else:?>
-<p>There are no institutions available to you.</p>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/instTable.phtml', $this->insts); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->insts, 'Sliding', 'structure/pagination.phtml'); ?>
+
+<?php else: ?>
+    <p>There are no institutions available to you.</p>
 <?php endif; ?>
-<?php echo $this->paginationControl($this->insts, 'Sliding', 'structure/pagination.phtml'); ?>

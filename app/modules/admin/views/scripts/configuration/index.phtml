@@ -1,21 +1,40 @@
-<?php $this->headTitle('Website configuration entries'); ?>
+<?php
+$this->headTitle('Website configuration entries');
+$this->metaBase()->setDescription($this->title());
+?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 <p>The configuration for this site is defined through the use of config files in the app/config folder.
     There are three config files.</p>
 <ul>
-    <li>
-        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'configuration', 'action' => 'system'), null, true); ?>">System</a>
-    </li>
-    <li>
-        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'configuration', 'action' => 'routing'), null, true); ?>">Routing</a>
-    </li>
-    <li>
-        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'configuration', 'action' => 'webservice'), null, true); ?>">Webservices</a>
-    </li>
-    <li>
-        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'configuration', 'action' => 'salts'), null, true); ?>">Salts
+    <li><a href="<?php echo $this->url(
+            array(
+                'module' => 'admin',
+                'controller' => 'configuration',
+                'action' => 'system'
+            ), null, true); ?>">System</a></li>
+    <li><a href="<?php echo $this->url(
+            array(
+                'module' => 'admin',
+                'controller' => 'configuration',
+                'action' => 'routing'
+            ), null, true); ?>">Routing</a></li>
+    <li><a href="<?php echo $this->url(
+            array(
+                'module' => 'admin',
+                'controller' => 'configuration',
+                'action' => 'webservice'
+            ), null, true); ?>">Webservices</a></li>
+    <li><a href="<?php echo $this->url(
+            array(
+                'module' => 'admin',
+                'controller' => 'configuration',
+                'action' => 'salts')
+            , null, true); ?>">Salts
             for security</a></li>
-    <li>
-        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'configuration', 'action' => 'acl'), null, true); ?>">Action
-            control list</a></li>
+    <li><a href="<?php echo $this->url(
+            array(
+                'module' => 'admin',
+                'controller' => 'configuration',
+                'action' => 'acl'),
+            null, true); ?>">Action control list</a></li>
 </ul>

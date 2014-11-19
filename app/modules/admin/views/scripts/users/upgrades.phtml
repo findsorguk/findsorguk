@@ -1,26 +1,27 @@
-<?php $this->headMeta('A list of all people requesting an upgrade on their
-    account status for research purpose','description');
+<?php
+$this->metaBase()->setDescription('A list of all people requesting an upgrade on their
+    account status for research purpose')->generate();
 $this->headTitle('Account upgrades');
 ?>
-<h2 class="lead">Account upgrade requests</h2>
-<?php if(count($this->users)):?>
-<table class="table table-striped" summary="A list of people requesting upgrades">
-<thead>
-<tr>
-<th>Username</th>
-<th>Fullname</th>
-<th>Role</th>
-<th>Research plan</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/users/upgrades.phtml',$this->users);?>
-</tbody>
-</table>
-<?php
-echo $this->paginationControl($this->users, 'Sliding', 'structure/pagination.phtml');
-?>
-<?php else:?>
-<p>It is your lucky day Odysseus, Nemo has come knocking for account upgrades! Go wrestle a lion!</p>
-<?php endif;?>
+    <h2 class="lead"><?php echo $this->title();?></h2>
+<?php if (count($this->users)): ?>
+    <table class="table table-striped" summary="A list of people requesting upgrades">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Fullname</th>
+            <th>Role</th>
+            <th>Research plan</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/users/upgrades.phtml', $this->users); ?>
+        </tbody>
+    </table>
+    <?php
+    echo $this->paginationControl($this->users, 'Sliding', 'structure/pagination.phtml');
+    ?>
+<?php else: ?>
+    <p>It is your lucky day Odysseus, Nemo has come knocking for account upgrades! Go wrestle a lion!</p>
+<?php endif; ?>

@@ -22,6 +22,15 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin
      */
     protected $_acronyms;
 
+    /** Get the acronyms model
+     * @return Acronyms
+     */
+    public function getAcronyms()
+    {
+        $this->_acronyms = new Acronyms();
+        return $this->_acronyms;
+    }
+
     /** Initialise the ACL and contexts
      * @access public
      * @return void
@@ -30,8 +39,6 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->allow('fa', null);
         $this->_helper->_acl->allow('admin', null);
-        $this->_acronyms = new Acronyms();
-
     }
 
     /** The redirect URI
@@ -45,7 +52,7 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->view->acronyms = $this->_acronyms->getAllAcronyms($this->getAllParams());
+        $this->view->acronyms = $this->getAcronyms()->getAllAcronyms($this->getAllParams());
     }
 
     /** Add a new acronym
@@ -62,7 +69,7 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin
             && $form->isValid($this->_request->getPost())
         ) {
             if ($form->isValid($form->getValues())) {
-                $this->_acronyms->add($form->getValues());
+                $this->getAcronyms()->add($form->getValues());
                 $this->getFlash()->addMessage('A new acronym has been created.');
                 $this->redirect(self::REDIRECT);
             } else {
@@ -89,9 +96,8 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($form->getValues())) {
                     $updateData = $form->getValues();
                     $where = array();
-                    $where[] = $this->_acronyms->getAdapter()->quoteInto('id = ?',
-                        $this->_getParam('id'));
-                    $update = $this->_acronyms->update($updateData, $where);
+                    $where[] = $this->getAcronyms()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $this->getAcronyms()->update($updateData, $where);
                     $this->getFlash()->addMessage('Acronym details updated.');
                     $this->redirect(self::REDIRECT);
                 } else {
@@ -100,9 +106,9 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $acro = $this->_acronyms->fetchRow('id=' . $id)->toArray();
-                    $this->view->acro = $acro;
-                    $form->populate($acro);
+                    $acronym = $this->getAcronyms()->fetchRow('id=' . $id)->toArray();
+                    $this->view->acronym = $acronym;
+                    $form->populate($acronym);
                 }
             }
         } else {
@@ -121,15 +127,13 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
-                $this->_acronyms->delete($where);
+                $this->getAcronyms()->delete($where);
             }
             $this->redirect(self::REDIRECT);
             $this->getFlash()->addMessage('Record deleted!');
         } else {
             $id = (int)$this->_request->getParam('id');
-            if ($id > 0) {
-                $this->view->acro = $this->acronyms->fetchRow('id=' . $id);
-            }
+            $this->view->acronym = $this->getAcronyms()->fetchRow('id=' . $id);
         }
     }
 }

@@ -1,4 +1,29 @@
-<?php $this->headTitle('Details for recording institution '.$this->institution);?>
-<h2 class="lead">Details for <?php echo $this->institution;?></h2>
-<p><a class="btn btn-warning btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'institutions', 'action' => 'edit','id' => $this->id),null,true);?>" title="Edit this institution's details">Edit</a> <?php if(!isset($this->host)) { ?> | <a class="btn btn-success btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'logos','action' => 'add', 'id' => $this->id),null,true);?>" title="Add a new logo">Add logo</a> <?php } else { ?><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'logos','action' => 'delete','id' => $this->id),null,true);?>" title="Delete an institutional logo">Delete logo</a><?php }?></p>
-<p><?php echo $this->description;?></p>
+<?php
+$this->headTitle('Details for recording institution ' . $this->institution);
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <div class="btn-group">
+        <a class="btn btn-warning btn-small" href="<?php echo $this->url(
+            array(
+                'module' => 'admin', 'controller' => 'institutions', 'action' => 'edit',
+                'id' => $this->id
+            ), null, true); ?>" title="Edit this institution's details">Edit</a>
+        <?php if (!is_null($this->host)) : ?>
+    <a class="btn btn-success btn-small" href="<?php echo $this->url(
+        array(
+            'module' => 'admin', 'controller' => 'logos', 'action' => 'add',
+            'id' => $this->id
+        ), null, true); ?>" title="Add a new logo">Add logo</a>
+    <?php else : ?>
+    <a class="btn btn-success btn-small" href="<?php echo $this->url(
+        array(
+            'module' => 'admin', 'controller' => 'logos', 'action' => 'delete',
+            'id' => $this->id
+        ), null, true); ?>" title="Delete an institutional logo">Delete logo</a>
+        <?php endif; ?>
+    </div>
+<hr />
+<?php if (!is_null($this->description)): ?>
+    <p><?php echo $this->description; ?></p>
+<?php endif; ?>

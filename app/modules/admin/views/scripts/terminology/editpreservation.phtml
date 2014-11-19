@@ -1,5 +1,7 @@
-<h2 class="lead">Edit preservation</h2>
 <?php
-	$this->headTitle("Edit a preservation state"); 
-echo $this->form;
+$this->headTitle("Edit a preservation state");
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php echo $this->form; ?>

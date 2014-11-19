@@ -1,5 +1,6 @@
-<h2 class="lead">Add a new denomination</h2>
 <?php
-	$this->headTitle("Add a new denomination"); 
-echo $this->form;
+$this->headTitle("Add a new denomination");
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php $this->title(); ?></h2>
+<?php echo $this->form; ?>

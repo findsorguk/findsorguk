@@ -1,32 +1,47 @@
-<?php 	$this->headTitle('System actions');?>
-<h2 class="lead">Administer system settings</h2>
+<?php
+$this->headTitle('System actions');
+$this->metaBase()->setDescription($this->title());
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+
 <h3 class="lead">Site mechanics</h3>
 <ul>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'configuration'),null,true);?>">System config</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'acronyms'),null,true);?>" title="Manage acronyms">Acronyms</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'system','action' => 'serverconfig'),null,true);?>" title="Manage acronyms">System environment</a></li>
+    <li><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'configuration'), null, true); ?>">System
+            config</a></li>
+    <li><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'acronyms'), null, true); ?>"
+           title="Manage acronyms">Acronyms</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system', 'action' => 'serverconfig'), null, true); ?>"
+           title="Manage acronyms">System environment</a></li>
 </ul>
 <h3 class="lead">Roles</h3>
 <ul>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'system','action' => 'roles'),null,true);?>" title="View system roles">System roles</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system', 'action' => 'roles'), null, true); ?>"
+           title="View system roles">System roles</a></li>
 </ul>
 
 <h3 class="lead">Cache operations</h3>
 <ul>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'system','action' => 'cleancache'),null,true);?>" title="Clean out the entire cache">Clean entire cache</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'system','action' => 'cleanoldcache'),null,true);?>" title="Clean out the old cache">Clean old cache</a></li>
-</ul>
-
-<h3 class="lead">System backup to Amazon</h3>
-<ul>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'system','action' => 's3'),null,true);?>">List S3 backups</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'system','action' => 's3backup'),null,true);?>">Manual backup</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system', 'action' => 'cleancache'), null, true); ?>"
+           title="Clean out the entire cache">Clean entire cache</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system', 'action' => 'cleanoldcache'), null, true); ?>"
+           title="Clean out the old cache">Clean old cache</a></li>
 </ul>
 
 <h3 class="lead">Oauth tokens</h3>
 <ul>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'oauth'),null,true);?>">View current tokens</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'oauth','action' => 'twitter'),null,true);?>">Create Twitter token</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'oauth','action' => 'yahoo'),null,true);?>">Create yahoo token</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'oauth','action' => 'flickr'),null,true);?>">Create flickr token</a></li>
+    <li><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'oauth'), null, true); ?>">View
+            current tokens</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'oauth', 'action' => 'twitter'), null, true); ?>">Create
+            Twitter token</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'oauth', 'action' => 'yahoo'), null, true); ?>">Create
+            yahoo token</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'oauth', 'action' => 'flickr'), null, true); ?>">Create
+            flickr token</a></li>
 </ul>

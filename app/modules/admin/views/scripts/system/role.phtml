@@ -1,8 +1,8 @@
-<?php echo $this->partial('partials/admin/systemroledetails.phtml',$this->roles['0']);?>
+<?php echo $this->partial('partials/admin/systemRoleDetails.phtml',$this->roles['0']);?>
 <?php if(count($this->members)):?>
 <h3 class="lead">User accounts associated with this role</h3>
 <ul>
-<?php echo $this->partialLoop('partials/admin/systemrolemembers.phtml',$this->members);?>
+<?php echo $this->partialLoop('partials/admin/systemRoleMembers.phtml',$this->members);?>
 </ul>
 <?php else:?>
 <p>There are no users for this role available to you.</p>

@@ -1,18 +1,20 @@
-<?php 
+<?php
 $this->headTitle('Delete a tribe\'s details');
-if ($this->tribe) :?>
-<h2 class="lead">Delete a tribe</h2>
-<p>Are you sure that you want to delete
-'<?php echo $this->escape($this->tribe->tribe); ?>'
-</p>
-<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action'=>'deletetribe'),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->tribe->id; ?>" />
-<input type="submit" name="del" value="Yes" />
-<input type="submit" name="del" value="No" />
-</div>
-</form>
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<?php if (!is_null($this->tribe)) : ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>Are you sure that you want to delete <?php echo $this->tribe->tribe; ?></p>
+    <form
+        action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'deletetribe'), null, true); ?>"
+        method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->tribe->id; ?>"/>
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
+    </form>
 <?php else: ?>
-<p>Cannot find the item requested.</p>
-<?php endif;?>
+    <h2 class="lead">An error has occurred.</h2>
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>

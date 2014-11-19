@@ -1,5 +1,7 @@
-<h2 class="lead">Edit primary activity type: <?php echo strtolower($this->form->getValue('term'));?></h2>
-<?php 
+<?php
 	$this->headTitle('Edit an activity');
-echo $this->form;
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead">Edit primary activity type: <?php echo strtolower($this->form->getValue('term')); ?></h2>
+
+<?php echo $this->form;?>

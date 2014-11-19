@@ -21,6 +21,15 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin
      */
     protected $_comments;
 
+    /** Get the comments model
+     * @return Comments
+     */
+    public function getComments()
+    {
+        $this->_comments = new Comments();
+        return $this->_comments;
+    }
+
     /** Initialise the ACL and contexts
      * @access public
      * @return void
@@ -29,8 +38,6 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->allow('fa', null);
         $this->_helper->_acl->allow('admin', null);
-        $this->_comments = new Comments();
-
     }
 
     /** Display all the comments
@@ -40,7 +47,7 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->view->params = $this->getAllParams();
-        $this->view->comments = $this->_comments->getComments($this->getAllParams());
+        $this->view->comments = $this->getComments()->getComments($this->getAllParams());
     }
 
     /** Publish a comment
@@ -63,8 +70,8 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin
                     $to[] = array(
                         'name' => $form->getValue('comment_author'),
                         'email' => $form->getValue('comment_author_email'));
-                    $where = $this->_comments->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                    $this->_comments->update($data, $where);
+                    $where = $this->getComments()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $this->getComments()->update($data, $where);
 
                     $this->_helper->mailer($form->getValues(), 'commentPublished', $to);
                     $this->getFlash()->addMessage('Comment data updated.');
@@ -77,8 +84,7 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin
                 // find id is expected in $params['id']
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $comment = $this->_comments
-                        ->fetchRow($this->_comments->select()->where('id = ?', $id))->toArray();
+                    $comment = $this->getComments()->fetchRow($this->getComments()->select()->where('id = ?', $id))->toArray();
                     if ($comment) {
                         $form->populate($comment);
                     } else {

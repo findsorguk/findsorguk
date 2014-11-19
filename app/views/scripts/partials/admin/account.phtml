@@ -1,15 +1,16 @@
-<?php $this->headTitle('View account profile for ' . $this->fullname);?>
-<h2 class="lead">
-    Account details for <?php echo $this->fullname;?>
-</h2>
+<?php
+$this->headTitle('Account profile for ' . $this->fullname);
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php
 echo $this->Href(array(
-    'module' => 'admin','controller'=>'users',
-    'action'=>'edit',
-    'checkAcl'=>true,'acl'=>'Zend_Acl',
+    'module' => 'admin', 'controller' => 'users',
+    'action' => 'edit',
+    'checkAcl' => true, 'acl' => 'Zend_Acl',
     'params' => array(
         'id' => $this->id),
-    'content'=>'Edit account',
+    'content' => 'Edit account',
     'attribs' => array(
         'title' => 'Edit account',
         'class' => 'btn btn-warning'),
@@ -26,7 +27,7 @@ echo $this->Href(array(
 <div id="personal-images">
     <div id="gravatar">
         <?php
-        echo $this->gravatar($this->email,array(
+        echo $this->gravatar($this->email, array(
                 'imgSize' => 80,
                 'defaultImg' => $this->serverUrl() . $this->baseUrl()
                     . '/assets/gravatar.png',
@@ -43,21 +44,21 @@ echo $this->Href(array(
 
 </div>
 <p>
-    <?php if(isset($this->username)):?>
-        Username: <?php echo $this->username;?><br />
-    <?php endif;?>
-    <?php if(isset($this->fullname)):?>
-        Fullname: <?php echo $this->fullname;?><br />
-    <?php endif;?>
-    <?php if(isset($this->first_name)):?>
-        Firstname: <?php echo $this->first_name;?><br />
-    <?php endif;?>
-    <?php if(isset($this->last_name)):?>
-        Lastname: <?php echo $this->last_name;?><br />
-    <?php endif;?>
-    <?php if(isset($this->email)):?>
-        Email address: <a href="mailto:<?php echo $this->email;?>"><?php echo $this->email;?></a>
-    <?php endif;?>
+    <?php if (isset($this->username)): ?>
+        Username: <?php echo $this->username; ?><br/>
+    <?php endif; ?>
+    <?php if (isset($this->fullname)): ?>
+        Fullname: <?php echo $this->fullname; ?><br/>
+    <?php endif; ?>
+    <?php if (isset($this->first_name)): ?>
+        Firstname: <?php echo $this->first_name; ?><br/>
+    <?php endif; ?>
+    <?php if (isset($this->last_name)): ?>
+        Lastname: <?php echo $this->last_name; ?><br/>
+    <?php endif; ?>
+    <?php if (isset($this->email)): ?>
+        Email address: <a href="mailto:<?php echo $this->email; ?>"><?php echo $this->email; ?></a>
+    <?php endif; ?>
 </p>
 
 <h3 class="lead">
@@ -65,30 +66,27 @@ echo $this->Href(array(
 </h3>
 
 <p>
-    Assigned role: <?php echo $this->role;?><br />
-    Recording institution prefix: <?php echo $this->institution;?><br />
-    <?php if(!is_null($this->peopleID)):?>
-        Attached to people profile id: <?php echo $this->personLookup()->setPerson($this->peopleID);?><br />
-    <?php endif;?>
+    Assigned role: <?php echo $this->role; ?><br/>
+    Recording institution prefix: <?php echo $this->institution; ?><br/>
+    <?php if (!is_null($this->peopleID)): ?>
+        Attached to people profile id: <?php echo $this->personLookup()->setPerson($this->peopleID); ?><br/>
+    <?php endif; ?>
     Last login to the database:
-    <?php echo $this->timeAgoInWords($this->escape($this->lastLogin));?><br />
-    Number of visits: <?php echo $this->visits;?><br />
-    <?php if($this->canRecord === '1'):?>
-        Copyright: <?php echo $this->copyright;?><br />
+    <?php echo $this->timeAgoInWords($this->escape($this->lastLogin)); ?><br/>
+    Number of visits: <?php echo $this->visits; ?><br/>
+    <?php if ($this->canRecord === '1'): ?>
+        Copyright: <?php echo $this->copyright; ?>
+        <br/>
         Allowed to record: Yes.
-    <?php else:?>
+    <?php else: ?>
         <strong>They are not set up for recording</strong>
-    <?php endif;?>
+    <?php endif; ?>
 </p>
 
-<?php if(isset($this->researchOutline)) {?>
-    <h3 class="lead">
-        Research data
-    </h3>
+<?php if (isset($this->researchOutline)) { ?>
+    <h3 class="lead">Research data</h3>
 
-    <p>
-        Research outline: <?php echo $this->researchOutline;?>
-    </p>
+    <p>Research outline: <?php echo $this->researchOutline; ?></p>
 <?php
 }
 ?>
@@ -96,23 +94,14 @@ echo $this->Href(array(
     Audit data
 </h3>
 <p>
-    Created by: <?php if(!is_null($this->creator)):?>
-        <?php echo $this->creator;?>
-    <?php else:?>
+    Created by: <?php if (!is_null($this->creator)): ?>
+        <?php echo $this->creator; ?>
+    <?php else: ?>
         Themselves
-    <?php endif;?>
-    <?php if(!is_null($this->updater)):?>
+    <?php endif; ?>
+    <?php if (!is_null($this->updater)): ?>
         <br/>
-        Last updated by: <?php echo $this->updater;?>
-    <?php endif;?>
+        Last updated by: <?php echo $this->updater; ?>
+    <?php endif; ?>
 </p>
-
-<p>
-    <a class="btn" href="<?php echo $this->url(array(
-            'module' => 'database',
-            'controller' => 'search',
-            'action' => 'results',
-            'createdBy' => $this->id)
-        ,null,true);?>" title="Search database for all their records">View all
-        records created by <?php echo $this->fullname;?></a>
-</p>
+<?php echo $this->searchLink()->setField('createdBy')->setId($this->id);?>

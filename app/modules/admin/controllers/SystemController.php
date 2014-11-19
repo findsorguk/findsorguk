@@ -238,7 +238,7 @@ class Admin_SystemController extends Pas_Controller_Action_Admin
      * @access public
      * @return void
      */
-    public function editsystemroleAction()
+    public function editroleAction()
     {
         $form = new SystemRoleForm();
         $this->view->form = $form;

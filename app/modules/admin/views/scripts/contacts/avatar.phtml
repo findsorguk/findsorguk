@@ -1,17 +1,13 @@
-<h2 class="lead">Add a photo to profile</h2>
-<?php 
-	$this->headTitle('Add an image to a contact profile');
-if(count($this->errors))
-{
-echo '<ul>';
-foreach($this->errors as $key => $value)
-{
-echo '<li>';
-echo $value;
-echo '</li>';
-}
-echo '</ul>';
-}
+<?php
+$this->headTitle('Add an image to a contact profile');
+$this->metaBase()->setDescription()->generate();
 ?>
-
-<?php echo $this->form;?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->errors)): ?>
+    <ul>
+        <?php foreach ($this->errors as $key => $value): ?>
+            <li><?php echo $value; ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif;?>
+<?php echo $this->form; ?>

@@ -1,5 +1,6 @@
-<h2 class="lead">Edit a workflow stage</h2>
-<?php 
-	$this->headTitle('Edit a Workflow stage');
-echo $this->form;
+<?php
+$this->headTitle('Edit a Workflow stage');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

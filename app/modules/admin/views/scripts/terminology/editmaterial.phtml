@@ -1,4 +1,6 @@
-<h2 class="lead">Edit a material</h2>
-<?php 
+<?php
 $this->headTitle("Edit a material");
-echo $this->form ;?>
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

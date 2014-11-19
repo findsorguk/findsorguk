@@ -1,4 +1,6 @@
-<h2 class="lead">Add an Iron Age tribe</h2>
-<?php 
-$this->headTitle('Add a tribe\'s details');
-echo $this->form;?>
+<?php
+$this->headTitle('Add an Iron Age tribe');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

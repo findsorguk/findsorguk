@@ -1,5 +1,6 @@
-<?php $this->headTitle('Add a new coroner');?>
-<h2 class="lead">Add a new coroner</h2>
-<?php 
-echo $this->form;
+<?php
+$this->headTitle('Add a new coroner');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

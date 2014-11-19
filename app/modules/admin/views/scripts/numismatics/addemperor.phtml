@@ -1,5 +1,6 @@
-<h2 class="lead">Add a new Emperor</h2>
-<?php 
-	$this->headTitle('Add a new Emperor or Issuer');
-echo $this->form;
+<?php
+$this->headTitle('Add a new Roman Emperor');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

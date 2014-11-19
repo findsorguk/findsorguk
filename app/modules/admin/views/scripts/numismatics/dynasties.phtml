@@ -1,21 +1,31 @@
-<?php $this->headTitle('Administer dynasties of the Roman Empire');?>
-<h2 class="lead">Administer dynasties of the Roman Empire</h2>
-<p><a class="btn btn-success btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'adddynasty'),null,true);?>" title="Add a new dynasty to the Roman dynastic list">Add a new dynasty</a></p>
-<table class="table table-striped" summary="A list of available dynastic groups">
-<caption>A list of available dynasties</caption>
-<thead>
-<tr>
-<th>Dynasty</th>
-<th>Date from</th>
-<th>Date to</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/dynasticList.phtml',$this->dynasties);?>
-</tbody>
-</table>
+<?php
+$this->headTitle('Administer dynasties of the Roman Empire');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead">Administer dynasties of the Roman Empire</h2>
+    <p><a class="btn btn-success btn-small"
+          href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'adddynasty'), null, true); ?>"
+          title="Add a new dynasty to the Roman dynastic list">Add a new dynasty</a></p>
+
+<?php if (!empty($this->dynasties)): ?>
+    <table class="table table-striped" summary="A list of available dynastic groups">
+        <caption>A list of available dynasties</caption>
+        <thead>
+        <tr>
+            <th>Dynasty</th>
+            <th>Date from</th>
+            <th>Date to</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/dynasticList.phtml', $this->dynasties); ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>Dynasties not available.</p>
+<?php endif; ?>

@@ -13,6 +13,18 @@
 class Admin_ConfigurationController extends Pas_Controller_Action_Admin
 {
 
+    protected $_config;
+
+    /** Get the config object
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        $this->_config = $this->_helper->config();
+        return $this->_config;
+    }
+
+
     /** Set up the ACL and contexts
      * @access public
      * @return void
@@ -20,8 +32,6 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow('admin', null);
-        $this->_config = $this->_helper->config();
-
     }
 
     /** Display the index page
@@ -39,7 +49,7 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin
      */
     public function webserviceAction()
     {
-        $this->view->webservice = $this->_config->webservice->toArray();
+        $this->view->webservice = $this->getConfig()->webservice->toArray();
     }
 
     /** Display the system configurations
@@ -48,7 +58,7 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin
      */
     public function systemAction()
     {
-        $this->view->resources = $this->_config->resources->toArray();
+        $this->view->resources = $this->getConfig()->resources->toArray();
     }
 
     /** Display the routing configurations
@@ -57,7 +67,7 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin
      */
     public function routingAction()
     {
-        $this->view->routing = $this->_config->routes->toArray();
+        $this->view->routing = $this->getConfig()->routes->toArray();
     }
 
     /** Display the ACL config
@@ -66,7 +76,7 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin
      */
     public function aclAction()
     {
-        $this->view->acl = $this->_config->acl->toArray();
+        $this->view->acl = $this->getConfig()->acl->toArray();
     }
 
     /** Display salts used
@@ -75,7 +85,7 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin
      */
     public function saltsAction()
     {
-        $this->view->salt = $this->_config->form->salt;
-        $this->view->authority = $this->_config->auth->salt;
+        $this->view->salt = $this->getConfig()->form->salt;
+        $this->view->authority = $this->getConfig()->auth->salt;
     }
 }

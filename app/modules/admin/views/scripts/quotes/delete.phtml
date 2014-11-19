@@ -1,19 +1,21 @@
-<?php 
-	$this->headTitle('Delete quote/ announcement');
-
-if ($this->quote) :?>
-<h2 class="lead">Delete quote/announcement</h2>
-<p>Are you sure that you want to delete
-'<?php echo $this->ellipsisString()->setString($this->quote->quote)->setMax(30); ?>' 
-</p>
-<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'quotes','action'=>'delete'),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->quote->id; ?>" />
-<input type="submit" name="del" value="Yes" />
-<input type="submit" name="del" value="No" />
-</div>
-</form>
+<?php
+$this->headTitle('Delete quote/ announcement');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<?php if (!is_null($this->quote)) : ?>
+    <h2 class="lead">Delete quote/announcement</h2>
+    <p>Are you sure that you want to delete
+        '<?php echo $this->ellipsisString()->setString($this->quote->quote)->setMax(30); ?>'
+    </p>
+    <form
+        action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'quotes', 'action' => 'delete'), null, true); ?>"
+        method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->quote->id; ?>"/>
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
+    </form>
 <?php else: ?>
-<p>Cannot find the item requested.</p>
-<?php endif;?>
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>

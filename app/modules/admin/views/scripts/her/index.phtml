@@ -1,71 +1,67 @@
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/confirm.js',$type = 'javascript');?>
-<?php $this->jQuery()->javascriptCaptureStart();?>
-$(document).ready(function(){
-$('a.delete').click(function(e) {
+<?php
+$this->headTitle('Authorities signed up for data transfer');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <div class="btn-group">
+        <a href="<?php echo $this->url(
+            array(
+                'module' => 'admin', 'controller' => 'her', 'action' => 'add'
+            ), 'default', true);?>" class="btn btn-small btn-success">Add a new signatory</a>
+    </div>
+<?php if (!empty($this->hers)): ?>
+
+    <table class="table-striped table"
+           summary="This table lists all the HERs that have signed up to our data transfer agreement">
+        <caption>Signed up HER offices</caption>
+        <thead>
+        <tr>
+            <th>Authority</th>
+            <th>Signatory</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/hers.phtml', $this->hers); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->hers, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No sign up data is available to you.</p>
+<?php endif; ?>
+
+
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/confirm.js', $type = 'javascript'); ?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function(){
+    $('a.delete').click(function(e) {
     e.preventDefault();
     var parent =  $(this).parents("tr:first");
     $.ajax({
-            type: 'get',
-            url: '<?php echo $this->url(array('controller' => 'ajax','action' => 'deleteher'),null,true);?>',
-            data: 'id=' + parent.attr('id').replace('signup-',''),
-            beforeSend: function() {
-                    parent.animate({'backgroundColor':'#fb6c6c'},300);
-            },
-            success: function() {
-                    parent.slideUp(300,function() {
-                            parent.remove();
-                    });
-            }
+    type: 'get',
+    url: '<?php echo $this->url(array('controller' => 'ajax', 'action' => 'deleteher'), null, true); ?>',
+    data: 'id=' + parent.attr('id').replace('signup-',''),
+    beforeSend: function() {
+    parent.animate({'backgroundColor':'#fb6c6c'},300);
+    },
+    success: function() {
+    parent.slideUp(300,function() {
+    parent.remove();
     });
-});
-$('a.delete').confirm({
-   dialogShow:'fadeIn',
+    }
+    });
+    });
+    $('a.delete').confirm({
+    dialogShow:'fadeIn',
     dialogSpeed:'slow',
     buttons: {
-      wrapper:'<button></button>',
-      separator:'  '
+    wrapper:'
+    <button></button>',
+    separator:'  '
     }
-  });
-});
+    });
+    });
 
 
-<?php
-$this->headTitle('Authorities signed up for data transfer');
-$this->jQuery()->javascriptCaptureEnd();?>
-
-<h2 class="lead">Historic Environment Records signup</h2>
-<?php
-
-echo $this->Href(array(
-    'module' => 'admin',
-    'controller' => 'her',
-    'action' => 'add',
-    'checkAcl' => true,
-    'acl'=>'Zend_Acl',
-    'attribs' => array('title' => 'Edit a discovery method',
-        'class' => 'btn btn-small btn-primary'),
-    'params' => array('id' => $this->id),
-    'content'=> 'Add a new HER signatory', 
-    'wrapper' => array('tag' => 'p'))
-    );
-
-?>
-<?php if ($this->hers): ?>
-
-<table class="table-striped table" summary="This table lists all the HERs that have signed up to our data transfer agreement">
-<caption>Signed up HER offices</caption>
-<thead>
-	<tr>
-		<th>Authority</th>
-		<th>Signatory</th>
-		<th>Actions</th>
-	</tr>
-</thead>
-<tbody>
-	<?php echo $this->partialLoop('partials/admin/hers.phtml', $this->hers);?>
-</tbody>
-</table>
-<?php else:?>
-<p>No sign up data is available to you.</p>
-<?php endif; ?>
-<?php echo $this->paginationControl($this->hers, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

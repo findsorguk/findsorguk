@@ -1,3 +1,10 @@
-<?php $this->headTitle('Add a new acronym');?>
-<h2 class="lead">Add a new acronym</h2>
-<?php echo $this->form;?>
+<?php
+$this->headTitle('Add a new acronym');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead">Add a new acronym</h2>
+<?php if ($this->form): ?>
+    <?php echo $this->form; ?>
+<?php else: ?>
+    <p>The form has not been instantiated.</p>
+<?php endif; ?>

@@ -24,7 +24,7 @@ $('a.deleteimage').click(function(e) {
 
 <?php $this->jQuery()->javascriptCaptureEnd();?>
 <p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'addrulerimage','rulerid' => $this->details['0']['id']),null,true);?>" title="Add an image for this ruler">Add an image</a></p>
-<?php echo $this->partialLoop('partials/admin/rulerthumbs.phtml',$this->images);?>
+<?php echo $this->partialLoop('partials/admin/rulerThumbs.phtml',$this->images);?>
 
 <h3 class="lead">Issuing mints</h3>
 <p><a href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'rulertomint','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new mint">Add a mint to this list</a></p>
@@ -62,7 +62,7 @@ $('a.delete').click(function(e) {
         </tr>
     </thead>
     <tbody>
-        <?php echo $this->partialLoop('partials/admin/mintruler.phtml',$this->mints);?>
+        <?php echo $this->partialLoop('partials/admin/mintToRulerAdmin.phtml',$this->mints);?>
     </tbody>
 </table>
 <?php else:?>
@@ -149,7 +149,7 @@ $('a.deletereverse').click(function(e) {
         </tr>
     </thead>
     <tbody>
-        <?php echo $this->partialLoop('partials/admin/reverseruler.phtml',$this->reverses);?>
+        <?php echo $this->partialLoop('partials/admin/reverseToRuler.phtml',$this->reverses);?>
     </tbody>
 </table>
 <?php else:?>

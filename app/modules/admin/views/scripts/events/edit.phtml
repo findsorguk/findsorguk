@@ -1,5 +1,7 @@
-<?php 
+<?php
 $this->headTitle('Edit event');
+$this->metaBase()->setDescription($this->title())->generate();?>
+<?php
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
 ?>
 <h2 class="lead"><?php echo $this->title();?></h2>

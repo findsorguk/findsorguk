@@ -1,21 +1,27 @@
-<?php $this->headTitle("Manage coroners of England and Wales contact details");?>
+<?php
+$this->headTitle("Manage coroners of England and Wales contact details");
+$this->metaBase()->setDescription($this->title())->generate();
+?>
 
-<h2 class="lead">Coroners of England and Wales</h2>
-<p><a href="<?php echo $this->url(array(
-    'module' => 'admin','controller' => 'coroners','action' => 'add'),null,true);?>"
-    title="Add a new coroner" class="btn btn-large btn-warning'">Add a new coroner</a></p>
-<?php if (count($this->coroners)): ?>
-<table class="table table-striped" summary="All active coroners in England and Wales">
-<thead>
-<tr>
-<th>Coroner's name</th>
-<th>Area covered</th>
-<th>County</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/coronerList.phtml',$this->coroners);?>
-</tbody>
-</table>
-<?php endif;?><?php echo $this->paginationControl($this->coroners, 'Sliding', 'structure/pagination.phtml'); ?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<p><a href="<?php echo $this->url(
+        array(
+            'module' => 'admin', 'controller' => 'coroners', 'action' => 'add'
+        ), null, true);?>" title="Add a new coroner" class="btn btn-large btn-warning'">Add a new coroner</a></p>
+<?php if (!empty($this->coroners)): ?>
+    <table class="table table-striped" summary="All active coroners in England and Wales">
+        <thead>
+        <tr>
+            <th>Coroner's name</th>
+            <th>Area covered</th>
+            <th>County</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/coronerList.phtml', $this->coroners); ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No coroners found.</p>
+<?php endif; ?><?php echo $this->paginationControl($this->coroners, 'Sliding', 'structure/pagination.phtml'); ?>

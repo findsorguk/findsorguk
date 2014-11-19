@@ -1,4 +1,7 @@
-<h2 class="lead">Edit landuse type</h2>
-<?php 	$this->headTitle("Edit a landuse type");
-echo $this->form;
+<?php
+$this->headTitle("Edit a landuse type");
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php echo $this->form; ?>

@@ -1,27 +1,33 @@
-<?php 	$this->headTitle('Available tribes on database');?>
-<h2 class="lead">Tribes available for use on the database</h2>
-<p><a class="btn btn-success btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addtribe'),null,true);?>" title="Add an Iron Age tribe to the system">Add a new tribe</a></p>
+<?php
+$this->headTitle('Available tribes on database');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead"><?php echo $this->title();?></h2>
+<p><a class="btn btn-success btn-large"
+      href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'addtribe'), null, true); ?>"
+      title="Add an Iron Age tribe to the system">Add a new tribe</a></p>
 <?php if (count($this->tribes)): ?>
 
-<table class="table table-striped" summary="A list of Iron Age tribes on the database">
-<caption>All Iron age tribes listed</caption>
-<thead>
-    <tr>
-        <th>Tribe</th>
-        <th>Created</th>
-        <th>Created by</th>
-        <th>Updated</th>
-        <th>Updated by</th>
-        <th>Validity</th>
-        <th>Actions</th>
-    </tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/ironAgeTribeTable.phtml',$this->tribes);?>
-</tbody>
-</table>
-<?php else:?>
-<p>You have either entered an incorrect url parameter, or there are no Iron Age tribes available.</p>
+    <table class="table table-striped" summary="A list of Iron Age tribes on the database">
+        <caption>All Iron age tribes listed</caption>
+        <thead>
+        <tr>
+            <th>Tribe</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Validity</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/ironAgeTribeTable.phtml', $this->tribes); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->tribes, 'Sliding', 'structure/pagination.phtml'); ?>
+
+<?php else: ?>
+    <p>You have either entered an incorrect url parameter, or there are no Iron Age tribes available.</p>
 <?php endif; ?>
 
-<?php echo $this->paginationControl($this->tribes, 'Sliding', 'structure/pagination.phtml'); ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A model for accessing archaeological context information from database
  *
@@ -21,8 +22,8 @@
  * @since 26 August 2014
  * @example /app/forms/ArchaeologyForm.php
  */
-
-class ArchaeologicalContexts extends Pas_Db_Table_Abstract {
+class ArchaeologicalContexts extends Pas_Db_Table_Abstract
+{
 
     /** The table name
      * @access protected
@@ -39,7 +40,8 @@ class ArchaeologicalContexts extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         $key = md5('archsitetypeee');
         if (!$options = $this->_cache->load($key)) {
             $select = $this->select()

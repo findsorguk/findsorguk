@@ -1,11 +1,12 @@
-<?php 
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/userAccount.js', $type='text/javascript');
+<?php
 $this->headTitle('Edit account details');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
 
-<h2 class="lead">Edit account</h2>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<?php 
-echo $this->form;
+<?php echo $this->form; ?>
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/userAccount.js', $type = 'text/javascript');
 ?>

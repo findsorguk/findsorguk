@@ -1,20 +1,30 @@
-<?php 	$this->headTitle('Landuse types available on the database');?>
-<h2 class="lead">Landuse types</h2>
+<?php
+$this->headTitle('Landuse types available on the database');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'addlanduse'),null,true);?>" title="Add a new landuse term">Add a new land use term</a></p>
-<table class="table table-striped" summary="List of Landuses that the Scheme uses">
-<thead>
-<tr>
-<th>Landuse term</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Validity</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/landUseListTable.phtml',$this->landuses);?>
-</tbody>
-</table>
+    <p><a class="btn btn-small btn-success"
+          href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'addlanduse'), null, true); ?>"
+          title="Add a new landuse term">Add a new land use term</a></p>
+
+<?php if (!empty($this->landuses)): ?>
+    <table class="table table-striped" summary="List of Landuses that the Scheme uses">
+        <thead>
+        <tr>
+            <th>Landuse term</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Validity</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/landUseListTable.phtml', $this->landuses); ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No landuses available.</p>
+<?php endif; ?>

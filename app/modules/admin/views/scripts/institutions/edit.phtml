@@ -1,3 +1,6 @@
-<?php $this->headTitle('Edit recording the '.$this->inst['institution'].' recording institution');?>
-<h2 class="lead">Edit recording institution</h2>
-<?php echo $this->form;?>
+<?php
+$this->headTitle('Edit ' . $this->inst['description'] . ' a recording institution');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

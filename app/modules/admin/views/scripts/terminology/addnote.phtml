@@ -1,5 +1,6 @@
-<h2 class="lead">Add a find of note reason</h2>
-<?php 	
-$this->headTitle("Add a new find of note reason ");
-echo $this->form;
+<?php
+$this->headTitle('Add a new find of note reason');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

@@ -1,25 +1,20 @@
-<?php 
-if ($this->dynasty) :?>
-<?php $this->headTitle('Delete '.$this->dynasty->dynasty.' from the system');
+<?php
+$this->headTitle('Delete ' . $this->dynasty->dynasty . ' from the system');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
 <h2 class="lead">Delete a Dynastic listing</h2>
-<p>Are you sure that you want to delete
-'<?php echo $this->escape($this->dynasty->dynasty); ?>'
-</p>
-<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action'=>'deletedynasty'),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->dynasty->id; ?>" />
-<input type="submit" name="del" value="Yes" />
-<input type="submit" name="del" value="No" />
-</div>
-</form>
+<?php if (!is_null($this->dynasty)) : ?>
+    <p>Are you sure that you want to delete <?php echo $this->dynasty->dynasty; ?></p>
+    <form
+        action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'deletedynasty'), null, true); ?>"
+        method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->dynasty->id; ?>"/>
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
+    </form>
 <?php else: ?>
-<?php 
-$this->headTitle("Error deleting dynasty");
-
-?>
-
-<h2 class="lead">An error has occurred</h2>
-<p>Cannot find the item requested.</p>
-<?php endif;?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>

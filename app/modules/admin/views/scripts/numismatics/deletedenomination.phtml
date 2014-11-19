@@ -1,19 +1,21 @@
-<?php if ($this->denomination) :
-	$this->headTitle("Delete a denomination from the system");
+<?php
+$this->headTitle("Delete a denomination from the system");
+$this->metaBase()->setDescription($this->title())->generate();
+
 ?>
-<h2 class="lead">Delete <?php echo $this->escape($this->denomination->denomination); ?></h2>
-<p>Are you sure that you want to delete
-'<?php echo $this->escape($this->denomination->denomination); ?>' 
-</p>
-<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action'=>'deletedenomination'),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->denomination->id; ?>" />
-<input type="submit" name="del" value="Yes" />
-<input type="submit" name="del" value="No" />
-</div>
-</form>
+<?php if (!is_null($this->denomination)) : ?>
+    <h2 class="lead"> Delete <?php echo $this->denomination->denomination; ?></h2>
+    <p>Are you sure that you want to delete <?php echo $this->denomination->denomination; ?></p>
+    <form
+        action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'deletedenomination'), null, true); ?>"
+        method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->denomination->id; ?>"/>
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
+    </form>
 <?php else: ?>
-<h2 class="lead">There has been an error</h2>
-<p>Cannot find the denomination that you requested.</p>
-<?php endif;?>
+    <h2 class="lead">There has been an error</h2>
+    <p>Cannot find the denomination that you requested.</p>
+<?php endif; ?>
