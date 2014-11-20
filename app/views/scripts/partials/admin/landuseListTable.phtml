@@ -1,36 +1,23 @@
-<tr class="valid-<?php echo $this->valid;?>">
-<td><?php echo $this->term;?><br ?>
-<strong><?php echo $this->oldID;?></strong></td>
-<td><?php echo $this->timeAgoInWords($this->created);?></td>
-<td><?php echo $this->nameThem()->setName($this->fullname);?></td>
-<td><?php echo $this->timeAgoInWords($this->updated);?></td>
-<td><?php echo $this->nameThem()->setName($this->fn);?></td>
-<td><?php echo $this->validity()->setValid($this->valid);?></td>
-<td>
-<?php
-$edit = $this->Href(array(
-    'module' => 'admin',
-    'controller' => 'terminology',
-    'action' => 'editlanduse',
-    'checkAcl' => true,
-    'acl'=>'Zend_Acl',
-    'attribs' => array('title' => 'Edit landuse'),
-    'params' => array('id' => $this->id),
-    'content'=> 'Edit')
-    );
-$delete = $this->Href(array(
-    'module' => 'admin',
-    'controller' =>'terminology',
-    'action' =>'deletelanduse',
-    'checkAcl' => true,
-    'acl' => 'Zend_Acl',
-    'attribs' => array('title' => 'Delete landuse'),
-    'params' => array('id' => $this->id),
-    'content' => 'Delete')
-    );
-
-echo implode(' | ', array($edit, $delete));
-?>
-
-</td>
+<tr class="valid-<?php echo $this->valid; ?>">
+    <td><?php echo $this->term; ?><br ?>
+        <strong><?php echo $this->oldID; ?></strong></td>
+    <td><?php echo $this->timeAgoInWords($this->created); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fullname); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->updated); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fn); ?></td>
+    <td><?php echo $this->validity()->setValid($this->valid); ?></td>
+    <td>
+        <div class="btn-group">
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'terminology',
+                'action' => 'editlanduse',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-inverse">Edit</a>
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'terminology',
+                'action' => 'deletelanduse',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-danger">Delete</a>
+        </div>
+    </td>
 </tr>

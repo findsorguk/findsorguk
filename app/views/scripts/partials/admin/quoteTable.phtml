@@ -7,29 +7,17 @@
     <td><?php echo $this->timeAgoInWords($this->updated); ?></td>
     <td><?php echo $this->nameThem()->setName($this->fn); ?></td>
     <td>
-        <?php
-        $edit = $this->Href(array(
+        <div class="btn-group">
+            <a href="<?php echo $this->url(array(
                 'module' => 'admin',
                 'controller' => 'quotes',
                 'action' => 'edit',
-                'checkAcl' => true,
-                'acl' => 'Zend_Acl',
-                'attribs' => array('title' => 'Edit a quote'),
-                'params' => array('id' => $this->id),
-                'content' => 'Edit')
-        );
-        $delete = $this->Href(array(
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-inverse">Edit</a>
+            <a href="<?php echo $this->url(array(
                 'module' => 'admin',
                 'controller' => 'quotes',
                 'action' => 'delete',
-                'checkAcl' => true,
-                'acl' => 'Zend_Acl',
-                'attribs' => array('title' => 'Delete a quote'),
-                'params' => array('id' => $this->id),
-                'content' => 'Delete')
-        );
-
-        echo implode(' | ', array($edit, $delete));
-        ?>
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-danger">Delete</a>
+        </div>
     </td>
 </tr>

@@ -1,41 +1,21 @@
-<tr class="valid-<?php echo $this->valid;?>">
+<tr class="valid-<?php echo $this->valid; ?>">
+    <td><?php echo $this->escape($this->term); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->created); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fullname); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->updated); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fn); ?></td>
     <td>
-        <?php echo $this->escape($this->term);?>
-    </td>
-    <td>
-        <?php echo $this->timeAgoInWords($this->created);?>
-    </td>
-    <td>
-        <?php echo $this->nameThem()->setName($this->fullname);?>
-    </td>
-    <td>
-        <?php echo $this->timeAgoInWords($this->updated);?>
-    </td>
-    <td>
-        <?php echo $this->nameThem()->setName($this->fn);?>
-    </td>
-    <td>
-        <?php
-        $edit = $this->Href(array(
+        <div class="btn-group">
+            <a href="<?php echo $this->url(array(
                 'module' => 'admin',
-                'controller'=>'vacancies',
-                'action'=>'editactivity',
-                'checkAcl'=>true,
-                'acl'=>'Zend_Acl',
-                'params' =>array('id'=>$this->id),
-                'content'=>'Edit')
-        );
-        $delete = $this->Href(array(
+                'controller' => 'vacancies',
+                'action' => 'editactivity',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-inverse">Edit</a>
+            <a href="<?php echo $this->url(array(
                 'module' => 'admin',
-                'controller'=>'vacancies',
-                'action'=>'deleteactivity',
-                'checkAcl'=>true,
-                'acl'=>'Zend_Acl',
-                'params' =>array('id'=>$this->id),
-                'content'=>'Delete')
-        );
-
-        echo implode(' | ', array($edit,$delete));
-        ?>
+                'controller' => 'vacancies',
+                'action' => 'deleteactivity',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-danger">Delete</a>
+        </div>
     </td>
 </tr>
