@@ -7,7 +7,7 @@ $this->metaBase()->setDescription($this->title())->generate();
     <a href="<?php echo $this->url(
         array(
             'module' => 'admin', 'controller' => 'quotes', 'action' => 'add'
-        ), null, true); ?>" class="btn btn-large btn-success" title="Add a new quote or announcement">Add quote or
+        ), null, true); ?>" class="btn btn-small btn-success" title="Add a new quote or announcement">Add quote or
         announcement</a></p>
 <?php if (!empty($this->quotes)): ?>
     <table class="table table-striped" summary="A list of all quotes or announcements used on the system">

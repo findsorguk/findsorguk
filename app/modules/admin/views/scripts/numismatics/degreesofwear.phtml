@@ -4,7 +4,7 @@ $this->metaBase()->setDescription($this->title())->generate();
 ?>
 <?php if (!empty($this->degrees)): ?>
     <h2 class="lead">Degrees of wear (numismatics)</h2>
-    <p><a class="btn btn-large btn-success"
+    <p><a class="btn btn-small btn-success"
           href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'adddegreeofwear'), null, true); ?>"
           title="Add a new degree of wear term">Add a new degree of wear term</a></p>
     <table class="table table-striped" summary="List of the degree of wear types that the Scheme uses">

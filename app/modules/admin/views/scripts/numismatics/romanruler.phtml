@@ -29,7 +29,7 @@ parent.remove();
 <?php echo $this->partialLoop('partials/admin/rulerThumbs.phtml', $this->images); ?>
 
 <h3 class="lead">Issuing mints</h3>
-<p><a class="btn btn-large btn-primary"
+<p><a class="btn btn-small btn-primary"
       href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'rulertomint', 'rulerid' => $this->details['0']['id'], 'period' => $this->details['0']['period']), null, true); ?>"
       title="Add a new mint">Add a mint to this list</a></p>
 <?php if (count($this->mints)): ?>
@@ -74,7 +74,7 @@ parent.remove();
 <?php endif; ?>
 
 <h3 class="lead">Denominations issued</h3>
-<p><a class="btn btn-primary btn-large"
+<p><a class="btn btn-primary btn-small"
       href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'rulertodenomination', 'rulerid' => $this->details['0']['id'], 'period' => $this->details['0']['period']), null, true); ?>"
       title="Add a new denomination">Add a denomination to this list</a></p>
 <?php if (count($this->denoms)): ?>
@@ -131,7 +131,7 @@ parent.remove();
             a Reece period if applicable</a></span>
 <?php endif; ?>
 <h3 class="lead">Reverse types</h3>
-<p><a class="btn btn-large btn-primary"
+<p><a class="btn btn-small btn-primary"
       href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'rulertoreversetype', 'rulerid' => $this->details['0']['id']), null, true); ?>"
       title="Add a new reverse type">Add a reverse type to this list</a></p>
 <?php if (count($this->reverses)): ?>

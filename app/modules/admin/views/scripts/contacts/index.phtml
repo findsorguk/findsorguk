@@ -6,7 +6,7 @@ $this->metaBase()->setDescription($this->title())->generate();
 <p><a href="<?php echo $this->url(
         array(
             'module' => 'admin', 'controller' => 'contacts', 'action' => 'add'
-        ), null, true);?>" class="btn btn-large btn-warning"
+        ), null, true);?>" class="btn btn-small btn-warning"
       title="Add a new staff member to the system">Add a new staff member</a></p>
 <?php if (!empty($this->contacts)): ?>
     <table class="table table-striped" summary="List of all valid contacts associated with the Scheme">

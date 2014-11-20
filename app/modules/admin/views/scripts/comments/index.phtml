@@ -6,16 +6,16 @@ $this->metaBase()->setDescription($this->title())->generate();
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 
     <div class="btn-group">
-        <a class="btn btn-large"
+        <a class="btn btn-small"
            href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'comments'), 'default', true); ?>"
            title="View all comments as one table">All comments</a>
-        <a class="btn btn-large"
+        <a class="btn btn-small"
            href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'comments', 'action' => 'index', 'approval' => 'spam'), 'default', true); ?>"
            title="View all comments as one table">Spam comments</a>
-        <a class="btn btn-large"
+        <a class="btn btn-small"
            href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'comments', 'action' => 'index', 'approval' => 'moderation'), 'default', true); ?>"
            title="View all comments as one table">Pending comments</a>
-        <a class="btn btn-large"
+        <a class="btn btn-small"
            href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'comments', 'action' => 'index', 'approval' => 'approved'), 'default', true); ?>"
            title="View all comments as one table">Authorised comments</a>
     </div>

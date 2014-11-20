@@ -1,6 +1,6 @@
 <?php $this->headTitle('Details for the role of '.$this->role);?>
 <h2 class="lead">Details for the role of <?php echo $this->role;?></h2>
-<p><a class="btn btn-large btn-warning" href="<?php echo $this->url(array('module' => 'admin','controller' => 'roles','action' => 'edit','id' => $this->id),null,true);?>" title="Edit the role of <?php echo $this->role;?>">Edit</a></p>
+<p><a class="btn btn-small btn-warning" href="<?php echo $this->url(array('module' => 'admin','controller' => 'roles','action' => 'edit','id' => $this->id),null,true);?>" title="Edit the role of <?php echo $this->role;?>">Edit</a></p>
 <?php echo $this->description;?>
 <h3 class="lead">Audit data</h3>
 <ul>

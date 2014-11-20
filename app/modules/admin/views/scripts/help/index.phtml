@@ -4,7 +4,7 @@ $this->metaBase()->setDescription($this->title())->generate();
 ?>
 <?php if (!empty($this->contents)): ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
-    <p><a class="btn btn-large btn-success" href="<?php echo $this->url(
+    <p><a class="btn btn-small btn-success" href="<?php echo $this->url(
             array('module' => 'admin', 'controller' => 'help', 'action' => 'add'
             ), null, true); ?>" title="">Add new help topic</a></p>
     <table class="table table-striped" summary="All help topics entered on the system">
