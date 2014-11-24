@@ -1,16 +1,45 @@
-<?php $this->headTitle('Zooming image of '. $this->escape($this->data['0']['label']));
+<?php
+$this->headTitle('Zooming image of ' . $this->escape($this->data[0]['label']));
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+<?php if (!empty($this->data)): ?>
+    <h2 class="lead">High resolution image view of <?php echo $this->escape($this->data['0']['label']); ?> </h2>
 
-<h2 class="lead">High resolution image view of <?php echo $this->escape($this->data['0']['label']);?> </h2>
+    <div class="btn-group">
+        <a class="btn btn-success btn-small" href="<?php echo $this->url(
+            array(
+                'module' => 'database',
+                'controller' => 'artefacts',
+                'action' => 'record',
+                'id' => $this->data[0]['id']
+            ), NULL, true); ?>"
+           title="Return to the object's full details">Return to object</a>
+        <a class="btn btn-small btn-success" href="<?php echo $this->url(
+            array(
+                'module' => 'database',
+                'controller' => 'images',
+                'action' => 'image',
+                'id' => $this->data[0]['imageID']
+            ), NULL, true); ?>"
+           title="Go back to all the details for this image">Return to full image details</a>
+    </div>
 
-<p><a class="btn btn-success" href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->data['0']['id']),NULL,true);?>" title="Return to the object's full details">Return to object</a> <a class="btn  btn-success" href="<?php echo $this->url(array('module' => 'database','controller' => 'images','action' => 'image','id' => $this->data['0']['imageID']),NULL,true);?>" title="Go back to all the details for this image">Return to full image details</a></p>
-<div class="row-fluid span12"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
-codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" width="750" height="450" id="theMovie">
-<param name="FlashVars" value="zoomifyImagePath=<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/'. $this->path;?>">
-<param name="MENU" value="FALSE">
-<param name="SRC" value="<?php echo 'http://' . $_SERVER['SERVER_NAME'];?>/ZoomifyViewer.swf">
-<embed flashvars="zoomifyImagePath=<?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $this->path;?>" 
-src="<?php echo 'http://' . $_SERVER['SERVER_NAME'];?>/ZoomifyViewer.swf" menu="false" 
-pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  width="750" height="650" name="theMovie"></embed>
-</object>
-</div>
+    <div class="row-fluid span12">
+        <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+                width="750"
+                height="450" id="theMovie">
+            <param name="FlashVars"
+                   value="zoomifyImagePath=<?php echo $this->serverUrl() . '/' . $this->path; ?>">
+            <param name="MENU" value="FALSE">
+            <param name="SRC" value="<?php echo $this->serverUrl(); ?>/ZoomifyViewer.swf">
+            <embed flashvars="zoomifyImagePath=<?php echo $this->serverUrl() . '/' . $this->path; ?>"
+                   src="<?php echo 'http://' . $_SERVER['SERVER_NAME']; ?>/ZoomifyViewer.swf" menu="false"
+                   pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"
+                   width="750" height="650" name="theMovie"></embed>
+        </object>
+    </div>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>That zooming image cannot be rendered.</p>
+<?php endif; ?>

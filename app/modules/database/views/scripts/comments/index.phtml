@@ -1,16 +1,18 @@
-<?php $this->headMeta('All comments entered on our database in reverse chronological order','description');
-$this->headTitle('Published comments on our database');
-?>
-<h2 class="lead">Comments on records</h2>
-<div class="row-fluid">
 <?php
-if($this->comments):?>
-	<?php echo $this->partialLoop('partials/database/commentsOnFinds.phtml',$this->comments);?>
-</div>
+$this->headTitle('Published comments on our database');
+$this->metaBase()->setDescription('All comments entered on our database in reverse chronological order')
+    ->setSubject('Comments')
+    ->generate();
+?>
+    <h2 class="lead">Comments on records</h2>
 <div class="row-fluid">
-<?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>
-</div>
+<?php if (!empty($this->comments)): ?>
+    <?php echo $this->partialLoop('partials/database/commentsOnFinds.phtml', $this->comments); ?>
+    </div>
+    <div class="row-fluid">
+        <?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>
+    </div>
 
-<?php else:?>
-<p>There are no comments available at the moment.</p>
-<?php endif;?>
+<?php else: ?>
+    <p>There are no comments available at the moment.</p>
+<?php endif; ?>

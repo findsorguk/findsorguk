@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for all our staff profiles pages
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -14,27 +15,29 @@
  * @uses OnlineAccounts
  * @uses Pas_Service_Geo_PostCodeToGeo
  * @uses Pas_Exception_Param
- * 
-*/
-class Contacts_StaffController extends Pas_Controller_Action_Admin {
+ *
+ */
+class Contacts_StaffController extends Pas_Controller_Action_Admin
+{
 
     /** The finds model
      * @access protected
      * @var \Finds
      */
     protected $_finds;
-    
+
     /** The content model
      * @access protected
      * @var \Content
      */
     protected $_content;
-    
+
     /** Get the finds model
      * @access public
      * @return \Finds
      */
-    public function getFinds() {
+    public function getFinds()
+    {
         $this->_finds = new Finds();
         return $this->_finds;
     }
@@ -43,22 +46,24 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('public',null);
-        
-        $contexts = array('xml','json','foaf','vcf');
+    public function init()
+    {
+        $this->_helper->_acl->allow('public', null);
+
+        $contexts = array('xml', 'json', 'foaf', 'vcf');
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
-                ->addContext('foaf',array('suffix' => 'foaf'))
-                ->addContext('vcf',array('suffix' => 'vcf'))
-                ->addActionContext('profile',$contexts)
-                ->initContext();
+            ->addContext('foaf', array('suffix' => 'foaf'))
+            ->addContext('vcf', array('suffix' => 'vcf'))
+            ->addActionContext('profile', $contexts)
+            ->initContext();
     }
 
     /** Redirect away from this page, no root access
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->redirect('contacts');
     }
 
@@ -67,8 +72,9 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function profileAction() {
-        if($this->_getParam('id',false)) {
+    public function profileAction()
+    {
+        if ($this->_getParam('id', false)) {
             $id = $this->_getParam('id');
             $staffs = new Contacts();
             $this->view->persons = $staffs->getPersonDetails($id);
@@ -85,7 +91,8 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function mapAction() {
+    public function mapAction()
+    {
         //Magic in view
     }
 
@@ -94,17 +101,18 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin {
      * @return void
      * @todo finish function
      */
-    public function findnearestAction() {
+    public function findnearestAction()
+    {
         $postcode = new Pas_Service_Geo_PostCodeToGeo();
         $geo = $postcode->getData('WC1B 3DG');
         $config = $this->_helper->config()->solr->toArray();
         $config['core'] = 'objects';
-        $client = new Solarium_Client(array('adapteroptions' => $config ));
+        $client = new Solarium_Client(array('adapteroptions' => $config));
         // get a select query instance and a query helper instance
         $select = array(
-                'query' => '*:*',
-                'fields'=> array('*'),
-                'filterquery' => array(),
+            'query' => '*:*',
+            'fields' => array('*'),
+            'filterquery' => array(),
         );
         $query = $client->createSelect($select);
         $helper = $query->getHelper();

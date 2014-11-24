@@ -208,7 +208,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin
                     $data = $form->getValues();
                     $curators = new TreasureAssignations();
                     $curators->add($data);
-                    $this->redirect($tbis->_redirect);
+                    $this->redirect($this->_redirect);
                     $this->getFlash()->addMessage('Curator has been assigned.');
                 } else {
                     $form->populate($formData);

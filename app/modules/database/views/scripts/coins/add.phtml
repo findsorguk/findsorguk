@@ -1,16 +1,24 @@
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/coinslinkedselect.js',  $type='text/javascript');
+$this->headTitle('Add a coin');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
-
-<h2 class="lead"><?php echo $this->title();?></h2>
-<?php $id = Zend_Controller_Front::getInstance()->getRequest()->getParam('returnID');?>
-<p><a class="btn btn-success " href="<?php echo $this->url(array('module' => 'database','controller' => 'coins','action' => 'add','copy' => 'last'),null,false);?>" title="Autofill form fields from last record you created" id="populate" accesskey="c">Copy last record</a> 
-<a class="btn btn-success" href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record', 'id' => $id),null,false);?>" title="return to the record">Return to record</a></p>
-<?php echo $this->form;?>
-<?php $this->jQuery()->javascriptCaptureStart();?>
-$(document).ready(function() {
-       // focus on the first text input field in the first field on the page
-        $("input[type='select']:first", document.forms[0]).focus();
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php $id = Zend_Controller_Front::getInstance()->getRequest()->getParam('returnID'); ?>
+    <div class="btn-group">
+        <a class="btn btn-success btn-small"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'coins', 'action' => 'add', 'copy' => 'last'), null, false); ?>"
+           title="Autofill form fields from last record you created" id="populate" accesskey="c">Copy last record</a>
+        <a class="btn btn-success btn-small"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $id), null, false); ?>"
+           title="return to the record">Return to record</a></div>
+<?php echo $this->form; ?>
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/coinslinkedselect.js', $type = 'text/javascript');
+?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function() {
+    // focus on the first text input field in the first field on the page
+    $("input[type='select']:first", document.forms[0]).focus();
     });
-<?php $this->jQuery()->javascriptCaptureEnd();?>
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

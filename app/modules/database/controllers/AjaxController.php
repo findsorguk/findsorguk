@@ -50,7 +50,6 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     }
 
 
-
     /** Get the finds model
      * @access public
      * @return \Finds
@@ -104,7 +103,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     {
         if ($this->_getParam('id', false)) {
             $this->view->type = $this->_getParam('type');
-            if($this->_getParam('type') == 'artefact') {
+            if ($this->_getParam('type') == 'artefact') {
                 $this->view->finds = $this->getFinds()->getWebCiteFind($this->_getParam('id'));
             } else {
                 $this->view->finds = $this->getHoards()->getWebCiteHoard($this->_getParam('id'));

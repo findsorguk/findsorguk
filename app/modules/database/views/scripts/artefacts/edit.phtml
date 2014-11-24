@@ -1,26 +1,27 @@
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
-	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type='text/javascript');
-	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
-	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder.js', $type='text/javascript');
-	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryfinder.js', $type='text/javascript');
-	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type='text/javascript');
-	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
-	$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
-	$this->headTitle('Edit find details');?>
+$this->headTitle('Edit find details');
+$this->metaBase()->setDescription($this->title())->setSubject('Database editing')->generate();
+?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
-$(document).ready(function() {
-$("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
-$("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
-$("input[type='text']:first", document.forms[0]).focus();
-});
-
+    $(document).ready(function() {
+    $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
+    $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
+    $("input[type='text']:first", document.forms[0]).focus();
+    });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 
-<?php $this->DataEditDeleteCheck($this->find->old_findID,$this->find->createdBy);
+<?php $this->DataEditDeleteCheck($this->find->old_findID, $this->find->createdBy);
 ?>
-<?php echo $this->partial('partials/database/editFindH2.phtml',$this->find);?>
+<?php echo $this->partial('partials/database/editFindH2.phtml', $this->find); ?>
 
+<?php echo $this->form; ?>
 <?php
-echo $this->form;
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryfinder.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type = 'text/javascript');
 ?>

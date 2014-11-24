@@ -1,37 +1,40 @@
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocomplete.pack.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteinitpeople1.js',$type='text/javascript');
-$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.autocomplete.pack.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/autocompleteinitpeople1.js', $type = 'text/javascript');
+$this->headLink()->appendStylesheet($this->baseUrl() . '/css/autocomplete.css');
 $this->headTitle('Organisations registered with the Scheme');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
 
-<h2 class="lead">Organisations registered with the Scheme</h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php
-echo $this->Href(array('module' => 'database','controller'=>'organisations', 'action'=>'add', 'checkAcl'=>true,
-'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'div'), 'content'=>'Add an organisation','attribs' => array(
-'title' => 'Add an organisation','class' => 'btn btn-small btn-primary')));
+echo $this->Href(array('module' => 'database', 'controller' => 'organisations', 'action' => 'add', 'checkAcl' => true,
+    'acl' => 'Zend_Acl', 'wrapper' => array('tag' => 'div'), 'content' => 'Add an organisation', 'attribs' => array(
+        'title' => 'Add an organisation', 'class' => 'btn btn-small btn-primary')));
 ?>
 
-<?php if (count($this->paginator)): ?>
-<div id="findsList">
-<table class="table table-striped">
-<thead>
-<tr>
-<th>Organisation name</th>
-<th>County</th>
-<th>Contact person</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tr>
-<?php echo $this->form;?>
-</tr>
-<tbody>
-<?php echo $this->partialLoop('partials/database/organisationTableList.phtml',$this->paginator); ?>
-</tbody>
-</table>
-</div>
-<?php else:?>
-<p>There are no organisations available to you.</p>
+<?php if (!empty($this->paginator)): ?>
+    <div id="findsList">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Organisation name</th>
+                <th>County</th>
+                <th>Contact person</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tr>
+                <?php echo $this->form; ?>
+            </tr>
+            <tbody>
+            <?php echo $this->partialLoop('partials/database/organisationTableList.phtml', $this->paginator); ?>
+            </tbody>
+        </table>
+    </div>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+
+<?php else: ?>
+    <h2>An error has occurred</h2>
+    <p>There are no organisations available to you.</p>
 <?php endif; ?>
-<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>

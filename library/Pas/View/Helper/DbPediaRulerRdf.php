@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper to render ruler information
  *
@@ -34,27 +35,29 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @var array
      */
     protected $_nameSpaces = array(
-            'category' => 'http://dbpedia.org/resource/Category:',
-            'dbpedia' =>  'http://dbpedia.org/resource/',
-            'dbo' =>  'http://dbpedia.org/ontology/',
-            'dbp' =>  'http://dbpedia.org/property/'
-        );
+        'category' => 'http://dbpedia.org/resource/Category:',
+        'dbpedia' => 'http://dbpedia.org/resource/',
+        'dbo' => 'http://dbpedia.org/ontology/',
+        'dbp' => 'http://dbpedia.org/property/'
+    );
 
     /** Set new name spaces if so desired
      * @access public
      * @param array $nameSpaces
      * @return \Pas_View_Helper_SparqlEasy
      */
-    public function setNameSpaces( array $nameSpaces) {
+    public function setNameSpaces(array $nameSpaces)
+    {
         $this->_nameSpaces = $nameSpaces;
         return $this;
     }
-    
+
     /** Get the namespaces
      * @access public
      * @return array
      */
-    public function getNameSpaces() {
+    public function getNameSpaces()
+    {
         return $this->_nameSpaces;
     }
 
@@ -62,8 +65,9 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_SparqlEasy
      */
-    public function registerNameSpaces() {
-        foreach($this->getNameSpaces() as $k => $v){
+    public function registerNameSpaces()
+    {
+        foreach ($this->getNameSpaces() as $k => $v) {
             EasyRdf_Namespace::set($k, $v);
         }
         return $this;
@@ -73,7 +77,8 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
@@ -85,7 +90,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
     protected $_uri;
 
     /** The language to filter
-     * 
+     *
      */
     const LANGUAGE = 'en';
 
@@ -93,7 +98,8 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_DbPediaRulerRdf
      */
-    public function dbPediaRulerRdf() {
+    public function dbPediaRulerRdf()
+    {
 //        $this->registerNameSpaces();
         return $this;
     }
@@ -104,7 +110,8 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_DbPediaRulerRdf
      * @throws Pas_Exception_Url
      */
-    public function setUri($uri) {
+    public function setUri($uri)
+    {
         if (isset($uri)) {
             $this->_uri = $uri;
         } else {
@@ -117,7 +124,8 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getUri() {
+    public function getUri()
+    {
         return $this->_uri;
     }
 
@@ -126,11 +134,12 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @access protected
      * @return object
      */
-    protected function getData()  {
+    protected function getData()
+    {
         $uri = $this->getUri();
-        $key = md5( $uri );
+        $key = md5($uri);
         if (!($this->getCache()->test($key))) {
-            $graph = new EasyRdf_Graph( $uri );
+            $graph = new EasyRdf_Graph($uri);
             $graph->load();
 
             $data = $graph->resource($uri);
@@ -141,14 +150,15 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         return $data;
     }
 
-     /** Clean the string for dbpedia uri
+    /** Clean the string for dbpedia uri
      * @access protected
      * @param string $string
      * @return type
      */
-    protected function _cleaner( $string) {
+    protected function _cleaner($string)
+    {
         $html = str_replace(array('http://dbpedia.org/resource/', 'Category:',
-            '_'),array('','',' '), $string);
+            '_'), array('', '', ' '), $string);
         return $html;
     }
 
@@ -157,9 +167,10 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @param string $string
      * @return string
      */
-    protected function _wikiLink( $string) {
+    protected function _wikiLink($string)
+    {
         $cleaned = str_replace(array('http://dbpedia.org/resource/'),
-                array('http://en.wikipedia.org/wiki/'), $string);
+            array('http://en.wikipedia.org/wiki/'), $string);
         $html = '<a href="';
         $html .= $cleaned;
         $html .= '">';
@@ -172,14 +183,15 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @access protected
      * @return string
      */
-    protected function _render(){
+    protected function _render()
+    {
         $html = '';
         $d = $this->getData();
         $html .= '<h3 class="lead">Information from Wikipedia</h3>';
         if ($d->get('dbpediaowl:thumbnail')) {
-        $html .= '<img src="' ;
-        $html .= $d->get('dbpediaowl:thumbnail');
-        $html .= '" class="pull-right stelae"/>';
+            $html .= '<img src="';
+            $html .= $d->get('dbpediaowl:thumbnail');
+            $html .= '" class="pull-right stelae"/>';
         }
         $html .= '<ul>';
         $html .= '<li>Preferred label: ' . $d->label(self::LANGUAGE) . '</li>';
@@ -190,31 +202,31 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
             $html .= '</li>';
         }
         $html .= '</li></ul>';
-        $html .= '<li>Title:' . implode(', ', $d->all('dbpediaowl:title', 'literal') ) . '</li>';
-        $html .= '<li>Predecessor: ' . $this->_cleaner(implode(', ',$d->all('dbpediaowl:predecessor', 'resource') )) . '</li>';
-        $html .= '<li>Successor: ' . $this->_cleaner(implode(', ',$d->all('dbpediaowl:successor', 'resource') )) . '</li>';
+        $html .= '<li>Title:' . implode(', ', $d->all('dbpediaowl:title', 'literal')) . '</li>';
+        $html .= '<li>Predecessor: ' . $this->_cleaner(implode(', ', $d->all('dbpediaowl:predecessor', 'resource'))) . '</li>';
+        $html .= '<li>Successor: ' . $this->_cleaner(implode(', ', $d->all('dbpediaowl:successor', 'resource'))) . '</li>';
         $html .= '<li>Definition: ' . $d->get('dbpediaowl:abstract', 'literal', self::LANGUAGE) . '</li>';
 
         $html .= '<li>Parents: <ul>';
-            $html .= '<li>Father: ';
-            $html .= $this->_wikiLink($d->get('dbpprop:father', 'resource'));
-            $html .= '</li>';
-            $html .= '<li>Mother: ';
-            $html .= $this->_wikiLink($d->get('dbpprop:mother', 'resource'));
-            $html .= '</li>';
+        $html .= '<li>Father: ';
+        $html .= $this->_wikiLink($d->all('dbpprop:father', 'resource'));
+        $html .= '</li>';
+        $html .= '<li>Mother: ';
+        $html .= $this->_wikiLink($d->get('dbpprop:mother', 'resource'));
+        $html .= '</li>';
         $html .= '</ul></li>';
         $birth = $d->all('dbpprop:birthPlace', 'resource');
         $newBirth = array();
         foreach ($birth as $nb) {
             $newBirth[] = $this->_wikiLink($nb);
         }
-        $html .= '<li>Birth place: ' .  implode(', ', $newBirth) . '</li>';
+        $html .= '<li>Birth place: ' . implode(', ', $newBirth) . '</li>';
         $death = $d->all('dbpprop:deathPlace', 'resource');
         $reBirth = array();
         foreach ($death as $reb) {
             $reBirth[] = $this->_wikiLink($reb);
         }
-        $html .= '<li>Death place: ' .  implode(', ', $reBirth) . '</li>';
+        $html .= '<li>Death place: ' . implode(', ', $reBirth) . '</li>';
         $html .= '<li>Spouse: <ul>';
         foreach ($d->all('dbpprop:spouse', 'resource') as $name) {
             $html .= '<li>';
@@ -230,34 +242,34 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         $new = array_unique($titles, SORT_STRING);
         foreach ($new as $n) {
             if (strlen($n) > 4) {
-            $html .= '<li>';
-            $html .= $n;
-            $html .= '</li>';
+                $html .= '<li>';
+                $html .= $n;
+                $html .= '</li>';
             }
         }
         $html .= '</ul></li>';
         $html .= '<li>Came After: <ul>';
         foreach ($d->all('dbpprop:after') as $name) {
             if (strlen($name) > 4) {
-            $html .= '<li>';
-            $html .= $this->_cleaner($name);
-            $html .= '</li>';
+                $html .= '<li>';
+                $html .= $this->_cleaner($name);
+                $html .= '</li>';
             }
         }
         $html .= '</ul></li>';
         $html .= '<li>Came before: <ul>';
         foreach ($d->all('dbpprop:before') as $name) {
             if (strlen($name) > 4) {
-            $html .= '<li>';
-            $html .= $this->_cleaner($name);
-            $html .= '</li>';
+                $html .= '<li>';
+                $html .= $this->_cleaner($name);
+                $html .= '</li>';
             }
         }
         $html .= '</ul></li>';
         $subjects = $d->all('dcterms:subject', 'resource');
         $html .= '<li>Subjects on wikipedia: <ul>';
         foreach ($subjects as $subject) {
-        $html .= '<li>';
+            $html .= '<li>';
             $html .= $this->_wikiLink($subject);
             $html .= '</li>';
         }
@@ -270,7 +282,8 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
     /** return the string
      * @access public
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->_render();
     }
 

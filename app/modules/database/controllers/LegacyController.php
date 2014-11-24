@@ -26,6 +26,17 @@ class Database_LegacyController extends Pas_Controller_Action_Admin {
      */
     const REDIRECT = '/database/artefacts/record/id/';
 
+    /** Redirect of the user due to no action existing.
+     * @access public
+     * @return void
+     */
+    public function indexAction() {
+        $this->getFlash()->addMessage('There is not a root action for jettons');
+        $this->getResponse()->setHttpResponseCode(301)
+            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('/database');
+    }
+
     /** Redirect old url pattern to new find number
      * @todo move the db call to finds model and cache.
      */

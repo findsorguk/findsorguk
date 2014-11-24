@@ -1,51 +1,53 @@
-<?php $this->headTitle('All images added by me');?>
+<?php
+$this->headTitle('All images added by me');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
 <h2 class="lead">All images added by me</h2>
-<?php echo $this->form;?>
+<?php echo $this->form; ?>
 
-<?php if ($this->results): ?>
-<div class="row-fluid ">
-    <div class="span9">
-    <ul class="thumbnails">
-<?php echo $this->partialLoop('partials/database/myImagesList.phtml',
-        $this->results);?>
-    </ul>
+<?php if (!empty($this->results)): ?>
+    <div class="row-fluid ">
+        <div class="span9">
+            <ul class="thumbnails">
+                <?php echo $this->partialLoop('partials/database/myImagesList.phtml', $this->results); ?>
+            </ul>
+        </div>
+        <div class="span3">
+            <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
+            <?php echo $this->thumbnailToggler(); ?>
+            <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
+            <?php echo $this->facetCreatorMyImages($this->facets); ?>
+        </div>
     </div>
-    <div class="span3">
-    	<?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
-        <?php echo $this->thumbnailToggler();?>
-        <?php echo $this->resultsSorter()->setResults($this->paginator);?>
-		<?php echo $this->facetCreatorMyImages($this->facets); ?>
-	</div>
-</div>
 
-<?php echo $this->paginationControl($this->paginator, 'Elastic',
-        'structure/pagination.phtml'); ?>
+    <?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>
 
-<?php else:?>
-<p>You have added no images to our database.</p>
+<?php else: ?>
+    <p>You have added no images to our database.</p>
 <?php endif; ?>
 
 <?php
-$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type = 'text/javascript');
 $this->inlineScript()->captureStart();
 ?>
 $(document).ready(function() {
-	$('#print').click(function() {
-	window.print();
-	return false;
-	});
-
-    $('.overlay').click(function(e) {
-    e.preventDefault();
-    var href = $(e.target).attr('href');
-    if (href.indexOf('#') == 0) {
-        $(href).modal('open');
-    } else {
-        $.get(href, function(data) {
-            $('<div class="modal fade" >' + data + '</div>').modal();
-        });
-    }
+$('#print').click(function() {
+window.print();
+return false;
 });
 
-	});
-<?php $this->inlineScript()->captureEnd();?>
+$('.overlay').click(function(e) {
+e.preventDefault();
+var href = $(e.target).attr('href');
+if (href.indexOf('#') == 0) {
+$(href).modal('open');
+} else {
+$.get(href, function(data) {
+$('
+<div class="modal fade">' + data + '</div>').modal();
+});
+}
+});
+
+});
+<?php $this->inlineScript()->captureEnd(); ?>

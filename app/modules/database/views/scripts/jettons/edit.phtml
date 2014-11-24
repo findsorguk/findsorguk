@@ -1,11 +1,13 @@
-<h2 class="lead">
-    Edit jetton data
-</h2>
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl()
-    . '/js/JQuery/jQueryLinkedSelect.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl()
-    . '/js/JQuery/coinslinkedselect.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl()
-    . '/js/JQuery/tokensLinkedQuery.js',$type='text/javascript');
-echo $this->form;?>
+$this->headTitle('Edit jetton data');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php echo $this->form; ?>
+
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/coinslinkedselect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/tokensLinkedQuery.js', $type = 'text/javascript');
+?>

@@ -3,13 +3,8 @@ $this->googleDynamicMap(null, null, true);
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 ?>
 
-
-
-
-
-
 <h3 class="lead">Spatial data</h3>
-<?php echo $this->findSpotEditDeleteLink($this->old_findspotid, $this->id, $controller, $this->createdBy); ?>
+<?php echo $this->findSpotEditDeleteLink($this->old_findspotid, $this->findSpotID, $controller, $this->createdBy); ?>
 
 <?php if (!is_null($this->lon) && !is_null($this->lat)) : ?>
 

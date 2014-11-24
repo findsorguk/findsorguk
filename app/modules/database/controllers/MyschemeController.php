@@ -67,13 +67,15 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
      */
     const REDIRECT = '/database/myscheme/';
 
-    /** Redirect as no root access allowed
+    /** Redirect of the user due to no action existing.
      * @access public
      * @return void
      */
     public function indexAction() {
-        $this->getFlash()->addMessage('No access to index page');
-        $this->redirect('/database/');
+        $this->getFlash()->addMessage('There is not a root action for this section');
+        $this->getResponse()->setHttpResponseCode(301)
+            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('/database');
     }
 
     /** List of user's finds that they have entered.

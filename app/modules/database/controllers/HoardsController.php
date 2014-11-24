@@ -97,6 +97,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     protected $_postMed = array('Post Medieval', 'POST MEDIEVAL', 'Modern', 'MODERN');
 
+    /** @var array Context */
     protected $_contexts = array(
         'xml', 'rss', 'json',
         'atom', 'kml', 'georss',
@@ -118,24 +119,40 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
 
     protected $_artefactLinkForm;
 
+    /** Get the hoard form
+     * @access public
+     * @return \HoardForm
+     */
     public function getHoardForm()
     {
         $this->_hoardForm = new HoardForm();
         return $this->_hoardForm;
     }
 
+    /** Get the findspots model
+     * @access public
+     * @return \Findspost
+     */
     public function getFindspots()
     {
         $this->_findspots = new Findspots();
         return $this->_findspots;
     }
 
+    /** Get the finds model
+     * @access public
+     * @return \Finds
+     */
     public function getFinds()
     {
         $this->_finds = new Finds();
         return $this->_finds;
     }
 
+    /** Get the hoards to finders model
+     * @access public
+     * @return HoardsFinders
+     */
     public function getHoardsFinders()
     {
         $this->_hoardsFinders = new HoardsFinders();
@@ -203,7 +220,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         if ($this->_getParam('id', false)) { // Check there is a hoardID in the URL
             $id = $this->_getParam('id');
             $hoardsdata = $this->_hoards->getBasicHoardData($id);
-            if ($hoardsdata) {
+            if (!empty($hoardsdata)) {
                 $this->view->hoards = $hoardsdata;
                 $this->view->multipleKnownAs = $this->_hoards->getKnownAs($id);
                 $this->view->temporals = $this->_hoards->getChronology($id);

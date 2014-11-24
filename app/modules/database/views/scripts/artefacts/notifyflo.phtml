@@ -1,8 +1,8 @@
-<?php 
-$this->headTitle('Alert FLO to record being ready for checking');
+<?php
+$this->headTitle('Send FLO message about your record');
+$this->metaBase()->setDescription($this->title())->generate();
+
 ?>
-<h2 class="lead">Send FLO message about your record</h2>
-<p>You are submitting a request to our staff on record: <?php echo $this->escape($this->find['old_findID']);?></p>
-<?php 
-echo $this->form; 
-?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>You are submitting a request to our staff on record: <?php echo $this->find['old_findID']; ?></p>
+<?php echo $this->form; ?>

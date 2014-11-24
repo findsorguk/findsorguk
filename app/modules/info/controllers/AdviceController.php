@@ -31,7 +31,6 @@ class Info_AdviceController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $content = new Content();
-        $this->view->contents = $content->getContent('info',
-            $this->_getParam('slug'));
+        $this->view->contents = $content->getContent('info', $this->_getParam('slug'));
     }
 }

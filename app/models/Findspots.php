@@ -118,7 +118,7 @@ class Findspots extends Pas_Db_Table_Abstract {
                 ->from($this->_name, array(
                     'county', 'district', 'parish',
                     'easting', 'northing', 'gridref',
-                    'declat', 'declong', 'fourFigure',
+                    'lat' => 'declat', 'lon' => 'declong', 'fourFigure',
                     'knownas', 'smrref', 'map25k',
                     'map10k', 'landusecode', 'landusevalue',
                     'id', 'old_findspotid', 'createdBy',
@@ -127,7 +127,7 @@ class Findspots extends Pas_Db_Table_Abstract {
                     'landowner', 'fourFigureLat', 'fourFigureLon',
                     'gridlen', 'woeid', 'geonamesID',
                     'districtID', 'countyID', 'regionID',
-                    'parishID'
+                    'parishID', 'findSpotID' => 'id'
                     ))
                 ->joinLeft(array('recordtable' => $table),'recordtable.secuid = findspots.findID',
                         array('discmethod'))

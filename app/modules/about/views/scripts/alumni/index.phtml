@@ -6,11 +6,11 @@ $this->metaBase()
     ->setKeywords('alumni,scheme,head office,archaeology')
     ->generate();
 ?>
-<h2 class="lead">
-    <?php echo $this->title(); ?>
-</h2>
-<div id="contacts">
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if(!empty($this->alumni)):?>
     <ul>
         <?php echo $this->partialLoop('partials/about/alumniList.phtml', $this->alumni); ?>
     </ul>
-</div>
+<?php else:?>
+<p>No contacts available just now.</p>
+<?php endif;?>

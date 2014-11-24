@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Controller for displaying and manipulating accredited museum data
  *
@@ -12,21 +13,24 @@
  * @uses AccreditedMuseums
  *
  */
-class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin {
+class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin
+{
 
     /** Accredited model
      */
     protected $_accredited;
+
     /** Initialise the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('public',null);
-        $contexts = array('xml','json');
+    public function init()
+    {
+        $this->_helper->_acl->allow('public', null);
+        $contexts = array('xml', 'json');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
-            ->addActionContext('index',$contexts)
+            ->addActionContext('index', $contexts)
             ->initContext();
         $this->_accredited = new AccreditedMuseums();
     }
@@ -35,22 +39,26 @@ class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function indexAction() {
-        $this->view->museums =  $this->_accredited->listMuseums($this->getAllParams());
+    public function indexAction()
+    {
+        $this->view->museums = $this->_accredited->listMuseums($this->getAllParams());
     }
 
     /** Get individual museum data
      * @access public
      * @return void
      */
-    public function museumAction(){
+    public function museumAction()
+    {
         $this->view->museum = $this->_accredited->fetchRow('id = ' . $this->_getParam('id'));
     }
+
     /** Map the museums
      * @access public
      * @return void
      */
-    public function mapAction(){
+    public function mapAction()
+    {
         //All magic in view
     }
 }

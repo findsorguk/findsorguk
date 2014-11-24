@@ -1,9 +1,12 @@
 <?php
-	$this->headTitle('Add a link to an object for this image');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocomplete.pack.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteimage.js',$type='text/javascript'); 
-$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css')
+$this->headTitle('Add a link to an object for this image');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
 
-<h2 class="lead">Attach image to a record</h2>
-<?php echo $this->form;?>
+    <h2 class="lead">Attach image to a record</h2>
+<?php echo $this->form; ?>
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.autocomplete.pack.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/autocompleteimage.js', $type = 'text/javascript');
+$this->headLink()->appendStylesheet($this->baseUrl() . '/css/autocomplete.css')
+?>

@@ -102,9 +102,9 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->getFlash()->addMessage('You cannot access the findspots index.');
-        $this->redirect($this->getRedirect());
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect($this->getRedirect());
     }
 
     /** Add a new findspot action

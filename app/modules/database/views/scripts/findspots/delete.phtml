@@ -1,9 +1,11 @@
-<?php if ($this->findspot) :?>
-<?php 
-
-$this->headTitle("Delete Findspot");
-echo $this->partial('partials/database/deleteFindspot.phtml',$this->findspot['0']);?>
+<?php if (!empty($this->findspot)) : ?>
+    <?php
+    $this->headTitle("Delete Findspot");
+    $this->metaBase()->setDescription($this->title())->generate();
+    ?>
+    <?php echo $this->partial('partials/database/deleteFindspot.phtml', $this->findspot['0']); ?>
 
 <?php else: ?>
-<p>Cannot find the item requested.</p>
-<?php endif;?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>

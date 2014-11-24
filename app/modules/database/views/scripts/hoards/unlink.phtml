@@ -1,26 +1,28 @@
 <?php
-	$this->headTitle('Delete link to coin, artefact or container');
-    if ($this->find) :
+$this->headTitle('Delete link to coin, artefact or container');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+<?php if (!is_null($this->find)) : ?>
 
-        <h2 class="lead">Delete link to <?php echo $this->escape($this->find->old_findID); ?></h2>
-        <p>Are you sure that you want to delete the link to this coin, artefact or container? It cannot be undone.</p>
+    <h2 class="lead">Delete link to <?php echo $this->escape($this->find->old_findID); ?></h2>
+    <p>Are you sure that you want to delete the link to this coin, artefact or container? It cannot be undone.</p>
 
-        <form action="<?php echo $this->url(array('module' => 'database','controller' => 'hoards',
-            'action'=>'unlink','hoardID' => $this->hoardID),null,true
-        ); ?>"
-              method="post">
-<div>
-    <input type="hidden" name="findID" value="<?php echo $this->find->id; ?>" />
-    <input type="hidden" name="findSecuid" value="<?php echo $this->find->secuid; ?>" />
-    <input type="hidden" name="hoardID" value="<?php echo $this->hoardID; ?>" />
-    <input type="hidden" name="hoardSecuid" value="<?php echo $this->hoardSecuid; ?>" />
-    <input type="submit" name="del" value="Yes" />
-    <input type="submit" name="del" value="No" />
-</div>
+    <form action="<?php echo $this->url(array('module' => 'database', 'controller' => 'hoards',
+            'action' => 'unlink', 'hoardID' => $this->hoardID), null, true
+    ); ?>"
+          method="post">
+        <div>
+            <input type="hidden" name="findID" value="<?php echo $this->find->id; ?>"/>
+            <input type="hidden" name="findSecuid" value="<?php echo $this->find->secuid; ?>"/>
+            <input type="hidden" name="hoardID" value="<?php echo $this->hoardID; ?>"/>
+            <input type="hidden" name="hoardSecuid" value="<?php echo $this->hoardSecuid; ?>"/>
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
 
-        </form>
+    </form>
 
 <?php else: ?>
-<p>Cannot find the item requested.</p>
-<?php endif;?>
+    <h2 class="lead">An error has occurred.</h2>
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>

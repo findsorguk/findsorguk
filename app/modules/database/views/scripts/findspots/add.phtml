@@ -1,16 +1,8 @@
 <?php
 $this->headTitle('Add a findspot');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/landowner.js', $type = 'text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedSelect.js', $type = 'text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedQuery.js', $type = 'text/javascript');
-$front = Zend_Controller_Front::getInstance()->getRequest();
-$copy = $front->getParam('copy');
-if (!is_null($copy)) {
-    $this->headTitle(' copied from last record');
-}
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php $params = Zend_Controller_Front::getInstance()->getRequest()->getParams(); ?>
 <p><a href="<?php echo $this->url(array(
@@ -22,15 +14,25 @@ if (!is_null($copy)) {
     <a class="btn btn-success" href="<?php echo $this->url(array(
         'module' => 'database',
         'controller' => $params['recordtype'],
-        'action' => 'record', 'id' => $params['id']), null, true);?>" title="return to the record">Return to record</a></p>
+        'action' => 'record', 'id' => $params['id']), null, true);?>" title="return to the record">Return to record</a>
+</p>
 <div class="alert alert-danger">
     If your menus don't change on selection of county or parish, you might need to clear your browser cache - ctrl and
     f5 together on this page.
 </div>
+<?php echo $this->form; ?>
 <?php
-echo $this->form;
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/landowner.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedSelect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedQuery.js', $type = 'text/javascript');
+$front = Zend_Controller_Front::getInstance()->getRequest();
+$copy = $front->getParam('copy');
+if (!is_null($copy)) {
+    $this->headTitle(' copied from last record');
+}
 ?>
-
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
 $(document).ready(function() {
 
