@@ -1,10 +1,21 @@
 <?php
 $this->headTitle('Delete coin summary record');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
 <?php if ($this->summary) : ?>
     <h2 class="lead">
         Delete <?php echo $this->summary->hoardID; ?>
     </h2>
+
+    <?php $url = array(
+        'module' => 'database',
+        'controller' => 'hoards',
+        'action' => 'record',
+        'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('hoardID'));
+    ?>
+    <a href="<?php echo $this->url($url, 'default', true); ?>" class="btn btn-small btn-success"
+       title="Return to record">Return to record</a>
+
     <p>
         Are you sure that you want to delete <?php echo $this->summary->hoardID; ?>
     </p>

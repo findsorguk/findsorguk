@@ -15,7 +15,7 @@ $this->metaBase()
     'action' => 'record',
     'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('hoardID'));
 ?>
-    <a href="<?php echo $this->url($url, 'default', true); ?>" class="btn btn-small btn-default"
+    <a href="<?php echo $this->url($url, 'default', true); ?>" class="btn btn-small btn-success"
        title="Return to record">Return to record</a>
 <?php echo $this->form; ?>
 

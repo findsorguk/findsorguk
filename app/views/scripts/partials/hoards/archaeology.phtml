@@ -11,9 +11,13 @@
 
 <div class="row-fluid">
 
-    <?php if(!is_null($this->knownsite) || !is_null($this->excavated)
-        || !is_null($this->yearexc1) || !is_null($this->yearexc2)
-        || !is_null($this->archiveloc) || !is_null($this->archaeologicalcontextqualityrating)) :?>
+    <?php
+    $params = array(
+        $this->knownsite,$this->excavated, $this->yearexc1,
+        $this->yearexc2, $this->archiveloc,$this->archaeologicalcontextqualityrating
+    );
+    ?>
+    <?php if(array_filter($params)):?>
     <div class="span4">
             <p>
                 <?php if($this->knownsite == 1) :?>
@@ -44,7 +48,10 @@
     </div>
     <?php endif;?>
 
-    <?php if(!is_null($this->siteclass) || !is_null($this->sitetype) || !is_null($this->landscapefeature)) :?>
+    <?php
+    $features = array($this->siteclass, $this->sitetype, $this->landscapefeature);
+    ?>
+    <?php if(array_filter($features)):?>
         <div class="span4">
             <h4 class="lead">Site details</h4>
             <p>
@@ -103,8 +110,10 @@
 </div>
 
 <div class="row-fluid">
-    <?php if(!is_null($this->feature) || !is_null($this->featuredateyear1)
-        || !is_null($this->featuredateyear2) || !is_null($this->recoverymethod)) :?>
+    <?php
+    $methods = array($this->feature, $this->featuredateyear1,$this->featuredateyear2,$this->recoverymethod);
+    ?>
+    <?php if(array_filter($methods)):?>
         <div class="span4">
             <h4 class="lead">Context details</h4>
             <p>
