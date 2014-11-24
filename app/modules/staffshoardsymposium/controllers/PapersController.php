@@ -37,5 +37,4 @@ class Staffshoardsymposium_PapersController extends Pas_Controller_Action_Admin
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-
 }

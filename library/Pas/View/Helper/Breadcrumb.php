@@ -199,6 +199,9 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'secrettreasures':
                 $clean = 'Britain\'s Secret Treasures';
                 break;
+            case 'volunteerrecording':
+                $clean = 'Voluntary recording';
+                break;
             default:
                 $clean = ucfirst($this->getModule());
                 break;

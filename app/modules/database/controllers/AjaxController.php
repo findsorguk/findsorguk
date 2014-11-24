@@ -465,7 +465,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $filename = 'NMSRecordsExport_For_' . $this->getUsername()
             . '_' . Zend_Date::now()->toString('yyyyMMddHHmmss') . '.pdf';
         $this->view->filename = $filename;
-        $this->view->path = APPLICATION_PATH . '/tmp';
+        $this->view->path = CACHE_PATH;
         $this->view->nms = $data;
     }
 

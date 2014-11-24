@@ -166,7 +166,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
     {
         if ($this->_getParam('id', false)) {
             $form = new FindSpotForm();
-            $form->submit->setLabel('Update findspot');
+            $form->submit->setLabel('Update find spot');
             $this->view->form = $form;
             $this->view->returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->_getParam('recordtype'));
             //Check if POST
@@ -195,10 +195,15 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                 // As GET, refill from db
                 $where = array();
                 $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                $findspot = $this->_findspots->fetchRow($where);
-                $this->view->findspot = $findspot;
-                $fill = new Pas_Form_Findspot();
-                $fill->populate($findspot->toArray());
+                $findSpot = $this->_findspots->fetchRow($where);
+                if (!null($findSpot)) {
+                    $this->view->findspot = $findSpot;
+                    $fill = new Pas_Form_Findspot();
+                    $fill->populate($findSpot->toArray());
+                } else {
+                    throw new Pas_Exception('No row found in database', 500);
+                }
+
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -222,7 +227,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                 if ($del == 'Yes' && $id > 0) {
                     $where = 'id = ' . $id;
                     $this->_findspots->delete($where);
-                    // $this->_helper->solrUpdater->update('objects', $findID);
+                    $this->_helper->solrUpdater->update('objects', $findID);
                     $this->getFlash()->addMessage('Findspot deleted.');
                 }
                 $this->redirect($this->getRedirect() . 'record/id/' . $recordID);

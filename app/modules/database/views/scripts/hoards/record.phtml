@@ -6,7 +6,7 @@
 <div class="row-fluid">
 
 <!-- The descriptive bit for the record, generates meta data -->
-<?php echo $this->partialLoop('partials/hoards/recordheadtitle.phtml', array('hoards' => $this->hoards)); ?>
+<?php echo $this->partialLoop('partials/hoards/recordHeadTitle.phtml', array('hoards' => $this->hoards)); ?>
 
 <!-- The zotero data -->
 <?php echo $this->partialLoop('partials/hoards/zoteroRecord.phtml', array('hoards' => $this->hoards)); ?>
@@ -25,7 +25,7 @@
         <!-- Notification message if public record -->
         <?php //echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
         <!-- Names the hoard is known as  -->
-        <?php echo $this->partial('partials/hoards/knownas.phtml', $this->multipleKnownAs); ?>
+        <?php echo $this->partial('partials/hoards/knownAs.phtml', $this->multipleKnownAs); ?>
         <!-- Hoard quantities -->
         <?php echo $this->partial('partials/hoards/quantities.phtml', $this->quantities); ?>
         <!-- Temporal details of the hoard -->
@@ -86,7 +86,7 @@
     <?php echo $this->partial('partials/hoards/hoardsdescriptive.phtml', $this->hoardDescription); ?>
 
     <!-- Subsequent action after recording hoard -->
-    <?php echo $this->partial('partials/hoards/subsequentaction.phtml', $this->subsequentActions); ?>
+    <?php echo $this->partial('partials/hoards/subsequentAction.phtml', $this->subsequentActions); ?>
 
     <!-- Treasure find info -->
     <?php echo $this->partial('partials/hoards/treasureFindDetails.phtml', $this->treasureDetails); ?>
@@ -97,15 +97,15 @@
     <?php endif; ?>
 
     <!-- Linked coins -->
-    <?php echo $this->partial('partials/hoards/linkedcoins.phtml', array('linkedCoins' => $this->linkedCoins, 'hoards' => $this->hoards)); ?>
+    <?php echo $this->partial('partials/hoards/linkedCoins.phtml', array('linkedCoins' => $this->linkedCoins, 'hoards' => $this->hoards)); ?>
 
     <!-- Linked aretfacts -->
-    <?php echo $this->partial('partials/hoards/linkedartefacts.phtml', array(
+    <?php echo $this->partial('partials/hoards/linkedArtefacts.phtml', array(
         'linkedArtefacts' => $this->linkedArtefacts,
         'hoards' => $this->hoards
     )); ?>
     <!-- Linked containers -->
-    <?php echo $this->partial('partials/hoards/linkedcontainers.phtml', array(
+    <?php echo $this->partial('partials/hoards/linkedContainers.phtml', array(
         'linkedContainers' => $this->linkedContainers,
         'hoards' => $this->hoards
     )); ?>

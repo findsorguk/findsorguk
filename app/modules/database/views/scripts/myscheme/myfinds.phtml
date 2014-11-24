@@ -19,7 +19,7 @@ $this->metaBase()->setDescription($this->title())->generate();
             <?php echo $this->partialLoop('partials/database/findRecordList.phtml', $this->results); ?>
         </div>
         <div class="span3">
-            <p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'map'), null, false); ?>"
+            <p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'map', 'q' => 'createdBy:' . $this->userID), null, false); ?>"
                   title="Map these records">Map these finds <i class="icon-map-marker"></i></a></p>
             <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
             <?php echo $this->thumbnailToggler(); ?>

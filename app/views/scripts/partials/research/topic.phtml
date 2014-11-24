@@ -15,7 +15,7 @@ $this->metaBase()->setSubject('Research')
     <?php echo $this->description; ?>
 <?php endif; ?>
 
-<?php if (!is_null($this->create)): ?>
+<?php if (!is_null($this->created)): ?>
     <h3 class="lead">Audit data</h3>
     <p>Created: <?php echo $this->fullname; ?> <?php echo $this->timeAgoInWords($this->created); ?></p>
 <?php endif; ?>

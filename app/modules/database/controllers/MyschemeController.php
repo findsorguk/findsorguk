@@ -84,8 +84,10 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
      */
     public function myfindsAction() {
         $form = new SolrForm();
-	$form->q->setLabel('Search the database: ');
+        $form->q->setLabel('Search the database: ');
         $this->view->form = $form;
+        $this->view->userID = $this->getAccount()->id;
+
         $params = $this->getAllParams();
         $search = $this->getSolr();
         $search->setCore('objects');
@@ -142,6 +144,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                 'knownas', 'fourFigure','updated',
                 'created')
             );
+            $this->view->solrParams = 'finderID:' . $this->getAccount()->peopleID . ' -createdBy:' .  $this->getAccount()->id;
             $search->setFacets(array('objectType','county','broadperiod','institution'));
             if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->_getParam('submit'))){
