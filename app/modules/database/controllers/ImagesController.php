@@ -489,4 +489,11 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
+    public function blueimpAction()
+    {
+        $form = new UploadForm();
+        $this->view->form = $form;
+    }
+
 }
