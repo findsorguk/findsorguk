@@ -1,5 +1,5 @@
 <?php $this->headTitle('Available system roles');?>
-<h2>All available system roles</h2>
+<h2 class="lead">All available system roles</h2>
 
 <table class="table table-striped" summary="All available system roles">
     <caption>Available system roles</caption>
@@ -16,6 +16,6 @@
         </tr>
     </thead>
     <tbody>
-        <?php echo $this->partialLoop('partials/admin/systemroles.phtml',$this->roles);?>
+        <?php echo $this->partialLoop('partials/admin/systemRoles.phtml',$this->roles);?>
     </tbody>
 </table>

@@ -64,7 +64,7 @@ class Pas_View_Helper_TreasureReportsMenu extends Zend_View_Helper_Abstract {
                 'controller' => 'reports',
                 'action' => 'index',
                 'slug' => $t['slug']),
-                'treps', true);
+                'treasurereports', true);
             $html .= '" title="Read more">';
             $html .= $t['menuTitle'];
             $html .= '</a></li>';

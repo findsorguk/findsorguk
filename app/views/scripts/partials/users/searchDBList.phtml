@@ -1,21 +1,27 @@
-<?php 
-$string = unserialize($this->searchString);
-if(!array_key_exists('module',$string)){
-	$string['module'] = 'database';
+<?php
+$params = unserialize($this->searchString);
+if($params == NULL) {
+    $params = array('module' => 'database', 'controller' => 'search', 'action' => 'results');
 }
-if(!array_key_exists('controller',$string)){
-	$string['controller'] = 'search';
-}
-if(!array_key_exists('action',$string)){
-	$string['action'] = 'results';
-}
-$url = $this->serverUrl() . $this->url($string, null, true);
+$url = $this->url($params, null, true);
 ?>
-<li>
-Search name: <?php echo strip_tags($this->title);?><br />
-Created by username: <?php echo $this->username;?><br />
-Search performed: <span class="published timestamp" data="{time:'<?php echo date('W3C',$this->created);?>'}">
-<?php echo $this->timeAgoInWords($this->created);?></span> 
-<br />
-<a href="<?php echo $url;?>" title="Permanent link">Permalink to search</a> 
-</li>
+<div class="row-fluid">
+    <?php
+    echo $this->gravatar($this->email, array(
+            'imgSize' => 40,
+            'defaultImg' => $this->serverUrl() . $this->baseUrl()
+                . '/assets/gravatar.png',
+            'secure' => true),
+        array(
+            'class' => 'avatar pull-left stelae img-circle',
+            'title' => $this->username . '\'s gravatar representation',
+            'rating' => 'G',
+            'width' => 40,
+            'height' => 40)
+    );
+    ?>    <a href="<?php echo $url; ?>"
+       title="Permanent link"><?php echo strip_tags($this->title); ?></a>: <?php echo $this->searchDescription; ?><br/>
+    Created by username: <a href="/users/named/person/as/<?php echo $this->username; ?>"><?php echo $this->username; ?></a> Search saved for reuse: <span class="published timestamp"
+                                                                                     data="{time:'<?php echo date('W3C', $this->created); ?>'}">
+<?php echo $this->timeAgoInWords($this->created); ?></span>
+</div>

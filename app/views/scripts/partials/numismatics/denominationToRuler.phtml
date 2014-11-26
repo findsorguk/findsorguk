@@ -1,0 +1,21 @@
+<?php
+$url = array(
+    'module' => 'romancoins',
+    'controller' => 'denominations',
+    'action' => 'denomination',
+    'id' => $this->id
+);
+$rulerUrl = array(
+    'module' => 'database',
+    'controller' => 'search',
+    'action' => 'results',
+    'ruler' => $this->rulerID,
+    'denomination' => $this->id
+);
+?>
+<li>
+    <a href="<?php echo $this->url($url,'default',true);?>" title="View scope notes for this denomination"><?php echo
+        $this->escape($this->denomination);?></a> - <span  class="scope"><a href="<?php echo
+        $this->url($rulerUrl, null, true);?>" title="Search for all <?php echo $this->denomination;?> of
+        <?php echo $this->issuer;?>">view all records of this denomination issued by <?php echo $this->issuer;?></a></span>
+</li>

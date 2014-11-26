@@ -1,59 +1,65 @@
 <?php
 $this->headTitle('Research projects conducted on Scheme data');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/confirm.js',$type = 'javascript');?>
+$this->metaBase()->setDescription($this->title())->generate();
+?>
 
-<?php $this->jQuery()->javascriptCaptureStart();?>
-$(document).ready(function(){
-$('a.delete').click(function(e) {
-		e.preventDefault();
-		var parent = $(this).parents("tr:first");
-		$.ajax({
-			type: 'get',
-			url: '<?php echo $this->url(array('controller' => 'ajax','action' => 'deleteproject'),null,true);?>',
-			data: 'id=' + parent.attr('id').replace('project-',''),
-			beforeSend: function() {
-				parent.animate({'backgroundColor':'#fb6c6c'},300);
-			},
-			success: function() {
-				parent.slideUp(300,function() {
-					parent.remove();
-				});
-			}
-		});
-	});
-$('a.delete').confirm({
-   dialogShow:'fadeIn',
+
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<p>
+    <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'add'), null, true); ?>"
+       class="btn btn-small btn-default" title="Add a new research project to the register">Add a new project</a></p>
+<?php if (!empty($this->research)): ?>
+
+    <table class="table table-striped" summary="A table of all research projects conducted on Scheme research">
+        <caption>Research projects</caption>
+        <thead>
+        <tr>
+            <th>Project title</th>
+            <th>Primary investigator</th>
+            <th>Level of research</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/researchList.phtml', $this->research); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->research, 'Sliding', 'structure/pagination.phtml'); ?>
+
+    <?php else:?>
+    <p>No research to administer.</p>
+<?php endif; ?>
+
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/confirm.js', $type = 'javascript');?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function(){
+    $('a.delete').click(function(e) {
+    e.preventDefault();
+    var parent = $(this).parents("tr:first");
+    $.ajax({
+    type: 'get',
+    url: '<?php echo $this->url(array('controller' => 'ajax', 'action' => 'deleteproject'), null, true); ?>',
+    data: 'id=' + parent.attr('id').replace('project-',''),
+    beforeSend: function() {
+    parent.animate({'backgroundColor':'#fb6c6c'},300);
+    },
+    success: function() {
+    parent.slideUp(300,function() {
+    parent.remove();
+    });
+    }
+    });
+    });
+    $('a.delete').confirm({
+    dialogShow:'fadeIn',
     dialogSpeed:'slow',
     buttons: {
-      wrapper:'<button></button>',
-      separator:'  '
+    wrapper:'
+    <button></button>',
+    separator:'  '
     }
-  });
- });
-
-
-<?php $this->jQuery()->javascriptCaptureEnd();?>
-
-<h2>Research projects conducted on Scheme data</h2>
-<p><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'research','action' => 'add'),null,true);?>"
-      class="btn btn-large btn-warning" title="Add a new research project to the register">Add a new project</a></p>
-<?php if (count($this->research)): ?>
-
-<table class="table table-striped" summary="A table of all research projects conducted on Scheme research">
-<caption>Research projects</caption>
-<thead>
-<tr>
-<th>Project title</th>
-<th>Primary investigator</th>
-<th>Level of research</th>
-<th>Date started</th>
-<th>Estimated completion date</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/getinvolved/researchList.phtml',$this->research);?>
-</tbody>
-</table>
-<?php endif; ?>
-<?php echo $this->paginationControl($this->research, 'Sliding', 'structure/pagination.phtml'); ?>
+    });
+    });
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

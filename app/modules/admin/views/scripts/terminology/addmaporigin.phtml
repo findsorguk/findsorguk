@@ -1,4 +1,6 @@
-<h2>Add a new term for origin of grid reference</h2>
 <?php
-$this->headTitle("Add a new grid reference origin"); 
-echo $this->form;?>
+$this->headTitle('Add a new map origin term');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

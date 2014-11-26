@@ -1,6 +1,7 @@
-<h2>Edit news story</h2>
-<?php 
+<?php
 $this->headTitle('Edit news story details');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
-echo $this->form;
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
+<?php echo $this->form; ?>

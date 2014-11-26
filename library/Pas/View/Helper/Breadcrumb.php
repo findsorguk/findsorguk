@@ -199,6 +199,9 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'secrettreasures':
                 $clean = 'Britain\'s Secret Treasures';
                 break;
+            case 'volunteerrecording':
+                $clean = 'Voluntary recording';
+                break;
             default:
                 $clean = ucfirst($this->getModule());
                 break;
@@ -252,6 +255,21 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 break;
             case 'theyworkforyou':
                 $clean = 'Data from TheyWorkForYou';
+                break;
+            case 'reeceperiods':
+                $clean = 'Reece Periods';
+                break;
+            case 'reversetypes':
+                $clean = 'Fourth century reverse types';
+                break;
+            case 'moneyers':
+                $clean = 'Republican Moneyers';
+                break;
+            case 'macktypes':
+                $clean = 'Mack types';
+                break;
+            case 'allentypes':
+                $clean = 'Allen types';
                 break;
             default:
                 $clean = ucfirst($this->getController());
@@ -373,6 +391,9 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 break;
             case 'inaset':
                 $clean = 'In a set';
+                break;
+            case 'savedsearches':
+                $clean = 'Saved searches';
                 break;
             default:
                 $clean = ucfirst($this->getAction());

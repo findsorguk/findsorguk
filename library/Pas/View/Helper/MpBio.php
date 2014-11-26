@@ -185,7 +185,7 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract {
         $chunks[$key] = ($key%3==0) ? ($c . '.</p><p>') : ($c.'. ');
         }
         $abs = '<p>' . join($chunks) . '</p>';
-        $html = '<h3>Dbpedia sourced information</h3>';
+        $html = '<h3 class="lead">Dbpedia sourced information</h3>';
         if (array_key_exists('thumbnail',$response)) {
             list($w, $h, $type, $attr) = getimagesize($response['thumbnail']);
             $html .= '<img src="'.$response['thumbnail'] . '" alt ="Wikipedia

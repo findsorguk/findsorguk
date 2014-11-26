@@ -11,10 +11,6 @@ defined('APPLICATION_PATH')
 defined('CACHE_PATH')
     || define('CACHE_PATH', realpath(dirname(__FILE__) . '/../cache/'));
 
-// Check if writable
-if (!is_writable(CACHE_PATH)) {
-    echo dirname(CACHE_PATH) . ' must be writable!!!';
-}
 // Define application environment
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?
@@ -28,35 +24,30 @@ defined('SOLR_PATH')
 defined('LOGS_PATH')
     || define('LOGS_PATH', realpath(dirname(__FILE__) . '/../logs/'));
 
-// define image path
 defined('IMAGE_PATH')
     || define('IMAGE_PATH', realpath(dirname(__FILE__) . '/images/'));
-//Define memory minimum
+
 ini_set('memory_limit', '128M');
-
-// Define max file size
 ini_set('upload_max_filesize','16M');
-
-// Ensure library is on include_path directory setup and class loading
+// Ensure library/ is on include_path
+// directory setup and class loading
 set_include_path(
         '.' . PATH_SEPARATOR . '../library/'
-        . PATH_SEPARATOR . '../library/Zend/library/'
+        . PATH_SEPARATOR . '../library/Zend/library'
         . PATH_SEPARATOR . '../library/ZendX/'
         . PATH_SEPARATOR . '../library/Pas/'
+        . PATH_SEPARATOR . '../library/HTMLPurifier/library/'
         . PATH_SEPARATOR . '../library/Arc2/'
         . PATH_SEPARATOR . '../library/EasyBib/library/'
+        . PATH_SEPARATOR . '../library/EasyBib/'
         . PATH_SEPARATOR . '../library/tcpdf/'
-        . PATH_SEPARATOR . '../library/HTMLPurifier/library/'
-        . PATH_SEPARATOR . '../library/Imagecow/'
-        . PATH_SEPARATOR . '../library/Solarium/'
+        . PATH_SEPARATOR . '../library/easyrdf/lib/'
         . PATH_SEPARATOR . '../app/models/'
         . PATH_SEPARATOR . '../app/forms/'
         . PATH_SEPARATOR . get_include_path()
         );
-//Include autoloader
-include 'Zend/Loader/Autoloader.php';
 
-//Setup autoloader
+include 'Zend/Loader/Autoloader.php';
 $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->setDefaultAutoloader(
         create_function(

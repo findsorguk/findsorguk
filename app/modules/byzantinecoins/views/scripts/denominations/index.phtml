@@ -1,19 +1,18 @@
-<?php 
+<?php
 $this->headTitle('A guide to denominations issued by the rulers of Byzantium and its Empire');
-$this->headMeta('byzantium,coins,numismatics,denominations, nummi, assarion,tornese, trachy,constantinople','dc.keywords');
-$this->headMeta('A list of issued Byzantine denominations that the Scheme\'s database uses','description');
-$this->headMeta('numismatics of Byzantium','dc.subject')
-->headMeta('The Portable Antiquities Scheme','dc.publisher')
-->headMeta($this->curUrl(),'dc.identifier')
-->headMeta('Daniel Pett','dc.creator');?> 
-<h2>Byzantine denominations</h2>
-<?php if(count($this->denominations)):?>
-<p>The following coins were issued during the Byzantine period.</p>
-<ul>
-<?php echo $this->partialLoop('partials/numismatics/denominations.phtml',$this->denominations);?>
-</ul>
+$this->metaBase()->setKeywords('byzantium,coins,numismatics,denominations, nummi, assarion,tornese,trachy,constantinople')
+    ->setSubject('numismatics of Byzantium')
+    ->setDescription($this->title())
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->denominations)): ?>
+    <p>The following coins were issued during the Byzantine period.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/denominations.phtml', $this->denominations); ?>
+    </ul>
 
-<?php echo $this->paginationControl($this->denominations, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>There are no denominations available to you.</p>
-<?php endif;?>
+    <?php echo $this->paginationControl($this->denominations, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>There are no denominations available to you.</p>
+<?php endif; ?>

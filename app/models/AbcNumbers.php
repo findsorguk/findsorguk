@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Model for interacting with macktypes table
  *
@@ -18,8 +19,9 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/forms/IronAgeCoinForm.php
-*/
-class AbcNumbers extends Pas_Db_Table_Abstract {
+ */
+class AbcNumbers extends Pas_Db_Table_Abstract
+{
 
     /** The name of the database table
      * @access protected
@@ -29,7 +31,7 @@ class AbcNumbers extends Pas_Db_Table_Abstract {
 
     /** The default primary key
      * @access public
-     * @var inr
+     * @var int
      */
     protected $_primary = 'id';
 
@@ -38,14 +40,15 @@ class AbcNumbers extends Pas_Db_Table_Abstract {
      * @access public
      * @return array $options
      */
-    public function getTerms(){
+    public function getTerms()
+    {
         if (!$options = $this->_cache->load('abcNumbers')) {
             $select = $this->select()
-                    ->from($this->_name, array('term', 'term'))
-                    ->order('id');
+                ->from($this->_name, array('term', 'term'))
+                ->order('id');
             $options = $this->getAdapter()->fetchPairs($select);
             $this->_cache->save($options, 'abcNumbers');
-            }
-            return $options;
+        }
+        return $options;
     }
 }

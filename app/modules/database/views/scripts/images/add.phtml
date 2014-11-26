@@ -1,19 +1,26 @@
-<h2>Add an image</h2>
 <?php
 $this->headTitle('Add an image');
+$this->metaBase()->setDescription($this->title())->generate();
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.validate.min.js', $type = 'javascript');
-$id = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');?>
-<p><a class="btn btn-success" href="<?php echo $this->url(array(
-	'module' => 'database',
-	'controller' => 'artefacts',
-	'action' => 'record', 'id' => $id),null,true);?>" title="return to the record">Return to record</a></p>
-<?php echo $this->form;
+$id = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <div class="btn-group">
+        <a class="btn btn-success btn-small" href="<?php echo $this->url(
+            array(
+                'module' => 'database',
+                'controller' => 'artefacts',
+                'action' => 'record',
+                'id' => $id
+            ), null, true);?>" title="return to the record">Return to record</a>
+    </div>
 
-<div><?php echo $this->partial('partials/content/article.phtml',$this->contents);?></div>
+<?php echo $this->form; ?>
 
-<?php $this->jQuery()->javascriptCaptureStart();?>
-$(document).ready(function() {
-	$("#imagetofind").validate();
-});
-<?php $this->jQuery()->javascriptCaptureEnd();?>
+    <div><?php echo $this->partial('partials/content/article.phtml', $this->contents); ?></div>
+
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function() {
+    $("#imagetofind").validate();
+    });
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

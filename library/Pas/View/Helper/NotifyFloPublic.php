@@ -1,8 +1,8 @@
 <?php
 /** A view helper for rendering links for checking records
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * echo $this->notifyFloPublic()
@@ -23,7 +23,7 @@
  * @example /app/modules/database/views/scripts/artefacts/record.phtml
  */
 class Pas_View_Helper_NotifyFloPublic extends Zend_View_Helper_Abstract {
-    
+
     /** The allowed array of roles
      * @access protected
      * @var array
@@ -35,25 +35,25 @@ class Pas_View_Helper_NotifyFloPublic extends Zend_View_Helper_Abstract {
      * @var \Pas_User_Details
      */
     protected $_user;
-    
+
     /** The institution of the record
      * @access protected
      * @var string
      */
     protected $_institution;
-    
+
     /** The ID of the record
      * @access protected
      * @var integer
      */
     protected $_id;
-    
+
     /** The workflow of the object
      * @access protected
      * @var integer
      */
     protected $_workflow;
-    
+
     /** Get the institution
      * @access public
      * @return string
@@ -109,7 +109,7 @@ class Pas_View_Helper_NotifyFloPublic extends Zend_View_Helper_Abstract {
     }
 
     public function getUser() {
-       $user = new Pas_User_Details();
+        $user = new Pas_User_Details();
         if ($user) {
             $this->_user = $user->getPerson();
         } else {
@@ -117,7 +117,7 @@ class Pas_View_Helper_NotifyFloPublic extends Zend_View_Helper_Abstract {
         }
         return $this->_user;
     }
-    
+
     /** To string function
      * @access public
      * @return string The Html for the view
@@ -127,14 +127,14 @@ class Pas_View_Helper_NotifyFloPublic extends Zend_View_Helper_Abstract {
         if(($this->getWorkflow() < 3) && ($this->getInstitution() === 'PUBLIC')
             && in_array($this->getUser()>role, $this->_allowed)){
             $html .= $this->_buildHtml($this->getId());
-        } 
+        }
         return $html;
     }
 
     /** Render the html
      * @access public
      * @param int $id
-     * @return string 
+     * @return string
      */
     private function _buildHtml($id) {
         $html = '<div>';
@@ -143,7 +143,7 @@ class Pas_View_Helper_NotifyFloPublic extends Zend_View_Helper_Abstract {
         $html .= '" title="Get this published">Get this record checked or published by your flo</a></p></div>';
         return $html;
     }
-    
+
     /** The function
      * @access public
      * @return \Pas_View_Helper_NotifyFloPublic

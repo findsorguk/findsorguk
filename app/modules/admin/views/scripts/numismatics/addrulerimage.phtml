@@ -1,16 +1,6 @@
-<h2>Add an image for a ruler</h2>
-<?php 
-	$this->headTitle('Add an image to a ruler biography');
-if(count($this->errors))
-{
-echo '<ul>';
-foreach($this->errors as $key => $value)
-{
-echo '<li>';
-echo $value;
-echo '</li>';
-}
-echo '</ul>';
-}
+<?php
+$this->headTitle('Add an image for a ruler');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
-<?php echo $this->form;?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

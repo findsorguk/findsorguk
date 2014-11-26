@@ -1,61 +1,72 @@
-<?php $this->headTitle('An error has occurred.');?>
+<?php
+$this->headTitle('An error has occurred.');
+$this->metaBase()->setDescription('An error has occurred with the system and has been logged')
+    ->setSubject('Error report')
+    ->generate();
+?>
 
-<h1><?php echo $this->message ?></h1>
+    <h1 class="lead"><?php echo $this->message ?></h1>
 
-<p>We are aware this is frustrating and the system has flagged this via email to us, and it has been logged for investigation.</p>
+    <p>We are aware this is frustrating and the system has flagged this via email to us, and it has been logged for
+        investigation.</p>
 
-<div class="row-fluid">
-<img src="http://farm1.staticflickr.com/43/103721206_21b00a0376_o.jpg" alt="The Viking gods"/>
-<p>The Viking gods are on the case to fix things! - image by <a href="http://www.flickr.com/photos/dunechaser/">Dunechaser</a> CC BY-NC-SA </p>
-</div>
-<!-- <img src="<?php echo $this->serverUrl();?>/assets/indy.jpg">
+    <div class="row-fluid">
+        <img src="http://farm1.staticflickr.com/43/103721206_21b00a0376_o.jpg" alt="The Viking gods"/>
+
+        <p>The Viking gods are on the case to fix things! - image by <a href="http://www.flickr.com/photos/dunechaser/">Dunechaser</a>
+            CC BY-NC-SA </p>
+    </div>
+    <!-- <img src="<?php echo $this->serverUrl(); ?>/assets/indy.jpg">
 <p><a href="http://www.flickr.com/photos/donsolo/2354816855/">Indy helps out with the egg hunt</a>: a photo by Don Solo on Flickr.</p>
  -->
 <?php
 $user = new Pas_User_Details();
 $person = $user->getPerson();
-if($person){
-	$role = $person->role;
+if ($person) {
+    $role = $person->role;
 } else {
-	$role = NULL;
+    $role = NULL;
 }
 $allowed = array('admin', null);
-if(in_array($role,$allowed)):
-?>
-<h3>Exception information:</h3>
+if (in_array($role, $allowed)):
+    ?>
+    <h3 class="lead">Exception information:</h3>
     <p>
         <b>Message:</b>
-		<?php echo $this->exception->getMessage();
-		$this->actionErrors()?>
+        <?php echo $this->exception->getMessage();
+        $this->actionErrors()?>
     </p>
-<div class="row-fluid">
+    <div class="row-fluid">
 
-		  <ul id="tab" class="nav nav-tabs">
+        <ul id="tab" class="nav nav-tabs">
             <li class="active"><a href="#request" data-toggle="tab">Request</a></li>
             <li><a href="#trace" data-toggle="tab">Stack trace</a></li>
             <li><a href="#compiled" data-toggle="tab">Compiled Stack trace</a></li>
-          </ul>
+        </ul>
 
-          <div id="myTabContent" class="tab-content">
+        <div id="myTabContent" class="tab-content">
 
             <div class="tab-pane fade in active" id="request">
-			<h3>Stack trace:</h3>
-    		<p><?php echo $this->exception->getTraceAsString(); ?></p>
-			</div>
+                <h3 class="lead">Stack trace:</h3>
+
+                <p><?php echo $this->exception->getTraceAsString(); ?></p>
+            </div>
 
             <div class="tab-pane fade" id="trace">
-			<h3>Issuing mints</h3>
-    		<h3>Request Parameters:</h3>
-    		<p><?php var_dump($this->request->getParams()) ?></p>
-			</div>
+                <h3 class="lead">Issuing mints</h3>
+
+                <h3 class="lead">Request Parameters:</h3>
+
+                <p><?php var_dump($this->request->getParams()) ?></p>
+            </div>
 
             <div class="tab-pane fade" id="compiled">
-            <h3>Compiled stack trace</h3>
-            <ul>
-			<?php echo $this->compiled;?>
-			</ul>
-			</div>
+                <h3 class="lead">Compiled stack trace</h3>
+                <ul>
+                    <?php echo $this->compiled; ?>
+                </ul>
+            </div>
 
-		</div>
-          </div>
-<?php endif;?>
+        </div>
+    </div>
+<?php endif; ?>

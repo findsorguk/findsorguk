@@ -1,8 +1,8 @@
 <?php
 $this->headTitle('Scheme news stories');
 ?>
-<h2>News from the Scheme</h2>
-<p><a class="btn btn-success btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'news','action' => 'add'),'default',true);?>" title="Add a new story">Add a new story</a></p>
+<h2 class="lead">News from the Scheme</h2>
+<p><a class="btn btn-success btn-small" href="<?php echo $this->url(array('module' => 'admin','controller' => 'news','action' => 'add'),'default',true);?>" title="Add a new story">Add a new story</a></p>
 <?php if ($this->news): ?>
 <table class="table table-striped" summary="All news stories listed">
 <caption>All news stories on the site</caption>

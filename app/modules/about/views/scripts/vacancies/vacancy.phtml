@@ -1,5 +1,6 @@
-<?php if(count($this->vacs)):?>
-<?php echo $this->partialLoop('partials/about/vacancyDetails.phtml',$this->vacs);?>
-<?php else:?>
-<p>This vacancy does not appear to be available.</p>
-<?php endif;?>
+<?php if (!empty($this->vacs)): ?>
+    <?php echo $this->partialLoop('partials/about/vacancyDetails.phtml', $this->vacs); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>This vacancy does not appear to be available.</p>
+<?php endif; ?>

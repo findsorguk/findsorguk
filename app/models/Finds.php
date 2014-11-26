@@ -141,6 +141,42 @@ class Finds extends Pas_Db_Table_Abstract {
         return $this->update($updateData, $where);
     }
 
+    /** Get id of find from secuid
+     *
+     * @param string $secuid
+     * @return int
+     */
+    public function getIdFromSecuid($secuid){
+        $select = $this->select()
+            ->from($this->_name, array('id'))
+            ->where('secuid = ?', $secuid)
+            ->limit(1);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchRow($select);
+    }
+
+    /** Link a find record to a hoard record
+     *
+     * @param array $updateData
+     * @param integer $id
+     * @return int
+     */
+    public function linkFind(array $updateData, $id){
+        $where[0] = $this->getAdapter()->quoteInto('id = ?', $id);
+        return $this->update($updateData, $where);
+    }
+
+    /** Unlink a find record to a hoard record
+     *
+     * @param array $updateData
+     * @param integer $id
+     * @return int
+     */
+    public function unlinkFind($id){
+        $where[0] = $this->getAdapter()->quoteInto('id = ?', $id);
+        return $this->update(array('hoardID' => NULL), $where);
+    }
+
     /** Get a find's secure unique id for the jquery autocomplete
      * @access public
      * @param string $q
@@ -357,8 +393,8 @@ class Finds extends Pas_Db_Table_Abstract {
                             'initialMark' => 'initial_mark',
                             'reverseMintMark' => 'reverse_mintmark',
                             'statusQualifier' => 'status_qualifier',
-                            'primaryRuler' => 'ruler_id',
-                            'secondaryRuler' => 'ruler2_id',
+                            'ruler1' => 'ruler_id',
+                            'ruler2' => 'ruler2_id',
                             'mintID' => 'mint_id'
                             ))
                 ->joinLeft('ironagetribes','coins.tribe = ironagetribes.id',
@@ -374,14 +410,14 @@ class Finds extends Pas_Db_Table_Abstract {
                             ))
                 ->joinLeft('rulers','rulers.id = coins.ruler_id',
                         array(
-                            'ruler1' => 'issuer',
+                            'primaryRuler' => 'issuer',
                             'viaf',
                             'rulerDbpedia' => 'dbpedia',
                             'nomismaRulerID' => 'nomismaID'
                             ))
                 ->joinLeft(array('rulers_2' => 'rulers'),
                         'rulers_2.id = coins.ruler2_id',
-                        array('ruler2' => 'issuer'))
+                        array('secondaryRuler' => 'issuer'))
                 ->joinLeft('reeceperiods','coins.reeceID = reeceperiods.id',
                         array('periodName' => 'period_name','dateRange' => 'date_range'))
                 ->joinLeft('mints','mints.id = coins.mint_ID',
@@ -435,16 +471,17 @@ class Finds extends Pas_Db_Table_Abstract {
                 ->joinLeft('maporigins','maporigins.id = findspots.gridrefsrc',
                         array('source' => 'term'))
                 ->joinLeft('osRegions','findspots.regionID = osRegions.osID',
-                        array('region' => 'label'))
+                        array('regionType' => 'type', 'region' => 'label'))
                 ->joinLeft('osCounties', 'findspots.countyID = osCounties.osID', 
-                        array('countyType' => 'type'))
+                        array('countyType' => 'type', 'county' => 'label'))
                 ->joinLeft('osDistricts', 'findspots.districtID = osDistricts.osID', 
-                        array('districtType' => 'type'))
+                        array('districtType' => 'type', 'district' => 'label'))
                 ->joinLeft('osParishes', 'findspots.parishID = osParishes.osID', 
                         array(
                             'parishType' => 'type', 
                             'centreLat' => 'lat', 
-                            'centreLon' => 'lon'
+                            'centreLon' => 'lon',
+                            'parish' => 'label'
                             ))
                 ->joinLeft('people', 'findspots.landowner = people.secuid', 
                         array('landOwnerName' => 'fullname'))
@@ -1691,7 +1728,7 @@ class Finds extends Pas_Db_Table_Abstract {
         $select = $this->select()
                 ->from($this->_name, array(
                     'broadperiod', 'id', 'objecttype',
-                    'old_findID', 'c' => 'DATE_FORMAT(finds.created,"%Y")'
+                    'old_findID', 'created' => 'DATE_FORMAT(finds.created,"%Y")'
                     ))
                 ->joinLeft('periods','finds.objdate1period = periods.id',
                         array('t' => 'term'))
@@ -1802,6 +1839,7 @@ class Finds extends Pas_Db_Table_Abstract {
                     'datefound2',
                     'createdBy',
                     'curr_loc',
+                    'hoardcontainer',
                     'inscription',
                     'institution'))
                 ->joinLeft('findofnotereasons',
@@ -1940,8 +1978,6 @@ class Finds extends Pas_Db_Table_Abstract {
                             'todate' => 'numdate2',
                             'treasure',
                             'rally',
-                            'hoard',
-                            'hID' => 'hoardID',
                             'rallyID',
                             'TID' => 'treasureID',
                             'note' => 'findofnote',

@@ -29,7 +29,16 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
      * @access public
      * @var array
      */
-    protected $_allowed = array('member', 'flos', 'admin', 'treasure', 'hero', 'fa' );
+    protected $_allowed = array(
+        'member', 'flos', 'admin',
+        'treasure', 'hero', 'fa',
+        'hoard'
+    );
+
+    public function getTheParameters()
+    {
+        return Zend_Controller_Front::getInstance()->getRequest()->getParams();
+    }
 
     /** The simple link parameters for sending to the url helper
      *
@@ -97,11 +106,11 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
         $advanced .= '">Back to advanced search</a>';
 
         $email = '<a href="';
-        $email .= $this->view->url($this->_email, 'default',true);
+        $email .= $this->view->url(array_merge($this->_email, $this->cleanParameters()), 'default',true);
         $email .= '">Send this search to someone</a>';
 
         $save = '<a href="';
-        $save .= $this->view->url($this->_save,'default',true);
+        $save .= $this->view->url(array_merge($this->_save, $this->cleanParameters()),'default',true);
         $save .= '">Save this search</a>';
 
         if (in_array($this->getRole(), $this->_allowed)) {
@@ -132,4 +141,13 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
         return $this->buildHtml();
     }
 
+    /** Clean up parameters
+     * @access public
+     * @return array
+     */
+    public function cleanParameters()
+    {
+        $cleaner = new Pas_ArrayFunctions();
+        return $cleaner->array_cleanup($this->getTheParameters());
+    }
 }

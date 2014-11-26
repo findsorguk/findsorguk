@@ -17,7 +17,7 @@
  * @uses Pas_View_Helper_TimeAgoInWords
  * @uses Zend_View_Helper_Url
  * @license GNU
- * @copyright DEJ PETT
+ * @copyright 2014 Daniel Pett
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 2
  * @since September 29 2011
@@ -46,7 +46,10 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array
      */
-    protected $_allowed = array('treasure', 'flos', 'fa','admin');
+    protected $_allowed = array(
+        'treasure', 'flos', 'fa',
+        'admin', 'hoard'
+    );
 
     /** The default table name
      * @access protected
@@ -58,7 +61,10 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array
      */
-    protected $_tableNames = array('finds', 'findspots', 'coins');
+    protected $_tableNames = array(
+        'finds', 'findspots', 'coins',
+        'hoards', 'summary', 'archaeology'
+    );
 
     /** Get the table name
      * @access public
@@ -76,7 +82,7 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      */
     public function setTableName($tableName) {
         if(in_array( $tableName, $this->_tableNames )){
-        $this->_tableName = $tableName;
+            $this->_tableName = $tableName;
         } else {
             throw new Pas_Exception_Param('Table not available', 500);
         }
@@ -104,6 +110,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @return type
      */
     public function getRole() {
+        $person = new Pas_User_Details();
+        $this->_role = $person->getRole();
         return $this->_role;
     }
 
@@ -154,12 +162,13 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
     /** Get the data to return
      * @access public
      * @param int $id
-     * @return type
+     * @return string
      */
     public function getData( $id ) {
-        if (in_array($this->getRole(), $this->getAllowed()) &&
-                is_int($id)) {
-            $audit = new $this->getTableName() . Audit();
+        $id = (int)$id;
+        if (in_array($this->getRole(), $this->getAllowed())) {
+            $model = $this->getTableName() . 'Audit';
+            $audit = new $model();
             $auditData = $audit->getChanges($id);
         } else {
             $auditData = array();
@@ -176,7 +185,7 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
         $params = array(
             'module' => 'database',
             'controller' => 'ajax',
-            'action' => $this->getTableName() . 'audit',
+            'action' => strtolower($this->getTableName()) . 'audit',
             'id' => $editID
             );
         return $params;
@@ -188,7 +197,7 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
     */
     public function buildHtml(array $auditData ) {
         $html = '';
-        $html .= '<h4>';
+        $html .= '<h4 class="lead">';
         $html .= $this->getTableName();
         $html .= ' data audit</h4>';
         if(is_array($auditData) && sizeof($auditData) > 0){

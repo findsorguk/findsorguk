@@ -1,13 +1,16 @@
-<?php 
-$this->headTitle('Greek and Roman provincial period issued denominations'); 
+<?php
+$this->headTitle('Greek and Roman provincial period issued denominations');
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('Greek Numismatics')
+    ->generate();
 ?>
-<h2>Greek and Roman Provincial denominations</h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <p>The following coins were issued during the Greek and Roman provincial period.</p>
-<?php if(count($this->denominations)):?>
-<ul>
-<?php echo $this->partialLoop('partials/numismatics/denominations.phtml',$this->denominations);?>
-</ul>
-<?php echo $this->paginationControl($this->denominations, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>There are no denominations available to you.</p>
-<?php endif;?>
+<?php if (!empty($this->denominations)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/denominations.phtml', $this->denominations); ?>
+    </ul>
+    <?php echo $this->paginationControl($this->denominations, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>There are no denominations available to you.</p>
+<?php endif; ?>

@@ -453,4 +453,16 @@ class Users extends Pas_Db_Table_Abstract {
             ->limit(10);
         return $this->getAdapter()->fetchAll($select);
     }
+
+    /** Get the staff in the hoards project who will check records
+     * @access public
+     * @return array
+     */
+    public function getHoardsTeam()
+    {
+        $select = $this->select()
+            ->from($this->_name, array('fullname', 'email'))
+            ->where('users.role =?', 'hoard');
+        return $this->getAdapter()->fetchAll($select);
+    }
 }

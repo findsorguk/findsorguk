@@ -1,0 +1,14 @@
+<?php
+$unlinkUrl = array(
+    'module' => 'database',
+    'controller' => 'hoards',
+    'action' => 'unlink',
+    'findID' => $this->findID,
+    'hoardID' => $this->hoardID,
+    'secuid' => $this->secuid
+);
+?>
+
+<div class="btn-group">
+        <a href="<?php echo $this->url($unlinkUrl, 'default', true);?>" class="btn btn-mini btn-danger">Unlink</a>
+</div>

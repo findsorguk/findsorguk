@@ -11,16 +11,16 @@ $feedArray = array(
     'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
     'language' => 'en',
     'entries' => array()
+);
+foreach ($this->projects as $proj) {
+    $feedArray['entries'][] = array(
+        'title' => $proj['title'],
+        'link' => $this->serverUrl() . '/research/projects/project/id/' . $proj['id'],
+        'guid' => $this->serverUrl() . '/research/projects/project/id/' . $proj['id'],
+        'description' => strip_tags(substr(str_replace('£', '&pound;', $proj['description']), 0, 300)),
+        'lastUpdate' => strtotime($proj['updated']),
+        'content' => strip_tags(str_replace('£', '&pound;', $proj['description']), ''),
     );
-    foreach ($this->projects as $proj) {
-        $feedArray['entries'][] = array(
-            'title' => $proj['title'],
-            'link' => $this->serverUrl() . '/research/projects/project/id/' . $proj['id'],
-            'guid' => $this->serverUrl() . '/research/projects/project/id/' . $proj['id'],
-            'description' => strip_tags(substr(str_replace('£','&pound;',$proj['description']),0,300)),
-            'lastUpdate' => strtotime($proj['updated']),
-            'content' => strip_tags(str_replace('£','&pound;',$proj['description']),''),
-            );
-        }
-        $feed = Zend_Feed::importArray($feedArray,'atom');
-        $feed->send();
+}
+$feed = Zend_Feed::importArray($feedArray, 'atom');
+$feed->send();

@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for setting up and manipulating staff contacts
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -11,63 +12,67 @@
  * @uses Pas_Service_Geo_Coder
  * @uses Events
  * @uses EventForm
- * 
+ *
  */
-class Admin_EventsController extends Pas_Controller_Action_Admin {
+class Admin_EventsController extends Pas_Controller_Action_Admin
+{
 
     /** The higher level array
      * @access protected
      * @var array
      */
-    protected $higherLevel = array('admin','flos');
+    protected $higherLevel = array('admin', 'flos');
 
     /** The research roles
      * @access protected
      * @var array
      */
-    protected $researchLevel = array('member','heros','research');
+    protected $researchLevel = array('member', 'heros', 'research');
 
     /** The restricted roles
      * @access protected
      * @var array
      */
     protected $restricted = array('public', null);
-    
+
     /** The events model
      * @access protected
      * @var \Events
      */
     protected $_events;
-    
+
     /** Set up the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         $this->_helper->_acl->allow(
-                array('fa', 'flos'), 
-                array('add', 'edit', 'delete', 'index')
-                );
+            array('fa', 'flos'),
+            array('add', 'edit', 'delete', 'index')
+        );
         $this->_helper->_acl->allow('admin', null);
         $this->_geocoder = new Pas_Service_Geo_Coder();
         $this->_events = new Events();
-        
+
     }
-    
+
     /** Set up index of events
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->view->events = $this->_events->getEventsAdmin($this->_getParam('page'));
     }
-    
+
     /** Add an event
      * @access public
      * @return void
      * @todo geocoding and processing in view
      */
-    public function addAction() {
+    public function addAction()
+    {
         $form = new EventForm();
         $form->details->setLegend('Add a new event');
         $form->submit->setLabel('Save event');
@@ -75,18 +80,19 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $this->_events->insert($form->getValues());
             $this->getFlash()->addMessage('New event created!');
-            $this->_redirect('/admin/events/');
+            $this->redirect('/admin/events/');
         } else {
             $form->populate($this->_request->getPost());
         }
     }
-    
+
     /** Edit an event
      * @access public
      * @return void
      * @todo Add geocoding in model
-    */
-    public function editAction() {
+     */
+    public function editAction()
+    {
         $form = new EventForm();
         $form->details->setLegend('Edit event');
         $form->submit->setLabel('Save event');
@@ -94,21 +100,23 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $where = array();
             $where[] = $this->_events->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-            $this->_events->update($form->getValues(),$where);
+            $this->_events->update($form->getValues(), $where);
             $this->getFlash()->addMessage(
-                    'You updated: <em>' 
-                    . $form->getValue('eventTitle')
-                    . '</em> successfully.');
-            $this->_redirect('/admin/events/');
+                'You updated: <em>'
+                . $form->getValue('eventTitle')
+                . '</em> successfully.');
+            $this->redirect('/admin/events/');
         } else {
             $form->populate($this->_request->getPost());
         }
     }
+
     /** Delete an event
      * @access public
      * @return void
      */
-    public function deleteAction() {
+    public function deleteAction()
+    {
         if ($this->_request->isPost()) {
             $this->getFlash()->addMessage('No changes implemented.');
             $id = (int)$this->_request->getPost('id');
@@ -118,11 +126,11 @@ class Admin_EventsController extends Pas_Controller_Action_Admin {
                 $this->_events->delete($where);
                 $this->getFlash()->addMessage('Event information deleted! This cannot be undone.');
             }
-            $this->_redirect('/admin/events/');
+            $this->redirect('/admin/events/');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
-             $this->view->event = $this->_events->fetchRow('id =' . $id);
+                $this->view->event = $this->_events->fetchRow('id =' . $id);
             }
         }
     }

@@ -30,10 +30,10 @@ class Search_ResultsController extends Pas_Controller_Action_Admin {
      */
     public function indexAction(){
         $search = new Pas_Solr_Handler();
-        $search->setCore('beocontent');
+        $search->setCore('content');
         $search->setFields(array('*'));
         $search->setFacets(array('section'));
-        $search->setParams($this->_getAllParams());
+        $search->setParams($this->getAllParams());
         $search->execute();
         $this->view->query = $this->_getParam('q');
         $this->view->facets = $search->processFacets();

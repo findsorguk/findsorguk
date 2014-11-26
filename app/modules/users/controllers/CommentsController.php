@@ -34,14 +34,14 @@ class Users_CommentsController extends Pas_Controller_Action_Admin {
      * @return array
      */
     public function getParams() {
-        return $this->_getAllParams();
+        return $this->getAllParams();
     }
     /** No access to the index page, redirect to the comments you made
      * @access public
      * @return @return void
      */
     public function indexAction(){
-	return $this->_redirect('/users/comments/imade/');
+	return $this->redirect('/users/comments/imade/');
     }
 
     /** Comments made my user

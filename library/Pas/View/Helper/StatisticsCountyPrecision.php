@@ -1,4 +1,5 @@
 <?php
+
 /**
  * StatisticsDatabase helper
  * @author Daniel Pett <dpett@britishmuseum.org>
@@ -150,7 +151,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
     {
         $this->_solrConfig = array(
             'adapteroptions' => $this->getConfig()->solr->toArray()
-                );
+        );
 
         return $this->_solrConfig;
     }
@@ -195,10 +196,10 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
 
     /** Set the index
      * @access public
-     * @param  string                                     $index
+     * @param  string $index
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setIndex( $index)
+    public function setIndex($index)
     {
         $this->_index = $index;
 
@@ -207,7 +208,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
 
     /** Set the limit
      * @access public
-     * @param  int                                        $limit
+     * @param  int $limit
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
     public function setLimit($limit)
@@ -219,7 +220,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
 
     /** Set the start
      * @access public
-     * @param  int                                        $start
+     * @param  int $start
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
     public function setStart($start)
@@ -231,7 +232,7 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
 
     /** Set the end
      * @access public
-     * @param  int                                        $end
+     * @param  int $end
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
     public function setEnd($end)
@@ -243,10 +244,10 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
 
     /** Set the county
      * @access public
-     * @param  string                                     $county
+     * @param  string $county
      * @return \Pas_View_Helper_StatisticsCountyPrecision
      */
-    public function setCounty( $county)
+    public function setCounty($county)
     {
         $this->_county = $county;
 
@@ -269,69 +270,70 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
     private function getSolrResults()
     {
         $select = array(
-            'query'         => '*:*',
+            'query' => '*:*',
             'filterquery' => array(),
-            );
+        );
         $query = $this->getSolr()->createSelect();
-    $query->setRows(0);
-    $request = $this->getRequest();
-    if (array_key_exists('county', $request)) {
+        $query->setRows(0);
+        $request = $this->getRequest();
+        if (array_key_exists('county', $request)) {
             $query->createFilterQuery('county')->setQuery('county:'
                 . $request['county']);
-    }
-    if (!array_key_exists('datefrom', $request)) {
+        }
+        if (!array_key_exists('datefrom', $request)) {
             $timespan = new Pas_Analytics_Timespan('thisyear');
             $dates = $timespan->getDates();
             $queryDateA = $dates['start'] . "T00:00:00.001Z";
             $queryDateB = $dates['end'] . "T23:59:59.99Z";
             $query->createFilterQuery('created')->setQuery('created:['
-                    . $queryDateA . ' TO ' . $queryDateB . ']' );
+                . $queryDateA . ' TO ' . $queryDateB . ']');
         } else {
             $queryDateA = $request['datefrom'] . "T00:00:00.001Z";
             $queryDateB = $request['dateto'] . "T23:59:59.99Z";
             $query->createFilterQuery('created')->setQuery('created:['
-                    . $queryDateA . ' TO ' . $queryDateB . ']') ;
-    }
+                . $queryDateA . ' TO ' . $queryDateB . ']');
+        }
 
         $stats = $query->getStats();
-    $stats->createField('quantity');
-    $stats->addFacet('precision');
-    $resultset = $this->getSolr()->select($query);
-    $data = $resultset->getStats();
-    $stats = array();
-    foreach ($data as $field) {
+        $stats->createField('quantity');
+        $stats->addFacet('precision');
+        $resultset = $this->getSolr()->select($query);
+        $data = $resultset->getStats();
+        $stats = array();
+        foreach ($data as $field) {
             foreach ($field->getFacets() as $field => $facet) {
                 foreach ($facet AS $facetStats) {
                     $stats[] = array(
                         'precision' => $facetStats->getValue(),
                         'finds' => $facetStats->getSum(),
                         'records' => $facetStats->getCount()
-                            );
+                    );
                 }
             }
-    }
-    $sort = array();
-    foreach ($stats as $k=>$v) {
+        }
+        $sort = array();
+        foreach ($stats as $k => $v) {
             $sort['precision'][$k] = $v['precision'];
             $sort['finds'][$k] = $v['finds'];
         }
-    array_multisort($sort['precision'], SORT_ASC, $sort['finds'], SORT_ASC,$stats);
+        array_multisort($sort['precision'], SORT_ASC, $sort['finds'], SORT_ASC, $stats);
 
-    return $stats;
+        return $stats;
     }
 
     /** Build the html to return
      * @access public
-     * @param  array  $data
+     * @param  array $data
      * @return string
      */
     public function buildHtml(array $data)
     {
         $html = '';
-        $html .= $this->view->partialLoop('partials/annual/precision.phtml',$data);
+        $html .= $this->view->partialLoop('partials/annual/precision.phtml', $data);
 
         return $html;
     }
+
     /** Return the string
      * @access public
      * @return string

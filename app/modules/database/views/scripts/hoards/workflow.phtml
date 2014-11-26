@@ -1,0 +1,23 @@
+<?php
+$this->headTitle('Change workflow status for hoard record: ' . $this->find);
+$this->metaBase()
+    ->setDescription('This page allows you to change the workflow status of a record')
+    ->setKeywords('archaeology,object')
+    ->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php if (!is_null($this->from[0]['email'])): ?>
+    <p>
+        The finder has an email address associated with their finder record. If you tick the inform finder box and
+        leave a message, you can tell them about workflow change.
+    </p>
+
+    <p>
+        Their email: <a
+            href="mailto:<?php echo $this->from[0]['email']; ?>"><?php echo $this->from[0]['email']; ?></a><br/>
+        Their name: <?php echo $this->from[0]['name']; ?>
+    </p>
+<?php endif; ?>
+
+<?php echo $this->form; ?>

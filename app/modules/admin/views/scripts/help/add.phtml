@@ -1,4 +1,6 @@
 <?php
-$this->headTitle('Add content to the system');?>
-<h2>Add new content</h2>
-<?php echo $this->form;?>
+$this->headTitle('Add a new help topic');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

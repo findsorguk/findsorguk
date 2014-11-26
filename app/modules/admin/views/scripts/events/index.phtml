@@ -1,27 +1,36 @@
-<h2>Administer events</h2>
-<div id="toolbox"><p><a class="btn btn-large btn-success" 
-href="<?php echo $this->url(array('module' => 'admin','controller' => 'events','action' => 'add'),null,true);?>" title="Add a new event">Add a new event</a></p></div>
 <?php
 $this->headTitle('Event administration section');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
 
-if (count($this->events)) : ?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<table class="table table-striped" summary="List of all events entered">
-    <caption>All events listed</caption>
-<thead>
-<tr>
-<th>Event title</th>
-<th>Event date</th>
-<th>Created by</th>
-<th>Created</th>
-<th>Updated by</th>
-<th>Updated</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/eventsTable.phtml',$this->events);?>
-</tbody>
-</table>
-<?php echo $this->paginationControl($this->events, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php endif;?>
+<div id="toolbox">
+    <p><a class="btn btn-small btn-success" href="<?php echo $this->url(
+            array(
+                'module' => 'admin', 'controller' => 'events', 'action' => 'add'
+            ), null, true); ?>" title="Add a new event">Add a new event</a></p>
+</div>
+
+<?php if(!empty($this->events)): ?>
+    <table class="table table-striped" summary="List of all events entered">
+        <caption>All events listed</caption>
+        <thead>
+        <tr>
+            <th>Event title</th>
+            <th>Event date</th>
+            <th>Created by</th>
+            <th>Created</th>
+            <th>Updated by</th>
+            <th>Updated</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/eventsTable.phtml', $this->events); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->events, 'Sliding', 'structure/pagination.phtml'); ?>
+    <?php else: ?>
+    <p>No events found.</p>
+<?php endif; ?>

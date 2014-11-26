@@ -160,7 +160,7 @@ class Pas_View_Helper_ContextsAvailable extends Zend_View_Helper_Abstract
     public function buildHtml() {
         $html = '';
         $html .= '<div id="contexts" class="row-fluid">';
-        $html .= '<h4>Other formats</h4>';
+        $html .= '<h4 class="lead">Other formats</h4>';
         $html .= '<p>This page';
         $contexts = $this->getContexts();
 

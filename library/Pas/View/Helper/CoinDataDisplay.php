@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for rendering coin data
  *
@@ -49,7 +50,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
         'IRON AGE', 'ROMAN', 'BYZANTINE',
         'EARLY MEDIEVAL', 'GREEK AND ROMAN PROVINCIAL', 'MEDIEVAL',
         'POST MEDIEVAL', 'MODERN', 'UNKNOWN'
-        );
+    );
 
     /** The object type
      * @access protected
@@ -85,7 +86,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getNumismatics() {
+    public function getNumismatics()
+    {
         return $this->_numismatics;
     }
 
@@ -93,7 +95,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getObjects() {
+    public function getObjects()
+    {
         return $this->_objects;
     }
 
@@ -101,7 +104,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getBroadperiods() {
+    public function getBroadperiods()
+    {
         return $this->_broadperiods;
     }
 
@@ -109,7 +113,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getObjectType() {
+    public function getObjectType()
+    {
         return $this->_objectType;
     }
 
@@ -117,7 +122,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getBroadperiod() {
+    public function getBroadperiod()
+    {
         return $this->_broadperiod;
     }
 
@@ -125,7 +131,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getCoins() {
+    public function getCoins()
+    {
         return $this->_coins;
     }
 
@@ -133,7 +140,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getFinds() {
+    public function getFinds()
+    {
         return $this->_finds;
     }
 
@@ -142,7 +150,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $numismatics
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setNumismatics( array $numismatics) {
+    public function setNumismatics( $numismatics = array())
+    {
         $this->_numismatics = $numismatics;
         return $this;
     }
@@ -152,7 +161,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $objects
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setObjects( array $objects) {
+    public function setObjects( $objects = array())
+    {
         $this->_objects = $objects;
         return $this;
     }
@@ -162,7 +172,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param type $broadperiods
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setBroadperiods( array $broadperiods) {
+    public function setBroadperiods( $broadperiods = array())
+    {
         $this->_broadperiods = $broadperiods;
         return $this;
     }
@@ -172,7 +183,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param string $objectType
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setObjectType( $objectType) {
+    public function setObjectType($objectType)
+    {
         $this->_objectType = $objectType;
         return $this;
     }
@@ -183,9 +195,10 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getTypes() {
+    public function getTypes()
+    {
         $this->_types = array_merge($this->getNumismatics(),
-                $this->getObjects());
+            $this->getObjects());
         return $this->_types;
     }
 
@@ -194,7 +207,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $types
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setTypes( array $types) {
+    public function setTypes( $types)
+    {
         $this->_types = $types;
         return $this;
     }
@@ -204,7 +218,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param string $broadperiod
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setBroadperiod( $broadperiod) {
+    public function setBroadperiod($broadperiod)
+    {
         $this->_broadperiod = $broadperiod;
         return $this;
     }
@@ -214,7 +229,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $coins
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setCoins( array $coins) {
+    public function setCoins( $coins = array())
+    {
         $this->_coins = $coins;
         return $this;
     }
@@ -224,7 +240,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $finds
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setFinds( array $finds) {
+    public function setFinds( $finds = array())
+    {
         $this->_finds = $finds;
         return $this;
     }
@@ -233,7 +250,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function coinDataDisplay() {
+    public function coinDataDisplay()
+    {
         return $this;
     }
 
@@ -241,7 +259,8 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildHtml();
     }
 
@@ -249,54 +268,55 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function buildHtml() {
+    public function buildHtml()
+    {
         $html = '';
         $finds = $this->getFinds();
         if (in_array(strtoupper($this->getObjectType()), $this->getTypes())) {
-        if (sizeof($this->getCoins())>0) {
-        if (in_array( strtoupper( $this->getBroadperiod() ), $this->getBroadperiods() )) {
+            if (sizeof($this->getCoins()) > 0) {
+                if (in_array(strtoupper($this->getBroadperiod()), $this->getBroadperiods())) {
 
-            if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {
-                $template = str_replace(' ','', $this->getBroadperiod());
-                $html .= $this->view->partialLoop(
-                        'partials/database/' . strtolower($template)
-                        . 'Data.phtml', $this->getCoins());
-            } elseif (in_array(strtoupper($this->getObjectType()),
-                    $this->getObjects())) {
-                $html .= $this->view->partialLoop(
-                        'partials/database/jettonData.phtml', $this->getCoins());
+                    if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {
+                        $template = str_replace(' ', '', $this->getBroadperiod());
+                        $html .= $this->view->partialLoop(
+                            'partials/database/' . strtolower($template)
+                            . 'Data.phtml', $this->getCoins());
+                    } elseif (in_array(strtoupper($this->getObjectType()),
+                        $this->getObjects())) {
+                        $html .= $this->view->partialLoop(
+                            'partials/database/jettonData.phtml', $this->getCoins());
+                    } else {
+                        $html .= '';
+                    }
+
+                } else {
+                    $html .= '<h4 class="lead">An error has been detected</h4>';
+                    $html .= 'You can either not have a coin of that period, or we are';
+                    $html .= ' not set up for that period.';
+                }
             } else {
-                $html .= '';
-            }
-
-        } else {
-            $html .= '<h4>An error has been detected</h4>';
-            $html .= 'You can either not have a coin of that period, or we are';
-            $html .= ' not set up for that period.';
-        }
-        } else {
-            $html .= '<div>';
-            $html .= '<h4>Numismatic data</h4>';
-            $html .= '<p>No numismatic data has been recorded for this coin yet.</p>';
-            $html .= '<div class="noprint">';
-            if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {
-            $html .= $this->view->addCoinLink()
-                            ->setFindID((int) $finds[0]['id'])
-                            ->setSecUid($finds[0]['secuid'])
-                            ->setCreatedBy((int) $finds[0]['createdBy'])
-                            ->setBroadperiod($finds[0]['broadperiod'])
-                            ->setInstitution($finds[0]['institution']);
-            } elseif (in_array(strtoupper($this->getObjectType()), $this->getObjects())) {
-                $html .= $this->view->addJettonLink()
-                        ->setFindID((int) $finds[0]['id'])
+                $html .= '<div>';
+                $html .= '<h4 class="lead">Numismatic data</h4>';
+                $html .= '<p>No numismatic data has been recorded for this coin yet.</p>';
+                $html .= '<div class="noprint">';
+                if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {
+                    $html .= $this->view->addCoinLink()
+                        ->setFindID((int)$finds[0]['id'])
                         ->setSecUid($finds[0]['secuid'])
-                        ->setCreatedBy((int) $finds[0]['createdBy'])
+                        ->setCreatedBy((int)$finds[0]['createdBy'])
                         ->setBroadperiod($finds[0]['broadperiod'])
                         ->setInstitution($finds[0]['institution']);
-            }
+                } elseif (in_array(strtoupper($this->getObjectType()), $this->getObjects())) {
+                    $html .= $this->view->addJettonLink()
+                        ->setFindID((int)$finds[0]['id'])
+                        ->setSecUid($finds[0]['secuid'])
+                        ->setCreatedBy((int)$finds[0]['createdBy'])
+                        ->setBroadperiod($finds[0]['broadperiod'])
+                        ->setInstitution($finds[0]['institution']);
+                }
 
-            $html .= '</div></div>';
-        }
+                $html .= '</div></div>';
+            }
         }
         return $html;
     }

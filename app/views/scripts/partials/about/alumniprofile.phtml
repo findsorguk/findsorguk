@@ -1,18 +1,26 @@
-<?php $this->headTitle('Alumni recording profile for '.$this->escape($this->firstname) . ' ' 
-. $this->escape($this->lastname));?>
+<?php
+$this->headTitle('Alumni recording profile for ' . $this->escape($this->firstname) . ' ' . $this->escape($this->lastname));
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('Contact details')
+    ->setKeywords('contact, details, email, phone')
+    ->generate();
+?>
 <div id="person" class="hresume">
-<div class="contact vcard">
-<h2 class="fn n">
-<span class="given-name"><?php echo $this->escape($this->firstname);?></span> 
-<span class="family-name"><?php echo $this->escape($this->lastname);?></span>
-</h2> 
-                  
-<p>Role: <span class="title"><?php echo $this->escape($this->staffroles);?></span> <br />
-Database records prefix: <strong><?php echo $this->escape($this->identifier);?></strong></p>
-<img src="<?php echo $this->baseUrl(); ?>/assets/logos/<?php echo $this->escape($this->host);?>"
- alt="Institutional logo" class="instlogo" />
+    <div class="contact vcard">
+        <h2 class="fn n">
+            <span class="given-name"><?php echo $this->escape($this->firstname); ?></span>
+            <span class="family-name"><?php echo $this->escape($this->lastname); ?></span>
+        </h2>
 
-<p class="adr work">
-<span class="org organization-name"></span>
-</div>
+        <p>
+            Role: <span class="title"><?php echo $this->escape($this->staffroles); ?></span> <br/>
+            Database records prefix: <strong><?php echo $this->escape($this->identifier); ?></strong>
+        </p>
+        <img src="<?php echo $this->baseUrl(); ?>/assets/logos/<?php echo $this->escape($this->host); ?>"
+             alt="Institutional logo" class="instlogo"/>
+
+        <p class="adr work">
+            <span class="org organization-name"></span>
+        </p>
+    </div>
 </div>

@@ -1,69 +1,44 @@
-<!-- Start of descriptive section -->
 <div property="pas:description">
-    <?php echo $this->description; ?>
+    <?php
+    echo $this->description;
+    ?>
 </div>
-<!-- End of descriptive section -->
-
-<!-- Start of notes section -->
-<?php if(!is_null($this->notes)) :?>
+<?php if (!is_null($this->notes)) : ?>
+    <p><strong>Notes:</strong></p> <span property="pas:notes"><?php
+        echo $this->notes;?></span>
+<?php endif; ?>
+<?php if (($this->findofnote === 1) && (!is_null($this->reason))) {
+    echo '<p>This is a find of note and has been designated: ' . $this->reason . '</p>';
+} else if (($this->findofnote == 1) && (is_null($this->reason))) {
+    echo '<p>This has been noted as an interesting find by the recorder.</p>';
+}?>
+<?php if (($this->hoardcontainer == 1)) : ?>
+    <?php echo '<p>This find is a hoard container.</p>'; ?>
+<?php endif; ?>
 <p>
-    <strong>Notes:</strong>
-</p> 
-
-<span property="pas:notes">
-    <?php echo $this->notes;?>
-</span>
-<?php endif;?>
-<!-- End of notes section -->
-
-<!-- Find of note section -->    
-<?php if(($this->findofnote === 1) && (!is_null($this->reason))){?> 
-<p>
-    This is a find of note and has been designated: <?php echo $this->reason;?> 
+    <?php if (!is_null($this->classification)) : ?>
+        <strong>Class:</strong> <span property="pas:classification">
+    <?php echo $this->classification; ?></span></br>
+    <?php endif; ?>
+    <?php if (!is_null($this->subclass)) : ?>
+        <strong>Sub class:</strong> <?php echo $this->escape($this->subclass); ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->inscription)): ?>
+        <strong>Inscription:</strong> <span property="pas:inscription">
+    <?php echo $this->inscription; ?></span><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->reuse)) : ?>
+        <strong>Evidence of reuse:</strong> <?php echo $this->reuse; ?><br/>
+    <?php endif; ?>
 </p>
-<?php } else if (($this->findofnote == 1) && (is_null($this->reason))) { ?> 
-<p>
-    This has been noted as an interesting find by the recorder.
-</p>
-<!-- End of fund of note section -->
-<?php } ?>
-
-<p>
-    <!-- Start of classification -->
-    <?php if(!is_null($this->classification)) : ?>
-    <strong>Class:</strong> 
-    <span property="pas:classification"><?php echo $this->classification;?></span></br>
-    <?php endif;?>
-    <!-- End of classification -->
-    
-    <!-- Sub class start -->
-    <?php if(!is_null($this->subclass)) :?>
-    <strong>Sub class:</strong> <?php echo $this->escape($this->subclass);?><br />
-    <?php endif;?>
-    <!-- End of subclass -->
-    
-    
-    <?php if(!is_null($this->inscription)):?>
-    <strong>Inscription:</strong> 
-    <span property="pas:inscription"><?php echo $this->inscription;?></span><br />
-    <?php endif;?>
-
-    <?php if(!is_null($this->reuse)) :?>
-    <strong>Evidence of reuse:</strong> <?php echo $this->reuse;?><br />
-    <?php endif;?>
-</p>
-
-<?php if(!is_null($this->curr_loc) || !is_null($this->subsequentAction)):?>
-<h4>
-    Subsequent actions
-</h4>
-<p>
-    <?php if(!is_null($this->curr_loc) ):?>
-    Current location of find: <?php echo $this->curr_loc;?><br />
-    <?php endif;?>
-
-    <?php if(!is_null($this->subsequentAction)):?>
-    Subsequent action after recording: <?php echo $this->subsequentActionTerm;?>
-    <?php endif;?>
-</p>
-<?php endif;?>
+<?php if (isset($this->curr_loc) || isset($this->subsequentAction)): ?>
+    <h4 class="lead">Subsequent actions</h4>
+    <p>
+        <?php if (isset($this->curr_loc)): ?>
+            Current location of find: <?php echo $this->curr_loc; ?><br/>
+        <?php endif; ?>
+        <?php if (isset($this->subsequentAction)): ?>
+            Subsequent action after recording: <?php echo $this->subsequentActionTerm; ?>
+        <?php endif; ?>
+    </p>
+<?php endif; ?>

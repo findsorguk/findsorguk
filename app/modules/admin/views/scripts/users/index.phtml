@@ -1,39 +1,38 @@
 <?php
 $this->headTitle('User administration section');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/userName.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/userFullnames.js', $type='text/javascript');
-	
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
 
-<h2><?php echo $this->title();?></h2>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'add'), 'default', true); ?>"
+       class="btn btn-small btn-info">Add a new user</a>
+
+<?php echo $this->form; ?>
+    <div id="findsList">
+        <?php if ($this->paginator): ?>
+            <table class="table table-striped " summary="List of users registered on the database">
+                <caption>All users</caption>
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Fullname</th>
+                    <th>Role assigned</th>
+                    <th>Last login</th>
+                    <th>Visits</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php echo $this->partialLoop('partials/admin/userAdminTable.phtml', $this->paginator); ?>
+                </tbody>
+            </table>
+            <?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>
+        <?php else: ?>
+            <p>There are no users available with those criteria.</p>
+        <?php endif; ?>
+    </div>
 <?php
-echo $this->Href(array('module' => 'admin','controller'=>'users', 'action'=>'add', 'checkAcl'=>true,
-'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'),
-'content'=>'Add an account','attribs' => array('title' => 'Add a new user','class' => 'btn btn-large btn-danger')));
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/userName.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/userFullnames.js', $type = 'text/javascript');
 ?>
-<?php echo $this->form;?>
-<div id="findsList">
-<?php if ($this->paginator): ?>
-
-<table class="table table-striped " summary="List of users registered on the database">
-<caption>All users</caption>
-	<thead>
-	<tr>
-		<th>Username</th>
-		<th>Fullname</th>
-		<th>Role assigned</th>
-		<th>Last login</th>
-		<th>Visits</th>
-		<th>Actions</th>
-	</tr>
-	</thead>
-	<tbody>
-		<?php echo $this->partialLoop('partials/admin/userAdminTable.phtml',$this->paginator);?>
-	</tbody>
-</table>
-<?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>There are no users available with those criteria.</p>
-<?php endif; ?>
-</div>

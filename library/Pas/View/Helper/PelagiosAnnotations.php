@@ -124,7 +124,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
      * @return string
      */
     public function html() {
-        $html = '<h3>Other resources via Pelagios</h3>';
+        $html = '<h3 class="lead">Other resources via Pelagios</h3>';
         if ($this->_getData()) {
             $html .= '<ul>';
             $html .= $this->view->partialLoop('partials/numismatics/pelagios.phtml',

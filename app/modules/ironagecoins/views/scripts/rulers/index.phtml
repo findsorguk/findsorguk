@@ -1,6 +1,15 @@
-<?php     
-$this->headTitle("Issuing rulers of the Iron Age");?>
-<h2>Issuers of the Iron Age</h2>
-<ul>
-<?php echo $this->partialLoop('partials/numismatics/iarulers.phtml', $this->rulers) ?>
-</ul>
+<?php
+$this->headTitle("Issuing rulers of the Iron Age");
+$this->metaBase()->setSubject('Iron Age numismatics')
+    ->setKeywords('iron age,numismatics,archaeology')
+    ->setDescription('A list of issuing rulers for the Iron Age period')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->rulers)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/ironAgeRulers.phtml', $this->rulers) ?>
+    </ul>
+<?php else: ?>
+    <p>There are no rulers available.</p>
+<?php endif; ?>

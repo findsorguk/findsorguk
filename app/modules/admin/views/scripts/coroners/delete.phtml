@@ -1,17 +1,22 @@
-<?php $this->headTitle('Delete coroners details');?>
-<?php if ($this->coroner) :?>
-<h2>Delete a coroner's details</h2>
-<p>Are you sure that you want to delete
-'<?php echo $this->escape($this->coroner->firstname); ?> <?php echo $this->escape($this->coroner->lastname); ?>' 
-</p>
-<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'coroners','action'=>'delete'),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->coroner->id; ?>" />
-<input type="submit" name="del" value="Yes" />
-<input type="submit" name="del" value="No" />
-</div>
-</form>
-<?php else: ?><h2>An error has occured</h2>
-<p>Cannot find the requested person's details.</p>
-<?php endif;?>
+<?php
+$this->headTitle('Delete a coroner\'s details');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<?php if (!is_null($this->coroner)) : ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>Are you sure that you want to
+        delete <?php echo $this->coroner->firstname; ?> <?php echo $this->coroner->lastname; ?></p>
+    <form action="<?php echo $this->url(
+        array(
+            'module' => 'admin', 'controller' => 'coroners', 'action' => 'delete'
+        ), null, true); ?>" method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->coroner->id; ?>"/>
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
+    </form>
+<?php else: ?>
+    <h2 class="lead">An error has occured</h2>
+    <p>Cannot find the requested person's details.</p>
+<?php endif; ?>

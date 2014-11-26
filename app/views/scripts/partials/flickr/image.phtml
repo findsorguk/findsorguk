@@ -16,7 +16,7 @@ $config = Zend_Registry::get('config');
 $apikey = $config->googlemaps->apikey;
 $this->headScript()->appendFile('http://maps.google.com/maps?file=api&amp;v=2.x&key='.$apikey,$type='text/javascript')->appendFile('http://gmaps-utility-library.googlecode.com/svn/trunk/mapiconmaker/1.0/src/mapiconmaker.js',$type='text/javascript');?>
 
-<h2><?php echo $this->title;?></h2>
+<h2 class="lead"><?php echo $this->title;?></h2>
 
 <img src="<?php echo $this->mediumimage;?>" width="<?php echo $this->sizes['-']['0'];?>" height="<?php echo $this->sizes['-']['1'];?>" alt="<?php echo $this->title;?>"/>
 
@@ -149,7 +149,7 @@ var tinyIcon = new GIcon();
 <?php endif;?>
 
 <?php if($this->tags) :?>
-<h3>Tagged as</h3>
+<h3 class="lead">Tagged as</h3>
 <ul>
 <?php foreach($this->tags as $t) {
 echo '<li><a href="' .$this->url(array('module' => 'flickr','controller' => 'photos','action' => 'tagged','as' => $t),NULL,true) . '" title="Find other photos tagged with '.$t.'">'.$t.'</a></li>';

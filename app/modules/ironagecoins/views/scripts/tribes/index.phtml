@@ -1,7 +1,10 @@
-<?php 
+<?php
 $this->headTitle('Tribes of the Iron Age');
+$this->metaBase()->setDescription('A list of Iron Age tribes associated with issuing coinage')
+    ->setKeywords('iron age,coins,numismatics,tribes')
+    ->generate();
 ?>
-<h2>Tribes of the Iron Age</h2>
-	<ul>
-		<?php echo $this->partialLoop('partials/numismatics/tribes.phtml', $this->tribes) ?>
-	</ul>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<ul>
+    <?php echo $this->partialLoop('partials/numismatics/tribes.phtml', $this->tribes) ?>
+</ul>

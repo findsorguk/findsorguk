@@ -1,25 +1,31 @@
 <?php
-$this->headTitle($this->title . ' '.$this->staffregions);
-$this->headMeta($this->ellipsisstring()->setString($this->specification)->setMax(200),'description');
-?>
-<h2><?php echo $this->escape($this->title);?> <?php echo $this->escape($this->staffregions);?></h2>
-<?php
-if($this->expiredJob()->setDate($this->expire) == -1)  {
- echo '<p class="valid-0 jobexpire">This job is no longer available, it expired
-     on the ' . $this->niceShortDate()->setDate($this->expire).'</p>';
-}
+$this->headTitle($this->title . ' ' . $this->staffregions);
+$this->metaBase()->setDescription($this->ellipsisstring()->setString($this->specification)->setMax(200), 'description')
+    ->generate();
 ?>
 
-<p>Salary: &pound; <?php echo $this->escape($this->salary);?></p>
-<?php echo $this->specification ;?>
-<p>Advert went live on: <?php echo $this->escape($this->niceShortDate()->setDate($this->live));?>
-<?php
-$today = new Zend_Date(null, 'YYYY-MM-DD');
-$datecompare =  new Zend_Date($this->expire);
-$difference = $today->compare($datecompare, Zend_Date::DAY);
-if($difference == -1) {
-?>
-<br />
-Advert archived on: <?php echo $this->escape($this->niceShortDate()->setDate($this->expire));?>
-<?php }?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if ($this->expiredJob()->setDate($this->expire) == -1) { ?>
+    <p class="valid-0 jobexpire">
+        This job is no longer available, it expired on the <?php echo $this->niceShortDate()->setDate($this->expire); ?>
+    </p>
+<?php } ?>
+
+<p>
+    Salary: &pound; <?php echo $this->escape($this->salary); ?>
+</p>
+
+<?php echo $this->specification; ?>
+
+<p>
+    Advert went live on: <?php echo $this->escape($this->niceShortDate()->setDate($this->live)); ?>
+    <?php
+    $today = new Zend_Date(null, 'YYYY-MM-DD');
+    $datecompare = new Zend_Date($this->expire);
+    $difference = $today->compare($datecompare, Zend_Date::DAY);
+    ?>
+    <?php if ($difference == -1) { ?>
+        <br/>
+        Advert archived on: <?php echo $this->escape($this->niceShortDate()->setDate($this->expire)); ?>
+    <?php } ?>
 </p>

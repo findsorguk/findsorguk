@@ -1,4 +1,5 @@
 <?php
+
 /**  Controller retrieving data from the Guardian API
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -12,7 +13,8 @@
  * @uses Pas_Curl
  * @uses Pas_Exception_Param
  */
-class News_GuardianController extends Pas_Controller_Action_Admin {
+class News_GuardianController extends Pas_Controller_Action_Admin
+{
     /** The format to retrieve
      */
     const FORMAT = "json";
@@ -23,7 +25,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
 
     /** The default query
      */
-    const QUERY = 'Portable Antiquities Scheme';
+    const QUERY = '"Portable Antiquities Scheme archaeology"';
 
     /** The cache
      * @access protected
@@ -47,15 +49,16 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         $this->_helper->_acl->allow(null);
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
-	$this->_helper->contextSwitch()
-                ->addContext('rss',array('suffix' => 'rss'))
-                ->addContext('atom',array('suffix' => 'atom'))
-                ->addActionContext('index', array('xml','json','rss','atom'))
-                ->addActionContext('story', array('xml','json'))
-                ->initContext();
+        $this->_helper->contextSwitch()
+            ->addContext('rss', array('suffix' => 'rss'))
+            ->addContext('atom', array('suffix' => 'atom'))
+            ->addActionContext('index', array('xml', 'json', 'rss', 'atom'))
+            ->addActionContext('story', array('xml', 'json'))
+            ->initContext();
         $this->_apikey = $this->_helper->config()->webservice->guardian->apikey;
         $this->_curl = new Pas_Curl();
     }
@@ -63,41 +66,40 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
     /** The lister function of all guardian articles
      * @access public
      */
-    public function indexAction() {
-	$page = $this->_getParam('page');
-	if (!($this->getCache()->test('guardianpantsSearchA'))) {
+    public function indexAction()
+    {
+        $page = $this->_getParam('page');
+        $key = md5('pas' . self::QUERY);
+        if (!($this->getCache()->test($key))) {
             $guardian = self::GUARDIANAPI_URL
-                    . 'search?q=Portable+antiquities+scheme&page-size=50&order-by=newest&format='
-                    . self::FORMAT . '&show-fields=all&show-tags=all&show-factboxes=all&show-references=all&api-key='
-                    . $this->_apikey;
+                . 'search?q=' . urlencode(self::QUERY) . '&page-size=50&order-by=newest&format='
+                . self::FORMAT . '&show-fields=all&show-tags=all&show-factboxes=all&show-references=all&api-key='
+                . $this->_apikey;
             $this->_curl->setUri($guardian);
             $this->_curl->getRequest();
             $articles = $this->_curl->getJson();
             $this->getCache()->save($articles);
-	} else {
-            $articles = $this->getCache()->load('guardianpantsSearchA');
-	}
-        Zend_Debug::dump($articles);
-        exit;
-	$tags = array();
-	$results = array();
-	foreach ($articles->response->results as $article){
-            if(isset($article->fields->thumbnail)) {
+        } else {
+            $articles = $this->getCache()->load($key);
+        }
+        $results = array();
+        foreach ($articles->response->results as $article) {
+            if (isset($article->fields->thumbnail)) {
                 $image = $article->fields->thumbnail;
             } else {
                 $image = null;
             }
 
-            if(isset($article->fields->standfirst)) {
+            if (isset($article->fields->standfirst)) {
                 $stand = $article->fields->standfirst;
             } else {
                 $stand = null;
             }
             $tags = array();
-            foreach($article->tags as $k => $v){
+            foreach ($article->tags as $k => $v) {
                 $tags[$k] = $v;
             }
-            if(isset($article->fields->byline)){
+            if (isset($article->fields->byline)) {
                 $byline = $article->fields->byline;
             } else {
                 $byline = null;
@@ -119,109 +121,30 @@ class News_GuardianController extends Pas_Controller_Action_Admin {
                 'shortUrl' => $article->fields->shortUrl,
                 'publication' => $article->fields->publication,
                 'tags' => $tags
-                    );
+            );
         }
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($results));
         Zend_Paginator::setCache($this->getCache());
-        if(isset($page) && ($page != "")) {
+        if (isset($page) && ($page != "")) {
             $paginator->setCurrentPageNumber((int)$page);
         }
         $paginator->setItemCountPerPage(20)
-                ->setPageRange(10);
-        if(in_array($this->_helper->contextSwitch()->getCurrentContext(),array('xml','json','rss','atom'))) {
+            ->setPageRange(10);
+        if (in_array($this->_helper->contextSwitch()->getCurrentContext(), array('xml', 'json', 'rss', 'atom'))) {
             $paginated = array();
-            foreach($paginator as $k => $v){
+            foreach ($paginator as $k => $v) {
                 $paginated[$k] = $v;
             }
             $data = array(
                 'pageNumber' => $paginator->getCurrentPageNumber(),
-                'total' => number_format($paginator->getTotalItemCount(),0),
+                'total' => number_format($paginator->getTotalItemCount(), 0),
                 'itemsReturned' => $paginator->getCurrentItemCount(),
                 'totalPages' => number_format($paginator->getTotalItemCount()
-                        /$paginator->getItemCountPerPage(),0));
+                    / $paginator->getItemCountPerPage(), 0));
             $this->view->data = $data;
             $this->view->guardianStories = array('guardianStory' => $paginated);
-            } else {
-                $this->view->data = $paginator;
-            }
-    }
-
-    /** The story action
-     * @access public
-     * @throws Pas_Exception_Param
-     */
-    public function storyAction() {
-        if($this->_getParam('id',false)){
-            $id = urldecode($this->_getParam('id'));
-            if (!($this->getCache()->test(md5('guardianpantsStory'.$id)))) {
-                $guardian = self::GUARDIANAPI_URL;
-                $guardian .= $id;
-                $guardian .= '?format=';
-                $guardian .= self::FORMAT;
-                $guardian .= '&show-fields=all&show-tags=all&show-factboxes=all';
-                $guardian .= '&show-references=all&show-related=true&show-';
-                $guardian .= 'editors-picks=true&order-by=newest&api-key=';
-                $guardian .= $this->_apikey;
-                $this->_curl->setUri($guardian);
-                $this->_curl->getRequest();
-                $articles = $this->_curl->getJson();
-                $this->getCache()->save($articles);
-            } else {
-                $articles = $this->getCache()->load(md5('guardianpantsStory'.$id));
-            }
-            $results = array();
-            foreach ($articles as $article){
-                if(isset($article->content->fields->thumbnail)) {
-                    $image = $article->content->fields->thumbnail;
-                } else {
-                    $image = null;
-                }
-
-                if(isset($article->content->fields->standfirst)) {
-                    $stand = $article->content->fields->standfirst;
-                } else {
-                    $stand = null;
-                }
-
-                $tags = array();
-                foreach($article->content->tags as $k => $v){
-                    $tags[$k] = $v;
-                }
-
-                if(isset($article->content->fields->byline)){
-                    $byline = $article->content->fields->byline;
-                } else {
-                    $byline = null;
-                }
-                $results[] = array(
-                    'id' => $article->content->id,
-                    'headline' => $article->content->fields->headline,
-                    'byline' => $byline,
-                    'image' => $image,
-                    'pubDate' => $article->content->webPublicationDate,
-                    'content' => $article->content->fields->body,
-                    'trailtext' => $article->content->fields->trailText,
-                    'publication' => $article->content->fields->publication,
-                    'linkText' => $article->content->webTitle,
-                    'standfirst' => $stand,
-                    'section' => $article->content->sectionName,
-                    'url' => $article->content->webUrl,
-                    'shortUrl' => $article->content->fields->shortUrl,
-                    'publication' => $article->content->fields->publication,
-                    'tags' => $tags
-                        );
-                }
-                $related = array();
-                foreach($article->relatedContent as $r){
-                    $related[] = array(
-                        'id' => $r->id,
-                        'webTitle' =>  $r->webTitle,
-                        'webPublicationDate' => $r->webPublicationDate);
-                }
-                $this->view->story = $results;
-                $this->view->related = $related;
-                } else {
-                    throw new Pas_Exception_Param($this->_missingParameter, 500);
-                }
+        } else {
+            $this->view->data = $paginator;
+        }
     }
 }

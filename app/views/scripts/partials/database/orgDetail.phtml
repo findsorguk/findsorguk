@@ -1,95 +1,144 @@
-<?php $this->headTitle('Details for '.$this->escape($this->name));?>
-
-<h2><?php echo $this->escape($this->name); ?></h2>
-
-<?php if(isset($this->lat)):?> 
-<?php echo $this->googleDynamicMap();?>
-<?php $this->inlineScript()->captureStart();?>
-$(document).ready(function() {
-
-	var osmMapType = new google.maps.ImageMapType({
-        getTileUrl: function (coord, zoom) {
-            return "http://tile.openstreetmap.org/" +
-                zoom + "/" + coord.x + "/" + coord.y + ".png";
-
-        },
-        tileSize: new google.maps.Size(256, 256),
-        isPng: true,
-        alt: "OpenStreetMap layer",
-        name: "OSM",
-        maxZoom: 18
-    });
-        
-	var myOptions = {
-          center: new google.maps.LatLng(<?php echo $this->lat;?>, <?php echo $this->lon;?>),
-          zoom: 12,
-		  mapTypeControlOptions: {
-          mapTypeIds: [
-          google.maps.MapTypeId.ROADMAP, 
-          google.maps.MapTypeId.HYBRID,
-          google.maps.MapTypeId.TERRAIN,
-          google.maps.MapTypeId.SATELLITE,
-          'OSM'
-          ]
-    	  },
-    	  mapTypeControl: true,
-    	  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-          scaleControl: true,
-    	  zoomControl: true,
-          mapTypeId: 'OSM',
-          scrollwheel: false,
-        };
-        var map = new google.maps.Map(document.getElementById("personmap"),
-            myOptions);
-            map.mapTypes.set('OSM',osmMapType); 
-            map.setTilt(45);
-        var marker = new google.maps.Marker({
-      		position: new google.maps.LatLng(<?php echo $this->lat;?>, <?php echo $this->lon;?>),
-      		map: map,
-      		animation: google.maps.Animation.DROP,
-      		title:"Findspot location",
-  		});
-
-<?php 
-	$bbox = new Pas_Geo_BoundBox();
-	$d = 5;  // distance
-    $path_top_right = $bbox->createPoint($this->lat ,  $this->lon, 45, $d);
-    $path_bottom_right = $bbox->createPoint($this->lat ,  $this->lon, 135, $d);
-    $path_bottom_left = $bbox->createPoint($this->lat ,  $this->lon, 225, $d);
-    $path_top_left = $bbox->createPoint($this->lat ,  $this->lon, 315, $d);
+<?php
+$this->headTitle('Details for ' . $this->name);
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
-  		
-  		 var latLngBounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng(<?php echo $path_bottom_left;?>),
-          new google.maps.LatLng(<?php echo $path_top_right;?>)
-        );
-    	map.fitBounds(latLngBounds);
-  		google.maps.event.addListener(marker, 'click', toggleBounce);
-	
-	function toggleBounce() {
-		if (marker.getAnimation() != null) {
-    		marker.setAnimation(null);
-  		} else {
-    		marker.setAnimation(google.maps.Animation.BOUNCE);
-  		}
-  		}
-});
-<?php $this->inlineScript()->captureEnd();?>
 
-<div id="personmap" style="float:right;width:380px;min-height:250px;"></div>
-<?php endif;?>
-<a href="<?php echo $this->url(array('module' => 'database','controller'=>'organisations','action'=>'edit', 'id'=> $this->id),null,true);?>">Edit</a> <a href="<?php echo $this->url(array('module' => 'database','controller'=>'organisations','action'=>'delete', 'id'=> $this->id));?>">Delete</a><br />
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<p>Address: <?php echo $this->escape($this->address1); ?> <?php echo $this->escape($this->address2); ?> <?php echo $this->escape($this->address3); ?> <br />
-County: <?php echo $this->escape($this->county); ?><br />
-Postcode: <?php echo $this->escape($this->postcode); ?><br />
-Country: <?php echo $this->escape($this->abode);?><br />
-WOEID: <?php echo $this->woeid;?><br />
-Latitude: <?php echo $this->lat;?><br />
-Longitude: <?php echo $this->lon;?><br />
-<?php echo $this->gridRef($this->lat,$this->lon);?></p>
+<?php if (isset($this->lat)): ?>
+    <?php echo $this->googleDynamicMap(); ?>
+    <?php $this->inlineScript()->captureStart(); ?>
+    $(document).ready(function() {
 
-<p>Contact details<br />
-Website address: <?php echo $this->escape($this->website); ?><br />
-Contact person: <a href="<?php echo $this->url(array('module' => 'database','controller' => 'people','action' => 'person', 'id'=>$this->i
-),null,true);?>" title="View details for <?php echo $this->escape($this->fn);?>"><?php echo $this->escape($this->tit); ?> <?php echo $this->escape($this->fn); ?></a></p>
+    var osmMapType = new google.maps.ImageMapType({
+    getTileUrl: function (coord, zoom) {
+    return "http://tile.openstreetmap.org/" +
+    zoom + "/" + coord.x + "/" + coord.y + ".png";
+
+    },
+    tileSize: new google.maps.Size(256, 256),
+    isPng: true,
+    alt: "OpenStreetMap layer",
+    name: "OSM",
+    maxZoom: 18
+    });
+
+    var myOptions = {
+    center: new google.maps.LatLng(<?php echo $this->lat; ?>, <?php echo $this->lon; ?>),
+    zoom: 12,
+    mapTypeControlOptions: {
+    mapTypeIds: [
+    google.maps.MapTypeId.ROADMAP,
+    google.maps.MapTypeId.HYBRID,
+    google.maps.MapTypeId.TERRAIN,
+    google.maps.MapTypeId.SATELLITE,
+    'OSM'
+    ]
+    },
+    mapTypeControl: true,
+    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+    scaleControl: true,
+    zoomControl: true,
+    mapTypeId: 'OSM',
+    scrollwheel: false,
+    };
+    var map = new google.maps.Map(document.getElementById("personmap"),
+    myOptions);
+    map.mapTypes.set('OSM',osmMapType);
+    map.setTilt(45);
+    var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(<?php echo $this->lat; ?>, <?php echo $this->lon; ?>),
+    map: map,
+    animation: google.maps.Animation.DROP,
+    title:"Findspot location",
+    });
+
+    <?php
+    $bbox = new Pas_Geo_BoundBox();
+    $d = 5;  // distance
+    $path_top_right = $bbox->createPoint($this->lat, $this->lon, 45, $d);
+    $path_bottom_right = $bbox->createPoint($this->lat, $this->lon, 135, $d);
+    $path_bottom_left = $bbox->createPoint($this->lat, $this->lon, 225, $d);
+    $path_top_left = $bbox->createPoint($this->lat, $this->lon, 315, $d);
+    ?>
+
+    var latLngBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(<?php echo $path_bottom_left; ?>),
+    new google.maps.LatLng(<?php echo $path_top_right; ?>)
+    );
+    map.fitBounds(latLngBounds);
+    google.maps.event.addListener(marker, 'click', toggleBounce);
+
+    function toggleBounce() {
+    if (marker.getAnimation() != null) {
+    marker.setAnimation(null);
+    } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+    }
+    });
+    <?php $this->inlineScript()->captureEnd(); ?>
+
+    <div id="personmap" class="pull-right"></div>
+<?php endif; ?>
+    <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'organisations', 'action' => 'edit', 'id' => $this->id), null, true); ?>">Edit</a>
+    <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'organisations', 'action' => 'delete', 'id' => $this->id)); ?>">Delete</a>
+    <br/>
+
+    <p>
+        <?php if (!is_null($this->address1)): ?>
+            Address: <?php echo $this->escape($this->address1); ?> <?php echo $this->escape($this->address2); ?> <?php echo $this->escape($this->address3); ?>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->county)): ?>
+            <br/>
+            County: <?php echo $this->escape($this->county); ?>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->postcode)): ?>
+            <br/>
+            Postcode: <?php echo $this->escape($this->postcode); ?>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->abode)): ?>
+            <br/>
+            Country: <?php echo $this->escape($this->abode); ?>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->woeid)): ?>
+            <br/>
+            WOEID: <?php echo $this->woeid; ?>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->lat)): ?>
+            <br/>
+            Latitude: <?php echo $this->lat; ?>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->lon)): ?>
+            <br/>
+            Longitude: <?php echo $this->lon; ?>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->lat)): ?>
+            <br/>
+            <?php echo $this->gridRef($this->lat, $this->lon); ?>
+        <?php endif; ?>
+    </p>
+
+<?php $contacts = array($this->website, $this->fn); ?>
+<?php if (array_filter($contacts)): ?>
+    <h3 class="lead">Contact details</h3>>
+    <p>
+        <?php if (!is_null($this->website)): ?>
+            Website address: <?php echo $this->website; ?>
+        <?php endif; ?>
+        <?php if (!is_null($this->fn)): ?>
+            <br/>
+            Contact person: <a
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'people', 'action' => 'person', 'id' => $this->i
+                ), null, true);?>"
+                title="View details for <?php echo $this->fn; ?>"><?php echo $this->tit; ?> <?php echo $this->fn; ?></a>
+        <?php endif; ?>
+    </p>
+<?php endif; ?>

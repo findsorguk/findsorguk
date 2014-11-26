@@ -1,4 +1,5 @@
 <?php
+
 /** Data model for accessing tribe listings on the database
  * An example of code:
  *
@@ -14,12 +15,13 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 22 October 2010, 17:12:34
  * @example /app/forms/IronAgeCoinForm.php
  */
-class Tribes extends Pas_Db_Table_Abstract {
+class Tribes extends Pas_Db_Table_Abstract
+{
 
     /** The table name
      * @access protected
@@ -37,12 +39,13 @@ class Tribes extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function getTribes() {
+    public function getTribes()
+    {
         $tribes = $this->getAdapter();
         $select = $tribes->select()
-                ->from($this->_name, array('id','tribe'))
-    		->where($this->_name . '.valid = ?',(int)1)
-                ->order($this->_primary);
+            ->from($this->_name, array('id', 'tribe'))
+            ->where($this->_name . '.valid = ?', (int)1)
+            ->order($this->_primary);
         return $tribes->fetchPairs($select);
     }
 
@@ -50,20 +53,19 @@ class Tribes extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function getTribesList()  {
+    public function getTribesList()
+    {
         $tribes = $this->getAdapter();
         $select = $tribes->select()
-                ->from($this->_name, array('id','tribe'))
-                ->joinLeft('ironageregionstribes',
-                        'ironageregionstribes.tribeID =' . $this->_name . '.id',
-                        array())
-                ->joinLeft('geographyironage',
-                        'geographyironage.id = ironageregionstribes.regionID',
-                        array('area','region'))
-    		->where($this->_name . '.valid = ?', 1)
-                ->order('id');
-        $options = $this->getAdapter()->fetchAll($select);
-        return $options;
+            ->from($this->_name, array('id', 'tribe'))
+            ->joinLeft('ironageregionstribes',
+                'ironageregionstribes.tribeID =' . $this->_name . '.id',
+                array())
+            ->joinLeft('geographyironage', 'geographyironage.id = ironageregionstribes.regionID',
+                array('area', 'region'))
+            ->where($this->_name . '.valid = ?', 1)
+            ->order('id');
+        return $tribes->fetchAll($select);
     }
 
     /** Get a paginated list of all tribes for administration
@@ -71,18 +73,19 @@ class Tribes extends Pas_Db_Table_Abstract {
      * @param integer $page
      * @return \Zend_Paginator
      */
-    public function getTribesListAdmin($page) {
+    public function getTribesListAdmin($page)
+    {
         $tribes = $this->getAdapter();
         $select = $tribes->select()
-                ->from($this->_name)
-                ->joinLeft('users','users.id = ' . $this->_name
-                        . '.createdBy', array('fullname'))
-                ->joinLeft('users','users_2.id = ' . $this->_name
-                        . '.updatedBy', array('fn' => 'fullname'))
-                ->order('id');
+            ->from($this->_name)
+            ->joinLeft('users', 'users.id = ' . $this->_name
+                . '.createdBy', array('fullname'))
+            ->joinLeft('users', 'users_2.id = ' . $this->_name
+                . '.updatedBy', array('fn' => 'fullname'))
+            ->order('id');
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(30)->setPageRange(10);
-        if(isset($page) && ($page != ""))  {
+        if (isset($page) && ($page != "")) {
             $paginator->setCurrentPageNumber((int)$page);
         }
         return $paginator;
@@ -93,13 +96,14 @@ class Tribes extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function getTribe($id) {
+    public function getTribe($id)
+    {
         $tribes = $this->getAdapter();
         $select = $tribes->select()
-                ->from($this->_name, array('id','tribe','description'))
-                ->where($this->_name . '.valid = ?', (int)1)
-                ->where('id = ?',(int)$id)
-                ->order('id ASC');
+            ->from($this->_name, array('id', 'tribe', 'description'))
+            ->where($this->_name . '.valid = ?', (int)1)
+            ->where('id = ?', (int)$id)
+            ->order('id ASC');
         return $tribes->fetchAll($select);
     }
 
@@ -108,18 +112,19 @@ class Tribes extends Pas_Db_Table_Abstract {
      * @param integer $region
      * @return array
      */
-    public function getIronAgeTribeRegion($region) {
+    public function getIronAgeTribeRegion($region)
+    {
         $tribes = $this->getAdapter();
         $select = $tribes->select()
-                ->from($this->_name, array('id','term' => 'tribe'))
-                ->joinLeft('ironageregionstribes',
-                        'ironageregionstribes.tribeID = ironagetribes.id',
-                        array())
-                ->joinLeft('geographyironage',
-                        'ironageregionstribes.regionID = geographyironage.id',
-                        array())
-                ->where('geographyironage.id = ?', (int)$region)
-                ->order('ironagetribes.tribe ASC');
+            ->from($this->_name, array('id', 'term' => 'tribe'))
+            ->joinLeft('ironageregionstribes',
+                'ironageregionstribes.tribeID = ironagetribes.id',
+                array())
+            ->joinLeft('geographyironage',
+                'ironageregionstribes.regionID = geographyironage.id',
+                array())
+            ->where('geographyironage.id = ?', (int)$region)
+            ->order('ironagetribes.tribe ASC');
         return $tribes->fetchAll($select);
     }
 
@@ -127,14 +132,15 @@ class Tribes extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function getSitemap(){
+    public function getSitemap()
+    {
         $key = md5('tribeslist');
         if (!$data = $this->_cache->load($key)) {
             $tribes = $this->getAdapter();
             $select = $tribes->select()
-                    ->from($this->_name, array('id','term' => 'tribe','updated'))
-                    ->order('ironagetribes.tribe ASC');
-            $data =  $tribes->fetchAll($select);
+                ->from($this->_name, array('id', 'term' => 'tribe', 'updated'))
+                ->order('ironagetribes.tribe ASC');
+            $data = $tribes->fetchAll($select);
             $this->_cache->save($data, $key);
         }
         return $data;

@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for administering the terminology on the database
  *
  * @category   Pas
@@ -35,8 +36,9 @@
  * @uses DecStyles
  * @uses Landuses
  * @uses LandusesForm
-*/
-class Admin_TerminologyController extends Pas_Controller_Action_Admin {
+ */
+class Admin_TerminologyController extends Pas_Controller_Action_Admin
+{
 
     /** The redirect uri
      * @access protected
@@ -58,23 +60,28 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('fa',null);
-        $this->_helper->_acl->allow('admin',null);
-        
+    public function init()
+    {
+        $this->_helper->_acl->allow('fa', null);
+        $this->_helper->_acl->allow('admin', null);
+
     }
+
     /** Display the index page
      * @access public
      * @return void
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         //Nothing doing here - redirect>
     }
+
     /** Display a list of activities for finders.
      * @access public
      * @return void
      */
-    public function activitiesAction() {
+    public function activitiesAction()
+    {
         $activities = new PrimaryActivities();
         $this->view->activities = $activities->getActivitiesListAdmin();
     }
@@ -83,38 +90,41 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addactivityAction() {
+    public function addactivityAction()
+    {
         $form = new ActivityForm();
         $form->submit->setLabel('Add a new activity');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $activities = new PrimaryActivities();
                 $update = $activities->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'activities');
+                $this->redirect($this->_redirectUrl . 'activities');
                 $this->getFlash()->addMessage('Activity created!');
             } else {
                 $form->populate($form->getValues());
             }
         }
     }
+
     /** Edit an activity
      * @access public
      * @return void
      */
-    public function editactivityAction() {
-        if($this->_getparam('id',false)) {
+    public function editactivityAction()
+    {
+        if ($this->_getparam('id', false)) {
             $form = new ActivityForm();
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $activities = new PrimaryActivities();
                     $where = array();
                     $where[] = $activities->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
                     $update = $activities->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Activity details updated');
-                    $this->_redirect($this->_redirectUrl . 'activities');
+                    $this->redirect($this->_redirectUrl . 'activities');
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -122,8 +132,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
                     $activities = new PrimaryActivities();
-                    $activity = $activities->fetchRow('id='.(int)$id);
-                    if(count($activity)) {
+                    $activity = $activities->fetchRow('id=' . (int)$id);
+                    if (count($activity)) {
                         $form->populate($activity->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -134,11 +144,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Delete an activity
      * @access public
      * @return void
      */
-    public function deleteactivityAction() {
+    public function deleteactivityAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -147,14 +159,14 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $activities->delete($where);
             }
-            $this->_redirect($this->_redirectUrl . 'activities');
-            $this->getFlash()->addMessage( self::DELETED );
+            $this->redirect($this->_redirectUrl . 'activities');
+            $this->getFlash()->addMessage(self::DELETED);
         } else {
             $id = (int)$this->_request->getParam('id');
             if ((int)$id > 0) {
                 $activities = new PrimaryActivities();
                 $this->view->activity = $activities->fetchRow('id=' . $id);
-                }
+            }
         }
     }
 
@@ -162,7 +174,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function methodsAction() {
+    public function methodsAction()
+    {
         $methods = new DiscoMethods();
         $this->view->methods = $methods->getDiscMethodsListAdmin();
     }
@@ -172,19 +185,20 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editmethodAction() {
-        if($this->_getParam('id',false)) {
+    public function editmethodAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new DiscoMethodsForm();
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $methods = new DiscoMethods();
                     $where = array();
                     $where[] = $methods->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
                     $update = $methods->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Method of discovery information updated!');
-                    $this->_redirect($this->_redirectUrl . 'methods');
+                    $this->redirect($this->_redirectUrl . 'methods');
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -193,8 +207,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $methods = new DiscoMethods();
                     $method = $methods->fetchRow('id=' . $id);
-                    if(count($method)) {
-                    $form->populate($method->toArray());
+                    if (count($method)) {
+                        $form->populate($method->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
                     }
@@ -204,11 +218,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Delete a method of discovery
      * @access public
      * @return void
      */
-    public function deletemethodAction() {
+    public function deletemethodAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -217,8 +233,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $methods->delete($where);
             }
-            $this->_redirect($this->_redirectUrl.'methods');
-            $this->getFlash()->addMessage( self::DELETED );
+            $this->redirect($this->_redirectUrl . 'methods');
+            $this->getFlash()->addMessage(self::DELETED);
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -227,21 +243,23 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** Add a method of discovery
      * @access public
      * @return void
      */
-    public function addmethodAction() {
+    public function addmethodAction()
+    {
         $form = new DiscoMethodsForm();
         $form->submit->setLabel('Add a new discovery method');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $methods = new DiscoMethods();
                 $update = $methods->insert($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'methods');
+                $this->redirect($this->_redirectUrl . 'methods');
                 $this->getFlash()->addMessage('Method of discovery created!');
-            } else  {
+            } else {
                 $this->getFlash()->addMessage('Please correct errors');
                 $form->populate($form->getValues());
             }
@@ -252,7 +270,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function decorationmethodsAction() {
+    public function decorationmethodsAction()
+    {
         $decs = new DecMethods();
         $this->view->decs = $decs->getDecorationDetailsListAdmin();
     }
@@ -261,15 +280,16 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function adddecorationmethodAction() {
+    public function adddecorationmethodAction()
+    {
         $form = new DecMethodsForm();
         $form->submit->setLabel('Add a new decoration method');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $decs = new DecMethods();
                 $update = $decs->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'decorationmethods');
+                $this->redirect($this->_redirectUrl . 'decorationmethods');
                 $this->getFlash()->addMessage('A new decoration method has been created on the system!');
             } else {
                 $form->populate($form->getValues());
@@ -282,28 +302,29 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editdecorationmethodAction() {
-        if($this->_getParam('id',false)) {
+    public function editdecorationmethodAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new DecMethodsForm();
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $decs = new DecMethods();
                     $where = array();
                     $where[] = $decs->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
                     $update = $decs->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Decoration method information updated!');
-                    $this->_redirect($this->_redirectUrl . 'decorationmethods');
+                    $this->redirect($this->_redirectUrl . 'decorationmethods');
                 } else {
-                $form->populate($form->getValues());
+                    $form->populate($form->getValues());
                 }
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
                     $decs = new DecMethods();
                     $dec = $decs->fetchRow('id=' . $id);
-                    if(count($decs)) {
+                    if (count($decs)) {
                         $form->populate($dec->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -319,7 +340,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deletedecorationmethodAction() {
+    public function deletedecorationmethodAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -328,8 +350,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $decs->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl . 'decorationmethods');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'decorationmethods');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -343,62 +365,67 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function surfacesAction(){
+    public function surfacesAction()
+    {
         $surfaces = new SurfTreatments();
         $this->view->surfaces = $surfaces->getSurfaceTreatmentsAdmin();
     }
+
     /** Add a surface treatment
      * @access public
      * @return void
      */
-    public function addsurfaceAction() {
+    public function addsurfaceAction()
+    {
         $form = new SurfTreatmentsForm();
         $form->submit->setLabel('Add new surface treatment');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $surfaces = new SurfTreatments();
                 $update = $surfaces->add($form->getValues());
                 $this->getFlash()->addMessage('A new surface treatment has been created on the system!');
-                $this->_redirect($this->_redirectUrl . 'surfaces');
-            } else  {
+                $this->redirect($this->_redirectUrl . 'surfaces');
+            } else {
                 $form->populate($form->getValues());
             }
         }
     }
+
     /** Edit a surface treatment
      * @access public
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editsurfaceAction() {
-        if($this->_getParam('id',false)) {
-        $form = new SurfTreatmentsForm();
-        $form->submit->setLabel( self::UPDATE );
-        $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
-                $surfaces = new SurfTreatments();
-                $where = array();
-                $where[] = $surfaces->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                $update = $surfaces->update($form->getValues(), $where);
-                $this->getFlash()->addMessage('Surface treatment information updated!');
-                $this->_redirect($this->_redirectUrl . 'surfaces/');
-            } else {
-                $form->populate($form->getValues());
-            }
-        } else {
-            $id = (int)$this->_request->getParam('id', 0);
-            if ($id > 0) {
-                $surfaces = new SurfTreatments();
-                $surface = $surfaces->fetchRow('id='.$id);
-                if(count($surface)) {
-                    $form->populate($surface->toArray());
+    public function editsurfaceAction()
+    {
+        if ($this->_getParam('id', false)) {
+            $form = new SurfTreatmentsForm();
+            $form->submit->setLabel(self::UPDATE);
+            $this->view->form = $form;
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+                if ($form->isValid($form->getValues())) {
+                    $surfaces = new SurfTreatments();
+                    $where = array();
+                    $where[] = $surfaces->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $update = $surfaces->update($form->getValues(), $where);
+                    $this->getFlash()->addMessage('Surface treatment information updated!');
+                    $this->redirect($this->_redirectUrl . 'surfaces/');
                 } else {
-                    throw new Pas_Exception_Param($this->_nothingFound);
+                    $form->populate($form->getValues());
+                }
+            } else {
+                $id = (int)$this->_request->getParam('id', 0);
+                if ($id > 0) {
+                    $surfaces = new SurfTreatments();
+                    $surface = $surfaces->fetchRow('id=' . $id);
+                    if (count($surface)) {
+                        $form->populate($surface->toArray());
+                    } else {
+                        throw new Pas_Exception_Param($this->_nothingFound);
+                    }
                 }
             }
-        }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -408,7 +435,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deletesurfaceAction() {
+    public function deletesurfaceAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -417,8 +445,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $surfaces->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl . 'surfaces');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'surfaces');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -432,7 +460,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function periodsAction(){
+    public function periodsAction()
+    {
         $periods = new Periods();
         $this->view->periods = $periods->getPeriodsAll();
     }
@@ -443,19 +472,20 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editperiodAction() {
-        if($this->_getParam('id',false)) {
+    public function editperiodAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new PeriodForm();
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $periods = new Periods();
                     $where = array();
                     $where[] = $periods->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                    $periods->update($form->getValues(),$where);
+                    $periods->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Period information updated');
-                    $this->_redirect($this->_redirectUrl . 'periods');
+                    $this->redirect($this->_redirectUrl . 'periods');
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -464,7 +494,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $periods = new Periods();
                     $period = $periods->fetchRow('id =' . $id);
-                    if(count($period)) {
+                    if (count($period)) {
                         $form->populate($period->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -480,7 +510,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deleteperiodAction() {
+    public function deleteperiodAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -489,8 +520,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $periods->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl . 'periods/');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'periods/');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -499,20 +530,22 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** Add a new period - won't be used much!
      * @access public
      * @return void
      */
-    public function addperiodAction() {
+    public function addperiodAction()
+    {
         $form = new PeriodForm();
         $form->submit->setLabel('Add a new period');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $periods = new Periods();
                 $periods->add($form->getValues());
                 $this->getFlash()->addMessage('Record created!');
-                $this->_redirect($this->_redirectUrl.'periods');
+                $this->redirect($this->_redirectUrl . 'periods');
             } else {
                 $form->populate($form->getValues());
             }
@@ -523,7 +556,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function culturesAction() {
+    public function culturesAction()
+    {
         $cultures = new Cultures();
         $this->view->cultures = $cultures->getCulturesListAdmin();
     }
@@ -532,16 +566,17 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addcultureAction(){
+    public function addcultureAction()
+    {
         $form = new CultureForm();
         $form->details->setLegend('Ascribed Culture details: ');
         $form->submit->setLabel('Add new culture');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $cultures = new Cultures();
                 $cultures->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'cultures');
+                $this->redirect($this->_redirectUrl . 'cultures');
                 $this->getFlash()->addMessage('A culture created!');
             } else {
                 $form->populate($form->getValues());
@@ -554,30 +589,31 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editcultureAction() {
-        if($this->_getParam('id',false)) {
+    public function editcultureAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->headTitle("Edit an ascribed culture ");
             $form = new CultureForm();
             $form->details->setLegend('Edit an ascribed culture');
             $form->submit->setLabel('Update details on database...');
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $cultures = new Cultures();
                     $where = array();
                     $where[] = $cultures->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                     $cultures->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Culture updated!');
-                    $this->_redirect($this->_redirectUrl . 'cultures');
+                    $this->redirect($this->_redirectUrl . 'cultures');
                 } else {
-                $form->populate($form->getValues());
+                    $form->populate($form->getValues());
                 }
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
                     $cultures = new Cultures();
                     $culture = $cultures->fetchRow('id = ' . $this->_getParam('id'));
-                    if(count($culture) != null ) {
+                    if (count($culture) != null) {
                         $form->populate($culture->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -593,7 +629,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deletecultureAction() {
+    public function deletecultureAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -602,8 +639,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $cultures->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl . 'cultures');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'cultures');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -612,50 +649,56 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** List workflows in use
      * @access public
      * @return void
      */
-    public function workflowsAction(){
+    public function workflowsAction()
+    {
         $workflows = new Workflows();
         $this->view->workflows = $workflows->getStageNamesAdmin();
     }
+
     /** Add a new workflow stage
-    */
-    public function addworkflowAction() {
+     */
+    public function addworkflowAction()
+    {
         $form = new WorkflowForm();
         $form->submit->setLabel('Add a new workflow stage to the system...');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $workflows = new Workflows();
-                $insert= $workflows->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'workflows');
+                $insert = $workflows->add($form->getValues());
+                $this->redirect($this->_redirectUrl . 'workflows');
                 $this->getFlash()->addMessage('New worklfow created');
             } else {
-            $form->populate($form->getValues());
+                $form->populate($form->getValues());
             }
         }
     }
+
     /** Edit a workflow stage
      * @access public
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editworkflowAction() {
-        if($this->_getParam('id',false)) {
+    public function editworkflowAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new WorkflowForm();
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
 
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $workflows = new Workflows();
                     $where = array();
                     $where[] = $workflows->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
-                    $update= $workflows->update($form->getValues(),$where);
+                    $update = $workflows->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Workflow updated');
-                    $this->_redirect($this->_redirectUrl . 'workflows');
+                    $this->redirect($this->_redirectUrl . 'workflows');
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -664,7 +707,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $workflows = new Workflows();
                     $workflow = $workflows->fetchRow('id=' . $id);
-                    if(count($workflow)) {
+                    if (count($workflow)) {
                         $form->populate($workflow->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -675,11 +718,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Delete a workflow stage
      * @access public
      * @return void
      */
-    public function deleteworkflowAction() {
+    public function deleteworkflowAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -688,8 +733,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $workflows->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl . 'workflows');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'workflows');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -698,27 +743,31 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** List preservation states
      * @access public
      * @return void
      */
-    public function preservationsAction() {
+    public function preservationsAction()
+    {
         $preserves = new Preservations();
         $this->view->preserves = $preserves->getPreservationTermsAdmin();
     }
+
     /** Add a new preservation state
      * @access public
      * @return void
      */
-    public function addpreservationAction() {
+    public function addpreservationAction()
+    {
         $form = new PreservationsForm();
         $form->submit->setLabel('Add a new discovery method');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $preserves = new Preservations();
                 $update = $preserves->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'preservations');
+                $this->redirect($this->_redirectUrl . 'preservations');
                 $this->getFlash()->addMessage('Preservation state created!');
             } else {
                 $this->getFlash()->addMessage('Please correct errors');
@@ -726,24 +775,26 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** Edit a preservation state
      * @access public
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editpreservationAction() {
-        if($this->_getParam('id',false)) {
+    public function editpreservationAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new PreservationsForm();
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $preserves = new Preservations();
                     $where = array();
                     $where[] = $preserves->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
                     $update = $preserves->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Preservation state information updated!');
-                    $this->_redirect($this->_redirectUrl . 'preservations');
+                    $this->redirect($this->_redirectUrl . 'preservations');
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -752,7 +803,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $preserves = new Preservations();
                     $preserve = $preserves->fetchRow('id=' . $id);
-                    if(count($preserve)) {
+                    if (count($preserve)) {
                         $form->populate($preserve->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -763,11 +814,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Delete a preservation state
      * @access public
      * @return void
      */
-    public function deletepreservationAction() {
+    public function deletepreservationAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -776,8 +829,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $preserves->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl . 'preservations');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'preservations');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -786,11 +839,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** List the types of grid reference origins
      * @access public
      * @return void
      */
-    public function maporiginsAction() {
+    public function maporiginsAction()
+    {
         $origins = new MapOrigins();
         $this->view->origins = $origins->getOrigins();
     }
@@ -799,50 +854,53 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addmaporiginAction() {
+    public function addmaporiginAction()
+    {
         $form = new OriginForm();
         $form->details->setLegend('Grid reference origin details: ');
         $form->submit->setLabel('Add a grid ref. origin term.');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $origins = new MapOrigins();
                 $origins->add($form->getValues());
                 $this->getFlash()->addMessage('A new grid reference origin has been entered');
-                $this->_redirect($this->_redirectUrl . 'maporigins');
+                $this->redirect($this->_redirectUrl . 'maporigins');
             } else {
                 $form->populate($form->getValues());
             }
         }
     }
+
     /** Edit a map origin statement
      * @access public
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editmaporiginAction() {
-        if($this->_getParam('id',false)) {
+    public function editmaporiginAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new OriginForm();
             $form->details->setLegend('Edit an origin term');
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $origins = new MapOrigins();
                     $where = array();
                     $where[] = $origins->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                    $origins->update($form->getValues(),$where);
-                    $this->_redirect($this->_redirectUrl . 'maporigins');
+                    $origins->update($form->getValues(), $where);
+                    $this->redirect($this->_redirectUrl . 'maporigins');
                     $this->getFlash()->addMessage('Grid reference origin updated!');
                 } else {
-                $form->populate($form->getValues());
+                    $form->populate($form->getValues());
                 }
-            } else  {
+            } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
                     $origins = new MapOrigins();
                     $origin = $origins->fetchRow('id = ' . $this->_getParam('id'));
-                    if(count($origin) != null ) {
+                    if (count($origin) != null) {
                         $form->populate($origin->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -853,11 +911,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParamter);
         }
     }
+
     /** Delete a map origin statement
      * @access public
      * @return void
      */
-    public function deletemaporiginAction() {
+    public function deletemaporiginAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -866,8 +926,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $origins->delete($where);
             }
-            $this->_redirect($this->_redirectUrl . 'maporigins/');
-            $this->getFlash()->addMessage( self::DELETED );
+            $this->redirect($this->_redirectUrl . 'maporigins/');
+            $this->getFlash()->addMessage(self::DELETED);
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -876,11 +936,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** List finds of note methods
      * @access public
      * @return void
      */
-    public function notesAction(){
+    public function notesAction()
+    {
         $notes = new FindOfNoteReasons();
         $this->view->notes = $notes->getReasonsListAdmin();
     }
@@ -889,39 +951,42 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addnoteAction() {
+    public function addnoteAction()
+    {
         $form = new FindNoteReasonForm();
         $form->submit->setLabel('Add a new reason');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $notes = new FindOfNoteReasons();
                 $update = $notes->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'notes');
+                $this->redirect($this->_redirectUrl . 'notes');
                 $this->getFlash()->addMessage('Preservation state created!');
             } else {
                 $form->populate($form->getValues());
             }
         }
     }
+
     /** Edit find of note statement
      * @access public
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editnoteAction() {
-        if($this->_getParam('id',false)) {
+    public function editnoteAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new FindNoteReasonForm();
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $notes = new FindOfNoteReasons();
                     $where = array();
                     $where[] = $notes->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
                     $update = $notes->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Find of note reason updated!');
-                    $this->_redirect($this->_redirectUrl . 'notes');
+                    $this->redirect($this->_redirectUrl . 'notes');
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -930,7 +995,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $notes = new FindOfNoteReasons();
                     $note = $notes->fetchRow('id=' . $id);
-                    if(count($note)) {
+                    if (count($note)) {
                         $form->populate($note->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -941,11 +1006,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParamter);
         }
     }
+
     /** Delete a find of note statement
      * @access public
      * @return void
      */
-    public function deletenoteAction() {
+    public function deletenoteAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -953,9 +1020,9 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $notes = new FindOfNoteReasons();
                 $where = 'id = ' . $id;
                 $notes->delete($where);
-                $this->getFlash()->addMessage( self::DELETED );
+                $this->getFlash()->addMessage(self::DELETED);
             }
-            $this->_redirect($this->_redirectUrl . 'notes');
+            $this->redirect($this->_redirectUrl . 'notes');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -969,7 +1036,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function materialsAction() {
+    public function materialsAction()
+    {
         $materials = new Materials();
         $this->view->materials = $materials->getMaterialsAdmin($this->_getParam('page'));
     }
@@ -978,39 +1046,42 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addmaterialAction() {
+    public function addmaterialAction()
+    {
         $form = new MaterialForm();
         $form->submit->setLabel('Add a new material');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $materials = new Materials();
                 $update = $materials->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'materials');
+                $this->redirect($this->_redirectUrl . 'materials');
                 $this->getFlash()->addMessage('A new material has been created on the system!');
             } else {
                 $form->populate($form->getValues());
             }
         }
     }
+
     /** Edit a material type
      * @access public
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editmaterialAction() {
-        if($this->_getParam('id',false)) {
+    public function editmaterialAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new MaterialForm();
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $materials = new Materials();
                     $where = array();
                     $where[] = $materials->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
                     $update = $materials->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Material information updated!');
-                    $this->_redirect($this->_redirectUrl . 'materials');
+                    $this->redirect($this->_redirectUrl . 'materials');
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -1019,7 +1090,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $materials = new Materials();
                     $material = $materials->fetchRow('id=' . $id);
-                    if(count($material)) {
+                    if (count($material)) {
                         $form->populate($material->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -1035,7 +1106,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deletematerialAction() {
+    public function deletematerialAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -1044,8 +1116,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $materials->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl . 'materials');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'materials');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -1054,11 +1126,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** List decorative styles
      * @access public
      * @return void
      */
-    public function decorationstylesAction() {
+    public function decorationstylesAction()
+    {
         $decs = new DecStyles();
         $this->view->decs = $decs->getDecStylesAdmin();
     }
@@ -1067,15 +1141,16 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function adddecorationstyleAction() {
+    public function adddecorationstyleAction()
+    {
         $form = new DecStylesForm();
         $form->submit->setLabel('Add a new term');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $decs = new DecStyles();
                 $update = $decs->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'decorationstyles');
+                $this->redirect($this->_redirectUrl . 'decorationstyles');
                 $this->getFlash()->addMessage('A new decoration style has been created on the system!');
             } else {
                 $form->populate($form->getValues());
@@ -1089,19 +1164,20 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      * @throws Exception
      */
-    public function editdecorationstyleAction() {
-        if($this->_getParam('id',false)) {
+    public function editdecorationstyleAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new DecStylesForm();
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $decs = new DecStyles();
                     $where = array();
                     $where[] = $decs->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
                     $update = $decs->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Decoration style information updated!');
-                    $this->_redirect($this->_redirectUrl . 'decorationstyles');
+                    $this->redirect($this->_redirectUrl . 'decorationstyles');
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -1110,7 +1186,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 if ($id > 0) {
                     $decs = new DecStyles();
                     $dec = $decs->fetchRow('id=' . $id);
-                    if(count($dec)){
+                    if (count($dec)) {
                         $form->populate($dec->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
@@ -1121,11 +1197,13 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
             throw new Exception($this->_missingParameter);
         }
     }
+
     /** Delete a decorative style
      * @access public
      * @return void
      */
-    public function deletedecorationstyleAction() {
+    public function deletedecorationstyleAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -1134,8 +1212,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $decs->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl . 'decorationstyles');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'decorationstyles');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -1149,7 +1227,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function manufacturesAction() {
+    public function manufacturesAction()
+    {
         $manufactures = new Manufactures();
         $this->view->manufactures = $manufactures->getManufacturesListedAdmin();
     }
@@ -1158,55 +1237,58 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addmanufactureAction() {
+    public function addmanufactureAction()
+    {
         $form = new ManufacturesForm();
         $form->submit->setLabel('Add a new method');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $manufactures = new Manufactures();
                 $update = $manufactures->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'manufactures');
+                $this->redirect($this->_redirectUrl . 'manufactures');
                 $this->getFlash()->addMessage('A new manufacturing method has been created on the system!');
             } else {
                 $form->populate($form->getValues());
             }
         }
     }
+
     /** Edit a manufacture method
      * @access public
      * @return void
      * @throws Pas_Exception_Param
      * @throws Exception
      */
-    public function editmanufactureAction() {
-        if($this->_getParam('id',false)) {
-        $form = new ManufacturesForm();
-        $form->submit->setLabel( self::UPDATE );
-        $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
-                $manufactures = new Manufactures();
-                $where = array();
-                $where[] = $manufactures->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
-                $update = $manufactures->update($form->getValues(), $where);
-                $this->getFlash()->addMessage('Manufacture information updated!');
-                $this->_redirect($this->_redirectUrl . 'manufactures');
-            } else {
-            $form->populate($form->getValues());
-            }
-        } else {
-            $id = (int)$this->_request->getParam('id', 0);
-            if ($id > 0) {
-                $manufactures = new Manufactures();
-                $manufacture = $manufactures->fetchRow('id=' . $id);
-                if(count($manufacture)){
-                    $form->populate($manufacture->toArray());
+    public function editmanufactureAction()
+    {
+        if ($this->_getParam('id', false)) {
+            $form = new ManufacturesForm();
+            $form->submit->setLabel(self::UPDATE);
+            $this->view->form = $form;
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+                if ($form->isValid($form->getValues())) {
+                    $manufactures = new Manufactures();
+                    $where = array();
+                    $where[] = $manufactures->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+                    $update = $manufactures->update($form->getValues(), $where);
+                    $this->getFlash()->addMessage('Manufacture information updated!');
+                    $this->redirect($this->_redirectUrl . 'manufactures');
                 } else {
-                    throw new Pas_Exception_Param($this->_nothingFound);
+                    $form->populate($form->getValues());
+                }
+            } else {
+                $id = (int)$this->_request->getParam('id', 0);
+                if ($id > 0) {
+                    $manufactures = new Manufactures();
+                    $manufacture = $manufactures->fetchRow('id=' . $id);
+                    if (count($manufacture)) {
+                        $form->populate($manufacture->toArray());
+                    } else {
+                        throw new Pas_Exception_Param($this->_nothingFound);
+                    }
                 }
             }
-        }
         } else {
             throw new Exception($this->_missingParameter);
         }
@@ -1216,7 +1298,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deletemanufactureAction() {
+    public function deletemanufactureAction()
+    {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
@@ -1225,8 +1308,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $manufactures->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl.'manufactures');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'manufactures');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
@@ -1239,8 +1322,9 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
     /** List landuses
      * @access public
      * @return void
-    */
-    public function landusesAction() {
+     */
+    public function landusesAction()
+    {
         $landuses = new Landuses();
         $this->view->landuses = $landuses->getLandusesAdmin();
     }
@@ -1249,16 +1333,17 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function addlanduseAction() {
+    public function addlanduseAction()
+    {
         $form = new LanduseForm();
         $form->details->setLegend('Add landuse');
         $form->submit->setLabel('Add a new landuse');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             if ($form->isValid($form->getValues())) {
                 $landuses = new Landuses();
                 $update = $landuses->add($form->getValues());
-                $this->_redirect($this->_redirectUrl . 'landuses');
+                $this->redirect($this->_redirectUrl . 'landuses');
                 $this->getFlash()->addMessage('A new landuse has been created on the system!');
             } else {
                 $form->populate($form->getValues());
@@ -1271,30 +1356,31 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function editlanduseAction() {
-        if($this->_getParam('id',false)) {
+    public function editlanduseAction()
+    {
+        if ($this->_getParam('id', false)) {
             $form = new LanduseForm();
             $form->details->setLegend('Edit landuse');
-            $form->submit->setLabel( self::UPDATE );
+            $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
-            if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $landuses = new Landuses();
                     $where = array();
                     $where[] = $landuses->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
                     $update = $landuses->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Active landuse information updated!');
-                    $this->_redirect($this->_redirectUrl . 'landuses');
+                    $this->redirect($this->_redirectUrl . 'landuses');
                 } else {
-                $form->populate($form->getValues());
+                    $form->populate($form->getValues());
                 }
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
                     $landuses = new Landuses();
                     $landuse = $landuses->fetchRow('id=' . $id);
-                    if(count($landuse)) {
-                    $form->populate($landuse->toArray());
+                    if (count($landuse)) {
+                        $form->populate($landuse->toArray());
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound);
                     }
@@ -1309,7 +1395,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function deletelanduseAction() {
+    public function deletelanduseAction()
+    {
         $this->getFlash()->addMessage($this->_noChange);
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
@@ -1319,8 +1406,8 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin {
                 $where = 'id = ' . $id;
                 $landuses->delete($where);
             }
-            $this->getFlash()->addMessage( self::DELETED );
-            $this->_redirect($this->_redirectUrl . 'landuses');
+            $this->getFlash()->addMessage(self::DELETED);
+            $this->redirect($this->_redirectUrl . 'landuses');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

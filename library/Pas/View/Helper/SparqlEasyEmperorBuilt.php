@@ -102,9 +102,9 @@ class Pas_View_Helper_SparqlEasyEmperorBuilt extends Zend_View_Helper_Abstract
      */
     protected $_nameSpaces = array(
             'category' => 'http://dbpedia.org/resource/Category:',
-            'dbpedia', 'http://dbpedia.org/resource/',
-            'dbo', 'http://dbpedia.org/ontology/',
-            'dbp', 'http://dbpedia.org/property/'
+            'dbpedia' => 'http://dbpedia.org/resource/',
+            'dbo' => 'http://dbpedia.org/ontology/',
+            'dbp' => 'http://dbpedia.org/property/'
         );
     
     /** Get the namespaces
@@ -207,7 +207,7 @@ class Pas_View_Helper_SparqlEasyEmperorBuilt extends Zend_View_Helper_Abstract
         $html = '';
         $dataSparql = $this->getSparqlData();
         if (sizeof($dataSparql) > 0) {
-        $html .= '<h3>Monumental building</h3>';
+        $html .= '<h3 class="lead">Monumental building</h3>';
         $html .= '<ul>';
         foreach ($dataSparql as $data) {
             $html .='<li>';

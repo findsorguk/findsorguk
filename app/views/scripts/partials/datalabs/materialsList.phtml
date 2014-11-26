@@ -1,3 +1,14 @@
 <tr>
-<td><a href="<?php echo $this->url(array('module' =>'datalabs', 'controller' => 'terminology','action'=>'material', 'id'=>$this->id),null,true);?>" title="View <?php echo $this->escape($this->term);?>'s details"><?php echo $this->escape($this->term);?></a></td>
+    <td>
+        <a href="<?php echo $this->url(
+            array(
+                'module' => 'datalabs',
+                'controller' => 'terminology',
+                'action' => 'material',
+                'id' => $this->id),
+            'default', true); ?>"
+           title="View <?php echo $this->term; ?>'s details"><?php echo $this->term; ?></a>
+    </td>
+    <td><?php echo $this->bmID; ?></td>
+    <td><?php echo $this->ehID; ?></td>
 </tr>

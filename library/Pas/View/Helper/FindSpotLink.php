@@ -24,10 +24,10 @@
  * @todo streamline code
  * @todo extend the view helper for auth and config objects
  * @copyright DEJ Pett
+ * @license GNU
  * @version 1
  * @since 29 September 2011
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @author Daniel Pett <dpett@britishmuseum.org>
+ * @author dpett
  */
 
 class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
@@ -54,13 +54,19 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array $higherLevel
      */
-    protected $_higherLevel = array('admin','fa','treasure');
+    protected $_higherLevel = array('admin','fa','treasure', 'hoard');
 
     /** The auth object
      * @access protected
      * @var object
      */
     protected $_auth;
+
+    /** The controller
+     * @access protected
+     * @var object
+     */
+    protected $_controller;
 
     /** The creator
      * @access protected
@@ -167,6 +173,15 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
         return $this->_auth;
     }
 
+    /** Get the controller
+     * @access public
+     * @return object
+     */
+    public function getController() {
+        $this->_controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+        return $this->_controller;
+    }
+
     /** Set the find ID to query
      * @access public
      * @param int $findID
@@ -231,7 +246,7 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
      * @param int $createdBy
      * @return boolean
      */
-    public function checkAccessbyUserID( $createdBy ) {
+    public function checkAccessbyUserID($createdBy ) {
             if (in_array( $this->getRole(), $this->_restricted ) ) {
             if ($createdBy == $this->getUserID()) {
                     $allowed = true;
@@ -265,16 +280,18 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
      */
     public function checkAccessbyInstitution( $institution ) {
         if(in_array($this->getRole(),$this->_recorders)
-                && $this->getInst() == $institution) {
+            && $this->getInst() == $institution) {
             $allowed = true;
         } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
             $allowed = true;
-        } elseif (in_array ($this->getRole, $this->_restricted)
+        } elseif (in_array ($this->getRole(), $this->_restricted)
                 && $this->checkAccessbyUserID ($this->getCreatedBy())) {
             $allowed = true;
         } elseif (in_array($this->getRole(),$this->_recorders)
                 && $institution == 'PUBLIC') {
             $allowed = true;
+        } else {
+            $allowed = false;
         }
         return $allowed;
     }
@@ -314,10 +331,11 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
     public function urlBuild() {
         $url = array(
             'module' => 'database',
-            'controller' => 'findspot',
+            'controller' => 'findspots',
             'action' => 'add',
             'secuid' => $this->getSecuID(),
-            'id' => $this->getFindID()
+            'id' => $this->getFindID(),
+            'recordtype' => $this->getController()
         );
         return $url;
     }
@@ -333,7 +351,7 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
         $html .= '<a class="btn btn-small btn-success" href="';
         $html .= $url;
         $html .= '" title="Add spatial details for this find"';
-        $html .= ' accesslkey="f">';
+        $html .= ' accesskey="f">';
         $html .= 'Add a find spot</a></div>';
         return $html;
     }

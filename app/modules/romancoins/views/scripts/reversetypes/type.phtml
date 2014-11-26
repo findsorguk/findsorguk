@@ -1,54 +1,43 @@
-<?php 
-$this->headTitle('Full details for reverse type: ','PREPEND');
-$this->headMeta('This page provides details for the fourth century reverse type known as ' 
-        .  $this->reverses['0']['type'],'description')
-->headMeta($this->curUrl(),'dc.identifier')
-->headMeta('Daniel Pett','dc.creator')
-->headMeta('The Portable Antiquities Scheme','dc.publisher')
-->headMeta('CC BY','dc.rights');
-if(count($this->reverses > 0)) {
-echo $this->partialLoop('partials/numismatics/revtypedetail.phtml',$this->reverses);
-}
-?>
+<?php if ($this->reverses): ?>
+    <?php echo $this->partialLoop('partials/numismatics/reverseTypeDetail.phtml', $this->reverses); ?>
 
 
-<div class="row-fluid">
-	<!--  Navigation for tabs  -->
-	<ul id="tab" class="nav nav-tabs">
-		<li class="active"><a href="#issuers" data-toggle="tab">Issuers</a></li>
-        <li><a href="#mints" data-toggle="tab">Issuing mints</a></li>
-        <li><a href="#map" data-toggle="tab">Map</a></li>
-	</ul>
-	<!--  End of Tabs navigation -->
-	
-	<!-- Start of tabbed content div -->
-	<div id="myTabContent" class="tab-content">
-		
-		<div class="tab-pane fade in active" id="issuers">
-		<?php if(count($this->emps)):?>
-		<h3>Issuers</h3>
-			<ul >
-				<?php echo $this->partialLoop('partials/numismatics/revtypeemp.phtml',$this->emps);?>
-			</ul>
-		<?php endif;?>
-		</div>
-        
-        <div class="tab-pane fade" id="mints">
-		<?php if($this->mints):?>
-		<h3>Issuing mints</h3>
-			<ul>
-				<?php echo $this->partialLoop('partials/numismatics/revtypemints.phtml',$this->mints);?>
-			</ul>
-		<?php endif;?>
-		</div>
-		
-        <div class="tab-pane fade" id="map">
-		
-		</div>
-	</div>
-	<!--  End of tabbed content div -->
+    <div class="row-fluid">
+        <!--  Navigation for tabs  -->
+        <ul id="tab" class="nav nav-tabs">
+            <li class="active"><a href="#issuers" data-toggle="tab">Issuers</a></li>
+            <li><a href="#mints" data-toggle="tab">Issuing mints</a></li>
+            <li><a href="#map" data-toggle="tab">Map</a></li>
+        </ul>
+        <!--  End of Tabs navigation -->
 
-</div>
+        <!-- Start of tabbed content div -->
+        <div id="myTabContent" class="tab-content">
 
-<?php echo $this->latestRecords()->setQuery('reverse:' 
-        . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>
+            <div class="tab-pane fade in active" id="issuers">
+                <?php if (count($this->emps)): ?>
+                    <h3 class="lead">Issuers</h3>
+                    <ul>
+                        <?php echo $this->partialLoop('partials/numismatics/reverseTypeEmperor.phtml', $this->emps); ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
+
+            <div class="tab-pane fade" id="mints">
+                <?php if ($this->mints): ?>
+                    <h3 class="lead">Issuing mints</h3>
+                    <ul>
+                        <?php echo $this->partialLoop('partials/numismatics/reverseTypeMints.phtml', $this->mints); ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
+
+            <div class="tab-pane fade" id="map">
+
+            </div>
+        </div>
+        <!--  End of tabbed content div -->
+
+    </div>
+
+<?php endif; ?>

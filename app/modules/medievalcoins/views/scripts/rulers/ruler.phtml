@@ -3,323 +3,203 @@ $this->jQuery()->addJavascriptFile('http://jquery-ui.googlecode.com/svn/tags/lat
 echo $this->partialLoop('partials/numismatics/rulerProfile.phtml', $this->monarchs);
 ?>
 
-
-<?php
-$cache = Zend_Registry::get('cache');
-$key = md5('monarchs' . $this->monarchs[0]['dbpedia']);
-	if (!($cache->test($key))) {
-ini_set('display_errors', '0');     # don't show any errors...
-error_reporting(E_ALL | E_STRICT);  # ...but do log them
-$config = array('remote_store_endpoint' => 'http://dbpedia.org/sparql');
-$store = ARC2::getRemoteStore($config);
-//build the SPARQL query
-$q = '
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX dc: <http://purl.org/dc/elements/1.1/>
-PREFIX : <http://dbpedia.org/resource/>
-PREFIX dbpedia2: <http://dbpedia.org/property/>
-PREFIX dbpedia: <http://dbpedia.org/>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
-
-SELECT *
-WHERE {
-{
-?issuer foaf:isPrimaryTopicOf <http://en.wikipedia.org/wiki/' . $this->monarchs[0]['dbpedia'] .'> .
-?issuer  <http://dbpedia.org/ontology/abstract> ?abstract .
-?issuer  dbpedia2:name ?name .
-
-OPTIONAL {?issuer  foaf:depiction ?depiction}.
-OPTIONAL {?issuer  dbpedia-owl:thumbnail ?thumb} .
-OPTIONAL {?issuer  dbpedia2:imgw ?imgw} .
-OPTIONAL {?issuer  dbpedia2:successor ?successor} .
-OPTIONAL {?issuer  dbpedia-owl:spouse ?spouse} .
-OPTIONAL {?issuer  dbpedia2:father ?father} .
-OPTIONAL {?issuer  dbpedia2:mother ?mother} .
-OPTIONAL {?issuer  dbpedia2:birthDate ?birthdate}.
-OPTIONAL {?issuer  dbpedia2:deathDate ?deathDate}.
-
-FILTER langMatches( lang(?abstract), \'en\')
-FILTER langMatches( lang(?name), \'en\')}
-}
-
-LIMIT 1
-';
-//process the results
-$results = array();
-$rows = $store->query($q, 'rows');
-$cache->save($rows);
-	} else {
-		$rows = $cache->load($key);
-	}
-if ($rows) {
-foreach ($rows as $row) {
-	$abstract = $row['abstract'];
-$chunks = split('\. ',str_replace('c.','circa',$abstract));
-  foreach($chunks as $key=>$c){
-    $chunks[$key] = ($key%3==0) ? ($c . '.</p><p>') : ($c.'. ');
-  }
- $abs = '<p>'.join($chunks).'</p>';
- $abs = str_replace('..','.',$abs);
-echo '<h4>Wikipedia derived information</h4>';
-if(isset($row['thumb'])) {
-echo '<a href="'.$row['depiction'].'" rel="lightbox" title="' .str_replace('"','',$row['caption']) .'"><img rel="foaf:depiction" src="'.$row['thumb'].'" class="pull-right stelae img-polaroid" alt="' .str_replace('"','',$row['caption']) .'" width="'.$row['imgw'].'"/></a>';
-}
-echo '<div property="skos:definition" >' . $abs . '</div>';
-echo '<p>';
-if(isset($row['title'])) {
-echo '<strong>Title:</strong> '. $row['title'] . '<br />';
-}
-//echo 'Patronage: '.$row['patronage'].'<br />';
-if(isset($row['reign'])) {
-echo '<strong>Exact reign:</strong> '.strip_tags(rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['reign']))).'<br />';
-}
-if(isset($row['years'])){
-echo '<strong>Years ruled:</strong> '.rawurldecode($row['years']).'<br />';
-}
-if(isset($row['spouse'])){
-echo '<strong>Spouse:</strong> '.rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),strip_tags($row['spouse']))).'<br />';
-}
-if(isset($row['birthPlace'])) {
-echo '<strong>Birth place:</strong> '.str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),rawurldecode($row['birthPlace'])).'<br />';
-}
-if(isset($row['mother'])){
-echo '<strong>Mother:</strong> '.str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),rawurldecode($row['mother'])).'<br />';
-}
-if(isset($row['father'])){
-echo '<strong>Father:</strong> '.rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['father'])).'<br />';
-}
-if(isset($row['successor'])) {
-echo '<strong>Succeeded by:</strong> ' . rawurldecode( str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['successor'])).'<br />';
-}
-if(isset($row['burial'])){
-echo '<strong>Burial place:</strong> '. rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['burial'])).'<br />';
-}
-if(isset($row['birthdate'])) {
-echo '<strong>Date of birth:</strong> '.$row['birthdate'].'<br />';
-}
-if(isset($row['deathDate'])) {
-echo '<strong>Date of death:</strong> '.$row['deathDate'].'<br />';
-}
-if(isset($row['dp'])) {
-echo '<strong>Died at:</strong> '.rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['dp'])).'<br />';
-}
-
-if(isset($row['alt'])) {
-echo 'Alternative names: '.$row['alt'].'<br />';
-}
-
-echo '</p>';
-}
-}
-?>
-<?php echo $this->latestRecords()->setQuery('ruler:'  
-        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
 <div class="row-fluid">
-	<!--  Navigation for tabs  -->
-	<ul id="tab" class="nav nav-tabs">
-		<li class="active"><a href="#denoms" data-toggle="tab">Denominations issued</a></li>
+    <!--  Navigation for tabs  -->
+    <ul id="tab" class="nav nav-tabs">
+        <li class="active"><a href="#denoms" data-toggle="tab">Denominations issued</a></li>
         <li><a href="#mints" data-toggle="tab">Issuing mints</a></li>
         <li><a href="#types" data-toggle="tab">Types issued</a>
         <li><a href="#map" data-toggle="tab">Map</a></li>
-	</ul>
-	<!--  End of Tabs navigation -->
+    </ul>
+    <!--  End of Tabs navigation -->
 
-	<!-- Start of tabbed content div -->
-	<div id="myTabContent" class="tab-content">
+    <!-- Start of tabbed content div -->
+    <div id="myTabContent" class="tab-content">
 
-		<div class="tab-pane fade in active" id="denoms">
-		<?php if (count($this->denominations > 0)):?>
-		<h3>Denominations issued</h3>
-			<ul>
-			<?php echo $this->partialLoop('partials/numismatics/denomination.phtml', $this->denominations);?>
-			</ul>
-		<?php endif;?>
-		</div>
+        <div class="tab-pane fade in active" id="denoms">
+            <?php if (count($this->denominations > 0)): ?>
+                <h3 class="lead">Denominations issued</h3>
+                <ul>
+                    <?php echo $this->partialLoop('partials/numismatics/denomination.phtml', $this->denominations); ?>
+                </ul>
+            <?php endif; ?>
+        </div>
 
         <div class="tab-pane fade" id="mints">
-		<?php if(count($this->mints > 0)):?>
-		<h3>Active Mints</h3>
-		<ul>
-			<?php echo $this->partialLoop('partials/numismatics/medmintsList.phtml', $this->mints);?>
-		</ul>
-		<?php endif;?>
-		</div>
+            <?php if (count($this->mints > 0)): ?>
+                <h3 class="lead">Active Mints</h3>
+                <ul>
+                    <?php echo $this->partialLoop('partials/numismatics/medievalMintsList.phtml', $this->mints); ?>
+                </ul>
+            <?php endif; ?>
+        </div>
 
-		<div class="tab-pane fade" id="types">
-		<?php if(count($this->types > 0 )):?>
-		<h3><?php echo count($this->types) . ' coin types issued';?></h3>
-		<ul>
-			<?php echo $this->partialLoop('partials/numismatics/types.phtml', $this->types);?>
-		</ul>
-		<?php endif;?>
-		</div>
+        <div class="tab-pane fade" id="types">
+            <?php if (count($this->types > 0)): ?>
+                <h3 class="lead"><?php echo count($this->types) . ' coin types issued'; ?></h3>
+                <ul>
+                    <?php echo $this->partialLoop('partials/numismatics/types.phtml', $this->types); ?>
+                </ul>
+            <?php endif; ?>
+        </div>
 
         <div class="tab-pane fade" id="map">
 
-		</div>
-	</div>
-	<!--  End of tabbed content div -->
+        </div>
+    </div>
+    <!--  End of tabbed content div -->
 
 </div>
 <?php
 $config = Zend_Registry::get('config');
 $apikey = $config->webservice->googlemaps->apikey;
-$this->inlineScript()->appendFile('http://maps.googleapis.com/maps/api/js?v=3.8&sensor=true&region=GB&key=' . $apikey,$type='text/javascript');
+$this->inlineScript()->appendFile('http://maps.googleapis.com/maps/api/js?v=3.8&sensor=true&region=GB&key=' . $apikey, $type = 'text/javascript');
 
-$this->inlineScript()->appendFile('http://nls.tileserver.com/api-cluster.js',$type='text/javascript');
+$this->inlineScript()->appendFile('http://nls.tileserver.com/api-cluster.js', $type = 'text/javascript');
 ?>
 
-<?php $this->inlineScript()->captureStart();?>
+<?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function() {
 
 
 var nlsmap = new google.maps.ImageMapType({
-	   getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
-	   tileSize: new google.maps.Size(256, 256),
-	   isPng: false,
-	   maxZoom: 14,
-	   minZoom: 1,
-	   name: 'Historic',
-	   alt: "NLS Historic Map"
-	});
+getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
+tileSize: new google.maps.Size(256, 256),
+isPng: false,
+maxZoom: 14,
+minZoom: 1,
+name: 'Historic',
+alt: "NLS Historic Map"
+});
 
 
+var osmMapType = new google.maps.ImageMapType({
+getTileUrl: function (coord, zoom) {
+return "http://tile.openstreetmap.org/" +
+zoom + "/" + coord.x + "/" + coord.y + ".png";
 
-    var osmMapType = new google.maps.ImageMapType({
-        getTileUrl: function (coord, zoom) {
-            return "http://tile.openstreetmap.org/" +
-                zoom + "/" + coord.x + "/" + coord.y + ".png";
+},
+tileSize: new google.maps.Size(256, 256),
+isPng: true,
+alt: "OpenStreetMap layer",
+name: "OSM",
+maxZoom: 18
+});
 
-        },
-        tileSize: new google.maps.Size(256, 256),
-        isPng: true,
-        alt: "OpenStreetMap layer",
-        name: "OSM",
-        maxZoom: 18
-    });
+var soilMapType = new google.maps.ImageMapType({
 
-   var soilMapType = new google.maps.ImageMapType({
+getTileUrl: function(tile, zoom) {
 
-   getTileUrl: function(tile, zoom) {
+var projection = map.getProjection();
 
-   var projection = map.getProjection();
+var zpow = Math.pow(2, zoom);
 
-   var zpow = Math.pow(2, zoom);
+var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
 
-   var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
+var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
 
-   var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
+var ulw = projection.fromPointToLatLng(ul);
 
-   var ulw = projection.fromPointToLatLng(ul);
+var lrw = projection.fromPointToLatLng(lr);
 
-   var lrw = projection.fromPointToLatLng(lr);
+var baseURL ="http://geonetwork3.fao.org/ows/14116?LAYERS=world_soilmap&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&SRS=EPSG:4326";
 
-   var baseURL ="http://geonetwork3.fao.org/ows/14116?LAYERS=world_soilmap&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&SRS=EPSG:4326";
+var version = "1.1.1";
 
-   var version = "1.1.1";
+var request = "GetMap";
 
-   var request = "GetMap";
-
-   var format = "image/png"; //type of image returned  or image/jpeg
-
-
-   var layers = "world_soilmap";
-
-   var srs = "EPSG:4326";
-
-   var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
-
-   var service = "WMS";
-
-   var width = "256";
-
-   var height = "256";
+var format = "image/png"; //type of image returned  or image/jpeg
 
 
-   var styles = "default";
+var layers = "world_soilmap";
 
-   var url = baseURL +"&BBOX=" + bbox + "&WIDTH=" + width + "&HEIGHT=" + height;
+var srs = "EPSG:4326";
 
-   return url;
-    },
-        tileSize: new google.maps.Size(256, 256),
-        isPng: true,
-        alt: "Soil layer",
-        name: "Soil types",
-        maxZoom: 18,
-        minZoom: 3,
-        opacity: 0.2,
-    });
+var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
+
+var service = "WMS";
+
+var width = "256";
+
+var height = "256";
 
 
+var styles = "default";
+
+var url = baseURL +"&BBOX=" + bbox + "&WIDTH=" + width + "&HEIGHT=" + height;
+
+return url;
+},
+tileSize: new google.maps.Size(256, 256),
+isPng: true,
+alt: "Soil layer",
+name: "Soil types",
+maxZoom: 18,
+minZoom: 3,
+opacity: 0.2,
+});
 
 
-
-	var myOptions = {
-          center: new google.maps.LatLng( 53.2,-6.1),
-          zoom: 7,
-		  mapTypeControlOptions: {
-          mapTypeIds: [
-          google.maps.MapTypeId.TERRAIN,
-          google.maps.MapTypeId.SATELLITE,
-          'OSM',
-          'SOIL',
-          'historic'
-          ]
-    	  },
-    	  mapTypeControl: true,
-    	  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-          scaleControl: true,
-    	  zoomControl: true,
-          mapTypeId: 'OSM',
-          scrollwheel: false,
-        };
-
-
-        var map = new google.maps.Map(document.getElementById("map"),
-            myOptions);
-            map.mapTypes.set('OSM',osmMapType);
-            map.mapTypes.set('SOIL',soilMapType);
-            map.mapTypes.set('historic',nlsmap);
-
-            var infoWindow;
+var myOptions = {
+center: new google.maps.LatLng( 53.2,-6.1),
+zoom: 7,
+mapTypeControlOptions: {
+mapTypeIds: [
+google.maps.MapTypeId.TERRAIN,
+google.maps.MapTypeId.SATELLITE,
+'OSM',
+'SOIL',
+'historic'
+]
+},
+mapTypeControl: true,
+style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+scaleControl: true,
+zoomControl: true,
+mapTypeId: 'OSM',
+scrollwheel: false,
+};
 
 
-       jQuery.get("/database/ajax/mapdata2/show/20/", function(data) {
-  jQuery(data).find("marker").each(function() {
-    var eachMarker = jQuery(this);
-    var markerCoords = new google.maps.LatLng(
-        parseFloat(eachMarker.find("lat").text()),
-        parseFloat(eachMarker.find("lng").text())
-    );
+var map = new google.maps.Map(document.getElementById("map"),
+myOptions);
+map.mapTypes.set('OSM',osmMapType);
+map.mapTypes.set('SOIL',soilMapType);
+map.mapTypes.set('historic',nlsmap);
 
-    var content = eachMarker.find("content").text();
-    var html =  content;
+var infoWindow;
 
-    var marker = addMarker(html, markerCoords);
 
-    });
-  });
+jQuery.get("/database/ajax/mapdata2/show/20/", function(data) {
+jQuery(data).find("marker").each(function() {
+var eachMarker = jQuery(this);
+var markerCoords = new google.maps.LatLng(
+parseFloat(eachMarker.find("lat").text()),
+parseFloat(eachMarker.find("lng").text())
+);
+
+var content = eachMarker.find("content").text();
+var html =  content;
+
+var marker = addMarker(html, markerCoords);
+
+});
+});
 // Create a marker for each XML entry
 function addMarker(html, markerCoords) {
 
 // Place the new marker
 var marker = new google.maps.Marker({
-    animation: google.maps.Animation.DROP,
-    map: map,
-    position: markerCoords
+animation: google.maps.Animation.DROP,
+map: map,
+position: markerCoords
 }); // end place the new marker
 
 // Add event listener. On marker click, close all open infoWindows open current infoWindow.
 google.maps.event.addListener(marker, "click", function() {
-    if (infowindow) infowindow.close();
-    infowindow = new google.maps.InfoWindow({content: html});
-    infowindow.open(map, marker);
+if (infowindow) infowindow.close();
+infowindow = new google.maps.InfoWindow({content: html});
+infowindow.open(map, marker);
 }); // end add event listener
 
 // Display marker
@@ -327,32 +207,32 @@ return marker;
 
 } // end addMarker();
 
-       <?php
-       $params = Zend_Controller_Front::getInstance()->getRequest();
-       $url = $this->serverUrl() . $this->url(array('module' => 'database','controller' => 'ajax','action' => 'mapdata', 'show' => '20',
-           'ruler' => $this->monarchs[0]['id']),'default',true);
-       ?>
+<?php
+$params = Zend_Controller_Front::getInstance()->getRequest();
+$url = $this->serverUrl() . $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'mapdata', 'show' => '20',
+        'ruler' => $this->monarchs[0]['id']), 'default', true);
+?>
 
-       var records = new google.maps.KmlLayer('<?php echo $url;?>' ,
-                                                 {preserveViewport: true, suppressInfoWindows: false });
-		records.setMap(map);
+var records = new google.maps.KmlLayer('<?php echo $url; ?>' ,
+{preserveViewport: true, suppressInfoWindows: false });
+records.setMap(map);
 
-             $('a[data-toggle="tab"]').on('shown', function (e) {
-  e.target // activated tab
-  e.relatedTarget // previous tab
+$('a[data-toggle="tab"]').on('shown', function (e) {
+e.target // activated tab
+e.relatedTarget // previous tab
 
-             google.maps.event.trigger(map, 'resize');
-             map.setZoom( map.getZoom() );
-            var latLngBounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng(49.871159, -6.379880),
-          new google.maps.LatLng(55.811741, 1.768960)
-        );
-    	map.fitBounds(latLngBounds);
+google.maps.event.trigger(map, 'resize');
+map.setZoom( map.getZoom() );
+var latLngBounds = new google.maps.LatLngBounds(
+new google.maps.LatLng(49.871159, -6.379880),
+new google.maps.LatLng(55.811741, 1.768960)
+);
+map.fitBounds(latLngBounds);
 })
 
 });
 
 
 
-<?php $this->inlineScript()->captureEnd();?>
+<?php $this->inlineScript()->captureEnd(); ?>
 

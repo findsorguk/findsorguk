@@ -23,7 +23,7 @@
  * @example /app/modules/contacts/controllers/AccreditedmuseumsController.php
  * @uses Zend_Cache
  * @uses Zend_Paginator
-*/
+ */
 
 class AccreditedMuseums extends Pas_Db_Table_Abstract {
 
@@ -41,24 +41,24 @@ class AccreditedMuseums extends Pas_Db_Table_Abstract {
 
 
     /** Get list of all acronyms and paginator them
-    * @access public
-    * @return array
-    * @param  array $params sent via controller
-    */
+     * @access public
+     * @return array
+     * @param  array $params sent via controller
+     */
     public function listMuseums( array $params)	{
         $museums = $this->getAdapter();
         $select = $museums->select()
-                ->from($this->_name, array(
-                    'museumName', 'lat', 'lon',
-                    'id', 'accreditedNumber'))
-                ->joinLeft('accreditedRegions','accreditedRegions.id = '
-                        . $this->_name . '.area', array('regionName'))
-                ->joinLeft('accreditedStatus','accreditedStatus.id = '
-                        . $this->_name . '.status', array('status'));
+            ->from($this->_name, array(
+                'museumName', 'lat', 'lon',
+                'id', 'accreditedNumber'))
+            ->joinLeft('accreditedRegions','accreditedRegions.id = '
+                . $this->_name . '.area', array('regionName'))
+            ->joinLeft('accreditedStatus','accreditedStatus.id = '
+                . $this->_name . '.status', array('status'));
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(20)
-                ->setPageRange(10)
-                ->setCache( $this->_cache );
+            ->setPageRange(10)
+            ->setCache( $this->_cache );
         if(isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber($params['page']);
         }
@@ -73,8 +73,8 @@ class AccreditedMuseums extends Pas_Db_Table_Abstract {
     public function mapMuseums(){
         $museums = $this->getAdapter();
         $select = $museums->select()
-                ->from($this->_name, array('museumName', 'lat', 'lon',
-                    'id', 'accreditedNumber'));
+            ->from($this->_name, array('museumName', 'lat', 'lon',
+                'id', 'accreditedNumber'));
         return $museums->fetchAll($select);
     }
 }

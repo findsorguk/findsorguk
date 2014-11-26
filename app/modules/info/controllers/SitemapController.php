@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for displaying sitemaps
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
@@ -20,75 +21,83 @@
  * @todo Scrap this controller and build xml maps for each module within their
  * code base.
  */
-class Info_SitemapController extends Pas_Controller_Action_Admin {
-	
+class Info_SitemapController extends Pas_Controller_Action_Admin
+{
+
     /** Set up acl, display with no layout
      * @access public
      * @return void
-    */		
-    public function init() {
+     */
+    public function init()
+    {
         $this->_helper->_acl->allow(null);
         $this->_helper->layout->disableLayout();
         $this->getResponse()->setHeader('Content-type', 'application/xml');
         ini_set("memory_limit", "256M");
     }
-    
+
     /** The default action - show the home page
      * @access public
      * @return void
      */
-    public function indexAction() {
-        $config = new Zend_Config_Xml('http://finds.org.uk/info/sitemap/configuration/','nav');
+    public function indexAction()
+    {
+        $config = new Zend_Config_Xml('http://finds.org.uk/info/sitemap/configuration/', 'nav');
         $navigation = new Zend_Navigation($config);
         $this->view->navigation($navigation);
         $this->view->navigation()
-                ->sitemap()
-                ->setFormatOutput(true); // default is false
+            ->sitemap()
+            ->setFormatOutput(true); // default is false
     }
+
     /** Show the locational XML
      * @access public
      * @return void
      */
-    public function locationsAction() {
-        $config = new Zend_Config_Xml('http://finds.org.uk/info/sitemap/databaseconfig','locations');
+    public function locationsAction()
+    {
+        $config = new Zend_Config_Xml('http://finds.org.uk/info/sitemap/databaseconfig', 'locations');
         $navigation = new Zend_Navigation($config);
         $this->view->navigation($navigation);
         $this->view->navigation()
-                ->sitemap()
-                ->setFormatOutput(true); // default is false	
+            ->sitemap()
+            ->setFormatOutput(true); // default is false
     }
 
     /** The image locations xml file
      * @access public
      * @return void
      */
-    public function imagelocationsAction() {
-        $config = new Zend_Config_Xml('http://finds.org.uk/info/sitemap/imageconfig','locations');
+    public function imagelocationsAction()
+    {
+        $config = new Zend_Config_Xml('http://finds.org.uk/info/sitemap/imageconfig', 'locations');
         $navigation = new Zend_Navigation($config);
         $this->view->navigation($navigation);
         $this->view->navigation()
-                ->sitemap()
-                ->setFormatOutput(true); // default is false	
+            ->sitemap()
+            ->setFormatOutput(true); // default is false
     }
 
     /** The book locations xml file
      * @access public
      * @return void
      */
-    public function booklocationsAction() {
-        $config = new Zend_Config_Xml('http://finds.org.uk/info/sitemap/bookconfig','locations');
+    public function booklocationsAction()
+    {
+        $config = new Zend_Config_Xml('http://finds.org.uk/info/sitemap/bookconfig', 'locations');
         $navigation = new Zend_Navigation($config);
         $this->view->navigation($navigation);
         $this->view->navigation()
-                ->sitemap()
-                ->setFormatOutput(true); // default is false	
+            ->sitemap()
+            ->setFormatOutput(true); // default is false
     }
 
     /** The database config file
      * @access public
      * @return void
      */
-    public function databaseconfigAction(){
+    public function databaseconfigAction()
+    {
         //Magic in view
     }
 
@@ -96,7 +105,8 @@ class Info_SitemapController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function imageconfigAction(){
+    public function imageconfigAction()
+    {
         //Magic in view
     }
 
@@ -104,15 +114,17 @@ class Info_SitemapController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function bookconfigAction(){
+    public function bookconfigAction()
+    {
         //Magic in view
     }
-    
+
     /** The database records xml file
      * @access public
      * @return void
      */
-    public function databaserecordsAction(){
+    public function databaserecordsAction()
+    {
         //Magic in view
     }
 
@@ -120,15 +132,17 @@ class Info_SitemapController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function imagesAction(){
+    public function imagesAction()
+    {
         //Magic in view
     }
-    
+
     /** The books location
      * @access public
      * @return void
      */
-    public function booksAction(){
+    public function booksAction()
+    {
         //Magic in view
     }
 
@@ -136,7 +150,8 @@ class Info_SitemapController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function configurationAction() {
+    public function configurationAction()
+    {
         $content = new Content();
         $this->view->conservation = $content->getConservationNotes();
         $this->view->treasure = $content->getTreasureContent();
@@ -166,14 +181,14 @@ class Info_SitemapController extends Pas_Controller_Action_Admin {
         $this->view->postmedMints = $mints->getMintsSiteMap(36);
         $this->view->greekMints = $mints->getMintsSiteMap(66);
         $reeces = new Reeces();
-        $this->view->reeces = $reeces->getSiteMap(); 
+        $this->view->reeces = $reeces->getSiteMap();
         $types = new MedievalTypes();
         $this->view->medtypes = $types->getTypesSiteMap(29);
         $this->view->postmedtypes = $types->getTypesSiteMap(36);
         $this->view->earlymedtypes = $types->getTypesSiteMap(47);
         $cats = new CategoriesCoins();
         $this->view->medcats = $cats->getCatsSiteMap(29);
-        $this->view->earlymedcats = $cats->getCatsSiteMap(47); 
+        $this->view->earlymedcats = $cats->getCatsSiteMap(47);
         $this->view->postmedcats = $cats->getCatsSiteMap(36);
         $tribes = new Tribes();
         $this->view->tribes = $tribes->getSitemap();

@@ -1,6 +1,2 @@
-<?php echo $this->partial('partials/datalabs/smrrecord.phtml',$this->smrs['0']);?>
-<?php echo $this->findsSmr()
-        ->setLat($this->smrs['0']['lat'])
-        ->setLon($this->smrs['0']['lon'])
-        ->setDistance(0.25);
-?>
+<?php echo $this->partial('partials/datalabs/smrRecord.phtml', $this->smrs['0']); ?>
+<?php echo $this->findsSmr()->setLat($this->smrs['0']['lat'])->setLon($this->smrs['0']['lon'])->setDistance(0.25);

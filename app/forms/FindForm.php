@@ -203,6 +203,15 @@ class FindForm extends Pas_Form {
                 ->addValidator('Alnum', false, array('allowWhiteSpace' => false))
                 ->addFilters(array('StripTags','StringTrim', 'StringToUpper'));
 
+        //Container for hoard
+        $hoardcontainer = new Zend_Form_Element_Checkbox('hoardcontainer');
+        $hoardcontainer->setLabel('This find is a hoard container: ')
+            ->setRequired(false)
+            ->setCheckedValue('1')
+            ->setUncheckedValue(null)
+            ->addFilters(array('StripTags','StringTrim'))
+            ->addValidator('NotEmpty','Int');
+
 	// Temporal details section //
 	//Broadperiod:
 	$broadperiod = new Zend_Form_Element_Select('broadperiod');
@@ -552,15 +561,13 @@ class FindForm extends Pas_Form {
 	$datefound1 = new Zend_Form_Element_Text('datefound1');
 	$datefound1->setLabel('First discovery date: ')
                 ->setAttrib('size',10)
-                ->addFilters(array('StripTags','StringTrim'))
-                ->addValidator('Datetime');
+                ->addFilters(array('StripTags','StringTrim'));
 
 	//Date found to
 	$datefound2 = new Zend_Form_Element_Text('datefound2');
 	$datefound2->setLabel('Second discovery date: ')
                 ->setAttrib('size',10)
-                ->addFilters(array('StripTags','StringTrim'))
-                ->addValidator('Datetime');
+                ->addFilters(array('StripTags','StringTrim'));
 
 	##OTHER REFERENCE NUMBERS
 	//Other reference number
@@ -623,13 +630,13 @@ class FindForm extends Pas_Form {
             $preservation, $completeness, $findofnotereason, 
             $rally, $objecttypecert, $rallyID,
             $objdate1cert, $objdate2cert, $submit,	
-            $subs_action, $numdate1qual, $numdate2qual));
+            $subs_action, $numdate1qual, $numdate2qual, $hoardcontainer));
 
 	$this->addDisplayGroup(array(
             'objecttype','objecttypecert','classification',
             'subclass','description','notes',
             'inscription','findofnote','findofnotereason',
-            'treasure','treasureID'), 'objectdetails');
+            'treasure','treasureID','hoardcontainer'), 'objectdetails');
 
 	$this->objectdetails->setLegend('Object details');
 

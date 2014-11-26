@@ -4,35 +4,33 @@
  * 
  */
 ?>
-<?php 
-    $this->headTitle('Archived scheme events');
-    $this->headMeta('A list of all our events that have expired','description');
+<?php
+$this->headTitle('Archived scheme events');
+$this->metaBase()->setDescription('A list of all our events that have expired')
+    ->setSubject('Events listing')
+    ->setKeywords('events,list,archaeology,museums')
+    ->generate();
 ?>
-<h2>
-    <?php echo $this->title();?>
-</h2>
-<?php if(count($this->events)):?>
-<ul id="yearrange">
-<?php echo $this->partialLoop('partials/news/archiveYears.phtml', $this->yearList()->setStartYear(1998)->generateArray());?>
-</ul>
-<table class="table table-striped" summary="List of all archived scheme events">
-    <caption>List of past Scheme events</caption>
-    <thead>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->events)): ?>
+    <ul id="yearrange">
+        <?php echo $this->partialLoop('partials/news/archiveYears.phtml', $this->yearList()->setStartYear(1998)->generateArray()); ?>
+    </ul>
+    <table class="table table-striped" summary="List of all archived scheme events">
+        <caption>List of past Scheme events</caption>
+        <thead>
         <tr>
             <th>Date of event</th>
             <th>Event title</th>
             <th>Attendance</th>
             <th>Organised by</th>
         </tr>
-    </thead>
-    <tbody>
-        <?php echo $this->partialLoop('partials/news/archived.phtml',$this->events);?>
-    </tbody>
-</table>
-<?php else:?>
-    <p>
-        There are no archived events available to you.
-    </p>
-<?php endif;?>
-<?php echo  $this->paginationControl($this->events, 'Sliding', 'structure/pagination.phtml'); ?>
-
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/news/archived.phtml', $this->events); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->events, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>There are no archived events available to you.</p>
+<?php endif; ?>

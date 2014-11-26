@@ -1,0 +1,13 @@
+<?php
+$this->headTitle('Volunteers opportunity: ' . $this->title);
+$this->metaBase()->setSubject('Job and volunteer opportunities')
+    ->setDescription('A page detailing all current volunteering opportunities with the Scheme')
+    ->setKeyword('volunteer,volunteering')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title; ?></h2>
+<?php if (!is_null($this->description)): ?>
+    <?php echo $this->description; ?>
+<?php else: ?>
+    <p>No description entered.</p>
+<?php endif; ?>

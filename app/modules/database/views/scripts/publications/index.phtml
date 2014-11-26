@@ -13,7 +13,7 @@ $(function() {
 $('label.overlay').labelOver();
 });
 <?php $this->jQuery()->javascriptcaptureEnd(); ?>
-<h2>All publications</h2>
+<h2 class="lead">All publications</h2>
 <?php
 echo $this->Href(array(
     'module' => 'database',
@@ -23,7 +23,7 @@ echo $this->Href(array(
     'acl'=>'Zend_Acl',
     'params' =>array('id'=>$this->id),
     'content'=>'Add publication',
-    'attribs'=> array('class' => 'btn btn-large btn-success'),
+    'attribs'=> array('class' => 'btn btn-small btn-success'),
     'wrapper' => array(
         'tag' => 'p'),'
             attribs' => array(

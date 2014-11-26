@@ -239,7 +239,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      */
     public function __toString() {
         $broadperiod = $this->getBroadperiod();
-        switch ($this->getObjectType()) {
+        $objecttype = $this->getObjectType();
+        switch ($objecttype) {
             case (in_array($objecttype,$this->_coinarray) && in_array($broadperiod,$this->_periodRomIA)):
                 $adviserdetails = $this->getRomanCoins();
                 break;

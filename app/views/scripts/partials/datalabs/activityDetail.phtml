@@ -1,4 +1,15 @@
-<h2><?php echo $this->escape($this->term);?></h2>
+<?php
+$this->headTitle('Activity details for ' . $this->term);
+$this->metaBase()->setDescription('Details for the personal activity of term ' . $this->term)
+    ->setKeywords('activity,thesaurus,people')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<?php echo $this->termdesc;?>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>A scope note has not been provided yet.</p>
+<?php endif; ?>
 
+<?php echo $this->activitySolrSearch()->setQ('activity:"' .  $this->term . '"');?>

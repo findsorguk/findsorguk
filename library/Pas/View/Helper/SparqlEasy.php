@@ -102,9 +102,9 @@ class Pas_View_Helper_SparqlEasy extends Zend_View_Helper_Abstract
      */
     protected $_nameSpaces = array(
             'category' => 'http://dbpedia.org/resource/Category:',
-            'dbpedia', 'http://dbpedia.org/resource/',
-            'dbo', 'http://dbpedia.org/ontology/',
-            'dbp', 'http://dbpedia.org/property/'
+            'dbpedia' => 'http://dbpedia.org/resource/',
+            'dbo' =>  'http://dbpedia.org/ontology/',
+            'dbp' => 'http://dbpedia.org/property/'
         );
     
     /** Get the namespaces
@@ -207,7 +207,7 @@ class Pas_View_Helper_SparqlEasy extends Zend_View_Helper_Abstract
         $dataSparql = $this->getSparqlData();
         $html = '';
         if (sizeof($dataSparql) > 0) {
-        $html .= '<h3>Commander during battles</h3>';
+        $html .= '<h3 class="lead">Commander during battles</h3>';
         $html .= '<ul>';
         foreach ($dataSparql as $data) {
             $html .='<li>';

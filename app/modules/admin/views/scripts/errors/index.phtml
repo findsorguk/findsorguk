@@ -6,10 +6,8 @@ $this->metaBase()
         ->setKeywords('errors, mistakes, reports')
         ->generate();
 ?>
-<h2>
-    <?php echo $this->title();?>
-</h2>
-<?php if(count($this->errors)): ?>
+<h2 class="lead"><?php echo $this->title();?></h2>
+<?php if(!empty($this->errors)): ?>
 <table class="table table-striped">
 <caption><?php echo $this->title();?></caption>
     <thead>
@@ -19,13 +17,11 @@ $this->metaBase()
         </tr>
     </thead>
     <tbody>
-        <?php echo $this->partialLoop('partials/admin/allerrors.phtml', $this->errors) ?>
+        <?php echo $this->partialLoop('partials/admin/allErrors.phtml', $this->errors) ?>
     </tbody>
 </table>
 <?php echo $this->paginationControl($this->errors, 'Sliding', 'structure/pagination.phtml'); ?>
 
 <?php else:?>
-    <p>
-        No errors are listed or available to you.
-    </p>
+    <p>No errors are listed or available to you.</p>
 <?php endif;?>

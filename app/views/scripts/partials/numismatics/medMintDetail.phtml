@@ -3,7 +3,7 @@ $this->headMeta('Details for the '.$this->escape($this->mint_name),'description'
 $this->headMeta('numismatics','dc.subject');
 $this->headLink()->appendAlternate($this->baseUrl().'/database/search/results/mint/'.$this->id.'/format/atom/', 
 	 			'application/rss+xml', 'Latest recorded finds feed for '.$this->escape($this->mint_name));?>
-<h2>The <?php echo $this->escape($this->mint_name);?> mint</h2>
+<h2 class="lead">The <?php echo $this->escape($this->mint_name);?> mint</h2>
 
 <p>Mint: <?php echo $this->escape($this->mint_name);?> <br />
 <?php if(!is_null($this->latitude)):?>

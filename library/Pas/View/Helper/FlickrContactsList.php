@@ -131,7 +131,7 @@ class Pas_View_Helper_FlickrContactsList extends Zend_View_Helper_Abstract {
         $html = '';
         $key = md5 ('contactslistFP');
         if (!$friends = $this->getCache()->load($key)) {
-            $html = '<h3>Our flickr contacts</h3>';
+            $html = '<h3 class="lead">Our flickr contacts</h3>';
             foreach ($contacts->contact as $c) {
                 $type = '.jpg';
                 $url = 'http://farm';

@@ -1,0 +1,15 @@
+<h4 class="lead">Description</h4>
+<div property="pas:description">
+    <?php
+    echo $this->description;
+    ?>
+</div>
+<?php if(!empty($this->notes)) :?>
+    <p><strong>Notes:</strong></p> <span property="pas:notes"><?php
+        echo $this->notes;?></span>
+<?php endif;?>
+<?php if(($this->findofnote == 1) && (!is_null($this->reason))){
+    echo '<p>This is a find of note and has been designated: '. $this->reason . '</p>';
+} else if (($this->findofnote == 1) && (is_null($this->reason))) {
+    echo '<p>This has been noted as an interesting find by the recorder.</p>';
+}?>

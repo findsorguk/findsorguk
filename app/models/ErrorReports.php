@@ -1,9 +1,9 @@
 <?php
-/** 
+/**
  * A model for manipulating error report data
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $model = new ErrorReports();
@@ -15,26 +15,26 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 22 September 2011
  * @todo add edit and delete functions
  * @example /app/modules/admin/controllers/ErrorsController.php
  */
 class ErrorReports extends Pas_Db_Table_Abstract {
-	
+
     /** The table name
      * @access protected
      * @var string
      */
     protected $_name = 'errorreports';
-	
+
     /** The primary key
      * @access protected
      * @var integer
      */
     protected $_primary = 'id';
-	
+
     /** Insert error report data
      * @access public
      * @param array $formData
@@ -43,7 +43,7 @@ class ErrorReports extends Pas_Db_Table_Abstract {
     public function addReport($formData) {
         return $this->insert($formData);
     }
-    
+
     /** Retrieve a count of the error reports submitted so far
      * @access public
      * @return array
@@ -51,8 +51,8 @@ class ErrorReports extends Pas_Db_Table_Abstract {
     public function getCount(){
         $messages = $this->getAdapter();
         $select = $messages->select()
-                ->from($this->_name,array('total' => 'COUNT(id)'));
-        return $messages->fetchAll($select);	
+            ->from($this->_name,array('total' => 'COUNT(id)'));
+        return $messages->fetchAll($select);
     }
 
     /** Retrieve all submitted error messages so far
@@ -62,16 +62,16 @@ class ErrorReports extends Pas_Db_Table_Abstract {
     public function getMessages($params){
         $messages = $this->getAdapter();
         $select = $messages->select()
-                ->from($this->_name)
-                ->joinLeft('finds','finds.id = comment_findID', 
-                        array('broadperiod','objecttype','old_findID'))
-                >order($this->_name . '.id DESC');
+            ->from($this->_name)
+            ->joinLeft('finds','finds.id = comment_findID',
+                array('broadperiod','objecttype','old_findID'))
+            ->order($this->_name . '.id DESC');
         $data = $messages->fetchAll($select);
         $paginator = Zend_Paginator::factory($data);
         Zend_Paginator::setCache($this->_cache);
         $paginator->setItemCountPerPage(20)->setPageRange(10) ;
         if(isset($params['page']) && ($params['page'] != "")) {
-            $paginator->setCurrentPageNumber((int)$params['page']); 
+            $paginator->setCurrentPageNumber((int)$params['page']);
         }
         return $paginator;
     }

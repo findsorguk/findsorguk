@@ -1,5 +1,6 @@
-<h2>Edit coroner's details</h2>
-<?php 
-	$this->headTitle('Edit a Coroner\'s details');;
-
-echo $this->form ;?>
+<?php
+$this->headTitle('Edit a Coroner\'s details');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

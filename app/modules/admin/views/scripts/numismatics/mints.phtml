@@ -1,16 +1,18 @@
 <?php
 $this->headTitle('Mints in use on the database');
 $this->metaBase()
-        ->setDescription('A list of all mints in use on the database')
-        ->generate();
+    ->setDescription('A list of all mints in use on the database')
+    ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
-<p><a class="btn-success btn btn-large" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addmint'),null,true);?>" title="Add a new mint">Add a new mint</a></p>
-<?php if (count($this->paginator)): ?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<p><a class="btn-success btn btn-small"
+      href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'addmint'), null, true); ?>"
+      title="Add a new mint">Add a new mint</a></p>
+<?php if (!empty($this->paginator)): ?>
 
-<table class="table table-striped" summary="<?php echo $this->title();?>">
-<caption>Mints in use on the system</caption>
-    <thead>
+    <table class="table table-striped" summary="<?php echo $this->title(); ?>">
+        <caption>Mints in use on the system</caption>
+        <thead>
         <tr>
             <th>Mint name</th>
             <th>Created</th>
@@ -20,10 +22,10 @@ $this->metaBase()
             <th>Validity</th>
             <th>Actions</th>
         </tr>
-    </thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/mintsTableList.phtml',$this->paginator);?>
-</tbody>
-</table>
-<?php endif;?>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/mintsTableList.phtml', $this->paginator); ?>
+        </tbody>
+    </table>
+<?php endif; ?>
 <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>

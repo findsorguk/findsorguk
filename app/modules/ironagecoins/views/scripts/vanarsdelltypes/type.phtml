@@ -1,7 +1,10 @@
 <?php
-$this->headTitle('Details for van Arsdell Type:"' . $this->type->type);
+$this->headTitle('Details for Van Arsdell Type: ' . $this->type->type);
+$this->metaBase()->setSubject('Iron Age numismatics')
+    ->setDescription($this->title())
+    ->setKeywords('iron,age,numismatics,types')
+    ->generate();
 ?>
-<h2 class="lead">
-    <?php echo $this->title();?>
-</h2>
-<?php echo $this->latestRecords()->setQuery('vaType:"' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id') . '"');
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->searchLink()->setField('vaType')->setId($this->type->type); ?>
+<?php echo $this->latestRecords()->setQuery('vaType:"' . $this->type->type . '"');

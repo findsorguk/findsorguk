@@ -18,7 +18,7 @@
  * @since 28 September 2011
  * @category Pas
  * @package Pas_View_Helper
- * @example /app/views/scripts/partials/database/findspot.phtml
+ * @example /app/views/scripts/partials/database/findSpot.phtml
  */
 
 class Pas_View_Helper_GetAccuracy extends Zend_View_Helper_Abstract {

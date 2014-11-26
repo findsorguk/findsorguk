@@ -102,6 +102,24 @@ class Periods extends Pas_Db_Table_Abstract {
         return $options;
     }
 
+    /** Get periods for coins as word pairs
+     * @access public
+     * @return array
+     */
+    public function getCoinsPeriodWords(){
+        $key = md5('coinperiodsWords');
+        if (!$options = $this->_cache->load($key)) {
+            $select = $this->select()
+                ->from($this->_name, array('term', 'term'))
+                ->where('id IN (16,21,29,36,41,47,66,67)')
+                ->where('valid = ?', (int)1)
+                ->order(array('fromdate', 'id'));
+            $options = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($options, $key);
+        }
+        return $options;
+    }
+
     /** Get medieval periods for coin mints
      * @access public
      * @return array

@@ -1,0 +1,38 @@
+<?php if (!empty($this->linkedArtefacts)) : ?>
+    <div class="row-fluid">
+        <h4 class="lead">Artefacts linked to this hoard</h4>
+    <?php foreach ($this->linkedArtefacts as $artefact) : ?>
+    <div class="span3 well">
+        <div class="caption">
+        <p>Record ID:
+            <a href="
+    <?php echo $this->url(array(
+                'module' => 'database',
+                'controller' => 'artefacts',
+                'action' => 'record',
+                'id' => $artefact['id']), null, true);?>" title="View this record">
+                <?php echo $this->escape($artefact['old_findID']); ?></a>
+            <br/>Object type:
+            <?php echo $this->escape($artefact['objecttype']); ?>
+            <br />Broad period:
+            <?php echo $this->escape($artefact['broadperiod']); ?>
+            <?php if (!is_null($artefact['treasureID'])) : ?>
+                <br/>Treasure number:
+                <?php echo $this->escape($artefact['treasureID']); ?>
+            <?php endif; ?>
+            <?php
+            echo $this->unlinkCoinArtefactContainer()
+                ->setID($artefact['id'])
+                ->setHoardID($this->hoards['id'])
+                ->setHoardSecuID($this->hoards['uniqueID'])
+                ->setCreatedBy($artefact['createdBy'])
+                ->setInstitution($artefact['institution']);
+            ?>
+        </p>
+        </div>
+    </div>
+
+    <?php endforeach; ?>
+
+</div> <!-- end of row-fluid -->
+<?php endif; ?>

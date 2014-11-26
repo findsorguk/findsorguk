@@ -1,32 +1,21 @@
 <tr>
-<td><?php echo $this->period_name. ' ' .$this->description;?></td>
-<td><?php echo $this->timeAgoInWords($this->created);?></td>
-<td><?php echo $this->nameThem()->setName($this->fullname);?></td>
-<td><?php echo $this->timeAgoInWords($this->updated);?></td>
-<td><?php echo $this->nameThem()->setName($this->fn);?></td>
-<td>
-<?php
-$edit = $this->Href(array(
-    'module' => 'admin',
-    'controller' => 'numismatics',
-    'action' => 'editreeceperiod',
-    'checkAcl' => true,
-    'acl'=>'Zend_Acl',
-    'attribs' => array('title' => 'Edit a Reece Period'),
-    'params' => array('id' => $this->id),
-    'content'=> 'Edit')
-    );
-$delete = $this->Href(array(
-    'module' => 'admin',
-    'controller' =>'numismatics',
-    'action' =>'deletereeceperiod',
-    'checkAcl' => true,
-    'acl' => 'Zend_Acl',
-    'attribs' => array('title' => 'Delete a Reece Period'),
-    'params' => array('id' => $this->id),
-    'content' => 'Delete')
-    );
-
-echo implode(' | ', array($edit, $delete));
-?></td>
+    <td><?php echo $this->period_name . ' ' . $this->description; ?></td>
+    <td><?php echo $this->timeAgoInWords($this->created); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fullname); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->updated); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fn); ?></td>
+    <td>
+        <div class="btn-group">
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'numismatics',
+                'action' => 'editreeceperiod',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-inverse">Edit</a>
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'numismatics',
+                'action' => 'deletereeceperiod',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-danger">Delete</a>
+        </div>
+    </td>
 </tr>

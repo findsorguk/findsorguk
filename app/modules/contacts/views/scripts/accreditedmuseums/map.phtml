@@ -1,68 +1,70 @@
 <?php
 $this->headTitle('Accredited museums of the UK');
-$this->googleDynamicMap(null,false,false);
+$this->metaBase()->setDescription($this->title())
+    ->generate();
+$this->googleDynamicMap(null, false, false);
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php $this->inlineScript()->captureStart() ?>
- $(document).ready(function() {
-  var center = new google.maps.LatLng(54.70235509327093, -3.2080078125);
-  var myOptions = {
-    zoom: 6,
-    center: center,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
+$(document).ready(function() {
+var center = new google.maps.LatLng(54.70235509327093, -3.2080078125);
+var myOptions = {
+zoom: 6,
+center: center,
+mapTypeId: google.maps.MapTypeId.ROADMAP
+}
 
-  var map = new google.maps.Map(document.getElementById("map"), myOptions);
+var map = new google.maps.Map(document.getElementById("map"), myOptions);
 
-  var markers = new Array();
+var markers = new Array();
 
-	var infowindow = new google.maps.InfoWindow();
-    jQuery.get("<?php echo $this->serverUrl() . $this->url(array('module' => 'contacts','controller' =>
-  'ajax','action' => 'museums'),'default',true);?>", {}, function(data) {
+var infowindow = new google.maps.InfoWindow();
+jQuery.get("<?php echo $this->serverUrl() . $this->url(array('module' => 'contacts', 'controller' =>
+        'ajax', 'action' => 'museums'), 'default', true);?>", {}, function(data) {
 
-    jQuery(data).find("marker").each(function() {
-        var markerXML = jQuery(this);
-        var latlng = new google.maps.LatLng(
-            parseFloat(markerXML.attr("lat")),
-            parseFloat(markerXML.attr("lng"))
-        );
-        var title = markerXML.attr("title");
-        var marker = new google.maps.Marker({
-        	position: latlng, 
-        	map: map,  
-        	title: title,
-        	icon: "<?php echo $this->serverUrl() . $this->baseUrl();?>/assets/mapIcons/museum_archeological.png"" });
+jQuery(data).find("marker").each(function() {
+var markerXML = jQuery(this);
+var latlng = new google.maps.LatLng(
+parseFloat(markerXML.attr("lat")),
+parseFloat(markerXML.attr("lng"))
+);
+var title = markerXML.attr("title");
+var marker = new google.maps.Marker({
+position: latlng,
+map: map,
+title: title,
+icon: "<?php echo $this->serverUrl() . $this->baseUrl(); ?>/assets/mapIcons/museum_archeological.png" });
 
-        // now that the marker is placed, assign event listener on the marker
-        // and create/assign infowindow to the event trigger.
-        markerInfoWindow(marker, markerXML.attr("content"));
-        markers.push(marker);
-    });
-    var markerCluster = new MarkerClusterer(map, markers,{gridSize: 20, maxZoom:12});
-	});
+// now that the marker is placed, assign event listener on the marker
+// and create/assign infowindow to the event trigger.
+markerInfoWindow(marker, markerXML.attr("content"));
+markers.push(marker);
+});
+var markerCluster = new MarkerClusterer(map, markers,{gridSize: 20, maxZoom:12});
+});
 
-	function markerInfoWindow(marker, information){
-	     google.maps.event.addListener(marker, 'click',
-	    function() {
-	        infowindow.close();
-	        infowindow.setContent(information);
-	        infowindow.setPosition(marker.getPosition());
-	        infowindow.open(map, marker);
-	    });
-	}
-	var center;
-	function calculateCenter() {
-	  center = map.getCenter();
-	}
-	google.maps.event.addDomListener(map, 'idle', function() {
-	  calculateCenter();
-	});
-	google.maps.event.addDomListener(window, 'resize', function() {
-	  map.setCenter(center);
-	});
-  
-  });
+function markerInfoWindow(marker, information){
+google.maps.event.addListener(marker, 'click',
+function() {
+infowindow.close();
+infowindow.setContent(information);
+infowindow.setPosition(marker.getPosition());
+infowindow.open(map, marker);
+});
+}
+var center;
+function calculateCenter() {
+center = map.getCenter();
+}
+google.maps.event.addDomListener(map, 'idle', function() {
+calculateCenter();
+});
+google.maps.event.addDomListener(window, 'resize', function() {
+map.setCenter(center);
+});
+
+});
 <?php $this->inlineScript()->captureEnd() ?>
 <div id="map">
-<div id="loading"></div>
+    <div id="loading"></div>
 </div>

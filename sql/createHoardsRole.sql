@@ -1,0 +1,1 @@
+INSERT INTO `antiquitiesTwo`.`roles` (`id`, `role`, `description`, `created`, `createdBy`, `updated`, `updatedBy`) VALUES (NULL, 'hoard', 'Members of the hoarding project team.', NOW(), '56', NULL, '56');

@@ -1,7 +1,7 @@
 <?php 
 $this->headTitle("Delete a calendar entry");
 if ($this->id) :?>
-<h2>Delete content</h2>
+<h2 class="lead">Delete content</h2>
 <p>Are you sure that you want to delete
 '<?php echo $this->escape($this->title); ?>'
 </p>
@@ -15,6 +15,6 @@ method="post">
 </div>
 </form>
 <?php else: ?>
-<h2>An error has occured</h2>
+<h2 class="lead">An error has occured</h2>
 <p>Cannot find the item you requested within the calendar.</p>
 <?php endif;?>

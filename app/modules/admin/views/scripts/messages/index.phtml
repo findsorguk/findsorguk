@@ -1,47 +1,45 @@
-<?php $this->headTitle('All messages submitted to the Scheme');?>
-<h2>All messages submitted</h2>
-<?php if(count($this->messages)):?>
-<table class="table table-striped" summary="All messages submitted">
-    <caption>All messages</caption>
-<thead>
-	<tr>
-	<th>Author</th>
-	<th>Comment</th>
-	<th>Status</th>
-	<th>Actions</th>
-	</tr>
+<?php
+$this->headTitle('All messages submitted to the Scheme');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->messages)): ?>
+    <table class="table table-striped" summary="All messages submitted">
+        <caption>All messages</caption>
+        <thead>
+        <tr>
+            <th>Author</th>
+            <th>Comment</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/messages.phtml', $this->messages) ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->messages, 'Sliding', 'structure/pagination.phtml'); ?>
 
-</thead>
+<?php else: ?>
+    <p>No messages are listed or available to you</p>
+<?php endif; ?>
 
-
-<tbody>
-
-<?php echo $this->partialLoop('partials/admin/messages.phtml', $this->messages) ?>
-
-</tbody>
-
-</table>
-<?php else:?>
-<p>No messages are listed or available to you</p>
-<?php endif;?>
-<?php echo $this->paginationControl($this->messages, 'Sliding', 'structure/pagination.phtml'); ?>
-
-<?php 
-$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
+<?php
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type = 'text/javascript');
 $this->inlineScript()->captureStart();
 ?>
-$(document).ready(function() {
-	$('.overlay').click(function(e) {
+    $(document).ready(function() {
+    $('.overlay').click(function(e) {
     e.preventDefault();
     var href = $(e.target).attr('href');
     if (href.indexOf('#') == 0) {
-        $(href).modal('open');
+    $(href).modal('open');
     } else {
-        $.get(href, function(data) {
-            $('<div class="modal fade" >' + data + '</div>').modal();
-        });
+    $.get(href, function(data) {
+    $('<div class=\"modal fade\">' + data + '<\/div>').modal();
+    });
     }
-});
+    });
 
-	}); 
-<?php $this->inlineScript()->captureEnd();?>
+    });
+<?php $this->inlineScript()->captureEnd(); ?>

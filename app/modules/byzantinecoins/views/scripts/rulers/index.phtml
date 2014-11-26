@@ -1,18 +1,20 @@
 <?php
-$this->headMeta('A list of all Byzantine or Latin Empire issuing rulers that the
-    Scheme uses on its database. Their biographies have been enhanced from dbpedia','description');
-$this->headMeta('issuing,rulers,byzantium,holy roman empire,numsimatics','dc.keywords');
-$this->headMeta('numismatics and archaeology of Byzantium','dc.subject');
-$this->headTitle("Issuing rulers of the Byzantine period");?>
-<h2>Issuing rulers of the Byzantine period</h2>
-<p>The Byzantine period has these issuing rulers or authorities which are in use on the Scheme's database.</p>
+$this->metaBase()->setDescription('A list of all Byzantine or Latin Empire issuing rulers that the
+    Scheme uses on its database. Their biographies have been enhanced from dbpedia')
+    ->setKeywords('issuing,rulers,byzantium,holy roman empire,numsimatics')
+    ->setSubject('Byzantine Numismatics')
+    ->generate();
+$this->headTitle("Issuing rulers of the Byzantine period");
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>The Byzantine period has these issuing rulers or authorities which are in use on the Scheme's database.</p>
 <?php if (count($this->rulers)): ?>
 
-<ul>
-<?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?>
-</ul>
-<?php echo $this->paginationControl($this->rulers, 'Sliding',
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?>
+    </ul>
+    <?php echo $this->paginationControl($this->rulers, 'Sliding',
         'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>There are no rulers currently available to you.</p>
-<?php endif;?>
+<?php else: ?>
+    <p>There are no rulers currently available to you.</p>
+<?php endif; ?>

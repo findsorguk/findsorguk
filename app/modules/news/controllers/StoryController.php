@@ -46,7 +46,7 @@ class News_StoryController extends Pas_Controller_Action_Admin {
                 $data['comment_approved'] = 'moderation';
                 $comments->add($data);
                 $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
-                $this->_redirect('/news/stories/article/id/' . $this->_getParam('id'));
+                $this->redirect('/news/stories/article/id/' . $this->_getParam('id'));
                 $this->getFlash()->addMessage('There are problems with your comment submission');
                 $form->populate($form->getValues());
             }

@@ -1,29 +1,31 @@
 <?php
-$this->headTitle('Vacancies administration section');?>
-<h2>Administer vacancies</h2>
-<div id="toolbox">
-    <p><a class="btn btn-large btn-success" href="<?php echo $this->url(array(
-        'module' => 'admin',
-        'controller' => 'vacancies',
-        'action' => 'add'),null,true);?>" title="Add a new vacancy">Add a new vacancy</a></p></div>
-
-<?php if (count($this->currentvacs)) : ?>
-<table class="table table-striped">
-<tr>
-<th>Job title</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Expiry date</th>
-<th>Actions</th>
-</tr>
-
-<?php echo $this->partialLoop('partials/admin/vacancyTable.phtml',$this->currentvacs);
+$this->headTitle('Vacancies administration section');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
-</table>
-<?php echo $this->paginationControl($this->currentvacs, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<?php echo '<p>There are currently no vacancies at the Scheme.</p>';?>
-<?php endif;?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<div id="toolbox">
+    <p><a class="btn btn-small btn-success" href="<?php echo $this->url(array(
+            'module' => 'admin',
+            'controller' => 'vacancies',
+            'action' => 'add'), null, true);?>" title="Add a new vacancy">Add a new vacancy</a></p></div>
+
+<?php if (!empty($this->currentvacs)) : ?>
+    <table class="table table-striped">
+        <tr>
+            <th>Job title</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Expiry date</th>
+            <th>Actions</th>
+        </tr>
+
+        <?php echo $this->partialLoop('partials/admin/vacancyTable.phtml', $this->currentvacs);
+        ?>
+    </table>
+    <?php echo $this->paginationControl($this->currentvacs, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <?php echo '<p>There are currently no vacancies at the Scheme.</p>'; ?>
+<?php endif; ?>
 

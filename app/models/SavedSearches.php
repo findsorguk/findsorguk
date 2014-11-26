@@ -46,7 +46,7 @@ class SavedSearches extends Pas_Db_Table_Abstract {
         $select = $search->select()
                 ->from($this->_name)
                 ->joinLeft('users',$this->_name . '.createdBy = users.id',
-                        array( 'username' ))
+                        array( 'username', 'email'))
                 ->order('id DESC');
         if(isset($userid)) {
             $select->where($this->_name . '.createdBy = ?', (int)$userid);

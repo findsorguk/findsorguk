@@ -51,7 +51,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->_redirect('/users/');
+        $this->redirect('/users/');
     }
 
 
@@ -123,7 +123,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
                         . $form->getValue('firstname') . ' '
                         .$form->getValue('lastname')
                         . ' updated!');
-                $this->_redirect('/users/account/');
+                $this->redirect('/users/account/');
             } else {
                 $form->populate($formData);
             }
@@ -193,7 +193,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
         unlink( self::PROFILEPATH . $currentimage);
         unlink( self::PROFILEPATH . 'resized/' . $currentimage);
         $this->getFlash()->addMessage('The image has been resized and added to your profile.');
-        $this->_redirect('/users/account/');
+        $this->redirect('/users/account/');
         } else {
         $this->getFlash()->addMessage('There is a problem with your upload. Probably that image exists.');
         $this->view->errors = $upload->getMessages();
@@ -265,7 +265,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin {
         $logos->insert($insertData);
         $upload->receive();
         $this->getFlash()->addMessage('The image has been resized and zoomified!');
-        $this->_redirect('/users/account/');
+        $this->redirect('/users/account/');
         } else {
         $this->getFlash()->addMessage('There is a problem with your upload. Probably that image exists.');
         $this->view->errors = $upload->getMessages();

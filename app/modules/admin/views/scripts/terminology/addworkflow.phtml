@@ -1,4 +1,6 @@
-<h2>Add a workflow stage</h2>
-<?php 	$this->headTitle('Add a new workflow stage');
-echo $this->form;
+<?php
+$this->headTitle('Add a new workflow status axis term');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

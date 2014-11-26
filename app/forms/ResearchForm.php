@@ -57,7 +57,7 @@ class ResearchForm extends Pas_Form {
 		->setAttrib('size',60)
 		->addErrorMessage('Choose title for the project.');
 
-	$description = $this->addElement('RTE', 'description',array(
+	$description = $this->addElement('CKEditor', 'description',array(
 	'label' => 'Short description of project: '));
 	$description = $this->getElement('description')->setRequired(false)
 		->setAttribs(array('cols' => 80, 'rows' => 10))

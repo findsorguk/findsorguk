@@ -1,31 +1,21 @@
-<tr class="valid-<?php echo $this->valid;?>">
-<td><?php echo $this->escape($this->workflowstage);?></td>
-<td><?php echo $this->timeAgoInWords($this->created);?></td>
-<td><?php echo $this->nameThem()->setName($this->fullname);?></td>
-<td><?php echo $this->timeAgoInWords($this->updated);?></td>
-<td><?php echo $this->nameThem()->setName($this->fn);?></td>
-<td>
-<?php
-$edit = $this->Href(array(
-    'module' => 'admin',
-    'controller'=>'terminology',
-    'action'=>'editworkflow',
-    'checkAcl'=>true,
-    'acl'=>'Zend_Acl',
-    'params' =>array('id'=>$this->id),
-    'content'=>'Edit')
-    );
-$delete = $this->Href(array(
-    'module' => 'admin',
-    'controller'=>'terminology',
-    'action'=>'deleteworkflow',
-    'checkAcl'=>true,
-    'acl'=>'Zend_Acl',
-    'params' =>array('id'=>$this->id),
-    'content'=>'Delete')
-    );
-echo implode(' | ', array($edit,$delete));
-
-?>
-</td>
+<tr class="valid-<?php echo $this->valid; ?>">
+    <td><?php echo $this->escape($this->workflowstage); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->created); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fullname); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->updated); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fn); ?></td>
+    <td>
+        <div class="btn-group">
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'terminology',
+                'action' => 'editworkflow',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-inverse">Edit</a>
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'terminology',
+                'action' => 'deleteworkflow',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-danger">Delete</a>
+        </div>
+    </td>
 </tr>

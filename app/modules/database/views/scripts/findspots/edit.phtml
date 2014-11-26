@@ -1,31 +1,36 @@
 <?php
 $this->headTitle('Edit a findspot');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/bootstrap-typeahead.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/typeaheads/landowner.js', $type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jQueryLinkedSelect.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedSelect.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedQuery.js',$type='text/javascript');
+$this->metaBase()->setDescription('Edit a findspot and geo data')->setKeywords('ordnance, survey, coordinates')->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php
+$params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 ?>
 
+    <p>
+        <a class="btn btn-success"
+           href="<?php echo $this->url(array(
+               'module' => 'database',
+               'controller' => $params['recordtype'],
+               'action' => 'record', 'id' => $this->returnID), null, true); ?>"
+           title="return to the record">Return to record</a>
+    </p>
 
-<?php 
-$this->FindSpotEditCheck($this->findspot->old_findspotid,$this->findspot->createdBy);
+<?php echo $this->form; ?>
+
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/landowner.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedSelect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedQuery.js', $type = 'text/javascript');
 ?>
 
-<h2><?php echo $this->title();?></h2>
-<?php $id = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function() {
 
-<p><a class="btn btn-success" href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record', 'id' => $this->returnID),null,false);?>" title="return to the record">Return to record</a></p>
+    // focus on the first text input field in the first field on the page
+    $("input[type='select']:first", document.forms[0]).focus();
 
-<?php 
-echo $this->form;
-?>
-
-<?php $this->jQuery()->javascriptCaptureStart();?>
-$(document).ready(function() {
- 		
-		// focus on the first text input field in the first field on the page
-		$("input[type='select']:first", document.forms[0]).focus();
-		
     });
-<?php $this->jQuery()->javascriptCaptureEnd();?>
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

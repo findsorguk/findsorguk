@@ -1,11 +1,17 @@
 <?php
-$this->headTitle('Workflow stages');
-
+$this->headTitle('Workflow stages for content control');
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('terminology,content,visibility')
+    ->generate();
 ?>
-
-<h2 class="lead">
-    <?php echo $this->title();?>
-</h2>
-<ul>
-    <?php echo $this->partialLoop('partials/datalabs/workflowList.phtml',$this->workflows);?>
-</ul>
+<?php if (!empty($this->workflows)): ?>
+    <h2 class="lead">
+        <?php echo $this->title(); ?>
+    </h2>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/workflowList.phtml', $this->workflows); ?>
+    </ul>
+<?php else: ?>
+    <p>No worklows available.</p>
+<?php endif; ?>

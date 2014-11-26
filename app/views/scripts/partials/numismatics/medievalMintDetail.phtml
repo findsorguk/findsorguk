@@ -1,8 +1,24 @@
-<?php $this->headTitle('Details for Roman mint at '.$this->mint_name);?>
-<h2>The mint at <?php echo $this->escape($this->mint_name);?></h2>
+<?php
+$this->headTitle('Details for mint at ' . $this->mint_name);
+$this->metaBase()->setDescription('Full details for the mint of ' . $this->mint_name)
+    ->setSubject('numismatics')
+    ->setKeywords('numismatics,mint')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<p>Mint: <?php echo $this->escape($this->mint_name);?> <br />
-Geo location: <?php echo $this->escape($this->latitude);?> <?php echo $this->escape($this->longitude);?><br />
-Abbreviation: <?php echo $this->abbrev;?><br />
-<?php echo $this->description;?></p>
-<p>View <a href="<?php echo $this->url(array('module'=>'database','controller' => 'search','action'=>'results', 'mint'=>$this->pasID),null,true);?>" title="View all records">all coins recorded</a>, which are attributed to <?php echo $this->escape($this->name);?>.</p>
+    <p>
+        Mint: <?php echo $this->mint_name; ?> <br/>
+        <?php $geo = array($this->latitude, $this->latitude); ?>
+        <?php if (array_filter($geo)): ?>
+            Geo location: <?php echo $this->latitude; ?>, <?php echo $this->longitude; ?><br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->abbrev)): ?>
+            Abbreviation: <?php echo $this->abbrev; ?>
+        <?php endif; ?>
+    </p>
+<?php if (!is_null($this->description)): ?>
+    <?php echo $this->description; ?>
+<?php endif; ?>
+<?php echo $this->searchLink()->setField('mint')->setId($this->id); ?>
+<?php echo $this->latestRecords()->setQuery('mint:' . $this->id); ?>

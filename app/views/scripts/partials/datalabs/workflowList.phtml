@@ -1,1 +1,6 @@
-<li><a href="<?php echo $this->url(array('module' => 'datalabs', 'controller'=>'terminology','action'=>'workflow', 'id'=>$this->id),null,true);?>"><?php echo $this->escape($this->workflowstage);?></a></li>
+<li><a href="<?php echo $this->url(array(
+            'module' => 'datalabs',
+            'controller' => 'terminology',
+            'action' => 'workflow',
+            'id' => $this->id),
+        'default', true);?>"><?php echo $this->escape($this->workflowstage); ?></a></li>

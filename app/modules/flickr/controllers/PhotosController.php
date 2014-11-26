@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for displaying the photos section of the flickr module.
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -13,8 +14,9 @@
  * @uses Zend_Paginator
  *
  *
-*/
-class Flickr_PhotosController extends Pas_Controller_Action_Admin {
+ */
+class Flickr_PhotosController extends Pas_Controller_Action_Admin
+{
 
     /** The api key for accessing flickr
      * @access protected
@@ -32,20 +34,22 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->acl->allow('public',null);
+    public function init()
+    {
+        $this->_helper->acl->allow('public', null);
         $this->_flickr = $this->_helper->config()->webservice->flickr;
         $this->_api = new Pas_Yql_Flickr($this->_flickr);
-        
+
     }
 
     /** No direct access to photos, goes to the index controller
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->getFlash()->addMessage('You can only see photos at the index page');
-        $this->_redirect('/flickr/');
+        $this->redirect('/flickr/');
     }
 
 
@@ -53,61 +57,63 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function setsAction() {
+    public function setsAction()
+    {
         $page = $this->getPage();
         $key = md5('sets' . $page);
         if (!($this->getCache()->test($key))) {
-            $flickr = $this->_api->getSetsList($this->_flickr->userid, $page,10);
+            $flickr = $this->_api->getSetsList($this->_flickr->userid, $page, 10);
             $this->getCache()->save($flickr);
         } else {
             $flickr = $this->getCache()->load($key);
         }
         $pagination = array(
-            'page'          => $page,
-            'perpage'      => (int)$flickr->photosets->perpage,
+            'page' => $page,
+            'perpage' => (int)$flickr->photosets->perpage,
             'total_results' => (int)$flickr->photosets->total
         );
         $paginator = Zend_Paginator::factory($pagination['total_results']);
         $paginator->setCurrentPageNumber($pagination['page'])
-                ->setItemCountPerPage($pagination['perpage'])
-                ->setCache($this->getCache());
+            ->setItemCountPerPage($pagination['perpage'])
+            ->setCache($this->getCache());
         $this->view->paginator = $paginator;
         $this->view->photos = $flickr->photosets;
     }
 
     /** Find photos with a set radius of the where on earthID
-    */
-    public function whereonearthAction() {
+     */
+    public function whereonearthAction()
+    {
         $woeid = (int)$this->_getParam('id');
         $page = $this->getPage();
         $this->view->place = $woeid;
         $key = md5('woeid' . $woeid . $page);
         if (!($this->getCache()->test($key))) {
             $flickr = $this->_api->getWoeidRadius(
-                    $woeid,
-                    $radius = 500,
-                    $units = 'm',
-                    $per_page = 20,
-                    $page,
-                    'archaeology',
-                    '1,2,3,4,5,6,7'
-                    );
+                $woeid,
+                $radius = 500,
+                $units = 'm',
+                $per_page = 20,
+                $page,
+                'archaeology',
+                '1,2,3,4,5,6,7'
+            );
             $this->getCache()->save($flickr);
         } else {
-        $flickr = $this->getCache()->load($key);
+            $flickr = $this->getCache()->load($key);
         }
         $total = $flickr->photos->total;
         $perpage = $flickr->photos->perpage;
         $pagination = array(
-            'page'          => $page,
-            'per_page'      => $perpage,
+            'page' => $page,
+            'per_page' => $perpage,
             'total_results' => (int)$total
         );
         $paginator = Zend_Paginator::factory($pagination['total_results']);
         $paginator->setCurrentPageNumber($pagination['page'])
-                ->setItemCountPerPage(20)
-                ->setPageRange(10)
-                ->setCache($this->getCache());
+            ->setItemCountPerPage(20)
+            ->setPageRange(10)
+            ->setCache($this->getCache());
         $this->view->paginator = $paginator;
         $this->view->pictures = $flickr;
     }
@@ -117,11 +123,12 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function inasetAction() {
-        if($this->_getParam('id',false)){
+    public function inasetAction()
+    {
+        if ($this->_getParam('id', false)) {
             $id = $this->_getParam('id');
             $page = $this->getPage();
-            $key = md5 ('set' . $id . $page);
+            $key = md5('set' . $id . $page);
             if (!($this->getCache()->test($key))) {
                 $flickr = $this->_api->getPhotosInAset($id, 10, $page);
                 $this->getCache()->save($flickr);
@@ -129,14 +136,14 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
                 $flickr = $this->getCache()->load($key);
             }
             $pagination = array(
-                'page'          => $page,
-                'per_page'      => $flickr->photoset->perpage,
+                'page' => $page,
+                'per_page' => $flickr->photoset->perpage,
                 'total_results' => (int)$flickr->photoset->total
             );
             $paginator = Zend_Paginator::factory($pagination['total_results']);
             $paginator->setCurrentPageNumber($pagination['page'])
-                    ->setItemCountPerPage(10)
-                    ->setCache($this->getCache());
+                ->setItemCountPerPage(10)
+                ->setCache($this->getCache());
             $paginator->setPageRange(10);
             $this->view->paginator = $paginator;
             $this->view->pictures = $flickr;
@@ -144,12 +151,14 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Get a single photos's details
-    */
-    public function detailsAction() {
-        if($this->_getParam('id',false)){
+     */
+    public function detailsAction()
+    {
+        if ($this->_getParam('id', false)) {
             $id = $this->_getParam('id');
-            $exif = $this->_api->getPhotoExifDetails( $id );
+            $exif = $this->_api->getPhotoExifDetails($id);
             $this->view->exif = $exif;
             $geo = $this->_api->getGeoLocation($id);
             $this->view->geo = $geo;
@@ -169,58 +178,60 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function taggedAction() {
-	if($this->_getParam('as',false)){
+    public function taggedAction()
+    {
+        if ($this->_getParam('as', false)) {
             $tags = $this->_getParam('as');
             $page = $this->getPage();
             $key = md5('tagged' . $tags . $page);
             if (!($this->getCache()->test($key))) {
-                $flickr = $this->_api->getPhotosTaggedAs( $tags, 20, $page);
+                $flickr = $this->_api->getPhotosTaggedAs($tags, 20, $page);
                 $this->getCache()->save($flickr);
             } else {
                 $flickr = $this->getCache()->load($key);
             }
-            if(!is_null($flickr)){
+            if (!is_null($flickr)) {
                 $this->view->tagtitle = $tags;
                 $pagination = array(
-                    'page'          => $page,
-                    'per_page'      => (int)$flickr->perpage,
-                    'total_results' => (int) $flickr->total
+                    'page' => $page,
+                    'per_page' => (int)$flickr->perpage,
+                    'total_results' => (int)$flickr->total
                 );
                 $paginator = Zend_Paginator::factory($pagination['total_results']);
-                $paginator->setCurrentPageNumber($pagination['page']) ;
+                $paginator->setCurrentPageNumber($pagination['page']);
                 $paginator->setPageRange(10);
                 $paginator->setItemCountPerPage(20);
                 $this->view->paginator = $paginator;
                 $this->view->pictures = $flickr;
             }
-	} else {
+        } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}
+        }
     }
 
     /** Get a list of our favourite images
      * @access public
      * @return void
      */
-    public function favouritesAction() {
+    public function favouritesAction()
+    {
         $page = $this->getPage();
         $key = md5('faves' . $page);
         if (!($this->getCache()->test($key))) {
-            $flickr = $this->_api->getPublicFavourites( null, null, 20, $page);
+            $flickr = $this->_api->getPublicFavourites(null, null, 20, $page);
             $this->getCache()->save($flickr);
         } else {
             $flickr = $this->getCache()->load($key);
         }
         $pagination = array(
-            'page'          => $page,
-            'per_page'      => (int)$flickr->perpage,
+            'page' => $page,
+            'per_page' => (int)$flickr->perpage,
             'total_results' => (int)$flickr->total
         );
         $paginator = Zend_Paginator::factory($pagination['total_results']);
         $paginator->setCurrentPageNumber($page)
-                ->setPageRange(10)
-                ->setCache($this->getCache());
+            ->setPageRange(10)
+            ->setCache($this->getCache());
         $paginator->setItemCountPerPage(20);
         $this->view->paginator = $paginator;
         $this->view->photos = $flickr;
@@ -230,24 +241,25 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin {
      * The woeid 23424975 = United Kingdom
      * @access public
      * @return void
-    */
-    public function interestingAction() {
+     */
+    public function interestingAction()
+    {
         $page = $this->getPage();
         $key = md5('interesting' . $page);
         if (!($this->getCache()->test($key))) {
-            $flickr = $this->_api->getArchaeology( 'archaeology', 20, $page, 23424975);
+            $flickr = $this->_api->getArchaeology('archaeology', 20, $page, 23424975);
             $this->getCache()->save($flickr);
         } else {
             $flickr = $this->getCache()->load($key);
         }
         $pagination = array(
-            'page'          => $page,
+            'page' => $page,
             'total_results' => (int)$flickr->total
         );
         $paginator = Zend_Paginator::factory($pagination['total_results']);
         $paginator->setCurrentPageNumber($page)
-                ->setPageRange(10)
-                ->setCache($this->getCache());
+            ->setPageRange(10)
+            ->setCache($this->getCache());
         $paginator->setItemCountPerPage(20);
         $this->view->paginator = $paginator;
         $this->view->photos = $flickr;

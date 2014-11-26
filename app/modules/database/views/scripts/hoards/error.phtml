@@ -1,0 +1,17 @@
+<?php echo $this->partial('partials/hoards/relevantAdviser.phtml', $this->finds); ?>
+    <p>
+        You are submitting an error report on: <?php echo $this->finds['hoardID']; ?>
+    </p>
+
+<?php
+$auth = Zend_Auth::getInstance();
+if ($auth->hasIdentity()) {
+    $user = $auth->getIdentity();
+    $this->form->comment_author->setValue($user->fullname);
+    $this->form->comment_author_email->setValue($user->email);
+}
+$this->form->comment_findID->setValue($this->finds['id']);
+$this->form->comment_subject->setValue('Error report submission for ' . $this->finds['hoardID']);
+echo $this->form;
+
+?>

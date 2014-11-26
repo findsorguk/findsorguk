@@ -1,27 +1,45 @@
-<?php 
-$this->headTitle('Project details for: '.$this->escape($this->title));
-$this->metaBase()
-        ->setDescription(
-                $this->ellipsisString()
-                ->setString($this->description)
-                ->setMax(200)
-                )
-        ->setSubject('Research project')
-        ->setKeywords('research,projects')
-        ->generate();
+<?php
+$this->headTitle('Project details for: ' . $this->escape($this->title));
+$this->metaBase()->setDescription($this->ellipsisString()->setString($this->description)->setMax(200))
+    ->setSubject('Research project')
+    ->setKeywords('research,projects')
+    ->generate();
 ?>
-<h2 class="lead">
-    <?php echo $this->escape($this->title);?>
-</h2>
-<p><strong>Principal investigator:</strong> <?php echo $this->investigator;?><br />
-<strong>Level:</strong> <?php echo $this->type;?></p>
-<?php echo $this->description;?>
-<h3>Audit data</h3>
-<ul>
-<li>Created: <?php echo $this->timeAgoInWords($this->created);?></li>
-<li>Created by: <?php echo $this->nameThem()->setName($this->fullname);?></li>
-<?php if(isset($this->updated)):?>
-<li>Updated: <?php echo $this->timeAgoInWords($this->created);?></li>
-<li>Updated by: <?php echo $this->nameThem()->setName($this->fn);?></li>
-<?php endif;?>
-</ul>
+    <h2 class="lead"><?php echo $this->title; ?></h2>
+<?php $details = array($this->investigator, $this->type); ?>
+<?php if (array_filter($details)): ?>
+    <p>
+        <strong>Principal investigator:</strong> <?php echo $this->investigator; ?><br/>
+        <strong>Level:</strong> <?php echo $this->type; ?>
+    </p>
+<?php endif; ?>
+
+<?php if (!is_null($this->description)): ?>
+    <?php echo $this->description; ?>
+<?php else: ?>
+    <p>No abstract available.</p>
+<?php endif; ?>
+
+<?php
+$audit = array($this->created, $this->updated, $this - fullname, $this->fn);
+?>
+<?php if (array_filter($audit)): ?>
+    <h3 class="lead">Audit data</h3>
+    <ul>
+        <?php if (!is_null($this->created)): ?>
+            <li>Created: <?php echo $this->timeAgoInWords($this->created); ?></li>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->fullname)): ?>
+            <li>Created by: <?php echo $this->nameThem()->setName($this->fullname); ?></li>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->updated)): ?>
+            <li>Updated: <?php echo $this->timeAgoInWords($this->updated); ?></li>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->fn)): ?>
+            <li>Updated by: <?php echo $this->nameThem()->setName($this->fn); ?></li>
+        <?php endif; ?>
+    </ul>
+<?php endif; ?>

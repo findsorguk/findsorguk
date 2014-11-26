@@ -28,7 +28,7 @@ class Users_RecordsController extends Pas_Controller_Action_Admin {
     public function indexAction() {
         $person = $this->getAccount();
         if(!is_null($person->peopleID)){
-            $params = $this->_getAllParams();
+            $params = $this->getAllParams();
             $params['finderID'] = $person->peopleID;
             $params['-createdBy'] = $person->id;
             $search = new Pas_Solr_Handler();
@@ -47,7 +47,7 @@ class Users_RecordsController extends Pas_Controller_Action_Admin {
             $this->view->finds = $search->processResults();
             $this->view->facets = $search->processFacets();
         } else {
-            $this->_redirect('/error/accountconnection');
+            $this->redirect('/error/accountconnection');
         }
     }
     /** Display the map

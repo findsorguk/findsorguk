@@ -1,6 +1,6 @@
 <?php $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/confirm.js',$type = 'javascript');?>
 <?php echo $this->partial('partials/admin/ruler.phtml',$this->details['0']);?>
-<h3>Biography</h3>
+<h3 class="lead">Biography</h3>
 <?php if(count($this->bios)) {
 echo $this->bios['0']['biography'];
 echo '<p><a href="'
@@ -9,7 +9,7 @@ echo '<p><a href="'
 } else {
 echo '<p><a href="'.$this->url(array('module' => 'admin','controller' => 'numismatics', 'action' => 'addmedievalruler' , 'id' => $this->details['0']['id']),NULL,true).'" title="Add a biography">Add a new biography</a></p>';
 }?>
-<h3>Images attached</h3>
+<h3 class="lead">Images attached</h3>
 <?php $this->jQuery()->javascriptCaptureStart();?>
 $(document).ready(function(){
 $('a.deleteimage').click(function(e) {
@@ -32,11 +32,11 @@ $('a.deleteimage').click(function(e) {
  });
 
 <?php $this->jQuery()->javascriptCaptureEnd();?>
-<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addrulerimage','rulerid' => $this->details['0']['id']),null,true);?>" title="Add an image for this ruler">Add an image</a></p>
-<?php echo $this->partialLoop('partials/admin/rulerthumbs.phtml',$this->images);?>
+<p><a class="btn btn-small btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addrulerimage','rulerid' => $this->details['0']['id']),null,true);?>" title="Add an image for this ruler">Add an image</a></p>
+<?php echo $this->partialLoop('partials/admin/rulerThumbs.phtml',$this->images);?>
 
-<h3>Issuing mints</h3>
-<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'rulertomint','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new mint">Add a mint to this list</a></p>
+<h3 class="lead">Issuing mints</h3>
+<p><a class="btn btn-small btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'rulertomint','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new mint">Add a mint to this list</a></p>
 <?php if(count($this->mints)):?>
 <?php $this->jQuery()->javascriptCaptureStart();?>
 $(document).ready(function(){
@@ -71,15 +71,15 @@ $('a.delete').click(function(e) {
     </tr>
     </thead>
     <tbody>
-        <?php echo $this->partialLoop('partials/admin/mintruler.phtml',$this->mints);?>
+        <?php echo $this->partialLoop('partials/admin/mintToRulerAdmin.phtml',$this->mints);?>
     </tbody>
 </table>
 <?php else:?>
 <p>No mints available</p>
 <?php endif;?>
 
-<h3>Denominations issued</h3>
-<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'rulertodenomination','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new denomination">Add a denomination to this list</a></p>
+<h3 class="lead">Denominations issued</h3>
+<p><a class="btn btn-small btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'rulertodenomination','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new denomination">Add a denomination to this list</a></p>
 <?php if(count($this->denoms)):?>
 <?php $this->jQuery()->javascriptCaptureStart();?>
 $(document).ready(function(){
@@ -115,15 +115,15 @@ $('a.deletedenom').click(function(e) {
         </tr>
     </thead>
 <tbody>
-<?php echo $this->partialLoop('partials/admin/denomruler.phtml',$this->denoms);?>
+<?php echo $this->partialLoop('partials/admin/denominationToRuler.phtml',$this->denoms);?>
 </tbody>
 </table>
 <?php else:?>
 <p>No denominations listed</p>
 <?php endif;?>
 
-<h3>Coin types issued</h3>
-<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addmedievaltype','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new type">Add a type to this list</a></p>
+<h3 class="lead">Coin types issued</h3>
+<p><a class="btn btn-small btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addmedievaltype','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new type">Add a type to this list</a></p>
 <?php if(count($this->types)):?>
 <?php $this->jQuery()->javascriptCaptureStart();?>
 $(document).ready(function(){

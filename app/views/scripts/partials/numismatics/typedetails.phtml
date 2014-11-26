@@ -1,25 +1,31 @@
-<?php echo $this->headTitle('Details for coin type: '.$this->type);
-$this->headMeta('Details and examples for medieval coin type: '.$this->type,'description')
-->headMeta('coin,numismatics,details','dc.keywords')
-->headMeta($this->curUrl(),'dc.identifier')
-->headMeta('CC BY','dc.rights')
-->headMeta('The Portable Antiquities Scheme','dc.publisher')
-->headMeta('Daniel Pett','dc.creator');
+<?php
+$this->headTitle('Details for coin type: ' . $this->type);
+$this->metaBase()->setDescription('Details and examples for medieval coin type: ' . $this->type)
+    ->setKeywords('coin,numismatics,details')
+    ->setSubject('numismatics')
+    ->generate();
 ?>
 
 
-<?php $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();?>
+<?php $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName(); ?>
 
-<h2><?php echo $this->type;?></h2>
-<p>This type was issued by <a href="<?php echo $this->url(array(
-    'module' => $module,
-    'controller' => 'rulers',
-    'action' => 'ruler',
-    'id' => $this->i),NULL,true);?>" 
-    title="View details for <?php echo $this->ruler;?>">
-    <?php echo $this->ruler;?></a> [<?php echo $this->adBc()->setDate($this->datefrom); 
-    if(isset($this->dateto)) { echo ' - '.$this->adBc()->setDate($this->dateto);}?>]
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php $url = array('module' => $module, 'controller' => 'rulers', 'action' => 'ruler', 'id' => $this->i); ?>
+<p>This type was issued by <a href="<?php echo $this->url($url, NULL, true); ?>"
+                              title="View details for <?php echo $this->ruler; ?>"><?php echo $this->ruler; ?></a>
+    <?php $dates = array($this->adBc()->setDate($this->datefrom), $this->adBc()->setDate($this->dateto)); ?>
+    <?php echo implode(' - ', $dates); ?>
 </p>
-<?php echo $this->description;?>
-<p>Category: <?php echo $this->category;?></p>
 
+<?php if (!is_null($this->description)): ?>
+    <?php echo $this->description; ?>
+<?php endif; ?>
+
+<?php if (!is_null($this->category)): ?>
+    <p>Category: <?php echo $this->category; ?></p>
+<?php endif; ?>
+
+
+<?php echo $this->searchLink()->setField('type')->setId($this->id); ?>
+<?php echo $this->latestRecords()->setQuery('type:' . $this->id); ?>

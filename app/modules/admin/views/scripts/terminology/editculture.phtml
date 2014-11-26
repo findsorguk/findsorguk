@@ -1,4 +1,8 @@
-<h2>Edit culture's details</h2>
-<?php 
+<?php
+$this->headTitle("Edit culture's details");
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php
 echo $this->form;
 ?>

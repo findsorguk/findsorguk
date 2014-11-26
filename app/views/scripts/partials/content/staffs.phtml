@@ -2,7 +2,11 @@
 $params = array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'q' => 'institution:STAFFS');
 $url = $this->url($params, 'default', true);
 ?>
-
-<h3>Staffordshire Hoard papers</h3>
- <p>The Staffordshire Hoard symposium papers have been published for all to access and edited by Helen Geake. The hoard's records are being added slowly to the <a href="<?php echo $url;?>">database</a>.</p>
+<h2 class="lead">
+    Staffordshire Hoard papers
+</h3>
+<p>
+    The Staffordshire Hoard symposium papers have been published for all to access and edited by Helen Geake. The
+    hoard's records are being added slowly to the <a href="<?php echo $url;?>">database</a>.
+</p>
 <a class="btn" href="<?php echo $this->serverUrl();?>/staffshoardsymposium" title="The hoard papers">Read more &raquo;</a>

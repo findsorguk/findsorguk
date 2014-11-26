@@ -1,6 +1,11 @@
-<h2>Roman coin articles</h2>
+<?php
+$this->headTitle('Roman coin articles');
+$this->metaBase()->setDescription('A series of articles on Roman Numismatics')
+->setSubject('Roman Numismatics')
+->setKeywords('roman,numismatics,learning,articles')
+->generate();
+?>
+<h2 class="lead">Roman coin articles</h2>
 <ul>
-<?php foreach($this->contents as $c) {?>
-<li><a href="<?php echo $this->url(array('module' => 'romancoins','controller' => 'articles','action' => 'page','slug' => $c['slug']),'romanguides',true);?>" title="Read the full article entitile <?php echo $c['menuTitle'];?>"><?php echo $c['menuTitle'];?></a></li>
-<?php }?>
+    <?php echo $this->partialLoop('partials/numismatics/romanCoinsArticles.phtml', $this->contents); ?>
 </ul>

@@ -1,5 +1,15 @@
-<?php $this->headTitle('Decoration styles');?>
-<h2>Decoration styles</h2>
-<ul>
-<?php echo $this->partialLoop('partials/database/decStylesList.phtml',$this->decs);?>
-</ul>
+<?php
+$this->headTitle('Decoration styles');
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('terminology,archaeology,decorative,decoration')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->decs)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/decStylesList.phtml', $this->decs); ?>
+    </ul>
+<?php else: ?>
+    <p>No styles available.</p>
+<?php endif; ?>

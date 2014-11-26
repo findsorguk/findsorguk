@@ -27,22 +27,74 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('flos',null);
         $this->_helper->_acl->allow('member',array('add','edit','delete'));
         $this->_helper->_acl->allow('public',$publicActions);
+
+        $this->setController($this->_getParam('recordtype', 'artefacts'));
+        $this->setRedirect($this->getController());
         
         $this->_bibliography = new Bibliography();
     }
 
     /** Constant for redirect url
-    */	
+ */
     const REDIRECT = 'database/artefacts/record/id/';
+
+    /** The controller to redirect to on completion of action
+     * @access protected
+     * @var \Findspots
+     */
+    protected $_controller;
+
+    /** The redirect URL to go to on completion of action
+     * @access protected
+     * @var \Findspots
+     */
+    protected $_redirect;
+
+    /** Set the controller to redirect to on completion of action
+     * @access public
+     * @param string $recordtype
+     * @return \Findspots
+     */
+    public function setController($recordtype) {
+        $this->_controller = $recordtype;
+        return $this;
+    }
+
+    /** Set the redirect URL to go to on completion of action
+     * @access public
+     * @return \Findspots
+     */
+    public function setRedirect($controller) {
+        $module = '/database/';
+        $this->_redirect = $module . $controller . '/';
+        return $this;
+    }
+
+    /** Get the controller to redirect to on completion of action
+     * @access public
+     * @return string
+     */
+    public function getController() {
+        return $this->_controller;
+    }
+
+    /** Get the redirect URL to go to on completion of action
+     * @access public
+     * @return string
+     */
+    public function getRedirect() {
+        return $this->_redirect;
+    }
 
     /** No direct access to the references controller, redirect applied.
      * @access public
      * @return void
     */
     public function indexAction(){
-        $this->_redirect('/database/publications');
+        $this->getFlash()->addMessage('No access to root file for reference');
         $this->getResponse()->setHttpResponseCode(301)
                         ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('/database/publications');
     }
 
 
@@ -61,7 +113,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 unset($insertData['authors']);
                 $this->_bibliography->add($insertData);
                 $this->getFlash()->addMessage('A new reference work has been added to this record');
-                $this->_redirect(self::REDIRECT . $this->_getParam('findID'));
+                $this->redirect($this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
             } else {
              $form->populate( $this->_request->getPost());
             }
@@ -81,17 +133,17 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 unset($formData['authors']);
                 unset($formData['submit']);
                 $where = array();
-                $where =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                $update = $this->_bibliography->update($formData, $where);
+                $where[] =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $this->_bibliography->update($formData, $where);
                 $this->getFlash()->addMessage('Reference details updated!');
-                $this->_redirect(self::REDIRECT . $this->_getParam('findID'));	
+                $this->redirect($this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
             } else {
                 $form->populate($this->_request->getPost());
             }
         } else {
             $id = (int)$this->_request->getParam('id', 0);
             if ($id > 0) {
-                $bib = $this->_bibliography->fetchFindBook($id);
+                $bib = $this->_bibliography->fetchFindBook($id, $this->getController());
                 $form->populate($bib['0']);
                 $pubs = new Publications();
                 $titles = $pubs->getTitlesPairs($bib[0]['authors']);
@@ -110,19 +162,21 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $findID = (int)$this->_request->getPost('findID');
+                $this->setController($this->_request->getPost('controller'));
+                $this->setRedirect($this->getController());
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = array();
-                    $where =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $id);
+                    $where[] =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $id);
                     $this->_bibliography->delete($where);
                     $this->getFlash()->addMessage('Reference deleted!');
-                    $this->_redirect(self::REDIRECT . $findID);	
+                    $this->redirect($this->getRedirect() . 'record/id/' . $findID);
                 }
             } else {
                 $id = (int)$this->_getParam('id');
                 if ($id > 0) {
                     $this->view->id = $id;
-                    $this->view->bib = $this->_bibliography->fetchFindBook($id);
+                    $this->view->bib = $this->_bibliography->fetchFindBook($id, $this->getController());
                 }
             }
         } else {

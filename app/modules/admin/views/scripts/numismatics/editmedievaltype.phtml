@@ -1,7 +1,6 @@
-<?php 
+<?php
 $this->headTitle('Edit Medieval coin type: ');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
-<h2>Add a new object</h2>
-<?php 
-echo $this->form;
-?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

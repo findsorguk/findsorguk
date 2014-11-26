@@ -1,15 +1,25 @@
-<?php 
-	$this->headTitle('Materials available for use on the database');
-	?>
-<h2>Materials</h2>
-<table class="table table-striped" summary="List of available material terms in use on the database.">
-<caption>A list of available material terms on our database</caption>
-<thead>
-<tr>
-<th>Material</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/datalabs/materialsList.phtml',$this->materials);?>
-</tbody>
-</table>
+<?php
+$this->headTitle('Materials available for use on the database');
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('materials,seneschal,terminology')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->materials)): ?>
+    <table class="table table-striped" summary="List of available material terms in use on the database.">
+        <caption>A list of available construction material terms on our database</caption>
+        <thead>
+        <tr>
+            <th>Material</th>
+            <th>British Museum URI</th>
+            <th>SENESCHAL URI</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/datalabs/materialsList.phtml', $this->materials); ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>There are no materials available to you.</p>
+<?php endif; ?>

@@ -1,6 +1,21 @@
-<?php $this->headTitle('Details for suggested topic: '.$this->title);?>
-<h2><?php echo $this->title;?></h2>
-<p>Suggested period: <?php echo $this->temporal;?></p>
-<?php echo $this->description;?>
-<h3>Audit data</h3>
-<p>Created: <?php echo $this->fullname;?> <?php echo $this->timeAgoInWords($this->created);?></p>
+<?php
+$this->headTitle('Details for suggested topic: ' . $this->title);
+$this->metaBase()->setSubject('Research')
+    ->setDescription($this->title())
+    ->generate();
+
+?>
+    <h2 class="lead"><?php echo $this->title; ?></h2>
+
+<?php if (!is_null($this->temporal)): ?>
+    <p>Suggested period: <?php echo $this->temporal; ?></p>
+<?php endif; ?>
+
+<?php if (!is_null($this->description)): ?>
+    <?php echo $this->description; ?>
+<?php endif; ?>
+
+<?php if (!is_null($this->created)): ?>
+    <h3 class="lead">Audit data</h3>
+    <p>Created: <?php echo $this->fullname; ?> <?php echo $this->timeAgoInWords($this->created); ?></p>
+<?php endif; ?>

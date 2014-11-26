@@ -1,3 +1,15 @@
-<h2>Find of note reason: <?php echo $this->escape($this->term);?></h2>
-<?php echo $this->termdesc;?>
-<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','note' => 1, 'reason' => $this->id),null,true);?>" title="View all records that have been denoted as <?php echo $this->term;?>">all records</a> assigned to this reason.</p>
+<?php
+$this->headTitle('Find of note reason: ' . $this->term);
+$this->metaBase()->setDescription($this->title())
+    ->setSubject('terminology')
+    ->setKeywords('reasoning,terminology,archaeology')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note entered.</p>
+<?php endif; ?>
+<?php echo $this->searchLink()->setField('reason')->setId($this->id); ?>
+<?php echo $this->latestRecords()->setQuery('reason:' . $this->id); ?>

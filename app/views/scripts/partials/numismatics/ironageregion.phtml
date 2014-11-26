@@ -1,1 +1,8 @@
-<h2><?php echo $this->escape($this->area); ?>  <?php echo $this->escape($this->region); ?> <?php echo $this->escape($this->tribe); ?></h2>
+<?php
+$areas = array($this->area, $this->region, $this->tribe);
+$this->headTitle(implode(' ', $areas));
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php echo $this->searchLink()->setField('geographyID')->setId($this->id); ?>
+<?php echo $this->latestRecords()->setQuery('geographyID:' . $this->id); ?>

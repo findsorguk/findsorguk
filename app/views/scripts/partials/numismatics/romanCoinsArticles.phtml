@@ -1,0 +1,13 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 13/11/14
+ * Time: 13:51
+ */
+?>
+<?php $url = array('module' => 'romancoins', 'controller' => 'articles', 'action' => 'page', 'slug' => $this->slug);?>
+<li>
+    <a href="<?php echo $this->url($url, 'default', true); ?>"
+       title="Read the full article entitile <?php echo $this->menuTitle; ?>"><?php echo $this->menuTitle; ?></a>
+</li>

@@ -1,4 +1,4 @@
-<h2>Delete coin data attached to <?php echo $this->old_findID;?></h2>
+<h2 class="lead">Delete coin data attached to <?php echo $this->old_findID;?></h2>
 <p>Are you sure that you want to delete <?php echo $this->escape($this->old_findID); ?> attached coin details?</p>
 <form action="<?php echo $this->url(array('module' => 'database','controller' => 'coins','action'=>'delete'),null,true); ?>"
 method="post">

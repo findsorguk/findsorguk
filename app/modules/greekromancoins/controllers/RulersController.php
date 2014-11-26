@@ -45,7 +45,7 @@ class GreekRomanCoins_RulersController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->greeks = $this->_rulers->getRulersGreekList($this->_getAllParams());
+        $this->view->greeks = $this->_rulers->getRulersGreekList($this->getAllParams());
     }
 	
     /** Individual ruler page

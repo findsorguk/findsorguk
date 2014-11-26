@@ -6,7 +6,7 @@ $this->jQuery()->addJavascriptFile($this->baseUrl()
 $this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
 $this->headTitle('All my Treasure cases'); 
 ?>
-<h2>All my Treasure cases recorded online</h2>
+<h2 class="lead">All my Treasure cases recorded online</h2>
 <?php echo $this->loggedInLinks();?>
 <?php if($this->params):?>
 <?php echo $this->SearchParams($this->params);?>

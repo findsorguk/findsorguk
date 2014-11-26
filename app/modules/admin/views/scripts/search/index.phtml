@@ -1,12 +1,14 @@
-<h2>Searches performed</h2>
-<?php 
-	$this->headTitle('All searches on the database');
-if(count($this->searches)):?>
-<ol id="timeline" class="statuses">
+<?php
+$this->headTitle('All searches on the database');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead">Searches performed</h2>
+<?php if (!empty($this->searches)): ?>
+    <ol id="timeline" class="statuses">
 
-<?php echo $this->partialLoop('partials/users/searchList.phtml', $this->searches) ?>
-</ol>
-<?php echo $this->paginationControl($this->searches, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>No search history available to you at present.</p>
-<?php endif;?> 
+        <?php echo $this->partialLoop('partials/users/searchList.phtml', $this->searches) ?>
+    </ol>
+    <?php echo $this->paginationControl($this->searches, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No search history available to you at present.</p>
+<?php endif; ?>

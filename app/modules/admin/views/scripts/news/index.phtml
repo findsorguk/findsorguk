@@ -1,26 +1,30 @@
-<?php $this->headTitle('Administer Scheme news stories');?>
-<h2><?php echo $this->title();?></h2>
-<?php echo $this->form;?>
-<p><a class="btn btn-success btn-large" href="<?php echo $this->url(array(
-    'module' => 'admin','controller' => 'news','action' => 'add'),'default',true);?>" title="Add a new story">Add a new story</a></p>
+<?php
+$this->headTitle('Administer Scheme news stories');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>
+<p><a class="btn btn-success btn-small" href="<?php echo $this->url(array(
+        'module' => 'admin', 'controller' => 'news', 'action' => 'add'), 'default', true);?>" title="Add a new story">Add
+        a new story</a></p>
 <?php if ($this->news): ?>
-<table class="table table-striped" summary="All news stories listed">
-    <caption>All news stories on the site</caption>
+    <table class="table table-striped" summary="All news stories listed">
+        <caption>All news stories on the site</caption>
         <thead>
-            <tr>
-                <th>Title</th>
-                <th>Date filed</th>
-                <th>Created by</th>
-                <th>Updated</th>
-                <th>Updated by</th>
-                <th>Edit</th>
-            </tr>
+        <tr>
+            <th>Title</th>
+            <th>Date filed</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Edit</th>
+        </tr>
         </thead>
-    <tbody>
-        <?php echo $this->partialLoop('partials/admin/newsTable.phtml',$this->news);?>
-    </tbody>
-</table>
-<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>There are no news articles availble at the moment.</p>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/newsTable.phtml', $this->news); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>There are no news articles available at the moment.</p>
 <?php endif; ?>

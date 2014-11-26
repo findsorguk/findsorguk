@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for coroner based data
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -9,32 +10,33 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version    2
  * @uses Coroners
- * 
-*/
-class Contacts_CoronersController extends Pas_Controller_Action_Admin {
-    
+ *
+ */
+class Contacts_CoronersController extends Pas_Controller_Action_Admin
+{
+
     /** The coroners model
      * @access protected
      * @var \Coroners
      */
     protected $_coroners;
-    
+
     /** Initialise the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         $this->_helper->_acl->allow('public', null);
-        
-        $contexts = array('xml','json','kml');
+        $contexts = array('xml', 'json', 'kml');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
-                ->addContext('kml', array('suffix' => 'kml'))
-                ->addContext('foaf', array('suffix' => 'foaf'))
-                ->addContext('vcf', array('suffix' => 'vcf'))
-                ->addActionContext('profile', array('xml','json','vcf','foaf'))
-                ->addActionContext('index',$contexts)
-                ->initContext();
+            ->addContext('kml', array('suffix' => 'kml'))
+            ->addContext('foaf', array('suffix' => 'foaf'))
+            ->addContext('vcf', array('suffix' => 'vcf'))
+            ->addActionContext('profile', array('xml', 'json', 'vcf', 'foaf'))
+            ->addActionContext('index', $contexts)
+            ->initContext();
         $this->_coroners = new Coroners();
     }
 
@@ -42,9 +44,10 @@ class Contacts_CoronersController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function indexAction()  {
-        $coroners =  $this->_coroners->getAll($this->_getAllParams());
-        if(in_array($this->_helper->contextSwitch()->getCurrentContext(),array('kml'))) {
+    public function indexAction()
+    {
+        $coroners = $this->_coroners->getAll($this->getAllParams());
+        if (in_array($this->_helper->contextSwitch()->getCurrentContext(), array('kml'))) {
             $this->_coroners->setItemCountPerPage(150);
         }
         $this->view->coroners = $coroners;
@@ -55,8 +58,9 @@ class Contacts_CoronersController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function profileAction() {
-        if($this->_getParam('id',false)){
+    public function profileAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->persons = $this->_coroners->getCoronerDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -67,7 +71,8 @@ class Contacts_CoronersController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function mapAction() {
+    public function mapAction()
+    {
         //Magic in the view
     }
 }

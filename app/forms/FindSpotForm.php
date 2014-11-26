@@ -47,7 +47,12 @@ class FindSpotForm extends Pas_Form {
 
         $landusecodes = new Landuses();
         $landcodes_options = $landusecodes->getCodesValid();
-        
+
+        //Get findspot data quality ratings for select menu
+        $qualityrating = new DataQuality();
+        $qualityrating_options = $qualityrating->getRatings();
+
+
         $this->addElementPrefixPath('Pas_Filter', 'Pas/Filter/', 'filter');
 
         parent::__construct($options);
@@ -93,9 +98,10 @@ class FindSpotForm extends Pas_Form {
 
         $gridref = new Zend_Form_Element_Text('gridref');
         $gridref->setLabel('Grid reference: ')
+            ->setRequired(true)
             ->addValidators(array('NotEmpty','ValidGridRef'))
             ->addFilters(array('StripTags', 'StringTrim', 'StringToUpper', 'StripSpaces'))
-            ->setAttribs(array('placeholder' => 'A grid reference is in the format SU123123', 'class' => 'span4'));
+            ->setAttribs(array('placeholder' => 'In the format of SU123123', 'class' => 'span4'));
 
         $gridrefsrc = new Zend_Form_Element_Select('gridrefsrc');
         $gridrefsrc->setLabel('Grid reference source: ')
@@ -265,6 +271,15 @@ class FindSpotForm extends Pas_Form {
                 ))
             ->addFilters(array('StripTags', 'StringTrim', 'Purifier'));
 
+        $alsoknownas = new Zend_Form_Element_Text('alsoknownas');
+        $alsoknownas->setLabel('Also known as: ')
+            ->setAttribs(array(
+                'placeholder' => 'Use this for old names the findspot used to be known by',
+                'class' => 'span6'
+            ))
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
+            ->setDescription('Separate different names with semi-colons, e.g. Near Westbury; Gloucestershire; Severn');
+
         $landownername = new Zend_Form_Element_Text('landownername');
         $landownername->setLabel('Landowner: ')
             ->addValidators(array('NotEmpty'))
@@ -293,13 +308,25 @@ class FindSpotForm extends Pas_Form {
                 ))
             ->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
 
+        //Findspot data quality rating
+        $findspotdataquality = new Zend_Form_Element_Select('qualityrating');
+        $findspotdataquality->setLabel('Findspot data quality rating: ')
+            ->setRequired(false)
+            ->addFilters(array('StripTags','StringTrim'))
+            ->addMultiOptions(array(
+                null => 'Choose a rating',
+                'Available ratings' => $qualityrating_options))
+            ->addValidator('InArray', false, array(array_keys($qualityrating_options)))
+            ->setAttrib('class', 'input-large selectpicker show-menu-arrow')
+            ->setDescription('This data quality field can only be completed by hoards project staff')
+            ->addValidator('Int');
 
         $submit = new Zend_Form_Element_Submit('submit');
 
         if($action === 'edit') {
             $this->addElements(array(
                 $countyID, $districtID, $parishID,
-                $knownas, $description, $comments,
+                $knownas, $alsoknownas, $description, $comments, $findspotdataquality,
                 $regionID, $gridref, $fourFigure,
                 $easting, $northing, $map10k,
                 $map25k, $declong, $declat,
@@ -312,7 +339,7 @@ class FindSpotForm extends Pas_Form {
         } else {
             $this->addElements(array(
                 $countyID, $districtID, $parishID,
-                $knownas, $depthdiscovery, $description,
+                $knownas, $alsoknownas, $depthdiscovery, $description, $findspotdataquality,
                 $comments, $regionID, $gridref,
                 $gridrefsrc, $gridrefcert,
                 $address, $postcode, $landusevalue,
@@ -324,7 +351,7 @@ class FindSpotForm extends Pas_Form {
 
         $this->addDisplayGroup(array(
             'countyID', 'regionID', 'districtID',
-            'parishID', 'knownas', 'address', 
+            'parishID', 'knownas', 'alsoknownas', 'address',
             'postcode', 'landownername', 'landowner'),
                 'details');
 
@@ -350,11 +377,18 @@ class FindSpotForm extends Pas_Form {
 
         $this->spatial->setLegend('Spatial information');
 
-        $this->addDisplayGroup(array('description','comments'),'commentary');
+        $this->addDisplayGroup(array('description','comments', 'qualityrating'),'commentary');
 
         $this->commentary->setLegend('Findspot comments');
 
         $this->addDisplayGroup(array('submit'), 'buttons');
+
+        $person = new Pas_User_Details();
+        $role = $person->getRole();
+        $projectTeam = array('hoard', 'admin');
+        if(!in_array($role, $projectTeam)){
+            $findspotdataquality->disabled=true;
+        }
 
         parent::init();
     }

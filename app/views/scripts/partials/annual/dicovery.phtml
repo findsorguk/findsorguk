@@ -1,0 +1,17 @@
+<tr>
+    <td>
+        <?php if (is_null($this->discmethod)) { ?>
+            No method of discovery recorded
+        <?php
+        } else {
+            echo $this->discmethod;
+        }
+        ?>
+    </td>
+    <td>
+        <?php echo $this->finds;?>
+    </td>
+    <td>
+        <?php echo $this->records;?>
+    </td>
+</tr>

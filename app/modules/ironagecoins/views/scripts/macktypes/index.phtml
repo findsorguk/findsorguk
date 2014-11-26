@@ -1,18 +1,16 @@
-<h2>Mack types</h2>
-<?php if($this->macks):?> 
-<table summary="A list of all Mack types in use" class="table table-striped">
-<caption>All Mack types</caption>
-<thead>
-<tr>
-<th>Type name</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/numismatics/macks.phtml',$this->macks);?>
-</tbody>
-</table>
-<?php echo $this->paginationControl($this->macks, 'Sliding', 'structure/pagination.phtml'); ?>
-
-<?php else:?>
-<p>No Mack types available</p>
-<?php endif;?>
+<?php
+$this->headTitle('Mack Types classifications');
+$this->metaBase()->setSubject('Iron Age Numismatics')
+    ->setDescription('A list of Mack types in use on the Scheme database')
+    ->setKeywords('iron age, numismatics,archaeology')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->macks)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/mackTypes.phtml', $this->macks); ?>
+    </ul>
+    <?php echo $this->paginationControl($this->macks, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No Mack types available</p>
+<?php endif; ?>

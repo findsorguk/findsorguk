@@ -1,30 +1,36 @@
 <?php
 $this->headTitle('Records of mine on the database');
-$this->headMeta('A list of all finds recorded for me, by the Scheme','description');
-if($this->finds) :?>
-<div class="row-fluid">
-<h2>My finds recorded by the Scheme</h2>
+$this->headMeta('A list of all finds recorded for me, by the Scheme', 'description');
+if ($this->finds) :?>
+    <div class="row-fluid">
+        <h2 class="lead">My finds recorded by the Scheme</h2>
 
-<?php echo $this->form;?>
-<div class="span8">
-        <?php echo $this->partialLoop('partials/database/findRecordList.phtml',$this->finds);?>
+        <?php echo $this->form; ?>
+        <div class="span8">
+            <?php echo $this->partialLoop('partials/database/findRecordList.phtml', $this->finds); ?>
+        </div>
+        <div class="span3">
+
+            <p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'map', 'q' => $this->solrParams), null, false); ?>"
+                  title="Map these records">Map these finds <i class="icon-map-marker"></i></a>
+            </p>
+            <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
+            <?php echo $this->thumbnailToggler(); ?>
+            <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
+            <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount()); ?></p>
+            <?php echo $this->paginationControl($this->paginator, 'elastic', 'structure/paginationSolr.phtml'); ?>
+            <?php echo $this->statGenerator()->setStats($this->stats); ?>
+            <?php
+            echo $this->facetCreator($this->facets);
+            ?>
+        </div>
     </div>
-    <div class="span3">
-        <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
-        <?php echo $this->thumbnailToggler();?>
-        <?php echo $this->resultsSorter()->setResults($this->paginator);?>
-        <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>
-        <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
-        <?php echo $this->statGenerator()->setStats($this->stats);?>
-        <?php
-echo $this->facetCreator($this->facets);
-?>
-</div>
-</div>
-<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
 
-<?php else:?>
-<h2>My finds recorded by the Scheme</h2>
-<p>Your account is either not linked to the personal details we have for you on record/ of you have nor reported any objects yet to our staff.</p>
-<p>If you think it is the former, speak to your FLO and ask them to link your personal details to your account username.</p>
-<?php endif;?>
+<?php else: ?>
+    <h2 class="lead">My finds recorded by the Scheme</h2>
+    <p>Your account is either not linked to the personal details we have for you on record/ of you have nor reported any
+        objects yet to our staff.</p>
+    <p>If you think it is the former, speak to your FLO and ask them to link your personal details to your account
+        username.</p>
+<?php endif; ?>

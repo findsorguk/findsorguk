@@ -29,7 +29,7 @@ class IronAgeCoins_VanarsdelltypesController extends Pas_Controller_Action_Admin
      * @return void
      */
     public function indexAction() {
-        $this->view->va = $this->_types->getVaTypes($this->_getAllParams());
+        $this->view->va = $this->_types->getVaTypes($this->getAllParams());
     }
 
     /** Get details for a specific type

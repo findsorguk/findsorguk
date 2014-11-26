@@ -8,18 +8,20 @@ class REST_Controller_Plugin_RestHandler extends Zend_Controller_Plugin_Abstract
 {
     private $dispatcher;
 
-    private $defaultFormat = 'xml';
+    private $defaultFormat = 'html';
+
+    private $reflectionClass = null;
 
     private $acceptableFormats = array(
-//        'html',
+        'html',
         'xml',
         'php',
         'json'
     );
 
     private $responseTypes = array(
-//        'text/html'                         => 'html',
-//        'application/xhtml+xml'             => 'html',
+        'text/html'                         => 'html',
+        'application/xhtml+xml'             => 'html',
         'text/xml'                          => 'xml',
         'application/xml'                   => 'xml',
         'application/xhtml+xml'             => 'xml',
@@ -51,32 +53,34 @@ class REST_Controller_Plugin_RestHandler extends Zend_Controller_Plugin_Abstract
     {
         $this->dispatcher = $frontController->getDispatcher();
     }
-    
-    
+
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {
-    	$route = Zend_Controller_Front::getInstance()->getRouter()->getCurrentRoute();
-    	if ($route instanceOf Zend_Rest_Route){
-    	// send the HTTP Vary header
+        // send the HTTP Vary header
         $this->_response->setHeader('Vary', 'Accept');
 
+        // Cross-Origin Resource Sharing (CORS)
+        // TODO: probably should be an environment setting?
         $this->_response->setHeader('Access-Control-Max-Age', '86400');
         $this->_response->setHeader('Access-Control-Allow-Origin', '*');
         $this->_response->setHeader('Access-Control-Allow-Credentials', 'true');
         $this->_response->setHeader('Access-Control-Allow-Headers', 'Authorization, X-Authorization, Origin, Accept, Content-Type, X-Requested-With, X-HTTP-Method-Override');
-    	
-        // set config settings from application.ini
-        $this->setConfig();
 
-        // set response format
-        $this->setResponseFormat($request);
+        $class = $this->getReflectionClass($request);
 
-        // process requested action
-        $this->handleActions($request);
-    	
-        // process request body
-        $this->handleRequestBody($request);
-    	}
+        if ($this->isRestClass($class)) {
+            // set config settings from application.ini
+            $this->setConfig();
+
+            // set response format
+            $this->setResponseFormat($request);
+
+            // process requested action
+            $this->handleActions($request);
+
+            // process request body
+            $this->handleRequestBody($request);
+        }
     }
 
     private function setConfig()
@@ -99,7 +103,7 @@ class REST_Controller_Plugin_RestHandler extends Zend_Controller_Plugin_Abstract
     private function setResponseFormat(Zend_Controller_Request_Abstract $request)
     {
         $format = false;
-		
+
         // check query string first
         if (in_array($request->getParam('format', 'none'), $this->responseTypes)) {
             $format = $request->getParam('format');
@@ -113,11 +117,11 @@ class REST_Controller_Plugin_RestHandler extends Zend_Controller_Plugin_Abstract
 
             $format = $this->responseTypes[$bestMimeType];
         }
-        if ($format == false or !in_array($format, $this->acceptableFormats)) {
+        if ($format === false or !in_array($format, $this->acceptableFormats)) {
             $request->setParam('format', $this->defaultFormat);
-			
+
             if ($request->isOptions() === false) {
-                $request->dispatchError(REST_Response::UNSUPPORTED_TYPE, 'Unsupported Media/Format Type or unspecified');
+                $request->dispatchError(REST_Response::UNSUPPORTED_TYPE, 'Unsupported Media/Format Type');
             }
         } else {
             $request->setParam('format', $format);
@@ -130,19 +134,13 @@ class REST_Controller_Plugin_RestHandler extends Zend_Controller_Plugin_Abstract
      */
     private function handleActions(Zend_Controller_Request_Abstract $request)
     {
-        // get the dispatcher to load the controller class
-        $controller = $this->dispatcher->getControllerClass($request);
-        $className  = $this->dispatcher->loadClass($controller);
+        $methods = $this->getReflectionClass($request)->getMethods(ReflectionMethod::IS_PUBLIC);
 
-        // extract the actions through reflection
-        $class = new ReflectionClass($className);
+        $actions = array();
 
-        if ($this->isRestClass($class)) {
-            $methods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
+        foreach ($methods as &$method) {
+            if ($method->getDeclaringClass()->name != 'REST_Controller') {
 
-            $actions = array();
-
-            foreach ($methods as &$method) {
                 $name = strtoupper($method->name);
 
                 if ($name == '__CALL' and $method->class != 'Zend_Controller_Action') {
@@ -151,14 +149,18 @@ class REST_Controller_Plugin_RestHandler extends Zend_Controller_Plugin_Abstract
                     $actions[] = str_replace('ACTION', null, $name);
                 }
             }
+        }
 
-            // Cross-Origin Resource Sharing (CORS)
-            $this->_response->setHeader('Access-Control-Allow-Methods', implode(', ', $actions));
+        if (!in_array('OPTIONS', $actions)) {
+            $actions[] = 'OPTIONS';
+        }
 
-            if (!in_array(strtoupper($request->getMethod()), $actions)) {
-                $request->dispatchError(REST_Response::NOT_ALLOWED, 'Method Not Allowed');
-                $this->_response->setHeader('Allow', implode(', ', $actions));
-            }
+        // Cross-Origin Resource Sharing (CORS)
+        $this->_response->setHeader('Access-Control-Allow-Methods', implode(', ', $actions));
+
+        if (!in_array(strtoupper($request->getMethod()), $actions)) {
+            $request->dispatchError(REST_Response::NOT_ALLOWED, 'Method Not Allowed');
+            $this->_response->setHeader('Allow', implode(', ', $actions));
         }
     }
 
@@ -282,6 +284,27 @@ class REST_Controller_Plugin_RestHandler extends Zend_Controller_Plugin_Abstract
                 return;
             }
         }
+    }
+
+
+    /**
+     * constructs reflection class of the requested controoler
+     **/
+    private function getReflectionClass(Zend_Controller_Request_Abstract $request)
+    {
+        if ($this->reflectionClass === null) {
+            // get the dispatcher to load the controller class
+            $controller = $this->dispatcher->getControllerClass($request);
+            // if no controller present escape silently...
+            if ($controller === false) return false;
+            // ... load controller class
+            $className  = $this->dispatcher->loadClass($controller);
+
+            // extract the actions through reflection
+            $this->reflectionClass = new ReflectionClass($className);
+        }
+
+        return $this->reflectionClass;
     }
 
     /**

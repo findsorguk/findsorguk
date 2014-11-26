@@ -1,2 +1,6 @@
-<p class="question"><?php echo $this->id;?> - <?php echo $this->question;?></p>
-<?php echo $this->answer;?>
+<p class="question"><?php echo $this->id; ?> - <?php echo $this->question; ?></p>
+<?php if (!is_null($this->answer)): ?>
+    <?php echo $this->answer; ?>
+<?php else: ?>
+    <p>No answer added!</p>
+<?php endif; ?>

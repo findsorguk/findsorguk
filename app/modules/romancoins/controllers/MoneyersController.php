@@ -38,7 +38,7 @@ class Romancoins_MoneyersController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->moneyers = $this->_moneyers->getValidMoneyers($this->_getAllParams());
+        $this->view->moneyers = $this->_moneyers->getValidMoneyers($this->getAllParams());
     }
     /** Set up the moneyer individual pages
      * @access public

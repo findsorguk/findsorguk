@@ -1,3 +1,6 @@
-<?php $this->headTitle('Edit a suggested research topic');?>
-<h2>Edit a suggested topic</h2>
-<?php echo $this->form;?>
+<?php
+$this->headTitle('Edit a suggested research topic');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

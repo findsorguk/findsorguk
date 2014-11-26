@@ -1,20 +1,22 @@
 <?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 
-<div class="sidebar-nav col-md-3" >
-    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible menu">
-        <li <?php echo $this->currentPage()->active('treasure','index','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'index'),'default',true);?>" title="An introduction to the Treasure Act">Introduction</a></li>
-        
-        <?php echo $this->treasureMenu();?>
-        
-        <li <?php if($controller == 'reports') { echo 'class="expandfirst "';};?> >
+<div class="sidebar-nav col-md-3">
+    <ul id="menu1" class="nav nav-stacked nav-pills collapsible menu">
+        <li <?php echo $this->currentPage()->active('treasure', 'index', 'index'); ?>>
+            <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'index'), 'default', true); ?>"
+               title="An introduction to the Treasure Act">Introduction</a></li>
+
+        <?php echo $this->treasureMenu(); ?>
+
+        <li <?php if ($controller == 'reports') {
+            echo 'class="expandfirst "';
+        }; ?> >
             <a href="#"><i class="icon-folder-open"></i>Treasure Reports</a>
-            <ul class="nav nav-pills nav-stacked menuindent"><?php echo $this->TreasureReportsMenu();?></ul></li>
-        
-        <li <?php echo $this->currentPage()->active('treasure','cases','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'cases'),'default',true);?>" title="Case history">Cases</a></li>
-        
-        <li <?php echo $this->currentPage()->active('treasure','minutes','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'treasure','controller' => 'minutes'),'default',true);?>" title="TVC minutes">TVC Minutes</a></li>
+            <ul class="nav nav-pills nav-stacked menuindent"><?php echo $this->treasureReportsMenu(); ?></ul>
+        </li>
+
+        <li <?php echo $this->currentPage()->active('treasure', 'minutes', 'index'); ?>>
+            <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'minutes'), 'default', true); ?>"
+               title="TVC minutes">TVC Minutes</a></li>
     </ul>
 </div>

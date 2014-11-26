@@ -45,7 +45,7 @@ class Pas_View_Helper_MapFacetCreatorMyInstitution extends Zend_View_Helper_Abst
     $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
     $params['institution'] = $this->_inst;
     $search = new Pas_Solr_Handler();
-    $search->setCore('beowulf');
+    $search->setCore('objects');
     $search->setParams($params);
     $search->setFacets(array('objectType','county','broadperiod',
         'institution', 'rulerName', 'denominationName', 'mintName',
@@ -54,7 +54,7 @@ class Pas_View_Helper_MapFacetCreatorMyInstitution extends Zend_View_Helper_Abst
     $search->execute();
     $facets = $search->processFacets();
     if (is_array($facets)) {
-        $html = '<h3>Search facets</h3>';
+        $html = '<h3 class="lead">Search facets</h3>';
         foreach ($facets as $facetName => $facet) {
             $html .= $this->_processFacet($facet, $facetName);
         }
@@ -79,7 +79,7 @@ class Pas_View_Helper_MapFacetCreatorMyInstitution extends Zend_View_Helper_Abst
         if (is_array($facet)) {
             if (count($facet)) {
         $html = '<div id="facet-' . $facetName .'">';
-        $html .= '<h4>' . $this->_prettyName($facetName) . '</h4>';
+        $html .= '<h4 class="lead">' . $this->_prettyName($facetName) . '</h4>';
         $html .= '<ul class="navpills nav-stacked nav">';
 
         if ($facetName !== 'workflow') {

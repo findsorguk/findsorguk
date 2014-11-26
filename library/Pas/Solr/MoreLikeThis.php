@@ -94,7 +94,10 @@ class Pas_Solr_MoreLikeThis {
      * @access public
      * @var type 
      */
-    protected $_allowed =  array('fa','flos','admin','treasure');
+    protected $_allowed =  array(
+        'fa', 'flos', 'admin',
+        'treasure', 'hoard'
+    );
 
     /** Set the fields to query for likeness
      * @access public

@@ -1,4 +1,6 @@
-<h2>Add an institutional logo</h2>
-<?php 
+<?php
 $this->headTitle('Add a logo to an institution profile');
-echo $this->form;?>
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

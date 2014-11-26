@@ -1,6 +1,1 @@
-<?php 
-$term = $this->objectdata['0']['term'];
-$this->headTitle('Explanation of object term ' . $term);
-echo $this->partial('partials/database/objectTermData.phtml',$this->objectdata['0']);
-echo $this->latestRecords('objectType:"' . $term . '"');
-
+<?php echo $this->partial('partials/datalabs/objectTermData.phtml', $this->objectdata[0]); ?>

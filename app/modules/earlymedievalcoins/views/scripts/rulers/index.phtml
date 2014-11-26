@@ -1,53 +1,91 @@
-<?php 
+<?php
 $this->headTitle("Issuing rulers of the Early Medieval period");
-$this->headMeta('A list of all issuing rulers from England during the Early Medieval period, broken down into 
-category','description')
-->headMeta('rulers,early medieval,king,queen,archbishop,coins,numismatics','dc.keywords')
-->headMeta('Daniel Pett','dc.creator')
-->headMeta('The Portable Antiquities Scheme','dc.publisher')
-->headMeta('CC BY','dc.rights')
-->headMeta($this->curUrl(),'dc.identifier');
+$this->metaBase()
+    ->setDescription('A list of all issuing rulers from England during the Early Medieval period, broken down into
+category')
+    ->setKeywords('rulers,early medieval,king,queen,archbishop,coins,numismatics')
+    ->setSubject('Early Medieval Numismatics')
+    ->generate();
 ?>
 
-<h2>Issuing rulers of the Early Medieval period</h2>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->earlygold['0']) ; ?>
-<p>This period had <?php echo count($this->earlygold);?> issuers.</p>
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->earlygold) ?></ul>
+<?php if (!empty($this->earlygold)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->earlygold['0']); ?>
+    <p>This period had <?php echo count($this->earlygold); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->earlygold); ?>
+    </ul>
+<?php endif; ?>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->earlysilver['0']) ; ?>
-<p>This period had <?php echo count($this->earlysilver);?> issuers.</p>
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->earlysilver) ?></ul>
+<?php if (!empty($this->earlysilver)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->earlysilver['0']); ?>
+    <p>This period had <?php echo count($this->earlysilver); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->earlysilver); ?>
+    </ul>
+<?php endif; ?>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->northumbria['0']) ; ?>
-<p>This period had <?php echo count($this->northumbria);?> issuers.</p>
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->northumbria) ?></ul>
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->canterbury['0']) ; ?>
-<p>This period had <?php echo count($this->canterbury);?> issuers.</p>
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->canterbury) ?></ul>
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->kent['0']) ; ?>
-<p>This period had <?php echo count($this->kent);?> issuers.</p>
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->kent) ?></ul>
+<?php if (!empty($this->northumbria)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->northumbria['0']); ?>
+    <p>This period had <?php echo count($this->northumbria); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->northumbria); ?>
+    </ul>
+<?php endif; ?>
 
+<?php if (!empty($this->canterbury)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->canterbury['0']); ?>
+    <p>This period had <?php echo count($this->canterbury); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->canterbury); ?>
+    </ul>
+<?php endif; ?>
 
+<?php if (!empty($this->kent)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->kent['0']); ?>
+    <p>This period had <?php echo count($this->kent); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->kent); ?>
+    </ul>
+<?php endif; ?>
 
+<?php if (!empty($this->eastanglia)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->eastanglia['0']); ?>
+    <p>This period had <?php echo count($this->eastanglia); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->eastanglia) ?>
+    </ul>
+<?php endif; ?>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->eastanglia['0']) ; ?>
-<p>This period had <?php echo count($this->eastanglia);?> issuers.</p>
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->eastanglia) ?></ul>
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->mercia['0']) ; ?>
-<p>This period had <?php echo count($this->mercia);?> issuers.</p>
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->mercia) ?></ul>
+<?php if (!empty($this->mercia)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->mercia['0']); ?>
+    <p>This period had <?php echo count($this->mercia); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->mercia); ?>
+    </ul>
+<?php endif; ?>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->wessex['0']) ; ?>
-<p>This period had <?php echo count($this->wessex);?> issuers.</p>
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->wessex) ?></ul>
+<?php if (!empty($this->wessex)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->wessex['0']); ?>
+    <p>This period had <?php echo count($this->wessex); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->wessex); ?>
+    </ul>
+<?php endif; ?>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->viking['0']) ; ?>
-<p>This period had <?php echo count($this->viking);?> issuers.</p>
-<ul><?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->viking) ?></ul>
+<?php if (!empty($this->viking)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->viking['0']); ?>
+    <p>This period had <?php echo count($this->viking); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->viking); ?>
+    </ul>
+<?php endif; ?>
 
-<?php echo $this->partial('partials/numismatics/categorytitle.phtml', $this->allengland['0']) ; ?>
-<p>This period had <?php echo count($this->allengland);?> issuers.</p>
-<ul>
-<?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->allengland) ?></ul>
+<?php if (!empty($this->allengland)): ?>
+    <?php echo $this->partial('partials/numismatics/categoryTitle.phtml', $this->allengland['0']); ?>
+    <p>This period had <?php echo count($this->allengland); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->allengland); ?>
+    </ul>
+<?php endif; ?>

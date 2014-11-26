@@ -1,29 +1,27 @@
 <?php
-$this->headMeta($this->curUrl(),'dc.identifier')
-->headMeta('Daniel Pett','dc.creator')
-->headMeta('The Portable Antiquities Scheme','dc.publisher')
-->headMeta('roman,coins,reece,periods,number,sequence','dc.keywords')
-->headMeta('The scholar, Richard Reece broke down the chronology of coin use into a series based around periods.
-This page lists the available periods','description');
+$this->headTitle('Reece periods');
+$this->metaBase()->setDescription('The scholar, Richard Reece broke down the chronology of coin use into a series based around periods.
+This page lists the available periods')
+    ->setSubject('Roman Numismatics')
+    ->setKeywords('roman,coins,reece,periods,number,sequence')
+    ->generate();
 ?>
-<h2>Reece periods</h2>
+<h2 class="lead">Reece periods</h2>
 <p>For initial analysis of coins we use Reece periods, named after the pre-eminent Romano-British
-numismatist, Richard Reece. He divided the Roman period in 21 periods (Sam Moorhead has added two more)
-for the purpose of comparing different sites. You can find out which rulers fall into different periods
-and search the database accordingly. Obviously, to carry out effective analysis by Reece period,
-we need to record ALL the coins from a site.</p>
+    numismatist, Richard Reece. He divided the Roman period in 21 periods (Sam Moorhead has added two more)
+    for the purpose of comparing different sites. You can find out which rulers fall into different periods
+    and search the database accordingly. Obviously, to carry out effective analysis by Reece period,
+    we need to record ALL the coins from a site.</p>
 <table class="table table-striped" summary="A list of all Reece periods used on the database">
-<caption>A list of Reece Periods and quantity of records</caption>
-<thead>
-<tr>
-<th>Reece period</th>
-<th>Number of records</th>
-</tr>
-</thead>
-<tbody>
+    <caption>A list of Reece Periods and quantity of records</caption>
+    <thead>
+    <tr>
+        <th>Reece period</th>
+        <th>Number of records</th>
+    </tr>
+    </thead>
+    <tbody>
 
-<?php
-echo $this->partialLoop('partials/numismatics/reeces.phtml', $this->reeces);
-?>
-</tbody>
+    <?php echo $this->partialLoop('partials/numismatics/reeces.phtml', $this->reeces); ?>
+    </tbody>
 </table>

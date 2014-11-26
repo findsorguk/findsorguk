@@ -12,19 +12,30 @@
  * @uses Pas_Exception_Param
  */
 class Database_LegacyController extends Pas_Controller_Action_Admin {
-	
+
     /** The init function
      * @access public
      * @return void
      */
-    public function init() {	
+    public function init() {
         $this->_helper->_acl->allow('public',array());
-        
+
     }
     /** The redirect
-     * 
+     *
      */
     const REDIRECT = '/database/artefacts/record/id/';
+
+    /** Redirect of the user due to no action existing.
+     * @access public
+     * @return void
+     */
+    public function indexAction() {
+        $this->getFlash()->addMessage('There is not a root action for jettons');
+        $this->getResponse()->setHttpResponseCode(301)
+            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('/database');
+    }
 
     /** Redirect old url pattern to new find number
      * @todo move the db call to finds model and cache.
@@ -35,12 +46,12 @@ class Database_LegacyController extends Pas_Controller_Action_Admin {
             $finds = new Finds();
             $results = $finds->fetchRow($finds->select()->where('secuid = ?', $this->_getParam('id')));
             if(!is_null($results)){
-                $id = (int)$results ->id;	
+                $id = (int)$results ->id;
             } else {
                 throw new Pas_Exception_Param($this->_nothingFound);
             }
             $this->getFlash()->addMessage('You have been redirected from an outdated link');
-            $this->_redirect(self::REDIRECT . $id);
+            $this->redirect(self::REDIRECT . $id);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

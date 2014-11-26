@@ -1,0 +1,94 @@
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder-hoards.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfields.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type='text/javascript');
+$this->headTitle('Edit hoard details');
+$this->metaBase()
+    ->setDescription('Edit a hoard\'s details')
+    ->setKeywords('hoard,roman,iron age')
+    ->generate();
+?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+$(document).ready(function() {
+    var nonRulers = ['BRONZE AGE', 'MESOLITHIC', 'NEOLITHIC', 'PALAEOLITHIC', 'UNKNOWN', 'MODERN'];
+    var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
+    'GREEK AND ROMAN PROVINCIAL'];
+    var romani = ['ROMAN'];
+
+    $('#broadperiod').linkedSelect('/ajax/lastruler','#lastrulerID',{firstOption: 'Please select a ruler'});
+
+    $('select[name="broadperiod"]').on('change',function(){
+
+    var period = $(this).val();
+
+    if(jQuery.inArray(period, nonRulers) !== -1) {
+        console.log('In missing ruler array');
+            $("#lastrulerID").select2('val', 'All');
+            $("#reeceID").select2('val', 'All');
+            $('#reeceID').attr('disabled','disabled');
+        } else if(jQuery.inArray(period, rulerPeriods) !== -1) {
+            $('#lastrulerID').removeAttr('disabled');
+            console.log('In  ruler array');
+            $('#reeceID').attr('disabled','disabled');
+        } else if (jQuery.inArray(period, romani) !== -1) {
+            $('#reeceID').removeAttr('disabled');
+            $('#lastrulerID').removeAttr('disabled');
+            console.log('In Roman array');
+        }
+    });
+    $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
+    $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y');?>'});
+    $("input[type='text']:first", document.forms[0]).focus();
+    $('.multiselect').multiselect({
+        maxHeight: 200,
+        enableFiltering: true});
+
+    $("#addFinder").click(
+        function() {
+            ajaxAddField();
+        }
+    );
+
+    $("#removeFinder").click(
+        function() {
+            removeField();
+        }
+    );
+
+
+});
+
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
+
+<?php // $this->DataEditDeleteCheck($this->find->old_findID,$this->find->createdBy);
+?>
+<?php
+    echo $this->partial('partials/hoards/editHoardH2.phtml',$this->hoard);
+?>
+<?php $url = array('module' => 'database','controller' => 'hoards', 'action' => 'record', 'id' => $this->hoard->id);?>
+<a href="<?php echo $this->url($url, 'default', true);?>" title="Return to record"
+   class="btn btn-small btn-default">Return to hoard record</a>
+
+<?php
+$rulers = array(
+    'ROMAN', 'IRON AGE', 'EARLY MEDIEVAL',
+    'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
+    'GREEK AND ROMAN PROVINCIAL'
+);
+if(in_array($this->hoard->broadperiod, $rulers)) {
+    $rulers = new Rulers();
+    $data = $rulers->getLastRulersPairs($this->hoard->broadperiod);
+    $this->form->lastrulerID->addMultiOptions(array(
+        null => 'Please choose a ruler', 'Available rulers' => $data
+    ));
+    $this->form->lastrulerID->setValue((int)$this->hoard->lastrulerID);
+}
+echo $this->form;
+?>

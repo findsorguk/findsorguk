@@ -45,6 +45,10 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
         //Get the field for the login redirect page form
         $redirect = new LoginRedirect();
         $this->view->redirectUri = $redirect->getConfig();
+        // Get the fields for the hoard form
+        $hoards = new CopyHoards();
+        $this->view->hoards = $hoards->getConfig();
+
     }
 
     /** Set up and configure which fields you will copy when copying finds
@@ -67,7 +71,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
                 $copyFind->updateConfig($form->getValues());
                 $this->getFlash()
                         ->addMessage('Copy last record fields for find table updated');
-                $this->_redirect('/users/configuration/');
+                $this->redirect('/users/configuration/');
             } else {
                 $form->populate($values);
             }
@@ -94,7 +98,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
                 $copyFindSpot->updateConfig($form->getValues());
                 $this->getFlash()
                         ->addMessage('Copy last record fields for findspot table updated');
-                $this->_redirect('/users/configuration/');
+                $this->redirect('/users/configuration/');
             } else {
                 $form->populate($values);
             }
@@ -122,7 +126,35 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
                 $copyCoin->updateConfig($form->getValues());
                 $this->getFlash()
                         ->addMessage('Copy last record fields for coin table updated');
-                $this->_redirect('/users/configuration/');
+                $this->redirect('/users/configuration/');
+            } else {
+                $form->populate($values);
+            }
+        }
+    }
+
+    /** Set up and configure the coin copying fields for cloning a record.
+     * @access public
+     * @return void
+     */
+    public function hoardAction() {
+        $form = new ConfigureHoardCopyForm();
+        $this->view->form = $form;
+        $copyCoin = new CopyHoards();
+        $current = $copyCoin->getConfig();
+        $values = array();
+        //As each value is a checkbox and we need to set as checked use 1
+        foreach($current as $cur){
+            $values[$cur] = 1;
+        }
+        $form->populate($values);
+        if ($this->_request->isPost()) {
+            $formData = $this->_request->getPost();
+            if ($form->isValid($formData)) {
+                $copyCoin->updateConfig($form->getValues());
+                $this->getFlash()
+                    ->addMessage('Copy last record fields for hoards table updated');
+                $this->redirect('/users/configuration/');
             } else {
                 $form->populate($values);
             }
@@ -146,7 +178,7 @@ class Users_ConfigurationController extends Pas_Controller_Action_Admin {
 
                 $loginRedirect->updateConfig($form->getValues());
                 $this->getFlash()->addMessage('Page after logging in updated');
-                $this->_redirect('/users/configuration/');
+                $this->redirect('/users/configuration/');
             } else {
                 $form->populate($current);
             }

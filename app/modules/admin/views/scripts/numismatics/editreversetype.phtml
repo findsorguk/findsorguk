@@ -1,6 +1,7 @@
-<?php 
-	$this->headTitle("Edit a reverse type's details");
-	?>
-<?php 
-echo $this->form;
+<?php
+$this->headTitle("Edit a reverse type's details");
+$this->metaBase()->setDescription($this->title())->generate();
+
 ?>
+    <h2 class="lead"></h2><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

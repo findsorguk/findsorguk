@@ -15,14 +15,14 @@ class Api_ObjectsController extends REST_Controller
     	
 	
 	public function indexAction(){
-	$params = $this->_getAllParams();
+	$params = $this->getAllParams();
 	$search = new Pas_Solr_Handler();
         $search->setCore('objects');
 	$fields = new Pas_Solr_FieldGeneratorFinds($this->_helper->contextSwitch->getCurrentContext());
 	$search->setFields($fields->getFields());
 	$search->setParams($params);
 	$search->execute();
-	$this->view->params = $this->_getAllParams();
+	$this->view->params = $this->getAllParams();
 	$this->view->pagination = $this->createPagination($search->createPagination());
 	$this->view->stats = $search->processStats();
 	$this->view->results = $search->processResults();
@@ -51,14 +51,14 @@ class Api_ObjectsController extends REST_Controller
      * by the 'id' value.
      */
     public function getAction()  {
-    	$params = $this->_getAllParams();
+    	$params = $this->getAllParams();
         $search = new Pas_Solr_Handler();
         $search->setCore('objects');
         $fields = new Pas_Solr_FieldGeneratorFinds($this->_helper->contextSwitch->getCurrentContext());
         $search->setFields($fields->getFields());
         $search->setParams(array('id' =>  $this->_getParam('id')));
         $search->execute();
-        $this->view->params = $this->_getAllParams();
+        $this->view->params = $this->getAllParams();
         $this->view->pagination = $this->createPagination($search->createPagination());
         $this->view->stats = $search->processStats();
         $this->view->results = $search->processResults();

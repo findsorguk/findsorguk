@@ -1,6 +1,7 @@
 <?php
+
 /** Code moved from the Zend View Helper ServerUrl for getting the server url
- * 
+ *
  * @category Pas
  * @package Pas_OaiPmhRepository
  * @version 1
@@ -9,8 +10,9 @@
  * @author danielpett
  * @copyright (c) 2014 Daniel Pett
  */
-class Pas_OaiPmhRepository_ServerUrl {
-    
+class Pas_OaiPmhRepository_ServerUrl
+{
+
     /** Url Scheme
      * @access protected
      * @var string
@@ -27,7 +29,8 @@ class Pas_OaiPmhRepository_ServerUrl {
      * @access public
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] === true)) {
             $scheme = 'https';
         } else {
@@ -42,7 +45,8 @@ class Pas_OaiPmhRepository_ServerUrl {
             $port = $_SERVER['SERVER_PORT'];
 
             if (($scheme == 'http' && $port == 80) ||
-                ($scheme == 'https' && $port == 443)) {
+                ($scheme == 'https' && $port == 443)
+            ) {
                 $this->setHost($name);
             } else {
                 $this->setHost($name . ':' . $port);
@@ -54,14 +58,15 @@ class Pas_OaiPmhRepository_ServerUrl {
      * View helper entry point:
      * Returns the current host's URL like http://site.com
      *
-     * @param  string|boolean $requestUri  [optional] if true, the request URI
+     * @param  string|boolean $requestUri [optional] if true, the request URI
      *                                     found in $_SERVER will be appended
      *                                     as a path. If a string is given, it
      *                                     will be appended as a path. Default
      *                                     is to not append any path.
      * @return string                      server url
      */
-    public function get($requestUri = null) {
+    public function get($requestUri = null)
+    {
         if ($requestUri === true) {
             $path = $_SERVER['REQUEST_URI'];
         } else if (is_string($requestUri)) {
@@ -87,7 +92,8 @@ class Pas_OaiPmhRepository_ServerUrl {
      * @param  string $host new host
      * @return Zend_View_Helper_ServerUrl  fluent interface, returns self
      */
-    public function setHost($host) {
+    public function setHost($host)
+    {
         $this->_host = $host;
         return $this;
     }
@@ -96,7 +102,8 @@ class Pas_OaiPmhRepository_ServerUrl {
      * @access public
      * @return string  scheme (typically http or https)
      */
-    public function getScheme() {
+    public function getScheme()
+    {
         return $this->_scheme;
     }
 

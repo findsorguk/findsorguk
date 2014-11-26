@@ -1,23 +1,38 @@
-<?php 	$this->headTitle('Personifications present on Roman coins');?>
-<h2>Personifications present on Roman coins</h2>
+<?php
+$this->headTitle('Personifications present on Roman coins');
+$this->metaBase()->setDescription('A list of Roman personifications on Roman coins - deities, gods, symbols')
+    ->setSubject('Roman Numismatics')
+    ->setKeywords('roman,numsimatics,deity,symbol,god,deities')
+    ->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<p>The reverse often shows a Roman deity (such as <a href="/romancoins/personifications/named/as/Jupiter" title="Read about the reverse depiction of Jupiter">Jupiter</a> or <a href="/romancoins/personifications/named/as/Venus" title="Read about the reverse depiction of Venus">Venus</a>); a personification of a virtue (such as <a href="/romancoins/personifications/named/as/Aequitas" title="Read about the reverse depiction of Aequitas">Aequitas</a> meaning 'fair-dealing') or something symbolic (such as <a href="/romancoins/personifications/named/as/Military+standards" title="Read about the reverse depiction of Military standards">military</a> or <a title="Read about the reverse depiction of religious symbols" href="/romancoins/personifications/named/as/Priestly+objects">religous symbols</a>). The reverse inscriptions either name these figures or list the emperor's titles. The following examples of the Personifications of <a href="/romancoins/articles/page/victoryreverse" title="Read about how to decipher Victory's reverse">Victoria</a> (Victory) and <a href="/romancoins/articles/page/reversepax" title="Read about how to decipher Pax's reverse">Pax</a> (Peace) demonstrate how to work out who is shown on the reverse: </p>
+<p>The reverse often shows a Roman deity (such as <a href="/romancoins/personifications/named/as/Jupiter"
+                                                     title="Read about the reverse depiction of Jupiter">Jupiter</a> or
+    <a href="/romancoins/personifications/named/as/Venus" title="Read about the reverse depiction of Venus">Venus</a>);
+    a personification of a virtue (such as <a href="/romancoins/personifications/named/as/Aequitas"
+                                              title="Read about the reverse depiction of Aequitas">Aequitas</a> meaning
+    'fair-dealing') or something symbolic (such as <a href="/romancoins/personifications/named/as/Military+standards"
+                                                      title="Read about the reverse depiction of Military standards">military</a>
+    or <a title="Read about the reverse depiction of religious symbols"
+          href="/romancoins/personifications/named/as/Priestly+objects">religous symbols</a>). The reverse inscriptions
+    either name these figures or list the emperor's titles. The following examples of the Personifications of <a
+        href="/romancoins/articles/page/victoryreverse"
+        title="Read about how to decipher Victory's reverse">Victoria</a> (Victory) and <a
+        href="/romancoins/articles/page/reversepax" title="Read about how to decipher Pax's reverse">Pax</a> (Peace)
+    demonstrate how to work out who is shown on the reverse: </p>
 
-<h3>Gods present on coins</h3>
+<h3 class="lead">Gods present on coins</h3>
 <ul>
-<?php foreach($this->gods as $g){?>
-<li about="<?php echo $g['name'];?>"><a href="<?php echo $this->url(array('module' => 'romancoins','controller' => 'personifications','action' => 'named','as' => $g['name']),'default',true);?>" title="Read details for <?php echo $g['name'];?>"><?php echo $g['name'];?></a></li>
-<?php }?>
+    <?php echo $this->partialLoop('partials/numismatics/personifications.phtml', $this->gods);?>
 </ul>
-<h3>Virtues present</h3>
+
+<h3 class="lead">Virtues present</h3>
 <ul>
-<?php foreach($this->virtues as $v){?>
-<li about="<?php echo $v['name'];?>"><a href="<?php echo $this->url(array('module' => 'romancoins','controller' => 'personifications','action' => 'named','as' => $v['name']),'default',true);?>" title="Read details for <?php echo $v['name'];?>"><?php echo $v['name'];?></a></li>
-<?php }?>
+    <?php echo $this->partialLoop('partials/numismatics/personifications.phtml', $this->virtues);?>
 </ul>
-<h3>Symbols</h3>
+
+<h3 class="lead">Symbols</h3>
 <ul>
-<?php foreach($this->symbols as $s){?>
-<li about="<?php echo $s['name'];?>"><a href="<?php echo $this->url(array('module' => 'romancoins','controller' => 'personifications','action' => 'named','as' => $s['name']),'default',true);?>" title="Read details for <?php echo $s['name'];?>"><?php echo $s['name'];?></a></li>
-<?php }?>
+    <?php echo $this->partialLoop('partials/numismatics/personifications.phtml', $this->symbols);?>
 </ul>

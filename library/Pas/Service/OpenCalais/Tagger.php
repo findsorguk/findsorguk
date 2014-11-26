@@ -1,59 +1,276 @@
 <?php
 
 /**
-* Open Calais Tags
-* Last updated 1/16/2012
-* Copyright (c) 2012 Dan Grossman
-* http://www.dangrossman.info
-*
-* Please see http://www.dangrossman.info/open-calais-tags
-* for documentation and license information.
-*/
+ * Open Calais Tags
+ * Last updated 1/16/2012
+ * Copyright (c) 2012 Dan Grossman
+ * http://www.dangrossman.info
+ *
+ * Please see http://www.dangrossman.info/open-calais-tags
+ * for documentation and license information.
+ */
+class Pas_Service_OpenCalais_Tagger
+{
+
+    protected $_apiUrl = 'http://api.opencalais.com/enlighten/rest/';
+
+    protected $_apiKey;
+
+    protected $_outputFormat = 'text/simple';
+
+    protected $_contentType = 'text/html';
+
+    protected $_getGenericRelations = true;
+
+    protected $_getSocialTags = true;
+
+    protected $_docRDFaccessible = false;
+
+    protected $_allowDistribution = false;
+
+    protected $_allowSearch = false;
+
+    protected $_externalID = '';
+
+    protected $_submitter = '';
+
+    protected $_document = '';
+
+    protected $_entities = array();
+
+    /**
+     * @return boolean
+     */
+    public function isAllowDistribution()
+    {
+        return $this->_allowDistribution;
+    }
+
+    /**
+     * @param boolean $allowDistribution
+     */
+    public function setAllowDistribution($allowDistribution)
+    {
+        $this->_allowDistribution = $allowDistribution;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAllowSearch()
+    {
+        return $this->_allowSearch;
+    }
+
+    /**
+     * @param boolean $allowSearch
+     */
+    public function setAllowSearch($allowSearch)
+    {
+        $this->_allowSearch = $allowSearch;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApiKey()
+    {
+        return $this->_apiKey;
+    }
+
+    /**
+     * @param mixed $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->_apiKey = $apiKey;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiUrl()
+    {
+        return $this->_apiUrl;
+    }
+
+    /**
+     * @param string $apiUrl
+     */
+    public function setApiUrl($apiUrl)
+    {
+        $this->_apiUrl = $apiUrl;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentType()
+    {
+        return $this->_contentType;
+    }
+
+    /**
+     * @param string $contentType
+     */
+    public function setContentType($contentType)
+    {
+        $this->_contentType = $contentType;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDocRDFaccessible()
+    {
+        return $this->_docRDFaccessible;
+    }
+
+    /**
+     * @param boolean $docRDFaccessible
+     */
+    public function setDocRDFaccessible($docRDFaccessible)
+    {
+        $this->_docRDFaccessible = $docRDFaccessible;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocument()
+    {
+        return $this->_document;
+    }
+
+    /**
+     * @param string $document
+     */
+    public function setDocument($document)
+    {
+        $this->_document = $document;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExternalID()
+    {
+        return $this->_externalID;
+    }
+
+    /**
+     * @param string $externalID
+     */
+    public function setExternalID($externalID)
+    {
+        $this->_externalID = $externalID;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isGetGenericRelations()
+    {
+        return $this->_getGenericRelations;
+    }
+
+    /**
+     * @param boolean $getGenericRelations
+     */
+    public function setGetGenericRelations($getGenericRelations)
+    {
+        $this->_getGenericRelations = $getGenericRelations;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isGetSocialTags()
+    {
+        return $this->_getSocialTags;
+    }
+
+    /**
+     * @param boolean $getSocialTags
+     */
+    public function setGetSocialTags($getSocialTags)
+    {
+        $this->_getSocialTags = $getSocialTags;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOutputFormat()
+    {
+        return $this->_outputFormat;
+    }
+
+    /**
+     * @param string $outputFormat
+     */
+    public function setOutputFormat($outputFormat)
+    {
+        $this->_outputFormat = $outputFormat;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubmitter()
+    {
+        return $this->_submitter;
+    }
+
+    /**
+     * @param string $submitter
+     */
+    public function setSubmitter($submitter)
+    {
+        $this->_submitter = $submitter;
+        return $this;
+    }
 
 
-class Pas_Service_OpenCalais_Tagger {
-
-    private $api_url = 'http://api.opencalais.com/enlighten/rest/';
-    private $api_key = 'exwcfxtbbwnnswmnmw4vwqe2';
-    private $outputFormat = 'text/simple';
-
-    public $contentType = 'text/html';
-    public $getGenericRelations = true;
-    public $getSocialTags = true;
-    public $docRDFaccessible = false;
-    public $allowDistribution = false;
-    public $allowSearch = false;
-    public $externalID = '';
-    public $submitter = '';
-
-    private $document = '';
-    private $entities = array();
-
-    public function OpenCalais($api_key) {
-        if (empty($api_key)) {
-            throw new Pas_Service_OpenCalais_Exception('An OpenCalais API key is required to use this class.');
+    protected function checkParameters()
+    {
+        if(empty($this->getApiKey())){
+            throw new Pas_Exception_Param('No api key has been provided', 500);
         }
-        $this->api_key = $api_key;
+        if(empty($this->getDocument())){
+            throw new Pas_Exception_Param('No document has been provided', 500);
+        }
+        if(empty($this->getContentType())){
+            throw new Pas_Exception_Param('No content type has been provided', 500);
+        }
     }
 
-    public function getEntities($document) {
-
-        $this->document = $document;
-
-        $this->callAPI();
-
-        return $this->entities;
+    public function getEntities()
+    {
+        $this->checkParameters();
+        return $this->callAPI();
 
     }
 
-    private function getParamsXML() {
+    public function getParamsXML()
+    {
 
         $types = array();
         if ($this->getGenericRelations)
             $types[] = 'GenericRelations';
         if ($this->getSocialTags)
             $types[] = 'SocialTags';
-        
+
         $xml = '<c:params xmlns:c="http://s.opencalais.com/1/pred/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">';
         $xml .= '<c:processingDirectives ';
         $xml .= 'c:contentType="' . $this->contentType . '" ';
@@ -74,12 +291,13 @@ class Pas_Service_OpenCalais_Tagger {
         $xml .= '></c:userDirectives>';
         $xml .= '<c:externalMetadata></c:externalMetadata>';
         $xml .= '</c:params>';
-        
+
         return $xml;
 
     }
 
-    private function callAPI() {
+    private function callAPI()
+    {
 
         $data = 'licenseID=' . urlencode($this->api_key);
         $data .= '&paramsXML=' . urlencode($this->getParamsXML());
@@ -97,7 +315,7 @@ class Pas_Service_OpenCalais_Tagger {
             $text = preg_match("/<Exception\>(.*)<\/Exception>/mu", $response, $matches);
             throw new Pas_Service_OpenCalais_Exception($matches[1]);
         }
-    
+
         //Parse out the entities
         $lines = explode("\n", $response);
         $start = false;

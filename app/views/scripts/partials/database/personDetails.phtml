@@ -1,5 +1,5 @@
 <?php $this->headTitle('Details for: '.$this->escape($this->fullname));?>
-<h2>Details for: <?php echo $this->fullname;?></h2>
+<h2 class="lead">Details for: <?php echo $this->fullname;?></h2>
 
 <p><a href="<?php echo $this->url(array(
 	'module' => 'database',
@@ -161,7 +161,7 @@ Latitude: <?php echo $this->lat;?><br /> Longitude: <?php echo $this->lon;?> <br
 <?php endif;?>
 </p>
 <?php if($this->comments):?>
-<h3>Comments on person</h3>
+<h3 class="lead">Comments on person</h3>
 <?php echo $this->comments;?>
 <?php endif;?>
 <p><a href="<?php echo $this->url(array('module' => 'database','controller' => 'people','action' => 'person', 'id' => $this->id,'format' => 'vcf'),'default',true);?>" title="Download vcard">Download vcard</a></p>

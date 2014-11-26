@@ -1,18 +1,20 @@
-<?php 
-	$this->headTitle("Delete an ascribed culture");
-if ($this->culture) :?>
-<h2>Delete ascribed culture term: <?php echo $this->escape($this->culture->term); ?></h2>
-<p>Are you sure that you want to delete
-'<?php echo $this->escape($this->culture->term); ?>' 
-</p>
-<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action'=>'deleteculture'),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->culture->id; ?>" />
-<input type="submit" name="del" value="Yes" />
-<input type="submit" name="del" value="No" />
-</div>
-</form>
+<?php
+$this->headTitle('Delete an ascribed culture');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<?php if (!is_null($this->culture)) : ?>
+    <h2 class="lead">Delete ascribed culture term: <?php echo $this->culture->term; ?></h2>
+    <p>Are you sure that you want to delete <?php echo $this->culture->term; ?></p>
+    <form
+        action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'deleteculture'), null, true); ?>"
+        method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->culture->id; ?>"/>
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
+    </form>
 <?php else: ?>
-<p>Cannot find the item requested.</p>
-<?php endif;?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>

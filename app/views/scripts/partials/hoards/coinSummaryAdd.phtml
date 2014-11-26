@@ -1,0 +1,13 @@
+<?php
+$url = array(
+    'module' => 'database',
+    'controller' => 'summary',
+    'action' => 'add',
+    'id' => $this->id,
+    'secUID' => $this->secUID
+);
+?>
+<div class="btn-group">
+    <a href="<?php echo $this->url($url, 'default', true); ?>"
+       class="btn btn-small btn-primary">Add coin summary data</a>
+</div>

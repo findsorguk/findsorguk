@@ -1,7 +1,18 @@
 <?php
-$this->headTitle('Security salts for passwords etc');?>
-<h2>The salts for passwords and forms</h2>
-<ul>
-<li>Password salt: <?php echo $this->authority;?></li>
-<li>Form salt: <?php echo $this->salt;?></li>
-</ul>
+$this->headTitle('Security salts for passwords etc');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php $salts = array($this->authority, $this->salt); ?>
+<?php if (array_filter($salts)): ?>
+    <ul>
+        <?php if (!is_null($this->authority)): ?>
+            <li>Password salt: <?php echo $this->authority; ?></li>
+        <?php endif; ?>
+        <?php if (!is_null($this->salt)): ?>
+            <li>Form salt: <?php echo $this->salt; ?></li>
+        <?php endif; ?>
+    </ul>
+<?php else: ?>
+    <p>Salts not found.</p>
+<?php endif; ?>

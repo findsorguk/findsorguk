@@ -1,16 +1,16 @@
 <?php
 $this->headTitle('Full case details for ' . $this->id);
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title();?></h2>
 
-<h3><?php echo count($this->cases);?> associated Portable Antiquities Numbers</h3>
+<h3 class="lead"><?php echo count($this->cases);?> associated Portable Antiquities Numbers</h3>
 <ul>
 <?php foreach($this->cases as $c):?>
 <li><a href="<?php echo $this->url(array('module' => 'database','controller' => 
 'artefacts','action' => 'record','id' => $c['id']),null,true);?>" title="View record's details"><?php echo $c['old_findID'];?></a>: <?php echo $c['objecttype'];?></li>
 <?php endforeach;?>
 </ul>
-<h3>Action history</h3>
+<h3 class="lead">Action history</h3>
 <?php 
 echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=>'action', 
 'checkAcl'=>true,'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'), 'params' => array('treasureID' => $this->id),
@@ -25,7 +25,7 @@ echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'
 <?php endif;?>
 
 
-<h3>Curator(s) assigned</h3>
+<h3 class="lead">Curator(s) assigned</h3>
 <?php 
 echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=> 'assigncurator', 
 'checkAcl'=>true,'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'), 'params' => array('treasureID' => $this->id),
@@ -38,9 +38,9 @@ echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'
 <?php else:?>
 <p class="fourfigure">No curator assigned yet.</p>
 <?php endif;?>
-<h3>Valuations</h3>
+<h3 class="lead">Valuations</h3>
 
-<h4>Provisional</h4>
+<h4 class="lead">Provisional</h4>
 <?php 
 echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=> 'provisionalvalue',
 'params' => array('treasureID' => $this->id),'checkAcl'=>true,'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'), 
@@ -53,7 +53,7 @@ echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'
 <?php else:?>
 <p class="fourfigure">No valuations exist so far.</p>
 <?php endif;?>
-<h4>Final</h4>
+<h4 class="lead">Final</h4>
 
 <?php if($this->finalvalues):?>
 <ul>
@@ -68,7 +68,7 @@ echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'
 <p class="fourfigure">No valuation exists following TVC meetings yet.</p>
 <?php endif;?>
 
-<h3>Treasure Valuation Committee history</h3>
+<h3 class="lead">Treasure Valuation Committee history</h3>
 <p><a href="<?php 
 echo $this->url(array('module' => 'database','controller'=>'treasure', 'action'=> 'tvc','treasureID' => $this->id),null,true);
 ?>">Add a TVC date</a></p>
@@ -84,7 +84,7 @@ array('module' => 'treasure','controller' => 'tvc','action' => 'details', 'id' =
 <p class="fourfigure">This case hasn't been scheduled for any TVC dates yet.</p>
 <?php endif;?>
 
-<h3>Supporting documentation</h3>
+<h3 class="lead">Supporting documentation</h3>
 <?php 
 echo $this->Href(array('module' => 'database','controller'=>'treasure', 'action'=> 'attach', 
 'checkAcl'=>true,'acl'=>'Zend_Acl', 'wrapper' => array('tag' => 'p'), 'params' => array('treasureID' => $this->id),

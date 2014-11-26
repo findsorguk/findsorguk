@@ -77,8 +77,8 @@ class Pas_Exporter_Csv extends Pas_Exporter_Generate {
         $this->_search->setFields($this->_csvFields);
         $this->_search->setParams($this->_params);
         $this->_search->execute();
-        $data = $this->_search->_processResults();
-        $paginator = $this->_search->_createPagination();
+        $data = $this->_search->processResults();
+        $paginator = $this->_search->createPagination();
         $pages = $paginator->getPages();
         $iterator = $pages->pageCount;
         $converter = new Pas_Exporter_ArrayToCsv($this->_csvFields);

@@ -1,0 +1,16 @@
+<?php
+$this->headTitle('Scope notes for completeness type of ' . $this->term);
+$this->metaBase()->setDescription('Scope notes for completeness type of ' . $this->term
+. ' and thumnbnails of latest records attributed')
+->setKeywords('completeness,terms')
+->setSubject('terminology')
+->generate();
+$this->headMeta('completeness,' . $this->term . ',type,portable antiquities,terminology', 'dc.keywords');?>
+<h2 class="lead">Details for <?php echo $this->title(); ?></h2>
+<?php if ($this->description): ?>
+    <?php echo $this->description; ?>
+<?php else: ?>
+    <p>No scope note entered.</p>
+<?php endif; ?>
+<?php echo $this->searchLink()->setField('completeness')->setId($this->id); ?>
+<?php echo $this->latestRecords()->setQuery('completeness:' . $this->id); ?>

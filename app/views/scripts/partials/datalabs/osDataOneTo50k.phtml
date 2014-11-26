@@ -1,0 +1,41 @@
+<?php
+$this->headTitle('1:50K Gazetteer data for ' . $this->name);
+$this->metaBase()->setDescription('Details for the 1:50K gazetteer entry for ' . $this->name)
+    ->setSubject('Geographical entity')
+    ->setKeywords('geography,ordnance,survey,1:50')
+    ->generate();
+if ($this->f_code == 'R') {
+    $code = 'Roman Antiquity';
+} else if ($this->f_code == 'A') {
+    $code = 'Antiquity';
+} else {
+    $code = 'Not provided';
+}
+$config = Zend_Registry::get('config');
+$place = new Pas_Service_Geo_Geoplanet($config->webservice->ydnkeys->placemakerkey);
+$placedata = $place->reverseGeoCode($this->latitude, $this->longitude);
+
+?>
+<h2 class="lead">1:50K Gazetteer data for <?php echo $this->name; ?></h2>
+<img
+    src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&zoom=14&size=300x300&maptype=terrain&markers=color:green|label:G|
+<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&sensor=false" class="flow"/>
+<ul>
+    <li>4 Figure grid reference: <?php echo $this->km_ref; ?></li>
+    <li>Easting: <?php echo $this->easting; ?></li>
+    <li>Northing: <?php echo $this->northing; ?></li>
+    <li>Latitude: <?php echo $this->latitude; ?></li>
+    <li>Longitude: <?php echo $this->longitude; ?></li>
+    <li>Feature type: <?php echo $code; ?></li>
+    <?php if (!empty($placedata)): ?>
+        <li>Where on earth ID: <?php echo $placedata['woeid']; ?></li>
+        <li>Place name: <?php echo $placedata['line1']; ?></li>
+        <li>District: <?php echo $placedata['line2']; ?></li>
+        <li>County: <?php echo $this->full_county; ?></li>
+        <li>Country: <?php echo $placedata['country']; ?></li>
+        <?php if (isset($point['postal'])): ?>
+            <li>Postcode: <?php echo $placedata['postal']; ?></li>
+        <?php endif; ?>
+    <?php endif; ?>
+</ul>
+

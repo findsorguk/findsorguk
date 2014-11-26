@@ -1,12 +1,13 @@
 <?php
+
 /** A service class for searching the openplaques api
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $op = new Pas_Service_OpenPlaques_Search();
  * $params = array(
- * 'format' => 'json' , 
+ * 'format' => 'json' ,
  * 'phrase' => $phrase)
  * );
  * $resp = $op->getData('search', $params );
@@ -17,10 +18,11 @@
  * @version 1
  * @package Pas_Service
  * @subpackage OpenPlaques
- * @license 
+ * @license
  * @example /app/modules/experiments/views/scripts/middleeast/person.phtml
  */
-class Pas_Service_OpenPlaques_Search extends Zend_Rest_Client {
+class Pas_Service_OpenPlaques_Search extends Zend_Rest_Client
+{
 
     /** The array of parameters to send
      * @access protected
@@ -44,28 +46,31 @@ class Pas_Service_OpenPlaques_Search extends Zend_Rest_Client {
      * @access protected
      * @var array
      */
-    protected $_methods = array('search?' , 'plaques?' );
+    protected $_methods = array('search?', 'plaques?');
 
     /** The api path
      * @access protected
-     * @var string 
+     * @var string
      */
     protected $_apiPath = '/';
 
     /** Construct the class
      * @access public
      */
-    public function __construct(){
-	$this->setUri($this->_uri);
-	$client = self::getHttpClient();
-	$client->setHeaders('Accept-Charset', 'ISO-8859-1,utf-8');
+    public function __construct()
+    {
+        $this->setUri($this->_uri);
+        $client = self::getHttpClient();
+        $client->setHeaders('Accept-Charset', 'ISO-8859-1,utf-8');
     }
+
     /** Set the params to query
      * @access @access public
      * @param array $params
      * @return \Pas_Service_OpenPlaques_Search
      */
-    public function setParams(array $params) {
+    public function setParams(array $params)
+    {
         foreach ($params as $key => $value) {
             switch (strtolower($key)) {
                 case 'format':
@@ -83,8 +88,9 @@ class Pas_Service_OpenPlaques_Search extends Zend_Rest_Client {
      * @access public
      * @return array
      */
-    public function getParams() {
-    	return $this->_params;
+    public function getParams()
+    {
+        return $this->_params;
     }
 
     /** Set the response type
@@ -93,7 +99,8 @@ class Pas_Service_OpenPlaques_Search extends Zend_Rest_Client {
      * @return string
      * @throws Pas_Service_OpenPlaques_Exception
      */
-    public function setResponseType($responseType) {
+    public function setResponseType($responseType)
+    {
         if (!in_array(strtolower($responseType), $this->_responseTypes)) {
             throw new Pas_Service_OpenPlaques_Exception('Invalid Response Type');
         }
@@ -105,7 +112,8 @@ class Pas_Service_OpenPlaques_Search extends Zend_Rest_Client {
      * @access public
      * @return string
      */
-    public function getResponseType() {
+    public function getResponseType()
+    {
         return $this->_responseType;
     }
 
@@ -116,7 +124,8 @@ class Pas_Service_OpenPlaques_Search extends Zend_Rest_Client {
      * @return \Zend_Http_Response
      * @throws Pas_Service_OpenPlaques_Exception
      */
-    public function sendRequest($requestType, $path) {
+    public function sendRequest($requestType, $path)
+    {
         $requestTypeTransform = ucfirst(strtolower($requestType));
         if ($requestTypeTransform !== 'Post' && $requestTypeTransform !== 'Get') {
             throw new Pas_Service_OpenPlaques_Exception('Invalid request type: ' . $requestType);
@@ -134,10 +143,11 @@ class Pas_Service_OpenPlaques_Search extends Zend_Rest_Client {
      * @access public
      * @param Zend_Http_Response $response
      */
-    public function formatResponse(Zend_Http_Response $response) {
+    public function formatResponse(Zend_Http_Response $response)
+    {
         if ('json' === $this->getResponseType()) {
             return json_decode($response->getBody());
-        }  else {
+        } else {
             return new Zend_Rest_Client_Result($response->getBody());
         }
     }
@@ -147,12 +157,13 @@ class Pas_Service_OpenPlaques_Search extends Zend_Rest_Client {
      * @param string $method
      * @param array $params
      */
-    public function getData($method, array $params = array()) {
-    	if(!in_array($method . '?',$this->_methods)){
+    public function getData($method, array $params = array())
+    {
+        if (!in_array($method . '?', $this->_methods)) {
             throw new Pas_Service_OpenPlaques_Exception('That is not a valid method');
-    	}
-    	$this->setParams($params);
-    	$path = $this->_apiPath . $method;
+        }
+        $this->setParams($params);
+        $path = $this->_apiPath . $method;
         return $this->sendRequest('GET', $path);
     }
 }

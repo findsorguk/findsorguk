@@ -1,18 +1,18 @@
 <?php
 $this->headTitle('Login to the system');
 ?>
-<h2>Registered user login</h2>
+<h2 class="lead">Registered user login</h2>
 
 <?php 
 echo $this->form; 
 ?>
-<h3>Forgotten your details?</h3>
+<h3 class="lead">Forgotten your details?</h3>
 <p>You can retrieve your user account details using the links below:</p>
 <ul>
 <li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'account','action' => 'forgotten'),NULL,TRUE);?>" title="Retrieve your password">Forgotten password</a></li>
 <li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'account','action' => 'forgotusername'),NULL,TRUE);?>" title="Retrieve your username">Forgotten username</a></li>
 </ul>
-<h3>Register for an account</h3>
+<h3 class="lead">Register for an account</h3>
 <p><a href="<?php echo $this->url(array('module' => 'users','controller' => 'account','action' => 'register'),NULL,true);?>" title="Register for a database account">Registering for an account</a> to use the Scheme's database is now very simple and has the following benefits:</p>
 <ul>
 <li>You can record your own objects</li>

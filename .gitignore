@@ -99,16 +99,14 @@ publish
 # Others
 [Bb]in
 [Oo]bj
-sql
 TestResults
 *.Cache
 ClientBin
 stylecop.*
 ~$*
 *.dbmdl
+Generated_Code #added for RIA/Silverlight projects
 
-# added for RIA/Silverlight projects
-Generated_Code
 
 
 ############
@@ -160,8 +158,9 @@ config.ini
 
 webservices.ini
 application.ini
-config.ini
 *.sh
 nbproject*
 .idea/*
-cache/*
+cache/zend_*
+cache/html*
+app/logs/application.log

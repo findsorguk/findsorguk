@@ -21,7 +21,7 @@
  * @uses Zend_View_Helper_Url
  * @uses GeoPlaces
  * @author Daniel Pett <dpett at britishmuseum.org>
- * @example /app/views/scripts/partials/database/findspot.phtml
+ * @example /app/views/scripts/partials/database/findSpot.phtml
  *
  */
 class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
@@ -74,21 +74,9 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
         $html = '';
         $places = $this->getPlaces();
         if (!empty($places) && !is_null($places[0]['Name'])) {
-            $html .= '<h3>Adjacent places</h3>';
+            $html .= '<h3 class="lead">Adjacent places</h3>';
             $html .= '<ul>';
-            foreach ($places as $p) {
-                $url = $this->view->url(array(
-                    'module' => 'database',
-                    'controller' => 'search',
-                    'action' => 'results',
-                    'woeid' => $p['WOE_ID']),
-                        null, true);
-                $html .= '<li><a href="';
-                $html .=  $url;
-                $html .= '" title="Find all objects associated with this WOEID">';
-                $html .= $p['Name'];
-                $html .= '</a></li>';
-            }
+            $html .= $this->view->partialLoop('partials/database/yahooAdjacent.phtml', $places);
             $html .= '</ul>';
         }
         return $html;

@@ -1,4 +1,6 @@
-<h2>Add a Medieval ruler's details</h2>
-<?php 
-$this->headTitle('Add a biography for a monarch of England and Wales');
-echo $this->form;?>
+<?php
+$this->headTitle('Add a medieval ruler\'s details');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for displaying publications information
  *
  * @category Pas
@@ -15,8 +16,9 @@
  * @uses Pas_Exception_Param
  * @uses PublicationForm
  *
-*/
-class Database_PublicationsController extends Pas_Controller_Action_Admin {
+ */
+class Database_PublicationsController extends Pas_Controller_Action_Admin
+{
 
     protected $_publications;
 
@@ -24,16 +26,17 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('public',array('index','publication'));
-        $this->_helper->_acl->deny('public',array('add','edit','delete'));
-        $this->_helper->_acl->allow('flos',null);
+    public function init()
+    {
+        $this->_helper->_acl->allow('public', array('index', 'publication'));
+        $this->_helper->_acl->deny('public', array('add', 'edit', 'delete'));
+        $this->_helper->_acl->allow('flos', null);
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
-                ->addActionContext('publication', array('xml','json'))
-                ->addActionContext('index', array('xml','json'))
-                ->initContext();
-        
+            ->addActionContext('publication', array('xml', 'json'))
+            ->addActionContext('index', array('xml', 'json'))
+            ->initContext();
+
         $this->_publications = new Publications();
     }
 
@@ -46,36 +49,38 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $form = new SolrForm();
         $form->removeElement('thumbnail');
         $form->q->setLabel('Search the publications: ');
         $form->q->setAttrib('placeholder', 'Try Geake for example');
         $this->view->form = $form;
         $cleaner = new Pas_ArrayFunctions();
-        $params = $cleaner->array_cleanup($this->_getAllParams());
+        $params = $cleaner->array_cleanup($this->getAllParams());
         $search = new Pas_Solr_Handler();
-        $search->setCore('beopublications');
+        $search->setCore('publications');
         $search->setFields(array('*'));
-        $search->setFacets(array('publisher','yearPublished'));
+        $search->setFacets(array('publisher', 'yearPublished'));
 
-        if($this->getRequest()->isPost()
-                && $form->isValid($this->_request->getPost())
-                && !is_null($this->_getParam('submit'))){
+        if ($this->getRequest()->isPost()
+            && $form->isValid($this->_request->getPost())
+            && !is_null($this->_getParam('submit'))
+        ) {
 
             if ($form->isValid($form->getValues())) {
                 $this->_helper->Redirector->gotoSimple(
-                        'index','publications','database',$params);
+                    'index', 'publications', 'database', $params);
             } else {
                 $form->populate($form->getValues());
                 $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
 
-        if(!isset($params['q']) || $params['q'] == ''){
+        if (!isset($params['q']) || $params['q'] == '') {
             $params['q'] = '*';
         }
         $params['sort'] = 'title';
@@ -92,32 +97,35 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function publicationAction() {
-        if($this->_getParam('id',false)) {
+    public function publicationAction()
+    {
+        if ($this->_getParam('id', false)) {
             $this->view->publications = $this->_publications
-                    ->getPublicationDetails($this->_getParam('id'));
+                ->getPublicationDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
     /** Add a publication
      * @access public
      * @return void
      */
-    public function addAction() {
+    public function addAction()
+    {
         $form = new PublicationForm();
         $form->submit->setLabel('Submit new');
         $this->view->form = $form;
-        if($this->getRequest()->isPost()
-                && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost()
+            && $form->isValid($this->_request->getPost())
+        ) {
             $insertData = $form->getValues();
-            $secuid = $this->_helper->GenerateSecuID();
-            $insertData['secuid'] = $secuid;
+            $insertData['secuid'] = $this->_helper->GenerateSecuID();
             $insert = $this->_publications->add($insertData);
-            $this->_helper->solrUpdater->update('beopublications', $insert);
-            $this->_redirect(self::REDIRECT . 'publication/id/' . $insert);
+            $this->_helper->solrUpdater->update('publications', $insert);
+            $this->redirect(self::REDIRECT . 'publication/id/' . $insert);
             $this->getFlash()->addMessage('A new reference work has been '
-                    . 'created on the system!');
+                . 'created on the system!');
         } else {
             $form->populate($form->getValues());
         }
@@ -127,59 +135,62 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function editAction() {
+    public function editAction()
+    {
         $form = new PublicationForm();
         $form->submit->setLabel('Update publication');
         $this->view->form = $form;
-        if($this->getRequest()->isPost()
-                && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost()
+            && $form->isValid($this->_request->getPost())
+        ) {
             if ($form->isValid($form->getValues())) {
                 $updateData = $form->getValues();
                 $where = array();
-                $where =  $this->_publications->getAdapter()
-                        ->quoteInto('id = ?', $this->_getParam('id'));
-                $update = $this->_publications->update($updateData,$where);
-                $this->_helper->solrUpdater->update('beopublications',
-                        $this->_getParam('id'));
+                $where[] = $this->_publications->getAdapter()
+                    ->quoteInto('id = ?', $this->_getParam('id'));
+                $this->_publications->update($updateData, $where);
+                $this->_helper->solrUpdater->update('publications', $this->_getParam('id'));
                 $this->getFlash()->addMessage('Details for "'
-                        . $form->getValue('title') . '" updated!');
-                $this->_redirect(self::REDIRECT . 'publication/id/'
-                        . $this->_getParam('id'));
+                    . $form->getValue('title') . '" updated!');
+                $this->redirect(self::REDIRECT . 'publication/id/'
+                    . $this->_getParam('id'));
             } else {
                 $form->populate($form->getValues());
             }
         } else {
             $id = (int)$this->_request->getParam('id', 0);
             if ($id > 0) {
-                $publication = $this->_publications->fetchRow('id='.$id);
+                $publication = $this->_publications->fetchRow('id=' . $id);
                 $form->populate($publication->toArray());
             }
         }
     }
+
     /** Delete publication details
      * @access public
      * @throws Pas_Exception_Param
      * @return void
      */
-    public function deleteAction() {
-        if($this->_getParam('id',false)) {
+    public function deleteAction()
+    {
+        if ($this->_getParam('id', false)) {
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = array();
-                    $where =  $this->_publications->getAdapter()
-                            ->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->_publications->getAdapter()
+                        ->quoteInto('id = ?', $this->_getParam('id'));
                     $this->getFlash()->addMessage('Record deleted!');
                     $this->_publications->delete($where);
-                    $this->_helper->solrUpdater->deleteById('beopublications', $id);
+                    $this->_helper->solrUpdater->deleteById('publications', $id);
                 }
-                $this->_redirect(self::REDIRECT);
+                $this->redirect(self::REDIRECT);
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {
                     $this->view->publication = $this->_publications
-                            ->fetchRow('id= ' . (int) $this->_getParam('id'));
+                        ->fetchRow('id= ' . (int)$this->_getParam('id'));
                 }
             }
         } else {

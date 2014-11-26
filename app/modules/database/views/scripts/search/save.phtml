@@ -1,6 +1,13 @@
-<h2>Save your search for reuse</h2>
-<?php 
+<?php
 $this->headTitle('Save this search for future use');
-echo $this->SearchParams($this->params);?>
+$this->metaBase()->setDescription('Save a search from the database for future use')
+    ->setKeywords(implode(',', $this->params))
+    ->generate();
+?>
+    <h2 class="lead">
+        Save your search for reuse
+    </h2>
 
-<?php echo $this->form;?>
+<?php echo $this->searchParams($this->params);?>
+
+<?php echo $this->form; ?>

@@ -23,7 +23,11 @@ class Pas_Solr_SensitiveFields {
      * @access public
      * @var array
      */
-    protected $_allowed = array('fa','flos','admin','treasure', 'research', 'hero');
+    protected $_allowed = array(
+        'fa', 'flos', 'admin',
+        'treasure', 'research', 'hero',
+        'hoard'
+    );
 
     /** The array of people who can see the personal data set.
      * @access public
@@ -38,7 +42,7 @@ class Pas_Solr_SensitiveFields {
      * @param string $core
      */    
     public function cleanData( $data, $role, $core ){
-        if(!in_array($role, $this->_allowed) && $core == 'beowulf'){
+        if(!in_array($role, $this->_allowed) && $core == 'objects'){
            return $this->_processGeoData($data, $role);
         } else {
             return $data;

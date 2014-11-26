@@ -1,0 +1,11 @@
+<?php
+$url = $this->url(array(
+        'module' => 'database',
+        'controller' => 'search',
+        'action' => 'results',
+        'woeid' => $this->WOE_ID),
+    null, true);
+?>
+<li>
+    <a href="<?php echo $url; ?>" title="Find all objects associated with this WOEID"><?php echo $this->Name; ?></a>
+</li>

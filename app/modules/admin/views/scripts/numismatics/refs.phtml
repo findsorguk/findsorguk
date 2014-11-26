@@ -1,6 +1,6 @@
 <?php $this->headTitle('All reference volumes for coins');?>
-<h2>A list of reference volumes for coins</h2>
-<p><a class="btn btn-success btn-large" href="<?php echo $this->url(array(
+<h2 class="lead">A list of reference volumes for coins</h2>
+<p><a class="btn btn-success btn-small" href="<?php echo $this->url(array(
     'module' => 'admin',
     'controller' => 'numismatics',
     'action' => 'addref'
@@ -20,6 +20,6 @@
         </tr>
     </thead>
     <tbody>
-        <?php echo $this->partialLoop('partials/admin/refvolumes.phtml',$this->refs);?>
+        <?php echo $this->partialLoop('partials/admin/referenceVolumes.phtml',$this->refs);?>
     </tbody>
 </table>

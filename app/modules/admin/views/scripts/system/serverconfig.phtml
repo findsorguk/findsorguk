@@ -1,56 +1,59 @@
-<?php $this->headTitle('The server environment');?>
-<h2>System configuration</h2>
+<?php
+$this->headTitle('The server environment');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead">System configuration</h2>
     <ul>
-        <li>Server administrator email address: <?php echo $_SERVER['SERVER_ADMIN'];?></li>
-        <li>Server protocol: <?php echo $_SERVER['SERVER_PROTOCOL'];?></li>
-        <li>Server port: <?php echo $_SERVER['SERVER_PORT'];?></li>
-        <li>Server name: <?php echo $_SERVER['SERVER_NAME'];?></li>
-        <li>Server software: <?php echo $_SERVER['SERVER_SOFTWARE'];?></li>
-        <li>Server signature: <?php echo $_SERVER['SERVER_SIGNATURE'];?></li>
+        <li>Server administrator email address: <?php echo $_SERVER['SERVER_ADMIN']; ?></li>
+        <li>Server protocol: <?php echo $_SERVER['SERVER_PROTOCOL']; ?></li>
+        <li>Server port: <?php echo $_SERVER['SERVER_PORT']; ?></li>
+        <li>Server name: <?php echo $_SERVER['SERVER_NAME']; ?></li>
+        <li>Server software: <?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
+        <li>Server signature: <?php echo $_SERVER['SERVER_SIGNATURE']; ?></li>
     </ul>
 
-<h3>Server resources</h3>
+    <h3 class="lead">Server resources</h3>
     <ul>
         <li>
-            Server space total: 
-            <?php 
-            $df = disk_total_space("/"); 
+            Server space total:
+            <?php
+            $df = disk_total_space("/");
             echo $this->humanFileSize()->setSize($df);
             ?>
         </li>
         <li>
-            Free space total: 
-            <?php 
-            $df = disk_free_space("/"); 
+            Free space total:
+            <?php
+            $df = disk_free_space("/");
             echo $this->humanFileSize()->setSize($df);
             ?>
         </li>
         <li>
-            Used space total: 
-            <?php 
-            $dt = disk_total_space('/'); 
-            $df = disk_free_space('/'); 
+            Used space total:
+            <?php
+            $dt = disk_total_space('/');
+            $df = disk_free_space('/');
             $used = $dt - $df;
             echo $this->humanFileSize()->setSize($used);
             ?>
         </li>
         <li>
-            Cache directory size: 
-            <?php 
+            Cache directory size:
+            <?php
             echo $this->humanFileSize()->setSize($this->humanDirectorySize()->setPath(CACHE_PATH)->dirSize());
             ?>
         </li>
         <li>
-            Image directory size: 
-            <?php 
+            Image directory size:
+            <?php
             echo $this->humanFileSize()->setSize($this->humanDirectorySize()->setPath(IMAGE_PATH)->dirSize());
             ?>
         </li>
     </ul>
-<h3>PHP system setup</h3>
-<?php echo strip_tags(phpinfo());?>
+    <h3 class="lead">PHP system setup</h3>
+<?php echo strip_tags(phpinfo()); ?>
 
-<?php 
+<?php
 
 $data = "; 
 <style> 
@@ -67,16 +70,24 @@ color: #444444;
 <font size='1' color='#3896CC'>Service Status</font></b> 
 </div> 
 </center> 
-<br />"; 
+<br />";
 
 //configure script 
-$timeout = "1"; 
+$timeout = "1";
 
 //set service checks 
-$port[1] = "80"; $service[1] = "Apache"; $ip[1] ="127.0.0.1"; 
-$port[2] = "22"; $service[2] = "FTP"; $ip[2] ="127.0.0.1"; 
-$port[3] = "3306"; $service[3] = "MYSQL"; $ip[3] ="127.0.0.1"; 
-$port[4] = "25"; $service[4] = "Email(POP3)"; $ip[4] ="127.0.0.1"; 
+$port[1] = "80";
+$service[1] = "Apache";
+$ip[1] = "127.0.0.1";
+$port[2] = "22";
+$service[2] = "FTP";
+$ip[2] = "127.0.0.1";
+$port[3] = "3306";
+$service[3] = "MYSQL";
+$ip[3] = "127.0.0.1";
+$port[4] = "25";
+$service[4] = "Email(POP3)";
+$ip[4] = "127.0.0.1";
 
 // 
 // NO NEED TO EDIT BEYOND HERE 
@@ -84,58 +95,58 @@ $port[4] = "25"; $service[4] = "Email(POP3)"; $ip[4] ="127.0.0.1";
 // 
 
 //count arrays 
-$ports = count($port); 
-$ports = $ports + 1; 
-$count = 1; 
+$ports = count($port);
+$ports = $ports + 1;
+$count = 1;
 
 //beggin table for status 
-$data .= "<table width='480' border='1' cellspacing='0' cellpadding='3' style='border-collapse:collapse' bordercolor='#333333;' align='center'>"; 
+$data .= "<table width='480' border='1' cellspacing='0' cellpadding='3' style='border-collapse:collapse' bordercolor='#333333;' align='center'>";
 
-while($count < $ports){ 
+while ($count < $ports) {
 
-if($ip[$count]==""){ 
-$ip[$count] = "localhost"; 
-} 
+    if ($ip[$count] == "") {
+        $ip[$count] = "localhost";
+    }
 
-$fp = @fsockopen("$ip[$count]", $port[$count], $errno, $errstr, $timeout); 
-if (!$fp) { 
-$data .= "<tr><td>$service[$count]</td><td bgcolor='#FFC6C6'>Offline </td></tr>"; 
-} else { 
-$data .= "<tr><td>$service[$count]</td><td bgcolor='#D9FFB3'>Online</td></tr>"; 
-} 
-$count++; 
+    $fp = @fsockopen("$ip[$count]", $port[$count], $errno, $errstr, $timeout);
+    if (!$fp) {
+        $data .= "<tr><td>$service[$count]</td><td bgcolor='#FFC6C6'>Offline </td></tr>";
+    } else {
+        $data .= "<tr><td>$service[$count]</td><td bgcolor='#D9FFB3'>Online</td></tr>";
+    }
+    $count++;
 
-} 
+}
 
 //close table 
-$data .= "</table>"; 
+$data .= "</table>";
 
-echo $data; 
+echo $data;
 $data1 = " 
 <br /> 
 <center> 
 <div style=\"border-bottom:1px #999999 solid;width:480;\"><b> 
 <font size='1' color='#3896CC'>Server Information</font></b> 
 </div> 
-</center><br />"; 
+</center><br />";
 
 $data1 .= "<table width='480' border='1' cellspacing='0' cellpadding='3' style='border-collapse:collapse;' 
 
-bordercolor='#333333' align='center'>"; 
+bordercolor='#333333' align='center'>";
 
 //GET SERVER LOADS 
-$loadresult = @exec('uptime'); 
-preg_match("/averages?: ([0-9\.]+),[\s]+([0-9\.]+),[\s]+([0-9\.]+)/",$loadresult,$avgs); 
+$loadresult = @exec('uptime');
+preg_match("/averages?: ([0-9\.]+),[\s]+([0-9\.]+),[\s]+([0-9\.]+)/", $loadresult, $avgs);
 
 
 //GET SERVER UPTIME 
-$uptime = explode(' up ', $loadresult); 
-$uptime = explode(',', $uptime[1]); 
-$uptime = $uptime[0].', '.$uptime[1]; 
+$uptime = explode(' up ', $loadresult);
+$uptime = explode(',', $uptime[1]);
+$uptime = $uptime[0] . ', ' . $uptime[1];
 
-$data1 .= "<tr><td>Server Load Averages </td><td>$avgs[1], $avgs[2], $avgs[3]</td>\n"; 
-$data1 .= "<tr><td>Server Uptime </td><td>$uptime </td></tr>"; 
-$data1 .= "</table>"; 
-echo $data1; 
+$data1 .= "<tr><td>Server Load Averages </td><td>$avgs[1], $avgs[2], $avgs[3]</td>\n";
+$data1 .= "<tr><td>Server Uptime </td><td>$uptime </td></tr>";
+$data1 .= "</table>";
+echo $data1;
 
 ?>

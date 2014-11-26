@@ -1,18 +1,21 @@
-<?php 
+<?php
 $this->headTitle('Delete staff role');
-if ($this->role) :?>
-<h2>Delete a staff role</h2>
-<p>Are you sure that you want to delete
-'<?php echo $this->escape($this->role->role); ?>' 
-</p>
-<form action="<?php echo $this->url(array('module' => 'admin','controller' => 'contacts','action'=>'deleterole'),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->role->id; ?>" />
-<input type="submit" name="del" value="Yes" />
-<input type="submit" name="del" value="No" />
-</div>
-</form>
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<?php if (!is_null($this->role)) : ?>
+    <h2 class="lead">Delete a staff role</h2>
+    <p>Are you sure that you want to delete
+        '<?php echo $this->escape($this->role->role); ?>'
+    </p>
+    <form
+        action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'contacts', 'action' => 'deleterole'), null, true); ?>"
+        method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo $this->role->id; ?>"/>
+            <input type="submit" name="del" value="Yes"/>
+            <input type="submit" name="del" value="No"/>
+        </div>
+    </form>
 <?php else: ?>
-<p>Cannot find the item requested.</p>
-<?php endif;?>
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>

@@ -159,37 +159,38 @@ class Pas_View_Helper_DataEditDeleteLinks extends Zend_View_Helper_Abstract
      * @access public
      * @param  string $findID
      * @param  string $oldfindID
+     * @param  string $recordtype
      * @return string
      */
-    public function buildHtml($findID, $oldfindID)
-    {
-    $editurl = $this->view->url(array('module' => 'database','controller' => 'artefacts','action' => 'edit',
-    'id' => $findID),null,true);
-    $deleteurl = $this->view->url(array('module' => 'database','controller' => 'artefacts',
-    'action' => 'delete','id' => $findID),null,true);
-        $editClass = 'btn btn-large btn-warning';
-        $deleteClass = 'btn btn-large btn-danger';
-    $html = '<a class="' . $editClass . '" href="';
-    $html .= $editurl;
-    $html .= '" title="Edit details for ';
-    $html .= $oldfindID;
-    $html .= '">Edit</a> | <a class="' . $deleteClass .'" href="';
-    $html .= $deleteurl;
-    $html .= '" title="Delete record ';
-    $html .= $oldfindID;
-    $html .= '">';
-    $html .= 'Delete</a><br />';
+    public function buildHtml($findID, $oldfindID, $recordtype){
+        $editurl = $this->view->url(array('module' => 'database','controller' => $recordtype,'action' => 'edit',
+        'id' => $findID),null,true);
+        $deleteurl = $this->view->url(array('module' => 'database','controller' => $recordtype,
+        'action' => 'delete','id' => $findID),null,true);
+            $editClass = 'btn btn-large btn-warning';
+            $deleteClass = 'btn btn-large btn-danger';
+        $html = '<a class="' . $editClass . '" href="';
+        $html .= $editurl;
+        $html .= '" title="Edit details for ';
+        $html .= $oldfindID;
+        $html .= '">Edit</a> | <a class="' . $deleteClass .'" href="';
+        $html .= $deleteurl;
+        $html .= '" title="Delete record ';
+        $html .= $oldfindID;
+        $html .= '">';
+        $html .= 'Delete</a><br />';
 
-    return $html;
+        return $html;
     }
 
     /** Start the process to determine whether links can be used
      * @access public
      * @param string  $findID
      * @param string  $oldfindID
+     * @param string  $controller
      * @param integer $createdBy
      */
-    public function DataEditDeleteLinks($findID, $oldfindID, $createdBy)
+    public function DataEditDeleteLinks($findID, $oldfindID, $controller, $createdBy)
     {
     $byID = $this->checkAccessbyUserID($createdBy);
     $instID = $this->checkAccessbyInstitution($oldfindID);
@@ -197,19 +198,19 @@ class Pas_View_Helper_DataEditDeleteLinks extends Zend_View_Helper_Abstract
     return FALSE;
     } elseif (in_array($this->getRole(),$this->restricted)) {
     if (($byID == TRUE && $instID == TRUE) || ($byID == TRUE && $instID == FALSE)) {
-    return $this->buildHtml($findID,$oldfindID);
+    return $this->buildHtml($findID,$oldfindID,$controller);
     } else {
     return FALSE;
     }
     } elseif (in_array($this->getRole(),$this->recorders)) {
     if(($byID == TRUE && $instID == TRUE) || ($byID == TRUE && $instID == FALSE) ||
     ($byID == FALSE && $instID == TRUE)){
-    return $this->buildHtml($findID,$oldfindID);
+    return $this->buildHtml($findID,$oldfindID,$controller);
     } else {
     return FALSE;
     }
     } elseif (in_array($this->getRole(),$this->higherLevel)) {
-    return $this->buildHtml($findID,$oldfindID);
+    return $this->buildHtml($findID,$oldfindID,$controller);
     } else {
     return FALSE;
     }

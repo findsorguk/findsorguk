@@ -1,8 +1,10 @@
 <?php
-$this->headTitle('Action control list');?>
-<h2>The action control list</h2>
+$this->headTitle('Action control list');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <ul>
-<?php foreach($this->acl['roles'] as $k => $v):?>
-<li>Parent group: <?php echo $k;?> Child group: <?php echo $v;?></li>
-<?php endforeach;?>
+    <?php foreach ($this->acl['roles'] as $k => $v): ?>
+        <li>Parent group: <?php echo $k; ?> Child group: <?php echo $v; ?></li>
+    <?php endforeach; ?>
 </ul>

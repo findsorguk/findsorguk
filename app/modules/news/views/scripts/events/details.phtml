@@ -1,2 +1,6 @@
-<?php echo $this->partialLoop('partials/news/eventDetailsSingle.phtml',$this->events);?>
-
+<?php if (!empty($this->events)): ?>
+    <?php echo $this->partialLoop('partials/news/eventDetailsSingle.phtml', $this->events); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No event details available with that ID.</p>
+<?php endif; ?>

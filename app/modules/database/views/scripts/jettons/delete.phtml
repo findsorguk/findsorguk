@@ -1,9 +1,11 @@
-<?php 
+<?php
 $this->headTitle('Delete coin data');
-if ($this->coins) :?>
-<?php 
-echo $this->partial('partials/database/deleteCoin.phtml',$this->coins['0']);?>
-
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->coins)) : ?>
+    <?php echo $this->partial('partials/database/deleteCoin.phtml', $this->coins['0']); ?>
 <?php else: ?>
-<p>Cannot find the item requested.</p>
-<?php endif;?>
+
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>

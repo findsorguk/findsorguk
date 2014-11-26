@@ -1,73 +1,81 @@
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jQueryLinkedSelect.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/coinslinkedselect.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/linkedinit.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocomplete.pack.js',
-$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteinit.js',
-$type='text/javascript');
-$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
-$this->headTitle('List all Scheduled Monuments of the National Monument record');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/coinslinkedselect.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/linkedinit.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.autocomplete.pack.js',
+    $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/autocompleteinit.js',
+    $type = 'text/javascript');
+$this->headLink()->appendStylesheet($this->baseUrl() . '/css/autocomplete.css');
+$this->headTitle('List all Scheduled Monuments on the National Monument record');
+$this->metaBase()
+    ->setDescription('List all Scheduled Monuments on the National Monument record')
+    ->setKeywords('gazetteer, scheduled, monument, archaeology')
+    ->generate();
 ?>
 
-<h2><?php echo $this->title();?></h2>
-<p>The Scheduled Monuments listed below were provided by Martin Newman from English Heritage. We accept no responsibility for E&amp;O.</p>
-<?php echo $this->form;?>
-<?php if(count($this->results) > 0):?>
-<div class="row-fluid">
-<div class="span9">
-<table class="table table-striped" summary="A list of all scheduled monuments in England">
-    <thead>
-        <tr>
-            <th>Monument name</th>
-            <th>County</th>
-            <th>District</th>
-            <th>Parish</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php echo $this->partialLoop('partials/datalabs/smr.phtml',$this->results);?>
-    </tbody>
-</table></div>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>The Scheduled Monuments listed below were provided by Martin Newman from English Heritage. We accept no
+        responsibility for E&amp;O.</p>
+<?php echo $this->form; ?>
+<?php if (!empty($this->results)): ?>
+    <div class="row-fluid">
+        <div class="span9">
+            <table class="table table-striped" summary="A list of all scheduled monuments in England">
+                <thead>
+                <tr>
+                    <th>Monument name</th>
+                    <th>County</th>
+                    <th>District</th>
+                    <th>Parish</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php echo $this->partialLoop('partials/datalabs/smr.phtml', $this->results); ?>
+                </tbody>
+            </table>
+        </div>
 
-<div class="span3">
-<p><a class="btn btn-small" href="<?php echo $this->url(array('module' => 'database','controller' => 'smr','action' => 'map'),'default',false);?>">Map these sites</a></p>
-        <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
-        <?php echo $this->resultsSorter()->setResults($this->paginator);?>
-        <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>
-        <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
-        <?php echo $this->statGenerator()->setStats($this->stats);?>
-<?php echo $this->facetCreator($this->facets);?>
-</div>
-</div>
-<div class="row-fluid">
-<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
-</div>
-<?php else:?>
-<p>No Scheduled Monuments are available to you right now.</p>
+        <div class="span3">
+            <p><a class="btn btn-small"
+                  href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'smr', 'action' => 'map'), 'default', false); ?>">Map
+                    these sites</a></p>
+            <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
+            <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
+            <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount()); ?></p>
+            <?php echo $this->paginationControl($this->paginator, 'elastic', 'structure/paginationSolr.phtml'); ?>
+            <?php echo $this->facetCreator($this->facets); ?>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+    </div>
+<?php else: ?>
+    <p>No Scheduled Monuments are available to you right now.</p>
 
-<?php endif;?>
+<?php endif; ?>
 <?php
-$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type = 'text/javascript');
 $this->inlineScript()->captureStart();
 ?>
-$(document).ready(function() {
-	$('#print').click(function() {
-	window.print();
-	return false;
-	});
+    $(document).ready(function() {
+    $('#print').click(function() {
+    window.print();
+    return false;
+    });
 
     $('.overlay').click(function(e) {
     e.preventDefault();
     var href = $(e.target).attr('href');
     if (href.indexOf('#') == 0) {
-        $(href).modal('open');
+    $(href).modal('open');
     } else {
-        $.get(href, function(data) {
-            $('<div class="modal fade" >' + data + '</div>').modal();
-        });
+    $.get(href, function(data) {
+    $('
+    <div class="modal fade">' + data + '</div>').modal();
+    });
     }
-});
+    });
 
-	});
-<?php $this->inlineScript()->captureEnd();?>
+    });
+<?php $this->inlineScript()->captureEnd(); ?>

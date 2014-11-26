@@ -1,0 +1,11 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 17/11/14
+ * Time: 22:22
+ */
+?>
+<?php $types = explode('/', $this->type); ?>
+<li><a href="<?php echo $this->altlink; ?>" title="View this document"><?php echo $this->title; ?></a> - <span
+        class="pdf"><?php echo strtoupper($types['1']); ?></span></li>

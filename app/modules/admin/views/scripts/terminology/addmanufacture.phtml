@@ -1,5 +1,6 @@
-<h2>Add manufacture</h2>
-<?php 
-	$this->headTitle("Add a new method of manufacture");
-echo $this->form;
+<?php
+$this->headTitle('Add a new manufacture method');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

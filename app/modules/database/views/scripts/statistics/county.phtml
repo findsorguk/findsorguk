@@ -10,7 +10,7 @@ $this->jQuery()->javascriptCaptureEnd();
  ?>
 
 <?php $this->headTitle('Statistical analysis of the database for '. $this->county.' for '. $this->niceShortDate()->setDate($this->escape($this->datefrom)). ' until '. $this->niceShortDate()->setDate($this->escape($this->dateto)));?>
-<h2><?php echo 'Statistical analysis of the database for '. $this->county.' for '.  $this->niceShortDate()->setDate($this->escape($this->datefrom)). ' until '. $this->niceShortDate()->setDate($this->escape($this->dateto));?></h2>
+<h2 class="lead"><?php echo 'Statistical analysis of the database for '. $this->county.' for '.  $this->niceShortDate()->setDate($this->escape($this->datefrom)). ' until '. $this->niceShortDate()->setDate($this->escape($this->dateto));?></h2>
 <p>These archives can be searched to find out what was found on a particular day of the year. We have been recording digitally since 1998.</p>
 <ul id="yearrange">
 <?php 
@@ -23,7 +23,7 @@ echo $this->partialLoop('partials/database/archiveYearsStats.phtml',
 <?php echo $this->form;?>
 
 <?php if($this->county == NULL) :?>
-<h3>Finds per county</h3>
+<h3 class="lead">Finds per county</h3>
 <table class="table-striped table">
 <tr>
 <th>County</th>
@@ -33,7 +33,7 @@ echo $this->partialLoop('partials/database/archiveYearsStats.phtml',
 <?php echo $this->statisticsCounty();?>
 </table>
 <?php else : ?>
-<h3>Finds recorded for this period</h3>
+<h3 class="lead">Finds recorded for this period</h3>
 <table class="table-striped table">
 <tr>
 <th>County</th>
@@ -43,7 +43,7 @@ echo $this->partialLoop('partials/database/archiveYearsStats.phtml',
 <?php echo $this->statisticsCounty();?>
 </table>
 
-<h3>Finds recorded by these <?php echo count($this->creators);?> users</h3>
+<h3 class="lead">Finds recorded by these <?php echo count($this->creators);?> users</h3>
 <table class="table-striped table">
 <tr>
 <th>Fullname</th>
@@ -75,7 +75,7 @@ $recordsUsersTotal = array_sum($records_users);
 
 </tr>
 </table>
-<h3>Quantities by period</h3>
+<h3 class="lead">Quantities by period</h3>
 
 <table class="table-striped table">
 <tr>
@@ -106,14 +106,14 @@ $recordsPeriodTotal = array_sum($records_period);
 </table>
 
 
-<h3>Number of recorders per insitution</h3>
+<h3 class="lead">Number of recorders per insitution</h3>
 
 <table class="table-striped table">
 <tr>
 <th>Institution</th>
 <th>Number of finders</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/finderquants.phtml',$this->finders);?>
+<?php echo $this->partialLoop('partials/annual/finderQuantities.phtml',$this->finders);?>
 <tr>
 <?php 
 $finders = array();
@@ -131,14 +131,14 @@ $finderstotal = array_sum($finders);
 </tr>
 </table>
 
-<h3>Average per month</h3>
+<h3 class="lead">Average per month</h3>
 <table class="table-striped table">
 <tr>
 <th>Month</th>
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/averagemonth.phtml',$this->averages);?>
+<?php echo $this->partialLoop('partials/annual/averageMonth.phtml',$this->averages);?>
 <tr>
 <?php 
 $finds_month = array();
@@ -160,7 +160,7 @@ $recordsMonthTotal = array_sum($records_month);
 </tr>
 </table>
 
-<h3>Year of discovery</h3>
+<h3 class="lead">Year of discovery</h3>
 <table class="table-striped table">
 <tr>
 <th>Year</th>
@@ -189,14 +189,14 @@ $recordsDiscoTotal = array_sum($records_disco);
 </tr>
 </table>
 
-<h3>Discovery method</h3>
+<h3 class="lead">Discovery method</h3>
 <table class="table-striped table">
 <tr>
 <th>Discovery method</th>
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/discoinferno.phtml',$this->discovery);?>
+<?php echo $this->partialLoop('partials/annual/dicovery.phtml',$this->discovery);?>
 <tr>
 <?php 
 $finds_discomethod = array();
@@ -218,7 +218,7 @@ $recordsDiscoMethodTotal = array_sum($records_discomethod);
 </tr>
 </table>
 
-<h3>Type of landuse</h3>
+<h3 class="lead">Type of landuse</h3>
 <table class="table-striped table">
 <tr>
 <th>Landuse</th>
@@ -247,7 +247,7 @@ $recordsLanduseTotal = array_sum($records_landuse);
 </tr>
 </table>
 
-<h3>Findspot precision</h3>
+<h3 class="lead">Findspot precision</h3>
 <table class="table-striped table">
 <tr>
 <th>Grid reference precision</th>

@@ -1,7 +1,7 @@
-1<?php
+<?php
 /**
  * A view helper for determining which findspot partial to display to the user
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
@@ -13,50 +13,54 @@
  * @uses Zend_Auth
  */
 
-class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
-    
+class Pas_View_Helper_FindSpot extends Zend_View_Helper_Abstract {
+
     /** The no access array
      * @access protected
      * @var array
      */
     protected $_noaccess = array('public');
-    
+
     /** The restricted array
      * @access protected
      * @var array
      */
     protected $_restricted = array('member');
-    
+
     /** The recorders array
      * @access protected
      * @var array
      */
     protected $_recorders = array();
-    
+
     /** The higher level array
      * @access protected
      * @var array
      */
-    protected $_higherLevel = array('admin','fa','treasure', 'flos','research','hero');
-    
+    protected $_higherLevel = array(
+        'admin', 'fa', 'treasure',
+        'flos', 'research', 'hero',
+        'hoard'
+    );
+
     /** Message for missing group exception
      * @access protected
      * @var string
      */
     protected $_missingGroup = 'User is not assigned to a group';
-    
+
     /** Not allowed to edit message
      * @access protected
      * @var string
      */
     protected $_message = 'You are not allowed edit rights to this record';
-    
+
     /** The auth object
      * @access protected
      * @var \Zend_Auth
      */
     protected $_auth;
-    
+
     /** Get the auth
      * @access public
      * @return \Zend_Auth
@@ -65,13 +69,13 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
         $this->_auth = Zend_Auth::getInstance();
         return $this->_auth;
     }
-    
+
     /** The default role
      * @access protected
      * @var string
      */
     protected $_role = 'public';
-    
+
     /** Get the role of the user
      * @access public
      * @return string
@@ -79,11 +83,11 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
     public function getRole() {
         if($this->getUser() == true) {
             $this->_role = $this->getUser()->role;
-        } 
+        }
         return $this->_role;
     }
 
-        
+
     /** Get the user
      * @access public
      * @return \Pas_User_Details
@@ -92,7 +96,7 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
         $user = new Pas_User_Details();
         return $user->getPerson();
     }
-    
+
     /** Get the user's id
      * @access public
      * @return integer
@@ -105,7 +109,7 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
         }
         return $this->_id;
     }
-    
+
     /** Get the user's institution
      * @access public
      * @return string
@@ -113,7 +117,7 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
     public function getInstitution() {
         if($this->getUser() == true) {
             $this->_inst = $this->getUser()->institution;
-        } 
+        }
         return $this->_inst;
     }
 
@@ -123,12 +127,12 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
      */
     protected $_inst = 'public';
 
-    /** The record created by 
+    /** The record created by
      * @access protected
      * @var string
      */
     protected $_createdBy;
-    
+
     /** Get the created by
      * @access public
      * @return integer
@@ -152,7 +156,7 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
      * @var array
      */
     protected $_data;
-    
+
     /** Get the data to build from
      * @access public
      * @return array
@@ -175,10 +179,10 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_Findspot
      */
-    public function findspot() {
+    public function findSpot() {
         return $this;
     }
-    
+
     /** Check record by creator
      * @access public
      * @return boolean
@@ -196,7 +200,7 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
         }
     }
 
-    
+
     /** Build the html and return the correct partial
      * @access public
      * @param array $findspots
@@ -204,9 +208,9 @@ class Pas_View_Helper_Findspot extends Zend_View_Helper_Abstract {
     public function buildHtml() {
         $html = '';
         if ($this->checkByCreator()) {
-            $html .= $this->view->partial('partials/database/findspot.phtml', $this->getData());
+            $html .= $this->view->partial('partials/database/findSpot.phtml', $this->getData());
         } else {
-            $html .= $this->view->partial('partials/database/unauthorisedfindspot.phtml', $this->getData());
+            $html .= $this->view->partial('partials/database/unauthorisedFindspot.phtml', $this->getData());
         }
         return $html;
     }

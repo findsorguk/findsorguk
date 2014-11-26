@@ -95,28 +95,30 @@ class Findspots extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return integer
      */
-    public function getFindNumber($id){
+    public function getFindNumber($id, $table = 'finds'){
+        if($table == 'artefacts') {
+            $table = 'finds';
+        }
         $findspotdata = $this->getAdapter();
         $select = $findspotdata->select()
                 ->from($this->_name,array())
-                ->joinLeft('finds', 'finds.secuid = findspots.findID',array('id'))
-                ->where('findspots.id = ?', (int)$id)
-                ->limit('1');
-        $data = $findspotdata->fetchAll($select);
-        return $data[0]['id'];
+                ->joinLeft(array('recordtable' => $table), 'recordtable.secuid = findspots.findID',array('id'))
+                ->where('findspots.id = ?', (int)$id);
+        $data = $findspotdata->fetchRow($select);
+        return $data['id'];
     }
     /** Retrieval of findspot row for display (not all columns)
     * @param integer $id
+     * @param string $table
     * @return array $data
     */
-    public function getFindSpotData($id)  {
-            
+    public function getFindSpotData($id, $table = 'finds')  {
         $findspotdata = $this->getAdapter();
         $select = $findspotdata->select()
                 ->from($this->_name, array(
                     'county', 'district', 'parish',
                     'easting', 'northing', 'gridref',
-                    'declat', 'declong', 'fourFigure',
+                    'lat' => 'declat', 'lon' => 'declong', 'fourFigure',
                     'knownas', 'smrref', 'map25k',
                     'map10k', 'landusecode', 'landusevalue',
                     'id', 'old_findspotid', 'createdBy',
@@ -125,9 +127,9 @@ class Findspots extends Pas_Db_Table_Abstract {
                     'landowner', 'fourFigureLat', 'fourFigureLon',
                     'gridlen', 'woeid', 'geonamesID',
                     'districtID', 'countyID', 'regionID',
-                    'parishID'
+                    'parishID', 'findSpotID' => 'id'
                     ))
-                ->joinLeft('finds','finds.secuid = findspots.findID', 
+                ->joinLeft(array('recordtable' => $table),'recordtable.secuid = findspots.findID',
                         array('discmethod'))
                 ->joinLeft(array('land1' => 'landuses'),
                         'land1.id = findspots.landusecode',
@@ -151,10 +153,10 @@ class Findspots extends Pas_Db_Table_Abstract {
                             ))
                 ->joinLeft('people',$this->_name . '.landowner = people.secuid', 
                         array('landownername' => 'fullname'))
-                ->joinLeft('discmethods','finds.discmethod = discmethods.id', 
+                ->joinLeft('discmethods','recordtable.discmethod = discmethods.id',
                         array('method'))
-                ->where('finds.id = ?', (int)$id)
-                ->group('finds.id')
+                ->where('recordtable.id = ?', (int)$id)
+                ->group('recordtable.id')
                 ->limit('1');
         return $findspotdata->fetchAll($select);
     }
@@ -181,13 +183,20 @@ class Findspots extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function getFindtoFindspotDelete($id) {
+    public function getFindtoFindspotDelete($id, $table = 'finds') {
+        if($table == 'artefacts') {
+            $useTable = 'finds';
+        } else {
+            $useTable = $table;
+        }
         $finds = $this->getAdapter();
         $select = $finds->select()
                 ->from($this->_name)
-                ->joinLeft('finds','finds.secuid = findspots.findID', array('findID' => 'id'))
+                ->joinLeft(array('recordtable' => $useTable),'recordtable.secuid = findspots.findID', array('recordID' => 'id'))
                 ->where('findspots.id = ?' ,(int)$id);
-        return $finds->fetchAll($select);
+        $rows = $finds->fetchAll($select);
+        $rows[0]['controller'] = $table;
+        return $rows;
     }
 
     /** Retrieval of findspots data row for cloning record

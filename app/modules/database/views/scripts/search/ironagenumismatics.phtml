@@ -11,14 +11,18 @@ $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedSe
 $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedQuery.js',$type='text/javascript');
 
 $this->headTitle('Perform an advanced numismatic search on the database');
+$this->metaBase()->setDescription('A search form for manipulating data for Iron Age coin searches')
+    ->setSubject('Iron Age numismatics')
+    ->setKeywords('search, coins, numismatics, database, iron age')
+    ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
-<?php
-foreach($this->form->getMessages() as $message){
-    foreach($message as $k => $v){
-        echo $v;
-    }
-}
-echo $this->form;
-?>
-
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
+<p>
+    This form allows you to perform some more advanced database searches. More specific numismatic searching can be
+    affected from period specific forms.
+</p>
+<div>
+    <?php echo $this->form; ?>
+</div>

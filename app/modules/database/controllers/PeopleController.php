@@ -98,7 +98,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
         $form->q->setAttrib('placeholder','Try Bland for example');
         $this->view->form = $form;
         $search = new Pas_Solr_Handler();
-        $search->setCore('beopeople');
+        $search->setCore('people');
         $search->setFields(array('*'));
         $search->setFacets(array('county','organisation','activity'));
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
@@ -107,10 +107,10 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
             $params = $cleaner->array_cleanup($form->getValues());
             $this->_helper->Redirector->gotoSimple('index','people','database',$params);
         } else {
-            $params = $this->_getAllParams();
+            $params = $this->getAllParams();
             $params['sort'] = 'surname';
             $params['direction'] = 'asc';
-            $form->populate($this->_getAllParams());
+            $form->populate($this->getAllParams());
         }
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';
@@ -129,10 +129,10 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
     public function personAction(){
         if($this->_getParam('id',false)) {
             $params = array();
-            $person = $this->_peoples->getPersonDetails($this->_getParam('id'));
+            $person = $this->getPeople()->getPersonDetails($this->_getParam('id'));
             if($this->_helper->contextSwitch()->getCurrentContext() !== 'vcf'){
                 $search = new Pas_Solr_Handler();
-                $search->setCore('beowulf');
+                $search->setCore('objects');
                 $fields = new Pas_Solr_FieldGeneratorFinds($this->getCurrentContext());
                 $search->setFields($fields->getFields());
                 $params['finderID'] = $person['0']['secuid'];
@@ -173,8 +173,8 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                 $coords = $this->geoCodeAddress($address);
                 $insertData = array_merge($updateData, $coords);
                 $insert = $this->getPeople()->add($insertData);
-        	$this->_helper->solrUpdater->update('beopeople', $insert);
-                $this->_redirect(self::REDIRECT . 'person/id/' . $insert);
+        	$this->_helper->solrUpdater->update('people', $insert);
+                $this->redirect(self::REDIRECT . 'person/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else {
                 $form->populate($form->getValues());
@@ -217,12 +217,12 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
                     $clean= $this->getPeople()->updateAndProcess($merged);
                     //Update the solr instance
                     $this->getPeople()->update($clean, $where);
-                    $this->_helper->solrUpdater->update('beopeople', $this->_getParam('id'));
+                    $this->_helper->solrUpdater->update('people', $this->_getParam('id'));
                     //Update the audit log
                     $this->_helper->audit($updateData, $oldData, 'PeopleAudit',
                     $this->_getParam('id'), $this->_getParam('id'));
                     $this->getFlash()->addMessage('Person information updated!');
-                    $this->_redirect(self::REDIRECT . 'person/id/' . $this->_getParam('id'));
+                    $$this->redirect(elf::REDIRECT . 'person/id/' . $this->_getParam('id'));
                     } else {
                         $form->populate($form->getValues());
                     }
@@ -248,10 +248,10 @@ class Database_PeopleController extends Pas_Controller_Action_Admin {
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
                 $this->getPeople()->delete($where);
-                $this->_helper->solrUpdater->deleteById('beopeople', $id);
+                $this->_helper->solrUpdater->deleteById('people', $id);
                 $this->getFlash()->addMessage('Record deleted!');
             }
-            $this->_redirect(self::REDIRECT);
+            $this->redirect(self::REDIRECT);
             }  else  {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {

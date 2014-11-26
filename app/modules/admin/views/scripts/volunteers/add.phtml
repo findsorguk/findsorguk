@@ -1,14 +1,15 @@
-<?php 
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+<?php
 $this->headTitle('Add a new volunteer role');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>
+
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
 <?php $this->headScript()->captureStart() ?>
-$(document).ready(function() {
-$("#live").datepicker({ maxDate: '+1y'});
-$("#expire").datepicker({ maxDate: '+1y' });
-});
+    $(document).ready(function() {
+    $("#live").datepicker({ maxDate: '+1y'});
+    $("#expire").datepicker({ maxDate: '+1y' });
+    });
 <?php $this->headScript()->captureEnd() ?>
-<h2><?php echo $this->title();?></h2>
-<?php 
-echo $this->form;
-?>

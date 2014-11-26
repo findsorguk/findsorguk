@@ -1,6 +1,7 @@
 <?php
+
 /** Controller for index of Guides section
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package Pas_Controller_Action
@@ -10,20 +11,24 @@
  * @version 1
  * @uses Content
  */
-class Guides_IndexController extends Pas_Controller_Action_Admin {
+class Guides_IndexController extends Pas_Controller_Action_Admin
+{
 
     /** Setup the contexts by action and the ACL.
      * @access public
      * @return void
      */
-    public function init(){
+    public function init()
+    {
         $this->_helper->acl->allow('public', null);
     }
+
     /** Display the front page material.
      * @access public
      * @return void
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         $content = new Content();
         $this->view->contents = $content->getFrontContent('guides');
     }

@@ -1,14 +1,7 @@
-<?php echo $this->partialLoop('partials/content/article.phtml',$this->front);?>
-<?php
-if(count($this->contents)):?>
-<h3>The Hoard papers</h3>
-<ul>
-<?php foreach($this->contents as $content):?>
-<li><a href="<?php echo $this->url(array('module' => 'staffshoardsymposium','controller' => 'papers',
-'action' => 'index','slug' => $content['slug']),'staffs',true);?>"><?php echo $content['menuTitle'];?></a> ~ <?php  echo $content['title'];?></li>
-<?php endforeach;?>
-</ul>
-<?php else:?>
-
-<p>There are no conference papers available at the moment.</p>
-<?php endif;?>
+<?php echo $this->partialLoop('partials/content/article.phtml', $this->front); ?>
+<?php if (!empty($this->contents)):?>
+    <h3 class="lead">The Hoard papers</h3>
+    <ul><?php echo $this->partialLoop('partials/content/staffordshireHoardContents.phtml', $this->contents); ?></ul>
+<?php else: ?>
+    <p>There are no conference papers available at the moment.</p>
+<?php endif; ?>

@@ -1,10 +1,34 @@
-<tr id="project-<?php echo $this->id;?>">
-<td><?php echo $this->investigator;?></td>
-<td><a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects','action' => 'project','id' => $this->id),'default',true);?>" title="View project details"><?php echo $this->title;?></a><br />
-<?php echo strip_tags($this->ellipsisString()->setString($this->description)->setMax(300));?></td>
-<td><a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects','action' => 'index','level' => $this->level),'default',true);?>" title="View all projects at the level of research equal to: <?php echo $this->type;?>"><?php echo $this->type;?></a></td>
-<td><?php if($this->finish != '0000'){
-echo $this->finish;} else {
-echo 'Unknown';
-}?></td>
+<tr id="project-<?php echo $this->id; ?>">
+    <td>
+        <?php if (!is_null($this->investigator)): ?>
+            <?php echo $this->investigator; ?>
+        <?php else: ?>
+            Investigator not given
+        <?php endif; ?>
+    </td>
+    <td>
+        <?php if (!is_null($this->title)): ?>
+            <a href="<?php echo $this->url(array('module' => 'research', 'controller' => 'projects', 'action' => 'project', 'id' => $this->id), 'default', true); ?>"
+               title="View project details"><?php echo $this->title; ?></a>
+            <br/>
+        <?php else: ?>
+            No title provided.
+        <?php endif; ?>
+        <?php if (!is_null($this->description)): ?>
+            <?php echo $this->purify()->setValue($this->ellipsisString()->setString($this->description)->setMax(300)); ?>
+        <?php else: ?>
+            <p>No abstract given.</p>
+        <?php endif; ?>
+    </td>
+    <td>
+        <a href="<?php echo $this->url(array('module' => 'research', 'controller' => 'projects', 'action' => 'index', 'level' => $this->level), 'default', true); ?>"
+           title="View all projects at the level of research equal to: <?php echo $this->type; ?>"><?php echo $this->type; ?></a>
+    </td>
+    <td>
+        <?php if ($this->finish != 0000 || is_null($this->finish)): ?>
+            <?php echo $this->finish; ?>
+        <?php else: ?>
+            Not disclosed
+        <?php endif; ?>
+    </td>
 </tr>

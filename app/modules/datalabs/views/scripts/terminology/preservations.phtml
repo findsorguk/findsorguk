@@ -1,4 +1,16 @@
-<h2>States of preservation</h2>
-<ul>
-    <?php echo $this->partialLoop('partials/datalabs/presList.phtml',$this->preserves);?>
-</ul>
+<?php
+$this->headTitle('States of preservation');
+$this->metaBase()->setDescription('States of preservation employed by the Scheme')
+    ->setSubject('terminology')
+    ->setKeywords('terminology,preservation,archaeology')
+    ->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php if (!empty($this->preserves)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/presList.phtml', $this->preserves); ?>
+    </ul>
+<?php else: ?>
+    <p>No preservation states available.</p>
+<?php endif; ?>

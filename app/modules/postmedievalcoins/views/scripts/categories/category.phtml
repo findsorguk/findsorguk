@@ -1,42 +1,43 @@
-<?php 
-echo $this->partialLoop('partials/numismatics/category.phtml',$this->categories);
-
-echo $this->latestRecords()->setQuery('category:'  
-        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
-?>
+<?php echo $this->partialLoop('partials/numismatics/category.phtml', $this->categories); ?>
 
 <div class="row-fluid">
-	<!--  Navigation for tabs  -->
-	<ul id="tab" class="nav nav-tabs">
-		<li class="active"><a href="#rulers" data-toggle="tab">Issuing rulers</a></li>
+    <!--  Navigation for tabs  -->
+    <ul id="tab" class="nav nav-tabs">
+        <li class="active"><a href="#rulers" data-toggle="tab">Issuing rulers</a></li>
         <li><a href="#types" data-toggle="tab">Types</a></li>
-		<li><a href="#map" data-toggle="tab">Map</a></li>
-	</ul>
-	<!--  End of Tabs navigation -->
-	
-	<!-- Start of tabbed content div -->
-	<div id="myTabContent" class="tab-content">
-		
-		<div class="tab-pane fade in active" id="rulers">
-		<?php if (count($this->denominations > 0)):?>
-			<h3>Associated rulers</h3>
-			<ul>
-				<?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?>
-			</ul> 
-		<?php endif;?> 
-		</div>
-        
+        <li><a href="#map" data-toggle="tab">Map</a></li>
+    </ul>
+    <!--  End of Tabs navigation -->
+
+    <!-- Start of tabbed content div -->
+    <div id="myTabContent" class="tab-content">
+
+        <div class="tab-pane fade in active" id="rulers">
+            <?php if (!empty($this->denominations)): ?>
+                <h3 class="lead">Associated rulers</h3>
+                <ul>
+                    <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?>
+                </ul>
+                <?php else:?>
+                <p>No associated rulers</p>
+            <?php endif; ?>
+        </div>
+
         <div class="tab-pane fade" id="types">
-		<h3>Types of coin associated with this category</h3>
-		<ul>
-			<?php echo $this->partialLoop('partials/numismatics/types.phtml', $this->types) ?>
-		</ul>
-		</div>
-		
+            <?php if(!empty($this->types)):?>
+            <h3 class="lead">Types of coin associated with this category</h3>
+            <ul>
+                <?php echo $this->partialLoop('partials/numismatics/types.phtml', $this->types) ?>
+            </ul>
+            <?php else:?>
+            <p>No associated coin types.</p>
+            <?php endif;?>
+        </div>
+
         <div class="tab-pane fade" id="map">
-		
-		</div>
-	</div>
-	<!--  End of tabbed content div -->
+
+        </div>
+    </div>
+    <!--  End of tabbed content div -->
 
 </div>

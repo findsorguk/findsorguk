@@ -11,8 +11,19 @@ $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedSe
 $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedQuery.js',$type='text/javascript');
 
 $this->headTitle('Perform an advanced numismatic search on the database');
+$this->metaBase()->setDescription('A search form for manipulating data for Medieval coin searches')
+    ->setSubject('Medieval numismatics')
+    ->setKeywords('search, coins, numismatics, database, medieval')
+    ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
-<p>This form allows you to perform some more advanced database searches. More specific numismatic searching can be affected from period specific forms.</p>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
+<p>
+    This form allows you to perform some more advanced database searches. More specific numismatic searching can be
+    affected from period specific forms.
+</p>
 
-<?php  echo $this->earlymedform; ?>
+<div>
+    <?php echo $this->earlymedform; ?>
+</div>

@@ -6,7 +6,7 @@ $this->metaBase()
         ->setKeywords('flickr, photo, image')
         ->generate();
 ?>
-<h2>
+<h2 class="lead">
     <?php echo $this->title();?>
 </h2>
 <a href="<?php echo $this->sizes->size['7']->source;?>" rel="lightbox" title="View larger version"><img src="<?php echo $this->sizes->size['6']->source;?>" width="<?php echo $this->sizes->size['6']->width;?>"
@@ -27,7 +27,7 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
     
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade in active" id="meta">
-            <h3>
+            <h3 class="lead">
                 Metadata
             </h3>
             
@@ -46,7 +46,7 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
 
         
         <div class="tab-pane fade " id="geo">
-            <h4>
+            <h4 class="lead">
                 Geo location of the photo
             </h4>
             <?php if(isset($this->geo->location)):?>
@@ -77,7 +77,7 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
         </div>
     <div class="tab-pane fade" id="comments">
     <?php if($this->image->photo->comments):?>
-        <h3>
+        <h3 class="lead">
             Comments
         </h3>
         <ul>
@@ -88,7 +88,7 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
 
     <div class="tab-pane fade" id="exif">
     <?php if($this->exif):?>
-        <h3>
+        <h3 class="lead">
             Exif details
         </h3>
     <?php if($this->exif->camera):?>
@@ -96,7 +96,7 @@ height="<?php echo $this->sizes->size['6']->height;?>" alt="<?php echo $this->im
             This image was taken with: <?php echo $this->exif->camera;?>
         </p>
     <?php endif;?>
-        <h4>
+        <h4 class="lead">
             Tags
         </h4>
 

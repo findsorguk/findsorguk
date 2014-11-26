@@ -1,22 +1,27 @@
-<?php $this->headTitle('Early Medieval coin types');?>
+<?php
+$this->headTitle('Medieval coin types');
+$this->metaBase()->setSubject('Medieval numismatics')
+    ->setDescription('A list of coin types used on the Scheme database')
+    ->generate();
+?>
 
-<h2>Early Medieval coin types</h2>
-<?php if(count($this->types)):?>
-<table class="table table-striped" summary="A list of available Early Medieval Coin types">
-<caption>Early Medieval coin types</caption>
-<thead>
-<tr>
-<th>Coin type</th>
-<th>Issuing ruler</th>
-<th>Issue date</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/numismatics/medtypes.phtml',$this->types);?>
-</tbody>
-</table>
-<?php echo $this->paginationControl($this->types, 'Elastic', 'structure/pagination.phtml'); ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (count($this->types)): ?>
+    <table class="table table-striped" summary="A list of available  Medieval Coin types">
+        <caption>Medieval coin types</caption>
+        <thead>
+        <tr>
+            <th>Coin type</th>
+            <th>Issuing ruler</th>
+            <th>Issue date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/numismatics/medievalTypes.phtml', $this->types); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->types, 'Elastic', 'structure/pagination.phtml'); ?>
 
-<?php else:?>
-<p>There are no coin types available.</p>
-<?php endif;?>
+<?php else: ?>
+    <p>There are no coin types available.</p>
+<?php endif; ?>

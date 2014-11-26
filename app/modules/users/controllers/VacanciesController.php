@@ -65,7 +65,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
                         );
                         $this->_vacancies->insert($insertdata);
                 $this->getFlash()->addMessage('Vacancy details created: ' .$form->getValue('title'));
-                $this->_redirect('/users/vacancies');
+                $this->redirect('/users/vacancies');
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -100,7 +100,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
                             );
                     $this->_vacancies->update($insertdata,$where);
                     $this->getFlash()->addMessage('Vacancy details updated!');
-                    $this->_redirect('/users/vacancies');
+                    $$this->redirect('/users/vacancies');
                 } else {
                     $form->populate($this->_request->getPost());
                 }
@@ -133,7 +133,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
                 $this->_vacancies->delete($where);
                 $this->getFlash()->addMessage('Vacancy\'s information deleted! This cannot be undone.');
             }
-            $this->_redirect('/users/vacancies/');
+            $this->redirect('/users/vacancies/');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

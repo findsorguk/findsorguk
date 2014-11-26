@@ -1,18 +1,17 @@
-<?php 
+<?php
 $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
-
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-$ctrllr = strtolower($controller);
+$controller = strtolower(Zend_Controller_Front::getInstance()->getRequest()->getControllerName());
 ?>
-
 <li>
-<?php echo 
-'<a href="'.
-$this->url(array('module' => $module, 'controller' => $ctrllr,'action' => 'category', 'id' => $this->id),null,true)
-.'" title="View details for '
-.$this->term
-.'">'
-.$this->term.
-'</a>'
-;?> - <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results', 'category' => $this->id),null,true);?>" title="Search for all examples of <?php echo $this->term;?> on the database">View all attributed examples</a>]</span>
+    <?php echo
+        '<a href="'.
+        $this->url(array('module' => $module, 'controller' => $controller,'action' => 'category', 'id' => $this->id),null,true)
+        .'" title="View details for '
+        .$this->term
+        .'">'
+        .$this->term.
+        '</a>'
+    ;?> - <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'search',
+            'action' => 'results', 'category' => $this->id),null,true);?>" title="Search for all examples of
+            <?php echo $this->term;?> on the database">View all attributed examples</a>]</span>
 </li>

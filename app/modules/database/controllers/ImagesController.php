@@ -105,9 +105,9 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
         $form = new SolrForm();
         $form->removeElement('thumbnail');
         $this->view->form = $form;
-        $params = $this->_arrayTools->array_cleanup($this->_getAllParams());
+        $params = $this->_arrayTools->array_cleanup($this->getAllParams());
         $search = new Pas_Solr_Handler();
-        $search->setCore('beoimages');
+        $search->setCore('images');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod', 'imagedir',
@@ -128,8 +128,8 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
         //If q parameter is not set or is '', set default query
         if(!isset($params['q']) || $params['q'] == ''){
@@ -196,10 +196,10 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                     $upload->receive();
                 }
                 $id = $this->_images->insertImage($insertData);
-                $this->_helper->solrUpdater->update('beoimages', $id);
-                $this->_helper->solrUpdater->update('beowulf', $this->_getParam('id'));
+                $this->_helper->solrUpdater->update('images', $id);
+                $this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
                 $this->getFlash()->addMessage('The image has been resized and added!');
-                $this->_redirect('/database/artefacts/record/id/' . $this->_getParam('id'));
+                $this->redirect('/database/artefacts/record/id/' . $this->_getParam('id'));
             } else {
                 $this->getFlash()->addMessage('There is a problem with your upload. Probably that image exists.');
                 $this->view->errors = $upload->getMessages();
@@ -308,10 +308,10 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
 
                 $update = $this->_images->update($updateData, $where);
                         //Update the solr instance
-                $this->_helper->solrUpdater->update('beoimages', $this->_getParam('id'));
+                $this->_helper->solrUpdater->update('images', $this->_getParam('id'));
 
                 $this->getFlash()->addMessage('Image and metadata updated!');
-                $this->_redirect(self::REDIRECT . 'image/id/' . $this->_getParam('id'));
+                $this->redirect(self::REDIRECT . 'image/id/' . $this->_getParam('id'));
 
                 } else {
                     $form->populate($form->getValues());
@@ -369,7 +369,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 unlink($zoom);
             }
             $this->getFlash()->addMessage('Image and metadata deleted!');
-            $this->_redirect('/database/myscheme/myimages/');
+            $this->redirect('/database/myscheme/myimages/');
         }  else  {
             $id = (int)$this->_request->getParam('id');
             if ((int)$id > 0) {
@@ -400,10 +400,10 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                     $findID = $form->getValue('findID');
                     $finds = new Finds();
                     $returns = $finds->fetchRow($finds->select()->where('secuid = ?',$findID));
-                    $this->_helper->solrUpdater->update('beowulf', $findID);
+                    $this->_helper->solrUpdater->update('objects', $findID);
                     $returnID = $returns->id;
                     $this->getFlash()->addMessage('You just linked an image to this record');
-                    $this->_redirect('/database/artefacts/record/id/' . $returnID);
+                    $this->redirect('/database/artefacts/record/id/' . $returnID);
                 }
             }
         } else {
@@ -432,15 +432,15 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                     $where[] = $linked->getAdapter()->quoteInto('find_id = ?', $findID);
                     $linked->delete($where);
                 //	$this->_helper->solrUpdater->update('images', $imageID);
-                    $this->_helper->solrUpdater->update('beowulf', $findID);
+                    $this->_helper->solrUpdater->update('objects', $findID);
                     $this->getFlash()->addMessage('Links deleted!');
-                    $this->_redirect('/database/artefacts/record/id/' . $this->_getParam('returnID'));
+                    $this->redirect('/database/artefacts/record/id/' . $this->_getParam('returnID'));
                 }
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ((int)$id > 0) {
                     $this->view->slide = $this->_images->fetchRow($this->_images->select()->where('imageID = ?', $id));
-                    $this->view->params = $this->_getAllParams();
+                    $this->view->params = $this->getAllParams();
                 }
             }
         } else {

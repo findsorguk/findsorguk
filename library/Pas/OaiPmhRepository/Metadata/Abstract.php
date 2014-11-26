@@ -11,10 +11,9 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-require_once('Pas/OaiPmhRepository/OaiXmlGeneratorAbstract.php');
-require_once('Pas/OaiPmhRepository/OaiIdentifier.php');
 
-abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhRepository_OaiXmlGeneratorAbstract {
+abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhRepository_OaiXmlGeneratorAbstract
+{
 
     /** The base record url
      *
@@ -72,7 +71,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
     const EXTENSION = '.jpg';
 
     /** The rights statement URI we use
-     * 
+     *
      */
     const RIGHTS_URI = 'http://creativecommons.org/licenses/by/3.0/';
 
@@ -101,10 +100,11 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
      * @param DOMElement element Parent element for XML output.
      * @return void
      */
-    public function __construct($item, $element){
+    public function __construct($item, $element)
+    {
         $this->item = $item;
         $this->parentElement = $element;
-        if(isset($element)){
+        if (isset($element)) {
             $this->document = $element->ownerDocument;
         }
         $server = new Pas_OaiPmhRepository_ServerUrl();
@@ -120,7 +120,8 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
      * @uses appendHeader
      * @uses appendMetadata
      */
-    public function appendRecord(){
+    public function appendRecord()
+    {
         $record = $this->document->createElement('record');
         $this->parentElement->appendChild($record);
         // Sets the parent of the next append functions
@@ -138,8 +139,9 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
      * @uses appendHeader
      * @uses appendMetadata
      */
-    public function appendHeader() {
-        if(array_key_exists('0', $this->item)) {
+    public function appendHeader()
+    {
+        if (array_key_exists('0', $this->item)) {
             $itemid = $this->item['0']['id'];
             $updated = $this->item['0']['created'];
             $collectionId = $this->item['0']['institution'];
@@ -166,14 +168,15 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
      * @access public
      * @return void
      */
-    public function declareMetadataFormat(){
+    public function declareMetadataFormat()
+    {
         $elements = array(
-            'metadataPrefix'    => $this->getMetadataPrefix(),
-            'schema'            => $this->getMetadataSchema(),
+            'metadataPrefix' => $this->getMetadataPrefix(),
+            'schema' => $this->getMetadataSchema(),
             'metadataNamespace' => $this->getMetadataNamespace()
         );
         $this->createElementWithChildren(
-        $this->parentElement, 'metadataFormat', $elements);
+            $this->parentElement, 'metadataFormat', $elements);
     }
 
 
@@ -182,7 +185,8 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
      * @param string $string data to be encoded
      * @return string $string
      */
-    public function _xmlEscape($string)  {
+    public function _xmlEscape($string)
+    {
         $encoding = 'UTF-8';
         if ($this->_view instanceof Zend_View_Interface && method_exists($this->_view, 'getEncoding')) {
             $encoding = $this->_view->getEncoding();
@@ -195,6 +199,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
             return $string;
         }
     }
+
     /**
      * Returns the OAI-PMH metadata prefix for the output format.
      *

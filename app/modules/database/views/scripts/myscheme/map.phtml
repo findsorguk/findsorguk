@@ -1,223 +1,223 @@
 <?php
-echo $this->googleDynamicMap(null,true,false);
+$this->headTitle('Map of finds I recorded');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
 
+<h2 class="lead">Map of finds I recorded</h2>
+
+<div class="btn-group">
+    <a class="btn btn-small" href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme','action' => 'myfinds'), 'default', true); ?>"
+      title="Return to your search">Return to search results <i class="icon-search"></i></a>
+    <a class="btn-small btn"
+       href="<?php echo $this->url(array('controller' => 'ajax', 'action' => 'kml'), null, false); ?>">Export all
+        results as KML <i class="icon-download-alt"></i></a>
+    <a class="btn-small btn"
+       href="<?php echo $this->url(array('controller' => 'ajax', 'action' => 'csv'), null, false); ?>">Export as CSV <i
+            class="icon-download-alt"></i></a>
+    <a class="btn-small btn" href="#">Export for HER import <i class="icon-download-alt"></i></a>
+    <a href="#" class="btn-small btn">Export for GIS <i class="icon-download-alt"></i></a>
+</div>
+<hr />
+<div class="row-fluid">
+
+    <div class="span9">
+        <div id="map" style="min-height:1000px;"></div>
+    </div>
+
+    <div class="span3"><?php echo $this->mapFacetCreatorMyFinds(); ?></div>
+
+</div>
+<?php echo $this->googleDynamicMap(null,true,false);?>
+
 <?php $this->inlineScript()->captureStart();?>
-$(document).ready(function() {
+    $(document).ready(function() {
 
 
     var nlsmap = new google.maps.ImageMapType({
-	   getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
-	   tileSize: new google.maps.Size(256, 256),
-	   isPng: false,
-	   maxZoom: 14,
-	   minZoom: 1,
-	   name: 'Historic',
-	   alt: "NLS Historic Map"
-	});
+    getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
+    tileSize: new google.maps.Size(256, 256),
+    isPng: false,
+    maxZoom: 14,
+    minZoom: 1,
+    name: 'Historic',
+    alt: "NLS Historic Map"
+    });
 
 
 
     var osmMapType = new google.maps.ImageMapType({
-        getTileUrl: function (coord, zoom) {
-            return "http://tile.openstreetmap.org/" +
-                zoom + "/" + coord.x + "/" + coord.y + ".png";
+    getTileUrl: function (coord, zoom) {
+    return "http://tile.openstreetmap.org/" +
+    zoom + "/" + coord.x + "/" + coord.y + ".png";
 
-        },
-        tileSize: new google.maps.Size(256, 256),
-        isPng: true,
-        alt: "OpenStreetMap layer",
-        name: "OSM",
-        maxZoom: 18
+    },
+    tileSize: new google.maps.Size(256, 256),
+    isPng: true,
+    alt: "OpenStreetMap layer",
+    name: "OSM",
+    maxZoom: 18
     });
 
-   var soilMapType = new google.maps.ImageMapType({
+    var soilMapType = new google.maps.ImageMapType({
 
-   getTileUrl: function(tile, zoom) {
+    getTileUrl: function(tile, zoom) {
 
-   var projection = map.getProjection();
+    var projection = map.getProjection();
 
-   var zpow = Math.pow(2, zoom);
+    var zpow = Math.pow(2, zoom);
 
-   var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
+    var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
 
-   var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
+    var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
 
-   var ulw = projection.fromPointToLatLng(ul);
+    var ulw = projection.fromPointToLatLng(ul);
 
-   var lrw = projection.fromPointToLatLng(lr);
+    var lrw = projection.fromPointToLatLng(lr);
 
-   var baseURL ="http://geonetwork3.fao.org/ows/14116?LAYERS=world_soilmap&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&SRS=EPSG:4326";
+    var baseURL ="http://geonetwork3.fao.org/ows/14116?LAYERS=world_soilmap&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&SRS=EPSG:4326";
 
-   var version = "1.1.1";
+    var version = "1.1.1";
 
-   var request = "GetMap";
+    var request = "GetMap";
 
-   var format = "image/png"; //type of image returned  or image/jpeg
-
-
-   var layers = "world_soilmap";
-
-   var srs = "EPSG:4326";
-
-   var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
-
-   var service = "WMS";
-
-   var width = "256";
-
-   var height = "256";
+    var format = "image/png"; //type of image returned  or image/jpeg
 
 
-   var styles = "default";
+    var layers = "world_soilmap";
 
-   var url = baseURL +"&BBOX=" + bbox + "&WIDTH=" + width + "&HEIGHT=" + height;
+    var srs = "EPSG:4326";
 
-   return url;
+    var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
+
+    var service = "WMS";
+
+    var width = "256";
+
+    var height = "256";
+
+
+    var styles = "default";
+
+    var url = baseURL +"&BBOX=" + bbox + "&WIDTH=" + width + "&HEIGHT=" + height;
+
+    return url;
     },
-        tileSize: new google.maps.Size(256, 256),
-        isPng: true,
-        alt: "Soil layer",
-        name: "Soil types",
-        maxZoom: 18,
-        minZoom: 3,
-        opacity: 0.2,
+    tileSize: new google.maps.Size(256, 256),
+    isPng: true,
+    alt: "Soil layer",
+    name: "Soil types",
+    maxZoom: 18,
+    minZoom: 3,
+    opacity: 0.2,
     });
 
 
     var myOptions = {
-          center: new google.maps.LatLng( 53.2,-3.1),
-          zoom: 7,
-          mapTypeControlOptions: {
-          mapTypeIds: [
+    center: new google.maps.LatLng( 53.2,-3.1),
+    zoom: 7,
+    mapTypeControlOptions: {
+    mapTypeIds: [
 
-          google.maps.MapTypeId.TERRAIN,
-          google.maps.MapTypeId.SATELLITE,
-          google.maps.MapTypeId.ROADMAP,
-          'OSM',
-          'SOIL',
-          'historic'
-          ]
-    	  },
-    	  mapTypeControl: true,
-    	  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-          scaleControl: true,
-    	  zoomControl: true,
-          mapTypeId: 'OSM',
-          scrollwheel: false,
-        };
+    google.maps.MapTypeId.TERRAIN,
+    google.maps.MapTypeId.SATELLITE,
+    google.maps.MapTypeId.ROADMAP,
+    'OSM',
+    'SOIL',
+    'historic'
+    ]
+    },
+    mapTypeControl: true,
+    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+    scaleControl: true,
+    zoomControl: true,
+    mapTypeId: 'OSM',
+    scrollwheel: false,
+    };
 
     var map = new google.maps.Map(document.getElementById("map"),myOptions);
-        map.mapTypes.set('OSM',osmMapType);
-        map.mapTypes.set('SOIL',soilMapType);
-        map.mapTypes.set('historic',nlsmap);
+    map.mapTypes.set('OSM',osmMapType);
+    map.mapTypes.set('SOIL',soilMapType);
+    map.mapTypes.set('historic',nlsmap);
 
-        var myTitle = document.createElement('h1');
-		myTitle.style.color = '#444444';
-		myTitle.style.font = "10px sans-serif";
-		myTitle.innerHTML = 'Historical maps from <a href="http://geo.nls.uk/maps/api/">NLS Maps API<\/a> | OSM &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap<\/a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA<\/a> | Google tiles &copy; Google';
+    var myTitle = document.createElement('h1');
+    myTitle.style.color = '#444444';
+    myTitle.style.font = "10px sans-serif";
+    myTitle.innerHTML = 'Historical maps from <a href="http://geo.nls.uk/maps/api/">NLS Maps API<\/a> | OSM &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap<\/a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA<\/a> | Google tiles &copy; Google';
 
-		var myTextDiv = document.createElement('div');
-		myTextDiv.appendChild(myTitle);
+    var myTextDiv = document.createElement('div');
+    myTextDiv.appendChild(myTitle);
 
-		map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
 
 
 
-	  $('a[data-toggle="tab"]').on('shown', function (e) {
-	  e.target // activated tab
-	  e.relatedTarget // previous tab
+    $('a[data-toggle="tab"]').on('shown', function (e) {
+    e.target // activated tab
+    e.relatedTarget // previous tab
 
-  	google.maps.event.trigger(map, 'resize');
-  	map.setZoom( map.getZoom() );
-  	var latLngBounds = new google.maps.LatLngBounds(
+    google.maps.event.trigger(map, 'resize');
+    map.setZoom( map.getZoom() );
+    var latLngBounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(49.871159, -6.379880),
     new google.maps.LatLng(55.811741, 1.768960)
     );
-  	map.fitBounds(latLngBounds);
-	});
+    map.fitBounds(latLngBounds);
+    });
 
-	<?php
-	$request = Zend_Controller_Front::getInstance()->getRequest();
-	$params = array('module' => 'database', 'controller' => 'ajax', 'action' => 'mapdata2');
-	$params2 = array_slice($request->getParams(),3);
-	$params = array_merge($params,$params2);
-	$params['createdBy'] = $this->id;
-	$url = $this->serverUrl() . $this->url($params,'default',true);
-	       ?>
+    <?php
+    $request = Zend_Controller_Front::getInstance()->getRequest();
+    $params = array('module' => 'database', 'controller' => 'ajax', 'action' => 'mapdata2');
+    $params2 = array_slice($request->getParams(),3);
+    $params = array_merge($params,$params2);
+    $params['createdBy'] = $this->id;
+    $url = $this->serverUrl() . $this->url($params,'default',true);
+    ?>
 
-	var markers = new Array();
+    var markers = new Array();
 
-	var infowindow = new google.maps.InfoWindow();
+    var infoWindow = new google.maps.InfoWindow();
     jQuery.get("<?php echo $url;?>", {}, function(data) {
 
     jQuery(data).find("marker").each(function() {
-        var markerXML = jQuery(this);
-        var latlng = new google.maps.LatLng(
-            parseFloat(markerXML.attr("lat")),
-            parseFloat(markerXML.attr("lng"))
-        );
-        var title = markerXML.attr("title");
-        var marker = new google.maps.Marker({
-        	position: latlng,
-        	map: map,
-        	title: title,
-        	icon: "<?php echo $this->serverUrl() . $this->baseUrl();?>/assets/mapIcons/museum_archeological.png"" });
+    var markerXML = jQuery(this);
+    var latlng = new google.maps.LatLng(
+    parseFloat(markerXML.attr("lat")),
+    parseFloat(markerXML.attr("lng"))
+    );
+    var title = markerXML.attr("title");
+    var marker = new google.maps.Marker({
+    position: latlng,
+    map: map,
+    title: title,
+    icon: "<?php echo $this->serverUrl() . $this->baseUrl();?>/assets/mapIcons/museum_archeological.png" });
 
-        // now that the marker is placed, assign event listener on the marker
-        // and create/assign infowindow to the event trigger.
-        markerInfoWindow(marker, markerXML.attr("content"));
-        markers.push(marker);
+    // now that the marker is placed, assign event listener on the marker
+    // and create/assign infowindow to the event trigger.
+    markerInfoWindow(marker, markerXML.attr("content"));
+    markers.push(marker);
     });
-	});
+    });
 
-	function markerInfoWindow(marker, information){
-	     google.maps.event.addListener(marker, 'click',
-	    function() {
-	        infowindow.close();
-	        infowindow.setContent(information);
-	        infowindow.setPosition(marker.getPosition());
-	        infowindow.open(map, marker);
-	    });
-	}
-	var center;
+    function markerInfoWindow(marker, information){
+    google.maps.event.addListener(marker, 'click',
+    function() {
+    infoWindow.close();
+    infoWindow.setContent(information);
+    infoWindow.setPosition(marker.getPosition());
+    infoWindow.open(map, marker);
+    });
+    }
+    var center;
 
-	function calculateCenter() {
-	  center = map.getCenter();
-	}
-	google.maps.event.addDomListener(map, 'idle', function() {
-	  calculateCenter();
-	});
-	google.maps.event.addDomListener(window, 'resize', function() {
-	  map.setCenter(center);
-	});
+    function calculateCenter() {
+    center = map.getCenter();
+    }
+    google.maps.event.addDomListener(map, 'idle', function() {
+    calculateCenter();
+    });
+    google.maps.event.addDomListener(window, 'resize', function() {
+    map.setCenter(center);
+    });
 
-
-
-});
-
-
-
-
-
-
+    });
 <?php $this->inlineScript()->captureEnd();?>
-
-<?php $this->headTitle('Map of finds I recorded');?>
-
-<h1>Map of finds I recorded</h1>
-
-<p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'results'),'default',false);?>"
-title="Return to your search">Return to search results <i class="icon-search"></i></a>
-<a class="btn-small btn" href="<?php echo $this->url(array('controller' => 'ajax','action' => 'kml'),null,false);?>">Export all results as KML <i class="icon-download-alt"></i></a>
-<a class="btn-small btn" href="<?php echo $this->url(array('controller' => 'ajax','action' => 'csv'),null,false);?>">Export as CSV <i class="icon-download-alt"></i></a> <a class="btn-small btn" href="#">Export for HER import <i class="icon-download-alt"></i></a> <a href="#" class="btn-small btn">Export for GIS <i class="icon-download-alt"></i></a></p>
-<div class="row-fluid">
-
-
-	<div class="span9">
-    <div id="map" style="min-height:1000px;"></div>
-    </div>
-	<div class="span3">
-
-<?php echo $this->mapFacetCreatorMyFinds();?></div>
-</div>

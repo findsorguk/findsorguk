@@ -1,25 +1,42 @@
-  <div class="modal-header">
+<div class="modal-header">
     <a class="close" data-dismiss="modal">x</a>
-    <h3>Embed this record</h3>
-      </div>
-  <div class="modal-body">
 
-	<div class="row-fluid">
-<p>Copy the text in the form fields below and you can reuse it where ever you want.</p>
-
-<pre>Url: <?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->finds[0]['id']),null,true);?>
-</pre>
-
-<pre>
-<?php echo $this->escape($this->partialLoop('partials/database/embedthumbs.phtml', $this->thumbs)); ?>
-<?php echo $this->escape($this->partialLoop('partials/database/embedDataFind.phtml', $this->finds)); ?>
-</pre>
-<hr />
-<h3>[Preview]</h3>
-<?php echo $this->partialLoop('partials/database/embedthumbs.phtml', $this->thumbs) ?>
-<?php echo $this->partialLoop('partials/database/embedPreview.phtml', $this->finds) ?>
+    <h3 class="lead">
+        Embed this record
+    </h3>
 </div>
-  </div>
+<div class="modal-body">
+
+    <div class="row-fluid">
+        <p>
+            Copy the text in the form fields below and you can reuse it where ever you want.
+        </p>
+
+        <pre>Url: <?php echo $this->serverUrl(); ?><?php echo $this->url(array(
+                    'module' => 'database',
+                    'controller' => $this->type,
+                    'action' => 'record',
+                    'id' => $this->finds[0]['id']
+                ), null, true); ?></pre>
+
+        <pre><?php if ($this->type == 'artefact'): ?>
+            <?php echo $this->escape($this->partialLoop('partials/database/embedDataFind.phtml', $this->finds)); ?>
+        <?php else: ?>
+            <?php echo $this->escape($this->partialLoop('partials/database/embedDataHoard.phtml', $this->finds)); ?>
+        <?php endif; ?></pre>
+        <hr/>
+
+        <h3 class="lead">
+            [Preview]
+        </h3>
+        <?php if ($this->type == 'artefact'): ?>
+            <?php echo $this->partialLoop('partials/database/embedPreview.phtml', $this->finds) ?>
+        <?php else:?>
+            <?php echo $this->partialLoop('partials/database/embedPreviewHoard.phtml', $this->finds) ?>
+        <?php endif;?>
+    </div>
+
+</div>
 <div class="modal-footer">
     <a href="#" data-dismiss="modal" class="btn">Close</a>
-  </div>
+</div>

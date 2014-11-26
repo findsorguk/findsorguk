@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for getting lists of error reports submitted by public
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
@@ -9,24 +10,28 @@
  * @version 1
  * @uses ErrorReports
  */
-class Admin_ErrorsController extends Pas_Controller_Action_Admin {
-    
+class Admin_ErrorsController extends Pas_Controller_Action_Admin
+{
+
     /** Set up the ACL and contexts
-     * @access public 
+     * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('fa',null);
-        $this->_helper->_acl->allow('admin',null);
-        
+    public function init()
+    {
+        $this->_helper->_acl->allow('fa', null);
+        $this->_helper->_acl->allow('admin', null);
+
     }
+
     /** Display the index page
      * @access public
      * @return void
      */
-    public function indexAction() {
-        $this->view->params = $this->_getAllParams();
+    public function indexAction()
+    {
+        $this->view->params = $this->getAllParams();
         $errors = new ErrorReports();
-        $this->view->errors = $errors->getMessages($this->_getAllParams());
+        $this->view->errors = $errors->getMessages($this->getAllParams());
     }
 }

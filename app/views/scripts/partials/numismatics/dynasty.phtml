@@ -1,51 +1,14 @@
-<?php $this->headTitle('The '.$this->dynasty.' dynasty');?>
-<h2><?php echo $this->dynasty;?></h2>
-<p>Date in power from: <?php echo $this->adBc()->setDate($this->date_from);?><br />
-Date in power until: <?php echo $this->adBc()->setDate($this->date_to);?> </p>
-<?php 
-ini_set('display_errors', '0');     # don't show any errors...
-error_reporting(E_ALL | E_STRICT);  # ...but do log them		
-$config = array('remote_store_endpoint' => 'http://dbpedia.org/sparql');
-$store = ARC2::getRemoteStore($config);
-//build the SPARQL query
-$q = '
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX dbpedia2: <http://dbpedia.org/property/>
-PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+<?php
+$this->headTitle($this->dynasty);
+$this->metaBase()->setDescription('Details for ' . lcfirst($this->title))
+    ->setKeywords('dyanasty,roman,empire,' . $this->dynasty)
+    ->generate();
+?>
 
-SELECT *
-
-WHERE {
-  ?king foaf:page <http://en.wikipedia.org/wiki/'.urlencode($this->wikipedia).'>.
-    ?king    dbpedia2:abstract ?abstract . 
-OPTIONAL {?king dbpedia-owl:thumbnail ?thumb }.
-OPTIONAL {?king rdfs:comment ?comment }.
-OPTIONAL {?king foaf:depiction ?depiction}.
-OPTIONAL {?king dbpedia2:commonscatNProperty ?names} .
-FILTER langMatches( lang(?abstract), "en") .
-FILTER langMatches( lang(?comment), "en") .
-
-}
-';
-//Zend_Debug::dump($q);
-
-//process the results
-$results = array();
-if ($rows = $store->query($q, 'rows')) {
-//Zend_Debug::dump($row);
-if(isset($rows['0']['thumb'])) {
-echo '<a href="';
-echo $rows['0']['depiction'];
-echo '" rel="lightbox" >';
-echo '<img src="'.$rows['0']['thumb'].'" alt="Wikipedia thumbnail image for the '.$this->dynasty.'" class="flow"/></a>';
-}
-echo '<p>'.$rows['0']['abstract'].'</p>';
-//echo '<p>'.$rows['0']['comment'].'</p>';
-//Zend_Debug::dump($rows);
-foreach($rows as $r)
-{
-echo $r['names'];
-}
-}
-?> 
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<p>
+    Date in power from: <?php echo $this->adBc()->setDate($this->date_from); ?><br/>
+    <?php if (!is_null($this->date_to)): ?>
+        Date in power until: <?php echo $this->adBc()->setDate($this->date_to); ?>
+    <?php endif; ?>
+</p>

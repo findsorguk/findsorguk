@@ -1,33 +1,31 @@
-<h2>Periods used on the database</h2>
 <?php
 $this->headTitle('All periods in use on the database');
-
-echo $this->Href(array(
-    'module' => 'admin',
-    'controller' => 'terminology',
-    'action' => 'addperiod',
-    'checkAcl' => true,
-    'acl'=>'Zend_Acl',
-    'attribs' => array('title' => 'Edit a period', 'class' => 'btn btn-large btn-success'),
-    'params' => array('id'=>$this->id),
-    'content'=> 'Add a new period',
-        'wrapper' => array('tag' => 'p'))
-    );
-
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
-<table class="table table-striped" summary="All periods in use on the database">
-    <caption>All periods in use</caption>
-<thead>
-<tr>
-<th>Period name</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Validity</th>
-<th>Actions</th>
-</tr>
-</thead>
-<?php echo $this->partialLoop('partials/admin/periodsTableList.phtml',$this->periods);?>
-</table>
-
+    <h2 class="lead">Periods used on the database</h2>
+    <a href="<?php echo $this->url(
+        array(
+            'module' => 'admin',
+            'controller' => 'terminology',
+            'action' => 'addperiod'
+        ), 'default', true);?>" class="btn btn-small btn-info" title="Add a new period">Add a new period</a>
+    <hr/>
+<?php if (!empty($this->periods)): ?>
+    <table class="table table-striped" summary="All periods in use on the database">
+        <caption>All periods in use</caption>
+        <thead>
+        <tr>
+            <th>Period name</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Validity</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <?php echo $this->partialLoop('partials/admin/periodsTableList.phtml', $this->periods); ?>
+    </table>
+<?php else: ?>
+    <p>No periods available.</p>
+<?php endif; ?>

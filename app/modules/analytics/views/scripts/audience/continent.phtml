@@ -1,7 +1,7 @@
 <?php
 $this->headTitle('Continent analytical data provided via Google Analytics ' . $this->timeSpanParameter());
 ?>
-<h2><?php echo $this->title();?></h2>
+<h2 class="lead"><?php echo $this->title();?></h2>
 <?php echo $this->timeSpansGa();?>
 <?php echo $this->form;?>
 
@@ -65,7 +65,7 @@ google.load('visualization', '1', {'packages': ['geochart']});
         chart.draw(data, options);
     };
 <?php $this->inlineScript()->captureEnd();?>   
-<h3>Distribution chart of visitors by continent</h3>
+<h3 class="lead">Distribution chart of visitors by continent</h3>
 <div id="chart"></div>
 
 

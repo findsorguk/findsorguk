@@ -1,21 +1,28 @@
-
-<div class="sidebar-nav col-md-3" >
-    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
-        <li <?php 
+<div class="sidebar-nav col-md-3">
+    <ul id="menu1" class="nav nav-stacked nav-pills collapsible">
+        <li <?php
         $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-        if($controller == 'github'):
-        ?> 
-        class="expandfirst" 
-        <?php endif;?>
+        if ($controller == 'github'):
+            ?>
+            class="expandfirst"
+        <?php endif; ?>
             ><a href="#"><i class="icon-folder-open"></i>Source code</a>
             <ul class="nav nav-pills nav-stacked  menuindent">
-                <li <?php echo $this->currentPage()->active('info','github','index');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'index'),'default',true);?>" title="Github code changes">Code maintenance at Github</a></li>
-                <li <?php echo $this->currentPage()->active('info','github','commits');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'commits'),'default',true);?>">Commits</a></li>
-                <li <?php echo $this->currentPage()->active('info','github','issues');?>><a href="<?php echo $this->url(array('module' => 'info','controller' => 'github','action' => 'issues'),'default',true);?>">Issues</a></li>
+                <li <?php echo $this->currentPage()->active('info', 'github', 'index'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'info', 'controller' => 'github', 'action' => 'index'), 'default', true); ?>"
+                        title="Github code changes">Code maintenance at Github</a></li>
+                <li <?php echo $this->currentPage()->active('info', 'github', 'commits'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'info', 'controller' => 'github', 'action' => 'commits'), 'default', true); ?>">Commits</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('info', 'github', 'issues'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'info', 'controller' => 'github', 'action' => 'issues'), 'default', true); ?>">Issues</a>
+                </li>
             </ul>
         </li>
-        <li <?php echo $this->currentPage()->active('info','content','page', 'rss');?>>
-            <a href="<?php echo $this->url(array('module' => 'info','controller' => 'content','action' => 'page','slug' => 'rss'),'i',true);?>" title="Read about available RSS and Atom feeds">RSS feeds</a></li>
-        <li <?php echo $this->currentPage()->active('analytics','index','index');?>></li><a href="<?php echo $this->url(array('module' => 'analytics'),'default', true);?>">Analytics</a></li>
+        <li <?php echo $this->currentPage()->active('info', 'content', 'page', 'rss'); ?>>
+            <a href="<?php echo $this->url(array('module' => 'info', 'controller' => 'content', 'action' => 'page', 'slug' => 'rss'), 'i', true); ?>"
+               title="Read about available RSS and Atom feeds">RSS feeds</a></li>
+        <li <?php echo $this->currentPage()->active('analytics', 'index', 'index'); ?>></li>
+        <a href="<?php echo $this->url(array('module' => 'analytics'), 'default', true); ?>">Analytics</a></li>
     </ul>
 </div>

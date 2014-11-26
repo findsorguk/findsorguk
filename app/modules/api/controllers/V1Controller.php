@@ -15,7 +15,7 @@ class Api_V1Controller extends REST_Controller
     	
 	
 	public function indexAction(){
-	$params = $this->_getAllParams();
+	$params = $this->getAllParams();
 	$search = new Pas_Solr_Handler();
         $search->setCore('objects');
 	$fields = new Pas_Solr_FieldGeneratorFinds($this->_helper->contextSwitch->getCurrentContext());
@@ -25,7 +25,7 @@ class Api_V1Controller extends REST_Controller
 	$this->view->pagination = $this->createPagination($search->createPagination());
 	$this->view->stats = $search->processStats();
 	$this->view->results = $search->processResults();
-	$this->view->params = $this->_getAllParams();
+	$this->view->params = $this->getAllParams();
 	$this->_response->ok();
     }
     

@@ -2,7 +2,7 @@
 $this->headTitle('Map of people\'s locations when recorded');
 $this->googleDynamicMap();
 ?>
-<h2>A Map of people's locations</h2>
+<h2 class="lead">A Map of people's locations</h2>
 <?php $this->inlineScript()->captureStart() ?>
  $(document).ready(function() {
   var center = new google.maps.LatLng(54.70235509327093, -3.2080078125);
@@ -38,7 +38,7 @@ $this->googleDynamicMap();
         	position: latlng, 
         	map: map,  
         	title: title,
-        	icon: "<?php echo $this->serverUrl() . $this->baseUrl();?>/assets/mapIcons/museum_archeological.png"" });
+        	icon: "<?php echo $this->serverUrl() . $this->baseUrl();?>/assets/mapIcons/museum_archeological.png" });
 
         // now that the marker is placed, assign event listener on the marker
         // and create/assign infowindow to the event trigger.

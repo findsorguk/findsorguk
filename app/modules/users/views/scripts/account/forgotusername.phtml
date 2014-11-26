@@ -1,6 +1,10 @@
 <?php
 $this->headTitle('Retrieve your username');
-$this->headMeta('Recover your password for the Scheme\'s database','description');
+$this->headMeta('Recover your password for the Scheme\'s database', 'description');
+$this->metaBase()
+    ->setDescription('A function to recover a password for the PAS system')
+    ->setKeywords('password,retrieval')
+    ->generate();
 ?>
-<h2>Retrieve your username</h2>
-<?php echo $this->form;?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

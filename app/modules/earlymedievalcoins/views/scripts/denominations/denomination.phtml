@@ -1,9 +1,10 @@
-<?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms) ;?>
+<?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms); ?>
 
-<h3>Issued by</h3>
-
-<ul>
-    <?php echo $this->partialLoop('partials/numismatics/rulerDenom.phtml', $this->rulers);?>
-</ul>
-
-<?php echo $this->latestRecords()->setQuery('denomination:' . $this->id);?>
+    <h3 class="lead">Issued by</h3>
+<?php if (!empty($this->rulers)): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulerDenom.phtml', $this->rulers); ?>
+    </ul>
+<?php else: ?>
+    <p>No rulers listed.</p>
+<?php endif; ?>

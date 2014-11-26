@@ -1,48 +1,39 @@
 <?php
 $this->headTitle('Administer content');
+$this->metaBase()
+    ->setDescription('The administrative console for news added to the system')
+    ->setKeywords('news,content,updates,scheme')
+    ->setSubject('Static news content')
+    ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<?php 
-echo $this->form;
-
-if ($this->contents): 
-?>
+<?php echo $this->form; ?>
+<?php if (!empty($this->contents)): ?>
 
 
-<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'content','action' => 'add'),null,true);?>" title="">Add new content</a></p>
-<table class="table table-striped" summary="All content entered on the system">
-<caption>All content entered</caption>
-<thead>
-<tr>
-<th>Title</th>
-<th>Section</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Status</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/contentTable.phtml',$this->contents);?>
-</tbody>
-<tfoot>
-<tr>
-<th>Title</th>
-<th>Section</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Status</th>
-<th>Actions</th>
-</tr>
-</tfoot>
-</table>
-<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>No content found that matches your query</p>
-<?php endif;?>
+    <p><a class="btn btn-small btn-success"
+          href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'content', 'action' => 'add'), null, true); ?>"
+          title="">Add new content</a></p>
+    <table class="table table-striped" summary="All content entered on the system">
+        <caption>All content entered</caption>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Section</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/contentTable.phtml', $this->contents); ?>
+        </tbody>
 
+    </table>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No content found that matches your query</p>
+<?php endif; ?>

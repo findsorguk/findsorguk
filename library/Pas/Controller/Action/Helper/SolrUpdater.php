@@ -28,8 +28,8 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @todo change core names through out site
      */
     protected $_cores = array(
-        'beowulf', 'beopeople', 'beoimages',
-        'beopublications','beobiblio','beocontent'
+        'objects', 'people', 'images',
+        'publications','bibliography','content'
         );
 
     /** The solr object
@@ -115,23 +115,26 @@ class Pas_Controller_Action_Helper_SolrUpdater
     protected function _getIdentifier($core){
 	if(in_array($core, $this->_cores)){
             switch($core) {
-                case 'beowulf':
+                case 'objects':
                     $identifier = 'finds-';
                     break;
-                case 'beopeople':
+                case 'people':
                     $identifier = 'people-';
                     break;
-                case 'beocontent':
+                case 'content':
                     $identifier = 'content-';
                     break;
-                case 'beobiblio':
+                case 'bibliography':
                     $identifier = 'biblio-';
                     break;
-                case 'beoimages':
+                case 'images':
                     $identifier = 'images-';
                     break;
-                case 'beopublications':
+                case 'publications':
                     $identifier = 'publications-';
+                    break;
+                case 'hoards':
+                    $identifier = 'hoards-';
                     break;
                 default:
                     throw new Exception('Your core does not exist',500);
@@ -153,24 +156,27 @@ class Pas_Controller_Action_Helper_SolrUpdater
     public function getUpdateData($core, $id, $type = null){
 	if(in_array($core, $this->_cores)){
             switch($core){
-                case 'beowulf':
+                case 'objects':
                     $model = new Finds();
                     break;
-                case 'beopeople':
+                case 'people':
                     $model = new People();
                     break;
-                case 'beocontent':
+                case 'content':
                     $type = ucfirst($type);
                     $model = new $type;
                     break;
-                case 'beobiblio':
+                case 'bibliography':
                     $model = new Bibliography();
                     break;
-                case 'beoimages':
+                case 'images':
                     $model = new Slides();
                     break;
-                case 'beopublications':
+                case 'publications':
                     $model = new Publications();
+                    break;
+                case 'hoards':
+                    $model = new Hoards();
                     break;
                 default:
                     throw new Exception('Your core does not exist',500);

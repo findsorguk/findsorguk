@@ -46,6 +46,15 @@ class Pas_View_Helper_EditReference
     }
     }
 
+    /** Get the controller
+     * @access public
+     * @return object
+     */
+    public function getController() {
+        $this->_controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+        return $this->_controller;
+    }
+
     public function checkAccessbyUserID($createdBy)
     {
     if ($createdBy == $this->getUserID()) {
@@ -79,13 +88,17 @@ class Pas_View_Helper_EditReference
     'controller' => 'references',
     'action' => 'edit',
     'id' => $i,
-    'findID' => $fID),NULL,TRUE) . '" title="Edit this reference">Edit</a> | <a href="'
+    'findID' => $fID,
+            'recordtype' => $this->getController()
+        ),NULL,TRUE) . '" title="Edit this reference">Edit</a> | <a href="'
     . $this->view->url(array(
     'module' => 'database',
     'controller' => 'references',
     'action' => 'delete',
     'id' => $i,
-    'findID' => $fID),NULL,TRUE)
+    'findID' => $fID,
+            'recordtype' => $this->getController()
+        ),NULL,TRUE)
     . '" title="Delete this reference">Delete</a>';
     $html .= '.</li>'."\n";
 

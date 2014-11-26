@@ -1,5 +1,5 @@
 <div class="hnews hentry item">
-<h3><a class="url entry-title" rel="bookmark" href="<?php echo $this->url(array('module' => 'news','controller' => 'story','action' => 'index','id' => $this->id),'newsstory',true);?>" title="Read this news story"><?php echo $this->title;?></a></h3>
+<h3 class="lead"><a class="url entry-title" rel="bookmark" href="<?php echo $this->url(array('module' => 'news','controller' => 'story','action' => 'index','id' => $this->id),'newsstory',true);?>" title="Read this news story"><?php echo $this->title;?></a></h3>
 <p><span class="updated dtstamp" title="<?php
 $date = strtotime($this->d);
 echo date(DATE_ATOM,$date);?>">Published: <?php echo  $this->timeAgoInWords($this->golive);?></span> Author:<span class="vcard">

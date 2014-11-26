@@ -1,6 +1,7 @@
 <?php
+
 /** Controller for all rendering the advice section of the treasure module
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category   Pas
@@ -10,22 +11,26 @@
  * @version 1
  * @uses Content
  */
-class Secrettreasures_ContentController extends Pas_Controller_Action_Admin {
+class Secrettreasures_ContentController extends Pas_Controller_Action_Admin
+{
 
     /** Initialise the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         $this->_helper->acl->allow(null);
-        
+
     }
+
     /**  Render the index page
      * @access public
      * @return void
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         $content = new Content();
-        $this->view->contents = $content->getSecretContent('secret',$this->getRequest()->getParam('slug'));
+        $this->view->contents = $content->getSecretContent('secret', $this->getRequest()->getParam('slug'));
     }
 }

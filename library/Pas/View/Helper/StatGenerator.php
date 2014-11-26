@@ -1,4 +1,5 @@
 <?php
+
 /** Class for generating stats for the database
  * @uses Exception Zend_Exception
  * @uses partial Zend_View_Helper_Partial
@@ -30,16 +31,16 @@ class Pas_View_Helper_StatGenerator extends Zend_View_Helper_Abstract
 
     /** Set up the stats array
      * @access public
-     * @param  array                          $stats
+     * @param  array $stats
      * @return \Pas_View_Helper_StatGenerator
      * @throws Zend_Exception
      */
     public function setStats(array $stats)
     {
-        if (is_array ( $stats) ) {
+        if (is_array($stats)) {
             $this->_stats = $stats;
         } else {
-            throw new Zend_Exception( 'You need to use an array', 500);
+            throw new Zend_Exception('You need to use an array', 500);
         }
 
         return $this;
@@ -61,7 +62,7 @@ class Pas_View_Helper_StatGenerator extends Zend_View_Helper_Abstract
     public function html()
     {
         return $this->view->partial('partials/database/statSearch.phtml',
-                $this->getStats());
+            $this->getStats());
     }
 
     /** The stat generator function

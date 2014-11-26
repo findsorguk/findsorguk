@@ -1,6 +1,11 @@
-<?php 	
-$this->headTitle('Iron age regions issuing coins');?>
-<h2>Iron Age geographic regions</h2>
+<?php
+$this->headTitle('Iron age regions issuing coins');
+$this->metaBase()->setSubject('Iron Age Numismatics')
+    ->setKeywords('iron age,coins,geography,regions,numismatics')
+    ->setDescription('A list of iron age regions issuing coins')
+    ->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <ul>
-<?php echo $this->partialLoop('partials/numismatics/ironageregions.phtml', $this->regions) ?>
+    <?php echo $this->partialLoop('partials/numismatics/ironAgeRegions.phtml', $this->regions) ?>
 </ul>

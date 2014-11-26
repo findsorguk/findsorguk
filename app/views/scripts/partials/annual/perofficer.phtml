@@ -1,12 +1,26 @@
-<?php if($this->institution != 'PUBLIC'):?>
-<?php $name =  $this->fullname;?>
-<?php else:?>
-<?php $name =  md5($this->fullname);?>
-<?php endif;?>
+<?php if ($this->institution != 'PUBLIC'): ?>
+    <?php $name = $this->fullname; ?>
+<?php else: ?>
+    <?php $name = md5($this->fullname); ?>
+<?php endif; ?>
 <tr>
-<td><a href="
-<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','createdBy' => $this->id,'createdAfter' => $this->datefrom,'createdBefore' => $this->dateto),'default',true);?>" title="Find all records created by <?php echo $name;?> on these dates"><?php echo $name;?></a></td>
-<td><?php echo $this->institution;?></td>
-<td><?php echo $this->finds;?></td>
-<td><?php echo $this->records;?></td>
+    <?php
+        $url = array(
+            'module' => 'database', 'controller' => 'search', 'action' => 'results',
+            'createdBy' => $this->id, 'createdAfter' => $this->datefrom, 'createdBefore' => $this->dateto
+        );
+    ?>
+    <td>
+        <a href="<?php echo $this->url($url, 'default', true); ?>" title="Find all records created by
+        <?php echo $name; ?> on these dates"><?php echo $name; ?></a>
+    </td>
+    <td>
+        <?php echo $this->institution; ?>
+    </td>
+    <td>
+        <?php echo $this->finds; ?>
+    </td>
+    <td>
+        <?php echo $this->records; ?>
+    </td>
 </tr>

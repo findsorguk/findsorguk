@@ -1,8 +1,1 @@
-<?php $this->headTitle('Scope notes for completeness type of ' 
-        . $this->comps['0']['term']);
-$this->headMeta('Scope notes for completeness type of ' . $this->comps['0']['term']
-        . ' and thumnbnails of latest records attributed','description');
-$this->headMeta('completeness,'.$this->comps['0']['term'].',type,portable antiquities,terminology','dc.keywords');?>
-<h2>Details for <?php echo $this->comps['0']['term'];?></h2>
-<?php echo $this->comps['0']['description'];?>
-<?php echo $this->latestRecords()->setQuery('completeness:' .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+<?php echo $this->partial('partials/datalabs/completenessDetails.phtml', $this->comps[0]);?>

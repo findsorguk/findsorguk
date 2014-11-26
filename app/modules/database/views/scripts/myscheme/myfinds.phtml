@@ -1,61 +1,64 @@
 <?php
 $this->headTitle('All finds created by me');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
 
-<h2>All finds and coins recorded by <?php echo $this->fullName();?></h2>
+<h2 class="lead">All finds and coins recorded by <?php echo $this->fullName(); ?></h2>
 
-<?php echo $this->loggedInLinks();?>
+<?php echo $this->loggedInLinks(); ?>
 
-<?php if($this->params):?>
-<?php echo $this->SearchParams($this->params);?>
-<?php endif;?>
+<?php if (!empty($this->params)): ?>
+    <?php echo $this->searchParams($this->params); ?>
+<?php endif; ?>
 
-<?php echo $this->form;?>
+<?php echo $this->form; ?>
 <div class="row-fluid">
 
-    	<?php if ($this->results): ?>
-		<div class="span9">
-        <?php echo $this->partialLoop('partials/database/findRecordList.phtml',$this->results);?>
+    <?php if ($this->results): ?>
+        <div class="span9">
+            <?php echo $this->partialLoop('partials/database/findRecordList.phtml', $this->results); ?>
         </div>
         <div class="span3">
-        <p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'map'),null,false);?>" title="Map these records">Map these finds <i class="icon-map-marker"></i></a></p>
-      <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
-        <?php echo $this->thumbnailToggler();?>
-        <?php echo $this->resultsSorter()->setResults($this->paginator);?>
-        <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>
-        <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
-		<?php echo $this->statGenerator()->setStats($this->stats);?>
-		<?php echo $this->facetCreatorMyFinds($this->facets); ?>
-		</div>
-        <?php else:?>
+            <p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'map', 'q' => 'createdBy:' . $this->userID), null, false); ?>"
+                  title="Map these records">Map these finds <i class="icon-map-marker"></i></a></p>
+            <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
+            <?php echo $this->thumbnailToggler(); ?>
+            <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
+            <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount()); ?></p>
+            <?php echo $this->paginationControl($this->paginator, 'elastic', 'structure/paginationSolr.phtml'); ?>
+            <?php echo $this->statGenerator()->setStats($this->stats); ?>
+            <?php echo $this->facetCreatorMyFinds($this->facets); ?>
+        </div>
+    <?php else: ?>
 
-    	<p>No records are available.
+    <p>No records are available.
 
         <?php endif; ?>
 
 </div>
 <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php
-$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type='text/javascript');
+$this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type = 'text/javascript');
 $this->inlineScript()->captureStart();
 ?>
 $(document).ready(function() {
-	$('#print').click(function() {
-	window.print();
-	return false;
-	});
-
-    $('.overlay').click(function(e) {
-    e.preventDefault();
-    var href = $(e.target).attr('href');
-    if (href.indexOf('#') == 0) {
-        $(href).modal('open');
-    } else {
-        $.get(href, function(data) {
-            $('<div class="modal fade" >' + data + '</div>').modal();
-        });
-    }
+$('#print').click(function() {
+window.print();
+return false;
 });
 
-	});
-<?php $this->inlineScript()->captureEnd();?>
+$('.overlay').click(function(e) {
+e.preventDefault();
+var href = $(e.target).attr('href');
+if (href.indexOf('#') == 0) {
+$(href).modal('open');
+} else {
+$.get(href, function(data) {
+$('
+<div class="modal fade">' + data + '</div>').modal();
+});
+}
+});
+
+});
+<?php $this->inlineScript()->captureEnd(); ?>

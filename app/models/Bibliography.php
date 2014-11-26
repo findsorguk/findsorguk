@@ -41,18 +41,25 @@ class Bibliography extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function fetchFindBook($id){
-    	if (!$data = $this->_cache->load('bibliobook' . (int)$id)) {
+    public function fetchFindBook($id, $table = 'finds'){
+        if($table == 'artefacts') {
+            $useTable = 'finds';
+        } else {
+            $useTable = $table;
+        }
+        $rows = $this->_cache->load('bibliobook' . (int)$id . $table);
+    	if (!$rows ) {
         $refs = $this->getAdapter();
         $select = $refs->select()
                 ->from($this->_name, array('pages_plates','reference','pubID'))
                 ->joinLeft('publications','publications.secuid = bibliography.pubID',
                         array('publicationtitle' => 'title', 'authors'))
-                ->joinLeft('finds','finds.secuid = bibliography.findID', array('id'))
+                ->joinLeft(array('recordtable' => $useTable),'recordtable.secuid = bibliography.findID', array('id'))
                 ->where($this->_name . '.id = ?', $id);
-        $data = $refs->fetchAll($select);
-    	$this->_cache->save($data, 'bibliobook' . (int)$id);
+            $rows = $refs->fetchAll($select);
+            $rows[0]['controller'] = $table;
+    	$this->_cache->save($rows, 'bibliobook' . (int)$id . $table);
     	}
-        return $data;
+        return $rows;
     }
 }

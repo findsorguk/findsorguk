@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Model for pulling news data from database
  *
@@ -22,12 +23,13 @@
  *
  *
  */
-class News extends Pas_Db_Table_Abstract {
+class News extends Pas_Db_Table_Abstract
+{
 
-   /** The table name
-    * @access protected
-    * @var string
-    */
+    /** The table name
+     * @access protected
+     * @var string
+     */
     protected $_name = 'news';
 
     /** The primary key
@@ -58,10 +60,11 @@ class News extends Pas_Db_Table_Abstract {
      * @access public
      * @return \Pas_Service_Geo_Geoplanet
      */
-    public function getGeoPlanet() {
+    public function getGeoPlanet()
+    {
         $this->_geoPlanet = new Pas_Service_Geo_Geoplanet(
-                $this->_config->webservice->ydnkeys->appid
-                );
+            $this->_config->webservice->ydnkeys->appid
+        );
         return $this->_geoPlanet;
     }
 
@@ -69,7 +72,8 @@ class News extends Pas_Db_Table_Abstract {
      * @access public
      * @return \Pas_Service_Geo_Coder
      */
-    public function getGeoCoder() {
+    public function getGeoCoder()
+    {
         $this->_geoCoder = new Pas_Service_Geo_Coder();
         return $this->_geoCoder;
     }
@@ -77,15 +81,16 @@ class News extends Pas_Db_Table_Abstract {
     /** Get all news articles
      * @return array
      * @access public
-    */
-    public function getNews() {
+     */
+    public function getNews()
+    {
         $news = $this->getAdapter();
         $select = $news->select()
-                ->from($this->_name)
-                ->where('golive <= NOW()')
-                ->where('publish_state > ?', (int)0)
-                ->order('golive DESC')
-                ->limit((int)25);
+            ->from($this->_name)
+            ->where('golive <= NOW()')
+            ->where('publish_state > ?', (int)0)
+            ->order('golive DESC')
+            ->limit((int)25);
         return $news->fetchAll($select);
     }
 
@@ -93,16 +98,17 @@ class News extends Pas_Db_Table_Abstract {
      * @return array
      * @access public
      */
-    public function getHeadlines() {
+    public function getHeadlines()
+    {
         $key = md5('newsHeadlines');
         if (!$data = $this->_cache->load($key)) {
             $news = $this->getAdapter();
             $select = $news->select()
-                    ->from($this->_name)
-                    ->where('golive <= NOW()')
-                    ->where('publish_state > ?', 0)
-                    ->order('id DESC')
-                    ->limit((int)5);
+                ->from($this->_name)
+                ->where('golive <= NOW()')
+                ->where('publish_state > ?', 0)
+                ->order('id DESC')
+                ->limit((int)5);
             $data = $news->fetchAll($select);
             $this->_cache->save($data, $key);
         }
@@ -114,28 +120,29 @@ class News extends Pas_Db_Table_Abstract {
      * @param array $params
      * @return array
      */
-    public function getAllNewsArticles(array $params) {
+    public function getAllNewsArticles(array $params)
+    {
         $news = $this->getAdapter();
         $select = $news->select()
-                ->from($this->_name, array(
-                    'datePublished', 'title', 'id',
-                    'summary', 'contents', 'created',
-                    'd' =>'updated', 'latitude', 'longitude',
-                    'updated', 'golive', 'author',
-                    'contactEmail'
-                    ))
-                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
-                        array('fullname', 'username'))
-                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy',
-                        array('fn' => 'fullname', 'un' => 'username'))
-                ->joinLeft('staff', 'staff.dbaseID = users.id',
-                        array('personID' => 'id'))
-                ->where('golive <= NOW()')
-                ->where('publish_state > ?', (int)0)
-                ->order('created DESC');
+            ->from($this->_name, array(
+                'datePublished', 'title', 'id',
+                'summary', 'contents', 'created',
+                'd' => 'updated', 'latitude', 'longitude',
+                'updated', 'golive', 'author',
+                'contactEmail'
+            ))
+            ->joinLeft('users', 'users.id = ' . $this->_name . '.createdBy',
+                array('fullname', 'username'))
+            ->joinLeft('users', 'users_2.id = ' . $this->_name . '.updatedBy',
+                array('fn' => 'fullname', 'un' => 'username'))
+            ->joinLeft('staff', 'staff.dbaseID = users.id',
+                array('personID' => 'id'))
+            ->where('golive <= NOW()')
+            ->where('publish_state > ?', (int)0)
+            ->order('created DESC');
         $data = $news->fetchAll($select);
         $paginator = Zend_Paginator::factory($data);
-        if(isset($params['page']) && ($params['page'] != "")) {
+        if (isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber((int)$params['page']);
         }
         $paginator->setItemCountPerPage(10)->setPageRange(10);
@@ -147,20 +154,21 @@ class News extends Pas_Db_Table_Abstract {
      * @param array $params
      * @return array
      */
-    public function getAllNewsArticlesAdmin(array $params) {
+    public function getAllNewsArticlesAdmin(array $params)
+    {
         $news = $this->getAdapter();
         $select = $news->select()
-                ->from($this->_name)
-                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
-                        array('fullname'))
-                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy',
-                        array('fn' => 'fullname'))
-                ->order('id DESC');
-        if(in_array($this->getUserRole(),$this->_higherlevel)) {
-            $select->where($this->_name . '.createdBy = ?',$this->getUserNumber());
+            ->from($this->_name)
+            ->joinLeft('users', 'users.id = ' . $this->_name . '.createdBy',
+                array('fullname'))
+            ->joinLeft('users', 'users_2.id = ' . $this->_name . '.updatedBy',
+                array('fn' => 'fullname'))
+            ->order('id DESC');
+        if (in_array($this->getUserRole(), $this->_higherlevel)) {
+            $select->where($this->_name . '.createdBy = ?', $this->getUserNumber());
         }
         $paginator = Zend_Paginator::factory($select);
-        if(isset($params['page']) && ($params['page'] != "")) {
+        if (isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber((int)$params['page']);
         }
         $paginator->setItemCountPerPage(10)->setPageRange(10);
@@ -172,21 +180,22 @@ class News extends Pas_Db_Table_Abstract {
      * @return array
      * @todo change to by slug eventually and make nicer urls.
      */
-    public function getStory($id) {
+    public function getStory($id)
+    {
         $news = $this->getAdapter();
         $select = $news->select()
-                ->from($this->_name, array(
-                    'created', 'd' => 'DATE_FORMAT(datePublished,"%D %M %Y")',
-                    'title', 'id', 'contents', 'link',
-                    'author', 'contactName', 'contactEmail',
-                    'contactTel', 'editorNotes', 'keywords',
-                    'golive'))
-                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
-                        array('fullname'))
-                ->joinLeft('staff', 'staff.dbaseID = users.id',
-                        array('personID' => 'id'))
-                ->where('news.id = ?',(int)$id)
-                ->order('datePublished DESC');
+            ->from($this->_name, array(
+                'created', 'd' => 'DATE_FORMAT(datePublished,"%D %M %Y")',
+                'title', 'id', 'contents', 'link',
+                'author', 'contactName', 'contactEmail',
+                'contactTel', 'editorNotes', 'keywords',
+                'golive'))
+            ->joinLeft('users', 'users.id = ' . $this->_name . '.createdBy',
+                array('fullname'))
+            ->joinLeft('staff', 'staff.dbaseID = users.id',
+                array('personID' => 'id'))
+            ->where('news.id = ?', (int)$id)
+            ->order('datePublished DESC');
         return $news->fetchAll($select);
     }
 
@@ -195,13 +204,14 @@ class News extends Pas_Db_Table_Abstract {
      * @return array
      * @todo add caching?
      */
-    public function getMapData() {
+    public function getMapData()
+    {
         $events = $this->getAdapter();
         $select = $events->select()
-                ->from($this->_name, array(
-                    'id','title','lat' => 'latitude', 'lon' => 'longitude',
-                    'contents'))
-                ->where('latitude IS NOT NULL');
+            ->from($this->_name, array(
+                'id', 'title', 'lat' => 'latitude', 'lon' => 'longitude',
+                'contents'))
+            ->where('latitude IS NOT NULL');
         return $events->fetchAll($select);
     }
 
@@ -210,32 +220,34 @@ class News extends Pas_Db_Table_Abstract {
      * @return array
      * @todo add caching?
      */
-    public function getSitemapNews(){
+    public function getSitemapNews()
+    {
         if (!$data = $this->_cache->load('newscached')) {
             $news = $this->getAdapter();
             $select = $news->select()
-                    ->from($this->_name,array('id','title','updated'))
-                    ->where('golive <= CURDATE()')
-                    ->order('id DESC');
+                ->from($this->_name, array('id', 'title', 'updated'))
+                ->where('golive <= CURDATE()')
+                ->order('id DESC');
             $data = $news->fetchAll($select);
             $this->_cache->save($data, 'newscached');
         }
         return $data;
     }
 
-    public function getCoords( $place ){
+    public function getCoords($place)
+    {
         $data = array();
         $coords = $this->getGeoCoder()->getCoordinates($place);
-        if($coords){
+        if ($coords) {
             $data['latitude'] = $coords['lat'];
             $data['longitude'] = $coords['lon'];
             $place = $this->getGeoPlanet()->reverseGeoCode($data['latitude'], $data['longitude']);
             $data['woeid'] = $place['woeid'];
         } else {
             $data['latitude'] = null;
-            $data['longitude']  = null;
+            $data['longitude'] = null;
             $data['woeid'] = null;
-            }
+        }
         return $data;
     }
 
@@ -245,25 +257,26 @@ class News extends Pas_Db_Table_Abstract {
      * @return array
      * @throws Exception
      */
-    public function addNews(array $data){
-        if(is_array($data)){
+    public function addNews(array $data)
+    {
+        if (is_array($data)) {
             $coords = $this->getCoords($data['primaryNewsLocation']);
-            if(array_key_exists('csrf', $data)){
+            if (array_key_exists('csrf', $data)) {
                 unset($data['csrf']);
             }
-            if(empty($data['created'])){
+            if (empty($data['created'])) {
                 $data['created'] = $this->timeCreation();
             }
-            if(empty($data['createdBy'])){
+            if (empty($data['createdBy'])) {
                 $data['createdBy'] = $this->getUserNumber();
             }
             $clean = array_merge($data, $coords);
-            foreach($clean as $k => $v) {
-                if ( $v == "") {
+            foreach ($clean as $k => $v) {
+                if ($v == "") {
                     $clean[$k] = null;
                 }
             }
-        return parent::insert($clean);
+            return parent::insert($clean);
         } else {
             throw new Exception(('The insert data must be in array format.'));
         }
@@ -275,17 +288,18 @@ class News extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function updateNews(array $data, $id){
+    public function updateNews(array $data, $id)
+    {
         $coords = $this->getCoords($data['primaryNewsLocation']);
-        if(empty($data['updated'])){
+        if (empty($data['updated'])) {
             $data['updated'] = $this->timeCreation();
         }
-        if(empty($data['updatedBy'])){
+        if (empty($data['updatedBy'])) {
             $data['updatedBy'] = $this->getUserNumber();
         }
         $clean = array_merge($data, $coords);
         $where = array();
-        $where[] =  $this->getAdapter()->quoteInto($this->_primary . ' = ?', $id);
+        $where[] = $this->getAdapter()->quoteInto($this->_primary . ' = ?', $id);
         return parent::update($clean, $where);
     }
 
@@ -294,18 +308,21 @@ class News extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function getSolrData($id){
+    public function getSolrData($id)
+    {
         $contents = $this->getAdapter();
-        $select = $contents->select()->from($this->_name,array(
-                        'identifier' => 'CONCAT("news-",news.id)',
-                        'id',
-                        'title',
-                        'excerpt' => 'summary',
-                        'body' => 'contents',
-                        'created',
-                        'updated',
-                         ))
-                ->where($this->_name .  '.id = ?',(int)$id);
+        $select = $contents->select()->from($this->_name, array(
+            'identifier' => 'CONCAT("news-",news.id)',
+            'id',
+            'title',
+            'excerpt' => 'summary',
+            'body' => 'contents',
+            'created',
+            'updated',
+        ))
+            ->joinLeft(array('users' => 'users1'), 'news.createdBy = users1.id', array('fullname' => 'createdBy'))
+            ->joinLeft(array('users' => 'users2'), 'news.updatedBy = users2.id', array('fullname' => 'updatedBy'))
+            ->where($this->_name . '.id = ?', (int)$id);
         $data = $contents->fetchAll($select);
         $data[0]['type'] = 'news';
         $data[0]['section'] = 'news';

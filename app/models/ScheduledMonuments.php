@@ -45,11 +45,11 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param integer $distance
      * @return array
      */
-    public function getSMRSNearby($lat,$long,$distance = 0.25) {
+    public function getSMRSNearby($lat, $long, $distance = 0.25) {
         $pi = '3.141592653589793';
         $nearbys = $this->getAdapter();
         $select = $nearbys->select()
-                ->from($this->_name,array( 
+                ->from($this->_name, array(
                     'monumentName', 'id', 'lat',
                     'lon','distance' => 'acos((SIN(' . $pi . '*' . $lat 
                         . '/180 ) * SIN(' . $pi . '* lat /180)) + (cos('

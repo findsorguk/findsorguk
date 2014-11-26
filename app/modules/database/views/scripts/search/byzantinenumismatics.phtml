@@ -8,11 +8,20 @@ $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jQueryLinkedSele
 $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedSelect.js',$type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedQuery.js',$type='text/javascript');
 
+$this->metaBase()->setDescription('A search form for manipulating data for Byzantine coin searches')
+    ->setSubject('Byzantine numismatics')
+    ->setKeywords('search, coins, numismatics, database, byzantine')
+    ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
-<p>This form allows you to perform some more advanced database searches. More specific numismatic searching can be affected from period specific forms.</p>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
+<p>
+    This form allows you to perform some more advanced database searches. More specific numismatic searching can be
+    affected from period specific forms.
+</p>
 
 <div>
-<?php echo $this->byzantineform; ?>
+    <?php echo $this->byzantineform; ?>
 </div>
 

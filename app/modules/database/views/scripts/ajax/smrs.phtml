@@ -6,7 +6,7 @@ $documentNode = $dom->createElement('markers');
 $dom->appendChild($documentNode);
 foreach($this->results as $result){
 	
-	$url = $this->serverUrl() .  '/database/smr/record/id/';
+	$url = $this->serverUrl() .  '/datalabs/smr/record/id/';
     if(!is_null($result['longitude'])){
         $title = $result['name'];
 		$content = '<a href="' . $url . $result['id'] . '">' . $title . '</a>';

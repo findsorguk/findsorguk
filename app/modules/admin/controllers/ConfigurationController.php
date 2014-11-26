@@ -1,4 +1,5 @@
 <?php
+
 /** Controller viewing the current configuration variables
  *
  * @category   Pas
@@ -9,23 +10,36 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
  */
-class Admin_ConfigurationController extends Pas_Controller_Action_Admin {
+class Admin_ConfigurationController extends Pas_Controller_Action_Admin
+{
+
+    protected $_config;
+
+    /** Get the config object
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        $this->_config = $this->_helper->config();
+        return $this->_config;
+    }
+
 
     /** Set up the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('admin',null);
-        $this->_config = $this->_helper->config();
-        
+    public function init()
+    {
+        $this->_helper->_acl->allow('admin', null);
     }
 
     /** Display the index page
      * @access public
      * @return void
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         //Magic in view
     }
 
@@ -33,40 +47,45 @@ class Admin_ConfigurationController extends Pas_Controller_Action_Admin {
      * @access public
      * @return void
      */
-    public function webserviceAction(){
-        $this->view->webservice = $this->_config->webservice->toArray();
+    public function webserviceAction()
+    {
+        $this->view->webservice = $this->getConfig()->webservice->toArray();
     }
 
     /** Display the system configurations
      * @access public
      * @return void
      */
-    public function systemAction(){
-        $this->view->resources = $this->_config->resources->toArray();
+    public function systemAction()
+    {
+        $this->view->resources = $this->getConfig()->resources->toArray();
     }
 
     /** Display the routing configurations
      * @access public
      * @return void
      */
-    public function routingAction(){
-        $this->view->routing = $this->_config->routes->toArray();
+    public function routingAction()
+    {
+        $this->view->routing = $this->getConfig()->routes->toArray();
     }
 
     /** Display the ACL config
      * @access public
      * @return void
      */
-    public function aclAction(){
-        $this->view->acl = $this->_config->acl->toArray();
+    public function aclAction()
+    {
+        $this->view->acl = $this->getConfig()->acl->toArray();
     }
 
     /** Display salts used
      * @access public
      * @return void
      */
-    public function saltsAction(){
-        $this->view->salt = $this->_config->form->salt;
-        $this->view->authority = $this->_config->auth->salt;
+    public function saltsAction()
+    {
+        $this->view->salt = $this->getConfig()->form->salt;
+        $this->view->authority = $this->getConfig()->auth->salt;
     }
 }

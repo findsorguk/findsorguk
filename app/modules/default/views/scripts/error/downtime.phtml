@@ -1,7 +1,16 @@
-<?php $this->headTitle('Logged in section unavailable');?>
-<h1><?php echo $this->title();?></h1> 
+<?php
+$this->headTitle('Logged in section unavailable');
+$this->metaBase()->setSubject('Error report')
+    ->setDesxcription('A page shown when the database is taken offline')
+    ->generate();
+?>
+<h1 class="lead"><?php echo $this->title(); ?></h1>
 
 <p>Reindexing search engine, back shortly</p>
 
-<img src="http://farm9.staticflickr.com/8427/7757131284_a38bd4f9e9_z.jpg" alt="Tour party" class="img img-circle" />
-<p>The image above is a CC licenced image by <a href="http://www.flickr.com/photos/merryjack/" >J.C.Merriman</a> and shows a tour group being shown round the amazing lego colosseum at the Nicholson Museum, Sydney Australia.<br />This year they have an <a href="http://www.smh.com.au/photogallery/entertainment/art-and-design/lego-model-of-the-acropolis-20130709-2poga.html">Acropolis installation</a>.</p>
+<img src="http://farm9.staticflickr.com/8427/7757131284_a38bd4f9e9_z.jpg" alt="Tour party" class="img img-circle"/>
+<p>The image above is a CC licenced image by <a href="http://www.flickr.com/photos/merryjack/">J.C.Merriman</a> and
+    shows a tour group being shown round the amazing lego colosseum at the Nicholson Museum, Sydney Australia.<br/>This
+    year they have an <a
+        href="http://www.smh.com.au/photogallery/entertainment/art-and-design/lego-model-of-the-acropolis-20130709-2poga.html">Acropolis
+        installation</a>.</p>

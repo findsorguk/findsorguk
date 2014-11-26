@@ -1,28 +1,31 @@
-<?php 
+<?php
 $this->headTitle('Scheduled monuments listed on NMR by WOEID: ' . $this->woeid);
-$this->headMeta('This page lists all Scheduled Monuments or SMRs attached to ' 
-        . $this->woeid,'description');
+$this->metaBase()
+    ->setDescription('This page lists all Scheduled Monuments or SMRs attached to ' . $this->woeid)
+    ->setKeywords('Schedule, monument')
+    ->generate();
 ?>
-<h2>Scheduled monuments listed on the National Monuments Register by WOEID</h2>
-<p>The Scheduled Monuments listed below were provided by Martin Newman from English Heritage. We accept no responsibility for Errors and Omissions.</p>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>The Scheduled Monuments listed below were provided by Martin Newman from English Heritage. We accept no
+        responsibility for Errors and Omissions.</p>
 
-<?php if($this->smrs):?>
-<table class="table table-striped" summary="A list of all scheduled monuments in England">
-<thead>
-<tr>
-<th>Monument name</th>
-<th>Grid reference</th>
-<th>County</th>
-<th>District</th>
-<th>Parish</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/datalabs/smr.phtml',$this->smrs);?>
-</tbody>
-</table>
-<?php echo $this->paginationControl($this->smrs, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php if ($this->smrs): ?>
+    <table class="table table-striped" summary="A list of all scheduled monuments in England">
+        <thead>
+        <tr>
+            <th>Monument name</th>
+            <th>Grid reference</th>
+            <th>County</th>
+            <th>District</th>
+            <th>Parish</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/datalabs/smr.phtml', $this->smrs); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->smrs, 'Sliding', 'structure/pagination.phtml'); ?>
 
-<?php else:?>
-<p>No Scheduled Monuments are available to you right now.</p>
-<?php endif;?>
+<?php else: ?>
+    <p>No Scheduled Monuments are available to you right now.</p>
+<?php endif; ?>

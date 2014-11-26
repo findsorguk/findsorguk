@@ -1,5 +1,6 @@
-<?php 
-/** Controller for displaying overall statistics. 
+<?php
+
+/** Controller for displaying overall statistics.
  * @todo This is very slow due to number of queries. Maybe change to ajax calls?
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
@@ -12,38 +13,40 @@
  * @uses Finds
  * @uses Calendar
  * @uses Pas_ArrayFunctions
-*/
-class Database_StatisticsController extends Pas_Controller_Action_Admin {
+ */
+class Database_StatisticsController extends Pas_Controller_Action_Admin
+{
 
     /** The finds model
      * @access protected
      * @var \Finds
      */
     protected $_finds;
-    
+
     /** The array function class
      * @access protected
      * @var \Pas_ArrayFunctions
      */
     protected $_cleaner;
-    
+
     /** Get the array class
      * @access public
      * @return \Pas_ArrayFunctions
      */
-    public function getCleaner() {
+    public function getCleaner()
+    {
         return $this->_cleaner;
     }
-        
-    
+
 
     /** Initialise the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('public',null);
-        
+    public function init()
+    {
+        $this->_helper->_acl->allow('public', null);
+
         $this->_finds = new Finds();
     }
 
@@ -51,7 +54,8 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
      * @access public
      * @return \DatePickerForm
      */
-    public function renderForm(){
+    public function renderForm()
+    {
         $form = new DatePickerForm();
         $form->datefrom->setValue($this->_getParam('datefrom'));
         $form->dateto->setValue($this->_getParam('dateto'));
@@ -59,14 +63,15 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
         $form->setMethod('post');
         return $form;
     }
-    
+
     /** Index page showing calendrical interface to dates of recording
      * @access public
      * @return void
-     */	
-    public function indexAction() {
-        $date = $this->_getParam('date') ? $this->_getParam('date') : $this->getTimeForForms(); 
-        $calendar= new Calendar($date); 
+     */
+    public function indexAction()
+    {
+        $date = $this->_getParam('date') ? $this->_getParam('date') : $this->getTimeForForms();
+        $calendar = new Calendar($date);
         $cases = $this->_finds->getFindsByDay();
         $lists = array();
         foreach ($cases as $value) {
@@ -74,32 +79,33 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
         }
         $caseslisted = $lists;
         $calendar->highlighted_dates = $caseslisted;
-        $calendar->formatted_link_to = $this->view->baseUrl() 
-                . '/database/search/results/created/%Y-%m-%d';
+        $calendar->formatted_link_to = $this->view->baseUrl()
+            . '/database/search/results/created/%Y-%m-%d';
         print '<div id="calendar">';
-        
-        for($i=1;$i<=12;$i++){ 
-            if( $i == $calendar->month ){ 
-                print($calendar->output_calendar(null,null, 'table table-striped')); 
-            } else { 
-                print($calendar->output_calendar($calendar->year, $i, 'table table-striped')); 
-            } 
-        } 
-        print("</div>"); 
+
+        for ($i = 1; $i <= 12; $i++) {
+            if ($i == $calendar->month) {
+                print($calendar->output_calendar(null, null, 'table table-striped'));
+            } else {
+                print($calendar->output_calendar($calendar->year, $i, 'table table-striped'));
+            }
+        }
+        print("</div>");
     }
-	
+
     /** Page rendering records recorded annually
      * @access public
      * @return void
      */
-    public function annualAction() {
-        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom') 
-        : Zend_Date::now()->toString('yyyy').'-01-01'; 
-        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto') 
-        : Zend_Date::now()->toString('yyyy-MM-dd'); 
+    public function annualAction()
+    {
+        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom')
+            : Zend_Date::now()->toString('yyyy') . '-01-01';
+        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto')
+            : Zend_Date::now()->toString('yyyy-MM-dd');
         $this->view->annualsum = $this->_finds->getReportTotals($datefrom, $dateto);
-        $this->view->officers =  $this->_finds->getOfficerTotals($datefrom, $dateto);
-        $this->view->institution =  $this->_finds->getInstitutionTotals($datefrom, $dateto);
+        $this->view->officers = $this->_finds->getOfficerTotals($datefrom, $dateto);
+        $this->view->institution = $this->_finds->getInstitutionTotals($datefrom, $dateto);
         $this->view->periods = $this->_finds->getPeriodTotals($datefrom, $dateto);
         $this->view->finders = $this->_finds->getFindersTotals($datefrom, $dateto);
         $this->view->averages = $this->_finds->getAverageMonth($datefrom, $dateto);
@@ -114,33 +120,35 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
             $query = '';
-            foreach($params as $key => $value) {
+            foreach ($params as $key => $value) {
                 $query .= $key . '/' . $value . '/';
             }
-            $this->_redirect('/database/statistics/annual/' . $query);
+            $this->redirect('/database/statistics/annual/' . $query);
         } else {
             $form->populate($this->_request->getPost());
         }
     }
+
     /** Page rendering records recorded by county
-    */
-    public function countyAction() {
-        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom') 
-        : Zend_Date::now()->toString('yyyy').'-01-01'; 
-        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto') 
-        : Zend_Date::now()->toString('yyyy-MM-dd'); 
+     */
+    public function countyAction()
+    {
+        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom')
+            : Zend_Date::now()->toString('yyyy') . '-01-01';
+        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto')
+            : Zend_Date::now()->toString('yyyy-MM-dd');
         $county = $this->_getParam('county');
         $this->view->county = $county;
         $this->view->datefrom = $datefrom;
         $this->view->dateto = $dateto;
-        if(!isset($county)) {
-            $this->view->counties = $this->_finds->getCounties($datefrom,$dateto);
+        if (!isset($county)) {
+            $this->view->counties = $this->_finds->getCounties($datefrom, $dateto);
         } else {
             $this->view->countyTotal = $this->_finds->getCountyStat($datefrom, $dateto, $county);
             $this->view->creators = $this->_finds->getUsersStat($datefrom, $dateto, $county);
             $this->view->periods = $this->_finds->getPeriodTotalsCounty($datefrom, $dateto, $county);
             $this->view->finders = $this->_finds->getFinderTotalsCounty($datefrom, $dateto, $county);
-            $this->view->averages = $this->_finds->getAverageMonthCounty($datefrom,$dateto, $county);
+            $this->view->averages = $this->_finds->getAverageMonthCounty($datefrom, $dateto, $county);
             $this->view->year = $this->_finds->getYearFoundCounty($datefrom, $dateto, $county);
             $this->view->discovery = $this->_finds->getDiscoveryMethodCounty($datefrom, $dateto, $county);
             $this->view->landuse = $this->_finds->getLandUseCounty($datefrom, $dateto, $county);
@@ -149,45 +157,46 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
         $form = $this->renderForm();
         $this->view->form = $form;
         if ($this->_request->isPost()) {
-            $data =  $this->_request->getPost();
+            $data = $this->_request->getPost();
             if ($form->isValid($data)) {
                 $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
                 $query = '';
-                foreach($params as $key => $value) {
-                    $query .= $key.'/'.$value.'/';
+                foreach ($params as $key => $value) {
+                    $query .= $key . '/' . $value . '/';
                 }
-                $this->_redirect('/database/statistics/county/'.$query);
+                $this->redirect('/database/statistics/county/' . $query);
             } else {
                 $form->populate($data);
             }
         }
     }
-	
+
     /** Page rendering records recorded by region
      * @access public
      * @return void
-    */
-    public function regionalAction() {
-        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom') 
-        : Zend_Date::now()->toString('yyyy').'-01-01'; 
-        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto') 
-        : Zend_Date::now()->toString('yyyy-MM-dd'); 
+     */
+    public function regionalAction()
+    {
+        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom')
+            : Zend_Date::now()->toString('yyyy') . '-01-01';
+        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto')
+            : Zend_Date::now()->toString('yyyy-MM-dd');
         $region = $this->_getParam('region');
         $this->view->region = $region;
         $this->view->datefrom = $datefrom;
         $this->view->dateto = $dateto;
-        if(!isset($region)) {
-            $this->view->regions = $this->_finds->getRegions($datefrom,$dateto);
+        if (!isset($region)) {
+            $this->view->regions = $this->_finds->getRegions($datefrom, $dateto);
         } else {
             $this->view->regionTotal = $this->_finds->getRegionStat($datefrom, $dateto, $region);
-            $this->view->creators    = $this->_finds->getUsersRegionStat($datefrom, $dateto, $region);
-            $this->view->periods     = $this->_finds->getPeriodTotalsRegion($datefrom, $dateto, $region);
-            $this->view->finders     = $this->_finds->getFinderTotalsRegion($datefrom, $dateto, $region);
-            $this->view->averages    = $this->_finds->getAverageMonthRegion($datefrom, $dateto, $region);
-            $this->view->year        = $this->_finds->getYearFoundRegion($datefrom, $dateto, $region);
-            $this->view->discovery   = $this->_finds->getDiscoveryMethodRegion($datefrom, $dateto, $region);
-            $this->view->landuse     = $this->_finds->getLandUseRegion($datefrom, $dateto, $region);
-            $this->view->precision   = $this->_finds->getPrecisionRegion($datefrom, $dateto, $region);
+            $this->view->creators = $this->_finds->getUsersRegionStat($datefrom, $dateto, $region);
+            $this->view->periods = $this->_finds->getPeriodTotalsRegion($datefrom, $dateto, $region);
+            $this->view->finders = $this->_finds->getFinderTotalsRegion($datefrom, $dateto, $region);
+            $this->view->averages = $this->_finds->getAverageMonthRegion($datefrom, $dateto, $region);
+            $this->view->year = $this->_finds->getYearFoundRegion($datefrom, $dateto, $region);
+            $this->view->discovery = $this->_finds->getDiscoveryMethodRegion($datefrom, $dateto, $region);
+            $this->view->landuse = $this->_finds->getLandUseRegion($datefrom, $dateto, $region);
+            $this->view->precision = $this->_finds->getPrecisionRegion($datefrom, $dateto, $region);
         }
         $form = $this->renderForm();
         $this->view->form = $form;
@@ -196,28 +205,30 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
             if ($form->isValid($data)) {
                 $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
                 $query = '';
-                foreach($params as $key => $value) {
-                    $query .= $key.'/'.$value.'/';
+                foreach ($params as $key => $value) {
+                    $query .= $key . '/' . $value . '/';
                 }
-                $this->_redirect('/database/statistics/regional/'.$query);
+                $this->redirect('database/statistics/regional/' . $query);
             } else {
                 $form->populate($data);
             }
         }
     }
+
     /** Page rendering records recorded by institution
      * @access public
      * @return void
      */
-    public function institutionAction() {
-        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom') 
-        : Zend_Date::now()->toString('yyyy').'-01-01'; 
-        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto') 
-        : Zend_Date::now()->toString('yyyy-MM-dd'); 
+    public function institutionAction()
+    {
+        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom')
+            : Zend_Date::now()->toString('yyyy') . '-01-01';
+        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto')
+            : Zend_Date::now()->toString('yyyy-MM-dd');
         $institution = $this->_getParam('institution');
         $this->view->institution = $institution;
-        if(!isset($institution)) {
-         $this->view->institutions = $this->_finds->getInstitutions($datefrom, $dateto);
+        if (!isset($institution)) {
+            $this->view->institutions = $this->_finds->getInstitutions($datefrom, $dateto);
         } else {
             $this->view->instTotal = $this->_finds->getInstStat($datefrom, $dateto, $institution);
             $this->view->creators = $this->_finds->getUsersInstStat($datefrom, $dateto, $institution);
@@ -239,10 +250,10 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin {
                 $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
 
                 $query = '';
-                foreach($params as $key => $value)  {
+                foreach ($params as $key => $value) {
                     $query .= $key . '/' . $value . '/';
                 }
-                $this->_redirect('/database/statistics/institution/' . $query);
+                $this->redirect('/database/statistics/institution/' . $query);
             } else {
                 $form->populate($data);
             }

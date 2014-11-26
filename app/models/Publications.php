@@ -11,7 +11,9 @@
  * </code>
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
+ * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
+ * @copyright (c) 2014 Mary Chester-Kadwell
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
@@ -72,7 +74,7 @@ class Publications extends Pas_Db_Table_Abstract {
                 ->where('authors = ?', $author)
                 ->order('title ASC')
                 ->group('title');
-        $data = $publications->fetchPairs($select);
+        return $publications->fetchPairs($select);
     }
 
     /** Get the secuids
@@ -86,11 +88,12 @@ class Publications extends Pas_Db_Table_Abstract {
         return $publications->fetchAll($select);
     }
 
-    /** Get all refs for a find
-    * @param integer $id find to reference
+    /** Get all refs for a find or a hoard
+    * @param integer $id find or hoard to reference
+     * @param string $table
     * @return array
     */
-    public function getReferences($id) {
+    public function getReferences($id, $table = 'finds') {
         $refs = $this->getAdapter();
         $select = $refs->select()
                 ->from($this->_name, array(
@@ -102,15 +105,16 @@ class Publications extends Pas_Db_Table_Abstract {
                     ))
                 ->joinLeft('bibliography','publications.secuid = bibliography.pubID',
                         array('pp' => 'pages_plates','i' => 'id'))
-                ->joinLeft('finds','finds.secuid = bibliography.findID',
-                        array('objecttype','fID' => 'id','createdBy','old_findID'))
+                ->joinLeft(array('recordtable' => $table),'recordtable.secuid = bibliography.findID',
+                        array('fID' => 'id','createdBy'))
                 ->joinLeft('publicationtypes',
                         'publicationtypes.id = publications.publication_type',
                         array('term'))
-                ->where('finds.id = ?', (int)$id)
+                ->where('recordtable.id = ?', (int)$id)
                 ->group('publications.secuid');
         return $refs->fetchAll($select);
     }
+
 
     /** Get all reference details
     * @param integer $id reference to reference

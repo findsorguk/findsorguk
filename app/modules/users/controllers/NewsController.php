@@ -50,7 +50,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
     /** Set up the index page
     */
     public function indexAction() {
-        $this->view->news = $this->_news->getAllNewsArticlesAdmin($this->_getAllParams());
+        $this->view->news = $this->_news->getAllNewsArticlesAdmin($this->getAllParams());
     }
     /** Add a news story
      * @access public
@@ -93,7 +93,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
                 //Save and redirect
                 $row->save();
                 $this->getFlash()->addMessage('News story created!');
-                $this->_redirect(self::REDIRECT);
+                $this->redirect(self::REDIRECT);
             } else {
                 $form->populate($formData);
             }
@@ -139,7 +139,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
                 $row->datePublished = $this->getTimeForForms();
                 $row->save();
                 $this->getFlash()->addMessage('News story information updated!');
-                $this->_redirect(self::REDIRECT);
+                $this->redirect(self::REDIRECT);
             } else {
                 $form->populate($formData);
             }
@@ -163,7 +163,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
                 $this->_news->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
             }
-            $this->_redirect(self::REDIRECT);
+            $this->redirect(self::REDIRECT);
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {

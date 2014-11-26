@@ -1,6 +1,6 @@
 <?php $this->headTitle('Delete publication: '.$this->escape($this->publication->title));?>
 <?php if ($this->publication) :?>
-<h2>Delete publication data</h2>
+<h2 class="lead">Delete publication data</h2>
 <p>Are you sure that you want to delete
 '<?php echo $this->escape($this->publication->title); ?>' 
 </p>
@@ -13,6 +13,6 @@ method="post">
 </div>
 </form>
 <?php else: ?>
-<h2>There has been an error</h2>
+<h2 class="lead">There has been an error</h2>
 <p>Cannot find the publication that you requested.</p>
 <?php endif;?>

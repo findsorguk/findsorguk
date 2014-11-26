@@ -1,61 +1,67 @@
-<?php 
-$this->headMeta('A list of all foreign issuing rulers of the Medieval period 
-    with coins found in England and Wales','description');
-$this->headMeta('kings,doges,foreign,low countries,venice,medieval,imitations,
-    shortlongs','dc.keywords');
+<?php
+$this->headTitle('Foreign issuing rulers of the Medieval period');
+$this->metaBase()->setDescription('A list of all foreign issuing rulers of the Medieval period
+    with coins found in England and Wales')
+    ->setKeywords('kings,doges,foreign,low countries,venice,medieval,imitations,
+    shortlongs')
+    ->setSubject('numismatics')
+    ->generate();
 ?>
 
-<h2>Foreign issuing rulers of the Medieval period</h2>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<h3>Late medieval French coins</h3>
-<p>This period had <?php echo count($this->french);?> issuers.</p>
-<ul>
-<?php 
-echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->french); ?>
-</ul>
+<?php if (!empty($this->french)): ?>
+    <h3 class="lead">Late medieval French coins</h3>
+    <p>This period had <?php echo count($this->french); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->french); ?>
+    </ul>
+<?php endif; ?>
 
-<h3>Coins of Scotland</h3>
-<p>This period had <?php echo count($this->scots);?> issuers.</p>
-<ul>
-<?php 
-echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->scots); ?>
-</ul>
+<?php if (!empty($this->scots)): ?>
+    <h3 class="lead">Coins of Scotland</h3>
+    <p>This period had <?php echo count($this->scots); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->scots); ?>
+    </ul>
+<?php endif; ?>
 
-<h3>The Doges of Venice</h3>
-<p>This period had <?php echo count($this->doges);?> issuers.</p>
-<ul>
-<?php 
-echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->doges); ?>
-</ul>
+<?php if (!empty($this->doges)): ?>
+    <h3 class="lead">The Doges of Venice</h3>
+    <p>This period had <?php echo count($this->doges); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->doges); ?>
+    </ul>
+<?php endif; ?>
 
-<h3>Coins of Portugal</h3>
-<p>This period had <?php echo count($this->portugal);?> issuers.</p>
-<ul>
-<?php 
-echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->portugal); 
-?>
-</ul>
+<?php if (!empty($this->portugal)): ?>
+    <h3 class="lead">Coins of Portugal</h3>
+    <p>This period had <?php echo count($this->portugal); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->portugal); ?>
+    </ul>
+<?php endif; ?>
 
-<h3>Coins of the Medieval Low Countries</h3>
-<p>This period had <?php echo count($this->low);?> issuers.</p>
-<ul>
-<?php 
-echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->low); 
-?>
-</ul>
+<?php if (!empty($this->low)): ?>
+    <h3 class="lead">Coins of the Medieval Low Countries</h3>
+    <p>This period had <?php echo count($this->low); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->low); ?>
+    </ul>
+<?php endif; ?>
 
-<h3>Edwardian imitations (Continental)</h3>
-<p>This period had <?php echo count($this->imitate);?> issuers.</p>
-<ul>
-<?php 
-echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->imitate);
-?>
-</ul>
+<?php if (!empty($this->imitate)): ?>
+    <h3 class="lead">Edwardian imitations (Continental)</h3>
+    <p>This period had <?php echo count($this->imitate); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->imitate); ?>
+    </ul>
+<?php endif; ?>
 
-<h3>Short Long cross imitations (Continental)</h3>
-<p>This period had <?php echo count($this->shortlongs);?> issuers.</p>
-<ul>
-<?php 
-echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->shortlongs);
-?>
-</ul>
+<?php if (!empty($this->shortlongs)): ?>
+    <h3 class="lead">Short Long cross imitations (Continental)</h3>
+    <p>This period had <?php echo count($this->shortlongs); ?> issuers.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->shortlongs); ?>
+    </ul>
+<?php endif; ?>

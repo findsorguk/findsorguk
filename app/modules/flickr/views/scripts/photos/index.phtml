@@ -1,4 +1,4 @@
-<h3>Our recent images</h3>
+<h3 class="lead">Our recent images</h3>
 
 <?php foreach($this->recent as $r):?><a href="<?php echo $this->flickrImage()
         ->setFarm($r['farm'])
@@ -10,7 +10,7 @@
 
 <?php
 $cachemain = Zend_Registry::get('cache');
-echo '<h3>Most popular tags</h3>';
+echo '<h3 class="lead">Most popular tags</h3>';
 
 if(!$cachemain->start('linkscloudflickrtags')) {
 
@@ -49,7 +49,7 @@ $cachemain->save($cloud);
 
 ?>
 
-<h2>Our friends on flickr</h2>
+<h2 class="lead">Our friends on flickr</h2>
 
 <?php foreach($this->contactslist as $c)
 {

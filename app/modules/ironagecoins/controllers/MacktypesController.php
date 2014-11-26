@@ -46,7 +46,7 @@ class IronAgeCoins_MacktypesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->macks = $this->_mackTypes->getMackTypes($this->_getAllParams());
+        $this->view->macks = $this->_mackTypes->getMackTypes($this->getAllParams());
     }
     
     /** An individual mack type

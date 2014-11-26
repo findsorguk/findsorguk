@@ -16,7 +16,7 @@ class Database_DataController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function init()  {
-	$this->_helper->_acl->allow('member','index');
+	$this->_helper->_acl->allow(null,'index');
 	$this->_helper->_acl->allow('flos','backups');
 	
     }

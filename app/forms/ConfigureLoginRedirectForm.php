@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A form for editing login redirect page choice
  *
@@ -17,16 +18,17 @@
  * @version 1
  * @since 9 May 2014
  * @uses LoginRedirect
-*/
-
-class ConfigureLoginRedirectForm extends Pas_Form {
+ */
+class ConfigureLoginRedirectForm extends Pas_Form
+{
 
     /** The constructor
      * @access public
      * @param array $options
      * @return void
      */
-    public function __construct(array $options = null) {
+    public function __construct(array $options = null)
+    {
 
         parent::__construct($options);
         $loginredirect = new LoginRedirect();
@@ -36,22 +38,22 @@ class ConfigureLoginRedirectForm extends Pas_Form {
 
         $uri = new Zend_Form_Element_Select('uri');
         $uri->setLabel('Page: ')
-                ->setRequired(true)
-                ->addMultiOptions(array(
-                    null => 'Please choose a page',
-                    'Available pages' => $loginredirect_options
-                ))
-                ->addValidator('InArray', false,
-                        array(array_keys($loginredirect_options)))
-                ->setAttribs(array(
-                    'class' => 'input-xxlarge selectpicker show-menu-arrow',
-                ));
+            ->setRequired(true)
+            ->addMultiOptions(array(
+                null => 'Please choose a page',
+                'Available pages' => $loginredirect_options
+            ))
+            ->addValidator('InArray', false,
+                array(array_keys($loginredirect_options)))
+            ->setAttribs(array(
+                'class' => 'input-xxlarge selectpicker show-menu-arrow',
+            ));
 
         $hash = new Zend_Form_Element_Hash('csrf');
         $hash->setValue($this->_salt)->setTimeout(4800);
 
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Submit configuration');
+        $submit->setLabel('Submit login redirect configuration');
 
         $this->addElements(array($uri, $submit, $hash));
 

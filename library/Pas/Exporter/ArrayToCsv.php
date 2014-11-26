@@ -34,7 +34,7 @@ class Pas_Exporter_ArrayToCsv {
      * @access protected
      * @var array
      */
-    protected $_allowed = array('admin','flos','fa','treasure');
+    protected $_allowed = array('admin', 'flos', 'fa', 'treasure', 'hoard');
 
     /** Maybe allowed
      * @access protected
@@ -92,17 +92,23 @@ class Pas_Exporter_ArrayToCsv {
             }
             $nullified[] = $dat;
         }
+        $record = array();
         foreach ($nullified AS $null) {
+
             foreach($null as $k => $v){
+
                 $record[$k] = trim(strip_tags(str_replace('<br />',array( "\n", "\r"), utf8_decode( $v ))));
                 if(in_array($this->_role,$remove)){
                     $record['finder'] = 'Restricted info';
                 }
+
                 foreach($record as $k => $v){
                     if($v === ''){
                         $record[$k] = null;
                     }
                 }
+                Zend_Debug::dump($record);
+                exit;
                 $record['uri'] = $this->_uri . $record['id'];
                 if(in_array($this->_role,$this->_never)){
                     $record['gridref'] = null;
@@ -119,6 +125,8 @@ class Pas_Exporter_ArrayToCsv {
             $cleanSort = $this->sortArrayByArray($record, $this->_fields);
             $finalData[] = $cleanSort;
         }
+        Zend_Debug::dump($finalData);
+        exit;
         return $finalData;
     }
 }

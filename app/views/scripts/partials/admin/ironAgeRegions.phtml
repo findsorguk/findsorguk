@@ -1,0 +1,24 @@
+<tr class="valid-<?php echo $this->valid; ?>">
+    <td><?php echo $this->area . ' ' . $this->region . ' ' . $this->tribe; ?></td>
+    <td><?php echo $this->timeAgoInWords($this->created); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fullname); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->updated); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fn); ?></td>
+    <td><?php echo $this->validity()->setValid($this->valid); ?></td>
+    <td>
+        <div class="btn-group">
+            <a href="<?php echo $this->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'numismatics',
+                    'action' => 'editregion', 'id' => $this->id), 'default', true);?>"
+               class="btn btn-mini btn-info">Edit a region</a>
+            <a href="<?php echo $this->url(
+                array(
+                    'module' => 'admin',
+                    'controller' => 'numismatics',
+                    'action' => 'deleteregion', 'id' => $this->id), 'default', true);?>"
+               class="btn btn-mini btn-danger">Delete a region</a>
+        </div>
+    </td>
+</tr>

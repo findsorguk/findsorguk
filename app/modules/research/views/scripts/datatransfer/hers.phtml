@@ -1,31 +1,32 @@
 <?php
 $this->headTitle('Authorities signed up for data transfer');
 $this->metaBase()
-        ->setDescription('A list of Historic Environment Record offices that have signed up to transfer our data.')
-        ->setSubject('research')
-        ->setKeywords('historic,archaeology,antiquities,environment,data,transfer,third,party')
-        ->generate();
+    ->setDescription('A list of Historic Environment Record offices that have signed up to transfer our data.')
+    ->setSubject('research')
+    ->setKeywords('historic,archaeology,antiquities,environment,data,transfer,third,party')
+    ->generate();
 ?>
-<h2 class="lead">
-    <?php echo $this->title();?>
-</h2>
+    <h2 class="lead">
+        <?php echo $this->title(); ?>
+    </h2>
 
 
-<?php if (count($this->hers)): ?>
+<?php if (!empty($this->hers)): ?>
 
-<table class="table table-striped" summary="This table lists all the HERs that have signed up to our data transfer agreement">
-<caption>Signed up HER offices</caption>
-    <thead>
-    <tr>
-        <th>Authority</th>
-        <th>Signatory</th>
-    </tr>
-    </thead>
-    <tbody>
-        <?php echo $this->partialLoop('partials/research/hers.phtml',$this->hers);?>
-    </tbody>
-</table>
-<?php else:?>
-<p>No sign up data is available to you.</p>
+    <table class="table table-striped"
+           summary="This table lists all the HERs that have signed up to our data transfer agreement">
+        <caption>Signed up HER offices</caption>
+        <thead>
+        <tr>
+            <th>Authority</th>
+            <th>Signatory</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/research/hers.phtml', $this->hers); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->hers, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No sign up data is available to you.</p>
 <?php endif; ?>
-<?php echo $this->paginationControl($this->hers, 'Sliding', 'structure/pagination.phtml'); ?>

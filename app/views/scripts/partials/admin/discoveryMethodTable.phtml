@@ -1,0 +1,21 @@
+<tr class="valid-<?php echo $this->valid; ?>">
+    <td><?php echo $this->escape($this->method); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->created); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fullname); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->updated); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fn); ?></td>
+    <td>
+        <div class="btn-group">
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'terminology',
+                'action' => 'editmethod',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-inverse">Edit</a>
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'terminology',
+                'action' => 'deletemethod',
+                'id' => $this->id), 'default', true);?>" class="btn btn-mini btn-danger">Delete</a>
+        </div>
+    </td>
+</tr>

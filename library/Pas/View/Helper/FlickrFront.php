@@ -156,13 +156,14 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
         $where = array();
         $where[] = $tokens->getAdapter()->quoteInto('service = ?','yahooAccess');
         $validToken = $tokens->fetchRow($where);
+        $access = array();
         if (!is_null($validToken)) {
-            $access = array(
-                'access_token' => unserialize($validToken->accessToken),
-                'access_token_secret' => unserialize($validToken->tokenSecret),
-                'access_token_expiry' => $validToken->expires,
-                'handle' => unserialize($validToken->sessionHandle)
-        );
+            $access['access_token'] = unserialize($validToken->accessToken);
+            $access['access_token_secret'] = unserialize($validToken->tokenSecret);
+            $access['access_token_expiry'] = $validToken->expires;
+            $access['handle'] = unserialize($validToken->sessionHandle);
+        } else {
+            throw new Pas_Exception('No oauth token available', 500);
         }
         return $access;
     }
@@ -186,14 +187,15 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
             $q .= $this->getFlickrKey();
             $q .= '" LIMIT';
             $q .= $this->getLimit();
-        
-            $data = $oauth->execute(
-                $q,
-                $access->access_token,
-                $access->access_token_secret,
-                $access->access_token_expiry,
-                $access->handle
+            if(!empty($access)) {
+                $data = $oauth->execute(
+                    $q,
+                    $access->access_token,
+                    $access->access_token_secret,
+                    $access->access_token_expiry,
+                    $access->handle
                 );
+            }
 //            $this->getCache()->save($data);
 //        } else {
 //            $data = $this->getCache()->load($key);
@@ -242,6 +244,7 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_FlickrFront
      */
     public function flickrFront() {
+        Zend_Debug::dump($this->getFlickr());
         return $this;
     }
 

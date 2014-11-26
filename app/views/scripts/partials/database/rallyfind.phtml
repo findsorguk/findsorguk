@@ -1,20 +1,21 @@
-<h4>
-    Rally details.
-</h4>
-<p>
-    This object was found at <a href="<?php echo $this->url(array(
-        'module' => 'database',
-        'controller' => 'rallies',
-        'action' => 'rally',
-        'id' => $this->rallyID),'default',true);?>" title="Details for 
-            <?php echo $this->rallyName;?>"><?php echo $this->rallyName;?></a>
- held on the 
-<?php if(!is_null($this->rallyDateFrom)) { 
-    $dates = array(
-        $this->niceShortDate()->setDate($this->rallyDateFrom),
-        $this->niceShortDate()->setDate($this->rallyDateTo)
-            );
-    echo implode($dates, ' to the ');
-}
-?>
-</p>
+<?php if ($this->rallyID): ?>
+    <h4 class="lead">Rally details.</h4>
+    <p>This object was found at <a
+            href="<?php echo $this->url(
+                array(
+                    'module' => 'database',
+                    'controller' => 'rallies',
+                    'action' => 'rally',
+                    'id' => $this->id), 'default', true); ?>"
+            title="Details for <?php echo $this->rally_name; ?>"><?php echo $this->rally_name; ?></a>
+
+        <?php if (isset($this->df)) { ?>
+            held <?php echo $this->niceShortDate()->setDate($this->df); ?>
+            <?php if (isset($this->dt)) { ?>
+                - <?php echo $this->niceShortDate()->setDate($this->dt); ?>
+            <?php
+            }
+        }
+        ?>
+    </p>
+<?php endif; ?>

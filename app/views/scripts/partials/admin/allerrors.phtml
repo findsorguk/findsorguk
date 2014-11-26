@@ -1,30 +1,64 @@
-<tr id="comment-<?php echo $this->id;?>" class="status-<?php echo $this->comment_approved;?>">
-<td class="author column-author" >
-<?php 
-	echo $this->gravatar($this->comment_author_email,array(
-	'defaultImg' => $this->serverUrl() . $this->baseUrl() 
-        . '/assets/gravatar.png', 	
-	'imgSize' => 30, 
-	'secure' => true
-	),
-	array(
-		'class' => 'avatar stelae img-circle pull-left', 
-    	'title' => $this->comment_author . '\'s gravatar representation',
-    	'rating' => 'G',
-		'width' => 30,
-		'height' => 30)
-	);
-?>
+<tr id="comment-<?php echo $this->id; ?>" class="status-<?php echo $this->comment_approved; ?>">
+    <td class="author column-author">
+        <?php
+        echo $this->gravatar($this->comment_author_email, array(
+                'defaultImg' => $this->serverUrl() . $this->baseUrl()
+                    . '/assets/gravatar.png',
+                'imgSize' => 30,
+                'secure' => true
+            ),
+            array(
+                'class' => 'avatar stelae img-circle pull-left',
+                'title' => $this->comment_author . '\'s gravatar representation',
+                'rating' => 'G',
+                'width' => 30,
+                'height' => 30)
+        );
+        ?>
 
-<strong><?php echo $this->comment_author;?></strong><br/>
-<?php if(isset($this->comment_author_url)) :?><a href="<?php echo $this->comment_author_url;?>" title="<?php echo $this->comment_author_url;?>"><?php echo $this->comment_author_url;?></a><br/><?php endif;?>
-<a href="mailto:<?php echo $this->comment_author_email;?>"><?php echo $this->comment_author_email;?></a><br/>
-<?php echo $this->comment_author_IP;?></td>
-<td>
-<h3><a href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->comment_findID),null,true);?>">A <?php echo $this->broadperiod . ' ' .$this->objecttype .' - '.$this->old_findID;?></a></h3>
-<p>Submitted:<?php echo $this->timeAgoInWords($this->created);?></p>
-<p><?php echo $this->purify($this->comment_content);?></p>
+        <?php if(!is_null($this->comment_author)):?>
+        <strong><?php echo $this->comment_author; ?></strong><br/>
+            <?php else:?>
+            Anonymous comment - how did that happen?
+        <?php endif;?>
 
-</td>
+        <?php if (!is_null($this->comment_author_url)) : ?>
+            <a href="<?php echo $this->comment_author_url; ?>"
+               title="<?php echo $this->comment_author_url; ?>"><?php echo $this->comment_author_url; ?></a>
+            <br/>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->comment_author_email)): ?>
+            <a href="mailto:<?php echo $this->comment_author_email; ?>"><?php echo $this->comment_author_email; ?></a>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->user_ip)): ?>
+            <br/>
+            <?php echo $this->user_ip; ?>
+        <?php else: ?>
+            <br/>
+            The IP address was not captured.
+        <?php endif; ?>
+    </td>
+    <td>
+        <?php if (!is_null($this->comment_findID)): ?>
+            <h4 class="lead"><a
+                    href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->comment_findID), null, true); ?>">A <?php echo $this->broadperiod . ' ' . $this->objecttype . ' - ' . $this->old_findID; ?></a>
+            </h4>
+        <?php else: ?>
+            An error occurred getting the find ID.
+        <?php endif; ?>
+
+        <?php if (!is_null($this->created)): ?>
+            <p>Submitted:<?php echo $this->timeAgoInWords($this->created); ?></p>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->comment_content)): ?>
+            <p><?php echo $this->purify()->setValue($this->comment_content); ?></p>
+        <?php else: ?>
+            <p>No error report text entered. Discard this message?</p>
+        <?php endif; ?>
+
+    </td>
 
 </tr>

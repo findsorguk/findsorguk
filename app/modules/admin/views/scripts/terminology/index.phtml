@@ -1,18 +1,49 @@
-<?php 	$this->headTitle('Administer controlled vocabulary');?>
-<h2>Administer controlled terminology</h2>
+<?php
+$this->headTitle('Administer controlled vocabulary');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <ul>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'activities'),null,true);?>" title="Administer primary activities">People's primary activities</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'periods'),null,true);?>" title="Administer periods">Periods</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'cultures'),null,true);?>" title="Administer cultures">Ascribed cultures</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'workflows'),null,true);?>" title="Administer workflow stages">Workflow stages</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'preservations'),null,true);?>" title="Administer preservation stages">Preservation states</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'methods'),null,true);?>" title="Administer discovery methods">Discovery methods</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'notes'),null,true);?>" title="Administer find of note reasons">Finds of note reasons</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'materials'),null,true);?>" title="Administer materials">Materials</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'manufactures'),null,true);?>" title="Administer methods of manufacture">Methods of manufacture</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'decorationmethods'),null,true);?>" title="Administer decorative methods">Methods of decoration</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'decorationstyles'),null,true);?>" title="Administer decorative styles">Decorative styles</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'landuses'),null,true);?>" title="Administer landuses">Land uses</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'surfaces'),null,true);?>" title="Administer surface treatments">Surface treatments</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'terminology','action' => 'maporigins'),null,true);?>" title="Administer origin of grid references">Grid reference origins</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'activities'), null, true); ?>"
+           title="Administer primary activities">People's primary activities</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'periods'), null, true); ?>"
+           title="Administer periods">Periods</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'cultures'), null, true); ?>"
+           title="Administer cultures">Ascribed cultures</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'workflows'), null, true); ?>"
+           title="Administer workflow stages">Workflow stages</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'preservations'), null, true); ?>"
+           title="Administer preservation stages">Preservation states</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'methods'), null, true); ?>"
+           title="Administer discovery methods">Discovery methods</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'notes'), null, true); ?>"
+           title="Administer find of note reasons">Finds of note reasons</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'materials'), null, true); ?>"
+           title="Administer materials">Materials</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'manufactures'), null, true); ?>"
+           title="Administer methods of manufacture">Methods of manufacture</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'decorationmethods'), null, true); ?>"
+           title="Administer decorative methods">Methods of decoration</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'decorationstyles'), null, true); ?>"
+           title="Administer decorative styles">Decorative styles</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'landuses'), null, true); ?>"
+           title="Administer landuses">Land uses</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'surfaces'), null, true); ?>"
+           title="Administer surface treatments">Surface treatments</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology', 'action' => 'maporigins'), null, true); ?>"
+           title="Administer origin of grid references">Grid reference origins</a></li>
 </ul>

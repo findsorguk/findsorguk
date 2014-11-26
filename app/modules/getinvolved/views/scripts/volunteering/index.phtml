@@ -1,30 +1,34 @@
-<?php 
+<?php
 $this->headTitle('Volunteering opportunties with the Portable Antiquities Scheme');
-$this->headMeta('A list of volunteering opportunities currently available with the 
-Portable Antiquities Scheme','description');
-$this->headMeta('portable,antiquities,scheme,volunteer,volunteering','dc.keywords');
-$this->headMeta($this->curUrl(),'dc.identifier');
+$this->metaBase()->setDescription('A list of volunteering opportunities currently available with the
+Portable Antiquities Scheme')
+    ->setKeywords('portable,antiquities,scheme,volunteer,volunteering')
+    ->generate();
 ?>
-<h2>Current Volunteer opportunities with the Scheme</h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
 
-<?php if(count($this->vols)):?>
-<table class="table table-striped" summary="A list of all volunteering opportunities with the Scheme">
-<caption>Volunteer opportunties</caption>
-<thead>
-<tr>
-<th>Opportunity</th>
-<th>Suitability</th>
-<th>Managed by</th>
-<th>Suggested length</th>
-<th>Location</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/getinvolved/volunteerList.phtml',$this->vols);?>
-</tbody>
-</table>
-<?php else:?>
-<p>We don't have any volunteer opportunities available at present. You can contact us with your CV to be kept on file at <a href="mailto:info@finds.org.uk">info@finds.org.uk</a> or we suggest approaching the volunteers department of the British Museum directly.</p>
-<?php endif;?>
-<?php echo $this->paginationControl($this->vols, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php
+if (count($this->vols)): ?>
+    <table class="table table-striped" summary="A list of all volunteering opportunities with the Scheme">
+        <caption>Volunteer opportunties</caption>
+        <thead>
+        <tr>
+            <th>Opportunity</th>
+            <th>Suitability</th>
+            <th>Managed by</th>
+            <th>Suggested length</th>
+            <th>Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/getinvolved/volunteerList.phtml', $this->vols); ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->vols, 'Sliding', 'structure/pagination.phtml'); ?>
+
+<?php else: ?>
+    <p>We don't have any volunteer opportunities available at present. You can contact us with your CV to be kept on
+        file at <a href="mailto:info@finds.org.uk">info@finds.org.uk</a> or we suggest approaching the volunteers
+        department of the British Museum directly.</p>
+<?php endif; ?>

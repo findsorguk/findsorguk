@@ -1,42 +1,8 @@
-<div id="tagfind">
-<div id="tags">
-<?php 
-	$auth = Zend_Auth::getInstance();
-	if($auth->hasIdentity()) {
-	$user = $auth->getIdentity();
-	$id = $user->id;
-	} else {
-	$id = '3';
-	}
-	$description = ' ';
-	if($this->findspots) {
-	if(!isset($this->findspots['0']['knownas'])){
-	$description .= $this->findspots['0']['parish'];
-	}
-	$description .= ', County: ';
-	$description .= $this->findspots['0']['county'];
-	$description .= ' , District: ';
-	$description .= $this->findspots['0']['district'];
-	$description .= ' , Region: ';
-	$description .= $this->findspots['0']['region'];
-	}
-	$description .= ' ,Country:  ';
-	$description .= 'United Kingdom ';
-	$description .= strip_tags($this->finds['0']['description']);
-	$description .= ' ';
-	$description .= strip_tags($this->finds['0']['notes']);
-	$description .= ' ';
-	$description .= $this->finds['0']['broadperiod'];
-	
-	if($this->coins) {
-	
-	foreach($this->coins['0'] as $c => $value) {
-	$description .= $value . ' ';
-	}
-	}
-
-	$recordID = $this->finds['0']['id'];
-	$this->placemaker($recordID,$id,$description);
-?>
-</div>
-</div>
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 04/11/14
+ * Time: 17:02
+ */ ?>
+<?php echo $this->placeholder('tags');?>

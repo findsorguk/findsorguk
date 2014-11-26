@@ -219,7 +219,7 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      */
     protected function _buildHtmlDirection() {
         $request = $this->getRequest();
-        $html = '<p>Which direction? ';
+        $html = '<p>Which direction? </p>';
         $sorter = array();
         foreach ($this->getDirection() as $k => $v) {
             $request['direction'] = $v;
@@ -233,16 +233,16 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
             }
         $sort = '<a href="' . $this->view->url($request, 'default', true) . '" ';
         if (array_key_exists('direction', $request) && $request['direction'] === $v) {
-                $sort .= ' class="highlight" ';
+                $sort .= ' class="highlight btn-mini btn-info btn" ';
             } elseif (!array_key_exists('direction', $request) && $v === 'desc') {
-                $sort .= ' class="highlight" ';
+                $sort .= ' class="highlight btn-mini btn btn-default" ';
             }
             $sort .= '>' . $k . '<i class="icon-arrow-' . $icon .'"></i></a> ';
             $sorter[] = $sort;
         }
-
-        $html .= implode($sorter, ' | ') . '</p>';
-
+        $html .= '<div class="btn-group">';
+        $html .= implode('',$sorter);
+        $html .= '</div>';
         return $html;
     }
 

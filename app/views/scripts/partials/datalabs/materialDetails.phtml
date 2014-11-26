@@ -1,5 +1,26 @@
-<?php $this->headTitle('Details for '.$this->term);?>
+<?php
+$this->headTitle('Details for ' . $this->term);
+$this->metaBase()->setDescription('Details for construction material' . $this->term)
+    ->setKeywords('materials,primary,construction,terminology')
+    ->setSubject('terminology')
+    ->generate();
+?>
 
-<h2>Material type: <?php echo $this->escape($this->term);?></h2>
-<?php echo $this->termdesc;?>
-<p>View <a href="<?php echo $this->url(array('module' => 'database','controller' => 'search','action' => 'results','material' => $this->id),null,true);?>" title="Search database for all examples">all recorded</a> examples on the database.</p>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!is_null($this->termdesc)): ?>
+    <?php echo $this->termdesc; ?>
+<?php else: ?>
+    <p>No scope note entered</p>
+<?php endif; ?>
+<?php echo $this->searchLink()->setField('material')->setId($this->id); ?>
+<?php if (!is_null($this->bmID)): ?>
+    <h3 class="lead">Linked data</h3>
+    <p>
+        British Museum URI: <?php echo $this->bmID; ?>
+        <?php if (!is_null($this->ehID)): ?>
+            <br/>
+            SENESCHAL URI: <?php echo $this->ehID; ?>
+        <?php endif; ?>
+    </p>
+<?php endif; ?>
+<?php echo $this->latestRecords()->setQuery('material:' . $this->id); ?>

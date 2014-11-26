@@ -1,6 +1,7 @@
 <?php
+
 /** Controller for setting up and manipulating historic environment data sign ups
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category  Pas
  * @package Pas_Controller_Action
@@ -10,66 +11,75 @@
  * @uses Hers
  * @uses HerForm
  */
-class Admin_HerController extends Pas_Controller_Action_Admin {
+class Admin_HerController extends Pas_Controller_Action_Admin
+{
 
     /** The hers model
      * @access protected
      * @var \Hers
      */
     protected $_hers;
-    
+
     /** Set up the ACL and contexts
      * @access public
      * @return void
      */
-    public function init() {
-        $this->_helper->_acl->allow('fa',null);
-        $this->_helper->_acl->allow('admin',null);
+    public function init()
+    {
+        $this->_helper->_acl->allow('fa', null);
+        $this->_helper->_acl->allow('admin', null);
         $this->_hers = new Hers();
-        
+
     }
+
     /** Set up the index action
      * @access public
      * @return void
      */
-    public function indexAction() {
-        $this->view->hers = $this->_hers->getAll($this->_getAllParams());
+    public function indexAction()
+    {
+        $this->view->hers = $this->_hers->getAll($this->getAllParams());
     }
-    
+
     /** Add a signatory
      * @access public
      * @return void
      */
-    public function addAction() {
+    public function addAction()
+    {
         $form = new HerForm();
         $this->view->form = $form;
-        if($this->getRequest()->isPost() 
-                && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost()
+            && $form->isValid($this->_request->getPost())
+        ) {
             if ($form->isValid($form->getValues())) {
                 $this->_hers->add($form->getValues());
                 $this->getFlash()->addMessage('A new HER signatory has been created.');
-                $this->_redirect('/admin/her/');
+                $this->redirect('/admin/her/');
             } else {
                 $form->populate($form->getValues());
             }
         }
     }
+
     /** Edit a signatory
      * @access public
      * @return void
-     */			
-    public function editAction() {
+     */
+    public function editAction()
+    {
         $form = new HerForm();
         $form->submit->setLabel('Submit HER details change');
         $this->view->form = $form;
-        if($this->getRequest()->isPost() 
-                && $form->isValid($this->_request->getPost())){
+        if ($this->getRequest()->isPost()
+            && $form->isValid($this->_request->getPost())
+        ) {
             if ($form->isValid($form->getValues())) {
                 $where = array();
-                $where[] =  $this->_hers->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
-                $this->_hers->update($form->getValues(),$where);
+                $where[] = $this->_hers->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $this->_hers->update($form->getValues(), $where);
                 $this->getFlash()->addMessage($form->getValue('name') . '\'s details updated.');
-                $this->_redirect('/admin/her/');
+                $this->redirect('/admin/her/');
             } else {
                 $form->populate($form->getValues());
             }

@@ -7,7 +7,7 @@
  * <code>
  * <?php
  * $projects = new SuggestedResearch();
- * $this->view->suggested = $projects->getAll($this->_getAllParams(),0);
+ * $this->view->suggested = $projects->getAll($this->getAllParams(),0);
  * ?>
  * </code>
  *

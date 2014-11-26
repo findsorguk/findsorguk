@@ -1,21 +1,13 @@
-<?php 
-echo $this->partialLoop('partials/numismatics/medMintDetail.phtml',$this->mints);
-?>
-
-<h3 class="lead">
-    Issuers
-</h3>
+<?php echo $this->partialLoop('partials/numismatics/medievalMintDetail.phtml', $this->mints); ?>
+<?php if (!empty($this->actives)): ?>
+    <h3 class="lead">
+        Issuers
+    </h3>
     <p>
         This mint was active under the following issuers:
     </p>
 
     <ul>
-        <?php 
-        echo $this->partialLoop('partials/numismatics/medMintsRulers.phtml',
-                $this->actives);
-        ?>
+        <?php echo $this->partialLoop('partials/numismatics/medMintsRulers.phtml', $this->actives); ?>
     </ul>
-
-<?php 
-echo $this->latestRecords()->setQuery('mint:' 
-        .  Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
+<?php endif; ?>

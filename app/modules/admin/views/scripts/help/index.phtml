@@ -1,37 +1,44 @@
 <?php
 $this->headTitle('Administer help topics');
-if (count($this->contents)): ?>
-<h2>Administer site content</h2>
-<p><a class="btn btn-large btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'help','action' => 'add'),null,true);?>" title="">Add new help topic</a></p>
-<table class="table table-striped" summary="All help topics entered on the system">
-<caption>All help topics entered</caption>
-<thead>
-<tr>
-<th>Title</th>
-<th>Section</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Status</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/contentHelpTable.phtml',$this->contents);?>
-</tbody>
-<tfoot>
-<tr>
-<th>Title</th>
-<th>Section</th>
-<th>Created</th>
-<th>Created by</th>
-<th>Updated</th>
-<th>Updated by</th>
-<th>Status</th>
-<th>Actions</th>
-</tr>
-</tfoot>
-</table>
-<?php endif;?>
-<?php echo $this->paginationControl($this->contents, 'Sliding', 'structure/pagination.phtml'); ?>
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<?php if (!empty($this->contents)): ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p><a class="btn btn-small btn-success" href="<?php echo $this->url(
+            array('module' => 'admin', 'controller' => 'help', 'action' => 'add'
+            ), null, true); ?>" title="">Add new help topic</a></p>
+    <table class="table table-striped" summary="All help topics entered on the system">
+        <caption>All help topics entered</caption>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Section</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/admin/contentHelpTable.phtml', $this->contents); ?>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Title</th>
+            <th>Section</th>
+            <th>Created</th>
+            <th>Created by</th>
+            <th>Updated</th>
+            <th>Updated by</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </tfoot>
+    </table>
+    <?php echo $this->paginationControl($this->contents, 'Sliding', 'structure/pagination.phtml'); ?>
+
+<?php else: ?>
+    <p>No help content found.</p>
+<?php endif; ?>

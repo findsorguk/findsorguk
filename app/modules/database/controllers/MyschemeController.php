@@ -67,13 +67,15 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
      */
     const REDIRECT = '/database/myscheme/';
 
-    /** Redirect as no root access allowed
+    /** Redirect of the user due to no action existing.
      * @access public
      * @return void
      */
     public function indexAction() {
-        $this->getFlash()->addMessage('No access to index page');
-        $this->_redirect('/database/');
+        $this->getFlash()->addMessage('There is not a root action for this section');
+        $this->getResponse()->setHttpResponseCode(301)
+            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('/database');
     }
 
     /** List of user's finds that they have entered.
@@ -82,11 +84,13 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
      */
     public function myfindsAction() {
         $form = new SolrForm();
-	$form->q->setLabel('Search the database: ');
+        $form->q->setLabel('Search the database: ');
         $this->view->form = $form;
-        $params = $this->_getAllParams();
+        $this->view->userID = $this->getAccount()->id;
+
+        $params = $this->getAllParams();
         $search = $this->getSolr();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',
@@ -104,7 +108,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                     'myfinds','myscheme','database',
                     $params);
         } else {
-            $form->populate($this->_getAllParams());
+            $form->populate($this->getAllParams());
         }
         if(!isset($params['q']) || $params['q'] == ''){
             $params['q'] = '*';
@@ -127,11 +131,11 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
             $form = new SolrForm();
             $form->q->setLabel('Search the database: ');
             $this->view->form = $form;
-            $params = $this->_getAllParams();
+            $params = $this->getAllParams();
             $params['finderID'] = $this->getAccount()->peopleID;
             $params['-createdBy'] = $this->getAccount()->id;
             $search = $this->getSolr();
-            $search->setCore('beowulf');
+            $search->setCore('objects');
             $search->setFields(array(
                 'id', 'identifier', 'objecttype',
                 'title', 'broadperiod','imagedir',
@@ -140,6 +144,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                 'knownas', 'fourFigure','updated',
                 'created')
             );
+            $this->view->solrParams = 'finderID:' . $this->getAccount()->peopleID . ' -createdBy:' .  $this->getAccount()->id;
             $search->setFacets(array('objectType','county','broadperiod','institution'));
             if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->_getParam('submit'))){
@@ -149,7 +154,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                     'recordedbyflos','myscheme','database',
                     $params);
             } else {
-                $form->populate($this->_getAllParams());
+                $form->populate($this->getAllParams());
             }
             if(!isset($params['q']) || $params['q'] == ''){
                 $params['q'] = '*';
@@ -161,7 +166,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
             $this->view->facets = $search->processFacets();
             $this->view->stats = $search->processStats();
         } else {
-            $this->_redirect('/error/accountproblem');
+            $this->redirect('/error/accountproblem');
         }
     }
 
@@ -189,9 +194,9 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
         $form = new SolrForm();
         $form->q->setLabel('Search the database: ');
         $this->view->form = $form;
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $search = $this->getSolr();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',
@@ -219,8 +224,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                 $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
 
         if(!isset($params['q']) || $params['q'] == ''){
@@ -242,9 +247,9 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
         $form = new SolrForm();
         $form->removeElement('thumbnail');
         $this->view->form = $form;
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $search = $this->getSolr();
-        $search->setCore('beoimages');
+        $search->setCore('images');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod', 'imagedir',
@@ -267,8 +272,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
                 $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
         $params['show'] = 18;
         if(!isset($params['q']) || $params['q'] == ''){
@@ -290,9 +295,9 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
     public function mytreasurecasesAction(){
         $form = new SolrForm();
         $this->view->form = $form;
-        $params = $this->_getAllParams();
+        $params = $this->getAllParams();
         $search = $this->getSolr();
-        $search->setCore('beowulf');
+        $search->setCore('objects');
         $search->setFields(array(
             'id', 'identifier', 'objecttype',
             'title', 'broadperiod','imagedir',
@@ -319,8 +324,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin {
             $params = $form->getValues();
             }
         } else {
-            $params = $this->_getAllParams();
-            $form->populate($this->_getAllParams());
+            $params = $this->getAllParams();
+            $form->populate($this->getAllParams());
         }
 
         if(!isset($params['q']) || $params['q'] == ''){

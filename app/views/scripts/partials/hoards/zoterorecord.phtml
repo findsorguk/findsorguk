@@ -1,0 +1,10 @@
+<?php
+echo $this->coins()
+        ->setTitle($this->title())
+        ->setAuthor($this->creator)
+        ->setPublished($this->created2)
+        ->setDescription($this->description);
+echo $this->toolbox()
+        ->setId($this->id)
+        ->setOldFindID($this->hoardID)
+        ->setCreatedBy($this->createdBy);

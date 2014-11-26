@@ -15,7 +15,7 @@ if($this->iconfarm != 0) {
 <?php }?>
 </div>
 <div class="details">
-<h4><a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'group','id' => $this->id),'default',true);?>" title="View this group's details"><?php echo $this->name;?></a></h4>
+<h4 class="lead"><a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'group','id' => $this->id),'default',true);?>" title="View this group's details"><?php echo $this->name;?></a></h4>
 <p>This group contains <?php echo $this->photos;?> photographs.</p>
 </div>
 </div>

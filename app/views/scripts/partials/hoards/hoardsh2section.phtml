@@ -1,0 +1,8 @@
+<h1 class="lead">HOARD</h1>
+<p><strong>Unique ID:</strong> <span class="fourfigure"><?php echo $this->escape($this->hoardID);?></span></p>
+    <p>
+        <?php if(!is_null($this->objecttypecert)):?>
+            Object type certainty: <?php echo $this->certainty()->setCertainty($this->objecttypecert);?><br />
+        <?php endif;?>
+        Workflow status: <?php echo $this->workflowStatus()->setWorkflow($this->secwfstage);?> <?php echo $this->workflow()->setWorkflow($this->secwfstage);?>
+    </p>

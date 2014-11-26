@@ -1,13 +1,15 @@
-<?php 
+<?php
 $this->headTitle('Methods of decoration used');
 $this->metaBase()
-        ->setDescription($this->title())
-        ->generate();
+    ->setSubject('terminology')
+    ->setKeywords('terminology,archaeology,methods')
+    ->setDescription($this->title())
+    ->generate();
 ?>
 <h2 class="lead">
-    <?php echo $this->title();?>
+    <?php echo $this->title(); ?>
 </h2>
 
 <ul
-    <?php echo $this->partialLoop('partials/database/decMethodsList.phtml',$this->decs);?>
+<?php echo $this->partialLoop('partials/datalabs/decMethodsList.phtml', $this->decs); ?>
 </ul>

@@ -8,13 +8,13 @@ class REST_Controller_Action_Helper_RestContexts extends Zend_Controller_Action_
         $controller = $this->getActionController();
 
         if ($controller instanceOf Zend_Rest_Controller or $controller instanceOf REST_Controller) {
-            $contextSwitch = $controller->getHelper('restContextSwitch');
+            $contextSwitch = $controller->getHelper('contextSwitch');
             $contextSwitch->setAutoSerialization(true);
 
             foreach ($this->getControllerActions($controller, $currentMethod) as $action) {
                 $contextSwitch->addActionContext($action, true);
             }
-			
+
             $contextSwitch->initContext();
         }
     }

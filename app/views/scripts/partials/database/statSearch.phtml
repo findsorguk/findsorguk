@@ -1,9 +1,9 @@
-<h4>Search statistics</h4>
+<h4 class="lead">
+    Search statistics
+</h4>
 <ul>
-<li>Total quantity: <?php echo number_format($this->sum);?></li>
-<li>Mean quantity: <?php echo number_format($this->mean,3);?></li>
-<li>Standard deviation: <?php echo number_format($this->stdDeviation,3);?></li>
-<li>Maximum quantity (one record): <?php echo number_format($this->maxima);?></li>
-<li>Minimum quantity (one record): <?php echo number_format($this->minima);?></li>
-<li>Sum of squares: <?php echo $this->sumOfSquares;?></li>
+    <li>Total quantity: <?php echo number_format($this->sum); ?></li>
+    <li>Mean quantity: <?php echo number_format($this->mean, 3); ?></li>
+    <li>Maximum: <?php echo number_format($this->maxima); ?></li>
+    <!--<li>Minimum: <?php echo number_format($this->minima); ?></li>-->
 </ul>

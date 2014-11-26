@@ -1,163 +1,42 @@
-<?php $this->headTitle('Details for denomination: ' . $this->denomination);
-$this->headMeta($this->curUrl(),'dc.identifier')
-		->headMeta('CC NC-SA-BY','dc.rights')
-		->headMeta('Daniel Pett','dc.creator')
-		->headMeta('The Portable Antiquities Scheme','dc.publisher');
-$this->headMeta('This page outlines detail for the denomination of '
-        . $this->denomination . ' as used on the Scheme\'s database.
-            When possible, this has been enhanced with dbpedia.','description');
-$this->headLink()->appendAlternate($this->baseUrl()
-        . '/database/search/results/denomination/' . $this->id . '/format/atom/',
-	'application/rss+xml', 'Latest recorded finds feed for '
-        . $this->escape($this->denomination));?>
-<h2>The <?php echo $this->denomination;?></h2>
-<?php echo $this->description;?>
-<?php if(!is_null($this->rarity)):?>
-<p><?php echo $this->rarity; ?></p>
-<?php endif;?>
+<?php
+$this->headTitle('Details for denomination: ' . $this->denomination);
+$this->metaBase()->setDescription('This page outlines detail for the denomination of ' . $this->denomination . ' as used on the Scheme\'s database When possible, this has been enhanced with dbpedia.', 'description')
+    ->setSubject('numismatics')
+    ->setKeywords('denomination,archaeology,numismatics,' . $this->denomination)
+    ->generate();
+$this->headLink()->appendAlternate($this->baseUrl() . '/database/search/results/denomination/' . $this->id . '/format/atom/',
+    'application/rss+xml', 'Latest recorded finds feed for ' . $this->denomination);?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<p>
+<?php if (!is_null($this->description)): ?>
+    <?php echo $this->description; ?>
+<?php endif; ?>
 
-<?php if(!is_null($this->weight)):?>
-Weight: <?php echo $this->weight; ?> g<br />
-<?php endif;?>
+<?php if (!is_null($this->rarity)): ?>
+    <p><?php echo $this->rarity; ?></p>
+<?php endif; ?>
 
-<?php if(!is_null($this->thickness)):?>
-Thickness: <?php echo $this->thickness; ?> mm<br />
-<?php endif;?>
+<?php $dims = array($this->weight, $this->thickness, $this->diameter, $this->term); ?>
+<?php if (array_filter($dims)): ?>
+    <p>
+        <?php if (!is_null($this->weight)): ?>
+            Weight: <?php echo $this->weight; ?> g<br/>
+        <?php endif; ?>
 
-<?php if(!is_null($this->diameter)):?>
-Diameter: <?php echo $this->diameter; ?> mm<br />
-<?php endif;?>
+        <?php if (!is_null($this->thickness)): ?>
+            Thickness: <?php echo $this->thickness; ?> mm<br/>
+        <?php endif; ?>
 
-<?php if(!is_null($this->term)):?>
-Metal: <?php echo $this->term;?>
-<?php endif;?>
-</p>
+        <?php if (!is_null($this->diameter)): ?>
+            Diameter: <?php echo $this->diameter; ?> mm<br/>
+        <?php endif; ?>
 
-    <?php
-ini_set('display_errors', '0');     # don't show any errors...
-//error_reporting(E_ALL | E_STRICT);  # ...but do log them
-$config = array('remote_store_endpoint' => 'http://dbpedia.org/sparql');
-$ARC2 = new ARC2();
-$store = $ARC2->getRemoteStore($config);
-//build the SPARQL query
-$q = '
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX dc: <http://purl.org/dc/elements/1.1/>
-PREFIX : <http://dbpedia.org/resource/>
-PREFIX dbpedia2: <http://dbpedia.org/property/>
-PREFIX dbpedia: <http://dbpedia.org/>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+        <?php if (!is_null($this->term)): ?>
+            Metal: <?php echo $this->term; ?>
+        <?php endif; ?>
+    </p>
+<?php endif; ?>
 
-SELECT *
-
-WHERE {
-?denom foaf:page <http://en.wikipedia.org/wiki/'.urlencode(str_replace(array('Aureus (Republic/Empire)',
-'Solidus','Victoriatus (Roman Republic)','Angel','Denarius (Empire)','As (Roman Republic)','As','Cat','CATTI','IISVPRASV',' ')
-,array('Aureus','Solidus (coin)','Victoriatus','Angel (coin)','Denarius','As (Roman coin)','As (Roman coin)','','Chatti','Prasutagus','_'),ucfirst($this->denomination))).'> .
-OPTIONAL {?denom dbpedia2:abstract ?abstract} .
-OPTIONAL {?denom dbpedia2:name ?name} .
-OPTIONAL {?denom dbpedia2:after ?after }.
-OPTIONAL {?denom foaf:depiction ?depiction}.
-OPTIONAL {?denom dbpedia2:before ?before }.
-OPTIONAL {?denom dbpedia2:father ?father }.
-OPTIONAL {?denom dbpedia2:successor ?successor }.
-OPTIONAL {?denom dbpedia2:reign ?reign }.
-OPTIONAL {?denom dbpedia2:mother ?mother }.
-OPTIONAL {?denom dbpedia2:placeOfBurial ?burial }.
-OPTIONAL {?denom dbpedia2:patronage ?patronage} .
-OPTIONAL {?denom dbpedia-owl:thumbnail ?thumb} .
-OPTIONAL {?denom dbpedia2:imgw ?imgw} .
-OPTIONAL {?denom dbpedia2:years ?years} .
-OPTIONAL {?denom dbpedia2:spouse ?spouse} .
-OPTIONAL {?denom dbpedia-owl:title ?title} .
-OPTIONAL {?denom dbpedia2:caption ?caption} .
-OPTIONAL {?denom dbpedia2:alternativeNames ?alt}.
-OPTIONAL {?denom dbpedia2:birthPlace ?bp} .
-OPTIONAL {?denom dbpedia2:dateOfBirth ?dob }.
-OPTIONAL {?denom dbpedia2:dateOfDeath ?dod } .
-OPTIONAL {?denom dbpedia2:deathPlace ?dp}.
-?denom foaf:page ?page.
-FILTER langMatches( lang(?abstract), "en")
-
-}
-LIMIT 1
-';
-//process the results
-
-//Zend_Debug::dump($q);
-//Zend_Debug::dump($store->query($q, 'rows'));
-$results = array();
-if ($rows = $store->query($q, 'rows')) {
-foreach ($rows as $row) {
-//Zend_Debug::dump($row);
-$chunks = split('\. ',str_replace(array('c.','d.','pl.'),array('circa','died','plural'),$row['abstract']));
-  foreach($chunks as $key=>$c){
-    $chunks[$key] = ($key%3==0) ? ($c . '.</p><p>') : ($c.'. ');
-  }
- $abs = '<p>'.join($chunks).'</p>';
- $trimmed = $this->ellipsisString()->setString($abs)->setMax(200);
-$this->headMeta($trimmed,'description');
-echo '<h4>Wikipedia derived information</h4>';
-if(isset($row['thumb']) && isset($row['caption'])) {
-echo '<a href="'.$row['depiction'].'" rel="lightbox" title="' .str_replace('"','',$row['caption']) .'"><img src="'.$row['thumb'].'" class="flow" alt="' .str_replace('"','',$row['caption']) .'" width="'.$row['imgw'].'"/></a>';
-} else if(isset($row['thumb'])) {
-echo '<a href="'.$row['depiction'].'" rel="lightbox" title="View Wikipedia thumbnail of this coin type"><img src="'.$row['thumb'].'" class="flow" alt="Wikipedia thumbnail of this coin type" width="'.$row['imgw'].'"/></a>';
-}
-echo $abs;
-echo '<p>';
-if(isset($row['title'])) {
-echo 'Title: '. $row['title'] . '<br />';
-}
-//echo 'Patronage: '.$row['patronage'].'<br />';
-if(isset($row['reign'])) {
-echo 'Exact reign: '.strip_tags(rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['reign']))).'<br />';
-}
-if(isset($row['years'])){
-echo 'Years ruled: '.rawurldecode($row['years']).'<br />';
-}
-if(isset($row['spouse'])){
-echo 'Spouse: '.rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),strip_tags($row['spouse']))).'<br />';
-}
-if(isset($row['bp'])) {
-echo 'Birth place: '.str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),rawurldecode($row['bp'])).'<br />';
-}
-if(isset($row['mother'])){
-echo 'Mother: '.str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),rawurldecode($row['mother'])).'<br />';
-}
-if(isset($row['father'])){
-echo 'Father: '.rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['father'])).'<br />';
-}
-if(isset($row['successor'])) {
-echo 'Succeeded by: ' .str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['successor']).'<br />';
-}
-if(isset($row['burial'])){
-echo 'Burial place: '.rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['burial'])).'<br />';
-}
-if(isset($row['dob'])) {
-echo 'Date of birth: '.$row['dob'].'<br />';
-}
-if(isset($row['dod'])) {
-echo 'Date of death: '.$row['dod'].'<br />';
-}
-if(isset($row['dp'])) {
-echo 'Died at: '.rawurldecode(str_replace(array('http://dbpedia.org/resource/','_'),array('',' '),$row['dp'])).'<br />';
-}
-
-if(isset($row['alt'])) {
-echo 'Alternative names: '.$row['alt'].'<br />';
-}
-echo 'Wikipedia page: <a href="'.$row['page'].'" title="Go to the Wikipedia entry for '.$this_.denomination.'">'.$row['page'].'</a><br />';
-
-echo 'This data is sourced from dbpedia, and as such should be treated with caution';
-echo '</p>';
-echo '<img src="http://wiki.dbpedia.org/images/dbpedia_logo.png" alt="Dbpedia\'s logo"/>';
-}
-}
-?>
+<?php echo $this->latestRecords()->setQuery('denomination:' . $this->id); ?>
+<?php echo $this->searchLink()->setField('denomination')->setId($this->id); ?>
+<?php echo $this->coinStatsSolr()->setDenomination($this->id); ?>

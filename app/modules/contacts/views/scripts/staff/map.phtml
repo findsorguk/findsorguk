@@ -1,86 +1,87 @@
-<?php 
-$this->inlineScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false',$type='text/javascript');
+<?php
+$this->inlineScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false', $type = 'text/javascript');
 $this->headTitle('Location map showing Scheme staff');
 $this->metaBase()
-        ->setDescription('A map of the locations of our staff who work for the Portable Antiquities Scheme')
-        ->setSubject('contacts map')
-        ->setKeywords('map,google,contacts,scheme,head office,archaeology')
-        ->generate();
+    ->setDescription('A map of the locations of our staff who work for the Portable Antiquities Scheme')
+    ->setSubject('contacts map')
+    ->setKeywords('map,google,contacts,scheme,head office,archaeology')
+    ->generate();
 ?>
-<h2><?php echo $this->title();?></h2>
-<div id="map">
-</div>
-<?php  $this->inlineScript()->captureStart(); ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <div id="map">
+        <div id="loading"></div>
+    </div>
+<?php $this->inlineScript()->captureStart(); ?>
 
- //<![CDATA[
+    //<![CDATA[
 
     function load() {
-      var map = new google.maps.Map(document.getElementById("map"), {
-        center: new google.maps.LatLng(52.6557, -1.188),
-        zoom: 7,
-		scrollwheel:false,
-        mapTypeId: 'terrain'
-      });
-      var infoWindow = new google.maps.InfoWindow;
+    var map = new google.maps.Map(document.getElementById("map"), {
+    center: new google.maps.LatLng(52.6557, -1.188),
+    zoom: 7,
+    scrollwheel:false,
+    mapTypeId: 'terrain'
+    });
+    var infoWindow = new google.maps.InfoWindow;
 
-      // Change this depending on the name of your PHP file
-      downloadUrl("<?php echo $this->url(array('module' => 'default','controller' => 'ajax','action' => 'staffdata'),null,true);?>", function(data) {
-        var xml = parseXml(data);
-        var markers = xml.documentElement.getElementsByTagName("marker");
-        for (var i = 0; i < markers.length; i++) {
-          var name = markers[i].getAttribute("name");
-		  var url = markers[i].getAttribute("url");
-          var address = markers[i].getAttribute("address");
-          var point = new google.maps.LatLng(
-              parseFloat(markers[i].getAttribute("lat")),
-              parseFloat(markers[i].getAttribute("lng")));
-          var html = "<a href='"+ url + "'>" + name + "</a>" + "<br />"  + address;
-          var marker = new google.maps.Marker({
-            map: map,
-            position: point,
-            icon: 'http://labs.google.com/ridefinder/images/mm_20_blue.png',
-        	shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
-          });
-          bindInfoWindow(marker, map, infoWindow, html);
-        }
-      });
+    // Change this depending on the name of your PHP file
+    downloadUrl("<?php echo $this->url(array('module' => 'default', 'controller' => 'ajax', 'action' => 'staffdata'), null, true); ?>", function(data) {
+    var xml = parseXml(data);
+    var markers = xml.documentElement.getElementsByTagName("marker");
+    for (var i = 0; i < markers.length; i++) {
+    var name = markers[i].getAttribute("name");
+    var url = markers[i].getAttribute("url");
+    var address = markers[i].getAttribute("address");
+    var point = new google.maps.LatLng(
+    parseFloat(markers[i].getAttribute("lat")),
+    parseFloat(markers[i].getAttribute("lng")));
+    var html = "<a href='"+ url + "'>" + name + "</a>" + "<br/>"  + address;
+    var marker = new google.maps.Marker({
+    map: map,
+    position: point,
+    icon: 'http://labs.google.com/ridefinder/images/mm_20_blue.png',
+    shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
+    });
+    bindInfoWindow(marker, map, infoWindow, html);
+    }
+    });
     }
 
     function bindInfoWindow(marker, map, infoWindow, html) {
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(html);
-        infoWindow.open(map, marker);
-      });
+    google.maps.event.addListener(marker, 'click', function() {
+    infoWindow.setContent(html);
+    infoWindow.open(map, marker);
+    });
     }
 
     function downloadUrl(url, callback) {
-      var request = window.ActiveXObject ?
-          new ActiveXObject('Microsoft.XMLHTTP') :
-          new XMLHttpRequest;
+    var request = window.ActiveXObject ?
+    new ActiveXObject('Microsoft.XMLHTTP') :
+    new XMLHttpRequest;
 
-      request.onreadystatechange = function() {
-        if (request.readyState == 4) {
-          request.onreadystatechange = doNothing;
-          callback(request.responseText, request.status);
-        }
-      };
+    request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+    request.onreadystatechange = doNothing;
+    callback(request.responseText, request.status);
+    }
+    };
 
-      request.open('GET', url, true);
-      request.send(null);
+    request.open('GET', url, true);
+    request.send(null);
     }
 
     function parseXml(str) {
-      if (window.ActiveXObject) {
-        var doc = new ActiveXObject('Microsoft.XMLDOM');
-        doc.loadXML(str);
-        return doc;
-      } else if (window.DOMParser) {
-        return (new DOMParser).parseFromString(str, 'text/xml');
-      }
+    if (window.ActiveXObject) {
+    var doc = new ActiveXObject('Microsoft.XMLDOM');
+    doc.loadXML(str);
+    return doc;
+    } else if (window.DOMParser) {
+    return (new DOMParser).parseFromString(str, 'text/xml');
+    }
     }
 
     function doNothing() {}
 
     //]]>
-	window.onload = load;
-<?php $this->inlineScript()->captureEnd();?>
+    window.onload = load;
+<?php $this->inlineScript()->captureEnd(); ?>

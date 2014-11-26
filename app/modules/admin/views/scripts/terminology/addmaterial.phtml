@@ -1,4 +1,6 @@
-<h2>Add a new material</h2>
-<?php 
-	$this->headTitle("Add a new material");
-echo $this->form ;?>
+<?php
+$this->headTitle('Add a new material');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php echo $this->form; ?>

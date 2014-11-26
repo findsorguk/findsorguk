@@ -1,65 +1,69 @@
 <?php
-$this->headTitle('Details for '. $this->escape($this->ellipsisString()->setString($this->title)->setMax(90)));
-$this->headMeta('','dc.Keywords');
-$this->headMeta('The Portable Antiquities Scheme and the British Museum','dc.Publisher');
-$this->headMeta('Details for reference work '.$this->title,'description');
-$this->headMeta($this->c,'dc.date.created');
-$this->headMeta('Archaeology','dc.subject');
+$this->headTitle('Details for ' . $this->title);
+$this->headMeta('', 'dc.Keywords');
+$this->headMeta('The Portable Antiquities Scheme and the British Museum', 'dc.Publisher');
+$this->headMeta('Details for reference work ' . $this->title, 'description');
+$this->headMeta($this->c, 'dc.date.created');
+$this->headMeta('Archaeology', 'dc.subject');
 ?>
-<div about="<?php echo $this->CurUrl();?>" typeof="bibo:AcademicArticle">
-<h2><?php echo $this->title();?></h2>
+    <div about="<?php echo $this->curUrl(); ?>" typeof="bibo:AcademicArticle">
+        <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<ul>
-<li>Full title: <span property="dc:title"><?php echo $this->escape($this->title);?></span></li>
-<?php if(!is_null($this->authors)):?>
-<li>Author or editor: <?php echo $this->escape($this->authors);?></li>
-<?php endif;?>
-<?php if(!is_null($this->in_publication)):?>
-<li>In publication: <?php echo $this->escape($this->in_publication);?></li>
-<?php endif;?>
-<?php if(!is_null($this->editors)):?>
-<li>Editors: <?php echo $this->escape($this->editors);?></li>
-<?php endif;?>
-<?php if(!is_null($this->publication_place)):?>
-<li>Publication place: <?php echo $this->escape($this->publication_place);?></li>
-<?php endif;?>
-<?php if(!is_null($this->publisher)):?>
-<li>Publisher: <?php echo $this->escape($this->publisher);?></li>
-<?php endif;?>
-<?php if(!is_null($this->publication_year)):?>
-<li>Published: <?php echo $this->escape($this->publication_year);?></li>
-<?php endif;?>
-<?php if(!is_null($this->publicationType)):?>
-<li>Publication type: <?php echo $this->escape($this->publicationType);?></li>
-<?php endif;?>
-<?php if(!is_null($this->ISBN)):?>
-<li>ISBN number: <span property="bibo:isbn10"><?php echo $this->escape($this->ISBN);?></span></li>
-<?php endif;?>
-<?php if(!is_null($this->biab)):?>
-<li>British and Irish Archaeological Bibliography entry number: <a href="http://biab.ac.uk/contents/<?php echo $this->escape($this->biab);?>" title="View entry on BIAB"><?php echo $this->escape($this->biab);?></a></li>
-<?php endif;?>
-<?php if(!is_null($this->doi)):?>
-<li>Digital Object Identifier (DOI): <a href="http://dx.doi.org/<?php echo $this->escape($this->doi);?>" title="Resolve this DOI"><?php echo $this->escape($this->doi);?></a></li>
-<?php endif;?>
-<li>This was created by: <?php echo $this->escape($this->createdBy);?> on the: <?php echo $this->timeAgoInWords($this->created);?></li>
-<?php if(!is_null($this->updated)):?>
-<li>Record last updated by: <?php echo $this->escape($this->updatedBy);?> on the <?php echo $this->timeAgoInWords($this->updated);?></li>
-<?php endif;?>
-</ul>
+        <ul>
+            <li>Full title: <span property="dc:title"><?php echo $this->title; ?></span></li>
+            <?php if (!is_null($this->authors)): ?>
+                <li>Author or editor: <?php echo $this->escape($this->authors); ?></li>
+            <?php endif; ?>
+            <?php if (!is_null($this->in_publication)): ?>
+                <li>In publication: <?php echo $this->escape($this->in_publication); ?></li>
+            <?php endif; ?>
+            <?php if (!is_null($this->editors)): ?>
+                <li>Editors: <?php echo $this->escape($this->editors); ?></li>
+            <?php endif; ?>
+            <?php if (!is_null($this->publication_place)): ?>
+                <li>Publication place: <?php echo $this->escape($this->publication_place); ?></li>
+            <?php endif; ?>
+            <?php if (!is_null($this->publisher)): ?>
+                <li>Publisher: <?php echo $this->escape($this->publisher); ?></li>
+            <?php endif; ?>
+            <?php if (!is_null($this->publication_year)): ?>
+                <li>Published: <?php echo $this->escape($this->publication_year); ?></li>
+            <?php endif; ?>
+            <?php if (!is_null($this->publicationType)): ?>
+                <li>Publication type: <?php echo $this->escape($this->publicationType); ?></li>
+            <?php endif; ?>
+            <?php if (!is_null($this->ISBN)): ?>
+                <li>ISBN number: <span property="bibo:isbn10"><?php echo $this->escape($this->ISBN); ?></span></li>
+            <?php endif; ?>
+            <?php if (!is_null($this->biab)): ?>
+                <li>British and Irish Archaeological Bibliography entry number: <a
+                        href="http://biab.ac.uk/contents/<?php echo $this->escape($this->biab); ?>"
+                        title="View entry on BIAB"><?php echo $this->escape($this->biab); ?></a></li>
+            <?php endif; ?>
+            <?php if (!is_null($this->doi)): ?>
+                <li>Digital Object Identifier (DOI): <a
+                        href="http://dx.doi.org/<?php echo $this->escape($this->doi); ?>"
+                        title="Resolve this DOI"><?php echo $this->escape($this->doi); ?></a></li>
+            <?php endif; ?>
+            <li>This was created by: <?php echo $this->escape($this->createdBy); ?> on
+                the: <?php echo $this->timeAgoInWords($this->created); ?></li>
+            <?php if (!is_null($this->updated)): ?>
+                <li>Record last updated by: <?php echo $this->escape($this->updatedBy); ?> on
+                    the <?php echo $this->timeAgoInWords($this->updated); ?></li>
+            <?php endif; ?>
+        </ul>
 
-<?php
-$links = array($this->Href(array('module' => 'database','controller'=>'publications', 'action'=>'edit',
-'params' =>array('id' => $this->id), 'checkAcl'=>true,
-'acl'=>'Zend_Acl', 'content'=>'Edit','attribs' => array('title' => 'Edit publication'))),
-$this->Href(array('module' => 'database','controller'=>'publications', 'action'=>'delete',
-'params' =>array('id' => $this->id), 'checkAcl'=>true,
-'acl'=>'Zend_Acl', 'content'=>'Delete','attribs' => array('title' => 'Delete publication'))));
-if($links['0'] != false){
-	echo '<p>';
-	echo implode(' | ', $links);
-	echo '</p>';
-}
-?>
+        <?php
+        $edit = $this->href(array('module' => 'database', 'controller' => 'publications', 'action' => 'edit',
+            'params' => array('id' => $this->id), 'checkAcl' => true,
+            'acl' => 'Zend_Acl', 'content' => 'Edit', 'attribs' => array('title' => 'Edit publication', 'class' => 'btn btn-default')));
+        $delete = $this->href(array('module' => 'database', 'controller' => 'publications', 'action' => 'delete',
+            'params' => array('id' => $this->id), 'checkAcl' => true,
+            'acl' => 'Zend_Acl', 'content' => 'Delete', 'attribs' => array('title' => 'Delete publication', 'class' => 'btn-warning btn')));
+            echo '<div class="btn-group">';
+            echo $edit . $delete;
+            echo '</div>';
+        ?>
 
-</div>
-<?php echo $this->amazonDetails()->setIsbn($this->ISBN);?>
+    </div>
+<?php echo $this->amazonDetails()->setIsbn($this->ISBN); ?>

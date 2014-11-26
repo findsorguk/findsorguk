@@ -1,4 +1,7 @@
-<h2>Edit decorative style</h2>
-<?php 	
+<?php
+$this->metaBase()->setDescription($this->title())->generate();
 $this->headTitle("Edit a decoration style");
-echo $this->form ;?>
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+<?php echo $this->form; ?>
