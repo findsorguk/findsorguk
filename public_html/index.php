@@ -42,6 +42,7 @@ set_include_path(
         . PATH_SEPARATOR . '../library/EasyBib/'
         . PATH_SEPARATOR . '../library/tcpdf/'
         . PATH_SEPARATOR . '../library/easyrdf/lib/'
+        . PATH_SEPARATOR . '../library/Imagecow/'
         . PATH_SEPARATOR . '../app/models/'
         . PATH_SEPARATOR . '../app/forms/'
         . PATH_SEPARATOR . get_include_path()
@@ -53,10 +54,8 @@ $autoloader->setDefaultAutoloader(
         create_function(
                 '$class',"include str_replace('_', '/', \$class) . '.php';"
                 ));
-$autoloader->registerNamespace('Pas_');
-$autoloader->registerNamespace('ZendX_');
-$autoloader->registerNamespace('EasyBib_');
 $autoloader->suppressNotFoundWarnings(false);
+$autoloader->registerNamespace('Imagecow');
 $autoloader->setFallbackAutoloader(true);
 require_once 'HTMLPurifier/Bootstrap.php';
 

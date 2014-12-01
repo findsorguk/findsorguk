@@ -726,4 +726,87 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $geography = new Geography();
         $this->view->json = $geography->getIronAgeGeographyAll();
     }
+
+    public function uploadAction()
+    {
+        if ($this->_request->isOptions()) {
+            $this->upload();
+        }
+        if ($this->_request->isPost()) {
+            $this->upload();
+        }
+        if ($this->_request->isGet()) {
+            $this->upload();
+        }
+        if ($this->_request->isDelete() || $_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            $this->delete();
+        }
+    }
+
+    public function upload() {
+
+        if ($this->_helper->Identity()) {
+            //Check if images path directory is writable
+            if(!is_writable(IMAGE_PATH)){
+                throw new Pas_Exception_NotAuthorised('The images directory is not writable', 500);
+            }
+            $imagedir = IMAGE_PATH . '/' . $this->_helper->Identity()->username;
+
+            //Check if a directory and if not make directory
+            if( !is_dir( $imagedir ) ) {
+                mkdir( $imagedir, 0775, true );
+            }
+            //Check if the personal image directory is writable
+            if(!is_writable( $imagedir )){
+                throw new Pas_Exception_NotAuthorised('The user image directory is not writable', 500);
+            }
+
+            // Get images and do the magic
+            $adapter = new Zend_File_Transfer_Adapter_Http();
+            $adapter->setDestination($imagedir);
+            // Only allow good image files!
+            $adapter->addValidator('Extension', false, 'jpg,tiff');
+            $adapter->addValidator('NotExists', false, array( $imagedir ));
+            $files = $adapter->getFileInfo();
+
+            // Create an array for the images
+            $images = array();
+
+            // Loop through the submitted files
+            foreach ($files as $file => $info) {
+                // you could apply a filter like this too (if you want), to rename the file:
+                //  $name = ExampleLibrary::generateFilename($name);
+                //  $adapter->addFilter('rename', $user_path . '/' .$name);
+                // file uploaded & is valid
+                if (!$adapter->isUploaded($file)) continue;
+                if (!$adapter->isValid($file)) continue;
+
+                // receive the files into the user directory
+                $adapter->receive($file); // this has to be on top
+                $image = new stdClass();
+                // we stripped out the image thumbnail for our purpose, primarily for security reasons
+                // you could add it back in here.
+                $image->path = $adapter->getFileName($file);
+                $image->name = $adapter->getFileName($file, false);
+                $image->size = $adapter->getFileSize($file);
+                $image->type = $adapter->getMimeType($file);
+                $image->mimeType = $adapter->getMimeType($file);
+                // Get the image dims
+                $imagesize = getimagesize($adapter->getFileName($file));
+                $image->width = $imagesize[0];
+                $image->height = $imagesize[1];
+                // Create the raw image url
+                $image->url = $this->view->serverUrl() . $imagedir . $adapter->getFileName($file, false);
+                $images[] = $image;
+                // Process images for different sizes
+                $processor = new Pas_Image_Magick();
+                $processor->setImage($adapter->getFileName($file));
+                $processor->setImageNumber(1);
+                $processor->resize();
+            }
+            $this->view->data = $images;
+        } else {
+            throw new Pas_Exception_NotAuthorised('Your account does not seem enabled to do this', 500);
+        }
+    }
 }
