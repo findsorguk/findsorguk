@@ -37,7 +37,7 @@ class EditAccountForm extends Pas_Form {
      * @param array $options
      * @return void
      */
-    public function __construct($actionUrl = null, array $options) {
+    public function __construct($actionUrl = null,  $options = array()) {
         parent::__construct($options);
         $this->setActionUrl($actionUrl);
         $this->init();

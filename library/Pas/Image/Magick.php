@@ -2,7 +2,6 @@
 /** A class wrapper for the Imagecow library just for PAS use
  *
  */
-include_once ROOT_PATH . '/library/Imagecow/autoloader.php';
 
 use Imagecow\Image;
 
@@ -71,7 +70,7 @@ class Pas_Image_Magick
     public function getSizes()
     {
         $this->_sizes = array(
-            array('destination' => self::THUMB, 'width' => 100, 'height' => 100),
+//            array('destination' => self::THUMB, 'width' => 100, 'height' => 100),
             array('destination' => self::SMALL, 'width' => 40, 'height' => 0),
             array('destination' => self::MEDIUM, 'width' => 500, 'height' => 0),
             array('destination' => self::DISPLAY, 'width' => 0, 'height' => 200),
@@ -206,20 +205,16 @@ class Pas_Image_Magick
         //Loop through each size and create the image
         foreach ($this->getSizes() as $resize) {
             if ($resize['destination'] == self::THUMB) {
-                $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getImageNumber() . self::EXT;
+                $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getImageNumber();
             } else {
-                $newImage = IMAGE_PATH. $this->getUserPath() . $resize['destination'] . $this->getBasename() . self::EXT;
+                $newImage = IMAGE_PATH. $this->getUserPath() . $resize['destination'] . $this->getBasename();
             }
-//            Zend_Debug::dump($newImage);
-//            Zend_Debug::dump($this);
-            $image = Image::create($image, 'Imagick');
-            $mime = $image->getMimeType();
-//            Zend_Debug::dump($mime);
-//            exit;
+            $surrogate = Image::create($this->getImage(), 'Imagick');
+            $mime = $surrogate->getMimeType();
             if (in_array($mime, $this->getMimeTypes())) {
-                $image->resize($resize['width'], $resize['height'], 1);
-                $image->format('jpg');
-                $image->save($newImage);
+                $surrogate->resize($resize['width'], $resize['height'], 1);
+                $surrogate->format('jpg');
+                $surrogate->save($newImage);
             }
 //            if (in_array($mime, $this->_tiffMimes)) {
 //                //Convert tiff to JPG and repeat above, replace original and save tiff in tiffs folder

@@ -47,19 +47,39 @@ set_include_path(
         . PATH_SEPARATOR . '../app/forms/'
         . PATH_SEPARATOR . get_include_path()
         );
+require_once '../library/ZendX/Loader/StandardAutoloader.php';
+$loader = new ZendX_Loader_StandardAutoloader(array(
+    'prefixes' => array(
+        'Zend' => '../library/Zend/library',
+        'HTMLPurifier' => '../library/HTMLPurifier/library/',
+        'Pas' => '../library/Pas/',
+        'ZendX' => '../library/ZendX/',
+        'Imagecow' => '../library/Imagecow/',
+        'Imagecow/Libs/' => '../library/Imagecow/Libs/',
+        'easyRDF' => '../library/easyrdf/lib/'
+    ),
+    'namespaces' => array(
+        'Imagecow' => '../library/Imagecow',
+    ),
+    'fallback_autoloader' => true,
+));
 
-include 'Zend/Loader/Autoloader.php';
-$autoloader = Zend_Loader_Autoloader::getInstance();
-$autoloader->setDefaultAutoloader(
-        create_function(
-                '$class',"include str_replace('_', '/', \$class) . '.php';"
-                ));
-$autoloader->suppressNotFoundWarnings(false);
-$autoloader->registerNamespace('Imagecow');
-$autoloader->setFallbackAutoloader(true);
+$loader->register(); // register with spl_autoload_register()
+
+//include 'Zend/Loader/Autoloader.php';
+//$autoloader = Zend_Loader_Autoloader::getInstance();
+//$autoloader->setDefaultAutoloader(
+//        create_function(
+//                '$class',"include str_replace('_', '/', \$class) . '.php';"
+//                ));
+//$autoloader->suppressNotFoundWarnings(false);
+//$autoloader->setFallbackAutoloader(true);
 require_once 'HTMLPurifier/Bootstrap.php';
 
-$autoloader->pushAutoloader('HTMLPurifier_Bootstrap', 'autoload');
+//$autoloader->pushAutoloader('HTMLPurifier_Bootstrap', 'autoload');
+
+//$autoloader->registerNamespace('Imagecow');
+//$autoloader->registerNamespace('Imagecow\Libs');
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
