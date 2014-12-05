@@ -10,3 +10,4 @@ $this->metaBase()->setDescription($this->title())->generate();
 ?>
 <?php $this->title();?>
 <?php echo $this->form;?>
+<div><?php echo $this->partial('partials/content/article.phtml', $this->contents); ?></div>
