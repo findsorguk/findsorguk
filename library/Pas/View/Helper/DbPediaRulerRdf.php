@@ -187,10 +187,11 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
     {
         $html = '';
         $d = $this->getData();
+        Zend_Debug::dump($d);
         $html .= '<h3 class="lead">Information from Wikipedia</h3>';
-        if ($d->get('dbpediaowl:thumbnail')) {
+        if ($d->get('dbo:thumbnail')) {
             $html .= '<img src="';
-            $html .= $d->get('dbpediaowl:thumbnail');
+            $html .= $d->get('dbo:thumbnail');
             $html .= '" class="pull-right stelae"/>';
         }
         $html .= '<ul>';

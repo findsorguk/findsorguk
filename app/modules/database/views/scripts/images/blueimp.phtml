@@ -14,7 +14,7 @@ $this->metaBase()->setDescription($this->title())->generate();
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 
     <!-- The file upload form used as target for the file upload widget -->
-    <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+    <form id="fileupload" action="<?php echo $this->serverUrl();?>/database/ajax/upload" method="POST" enctype="multipart/form-data">
         <noscript><p>Your browser cannot support this uploader due to JavaScript problems.</p></noscript>
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row-fluid fileupload-buttonbar">
@@ -22,23 +22,23 @@ $this->metaBase()->setDescription($this->title())->generate();
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <input type="file" name="files[]" multiple>
                 <button type="submit" class="btn btn-primary start">
-                    <i class="icon icon-upload"></i>
+                    <i class="icon-white icon-upload"></i>
                     <span>Start upload</span>
                 </button>
                 <button type="reset" class="btn btn-warning cancel">
-                    <i class="icon icon-ban-circle"></i>
+                    <i class="icon-white icon-ban-circle"></i>
                     <span>Cancel upload</span>
                 </button>
                 <button type="button" class="btn btn-danger delete">
-                    <i class="icon icon-trash"></i>
+                    <i class="icon-white icon-trash"></i>
                     <span>Delete</span>
-                </button>
-                <input type="checkbox" class="toggle">
+                </button><br/>
+                Toggle delete button: <input type="checkbox" class="toggle">
                 <!-- The global file processing state -->
                 <span class="fileupload-process"></span>
             </div>
             <!-- The global progress state -->
-            <div class="col-lg-5 fileupload-progress fade">
+            <div class="span12 fileupload-progress fade">
                 <!-- The global progress bar -->
                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                     <div class="bar" style="width:0%;"></div>
@@ -46,10 +46,9 @@ $this->metaBase()->setDescription($this->title())->generate();
                 <!-- The extended global progress state -->
                 <div class="progress-extended">&nbsp;</div>
             </div>
-
             <div class="span6">
-                <?php $url = array('module' => 'database', 'controller' => 'images', 'action' => 'metadata', 'id' => $this->id); ?>
-                <a href="" class="btn btn-success">Finished uploads? Add metadata to images</a>
+                <?php $url = array('module' => 'database', 'controller' => 'images', 'action' => 'metadata', 'id' => $this->findID); ?>
+                <a href="<?php echo $this->url($url);?>" class="btn btn-success">Finished uploads? Add metadata to images</a>
             </div>
         </div>
         <!-- The table listing the files available for upload/download -->
@@ -76,7 +75,6 @@ $this->metaBase()->setDescription($this->title())->generate();
         </div>
     </div>
     </div>
-
     <!-- The template to display files available for upload -->
     <script id="template-upload" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -95,13 +93,13 @@ $this->metaBase()->setDescription($this->title())->generate();
         <td>
             {% if (!i && !o.options.autoUpload) { %}
                 <button class="btn btn-primary start" disabled>
-                    <i class="glyphicon glyphicon-upload"></i>
+                    <i class="icon-white icon-upload"></i>
                     <span>Start</span>
                 </button>
             {% } %}
             {% if (!i) { %}
                 <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <i class="icon-white icon-trash"></i>
                     <span>Cancel</span>
                 </button>
             {% } %}
@@ -143,13 +141,13 @@ $this->metaBase()->setDescription($this->title())->generate();
         <td>
             {% if (file.deleteUrl) { %}
                 <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                    <i class="glyphicon glyphicon-trash"></i>
+                    <i class="icon-white icon-trash"></i>
                     <span>Delete</span>
                 </button>
                 <input type="checkbox" name="delete" value="1" class="toggle">
             {% } else { %}
                 <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <i class="icon-white icon-ban-circle"></i>
                     <span>Cancel</span>
                 </button>
             {% } %}
@@ -180,23 +178,21 @@ $this->jQuery()->addJavascriptFile('/thirdParty/js/bootstrap.file-input.js', $ty
     $('input[type=file]').bootstrapFileInput();
     $('.file-inputs').bootstrapFileInput();
 
-
-
-
     $(document).ready(function() {
-    'use strict';
+        'use strict';
+        // Initialize the jQuery File Upload widget:
+        $('#fileupload').fileupload({
+            url: '<?php echo $this->serverUrl();?>/database/ajax/upload/',
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+            .test(window.navigator.userAgent),
+            maxFileSize: 200000000,
+            acceptFileTypes: /(\.|\/)(tif|jpe?g)$/i
 
-    // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload({
-    // Uncomment the following to send cross-domain cookies:
-    //xhrFields: {withCredentials: true},
-    url: '../../database/ajax/upload/',
-    disableImageResize: /Android(?!.*Chrome)|Opera/
-    .test(window.navigator.userAgent),
-    maxFileSize: 200000000,
-    acceptFileTypes: /(\.|\/)(tif|jpe?g)$/i
+        }).bind('fileuploadsubmit', function (e, data) {
+        data.formData = {
+        'findID': "<?php echo $this->findID;?>"
+        };
+        });
     });
 
-
-    });
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>

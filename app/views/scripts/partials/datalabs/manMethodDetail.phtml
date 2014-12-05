@@ -10,5 +10,5 @@
 <?php else: ?>
     <p>No scope note has been entered yet.</p>
 <?php endif; ?>
-<?php echo $this->searchLink()->setField('manufacture')->setId($this-id);?>
+<?php echo $this->searchLink()->setField('manufacture')->setId($this->id);?>
 <?php echo $this->latestRecords()->setQuery('manufacture:' .  $this->id);?>

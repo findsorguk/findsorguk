@@ -140,7 +140,7 @@ class Findspots extends Pas_Db_Table_Abstract {
                 ->joinLeft('maporigins','maporigins.id = findspots.gridrefsrc',
                         array('source' => 'term'))
                 ->joinLeft('osRegions','findspots.regionID = osRegions.osID',
-                        array('region' => 'label'))
+                        array('region' => 'label', 'regionType' => 'type'))
                 ->joinLeft('osCounties', 'findspots.countyID = osCounties.osID', 
                         array('countyType' => 'type'))
                 ->joinLeft('osDistricts', 'findspots.districtID = osDistricts.osID', 

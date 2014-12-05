@@ -77,7 +77,8 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
      * */
     public function getData()
     {
-        $key = md5($this->_uri);
+
+        $key = md5($this->getUri());
         if (!($this->getCache()->test($key))) {
             $request = new EasyRdf_Http_Client();
             $request->setUri($this->getUri());
@@ -124,6 +125,10 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
     /** Rebder tge html */
     public function __toString()
     {
-        return $this->_render($this->getData());
+        if($this->getData()){
+            return $this->_render($this->getData());
+        } else {
+            return 'Nothing returned from Nomisma at this time';
+        }
     }
 }

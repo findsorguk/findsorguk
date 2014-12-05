@@ -306,7 +306,7 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
                 <?php if (!is_null($this->method)) : ?>
                     Method of discovery: <?php echo $this->escape($this->method); ?>
                     <span class="scope">[<a href="<?php echo $this->url(array(
-                            'module' => 'database',
+                            'module' => 'datalabs',
                             'controller' => 'terminology',
                             'action' => 'method',
                             'id' => $this->discmethod), null, true);?>"
@@ -325,7 +325,7 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
                 <?php if (!is_null($this->landvalue)) : ?>
                     General landuse: <?php echo $this->landvalue; ?>
                     <span class="scope">[<a href="<?php echo $this->url(array(
-                                'module' => 'database',
+                                'module' => 'datalabs',
                                 'controller' => 'terminology',
                                 'action' => 'landuse',
                                 'id' => $this->landusevalue)
@@ -337,7 +337,7 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
                 <?php if (!is_null($this->landuse)) : ?>
                     Specific landuse: <?php echo $this->escape($this->landuse); ?>
                     <span class="scope">[<a href="<?php echo $this->url(array(
-                            'module' => 'database',
+                            'module' => 'datalabs',
                             'controller' => 'terminology',
                             'action' => 'landuse',
                             'id' => $this->landusecode), null, true);?>"

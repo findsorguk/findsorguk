@@ -9,24 +9,25 @@ use Imagecow\Image;
 class Pas_Image_Magick
 {
 
-    //Set up array of sizes
+    /** Set up array of sizes */
     protected $_sizes;
 
-    //Create user path string
+    /** Create user path string */
     protected $_userPath;
 
-    //Create original
+    /** Create original */
     protected $_original;
 
-    //Allowed extensions
+    /** Allowed extensions */
     protected $_extensions = array('jpg', 'jpeg', 'tiff', 'tif');
 
-    //Basename of file
+    /** Basename of file */
     protected $_basename;
 
+    /** The record number to create the thumbnail */
     protected $_imageNumber;
 
-    //Allowed mime types
+    /** Allowed mime types */
     protected $_mimeTypes = array(
         'image/jpeg',
         'image/pjpeg',
@@ -34,34 +35,34 @@ class Pas_Image_Magick
         'image/x-tiff'
     );
 
-    //User object
+    /** User object */
     protected $_user;
 
-    //Thumbnail directory
+    /**  Thumbnail directory */
     const THUMB = '/thumbnails/';
 
-    //Small image directory
+    /** Small image directory */
     const SMALL = '/small/';
 
-    //Medium image directory
+    /** Medium image directory */
     const MEDIUM = '/medium/';
 
-    //Large image directory
+    /** Large image directory */
     const LARGE = '/large/';
 
-    //Display image directory
+    /** Display image directory */
     const DISPLAY = '/display/';
 
-    //Create directory to store tiffs
+    /** Create directory to store tiffs */
     const TIFFS = '/tiffs/';
 
-    // The default extension
+    /** The default extension */
     const EXT = '.jpg';
 
-    // The permissions for a directory
+    /** The permissions for a directory */
     const PERMS = 0777;
 
-    // The mime types for tiff images
+    /** The mime types for tiff images */
     protected $_tiffMimes = array('image/tiff', 'image/x-tiff');
 
     /** Get the sizes for creation
@@ -70,7 +71,7 @@ class Pas_Image_Magick
     public function getSizes()
     {
         $this->_sizes = array(
-//            array('destination' => self::THUMB, 'width' => 100, 'height' => 100),
+            array('destination' => self::THUMB, 'width' => 100, 'height' => 100),
             array('destination' => self::SMALL, 'width' => 40, 'height' => 0),
             array('destination' => self::MEDIUM, 'width' => 500, 'height' => 0),
             array('destination' => self::DISPLAY, 'width' => 0, 'height' => 200),
@@ -78,6 +79,9 @@ class Pas_Image_Magick
         return $this->_sizes;
     }
 
+    /** Get the user
+     * @
+     */
     public function getUser()
     {
         $this->_user = new Pas_User_Details();
@@ -148,7 +152,7 @@ class Pas_Image_Magick
             //If not throw exception
             throw new Zend_Exception('No upload directory for that user');
         }
-            $this->_userPath = '/' . $user->username;
+        $this->_userPath = '/' . $user->username;
         return $this->_userPath;
     }
 
@@ -190,49 +194,59 @@ class Pas_Image_Magick
 
     public function resize()
     {
+        // Get the image
         $image = $this->getImage();
+        // If image parameter not set, throw exception
         if (is_null($image)) {
             throw new Zend_Exception('You must specify an image', 500);
         }
-        //Check file exists
+
+        //Check file exists and if not throw exception
         if (!file_exists($image)) {
             throw new Zend_Exception('That image does not exist', 500);
         }
-        //Make directory check
+        //Make directory check for existence
         $this->checkDirectories();
+        // Make directory check for permissions
         $this->checkPermissions();
 
         //Loop through each size and create the image
         foreach ($this->getSizes() as $resize) {
+            // Set the file name
             if ($resize['destination'] == self::THUMB) {
-                $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getImageNumber();
+                // Thumbnail sets record number as thumbnail ID
+                $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getImageNumber() . self::EXT;
             } else {
+                // Normal base name otherwise
                 $newImage = IMAGE_PATH. $this->getUserPath() . $resize['destination'] . $this->getBasename();
             }
+            // Set up the image creation class using imagick
             $surrogate = Image::create($this->getImage(), 'Imagick');
+            // Get the mime type
             $mime = $surrogate->getMimeType();
+            // Check if mime type is in the accepted array of types
             if (in_array($mime, $this->getMimeTypes())) {
                 $surrogate->resize($resize['width'], $resize['height'], 1);
                 $surrogate->format('jpg');
                 $surrogate->save($newImage);
             }
-//            if (in_array($mime, $this->_tiffMimes)) {
-//                //Convert tiff to JPG and repeat above, replace original and save tiff in tiffs folder
-//                $this->convertTiff($image);
-//            }
+            // If the mime type is a tiff do this
+            if (in_array($mime, $this->_tiffMimes)) {
+                //Convert tiff to JPG and repeat above, replace original and save tiff in tiffs folder
+                $this->convertTiff($image);
+            }
         }
     }
 
 
     /** Convert tiff to jpeg
-     *
+     * @access public
      * @param $image
      */
     public function convertTiff()
     {
         //Determine path to Tiff folder
         $tiffPath = IMAGE_PATH . $this->getUserPath() . self::TIFFS . $this->getBasename() . self::EXT;
-
         //Where we will be saving the file
         $destination = $this->getUserPath();
 
@@ -242,26 +256,21 @@ class Pas_Image_Magick
         }
 
         //Create an instance of the image to save
-        $image = Image::create($tiffPath, 'Imagick');
-
+        $surrogate = Image::create($tiffPath, 'Imagick');
         //Set the image to save as jpeg file
-        $image->format('jpg');
+        $surrogat->format('jpg');
         //Save to original folder as jpeg
-        $image->save($destination);
+        $surrogate->save($destination);
         //return to the resize function
         $this->resize();
     }
 
     /** Make directory if does not exist
-     *
+     * @access public
      * @param $path
      */
     protected function _makeDirectory($path, $recursive = TRUE)
     {
-//        Zend_Debug::dump(IMAGE_PATH);
-//        Zend_Debug::dump($this->getUserPath());
-//        exit;
         return mkdir($path, self::PERMS, $recursive);
     }
-
 }

@@ -490,13 +490,28 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
         }
     }
 
+    /** Upload images
+     * Most of the magic happens via ajax calls
+     * @access public
+     * @return void
+     */
     public function blueimpAction()
     {
         $form = new UploadForm();
         $this->view->form = $form;
+        $this->view->findID = $this->getParam('id');
     }
 
+    public function metadataAction()
+    {
+        if($this->getParam('id', false)){
+
+            $form = new ImageForm();
+            $this->view->form = $form;
 
 
-
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+    }
 }
