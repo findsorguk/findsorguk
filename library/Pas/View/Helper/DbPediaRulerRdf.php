@@ -35,7 +35,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      * @var array
      */
     protected $_nameSpaces = array(
-        'category' => 'http://dbpedia.org/resource/Category:',
+        'cat' => 'http://dbpedia.org/resource/Category:',
         'dbpedia' => 'http://dbpedia.org/resource/',
         'dbo' => 'http://dbpedia.org/ontology/',
         'dbp' => 'http://dbpedia.org/property/'
@@ -147,6 +147,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         } else {
             $data = $this->getCache()->load($key);
         }
+        $this->registerNameSpaces();
         return $data;
     }
 
@@ -169,13 +170,17 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
      */
     protected function _wikiLink($string)
     {
-        $cleaned = str_replace(array('http://dbpedia.org/resource/'),
-            array('http://en.wikipedia.org/wiki/'), $string);
-        $html = '<a href="';
-        $html .= $cleaned;
-        $html .= '">';
-        $html .= urldecode($this->_cleaner($string));
-        $html .= '</a>';
+        if(!is_array($string)) {
+            $cleaned = str_replace(array('http://dbpedia.org/resource/'),
+                array('http://en.wikipedia.org/wiki/'), $string);
+            $html = '<a href="';
+            $html .= $cleaned;
+            $html .= '">';
+            $html .= urldecode($this->_cleaner($string));
+            $html .= '</a>';
+        } else {
+            $html = '';
+        }
         return $html;
     }
 
@@ -187,7 +192,9 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
     {
         $html = '';
         $d = $this->getData();
-        Zend_Debug::dump($d);
+//        echo '<pre>';
+//        echo $d->dump('text');
+//        echo '</pre>';
         $html .= '<h3 class="lead">Information from Wikipedia</h3>';
         if ($d->get('dbo:thumbnail')) {
             $html .= '<img src="';
@@ -203,33 +210,33 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
             $html .= '</li>';
         }
         $html .= '</li></ul>';
-        $html .= '<li>Title:' . implode(', ', $d->all('dbpediaowl:title', 'literal')) . '</li>';
-        $html .= '<li>Predecessor: ' . $this->_cleaner(implode(', ', $d->all('dbpediaowl:predecessor', 'resource'))) . '</li>';
-        $html .= '<li>Successor: ' . $this->_cleaner(implode(', ', $d->all('dbpediaowl:successor', 'resource'))) . '</li>';
-        $html .= '<li>Definition: ' . $d->get('dbpediaowl:abstract', 'literal', self::LANGUAGE) . '</li>';
+        $html .= '<li>Title: ' . implode(', ', $d->all('dbp:title', 'literal')) . '</li>';
+        $html .= '<li>Predecessor: ' . $this->_cleaner(implode(', ', $d->all('dbo:predecessor', 'resource'))) . '</li>';
+        $html .= '<li>Successor: ' . $this->_cleaner(implode(', ', $d->all('dbo:successor', 'resource'))) . '</li>';
+        $html .= '<li>Definition: ' . $d->get('dbo:abstract', 'literal', self::LANGUAGE) . '</li>';
 
         $html .= '<li>Parents: <ul>';
         $html .= '<li>Father: ';
-        $html .= $this->_wikiLink($d->all('dbpprop:father', 'resource'));
+        $html .= $this->_wikiLink($d->get('dbp:father', 'resource'));
         $html .= '</li>';
         $html .= '<li>Mother: ';
-        $html .= $this->_wikiLink($d->get('dbpprop:mother', 'resource'));
+        $html .= $this->_wikiLink($d->get('dbp:mother', 'resource'));
         $html .= '</li>';
         $html .= '</ul></li>';
-        $birth = $d->all('dbpprop:birthPlace', 'resource');
+        $birth = $d->all('dbp:birthPlace', 'resource');
         $newBirth = array();
         foreach ($birth as $nb) {
             $newBirth[] = $this->_wikiLink($nb);
         }
         $html .= '<li>Birth place: ' . implode(', ', $newBirth) . '</li>';
-        $death = $d->all('dbpprop:deathPlace', 'resource');
+        $death = $d->all('dbp:deathPlace', 'resource');
         $reBirth = array();
         foreach ($death as $reb) {
             $reBirth[] = $this->_wikiLink($reb);
         }
         $html .= '<li>Death place: ' . implode(', ', $reBirth) . '</li>';
         $html .= '<li>Spouse: <ul>';
-        foreach ($d->all('dbpprop:spouse', 'resource') as $name) {
+        foreach ($d->all('dbo:spouse', 'resource') as $name) {
             $html .= '<li>';
             $html .= $this->_wikiLink($name);
             $html .= '</li>';
@@ -237,7 +244,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         $html .= '</ul></li>';
         $html .= '<li>Other title(s): <ul>';
         $titles = array();
-        foreach ($d->all('dbpprop:title') as $name) {
+        foreach ($d->all('dbp:title') as $name) {
             $titles[] = urldecode($this->_cleaner($name));
         }
         $new = array_unique($titles, SORT_STRING);
@@ -250,7 +257,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         }
         $html .= '</ul></li>';
         $html .= '<li>Came After: <ul>';
-        foreach ($d->all('dbpprop:after') as $name) {
+        foreach ($d->all('dbp:after') as $name) {
             if (strlen($name) > 4) {
                 $html .= '<li>';
                 $html .= $this->_cleaner($name);
@@ -259,7 +266,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         }
         $html .= '</ul></li>';
         $html .= '<li>Came before: <ul>';
-        foreach ($d->all('dbpprop:before') as $name) {
+        foreach ($d->all('dbp:before') as $name) {
             if (strlen($name) > 4) {
                 $html .= '<li>';
                 $html .= $this->_cleaner($name);
@@ -276,7 +283,6 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         }
         $html .= '</ul></li>';
         $html .= '</ul>';
-
         return $html;
     }
 

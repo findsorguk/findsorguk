@@ -66,21 +66,8 @@ $loader = new ZendX_Loader_StandardAutoloader(array(
 
 $loader->register(); // register with spl_autoload_register()
 
-//include 'Zend/Loader/Autoloader.php';
-//$autoloader = Zend_Loader_Autoloader::getInstance();
-//$autoloader->setDefaultAutoloader(
-//        create_function(
-//                '$class',"include str_replace('_', '/', \$class) . '.php';"
-//                ));
-//$autoloader->suppressNotFoundWarnings(false);
-//$autoloader->setFallbackAutoloader(true);
 require_once 'HTMLPurifier/Bootstrap.php';
 
-//$autoloader->pushAutoloader('HTMLPurifier_Bootstrap', 'autoload');
-
-//$autoloader->registerNamespace('Imagecow');
-//$autoloader->registerNamespace('Imagecow\Libs');
-/** Zend_Application */
 require_once 'Zend/Application.php';
 
 // Create application, bootstrap, and run
