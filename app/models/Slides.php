@@ -77,6 +77,25 @@ class Slides extends Pas_Db_Table_Abstract
     }
 
 
+    /** Get thumbnails for a particular find number
+     * @access public
+     * @param integer $id
+     * @return array
+     */
+    public function getSlides($id)
+    {
+        $thumbs = $this->getAdapter();
+        $select = $thumbs->select()
+            ->from($this->_name)
+            ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id',
+                array())
+            ->joinLeft('finds', 'finds.secuid = finds_images.find_id',
+                array('old_findID', 'objecttype', 'id', 'secuid'))
+            ->where('finds.id = ?', (int)$id)
+            ->order('slides.' . $this->_primary . ' ASC');
+        return $thumbs->fetchAll($select);
+    }
+
     /** Get specific thumbnails
      * @access public
      * @param integer $id

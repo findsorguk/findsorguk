@@ -1,14 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: danielpett
- * Date: 12/10/2014
- * Time: 08:16
- *
- * @todo Add in all the checking logic for who can edit.
- */
-class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
 
+/** A view helper for determining whether coin link should be printed.
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * $this->addCoinSummary();
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @category Pas
+ * @package Pas_View_Helper
+ * @copyright DEJ Pett
+ * @license GNU
+ * @version 1
+ * @since 29 September 2011
+ * @author dpett
+ */
+class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract
+{
+
+    /** The secuid string
+     * @access protected
+     * @var $_secUID
+     */
     protected $_secUID;
 
     /** The ID number of the record
@@ -24,13 +41,16 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
     protected $_hoardID;
 
     /** The role variable
-     * @var $_role */
+     * @var $_role
+     */
     protected $_role;
+
     /** Get the user's role
      * @access public
      * @return string
      */
-    public function getRole() {
+    public function getRole()
+    {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $this->_role = $user->role;
@@ -42,7 +62,8 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
      * @access public
      * @return object
      */
-    public function getAuth() {
+    public function getAuth()
+    {
         $this->_auth = Zend_Registry::get('auth');
         return $this->_auth;
     }
@@ -57,7 +78,7 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array $restricted
      */
-    protected $_restricted = array('member','research','hero');
+    protected $_restricted = array('member', 'research', 'hero');
 
     /** Set up the user groups with recorder access
      * @access protected
@@ -69,7 +90,7 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array $higherLevel
      */
-    protected $_higherLevel = array('admin','fa','treasure', 'hoard');
+    protected $_higherLevel = array('admin', 'fa', 'treasure', 'hoard');
 
     /** The default institution
      * @var string $_institution
@@ -136,7 +157,8 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
      * @access public
      * @return int
      */
-    public function getUserID() {
+    public function getUserID()
+    {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $this->_userID = $user->id;
@@ -148,7 +170,8 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getInst() {
+    public function getInst()
+    {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $this->_inst = $user->institution;
@@ -194,7 +217,6 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
     }
 
 
-
     /** The view helper function
      * @access public
      * @return \Pas_View_Helper_AddCoinSummary
@@ -221,7 +243,7 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
     {
         $html = '';
         $html .= $this->view->partial('partials/hoards/coinSummaryAdd.phtml', array(
-            'id' => $this->getID(), 'secUID' =>  $this->getSecUID()
+                'id' => $this->getID(), 'secUID' => $this->getSecUID()
             )
         );
         return $html;
@@ -237,8 +259,9 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
      * @param int $createdBy
      * @return boolean
      */
-    public function checkAccessbyUserID($createdBy ) {
-        if (in_array( $this->getRole(), $this->_restricted ) ) {
+    public function checkAccessbyUserID($createdBy)
+    {
+        if (in_array($this->getRole(), $this->_restricted)) {
             if ($createdBy == $this->getUserID()) {
                 $allowed = true;
             } else {
@@ -269,17 +292,21 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
      * @return boolean
      *
      */
-    public function checkAccessbyInstitution( $institution ) {
-        if(in_array($this->getRole(), $this->_recorders)
-            && $this->getInst() == $institution) {
+    public function checkAccessbyInstitution($institution)
+    {
+        if (in_array($this->getRole(), $this->_recorders)
+            && $this->getInst() == $institution
+        ) {
             $allowed = true;
-        } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
+        } elseif (in_array($this->getRole(), $this->_higherLevel)) {
             $allowed = true;
-        } elseif (in_array ($this->getRole(), $this->_restricted)
-            && $this->checkAccessbyUserID ($this->getCreatedBy())) {
+        } elseif (in_array($this->getRole(), $this->_restricted)
+            && $this->checkAccessbyUserID($this->getCreatedBy())
+        ) {
             $allowed = true;
         } elseif (in_array($this->getRole(), $this->_recorders)
-            && $institution == 'PUBLIC') {
+            && $institution == 'PUBLIC'
+        ) {
             $allowed = true;
         } else {
             $allowed = false;
@@ -291,9 +318,10 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function generateLink() {
+    public function generateLink()
+    {
         $html = '';
-        if( $this->checkAccessbyInstitution( $this->getInstitution() ) ) {
+        if ($this->checkAccessbyInstitution($this->getInstitution())) {
             $html .= $this->buildHtml();
         }
         return $html;

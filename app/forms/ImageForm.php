@@ -39,6 +39,8 @@ class ImageForm extends Pas_Form
      */
     protected $_copyright;
 
+
+
     /** The constructor
      * @access public
      * @param array $options
@@ -47,8 +49,8 @@ class ImageForm extends Pas_Form
     public function __construct(array $options = null)
     {
 
-        $counties = new Counties();
-        $county_options = $counties->getCountyname2();
+        $counties = new OsCounties();
+        $county_options = $counties->getCountyNames();
 
         $periods = new Periods();
         $period_options = $periods->getPeriodFrom();
@@ -59,10 +61,11 @@ class ImageForm extends Pas_Form
         $licenses = new LicenseTypes();
         $license = $licenses->getList();
 
-        $slides = new Slides();
-        $images = $slides->getThumbnails(1);
-        Zend_Debug::dump($images);
+        if(array_key_exists('id', $options)) {
+            $slides = new Slides();
+            $images = $slides->getSlides($options['id']);
 
+        }
         $auth = Zend_Auth::getInstance();
         $this->_auth = $auth;
 
@@ -72,9 +75,13 @@ class ImageForm extends Pas_Form
                 $this->_copyright = $user->copyright;
             } elseif (!is_null($user->fullname)) {
                 $this->_copyright = $user->first_name . ' ' . $user->last_name;
-
             } else {
                 $this->_copyright = $user->fullname;
+            }
+            if (!is_null($user->fullname)) {
+                $copy[] = $user->first_name . ' ' . $user->last_name;
+            } else {
+                $copy[] = $user->fullname;
             }
         }
 
@@ -96,6 +103,17 @@ class ImageForm extends Pas_Form
                 'Valid periods' => $period_options
             ))
             ->addValidator('inArray', false, array(array_keys($period_options)));
+
+        $country = new Zend_Form_Element_Select('country');
+        $country->setLabel('Country: ')
+            ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow required')
+            ->setRequired(true)
+            ->addErrorMessage('You must enter a country of origin')
+            ->addMultiOptions(array(
+                null => 'Select a country of origin',
+                'Valid countries' => array('England' => 'England', 'Wales' => 'Wales')
+            ))
+            ->addValidator('inArray', false, array(array_keys($county_options)));
 
         $county = new Zend_Form_Element_Select('county');
         $county->setLabel('County: ')
@@ -150,12 +168,12 @@ class ImageForm extends Pas_Form
             ))
             ->setValue('digital');
 
+
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Add metadata for images');
 
         $this->addElements(array(
-
-             $county, $period,
+            $country, $county, $period,
             $copyright, $type, $licenseField,
             $submit
         ));
@@ -163,9 +181,25 @@ class ImageForm extends Pas_Form
         $this->setMethod('post');
 
         $this->addDisplayGroup(array(
-            'filename', 'county',
+            'country','filename', 'county',
             'period', 'imagerights', 'ccLicense',
             'type'), 'details');
+
+        foreach ($images as $image) {
+            $label = 'label' . $image['imageID'];
+            $group = 'metadata' . $image['imageID'];
+            echo '<img src="http://finds.org.uk/images/thumbnails/' . $image['imageID'] . '.jpg"/>';
+            $image['imageID'] = new Zend_Form_Element_Text($label);
+            $image['imageID']->setLabel('Image label: ')
+                ->setRequired(true)
+                ->setAttribs(array('size' => 60, 'class' => 'span6 required'))
+                ->addErrorMessage('You must enter a label')
+                ->setDescription('This must be descriptive text about the image - NOT THE FILE or FIND NUMBER/NAME - and follow the
+		conventions outlined below this form')
+                ->addFilters(array('StripTags', 'StringTrim'));
+            $this->addElements(array($image['imageID']));
+            $this->addDisplayGroup(array($label), $group);
+        }
 
         $this->addDisplayGroup(array('submit'), 'buttons')->removeDecorator('HtmlTag');
 

@@ -1,8 +1,8 @@
-<?php echo $this->partialLoop('partials/database/orgDetail.phtml', $this->orgs); ?>
+<?php echo $this->partialLoop('partials/database/orgisationDetail.phtml', $this->orgs); ?>
 <?php if (!empty($this->members)): ?>
     <h3 class="lead">Organisation's members</h3>
     <ul>
-        <?php echo $this->partialLoop('partials/database/orgLists.phtml', $this->members); ?>
+        <?php echo $this->partialLoop('partials/database/organisationLists.phtml', $this->members); ?>
     </ul>
 <?php else: ?>
     <p>There are no members at the moment.</p>
