@@ -1,128 +1,136 @@
-<?php echo '<?xml version="1.0" encoding="utf-8"?>';?>
+<?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 
-<?php echo $this->docType();?>
+<?php echo $this->docType(); ?>
 
 <html
 
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:foaf="http://xmlns.com/foaf/0.1/"
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:batlas="http://atlantides.org/batlas/"
-	xmlns:gml="http://www.opengis.net/gml/"
-	xmlns:nm="http://nomisma.org/id/"
-	xmlns:ov="http://open.vocab.org/terms/"
-	xmlns:owl="http://www.w3.org/2002/07/owl#"
-	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-	xmlns:skos="http://www.w3.org/2008/05/skos#"
-	xmlns:pas="<?php echo $this->serverUrl();?>/database/"
-	xmlns:google="http://rdf.data-vocabulary.org/#"
-	xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
-	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
-	xmlns:og="http://ogp.me/ns#"
-	xmlns:fb="http://www.facebook.com/2008/fbml"
-	xml:lang="en"
->
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:batlas="http://atlantides.org/batlas/"
+    xmlns:gml="http://www.opengis.net/gml/"
+    xmlns:nm="http://nomisma.org/id/"
+    xmlns:ov="http://open.vocab.org/terms/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:skos="http://www.w3.org/2008/05/skos#"
+    xmlns:pas="<?php echo $this->serverUrl(); ?>/database/"
+    xmlns:google="http://rdf.data-vocabulary.org/#"
+    xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
+    xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="http://www.facebook.com/2008/fbml"
+    xml:lang="en"
+    >
 <head>
 
-<?php echo $this->headTitle(); ?>
+    <?php echo $this->headTitle(); ?>
 
-<?php echo $this->headMeta(); ?>
+    <?php echo $this->headMeta(); ?>
 
-<?php echo $this->headLink(); ?>
+    <?php echo $this->headLink(); ?>
 
-<?php echo $this->headScript(); ?>
+    <?php echo $this->headScript(); ?>
 
 </head>
 
 <body>
 
 
-
 <div class="navbar navbar-fixed-top">
 
-      <div class="navbar-inner">
+    <div class="navbar-inner">
         <div class="container-fluid">
-              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <div class="nav-collapse">
-	<?php echo $this->layout()->navigation ?>
-	<?php 
-	//echo $this->layout()->searchForm;
-	?>
-          </div><!--/.nav-collapse -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <div class="nav-collapse">
+                <?php echo $this->layout()->navigation ?>
+                <?php
+                //echo $this->layout()->searchForm;
+                ?>
+            </div>
+            <!--/.nav-collapse -->
         </div>
-             
-      </div>
- 
-      
+
     </div>
 
 
-  <div class="container-fluid">
-      <div class="row-fluid">
+</div>
+
+
+<div class="container-fluid">
+    <div class="row-fluid">
         <div class="span2">
 
-<a href="<?php echo $this->serverUrl();?>" title="Go to the homepage"><img src="/assets/logos/pas.jpg" alt="The Scheme's logo" width="213" height="104"/></a>
+            <a href="<?php echo $this->serverUrl(); ?>" title="Go to the homepage"><img src="/assets/logos/pas.jpg"
+                                                                                        alt="The Scheme's logo"
+                                                                                        width="213" height="104"/></a>
 
             <div class="well sidebar-nav">
 
-              <?php echo $this->layout()->userdata;?>
+                <?php echo $this->layout()->userdata; ?>
 
 
 
-              <?php echo $this->layout()->sidebar; ?>
+                <?php echo $this->layout()->sidebar; ?>
 
-          </div><!--/.well -->
-
-
-              
-
-              <?php echo $this->layout()->staffs; ?>
-
-                <?php echo $this->layout()->bronzeage; ?>
-
-        </div><!--/span-->
+            </div>
+            <!--/.well -->
 
 
-         <div class="span9">
 
-          <div class="row-fluid">
 
-            	<?php echo $this->layout()->breadcrumb;	?>
+            <?php echo $this->layout()->staffs; ?>
 
-                <?php echo $this->layout()->messages;?>
+            <?php echo $this->layout()->bronzeage; ?>
+
+        </div>
+        <!--/span-->
+
+
+        <div class="span9">
+
+            <div class="row-fluid">
+
+                <?php echo $this->layout()->breadcrumb; ?>
+
+                <?php echo $this->layout()->messages; ?>
 
                 <?php echo $this->acronyms()->setString($this->layout()->content); ?>
 
                 <?php echo $this->layout()->contexts; ?>
 
-          </div><!--/row-->
+            </div>
+            <!--/row-->
 
-        </div><!--/span-->
+        </div>
+        <!--/span-->
 
 
+    </div>
+    <!--/row-->
 
-      </div><!--/row-->
-
-    <hr />
+    <hr/>
 
     <div class="row-fluid">
 
-            <?php echo $this->layout()->footer; ?>
+        <?php echo $this->layout()->footer; ?>
 
     </div>
 
-    </div><!--/.fluid-container-->
+</div>
+<!--/.fluid-container-->
 
-    <?php echo $this->jQuery(); ?>
+<?php echo $this->jQuery(); ?>
 
-    <?php echo $this->inlineScript(); ?>
+<?php echo $this->inlineScript(); ?>
 
-    <?php echo $this->layout()->analytics; ?>
+<?php echo $this->layout()->analytics; ?>
 
-  </body>
+</body>
 </html>
