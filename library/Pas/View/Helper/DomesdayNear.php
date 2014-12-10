@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DomesdayNear helper
  *
@@ -72,7 +73,8 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getLat() {
+    public function getLat()
+    {
         return $this->_lat;
     }
 
@@ -80,7 +82,8 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getLon() {
+    public function getLon()
+    {
         return $this->_lon;
     }
 
@@ -88,7 +91,8 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getRadius() {
+    public function getRadius()
+    {
         return $this->_radius;
     }
 
@@ -97,7 +101,8 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @param  string $lat
      * @return \Pas_View_Helper_DomesdayNear
      */
-    public function setLat( $lat )  {
+    public function setLat($lat)
+    {
         $this->_lat = $lat;
         return $this;
     }
@@ -107,7 +112,8 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @param  string $lon
      * @return \Pas_View_Helper_DomesdayNear
      */
-    public function setLon( $lon) {
+    public function setLon($lon)
+    {
         $this->_lon = $lon;
         return $this;
     }
@@ -118,10 +124,11 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_DomesdayNear
      * @throws Exception
      */
-    public function setRadius( $radius ) {
+    public function setRadius($radius)
+    {
         if (!is_int($radius)) {
             throw new Exception('Defined radius needs to be an integer');
-    }
+        }
         $this->_radius = $radius;
         return $this;
     }
@@ -130,7 +137,8 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getDomesday() {
+    public function getDomesday()
+    {
         $this->_domesday = new Pas_Service_Domesday_Place();
         return $this->_domesday;
     }
@@ -139,7 +147,8 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
@@ -148,7 +157,8 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_DomesdayNear
      */
-    public function domesdayNear() {
+    public function domesdayNear()
+    {
         return $this;
     }
 
@@ -156,32 +166,35 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      * @access public
      * @return function
      */
-    public function getManors() {
+    public function getManors()
+    {
         $params = array(
             'lat' => $this->getLat(),
             'lng' => $this->getLon(),
             'radius' => $this->getRadius()
-                );
+        );
         $key = md5($this->getLat() . $this->getLon() . $this->getRadius());
-        $response = $this->getPlacesNear( $params, $key);
+        $response = $this->getPlacesNear($params, $key);
         return $this->buildHtml($response, $this->getRadius());
-        }
+    }
 
     /** To string method
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getManors();
     }
 
     /** Get the places near to point
      * @access public
      * @param  array $params
-     * @param  type  $key
+     * @param  type $key
      * @return type
      */
-    public function getPlacesNear(array $params, $key) {
+    public function getPlacesNear(array $params, $key)
+    {
         if (!($this->getCache()->test($key))) {
             $data = $this->getDomesday()->getData('placesnear', $params);
             $this->getCache()->save($data);
@@ -194,10 +207,11 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
     /** Build html string
      * @access public
      * @param  array $response
-     * @param  int    $radius
+     * @param  int $radius
      * @return string
      */
-    public function buildHtml( $response,  $radius) {
+    public function buildHtml($response, $radius)
+    {
         $html = '';
         if ($response) {
             $html .= '<h3 class="lead">Adjacent Domesday Book places</h3>';
@@ -205,20 +219,20 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
             $html .= $this->_url;
             $html .= '"><img class="dec flow"';
             $html .= 'src="http://domesdaymap.co.uk/media/images/lion1.gif"';
-            $html .- 'width="67" height="93"/></a>';
+            $html . -'width="67" height="93"/></a>';
             $html .= '<ul>';
             foreach ($response as $domesday) {
                 $html .= '<li><a href="';
                 $html .= $this->_baseurl . $domesday->grid;
                 $html .= '/' . $domesday->vill_slug;
-                $html .= '">'. $domesday->vill . '</a></li>';
+                $html .= '">' . $domesday->vill . '</a></li>';
             }
             $html .= '</ul>';
             $html .= '<p>Domesday data  within ';
             $html .= $radius;
             $html .= ' km of discovery point is surfaced via the excellent ';
             $html .= '<a href="http://domesdaymap.co.uk">Open Domesday</a> website.</p>';
-            }
+        }
         return $html;
     }
 }

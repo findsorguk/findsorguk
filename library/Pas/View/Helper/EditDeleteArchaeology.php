@@ -1,11 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: danielpett
- * Date: 12/10/2014
- * Time: 08:16
+/** A view helper to determine whether one can edit or delete archaeology in hoards
  *
- * @todo Add in all the checking logic for who can edit.
+ * @author Daniel Pett
+ * @category   Pas
+ * @package    Pas_View_Helper
+ * @subpackage Abstract
+ * @copyright  Copyright (c) 2014 mchester-kadwell @ britishmuseum.org
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @see Zend_View_Helper_Abstract
  */
 class Pas_View_Helper_EditDeleteArchaeology extends Zend_View_Helper_Abstract {
 

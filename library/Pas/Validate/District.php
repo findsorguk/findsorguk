@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A validation class for checking for whether a district provided is valid
  *
@@ -9,7 +10,8 @@
  * @version 1
  * @see Zend_Validate_Abstract
  */
-class Pas_Validate_District extends Zend_Validate_Abstract {
+class Pas_Validate_District extends Zend_Validate_Abstract
+{
 
     /** The not valid message container
      *
@@ -22,16 +24,17 @@ class Pas_Validate_District extends Zend_Validate_Abstract {
      */
     protected $_messageTemplates = array(
         self::NOT_VALID => 'That district does not exist.',
-        );
+    );
 
     /** Get whether the district exists in the OS system
      * @access protected
      * @param string $value
      * @return string
      */
-    protected function _getDistrict($value){
+    protected function _getDistrict($value)
+    {
         $districts = new OsDistricts();
-        $where[] = $districts->getAdapter()->quoteInto('osID = ?',$value);
+        $where[] = $districts->getAdapter()->quoteInto('osID = ?', $value);
         $district = $districts->fetchRow($where);
         return $district;
     }
@@ -42,9 +45,10 @@ class Pas_Validate_District extends Zend_Validate_Abstract {
      * @param string $value
      * @return boolean
      */
-    public function isValid($value){
+    public function isValid($value)
+    {
         $district = $this->_getDistrict($value);
-        if(!$district) {
+        if (!$district) {
             $this->_error(self::NOT_VALID);
             return false;
         }

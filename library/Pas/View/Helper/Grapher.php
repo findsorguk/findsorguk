@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for creating pie graphs
  *
@@ -23,7 +24,8 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @example /app/modules/database/views/scripts/statistics/institution.phtml
  */
-class Pas_View_Helper_Grapher {
+class Pas_View_Helper_Grapher
+{
 
     /** The default type
      * @access protected
@@ -37,7 +39,7 @@ class Pas_View_Helper_Grapher {
      */
     protected $_title = 'A pie chart';
 
-     /** The default data
+    /** The default data
      * @access protected
      * @var array
      */
@@ -59,7 +61,8 @@ class Pas_View_Helper_Grapher {
      * @access public
      * @return string
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->_type;
     }
 
@@ -67,7 +70,8 @@ class Pas_View_Helper_Grapher {
      * @access public
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->_title;
     }
 
@@ -75,7 +79,8 @@ class Pas_View_Helper_Grapher {
      * @access public
      * @return array
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->_data;
     }
 
@@ -84,7 +89,8 @@ class Pas_View_Helper_Grapher {
      * @param string $type
      * @return \Pas_View_Helper_Grapher
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->_type = $type;
         return $this;
     }
@@ -94,7 +100,8 @@ class Pas_View_Helper_Grapher {
      * @param string $title
      * @return \Pas_View_Helper_Grapher
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->_title = $title;
         return $this;
     }
@@ -104,7 +111,8 @@ class Pas_View_Helper_Grapher {
      * @param array $data
      * @return \Pas_View_Helper_Grapher
      */
-    public function setData( array $data) {
+    public function setData(array $data)
+    {
         $this->_data = $data;
         return $this;
     }
@@ -113,7 +121,8 @@ class Pas_View_Helper_Grapher {
      * @access public
      * @return int
      */
-    public function getWidth() {
+    public function getWidth()
+    {
         return $this->_width;
     }
 
@@ -121,7 +130,8 @@ class Pas_View_Helper_Grapher {
      * @access public
      * @return int
      */
-    public function getHeight() {
+    public function getHeight()
+    {
         return $this->_height;
     }
 
@@ -130,7 +140,8 @@ class Pas_View_Helper_Grapher {
      * @param int $width
      * @return \Pas_View_Helper_Grapher
      */
-    public function setWidth($width) {
+    public function setWidth($width)
+    {
         $this->_width = $width;
         return $this;
     }
@@ -140,7 +151,8 @@ class Pas_View_Helper_Grapher {
      * @param int $height
      * @return \Pas_View_Helper_Grapher
      */
-    public function setHeight($height) {
+    public function setHeight($height)
+    {
         $this->_height = $height;
         return $this;
     }
@@ -150,7 +162,8 @@ class Pas_View_Helper_Grapher {
      * @access public
      * @return \Pas_View_Helper_Grapher
      */
-    public function grapher(){
+    public function grapher()
+    {
         return $this;
     }
 
@@ -158,14 +171,15 @@ class Pas_View_Helper_Grapher {
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildGraph(
-                $this->getType(),
-                $this->getTitle(),
-                $this->getData(),
-                $this->getWidth(),
-                $this->getHeight()
-                );
+            $this->getType(),
+            $this->getTitle(),
+            $this->getData(),
+            $this->getWidth(),
+            $this->getHeight()
+        );
     }
 
     /** Build the graph string
@@ -177,21 +191,24 @@ class Pas_View_Helper_Grapher {
      * @param int $height
      * @return \Pas_GoogChart
      */
-    public function buildGraph($type, $title, array $data, $width, $height) {
+    public function buildGraph($type, $title, array $data, $width, $height)
+    {
         $chart = new Pas_GoogChart();
         $color = array(
-                '#99C754',
-                '#54C7C5',
-                '#999999',
-            );
+            '#99C754',
+            '#54C7C5',
+            '#999999',
+        );
 
-        $chart->setChartAttrs( array(
+        $chart->setChartAttrs(array(
             'type' => 'pie',
             'data' => $data,
-            'size' => array( $width, $height ),
+            'size' => array($width, $height),
             'color' => $color,
             'title' => $title,
-            ));
+        ));
+        Zend_Debug::dump($chart);
+        exit;
         return $chart;
     }
 }

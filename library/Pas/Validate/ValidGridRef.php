@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /** A validation class for checking for valid British National Grid values
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
@@ -7,22 +8,23 @@
  * @version 1
  * @license
  */
-class Pas_Validate_ValidGridRef extends Zend_Validate_Abstract {
-	
+class Pas_Validate_ValidGridRef extends Zend_Validate_Abstract
+{
+
     /** Not valid constant
-     * 
+     *
      */
     const NOT_VALID = 'notValid';
-    
+
     /** the not even constant
-     * 
+     *
      */
-    const NOT_EVEN  = 'notEven';
+    const NOT_EVEN = 'notEven';
 
     /**  Validation failure message template definitions
-    * @access protected
-    * @var array
-    */
+     * @access protected
+     * @var array
+     */
     protected $_messageTemplates = array(
         self::NOT_VALID => 'That grid reference does not appear to have valid starting letters.',
         self::NOT_EVEN => 'That grid reference does not appear to be the correct length.'
@@ -39,7 +41,7 @@ class Pas_Validate_ValidGridRef extends Zend_Validate_Abstract {
         'SS', 'ST', 'SU',
         'TQ', 'TR', 'SL',
         'SM', 'SN', 'SO',
-        'SP','TL', 'TM',
+        'SP', 'TL', 'TM',
         'SF', 'SG', 'SH',
         'SJ', 'SK', 'TF',
         'TG', 'SA', 'SB',
@@ -71,8 +73,9 @@ class Pas_Validate_ValidGridRef extends Zend_Validate_Abstract {
      * @param int $length
      * @return boolean
      */
-    public function _checkNum($length){
-        return ($length%2) ? TRUE : FALSE;
+    public function _checkNum($length)
+    {
+        return ($length % 2) ? TRUE : FALSE;
     }
 
     /** Check validity of the value
@@ -80,19 +83,20 @@ class Pas_Validate_ValidGridRef extends Zend_Validate_Abstract {
      * @param string $value
      * @return boolean
      */
-    public function isValid($value){
-        $value = str_replace(' ','',$value);
+    public function isValid($value)
+    {
+        $value = str_replace(' ', '', $value);
         $length = strlen($value);
-        if($this->_checkNum($length) === true) {
+        if ($this->_checkNum($length) === true) {
             $this->_error(self::NOT_EVEN);
-            return false;		
+            return false;
         }
         //strips off first two characters as National grid has 2 left
-        $letterpair = substr($value,0,2); 
+        $letterpair = substr($value, 0, 2);
         //transform smallcase to capital
-        $letterpair = strtoupper($letterpair); 
+        $letterpair = strtoupper($letterpair);
         //Check if the letter prefix is in the letters array above
-        if(!in_array($letterpair,$this->letters)) {
+        if (!in_array($letterpair, $this->letters)) {
             $this->_error(self::NOT_VALID);
             return false;
         }

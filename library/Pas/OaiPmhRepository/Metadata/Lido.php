@@ -492,7 +492,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
         return self::METADATA_NAMESPACE;
     }
 
-    /** Get the fullname for an institution
+    /** Get the full name for an institution
      * @access public
      * @param string $inst
      * @return string

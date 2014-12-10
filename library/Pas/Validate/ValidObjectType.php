@@ -1,6 +1,7 @@
-<?php 
+<?php
+
 /** A validation class for checking for valid British National Grid values
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @version 1
@@ -8,36 +9,37 @@
  * @category   Pas
  * @package    Pas_Validate
  */
-class Pas_Validate_ValidObjectType extends Zend_Validate_Abstract {
-    
+class Pas_Validate_ValidObjectType extends Zend_Validate_Abstract
+{
+
     /** The not valid constant
-     * 
+     *
      */
     const NOT_VALID = 'notValid';
 
     /** Validation failure message template definitions
-    * @access protected
-    * @var array
-    */
+     * @access protected
+     * @var array
+     */
     protected $_messageTemplates = array(
-        self::NOT_VALID => 'You can only use terms in the database. 
-These appear in the autocomplete in block capitals.');
+        self::NOT_VALID => 'You can only use terms in the database. These appear in the autocomplete in block capitals.');
 
     /**  A function to flatten an array
      * @access public
      * @param array $ar
      * @return array
      */
-    public function flatten(array $ar) {
+    public function flatten(array $ar)
+    {
         $toflat = array($ar);
         $res = array();
         while (($r = array_shift($toflat)) !== null) {
             foreach ($r as $v) {
                 if (is_array($v)) {
                     $toflat[] = $v;
-                    } else {
-                        $res[] = $v;
-                    }
+                } else {
+                    $res[] = $v;
+                }
             }
         }
         return $res;
@@ -47,9 +49,10 @@ These appear in the autocomplete in block capitals.');
      * @access public
      * @return array
      */
-    public function getTypes(){
+    public function getTypes()
+    {
         $objects = new ObjectTerms();
-        $o =  $objects->getObjectNames();
+        $o = $objects->getObjectNames();
         return $this->flatten($o);
     }
 
@@ -59,14 +62,15 @@ These appear in the autocomplete in block capitals.');
      * @param array $haystack
      * @return boolean
      */
-    public function in_arrayi( $needle, array $haystack ) { 
-        $found = false; 
-        foreach( $haystack as $value ) { 
-            if( strtolower( $value ) === strtolower( $needle ) ) { 
-                $found = true; 
-            } 
-        }    
-        return $found; 
+    public function in_arrayi($needle, array $haystack)
+    {
+        $found = false;
+        foreach ($haystack as $value) {
+            if (strtolower($value) === strtolower($needle)) {
+                $found = true;
+            }
+        }
+        return $found;
     }
 
     /** Check if value is valid
@@ -74,9 +78,10 @@ These appear in the autocomplete in block capitals.');
      * @param string $value
      * @return boolean
      */
-    public function isValid($value){
+    public function isValid($value)
+    {
         $objecttypes = $this->getTypes();
-        if(!$this->in_arrayi($value,$objecttypes)) {
+        if (!$this->in_arrayi($value, $objecttypes)) {
             $this->_error(self::NOT_VALID);
             return false;
         }
