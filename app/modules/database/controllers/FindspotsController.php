@@ -12,8 +12,6 @@
  * @version 1
  * @license GNU
  * @since September 2009
- * @todo move audit to own class
- * @todo DRY the class
  * @uses Findspots
  * @uses Pas_Exception_Param
  * @uses Exception
@@ -183,7 +181,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->getController());
                     $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit',
                         $this->_getParam('id'), $returnID);
-                    // $this->_helper->solrUpdater->update('objects', $returnID);
+                    $this->_helper->solrUpdater->update('objects', $returnID);
                     $this->getFlash()->addMessage('Findspot updated!');
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                 } else {
