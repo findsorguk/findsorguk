@@ -57,16 +57,16 @@ resources.frontController.throwExceptions = 0
 resources.layout.layout = "home"
 resources.layout.layoutPath = APPLICATION_PATH "/layouts"
 
-resources.cachemanager.rulercache.frontend.name = Core
-resources.cachemanager.rulercache.frontend.options.cache_id_prefix = findsorguk
-resources.cachemanager.rulercache.frontend.options.lifetime = 7200
-resources.cachemanager.rulercache.frontend.options.write_control = true
-resources.cachemanager.rulercache.frontend.options.automatic_serialization = true
-resources.cachemanager.rulercache.frontend.options.automatic_cleaning_factor = 10
+resources.cachemanager.cache.frontend.name = Core
+resources.cachemanager.cache.frontend.options.cache_id_prefix = findsorguk
+resources.cachemanager.cache.frontend.options.lifetime = 7200
+resources.cachemanager.cache.frontend.options.write_control = true
+resources.cachemanager.cache.frontend.options.automatic_serialization = true
+resources.cachemanager.cache.frontend.options.automatic_cleaning_factor = 10
 
-resources.cachemanager.rulercache.backend.name = File
-resources.cachemanager.rulercache.backend.options.lifetime = 86400
-resources.cachemanager.rulercache.backend.options.cache_dir = CACHE_PATH
+resources.cachemanager.cache.backend.name = File
+resources.cachemanager.cache.backend.options.lifetime = 86400
+resources.cachemanager.cache.backend.options.cache_dir = CACHE_PATH
 
 resources.cachemanager.dbMetadataCache.frontend.name = "Core"
 resources.cachemanager.dbMetadataCache.frontend.options.automatic_serialization = 1
@@ -153,16 +153,16 @@ resources.frontController.throwExceptions = 0
 resources.layout.layout = "home"
 resources.layout.layoutPath = APPLICATION_PATH "/layouts"
 
-resources.cachemanager.rulercache.frontend.name = Core
-resources.cachemanager.rulercache.frontend.options.cache_id_prefix = findsorguk
-resources.cachemanager.rulercache.frontend.options.lifetime = 7200
-resources.cachemanager.rulercache.frontend.options.write_control = true
-resources.cachemanager.rulercache.frontend.options.automatic_serialization = true
-resources.cachemanager.rulercache.frontend.options.automatic_cleaning_factor = 10
+resources.cachemanager.cache.frontend.name = Core
+resources.cachemanager.cache.frontend.options.cache_id_prefix = findsorguk
+resources.cachemanager.cache.frontend.options.lifetime = 7200
+resources.cachemanager.cache.frontend.options.write_control = true
+resources.cachemanager.cache.frontend.options.automatic_serialization = true
+resources.cachemanager.cache.frontend.options.automatic_cleaning_factor = 10
 
-resources.cachemanager.rulercache.backend.name = File
-resources.cachemanager.rulercache.backend.options.lifetime = 86400
-resources.cachemanager.rulercache.backend.options.cache_dir = CACHE_PATH
+resources.cachemanager.cache.backend.name = File
+resources.cachemanager.cache.backend.options.lifetime = 86400
+resources.cachemanager.cache.backend.options.cache_dir = CACHE_PATH
 
 resources.cachemanager.dbMetadataCache.frontend.name = "Core"
 resources.cachemanager.dbMetadataCache.frontend.options.automatic_serialization = 1
