@@ -196,7 +196,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                 $where = array();
                 $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                 $findSpot = $this->_findspots->fetchRow($where);
-                if (!null($findSpot)) {
+                if (!is_null($findSpot)) {
                     $this->view->findspot = $findSpot;
                     $fill = new Pas_Form_Findspot();
                     $fill->populate($findSpot->toArray());
