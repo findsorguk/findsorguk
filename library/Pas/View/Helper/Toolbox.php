@@ -217,7 +217,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 'action'=>'forceindexupdate',
                 'id' => $this->getId()),null,true);
             $html .= '">Force index update</a>';
-            $html .= '<a class="' . $class . '"  href="';
+            $html .= '<a class="' . $class . ' overlay"  href="';
             $html .= $this->view->serverUrl() . $this->view->url(array(
                     'module' => 'database',
                     'controller' => 'ajax',
@@ -226,7 +226,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                     'type' => $this->getRecordType($this->getController())
                 ),null,true);
             $html .= '" title="Get citation information">Cite record</a> <a class="';
-            $html .= $class . '" href="';
+            $html .= $class . ' overlay" href="';
             $html .= $this->view->url(array(
                 'module' => 'database',
                 'controller' => 'ajax',
