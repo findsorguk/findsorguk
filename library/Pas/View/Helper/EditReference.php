@@ -10,24 +10,57 @@
  */
 class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
 {
+
+    /** The no access group
+     * @var array
+     * @access protected
+     */
     protected $noaccess = array('public');
 
+    /** The restricted access group
+     * @var array
+     * @access protected
+     */
     protected $restricted = array('member', 'research', 'hero');
 
+    /** The recorders group
+     * @var array
+     * @access protected
+     */
     protected $recorders = array('flos');
 
-    protected $higherLevel = array('admin', 'fa', 'treasure', 'hoard' );
+    /** The higher level array
+     * @var array
+     * @access protected
+     */
+    protected $higherLevel = array('admin', 'fa', 'treasure', 'hoard');
 
+    /** Missing group message
+     * @var string
+     * @access protected
+     */
     protected $_missingGroup = 'User is not assigned to a group';
 
-    protected $_auth;
+    /** The auth object
+     * @var null
+     * @access protected
+     */
+    protected $_auth = null;
 
+    /** Get the auth object
+     * @access public
+     * @return \Zend_Auth
+     */
     public function getAuth()
     {
         $this->_auth = Zend_Auth::getInstance();
         return $this->_auth;
     }
 
+    /** Get the role of the user
+     * @access public
+     * @return string
+     */
     public function getRole()
     {
         if ($this->getAuth()->hasIdentity()) {
@@ -40,14 +73,19 @@ class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
         return $role;
     }
 
+    /** Get a user id
+     * @access public
+     * @return integer
+     */
     public function getUserID()
     {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $id = $user->id;
-
-            return $id;
+        } else {
+            $id = 3;
         }
+        return $id;
     }
 
     /** Get the controller
@@ -60,6 +98,10 @@ class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
         return $this->_controller;
     }
 
+    /** Check access by user id
+     * @access public
+     * @return boolean
+     */
     public function checkAccessbyUserID($createdBy)
     {
         if ($createdBy == $this->getUserID()) {
@@ -69,7 +111,11 @@ class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
         }
     }
 
-    public function EditReference($i, $fID, $createdBy)
+    /** Edit the reference
+     * @access public
+     * @return string|boolean
+     */
+    public function editReference($i, $fID, $createdBy)
     {
         $byID = $this->checkAccessbyUserID($createdBy);
         if (in_array($this->getRole(), $this->noaccess)) {
@@ -85,6 +131,10 @@ class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
         }
     }
 
+    /** Build the html
+     * @access public
+     * @return string
+     */
     public function buildHtml($i, $fID)
     {
         $html = '';

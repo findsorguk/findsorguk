@@ -211,7 +211,7 @@ $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
         </p>
 
         <ul>
-            <?php echo $this->partialLoop('partials/database/harvardBook.phtml', $this->refs); ?>
+            <?php echo $this->harvard()->setRefs($this->refs); ?>
         </ul>
     <?php else: ?>
         <p class="norefs">

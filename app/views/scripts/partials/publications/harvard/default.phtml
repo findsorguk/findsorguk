@@ -1,0 +1,15 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 10/12/14
+ * Time: 16:59
+ */
+?>
+<li>
+    <?php echo $this->authors; ?>, <?php echo $this->publication_year; ?>. <em><a
+            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication', 'id' => $this->id), null, true); ?>"
+            title="View reference work's details">
+            <?php echo $this->title; ?></a></em> <?php echo $this->publication_place; ?>
+    : <?php echo $this->publisher; ?> <?php echo $this->vol_no; ?> <?php echo $this->pp; ?>
+</li>
