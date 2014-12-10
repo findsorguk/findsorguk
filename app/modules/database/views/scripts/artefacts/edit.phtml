@@ -10,7 +10,12 @@ $this->metaBase()->setDescription($this->title())->setSubject('Database editing'
     });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 
-<?php $this->DataEditDeleteCheck($this->find->old_findID, $this->find->createdBy);
+<?php
+$this->dataEditDeleteCheck()->setInstitution($this->find->institution)
+    ->setRecordID($this->find->old_findID)
+    ->setCreatedBy($this->find->createdBy)
+    ->setFindID($this->find->id)
+    ->sesame();
 ?>
 <?php echo $this->partial('partials/database/editFindH2.phtml', $this->find); ?>
 
