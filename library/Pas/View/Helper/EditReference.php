@@ -16,7 +16,7 @@ class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
 
     protected $recorders = array('flos');
 
-    protected $higherLevel = array('admin', 'fa', 'treasure');
+    protected $higherLevel = array('admin', 'fa', 'treasure', 'hoard' );
 
     protected $_missingGroup = 'User is not assigned to a group';
 
@@ -24,8 +24,8 @@ class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
 
     public function getAuth()
     {
-        $auth = Zend_Auth::getInstance();
-        $this->_auth = $auth;
+        $this->_auth = Zend_Auth::getInstance();
+        return $this->_auth;
     }
 
     public function getRole()
