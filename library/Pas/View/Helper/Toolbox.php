@@ -186,12 +186,8 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
         $class = 'btn btn-small btn-primary';
         $html = '<div id="toolBox" class="btn-group">';
 
-        $html .= $this->view->recordEditDeleteLinks(
-                $this->getId(),
-                $this->getOldFindID(),
-                $this->getController(),
-                $this->getCreatedBy()
-                );
+        $html .= $this->view->recordEditDeleteLinks()->setCreatedBy($this->getCreatedBy())->setFindID($this->getId())->setRecordID($this->getOldFindID())->setController($this->getController());
+
         $html .= $this->view->Href(array(
             'module' => 'database',
             'controller'=>$this->getController(),
