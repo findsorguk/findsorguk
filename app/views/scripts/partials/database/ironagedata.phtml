@@ -24,18 +24,18 @@
     <?php endif; ?>
 
     <?php if (!is_null($this->ruler1)) : ?>
-        Ruler/issuer: <?php echo $this->escape($this->ruler1); ?> <span class="scope">[<a
+        Ruler/issuer: <?php echo $this->escape($this->primaryRuler); ?> <span class="scope">[<a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'rulers', 'action' => 'ruler', 'id' => $this->ruler1), null, true); ?>"
-                title="Read scope note for <?php echo $this->ruler1; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->primaryRuler; ?>">scope notes</a> | <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->ruler1), null, true); ?>"
-                title="view all records assigned to <?php echo $this->ruler1; ?>">view all attributed
+                title="view all records assigned to <?php echo $this->primaryRuler; ?>">view all attributed
                 records</a>]</span><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->ruler2)) : ?>
-        Secondary ruler/issuer: <?php echo $this->escape($this->ruler2); ?> <span class="scope">[<a
+        Secondary ruler/issuer: <?php echo $this->escape($this->secondaryRuler); ?> <span class="scope">[<a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'rulers', 'action' => 'ruler', 'id' => $this->ruler2), null, true); ?>"
-                title="Read scope note for <?php echo $this->ruler2; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->secondaryRuler; ?>">scope notes</a> | <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->ruler2), null, true); ?>"
                 title="view all records assigned to <?php echo $this->ruler2; ?>">view all attributed
                 records</a>]</span><br/>

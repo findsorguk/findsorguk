@@ -207,10 +207,11 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                 $html .= '<h3 class="lead">Similar objects</h3>';
                 $data = $solrResponse['results'];
                 foreach ($data as $document) {
+                    $html .= '<div class="span3">';
                     if (($document->thumbnail)) {
                         $file = $this->view->baseUrl() . '/images/thumbnails/' . $document->thumbnail . '.jpg';
                         if (file_exists($file)) {
-                            $html .= '<img class="flow img-polaroid" src="';
+                            $html .= '<img class="img-polaroid" src="';
                             $html .= $file;
                             $html .= ' />';
                         } else {
@@ -219,7 +220,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                             $html .= '/assets/gravatar.png" />';
                         }
                     } else {
-                        $html .= '<img class="flow img-circle" src="';
+                        $html .= '<img class=" img-circle" src="';
                         $html .= $this->view->baseUrl();
                         $html .= '/assets/gravatar.png" />';
                     }
@@ -238,6 +239,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                     $html .= $this->view->workflowStatus()->setWorkflow($document->workflow);
                     $html .= $this->view->workflow()->setWorkflow($document->workflow);
                     $html .= '</p>';
+                    $html .= '</div>';
                     $html .= '</div>';
                 }
                 $html .= '</div>';

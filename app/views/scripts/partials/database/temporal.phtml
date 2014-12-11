@@ -12,9 +12,9 @@
         <br/>
         Period from: <span property="pas:periodFrom"><?php echo $this->escape($this->periodFrom); ?></span> <span
             class="scope">[<a
-                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->period1), null, true); ?>"
+                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->objdate1period), null, true); ?>"
                 title="Read scope note for <?php echo $this->periodFrom; ?>">scope notes</a> | <a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodfrom' => $this->period1), null, true); ?>"
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodFrom' => $this->objdate1period), null, true); ?>"
                 title="view all records assigned to: <?php echo $this->term; ?>">view all attributed records</a>]</span>
     <?php endif; ?>
 
@@ -31,12 +31,12 @@
                 'module' => 'datalabs',
                 'controller' => 'terminology',
                 'action' => 'period',
-                'id' => $this->period2), null, true);?>" title="Read scope note for
+                'id' => $this->objdate2period), null, true);?>" title="Read scope note for
  <?php echo $this->periodTo; ?>">scope notes</a> |  <a href="<?php echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'periodfrom' => $this->period2), null, true);?>" title="view all records assigned to:
+                'periodTo' => $this->objdate2period), null, true);?>" title="view all records assigned to:
  <?php echo $this->periodTo; ?>">view all attributed records</a>]</span>
     <?php endif; ?>
 
