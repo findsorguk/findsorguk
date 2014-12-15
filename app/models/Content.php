@@ -273,6 +273,12 @@ class Content extends Pas_Db_Table_Abstract {
                         'updated',
                         'type' => 'CONCAT("sitecontent")',
                          ))
+            ->joinLeft('users','users.id = content.createdBy',
+                array('createdBy' => 'fullname'))
+            ->joinLeft(array('users2' => 'users'),'users2.id = content.updatedBy',
+                array(
+                    'updatedBy' => 'fullname'
+                ))
                 ->where($this->_name .  '.id = ?',(int)$id);
         return $contents->fetchAll($select);
     }
