@@ -187,7 +187,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                 } else {
                     // If error fill with posted values
                     $form->populate($this->_request->getPost());
-                    $this->_helper->findspotFailedOptions($this->_request->getPost());
+//                    Zend_Debug::dump($this->_helper->findspotFailedOptions($this->_request->getPost()));
                 }
             } else {
                 // As GET, refill from db

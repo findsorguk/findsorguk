@@ -194,7 +194,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
             'action'=>'add',
             'checkAcl'=>true,
             'acl'=>'Zend_Acl',
-            'content'=>'Add ' . $this->getRecordType($this->getController()) . ' <i class="icon-white icon-plus"></i>',
+            'content'=>'<i class="icon-plus icon-white"></i> Add ' . $this->getRecordType($this->getController()),
             'attribs' => array(
                 'title' => 'Add new object',
                 'accesskey' => 'a',
@@ -235,8 +235,8 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 'type' => $this->getRecordType($this->getController())
             ),null,true);
             $html .= '" title="Get code to embed this record in your webpage">Embed record</a> ';
-            $html .=' <a class="' . $class . '" href="#print" id="print">Print';
-            $html .= '<i class="icon-print icon-white"></i></a> ';
+            $html .=' <a class="' . $class . '" href="#print" id="print"><i class="icon-print icon-white"></i> Print';
+            $html .= '</a>';
         }
         $html .= '</div>';
         return $html;
