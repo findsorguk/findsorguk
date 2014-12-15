@@ -211,16 +211,16 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                     if (($document->thumbnail)) {
                         $file = $this->view->baseUrl() . '/images/thumbnails/' . $document->thumbnail . '.jpg';
                         if (file_exists($file)) {
-                            $html .= '<img class="img-polaroid" src="';
+                            $html .= '<img class="img-polaroid pull-right" src="';
                             $html .= $file;
                             $html .= ' />';
                         } else {
-                            $html .= '<img class="flow img-circle" src="';
+                            $html .= '<img class="pull-right img-circle" src="';
                             $html .= $this->view->baseUrl();
                             $html .= '/assets/gravatar.png" />';
                         }
                     } else {
-                        $html .= '<img class=" img-circle" src="';
+                        $html .= '<img class="pull-right img-circle" src="';
                         $html .= $this->view->baseUrl();
                         $html .= '/assets/gravatar.png" />';
                     }

@@ -15,7 +15,7 @@
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
- * @example /app/views/scripts/partials/users/publicprofile.phtml
+ * @example /app/views/scripts/partials/users/publicProfile.phtml
  */
 class Pas_View_Helper_OnlineAccountHtmlPublic extends Zend_View_Helper_Abstract {
 
