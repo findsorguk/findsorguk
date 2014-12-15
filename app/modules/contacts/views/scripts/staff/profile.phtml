@@ -44,10 +44,6 @@
                     foreach ($data as $a) {
                         $newdata[$a['broadperiod']] = $a['artefacts'];
                     }
-                    echo $this->grapher()
-                        ->setType('pie')
-                        ->setTitle('Finds by period')
-                        ->setData($newdata);
                     ?>
 
                 <?php endif; ?>
