@@ -170,6 +170,8 @@ $this->dataEditDeleteCheck()->setInstitution($this->finds[0]['institution'])
         </div>
         <!-- End of the image pane -->
 
+        <?php echo $this->sketchFab()->setModelID('ec61fa899e8748c5afdfbc7a5f4f97fe')->setWidth(300)->setHeight(300);?>
+
     </div>
     <!--  End of descriptive data -->
 
@@ -177,8 +179,7 @@ $this->dataEditDeleteCheck()->setInstitution($this->finds[0]['institution'])
     <!-- Start of the spatial data -->
     <div class="row-fluid">
         <!-- Render the map and findspot data -->
-
-        <?php if (array_key_exists('countyID', $this->finds[0])) : ?>
+        <?php if (is_null('countyID')) : ?>
 
             <!-- Check for findspot data and if exists render -->
 
@@ -314,5 +315,3 @@ $this->dataEditDeleteCheck()->setInstitution($this->finds[0]['institution'])
 <?php $this->placeholder('tags')->captureStart() ?>
 <?php echo $this->semanticTags()->setQuery('id:' . $this->finds[0]['id'] . ' ' . 'contentType:findsrecord'); ?>
 <?php $this->placeholder('tags')->captureEnd() ?>
-
-<?php Zend_Debug::dump($this->finds); ?>
