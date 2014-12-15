@@ -285,6 +285,8 @@ class Pas_Solr_Handler
             $show = 500;
         } elseif ($format === 'sitemap') {
             $show = 1000;
+        } else {
+            $show = 20;
         }
         return $show;
     }

@@ -1,11 +1,3 @@
-<?php
-$this->jQuery()->addJavascriptFile($this->baseUrl()
-        .'/js/JQuery/jquery.autocomplete.pack.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl()
-        .'/js/JQuery/autocompleteinit.js',$type='text/javascript');
-$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
-$this->headTitle('All finds created by my institution');
-?>
 <?php $this->headTitle('All finds created by ' . $this->institution()->setInstitution($this->inst)); ?>
 <h2 class="lead"><?php echo $this->title();?></h2>
 <?php echo $this->loggedInLinks();?>
