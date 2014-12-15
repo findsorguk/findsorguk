@@ -1,69 +1,94 @@
 <div class="vcard span12 well" typeof="foaf:Person">
 
-    <?php if(isset($this->image)):?>
-     <?php
-        $path = IMAGE_PATH . '/staffphotos/thumbnails/';
-        list($w,$h) = getimagesize($path  . $this->image);
+    <?php if (!is_null($this->image)): ?>
+        <?php
+        $path = ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image;
+        if(file_exists($path)) {
+            list($w, $h) = getimagesize($path);
+        } else {
+            $w = 150;
+            $h = 150;
+        }
         ?>
-    <ul class="thumbnails" style="float:right;">
-        <li >
-            <div class="thumbnail staffimage" relrel="foaf:img">
-            <a href="<?php echo $this->baseUrl().'/assets/staffphotos/resized/'.$this->image;?>" title="View enlarged profile image" rel="lightbox" class="photo"><img src="<?php echo $this->baseUrl().'/assets/staffphotos/thumbnails/'.$this->image;?>" alt="Profile image for <?php echo $this->firstname.' '.$this->lastname;?>" width="<?php echo $w;?>" height="<?php echo $h;?>" /></a>
-            </div>
-        </li>
-    </ul>
+        <?php if(file_exists($path)):?>
+        <ul class="thumbnails pull-right">
+            <li>
+                <div class="staffimage" relrel="foaf:img">
+                    <a href="<?php echo $this->baseUrl() . '/assets/staffphotos/resized/' . $this->image; ?>"
+                       title="View enlarged profile image" rel="lightbox" ><img
+                            src="<?php echo $this->baseUrl() . '/assets/staffphotos/thumbnails/' . $this->image; ?>"
+                            alt="Profile image for <?php echo $this->firstname . ' ' . $this->lastname; ?>"
+                            width="<?php echo $w; ?>" height="<?php echo $h; ?>" class="img-circle"/></a>
+                </div>
+            </li>
+        </ul>
+        <?php else:?>
+        <ul class="thumbnails pull-right">
+            <li>
+                <div class="staffimage" relrel="foaf:img">
+                    <img src="<?php echo $this->baseUrl();?>/assets/gravatar.png" width="80" height="80" class="img-circle" />
+                    <p>Image unavailable<br />Error: 404</p>
+                </div>
+            </li>
+        </ul>
+        <?php endif;?>
+    <?php endif; ?>
 
-	<?php endif;?>
 
-
-<h4 class="lead"><a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff',
-'action'=>'profile', 'id' => $this->id));?>" title="Read <?php echo $this->escape($this->firstname);?>
-<?php echo $this->escape($this->lastname);?>'s profile"><span class="fn n" property="foaf:name">
+    <h4 class="lead"><a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff',
+            'action' => 'profile', 'id' => $this->id));?>" title="Read <?php echo $this->escape($this->firstname); ?>
+<?php echo $this->escape($this->lastname); ?>'s profile"><span class="fn n" property="foaf:name">
 <span class="given-name">
-<?php echo $this->escape($this->firstname);?>
+<?php echo $this->escape($this->firstname); ?>
 </span>
 <span class="family-name">
-<?php echo $this->escape($this->lastname);?>
+<?php echo $this->escape($this->lastname); ?>
 </span>
         </span></a></h4>
 
-<strong><span class="title"><?php
-if(!is_null($this->staffroles)) {
-echo $this->escape($this->staffroles);
-if(!is_null($this->staffregions)){
-	echo ' - ';
-echo $this->escape($this->staffregions);
-}
-}
-?></span></strong>
-<br />
-<div class="adr adress">
+    <strong><span class="title"><?php
+            if (!is_null($this->staffroles)) {
+                echo $this->escape($this->staffroles);
+                if (!is_null($this->staffregions)) {
+                    echo ' - ';
+                    echo $this->escape($this->staffregions);
+                }
+            }
+            ?></span></strong>
+    <br/>
+
+    <div class="adr adress">
 <span class="street-address">
-<?php echo $this->escape($this->address_1);?> <?php echo $this->escape($this->address_2);?>
+<?php echo $this->escape($this->address_1); ?> <?php echo $this->escape($this->address_2); ?>
 </span>
 <span class="locality">
-<?php echo $this->escape($this->town);?>
+<?php echo $this->escape($this->town); ?>
 </span>
 <span class="region">
-<?php echo $this->escape($this->county);?>
+<?php echo $this->escape($this->county); ?>
 </span>
 <span class="postal-code">
-<?php echo $this->escape($this->postcode);?>
+<?php echo $this->escape($this->postcode); ?>
 </span></div>
 <span class="tel">
-<span class="type">Work</span> T: <span class="value"><?php echo $this->escape($this->telephone);?></span></span><br />
-<?php if(!is_null($this->fax)):?>
-<span class="tel"><span class="type">Fax</span>: <span class="value"><?php echo $this->escape($this->fax);?></span></span><br />
-<?php endif;?>
-E: <a rel="foaf:mbox" class="email" href="mailto:<?php echo $this->escape($this->email_one);?>" title="Send mail to <?php echo $this->escape($this->firstname);?>&nbsp;<?php echo $this->escape($this->lastname);?>"><?php echo $this->escape($this->email_one);?></a>
-<br />
-<div class="geo forRDFOnly" rel="foaf:based_near" typeof="geo:Point">Geo:
- <span class="latitude" property="geo:lat"><?php echo $this->latitude;?></span>,
- <span class="longitude" property="geo:lon"><?php echo $this->longitude;?></span>
-</div>
-<?php echo $this->onlineAccountHtml()->setId($this->id);?>
+<span class="type">Work</span> T: <span class="value"><?php echo $this->escape($this->telephone); ?></span></span><br/>
+    <?php if (!is_null($this->fax)): ?>
+        <span class="tel"><span class="type">Fax</span>: <span
+                class="value"><?php echo $this->escape($this->fax); ?></span></span><br/>
+    <?php endif; ?>
+    E: <a rel="foaf:mbox" class="email" href="mailto:<?php echo $this->escape($this->email_one); ?>"
+          title="Send mail to <?php echo $this->escape($this->firstname); ?>&nbsp;<?php echo $this->escape($this->lastname); ?>"><?php echo $this->escape($this->email_one); ?></a>
+    <br/>
 
-<a href="<?php echo $this->url(array('module' => 'contacts' , 'controller' => 'staff','action' => 'profile','id' => $this->id,'format' => 'vcf'),null,true);?>">Vcard</a> | <a rel="foaf" href="<?php echo $this->url(array('module' => 'contacts' , 'controller' => 'staff','action' => 'profile','id' => $this->id,'format' => 'foaf'),null,true);?>">FOAF</a><br />
+    <div class="geo forRDFOnly" rel="foaf:based_near" typeof="geo:Point">Geo:
+        <span class="latitude" property="geo:lat"><?php echo $this->latitude; ?></span>,
+        <span class="longitude" property="geo:lon"><?php echo $this->longitude; ?></span>
+    </div>
+    <?php echo $this->onlineAccountHtml()->setId($this->id); ?>
+
+    <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>">Vcard</a>
+    | <a rel="foaf"
+         href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'foaf'), null, true); ?>">FOAF</a><br/>
 
 </div>
 

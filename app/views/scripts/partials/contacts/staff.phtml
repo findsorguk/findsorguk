@@ -45,9 +45,10 @@ lat:
 <span property="geo:long"><?php echo $this->longitude; ?></span>
 </span>
 </span>
-        <?php if (!is_null($this->image)) { ?>
-            <?php list($w, $h) = getimagesize('./assets/staffphotos/thumbnails/' . $this->image); ?>
-
+        <?php if (!is_null($this->image)): ?>
+            <?php if(file_exists('/assets/staffphotos/thumbnails/' . $this->image)):?>
+            <?php list($w, $h) = getimagesize('/assets/staffphotos/thumbnails/' . $this->image); ?>
+            <?php endif;?>
             <a href="<?php echo $this->baseUrl(); ?>/assets/staffphotos/resized/<?php echo $this->image; ?>"
                rel="lightbox"
                title="Profile image of <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>">
@@ -56,7 +57,7 @@ lat:
                      title="Image of <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"
                      class="staffimage" width="<?php echo $w; ?>" height="<?php echo $h; ?>"
                      alt="A profile picture chosen by <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"/></a>
-        <?php } ?>
+        <?php endif; ?>
 
         <p>Short profile:</p><img
             src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&zoom=15&size=200x200&maptype=hybrid&markers=color:green|label:G|
