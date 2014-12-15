@@ -96,7 +96,7 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
         foreach ($resultset as $document) {
             $data[] = array(
                 'id' => $document['id'],
-                'old_finID' => $document['old_findID'],
+                'old_findID' => $document['old_findID'],
                 'county' => $document['county'],
                 'broadperiod' => $document['broadperiod']
             );
