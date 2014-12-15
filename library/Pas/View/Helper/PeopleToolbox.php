@@ -49,7 +49,7 @@ class Pas_View_Helper_PeopleToolbox extends Zend_View_Helper_Abstract {
     public function __toString() {
         $html = '';
         if (in_array($this->getRole(), $this->_allowed)) {
-            $html .= '<div id="toolBox"><p>';
+            $html .= '<div class="btn-group">';
             $html .= '<a class="btn btn-large btn-primary" href="';
             $html .=  $this->view->url(array(
                 'module' => 'database',
@@ -57,7 +57,7 @@ class Pas_View_Helper_PeopleToolbox extends Zend_View_Helper_Abstract {
                 'action'=>'add'),
                     'default', true);
             $html .= '">Add new person to database</a>';
-            $html .= '</p></div>';
+            $html .= '</div>';
         }
         return $html;
     }

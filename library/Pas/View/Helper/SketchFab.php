@@ -20,6 +20,10 @@ class Pas_View_Helper_SketchFab extends Zend_View_Helper_Abstract {
      */
     protected $_height = NULL;
 
+    /** The model id for parsing via sketchfab
+     * @access protected
+     * @var null
+     */
     protected $_modelID = NULL;
 
     /** Get the height

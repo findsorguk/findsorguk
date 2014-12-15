@@ -1,0 +1,11 @@
+<tr>
+    <td>
+        <?php if ($this->precision == NULL): ?>
+            No grid reference recorded
+        <?php else: ?>
+            <?php echo $this->precision; ?> figure reference
+        <?php endif; ?>
+    </td>
+    <td><?php echo $this->finds; ?></td>
+    <td><?php echo $this->records; ?></td>
+</tr>

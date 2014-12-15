@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: danielpett
@@ -7,7 +8,8 @@
  *
  * @todo Add in all the checking logic for who can edit.
  */
-class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract
+{
 
     protected $_secUID;
 
@@ -24,14 +26,16 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
     protected $_hoardID;
 
     /** The role variable
-     * @var  string */
+     * @var  string
+     */
     protected $_role;
 
     /** Get the user's role
      * @access public
      * @return string
      */
-    public function getRole() {
+    public function getRole()
+    {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $this->_role = $user->role;
@@ -43,7 +47,8 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
      * @access public
      * @return object
      */
-    public function getAuth() {
+    public function getAuth()
+    {
         $this->_auth = Zend_Registry::get('auth');
         return $this->_auth;
     }
@@ -58,7 +63,7 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array $restricted
      */
-    protected $_restricted = array('member','research','hero');
+    protected $_restricted = array('member', 'research', 'hero');
 
     /** Set up the user groups with recorder access
      * @access protected
@@ -70,7 +75,7 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
      * @access protected
      * @var array $higherLevel
      */
-    protected $_higherLevel = array('admin','fa','treasure', 'hoard');
+    protected $_higherLevel = array('admin', 'fa', 'treasure', 'hoard');
 
     /** The default institution
      * @var string $_institution
@@ -137,7 +142,8 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
      * @access public
      * @return int
      */
-    public function getUserID() {
+    public function getUserID()
+    {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $this->_userID = $user->id;
@@ -149,7 +155,8 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getInst() {
+    public function getInst()
+    {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $this->_inst = $user->institution;
@@ -195,7 +202,6 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
     }
 
 
-
     /** The view helper function
      * @access public
      * @return \Pas_View_Helper_EditDeleteArchaeology
@@ -222,7 +228,7 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
     {
         $html = '';
         $html .= $this->view->partial('partials/hoards/coinArchaeologyAdd.phtml', array(
-            'id' => $this->getID(), 'hoardID' =>  $this->getHoardID()
+                'id' => $this->getID(), 'hoardID' => $this->getHoardID()
             )
         );
         return $html;
@@ -244,8 +250,9 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
      * @param int $createdBy
      * @return boolean
      */
-    public function checkAccessbyUserID($createdBy ) {
-        if (in_array( $this->getRole(), $this->_restricted ) ) {
+    public function checkAccessbyUserID($createdBy)
+    {
+        if (in_array($this->getRole(), $this->_restricted)) {
             if ($createdBy == $this->getUserID()) {
                 $allowed = true;
             } else {
@@ -276,17 +283,21 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
      * @return boolean
      *
      */
-    public function checkAccessbyInstitution( $institution ) {
-        if(in_array($this->getRole(), $this->_recorders)
-            && $this->getInst() == $institution) {
+    public function checkAccessbyInstitution($institution)
+    {
+        if (in_array($this->getRole(), $this->_recorders)
+            && $this->getInst() == $institution
+        ) {
             $allowed = true;
-        } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
+        } elseif (in_array($this->getRole(), $this->_higherLevel)) {
             $allowed = true;
-        } elseif (in_array ($this->getRole(), $this->_restricted)
-            && $this->checkAccessbyUserID ($this->getCreatedBy())) {
+        } elseif (in_array($this->getRole(), $this->_restricted)
+            && $this->checkAccessbyUserID($this->getCreatedBy())
+        ) {
             $allowed = true;
         } elseif (in_array($this->getRole(), $this->_recorders)
-            && $institution == 'PUBLIC') {
+            && $institution == 'PUBLIC'
+        ) {
             $allowed = true;
         } else {
             $allowed = false;
@@ -298,9 +309,10 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function generateLink() {
+    public function generateLink()
+    {
         $html = '';
-        if( $this->checkAccessbyInstitution( $this->getInstitution() ) ) {
+        if ($this->checkAccessbyInstitution($this->getInstitution())) {
             $html .= $this->buildHtml();
         }
         return $html;

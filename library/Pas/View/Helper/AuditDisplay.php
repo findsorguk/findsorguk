@@ -1,4 +1,5 @@
 <?php
+
 /** View helper for displaying the number of changes for record tables from the
  * audit table.
  *
@@ -22,7 +23,8 @@
  * @version 2
  * @since September 29 2011
  */
-class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract
+{
 
     /** If no changes found
      * @access protected
@@ -70,7 +72,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getTableName() {
+    public function getTableName()
+    {
         return ucfirst($this->_tableName);
     }
 
@@ -80,8 +83,9 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @return \Pas_View_Helper_AuditDisplay
      * @throws Pas_Exception_Param
      */
-    public function setTableName($tableName) {
-        if(in_array( $tableName, $this->_tableNames )){
+    public function setTableName($tableName)
+    {
+        if (in_array($tableName, $this->_tableNames)) {
             $this->_tableName = $tableName;
         } else {
             throw new Pas_Exception_Param('Table not available', 500);
@@ -93,7 +97,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access public
      * @return type
      */
-    public function getNothing() {
+    public function getNothing()
+    {
         return $this->_nothing;
     }
 
@@ -101,7 +106,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access publc
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->_id;
     }
 
@@ -109,7 +115,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access public
      * @return type
      */
-    public function getRole() {
+    public function getRole()
+    {
         $person = new Pas_User_Details();
         $this->_role = $person->getRole();
         return $this->_role;
@@ -119,7 +126,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access public
      * @return type
      */
-    public function getAllowed() {
+    public function getAllowed()
+    {
         return $this->_allowed;
     }
 
@@ -128,7 +136,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @param string $nothing
      * @return \Pas_View_Helper_AuditDisplay
      */
-    public function setNothing($nothing) {
+    public function setNothing($nothing)
+    {
         $this->_nothing = $nothing;
         return $this;
     }
@@ -138,7 +147,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @param int $id
      * @return \Pas_View_Helper_AuditDisplay
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->_id = $id;
         return $this;
     }
@@ -147,7 +157,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_AuditDisplay
      */
-    public function auditDisplay() {
+    public function auditDisplay()
+    {
         return $this;
     }
 
@@ -155,8 +166,9 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function __toString() {
-        return $this->getData( $this->getId() );
+    public function __toString()
+    {
+        return $this->getData($this->getId());
     }
 
     /** Get the data to return
@@ -164,7 +176,8 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @param int $id
      * @return string
      */
-    public function getData( $id ) {
+    public function getData($id)
+    {
         $id = (int)$id;
         if (in_array($this->getRole(), $this->getAllowed())) {
             $model = $this->getTableName() . 'Audit';
@@ -173,7 +186,7 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
         } else {
             $auditData = array();
         }
-        return $this->buildHtml( $auditData );
+        return $this->buildHtml($auditData);
     }
 
     /** Build the Url to query
@@ -181,30 +194,32 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract {
      * @param string $editID
      * @return string
      */
-    public function buildUrl( $editID ) {
+    public function buildUrl($editID)
+    {
         $params = array(
             'module' => 'database',
             'controller' => 'ajax',
             'action' => strtolower($this->getTableName()) . 'audit',
             'id' => $editID
-            );
+        );
         return $params;
     }
 
     /** Build the html from data array
-    * @param array $auditData
-    * @return string $html
-    */
-    public function buildHtml(array $auditData ) {
+     * @param array $auditData
+     * @return string $html
+     */
+    public function buildHtml(array $auditData)
+    {
         $html = '';
         $html .= '<h4 class="lead">';
         $html .= $this->getTableName();
         $html .= ' data audit</h4>';
-        if(is_array($auditData) && sizeof($auditData) > 0){
+        if (is_array($auditData) && sizeof($auditData) > 0) {
             $html .= '<ul>';
-            foreach($auditData as $audit) {
+            foreach ($auditData as $audit) {
                 $html .= '<li><a class="overlay" href="';
-                $html .= $this->view->url($this->buildUrl($audit['editID']),null,true);
+                $html .= $this->view->url($this->buildUrl($audit['editID']), null, true);
                 $html .= '" title="View all changes on this date">';
                 $html .= $this->view->timeAgoInWords($audit['created']);
                 $html .= '</a> ';

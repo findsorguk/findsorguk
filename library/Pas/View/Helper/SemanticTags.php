@@ -293,13 +293,13 @@ class Pas_View_Helper_SemanticTags extends Zend_View_Helper_Abstract
         );
 
         if (!($this->getCache()->test($this->getCacheKey()))) {
-        $query = $this->getSolr()->createSelect($select);
+            $query = $this->getSolr()->createSelect($select);
 
-        $resultset = $this->getSolr()->select($query);
-        $data = array();
-        foreach ($resultset as $doc) {
-            $data['tags'][] = $this->parseResults($doc);
-        }
+            $resultset = $this->getSolr()->select($query);
+            $data = array();
+            foreach ($resultset as $doc) {
+                $data['tags'][] = $this->parseResults($doc);
+            }
             $this->getCache()->save($data);
         } else {
             $data = $this->getCache()->load($this->getCacheKey());
@@ -338,7 +338,7 @@ class Pas_View_Helper_SemanticTags extends Zend_View_Helper_Abstract
     public function buildHtml(array $data)
     {
         $html = '';
-        if (array_key_exists('tags',$data)) {
+        if (array_key_exists('tags', $data)) {
             $html .= '<h3 class="lead ">Semantic tags</h3><ul>';
             $html .= $this->view->partialLoop('partials/database/tags.phtml', $data['tags']);
         }

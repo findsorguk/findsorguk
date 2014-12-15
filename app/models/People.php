@@ -211,13 +211,13 @@ if (!$data = $this->_cache->load('valuers')) {
                     'fullname',
                     'surname',
                     'forename',
-                    'lon',
-                    'lat',
+                    'people.lon',
+                    'people.lat',
                     'email',
                     'created',
                     'updated',
-                    'coordinates' => 'CONCAT(lat,",",lon)',
-                    'place' => 'CONCAT(address," ",town_city," ",county)',
+                    'coordinates' => 'CONCAT(people.lat,",",people.lon)',
+                    'place' => 'CONCAT(people.address," ",people.town_city," ",people.county)',
                     'county',
                     'postcode'
                     ))

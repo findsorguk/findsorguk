@@ -279,7 +279,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
                     if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {
                         $template = str_replace(' ', '', $this->getBroadperiod());
                         $html .= $this->view->partialLoop(
-                            'partials/database/' . strtolower($template)
+                            'partials/database/numismatics/' . strtolower($template)
                             . 'Data.phtml', $this->getCoins());
                     } elseif (in_array(strtoupper($this->getObjectType()),
                         $this->getObjects())) {
