@@ -320,8 +320,8 @@ class News extends Pas_Db_Table_Abstract
             'created',
             'updated',
         ))
-            ->joinLeft(array('users' => 'users1'), 'news.createdBy = users1.id', array('fullname' => 'createdBy'))
-            ->joinLeft(array('users' => 'users2'), 'news.updatedBy = users2.id', array('fullname' => 'updatedBy'))
+            ->joinLeft('users', 'news.createdBy = users.id', array('fullname' => 'createdBy'))
+            ->joinLeft(array('users2' => 'users'), 'news.updatedBy = users2.id', array('fullname' => 'updatedBy'))
             ->where($this->_name . '.id = ?', (int)$id);
         $data = $contents->fetchAll($select);
         $data[0]['type'] = 'news';

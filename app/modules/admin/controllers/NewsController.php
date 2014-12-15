@@ -56,7 +56,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin
         $search->setCore('content');
         $search->setFields(array(
             'updated', 'updatedBy', 'publishState',
-            'title', 'created', 'createdBy'
+            'title', 'created', 'createdBy', 'id'
         ));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->_getParam('submit'))
