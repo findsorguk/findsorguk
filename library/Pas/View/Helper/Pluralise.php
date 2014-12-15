@@ -1,24 +1,26 @@
- <?php
- /**
-  * A view helper for pluralisation of quantities
-  *
-  * An example of usage
-  * <code>
-  * $this->pluralise()->setQuantity(10);
-  * </code>
-  * Would render: 10 coins
-  *
-  * @todo this could be made more generic
-  * @author Daniel Pett <dpett at britishmuseum.org>
-  * @copyright (c) 2014, Daniel Pett
-  * @version 1
-  * @since 1
-  * @category Pas
-  * @package Pas_View_Helper
-  * @license GNU
-  * @example path description
-  */
-class Pas_View_Helper_Pluralise {
+<?php
+
+/**
+ * A view helper for pluralisation of quantities
+ *
+ * An example of usage
+ * <code>
+ * $this->pluralise()->setQuantity(10);
+ * </code>
+ * Would render: 10 coins
+ *
+ * @todo this could be made more generic
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @version 1
+ * @since 1
+ * @category Pas
+ * @package Pas_View_Helper
+ * @license GNU
+ * @example path description
+ */
+class Pas_View_Helper_Pluralise
+{
     /** Quantity of objects to use
      * @access protected
      * @var int
@@ -81,7 +83,7 @@ class Pas_View_Helper_Pluralise {
 
     /** Set the quantity
      * @access public
-     * @param  int                        $quantity
+     * @param  int $quantity
      * @return \Pas_View_Helper_Pluralise
      */
     public function setQuantity($quantity)
@@ -93,10 +95,10 @@ class Pas_View_Helper_Pluralise {
 
     /** Set the string for nothing returned
      * @access public
-     * @param  string                     $none
+     * @param  string $none
      * @return \Pas_View_Helper_Pluralise
      */
-    public function setNone( $none)
+    public function setNone($none)
     {
         $this->_none = $none;
 
@@ -105,10 +107,10 @@ class Pas_View_Helper_Pluralise {
 
     /** Set the singular string
      * @access public
-     * @param  string                     $singular
+     * @param  string $singular
      * @return \Pas_View_Helper_Pluralise
      */
-    public function setSingular( $singular)
+    public function setSingular($singular)
     {
         $this->_singular = $singular;
 
@@ -117,10 +119,10 @@ class Pas_View_Helper_Pluralise {
 
     /** Set the plural string
      * @access public
-     * @param  string                     $plural
+     * @param  string $plural
      * @return \Pas_View_Helper_Pluralise
      */
-    public function setPlural( $plural)
+    public function setPlural($plural)
     {
         $this->_plural = $plural;
 
@@ -144,7 +146,7 @@ class Pas_View_Helper_Pluralise {
     {
         $html = '';
         if ($this->getQuantity() == 0) {
-           $html .= $this->getNone();
+            $html .= $this->getNone();
         } elseif ($this->getQuantity() == 1) {
             $html .= $this->getSingular();
         } elseif ($this->getQuantity() > 1) {
@@ -152,7 +154,6 @@ class Pas_View_Helper_Pluralise {
             $html .= ' ';
             $html = $this->getPlural();
         }
-
         return $html;
     }
- }
+}

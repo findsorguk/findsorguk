@@ -38,9 +38,13 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     protected $_finds;
 
+    /** The hoards model
+     * @access protected
+     * @var \Hoards
+     */
     protected $_hoards;
 
-    /**
+    /** Get the hoards model
      * @return mixed
      */
     public function getHoards()
@@ -725,5 +729,123 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     {
         $geography = new Geography();
         $this->view->json = $geography->getIronAgeGeographyAll();
+    }
+
+    public function uploadAction()
+    {
+        if ($this->_request->isOptions()) {
+            $this->upload();
+        }
+        if ($this->_request->isPost()) {
+            $this->upload();
+        }
+        if ($this->_request->isGet()) {
+            $this->upload();
+        }
+        if ($this->_request->isDelete() || $_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            $this->delete();
+        }
+    }
+
+    public function upload() {
+        if ($this->_helper->Identity()) {
+            //Check if images path directory is writable
+            if(!is_writable(IMAGE_PATH)){
+                throw new Pas_Exception_NotAuthorised('The images directory is not writable', 500);
+            }
+            // Create the imagedir path
+            $imagedir = IMAGE_PATH . '/' . $this->_helper->Identity()->username;
+
+            //Check if a directory and if not make directory
+            if( !is_dir( $imagedir ) ) {
+                mkdir( $imagedir, 0775, true );
+            }
+            //Check if the personal image directory is writable
+            if(!is_writable( $imagedir )){
+                throw new Pas_Exception_NotAuthorised('The user image directory is not writable', 500);
+            }
+
+            // Get images and do the magic
+            $adapter = new Zend_File_Transfer_Adapter_Http();
+            $adapter->setDestination($imagedir);
+            $adapter->setOptions(array('useByteString' => false));
+            // Only allow good image files!
+            $adapter->addValidator('Extension', false, 'jpg, tiff');
+            $adapter->addValidator('NotExists', false, array( $imagedir ));
+            $files = $adapter->getFileInfo();
+
+            // Create an array for the images
+            $images = array();
+
+            // Loop through the submitted files
+            foreach ($files as $file => $info) {
+
+
+                // file uploaded & is valid
+                if (!$adapter->isUploaded($file)) continue;
+                if (!$adapter->isValid($file)) continue;
+
+                // Clean up the image name for crappy characters
+                $filename = pathinfo($adapter->getFileName($file));
+                // Instantiate the renamer
+                $reNamer = new Pas_Image_Rename();
+                // Clean the filename
+                $cleaned = $reNamer->strip($filename['filename'], $filename['extension']);
+                // Rename the file
+                $adapter->addFilter('rename', $cleaned);
+                // receive the files into the user directory
+                $adapter->receive($file); // this has to be on top
+
+                // Create the object for reuse
+                $image = new stdClass();
+                $image->cleaned = $cleaned;
+                $image->basename = $filename['basename'];
+                $image->extension = $filename['extension'];
+                $image->thumbnailUrl = $this->createThumbnailUrl($adapter->getFileName($file, false));
+                $image->deleteUrl = $this->_createUrl($adapter->getFileName($file, false));
+                $image->path = $adapter->getFileName($file);
+                $image->name = $adapter->getFileName($file, false);
+                $image->size = $adapter->getFileSize($file);
+                $image->type = $adapter->getMimeType($file);
+                // The secure ID stuff for linking images
+                $image->secuid = $this->_helper->GenerateSecuID();
+                // Get the image dims
+                $imagesize = getimagesize($adapter->getFileName($file));
+                $image->width = $imagesize[0];
+                $image->height = $imagesize[1];
+                $params = $this->getAllParams();
+                $image->findID = $params['findID'];
+                // Create the raw image url
+                $image->url = $this->_createUrl($adapter->getFileName($file, false));
+                $image->deleteType = 'DELETE';
+                $images[] = $image;
+
+                $slides = new Slides();
+                $slides->addAndResize($images);
+            }
+            $this->view->data = $images;
+        } else {
+            throw new Pas_Exception_NotAuthorised('Your account does not seem enabled to do this', 500);
+        }
+    }
+
+    public function _createUrl($file)
+    {
+        $user = $this->_helper->Identity()->username;
+        return $this->view->serverUrl() . '/images/' . $user . '/' . $file;
+    }
+
+    public function createThumbnailUrl($file)
+    {
+        $user = $this->_helper->Identity()->username;
+        return $this->view->serverUrl() . '/images/' . $user . '/small/' . $file;
+    }
+
+    public function delete() {
+        $file_name = $this->_request->getParam('files');
+        $imagedir = IMAGE_PATH . '/' . $this->_helper->Identity()->username;
+        $file_path = $imagedir .  '/' . $file_name;
+        $success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
+        echo json_encode($success);
     }
 }

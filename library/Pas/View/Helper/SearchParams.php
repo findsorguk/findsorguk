@@ -89,7 +89,8 @@ class Pas_View_Helper_SearchParams
         'materialTerm' => 'Primary material',
         'identifier1ID' => 'Primary identifier (obfuscated for security)',
         'identifier2ID' => 'Secondary identifier (obfuscated for security)',
-        'recorderID' => 'Recorded by (obfuscated for security)'
+        'recorderID' => 'Recorded by (obfuscated for security)',
+        'decstyle' => 'Decorative style'
 
     );
 
@@ -320,6 +321,9 @@ class Pas_View_Helper_SearchParams
                     break;
                 case 'decstyle':
                     $params[$key] = $this->getData('DecStyles', 'term' , $value);
+                    break;
+                case 'complete':
+                    $params[$key] = $this->getData('Completeness', 'term' , $value);
                     break;
                 default:
                     $params[$key] = $value;

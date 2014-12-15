@@ -2151,8 +2151,6 @@ class Finds extends Pas_Db_Table_Abstract {
                         array('moneyerName' => 'name', 'moneyerViaf' => 'viaf', 'moneyerBM' => 'bmID'))
                 ->joinLeft('regions','findspots.regionID = regions.id',
                         array('regionName' => 'region'))
-                ->joinLeft('hoards','hoards.id = finds.hoardID',
-                        array('hoardName' => 'term'))
                 ->joinLeft('people', 'finds.finderID = people.secuid',
                         array('finder' => 'fullname'))
                 ->joinLeft(array('recorder' => 'people'),
@@ -2161,7 +2159,7 @@ class Finds extends Pas_Db_Table_Abstract {
                 ->where('finds.id = ?', (int)$findID)
                 ->group('finds.id')
                 ->limit(1);
-        $select->setIntegrityCheck(false);
+//        $select->setIntegrityCheck(false);
         return $findsdata->fetchAll($select);
     }
 }

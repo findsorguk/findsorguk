@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A validator for checking whether the postcode provided is valid.
  *
@@ -23,7 +24,8 @@
  * @version 1
  * @example /library/Pas/Geo/MapIt/Postcode.php
  */
-class Pas_Validate_ValidPostCode extends Zend_Validate_PostCode {
+class Pas_Validate_ValidPostCode extends Zend_Validate_PostCode
+{
 
     /** Container for the error message
      *
@@ -42,9 +44,7 @@ class Pas_Validate_ValidPostCode extends Zend_Validate_PostCode {
      * @access protected
      * @var array
      */
-    protected $_messageVariables = array(
-
-	);
+    protected $_messageVariables = array();
 
     /** Check if the value is valid
      * @access public
@@ -52,8 +52,9 @@ class Pas_Validate_ValidPostCode extends Zend_Validate_PostCode {
      * @param string $context
      * @return boolean
      */
-    public function isValid($value, $context = null) {
-        $value = (string) $value;
+    public function isValid($value, $context = null)
+    {
+        $value = (string)$value;
         $this->_setValue($value);
         $ok = true;
 
@@ -61,7 +62,7 @@ class Pas_Validate_ValidPostCode extends Zend_Validate_PostCode {
 
         $value = preg_replace('/[^A-Z0-9]/', '', strtoupper($value));
 
-       // Min valid length is 5 - check first so that the substr's below work as expected.
+        // Min valid length is 5 - check first so that the substr's below work as expected.
         if (strlen($value) < 5) {
             $this->_error(self::NOT_POSTCODE);
             return false;
@@ -79,7 +80,7 @@ class Pas_Validate_ValidPostCode extends Zend_Validate_PostCode {
         $p2 = '[ABCDEFGHKLMNOPQRSTUVWXY0-9]';   // required
         $p3 = '[ABCDEFGHJKSTUW0-9]?';           // optional
         $p4 = '[ABEHMNPRVWXY0-9]?';             // optional
-        $part1Pattern = '/^('.$p1.$p2.$p3.$p4.')/';
+        $part1Pattern = '/^(' . $p1 . $p2 . $p3 . $p4 . ')/';
 
         // Part two must match this pattern...
         $part2Pattern = '/([0-9][ABDEFGHJLNPQRSTUWXYZ][ABDEFGHJLNPQRSTUWXYZ])/';
@@ -88,13 +89,13 @@ class Pas_Validate_ValidPostCode extends Zend_Validate_PostCode {
         $specialPattern = 'GIR0AA';
 
         if (preg_match($part1Pattern, $part1) == 0) {
-           $ok = false;
+            $ok = false;
         }
         if (preg_match($part2Pattern, $part2) == 0) {
-           $ok = false;
+            $ok = false;
         }
         if ($value == $specialPattern) {
-           $ok = true;
+            $ok = true;
         }
         if (!$ok) {
             $this->_error(self::NOT_POSTCODE);

@@ -1,36 +1,64 @@
 <?php
-/**
- *
- * @author dpett
- * @version
- */
 
 /**
- * NomismaRdf helper
+ * A view helper to render ruler information
  *
- * @uses viewHelper Pas_View_Helper
+ * A single use view helper for getting data from dbpedia.
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->dbPediaMintRdf()->setUri($uri);
+ * ?>
+ * </code>
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @category Pas
+ * @package Pas_View_Helper
+ * @uses Zend_Cache
+ * @uses EasyRdf_Grap
+ * @version 1
+ * @since 1
+ * @license http://URL GNU
  */
 class Pas_View_Helper_DbPediaMintRdf extends Zend_View_Helper_Abstract
 {
+    /** The RDF client
+     * @access protected
+     * @var
+     */
     protected $_client;
 
+    /** The cache object
+     * @access protected
+     */
     protected $_cache;
 
+    /** The uri to parse
+     * @access protected
+     */
     protected $_uri;
 
+    /** The language to parse
+     */
     const LANGUAGE = 'en';
 
-    /**
-     *
+    /** The class to return
+     * @access public
+     * @returns \DbPediaMintRdf
      */
     public function DbPediaMintRdf()
     {
         $this->_client = new Pas_RDF_Client();
         $this->_cache = Zend_Registry::get('cache');
-
         return $this;
     }
 
+    /** Set the uri
+     * @access public
+     * @returns string
+     */
     public function setUri($uri)
     {
         if (isset($uri)) {
@@ -38,21 +66,23 @@ class Pas_View_Helper_DbPediaMintRdf extends Zend_View_Helper_Abstract
         } else {
             throw new Pas_Exception_Url('No uri set');
         }
-
         return $this;
     }
 
+    /** Get the graph to parse
+     * @access protected
+     * @returns object
+     */
     protected function getData()
     {
         $key = md5($this->_uri);
         if (!($this->_cache->test($key))) {
-        $graph = new EasyRdf_Graph( $this->_uri );
-        $graph->load();
-        $data = $graph->resource($this->_uri);
-
-        $this->_cache->save($data);
+            $graph = new EasyRdf_Graph($this->_uri);
+            $graph->load();
+            $data = $graph->resource($this->_uri);
+            $this->_cache->save($data);
         } else {
-        $data = $this->_cache->load($key);
+            $data = $this->_cache->load($key);
         }
         EasyRdf_Namespace::set('dbpediaowl', 'http://dbpedia.org/ontology/');
         EasyRdf_Namespace::set('dbpprop', 'http://dbpedia.org/property/');
@@ -61,27 +91,35 @@ class Pas_View_Helper_DbPediaMintRdf extends Zend_View_Helper_Abstract
         return $data;
     }
 
+    /** Render the html
+     * @access protected
+     * @returns string
+     */
     protected function _render()
     {
         $d = $this->getData();
         $html = '';
         if ($d->get('dbpediaowl:thumbnail')) {
-        $html .= '<a href="' . $d->get('foaf:depiction') . '" rel="lightbox"><img src="' ;
-        $html .= $d->get('dbpediaowl:thumbnail');
-        $html .= '" class="pull-right"/></a>';
+            $html .= '<a href="' . $d->get('foaf:depiction') . '" rel="lightbox"><img src="';
+            $html .= $d->get('dbpediaowl:thumbnail');
+            $html .= '" class="pull-right"/></a>';
         }
         $html .= '<ul>';
         $html .= '<li>Preferred label: ' . $d->label(self::LANGUAGE) . '</li>';
         $html .= '<li>Geo coords: ' . $d->get('geo:lat') . ',' . $d->get('geo:long') . '</li>';
         $html .= '<li>Definition: ' . $d->get('dbpediaowl:abstract', 'literal', self::LANGUAGE) . '</li>';
         if ($d->get('dbpediaowl:elevation')) {
-        $html .= '<li>Elevation: ' . $d->get('dbpediaowl:elevation') . ' (Max: ' . $d->get('dbpediaowl:maximumElevation') . ' Min: ' . $d->get('dbpediaowl:minimumElevation') . ')</li>';
+            $html .= '<li>Elevation: ' . $d->get('dbpediaowl:elevation') . ' (Max: ' . $d->get('dbpediaowl:maximumElevation') . ' Min: ' . $d->get('dbpediaowl:minimumElevation') . ')</li>';
         }
         $html .= '</ul>';
 
         return $html;
     }
 
+    /** The to string function
+     * @access public
+     * @returns string
+     */
     public function __toString()
     {
         return $this->_render();

@@ -5,7 +5,7 @@ Broad period: <span property="pas:broadperiod"><?php echo $this->escape($this->b
 Subperiod from: <span property="pas:subPeriodFrom"><?php echo $this->earlyMiddleLate()->setQualifier($this->subPeriodFrom);?></span><br />
 <?php endif;?>
 <?php if(!empty($this->periodFrom)):?>
-Period from: <span property="pas:periodFrom"><?php echo $this->escape($this->periodFrom);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module'=>'database','controller' => 'terminology','action'=>'period','id' => $this->period1),null,true);?>" title="Read scope note for <?php echo $this->periodFrom;?>">scope notes</a> | <a href="<?php echo $this->url(array('module'=>'database','controller' => 'search','action'=>'results','periodfrom' => $this->period1),null,true);?>" title="view all records assigned to: <?php echo $this->periodFrom;?>">view all attributed records</a>]</span><br />
+Period from: <span property="pas:periodFrom"><?php echo $this->escape($this->periodFrom);?></span> <span class="scope">[<a href="<?php echo $this->url(array('module'=>'database','controller' => 'terminology','action'=>'period','id' => $this->period1),null,true);?>" title="Read scope note for <?php echo $this->periodFrom;?>">scope notes</a> | <a href="<?php echo $this->url(array('module'=>'database','controller' => 'search','action'=>'results','periodFrom' => $this->period1),null,true);?>" title="view all records assigned to: <?php echo $this->periodFrom;?>">view all attributed records</a>]</span><br />
 <?php endif;?>
 <?php if(!empty($this->subPeriodTo)):?>
 Subperiod to: <span property="pas:subPeriodTo"><?php echo $this->earlyMiddleLate()->setQualifier($this->subPeriodTo);?></span><br />
@@ -21,7 +21,7 @@ Period to: <span property="pas:periodTo"><?php echo $this->periodTo;?></span>
      'module'=>'database',
      'controller' => 'search',
      'action'=>'results',
-     'periodfrom' => $this->period2),null,true);?>" title="view all records assigned to:
+     'periodTo' => $this->period2),null,true);?>" title="view all records assigned to:
  <?php echo $this->periodTo;?>">view all attributed records</a>]</span><br />
 <?php endif;?>
 <?php if(!is_null($this->cult)) : ?>

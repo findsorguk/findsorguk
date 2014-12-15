@@ -1,0 +1,17 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 13/12/14
+ * Time: 09:23
+ */
+?>
+<li class="span2">
+    <div class="thumbnail">
+        Title: <?php echo $this->title; ?><br/>
+        <a href="<?php echo $this->permalink; ?>"
+           title="View this presentation at slideshare"><img class="img-rounded" src="<?php echo $this->thumbnail; ?>"
+                                                             alt="Thumbnail of presentation entitled <?php echo $this->title; ?>"/></a><br/>
+        Views: <?php echo $this->views; ?>
+    </div>
+</li>

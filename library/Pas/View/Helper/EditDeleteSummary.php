@@ -1,11 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: danielpett
- * Date: 12/10/2014
- * Time: 08:16
+/** A view helper for checking whether one can edit or delete summary data
  *
- * @todo Add in all the checking logic for who can edit.
+ * @author Daniel Pett
+ * @category   Pas
+ * @package    Pas_View_Helper
+ * @subpackage Abstract
+ * @copyright  Copyright (c) 2014 mchester-kadwell @ britishmuseum.org
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @see Zend_View_Helper_Abstract
  */
 class Pas_View_Helper_EditDeleteSummary extends Zend_View_Helper_Abstract {
 
@@ -21,6 +23,10 @@ class Pas_View_Helper_EditDeleteSummary extends Zend_View_Helper_Abstract {
      */
     protected $_hoardID;
 
+    /** THe role of the user
+     * @access protected
+     * @var  $_role
+     */
     protected $_role;
 
     /** Get the user's role
@@ -299,6 +305,5 @@ class Pas_View_Helper_EditDeleteSummary extends Zend_View_Helper_Abstract {
         }
         return $html;
     }
-
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for displaying image of a MP or Lord from theyworkforyou
  * @category   Pas
@@ -18,7 +19,8 @@
  * @uses Zend_Registry
  *
  */
-class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract
+{
 
     /** The cache object
      * @access public
@@ -42,7 +44,8 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract {
      * @access public
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_cache = Zend_Registry::get('cache');
         $this->_config = Zend_Registry::get('config');
         $this->_twfykey = $this->_config->webservice->twfy->apikey;
@@ -53,7 +56,8 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract {
      * @param string $url
      *
      */
-    public function get($url) {
+    public function get($url)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -68,14 +72,15 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract {
      * @return array
      */
 
-    public function callapi($id) {
-        if (!($this->_cache->test('mptwfy'.$id))) {
+    public function callapi($id)
+    {
+        if (!($this->_cache->test('mptwfy' . $id))) {
             $twfy = 'http://www.theyworkforyou.com/api/getPerson?key='
-            . $this->_twfykey . '&id=' . $id . '&output=js';
+                . $this->_twfykey . '&id=' . $id . '&output=js';
             $data = json_decode($this->get($twfy));
             $this->_cache->save($data);
         } else {
-            $data = $this->_cache->load('mptwfy'.$id);
+            $data = $this->_cache->load('mptwfy' . $id);
         }
         return $data;
     }
@@ -85,9 +90,10 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract {
      * @param integer $id The MP or Lord's ID number
      * @return string
      */
-    public function twfyImage($id = null) {
+    public function twfyImage($id = null)
+    {
         if (isset($id)) {
-        $data = $this->callapi($id);
+            $data = $this->callapi($id);
             return $this->buildHtml($data);
         } else {
             return false;
@@ -98,7 +104,8 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract {
      * @param array $data
      * @return string The html to display
      */
-    public function buildHtml($data) {
+    public function buildHtml($data)
+    {
         if (!is_null($data['0']->image)) {
             $html = '<img src="http://www.theyworkforyou.com/';
             $html .= $data['0']->image . '" class="flow" alt="Profile picture for ';

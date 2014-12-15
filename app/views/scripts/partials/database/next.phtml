@@ -1,7 +1,10 @@
-<li class="next"><a href="<?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->escape($this->id)),null,true);?>" title="View next record"><?php echo $this->escape($this->old_findID). ' : ' .$this->escape(ucfirst(strtolower($this->broadperiod))).' '.$this->escape(strtolower($this->objecttype)) ; ?> &rarr;</a></li>
-<?php 
+<li class="next"><a
+        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->escape($this->id)), null, true); ?>"
+        title="View next record"><?php echo $this->escape($this->old_findID) . ' : ' . $this->escape(ucfirst(strtolower($this->broadperiod))) . ' ' . $this->escape(strtolower($this->objecttype)); ?> &rarr;</a>
+</li>
+<?php
 $this->headLink(array(
-            'rel' => 'next',
-            'href' => $this->serverUrl() . $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->escape($this->id)),null,true),
-            'APPEND')
+        'rel' => 'next',
+        'href' => $this->serverUrl() . $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->escape($this->id)), null, true),
+        'APPEND')
 );?>

@@ -1,4 +1,5 @@
 <?php
+
 /** A view helper to get the correct finds adviser for an error report
  *
  * An example of use:
@@ -18,7 +19,8 @@
  *
  *
  */
-class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract
+{
 
     /** The object type
      * @access protected
@@ -36,7 +38,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getObjectType() {
+    public function getObjectType()
+    {
         return $this->_objectType;
     }
 
@@ -44,7 +47,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getBroadperiod() {
+    public function getBroadperiod()
+    {
         return $this->_broadperiod;
     }
 
@@ -53,7 +57,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @param string $objectType
      * @return \Pas_View_Helper_RelevantAdviser
      */
-    public function setObjectType($objectType) {
+    public function setObjectType($objectType)
+    {
         $this->_objectType = $objectType;
         return $this;
     }
@@ -63,7 +68,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @param string $broadperiod
      * @return \Pas_View_Helper_RelevantAdviser
      */
-    public function setBroadperiod($broadperiod) {
+    public function setBroadperiod($broadperiod)
+    {
         $this->_broadperiod = $broadperiod;
         return $this;
     }
@@ -83,41 +89,41 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @var array
      */
     protected $_periodRomIA = array(
-        'Roman','ROMAN','roman',
-        'Iron Age','Iron age','IRON AGE',
-        'Byzantine','BYZANTINE','Greek and Roman Provincial',
-        'GREEK AND ROMAN PROVINCIAL','Unknown','UNKNOWN');
+        'Roman', 'ROMAN', 'roman',
+        'Iron Age', 'Iron age', 'IRON AGE',
+        'Byzantine', 'BYZANTINE', 'Greek and Roman Provincial',
+        'GREEK AND ROMAN PROVINCIAL', 'Unknown', 'UNKNOWN');
 
     /** Roman and prehistoric array
      * @access protected
      * @var array
      */
     protected $_periodRomPrehist = array(
-        'Roman','ROMAN','roman','Iron Age',
-        'Iron age','IRON AGE','Byzantine',
-        'BYZANTINE','Greek and Roman Provincial','GREEK AND ROMAN PROVINCIAL',
-        'Unknown','UNKNOWN','Mesolithic',
-        'MESOLITHIC','PREHISTORIC','NEOLITHIC',
-        'Neolithic','Palaeolithic','PALAEOLITHIC',
-        'Bronze Age','BRONZE AGE');
+        'Roman', 'ROMAN', 'roman', 'Iron Age',
+        'Iron age', 'IRON AGE', 'Byzantine',
+        'BYZANTINE', 'Greek and Roman Provincial', 'GREEK AND ROMAN PROVINCIAL',
+        'Unknown', 'UNKNOWN', 'Mesolithic',
+        'MESOLITHIC', 'PREHISTORIC', 'NEOLITHIC',
+        'Neolithic', 'Palaeolithic', 'PALAEOLITHIC',
+        'Bronze Age', 'BRONZE AGE');
 
     /** Early medieval array
      * @access protected
      * @var array
      */
-    protected $_earlyMed = array('Early Medieval','EARLY MEDIEVAL');
+    protected $_earlyMed = array('Early Medieval', 'EARLY MEDIEVAL');
 
     /** Medieval array
      * @access protected
      * @var array
      */
-    protected $_medieval = array('Medieval','MEDIEVAL');
+    protected $_medieval = array('Medieval', 'MEDIEVAL');
 
     /** Post medieval array
      * @access public
      * @var array
      */
-    protected $_postMed = array('Post Medieval','POST MEDIEVAL','Modern');
+    protected $_postMed = array('Post Medieval', 'POST MEDIEVAL', 'Modern');
 
     /** The config object
      * @access public
@@ -165,7 +171,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Zend_Config
      */
-    public function getCatchAll() {
+    public function getCatchAll()
+    {
         $this->_catchAll = $this->getConfig()->findsadviser->default;
         return $this->_catchAll;
     }
@@ -174,16 +181,18 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Zend_Config
      */
-    public function getMedievalCoins() {
+    public function getMedievalCoins()
+    {
         $this->_medievalCoins = $this->getConfig()->findsadviser->medievalcoins;
         return $this->_medievalCoins;
     }
 
-     /** Get the Roman coins adviser
+    /** Get the Roman coins adviser
      * @access public
      * @return \Zend_Config
      */
-    public function getRomanCoins() {
+    public function getRomanCoins()
+    {
         $this->_romanCoins = $this->getConfig()->findsadviser->romancoins;
         return $this->_romanCoins;
     }
@@ -192,7 +201,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Zend_Config
      */
-    public function getRomanObjects() {
+    public function getRomanObjects()
+    {
         $this->_romanObjects = $this->getConfig()->findsadviser->romanobjects;
         return $this->_romanObjects;
     }
@@ -201,7 +211,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Zend_Config
      */
-    public function getMedievalObjects() {
+    public function getMedievalObjects()
+    {
         $this->_medievalObjects = $this->getConfig()->findsadviser->medievalobjects;
         return $this->_medievalObjects;
     }
@@ -210,7 +221,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Zend_Config
      */
-    public function getPostMedievalObjects() {
+    public function getPostMedievalObjects()
+    {
         $this->_postMedievalObjects = $this->getConfig()->findsadviser->postmedievalobjects;
         return $this->_postMedievalObjects;
     }
@@ -219,7 +231,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Zend_Config
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         $this->_config = Zend_Registry::get('config');
         return $this->_config;
     }
@@ -228,7 +241,8 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_RelevantAdviser
      */
-    public function relevantAdviser() {
+    public function relevantAdviser()
+    {
         return $this;
     }
 
@@ -237,38 +251,39 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         $broadperiod = $this->getBroadperiod();
         $objecttype = $this->getObjectType();
         switch ($objecttype) {
-            case (in_array($objecttype,$this->_coinarray) && in_array($broadperiod,$this->_periodRomIA)):
+            case (in_array($objecttype, $this->_coinarray) && in_array($broadperiod, $this->_periodRomIA)):
                 $adviserdetails = $this->getRomanCoins();
                 break;
-            case (in_array($objecttype,$this->_coinarray) && in_array($broadperiod,$this->_earlyMed)):
+            case (in_array($objecttype, $this->_coinarray) && in_array($broadperiod, $this->_earlyMed)):
                 $adviserdetails = $this->getMedievalCoins();
                 break;
-            case (in_array($objecttype,$this->_coinarray) && in_array($broadperiod,$this->_medieval)):
+            case (in_array($objecttype, $this->_coinarray) && in_array($broadperiod, $this->_medieval)):
                 $adviserdetails = $this->getMedievalCoins();
                 break;
-            case (in_array($objecttype,$this->_coinarray) && in_array($broadperiod,$this->_postMed)):
+            case (in_array($objecttype, $this->_coinarray) && in_array($broadperiod, $this->_postMed)):
                 $adviserdetails = $this->getMedievalCoins();
                 break;
-            case (!in_array($objecttype,$this->_coinarray) && in_array($broadperiod,$this->_periodRomPrehist)):
+            case (!in_array($objecttype, $this->_coinarray) && in_array($broadperiod, $this->_periodRomPrehist)):
                 $adviserdetails = $this->getRomanObjects();
                 break;
-            case (!in_array($objecttype,$this->_coinarray) && in_array($broadperiod,$this->_postMed)):
+            case (!in_array($objecttype, $this->_coinarray) && in_array($broadperiod, $this->_postMed)):
                 $adviserdetails = $this->getPostMedievalObjects();
                 break;
-            case (!in_array($objecttype,$this->_coinarray) && in_array($broadperiod,$this->_medieval)):
+            case (!in_array($objecttype, $this->_coinarray) && in_array($broadperiod, $this->_medieval)):
                 $adviserdetails = $this->getMedievalObjects();
                 break;
-            case (!in_array($objecttype,$this->_coinarray) && in_array($broadperiod,$this->_earlyMed)):
+            case (!in_array($objecttype, $this->_coinarray) && in_array($broadperiod, $this->_earlyMed)):
                 $adviserdetails = $this->getMedievalObjects();
                 break;
             default:
                 $adviserdetails = $this->getCatchAll();
                 break;
-            }
+        }
         return $this->buildHtml($adviserdetails);
     }
 
@@ -277,15 +292,16 @@ class Pas_View_Helper_RelevantAdviser extends Zend_View_Helper_Abstract {
      * @param Zend_Config $adviserdetails
      * @return string The html to return
      */
-    public function buildHtml( Zend_Config $adviserdetails ) {
+    public function buildHtml(Zend_Config $adviserdetails)
+    {
         $html = '';
-        if( $adviserdetails instanceof Zend_Config) {
-        $advisers = $adviserdetails->toArray();
-        $html .= '<ul>';
-        foreach ($advisers as $k => $v) {
-            $html .= '<li>' . $v . ' </li>';
-        }
-        $html .= '</ul>';
+        if ($adviserdetails instanceof Zend_Config) {
+            $advisers = $adviserdetails->toArray();
+            $html .= '<ul>';
+            foreach ($advisers as $k => $v) {
+                $html .= '<li>' . $v . ' </li>';
+            }
+            $html .= '</ul>';
         }
         return $html;
     }

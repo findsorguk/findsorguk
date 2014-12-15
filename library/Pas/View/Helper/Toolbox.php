@@ -186,19 +186,15 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
         $class = 'btn btn-small btn-primary';
         $html = '<div id="toolBox" class="btn-group">';
 
-        $html .= $this->view->recordEditDeleteLinks(
-                $this->getId(),
-                $this->getOldFindID(),
-                $this->getController(),
-                $this->getCreatedBy()
-                );
+        $html .= $this->view->recordEditDeleteLinks()->setCreatedBy($this->getCreatedBy())->setFindID($this->getId())->setRecordID($this->getOldFindID())->setController($this->getController());
+
         $html .= $this->view->Href(array(
             'module' => 'database',
             'controller'=>$this->getController(),
             'action'=>'add',
             'checkAcl'=>true,
             'acl'=>'Zend_Acl',
-            'content'=>'Add ' . $this->getRecordType($this->getController()) . ' <i class="icon-white icon-plus"></i>',
+            'content'=>'<i class="icon-plus icon-white"></i> Add ' . $this->getRecordType($this->getController()),
             'attribs' => array(
                 'title' => 'Add new object',
                 'accesskey' => 'a',
@@ -221,7 +217,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 'action'=>'forceindexupdate',
                 'id' => $this->getId()),null,true);
             $html .= '">Force index update</a>';
-            $html .= '<a class="' . $class . '"  href="';
+            $html .= '<a class="' . $class . ' overlay"  href="';
             $html .= $this->view->serverUrl() . $this->view->url(array(
                     'module' => 'database',
                     'controller' => 'ajax',
@@ -230,7 +226,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                     'type' => $this->getRecordType($this->getController())
                 ),null,true);
             $html .= '" title="Get citation information">Cite record</a> <a class="';
-            $html .= $class . '" href="';
+            $html .= $class . ' overlay" href="';
             $html .= $this->view->url(array(
                 'module' => 'database',
                 'controller' => 'ajax',
@@ -239,8 +235,8 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 'type' => $this->getRecordType($this->getController())
             ),null,true);
             $html .= '" title="Get code to embed this record in your webpage">Embed record</a> ';
-            $html .=' <a class="' . $class . '" href="#print" id="print">Print';
-            $html .= '<i class="icon-print icon-white"></i></a> ';
+            $html .=' <a class="' . $class . '" href="#print" id="print"><i class="icon-print icon-white"></i> Print';
+            $html .= '</a>';
         }
         $html .= '</div>';
         return $html;

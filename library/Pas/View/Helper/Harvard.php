@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for displaying references in correct Harvard bibliographic style
  * @category   Pas
@@ -10,129 +11,88 @@
  */
 class Pas_View_Helper_Harvard extends Zend_View_Helper_Abstract
 {
-    public function harvard($refs)
-    {
-    switch ($refs['publication_type']) {
-    case  1:
-        $html = '<li>'
-        . $refs->authors
-        . ', '
-        . $refs->publication_year
-        . ' . <em><a href="'
-        . $refs->url(array(
-        'controller' => 'database',
-        'action' => 'publication',
-        'id' => $refs->id),
-        null,
-        true)
-        . '" title="View reference work\'s details">'
-        . $refs->title
-        . '</a></em>  '
-        . $refs->publication_place
-        . ' : '
-        . $refs->publisher
-        . '.</li>';
-        break;
-    case 2:
-        $html = '<li>'
-        . $refs->authors
-        . ', '
-        . $refs->publication_year
-        . '. <em><a href="'
-        . $refs->url(array(
-        'controller' => 'database',
-        'action' => 'publication',
-        'id' => $refs->id)
-        ,null,
-        true)
-        . '" title="View reference work\'s details">'
-        . $refs->title
-        . '</a></em> '
-        . $refs->publication_place
-        . ' : '
-        . $refs->publisher
-        . '.</li>';
-        break;
-    case 3:
-        $html = '<li>'
-        . $refs->authors
-        . ', '
-        . $refs->publication_year
-        . '. <em><a href="'
-        . $refs->url(array(
-        'controller' => 'database',
-        'action' => 'publication',
-        'id' => $refs->id)
-        ,null,
-        true)
-        . '" title="View reference work\'s details">'
-        . $refs->title
-        . '</a></em> '
-        . $refs->vol_no
-        . ', '
-        . $refs->pp
-        . '.</li>';
-        break;
-    case 4:
-        $html = "Do this";
-        break;
-    case 5:
-        $html = '<li>'
-        . $refs->authors
-        . ', '
-        . $refs->publication_year
-        . '<em><a href="'
-        . $refs->url(array(
-        'controller' => 'database',
-        'action' => 'publication',
-        'id' => $refs->id)
-        ,null
-        ,true)
-        . '" title="View this reference work\'s details">'
-        . $refs->title
-        . '</a></em>, '
-        . $refs->vol_no
-        . ', '.$refs->pp
-        . '.</li>';
-        break;
-    case 6:
-        $html = '<li>'
-        . $refs->authors
-        . ', '
-        . $refs->publication_year
-        . '. <em>' . $refs->title
-        . '</em> [' . $refs->medium . '] Available at: <a href="'
-        . $refs->url .'" title="View webpage referenced">'
-        . $refs->url . '</a> [Accessed '
-        . $refs->accessedDate . '].</li>';
-        break;
-    default:
-        $html = '<li>'
-        . $refs->authors
-        . ', '
-        . $refs->publication_year
-        . '. <em><a href="'
-        . $refs->url(array(
-        'controller' => 'database',
-        'action' => 'publication',
-        'id' => $refs->id),
-        null,
-        true)
-        . '" title="View reference work\'s details">'
-        . $refs->title
-        . '</a></em>  '
-        . $refs->publication_place
-        . ' : '
-        . $refs->publisher . '  '
-        . $refs->vol_no .	', '
-        . $refs->pp
-        . '.</li>';
-        break;
 
+    /** The references
+     * @access protected
+     * @var array
+     */
+    protected $_refs = array();
+
+    /** Get the references
+     * @return mixed
+     * @access public
+     */
+    public function getRefs()
+    {
+        return $this->_refs;
     }
 
+    /** Set the references array
+     * @param mixed $refs
+     * @access public
+     */
+    public function setRefs($refs)
+    {
+        $this->_refs = $refs;
+        return $this;
+    }
+
+
+    /** The class for returning the harvard book style
+     * @access public
+     * @return string
+     */
+    public function harvard()
+    {
+        return $this;
+    }
+
+    /** To string function
+     * @access public
+     * @return string
+     */
+    public function __toString()
+    {
+        $html = '';
+        foreach($this->getRefs() as $refs){
+            $html .= $this->renderHtml($refs);
+        }
         return $html;
+    }
 
-}
-
+    /** Render new html
+     * @access public
+     * @return string
+     *
+     */
+    public function renderHtml(array $refs)
+    {
+        $html = '';
+        if (array_key_exists('publication_type', $refs)) {
+            switch ($refs['publication_type']) {
+                case  1:
+                    $html .= $this->view->partial('partials/publications/harvard/style1.phtml', $refs);
+                    break;
+                case 2:
+                    $html .= $this->view->partial('partials/publications/harvard/style2.phtml', $refs);
+                    break;
+                case 3:
+                    $html .= $this->view->partial('partials/publications/harvard/style3.phtml', $refs);
+                    break;
+                case 4:
+                    $html .= "Do this";
+                    break;
+                case 5:
+                    $html .= $this->view->partial('partials/publications/harvard/style5.phtml', $refs);
+                    break;
+                case 6:
+                    $html .= $this->view->partial('partials/publications/harvard/style6.phtml', $refs);
+                    break;
+                default:
+                    $html .= $this->view->partial('partials/publications/harvard/default.phtml', $refs);
+                    break;
+            }
+        }
+        return $html;
+    }
 }

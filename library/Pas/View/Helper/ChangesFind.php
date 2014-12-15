@@ -14,7 +14,7 @@ class Pas_View_Helper_ChangesFind extends Zend_View_Helper_Abstract
 {
 
     /** The ID to query
-     *
+     * @access protected
      * @var int
      */
     protected $_id;

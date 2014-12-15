@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for setting up a results sorter
  *
@@ -29,12 +30,12 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @var array
      */
     protected $_fields = array(
-        'Date created'	=> 'created',
-        'Object type' 	=> 'objectType',
-        'Broad period'	=> 'broadperiod',
-        'Recording institution'	=> 'institution',
+        'Date created' => 'created',
+        'Object type' => 'objectType',
+        'Broad period' => 'broadperiod',
+        'Recording institution' => 'institution',
         'Workflow status' => 'workflow',
-        'Updated'       => 'updated'
+        'Updated' => 'updated'
     );
 
     /** The default sort direction
@@ -71,7 +72,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getResults() {
+    public function getResults()
+    {
         return $this->_results;
     }
 
@@ -80,7 +82,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @param Zend_Paginator $results
      * @return \Pas_View_Helper_ResultsSorter
      */
-    public function setResults(Zend_Paginator $results) {
+    public function setResults(Zend_Paginator $results)
+    {
         $this->_results = $results;
         return $this;
     }
@@ -89,7 +92,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getFields() {
+    public function getFields()
+    {
         return $this->_fields;
     }
 
@@ -97,7 +101,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getDefaultDirection() {
+    public function getDefaultDirection()
+    {
         return $this->_defaultDirection;
     }
 
@@ -105,7 +110,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getDefaultSort() {
+    public function getDefaultSort()
+    {
         return $this->_defaultSort;
     }
 
@@ -113,7 +119,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getDirection() {
+    public function getDirection()
+    {
         return $this->_direction;
     }
 
@@ -122,7 +129,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @param array $fields
      * @return \Pas_View_Helper_ResultsSorter
      */
-    public function setFields(array $fields) {
+    public function setFields(array $fields)
+    {
         $this->_fields = $fields;
         return $this;
     }
@@ -133,7 +141,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @param string $defaultDirection
      * @return \Pas_View_Helper_ResultsSorter
      */
-    public function setDefaultDirection($defaultDirection) {
+    public function setDefaultDirection($defaultDirection)
+    {
         $this->_defaultDirection = $defaultDirection;
         return $this;
     }
@@ -144,7 +153,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @param string $defaultSort
      * @return \Pas_View_Helper_ResultsSorter
      */
-    public function setDefaultSort($defaultSort) {
+    public function setDefaultSort($defaultSort)
+    {
         $this->_defaultSort = $defaultSort;
         return $this;
     }
@@ -154,7 +164,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @param string $direction
      * @return \Pas_View_Helper_ResultsSorter
      */
-    public function setDirection($direction) {
+    public function setDirection($direction)
+    {
         $this->_direction = $direction;
         return $this;
     }
@@ -163,7 +174,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getRequest() {
+    public function getRequest()
+    {
         $this->_request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
         return $this->_request;
     }
@@ -172,7 +184,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_ResultsSorter
      */
-    public function resultsSorter(){
+    public function resultsSorter()
+    {
         return $this;
     }
 
@@ -180,7 +193,8 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         $html = '';
         if ($this->getResults()) {
             $html = $this->_buildHtmlField();
@@ -194,17 +208,24 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    protected function _buildHtmlField() {
+    protected function _buildHtmlField()
+    {
         $request = $this->getRequest();
         $html = '<p>Sort your search by: </p>';
         $html .= '<ul>';
+        if(array_key_exists('sort', $request)) {
+            $key = $request['sort'];
+        } else {
+            $key = 'created';
+        }
+
         foreach ($this->getFields() as $k => $v) {
             $request['sort'] = $v;
             $html .= '<li><a href="' . $this->view->url($request, 'default', true) . '"';
-            if (array_key_exists('sort', $request) && $request['sort'] === $v) {
-                $html .= ' class="highlight" ';
+            if (array_key_exists('sort', $request) && $request['sort'] === $key) {
+                $html .= ' class="label label-important" ';
             } elseif (!array_key_exists('sort', $request) && $v === 'created') {
-                $html .= ' class="highlight" ';
+                $html .= ' class="label" ';
             }
             $html .= '>' . $k . '</a></li>';
         }
@@ -217,8 +238,15 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    protected function _buildHtmlDirection() {
+    protected function _buildHtmlDirection()
+    {
         $request = $this->getRequest();
+        if(array_key_exists('direction', $request)) {
+            $key = $request['direction'];
+        } else {
+            $key = 'asc';
+        }
+        $class = 'btn btn-mini ';
         $html = '<p>Which direction? </p>';
         $sorter = array();
         foreach ($this->getDirection() as $k => $v) {
@@ -230,18 +258,24 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
                 case 'asc':
                     $icon = 'up';
                     break;
+                default:
+                    $active = '';
+                    break;
             }
-        $sort = '<a href="' . $this->view->url($request, 'default', true) . '" ';
-        if (array_key_exists('direction', $request) && $request['direction'] === $v) {
-                $sort .= ' class="highlight btn-mini btn-info btn" ';
-            } elseif (!array_key_exists('direction', $request) && $v === 'desc') {
-                $sort .= ' class="highlight btn-mini btn btn-default" ';
+
+            $sort = '<a href="' . $this->view->url($request, 'default', true) . '" ';
+            if (array_key_exists('direction', $request) && $request['direction'] === $key) {
+                $sort .= ' class="btn btn-mini btn-success" ';
+            } elseif (!array_key_exists('direction', $request) && $v === 'asc') {
+                $sort .= ' class="btn btn-mini" ';
+            } else {
+                $sort .= ' class="btn-mini btn"';
             }
-            $sort .= '>' . $k . '<i class="icon-arrow-' . $icon .'"></i></a> ';
+            $sort .= '>' . $k . '<i class="icon-arrow-' . $icon . '"></i></a> ';
             $sorter[] = $sort;
         }
         $html .= '<div class="btn-group">';
-        $html .= implode('',$sorter);
+        $html .= implode('', $sorter);
         $html .= '</div>';
         return $html;
     }

@@ -23,7 +23,9 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract {
      */
     protected $_hoardID;
 
-
+    /** The role variable
+     * @var  string */
+    protected $_role;
 
     /** Get the user's role
      * @access public

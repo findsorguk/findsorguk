@@ -105,7 +105,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
         $form = new SolrForm();
         $form->removeElement('thumbnail');
         $this->view->form = $form;
-        $params = $this->_arrayTools->array_cleanup($this->getAllParams());
+//        $params = $this->_arrayTools->array_cleanup($this->getAllParams());
         $search = new Pas_Solr_Handler();
         $search->setCore('images');
         $search->setFields(array(
@@ -147,64 +147,6 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
         $this->view->results = $search->processResults();
         //Send facets to view
         $this->view->facets = $search->processFacets();
-    }
-
-    /** Add a new image
-     * @access public
-     * @return void
-     */
-    public function addAction() {
-        $help = new Help();
-        //Send contents to the view
-        $this->view->contents = $help->fetchRow('id = 14')->toArray();
-        //Get the image form
-        $form = new ImageForm();
-        //Set image form label
-        $form->submit->setLabel('Submit a new image.');
-        //Get imagedir
-        $imagedir = '.' . $this->_helper->Identity()->imagedir;
-        //Check if a directory and if not make directory
-        if( !is_dir( $imagedir ) ) {
-            mkdir( $imagedir, 775, true );
-        }
-        //Set up directory
-        $form->image->setDestination( $imagedir );
-        //Send form to view
-        $this->view->form = $form;
-
-        //Set up save path
-        $savePath 	= $path . self::MEDIUM;
-        //Set up thumbnail path
-        $thumbPath 	= $path . self::THUMB;
-
-        //Check if post request
-        if ($this->_request->isPost()) {
-        //get request data
-        $formData = $this->_request->getPost();	
-        //Check if valid
-            if ($form->isValid($formData)) {
-                //This repeats above
-                $upload = new Zend_File_Transfer_Adapter_Http();
-                //Set a validator to check if the file exists
-                $upload->addValidator('NotExists', false, array( $path ));
-                //get the filesize
-                $filesize = $upload->getFileSize();
-                //Check if upload is valid
-                if($upload->isValid()) 	{
-                    $insertData = $form->getValues();
-                    $insertData['filesize'] = $upload->getFileSize();
-                    $upload->receive();
-                }
-                $id = $this->_images->insertImage($insertData);
-                $this->_helper->solrUpdater->update('images', $id);
-                $this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
-                $this->getFlash()->addMessage('The image has been resized and added!');
-                $this->redirect('/database/artefacts/record/id/' . $this->_getParam('id'));
-            } else {
-                $this->getFlash()->addMessage('There is a problem with your upload. Probably that image exists.');
-                $this->view->errors = $upload->getMessages();
-            }
-        }
     }
 
     /** View details of a specific image
@@ -490,10 +432,32 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
         }
     }
 
-    public function blueimpAction()
+    /** Upload images
+     * Most of the magic happens via ajax calls
+     * @access public
+     * @return void
+     */
+    public function addAction()
     {
         $form = new UploadForm();
         $this->view->form = $form;
+        $this->view->findID = $this->getParam('id');
     }
 
+    public function metadataAction()
+    {
+        if($this->getParam('id', false)){
+
+            $help = new Help();
+            //Send contents to the view
+            $this->view->contents = $help->fetchRow('id = 14')->toArray();
+            $form = new ImageForm($options = array('id' =>$this->getParam('id')));
+            $this->view->form = $form;
+
+
+
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+    }
 }

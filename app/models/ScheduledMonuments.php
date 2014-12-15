@@ -17,7 +17,7 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 20 August 2010, 12:23:46
  * @example /app/modules/datalabs/controllers/SmrController.php
@@ -45,26 +45,28 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param integer $distance
      * @return array
      */
-    public function getSMRSNearby($lat, $long, $distance = 0.25) {
-        $pi = '3.141592653589793';
-        $nearbys = $this->getAdapter();
-        $select = $nearbys->select()
-                ->from($this->_name, array(
-                    'monumentName', 'id', 'lat',
-                    'lon','distance' => 'acos((SIN(' . $pi . '*' . $lat 
-                        . '/180 ) * SIN(' . $pi . '* lat /180)) + (cos('
-                . $pi . '*' . $lat . '/180) * COS(' . $pi .'* lat/180) * COS(' . $pi
-                . '* lon/180 - ' . $pi . '* (' . $long . ') /180))) *6378.137'))
-                ->where('6378.137 * ACOS((SIN(' . $pi . '*' . $lat . '/180) * SIN('
-                . $pi . '* lat/180)) + (COS(' . $pi . '*' . $lat
-                . '/180) * cos(' . $pi . '* lat /180 ) * COS(' . $pi . '* lon /180 -'
-                . $pi . '* ( ' . $long . ')/180))) <=' . $distance)
-                ->where('1=1')
-                ->order('6378.137 * ACOS((SIN(' . $pi . '*' . $lat . '/180 ) * SIN('
-                . $pi . '* lat/180)) + (COS(' . $pi . '*' . $lat . '/180) * cos('
-                . $pi . ' * lat /180 ) * COS(' . $pi . '* lon /180 - '
-                . $pi . '*  (' . $long . ' )/180))) ASC');
-        return $nearbys->fetchAll($select);
+    public function getSMRSNearby($lat, $lon, $distance) {
+        $config = $this->_config->solr->asgard->toArray();
+        $config['core'] = 'geodata';
+        $solr = new Solarium_Client(array('adapteroptions' => $config));
+        $select = array(
+            'query' => 'source:smrdata',
+            'fields' => array('*'),
+            'filterquery' => array(),
+        );
+        $query = $solr->createSelect($select);
+        $helper = $query->getHelper();
+        $query->createFilterQuery('geofilt')->setQuery($helper->geofilt($lat, $lon, 'coordinates', $distance));
+        $resultset = $solr->select($query);
+        $data = array();
+        foreach ($resultset as $document) {
+            $data[] = array(
+                'id' => $document['id'],
+                'monumentName' => $document['name'],
+                'county' => $document['county']
+            );
+        }
+        return $data;
     }
 
     /** Find objects recorded with proximity to SMRs within a certain distance 
@@ -77,25 +79,29 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param integer $distance
      * @return array
      */
-    public function getSMRSNearbyFinds($lat, $long, $distance) {
-        $pi = '3.141592653589793';
-        $nearbys = $this->getAdapter();
-        $select = $nearbys->select()
-                ->from('finds',array('old_findID','id','objecttype'))
-                ->joinLeft('findspots','finds.secuid = findspots.findID', array( 'county', 'declat', 'declong',
-                'distance' => 'acos((SIN(' . $pi . '*' . $lat . '/180 ) * SIN(' . $pi . '* declat /180)) + (cos('
-                . $pi . '*' . $lat . '/180) * COS(' . $pi . '* declat/180) * COS(' . $pi
-                . '* declong/180 - ' . $pi . '* (' . $long . ') /180))) *6378.137'))
-                ->where('6378.137 * ACOS((SIN(' . $pi . '*' . $lat . '/180) * SIN(' . $pi
-                . '* declat/180)) + (COS(' . $pi . '*' . $lat . '/180) * cos('
-                . $pi . '* declat /180 ) * COS(' . $pi . '* declong /180 -' . $pi
-                . '* ( ' . $long . ')/180))) <=' . $distance)
-                ->where('1=1')
-                ->order('6378.137 * ACOS((SIN(' . $pi . '*' . $lat . '/180 ) * SIN(' . $pi
-                . '* declat/180)) + (COS(' . $pi . '*' . $lat . '/180) * cos('
-                . $pi . ' * declat /180 ) * COS(' . $pi . '* declong /180 - '
-                . $pi . '*  (' . $long . ' )/180))) ASC');
-        return $nearbys->fetchAll($select);
+    public function getSMRSNearbyFinds($lat, $lon, $distance) {
+        $config = $this->_config->solr->asgard->toArray();
+        $config['core'] = 'objects';
+        $solr = new Solarium_Client(array('adapteroptions' => $config));
+        $select = array(
+            'query' => '*:*',
+            'fields' => array('*'),
+            'filterquery' => array(),
+        );
+        $query = $solr->createSelect($select);
+        $helper = $query->getHelper();
+        $query->createFilterQuery('geofilt')->setQuery($helper->geofilt($lat, $lon, 'coordinates', $distance));
+        $resultset = $solr->select($query);
+        $data = array();
+        foreach ($resultset as $document) {
+            $data[] = array(
+                'id' => $document['id'],
+                'old_findID' => $document['old_findID'],
+                'county' => $document['county'],
+                'broadperiod' => $document['broadperiod']
+            );
+        }
+        return $data;
     }
 
     /** Get a paginated list of Scheduled monuments

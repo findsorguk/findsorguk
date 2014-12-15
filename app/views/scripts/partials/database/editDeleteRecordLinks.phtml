@@ -1,0 +1,32 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 09/12/14
+ * Time: 10:46
+ */
+?>
+<?php
+$editUrl = $this->url(
+    array(
+        'module' => 'database',
+        'controller' => $this->controller,
+        'action' => 'edit',
+        'id' => $this->id
+    ), null, true);
+?>
+<?php
+$deleteUrl = $this->url(
+    array(
+        'module' => 'database',
+        'controller' => $this->controller,
+        'action' => 'delete',
+        'id' => $this->id
+    ), null, true);
+?>
+<a class="btn btn-small btn-warning" href="<?php echo $editUrl; ?>" title="Edit details for <?php $this->recordID; ?>"
+   accesskey="e"><i class="icon-white icon-edit"></i> Edit</a> <a class="btn btn-small btn-danger"
+                                                                  href="<?php echo $deleteUrl; ?>"
+                                                                  title="Delete record <?php echo $this->recordID; ?>"
+                                                                  accesskey="d"><i
+        class="icon-white icon-trash"></i> Delete</a>

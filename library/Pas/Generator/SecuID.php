@@ -35,12 +35,9 @@ class Pas_Generator_SecuID {
     public function secuid() {
         list($usec, $sec) = explode(" ", microtime());
         $ms = dechex(round($usec * 4080));
-        while(strlen($ms) < 3) {
-            $msNew = '0' . $ms; 
+        while (strlen($ms) < 3) {
+            $ms = '0' . $ms;
         }
-        while(strlen($ms)<3) {
-            $msNew = '0' . $ms; 
-        }
-        return strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $msNew);
+        return strtoupper(self::DBASE_ID . dechex($sec) . self::SECURE_ID . $ms);
     }
 }

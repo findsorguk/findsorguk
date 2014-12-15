@@ -1,37 +1,40 @@
 <?php
+
 /**
  * A view helper for purifying Html
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
- * <?php 
+ * <?php
  * echo $this->purify()->setValue($string);
  * ?>
  * </code>
- * 
- * 
+ *
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @see Zend_View_Helper_Abstract
+ * @see  Zend_View_Helper_Abstract
  * @uses Pas_Filter_HtmlCleaned
  */
-class Pas_View_Helper_Purify extends Zend_View_Helper_Abstract {
-    
+class Pas_View_Helper_Purify extends Zend_View_Helper_Abstract
+{
+
     /** The value to purify
      * @access protected
      * @var string
      */
     protected $_value;
-    
+
     /** Get the value
      * @access protected
      * @return string
      */
-    public function getValue() {
+    public function getValue()
+    {
         return $this->_value;
     }
 
@@ -40,7 +43,8 @@ class Pas_View_Helper_Purify extends Zend_View_Helper_Abstract {
      * @param string $value
      * @return \Pas_View_Helper_Purify
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->_value = $value;
         return $this;
     }
@@ -50,25 +54,28 @@ class Pas_View_Helper_Purify extends Zend_View_Helper_Abstract {
      * @var \Pas_Filter_HtmlCleaned
      */
     protected $_filter;
-    
-    public function getFilter() {
+
+    public function getFilter()
+    {
         $this->_filter = new Pas_Filter_HtmlCleaned();
         return $this->_filter;
     }
-    
+
     /** The function
      * @access public
      * @return \Pas_View_Helper_Purify
      */
-    public function purify() {
+    public function purify()
+    {
         return $this;
     }
-    
+
     /** To string
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getFilter()->filter($this->getValue());
     }
 }

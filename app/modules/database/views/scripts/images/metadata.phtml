@@ -1,0 +1,13 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 01/12/14
+ * Time: 13:25
+ */
+$this->headTitle('Add metadata to images');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<?php $this->title();?>
+<?php echo $this->form;?>
+<div><?php echo $this->partial('partials/content/article.phtml', $this->contents); ?></div>

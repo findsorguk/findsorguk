@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for printing links on image page
  * @category   Pas
@@ -6,75 +7,239 @@
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @see Zend_View_Helper_Abstract
+ * @see  Zend_View_Helper_Abstract
  * @uses Zend_View_Helper_Url
  * @author Daniel Pett
  */
 class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
 {
+
+    /** The people with no access
+     * @var array
+     * @access protected
+     */
     protected $noaccess = array('public');
-    protected $restricted = array('member','research','hero');
+
+    /** The restricted users groups
+     * @var array
+     * @access protected
+     */
+    protected $restricted = array('member', 'research', 'hero');
+
+    /** The recording group
+     * @var array
+     * @access protected
+     */
     protected $recorders = array('flos');
-    protected $higherLevel = array('admin','fa','treasure');
+
+    /** The higher level array
+     * @access protected
+     * @var array
+     */
+    protected $higherLevel = array('admin', 'fa', 'treasure', 'hoard');
+
+    /** The auth object
+     * @access protected
+     * @var mixed|null
+     */
     protected $_auth = NULL;
+
+    /** The missing group message
+     * @access protected
+     * @var string
+     */
     protected $_missingGroup = 'User is not assigned to a group';
+
+    /** The message for no access
+     * @access protected
+     * @var string
+     */
     protected $_message = 'You are not allowed edit rights to this record';
 
-    /** Constructor for authorisation
-    * @access private
-    */
-    public function __construct()
+    /** Get the auth object
+     * @return mixed|null
+     */
+    public function getAuth()
     {
-    $auth = Zend_Registry::get('auth');
-    $this->_auth = $auth;
+        $this->_auth = Zend_Registry::get('auth');
+        return $this->_auth;
     }
 
     /** Get the user's role from identity
      * @access private
      * @return string $role The user's role
      */
-    private function getRole()
+    public function getRole()
     {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $role = $user->role;
-
-    return $role;
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $role = $user->role;
+        } else {
+            $role = null;
+        }
+        return $role;
     }
-    }
 
-    /** get the user's identity number
+    /** Get the user's identity number
      * @access private
      * @return integer $id The user's id number
      */
-    private function getUserID()
+    public function getUserID()
     {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $id = $user->id;
-
-    return $id;
-    }
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $id = $user->id;
+        } else {
+            $id = null;
+        }
+        return $id;
     }
 
     /** Get the user's institution
      * @access private
-     * @return string              $inst The institution name
+     * @return string $inst The institution name
      * @throws Pas_Exception_Group
      */
-    private function getInst()
+    public function getInst()
     {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $inst = $user->institution;
-    if (is_null($inst)) {
-    throw new Pas_Exception_Group($this->_missingGroup);
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $inst = $user->institution;
+            if (is_null($inst)) {
+                throw new Pas_Exception_Group($this->_missingGroup);
+            }
+        } else {
+            $inst = null;
+        }
+        return $inst;
     }
 
-    return $inst;
-    } else {
-    return FALSE;
+    /** The institution value
+     * @access protected
+     * @var null
+     */
+    protected $_institution = NULL;
+
+    /** The created by value
+     * @access protected
+     * @var  null
+     */
+    protected $_createdBy = NULL;
+
+    /** Get the created by value
+     * @access public
+     * @return mixed
+     */
+    public function getCreatedBy()
+    {
+        return $this->_createdBy;
     }
+
+    /** Set the createdby value
+     * @param mixed $createdBy
+     * @access public
+     * @return \Pas_View_Helper_RecordEditDeleteLinks
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->_createdBy = $createdBy;
+        return $this;
+    }
+
+    /** Get the institution to use
+     * @access public
+     * @return string
+     */
+    public function getInstitution()
+    {
+        return $this->_institution;
+    }
+
+    /** Set the institution to query
+     * @access public
+     * @param mixed $institution
+     * @return \Pas_View_Helper_RecordEditDeleteLinks
+     */
+    public function setInstitution($institution)
+    {
+        $this->_institution = $institution;
+        return $this;
+    }
+
+    /** The controller to use - default to artefacts
+     * @var string
+     * @access protected
+     */
+    protected $_controller = 'artefacts';
+
+    /** Get the controller to use
+     * @return mixed
+     * @access public
+     */
+    public function getController()
+    {
+        return $this->_controller;
+    }
+
+    /** Set the controller for the partial to use
+     * @param mixed $controller
+     * @access public
+     */
+    public function setController($controller)
+    {
+        $this->_controller = $controller;
+        return $this;
+    }
+
+    /** The find ID to use
+     * @var null
+     * @access protected
+     */
+    protected $findID = NULL;
+
+    /** The record ID to link to
+     * @var null
+     * @access protected
+     */
+    protected $recordID = NULL;
+
+    /** Get the record ID
+     * @return mixed
+     * @access public
+     */
+    public function getRecordID()
+    {
+        return $this->recordID;
+    }
+
+    /** Set the recordID to use
+     * @access public
+     * @param string $recordID
+     */
+    public function setRecordID($recordID)
+    {
+        $this->recordID = $recordID;
+        return $this;
+    }
+
+
+    /** Get the find ID to use
+     * @return mixed
+     * @access public
+     */
+    public function getFindID()
+    {
+        return $this->findID;
+    }
+
+    /** Set the find ID to use
+     * @access public
+     * @param mixed $findID
+     */
+    public function setFindID($findID)
+    {
+        $this->findID = $findID;
+        return $this;
     }
 
     /** Check the user's access by ID number and created by
@@ -82,86 +247,88 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
      * @param  integer $createdBy the created by number for the find
      * @return boolean
      */
-    private function checkAccessbyUserID($createdBy)
+    public function checkAccessbyUserID()
     {
-    if ($createdBy === $this->getUserID()) {
-    return TRUE;
-    } else {
-    return FALSE;
+        if ($this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    }
+
 
     /** Check access by the institutional ID
-     * @access private
-     * @param  string  $oldfindID The record ID
+     * @access public
+     * @param  string $oldfindID The record ID
      * @return boolean
      */
-    private function checkAccessbyInstitution($oldfindID)
+    public function checkAccessbyInstitution()
     {
-    $find = explode('-', $oldfindID);
-    $id = $find['0'];
-    $inst = $this->getInst();
-    if ((in_array($this->getRole(),$this->recorders) && ($id == 'PUBLIC'))) {
-    return TRUE;
-    } elseif ($id === $inst) {
-    return TRUE;
-    }
+        if ($this->getInstitution() == $this->getInst()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    /** Return the HTML links
-     * @access private
-     * @param  integer $findID    The find number from primary key of finds table
-     * @param  string  $oldfindID The old find ID number
-     * @return string  $html The code for the strings of links
-     */
-    private function buildHtml($findID, $oldfindID, $controller)
-    {
-        $class = 'btn btn-small btn-warning';
-        $classDanger = 'btn btn-small btn-danger';
-    $editurl = $this->view->url(array('module' => 'database', 'controller' => $controller, 'action' => 'edit',
-    'id' => $findID),null,true);
-    $deleteurl = $this->view->url(array('module' => 'database', 'controller' => $controller, 'action' => 'delete',
-    'id' => $findID),null,true);
-    $html = ' <a class="' . $class . '" href="';
-    $html .= $editurl;
-    $html .= '" title="Edit details for ';
-    $html .= $oldfindID;
-    $html .= '" accesskey="e">Edit <i class="icon-white icon-edit"></i></a> <a class="' . $classDanger . '" href="';
-    $html .= $deleteurl;
-    $html .= '" title="Delete record ';
-    $html .= $oldfindID;
-    $html .= '" accesskey="d">';
-    $html .= 'Delete <i class="icon-white icon-trash"></i></a>';
-
-    return $html;
-    }
-
-    /** Create the links
+    /** the class to return
      * @access public
-     * @param  integer $findID    The find number
-     * @param  string  $oldfindID The find string
-     * @param  integer $createdBy Created by number
+     * \Pas_View_Helper_RecordEditDeleteLinks
+     */
+    public function recordEditDeleteLinks()
+    {
+        return $this;
+    }
+
+    /** To string function
+     * @access public
      * @return string
      */
-    public function RecordEditDeleteLinks($findID, $oldfindID, $controller, $createdBy)
+    public function __toString()
     {
-    $byID = $this->checkAccessbyUserID($createdBy);
-    $instID = $this->checkAccessbyInstitution($oldfindID);
-    if (in_array($this->getRole(),$this->noaccess)) {
-    return FALSE;
-    } elseif (in_array($this->getRole(),$this->restricted)) {
-    if (($byID == TRUE && $instID == TRUE) || ($byID == TRUE && $instID == FALSE)) {
-    return $this->buildHtml($findID,$oldfindID,$controller);
+        $html = '';
+        if ($this->performChecks()) {
+            $html .= $this->renderHtml();
+        }
+        return $html;
     }
-    } elseif (in_array($this->getRole(),$this->recorders)) {
-    if(($byID == true && $instID == true) || ($byID == true && $instID == FALSE)
-    || ($byID == FALSE && $instID == true)){
-    return $this->buildHtml($findID,$oldfindID,$controller);
-    } else {
-    return FALSE;
+
+
+    /** Perform the checks for access
+     * @access public
+     * @return boolean
+     */
+    public function performChecks()
+    {
+        // If role = public return false
+        if (in_array($this->getRole(), $this->noaccess)) {
+            return false;
+        }
+        //If role in restricted and created = createdby return true
+        if (in_array($this->getRole(), $this->restricted) && $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in recorders and institution = inst or createdby = created return true
+        if (in_array($this->getRole(), $this->recorders) || $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in higher level return true
+        if (in_array($this->getRole(), $this->higherLevel)) {
+            return true;
+        }
     }
-    } elseif (in_array($this->getRole(),$this->higherLevel)) {
-    return $this->buildHtml($findID,$oldfindID,$controller);
-    }
+
+    /** Render the view partial
+     * @access public
+     * @return string
+     */
+    public function renderHtml()
+    {
+        $data = array(
+            'controller' => $this->getController(),
+            'recordID' => $this->getRecordID(),
+            'id' => $this->getFindID()
+        );
+        return $this->view->partial('partials/database/editDeleteRecordLinks.phtml', $data);
     }
 }

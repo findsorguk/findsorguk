@@ -120,7 +120,7 @@
     <?php if (!is_null($this->die_axis_name)) : ?>
         Die axis measurement: <?php echo $this->escape($this->die_axis_name); ?>
         <span class="scope">[<a href="<?php echo $this->url(array(
-                'module' => 'database',
+                'module' => 'datalabs',
                 'controller' => 'terminology',
                 'action' => 'dieaxis',
                 'id' => $this->die), null, true);?>" title="Read scope note for
@@ -136,7 +136,7 @@
     <?php if (!is_null($this->wear)) : ?>
         Degree of wear: <?php echo $this->escape($this->wear); ?> <span class="scope">[
     <a href="<?php echo $this->url(array(
-        'module' => 'database',
+        'module' => 'datalabs',
         'controller' => 'terminology',
         'action' => 'weartype',
         'id' => $this->wearID), null, true);?>" title="Read scope note for

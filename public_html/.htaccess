@@ -7,6 +7,10 @@ RewriteRule ^ http%2://%3%{REQUEST_URI} [L,R=301]
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.*)index\.php(.*)\ HTTP/ [NC]
 RewriteRule ^index\.php(.*)$ /$1 [R=301,L]
 
+Header add Access-Control-Allow-Origin: *
+Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+
+
 #php_value session.auto_start 0
 # Disable all magic quoting.
 php_value	magic_quotes_gpc off

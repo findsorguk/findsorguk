@@ -98,7 +98,7 @@
         <br/>
         Die axis measurement: <span property="nm:axis"><?php echo $this->escape($this->dieAxisName); ?></span> <span
             class="scope">[<a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology',
+                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology',
                     'action' => 'dieaxis', 'id' => $this->dieAxis), null, true); ?>"
                 title="Read scope note for <?php echo $this->dieAxisName; ?>">scope notes</a> | <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results',
@@ -111,7 +111,7 @@
         <br/>
         Degree of wear: <span property="pas:degreeOfWear"><?php echo $this->escape($this->wear); ?></span> <span
             class="scope">[<a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'weartype', 'id' => $this->wearID), null, true); ?>"
+                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'weartype', 'id' => $this->wearID), null, true); ?>"
                 title="Read scope note for <?php echo $this->wear; ?>">scope notes</a> | <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'wear' => $this->wearID), null, true); ?>"
                 title="view all records assigned to <?php echo $this->wear; ?>">view all attributed records</a>]</span>

@@ -143,7 +143,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 $clean = 'Treasure Act';
                 break;
             case 'news':
-                $clean = 'news &amp; reports';
+                $clean = 'News &amp; reports';
                 break;
             case 'events':
                 $clean = 'Events';
@@ -394,6 +394,15 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
                 break;
             case 'savedsearches':
                 $clean = 'Saved searches';
+                break;
+            case 'degreesofwear':
+                $clean = 'Degrees of wear';
+                break;
+            case 'dieaxes':
+                $clean = 'Die axes';
+                break;
+            case 'reeceperiods':
+                $clean = 'Reece periods';
                 break;
             default:
                 $clean = ucfirst($this->getAction());

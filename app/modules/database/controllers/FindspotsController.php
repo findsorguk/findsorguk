@@ -12,8 +12,6 @@
  * @version 1
  * @license GNU
  * @since September 2009
- * @todo move audit to own class
- * @todo DRY the class
  * @uses Findspots
  * @uses Pas_Exception_Param
  * @uses Exception
@@ -183,20 +181,20 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->getController());
                     $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit',
                         $this->_getParam('id'), $returnID);
-                    // $this->_helper->solrUpdater->update('objects', $returnID);
+                    $this->_helper->solrUpdater->update('objects', $returnID);
                     $this->getFlash()->addMessage('Findspot updated!');
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                 } else {
                     // If error fill with posted values
                     $form->populate($this->_request->getPost());
-                    $this->_helper->findspotFailedOptions($this->_request->getPost());
+//                    Zend_Debug::dump($this->_helper->findspotFailedOptions($this->_request->getPost()));
                 }
             } else {
                 // As GET, refill from db
                 $where = array();
                 $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
                 $findSpot = $this->_findspots->fetchRow($where);
-                if (!null($findSpot)) {
+                if (!is_null($findSpot)) {
                     $this->view->findspot = $findSpot;
                     $fill = new Pas_Form_Findspot();
                     $fill->populate($findSpot->toArray());

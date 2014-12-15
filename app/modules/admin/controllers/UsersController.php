@@ -160,8 +160,8 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
                     $user = $this->getUsers()->fetchRow('id =' . $id);
-                    if (count($user)) {
-                        $data = $this->getUsers()->toArray();
+                    if (!empty($user)) {
+                        $data = $user->toArray();
                         if (isset($data['peopleID'])) {
                             $people = new People();
                             $person = $people->fetchRow($people->select()->where('secuid = ?', $data['peopleID']));

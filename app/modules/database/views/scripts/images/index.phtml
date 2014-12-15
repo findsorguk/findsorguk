@@ -2,6 +2,32 @@
 $this->headTitle('All images on the database');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
+    <h2 class="lead">All images on the database</h2>
+<?php echo $this->form; ?>
+
+<?php if (!empty($this->results)): ?>
+    <div class="row-fluid ">
+        <div class="span9">
+            <ul class="thumbnails">
+                <?php echo $this->partialLoop('partials/database/myImagesList.phtml', $this->results);?>
+            </ul>
+        </div>
+        <div class="span3">
+            <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
+            <?php echo $this->thumbnailToggler(); ?>
+            <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
+            <?php echo $this->imagesFacetCreator($this->facets); ?>
+        </div>
+    </div>
+
+
+    <?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>
+
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>You have added no images to our database.</p>
+<?php endif; ?>
+
 <?php $this->jQuery()->javascriptCaptureStart() ?>
     $(function() {
 <?php
@@ -30,35 +56,6 @@ if ($auth->hasIdentity()) {
     });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
 
-
-
-    <h2 class="lead">All images on the database</h2>
-<?php echo $this->form; ?>
-
-<?php if (!empty($this->results)): ?>
-    <div class="row-fluid ">
-        <div class="span9">
-            <ul class="thumbnails">
-                <?php echo $this->partialLoop('partials/database/myImagesList.phtml',
-                    $this->results);?>
-            </ul>
-        </div>
-        <div class="span3">
-            <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
-            <?php echo $this->thumbnailToggler(); ?>
-            <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
-            <?php echo $this->imagesFacetCreator($this->facets); ?>
-        </div>
-    </div>
-
-
-    <?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>
-
-<?php else: ?>
-    <h2 class="lead">An error has occurred</h2>
-    <p>You have added no images to our database.</p>
-<?php endif; ?>
-
 <?php
 $this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-modal.js', $type = 'text/javascript');
 $this->inlineScript()->captureStart();
@@ -76,9 +73,7 @@ $this->inlineScript()->captureStart();
     $(href).modal('open');
     } else {
     $.get(href, function(data) {
-    $('
-    <div class="modal fade">' + data + '</div>').modal();
-    });
+    $('<div class="modal fade">' + data + '</div>').modal();});
     }
     });
 

@@ -12,9 +12,9 @@
         <br/>
         Period from: <span property="pas:periodFrom"><?php echo $this->escape($this->periodFrom); ?></span> <span
             class="scope">[<a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->period1), null, true); ?>"
+                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->objdate1period), null, true); ?>"
                 title="Read scope note for <?php echo $this->periodFrom; ?>">scope notes</a> | <a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodfrom' => $this->period1), null, true); ?>"
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodFrom' => $this->objdate1period), null, true); ?>"
                 title="view all records assigned to: <?php echo $this->term; ?>">view all attributed records</a>]</span>
     <?php endif; ?>
 
@@ -28,15 +28,15 @@
         <br/>
         Period to: <span property="pas:periodTo"><?php echo $this->periodTo; ?></span>
         <span class="scope">[<a href="<?php echo $this->url(array(
-                'module' => 'database',
+                'module' => 'datalabs',
                 'controller' => 'terminology',
                 'action' => 'period',
-                'id' => $this->period2), null, true);?>" title="Read scope note for
+                'id' => $this->objdate2period), null, true);?>" title="Read scope note for
  <?php echo $this->periodTo; ?>">scope notes</a> |  <a href="<?php echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'periodfrom' => $this->period2), null, true);?>" title="view all records assigned to:
+                'periodTo' => $this->objdate2period), null, true);?>" title="view all records assigned to:
  <?php echo $this->periodTo; ?>">view all attributed records</a>]</span>
     <?php endif; ?>
 
@@ -45,7 +45,7 @@
         Ascribed Culture: <span property="pas:ascribedCulture" datatype="xsd:string">
     <?php echo $this->escape($this->culture); ?></span> <span class="scope">[<a href="
     <?php echo $this->url(array(
-                'module' => 'database',
+                'module' => 'datalabs',
                 'controller' => 'terminology',
                 'action' => 'culture',
                 'id' => $this->culture), null, true);?>" title="Read scope note for
@@ -65,10 +65,10 @@
                                                           datatype="xsd:date"><?php echo $this->adBc()->setDate($this->numdate1); ?></span>
     <?php endif; ?>
 
-    <?php if(!is_null($this->dateFromCertainty)):?>
-    <br />
-    Date from certainty: <?php echo $this->certainty()->setCertainty($this->dateFromCertainty);?>
-    <?php endif;?>
+    <?php if (!is_null($this->dateFromCertainty)): ?>
+        <br/>
+        Date from certainty: <?php echo $this->certainty()->setCertainty($this->dateFromCertainty); ?>
+    <?php endif; ?>
 
     <?php if (!is_null($this->numdate2)) : ?>
         <br/>
@@ -76,17 +76,17 @@
                                                       datatype="xsd:date"><?php echo $this->adBc()->setDate($this->numdate2); ?></span>
     <?php endif; ?>
 
-    <?php if(!is_null($this->dateToCertainty)):?>
-        <br />
-        Date to certainty: <?php echo $this->certainty()->setCertainty($this->dateToCertainty);?>
-    <?php endif;?>
+    <?php if (!is_null($this->dateToCertainty)): ?>
+        <br/>
+        Date to certainty: <?php echo $this->certainty()->setCertainty($this->dateToCertainty); ?>
+    <?php endif; ?>
 
 
     <?php if (!is_null($this->reusePeriod)) : ?>
         <br/>
         Period of reuse: <span property="pas:periodOfReuse"><?php echo $this->escape($this->reusePeriod); ?></span>
         <span class="scope">[<a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->reuse), null, true); ?>"
+                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->reuse), null, true); ?>"
                 title="Read scope note for <?php echo $this->reusePeriod; ?>">scope notes</a> |  <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodfrom' => $this->reuse), null, true); ?>"
                 title="view all records assigned to: <?php echo $this->reusePeriod; ?>">view all attributed records</a>]</span>

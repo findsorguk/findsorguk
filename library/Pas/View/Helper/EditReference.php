@@ -1,4 +1,5 @@
 <?php
+
 /** view helper for editing reference link
  * @category   Pas
  * @package    Pas_View_Helper
@@ -7,101 +8,155 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  */
-class Pas_View_Helper_EditReference
-    extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
+{
 
+    /** The no access group
+     * @var array
+     * @access protected
+     */
     protected $noaccess = array('public');
-    protected $restricted = array('member','research','hero');
+
+    /** The restricted access group
+     * @var array
+     * @access protected
+     */
+    protected $restricted = array('member', 'research', 'hero');
+
+    /** The recorders group
+     * @var array
+     * @access protected
+     */
     protected $recorders = array('flos');
-    protected $higherLevel = array('admin','fa','treasure');
+
+    /** The higher level array
+     * @var array
+     * @access protected
+     */
+    protected $higherLevel = array('admin', 'fa', 'treasure', 'hoard');
+
+    /** Missing group message
+     * @var string
+     * @access protected
+     */
     protected $_missingGroup = 'User is not assigned to a group';
 
-    protected $_auth;
+    /** The auth object
+     * @var null
+     * @access protected
+     */
+    protected $_auth = null;
 
-    public function __construct()
+    /** Get the auth object
+     * @access public
+     * @return \Zend_Auth
+     */
+    public function getAuth()
     {
-    $auth = Zend_Auth::getInstance();
-    $this->_auth = $auth;
+        $this->_auth = Zend_Auth::getInstance();
+        return $this->_auth;
     }
 
+    /** Get the role of the user
+     * @access public
+     * @return string
+     */
     public function getRole()
     {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $role = $user->role;
-    } else {
-    $role = 'public';
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $role = $user->role;
+        } else {
+            $role = 'public';
+        }
+
+        return $role;
     }
 
-    return $role;
-    }
-
+    /** Get a user id
+     * @access public
+     * @return integer
+     */
     public function getUserID()
     {
-    if ($this->_auth->hasIdentity()) {
-    $user = $this->_auth->getIdentity();
-    $id = $user->id;
-
-    return $id;
-    }
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $id = $user->id;
+        } else {
+            $id = 3;
+        }
+        return $id;
     }
 
     /** Get the controller
      * @access public
      * @return object
      */
-    public function getController() {
+    public function getController()
+    {
         $this->_controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
         return $this->_controller;
     }
 
+    /** Check access by user id
+     * @access public
+     * @return boolean
+     */
     public function checkAccessbyUserID($createdBy)
     {
-    if ($createdBy == $this->getUserID()) {
-    return TRUE;
-    } else {
-    return FALSE;
-    }
+        if ($createdBy == $this->getUserID()) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
-    public function EditReference($i,$fID,$createdBy)
+    /** Edit the reference
+     * @access public
+     * @return string|boolean
+     */
+    public function editReference($i, $fID, $createdBy)
     {
-    $byID = $this->checkAccessbyUserID($createdBy);
-    if (in_array($this->getRole(),$this->noaccess)) {
-    return FALSE;
-    } elseif (in_array($this->getRole(),$this->restricted) && $byID == TRUE) {
-    return $this->buildHtml($i,$fID);
-    } elseif (in_array($this->getRole(),$this->recorders)) {
-    return $this->buildHtml($i,$fID);
-    } elseif (in_array($this->getRole(),$this->higherLevel)) {
-    return	$this->buildHtml($i,$fID);
-    } else {
-    return FALSE;
-    }
+        $byID = $this->checkAccessbyUserID($createdBy);
+        if (in_array($this->getRole(), $this->noaccess)) {
+            return FALSE;
+        } elseif (in_array($this->getRole(), $this->restricted) && $byID == TRUE) {
+            return $this->buildHtml($i, $fID);
+        } elseif (in_array($this->getRole(), $this->recorders)) {
+            return $this->buildHtml($i, $fID);
+        } elseif (in_array($this->getRole(), $this->higherLevel)) {
+            return $this->buildHtml($i, $fID);
+        } else {
+            return FALSE;
+        }
     }
 
-    public function buildHtml($i,$fID)
+    /** Build the html
+     * @access public
+     * @return string
+     */
+    public function buildHtml($i, $fID)
     {
-    $html = '';
-    $html .= ' <a href="' . $this->view->url(array(
-    'module' => 'database',
-    'controller' => 'references',
-    'action' => 'edit',
-    'id' => $i,
-    'findID' => $fID,
-            'recordtype' => $this->getController()
-        ),NULL,TRUE) . '" title="Edit this reference">Edit</a> | <a href="'
-    . $this->view->url(array(
-    'module' => 'database',
-    'controller' => 'references',
-    'action' => 'delete',
-    'id' => $i,
-    'findID' => $fID,
-            'recordtype' => $this->getController()
-        ),NULL,TRUE)
-    . '" title="Delete this reference">Delete</a>';
-    $html .= '.</li>'."\n";
+        $html = '';
+        $html .= ' <a href="' . $this->view->url(array(
+                'module' => 'database',
+                'controller' => 'references',
+                'action' => 'edit',
+                'id' => $i,
+                'findID' => $fID,
+                'recordtype' => $this->getController()
+            ), NULL, TRUE) . '" title="Edit this reference">Edit</a> | <a href="'
+            . $this->view->url(array(
+                'module' => 'database',
+                'controller' => 'references',
+                'action' => 'delete',
+                'id' => $i,
+                'findID' => $fID,
+                'recordtype' => $this->getController()
+            ), NULL, TRUE)
+            . '" title="Delete this reference">Delete</a>';
+        $html .= '.</li>' . "\n";
 
-    return $html;
+        return $html;
     }
 }

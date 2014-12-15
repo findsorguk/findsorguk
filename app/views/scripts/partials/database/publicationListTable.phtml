@@ -1,0 +1,31 @@
+<tr>
+    <td width="30%"><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication', 'id' => $this->id), null, true); ?>"><?php echo $this->title; ?></a></td>
+    <td width="20%"><?php echo $this->authors; ?></td>
+    <td><?php echo $this->yearPublished; ?></td>
+    <td><?php echo $this->placePublished; ?></td>
+
+    <?php
+    $auth = Zend_Auth::getInstance();
+    if ($auth->hasIdentity()) {
+        $user = $auth->getIdentity();
+        $allowed = array('fa', 'admin', 'flos');
+        if (in_array($user->role, $allowed)) {
+            ?>
+            <td>
+                <div class="btn-group"><a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
+                        class="btn btn-mini btn-info"
+                        title="Edit <?php echo $this->title; ?>'s details">Edit</a> <a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'delete', 'id' => $this->id), null, true); ?>"
+                        class="btn-mini btn btn-danger"
+                        title="Delete <?php echo $this->title; ?>">Delete</a></div>
+            </td>
+        <?php
+        }
+    } else {
+        ?>
+        <td>Export</td>
+    <?php
+    }
+    ?>
+</tr>

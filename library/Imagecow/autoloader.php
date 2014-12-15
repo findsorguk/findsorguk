@@ -7,6 +7,7 @@ function ImagecowLoader($className)
 
     $fileName = dirname(__DIR__).'/';
 
+
     if ($lastNsPos = strripos($className, '\\')) {
         $namespace = substr($className, 0, $lastNsPos);
         $className = substr($className, $lastNsPos + 1);
@@ -18,6 +19,7 @@ function ImagecowLoader($className)
     if (is_file($fileName)) {
         require $fileName;
     }
+
 }
 
 spl_autoload_register('ImagecowLoader');

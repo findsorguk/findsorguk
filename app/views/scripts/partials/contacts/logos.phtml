@@ -1,8 +1,15 @@
 <?php if (isset($this->image)): ?>
-    <?php list($w, $h) = getimagesize('./assets/logos/thumbnails/' . $this->image); ?>
-    <li><a href="<?php echo $this->baseUrl(); ?>/assets/logos/resized/<?php echo $this->escape($this->image); ?>"
-           title="Larger view of host institution logo" rel="lightbox"><img
-                src="<?php echo $this->baseUrl(); ?>/images/logos/thumbnails/<?php echo $this->escape($this->image); ?>"
-                alt="Institutional logo" class="instlogo" width="<?php echo $w; ?>" height="<?php echo $h; ?>"/></a>
-    </li>
+    <?php if (file_exists(ASSETS_PATH . '/logos/thumbnails/' . $this->image)): ?>
+        <?php list($w, $h) = getimagesize(ASSETS_PATH . '/logos/thumbnails/' . $this->image); ?>
+        <li><a href="<?php echo $this->baseUrl(); ?>/assets/logos/resized/<?php echo $this->image; ?>"
+               title="Larger view of host institution logo" rel="lightbox"><img
+                    src="<?php echo $this->baseUrl(); ?>/assets/logos/thumbnails/<?php echo $this->image; ?>"
+                    alt="Institutional logo" class="instlogo" width="<?php echo $w; ?>" height="<?php echo $h; ?>"/></a>
+        </li>
+    <?php else: ?>
+        <li>
+            <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80" class="img-circle"/>
+
+            <p>Image unavailable<br/>Error: 404</p></li>
+    <?php endif; ?>
 <?php endif; ?>

@@ -1,6 +1,6 @@
 <div style="width:800px;height:500px;overflow:auto;margin-left:10px;margin-right:10px;">
 <?php
-echo $this->partial('partials/database/recordh2section.phtml',$this->finds['0']);
+echo $this->partial('partials/database/recordH2Section.phtml',$this->finds['0']);
 ?>
 <div id="imagepane">
 <?php if (count($this->thumbs) > 0) : ?>
@@ -80,7 +80,7 @@ if((!count($this->coins)) && in_Array($this->finds['0']['objecttype'],$objectarr
 <?php endif;?>
 
 <?php if (count($this->findsotherefs) > 0) : ?>
-<?php echo $this->partialLoop('partials/database/otherRefs.phtml', $this->findotherrefs) ;?>
+<?php echo $this->partialLoop('partials/database/otherReferences.phtml', $this->findotherrefs) ;?>
 <?php endif;?>
 
 

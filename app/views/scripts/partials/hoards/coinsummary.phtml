@@ -50,9 +50,7 @@
                     </td>
                 <?php endif; ?>
 
-                <td>
-                    <?php echo $coinrow['denomination']; ?>
-                </td>
+                <td><?php echo $coinrow['denomination']; ?></td>
 
                 <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
                     <td>
@@ -89,9 +87,7 @@
                         -
                     <?php endif; ?>
                 </td>
-                <td>
-                    <?php echo $coinrow['quantity']; ?>
-                </td>
+                <td><?php echo $coinrow['quantity']; ?></td>
                 <td>
                 <?php
                 echo $this->editDeleteSummary()

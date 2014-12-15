@@ -29,6 +29,6 @@ class Pas_Controller_Action_Helper_GenerateSecuID extends Zend_Controller_Action
      */
     public function direct() {
         $generator = new Pas_Generator_SecuID();
-        return $this->generator->secuid();
+        return $generator->secuid();
     }
 }
