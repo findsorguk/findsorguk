@@ -13,7 +13,7 @@
  Attended: <?php echo implode( ' - ', $dates);?>
  <?php endif;?>
    <?php
-echo $this->Href(array('module' => 'database','controller'=>'rallies', 'action'=>'deleteflo', 'checkAcl'=>true,
+echo $this->href(array('module' => 'database','controller'=>'rallies', 'action'=>'deleteflo', 'checkAcl'=>true,
 'acl'=>'Zend_Acl',  'params' =>array('rallyID'=>$this->rallyID,'staffID' => $this->id), 'content'=>'Delete',
     'attribs' => array('title' => 'Delete flo details from this rally')));
 ?> </li>

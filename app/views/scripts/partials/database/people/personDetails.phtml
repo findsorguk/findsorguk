@@ -1,0 +1,183 @@
+<?php $this->headTitle('Details for: ' . $this->escape($this->fullname)); ?>
+<h2 class="lead">Details for: <?php echo $this->fullname; ?></h2>
+
+<div class="btn-group"><a href="<?php echo $this->url(array(
+        'module' => 'database',
+        'controller' => 'people',
+        'action' => 'edit',
+        'id' => $this->id), null, true);?>" title="Edit this person's details"
+                          class="btn btn-warning btn-small">Edit</a>
+    <?php if (!$this->finds) : ?> <a href="<?php echo $this->url(array(
+        'module' => 'database',
+        'controller' => 'people',
+        'action' => 'delete',
+        'id' => $this->id), null, true);?>" title="Delete this person's details" class="btn btn-danger btn-small">
+            Delete</a><?php endif; ?></div>
+<?php if (!is_null($this->lat)): ?>
+    <?php echo $this->googleDynamicMap(); ?>
+    <?php $this->inlineScript()->captureStart(); ?>
+    $(document).ready(function() {
+
+    var osmMapType = new google.maps.ImageMapType({
+    getTileUrl: function (coord, zoom) {
+    return "http://tile.openstreetmap.org/" +
+    zoom + "/" + coord.x + "/" + coord.y + ".png";
+
+    },
+    tileSize: new google.maps.Size(256, 256),
+    isPng: true,
+    alt: "OpenStreetMap layer",
+    name: "OSM",
+    maxZoom: 18
+    });
+
+
+    var myOptions = {
+    center: new google.maps.LatLng(<?php echo $this->lat; ?>,<?php echo $this->lon ?>),
+    zoom: 6,
+    mapTypeControlOptions: {
+    mapTypeIds: [
+    google.maps.MapTypeId.TERRAIN,
+    google.maps.MapTypeId.SATELLITE,
+    'OSM'
+    ]
+    },
+    mapTypeControl: true,
+    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+    scaleControl: true,
+    zoomControl: true,
+    mapTypeId: 'OSM',
+    scrollwheel: false,
+    };
+    var map = new google.maps.Map(document.getElementById("personmap"),
+    myOptions);
+    map.mapTypes.set('OSM',osmMapType);
+
+    google.maps.event.trigger(map, 'resize');
+    map.setZoom( map.getZoom() );
+    var markers = new Array();
+    <?php
+    $request = Zend_Controller_Front::getInstance()->getRequest();
+    $params = array('module' => 'database', 'controller' => 'ajax', 'action' => 'mapdata2');
+    $params['show'] = 20;
+    $params['page'] = Zend_Controller_Front::getInstance()->getRequest()->getParam('page');
+    $params['finderID'] = $this->secuid;
+    $url = $this->serverUrl() . $this->url($params, 'default', true);
+    ?>
+    var infowindow = new google.maps.InfoWindow();
+    jQuery.get("<?php echo $url; ?>", {}, function(data) {
+
+    jQuery(data).find("marker").each(function() {
+    var markerXML = jQuery(this);
+    var latlng = new google.maps.LatLng(
+    parseFloat(markerXML.attr("lat")),
+    parseFloat(markerXML.attr("lng"))
+    );
+    var marker = new google.maps.Marker({position: latlng, map: map});
+
+    // now that the marker is placed, assign event listener on the marker
+    // and create/assign infowindow to the event trigger.
+    markerInfoWindow(marker, markerXML.attr("content"));
+    markers.push(marker);
+    });
+    var markerCluster = new MarkerClusterer(map, markers);
+    });
+
+    function markerInfoWindow(marker, information){
+    google.maps.event.addListener(marker, 'click',
+    function() {
+    infowindow.close();
+    infowindow.setContent(information);
+    infowindow.setPosition(marker.getPosition());
+    infowindow.open(map, marker);
+    });
+    }
+    var center;
+
+    function calculateCenter() {
+    center = map.getCenter();
+    }
+    google.maps.event.addDomListener(map, 'idle', function() {
+    calculateCenter();
+    setCopyright();
+    });
+    google.maps.event.addDomListener(window, 'resize', function() {
+    map.setCenter(center);
+    });
+
+    });
+    <?php $this->inlineScript()->captureEnd(); ?>
+
+    <div id="personmap" style="float:right;width:380px;min-height:250px;"></div>
+
+<?php endif; ?>
+
+<div class="vcard">
+    <p>
+<span class="fn n">
+<?php echo $this->escape($this->title); ?> <span class="given-name"><?php echo $this->escape($this->forename); ?></span>
+<span class="family-name"><?php echo $this->escape($this->surname); ?></span><br/>
+</span>
+<span class="adr">
+<?php if (!is_null($this->address)): ?>
+    Address: <span class="street-address"><?php echo $this->escape($this->address); ?></span><br/>
+<?php endif; ?>
+    <?php if (!is_null($this->town)): ?>
+        Town: <span class="locality"><?php echo $this->escape($this->town_city); ?></span><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->county)): ?>
+        County: <?php echo $this->escape($this->county); ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->postcode)): ?>
+        Postcode: <span class="postal-code"><?php echo $this->escape($this->postcode); ?></span><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->abode)): ?>
+        Country: <span class="country-name"><?php echo $this->escape($this->abode); ?></span><br/>
+    <?php endif; ?>
+</span>
+        <?php if (!is_null($this->hometel)): ?>
+            <span class="tel"><span class="type">Home</span> T: <span
+                    class="value"><?php echo $this->escape($this->hometel); ?></span></span><br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->worktel)): ?>
+            <span class="tel"><span class="type">Work</span> T: <span
+                    class="value"><?php echo $this->escape($this->worktel); ?></span></span><br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->fax)): ?>
+            <span class="tel"><span class="type">Fax</span>: <span
+                    class="value"><?php echo $this->escape($this->fax); ?></span></span><br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->org)): ?>
+            Member of the: <span class="org"><a
+                    href="<?php echo $this->url(array('module' => 'database', 'controller' => 'organisations', 'action' => 'organisation', 'id' => $this->escape($this->i)), null, true); ?>"
+                    title="View details for <?php $this->escape($this->org); ?>"><?php echo $this->escape($this->org); ?></a></span>
+            <br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->email)): ?>
+            Email: <a href="mailto:<?php echo $this->email; ?>" title="Send an email to this person"
+                      class="email"><?php echo $this->email; ?></a><br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->role)): ?>
+            Primary activity engaged in: <?php echo $this->escape($this->role); ?><br/>
+        <?php endif; ?>
+        <?php
+        if (isset($this->lat)):?>
+            <?php if (!is_null($this->woeid)): ?>
+                WOEID: <?php echo $this->woeid; ?><br/>
+            <?php endif; ?>
+            Latitude: <?php echo $this->lat; ?><br/> Longitude: <?php echo $this->lon; ?> <br/>
+            <?php echo $this->gridRef($this->lat, $this->lon); ?>
+        <?php endif; ?>
+    </p>
+    <?php if ($this->comments): ?>
+        <h3 class="lead">Comments on person</h3>
+        <?php echo $this->comments; ?>
+    <?php endif; ?>
+    <p>
+        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'people', 'action' => 'person', 'id' => $this->id, 'format' => 'vcf'), 'default', true); ?>"
+           title="Download vcard">Download vcard</a></p>
+
+</div>
+
+
+<div class="clear"></div>
