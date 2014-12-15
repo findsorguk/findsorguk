@@ -80,7 +80,7 @@ class Pas_Solr_Handler
         'json', 'csv', 'xml',
         'midas', 'rdf', 'n3',
         'rss', 'atom', 'kml',
-        'pdf', 'geojson', 'sitemap');
+        'pdf', 'geojson', 'sitemap', null);
 
     /** The array of allowed higher level access
      * @access protected
@@ -269,26 +269,24 @@ class Pas_Solr_Handler
     {
         $params = $this->getParams();
         $format = $this->getFormat();
-        if (isset($params['show']) && in_array($format,
-                array('json', 'xml', 'geojson', null))
+        if (isset($params['show']) && in_array($format, array('json', 'xml', 'geojson', null))
         ) {
-            $rows = $params['show'];
-            if ($rows > 100) {
-                $this->_rows = 100;
+            $show = $params['show'];
+            if ($show > 100) {
+                $show = 100;
             }
         } elseif ($format === 'kml') {
             if (!isset($params['show'])) {
-                $this->_rows = 1200;
+                $show = 1200;
             } else {
-                $this->_rows = $params['show'];
+                $show = $params['show'];
             }
         } elseif ($format === 'pdf') {
-            $this->_rows = 500;
+            $show = 500;
         } elseif ($format === 'sitemap') {
-            $this->_rows = 1000;
+            $show = 1000;
         }
-
-        return $this->_rows;
+        return $show;
     }
 
 
