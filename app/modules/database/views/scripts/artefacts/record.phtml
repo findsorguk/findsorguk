@@ -179,7 +179,8 @@ $this->dataEditDeleteCheck()->setInstitution($this->finds[0]['institution'])
     <!-- Start of the spatial data -->
     <div class="row-fluid">
         <!-- Render the map and findspot data -->
-        <?php if (is_null('countyID')) : ?>
+
+        <?php if (!is_null($this->finds[0]['countyID'])) : ?>
 
             <!-- Check for findspot data and if exists render -->
 
