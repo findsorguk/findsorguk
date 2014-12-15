@@ -19,7 +19,7 @@ $this->headLink()->appendAlternate($this->baseUrl() . '/database/search/results/
             <span class="given-name"><?php echo $this->escape($this->firstname); ?></span>
             <span class="family-name"><?php echo $this->escape($this->lastname); ?></span>
         </h2>
-        <?php echo $this->InstLogos()->setInst($this->identifier); ?>
+        <?php echo $this->instLogos()->setInst($this->identifier); ?>
 
 
         <p>
@@ -46,9 +46,9 @@ lat:
 </span>
 </span>
         <?php if (!is_null($this->image)): ?>
-            <?php if(file_exists('/assets/staffphotos/thumbnails/' . $this->image)):?>
-            <?php list($w, $h) = getimagesize('/assets/staffphotos/thumbnails/' . $this->image); ?>
-            <?php endif;?>
+            <?php if(file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)):?>
+            <?php list($w, $h) = getimagesize(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image); ?>
+
             <a href="<?php echo $this->baseUrl(); ?>/assets/staffphotos/resized/<?php echo $this->image; ?>"
                rel="lightbox"
                title="Profile image of <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>">
@@ -57,11 +57,12 @@ lat:
                      title="Image of <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"
                      class="staffimage" width="<?php echo $w; ?>" height="<?php echo $h; ?>"
                      alt="A profile picture chosen by <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"/></a>
+            <?php endif;?>
         <?php endif; ?>
 
         <p>Short profile:</p><img
             src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&zoom=15&size=200x200&maptype=hybrid&markers=color:green|label:G|
-<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&sensor=false" class="flow imgdisplay"/>
+<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&sensor=false" class="pull-right"/>
 
         <div class="summary" property="foaf:plan"><?php echo $this->profile; ?></div>
 

@@ -27,13 +27,13 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      * @access protected
      * @var double
      */
-    protected $_lat;
+    protected $_lat = NULL;
 
     /** The longitude to query
      * @access protected
      * @var double
      */
-    protected $_lon;
+    protected $_lon = NULL;
 
     /** The distance to query
      * @access protected
