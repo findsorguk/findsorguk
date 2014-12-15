@@ -27,6 +27,9 @@ defined('LOGS_PATH')
 defined('IMAGE_PATH')
     || define('IMAGE_PATH', realpath(dirname(__FILE__) . '/images/'));
 
+defined('ASSETS_PATH')
+|| define('ASSETS_PATH', realpath(dirname(__FILE__) . '/assets/'));
+
 ini_set('memory_limit', '128M');
 ini_set('upload_max_filesize','16M');
 // Ensure library/ is on include_path
