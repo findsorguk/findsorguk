@@ -19,6 +19,16 @@ class Database_TagsController extends Pas_Controller_Action_Admin {
      * @var \OpenCalaisModel
      */
     protected $_opencalais;
+
+    /** Get the opencalais model
+     * @access public
+     * @return \OpenCalais
+     */
+    public function getOpenCalais()
+    {
+        $this->_opencalais = new OpenCalais();
+        return $this->_opencalais;
+    }
     
     /** Setup the contexts by action and the ACL.
      * @access public
@@ -26,8 +36,7 @@ class Database_TagsController extends Pas_Controller_Action_Admin {
     */	
     public function init() {
         $this->_helper->_acl->allow(null);
-        
-        $this->_opencalais = new OpenCalaisModel();
+
     }
     /** Display index page
      * @access public

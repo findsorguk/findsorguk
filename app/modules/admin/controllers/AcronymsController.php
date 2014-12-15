@@ -65,10 +65,8 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin
         $form->details->setLegend('Add an acronym: ');
         $form->submit->setLabel('Add new acronym');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost()
-            && $form->isValid($this->_request->getPost())
-        ) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->getAcronyms()->add($form->getValues());
                 $this->getFlash()->addMessage('A new acronym has been created.');
                 $this->redirect(self::REDIRECT);
@@ -90,10 +88,8 @@ class Admin_AcronymsController extends Pas_Controller_Action_Admin
             $form->details->setLegend('Edit an acronym: ');
             $form->submit->setLabel('Save new acronym details');
             $this->view->form = $form;
-            if ($this->getRequest()->isPost()
-                && $form->isValid($this->_request->getPost())
-            ) {
-                if ($form->isValid($form->getValues())) {
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
                     $updateData = $form->getValues();
                     $where = array();
                     $where[] = $this->getAcronyms()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
