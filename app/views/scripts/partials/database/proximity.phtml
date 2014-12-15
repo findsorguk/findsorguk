@@ -8,8 +8,7 @@
 $url = array('module' => 'datalabs', 'controller' => 'smr', 'action' => 'record', 'id' => $this->id);
 ?>
 <li>
-    <a href="<?php echo $this->url($url, 'default', true); ?>"
-       title="View details for <?php echo $this->monumentName; ?>"><?php echo $this->monumentName; ?></a> -
-    a <?php echo strtolower($this->objecttype); ?> from <?php echo $this->county; ?> at a distance
-    of <?php echo number_format(($this->distance * 1000), 3); ?> metres.
+    This object was found within 250 metres of <a href="<?php echo $this->url($url, 'default', true); ?>"
+       title="View details for <?php echo $this->monumentName; ?>"><?php echo $this->monumentName; ?></a>,
+    from <?php echo $this->county; ?>
 </li>
