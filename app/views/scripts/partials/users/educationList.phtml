@@ -1,6 +1,0 @@
-<li><a href="<?php echo $this->escape($this->schoolUrl);?>" 
-       title="Visit establishment homepage"><?php echo $this->escape($this->school);?></a> 
-       <?php echo $this->escape($this->subject);?> [<?php echo $this->type;?> 
-       <?php echo date('Y',strtotime($this->escape($this->dateFrom)));?> 
-       <?php if(!is_null($this->dateTo)):?> - <?php echo date('Y',strtotime($this->escape($this->dateTo)));?>
-       <?php endif;?>]</li>
