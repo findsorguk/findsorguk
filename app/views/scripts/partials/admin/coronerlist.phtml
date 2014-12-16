@@ -1,6 +1,13 @@
 <tr>
-<td><?php echo $this->firstname;?> <?php echo $this->lastname;?></td>
-<td><?php echo $this->region_name;?></td>
-<td><?php echo $this->county;?></td>
-<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'coroners','action' => 'edit','id' => $this->id),null,true);?>" title="Edit coroner's details">Edit</a> | <a href="<?php echo $this->url(array('module' => 'admin','controller' => 'coroners','action' => 'delete','id' => $this->id),null,true);?>" title="Delete coroner's details">Delete</a></td>
+    <td><?php echo $this->firstname; ?> <?php echo $this->lastname; ?></td>
+    <td><?php echo $this->region_name; ?></td>
+    <td><?php echo $this->county; ?></td>
+    <td>
+        <div class="btn-group">
+            <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'coroners', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
+               class="btn btn-mini btn-success" title="Edit coroner's details">Edit</a><a
+                href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'coroners', 'action' => 'delete', 'id' => $this->id), null, true); ?>"
+                class="btn btn-mini btn-danger" title="Delete coroner's details">Delete</a>
+        </div>
+    </td>
 </tr>
