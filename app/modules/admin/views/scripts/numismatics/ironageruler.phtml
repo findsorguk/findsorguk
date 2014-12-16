@@ -23,11 +23,11 @@ $('a.deleteimage').click(function(e) {
  });
 
 <?php $this->jQuery()->javascriptCaptureEnd();?>
-<p><a class="btn btn-small btn-success" href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'addrulerimage','rulerid' => $this->details['0']['id']),null,true);?>" title="Add an image for this ruler">Add an image</a></p>
+<p><a class="btn btn-small btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'addrulerimage','rulerid' => $this->details['0']['id']),null,true);?>" title="Add an image for this ruler">Add an image</a></p>
 <?php echo $this->partialLoop('partials/admin/rulerThumbs.phtml',$this->images);?>
 
 <h3 class="lead">Issuing mints</h3>
-<p><a href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'rulertomint','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new mint">Add a mint to this list</a></p>
+<p><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'rulertomint','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new mint">Add a mint to this list</a></p>
 <?php if(count($this->mints)):?>
 <?php $this->jQuery()->javascriptCaptureStart();?>
 $(document).ready(function(){
@@ -36,7 +36,7 @@ $('a.delete').click(function(e) {
 		var parent = $(this).parents("tr:first");
 		$.ajax({
 			type: 'get',
-			url: '<?php echo $this->url(array('controller' => 'ajax','action' => 'deletemintruler'),null,true);?>',
+			url: '<?php echo $this->url(array('module' => 'default', 'controller' => 'ajax','action' => 'deletemintruler'),null,true);?>',
 			data: 'id=' + parent.attr('id').replace('mint-',''),
 			beforeSend: function() {
 				parent.animate({'backgroundColor':'#fb6c6c'},300);
@@ -70,7 +70,7 @@ $('a.delete').click(function(e) {
 <?php endif;?>
 
 <h3 class="lead">Denominations issued</h3>
-<p><a class="btn btn-small btn-success" href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'rulertodenomination','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new denomination">Add a denomination to this list</a></p>
+<p><a class="btn btn-small btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'numismatics','action' => 'rulertodenomination','rulerid' => $this->details['0']['id'],'period' => $this->details['0']['period']),null,true);?>" title="Add a new denomination">Add a denomination to this list</a></p>
 <?php if(count($this->denoms)):?>
 <?php $this->jQuery()->javascriptCaptureStart();?>
 $(document).ready(function(){
@@ -113,48 +113,6 @@ $('a.deletedenom').click(function(e) {
 <p>No denominations listed</p>
 <?php endif;?>
 
-<h3 class="lead">Reverse types</h3>
-<p><a class="btn btn-small btn-success" href="<?php echo $this->url(array('module' => 'default','controller' => 'admin','action' => 'rulertoreversetype','rulerid' => $this->details['0']['id']),null,true);?>" title="Add a new reverse type">Add a reverse type to this list</a></p>
-<?php if(count($this->reverses)):?>
-<?php $this->jQuery()->javascriptCaptureStart();?>
-$(document).ready(function(){
-$('a.deletereverse').click(function(e) {
-		e.preventDefault();
-		var parent = $(this).parents("tr:first");
-		$.ajax({
-			type: 'get',
-			url: '<?php echo $this->url(array('controller' => 'ajax','action' => 'deletereverseruler'),null,true);?>',
-			data: 'id=' + parent.attr('id').replace('reverse-',''),
-			beforeSend: function() {
-				parent.animate({'backgroundColor':'#fb6c6c'},300);
-			},
-			success: function() {
-				parent.slideUp(300,function() {
-					parent.remove();
-				});
-			}
-		});
-	});
- });
-
-<?php $this->jQuery()->javascriptCaptureEnd();?>
-<table class="table table-striped" summary="List of reverse types issued">
-<caption>List of available reverse types for this issuer</caption>
-    <thead>
-        <tr>
-            <th>Reverse Type</th>
-            <th>Created</th>
-            <th>Created by</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php echo $this->partialLoop('partials/admin/reverseToRuler.phtml',$this->reverses);?>
-    </tbody>
-</table>
-<?php else:?>
-<p>No reverse types listed</p>
-<?php endif;?>
 
 <?php $this->jQuery()->javascriptCaptureStart();?>
 $(document).ready(function(){

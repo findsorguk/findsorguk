@@ -123,11 +123,11 @@ parent.remove();
 <?php if ($this->reeces): ?>
     <p>Reece period assigned: <?php echo $this->reeces->reeceperiod_id; ?>
         <span class="btn"><a
-                href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'editreece', 'rulerid' => $this->details['0']['id']), null, true) ?>">Edit</a></span>
+                href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'editreece', 'id' => $this->details['0']['id']), null, true) ?>">Edit</a></span>
     </p>
 <?php else: ?>
     <span class="btn"><a
-            href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'addreece', 'rulerid' => $this->details['0']['id']), null, true) ?>">Add
+            href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'addreece', 'id' => $this->details['0']['id']), null, true) ?>">Add
             a Reece period if applicable</a></span>
 <?php endif; ?>
 <h3 class="lead">Reverse types</h3>

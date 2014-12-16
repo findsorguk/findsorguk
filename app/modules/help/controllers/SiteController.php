@@ -15,8 +15,15 @@
 class Help_SiteController extends Pas_Controller_Action_Admin
 {
 
+    /** The help model
+     * @var NULL
+     */
     protected $_help;
 
+    /** Get the help
+     * @access public
+     * @return \Help
+     */
     public function getHelp()
     {
         $this->_help = new Help();
@@ -30,7 +37,6 @@ class Help_SiteController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->acl->allow('public', null);
-
     }
 
     /** Display help index

@@ -23,7 +23,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         </tr>
         </thead>
         <tbody>
-        <?php echo $this->partialLoop('partials/admin/dynasticList.phtml', $this->dynasties); ?>
+        <?php echo $this->partialLoop('partials/admin/dynasticListAdmin.phtml', $this->dynasties); ?>
         </tbody>
     </table>
 <?php else: ?>

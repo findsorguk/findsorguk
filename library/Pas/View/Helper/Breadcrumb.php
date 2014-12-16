@@ -404,6 +404,87 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'reeceperiods':
                 $clean = 'Reece periods';
                 break;
+            case 'romanruler':
+                $clean = 'Roman ruler';
+                break;
+            case 'editruler':
+                $clean = 'Edit a ruler';
+                break;
+            case 'rulertomint':
+                $clean = 'Link ruler to mint';
+                break;
+            case 'rulertodenomination':
+                $clean = 'Link ruler to denomination';
+                break;
+            case 'rulertoreversetype':
+                $clean = 'Link ruler to reverse type';
+                break;
+            case 'editreece':
+                $clean = 'Link ruler to Reece period';
+                break;
+            case 'addmint':
+                $clean = 'Add a new mint';
+                break;
+            case 'editmint':
+                $clean = 'Edit a mint';
+                break;
+            case 'deletemint':
+                $clean = 'Delete a mint';
+                break;
+            case 'reversetypes':
+                $clean = 'Roman reverse types';
+                break;
+            case 'addreversetype':
+                $clean = 'Add a reverse type';
+                break;
+            case 'editreversetype':
+                $clean = 'Edit a reverse type';
+                break;
+            case 'deletereversetype':
+                $clean = 'Delete a reverse type';
+                break;
+            case 'adddenomination':
+                $clean = 'Add a denomination';
+                break;
+            case 'editdenomination':
+                $clean = 'Edit a denomination';
+                break;
+            case 'deletedenomination':
+                $clean = 'Delete a denomination';
+                break;
+            case 'addemperor':
+                $clean = 'Add an emperor';
+                break;
+            case 'editemperor':
+                $clean = 'Edit an emperor';
+                break;
+            case 'deleteemperor':
+                $clean = 'Delete an emperor';
+                break;
+            case 'addreeceperiod':
+                $clean = 'Add a Reece period';
+                break;
+            case 'editreeceperiod':
+                $clean = 'Delete a Reece period';
+                break;
+            case 'deletereeceperiod':
+                $clean = 'Delete a Reece period';
+                break;
+            case 'adddynasty':
+                $clean = 'Add a dynasty';
+                break;
+            case 'editdynasty':
+                $clean = 'Edit a dynasty';
+                break;
+            case 'deletedynasty':
+                $clean = 'Delete a dynasty';
+                break;
+            case 'ironageruler':
+                $clean = 'Iron Age ruler';
+                break;
+            case 'medruler':
+                $clean = 'Medieval ruler';
+                break;
             default:
                 $clean = ucfirst($this->getAction());
                 break;
