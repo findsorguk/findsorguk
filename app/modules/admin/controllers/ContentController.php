@@ -85,6 +85,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
             $params['q'] = '*';
         }
         $params['type'] = 'sitecontent';
+        $params['page'] = $this->getParam('page');
         $search->setParams($params);
         $search->execute();
         $this->view->paginator = $search->createPagination();
