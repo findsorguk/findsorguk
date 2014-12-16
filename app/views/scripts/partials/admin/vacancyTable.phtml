@@ -1,10 +1,17 @@
 <tr class="valid-<?php //echo $this->expiredOrLive()->setDate($this->expire);?>">
-<td><?php echo $this->escape($this->title);?><br />
-Region: <?php echo $this->escape($this->staffregions);?></td>
-<td><?php echo $this->timeAgoInWords($this->created);?></td>
-<td><?php echo $this->nameThem()->setName($this->escape($this->fullname));?></td>
-<td><?php echo $this->escape($this->updated);?></td>
-<td><?php echo $this->nameThem()->setName($this->escape($this->fn));?></td>
-<td><?php echo $this->niceShortDate()->setDate($this->escape($this->expire));?></td>
-<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'vacancies','action' => 'edit','id' => $this->id),null,true);?>" title="Edit details for <?php echo $this->escape($this->title);?>">Edit</a> | <a href="<?php echo $this->url(array('module' => 'admin','controller' => 'vacancies','action' => 'delete','id' => $this->id),null,true);?>" title="Delete details for vacancy">Delete</a></td>
+    <td width="15%"><?php echo $this->escape($this->title); ?><br/>
+        Region: <?php echo $this->escape($this->staffregions); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->created); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->escape($this->fullname)); ?></td>
+    <td width="10%"><?php echo $this->escape($this->updated); ?></td>
+    <td width="10%"><?php echo $this->nameThem()->setName($this->escape($this->fn)); ?></td>
+    <td><?php echo $this->niceShortDate()->setDate($this->escape($this->expire)); ?></td>
+    <td>
+        <div class="btn-group"><a
+                href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'vacancies', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
+                class="btn btn-success btn-mini" title="Edit details for <?php echo $this->escape($this->title); ?>">Edit</a><a
+                href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'vacancies', 'action' => 'delete', 'id' => $this->id), null, true); ?>"
+                class="btn btn-danger btn-mini" title="Delete details for vacancy">Delete</a>
+        </div>
+    </td>
 </tr>

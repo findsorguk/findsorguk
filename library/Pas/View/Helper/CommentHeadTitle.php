@@ -50,6 +50,7 @@ class Pas_View_Helper_CommentHeadTitle extends Zend_View_Helper_Abstract
      */
     public function assemble() {
         $params = $this->getParams();
+        if(array_key_exists('approval', $params)) {
             switch ($params['approval']) {
                 case 'approved':
                     $title = 'All approved comments';
@@ -63,6 +64,9 @@ class Pas_View_Helper_CommentHeadTitle extends Zend_View_Helper_Abstract
                 default:
                     $title = 'All comments';
                     break;
+            }
+        } else {
+            $title = 'All comments';
         }
         return $title;
     }

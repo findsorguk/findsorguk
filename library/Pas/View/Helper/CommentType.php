@@ -123,14 +123,14 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
         $html = '';
         $data = $this->getData();
         if ($data instanceof Zend_Db_Table_Row) {
-            switch ($type) {
+            switch ($this->getType()) {
                 case 'findComment':
                     $url = $this->view->url(
                             array(
                                 'module' => 'database',
                                 'controller' => 'artefacts',
                                 'action' => 'record',
-                                'id' => $id),
+                                'id' => $this->getId()),
                             'default',
                             true);
                     $html .= '<a href="';
@@ -146,7 +146,7 @@ class Pas_View_Helper_CommentType extends Zend_View_Helper_Abstract
                                 'module' => 'news',
                                 'controller' => 'stories',
                                 'action' => 'article',
-                                'id' => $id),
+                                'id' => $this->getId()),
                             'default',
                             true);
                     $html .= '<a href="';

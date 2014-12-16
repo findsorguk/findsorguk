@@ -1,8 +1,13 @@
 <tr>
-<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'users', 'action' => 'account','username' => $this->username),null,true);?>"  title="View user account details"><?php echo $this->username;?></a></td>
-<td><?php echo $this->fullname;?></td>
-<td><?php echo $this->role;?></td>
-<td><?php echo $this->timeAgoInWords($this->lastLogin);?></td>
-<td><?php echo $this->visits;?></td>
-<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'users', 'action' => 'edit','id' => $this->id),null,true);?>" title="Edit user profile for <?php echo $this->fullname;?>">Edit</a></td>
+    <td>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'account', 'username' => $this->username), null, true); ?>"
+           title="View user account details"><?php echo $this->username; ?></a></td>
+    <td><?php echo $this->fullname; ?></td>
+    <td><?php echo $this->role; ?></td>
+    <td><?php echo $this->timeAgoInWords($this->lastLogin); ?></td>
+    <td><?php echo $this->visits; ?></td>
+    <td>
+        <a class="btn btn-mini btn-success" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
+           title="Edit user profile for <?php echo $this->fullname; ?>">Edit</a>
+    </td>
 </tr>
