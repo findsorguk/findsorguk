@@ -4,16 +4,20 @@
             title="View this project's full details"><?php echo $this->title; ?></a></td>
     <td><?php echo $this->investigator; ?></td>
     <td><?php echo $this->type; ?></td>
-    <td><?php if ($this->start != '0000') {
-            echo $this->start;
-        } else {
-            echo 'N/A';
-        } ?></td>
-    <td><?php if ($this->finish != '0000') {
-            echo $this->finish;
-        } else {
-            echo 'N/A';
-        } ?></td>
+    <td>
+        <?php if (!is_null($this->start)):?>
+            <?php echo $this->start;?>
+        <?php  else:?>
+            N/A
+        <?php endif;?>
+    </td>
+    <td>
+        <?php if (!is_null($this->finish)):?>
+            <?php echo $this->finish;?>
+        <?php  else:?>
+            N/A
+        <?php endif;?>
+    </td>
     <td>
         <div class="btn-group"><a class="btn btn-mini btn-default"
                                   href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
