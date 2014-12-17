@@ -9,6 +9,8 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/rec
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/bootstrap-multiselect.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/dynamicformfields.js', $type='text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/hoardPeriodLinkedSelect.js', $type='text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');
+
 $this->headTitle('Edit hoard details');
 $this->metaBase()
     ->setDescription('Edit a hoard\'s details')
@@ -17,6 +19,7 @@ $this->metaBase()
 ?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
+    $('form').areYouSure();
     var nonRulers = ['BRONZE AGE', 'MESOLITHIC', 'NEOLITHIC', 'PALAEOLITHIC', 'UNKNOWN', 'MODERN'];
     var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
     'GREEK AND ROMAN PROVINCIAL'];

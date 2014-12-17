@@ -16,6 +16,12 @@ $this->metaBase()
 ?>
     <a href="<?php echo $this->url($url, 'default', true); ?>" class="btn btn-small btn-default"
        title="Return to record">Return to record</a>
+<?php echo $this->form; ?>
 <?php
-echo $this->form;
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');
 ?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+$(document).ready(function() {
+$('form').areYouSure();
+});
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
