@@ -1,0 +1,25 @@
+<li>
+    <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'named', 'action' => 'person', 'as' => urlencode($this->username)), null, true); ?>"
+       title="View <?php echo $this->escape($this->username); ?>'s profile on our site">
+        <?php
+        echo $this->gravatar($this->email, array(
+                'imgSize' => 80,
+                'defaultImg' => 'http://finds.org.uk/assets/gravatar.png',
+                'secure' => true),
+            array(
+                'class' => 'avatar img-circle pull-left stelae',
+                'title' => $this->fullname . '\'s gravatar representation',
+                'rating' => 'G',
+                'width' => 80,
+                'height' => 80)
+        );
+
+        ?>
+    </a>
+
+    <p>
+        Username: <?php echo $this->escape($this->username); ?><br/>
+        Last visit: <?php echo $this->lastLogin; ?><br/>
+        Institution: <?php echo $this->institution; ?>
+    </p>
+</li>
