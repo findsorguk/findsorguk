@@ -67,17 +67,21 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin
         } else {
             $flickr = $this->getCache()->load($key);
         }
-        $pagination = array(
-            'page' => $page,
-            'perpage' => (int)$flickr->photosets->perpage,
-            'total_results' => (int)$flickr->photosets->total
-        );
-        $paginator = Zend_Paginator::factory($pagination['total_results']);
-        $paginator->setCurrentPageNumber($pagination['page'])
-            ->setItemCountPerPage($pagination['perpage'])
-            ->setCache($this->getCache());
-        $this->view->paginator = $paginator;
-        $this->view->photos = $flickr->photosets;
+        if(!empty($flickr)) {
+            $pagination = array(
+                'page' => $page,
+                'perpage' => (int)$flickr->photosets->perpage,
+                'total_results' => (int)$flickr->photosets->total
+            );
+            $paginator = Zend_Paginator::factory($pagination['total_results']);
+            $paginator->setCurrentPageNumber($pagination['page'])
+                ->setItemCountPerPage($pagination['perpage'])
+                ->setCache($this->getCache());
+            $this->view->paginator = $paginator;
+            $this->view->photos = $flickr->photosets;
+        } else {
+            throw new Pas_Exception('No flickr result available', 500);
+        }
     }
 
     /** Find photos with a set radius of the where on earthID

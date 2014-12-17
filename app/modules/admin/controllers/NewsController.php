@@ -56,7 +56,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin
         $search->setCore('content');
         $search->setFields(array(
             'updated', 'updatedBy', 'publishState',
-            'title', 'created', 'createdBy'
+            'title', 'created', 'createdBy', 'id'
         ));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->_getParam('submit'))
@@ -118,7 +118,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin
                 $this->_news->updateNews($form->getValues(), $this->_getParam('id'));
                 $this->_helper->solrUpdater->update('content', $this->_getParam('id'), 'news');
                 $this->getFlash()->addMessage('News story information updated!');
-                $$this->redirect(self::REDIRECT);
+                $this->redirect(self::REDIRECT);
             } else {
                 $form->populate($form->getValues());
             }

@@ -1,5 +1,6 @@
 <div class="modal-header">
     <a class="close" data-dismiss="modal">x</a>
+
     <h3 class="lead">
         Cite this record
     </h3>
@@ -9,25 +10,24 @@
     <h3 class="lead">
         Publication citation
     </h3>
+
     <p>
         This record can be cited in the Harvard bibliographic style using the text below:
     </p>
-    <?php if($this->type == 'artefact'):?>
-        <?php echo $this->partial('partials/database/webCiteData.phtml',$this->finds[0]);?>
-    <?php else:?>
-        <?php echo $this->partial('partials/database/webCiteHoard.phtml', $this->finds[0]);?>
-    <?php endif;?>
+    <?php if ($this->type == 'artefact'): ?>
+        <?php echo $this->partial('partials/database/webCiteData.phtml', $this->finds[0]); ?>
+    <?php else: ?>
+        <?php echo $this->partial('partials/database/webCiteHoard.phtml', $this->finds[0]); ?>
+    <?php endif; ?>
 
     <h3 class="lead">
         Wikipedia citation
     </h3>
-    <pre>
-        <?php if($this->type == 'artefact'):?>
-            <?php echo $this->partial('partials/database/wikiCite.phtml', $this->finds[0]);?>
-        <?php else:?>
-            <?php echo $this->partial('partials/database/wikiCiteHoard.phtml', $this->finds[0]);?>
-        <?php endif;?>
-    </pre>
+    <?php if ($this->type == 'artefact'): ?>
+        <?php echo $this->partial('partials/database/wikiCite.phtml', $this->finds[0]); ?>
+    <?php else: ?>
+        <?php echo $this->partial('partials/database/wikiCiteHoard.phtml', $this->finds[0]); ?>
+    <?php endif; ?>
 </div>
 
 <div class="modal-footer">

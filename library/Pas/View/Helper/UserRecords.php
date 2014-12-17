@@ -85,6 +85,7 @@ class Pas_View_Helper_UserRecords extends Zend_View_Helper_Abstract {
     public function getData( $username ) {
         $users = new Users();
         $ids = $users->getUserID($username);
-        return $users->getCountFinds($ids['0']['id']);
+        $finds = new Finds();
+        return $finds->getCountFinds($ids['0']['id']);
     }
 }

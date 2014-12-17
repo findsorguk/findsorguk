@@ -1,19 +1,26 @@
-<h2 class="lead"><?php echo $this->title();?></h2>
+<?php
+$this->view->headTitle('Users who have used IP address');
+$this->meatBase()->setDescription($this->title())->generate();
+?>
+
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <table class="table table-striped" summary="A table listing all users who have accessed the database by IP">
-<caption>Users to an IP address audit</caption>
-<thead>
-<tr>
-<th>IP address</th>
-<th>Username</th>
-<th>Number of visits</th>
-</tr>
-</thead>
-<tbody>
-<?php foreach($this->logins as $l):?>
-<tr>
-<td><?php echo $l['ipAddress'];?></td>
-<td><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'users','action' => 'account','username' => $l['username']),'default',true);?>" title="View profile for <?php echo $this->username;?>"><?php echo $l['username'];?></a></td>
-<td><?php echo $l['count'];?></td>
-</tr>
-<?php endforeach;?>
+    <caption>Users to an IP address audit</caption>
+    <thead>
+    <tr>
+        <th>IP address</th>
+        <th>Username</th>
+        <th>Number of visits</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->logins as $l): ?>
+        <tr>
+            <td><?php echo $l['ipAddress']; ?></td>
+            <td>
+                <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'account', 'username' => $l['username']), 'default', true); ?>"
+                   title="View profile for <?php echo $this->username; ?>"><?php echo $l['username']; ?></a></td>
+            <td><?php echo $l['count']; ?></td>
+        </tr>
+    <?php endforeach; ?>
 </table>

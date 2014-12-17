@@ -11,6 +11,12 @@ $this->metaBase()
 <?php $url = array('module' => 'database', 'controller' => 'hoards', 'action' => 'record', 'id' => $this->id); ?>
     <a href="<?php echo $this->url($url, 'default', true); ?>" title="Return to record"
        class="btn btn-small btn-default">Return to hoard record</a>
+<?php echo $this->form; ?>
 <?php
-echo $this->form;
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');
 ?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+    $(document).ready(function() {
+    $('form').areYouSure();
+    });
+<?php $this->jQuery()->javascriptCaptureEnd() ?>

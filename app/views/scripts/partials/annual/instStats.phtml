@@ -1,6 +1,6 @@
 <tr>
     <td>
-        <?php if(!is_null($this->institution)) {?>
+        <?php if (!is_null($this->institution)): ?>
             <?php
             $url = array(
                 'module' => 'database', 'controller' => 'statistics', 'action' => 'institution',
@@ -9,14 +9,10 @@
             ?>
             <a href="<?php echo $this->url($url, null, false); ?>"
                title="View stats for this institution"><?php echo $this->institution; ?></a>
-        <?php } else { ?>
+        <?php else: ?>
             No institution recorded.
-        <?php } ?>
+        <?php endif; ?>
     </td>
-    <td>
-        <?php echo $this->finds; ?>
-    </td>
-    <td>
-        <?php echo $this->records; ?>
-    </td>
+    <td><?php echo $this->finds; ?></td>
+    <td><?php echo $this->records; ?></td>
 </tr>

@@ -1,22 +1,19 @@
 <tr>
     <td>
-        <?php
-        if (!is_null($this->county)) {
-            echo '<a href="' . $this->url(array(
-                    'module' => 'database',
-                    'controller' => 'statistics',
-                    'action' => 'county',
-                    'county' => $this->county), null, false) . '" title="">'
-                . ucwords(strtolower($this->escape($this->county))) . '</a>';
-        } else {
-            echo 'No county recorded';
-        }
-        ?>
+        <?php if (!is_null($this->county)): ?>
+            <a href="<?php echo $this->url(array(
+                'module' => 'database',
+                'controller' => 'statistics',
+                'action' => 'county',
+                'county' => $this->county), null, false);?>" title=""><?php echo $this->county; ?></a>
+        <?php else : ?>
+            No county recorded
+        <?php endif; ?>
     </td>
     <td>
-        <?php echo $this->finds;?>
+        <?php echo $this->finds; ?>
     </td>
     <td>
-        <?php echo $this->records;?>
+        <?php echo $this->records; ?>
     </td>
 </tr>

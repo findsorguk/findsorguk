@@ -1,4 +1,5 @@
 <?php
+
 /** A view helper for determining whether coin link should be printed.
  *
  * An example of use:
@@ -37,7 +38,7 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_restricted = array('member','research','hero');
+    protected $_restricted = array('member', 'research', 'hero');
 
     /** The recorders array
      * @access protected
@@ -49,7 +50,7 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_higherLevel = array('admin','fa','treasure');
+    protected $_higherLevel = array('admin', 'fa', 'treasure');
 
     /** The find ID to use
      * @access protected
@@ -103,7 +104,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getUser() {
+    public function getUser()
+    {
         $person = new Pas_User_Details();
         return $person->getPerson();
     }
@@ -130,9 +132,10 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getUserInst() {
-        if($this->getUser()) {
-        $this->_userInst = $this->getUser()->institution;
+    public function getUserInst()
+    {
+        if ($this->getUser()) {
+            $this->_userInst = $this->getUser()->institution;
         }
         return $this->_userInst;
     }
@@ -141,9 +144,10 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getRole() {
-        if($this->getUser()) {
-        $this->_role = $this->getUser()->role;
+    public function getRole()
+    {
+        if ($this->getUser()) {
+            $this->_role = $this->getUser()->role;
         }
         return $this->_role;
     }
@@ -152,9 +156,10 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getUserID() {
-        if($this->getUser()) {
-        $this->_userID = $this->getUser()->id;
+    public function getUserID()
+    {
+        if ($this->getUser()) {
+            $this->_userID = $this->getUser()->id;
         }
         return $this->_userID;
     }
@@ -163,7 +168,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getFindID() {
+    public function getFindID()
+    {
         return $this->_findID;
     }
 
@@ -171,7 +177,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getInstitution() {
+    public function getInstitution()
+    {
         return $this->_institution;
     }
 
@@ -179,7 +186,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getSecuid() {
+    public function getSecuid()
+    {
         return $this->_secuid;
     }
 
@@ -187,7 +195,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getBroadperiod() {
+    public function getBroadperiod()
+    {
         return $this->_broadperiod;
     }
 
@@ -195,7 +204,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getCreatedBy() {
+    public function getCreatedBy()
+    {
         return $this->_createdBy;
     }
 
@@ -204,19 +214,21 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access protected
      * @return boolean
      */
-    protected function _checkInstitution() {
+    protected function _checkInstitution()
+    {
         if ($this->getInstitution() === $this->getUserInst()) {
             return true;
         } else {
             return false;
-    }
+        }
     }
 
     /** Function to check creator of record against user's id
      * @access protected
      * @return boolean
      */
-    protected function _checkCreator() {
+    protected function _checkCreator()
+    {
         if ($this->getCreatedBy() === $this->getUserID()) {
             return true;
         } else {
@@ -230,7 +242,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddCoinLink
      * @throws Zend_Exception
      */
-    public function setFindID( $findID ) {
+    public function setFindID($findID)
+    {
         if (is_int($findID)) {
             $this->_findID = $findID;
         } else {
@@ -245,7 +258,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddCoinLink
      * @throws Zend_Exception
      */
-    public function setSecUid( $secuid ) {
+    public function setSecUid($secuid)
+    {
         if (is_string($secuid)) {
             $this->_secuid = $secuid;
         } else {
@@ -260,7 +274,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddCoinLink
      * @throws Zend_Exception
      */
-    public function setBroadperiod( $broadperiod ) {
+    public function setBroadperiod($broadperiod)
+    {
         if (is_string($broadperiod)) {
             $this->_broadperiod = $broadperiod;
         } else {
@@ -275,7 +290,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddCoinLink
      * @throws Zend_Exception
      */
-    public function setInstitution( $institution ) {
+    public function setInstitution($institution)
+    {
         if (is_string($institution)) {
             $this->_institution = $institution;
         } else {
@@ -290,7 +306,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_AddCoinLink
      * @throws Zend_Exception
      */
-    public function setCreatedBy( $createdBy ) {
+    public function setCreatedBy($createdBy)
+    {
         if (is_int($createdBy)) {
             $this->_createdBy = $createdBy;
         } else {
@@ -304,16 +321,17 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @return boolean
      * @throws Zend_Exception
      */
-    private function _checkParameters() {
+    private function _checkParameters()
+    {
         $parameters = array(
             $this->getBroadperiod(),
             $this->getCreatedBy(),
             $this->getFindID(),
             $this->getSecuid(),
             $this->getInstitution()
-                );
+        );
         foreach ($parameters as $parameter) {
-            if ( is_null( $parameter ) ) {
+            if (is_null($parameter)) {
                 throw new Zend_Exception('A parameter is missing');
             }
         }
@@ -324,24 +342,27 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access private
      * @return \Pas_View_Helper_AddCoinLink
      */
-    private function _performChecks() {
-        if ( in_array( $this->getRole(), $this->_restricted ) ) {
-            if( ( $this->_checkCreator() && !$this->_checkInstitution() )
-                    || ( $this->_checkCreator() && $this->_checkInstitution() ) ) {
+    private function _performChecks()
+    {
+        if (in_array($this->getRole(), $this->_restricted)) {
+            if (($this->_checkCreator() && !$this->_checkInstitution())
+                || ($this->_checkCreator() && $this->_checkInstitution())
+            ) {
                 $this->_canCreate = true;
-                }
-                    } elseif (in_array($this->getRole(),$this->_higherLevel)) {
-                        $this->_canCreate = true;
-                    } elseif (in_array($this->getRole(),$this->_recorders)) {
-                        if( ( $this->_checkCreator() && !$this->_checkInstitution() )
-                                || ( $this->_checkCreator() && $this->_checkInstitution() )
-                                || ( !$this->_checkCreator() && $this->_checkInstitution() )
-                                || ( !$this->_checkCreator() && $this->getUserInst() === 'PUBLIC' ) ) {
-                            $this->_canCreate = true;
-                                }
-                                } else {
-                                    $this->_canCreate = false;
-                                }
+            }
+        } elseif (in_array($this->getRole(), $this->_higherLevel)) {
+            $this->_canCreate = true;
+        } elseif (in_array($this->getRole(), $this->_recorders)) {
+            if (($this->_checkCreator() && !$this->_checkInstitution())
+                || ($this->_checkCreator() && $this->_checkInstitution())
+                || (!$this->_checkCreator() && $this->_checkInstitution())
+                || (!$this->_checkCreator() && $this->getUserInst() === 'PUBLIC')
+            ) {
+                $this->_canCreate = true;
+            }
+        } else {
+            $this->_canCreate = false;
+        }
         return $this;
     }
 
@@ -349,7 +370,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_AddCoinLink
      */
-    public function addCoinLink() {
+    public function addCoinLink()
+    {
         return $this;
     }
 
@@ -358,7 +380,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access private
      * @return string
      */
-    private function _buildHtml() {
+    private function _buildHtml()
+    {
         $this->_checkParameters();
         $this->_performChecks();
         $string = '';
@@ -370,8 +393,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
                 'broadperiod' => $this->getBroadperiod(),
                 'findID' => $this->getSecuid(),
                 'returnID' => $this->getFindID()
-                );
-            $url = $this->view->url($params,null,TRUE);
+            );
+            $url = $this->view->url($params, null, TRUE);
             $string .= '<a class="btn btn-primary" href="';
             $string .= $url;
             $string .= '" title="Add ';
@@ -387,7 +410,8 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string function
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->_buildHtml();
     }
 }

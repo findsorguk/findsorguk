@@ -3,9 +3,13 @@ $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocompl
 $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteinitpeople1.js',$type='text/javascript'); 
 $this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
 $this->headTitle('Add an organisation');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
 <h2 class="lead"><?php echo $this->title();?></h2>
-<?php
-
-echo $this->form;
-?>
+<?php echo $this->form; ?>
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function() {
+    $('form').areYouSure();
+    });
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

@@ -1,4 +1,5 @@
 <?php
+
 /** Controller for accessing specific user details for IP logins etc
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -11,8 +12,9 @@
  * @uses Logins
  * @uses Pas_Exception_Param
  *
-*/
-class Users_AuditController extends Pas_Controller_Action_Admin {
+ */
+class Users_AuditController extends Pas_Controller_Action_Admin
+{
 
     /** The logins model
      * @access protected
@@ -20,51 +22,63 @@ class Users_AuditController extends Pas_Controller_Action_Admin {
      */
     protected $_logins;
 
+    /** Get the logins model
+     * @access public
+     * @return \Logins
+     */
+    public function getLogins()
+    {
+        $this->_logins = new Logins();
+        return $this->_logins;
+    }
+
     /** Set up the ACL and contexts
      * @access public
      */
-    public function init()  {
-        $this->_helper->_acl->allow('member',null);
-        $this->_logins = new Logins();
-        
+    public function init()
+    {
+        $this->_helper->_acl->allow('member', null);
     }
 
     /** Display logins by username
      * @access public
      * @return void
      */
-    public function loginsAction() {
-        $this->view->logins = $this->_logins->myLogins((string)$this->getUsername(), (int)$this->_getParam('page'));
-        $this->view->ips = $logins->myIps($this->getUsername());
+    public function loginsAction()
+    {
+        $this->view->logins = $this->getLogins()->myLogins((string)$this->getUsername(), (int)$this->_getParam('page'));
+        $this->view->ips = $this->getLogins()->myIps($this->getUsername());
     }
 
     /** Display the ISP user has used
      * @access public
      * @return void
      */
-    public function ispAction() {
-        $this->view->logins = $this->_logins->listIps((int)$this->_getParam('page'));
+    public function ispAction()
+    {
+        $this->view->logins = $this->getLogins()->listIps((int)$this->_getParam('page'));
     }
 
     /** The ip to users action
      * @access public
      * @throws Pas_Exception_Param
      */
-    public function iptousersAction() {
-	if($this->_getParam('ip',false)) {
+    public function iptousersAction()
+    {
+        if ($this->_getParam('ip', false)) {
             $ip = $this->_getParam('ip');
-            $this->view->headTitle('Users who have used IP address: '. $ip);
-            $this->view->logins = $this->_logins->users2Ip($ip);
-	} else {
+            $this->view->logins = $this->getLogins()->users2Ip($ip);
+        } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
-	}
+        }
     }
 
     /** Get the IP history for a user
      * @access public
      * @return void
      */
-    public function iphistoryAction(){
-        $this->view->ips = $this->_logins->myIps($this->getUsername(), $this->_getParam('page'));
+    public function iphistoryAction()
+    {
+        $this->view->ips = $this->getLogins()->myIps($this->getUsername(), $this->_getParam('page'));
     }
 }

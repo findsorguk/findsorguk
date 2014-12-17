@@ -1,5 +1,12 @@
-<h2 class="lead">Add a new person</h2>
-<?php 
-	$this->headTitle('Add a new person');
-echo $this->form;
+<?php
+$this->headTitle('Add a new person');
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+<h2 class="lead"><?php echo $this->title();?></h2>
+<?php echo $this->form; ?>
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+$(document).ready(function() {
+$('form').areYouSure();
+});
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

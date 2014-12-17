@@ -2162,4 +2162,18 @@ class Finds extends Pas_Db_Table_Abstract {
 //        $select->setIntegrityCheck(false);
         return $findsdata->fetchAll($select);
     }
+
+    /** Retrieve a user's count and quantity of finds recorded
+     * @access public
+     * @param integer $id
+     * @return array
+     */
+    public function getCountFinds($id) {
+        $select = $this->select()
+            ->from('finds', array(
+                'records' => 'COUNT(finds.id)',
+                'finds' => 'SUM(finds.quantity)'))
+            ->where('finds.createdBy = ?', (int)$id);
+        return $this->getAdapter()->fetchAll($select);
+    }
 }

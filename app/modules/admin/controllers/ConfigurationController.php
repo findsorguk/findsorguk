@@ -12,8 +12,10 @@
  */
 class Admin_ConfigurationController extends Pas_Controller_Action_Admin
 {
-
-    protected $_config;
+    /** The configuration object
+     * @var null
+     */
+    protected $_config = NULL;
 
     /** Get the config object
      * @return mixed

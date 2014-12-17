@@ -27,23 +27,6 @@ echo $this->Href(array('module' => 'database', 'controller' => 'rallies', 'actio
             <th>Rally Name</th>
             <th>Date from</th>
             <th>Date to</th>
-            <?php
-            $auth = Zend_Auth::getInstance();
-            if ($auth->hasIdentity()) {
-                $user = $auth->getIdentity();
-                {
-                    $allowedAccess = array('flos', 'fa', 'admin');
-                    if (in_array($user->role, $allowedAccess)) {
-                        ?>
-
-                        <th>Actions</th>
-                    <?php
-                    }
-                }
-            }
-            ?>
-
-
         </tr>
         </thead>
         <tbody>

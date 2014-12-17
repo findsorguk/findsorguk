@@ -3,8 +3,8 @@ $this->headTitle('Delete a dieaxis from the system');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
 <?php if (!empty($this->dieaxis)) : ?>
-    <h2 class="lead">Delete a Dynastic listing</h2>
-    <p>Are you sure that you want to delete <?php echo $this->dieaxis->term; ?></p>
+    <h2 class="lead">Delete <?php echo $this->dieaxis->die_axis_name; ?></h2>
+    <p>Are you sure that you want to delete <?php echo $this->dieaxis->die_axis_name; ?></p>
     <form
         action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'deletedieaxis'), null, true); ?>"
         method="post">

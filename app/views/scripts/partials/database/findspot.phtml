@@ -151,27 +151,19 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
 
-    var region = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>
-    /kml/regions/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-'), array('', '', '', ''), $this->region)); ?>
-    .kmz',
+    var region = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>/kml/regions/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-'), array('', '', '', ''), $this->region)); ?>.kmz',
     {preserveViewport: true, suppressInfoWindows: false });
     region.setMap(map);
 
-    var parish = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>
-    /kml/parishes/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-', ','), array('', '', '', '', ''), $this->parish)); ?>
-    .kmz',
+    var parish = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>/kml/parishes/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-', ','), array('', '', '', '', ''), $this->parish)); ?>.kmz',
     {preserveViewport: true, suppressInfoWindows: false });
     parish.setMap(map);
 
-    var county = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>
-    /kml/counties/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-'), array('', '', '', ''), $this->county)); ?>
-    .kmz',
+    var county = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>/kml/counties/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-'), array('', '', '', ''), $this->county)); ?>.kmz',
     {preserveViewport: true, suppressInfoWindows: false });
     county.setMap(map);
 
-    var district = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>
-    /kml/districts/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-'), array('', '', '', ''), $this->district)); ?>
-    .kmz',
+    var district = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>/kml/districts/<?php echo strtoupper(str_replace(array(' ', ')', '(', '.', "'", '-'), array('', '', '', ''), $this->district)); ?>.kmz',
     {preserveViewport: true, suppressInfoWindows: false });
     district.setMap(map);
 
@@ -298,7 +290,10 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
         <div class="span4 noprint">
             <?php echo $this->yahooGeoAdjacent()->setWoeid($this->woeid); ?>
         </div>
-
+        <?php
+        $discovery = array($this->method, $this->disccircum, $this->curr_loc, $this->landvalue, $this->landuse);
+        if(array_filter($discovery)):
+        ?>
         <div class="span4">
             <h3 class="lead">Discovery metadata</h3>
 
@@ -341,11 +336,11 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
                             'controller' => 'terminology',
                             'action' => 'landuse',
                             'id' => $this->landusecode), null, true);?>"
-                                            title="Read scope note for <?php echo $this->landuse; ?>">scope notes</a>]
-</span><br/>
+                                            title="Read scope note for <?php echo $this->landuse; ?>">scope notes</a>]</span>
                 <?php endif; ?>
             </p>
         </div>
+        <?php endif;?>
     </div>
 <?php endif; ?>
 
@@ -353,21 +348,30 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 <!-- </div> -->
 
 <div class="row-fluid">
-    <?php if (!is_null($this->findspotDescription)): ?>
-    <p>Findspot description: <?php echo strip_tags($this->findspotDescription); ?><br/>
+    <p>
+        <?php if (!is_null($this->findspotDescription)): ?>
+        Findspot description: <?php echo strip_tags($this->findspotDescription); ?>
         <?php endif; ?>
+
         <?php if (!is_null($this->comments)): ?>
-            Findspot comments: <?php echo strip_tags($this->comments); ?><br/>
+            <br/>
+            Findspot comments: <?php echo strip_tags($this->comments); ?>
         <?php endif; ?>
 
         <?php if (!is_null($this->landOwnerName)): ?>
-            Land is owned by: <?php echo $this->landOwnerName; ?><br/>
+            <br/>
+            Land is owned by: <?php echo $this->landOwnerName; ?>
         <?php endif; ?>
+
         <?php if (!is_null($this->address)): ?>
-            Address: <?php echo $this->escape($this->address); ?><br/>
+            <br/>
+            Address: <?php echo $this->escape($this->address); ?>
         <?php endif; ?>
+
         <?php if (!is_null($this->postcode)): ?>
+            <br/>
             Postcode: <?php echo $this->escape($this->postcode); ?>
         <?php endif; ?>
+
     </p>
 </div>

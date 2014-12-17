@@ -756,7 +756,6 @@ class Rulers extends Pas_Db_Table_Abstract {
                 $select->where('issuer LIKE ?','%'.$params['ruler'].'%');
             }
             $paginator = Zend_Paginator::factory($select);
-            Zend_Paginator::setCache($this->_cache);
             $paginator->setItemCountPerPage(30)->setPageRange(10);
             if(isset($params['page']) && ($params['page'] != "")) {
                 $paginator->setCurrentPageNumber((int)$params['page']);

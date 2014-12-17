@@ -93,8 +93,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
                 $this->getCoins()->add($insertData);
                 $this->_helper->solrUpdater->update('objects', $this->_getParam('returnID'));
                 $this->getFlash()->addMessage('Coin data saved.');
-                $this->redirect(self::REDIRECT . 'record/id/'
-                    . $this->_getParam('returnID'));
+                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
             } else {
                 $form->populate($this->_request->getPost());
             }

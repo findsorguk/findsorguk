@@ -80,7 +80,7 @@ class Comments extends Pas_Db_Table_Abstract {
      * @todo remove date formating and put into view?
      * @return array
      */
-    public function getComments(array $params, $userID) {
+    public function getComments(array $params, $userID = null) {
 	$comments = $this->getAdapter();
 	$select = $comments->select()
 		->from($this->_name, array(

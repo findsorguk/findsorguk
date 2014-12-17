@@ -62,10 +62,8 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin
             $form = new PublishCommentFindForm();
             $form->submit->setLabel('Submit changes');
             $this->view->form = $form;
-            if ($this->getRequest()->isPost()
-                && $form->isValid($this->_request->getPost())
-            ) {
-                if ($form->isValid($form->getValues())) {
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
                     $data = $form->getValues();
                     $to[] = array(
                         'name' => $form->getValue('comment_author'),

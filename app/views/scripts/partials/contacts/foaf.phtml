@@ -1,67 +1,47 @@
 <?php
-header( "Content-type: application/xml" );
-echo '<?xml version="1.0" encoding="UTF-8" ?>';
-?>
-<rdf:RDF
-      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-      xmlns:foaf="http://xmlns.com/foaf/0.1/"
-      xmlns:admin="http://webns.net/mvcb/"
-	  xmlns:dc="http://purl.org/dc/elements/1.1/"
-	  xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
-	  xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
->
-<foaf:PersonalProfileDocument rdf:about="">
-  <foaf:maker rdf:resource="#me"/>
-  <foaf:primaryTopic rdf:resource="#me"/>
-  <admin:generatorAgent rdf:resource="<?php echo $this->serverUrl();?>"/>
-  <admin:errorReportsTo rdf:resource="mailto:dpett@thebritishmuseum.org"/>
-</foaf:PersonalProfileDocument>
-<foaf:Person rdf:ID="me">
-<foaf:name><?php echo $this->firstname;?> <?php echo $this->escape($this->lastname);?></foaf:name>
-<foaf:givenname><?php echo $this->firstname;?></foaf:givenname>
-<foaf:family_name><?php echo $this->escape($this->lastname);?></foaf:family_name>
-<foaf:mbox_sha1sum><?php echo sha1($this->email_one);?></foaf:mbox_sha1sum>
-<foaf:mbox rdf:resource="mailto:<?php echo $this->email_one;?>"/>
-<foaf:homepage rdf:resource="<?php echo $this->serverUrl();?>"/>
-<?php if(isset($this->image)) {?>
-<foaf:depiction rdf:resource="<?php echo $this->serverUrl();?><?php echo '/assets/staffphotos/thumbnails/'.$this->image;?>"/><?php } ?>
-<foaf:phone rdf:resource="tel:<?php echo $this->escape($this->telephone);?>"/>
-<foaf:workplaceHomepage rdf:resource="<?php echo $this->serverUrl();?>"/>
-<foaf:workInfoHomepage rdf:resource="<?php echo $this->serverUrl();?>/contacts/staff/profile/id/<?php echo $this->number;?>"/>
-<?php echo $this->onlineAccount($this->number);?>
+// Add namespaces for the foaf file. These will only appear if used
+EasyRdf_Namespace::set('con', 'http://www.w3.org/2000/10/swap/pim/contact#');
+EasyRdf_Namespace::set('geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
+EasyRdf_Namespace::set('admin', 'http://webns.net/mvcb');
+// Create the graph
+$graph = new EasyRdf_Graph();
+// Set up the profiledocument element
+$profile = $graph->resource($this->serverUrl() . '/contacts/staff/profile/id/' . $this->number, 'foaf:PersonalProfileDocument');
+$creator = $graph->resource('#me');
+$profile->add('foaf:maker', $creator);
+$profile->add('foaf:primaryTopic', $creator);
+$admin = $graph->resource($this->serverUrl());
+$profile->add('admin:generatorAgent', $admin);
+$emailError = $graph->resource('mailto:info@finds.org.uk');
+$profile->add('admin:errorReportsTo', $emailError);
 
-<foaf:based_near rdf:parseType="Resource">
-<geo:lat><?php echo $this->latitude;?></geo:lat>
-<geo:long><?php echo $this->longitude;?></geo:long>
-</foaf:based_near>
-<con:office rdf:parseType="Resource">
-<con:address rdf:parseType="Resource">
-<con:city>
-<?php echo $this->town;?>
-</con:city>
-<con:country>
-<?php echo $this->country;?>
-</con:country>
-<con:postalCode>
-<?php echo $this->postcode;?>
-</con:postalCode>
-<con:street>
-<?php echo $this->xmlconvert($this->address_1);?>
-</con:street>
-<con:street2>
-<?php echo $this->xmlconvert($this->address_2);?>
-</con:street2>
-</con:address>
-<con:phone rdf:resource="tel:<?php echo $this->telephone;?>"/>
-<geo:location rdf:parseType="Resource">
-<geo:lat>
-<?php echo $this->latitude;?>
-</geo:lat>
-<geo:long>
-<?php echo $this->longitude;?>
-</geo:long>
-</geo:location>
-</con:office>
-</foaf:Person>
-</rdf:RDF>
+// Create the person
+$me = $graph->resource('#me', 'foaf:Person');
+
+// Add naming elements
+$me->set('foaf:name', $this->firstname . ' ' . $this->lastname);
+$me->set('foaf:givenName', $this->firstname);
+$me->set('foaf:familyName', $this->lastname);
+
+// Add email elements
+$email = $graph->resource("mailto:" . $this->email_one);
+$me->add('foaf:mbox', $email);
+$me->add('foaf:mbox_sha1sum', sha1($this->email_one));
+
+// Add web pages
+$home = $graph->resource($this->serverUrl());
+$me->add('foaf:homepage', $home);
+$phone = $graph->resource($this->telephone);
+$me->add('foaf:phone', $phone);
+$me->add('foaf:workplaceHomepage',$home);
+$info = $graph->resource($this->serverUrl() . '/contacts/staff/profile/id/' . $this->number);
+$me->add('foaf:workInfoHomepage', $info);
+
+// Add depiction if available
+if(!is_null($this->image)) {
+    if(file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)) {
+        $depiction = $graph->resource($this->serverUrl() . '/assets/staffphotos/thumbnails/' . $this->image);
+        $me->add('foaf:depiction', $depiction);
+    }
+}
+echo $graph->serialise('rdfxml');

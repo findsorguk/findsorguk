@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for getting a count of SMR records within a constituency
  *
@@ -32,13 +33,12 @@ class Pas_View_Helper_SmrDataToConst extends Zend_View_Helper_Abstract
 
     /** Set the constituency
      * @access public
-     * @param  string                          $constituency
+     * @param  string $constituency
      * @return \Pas_View_Helper_SmrDataToConst
      */
-    public function setConstituency( $constituency)
+    public function setConstituency($constituency)
     {
         $this->_constituency = $constituency;
-
         return $this;
     }
 
@@ -57,7 +57,7 @@ class Pas_View_Helper_SmrDataToConst extends Zend_View_Helper_Abstract
      */
     public function getData()
     {
-        $os = $this->getRecords( $this->getConstituency() );
+        $os = $this->getRecords($this->getConstituency());
 
         return $this->buildHtml($os);
     }
@@ -67,26 +67,23 @@ class Pas_View_Helper_SmrDataToConst extends Zend_View_Helper_Abstract
      * @param  string $constituency
      * @return array
      */
-    public function getRecords( $constituency)
+    public function getRecords($constituency)
     {
         $osdata = new ScheduledMonuments();
-
-        return $osdata->getSmrsConstituency( $constituency );
+        return $osdata->getSmrsConstituency($constituency);
     }
 
     /** Build the HTML
      * @access public
-     * @param  array  $os
+     * @param  array $os
      * @return string
      */
     public function buildHtml(array $os)
     {
         $html = '';
-        if (is_array( $os )) {
-            $html .= '<p>There are ';
-            $html .= count($os);
-            $html .= ' scheduled monuments listed in the National Monuments Records';
-            $html .= 'from EH for this constituency.</p>';
+        if (is_array($os)) {
+            $data = array('count' => count($os));
+            $html .= $this->partial('partials/database/geodata/smrConstituencyCount.phtml', $data);
         }
 
         return $html;

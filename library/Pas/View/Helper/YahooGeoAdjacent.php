@@ -76,7 +76,7 @@ class Pas_View_Helper_YahooGeoAdjacent extends Zend_View_Helper_Abstract
         if (!empty($places) && !is_null($places[0]['Name'])) {
             $html .= '<h3 class="lead">Adjacent places</h3>';
             $html .= '<ul>';
-            $html .= $this->view->partialLoop('partials/database/yahooAdjacent.phtml', $places);
+            $html .= $this->view->partialLoop('partials/database/geodata/yahooAdjacent.phtml', $places);
             $html .= '</ul>';
         }
         return $html;

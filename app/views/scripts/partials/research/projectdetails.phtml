@@ -21,7 +21,7 @@ $this->metaBase()->setDescription($this->ellipsisString()->setString($this->desc
 <?php endif; ?>
 
 <?php
-$audit = array($this->created, $this->updated, $this - fullname, $this->fn);
+$audit = array($this->created, $this->updated, $this->fullname, $this->fn);
 ?>
 <?php if (array_filter($audit)): ?>
     <h3 class="lead">Audit data</h3>

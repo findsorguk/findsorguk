@@ -248,13 +248,10 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                     $phMagickRegen->convert();
                 }
 
-                $update = $this->_images->update($updateData, $where);
-                        //Update the solr instance
+                $this->_images->update($updateData, $where);
                 $this->_helper->solrUpdater->update('images', $this->_getParam('id'));
-
                 $this->getFlash()->addMessage('Image and metadata updated!');
                 $this->redirect(self::REDIRECT . 'image/id/' . $this->_getParam('id'));
-
                 } else {
                     $form->populate($form->getValues());
                 }

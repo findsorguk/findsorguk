@@ -1,4 +1,5 @@
 <?php
+
 /**
  * An action helper for sending updates to our solr instances via the controller
  *
@@ -20,7 +21,8 @@
  *
  */
 class Pas_Controller_Action_Helper_SolrUpdater
-    extends Zend_Controller_Action_Helper_Abstract {
+    extends Zend_Controller_Action_Helper_Abstract
+{
 
     /** The list of cores available
      * @access protected
@@ -29,8 +31,8 @@ class Pas_Controller_Action_Helper_SolrUpdater
      */
     protected $_cores = array(
         'objects', 'people', 'images',
-        'publications','bibliography','content'
-        );
+        'publications', 'bibliography', 'content'
+    );
 
     /** The solr object
      * @access protected
@@ -47,7 +49,8 @@ class Pas_Controller_Action_Helper_SolrUpdater
     /** The constructor
      * @access public
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->_config = Zend_Registry::get('config')->solr->toArray();
     }
 
@@ -57,15 +60,16 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @return \Solarium_Client
      * @throws Exception
      */
-    public function getSolrConfig($core){
-        if(in_array($core, $this->_cores)){
+    public function getSolrConfig($core)
+    {
+        if (in_array($core, $this->_cores)) {
             $solrAdapter = $this->_config;
             $solrAdapter['core'] = $core;
             $solr = new Solarium_Client(
-                    array(
-                        'adapteroptions' =>
+                array(
+                    'adapteroptions' =>
                         $solrAdapter
-                    ));
+                ));
             return $solr;
         } else {
             throw new Exception('That core does not exist', 500);
@@ -79,17 +83,21 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @param string $type
      * @return integer
      */
-    public function update($core, $id, $type = null){
+    public function update($core, $id, $type = null)
+    {
         $data = $this->getUpdateData($core, $id, $type);
-        $this->_solr = $this->getSolrConfig($core);
-        $update = $this->_solr->createUpdate();
+        $solr = $this->getSolrConfig($core);
+        $update = $solr->createUpdate();
         $doc = $update->createDocument();
-        foreach($data as $k => $v){
+
+        foreach ($data as $k => $v) {
             $doc->$k = $v;
         }
+
         $update->addDocument($doc);
+
         $update->addCommit();
-        return $this->_solr->update($update);
+        return $solr->update($update);
     }
 
     /** Delete by an id number
@@ -98,12 +106,13 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @param integer $id
      * @return integer
      */
-    public function deleteById($core, $id){
+    public function deleteById($core, $id)
+    {
         $this->_solr = $this->getSolrConfig($core);
         $update = $this->_solr->createUpdate();
-        $update->addDeleteByID( $this->_getIdentifier($core) . $id);
+        $update->addDeleteByID($this->_getIdentifier($core) . $id);
         $update->addCommit();
-        return  $this->_solr->update($update);
+        return $this->_solr->update($update);
     }
 
     /** Get the preferred identifier by core
@@ -112,9 +121,10 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @return string
      * @throws Exception
      */
-    protected function _getIdentifier($core){
-	if(in_array($core, $this->_cores)){
-            switch($core) {
+    protected function _getIdentifier($core)
+    {
+        if (in_array($core, $this->_cores)) {
+            switch ($core) {
                 case 'objects':
                     $identifier = 'finds-';
                     break;
@@ -137,12 +147,12 @@ class Pas_Controller_Action_Helper_SolrUpdater
                     $identifier = 'hoards-';
                     break;
                 default:
-                    throw new Exception('Your core does not exist',500);
-		}
-		return $identifier;
-	} else {
+                    throw new Exception('Your core does not exist', 500);
+            }
+            return $identifier;
+        } else {
             throw new Exception('That core does not exist', 500);
-	}
+        }
     }
 
     /** Get update data for a core
@@ -153,9 +163,10 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @return array
      * @throws Exception
      */
-    public function getUpdateData($core, $id, $type = null){
-	if(in_array($core, $this->_cores)){
-            switch($core){
+    public function getUpdateData($core, $id, $type = null)
+    {
+        if (in_array($core, $this->_cores)) {
+            switch ($core) {
                 case 'objects':
                     $model = new Finds();
                     break;
@@ -179,14 +190,14 @@ class Pas_Controller_Action_Helper_SolrUpdater
                     $model = new Hoards();
                     break;
                 default:
-                    throw new Exception('Your core does not exist',500);
+                    throw new Exception('Your core does not exist', 500);
             }
             $data = $model->getSolrData($id);
             $cleanData = $this->cleanData($data[0]);
             return $cleanData;
-	} else {
-            throw new Exception('That core does not exist',500);
-	}
+        } else {
+            throw new Exception('That core does not exist', 500);
+        }
     }
 
     /** Clean the data up
@@ -194,46 +205,47 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @param array $data
      * @return array
      */
-    public function cleanData(array $data){
-	if(array_key_exists('datefound1',$data)){
-            if(!is_null($data['datefound1'])) {
+    public function cleanData(array $data)
+    {
+        if (array_key_exists('datefound1', $data)) {
+            if (!is_null($data['datefound1'])) {
                 $df1 = $data['datefound1'] . 'T00:00:00Z';
                 $data['datefound1'] = $df1;
             } else {
                 $data['datefound1'] = null;
             }
-	}
-	if(array_key_exists('datefound2',$data)){
-            if(!is_null($data['datefound2'])) {
+        }
+        if (array_key_exists('datefound2', $data)) {
+            if (!is_null($data['datefound2'])) {
                 $df2 = $data['datefound2'] . 'T00:00:00Z';
                 $data['datefound2'] = $df2;
             } else {
                 $data['datefound2'] = null;
             }
-	}
-	if(array_key_exists('created',$data)){
-            if(!is_null($data['created'])) {
+        }
+        if (array_key_exists('created', $data)) {
+            if (!is_null($data['created'])) {
                 $created = $this->todatestamp($data['created']);
-		$data['created'] = $created;
+                $data['created'] = $created;
             } else {
                 $data['created'] = null;
             }
-	}
-	if(array_key_exists('updated',$data)){
-            if(!is_null($data['updated'])) {
+        }
+        if (array_key_exists('updated', $data)) {
+            if (!is_null($data['updated'])) {
                 $updated = $this->todatestamp($data['updated']);
                 $data['updated'] = $updated;
             } else {
                 $data['updated'] = null;
             }
-	}
-	foreach($data as $k => $v){
+        }
+        foreach ($data as $k => $v) {
             $data[$k] = strip_tags($v);
             if (is_null($v) || $v === "") {
                 unset($data[$k]);
             }
-	}
-	return $data;
+        }
+        return $data;
     }
 
 
@@ -242,7 +254,8 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @param Zend_Date $date
      * @return string
      */
-    public function todatestamp($date) {
+    public function todatestamp($date)
+    {
         $st = strtotime($date);
         $zendDate = new Zend_Date();
         $zendDate->set($st);

@@ -1,5 +1,12 @@
-<h2 class="lead">Edit publication's details</h2>
-<?php 
+<?php
 $this->headTitle('Edit a publication\'s details');
-echo $this->form;
+$this->metaBase()->setDescription($this->title())->generate();
 ?>
+<h2 class="lead">Edit publication's details</h2>
+<?php echo $this->form; ?>
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function() {
+    $('form').areYouSure();
+    });
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

@@ -18,7 +18,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                     'action' => 'edit',
                     'id' => $this->number
                 ), 'default', true); ?>">Edit</a>
-            <a class="btn btn-danger"  href="<?php echo $this->url(
+            <a class="btn btn-danger" href="<?php echo $this->url(
                 array(
                     'module' => 'admin',
                     'controller' => 'contacts',
@@ -28,10 +28,17 @@ $this->metaBase()->setDescription($this->title())->generate();
         </div>
 
         <div id="image-<?php echo $this->number; ?>" class="pull-right">
-            <?php if (!is_null($this->image)) { ?>
-                <img src="<?php echo $this->baseUrl() . '/assets/staffphotos/thumbnails/' . $this->image; ?>" />
-                <p><a href="#" class="deleteimage btn-danger btn">Delete this image</a></p>
-            <?php } else { ?>
+            <?php if (!is_null($this->image)): ?>
+                <?php if (file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)): ?>
+                    <img class="img-circle"
+                         src="<?php echo $this->baseUrl() . '/assets/staffphotos/thumbnails/' . $this->image; ?>"/>
+                    <p><a href="#" class="deleteimage btn-danger btn">Delete this image</a></p>
+                <?php else: ?>
+                    <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
+                         class="img-circle"/>
+                    <p>Image unavailable<br/>Error: 404</p>
+                <?php endif; ?>
+            <?php else: ?>
                 <p>
                     <a class="btn btn-success" href="<?php echo $this->url(
                         array(
@@ -40,16 +47,24 @@ $this->metaBase()->setDescription($this->title())->generate();
                             'action' => 'addpicture',
                             'id' => $this->number
                         ), 'default', true); ?>"
-                       title="Add a new image">Add a photo for <?php echo $this->firstname; ?> <?php echo $this->lastname; ?></a>
+                       title="Add a new image">Add a photo
+                        for <?php echo $this->firstname; ?> <?php echo $this->lastname; ?></a>
                 </p>
-            <?php } ?>
+            <?php endif; ?>
         </div>
-        <p>Role: <span class="title"><?php echo $this->escape($this->staffroles); ?></span> <br/>
-            Database records prefix: <strong><?php echo $this->escape($this->identifier); ?></strong></p>
-        <?php if (isset($this->host)) { ?>
-            <img src="<?php echo $this->baseUrl(); ?>/asset/logos/<?php echo $this->escape($this->host); ?>"
-                 alt="<?php echo $this->escape($this->description); ?>'s logo"/>
-        <?php } ?>
+        <p>Role: <span class="title"><?php echo $this->staffroles; ?></span> <br/>
+            Database records prefix: <strong><?php echo $this->identifier; ?></strong></p>
+        <?php if (isset($this->host)): ?>
+            <h3 class="lead">Host logo</h3>
+            <?php if (file_exists(ASSETS_PATH . '/logos/' . $this->host)): ?>
+                <img src="<?php echo $this->baseUrl(); ?>/asset/logos/<?php echo $this->escape($this->host); ?>"
+                     alt="<?php echo $this->escape($this->description); ?>'s logo"/>
+            <?php else: ?>
+                <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
+                     class="img-circle"/>
+                <p>Image unavailable<br/>Error: 404</p>
+            <?php endif; ?>
+        <?php endif; ?>
 
         <p class="adr work">Address: <?php echo $this->escape($this->address_1); ?><br/>
             <span class="org organization-name"><?php echo $this->escape($this->description); ?></span>
@@ -65,23 +80,34 @@ $this->metaBase()->setDescription($this->title())->generate();
         </div>
 
         <p>Short profile:</p>
-        <span class="summary"><?php echo $this->profile; ?></span>
+        <?php if (!is_null($this->profile)): ?>
+            <span class="summary"><?php echo $this->profile; ?></span>
+            <?php else:?>
+            <p>No profile added.</p>
+        <?php endif; ?>
 
-        <div class="tel">
-            <dl>
-                <dt>Phone (<span class="type">work</span>)</dt>
-                <dd><span class="value"><?php echo $this->escape($this->telephone); ?></span></dd>
-            </dl>
-        </div>
-        <div class="tel">
-            <dl>
-                <dt>Phone (<span class="type">fax</span>)</dt>
-                <dd><span class="value"><?php echo $this->escape($this->fax); ?></span></dd>
-            </dl>
-        </div>
+        <?php if (!is_null($this->telephone)): ?>
+            <div class="tel">
+                <dl>
+                    <dt>Phone (<span class="type">work</span>)</dt>
+                    <dd><span class="value"><?php echo $this->escape($this->telephone); ?></span></dd>
+                </dl>
+            </div>
+        <?php endif; ?>
 
-        <p>Email address: <a href="mailto:<?php echo $this->escape($this->email_one); ?>"
-                             class="email"><?php echo $this->escape($this->email_one); ?></a></p>
+        <?php if (!is_null($this->fax)): ?>
+            <div class="tel">
+                <dl>
+                    <dt>Phone (<span class="type">fax</span>)</dt>
+                    <dd><span class="value"><?php echo $this->escape($this->fax); ?></span></dd>
+                </dl>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!is_null($this->email_one)): ?>
+            <p>Email address: <a href="mailto:<?php echo $this->escape($this->email_one); ?>"
+                                 class="email"><?php echo $this->escape($this->email_one); ?></a></p>
+        <?php endif; ?>
 
     </div>
 </div>
@@ -115,9 +141,7 @@ $('a[class^=delete]').confirm({
 dialogShow:'fadeIn',
 dialogSpeed:'slow',
 buttons: {
-wrapper:'
-<button></button>',
-separator:'  '
+wrapper:'<button></button>', separator:'  '
 }
 });
 });

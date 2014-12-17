@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper to provide a link url for the analytics page.
  *
@@ -18,7 +19,6 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  *
  */
-
 class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
 {
     /** The delimiter between the string for the url
@@ -32,12 +32,13 @@ class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
      * @var string
      */
     protected $_role = 'public';
-    
+
     /** get the delimiter to use
      * @access public
      * @return string
      */
-    public function getDelimiter() {
+    public function getDelimiter()
+    {
         return $this->_delimiter;
     }
 
@@ -46,7 +47,8 @@ class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
      * @param  string $delimiter
      * @return \Pas_View_Helper_AnalyticsLink
      */
-    public function setDelimiter( $delimiter ) {
+    public function setDelimiter($delimiter)
+    {
         $this->_delimiter = $delimiter;
         return $this;
     }
@@ -55,12 +57,13 @@ class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string $_role;
      */
-    public function getRole() {
+    public function getRole()
+    {
         $user = new Pas_User_Details();
         $person = $user->getPerson();
         if ($person) {
             $this->_role = $person->role;
-        } 
+        }
         return $this->_role;
     }
 
@@ -68,7 +71,8 @@ class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_AnalyticsLink
      */
-    public function analyticsLink() {
+    public function analyticsLink()
+    {
         return $this;
     }
 
@@ -76,7 +80,8 @@ class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
      * @access private
      * @return type
      */
-    private function getCurUrl() {
+    private function getCurUrl()
+    {
         return $this->view->curUrl();
     }
 
@@ -84,16 +89,18 @@ class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
      * @access private
      * @return string
      */
-    private function getPath() {
+    private function getPath()
+    {
         $path = parse_url($this->getCurUrl(), PHP_URL_PATH);
-        return  $this->_delimiter . substr($path, 1);
+        return $this->_delimiter . substr($path, 1);
     }
 
     /** Encode the path
      * @access private
      * @return string
      */
-    private function encodePath() {
+    private function encodePath()
+    {
         $raw = base64_encode($this->getPath());
         return $raw;
     }
@@ -102,18 +109,19 @@ class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function url() {
+    public function url()
+    {
         $html = '';
         if ($this->getRole()) {
-        $params = array(
+            $params = array(
                 'module' => 'analytics',
                 'controller' => 'content',
                 'action' => 'page',
                 'url' => rawurlencode($this->encodePath())
-        );
-        $url = $this->view->url($params, 'default', true);
-        $html .= '<a rel="nofollow" class="btn" href="';
-        $html .= $url . '">View analytics <i class="icon-signal"></i></a>';
+            );
+            $url = $this->view->url($params, 'default', true);
+            $html .= '<a rel="nofollow" class="btn" href="';
+            $html .= $url . '">View analytics <i class="icon-signal"></i></a>';
         }
         return $html;
     }
@@ -122,7 +130,8 @@ class Pas_View_Helper_AnalyticsLink extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->url();
     }
 }

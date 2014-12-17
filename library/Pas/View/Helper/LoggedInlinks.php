@@ -58,13 +58,12 @@ class Pas_View_Helper_LoggedInlinks extends Zend_View_Helper_Abstract
                 'module' => 'database',
                 'controller'=>'artefacts',
                 'action'=>'add'),
-                    NULL, true
-                    );
-            $html .= '<div id="action"><p><a class="btn btn-large btn-success"';
-            $html .= 'href="';
+                    NULL, false);
+            $html .= '<div class="btn-group"><p><a class="btn btn-small btn-success"';
+            $html .= ' href="';
             $html .= $url;
-            $html .-  '" title="Add a new artefact"';
-            $html .= 'accesskey="a">Add new artefact</a></p></div>';
+            $html .=  '" title="Add a new artefact"';
+            $html .= ' accesskey="a">Add new artefact</a></p></div>';
         }
 
         return $html;

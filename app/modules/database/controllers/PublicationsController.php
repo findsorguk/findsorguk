@@ -20,7 +20,11 @@
 class Database_PublicationsController extends Pas_Controller_Action_Admin
 {
 
-    protected $_publications;
+    /** The publications model
+     * @access protected
+     * @var null
+     */
+    protected $_publications = NULL;
 
     /** Setup the contexts by action and the ACL.
      * @access public
@@ -36,9 +40,18 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
             ->addActionContext('publication', array('xml', 'json'))
             ->addActionContext('index', array('xml', 'json'))
             ->initContext();
-
-        $this->_publications = new Publications();
     }
+
+    /** Get the publications model
+     * @access public
+     * @return null
+     */
+    public function getPublications()
+    {
+        $this->_publications = new Publications();
+        return $this->_publications;
+    }
+
 
     /** The redirect uri
      *
@@ -100,8 +113,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
     public function publicationAction()
     {
         if ($this->_getParam('id', false)) {
-            $this->view->publications = $this->_publications
-                ->getPublicationDetails($this->_getParam('id'));
+            $this->view->publications = $this->getPublications()->getPublicationDetails($this->_getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -116,18 +128,16 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
         $form = new PublicationForm();
         $form->submit->setLabel('Submit new');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost()
-            && $form->isValid($this->_request->getPost())
-        ) {
+        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
             $insertData = $form->getValues();
             $insertData['secuid'] = $this->_helper->GenerateSecuID();
-            $insert = $this->_publications->add($insertData);
+            $insert = $this->getPublications()->add($insertData);
             $this->_helper->solrUpdater->update('publications', $insert);
             $this->redirect(self::REDIRECT . 'publication/id/' . $insert);
             $this->getFlash()->addMessage('A new reference work has been '
                 . 'created on the system!');
         } else {
-            $form->populate($form->getValues());
+            $form->populate($this->_request->getPost());
         }
     }
 
@@ -140,27 +150,24 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
         $form = new PublicationForm();
         $form->submit->setLabel('Update publication');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost()
-            && $form->isValid($this->_request->getPost())
-        ) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $updateData = $form->getValues();
                 $where = array();
-                $where[] = $this->_publications->getAdapter()
-                    ->quoteInto('id = ?', $this->_getParam('id'));
-                $this->_publications->update($updateData, $where);
+                $where[] = $this->getPublications()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $this->getPublications()->update($updateData, $where);
                 $this->_helper->solrUpdater->update('publications', $this->_getParam('id'));
                 $this->getFlash()->addMessage('Details for "'
                     . $form->getValue('title') . '" updated!');
                 $this->redirect(self::REDIRECT . 'publication/id/'
                     . $this->_getParam('id'));
             } else {
-                $form->populate($form->getValues());
+                $form->populate($this->_request->getPost());
             }
         } else {
             $id = (int)$this->_request->getParam('id', 0);
             if ($id > 0) {
-                $publication = $this->_publications->fetchRow('id=' . $id);
+                $publication = $this->getPublications()->fetchRow('id=' . $id);
                 $form->populate($publication->toArray());
             }
         }
@@ -179,18 +186,17 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = array();
-                    $where[] = $this->_publications->getAdapter()
+                    $where[] = $this->getPublications()->getAdapter()
                         ->quoteInto('id = ?', $this->_getParam('id'));
                     $this->getFlash()->addMessage('Record deleted!');
-                    $this->_publications->delete($where);
+                    $this->getPublications()->delete($where);
                     $this->_helper->solrUpdater->deleteById('publications', $id);
                 }
                 $this->redirect(self::REDIRECT);
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {
-                    $this->view->publication = $this->_publications
-                        ->fetchRow('id= ' . (int)$this->_getParam('id'));
+                    $this->view->publication = $this->getPublications()->fetchRow('id= ' . (int)$this->_getParam('id'));
                 }
             }
         } else {

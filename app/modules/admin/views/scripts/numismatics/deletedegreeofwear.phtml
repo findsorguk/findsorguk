@@ -2,7 +2,7 @@
 $this->headTitle('Delete a degree of wear');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
-<?php if (!is_null($this->cat)): ?>
+<?php if (!is_null($this->degree)): ?>
     <h2 class="lead">Delete <?php echo $this->escape($this->degree->term); ?></h2>
     <p>Are you sure that you want to delete <?php echo $this->escape($this->degree->term); ?></p>
     <form

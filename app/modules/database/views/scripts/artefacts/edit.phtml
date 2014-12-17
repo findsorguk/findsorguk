@@ -2,13 +2,7 @@
 $this->headTitle('Edit find details');
 $this->metaBase()->setDescription($this->title())->setSubject('Database editing')->generate();
 ?>
-<?php $this->jQuery()->javascriptCaptureStart() ?>
-    $(document).ready(function() {
-    $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
-    $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
-    $("input[type='text']:first", document.forms[0]).focus();
-    });
-<?php $this->jQuery()->javascriptCaptureEnd() ?>
+
 
 <?php
 $this->dataEditDeleteCheck()->setInstitution($this->find->institution)
@@ -28,4 +22,14 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/sec
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');
+
 ?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+    $(document).ready(function() {
+    $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
+    $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
+    $("input[type='text']:first", document.forms[0]).focus();
+    $('form').areYouSure();
+    });
+<?php $this->jQuery()->javascriptCaptureEnd() ?>

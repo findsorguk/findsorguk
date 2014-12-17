@@ -27,6 +27,8 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/lan
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedSelect.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedQuery.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');
+
 $front = Zend_Controller_Front::getInstance()->getRequest();
 $copy = $front->getParam('copy');
 if (!is_null($copy)) {
@@ -38,5 +40,6 @@ $(document).ready(function() {
 
 // focus on the first text input field in the first field on the page
 $("input[type='select']:first", document.forms[0]).focus();
+$('form').areYouSure();
 });
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>

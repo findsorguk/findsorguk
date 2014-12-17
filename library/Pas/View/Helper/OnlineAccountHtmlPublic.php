@@ -1,7 +1,8 @@
 <?php
-/** 
+
+/**
  * A view helper for displaying online accounts
- * 
+ *
  * Example of use:
  * <code>
  * <?php
@@ -17,19 +18,21 @@
  * @see Zend_View_Helper_Abstract
  * @example /app/views/scripts/partials/users/publicProfile.phtml
  */
-class Pas_View_Helper_OnlineAccountHtmlPublic extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_OnlineAccountHtmlPublic extends Zend_View_Helper_Abstract
+{
 
-     /** The id number to query
+    /** The id number to query
      * @access public
      * @var string
      */
     protected $_id;
-    
+
     /** Get the ID number
      * @access public
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->_id;
     }
 
@@ -38,25 +41,28 @@ class Pas_View_Helper_OnlineAccountHtmlPublic extends Zend_View_Helper_Abstract 
      * @param string $id
      * @return \Pas_View_Helper_OnlineAccountHtml
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->_id = $id;
         return $this;
     }
-    
+
     /** The function to return
      * @access public
      * @return \Pas_View_Helper_OnlineAccountHtmlPublic
      */
-    public function onlineAccountHtmlPublic() {
+    public function onlineAccountHtmlPublic()
+    {
         return $this;
     }
-    
+
     /** Get account data
      * @access public
      * @param int $id
      * @return string
      */
-    public function getAccounts($id) {
+    public function getAccounts($id)
+    {
         $accts = new OnlineAccounts();
         return $accts->getAllAccounts($id);
     }
@@ -65,22 +71,24 @@ class Pas_View_Helper_OnlineAccountHtmlPublic extends Zend_View_Helper_Abstract 
      * @access public
      * @param array $data
      */
-    public function buildHtml( $data ) {
-        $html ='';
+    public function buildHtml($data)
+    {
+        $html = '';
         $html .= '<p>Social profiles: ';
         $html .= '<div class="btn-group">';
-        $html .=  $this->view->partialLoop('partials/contacts/foafAccts.phtml',
-                $data);
+        $html .= $this->view->partialLoop('partials/contacts/foafAccts.phtml',
+            $data);
         $html .= '</div>';
         $html .= '</p>';
-        return  $html;
+        return $html;
     }
 
     /** To string function
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildHtml($this->getAccounts($this->getId()));
     }
 }

@@ -66,7 +66,12 @@ class Pas_View_Helper_NiceShortDate extends Zend_View_Helper_Abstract
      */
     public function __toString() {
         $date = $this->fromString($this->getDate());
-        $ret = date('l jS F Y', $date);
+        $ret = '';
+        if($date) {
+            $ret .= date('l jS F Y', $date);
+        } else {
+            $ret = 'N/A';
+        }
         return $ret;
     }
     /** The function
