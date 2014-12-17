@@ -1,15 +1,34 @@
 <?php
+// Add namespaces for the foaf file. These will only appear if used
 EasyRdf_Namespace::set('con', 'http://www.w3.org/2000/10/swap/pim/contact#');
 EasyRdf_Namespace::set('geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
+EasyRdf_Namespace::set('admin', 'http://webns.net/mvcb');
+// Create the graph
 $graph = new EasyRdf_Graph();
+// Set up the profiledocument element
+$profile = $graph->resource($this->serverUrl() . '/contacts/staff/profile/id/' . $this->number, 'foaf:PersonalProfileDocument');
+$creator = $graph->resource('#me');
+$profile->add('foaf:maker', $creator);
+$profile->add('foaf:primaryTopic', $creator);
+$admin = $graph->resource($this->serverUrl());
+$profile->add('admin:generatorAgent', $admin);
+$emailError = $graph->resource('mailto:info@finds.org.uk');
+$profile->add('admin:errorReportsTo', $emailError);
 
-$me = $graph->resource($this->serverUrl() . '/contacts/staff/profile/id/' . $this->number, 'foaf:Person');
+// Create the person
+$me = $graph->resource('#me', 'foaf:Person');
+
+// Add naming elements
 $me->set('foaf:name', $this->firstname . ' ' . $this->lastname);
 $me->set('foaf:givenName', $this->firstname);
 $me->set('foaf:familyName', $this->lastname);
+
+// Add email elements
 $email = $graph->resource("mailto:" . $this->email_one);
 $me->add('foaf:mbox', $email);
-$me->add('foaf:mbox_sha1sum', sha1($this->email_one))   ;
+$me->add('foaf:mbox_sha1sum', sha1($this->email_one));
+
+// Add web pages
 $home = $graph->resource($this->serverUrl());
 $me->add('foaf:homepage', $home);
 $phone = $graph->resource($this->telephone);
@@ -17,6 +36,12 @@ $me->add('foaf:phone', $phone);
 $me->add('foaf:workplaceHomepage',$home);
 $info = $graph->resource($this->serverUrl() . '/contacts/staff/profile/id/' . $this->number);
 $me->add('foaf:workInfoHomepage', $info);
-$depiction = $graph->resource($this->serverUrl() . '/assets/staffphotos/thumbnails/' . $this->image);
-$me->add('foaf:depiction', $depiction);
+
+// Add depiction if available
+if(!is_null($this->image)) {
+    if(file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)) {
+        $depiction = $graph->resource($this->serverUrl() . '/assets/staffphotos/thumbnails/' . $this->image);
+        $me->add('foaf:depiction', $depiction);
+    }
+}
 echo $graph->serialise('rdfxml');

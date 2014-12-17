@@ -3,35 +3,37 @@
     <?php if (!is_null($this->image)): ?>
         <?php
         $path = ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image;
-        if(file_exists($path)) {
+        if (file_exists($path)) {
             list($w, $h) = getimagesize($path);
         } else {
             $w = 150;
             $h = 150;
         }
         ?>
-        <?php if(file_exists($path)):?>
-        <ul class="thumbnails pull-right">
-            <li>
-                <div class="staffimage" relrel="foaf:img">
-                    <a href="<?php echo $this->baseUrl() . '/assets/staffphotos/resized/' . $this->image; ?>"
-                       title="View enlarged profile image" rel="lightbox" ><img
-                            src="<?php echo $this->baseUrl() . '/assets/staffphotos/thumbnails/' . $this->image; ?>"
-                            alt="Profile image for <?php echo $this->firstname . ' ' . $this->lastname; ?>"
-                            width="<?php echo $w; ?>" height="<?php echo $h; ?>" class="img-circle"/></a>
-                </div>
-            </li>
-        </ul>
-        <?php else:?>
-        <ul class="thumbnails pull-right">
-            <li>
-                <div class="staffimage" relrel="foaf:img">
-                    <img src="<?php echo $this->baseUrl();?>/assets/gravatar.png" width="80" height="80" class="img-circle" />
-                    <p>Image unavailable<br />Error: 404</p>
-                </div>
-            </li>
-        </ul>
-        <?php endif;?>
+        <?php if (file_exists($path)): ?>
+            <ul class="thumbnails pull-right">
+                <li>
+                    <div class="staffimage" relrel="foaf:img">
+                        <a href="<?php echo $this->baseUrl() . '/assets/staffphotos/resized/' . $this->image; ?>"
+                           title="View enlarged profile image" rel="lightbox"><img
+                                src="<?php echo $this->baseUrl() . '/assets/staffphotos/thumbnails/' . $this->image; ?>"
+                                alt="Profile image for <?php echo $this->firstname . ' ' . $this->lastname; ?>"
+                                width="<?php echo $w; ?>" height="<?php echo $h; ?>" class="img-circle"/></a>
+                    </div>
+                </li>
+            </ul>
+        <?php else: ?>
+            <ul class="thumbnails pull-right">
+                <li>
+                    <div class="staffimage" relrel="foaf:img">
+                        <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
+                             class="img-circle"/>
+
+                        <p>Image unavailable<br/>Error: 404</p>
+                    </div>
+                </li>
+            </ul>
+        <?php endif; ?>
     <?php endif; ?>
 
 
@@ -85,10 +87,11 @@
         <span class="longitude" property="geo:lon"><?php echo $this->longitude; ?></span>
     </div>
     <?php echo $this->onlineAccountHtml()->setId($this->id); ?>
-
-    <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>">Vcard</a>
-    | <a rel="foaf"
-         href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'foaf'), null, true); ?>">FOAF</a><br/>
-
+    <div class="btn-group">
+        <h3 class="lead">Other formats</h3>
+        <a class="btn-mini btn" href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>">Vcard</a>
+        <a class="btn-mini btn" href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'foaf'), null, true); ?>"
+           rel="foaf">FOAF</a>
+    </div>
 </div>
 
