@@ -9,11 +9,14 @@ $this->metaBase()->setDescription($this->title())->generate();
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.autocomplete.pack.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/autocompleteinitPeople.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');
 $this->headLink()->appendStylesheet($this->baseUrl() . '/css/autocomplete.css');
 ?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
 $("#startDate").datepicker({ maxDate: '+6y'});
 $("#endDate").datepicker({ maxDate: '+6y' });
+$('form').areYouSure();
 });
+
 <?php $this->jQuery()->javascriptCaptureEnd() ?>

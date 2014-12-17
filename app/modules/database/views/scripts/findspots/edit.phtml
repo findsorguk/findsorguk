@@ -24,6 +24,7 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/lan
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedSelect.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedQuery.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');
 ?>
 
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
@@ -31,6 +32,6 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinked
 
     // focus on the first text input field in the first field on the page
     $("input[type='select']:first", document.forms[0]).focus();
-
+    $('form').areYouSure();
     });
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>

@@ -21,6 +21,8 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/sec
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/primaryID.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/secondaryID.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/recorder.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');
+
 if (!is_null(Zend_Controller_Front::getInstance()->getRequest()->getParam('copy'))) {
     $this->headTitle(' copied from last record');
 }
@@ -31,5 +33,6 @@ if (!is_null(Zend_Controller_Front::getInstance()->getRequest()->getParam('copy'
     $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
     $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
     $("input[type='select']:first", document.forms[0]).focus();
+    $('form').areYouSure();
     });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
