@@ -50,7 +50,7 @@ class Pas_View_Helper_PeopleToolbox extends Zend_View_Helper_Abstract {
         $html = '';
         if (in_array($this->getRole(), $this->_allowed)) {
             $html .= '<div class="btn-group">';
-            $html .= '<a class="btn btn-large btn-primary" href="';
+            $html .= '<a class="btn btn-small btn-primary" href="';
             $html .=  $this->view->url(array(
                 'module' => 'database',
                 'controller'=>'people',
