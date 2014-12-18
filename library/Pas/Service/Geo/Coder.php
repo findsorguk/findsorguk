@@ -12,7 +12,7 @@
  * 
  * @version 1
  * @author Daniel Pett
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @package Pas_Service
  * @subpackage Geo
  * @category Pas

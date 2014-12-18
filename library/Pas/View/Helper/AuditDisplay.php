@@ -17,7 +17,7 @@
  * @package Pas_View_Helper
  * @uses Pas_View_Helper_TimeAgoInWords
  * @uses Zend_View_Helper_Url
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @copyright 2014 Daniel Pett
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 2

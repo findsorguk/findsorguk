@@ -17,7 +17,7 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @version 1
  * @copyright Daniel Pett <dpett@britishmuseum.org>
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 class Pas_View_Helper_EarlyMiddleLate extends Zend_View_Helper_Abstract
 {

@@ -13,7 +13,7 @@
  * @todo phase this out as it won't be needed shortly
  * @author Daniel Pett
  * @copyright DEJ Pett
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 28 September 2011
  * @category Pas
