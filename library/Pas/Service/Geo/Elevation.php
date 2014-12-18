@@ -13,7 +13,7 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @version 1
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @package Pas_Service
  * @subpackage Geo
  * @category Pas

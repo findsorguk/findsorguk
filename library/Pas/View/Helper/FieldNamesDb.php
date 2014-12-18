@@ -15,7 +15,7 @@
  * @version 1
  * @since 1
  * @copyright (c) 2014, Daniel Pett
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @category Pas
  * @package Pas_View_Helper
  */

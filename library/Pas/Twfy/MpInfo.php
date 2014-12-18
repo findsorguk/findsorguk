@@ -7,7 +7,7 @@
  * @category Pas
  * @package Pas_twfy
  * @subpackage MpInfo
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_Twfy
  * @see http://www.theyworkforyou.com/api/docs/getMPInfo
  */

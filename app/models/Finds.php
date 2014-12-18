@@ -2039,7 +2039,7 @@ class Finds extends Pas_Db_Table_Abstract {
                             'coordinates' => 'CONCAT(declat,",",declong)',
                             'precision' => 'gridlen',
                             'geohash',
-                            'Findspotcode' => 'old_findspotID'
+                            'findspotcode' => 'old_findspotID'
                             ))
                 ->joinLeft('coins', 'finds.secuid = coins.findID',
                         array(

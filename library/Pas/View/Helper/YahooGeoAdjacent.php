@@ -15,7 +15,7 @@
  * @package Pas_View
  * @subpackage Helper
  * @version 1
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @copyright Daniel Pett
  * @since 30 September 2011
  * @uses Zend_View_Helper_Url
