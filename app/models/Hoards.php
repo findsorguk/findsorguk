@@ -971,7 +971,6 @@ class Hoards extends Pas_Db_Table_Abstract
             ->where('hoards.id = ?', (int)$findID)
             ->group('hoards.id')
             ->limit(1);
-//        $select->setIntegrityCheck(false);
         return $data->fetchAll($select);
     }
 }

@@ -188,7 +188,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
 
         $html .= $this->view->recordEditDeleteLinks()->setCreatedBy($this->getCreatedBy())->setFindID($this->getId())->setRecordID($this->getOldFindID())->setController($this->getController());
 
-        $html .= $this->view->Href(array(
+        $html .= $this->view->href(array(
             'module' => 'database',
             'controller'=>$this->getController(),
             'action'=>'add',
@@ -210,7 +210,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 'action'=>'workflow',
                 'id' => $this->getId()),null,true);
             $html .= '">Change workflow</a>';
-            $html .= ' <a class="' . $class . '"  href="';
+            $html .= ' <a class="overlay ' . $class . '"  href="';
             $html .= $this->view->url(array(
                 'module' => 'database',
                 'controller'=>'ajax',

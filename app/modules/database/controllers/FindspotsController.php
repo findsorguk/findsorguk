@@ -141,7 +141,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $updateData['findID'] = $this->_getParam('secuid');
                     $updateData['institution'] = $this->_helper->identity->getPerson()->institution;
                     $this->_findspots->addAndProcess($updateData);
-                    // $this->_helper->solrUpdater->update('objects', $returnID);
+                    $this->_helper->solrUpdater->update('objects', $returnID);
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                     $this->getFlash()->addMessage('A new findspot has been created.');
                 } else {
@@ -166,7 +166,8 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
             $form = new FindSpotForm();
             $form->submit->setLabel('Update find spot');
             $this->view->form = $form;
-            $this->view->returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->_getParam('recordtype'));
+            $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->_getParam('recordtype'));
+            $this->view->returnID = $returnID;
             //Check if POST
             if ($this->getRequest()->isPost()) {
                 // Check if valid
