@@ -1,71 +1,25 @@
 <?php
-
-
 $vc = new Pas_VCard();
-
-/*
-filename is the name of the .vcf file that will be sent to the user if you
-call the download() method. If you leave this blank, the class will
-automatically build a filename using the contact's data.
-*/
-#$vc->filename = "";
-
-/*
-If you leave this blank, the current timestamp will be used.
-*/
-#$vc->revision_date = "";
-
-/*
-Possible values are PUBLIC, PRIVATE, and CONFIDENTIAL. If you leave class
-blank, it will default to PUBLIC.
-*/
-#$vc->class = "PUBLIC";
-
-foreach($this->persons as $person) {
-#$vc->data['display_name'] = "";
-$vc->data['first_name'] = $person['firstname'];
-$vc->data['last_name'] = $person['lastname'];
-#$vc->data['additional_name'] = ""; //Middle name
-#$vc->data['name_prefix'] = "";  //Mr. Mrs. Dr.
-#$vc->data['name_suffix'] = ""; //DDS, MD, III, other designations.
-#$vc->data['nickname'] = "";
-$vc->data['company'] = "The Portable Antiquities Scheme";
-#$vc->data['department'] = "";
-$vc->data['title'] = $person['staffroles'];
-#$vc->data['role'] = "";
-#$vc->data['work_po_box'] = "";
-#$vc->data['work_extended_address'] = "";
-$vc->data['work_address'] = $person['address_1']. ' ' .$person['address_2'];
-$vc->data['work_city'] = $person['town'];
-$vc->data['work_state'] = $person['county'];
-$vc->data['work_postal_code'] = $person['postcode'];
-#$vc->data['work_country'] = $person['country'];
-#$vc->data['home_po_box'] = "";
-#$vc->data['home_extended_address'] = "";
-#$vc->data['home_address'] = "";
-#$vc->data['home_city'] = "";
-#$vc->data['home_state'] = "";
-#$vc->data['home_postal_code'] = "";
-#$vc->data['home_country'] = "";
-$vc->data['office_tel'] = $person['telephone'];
-#$vc->data['home_tel'] = "";
-#$vc->data['cell_tel'] = "";
-$vc->data['fax_tel'] = $person['fax'];
-#$vc->data['pager_tel'] = "";
-
-$vc->data['email1'] = $person['email_one'];
-#$vc->data['email2'] = $person['email_two'];
-$vc->data['url'] =  $this->serverUrl();
-if(!is_null($person['image']))
-{
-$vc->data['photo'] = $this->serverUrl() . '/assets/staffphotos/thumbnails/' . rawurlencode($person['image']);
+$data = array();
+foreach ($this->persons as $person) {
+    $data['display_name'] = $person['firstname'] . ' ' . $person['lastname'];
+    $data['first_name'] = $person['firstname'];
+    $data['last_name'] = $person['lastname'];
+    $data['company'] = "The Portable Antiquities Scheme";
+    $data['title'] = $person['staffroles'];
+    $data['work_address'] = $person['address_1'] . ' ' . $person['address_2'];
+    $data['work_city'] = $person['town'];
+    $data['work_state'] = $person['county'];
+    $data['work_postal_code'] = $person['postcode'];
+    $data['office_tel'] = $person['telephone'];
+    $data['fax_tel'] = $person['fax'];
+    $data['email1'] = $person['email_one'];
+    $data['url'] = $this->serverUrl();
+    if (!is_null($person['image'])) {
+        $data['photo'] = $this->serverUrl() . '/assets/staffphotos/thumbnails/' . rawurlencode($person['image']);
+    }
+    $data['timezone'] = "00:00";
 }
-#$vc->data['birthday'] = "";
-$vc->data['timezone'] = "00:00";
-#$vc->data['sort_string'] = "";
-#$vc->data['note'] = "";
-}
-
-$vc->download();
-
-?>
+$vc->setData($data);
+$vc->setClass('PUBLIC');
+$vc->createCard();
