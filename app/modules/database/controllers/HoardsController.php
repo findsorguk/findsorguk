@@ -299,6 +299,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $insertData = $form->getValues();
                 $insert = $this->_hoards->addHoard($insertData);
                 if ($insert != 'error') {
+                    $this->_helper->solrUpdater->update('objects', $insert);
                     $this->redirect(self::REDIRECT . 'record/id/' . $insert);
                 } else { // If there is a database error, repopulate form so users don't lose their work
                     $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
@@ -348,6 +349,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         $this->_getParam('id')
                     );
                     if ($update != 'error') {
+                        $this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
                         $this->redirect(self::REDIRECT . 'record/id/' . $id);
                     } else { // If there is a database error, repopulate form so users don't lose their work
                         $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
@@ -390,15 +392,13 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $this->_hoards->delete($where);
                 $secuid = $this->_request->getPost('secuid');
                 $whereFindspots = array();
-                $whereFindspots[] = $this->getFindspots()->getAdapter()->quoteInto('findID  = ?',
-                    $secuid);
+                $whereFindspots[] = $this->getFindspots()->getAdapter()->quoteInto('findID  = ?', $secuid);
                 $whereHoardsFinders = array();
-                $whereHoardsFinders[] = $this->getHoardsFinders()->getAdapter()->quoteInto('hoardID  = ?',
-                    $secuid);
+                $whereHoardsFinders[] = $this->getHoardsFinders()->getAdapter()->quoteInto('hoardID  = ?', $secuid);
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->getFindspots()->delete($whereFindspots);
                 $this->getHoardsFinders()->delete($whereHoardsFinders);
-                // $this->_helper->solrUpdater->deleteById('objects', $id);
+                $this->_helper->solrUpdater->deleteById('objects', $id);
                 $this->redirect('database');
             }
             $this->getFlash()->addMessage('No changes made!');

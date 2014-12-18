@@ -20,8 +20,7 @@
  * @version 1
  *
  */
-class Pas_Controller_Action_Helper_SolrUpdater
-    extends Zend_Controller_Action_Helper_Abstract
+class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_Helper_Abstract
 {
 
     /** The list of cores available
@@ -95,7 +94,6 @@ class Pas_Controller_Action_Helper_SolrUpdater
         }
 
         $update->addDocument($doc);
-
         $update->addCommit();
         return $solr->update($update);
     }

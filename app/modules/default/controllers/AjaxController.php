@@ -8,24 +8,67 @@
  */
 class AjaxController extends Pas_Controller_Action_Ajax
 {
-    protected $_cache;
+    /** The cache object
+     * @access protected
+     * @var NULL
+     */
+    protected $_cache = NULL;
 
-    protected $_user;
+    /** The user model
+     * @access protected
+     * @var null
+     */
+    protected $_user = NULL;
 
-    protected $_places;
+    /** The places model
+     * @access protected
+     * @var null
+     */
+    protected $_places = NULL;
 
+    /** Get the cache model
+     * @access public
+     * @return NULL
+     */
+    public function getCache()
+    {
+        $this->_cache = Zend_Registry::get('cache');
+        return $this->_cache;
+    }
+
+    /** Get the user model
+     * @access public
+     * @return null
+     */
+    public function getUser()
+    {
+        $this->_user = $this->_helper->identity->getPerson();
+        return $this->_user;
+    }
+
+    /** Get the places model
+     * @access public
+     * @return \Places
+     */
+    public function getPlaces()
+    {
+        $this->_places = new Places();
+        return $this->_places;
+    }
+
+
+    /** Init the controller
+     * @access public
+     */
     public function init()
     {
         $this->_helper->acl->allow('public', null);
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-        $this->_cache = Zend_Registry::get('cache');
-        $this->_user = $this->_helper->identity->getPerson();
-        $this->_places = new Places();
     }
 
     /** No access to the root page
-     *
+     * @access public
      */
     public function indexAction()
     {
@@ -58,7 +101,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
     }
 
     /** Get a list of parishes
-     *
+     * @access public
      */
     public function parishesAction()
     {
@@ -69,7 +112,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
     }
 
     /** Get parishes by county
-     *
+     * @access public
      */
     public function parishesbycountyAction()
     {
@@ -80,7 +123,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
     }
 
     /** Get district associated with a parish
-     *
+     * @access public
      */
     public function districtbyparishAction()
     {
@@ -91,7 +134,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
     }
 
     /** Get the regions list
-     *
+     * @access public
      */
     public function regionsAction()
     {
@@ -102,6 +145,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
+    /** Get the landuse codes
+     * @access public
+     */
     public function landusecodesAction()
     {
         if ($this->_getParam('term', false)) {
@@ -113,12 +159,16 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($json);
     }
 
+    /** Get object terms
+     * @access public
+     */
     public function objecttermAction()
     {
         $objectterms = new ObjectTerms;
         $objecttermsjson = $objectterms->getObjectterm($this->_getParam('q'));
         echo Zend_Json::encode($objecttermsjson);
     }
+
 
     public function objectimagelinkAction()
     {
@@ -676,6 +726,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($json);
     }
 
+    /** Get os parishes by district
+     * @access public
+     *
+     */
     public function osparishesbydistrictAction()
     {
         if ($this->_getParam('term', false)) {
@@ -688,6 +742,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($json);
     }
 
+    /** Get the usernames
+     * @access public
+     */
     public function usernamesAction()
     {
         if ($this->_getParam('q', false)) {
@@ -697,6 +754,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get the user's full names
+     * @access public
+     */
     public function usersfullnamesAction()
     {
         if ($this->_getParam('q', false)) {
@@ -706,11 +766,14 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get the publications as json
+     * @access public
+     */
     public function publicationsAction()
     {
         if ($this->_getParam('term', false)) {
-            $parishes = new Publications();
-            $json = $parishes->getTitles($this->_getParam('term'));
+            $publication = new Publications();
+            $json = $publication->getTitles($this->_getParam('term'));
         } else {
             $json = array(null => 'You must choose an author first');
         }
@@ -766,11 +829,14 @@ class AjaxController extends Pas_Controller_Action_Ajax
                 $data = array(array('id' => null, 'term' => 'No Options'));
             }
         } else {
-            $json = array(null => 'You must choose a broad period first');
+            $data = array(null => 'You must choose a broad period first');
         }
         echo Zend_Json::encode($data);
     }
 
+    /** Get the denominations
+     * @access public
+     */
     public function getdenominationsAction()
     {
         if ($this->_getParam('term', false)) {
@@ -780,11 +846,14 @@ class AjaxController extends Pas_Controller_Action_Ajax
                 $data = array(array('id' => null, 'term' => 'No Options'));
             }
         } else {
-            $json = array(null => 'You must choose a broad period first');
+            $data = array(null => 'You must choose a broad period first');
         }
         echo Zend_Json::encode($data);
     }
 
+    /** Get the mints in json format
+     * @access public
+     */
     public function getmintsAction()
     {
         if ($this->_getParam('term', false)) {
@@ -794,10 +863,8 @@ class AjaxController extends Pas_Controller_Action_Ajax
                 $data = array(array('id' => null, 'term' => 'No Options'));
             }
         } else {
-            $json = array(null => 'You must choose a broad period first');
+            $data = array(null => 'You must choose a broad period first');
         }
         echo Zend_Json::encode($data);
     }
-
-
 }

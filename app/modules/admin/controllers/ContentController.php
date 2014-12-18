@@ -138,11 +138,8 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
                     $where = array();
                     $where[] = $this->_content->getAdapter()
                         ->quoteInto('id = ?', $this->_getParam('id'));
-                    $oldData = $this->_content->fetchRow($this->_content
-                        ->select()->where('id= ?',
-                            (int)$this->_getParam('id')))->toArray();
-                    $this->_helper->audit($updateData, $oldData, 'ContentAudit',
-                        $this->_getParam('id'), $this->_getParam('id'));
+                    $oldData = $this->_content->fetchRow($this->_content->select()->where('id= ?', (int)$this->_getParam('id')))->toArray();
+                    $this->_helper->audit($updateData, $oldData, 'ContentAudit', $this->_getParam('id'), $this->_getParam('id'));
                     $this->_content->update($updateData, $where);
                     $this->_helper->solrUpdater->update('content',
                         $this->_getParam('id'), 'content');

@@ -10,7 +10,7 @@
  * @package  Pas_Controller_Action_Admin
  * @subpackage Admin
  * @version 1
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @since September 2009
  * @uses Findspots
  * @uses Pas_Exception_Param
@@ -179,8 +179,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $insertData = $this->_findspots->updateAndProcess($updateData);
                     $this->_findspots->update($insertData, $where);
                     $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->getController());
-                    $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit',
-                        $this->_getParam('id'), $returnID);
+                    $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit', $this->_getParam('id'), $returnID);
                     $this->_helper->solrUpdater->update('objects', $returnID);
                     $this->getFlash()->addMessage('Findspot updated!');
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);

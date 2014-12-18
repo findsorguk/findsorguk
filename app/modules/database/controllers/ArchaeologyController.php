@@ -152,7 +152,6 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                         $this->getParam('id')
                     );
                     // Add SOLR update logic here when ready
-
                     $this->_helper->solrUpdater->update('hoards', $this->getParam('id'));
                     // Add flash message and redirect back to record
                     $this->getFlash()->addMessage('You have edited some archaeology successfully');
