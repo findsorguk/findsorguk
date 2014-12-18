@@ -379,7 +379,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         $this->_getParam('id')
                     );
                     if ($update != 'error') {
-                        $this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
+                        $this->_helper->solrUpdater->update('objects', $this->_getParam('id'), 'hoards');
                         $this->redirect(self::REDIRECT . 'record/id/' . $id);
                     } else { // If there is a database error, repopulate form so users don't lose their work
                         $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
