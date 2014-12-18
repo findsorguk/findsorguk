@@ -20,18 +20,17 @@
  * @version 1
  *
  */
-class Pas_Controller_Action_Helper_SolrUpdater
-    extends Zend_Controller_Action_Helper_Abstract
+class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_Helper_Abstract
 {
 
     /** The list of cores available
      * @access protected
      * @var array
-     * @todo change core names through out site
      */
     protected $_cores = array(
         'objects', 'people', 'images',
-        'publications', 'bibliography', 'content'
+        'publications', 'bibliography', 'content',
+        'geodata'
     );
 
     /** The solr object
@@ -76,6 +75,14 @@ class Pas_Controller_Action_Helper_SolrUpdater
         }
     }
 
+    /** get the cores array
+     * @return array
+     */
+    public function getCores()
+    {
+        return $this->_cores;
+    }
+
     /** Update a core
      * @access public
      * @param string $core
@@ -95,7 +102,6 @@ class Pas_Controller_Action_Helper_SolrUpdater
         }
 
         $update->addDocument($doc);
-
         $update->addCommit();
         return $solr->update($update);
     }
@@ -121,9 +127,9 @@ class Pas_Controller_Action_Helper_SolrUpdater
      * @return string
      * @throws Exception
      */
-    protected function _getIdentifier($core)
+    protected function _getIdentifier($core, $type = null)
     {
-        if (in_array($core, $this->_cores)) {
+        if (in_array($core, $this->getCores())) {
             switch ($core) {
                 case 'objects':
                     $identifier = 'finds-';
@@ -143,9 +149,7 @@ class Pas_Controller_Action_Helper_SolrUpdater
                 case 'publications':
                     $identifier = 'publications-';
                     break;
-                case 'hoards':
-                    $identifier = 'hoards-';
-                    break;
+
                 default:
                     throw new Exception('Your core does not exist', 500);
             }
@@ -165,32 +169,37 @@ class Pas_Controller_Action_Helper_SolrUpdater
      */
     public function getUpdateData($core, $id, $type = null)
     {
-        if (in_array($core, $this->_cores)) {
-            switch ($core) {
-                case 'objects':
-                    $model = new Finds();
-                    break;
-                case 'people':
-                    $model = new People();
-                    break;
-                case 'content':
-                    $type = ucfirst($type);
-                    $model = new $type;
-                    break;
-                case 'bibliography':
-                    $model = new Bibliography();
-                    break;
-                case 'images':
-                    $model = new Slides();
-                    break;
-                case 'publications':
-                    $model = new Publications();
-                    break;
-                case 'hoards':
-                    $model = new Hoards();
-                    break;
-                default:
-                    throw new Exception('Your core does not exist', 500);
+        if (in_array($core, $this->getCores())) {
+            if ($type != 'hoards') {
+                switch ($core) {
+                    case 'objects':
+                        $model = new Finds();
+                        break;
+                    case 'people':
+                        $model = new People();
+                        break;
+                    case 'bibliography':
+                        $model = new Bibliography();
+                        break;
+                    case 'images':
+                        $model = new Slides();
+                        break;
+                    case 'publications':
+                        $model = new Publications();
+                        break;
+                    case 'content':
+                        $type = ucfirst($type);
+                        $model = new $type;
+                        break;
+                    default:
+                        throw new Exception('Your core does not exist', 500);
+                }
+            } else {
+                switch ($type) {
+                    case 'hoards':
+                        $model = new Hoards();
+                        break;
+                }
             }
             $data = $model->getSolrData($id);
             $cleanData = $this->cleanData($data[0]);

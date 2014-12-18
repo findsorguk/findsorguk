@@ -1,91 +1,115 @@
-<div typeof="crm:E22_Man-Made_Object" about="<?php echo $this->serverUrl();?>/database/artefacts/record/id/<?php echo $this->id;?>" class="well">
-    
-   	<div id="preview"> 
-    <?php if(isset($this->thumbnail)):?>
-    
-     <?php
-        $path = '/var/www/beowulf/public_html/images/thumbnails/';
-        $ext = '.jpg';
-        $file = $path . $this->thumbnail . $ext;
-        if(file_exists($file)){
-        list($w,$h) = getimagesize( $file );
-        ?>
-    <ul class="thumbnails pull-right">
-        <li>
-            <div property="crm:P138i_has_representation">
-            <a href="<?php echo $this->serverUrl() . $this->baseUrl() . $this->imagedir?>medium/<?php echo rawurlencode(strtolower($this->filename));?>" rel="lightbox" title="View larger image of <?php echo $this->old_findID;?>"><img property="crm:E38_Image" about="<?php $this->serverUrl()?>/images/thumbnails/<?php echo $this->thumbnail;?>.jpg"  src="/images/thumbnails/<?php echo $this->thumbnail;?>.jpg"
-                    alt="Thumbnail image of <?php echo $this->old_findID;?>"
-                     class="img-polaroid" height="<?php echo $h;?>"/></a>
-            </div>
-        </li>
-    </ul>
-	<?php 
-        } else {
-        	?>
-        <ul class="thumbnails pull-right">
-        <li>
-        <div>
-            <img src="<?php echo $this->baseUrl();?>/assets/gravatar.png" width="80" height="80" class="img-circle" />
-            <p>Image unavailable<br />Error: 404</p>
-            </div>
-        </li>
-    </ul>	
-        	<?php 
-        }
-	endif;?>
-	<?php if(!isset($this->thumbnail)):?>
-	 <ul class="thumbnails pull-right">
-        <li>
-        <div>
-            <img src="<?php echo $this->baseUrl();?>/assets/gravatar.png" width="80" height="80" class="img-circle" />
-            <p>Image not taken</p>
-            </div>
-        </li>
-    </ul>	
-	<?php endif;?>
-    <p>
-    <?php $url = $this->url(array(
-    	'module' => 'database',
-    	'controller' => 'artefacts',
-    	'action' => 'record',
-    	'id' => $this->id),
-    	'default',true);?>
-        Record ID: <a href="<?php echo $url; ?>" title="View details for <?php echo $this->old_findID;?>"><?php echo $this->old_findID;?></a><br />
-        <?php if(!is_null($this->objecttype)):?>
-        Object type: <?php echo $this->escape($this->objecttype);?><br />
-        <?php endif;?>
-       	<?php if(!is_null($this->broadperiod)):?>
-        Broad period: <?php echo $this->broadperiod;?><br />
-        <?php endif;?>
-        <?php if(!is_null($this->county)):?>
-        County: <?php echo $this->county;?><br />
-        <?php endif;?>
-        <?php 
-        if(!is_null($this->workflow)):?>
-        
-        Workflow stage: <?php echo $this->workflowStatus()->setWorkflow($this->workflow);?>
-        <?php echo $this->workflow()->setWorkflow($this->workflow);?><br />
-        <?php endif;?>
-        <?php if(!is_null($this->description)):?>
-        <span property="skos:definition">
-            <?php echo $this->ellipsisString()->setString($this->description)->setMax(600);?>
+<div typeof="crm:E22_Man-Made_Object"
+     about="<?php echo $this->serverUrl(); ?>/database/artefacts/record/id/<?php echo $this->id; ?>" class="well">
+
+    <div id="preview">
+        <?php if (isset($this->thumbnail)): ?>
+
+            <?php
+            $path = '/var/www/beowulf/public_html/images/thumbnails/';
+            $ext = '.jpg';
+            $file = $path . $this->thumbnail . $ext;
+            if (file_exists($file)) {
+                list($w, $h) = getimagesize($file);
+                ?>
+                <ul class="thumbnails pull-right">
+                    <li>
+                        <div property="crm:P138i_has_representation">
+                            <a href="<?php echo $this->serverUrl() . $this->baseUrl() . $this->imagedir ?>medium/<?php echo rawurlencode(strtolower($this->filename)); ?>"
+                               rel="lightbox" title="View larger image of <?php echo $this->old_findID; ?>"><img
+                                    property="crm:E38_Image"
+                                    about="<?php $this->serverUrl() ?>/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
+                                    src="/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
+                                    alt="Thumbnail image of <?php echo $this->old_findID; ?>"
+                                    class="img-polaroid" height="<?php echo $h; ?>"/></a>
+                        </div>
+                    </li>
+                </ul>
+            <?php
+            } else {
+                ?>
+                <ul class="thumbnails pull-right">
+                    <li>
+                        <div>
+                            <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
+                                 class="img-circle"/>
+
+                            <p>Image unavailable<br/>Error: 404</p>
+                        </div>
+                    </li>
+                </ul>
+            <?php
+            }
+        endif; ?>
+        <?php if (!isset($this->thumbnail)): ?>
+            <ul class="thumbnails pull-right">
+                <li>
+                    <div>
+                        <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
+                             class="img-circle"/>
+
+                        <p>Image not taken</p>
+                    </div>
+                </li>
+            </ul>
+        <?php endif; ?>
+        <p>
+            <?php
+            $identifier = explode('-', $this->findIdentifier);
+            switch ($identifier[0]) {
+                case('finds'):
+                    $controller = 'artefacts';
+                    break;
+                case('hoards'):
+                    $controller = 'hoards';
+                    break;
+            }
+            $url = $this->url(array(
+                'module' => 'database',
+                'controller' => $controller,
+                'action' => 'record',
+                'id' => $this->id),
+                'default', true);
+            ?>
+            Record ID: <a href="<?php echo $url; ?>"
+                          title="View details for <?php echo $this->old_findID; ?>"><?php echo $this->old_findID; ?></a><br/>
+            <?php if (!is_null($this->objecttype)): ?>
+                Object type: <?php echo $this->escape($this->objecttype); ?><br/>
+            <?php endif; ?>
+            <?php if (!is_null($this->broadperiod)): ?>
+                Broad period: <?php echo $this->broadperiod; ?><br/>
+            <?php endif; ?>
+            <?php if (!is_null($this->county)): ?>
+                County: <?php echo $this->county; ?><br/>
+            <?php endif; ?>
+            <?php
+            if (!is_null($this->workflow)):?>
+
+                Workflow stage: <?php echo $this->workflowStatus()->setWorkflow($this->workflow);?>
+                <?php echo $this->workflow()->setWorkflow($this->workflow);?><br/>
+            <?php endif; ?>
+            <?php if (!is_null($this->description)): ?>
+                <span property="skos:definition">
+            <?php echo $this->ellipsisString()->setString($this->description)->setMax(600); ?>
         </span>
-        <br />
-		<?php endif;?>
-		Created on: <span property="dcterms:created"><?php echo $this->niceShortDate()->setDate($this->created);?></span><br />
-		<?php if(!is_null($this->updated)):?>
-		Last updated: <span property="dcterms:updated"><?php echo $this->niceShortDate()->setDate($this->updated);?></span><br />
-		<?php endif;?>
-		<?php 
-		if($this->fourFigure):?>
-		<span class="question">Spatial data recorded. <i class="icon-map-marker"></i></span>
-		<?php else:?>
-		No spatial data available. <i class="icon-map-marker"></i>
-		<?php endif;?>
-		<?php if($this->knownas):?>
-		 <span class="question">This findspot is known as '<?php echo $this->escape($this->knownas);?>', grid reference and parish protected.</span>
-		<?php endif;?>
-    </p>
+                <br/>
+            <?php endif; ?>
+            Created on: <span
+                property="dcterms:created"><?php echo $this->niceShortDate()->setDate($this->created); ?></span><br/>
+            <?php if (!is_null($this->updated)): ?>
+                Last updated: <span
+                    property="dcterms:updated"><?php echo $this->niceShortDate()->setDate($this->updated); ?></span>
+                <br/>
+            <?php endif; ?>
+            <?php
+            if ($this->fourFigure):?>
+                <span class="question">Spatial data recorded. <i class="icon-map-marker"></i></span>
+            <?php else: ?>
+                No spatial data available. <i class="icon-map-marker"></i>
+            <?php endif; ?>
+            <?php if ($this->knownas): ?>
+                <span class="question">This findspot is known as '<?php echo $this->escape($this->knownas); ?>', grid reference and parish protected.</span>
+            <?php endif; ?>
+        </p>
 
     </div>
 

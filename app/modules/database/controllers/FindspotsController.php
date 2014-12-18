@@ -10,7 +10,7 @@
  * @package  Pas_Controller_Action_Admin
  * @subpackage Admin
  * @version 1
- * @license GNU
+  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @since September 2009
  * @uses Findspots
  * @uses Pas_Exception_Param
@@ -141,7 +141,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $updateData['findID'] = $this->_getParam('secuid');
                     $updateData['institution'] = $this->_helper->identity->getPerson()->institution;
                     $this->_findspots->addAndProcess($updateData);
-                    // $this->_helper->solrUpdater->update('objects', $returnID);
+                    $this->_helper->solrUpdater->update('objects', $returnID);
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                     $this->getFlash()->addMessage('A new findspot has been created.');
                 } else {
@@ -166,7 +166,8 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
             $form = new FindSpotForm();
             $form->submit->setLabel('Update find spot');
             $this->view->form = $form;
-            $this->view->returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->_getParam('recordtype'));
+            $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->_getParam('recordtype'));
+            $this->view->returnID = $returnID;
             //Check if POST
             if ($this->getRequest()->isPost()) {
                 // Check if valid
@@ -179,8 +180,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $insertData = $this->_findspots->updateAndProcess($updateData);
                     $this->_findspots->update($insertData, $where);
                     $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->getController());
-                    $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit',
-                        $this->_getParam('id'), $returnID);
+                    $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit', $this->_getParam('id'), $returnID);
                     $this->_helper->solrUpdater->update('objects', $returnID);
                     $this->getFlash()->addMessage('Findspot updated!');
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);

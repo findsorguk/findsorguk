@@ -875,18 +875,102 @@ class Hoards extends Pas_Db_Table_Abstract
         return $this->getAdapter()->fetchAll($select);
     }
 
-    /** Get data for solr updater
+    /** Retrieve record data in format for solr schema
      * @access public
-     * @param integer $hoardID
+     * @param integer $findID
      * @return array
-     * @todo add in foreign tables for joins
      */
-    public function getSolrData( $hoardID )
-    {
-        $select = $this->select()
-            ->from($this->_name)
-            ->where($this->_name . '.id = ?', $hoardID);
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+    public function getSolrData($findID) {
+        $data = $this->getAdapter();
+        $select = $data->select()
+            ->from($this->_name,
+                array(
+                    'findIdentifier' => 'CONCAT("hoards-",hoards.id)',
+                    'id',
+                    'old_findID' => 'hoardID',
+                    'objecttype' => 'CONCAT("HOARD")',
+                    'broadperiod',
+                    'description',
+                    'notes',
+                    'periodFrom' => 'period1',
+                    'periodTo' => 'period2',
+                    'fromsubperiod' => 'subperiod1',
+                    'tosubperiod' => 'subperiod2',
+                    'fromdate' => 'numdate1',
+                    'todate' => 'numdate2',
+                    'treasure',
+                    'rally',
+                    'rallyID',
+                    'TID' => 'treasureID',
+                    'note' => 'findofnote',
+                    'workflow' => 'secwfstage',
+                    'institution',
+                    'datefound1',
+                    'datefound2',
+                    'otherRef' => 'other_ref',
+                    'musaccno',
+                    'currentLocation' => 'curr_loc',
+                    'created',
+                    'updated',
+                    'secuid',
+                    'subsequentAction' => 'subs_action',
+                    'discovery' => 'discmethod',
+                    'finderID',
+                    'recorderID',
+                    'identifierID' => 'identifier1ID',
+                    'createdBy'
+                ))
+            ->joinLeft('findspots','hoards.secuid = findspots.findID',
+                array(
+                    'regionID',
+                    'countyID',
+                    'parishID',
+                    'districtID',
+                    'county',
+                    'district',
+                    'parish',
+                    'knownas',
+                    'fourFigure',
+                    'gridref',
+                    'latitude' => 'declat',
+                    'longitude' => 'declong',
+                    'fourFigureLat',
+                    'fourFigureLon',
+                    'geonamesID',
+                    'elevation',
+                    'woeid',
+                    'easting',
+                    'northing',
+                    'coordinates' => 'CONCAT(declat,",",declong)',
+                    'precision' => 'gridlen',
+                    'geohash',
+                    'findspotcode' => 'old_findspotID'
+                ))
+            ->joinLeft('users','users.id = hoards.createdBy',
+                array(
+                    'creator' => 'CONCAT(users.first_name," ",users.last_name)'
+                ))
+            ->joinLeft(array('users2' => 'users'),'users2.id = hoards.updatedBy', array('updatedBy' => 'fullname'))
+            ->joinLeft('periods','hoards.period1 = periods.id', array('periodFromName' => 'term', 'periodFromBM' => 'bmID'))
+            ->joinLeft(array('sub1' => 'subperiods'), 'hoards.subperiod1 = sub1.id', array('subperiodFrom' => 'term'))
+            ->joinLeft(array('sub2' => 'subperiods'), 'hoards.subperiod2 = sub2.id', array('subperiodTo' => 'term'))
+            ->joinLeft(array('p' => 'periods'),'hoards.period2 = p.id',
+                array(
+                    'periodToName' => 'term',
+                    'periodToBM' => 'bmID'
+                ))
+            ->joinLeft(array('p2' => 'periods'),'hoards.broadperiod = p2.term', array('broadperiodBM' => 'bmID'))
+            ->joinLeft('discmethods','discmethods.id = hoards.discmethod', array('discoveryMethod' => 'method'))
+            ->joinLeft('subsequentActions','hoards.subs_action = subsequentActions.id', array('subsequentActionTerm' => 'action'))
+            ->joinLeft('finds_images','hoards.secuid = finds_images.find_id', array())
+            ->joinLeft('slides','slides.secuid = finds_images.image_id', array('filename','thumbnail' => 'imageID'))
+            ->joinLeft(array('users3' => 'users'), 'users3.id = slides.createdBy', array('imagedir'))
+            ->joinLeft('rallies','hoards.rallyID = rallies.id', array('rallyName' => 'rally_name'))
+            ->joinLeft('regions','findspots.regionID = regions.id', array('regionName' => 'region'))
+            ->joinLeft('people', 'hoards.finderID = people.secuid', array('finder' => 'fullname'))
+            ->where('hoards.id = ?', (int)$findID)
+            ->group('hoards.id')
+            ->limit(1);
+        return $data->fetchAll($select);
     }
 }

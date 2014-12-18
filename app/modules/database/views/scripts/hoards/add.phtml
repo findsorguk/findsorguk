@@ -14,19 +14,19 @@ $this->metaBase()->setDescription($this->title())->generate();
            title="Autofill form fields from last record you created" id="populate" accesskey="c">Copy last record</a>
     </p>
 <?php
-$rulers = array(
-    'ROMAN', 'IRON AGE', 'EARLY MEDIEVAL',
-    'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
-    'GREEK AND ROMAN PROVINCIAL'
-);
-if (in_array($this->hoard->broadperiod, $rulers)) {
-    $rulers = new Rulers();
-    $data = $rulers->getLastRulersPairs($this->hoard->broadperiod);
-    $this->form->lastrulerID->addMultiOptions(array(
-        null => 'Please choose a ruler', 'Available rulers' => $data
-    ));
-    $this->form->lastrulerID->setValue((int)$this->hoard->lastrulerID);
-}
+//$rulers = array(
+//    'ROMAN', 'IRON AGE', 'EARLY MEDIEVAL',
+//    'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
+//    'GREEK AND ROMAN PROVINCIAL'
+//);
+//if (in_array($this->hoard->broadperiod, $rulers)) {
+//    $rulers = new Rulers();
+//    $data = $rulers->getLastRulersPairs($this->hoard->broadperiod);
+//    $this->form->lastrulerID->addMultiOptions(array(
+//        null => 'Please choose a ruler', 'Available rulers' => $data
+//    ));
+//    $this->form->lastrulerID->setValue((int)$this->hoard->lastrulerID);
+//}
 echo $this->form;
 ?>
 <?php

@@ -13,9 +13,9 @@
  * 
  * @category   	Pas
  * @package    	Pas_View_Helper
-  * @subpackage Abstract
+ * @subpackage Abstract
  * @copyright  	Copyright (c) 2011 dpett @ britishmuseum.org
- * @license    	GNU
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @see Zend_View_Helper_Abstract
  * @author  Daniel Pett <dpett@britishmuseum.org>
  * @version 1

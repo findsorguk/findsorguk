@@ -222,8 +222,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
         $form->submit->setLabel('Edit reference');
         $this->view->form = $form;
         if ($this->_request->isPost()) {
-            $formData = $this->_request->getPost();
-            if ($form->isValid($formData)) {
+            if ($form->isValid($this->_request->getPost())) {
                 $coins = new CoinXClass();
                 $updateData = array(
                     'findID' => (string)$this->_getParam('findID'),

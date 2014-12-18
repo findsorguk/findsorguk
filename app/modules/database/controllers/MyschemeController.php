@@ -103,7 +103,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             'filename', 'thumbnail', 'old_findID',
             'description', 'county', 'workflow',
             'knownas', 'fourFigure', 'updated',
-            'created'
+            'created', 'findIdentifier'
         ));
         $search->setFacets(array('objectType', 'county', 'broadperiod', 'institution'));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
@@ -150,7 +150,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
                     'filename', 'thumbnail', 'old_findID',
                     'description', 'county', 'workflow',
                     'knownas', 'fourFigure', 'updated',
-                    'created')
+                    'created', 'findIdentifier'
+                )
             );
             $this->view->solrParams = 'finderID:' . $this->getAccount()->peopleID . ' -createdBy:' . $this->getAccount()->id;
             $search->setFacets(array('objectType', 'county', 'broadperiod', 'institution'));
@@ -215,7 +216,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             'filename', 'thumbnail', 'old_findID',
             'description', 'county', 'workflow',
             'fourFigure', 'knownas', 'updated',
-            'created'
+            'created', 'findIdentifier'
         ));
         $search->setFacets(array(
             'objectType', 'county', 'broadperiod',
@@ -271,7 +272,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             'filename', 'thumbnail', 'old_findID',
             'county', 'licenseAcronym', 'findID',
             'objecttype', 'institution', 'updated',
-            'created'
+            'created', 'findIdentifier'
         ));
         $search->setFacets(array('broadperiod', 'county', 'objecttype', 'institution'));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
@@ -320,7 +321,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
                 'title', 'broadperiod', 'imagedir',
                 'filename', 'thumbnail', 'old_findID',
                 'description', 'county', 'workflow',
-                'updated', 'created'
+                'updated', 'created', 'findIdentifier'
             )
         );
         $search->setFacets(array(
