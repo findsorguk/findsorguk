@@ -114,6 +114,9 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
         $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'add'),
         null, false);
         $html .= '" class="btn btn-small btn-primary">Add record <i class="icon-white icon-plus"></i></a>';
+        $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'hoards', 'action' => 'add'),
+                null, false);
+        $html .= '" class="btn btn-small btn-primary">Add hoard <i class="icon-white icon-plus"></i></a>';
     }
 
     return $html;

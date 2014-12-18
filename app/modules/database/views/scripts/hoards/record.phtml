@@ -144,7 +144,7 @@ $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
 <div class="row-fluid">
     <!-- Render the map and findspot data -->
 
-    <?php if (array_key_exists('countyID', $this->findspots[0])) : ?>
+    <?php if (!empty($this->findspots)) : ?>
 
         <!-- Check for findspot data and if exists render -->
 
@@ -161,12 +161,12 @@ $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
                 No spatial data available.
             </p>
             <!-- Work out whether user can add data -->
-            <?php
+            <?php 
             echo $this->findSpotLink()
-                ->setFindID($this->findspots[0]['id'])
-                ->setSecuID($this->findspots[0]['secuid'])
-                ->setCreatedBy($this->findspots[0]['createdBy'])
-                ->setInstitution($this->findspots[0]['institution']);
+                ->setFindID($this->hoards['id'])
+                ->setSecuID($this->hoards['uniqueID'])
+                ->setCreatedBy($this->hoards['createdBy'])
+                ->setInstitution($this->hoards['institution']);
             ?>
             <!-- End of user test -->
         </div>
