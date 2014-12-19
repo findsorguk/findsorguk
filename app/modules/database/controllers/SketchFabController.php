@@ -86,7 +86,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
      */
     public function addAction()
     {
-        if ($this->_getParam('id', false) || $this->_getParam('hoardID', false)) {
+        if ($this->_getParam('findID', false)) {
             $form = $this->getSketchFabForm();
             $form->submit->setLabel('Add a model');
             $this->view->form = $form;
@@ -118,7 +118,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
     public function editAction()
     {
         //Check if parameter for ID exists
-        if ($this->_getParam('id', false)) {
+        if ($this->_getParam('findID', false)) {
             $form = $this->getSketchFabForm();
             // Check if the id parameter exists
             $form->submit->setLabel('Edit model data');
