@@ -70,7 +70,6 @@ class ResearchForm extends Pas_Form
         $startDate->setLabel('Start date of project')
             ->setAttrib('size', 20)
             ->setJQueryParam('dateFormat', 'yy-mm-dd')
-            ->addValidator('Datetime')
             ->setRequired(false)
             ->addErrorMessage('You must enter a start date for this project');
 
@@ -79,7 +78,6 @@ class ResearchForm extends Pas_Form
             ->setAttrib('size', 20)
             ->setJQueryParam('dateFormat', 'yy-mm-dd')
             ->setRequired(false)
-            ->addValidator('Datetime')
             ->addErrorMessage('You must enter an end date for this project');
 
         $valid = new Zend_Form_Element_Checkbox('valid');
