@@ -75,6 +75,7 @@ function initMenus() {
 $(document).ready(function() {
     initMenus();
     $('a[rel*=lightbox]').lightBox();
+	$('.tipme').tooltip();
     
     $.reject({
 		reject: { msie7: true, msie8:true }, 
