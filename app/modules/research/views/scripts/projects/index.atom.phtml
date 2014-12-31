@@ -12,14 +12,14 @@ $feedArray = array(
     'language' => 'en',
     'entries' => array()
 );
-foreach ($this->projects as $proj) {
+foreach ($this->projects as $project) {
     $feedArray['entries'][] = array(
-        'title' => $proj['title'],
-        'link' => $this->serverUrl() . '/research/projects/project/id/' . $proj['id'],
-        'guid' => $this->serverUrl() . '/research/projects/project/id/' . $proj['id'],
-        'description' => strip_tags(substr(str_replace('£', '&pound;', $proj['description']), 0, 300)),
-        'lastUpdate' => strtotime($proj['updated']),
-        'content' => strip_tags(str_replace('£', '&pound;', $proj['description']), ''),
+        'title' => $project['title'],
+        'link' => $this->serverUrl() . '/research/projects/project/id/' . $project['id'],
+        'guid' => $this->serverUrl() . '/research/projects/project/id/' . $project['id'],
+        'description' => strip_tags(substr(str_replace('£', '&pound;', $project['description']), 0, 300)),
+        'lastUpdate' => strtotime($project['updated']),
+        'content' => strip_tags(str_replace('£', '&pound;', $project['description']), ''),
     );
 }
 $feed = Zend_Feed::importArray($feedArray, 'atom');

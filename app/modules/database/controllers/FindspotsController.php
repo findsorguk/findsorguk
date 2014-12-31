@@ -147,7 +147,6 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                 } else {
                     $form->populate($this->_request->getPost());
                     $this->_helper->findspotFailedOptions($this->_request->getPost());
-
                 }
             }
         } else {
@@ -181,7 +180,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $this->_findspots->update($insertData, $where);
                     $returnID = (int)$this->_findspots->getFindNumber($this->_getParam('id'), $this->getController());
                     $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit', $this->_getParam('id'), $returnID);
-                    $this->_helper->solrUpdater->update('objects', $returnID);
+                    $this->_helper->solrUpdater->update('objects', $returnID, $this->_getParam('recordtype'));
                     $this->getFlash()->addMessage('Findspot updated!');
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                 } else {

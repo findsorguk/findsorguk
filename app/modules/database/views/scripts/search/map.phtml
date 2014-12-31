@@ -7,7 +7,7 @@ $this->metaBase()->setDescription($this->title())
 
     <h2 class="lead">Map of search results</h2>
     <ul>
-        <?php echo $this->searchParams(Zend_Controller_Front::getInstance()->getRequest()->getParams()); ?>
+        <?php echo $this->searchParams()->setParams(Zend_Controller_Front::getInstance()->getRequest()->getParams()); ?>
     </ul>
 
 

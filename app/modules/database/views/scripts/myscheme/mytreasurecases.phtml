@@ -9,7 +9,7 @@ $this->headTitle('All my Treasure cases');
 <h2 class="lead">All my Treasure cases recorded online</h2>
 <?php echo $this->loggedInLinks();?>
 <?php if($this->params):?>
-<?php echo $this->SearchParams($this->params);?>
+<?php echo $this->searchParams()->setParams($this->params);?>
 <?php endif;?>
 <?php echo $this->form;?>
 <div class="row-fluid">

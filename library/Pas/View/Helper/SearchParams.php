@@ -6,32 +6,57 @@
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses Zend_View_Helper_Abstract
  * @author Daniel Pett
  * @version 2
  * @since march 14 2012
  */
-class Pas_View_Helper_SearchParams
-    extends Zend_View_Helper_Abstract
+class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
 {
 
     /** The cache object
-     *
-     * @var unknown_type
+     * @access protected
+     * @var object
      */
     protected $_cache;
 
+    /** The params array
+     * @var arrary */
+    protected $_params;
+
+    protected $_format = true;
+
+    /**
+     * @return boolean
+     */
+    public function getFormat()
+    {
+        return $this->_format;
+    }
+
+    /**
+     * @param boolean $format
+     */
+    public function setFormat($format)
+    {
+        $this->_format = $format;
+        return $this;
+    }
+
+
+
     /** Create the cache object
+     * @access public
      *
      */
-    public function __construct()
+    public function getCache()
     {
         $this->_cache = Zend_Registry::get('cache');
+        return $this->_cache;
     }
 
     /** Array of cleaned names for display as a parameter
-     *
+     * @access protected
      * @var array
      */
     protected $_niceNames = array(
@@ -94,18 +119,43 @@ class Pas_View_Helper_SearchParams
 
     );
 
+    /** The search function to return data for
+     * @access public
+     * @return \SearchParams
+     */
+    public function searchParams()
+    {
+        return $this;
+    }
     /** Generate the search string from parameters submitted
      * @access public
      * @param  array $params
      * @return string
      */
-    public function searchParams($params = NULL)
+    public function setParams($params)
     {
+        $this->_params = $this->cleanParams($params);
+        return $this;
 
+    }
 
-        $params = $this->cleanParams($params);
+    /** Get the params array
+     * @access public
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->_params;
+    }
+
+    /** Render HtML
+     * @access public
+     * @param array $params
+     */
+    public function htmlRender($params)
+    {
         $html = '<p>You searched for: ';
-        if (sizeof($params) > 0) {
+        if (!empty($params)) {
             $html .= '</p><ul>';
             $searches = array();
             foreach ($params as $k => $v) {
@@ -141,14 +191,18 @@ class Pas_View_Helper_SearchParams
                 $searches[] = $this->cleanKey($k) . ' ' . $v;
 
             }
-            $this->view->headTitle('Search results from the database');
-            $this->view->headMeta(implode(' - ', $searches), 'description');
-            $this->view->headMeta(implode(',', $searches), 'keywords');
+            if($this->getFormat()) {
+                $this->view->headTitle('Search results from the database');
+                $this->view->headMeta(implode(' - ', $searches), 'description');
+                $this->view->headMeta(implode(',', $searches), 'keywords');
+            }
             $html .= '</ul>';
         } else {
             $html .= 'Everything we have</p>';
         }
-
+        if(!$this->getFormat()){
+            $html = strip_tags(implode(',', $searches));
+        }
         return $html;
     }
 
@@ -182,12 +236,12 @@ class Pas_View_Helper_SearchParams
     public function getData($name, $field, $value, $idField = 'id')
     {
         $key = md5($name . $field . $value . $idField);
-        if (!($this->_cache->test($key))) {
+        if (!($this->getCache()->test($key))) {
             $model = new $name();
             $data = $model->fetchRow($model->select()->where($idField . ' = ?', $value));
-            $this->_cache->save($data);
+            $this->getCache()->save($data);
         } else {
-            $data = $this->_cache->load($key);
+            $data = $this->getCache()->load($key);
         }
 
         return $data->$field;
@@ -203,6 +257,7 @@ class Pas_View_Helper_SearchParams
         unset($params['module']);
         unset($params['controller']);
         unset($params['action']);
+        unset($params['format']);
         foreach ($params as $key => $value) {
             switch ($key) {
                 case 'regionID':
@@ -311,19 +366,19 @@ class Pas_View_Helper_SearchParams
                     $params[$key] = $this->getData('OsRegions', 'label', $value, 'osID');
                     break;
                 case 'reverse':
-                    $params[$key] = $this->getData('RevTypes', 'type' , $value);
+                    $params[$key] = $this->getData('RevTypes', 'type', $value);
                     break;
                 case 'preservation':
-                    $params[$key] = $this->getData('Preservations', 'term' , $value);
+                    $params[$key] = $this->getData('Preservations', 'term', $value);
                     break;
                 case 'discovery':
-                    $params[$key] = $this->getData('DiscoMethods', 'method' , $value);
+                    $params[$key] = $this->getData('DiscoMethods', 'method', $value);
                     break;
                 case 'decstyle':
-                    $params[$key] = $this->getData('DecStyles', 'term' , $value);
+                    $params[$key] = $this->getData('DecStyles', 'term', $value);
                     break;
                 case 'complete':
-                    $params[$key] = $this->getData('Completeness', 'term' , $value);
+                    $params[$key] = $this->getData('Completeness', 'term', $value);
                     break;
                 default:
                     $params[$key] = $value;
@@ -334,4 +389,13 @@ class Pas_View_Helper_SearchParams
         return $params;
     }
 
+
+    /** To String function
+     * @access public
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->htmlRender($this->getParams());
+    }
 }

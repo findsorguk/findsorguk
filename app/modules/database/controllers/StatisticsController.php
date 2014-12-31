@@ -77,8 +77,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
         foreach ($cases as $value) {
             $lists[] = $value['createdOn'];
         }
-        $caseslisted = $lists;
-        $calendar->highlighted_dates = $caseslisted;
+        $calendar->highlighted_dates = $lists;
         $calendar->formatted_link_to = $this->view->baseUrl()
             . '/database/search/results/created/%Y-%m-%d';
         print '<div id="calendar">';

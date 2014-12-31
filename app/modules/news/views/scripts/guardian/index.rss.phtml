@@ -1,10 +1,9 @@
 <?php
-Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/rss+xml');
 $feed =  new Zend_Feed_Writer_Feed();
 $feed->setTitle('News stories about the Scheme in the Guardian');
 $feed->setDescription('All news stories that mention the Scheme within the Guardian API');
 $feed->setLink($this->serverUrl());
-$feed->setFeedLink($this->curUrl(), 'rss');
+$feed->setFeedLink($this->curUrl()->__toString(), 'rss');
 $feed->setLastBuildDate();
 $feed->setDateModified();
  Zend_Date::setOptions(array(
@@ -16,9 +15,6 @@ foreach($this->guardianStories['guardianStory'] as $e){
 $entry = $feed->createEntry();
 $entry->setTitle($e['headline']);
 $entry->setLink($e['url']);
-//$entry->addAuthor(array(
-//    'name'  => $e['byline'],
-//));
 $entry->setDateCreated(Zend_Date::now());
 if(!is_null($e['standfirst'])){
 $desc = $e['standfirst'];
@@ -31,7 +27,7 @@ if($len == 61){
 	$content = 'Content only available on the Guardian site';
 
 } else {
-$content = strip_tags($this->ellipsisString()->setString($e['content'])->setMax(600));
+$content = $e['content'];
 }
 $entry->setDescription(htmlspecialchars(strip_tags($desc)));
 $entry->setContent($content);

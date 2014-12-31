@@ -210,12 +210,14 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 'action'=>'workflow',
                 'id' => $this->getId()),null,true);
             $html .= '">Change workflow</a>';
-            $html .= ' <a class="overlay ' . $class . '"  href="';
+            $html .= ' <a data-toggle="tooltip" title="This forces the search index to update for this record only" class="tipme overlay ' . $class . '"  href="';
             $html .= $this->view->url(array(
                 'module' => 'database',
                 'controller'=>'ajax',
                 'action'=>'forceindexupdate',
-                'id' => $this->getId()),null,true);
+                'id' => $this->getId(),
+                'recordType' => $this->getRecordType($this->getController())
+                ),null,true);
             $html .= '">Force index update</a>';
             $html .= '<a class="' . $class . ' overlay"  href="';
             $html .= $this->view->serverUrl() . $this->view->url(array(

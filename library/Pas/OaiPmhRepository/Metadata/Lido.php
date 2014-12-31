@@ -140,7 +140,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             if (array_key_exists('thickness', $this->item)) {
                 $measurements['thickness'] = $this->item['thickness'];
             }
-            //Create the spatial arrray
+            //Create the spatial array
             $spatial = array();
             if (array_key_exists('county', $this->item)) {
                 $spatial['county'] = $this->item['county'];
@@ -193,13 +193,6 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             $formats = array();
 
             if (array_key_exists('thumbnail', $this->item)) {
-//                //Insert $this->_serverUrl()
-//                $thumbnail = 'http://finds.org.uk' . self::THUMB_PATH . $this->item['thumbnail'] . self::EXTENSION;
-//                //Add thumbnail to ESE array
-//                $ese['isShownBy'] = $thumbnail;
-                //Add filename to the formats array
-//                $formats['image_thumb'] = $thumbnail;
-                //Insert $this->_serverUrl()
                 $formats['image_thumb'] = 'http://finds.org.uk' . '/' . $this->item['imagedir'] . $this->item['filename'];
                 $formats['image_master'] = 'http://finds.org.uk' . '/' . $this->item['imagedir'] . $this->item['filename'];
             }

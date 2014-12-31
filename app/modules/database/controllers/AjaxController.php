@@ -691,7 +691,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function forceindexupdateAction()
     {
-        $this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
+        $this->_helper->solrUpdater->update('objects', $this->_getParam('id'), $this->getParam('recordType'));
     }
 
     /** Get the classes to token

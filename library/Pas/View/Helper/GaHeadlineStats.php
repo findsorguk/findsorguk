@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GaHeadlineStats helper for generating the headline stats for an account
  *
@@ -24,7 +25,7 @@
  * @copyright (c) 2014, Daniel Pett
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @todo Put in checks for date strings.
- * @example /app/modules/analytics/views/scripts/index/index.phtml 
+ * @example /app/modules/analytics/views/scripts/index/index.phtml
  *
  */
 class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
@@ -97,7 +98,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->_id;
     }
 
@@ -105,7 +107,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->_password;
     }
 
@@ -114,10 +117,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @param string $id
      * @return \Pas_View_Helper_GaHeadlineStats
      */
-    public function setId($id) {
-        Zend_Debug::dump($id);
-        exit;
-        
+    public function setId($id)
+    {
         $this->_id = $id;
         return $this;
     }
@@ -127,7 +128,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @param string $password
      * @return \Pas_View_Helper_GaHeadlineStats
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->_password = $password;
         return $this;
     }
@@ -136,12 +138,13 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return \Zend_Gdata_ClientLogin
      */
-    public function getClient() {
+    public function getClient()
+    {
         $this->_client = Zend_Gdata_ClientLogin::getHttpClient(
-                $this->getId(),
-                $this->getPassword(),
-                self::SERVICE
-                );
+            $this->getId(),
+            $this->getPassword(),
+            self::SERVICE
+        );
         return $this->_client;
     }
 
@@ -149,7 +152,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return \Zend_Gdata_Analytics
      */
-    public function getAnalytics() {
+    public function getAnalytics()
+    {
         $this->_analytics = new Zend_Gdata_Analytics($this->getClient());
         return $this->_analytics;
     }
@@ -158,7 +162,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return \Zend_Cache
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
@@ -167,7 +172,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getSegment() {
+    public function getSegment()
+    {
         return $this->_segment;
     }
 
@@ -175,10 +181,10 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_GaHeadlineStats
      */
-    public function gaHeadlineStats(){
-       
-        Zend_Debug::dump($this->getId());
-        exit;
+    public function gaHeadlineStats()
+    {
+
+
         return $this;
     }
 
@@ -187,11 +193,12 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @param int $profile
      * @return \Pas_View_Helper_GaHeadlineStats
      */
-    public function setProfile($profile) {
+    public function setProfile($profile)
+    {
         //Check if the title is a string
-        if ( is_int( $profile ) ) {
+        if (is_int($profile)) {
             //Trim the title string for excess white space
-            $profile = trim( $profile );
+            $profile = trim($profile);
             $this->_profile = $profile;
         }
         return $this;
@@ -202,7 +209,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @param string $start
      * @return \Pas_View_Helper_GaHeadlineStats
      */
-    public function setStart( $start ) {
+    public function setStart($start)
+    {
         $this->_start = $start;
         return $this;
     }
@@ -212,7 +220,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @param string $end
      * @return \Pas_View_Helper_GaHeadlineStats
      */
-    public function setEnd($end) {
+    public function setEnd($end)
+    {
         $this->_end = $end;
         return $this;
     }
@@ -222,7 +231,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @param string $segment
      * @return \Pas_View_Helper_GaHeadlineStats
      */
-    public function setSegment($segment) {
+    public function setSegment($segment)
+    {
         $this->_segment = self::SEGMENTPREFIX . $segment;
         return $this;
     }
@@ -231,7 +241,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getProfile() {
+    public function getProfile()
+    {
         return $this->_profile;
     }
 
@@ -239,7 +250,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getStart() {
+    public function getStart()
+    {
         return $this->_start;
     }
 
@@ -247,7 +259,8 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getEnd() {
+    public function getEnd()
+    {
         return $this->_end;
     }
 
@@ -256,35 +269,37 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_GaHeadlineStats
      */
-    public function getData() {
+    public function getData()
+    {
         $key = md5(
-                $this->getProfile()
-                . $this->getStart()
-                . $this->getEnd()
-                . $this->getSegment());
+            $this->getProfile()
+            . $this->getStart()
+            . $this->getEnd()
+            . $this->getSegment()
+        );
         if (!($this->getCache()->test($key))) {
 
             $query = $this->getAnalytics()->newDataQuery()->setProfileId(
                 $this->getProfile()
-                )
-              ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_PAGEVIEWS)
-              ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)
-              ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)
-              ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_TIME_ON_SITE)
-              ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_NEW_VISITS)
-              ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_UNIQUE_PAGEVIEWS)
-              ->setStartDate($this->getStart())
-              ->setEndDate($this->getEnd()) ;
+            )
+                ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_PAGEVIEWS)
+                ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)
+                ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)
+                ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_TIME_ON_SITE)
+                ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_NEW_VISITS)
+                ->addMetric(Zend_Gdata_Analytics_DataQuery::METRIC_UNIQUE_PAGEVIEWS)
+                ->setStartDate($this->getStart())
+                ->setEndDate($this->getEnd());
             if (!is_null($this->getSegment())) {
-            $query->setSegment($this->getSegment());
+                $query->setSegment($this->getSegment());
             }
-            $this->data = $this->getAnalytics()->getDataFeed($query);
-            $this->getCache()->save($this->data);
-                } else {
-            $this->data = $this->getCache()->load($key);
-            }
+            $data = $this->getAnalytics()->getDataFeed($query);
+            $this->getCache()->save($data);
+        } else {
+            $data = $this->getCache()->load($key);
+        }
 
-        return $this;
+        return $data;
     }
 
     /**
@@ -293,53 +308,53 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access private
      * @return bool true if all required properties exist for the specified type, else false
      */
-    private function requiredPropertiesExist() {
+    private function requiredPropertiesExist()
+    {
         //If the url is not set set and a title is set, return false. Url is required.
-        if ( !is_null( $this->getProfile()   ) ) {
+        if (!is_null($this->getProfile())) {
             return false;
         }
-        if ( !is_null ( $this->getStart()) && !is_null( $this->getEnd() )) {
+        if (!is_null($this->getStart()) && !is_null($this->getEnd())) {
             return false;
         }
         //If none of the above conditions are met then return test positive
         return $this->getData();
     }
 
-    
+
     /** Send data to array
      * @access public
      * @return array
      */
-    public function toArray() {
-        if ( !$this->requiredPropertiesExist() ) {
-            return array();
-        }
-        foreach ($this->data as $row) {
-        $time = new Zend_Date($row->getMetric(
-                Zend_Gdata_Analytics_DataQuery::METRIC_TIME_ON_SITE)->value/
+    public function toArray()
+    {
+
+        foreach ($this->getData() as $row) {
+            $time = new Zend_Date($row->getMetric(
+                    Zend_Gdata_Analytics_DataQuery::METRIC_TIME_ON_SITE)->value /
                 $row->getMetric(
-                        Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value,
+                    Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value,
                 Zend_Date::SECOND);
-        $length = $time->toString('mm.ss');
-        $analytics = array(
-        'page views' => number_format(
-                $row->getMetric(
+            $length = $time->toString('mm.ss');
+            $analytics = array(
+                'page views' => number_format(
+                    $row->getMetric(
                         Zend_Gdata_Analytics_DataQuery::METRIC_PAGEVIEWS)->value
                 ),
-        'unique page views' => number_format(
-                $row->getMetric(
+                'unique page views' => number_format(
+                    $row->getMetric(
                         Zend_Gdata_Analytics_DataQuery::METRIC_UNIQUE_PAGEVIEWS)->value
                 ),
-        'visits' => number_format(
-                $row->getMetric(
+                'visits' => number_format(
+                    $row->getMetric(
                         Zend_Gdata_Analytics_DataQuery::METRIC_VISITS)->value
                 ),
-        'visitors' => number_format(
-                $row->getMetric(
+                'visitors' => number_format(
+                    $row->getMetric(
                         Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS)->value
                 ),
-        'time on site' => $length
-        );
+                'time on site' => $length
+            );
         }
         return $analytics;
     }
@@ -348,21 +363,21 @@ class Pas_View_Helper_GaHeadlineStats extends Zend_View_Helper_Abstract
      * @access public
      * @return string|boolean
      */
-    public function __toString() {
+    public function __toString()
+    {
         $html = '';
         $data = $this->toArray();
-        if ( empty( $data ) ) {
-            return false;
+        if (!empty($data)) {
+            $html .= '<ul>';
+            foreach ($data as $name => $value) {
+                $html .= '<li>';
+                $html .= ucfirst($name);
+                $html .= ': ';
+                $html .= $value;
+                $html .= '</li>';
+            }
+            $html .= '</ul>';
         }
-        $html .= '<ul>';
-        foreach ($data as $name => $value) {
-            $html .= '<li>';
-            $html .= ucfirst($name);
-            $html .= ': ';
-            $html .= $value;
-            $html .= '</li>';
-        }
-        $html .= '</ul>';
         return $html;
     }
 }

@@ -1,20 +1,22 @@
-<div class="well">
-    <div>
-        <ul class="thumbnails pull-right">
-            <li>
-                <div class="thumbnail"><?php echo $this->findToImage()->setId($this->id); ?></div>
-            </li>
-        </ul>
+<div>
+    <div class="pull-right stelae">
+        <?php echo $this->findToImage()->setId($this->id); ?>
     </div>
 
     <?php echo $this->comment_author; ?> wrote @ <?php echo $this->df; ?>.
     <blockquote><?php echo $this->comment_content; ?></blockquote>
-
-    <p>About: <?php echo ucfirst(strtolower($this->objecttype)); ?>
-        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?>"><?php echo $this->old_findID; ?></a><br/><?php echo $this->workflow()->setWorkflow($this->secwfstage); ?>
-        <?php echo ucfirst(strtolower($this->broadperiod)); ?>
-        <?php if (isset($this->county)) {
-            echo ucwords(strtolower($this->county));
-        } ?></p>
+    <p>
+        Comment entered on record:
+        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?>"><?php echo $this->old_findID; ?></a>
+        <?php echo $this->workflow()->setWorkflow($this->workflow); ?>
+        <br/>
+        Object type: <?php echo ucfirst(strtolower($this->objecttype)); ?>
+        <br/>
+        Broad Period: <?php echo ucfirst(strtolower($this->broadperiod)); ?>
+        <br/>
+        <?php if (!is_null($this->county)): ?>
+            County of origin: <?php echo ucwords(strtolower($this->county)); ?>
+        <?php endif; ?>
+    </p>
 
 </div>

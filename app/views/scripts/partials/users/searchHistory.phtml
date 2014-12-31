@@ -13,7 +13,7 @@ $url = 'http://'.$_SERVER['SERVER_NAME'].'/database/search/results/'.$query;
 
 <span class="status-body">
 You searched for: 
-<?php echo $this->SearchParamsUsers($string);?>
+<?php echo $this->searchParams()->setParams($string);?>
 <br />
 Search performed: <span class="published timestamp" data="{time:'<?php echo date('W3C',$this->date);?>'}"><?php echo $this->timeAgoInWords($this->date);?></span> 
 <?php if(isset($this->C)):?>
