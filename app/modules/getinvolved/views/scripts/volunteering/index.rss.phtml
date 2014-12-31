@@ -1,0 +1,39 @@
+<?php
+$feedArray = array(
+    'title' => 'Atom feed of volunteering opportunities with the Scheme',
+    'link' => $this->curUrl(),
+    'charset' => 'utf-8',
+    'description' => 'Atom feed of volunteering opportunities with the Scheme',
+    'author' => 'The Portable Antiquities Scheme',
+    'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
+    'email' => 'info@finds.org.uk',
+    'copyright' => 'Creative Commons Licenced',
+    'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
+    'language' => 'en',
+    'entries' => array()
+);
+foreach ($this->vols as $volunteer) {
+
+    if (array_key_exists('description', $volunteer)) {
+        $description = str_replace(array("\n", "\r"), array('', ''), $volunteer['description']);
+    } else {
+        $description = 'No description available';
+    }
+
+    if (array_key_exists('updated', $volunteer)) {
+        $updated = strtotime($volunteer['updated']);
+    } else {
+        $updated = strtotime($volunteer['created']);
+    }
+    $url = $this->url(array('module' => 'getinvolved', 'controller' => 'volunteering', 'action' => 'role', 'id' => $volunteer['id']), 'default', false);
+    $feedArray['entries'][] = array(
+        'title' => $volunteer['title'],
+        'link' => $url,
+        'guid' => $url,
+        'description' => $description,
+        'lastUpdate' => $updated,
+        'content' => $description,
+    );
+}
+$feed = Zend_Feed::importArray($feedArray, 'rss');
+$feed->send();
