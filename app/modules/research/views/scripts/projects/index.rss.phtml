@@ -14,7 +14,7 @@ $feedArray = array(
 );
 foreach ($this->projects as $project) {
     $feedArray['entries'][] = array(
-        'title' => $proj['title'],
+        'title' => $project['title'],
         'link' => $this->serverUrl() . '/research/projects/project/id/' . $project['id'],
         'guid' => $this->serverUrl() . '/research/projects/project/id/' . $project['id'],
         'description' => strip_tags(substr(str_replace('£', '&pound;', $project['description']), 0, 300)),

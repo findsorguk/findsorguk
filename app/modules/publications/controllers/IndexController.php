@@ -34,25 +34,4 @@ class Publications_IndexController extends Pas_Controller_Action_Admin
         $content = new Content();
         $this->view->contents = $content->getFrontContent('publications');
     }
-
-    /** Handle the requests for publications
-     */
-    public function requestAction()
-    {
-        $form = new RequestForm();
-        $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
-                $data = array_filter($form->getValues());
-                $cc = array();
-                $cc[] = array('email' => $form->getvalue('email'), 'name' => $form->getValue('fullname'));
-                $this->_helper->mailer($data, 'requestPublication', null, $cc, $cc);
-                $this->getFlash()->addMessage('Your request has been submitted');
-                $this->redirect('getinvolved/publications/');
-            } else {
-                $this->getFlash()->addMessage('There are problems with your submission');
-                $form->populate($form->getValues());
-            }
-        }
-    }
 }
