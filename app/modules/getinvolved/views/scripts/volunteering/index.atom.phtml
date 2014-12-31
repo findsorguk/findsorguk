@@ -25,7 +25,7 @@ foreach ($this->vols as $volunteer) {
     } else {
         $updated = strtotime($volunteer['created']);
     }
-    $url = $this->url(array('module' => 'getinvolved', 'controller' => 'volunteering', 'action' => 'role', 'id' => $volunteer['id']), 'default', false);
+    $url = $this->serverUrl() . $this->url(array('module' => 'getinvolved', 'controller' => 'volunteering', 'action' => 'role', 'id' => $volunteer['id']), 'default', false);
     $feedArray['entries'][] = array(
         'title' => $volunteer['title'],
         'link' => $url,
