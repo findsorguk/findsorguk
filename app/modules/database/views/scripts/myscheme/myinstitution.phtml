@@ -2,7 +2,7 @@
 <h2 class="lead"><?php echo $this->title();?></h2>
 <?php echo $this->loggedInLinks();?>
 <?php if($this->params):?>
-<?php echo $this->SearchParams($this->params);?>
+<?php echo $this->searchParams()->setParams($this->params);?>
 <?php endif;?>
 <?php echo $this->form;?>
 <div class="row-fluid">

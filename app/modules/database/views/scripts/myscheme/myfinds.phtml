@@ -8,7 +8,7 @@ $this->metaBase()->setDescription($this->title())->generate();
 <?php echo $this->loggedInLinks(); ?>
 
 <?php if (!empty($this->params)): ?>
-    <?php echo $this->searchParams($this->params); ?>
+    <?php echo $this->searchParams()->setParams($this->params); ?>
 <?php endif; ?>
 
 <?php echo $this->form; ?>
