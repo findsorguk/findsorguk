@@ -33,9 +33,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initDate()
     {
-        date_default_timezone_set(
-            Zend_Registry::get('config')->settings->application->datetime
-        );
+        date_default_timezone_set(Zend_Registry::get('config')->settings->application->datetime);
     }
 
 
@@ -71,13 +69,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontController->registerPlugin(new Pas_Controller_Plugin_StyleAndAlternate());
     }
 
-    /** Initialise the routing
-     * @access protected
-     */
-    protected function _initRoutes()
-    {
-
-    }
 
     /** Initialise the various caches and save to registry
      * @access protected
@@ -249,13 +240,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      * @access public
      * @todo do better than this
      */
-    public function _initRest()
+    public function _initRoutes()
     {
         $frontController = Zend_Controller_Front::getInstance();
-        $restRoute = new Zend_Rest_Route($frontController, array(), array('api' => array('objects', 'status')));
-        $frontController->getRouter()->addRoute('rest', $restRoute);
-        $frontController->setRequest(new REST_Request);
-        $frontController->setResponse(new REST_Response);
         $router = $frontController->getRouter();
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/config/routes.ini', 'production');
         $router->addConfig($config, 'routes');
@@ -265,7 +252,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $this->bootstrap('View');
         $view = $this->getResource('View');
-
         $view->placeholder('tag');
     }
 
