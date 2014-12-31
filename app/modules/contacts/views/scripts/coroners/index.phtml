@@ -11,6 +11,6 @@ $this->metaBase()
 <?php if (count($this->coroners)): ?>
     <p>The Scheme tries to keep this list as current as possible, however we accept there may be errors and
         omissions.</p>
-    <?php echo $this->partialLoop('partials/contacts/coronerVcard.phtml', $this->coroners); ?>
+    <?php echo $this->partialLoop('partials/contacts/coroners/coronerVcard.phtml', $this->coroners); ?>
 <?php endif; ?>
 <?php echo $this->paginationControl($this->coroners, 'Sliding', 'structure/pagination.phtml'); ?>

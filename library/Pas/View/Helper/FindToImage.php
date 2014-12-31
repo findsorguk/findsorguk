@@ -98,7 +98,8 @@ class Pas_View_Helper_FindToImage extends Zend_View_Helper_Abstract {
                     $html .= ucfirst($data['objecttype']);
                     $html .= '" rel="license" resource="http://creativecommons.org/licenses/by/2.0/"/></a>';
                     }  else {
-                        $html .= '<p>Image unavailable.</p>';
+                        $html .= '<img src="/assets/gravatar.png" width="80" height="80"
+                             class="img-circle"/><p>Image unavailable<br/>Error: 404</p>';
                     }
                     }
         }

@@ -23,7 +23,7 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
 
     <div class="row-fluid">
         <ul>
-            <?php echo $this->searchParams($params); ?>
+            <?php echo $this->searchParams()->setParams($params); ?>
         </ul>
     </div>
 
@@ -35,7 +35,7 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
 
                 <?php echo $this->partialLoop('partials/database/findRecordList.phtml', $this->results); ?>
             </div>
-            <div class="span3">
+            <div class="span3" id="resultsSidebar">
                 <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
                 <?php echo $this->thumbnailToggler(); ?>
                 <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
@@ -63,7 +63,7 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
 
 <?php else : ?>
     <ul>
-        <?php echo $this->searchParams($params); ?>
+        <?php echo $this->searchParams()->setParams($params); ?>
     </ul>
 
     <p>

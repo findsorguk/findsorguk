@@ -100,7 +100,7 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
             $html .= $this->view->url($herRoute, null, false);
             $html .= '">Export for HER import <i class="icon-download-alt"></i></a>';
         } else {
-            $html .= ' <a class="' . $classDisabled . '" href="#">HERO disabled <i class="icon-download-alt"></i></a> ';
+            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme '. $classDisabled . '" href="#">HERO disabled <i class="icon-download-alt"></i></a> ';
         }
 //	$html .= '<a href="#" class="' . $class . '">Export for GIS <i class="icon-download-alt"></i></a>';
         if ($quantity < 500) {
@@ -110,7 +110,7 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
                 $html .= '">PDF report format <i class="icon-download-alt"></i></a>';
             }
         } else {
-            $html .= ' <a class="' . $classDisabled . '" href="#">PDF disabled <i class="icon-download-alt"></i></a> ';
+            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 500 records" class="tipme ' . $classDisabled . '" href="#">PDF disabled <i class="icon-download-alt"></i></a> ';
         }
         if ($this->_user->canRecord === '1') {
             $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'add'),

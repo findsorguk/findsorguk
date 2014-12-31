@@ -31,7 +31,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
     /** Base Url redirect
      *
      */
-    const REDIRECT = '/database/artefacts/record/';
+    const REDIRECT = '/database/artefacts/record/id/';
 
     /** Get the archaeology form
      * @access public
@@ -47,7 +47,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
     protected $_model;
 
     /** Get the archaeology model
-     * @return mixed \SketchFab
+     * @return \SketchFab
      */
     public function getModel()
     {
@@ -62,7 +62,6 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->deny('public', null);
-        $this->_helper->_acl->allow('member', array('index'));
         $this->_helper->_acl->allow('member', array('add', 'delete', 'edit'));
     }
 
@@ -100,7 +99,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
                 //Add a flash message
                 $this->getFlash()->addMessage('You have added a model to the record');
                 // Redirect back to the record
-                $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
+                $this->redirect(self::REDIRECT . $this->getParam('id'));
             } else {
                 // Form was not valid so fill with posted values
                 $form->populate($this->_request->getPost());
@@ -135,14 +134,14 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
                     // Add flash message and redirect back to record
                     $this->getFlash()->addMessage('You have edited the model details');
                     // Now redirect to the correct URL
-                    $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
+                    $this->redirect(self::REDIRECT . $this->getParam('id'));
                 } else {
                     // Repopulate with the posted values
                     $form->populate($this->_request->getPost());
                 }
             } else {
                 // If GET, then populate with data from model
-                $form->populate($this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray());
+                $form->populate($this->getModel()->fetchRow('id=' . $this->getParam('id'))->toArray());
             }
         } else {
             // As parameter missing, throw exception and set code
@@ -168,10 +167,10 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
                 $this->getModel()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->_helper->solrUpdater->update('hoards', $findID);
-                $this->redirect('database/hoards/record/id/' . $findID);
+                $this->redirect(self::REDIRECT . $findID);
             } elseif ($del == 'No' && $id > 0) {
                 $this->getFlash()->addMessage('No changes made!');
-                $this->redirect('database/hoards/record/id/' . $findID);
+                $this->redirect(self::REDIRECT . $findID);
             }
         } else {
             $this->view->hoard = $this->getModel()->fetchRow('id=' . $this->_request->getParam('id'));

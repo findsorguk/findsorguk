@@ -56,7 +56,6 @@ class AjaxController extends Pas_Controller_Action_Ajax
         return $this->_places;
     }
 
-
     /** Init the controller
      * @access public
      */
@@ -107,8 +106,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
     {
         if ($this->_getParam('term', false)) {
             $parishes = $this->_places->getParish($this->_getParam('term'));
-        } else
             echo Zend_Json::encode($parishes);
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+
     }
 
     /** Get parishes by county
@@ -118,8 +120,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
     {
         if ($this->_getParam('term', false)) {
             $parishes = $this->_places->getParishByCounty($this->_getParam('term'));
+            echo Zend_Json::encode($parishes);
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
-        echo Zend_Json::encode($parishes);
     }
 
     /** Get district associated with a parish
@@ -129,8 +133,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
     {
         if ($this->_getParam('term', false)) {
             $parishes = $this->_places->getDistrictByParish($this->_getParam('term'));
+            echo Zend_Json::encode($parishes);
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
-        echo Zend_Json::encode($parishes);
     }
 
     /** Get the regions list
@@ -141,8 +147,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         if ($this->_getParam('term', false)) {
             $regions = new Counties;
             $response = $regions->getRegions($this->_getParam('term'));
+            echo Zend_Json::encode($response);
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
-        echo Zend_Json::encode($response);
     }
 
     /** Get the landuse codes
@@ -169,7 +177,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($objecttermsjson);
     }
 
-
+    /** Object to image link action
+     * @access public
+     * @return void
+     */
     public function objectimagelinkAction()
     {
         $objectterms = new Finds;
@@ -177,33 +188,15 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($objecttermsjson);
     }
 
-
+    /** Get publication titles
+     * @access public
+     * @return void
+     */
     public function publicationtitleAction()
     {
         $publications = new Publications();
         $pubjson = $publications->getTitles(urlencode($this->_getParam('q')));
         echo Zend_Json::encode($pubjson);
-    }
-
-    public function macktypesAction()
-    {
-        $macktypes = new MackTypes();
-        $macktypesjson = $macktypes->getTypes($this->_getParam('q'));
-        echo Zend_Json::encode($macktypesjson);
-    }
-
-    public function allentypesAction()
-    {
-        $allentypes = new AllenTypes();
-        $allentypesjson = $allentypes->getTypes($this->_getParam('q'));
-        echo Zend_Json::encode($allentypesjson);
-    }
-
-    public function vatypesAction()
-    {
-        $vatypes = new VanArsdellTypes();
-        $vatypesjson = $vatypes->getTypes($this->_getParam('q'));
-        echo Zend_Json::encode($vatypesjson);
     }
 
     public function otherrefsAction()
@@ -567,7 +560,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
             $where = $links->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
             $links->delete($where);
         } else {
-            throw new Exception('No parameter on url string');
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -586,7 +579,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
             $where = $projects->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
             $projects->delete($where);
         } else {
-            throw new Exception ('There is no research project ID specified', 500);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -657,7 +650,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
             $images = new Slides();
             $this->view->images = $images->getImageForLinks($this->_getParam('secuid'));
         } else {
-            throw new Exception('No image id has been specified on the url string');
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -675,7 +668,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
             $where = $comments->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
             $comments->delete($where);
         } else {
-            throw new Exception('No comment ID has been specified', 500);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 

@@ -2,11 +2,11 @@
 
 /** Controller for index of Tech section
  *
- * @category   Pas
+ * @category Pas
  * @package Pas_Controller_Action
  * @subpackage Admin
- * @author     Mary Chester-Kadwell <mchester-kadwell@britismuseum.org>
- * @copyright  Mary Chester-Kadwell <mchester-kadwell@britismuseum.org>
+ * @author Mary Chester-Kadwell <mchester-kadwell@britismuseum.org>
+ * @copyright Mary Chester-Kadwell <mchester-kadwell@britismuseum.org>
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Content
  */

@@ -141,10 +141,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @return string
      */
     public function createUrl() {
-        $url = ($this->getSsl() ? 'https://' : 'http://')
-                . $this->getServerName()
-                . $this->getPortNumber()
-                . $this->getUri();
+        $url = ($this->getSsl() ? 'https://' : 'http://') . $this->getServerName() . $this->getPortNumber() . $this->getUri();
         return $url;
     }
 }
