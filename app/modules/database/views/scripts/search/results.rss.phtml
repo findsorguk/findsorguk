@@ -1,6 +1,6 @@
 <?php
 $feedArray = array(
-    'title' => 'RSS feed of search results for: ' . $this->searchParamsRss($this->params),
+    'title' => 'RSS feed of search results for: ' . $this->searchParams()->setParams(Zend_Controller_Front::getInstance()->getRequest()->getParams())->setFormat(false),
     'link' => $this->curUrl(),
     'charset' => 'utf-8',
     'description' => 'Latest finds on the Scheme database as rss',

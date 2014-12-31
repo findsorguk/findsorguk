@@ -24,6 +24,27 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
      * @var arrary */
     protected $_params;
 
+    protected $_format = true;
+
+    /**
+     * @return boolean
+     */
+    public function getFormat()
+    {
+        return $this->_format;
+    }
+
+    /**
+     * @param boolean $format
+     */
+    public function setFormat($format)
+    {
+        $this->_format = $format;
+        return $this;
+    }
+
+
+
     /** Create the cache object
      * @access public
      *
@@ -170,12 +191,17 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
                 $searches[] = $this->cleanKey($k) . ' ' . $v;
 
             }
-            $this->view->headTitle('Search results from the database');
-            $this->view->headMeta(implode(' - ', $searches), 'description');
-            $this->view->headMeta(implode(',', $searches), 'keywords');
+            if($this->getFormat()) {
+                $this->view->headTitle('Search results from the database');
+                $this->view->headMeta(implode(' - ', $searches), 'description');
+                $this->view->headMeta(implode(',', $searches), 'keywords');
+            }
             $html .= '</ul>';
         } else {
             $html .= 'Everything we have</p>';
+        }
+        if(!$this->getFormat()){
+            $html = strip_tags(implode(',', $searches));
         }
         return $html;
     }
@@ -210,12 +236,12 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
     public function getData($name, $field, $value, $idField = 'id')
     {
         $key = md5($name . $field . $value . $idField);
-        if (!($this->_cache->test($key))) {
+        if (!($this->getCache()->test($key))) {
             $model = new $name();
             $data = $model->fetchRow($model->select()->where($idField . ' = ?', $value));
-            $this->_cache->save($data);
+            $this->getCache()->save($data);
         } else {
-            $data = $this->_cache->load($key);
+            $data = $this->getCache()->load($key);
         }
 
         return $data->$field;
@@ -231,6 +257,7 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         unset($params['module']);
         unset($params['controller']);
         unset($params['action']);
+        unset($params['format']);
         foreach ($params as $key => $value) {
             switch ($key) {
                 case 'regionID':
