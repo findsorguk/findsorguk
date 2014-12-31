@@ -1,54 +1,40 @@
 <?php
-Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/atom+xml');
-$feed =  new Zend_Feed_Writer_Feed();
-$feed->setTitle('Atom feed of search results for: '.$this->SearchParamsRss($this->params));
-$feed->setLink($this->serverUrl());
-$feed->setFeedLink($this->curUrl(), 'atom');
-$feed->addAuthor(array(
-    'name'  => 'The Portable Antiquities Scheme',
+$feedArray = array(
+    'title' => 'Atom feed of search results for: ' . $this->searchParamsRss($this->params),
+    'link' => $this->curUrl(),
+    'charset' => 'utf-8',
+    'description' => 'Latest finds on the Scheme database as an ATOM feed',
+    'author' => 'The Portable Antiquities Scheme',
+    'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
     'email' => 'info@finds.org.uk',
-    'uri'   => $this->serverUrl(),
-));
-$feed->setDateModified(time());
-$feed->addHub('http://pubsubhubbub.appspot.com/');
- Zend_Date::setOptions(array(
-    'format_type'   => 'php'
-));
-foreach($this->results as $find){
+    'copyright' => 'Creative Commons Licenced',
+    'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
+    'language' => 'en',
+    'entries' => array()
+);
+foreach ($this->results as $find) {
 
+    if(array_key_exists('description', $find)){
+        $description = str_replace(array("\n", "\r"), array('', ''), $find['description']);
+    } else {
+        $description = 'No description available';
+    }
 
-$entry = $feed->createEntry();
-$entry->setTitle($find['old_findID'] . ' '.$find['objecttype'] . ' ' . $find['broadperiod']);
-$entry->setLink($this->serverUrl() . '/database/artefacts/record/id/' . $find['id']);
-if(is_null($find['institution'])){
-	$name = 'The Portable Antiquities Scheme';
-}else {
-	$name = $find['institution'];
-}
-$entry->addAuthor(array( 'name'  => $name));
-$updated = new Zend_Date($find['updated'], 'YY-mm-dd hh:mm:ss');
-$created = new Zend_Date($find['created'], 'YY-mm-dd hh:mm:ss');
-$entry->setDateModified($updated);
-$entry->setDateCreated($created);
-if(!is_null($find['description'])){
-$description = str_replace(array("\n","\r"),array('',''),$find['description']);
-} else {
-	$description = 'Description not entered';
-}
-$entry->setDescription(strip_tags($description));
-$entry->setContent(strip_tags($description));
-$finds = new Finds();
-if(isset($find['thumbnail'])){
-	if(file_exists(IMAGE_PATH . '/thumbnails/'
-                . $find['thumbnail'] . '.jpg')){
-	$size = filesize(IMAGE_PATH . '/thumbnails/'
-                . $find['thumbnail'] . '.jpg');
+    if(array_key_exists('updated', $find)){
+        $updated = strtotime($find['updated']);
+    } else {
+        $updated = strtotime($find['created']);
+    }
 
-$entry->setEnclosure(array('type' => 'image/jpeg','uri' => $this->serverUrl()
-        . '/images/thumbnails/' . $find['thumbnail'] . '.jpg','length' => $size));
-	}
+    $feedArray['entries'][] = array(
+        'title' => $find['old_findID'] . ' ' . $find['objecttype'] . ' ' . $find['broadperiod'],
+        'link' => $this->serverUrl() . '/database/artefacts/record/id/' . $find['id'],
+        'guid' => $this->serverUrl() . '/database/artefacts/record/id/' . $find['id'],
+        'description' => $description,
+        'lastUpdate' => $updated,
+        'published' => $find['created'],
+        'content' => $description,
+    );
 }
-$feed->addEntry($entry);
-}
-$out = $feed->export('atom');
-echo $out;
+$feed = Zend_Feed::importArray($feedArray, 'atom');
+$feed->send();

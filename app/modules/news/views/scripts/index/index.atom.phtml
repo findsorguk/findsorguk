@@ -1,5 +1,5 @@
 <?php
-Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/atom+xml');
+Zend_Controller_Front::getInstance()->getResponse()->setHeader('Content-type', 'application/atom+xml', 'true');
 $feedArray = array(
     'title' => 'The lastest news from the Portable Antiquities Scheme',
     'link' => $this->CurUrl(),

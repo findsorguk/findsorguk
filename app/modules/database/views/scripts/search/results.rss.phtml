@@ -1,40 +1,39 @@
 <?php
-Zend_Controller_Front::getInstance()->getResponse()->setHeader("Content-type", 'application/rss+xml');
-$feed = new Zend_Feed_Writer_Feed;
-$feed->setTitle('Search results from the Scheme database');
-$feed->setDescription('An rss feed of search results you have retrieved.');
-$feed->setLink($this->serverUrl());
-$feed->setFeedLink($this->curUrl(), 'rss');
-
-$feed->setDateModified(time());
-$feed->addHub('http://pubsubhubbub.appspot.com/');
-
-foreach ($this->results as $result) {
-	
-$result = (object)$result;
-
-$entry = $feed->createEntry();
-$entry->setTitle($result->old_findID);
-$entry->setLink($this->serverUrl() . '/database/artefacts/record/id/' . $result->id);
-$entry->addAuthor(array(
-    'name'  => $result->creator,
+$feedArray = array(
+    'title' => 'RSS feed of search results for: ' . $this->searchParamsRss($this->params),
+    'link' => $this->curUrl(),
+    'charset' => 'utf-8',
+    'description' => 'Latest finds on the Scheme database as rss',
+    'author' => 'The Portable Antiquities Scheme',
+    'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
     'email' => 'info@finds.org.uk',
-    'uri'   => $this->serverUrl() . '/contacts' ,
-));
-if(isset($result->updated)){
-$entry->setDateModified(strtotime($result->updated));
-}
-$entry->setDateCreated(strtotime($result->created));
-if(isset($result->description)){
-$entry->setDescription($result->description);
+    'copyright' => 'Creative Commons Licenced',
+    'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
+    'language' => 'en',
+    'entries' => array()
+);
+foreach ($this->results as $find) {
 
-$entry->setContent($result->description);
+    if(array_key_exists('description', $find)){
+        $description = str_replace(array("\n", "\r"), array('', ''), $find['description']);
+    } else {
+        $description = 'No description available';
+    }
+
+    if(array_key_exists('updated', $find)){
+        $updated = strtotime($find['updated']);
+    } else {
+        $updated = strtotime($find['created']);
+    }
+
+    $feedArray['entries'][] = array(
+        'title' => $find['old_findID'] . ' ' . $find['objecttype'] . ' ' . $find['broadperiod'],
+        'link' => $this->serverUrl() . '/database/artefacts/record/id/' . $find['id'],
+        'guid' => $this->serverUrl() . '/database/artefacts/record/id/' . $find['id'],
+        'description' => $description,
+        'lastUpdate' => $updated,
+        'content' => $description,
+    );
 }
-$feed->addEntry($entry);
-}
-/**
-* Render the resulting feed to Atom 1.0 and assign to $out.
-* You can substitute "atom" with "rss" to generate an RSS 2.0 feed.
-*/
-$out = $feed->export('rss');
-echo $out;
+$feed = Zend_Feed::importArray($feedArray, 'rss');
+$feed->send();

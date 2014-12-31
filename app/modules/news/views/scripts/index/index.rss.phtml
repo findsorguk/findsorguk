@@ -3,7 +3,7 @@ $feed = new Zend_Feed_Writer_Feed;
 $feed->setTitle('News from the Portable Antiquities Scheme');
 $feed->setDescription('An rss feed of news stories from the Scheme');
 $feed->setLink($this->serverUrl());
-$feed->setFeedLink($this->curUrl(), 'rss');
+$feed->setFeedLink($this->curUrl()->__toString(), 'rss');
 
 $feed->setDateModified(time());
 $feed->addHub('http://pubsubhubbub.appspot.com/');
