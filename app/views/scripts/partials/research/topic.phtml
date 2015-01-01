@@ -5,7 +5,7 @@ $this->metaBase()->setSubject('Research')
     ->generate();
 
 ?>
-    <h2 class="lead"><?php echo $this->title; ?></h2>
+<h2 class="lead"><?php echo $this->title; ?></h2>
 
 <?php if (!is_null($this->temporal)): ?>
     <p>Suggested period: <?php echo $this->temporal; ?></p>
@@ -15,7 +15,18 @@ $this->metaBase()->setSubject('Research')
     <?php echo $this->description; ?>
 <?php endif; ?>
 
-<?php if (!is_null($this->created)): ?>
-    <h3 class="lead">Audit data</h3>
-    <p>Created: <?php echo $this->fullname; ?> <?php echo $this->timeAgoInWords($this->created); ?></p>
-<?php endif; ?>
+
+<h3 class="lead">Audit data</h3>
+<p>
+    <?php if (!is_null($this->created)): ?>
+        Created by:  <?php echo $this->fullname; ?>
+        <br />
+        Created: <?php echo $this->timeAgoInWords($this->created); ?>
+    <?php endif; ?>
+    <?php if (!is_null($this->updated)): ?>
+        <br />
+        Updated by: <?php echo $this->fn;?>
+        <br />
+        Updated: <?php echo $this->timeAgoInWords($this->updated); ?>
+    <?php endif; ?>
+</p>
