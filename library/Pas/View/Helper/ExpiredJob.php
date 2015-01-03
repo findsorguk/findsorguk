@@ -65,7 +65,7 @@ class Pas_View_Helper_ExpiredJob extends Zend_View_Helper_Abstract
      * @return \Pas_View_Helper_ExpiredJob
      */
     public function expiredJob() {
-        return $this->checkDate();
+        return $this;
     }
 
     /** Check the date
@@ -77,5 +77,9 @@ class Pas_View_Helper_ExpiredJob extends Zend_View_Helper_Abstract
                 new Zend_Date($this->getDate(),'YYYY-MM-dd')
                 );
         return $difference;
+    }
+
+    public function __toString(){
+        return $this->checkDate();
     }
 }
