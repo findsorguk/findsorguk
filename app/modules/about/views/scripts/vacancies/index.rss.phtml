@@ -1,0 +1,26 @@
+<?php
+$feedArray = array(
+    'title' => 'Current vacancies at the Portable Antiquities Scheme',
+    'link' => $this->curUrl(),
+    'charset' => 'utf-8',
+    'description' => 'The latest vacancies at the Portable Antiquities Scheme',
+    'author' => 'The Portable Antiquities Scheme',
+    'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
+    'email' => 'info@finds.org.uk',
+    'copyright' => 'The Trustees of the British Museum: CC-BY',
+    'generator' => 'Powered by @findsorguk and the magic of Dan',
+    'language' => 'en-GB',
+    'entries' => array()
+);
+foreach ($this->vacs as $vac) {
+    $feedArray['entries'][] = array(
+        'title' => $vac['title'] . ' - ' . $vac['staffregions'],
+        'link' => $this->serverUrl() . '/about/vacancies/vacancy/id/' . $vac['id'],
+        'guid' => $this->serverUrl() . '/about/vacancies/vacancy/id/' . $vac['id'],
+        'description' => strip_tags(substr($vac['specification'], 0, 300)),
+        'lastUpdate' => strtotime($vac['created']),
+        'content' => strip_tags($vac['specification'], ''),
+    );
+}
+$feed = Zend_Feed::importArray($feedArray, 'rss');
+$feed->send();
