@@ -1,15 +1,16 @@
 <?php
-/** 
+
+/**
  * View helper for expanding section titles in admin backend
  *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * echo $this->sectionTitle()->setTitle('api');
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @example /app/views/scripts/partials/admin/contentHelpTable.phtml
  * @category Pas
@@ -17,19 +18,21 @@
  * @version 1
  * @copyright (c) 2014, Daniel Pett
  */
-class Pas_View_Helper_SectionTitle {
-    
+class Pas_View_Helper_SectionTitle
+{
+
     /** The section title default
      * @access protected
      * @var string
      */
     protected $_title = 'Default title';
-    
+
     /** Get the title
      * @access public
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->_title;
     }
 
@@ -38,7 +41,8 @@ class Pas_View_Helper_SectionTitle {
      * @param string $title
      * @return \Pas_View_Helper_SectionTitle
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->_title = $title;
         return $this;
     }
@@ -47,24 +51,27 @@ class Pas_View_Helper_SectionTitle {
      * @access public
      * @return \Pas_View_Helper_SectionTitle
      */
-    public function sectionTitle() {
+    public function sectionTitle()
+    {
         return $this;
     }
-    
+
     /** To string function
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getSection($this->getTitle());
     }
-        
+
     /** Get the section
      * @access public
      * @param string $title
      * @return string
      */
-    public function getSection( $title ) {
+    public function getSection($title)
+    {
         switch ($title) {
             case 'ironagecoins':
                 $sec = 'Iron Age coin guide';
@@ -73,7 +80,7 @@ class Pas_View_Helper_SectionTitle {
                 $sec = 'API documentation';
                 break;
             case 'medievalcoins':
-            $sec = 'Medieval coin guide';
+                $sec = 'Medieval coin guide';
                 break;
             case 'earlymedievalcoins':
                 $sec = 'Early Medieval coin guide';
@@ -147,10 +154,19 @@ class Pas_View_Helper_SectionTitle {
             case 'secret':
                 $sec = 'Britain\'s Secret Treasures';
                 break;
+            case 'tech':
+                $sec = 'Technology';
+                break;
+            case 'about':
+                $sec = 'About us';
+                break;
+            case 'guides':
+                $sec = 'Guides';
+                break;
             default:
                 $sec = 'Index';
                 break;
-            }
+        }
         return $sec;
     }
 }
