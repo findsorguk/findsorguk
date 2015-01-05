@@ -31,22 +31,22 @@ class News_StoryController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function indexAction(){
-        if($this->_getParam('id',false)){
+        if($this->getParam('id',false)){
             $news = new News();
-            $this->view->news = $news->getStory($this->_getParam('id'));
+            $this->view->news = $news->getStory($this->getParam('id'));
             $comments = new Comments();
-            $this->view->comments = $comments->getCommentsNews($this->_getParam('id'));
+            $this->view->comments = $comments->getCommentsNews($this->getParam('id'));
             $form = new CommentFindForm();
             $form->submit->setLabel('Add a new comment');
             $this->view->form = $form;
             if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 $data = $this->_helper->akismet($form->getValues());
-                $data['contentID'] = $this->_getParam('id');
+                $data['contentID'] = $this->getParam('id');
                 $data['comment_type'] = 'newsComment';
                 $data['comment_approved'] = 'moderation';
                 $comments->add($data);
                 $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
-                $this->redirect('/news/stories/article/id/' . $this->_getParam('id'));
+                $this->redirect('/news/stories/article/id/' . $this->getParam('id'));
                 $this->getFlash()->addMessage('There are problems with your comment submission');
                 $form->populate($form->getValues());
             }

@@ -27,7 +27,7 @@ class Getinvolved_LinksController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->view->page = $this->_getParam('page');
+        $this->view->page = $this->getParam('page');
     }
 
     /** Render data by tag for link page
@@ -36,6 +36,6 @@ class Getinvolved_LinksController extends Pas_Controller_Action_Admin
      */
     public function linkAction()
     {
-        $this->view->tag = $this->_getParam('bytag');
+        $this->view->tag = $this->getParam('bytag');
     }
 }

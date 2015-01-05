@@ -81,8 +81,8 @@ class RomanCoins_EmperorsController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function emperorAction() {
-        if($this->_getParam('id',false)){
-            $id = (int)$this->_getParam('id');
+        if($this->getParam('id',false)){
+            $id = (int)$this->getParam('id');
             $this->view->emps = $this->_emperors->getEmperorDetails($id);
             $denoms = new Denominations();
             $this->view->denoms = $denoms->getEmperorDenom($id);

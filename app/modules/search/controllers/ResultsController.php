@@ -35,7 +35,7 @@ class Search_ResultsController extends Pas_Controller_Action_Admin {
         $search->setFacets(array('section'));
         $search->setParams($this->getAllParams());
         $search->execute();
-        $this->view->query = $this->_getParam('q');
+        $this->view->query = $this->getParam('q');
         $this->view->facets = $search->processFacets();
         $this->view->paginator = $search->createPagination();
         $this->view->results = $search->processResults();

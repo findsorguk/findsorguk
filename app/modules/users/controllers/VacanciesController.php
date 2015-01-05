@@ -38,7 +38,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->currentvacs = $this->_vacancies->getJobsAdmin($this->_getParam('page'));
+        $this->view->currentvacs = $this->_vacancies->getJobsAdmin($this->getParam('page'));
     }
 
     /** Add a vacancy
@@ -78,7 +78,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function editAction() {
-        if($this->_getParam('id',false)) {
+        if($this->getParam('id',false)) {
             $form = new VacancyForm();
             $form->submit->setLabel('Submit changes');
             $this->view->form = $form;
@@ -86,7 +86,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
                 $formData = $this->_request->getPost();
                 if ($form->isValid($formData)) {
                     $where = array();
-                    $where[] = $this->_vacancies->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->_vacancies->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $insertdata = array(
                         'title' => $form->getValue('title'),
                         'salary' => $form->getValue('salary'),
@@ -106,7 +106,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
                 }
             } else {
                 // find id is expected in $params['id']
-                $id = (int)$this->_getParam('id', 0);
+                $id = (int)$this->getParam('id', 0);
                 if ($id > 0) {
                     $vac = $this->_vacancies->fetchRow('id = '.$id);
                     if(count($vac)) {
@@ -126,7 +126,7 @@ class Users_VacanciesController extends Pas_Controller_Action_Admin {
      */
     public function deleteAction() {
         if ($this->_request->isPost()) {
-            $id = (int)$this->_getParam('id');
+            $id = (int)$this->getParam('id');
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = '.(int)$id;

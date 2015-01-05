@@ -49,6 +49,7 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->getFlash()->addMessage('You can only see photos at the index page');
+        $this->getResponse()->setHttpResponseCode(301)->setRawHeader('HTTP/1.1 301 Moved Permanently');
         $this->redirect('/flickr/');
     }
 
@@ -88,7 +89,7 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin
      */
     public function whereonearthAction()
     {
-        $woeid = (int)$this->_getParam('id');
+        $woeid = (int)$this->getParam('id');
         $page = $this->getPage();
         $this->view->place = $woeid;
         $key = md5('woeid' . $woeid . $page);
@@ -129,8 +130,8 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin
      */
     public function inasetAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
             $page = $this->getPage();
             $key = md5('set' . $id . $page);
             if (!($this->getCache()->test($key))) {
@@ -160,8 +161,8 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin
      */
     public function detailsAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
             $exif = $this->_api->getPhotoExifDetails($id);
             $this->view->exif = $exif;
             $geo = $this->_api->getGeoLocation($id);
@@ -184,8 +185,8 @@ class Flickr_PhotosController extends Pas_Controller_Action_Admin
      */
     public function taggedAction()
     {
-        if ($this->_getParam('as', false)) {
-            $tags = $this->_getParam('as');
+        if ($this->getParam('as', false)) {
+            $tags = $this->getParam('as');
             $page = $this->getPage();
             $key = md5('tagged' . $tags . $page);
             if (!($this->getCache()->test($key))) {

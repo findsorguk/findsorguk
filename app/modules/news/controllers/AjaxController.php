@@ -84,7 +84,7 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
      * @return void
     */
     public function mpAction() {
-	$id = $this->_getParam('id');
+	$id = $this->getParam('id');
 	$twfy = 'http://www.theyworkforyou.com/api/getPerson?key=';
         $twfy .= $this->_apikey;
         $twfy .= '&id=';
@@ -99,9 +99,9 @@ class News_AjaxController extends Pas_Controller_Action_Admin {
      * @throws Pas_Param_Exception
      */
     public function mapAction()	{
-	if($this->_getParam('constituency',false)){
+	if($this->getParam('constituency',false)){
             $finds = new Finds();
-            $this->view->finds = $finds->getFindsConstituencyMap($this->_getParam('constituency'));
+            $this->view->finds = $finds->getFindsConstituencyMap($this->getParam('constituency'));
 	} else {
             throw new Pas_Param_Exception($this->_missingParameter);
 	}

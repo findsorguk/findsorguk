@@ -120,7 +120,7 @@ class Users_NewsController extends Pas_Controller_Action_Admin {
                     $lat = null;
                     $lon = null;
                 }
-                $row = $this->_news->fetchRow('id =' . $this->_getParam('id'));
+                $row = $this->_news->fetchRow('id =' . $this->getParam('id'));
                 $row->title = $form->getValue('title');
                 $row->summary = $form->getValue('summary');
                 $row->contents = $form->getValue('contents');

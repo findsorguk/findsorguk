@@ -33,7 +33,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin
      */
     public function getTreasureID()
     {
-        $this->_treasureID = $this->_getParam('treasureID');
+        $this->_treasureID = $this->getParam('treasureID');
         return $this->_treasureID;
     }
 
@@ -88,7 +88,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin
      */
     public function casehistoryAction()
     {
-        if ($this->_getParam('treasureID', false)) {
+        if ($this->getParam('treasureID', false)) {
             $treasure = new TreasureCases();
             $this->view->cases = $treasure->getCaseHistory($this->_treasureID);
             $valuations = new TreasureValuations();
@@ -114,7 +114,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin
      */
     public function eventAction()
     {
-        if ($this->_getParam('treasureID', false)) {
+        if ($this->getParam('treasureID', false)) {
 
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -129,7 +129,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin
      */
     public function editeventAction()
     {
-        if ($this->_getParam('treasureID', false)) {
+        if ($this->getParam('treasureID', false)) {
 
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -143,7 +143,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin
      */
     public function provisionalvalueAction()
     {
-        if ($this->_getParam('treasureID', false)) {
+        if ($this->getParam('treasureID', false)) {
             $form = new ProvisionalValuationForm();
             $form->submit->setLabel('Add valuation');
             $this->view->form = $form;
@@ -198,7 +198,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin
      */
     public function assigncuratorAction()
     {
-        if ($this->_getParam('treasureID', false)) {
+        if ($this->getParam('treasureID', false)) {
             $form = new TreasureAssignForm();
             $form->submit->setLabel('Assign to curator');
             $this->view->form = $form;
@@ -226,7 +226,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin
      */
     public function tvcAction()
     {
-        if ($this->_getParam('treasureID', false)) {
+        if ($this->getParam('treasureID', false)) {
             $form = new TVCDateForm();
             $form->submit->setLabel('Assign to meeting date');
             $this->view->form = $form;
@@ -254,7 +254,7 @@ class Database_TreasureController extends Pas_Controller_Action_Admin
      */
     public function finalAction()
     {
-        if ($this->_getParam('treasureID', false)) {
+        if ($this->getParam('treasureID', false)) {
             $form = new FinalValuationForm();
             $form->submit->setLabel('Add final valuation');
             $this->view->form = $form;

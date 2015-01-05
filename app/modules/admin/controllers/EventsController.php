@@ -63,7 +63,7 @@ class Admin_EventsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->view->events = $this->_events->getEventsAdmin($this->_getParam('page'));
+        $this->view->events = $this->_events->getEventsAdmin($this->getParam('page'));
     }
 
     /** Add an event
@@ -99,7 +99,7 @@ class Admin_EventsController extends Pas_Controller_Action_Admin
         $this->view->form = $form;
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $where = array();
-            $where[] = $this->_events->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+            $where[] = $this->_events->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
             $this->_events->update($form->getValues(), $where);
             $this->getFlash()->addMessage(
                 'You updated: <em>'

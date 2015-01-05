@@ -84,8 +84,8 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin
      */
     public function projectAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->projects = $this->getResearchProjects()->getProjectDetails($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->projects = $this->getResearchProjects()->getProjectDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter);
         }
@@ -115,9 +115,9 @@ class Research_ProjectsController extends Pas_Controller_Action_Admin
      */
     public function topicAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $topic = new SuggestedResearch();
-            $this->view->topic = $topic->getTopic($this->_getParam('id'));
+            $this->view->topic = $topic->getTopic($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

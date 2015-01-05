@@ -44,7 +44,7 @@ class Users_SearchController extends Pas_Controller_Action_Admin  {
      */
     public function historyAction()  {
         $this->view->searches = $this->_searches->getAllSearches((int)$this->getIdentityForForms(),
-        (int)$this->_getParam('page'));
+        (int)$this->getParam('page'));
     }
 
     /** Display saved searches by logged in account
@@ -54,7 +54,7 @@ class Users_SearchController extends Pas_Controller_Action_Admin  {
     public function savedAction()  {
     $this->view->searches = $this->_searches->getAllSavedSearches(
             $this->getIdentityForForms(),
-            $this->_getParam('page'), null
+            $this->getParam('page'), null
             );
     }
 }

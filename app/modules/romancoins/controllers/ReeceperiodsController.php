@@ -82,8 +82,8 @@ class RomanCoins_ReeceperiodsController extends Pas_Controller_Action_Admin
      */
     public function periodAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = (int)$this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = (int)$this->getParam('id');
             $this->view->periods = $this->_reeces->getReecePeriodDetail($id);
             $emperors = new Emperors();
             $this->view->reeces = $emperors->getReeceDetail($id);

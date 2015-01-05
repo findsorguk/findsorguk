@@ -67,16 +67,16 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      */
     public function addAction()
     {
-        if (($this->_getParam('broadperiod', false))
-            && ($this->_getParam('findID', false))
+        if (($this->getParam('broadperiod', false))
+            && ($this->getParam('findID', false))
         ) {
-            if($this->getCoins()->checkCoinData($this->_getParam('findID'))) {
+            if($this->getCoins()->checkCoinData($this->getParam('findID'))) {
                 throw new Pas_Exception('Record already exists', 500);
             }
-            $broadperiod = (string)$this->_getParam('broadperiod');
+            $broadperiod = (string)$this->getParam('broadperiod');
             $form = $this->_helper->coinFormLoader($broadperiod);
             $this->view->form = $form;
-            $last = $this->_getParam('copy');
+            $last = $this->getParam('copy');
             if ($last == 'last') {
                 $this->getFlash()->addMessage('Cloned your last record.');
                 $coindata = $this->getCoins()->getLastRecord($this->getIdentityForForms());
@@ -87,13 +87,13 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
             }
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 $insertData = $form->getValues();
-                $insertData['findID'] = (string)$this->_getParam('findID');
+                $insertData['findID'] = (string)$this->getParam('findID');
                 $insertData['secuid'] = (string)$this->secuid();
                 $insertData['institution'] = $this->getInstitution();
                 $this->getCoins()->add($insertData);
-                $this->_helper->solrUpdater->update('objects', $this->_getParam('returnID'));
+                $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'));
                 $this->getFlash()->addMessage('Coin data saved.');
-                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
+                $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -109,34 +109,34 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $finds = new Finds();
-            $this->view->finds = $finds->getFindNumbersEtc($this->_getParam('returnID'));
-            $form = $this->_helper->coinFormLoader($this->_getParam('broadperiod'));
+            $this->view->finds = $finds->getFindNumbersEtc($this->getParam('returnID'));
+            $form = $this->_helper->coinFormLoader($this->getParam('broadperiod'));
             $this->view->form = $form;
             if ($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
                     $updateData = $form->getValues();
-                    $oldData = $this->getCoins()->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    $oldData = $this->getCoins()->fetchRow('id=' . $this->getParam('id'))->toArray();
                     $where = $this->getCoins()->getAdapter()->quoteInto('id = ?',
-                        $this->_getParam('id'));
+                        $this->getParam('id'));
                     //Update the coins table
                     $this->getCoins()->update($updateData, $where);
                     //Audit the changes
-                    $this->_helper->audit($updateData, $oldData, 'CoinsAudit', $this->_getParam('id'), $this->_getParam('returnID'));
+                    $this->_helper->audit($updateData, $oldData, 'CoinsAudit', $this->getParam('id'), $this->getParam('returnID'));
                     //Update solr index
-                    $this->_helper->solrUpdater->update('objects', $this->_getParam('returnID'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'));
                     $this->getFlash()->addMessage('Numismatic details updated.');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
                 } else {
                     $form->populate($this->_request->getPost());
                 }
             } else {
-                $id = (int)$this->_getParam('id', 0);
+                $id = (int)$this->getParam('id', 0);
                 if ($id > 0) {
                     $coin = $this->getCoins()->getCoinToEdit($id);
                     $form->populate($coin['0']);
-                    $this->_helper->coinFormLoaderOptions($this->_getParam('broadperiod'), $coin);
+                    $this->_helper->coinFormLoaderOptions($this->getParam('broadperiod'), $coin);
                 }
             }
         } else {
@@ -150,7 +150,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $returnID = (int)$this->_request->getPost('returnID');
@@ -198,14 +198,14 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
                 $coins = new CoinXClass();
                 $secuid = $this->secuid();
                 $insertData = array(
-                    'findID' => (string)$this->_getParam('findID'),
+                    'findID' => (string)$this->getParam('findID'),
                     'classID' => $form->getValue('classID'),
                     'vol_no' => $form->getValue('vol_no'),
                     'reference' => $form->getValue('reference')
                 );
                 $coins->insert($insertData);
                 $this->getFlash()->addMessage('Coin reference data saved.');
-                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
+                $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
             } else {
                 $form->populate($formData);
             }
@@ -225,17 +225,17 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
             if ($form->isValid($this->_request->getPost())) {
                 $coins = new CoinXClass();
                 $updateData = array(
-                    'findID' => (string)$this->_getParam('findID'),
+                    'findID' => (string)$this->getParam('findID'),
                     'classID' => $form->getValue('classID'),
                     'vol_no' => $form->getValue('vol_no'),
                     'reference' => $form->getValue('reference')
                 );
 
                 $where = array();
-                $where[] = $coins->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] = $coins->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $coins->update($updateData, $where);
                 $this->getFlash()->addMessage('Coin reference updated!');
-                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
+                $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -255,7 +255,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      */
     public function deletecoinrefAction()
     {
-        $returnID = $this->_getParam('returnID');
+        $returnID = $this->getParam('returnID');
         $this->view->returnID = $returnID;
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');

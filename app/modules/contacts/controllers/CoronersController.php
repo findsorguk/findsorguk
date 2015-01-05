@@ -60,8 +60,8 @@ class Contacts_CoronersController extends Pas_Controller_Action_Admin
      */
     public function profileAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->persons = $this->_coroners->getCoronerDetails($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->persons = $this->_coroners->getCoronerDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

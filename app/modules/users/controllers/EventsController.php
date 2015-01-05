@@ -53,7 +53,7 @@ class Users_EventsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->view->events = $this->_events->getEventsAdmin($this->_getParam('page'));
+        $this->view->events = $this->_events->getEventsAdmin($this->getParam('page'));
     }
 
     /** Add a new event
@@ -155,7 +155,7 @@ class Users_EventsController extends Pas_Controller_Action_Admin
                 }
                 $events = new Events();
                 $where = array();
-                $where[] = $events->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] = $events->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $events->update($insertdata, $where);
                 $this->getFlash()->addMessage('You updated: <em>' . $form->getValue('eventTitle')
                     . '</em> successfully.');

@@ -63,8 +63,8 @@ class Users_CommentsController extends Pas_Controller_Action_Admin {
         $this->view->comments = $this->_comments
                 ->getCommentsOnMyRecords(
                         $this->getIdentityForForms(),
-                        $this->_getParam('page'),
-                        $this->_getParam('approved')
+                        $this->getParam('page'),
+                        $this->getParam('approved')
                         );
     }
 }

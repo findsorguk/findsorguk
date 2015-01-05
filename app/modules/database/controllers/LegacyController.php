@@ -42,9 +42,9 @@ class Database_LegacyController extends Pas_Controller_Action_Admin {
      */
     public function redirectAction() {
         $this->_helper->layout->disableLayout();
-        if($this->_getParam('id',false)){
+        if($this->getParam('id',false)){
             $finds = new Finds();
-            $results = $finds->fetchRow($finds->select()->where('secuid = ?', $this->_getParam('id')));
+            $results = $finds->fetchRow($finds->select()->where('secuid = ?', $this->getParam('id')));
             if(!is_null($results)){
                 $id = (int)$results ->id;
             } else {

@@ -58,7 +58,7 @@ class Admin_MessagesController extends Pas_Controller_Action_Admin
      */
     public function replyAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new MessageReplyForm();
             $form->submit->setLabel('Send reply');
             $this->view->form = $form;
@@ -68,10 +68,10 @@ class Admin_MessagesController extends Pas_Controller_Action_Admin
                 if ($form->isValid($form->getValues())) {
                     $reply = array();
                     $reply['messagetext'] = $form->getValue('messagetext');
-                    $reply['messageID'] = $this->_getParam('id');
+                    $reply['messageID'] = $this->getParam('id');
                     $data['replied'] = 1;
                     $where = $this->_messages->getAdapter()->quoteInto('id= ?',
-                        $this->_getParam('id'));
+                        $this->getParam('id'));
                     $update = $this->_messages->update($data, $where);
                     $this->_replies->add($reply);
                     $contact = array(array(

@@ -28,7 +28,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
         $this->_helper->_acl->allow('member',array('add','edit','delete'));
         $this->_helper->_acl->allow('public',$publicActions);
 
-        $this->setController($this->_getParam('recordtype', 'artefacts'));
+        $this->setController($this->getParam('recordtype', 'artefacts'));
         $this->setRedirect($this->getController());
         
         $this->_bibliography = new Bibliography();
@@ -109,11 +109,11 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $insertData = $form->getValues();
-                $insertData['findID'] = $this->_getParam('secID');
+                $insertData['findID'] = $this->getParam('secID');
                 unset($insertData['authors']);
                 $this->_bibliography->add($insertData);
                 $this->getFlash()->addMessage('A new reference work has been added to this record');
-                $this->redirect($this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
+                $this->redirect($this->getRedirect() . 'record/id/' . $this->getParam('findID'));
             } else {
              $form->populate( $this->_request->getPost());
             }
@@ -133,10 +133,10 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                 unset($formData['authors']);
                 unset($formData['submit']);
                 $where = array();
-                $where[] =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] =  $this->_bibliography->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $this->_bibliography->update($formData, $where);
                 $this->getFlash()->addMessage('Reference details updated!');
-                $this->redirect($this->getRedirect() . 'record/id/' . $this->_getParam('findID'));
+                $this->redirect($this->getRedirect() . 'record/id/' . $this->getParam('findID'));
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -158,7 +158,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function deleteAction() {
-        if($this->_getParam('id',false)) {
+        if($this->getParam('id',false)) {
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $findID = (int)$this->_request->getPost('findID');
@@ -173,7 +173,7 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin {
                     $this->redirect($this->getRedirect() . 'record/id/' . $findID);
                 }
             } else {
-                $id = (int)$this->_getParam('id');
+                $id = (int)$this->getParam('id');
                 if ($id > 0) {
                     $this->view->id = $id;
                     $this->view->bib = $this->_bibliography->fetchFindBook($id, $this->getController());

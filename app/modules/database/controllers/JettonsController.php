@@ -62,10 +62,10 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function addAction() {
-        if( ($this->_getParam('broadperiod',false))
-            && ($this->_getParam('findID',false) )){
-            $this->getCoins()->checkCoinData($this->_getParam('findID'));
-            $broadperiod = (string)$this->_getParam('broadperiod');
+        if( ($this->getParam('broadperiod',false))
+            && ($this->getParam('findID',false) )){
+            $this->getCoins()->checkCoinData($this->getParam('findID'));
+            $broadperiod = (string)$this->getParam('broadperiod');
             switch ($broadperiod) {
                 case 'MEDIEVAL':
                     $form = new TokenJettonForm();
@@ -83,7 +83,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
                     throw new Pas_Exception('You cannot have a token for that period.');
             }
 
-            $last = $this->_getParam('copy');
+            $last = $this->getParam('copy');
             if($last == 'last') {
                 $this->getFlash()->addMessage('Your last record data has been cloned');
                 $coindata = $this->getCoins()->getLastRecord($this->getIdentityForForms());
@@ -96,11 +96,11 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
                 if ($form->isValid($form->getValues())) {
                     $insertData = $form->getValues();
                     $insertData['secuid'] = $this->secuid();
-                    $insertData['findID'] = $this->_getParam('findID');
+                    $insertData['findID'] = $this->getParam('findID');
                     $this->getCoins()->add($insertData);
-                    $this->_helper->solrUpdater->update('objects', $this->_getParam('returnID'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'));
                     $this->getFlash()->addMessage('Jetton data saved for this record.');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
                 }  else {
                     $form->populate($this->_request->getPost());
                 }
@@ -116,10 +116,10 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function editAction() {
-        if($this->_getParam('id',false)){
+        if($this->getParam('id',false)){
             $finds = new Finds();
-            $this->view->finds = $finds->getFindNumbersEtc($this->_getParam('returnID'));
-            $broadperiod = (string)$this->_getParam('broadperiod');
+            $this->view->finds = $finds->getFindNumbersEtc($this->getParam('returnID'));
+            $broadperiod = (string)$this->getParam('broadperiod');
             switch ($broadperiod) {
                 case 'MEDIEVAL':
                     $form = new TokenJettonForm();
@@ -140,22 +140,22 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
             if($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
                     $updateData = $form->getValues();
-                    $oldData = $this->getCoins()->fetchRow('id=' . $this->_getParam('id'))->toArray();
-                    $where =  $this->getCoins()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $oldData = $this->getCoins()->fetchRow('id=' . $this->getParam('id'))->toArray();
+                    $where =  $this->getCoins()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->getCoins()->update($updateData, $where);
-                    $this->_helper->audit($updateData, $oldData, 'CoinsAudit', $this->_getParam('id'), $this->_getParam('returnID'));
+                    $this->_helper->audit($updateData, $oldData, 'CoinsAudit', $this->getParam('id'), $this->getParam('returnID'));
                     $this->getFlash()->addMessage('Numismatic details updated.');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('returnID'));
-                    $this->_helper->solrUpdater->update('objects', $this->_getParam('returnID'));
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'));
                 } else {
                     $this->getFlash()->addMessage('Please check your form for errors');
                     $form->populate($this->_request->getPost());
                 }
             } else {
                 // find id is expected in $params['id']
-                $id = (int)$this->_getParam('id', 0);
+                $id = (int)$this->getParam('id', 0);
                 if (is_int($id)) {
-                    $coin = $this->_coins->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    $coin = $this->_coins->fetchRow('id=' . $this->getParam('id'))->toArray();
                     $form->populate($coin);
                 }
             }
@@ -168,7 +168,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function deleteAction() {
-        if($this->_getParam('id',false)){
+        if($this->getParam('id',false)){
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $returnID = (int)$this->_request->getPost('returnID');

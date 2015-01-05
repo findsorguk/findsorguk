@@ -48,10 +48,10 @@ class IronAgeCoins_AllentypesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function typeAction(){
-        if($this->_getParam('id',false)){    
+        if($this->getParam('id',false)){
         $this->view->type = $this->_allenTypes->fetchRow(
                 $this->_allenTypes->select()
-                ->where('type = ?', $this->_getParam('id'))
+                ->where('type = ?', $this->getParam('id'))
                 );
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);

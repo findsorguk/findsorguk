@@ -55,9 +55,9 @@ class IronAgeCoins_RegionsController extends Pas_Controller_Action_Admin {
      *
     */
     public function regionAction(){
-        if($this->_getParam('id',false)){
-            $this->view->regions = $this->_geography->getIronAgeRegion($this->_getParam('id'));
-            $id = $this->_getParam('id');
+        if($this->getParam('id',false)){
+            $this->view->regions = $this->_geography->getIronAgeRegion($this->getParam('id'));
+            $id = $this->getParam('id');
             $denominations = new Denominations();
             $this->view->denominations = $denominations->getDenByPeriod($this->_period);
             $rulers = new Rulers();

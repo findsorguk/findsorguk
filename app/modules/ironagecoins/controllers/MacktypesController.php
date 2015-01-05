@@ -55,10 +55,10 @@ class IronAgeCoins_MacktypesController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function typeAction(){
-        if($this->_getParam('id',false)) {
+        if($this->getParam('id',false)) {
             $this->view->type = $this->_mackTypes->fetchRow(
                     $this->_mackTypes->select()
-                    ->where('type = ?',urlencode($this->_getParam('id'))
+                    ->where('type = ?',urlencode($this->getParam('id'))
                             ));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);

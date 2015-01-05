@@ -301,7 +301,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     public function loginsAction()
     {
         $logins = new Logins();
-        $this->view->logins = $logins->myLogins($this->getUsername(), $this->_getParam('page'));
+        $this->view->logins = $logins->myLogins($this->getUsername(), $this->getParam('page'));
         $this->view->ips = $logins->myIps($this->getUsername());
     }
 

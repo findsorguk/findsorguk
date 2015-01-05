@@ -39,8 +39,8 @@ class IndexController extends Pas_Controller_Action_Admin
         $form->removeElement('thumbnail');
         $form->q->removeDecorator('label');
         $form->q->setAttrib('class', 'input-large');
-        if ($this->getRequest()->isPost() && $form->isValid($_POST)) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $params = array_filter($form->getValues());
                 unset($params['csrf']);
                 $this->getFlash()->addMessage('Your search is complete');

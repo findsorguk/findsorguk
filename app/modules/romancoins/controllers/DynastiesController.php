@@ -53,10 +53,10 @@ class RomanCoins_DynastiesController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function dynastyAction() {
-        if($this->_getParam('id',false)) {
-            $this->view->dynasties = $this->_dynasties->getDynasty($this->_getParam('id'));
+        if($this->getParam('id',false)) {
+            $this->view->dynasties = $this->_dynasties->getDynasty($this->getParam('id'));
             $emperors = new Emperors();
-            $this->view->emperors = $emperors->getEmperorsDynasty($this->_getParam('id'));
+            $this->view->emperors = $emperors->getEmperorsDynasty($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

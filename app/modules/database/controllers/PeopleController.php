@@ -109,7 +109,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
         $search->setFields(array('*'));
         $search->setFacets(array('county', 'organisation', 'activity'));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
+            && !is_null($this->getParam('submit'))
         ) {
             $cleaner = new Pas_ArrayFunctions();
             $params = $cleaner->array_cleanup($form->getValues());
@@ -136,16 +136,16 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
      */
     public function personAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $params = array();
-            $person = $this->getPeople()->getPersonDetails($this->_getParam('id'));
+            $person = $this->getPeople()->getPersonDetails($this->getParam('id'));
             if ($this->_helper->contextSwitch()->getCurrentContext() !== 'vcf') {
                 $search = new Pas_Solr_Handler();
                 $search->setCore('objects');
                 $fields = new Pas_Solr_FieldGeneratorFinds($this->getCurrentContext());
                 $search->setFields($fields->getFields());
                 $params['finderID'] = $person['0']['secuid'];
-                $params['page'] = $this->_getParam('page');
+                $params['page'] = $this->getParam('page');
                 $search->setParams($params);
                 $search->execute();
                 $this->view->paginator = $search->createPagination();
@@ -198,7 +198,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new PeopleForm();
             $form->submit->setLabel('Update details');
             $this->view->form = $form;
@@ -214,7 +214,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
                     $address .= $form->getValue('postcode');
                     $coords = $this->geoCodeAddress($address);
                     $oldData = $this->getPeople()->fetchRow('id='
-                        . $this->_getParam('id'))->toArray();
+                        . $this->getParam('id'))->toArray();
                     if (array_key_exists('dbaseID', $updateData)) {
                         $users = new Users();
                         $userdetails = array('peopleID' => $oldData['secuid']);
@@ -222,18 +222,18 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
                         $whereUsers = $users->getAdapter()->quoteInto('id = ?', $updateData['dbaseID']);
                         $users->update($userdetails, $whereUsers);
                     }
-                    $where = $this->getPeople()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where = $this->getPeople()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $merged = array_merge($updateData, $coords);
                     //Updated the people db table
                     $clean = $this->getPeople()->updateAndProcess($merged);
                     //Update the solr instance
                     $this->getPeople()->update($clean, $where);
-                    $this->_helper->solrUpdater->update('people', $this->_getParam('id'));
+                    $this->_helper->solrUpdater->update('people', $this->getParam('id'));
                     //Update the audit log
                     $this->_helper->audit($updateData, $oldData, 'PeopleAudit',
-                        $this->_getParam('id'), $this->_getParam('id'));
+                        $this->getParam('id'), $this->getParam('id'));
                     $this->getFlash()->addMessage('Person information updated!');
-                    $this->redirect(self::REDIRECT . 'person/id/' . $this->_getParam('id'));
+                    $this->redirect(self::REDIRECT . 'person/id/' . $this->getParam('id'));
                 } else {
                     $form->populate($this->_request->getPost());
                 }

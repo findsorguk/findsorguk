@@ -80,8 +80,8 @@ class News_EventsController extends Pas_Controller_Action_Admin
      */
     function detailsAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->events = $this->_events->getEventData($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->events = $this->_events->getEventData($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

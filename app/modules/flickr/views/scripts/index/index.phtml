@@ -1,35 +1,35 @@
 <?php
 $this->headTitle('An introduction to our photos on flickr');
 $this->metaBase()
-        ->setDescription('The Scheme curates a large number of images on it\'s flickr profile feed.
+    ->setDescription('The Scheme curates a large number of images on it\'s flickr profile feed.
 They are all produced under a Creative Commons licence, feel free to use them')
-        ->setSubject('Photos')
-        ->setKeywords('flickr,photos,archaeology,numismatics,coins,museums');
-$this->jQuery()->addJavascriptFile('/js/bootstrap-carousel.js',$type='text/javascript');
+    ->setSubject('Photos')
+    ->setKeywords('flickr,photos,archaeology,numismatics,coins,museums');
+$this->jQuery()->addJavascriptFile('/js/bootstrap-carousel.js', $type = 'text/javascript');
 ?>
 <h2 class="lead">
-    <?php echo $this->title();?>
+    <?php echo $this->title(); ?>
 </h2>
 <?php
 $config = Zend_Registry::get('config');
 $flickr = $config->webservice->flickr;
 ?>
 <div class="row-fluid">
-<?php
-echo $this->flickrFront()->setLimit(12)->setFlickrConfig($flickr);
-?>
-<div class="row-fluid span10">
-<?php
-echo $this->flickrContactsList()->setFlickr($flickr);
-?>
-</div>
-<div class="row-fluid span10">
-<?php echo $this->flickrTags()->setApi($flickr);?>
-</div>
-<div class="row-fluid span10">
-<?php
-echo $this->flickrTotalViews()->setApi($flickr);
-?>
-</div>
+    <?php
+    echo $this->flickrFront()->setLimit(12)->setFlickrConfig($flickr);
+    ?>
+    <div class="row-fluid span10">
+        <?php
+        echo $this->flickrContactsList()->setFlickr($flickr);
+        ?>
+    </div>
+    <div class="row-fluid span10">
+        <?php echo $this->flickrTags()->setApi($flickr); ?>
+    </div>
+    <div class="row-fluid span10">
+        <?php
+        echo $this->flickrTotalViews()->setApi($flickr);
+        ?>
+    </div>
 
 </div>

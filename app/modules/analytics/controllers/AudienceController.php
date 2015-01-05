@@ -64,7 +64,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -99,7 +99,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -128,7 +128,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -157,7 +157,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -192,7 +192,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -220,7 +220,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -253,7 +253,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -279,7 +279,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -306,7 +306,7 @@ class Analytics_AudienceController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);

@@ -48,8 +48,8 @@ class RomanCoins_ReverseTypesController extends Pas_Controller_Action_Admin {
     /** Set up the individual reverse type
     */		
     public function typeAction() {
-        if($this->_getParam('id',false)) {
-            $id = $this->_getParam('id');
+        if($this->getParam('id',false)) {
+            $id = $this->getParam('id');
             $this->view->reverses = $this->_revTypes->getReverseTypesDetails($id);
             $emps = new Emperors();
             $this->view->emps = $emps->getEmperorRevTypes($id);

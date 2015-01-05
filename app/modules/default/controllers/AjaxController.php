@@ -93,8 +93,8 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function placesAction()
     {
-        if ($this->_getParam('term', false)) {
-            $districts = $this->_places->getDistrict($this->_getParam('term'));
+        if ($this->getParam('term', false)) {
+            $districts = $this->_places->getDistrict($this->getParam('term'));
         }
         echo Zend_Json::encode($districts);
     }
@@ -104,8 +104,8 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function parishesAction()
     {
-        if ($this->_getParam('term', false)) {
-            $parishes = $this->_places->getParish($this->_getParam('term'));
+        if ($this->getParam('term', false)) {
+            $parishes = $this->_places->getParish($this->getParam('term'));
             echo Zend_Json::encode($parishes);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -118,8 +118,8 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function parishesbycountyAction()
     {
-        if ($this->_getParam('term', false)) {
-            $parishes = $this->_places->getParishByCounty($this->_getParam('term'));
+        if ($this->getParam('term', false)) {
+            $parishes = $this->_places->getParishByCounty($this->getParam('term'));
             echo Zend_Json::encode($parishes);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -131,8 +131,8 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function districtbyparishAction()
     {
-        if ($this->_getParam('term', false)) {
-            $parishes = $this->_places->getDistrictByParish($this->_getParam('term'));
+        if ($this->getParam('term', false)) {
+            $parishes = $this->_places->getDistrictByParish($this->getParam('term'));
             echo Zend_Json::encode($parishes);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -144,9 +144,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function regionsAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $regions = new Counties;
-            $response = $regions->getRegions($this->_getParam('term'));
+            $response = $regions->getRegions($this->getParam('term'));
             echo Zend_Json::encode($response);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -158,9 +158,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function landusecodesAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $landcodes = new Landuses();
-            $json = $landcodes->getLandusesChildAjax2($this->_getParam('term'));
+            $json = $landcodes->getLandusesChildAjax2($this->getParam('term'));
         } else {
             $json = array(null => 'You must choose a landuse first');
         }
@@ -173,7 +173,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function objecttermAction()
     {
         $objectterms = new ObjectTerms;
-        $objecttermsjson = $objectterms->getObjectterm($this->_getParam('q'));
+        $objecttermsjson = $objectterms->getObjectterm($this->getParam('q'));
         echo Zend_Json::encode($objecttermsjson);
     }
 
@@ -184,7 +184,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function objectimagelinkAction()
     {
         $objectterms = new Finds;
-        $objecttermsjson = $objectterms->getImageLinkData($this->_getParam('q'));
+        $objecttermsjson = $objectterms->getImageLinkData($this->getParam('q'));
         echo Zend_Json::encode($objecttermsjson);
     }
 
@@ -195,43 +195,43 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function publicationtitleAction()
     {
         $publications = new Publications();
-        $pubjson = $publications->getTitles(urlencode($this->_getParam('q')));
+        $pubjson = $publications->getTitles(urlencode($this->getParam('q')));
         echo Zend_Json::encode($pubjson);
     }
 
     public function otherrefsAction()
     {
         $otherrefs = new Finds();
-        $otherrefsjson = $otherrefs->getOtherRef($this->_getParam('q'));
+        $otherrefsjson = $otherrefs->getOtherRef($this->getParam('q'));
         echo Zend_Json::encode($otherrefsjson);
     }
 
     public function treasureidsAction()
     {
         $treasureids = new Finds();
-        $treasureidsjson = $treasureids->getTreasureID($this->_getParam('q'));
+        $treasureidsjson = $treasureids->getTreasureID($this->getParam('q'));
         echo Zend_Json::encode($treasureidsjson);
     }
 
     public function peopleAction()
     {
         $peoples = new People();
-        $people_options = $peoples->getNames($this->_getParam('term'));
+        $people_options = $peoples->getNames($this->getParam('term'));
         echo Zend_Json::encode($people_options);
     }
 
     public function peoplesearchAction()
     {
         $peoples = new People();
-        $people_options = $peoples->getNamesSearch($this->_getParam('q'));
+        $people_options = $peoples->getNamesSearch($this->getParam('q'));
         echo Zend_Json::encode($people_options);
     }
 
     public function rulerdenomAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $denominations = new Denominations();
-            $data = $denominations->getRomanRulerDenom($this->_getParam('term'));
+            $data = $denominations->getRomanRulerDenom($this->getParam('term'));
             if ($data) {
                 $response = $data;
             } else {
@@ -246,9 +246,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function rulerdenomearlymedAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $denominations = new Denominations();
-            $denom_options = $denominations->getEarlyMedRulerDenom($this->_getParam('term'));
+            $denom_options = $denominations->getEarlyMedRulerDenom($this->getParam('term'));
             if ($denom_options) {
                 echo Zend_Json::encode($denom_options);
             } else {
@@ -263,9 +263,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function romandenomrulerAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $rulers = new Rulers();
-            $ruler_options = $rulers->getRomanDenomRuler($this->_getParam('term'));
+            $ruler_options = $rulers->getRomanDenomRuler($this->getParam('term'));
             if ($ruler_options) {
                 echo Zend_Json::encode($ruler_options);
             } else {
@@ -280,9 +280,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function romanmintrulerAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $mints = new Mints();
-            $mint_options = $mints->getRomanMintRuler($this->_getParam('term'));
+            $mint_options = $mints->getRomanMintRuler($this->getParam('term'));
             if ($mint_options) {
                 echo Zend_Json::encode($mint_options);
             } else {
@@ -298,8 +298,8 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function earlymedmintrulerAction()
     {
         $mints = new Mints();
-        $ruler = $this->_getParam('term');
-        $mint_options = $mints->getEarlyMedMintRuler($this->_getParam('term'));
+        $ruler = $this->getParam('term');
+        $mint_options = $mints->getEarlyMedMintRuler($this->getParam('term'));
         if ($mint_options) {
             echo Zend_Json::encode($mint_options);
         } else if ($ruler == null) {
@@ -313,10 +313,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function medmintrulerAction()
     {
-        if ($this->_getParam('term', false)) {
-            $ruler = $this->_getParam('term');
+        if ($this->getParam('term', false)) {
+            $ruler = $this->getParam('term');
             $mints = new Mints();
-            $mint_options = $mints->getEarlyMedMintRuler($this->_getParam('term'));
+            $mint_options = $mints->getEarlyMedMintRuler($this->getParam('term'));
             if ($mint_options) {
                 echo Zend_Json::encode($mint_options);
             } else if ($ruler == null) {
@@ -334,9 +334,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function earlymedtypecatAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $cats = new CategoriesCoins();
-            $cat_options = $cats->getCategories($this->_getParam('term'));
+            $cat_options = $cats->getCategories($this->getParam('term'));
             if ($cat_options) {
                 echo Zend_Json::encode($cat_options);
             } else {
@@ -351,9 +351,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function earlymedtyperulerAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $types = new MedievalTypes();
-            $ruler_options = $types->getEarlyMedTypeRuler($this->_getParam('term'));
+            $ruler_options = $types->getEarlyMedTypeRuler($this->getParam('term'));
             if ($ruler_options) {
                 echo Zend_Json::encode($ruler_options);
             } else {
@@ -369,9 +369,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function reeceAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $reeces = new Reeces();
-            $reece_options = $reeces->getRulerReece($this->_getParam('term'));
+            $reece_options = $reeces->getRulerReece($this->getParam('term'));
             $reece2_options = $reeces->getReeceUnassigned();
             if ($reece_options) {
                 echo Zend_Json::encode($reece_options);
@@ -386,9 +386,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function iageographyAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $geographies = new Geography();
-            $response = $geographies->getIronAgeRegionToRulerSearch($this->_getParam('term'));
+            $response = $geographies->getIronAgeRegionToRulerSearch($this->getParam('term'));
         } else {
             $response = array(array('id' => null, 'term' => 'No ruler specified'));
         }
@@ -397,9 +397,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function iarulerregionAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $rulers = new Rulers();
-            $response = $rulers->getIronAgeRulerRegion($this->_getParam('term'));
+            $response = $rulers->getIronAgeRulerRegion($this->getParam('term'));
         } else {
             $response = array(array('id' => null, 'term' => 'No ruler specified'));
         }
@@ -409,9 +409,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function catsperiodAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $cats = new CategoriesCoins();
-            $response = $cats->getCategoriesPeriod($this->_getParam('term'));
+            $response = $cats->getCategoriesPeriod($this->getParam('term'));
         } else {
             $response = array(array('id' => null, 'term' => 'No period specified'));
         }
@@ -420,9 +420,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function rulersperiodAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $rulers = new Rulers();
-            $response = $rulers->getAllRulers($this->_getParam('term'));
+            $response = $rulers->getAllRulers($this->getParam('term'));
         } else {
             $response = array(array('id' => null, 'term' => 'No period specified.'));
         }
@@ -432,9 +432,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function iatriberegionAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $tribes = new Tribes();
-            $response = $tribes->getIronAgeTribeRegion($this->_getParam('term'));
+            $response = $tribes->getIronAgeTribeRegion($this->getParam('term'));
         } else {
             $response = array(array('id' => null, 'term' => 'No region specified'));
         }
@@ -443,9 +443,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function revtypesAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $types = new RevTypes();
-            $type_options = $types->getTypes($this->_getParam('term'));
+            $type_options = $types->getTypes($this->getParam('term'));
             if ($type_options) {
                 $response = $type_options;
             } else {
@@ -459,9 +459,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function earlymedcatrulerAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $rulers = new Rulers();
-            $rulerOptions = $rulers->getEarlyMedievalRulersAjax($this->_getParam('term'));
+            $rulerOptions = $rulers->getEarlyMedievalRulersAjax($this->getParam('term'));
             if ($rulerOptions) {
                 $response = $rulerOptions;
             } else {
@@ -475,9 +475,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function postmedcatrulerAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $rulers = new Rulers();
-            $rulerOptions = $rulers->getPostMedievalRulersAjax($this->_getParam('term'));
+            $rulerOptions = $rulers->getPostMedievalRulersAjax($this->getParam('term'));
             if ($rulerOptions) {
                 $response = $rulerOptions;
             } else {
@@ -491,9 +491,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function medcatrulerAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $rulers = new Rulers();
-            $rulerOptions = $rulers->getMedievalRulersAjax($this->_getParam('term'));
+            $rulerOptions = $rulers->getMedievalRulersAjax($this->getParam('term'));
             if ($rulerOptions) {
                 $response = $rulerOptions;
             } else {
@@ -508,8 +508,8 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function moneyersAction()
     {
-        if ($this->_getParam('term', false)) {
-            $ruler = $this->_getParam('term');
+        if ($this->getParam('term', false)) {
+            $ruler = $this->getParam('term');
             $moneyers = new Moneyers();
             $moneyerOptions = $moneyers->getMoneyers();
             if ($ruler == 242) {
@@ -526,7 +526,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function relatedfindAction()
     {
         $finds = new Finds;
-        $findsjson = $finds->getFindSecuid($this->_getParam('q'));
+        $findsjson = $finds->getFindSecuid($this->getParam('q'));
         echo Zend_Json::encode($findsjson);
     }
 
@@ -534,30 +534,30 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function oldfindidAction()
     {
         $finds = new Finds;
-        $findsjson = $finds->getOldFindID($this->_getParam('q'));
+        $findsjson = $finds->getOldFindID($this->getParam('q'));
         echo Zend_Json::encode($findsjson);
     }
 
     public function organisationAction()
     {
         $orgs = new Organisations;
-        $orgsjson = $orgs->getOrgNames($this->_getParam('q'));
+        $orgsjson = $orgs->getOrgNames($this->getParam('q'));
         echo Zend_Json::encode($orgsjson);
     }
 
     public function usernameAction()
     {
         $users = new Users;
-        $usersjson = $users->findUserAccountAjax($this->_getParam('q'));
+        $usersjson = $users->findUserAccountAjax($this->getParam('q'));
         echo Zend_Json::encode($usersjson);
     }
 
 
     public function deleteimagelinkAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $links = new FindsImages();
-            $where = $links->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+            $where = $links->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
             $links->delete($where);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -574,9 +574,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function deleteprojectAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $projects = new ResearchProjects();
-            $where = $projects->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+            $where = $projects->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
             $projects->delete($where);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -586,10 +586,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function deleteimagerulerAction()
     {
         $images = new RulerImages();
-        $deletefiles = $images->getFilename($this->_getParam('id'));
+        $deletefiles = $images->getFilename($this->getParam('id'));
         foreach ($deletefiles as $files) {
             $filename = $files['filename'];
-            $where = $images->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+            $where = $images->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
             $images->delete($where);
             unlink('./assets/rulers/' . $filename);
         }
@@ -599,7 +599,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function deleteprofileimageAction()
     {
         $staff = new Contacts();
-        $staffs = $staff->getImage($this->_getParam('id'));
+        $staffs = $staff->getImage($this->getParam('id'));
         foreach ($staffs as $staff) {
             $filename = $staff['image'];
         }
@@ -609,7 +609,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $updateData['updatedBy'] = $this->getIdentityForForms();
         $stafflist = new Contacts();
 
-        $where = $stafflist->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+        $where = $stafflist->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
         $stafflist->update($updateData, $where);
         $name = substr($filename, 0, strrpos($filename, '.'));
         $ext = '.jpg';
@@ -622,33 +622,33 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function deletemintrulerAction()
     {
         $mints = new MintsRulers();
-        $where = $mints->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+        $where = $mints->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
         $mints->delete($where);
     }
 
     public function deletedenomrulerAction()
     {
         $denoms = new DenomRulers();
-        $where = $denoms->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+        $where = $denoms->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
         $denoms->delete($where);
     }
 
     public function deletereverserulerAction()
     {
         $reverses = new RulerRevType();
-        $where = $reverses->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+        $where = $reverses->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
         $reverses->delete($where);
     }
 
 
     public function linkimageAction()
     {
-        if ($this->_getParam('secuid', false)) {
+        if ($this->getParam('secuid', false)) {
             $this->_helper->layout->disableLayout();
             $form = new ImageLinkForm();
             $this->view->form = $form;
             $images = new Slides();
-            $this->view->images = $images->getImageForLinks($this->_getParam('secuid'));
+            $this->view->images = $images->getImageForLinks($this->getParam('secuid'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -657,15 +657,15 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function samsAction()
     {
         $monuments = new ScheduledMonuments();
-        $monjson = $monuments->samLookup($this->_getParam('q'));
+        $monjson = $monuments->samLookup($this->getParam('q'));
         echo Zend_Json::encode($monjson);
     }
 
     public function deletecommentAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $comments = new Comments();
-            $where = $comments->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+            $where = $comments->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
             $comments->delete($where);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -681,15 +681,15 @@ class AjaxController extends Pas_Controller_Action_Ajax
     public function messagereplyAction()
     {
         $replies = new Replies();
-        $this->view->replies = $replies->fetchRow('messageID=' . $this->_getParam('id'));
+        $this->view->replies = $replies->fetchRow('messageID=' . $this->getParam('id'));
         $this->_helper->viewRenderer->setNoRender(false);
     }
 
     public function osparishesbycountyAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $parishes = new OsParishes();
-            $json = $parishes->getParishesToCounty($this->_getParam('term'));
+            $json = $parishes->getParishesToCounty($this->getParam('term'));
         } else {
             $json = array(null => 'You must choose a county first');
         }
@@ -699,9 +699,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function osdistrictsbycountyAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $districts = new OsDistricts();
-            $json = $districts->getDistrictsToCounty($this->_getParam('term'));
+            $json = $districts->getDistrictsToCounty($this->getParam('term'));
         } else {
             $json = array(null => 'You must choose a county first');
         }
@@ -710,9 +710,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     public function osregionsbycountyAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $parishes = new OsCounties();
-            $json = $parishes->getCountyToRegion($this->_getParam('term'));
+            $json = $parishes->getCountyToRegion($this->getParam('term'));
         } else {
             $json = array(null => 'You must choose a county first');
         }
@@ -725,9 +725,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function osparishesbydistrictAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $parishes = new OsParishes();
-            $json = $parishes->getParishesToDistrict($this->_getParam('term'));
+            $json = $parishes->getParishesToDistrict($this->getParam('term'));
 
         } else {
             $json = array(null => 'You must choose a district first');
@@ -740,9 +740,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function usernamesAction()
     {
-        if ($this->_getParam('q', false)) {
+        if ($this->getParam('q', false)) {
             $users = new Users();
-            $json = $users->usernames($this->_getParam('q'));
+            $json = $users->usernames($this->getParam('q'));
             echo Zend_Json::encode($json);
         }
     }
@@ -752,9 +752,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function usersfullnamesAction()
     {
-        if ($this->_getParam('q', false)) {
+        if ($this->getParam('q', false)) {
             $users = new Users();
-            $json = $users->userFullNames($this->_getParam('q'));
+            $json = $users->userFullNames($this->getParam('q'));
             echo Zend_Json::encode($json);
         }
     }
@@ -764,9 +764,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function publicationsAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $publication = new Publications();
-            $json = $publication->getTitles($this->_getParam('term'));
+            $json = $publication->getTitles($this->getParam('term'));
         } else {
             $json = array(null => 'You must choose an author first');
         }
@@ -783,7 +783,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('newfield', 'html')->initContext();
 
-        $id = $this->_getParam('hiddenfield', null);
+        $id = $this->getParam('hiddenfield', null);
         $uniqueTextLabel = "finder$id";
         $uniqueIdLabel = $uniqueTextLabel . 'ID';
 
@@ -815,9 +815,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function lastrulerAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $rulers = new Rulers();
-            $data = $rulers->getLastRulers($this->_getParam('term'));
+            $data = $rulers->getLastRulers($this->getParam('term'));
             if (empty($data)) {
                 $data = array(array('id' => null, 'term' => 'No Options'));
             }
@@ -832,9 +832,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function getdenominationsAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $denominations = new Denominations();
-            $data = $denominations->getDenominationByBroadPeriod($this->_getParam('term'));
+            $data = $denominations->getDenominationByBroadPeriod($this->getParam('term'));
             if (empty($data)) {
                 $data = array(array('id' => null, 'term' => 'No Options'));
             }
@@ -849,9 +849,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
      */
     public function getmintsAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $mints = new Mints();
-            $data = $mints->getMintbyBroadperiod($this->_getParam('term'));
+            $data = $mints->getMintbyBroadperiod($this->getParam('term'));
             if (empty($data)) {
                 $data = array(array('id' => null, 'term' => 'No Options'));
             }

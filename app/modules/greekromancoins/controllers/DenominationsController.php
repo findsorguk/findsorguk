@@ -44,7 +44,7 @@ class GreekRomanCoins_DenominationsController extends Pas_Controller_Action_Admi
      * @return void
      */
     public function indexAction() {
-        $this->view->denominations = $this->_denominations->getDenominations($this->_period,$this->_getParam('page'));
+        $this->view->denominations = $this->_denominations->getDenominations($this->_period,$this->getParam('page'));
     }
 
     /** Display individual denomination
@@ -53,8 +53,8 @@ class GreekRomanCoins_DenominationsController extends Pas_Controller_Action_Admi
      * @throws Pas_Exception_Param
      */
     public function denominationAction() {
-        if($this->_getParam('id',false)){
-            $this->view->denoms = $this->_denominations->getDenom((int)$this->_getParam('id'),(int)$this->_period);
+        if($this->getParam('id',false)){
+            $this->view->denoms = $this->_denominations->getDenom((int)$this->getParam('id'),(int)$this->_period);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);		
         }

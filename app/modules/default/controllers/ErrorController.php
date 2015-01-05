@@ -88,7 +88,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     {
         $details = array();
         $details['username'] = $this->whois();
-        $errors = $this->_getParam('error_handler');
+        $errors = $this->getParam('error_handler');
         $details['file'] = get_class($errors['exception']);
         $details['ip'] = $_SERVER['REMOTE_ADDR'];
         $details['method'] = $_SERVER['REQUEST_METHOD'];
@@ -205,7 +205,7 @@ class ErrorController extends Pas_Controller_Action_Admin
         // content
         $this->_helper->viewRenderer->setViewSuffix('phtml');
         // Grab the error object from the request
-        $errors = $this->_getParam('error_handler');
+        $errors = $this->getParam('error_handler');
         if ($errors) {
             $data = array();
             $data['errorMessage'] = $errors['exception']->getMessage();

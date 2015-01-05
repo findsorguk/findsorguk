@@ -50,10 +50,10 @@ class PostMedievalCoins_MintsController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function mintAction() {
-        if($this->_getParam('id',false)) {
-            $this->view->mints = $this->_mints->getMintDetails($this->_getParam('id'));
+        if($this->getParam('id',false)) {
+            $this->view->mints = $this->_mints->getMintDetails($this->getParam('id'));
             $actives = new Rulers();
-            $this->view->actives = $actives->getMedievalMintRulerList($this->_getParam('id'));
+            $this->view->actives = $actives->getMedievalMintRulerList($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

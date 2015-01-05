@@ -64,8 +64,8 @@ class Users_NamedController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function personAction() {
-        if($this->_getParam('as',0)){
-            $this->view->accountdata = $this->getUsers()->getUserAccountData($this->_getParam('as'));
+        if($this->getParam('as',0)){
+            $this->view->accountdata = $this->getUsers()->getUserAccountData($this->getParam('as'));
             $this->view->totals = $this->getFinds()->getCountFinds($this->getIdentityForForms());
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);

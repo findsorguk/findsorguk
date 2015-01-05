@@ -31,9 +31,9 @@ class Conservation_AdviceController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        if ($this->_getParam('slug', false)) {
+        if ($this->getParam('slug', false)) {
             $content = new Content();
-            $this->view->contents = $content->getContent('conservation', $this->_getParam('slug'));
+            $this->view->contents = $content->getContent('conservation', $this->getParam('slug'));
         } else {
             throw new Pas_Exception_Param('That page is not found.', 404);
         }

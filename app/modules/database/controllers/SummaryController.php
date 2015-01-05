@@ -66,8 +66,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->getFlash()->addMessage('You cannot access the summary index.');
-        $this->getResponse()->setHttpResponseCode(301)
-            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->getResponse()->setHttpResponseCode(301)->setRawHeader('HTTP/1.1 301 Moved Permanently');
         $this->redirect(self::REDIRECT);
     }
 
@@ -76,15 +75,15 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
      */
     public function addAction()
     {
-        if ($this->_getParam('id', false) || $this->getParam('secUID', false)) {
+        if ($this->getParam('id', false) || $this->getParam('secUID', false)) {
             $form = $this->getForm();
             $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 $data = $form->getValues();
-                $data['hoardID'] = $this->_getParam('secUID');
+                $data['hoardID'] = $this->getParam('secUID');
                 $this->getModel()->add($data);
                 $this->getFlash()->addMessage('You have added a summary record');
-                $this->redirect('/database/hoards/record/id/' . $this->_getParam('id'));
+                $this->redirect('/database/hoards/record/id/' . $this->getParam('id'));
             } else {
                 // Populate the form with the posted values
                 $form->populate($this->_request->getPost());
@@ -102,7 +101,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false) || $this->_getParam('hoardID', false)) {
+        if ($this->getParam('id', false) || $this->getParam('hoardID', false)) {
             $form = $this->getForm();
             $this->view->form = $form;
             // Check if POST
@@ -111,17 +110,17 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     // Where array
                     $where = array();
-                    $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     // Set up auditing
-                    $oldData = $this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    $oldData = $this->getModel()->fetchRow('id=' . $this->getParam('id'))->toArray();
                     // Get the data and update based on where value
                     $this->getModel()->update($form->getValues(), $where);
                     // Audit the data being entered
-                    $this->_helper->audit( $form->getValues(), $oldData, 'SummaryAudit', $this->_getParam('hoardID'), $this->_getParam('hoardID'));
+                    $this->_helper->audit( $form->getValues(), $oldData, 'SummaryAudit', $this->getParam('hoardID'), $this->getParam('hoardID'));
                     // Add flash message
                     $this->getFlash()->addMessage('You have edited data successfully');
                     // Redirect back to record
-                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('hoardID') );
+                    $this->redirect('/database/hoards/record/id/' . $this->getParam('hoardID') );
                 } else {
                     // Error thrown, populate form with values
                     $form->populate($this->_request->getPost());
@@ -130,9 +129,9 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
                 }
             } else {
                 // As GET request, populate with data
-                $form->populate($this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray());
+                $form->populate($this->getModel()->fetchRow('id=' . $this->getParam('id'))->toArray());
                 // Configure menus appropriately
-                $this->_helper->coinSummaryFormLoaderOptions($this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray());
+                $this->_helper->coinSummaryFormLoaderOptions($this->getModel()->fetchRow('id=' . $this->getParam('id'))->toArray());
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);

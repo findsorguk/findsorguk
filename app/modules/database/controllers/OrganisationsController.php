@@ -53,11 +53,11 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
         $this->view->paginator = $paginator;
         $form = new OrganisationFilterForm();
         $this->view->form = $form;
-        $form->organisation->setValue($this->_getParam('organisation'));
-        $form->contact->setValue($this->_getParam('contact'));
-        $form->contactpersonID->setValue($this->_getParam('contactpersonID'));
-        $form->county->setValue($this->_getParam('county'));
-        if ($this->_request->isPost() && !is_null($this->_getParam('submit'))) {
+        $form->organisation->setValue($this->getParam('organisation'));
+        $form->contact->setValue($this->getParam('contact'));
+        $form->contactpersonID->setValue($this->getParam('contactpersonID'));
+        $form->county->setValue($this->getParam('county'));
+        if ($this->_request->isPost() && !is_null($this->getParam('submit'))) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $cleaner = new Pas_ArrayFunctions();
@@ -85,9 +85,9 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
      */
     public function organisationAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->orgs = $this->_organisations->getOrgDetails($this->_getParam('id'));
-            $this->view->members = $this->_organisations->getMembers($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->orgs = $this->_organisations->getOrgDetails($this->getParam('id'));
+            $this->view->members = $this->_organisations->getMembers($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -106,20 +106,20 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
             if ($form->isValid($this->_request->getPost())) {
                 $updateData = $form->getValues();
                 unset($updateData['contact']);
-                $audit = $this->_organisations->fetchRow('id=' . $this->_getParam('id'));
+                $audit = $this->_organisations->fetchRow('id=' . $this->getParam('id'));
                 $oldArray = $audit->toArray();
                 $where = array();
-                $where[] = $this->_organisations->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] = $this->_organisations->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $this->_organisations->update($updateData, $where);
                 $this->_helper->audit(
                     $updateData,
                     $oldArray,
                     'OrganisationsAudit',
-                    $this->_getParam('id'),
-                    $this->_getParam('id')
+                    $this->getParam('id'),
+                    $this->getParam('id')
                 );
                 $this->getFlash()->addMessage('Organisation information updated!');
-                $this->redirect(self::REDIRECT . 'organisation/id/' . $this->_getParam('id'));
+                $this->redirect(self::REDIRECT . 'organisation/id/' . $this->getParam('id'));
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -161,7 +161,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $del = $this->_request->getPost('del');

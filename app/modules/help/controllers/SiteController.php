@@ -45,7 +45,7 @@ class Help_SiteController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->view->help = $this->getHelp()->getTopics($this->_getParam('page'), 'help');
+        $this->view->help = $this->getHelp()->getTopics($this->getParam('page'), 'help');
     }
 
     /** Display an individual topic
@@ -54,8 +54,8 @@ class Help_SiteController extends Pas_Controller_Action_Admin
      */
     public function topicAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->help = $this->getHelp()->getTopic($section = 'help', $this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->help = $this->getHelp()->getTopic($section = 'help', $this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

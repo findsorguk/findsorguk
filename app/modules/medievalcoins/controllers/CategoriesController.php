@@ -54,8 +54,8 @@ class MedievalCoins_CategoriesController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function categoryAction(){
-        if($this->_getParam('id',false)){	
-            $id = $this->_getParam('id');
+        if($this->getParam('id',false)){
+            $id = $this->getParam('id');
             $this->view->categories = $this->_categories->getCategory($id);
             $types = new MedievalTypes();
             $this->view->types = $types->getCoinTypeCategory($id);

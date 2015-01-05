@@ -63,8 +63,8 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin
         $form = new CoronerForm();
         $form->submit->setLabel('Add a new coroner');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->_coroners->addCoroner($form->getValues());
                 $this->getFlash()->addMessage('Coroner details created!');
                 $this->redirect($this->_redirectUrl);
@@ -80,7 +80,7 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new CoronerForm();
             $form->submit->setLabel('Save');
             $this->view->form = $form;
@@ -89,7 +89,7 @@ class Admin_CoronersController extends Pas_Controller_Action_Admin
             ) {
                 if ($form->isValid($form->getValues())) {
                     $insert = $this->_coroners->updateCoroner($form->getValues(),
-                        $this->_getParam('id'));
+                        $this->getParam('id'));
                     $this->getFlash()->addMessage(
                         $form->getValue('firstname')
                         . ' '

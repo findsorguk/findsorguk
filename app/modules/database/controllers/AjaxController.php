@@ -105,12 +105,12 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function webciteAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->type = $this->_getParam('type');
-            if ($this->_getParam('type') == 'artefact') {
-                $this->view->finds = $this->getFinds()->getWebCiteFind($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->type = $this->getParam('type');
+            if ($this->getParam('type') == 'artefact') {
+                $this->view->finds = $this->getFinds()->getWebCiteFind($this->getParam('id'));
             } else {
-                $this->view->finds = $this->getHoards()->getWebCiteHoard($this->_getParam('id'));
+                $this->view->finds = $this->getHoards()->getWebCiteHoard($this->getParam('id'));
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -125,10 +125,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function embedAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = (int)$this->_getParam('id');
-            $this->view->type = $this->_getParam('type');
-            if ($this->_getParam('type') == 'artefact') {
+        if ($this->getParam('id', false)) {
+            $id = (int)$this->getParam('id');
+            $this->view->type = $this->getParam('type');
+            if ($this->getParam('type') == 'artefact') {
                 $this->view->finds = $this->getFinds()->getEmbedFind($id);
                 $thumbs = new Slides;
                 $this->view->thumbs = $thumbs->getThumbnails($id);
@@ -147,9 +147,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function nearestAction()
     {
-        $lat = $this->_getParam('lat');
-        $long = $this->_getParam('long');
-        $distance = (int)$this->_getParam('distance');
+        $lat = $this->getParam('lat');
+        $long = $this->getParam('long');
+        $distance = (int)$this->getParam('distance');
         $this->view->finds = $this->getFinds()->getByLatLong($lat, $long, $distance);
         $this->view->distance = $distance;
         $this->view->lat = $lat;
@@ -163,9 +163,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function downloadAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $images = new Slides();
-            $download = $images->getFileName($this->_getParam('id'));
+            $download = $images->getFileName($this->getParam('id'));
             foreach ($download as $d) {
                 $filename = $d['f'];
                 $path = $d['imagedir'];
@@ -202,9 +202,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function recordAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->recordID = $this->_getParam('id');
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $this->view->recordID = $this->getParam('id');
+            $id = $this->getParam('id');
             $findsdata = $this->getFinds()->getIndividualFind($id, $this->getRole());
             if (!empty($findsdata)) {
                 $this->view->finds = $findsdata;
@@ -236,9 +236,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function reportAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->recordID = $this->_getParam('id');
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $this->view->recordID = $this->getParam('id');
+            $id = $this->getParam('id');
             $findsdata = $this->getFinds()->getIndividualFind($id, $this->getRole());
             if (count($findsdata)) {
                 $this->view->finds = $findsdata;
@@ -271,7 +271,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function findsauditAction()
     {
         $audit = new FindsAudit();
-        $this->view->audit = $audit->getChange($this->_getParam('id'));
+        $this->view->audit = $audit->getChange($this->getParam('id'));
     }
 
     /** Get a findspot overlay from the audit table
@@ -281,7 +281,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function findspotsauditAction()
     {
         $audit = new FindSpotsAudit();
-        $this->view->audit = $audit->getChange($this->_getParam('id'));
+        $this->view->audit = $audit->getChange($this->getParam('id'));
     }
 
     /** Get a coin overlay from the audit table
@@ -291,7 +291,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function coinauditAction()
     {
         $audit = new CoinsAudit();
-        $this->view->audit = $audit->getChange($this->_getParam('id'));
+        $this->view->audit = $audit->getChange($this->getParam('id'));
     }
 
     /** Get a coin overlay from the audit table
@@ -301,7 +301,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function hoardsauditAction()
     {
         $audit = new HoardsAudit();
-        $this->view->audit = $audit->getChange($this->_getParam('id'));
+        $this->view->audit = $audit->getChange($this->getParam('id'));
     }
 
     /** Get a archaeology overlay from the audit table
@@ -311,7 +311,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function archaeologyauditAction()
     {
         $audit = new ArchaeologyAudit();
-        $this->view->audit = $audit->getChange($this->_getParam('id'));
+        $this->view->audit = $audit->getChange($this->getParam('id'));
     }
 
     /** Get a archaeology overlay from the audit table
@@ -321,7 +321,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function summaryauditAction()
     {
         $audit = new SummaryAudit();
-        $this->view->audit = $audit->getChange($this->_getParam('id'));
+        $this->view->audit = $audit->getChange($this->getParam('id'));
     }
 
     /** Get a saved search overlay
@@ -493,7 +493,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $params['format'] = 'json';
         $params['source'] = 'osdata';
         $params['sort'] = 'id';
-        $q = $this->_getParam('q');
+        $q = $this->getParam('q');
         if (is_null($q)) {
             $params['q'] = 'type:R OR type:A';
         } else {
@@ -564,7 +564,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $search->execute();
         $data = array('facets' => $search->processFacets());
         $this->view->data = $data;
-        $this->view->facetName = $this->_getParam('facetType');
+        $this->view->facetName = $this->getParam('facetType');
     }
 
     /** The people facet generator
@@ -584,7 +584,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $search->execute();
         $data = array('facets' => $search->processFacets());
         $this->view->data = $data;
-        $this->view->facetName = $this->_getParam('facetType');
+        $this->view->facetName = $this->getParam('facetType');
     }
 
 
@@ -607,7 +607,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $search->execute();
         $data = array('facets' => $search->processFacets());
         $this->view->data = $data;
-        $this->view->facetName = $this->_getParam('facetType');
+        $this->view->facetName = $this->getParam('facetType');
         $this->renderScript('ajax/imagesfacet.phtml');
     }
 
@@ -632,7 +632,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $search->execute();
         $data = array('facets' => $search->processFacets());
         $this->view->data = $data;
-        $this->view->facetName = $this->_getParam('facetType');
+        $this->view->facetName = $this->getParam('facetType');
     }
 
     /** My institution facet overlay
@@ -656,7 +656,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $search->execute();
         $data = array('facets' => $search->processFacets());
         $this->view->data = $data;
-        $this->view->facetName = $this->_getParam('facetType');
+        $this->view->facetName = $this->getParam('facetType');
         $this->renderScript('ajax/facet.phtml');
     }
 
@@ -682,7 +682,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $search->execute();
         $data = array('facets' => $search->processFacets());
         $this->view->data = $data;
-        $this->view->facetName = $this->_getParam('facetType');
+        $this->view->facetName = $this->getParam('facetType');
     }
 
     /** Force an index update
@@ -691,7 +691,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function forceindexupdateAction()
     {
-        $this->_helper->solrUpdater->update('objects', $this->_getParam('id'), $this->getParam('recordType'));
+        $this->_helper->solrUpdater->update('objects', $this->getParam('id'), $this->getParam('recordType'));
     }
 
     /** Get the classes to token
@@ -701,7 +701,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function getclassestokenAction()
     {
         $classes = new JettonGroups();
-        $this->view->json = $classes->getGroupsToClasses($this->_getParam('term'));
+        $this->view->json = $classes->getGroupsToClasses($this->getParam('term'));
     }
 
     /** Get jetton types
@@ -711,7 +711,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function gettypesgroupAction()
     {
         $types = new JettonTypes();
-        $this->view->json = $types->getTypesToGroups($this->_getParam('term'));
+        $this->view->json = $types->getTypesToGroups($this->getParam('term'));
     }
 
 

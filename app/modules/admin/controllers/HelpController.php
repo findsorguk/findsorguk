@@ -42,7 +42,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->view->contents = $this->_help->getContentAdmin($this->_getParam('page'));
+        $this->view->contents = $this->_help->getContentAdmin($this->getParam('page'));
     }
 
     /** Add a new help topic
@@ -55,8 +55,8 @@ class Admin_HelpController extends Pas_Controller_Action_Admin
         $form->submit->setLabel('Add new help topic to system');
         $form->author->setValue($this->getIdentityForForms());
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->_help->add($form->getValues());
                 $this->getFlash()->addMessage('Help topic has been created!');
                 $this->redirect('/admin/help');
@@ -73,7 +73,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new HelpForm();
             $form->submit->setLabel('Submit changes');
             $form->author->setValue($this->getIdentityForForms());
@@ -84,7 +84,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin
                 if ($form->isValid($form->getValues())) {
                     $where = array();
                     $where[] = $this->_help->getAdapter()->quoteInto('id = ?',
-                        $this->_getParam('id'));
+                        $this->getParam('id'));
                     $this->_help->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('You updated: <em>'
                         . $form->getValue('title')
@@ -95,7 +95,7 @@ class Admin_HelpController extends Pas_Controller_Action_Admin
                 }
             } else {
                 $form->populate($this->_help->fetchRow('id= '
-                    . $this->_getParam('id'))->toArray());
+                    . $this->getParam('id'))->toArray());
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);

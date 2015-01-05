@@ -68,10 +68,8 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
         $search = new Pas_Solr_Handler();
         $search->setCore('content');
 
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
-        ) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost() && !is_null($this->getParam('submit'))) {
+            if ($form->isValid($this->_request->getPost())) {
                 $params = $this->getCleaner()->array_cleanup($form->getValues());
                 $this->_helper->Redirector->gotoSimple('index', 'content', 'admin', $params);
             } else {
@@ -125,7 +123,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new ContentForm();
             $form->submit->setLabel('Submit changes');
             $form->author->setValue($this->getIdentityForForms());
@@ -137,12 +135,12 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
                     $updateData = $form->getValues();
                     $where = array();
                     $where[] = $this->_content->getAdapter()
-                        ->quoteInto('id = ?', $this->_getParam('id'));
-                    $oldData = $this->_content->fetchRow($this->_content->select()->where('id= ?', (int)$this->_getParam('id')))->toArray();
-                    $this->_helper->audit($updateData, $oldData, 'ContentAudit', $this->_getParam('id'), $this->_getParam('id'));
+                        ->quoteInto('id = ?', $this->getParam('id'));
+                    $oldData = $this->_content->fetchRow($this->_content->select()->where('id= ?', (int)$this->getParam('id')))->toArray();
+                    $this->_helper->audit($updateData, $oldData, 'ContentAudit', $this->getParam('id'), $this->getParam('id'));
                     $this->_content->update($updateData, $where);
                     $this->_helper->solrUpdater->update('content',
-                        $this->_getParam('id'), 'content');
+                        $this->getParam('id'), 'content');
                     $this->getFlash()->addMessage('You updated: <em>'
                         . $form->getValue('title')
                         . '</em> successfully. It is now available for use.');

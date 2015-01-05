@@ -58,9 +58,9 @@ class ByzantineCoins_DenominationsController extends Pas_Controller_Action_Admin
      * @return void
      */
     public function denominationAction()  {
-        if($this->_getParam('id',false)){
-            $this->view->id = $this->_getParam('id');
-            $this->view->denoms = $this->_denominations->getDenom($this->_getParam('id'),$this->_period);
+        if($this->getParam('id',false)){
+            $this->view->id = $this->getParam('id');
+            $this->view->denoms = $this->_denominations->getDenom($this->getParam('id'),$this->_period);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

@@ -47,9 +47,9 @@ class ByzantineCoins_MintsController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function mintAction() {
-        if($this->_getParam('id',false)){
-            $this->view->mints = $this->_mints->getMintDetails($this->_getParam('id'));
-            $this->view->id = $this->_getParam('id');
+        if($this->getParam('id',false)){
+            $this->view->mints = $this->_mints->getMintDetails($this->getParam('id'));
+            $this->view->id = $this->getParam('id');
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

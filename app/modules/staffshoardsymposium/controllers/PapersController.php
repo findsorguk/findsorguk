@@ -30,9 +30,9 @@ class Staffshoardsymposium_PapersController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        if ($this->_getParam('slug', 0)) {
+        if ($this->getParam('slug', 0)) {
             $content = new Content();
-            $this->view->content = $content->getContent('staffs', $this->_getParam('slug'));
+            $this->view->content = $content->getContent('staffs', $this->getParam('slug'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

@@ -37,17 +37,16 @@ class About_ContactUsController extends Pas_Controller_Action_Admin
         $form = new ContactUsForm();
         $form->removeElement('captcha');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
-                $insertData = $form->getValues();
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $messages = new Messages();
-                $messages->addComplaint($insertData);
+                $messages->addComplaint($form->getValues());
                 $cc = array();
                 $cc[] = array(
                     'email' => $form->getvalue('comment_author_email'),
                     'name' => $form->getValue('comment_author')
                 );
-                $this->_helper->mailer($insertData, 'contactUs', null, $cc, $cc);
+                $this->_helper->mailer($form->getValues(), 'contactUs', null, $cc, $cc);
                 $this->getFlash()->addMessage('Your enquiry has been submitted to the Scheme');
                 $this->redirect('about/contactus/');
             } else {

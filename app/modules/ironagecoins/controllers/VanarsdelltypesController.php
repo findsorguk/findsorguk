@@ -38,6 +38,6 @@ class IronAgeCoins_VanarsdelltypesController extends Pas_Controller_Action_Admin
      */
     public function typeAction(){
         $this->view->type = $this->_types->fetchRow(
-                $this->_types->select()->where('type = ?',$this->_getParam('id')));
+                $this->_types->select()->where('type = ?',$this->getParam('id')));
     }
 }

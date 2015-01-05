@@ -68,7 +68,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $page = $this->_getParam('page');
+        $page = $this->getParam('page');
         $key = md5('pas' . self::QUERY);
         if (!($this->getCache()->test($key))) {
             $guardian = self::GUARDIANAPI_URL

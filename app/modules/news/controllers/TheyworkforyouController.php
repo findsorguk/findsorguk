@@ -52,7 +52,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $term = $this->_getParam('term');
+        $term = $this->getParam('term');
         $search = $term ? $term : 'portable antiquities scheme';
         $twfy = new Pas_Twfy_Hansard();
         $arts = $twfy->get($search, $this->getPage(), 20);
@@ -81,9 +81,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function mpAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $person = new Pas_Twfy_Person();
-            $unclean = $person->get($this->_getParam('id'));
+            $unclean = $person->get($this->getParam('id'));
             $clean = array();
             foreach ($unclean as $object) {
                 $mp = array();
@@ -105,9 +105,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function findsAction()
     {
-        if ($this->_getParam('constituency', false)) {
+        if ($this->getParam('constituency', false)) {
             $geo = new Pas_Twfy_Geometry();
-            $const = urldecode($this->_getParam('constituency'));
+            $const = urldecode($this->getParam('constituency'));
             $cons = $geo->get($const);
             $bbox = array(
                 $cons->min_lat,

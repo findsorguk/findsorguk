@@ -107,7 +107,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
         ));
         $search->setFacets(array('objectType', 'county', 'broadperiod', 'institution'));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
+            && !is_null($this->getParam('submit'))
         ) {
             $params = $this->getCleaner()->array_cleanup($form->getValues());
 
@@ -156,7 +156,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             $this->view->solrParams = 'finderID:' . $this->getAccount()->peopleID . ' -createdBy:' . $this->getAccount()->id;
             $search->setFacets(array('objectType', 'county', 'broadperiod', 'institution'));
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-                && !is_null($this->_getParam('submit'))
+                && !is_null($this->getParam('submit'))
             ) {
                 $params = $this->getCleaner()->array_cleanup($form->getValues());
 
@@ -223,7 +223,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             'institution', 'workflow'
         ));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
+            && !is_null($this->getParam('submit'))
         ) {
 
             if ($form->isValid($form->getValues())) {
@@ -276,7 +276,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
         ));
         $search->setFacets(array('broadperiod', 'county', 'objecttype', 'institution'));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
+            && !is_null($this->getParam('submit'))
         ) {
             if ($form->isValid($form->getValues())) {
                 $params = $this->getCleaner()->array_cleanup($form->getValues());
@@ -329,7 +329,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             'discovered', 'institution', 'workflow'
         ));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
+            && !is_null($this->getParam('submit'))
         ) {
 
             if ($form->isValid($form->getValues())) {

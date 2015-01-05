@@ -67,14 +67,14 @@ class Users_SocialController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new SocialAccountsForm();
             $form->submit->setLabel('Save profile');
             $this->view->form = $form;
             if ($this->_request->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
                     $where = array();
-                    $where[] = $this->_accounts->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->_accounts->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $where[] = $this->_accounts->getAdapter()->quoteInto('userID = ?', $this->getIdentityForForms());
                     $this->_accounts->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Webservice details updated.');
@@ -110,7 +110,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
                 $where = array();
-                $where[] = $this->_accounts->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] = $this->_accounts->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $where[] = $this->_accounts->getAdapter()->quoteInto('userID = ?', $this->getIdentityForForms());
                 $this->_accounts->delete($where);
             }
