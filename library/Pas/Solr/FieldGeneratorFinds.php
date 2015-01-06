@@ -86,7 +86,7 @@ class Pas_Solr_FieldGeneratorFinds
                 'imagedir', 'filename', 'workflow',
                 'fourFigure', 'knownas', 'created',
                 'updated', 'creator', 'fourFigureLat',
-                'fourFigureLon');
+                'fourFigureLon', 'findIdentifier');
         } else {
             $fields = array(
                 'id', 'identifier', 'objecttype',
@@ -133,7 +133,8 @@ class Pas_Solr_FieldGeneratorFinds
                 'rulerDbpedia', 'rulerViaf', 'nomismaDenominationID',
                 'bmCultureID', 'primaryMaterialBM', 'secondaryMaterialBM',
                 'bmManufacture', 'bmTreatment', 'bmPreservation',
-                'rulerBM', 'denominationBM', 'objectType'
+                'rulerBM', 'denominationBM', 'objectType',
+                'findIdentifier'
             );
         }
 
