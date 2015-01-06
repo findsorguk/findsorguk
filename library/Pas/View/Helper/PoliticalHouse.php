@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for displaying an image based on political house assigned to.
  *
@@ -14,7 +15,7 @@
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @see Zend_View_Helper_Abstract
+ * @see  Zend_View_Helper_Abstract
  * @uses Zend_Registry Zend registry
  * @uses Zend_Cache Zend Cache
  */
@@ -24,13 +25,13 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @access protected
      * @var string
      */
-    protected $_commons = '/assets/logos/commons.jpg';
+    protected $_commons = '/logos/commons.jpg';
 
     /** Path for the house of lords logo
      * @access protected
      * @var string
      */
-    protected $_lords = '/assets/logos/lords.jpg';
+    protected $_lords = '/logos/lords.jpg';
 
     /** The house to query
      * @access public
@@ -52,7 +53,8 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @param  int $house
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setHouse($house) {
+    public function setHouse($house)
+    {
         $this->_house = $house;
 
         return $this;
@@ -84,10 +86,10 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
 
     /** set a different path for commons logo
      * @access public
-     * @param  string  $commons
+     * @param  string $commons
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setCommons( $commons )
+    public function setCommons($commons)
     {
         $this->_commons = $commons;
 
@@ -96,10 +98,10 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
 
     /** Set a different path for the lords logo
      * @access public
-     * @param  string  $lords
+     * @param  string $lords
      * @return \Pas_View_Helper_PoliticalHouse
      */
-    public function setLords( $lords)
+    public function setLords($lords)
     {
         $this->_lords = $lords;
 
@@ -132,7 +134,7 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      */
     public function __toString()
     {
-        return $this->getLogo( $this->getHouse() );
+        return $this->getLogo($this->getHouse());
     }
 
     /** Build the image
@@ -141,49 +143,45 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
      * @param  string $house
      * @return string
      */
-    public function buildImage( $image, $house)
+    public function buildImage($image, $house)
     {
-        list($w, $h, $type, $attr) = getimagesize('./' . $image);
 
-        $html ='';
-        $html .= '<img src="';
-        $html .= $image;
-        $html .= '" alt="Political house logo" width="';
-        $html .= $w;
-    $html .= '" height="';
-        $html .= $h;
-        $html .= '" />';
+        $html = '';
+        if (file_exists(ASSETS_PATH . $image)) {
+            list($w, $h, $type, $attr) = getimagesize(ASSETS_PATH . $image);
+            $html .= '<img src="/assets/';
+            $html .= $image;
+            $html .= '" alt="Political house logo for ';
+            $html .= $house;
+            $html .= '" width="';
+            $html .= $w;
+            $html .= '" height="';
+            $html .= $h;
+            $html .= '" />';
+        }
 
-    return $html;
+        return $html;
     }
 
     /** Get the logo to display
      * @access public
-     * @param  int      $house
+     * @param  int $house
      * @return function
      */
     public function getLogo($house)
     {
-        if (!($this->getCache()->test('house' . $house))) {
-            if (!is_null($house) || $house != "") {
-                switch ($house) {
-                    case 1:
-                        $houseImage = $this->buildImage($this->getCommons(),$house);
-                        break;
-                    case 2:
-                        $houseImage = $this->buildImage($this->getLords(),$house);
-                        break;
-                    default:
-                        $houseImage = '';
-                        break;
-                    }
-                    $this->getCache()->save($houseImage);
-                    }
-                } else {
-                    $houseImage = $this->getCache()->load('house' . $house);
-                }
-
-                return $houseImage;
+        switch ($house) {
+            case '1':
+                $houseImage = $this->buildImage($this->getCommons(), $house);
+                break;
+            case '2':
+                $houseImage = $this->buildImage($this->getLords(), $house);
+                break;
+            default:
+                $houseImage = '';
+                break;
+        }
+        return $houseImage;
     }
 
 }

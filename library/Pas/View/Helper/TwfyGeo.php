@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for retrieving the geographic boundaries of a parliamentary
  * constituency
@@ -31,16 +32,18 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->_data;
     }
 
     /** Set the data to query
      * @access public
-     * @param  array  $data
+     * @param  array $data
      * @return \Pas_View_Helper_TwfyGeo
      */
-    public function setData(array $data) {
+    public function setData(array $data)
+    {
         $this->_data = $data;
         return $this;
     }
@@ -49,7 +52,8 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_TwfyGeo
      */
-    public function twfyGeo() {
+    public function twfyGeo()
+    {
         return $this;
     }
 
@@ -57,7 +61,8 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
      * @access public
      * @return method
      */
-    public function getMap() {
+    public function getMap()
+    {
         $data = $this->getData();
         $geo = new Pas_Twfy_Geometry;
         $constituency = $geo->get($data['constituency']);
@@ -66,27 +71,30 @@ class Pas_View_Helper_TwfyGeo extends Zend_View_Helper_Abstract
 
     /** Build the map
      * @access public
-     * @param  type   $geo
-     * @param  type   $data
+     * @param  type $geo
+     * @param  type $data
      * @return string
      */
-    public function buildMap($geo, $data) {
+    public function buildMap($geo, $data)
+    {
         $html = '';
-        $html .= $this->view->partial('partials/news/map.phtml', get_object_vars($geo));
-        $html .= $this->view->osDataToConst()->setConstituency($geo->name);
-        $html .= $this->view->smrDataToConst()->setConstituency($geo->name);
-        $html .= $this->view->findsOfNoteConst()->setConstituency($geo->name);
-        $html .= $this->view->findsWithinConst()->setConstituency($geo->name);
-        $html .= $this->view->mpBio()->setFullname($data->full_name);
-        $html .= $this->view->politicalHouse()->setHouse($data->house);
 
+        if (!array_key_exists('error', $geo)) {
+            $html .= $this->view->partial('partials/news/map.phtml', get_object_vars($geo));
+            $html .= $this->view->osDataToConst()->setConstituency($geo->name);
+            $html .= $this->view->findsOfNoteConst()->setConstituency($geo->name);
+            $html .= $this->view->findsWithinConst()->setConstituency($geo->name);
+            $html .= $this->view->politicalHouse()->setHouse($data['house']);
+        }
         return $html;
     }
+
     /** The string to return
      * @access public
      * @return type
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getMap();
     }
 }
