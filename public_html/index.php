@@ -40,12 +40,11 @@ set_include_path(
         . PATH_SEPARATOR . '../library/ZendX/'
         . PATH_SEPARATOR . '../library/Pas/'
         . PATH_SEPARATOR . '../library/HTMLPurifier/library/'
-        . PATH_SEPARATOR . '../library/Arc2/'
         . PATH_SEPARATOR . '../library/EasyBib/library/'
-        . PATH_SEPARATOR . '../library/EasyBib/'
         . PATH_SEPARATOR . '../library/tcpdf/'
         . PATH_SEPARATOR . '../library/easyrdf/lib/'
         . PATH_SEPARATOR . '../library/Imagecow/'
+        . PATH_SEPARATOR . '../library/REST/'
         . PATH_SEPARATOR . '../app/models/'
         . PATH_SEPARATOR . '../app/forms/'
         . PATH_SEPARATOR . get_include_path()
@@ -59,7 +58,8 @@ $loader = new ZendX_Loader_StandardAutoloader(array(
         'ZendX' => '../library/ZendX/',
         'Imagecow' => '../library/Imagecow/',
         'Imagecow/Libs/' => '../library/Imagecow/Libs/',
-        'easyRDF' => '../library/easyrdf/lib/'
+        'easyRDF' => '../library/easyrdf/lib/',
+        'REST' => '../library/REST/'
     ),
     'namespaces' => array(
         'Imagecow' => '../library/Imagecow',
