@@ -9,13 +9,7 @@
 ?>
 <p>
     <?php if (!is_null($this->denomination)): ?>
-        Denomination: <?php echo $this->denomination; ?> <span class="scope">[<a
-                href="<?php echo $this->url(array(
-                    'module' => 'byzantinecoins',
-                    'controller' => 'denominations',
-                    'action' => 'denomination',
-                    'id' => $this->denominationID), null, true); ?>"
-                title="Read scope note for <?php echo $this->denomination; ?>">scope notes</a> | <a
+        Denomination: <?php echo $this->denomination; ?> <a
                 href="<?php echo $this->url(array(
                     'module' => 'database',
                     'controller' => 'search',
@@ -32,13 +26,7 @@
         Secondary ruler/issuer: <?php echo $this->escape($this->secondaryRuler); ?><br/>
     <?php endif; ?>
     <?php if (!is_null($this->mintName)): ?>
-        Mint or issue place: <?php echo $this->escape($this->mintName); ?> <span class="scope">[<a
-                href="<?php echo $this->url(array(
-                    'module' => 'byzantinecoins',
-                    'controller' => 'mints',
-                    'action' => 'mint',
-                    'id' => $this->mintID), null, true); ?>"
-                title="Read scope note for <?php echo $this->mintName; ?>">scope notes</a> | <a
+        Mint or issue place: <?php echo $this->escape($this->mintName); ?> <a
                 href="<?php echo $this->url(array(
                     'module' => 'database',
                     'controller' => 'search',

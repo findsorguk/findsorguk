@@ -150,7 +150,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $numismatics
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setNumismatics( $numismatics = array())
+    public function setNumismatics($numismatics = array())
     {
         $this->_numismatics = $numismatics;
         return $this;
@@ -161,7 +161,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $objects
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setObjects( $objects = array())
+    public function setObjects($objects = array())
     {
         $this->_objects = $objects;
         return $this;
@@ -172,7 +172,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param type $broadperiods
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setBroadperiods( $broadperiods = array())
+    public function setBroadperiods($broadperiods = array())
     {
         $this->_broadperiods = $broadperiods;
         return $this;
@@ -207,7 +207,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $types
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setTypes( $types)
+    public function setTypes($types)
     {
         $this->_types = $types;
         return $this;
@@ -229,7 +229,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $coins
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setCoins( $coins = array())
+    public function setCoins($coins = array())
     {
         $this->_coins = $coins;
         return $this;
@@ -240,7 +240,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
      * @param array $finds
      * @return \Pas_View_Helper_CoinDataDisplay
      */
-    public function setFinds( $finds = array())
+    public function setFinds($finds = array())
     {
         $this->_finds = $finds;
         return $this;
@@ -272,6 +272,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
     {
         $html = '';
         $finds = $this->getFinds();
+        Zend_Debug::dump($finds);
         if (in_array(strtoupper($this->getObjectType()), $this->getTypes())) {
             if (sizeof($this->getCoins()) > 0) {
                 if (in_array(strtoupper($this->getBroadperiod()), $this->getBroadperiods())) {
@@ -284,7 +285,7 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
                     } elseif (in_array(strtoupper($this->getObjectType()),
                         $this->getObjects())) {
                         $html .= $this->view->partialLoop(
-                            'partials/database/jettonData.phtml', $this->getCoins());
+                            'partials/database/numismatics/jettonData.phtml', $this->getCoins());
                     } else {
                         $html .= '';
                     }
