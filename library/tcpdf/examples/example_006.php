@@ -117,7 +117,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 
 
 // output some RTL HTML content
-$html = '<div style="text-align:center">The words &#8220;<span dir="rtl">&#1502;&#1494;&#1500; [mazel] &#1496;&#1493;&#1489; [tov]</span>&#8221; mean &#8220;Congratulations!&#8221;</div>';
+$html = '<div style="text-align:center">The words &#8220;<span dir="rtl">&#1502;&#1494;&#1500; [mazel] &#1496;&#1493;&#1489; [tov&#8221; mean &#8220;Congratulations!&#8221;</div>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
 // test some inline CSS

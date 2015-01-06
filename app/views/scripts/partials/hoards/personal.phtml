@@ -2,7 +2,7 @@
 Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?php echo 
 $this->escape($this->tit3);?> <?php echo $this->escape($this->fore3);?> 
 <?php echo $this->escape($this->sur3);?></span> 
-- <span class="scope">[ 
+-
 <a href="<?php echo $this->url(array(
     'module' => 'database',
     'controller' => 'search',
@@ -10,14 +10,14 @@ $this->escape($this->tit3);?> <?php echo $this->escape($this->fore3);?>
     'recorderID' => $this->recorderID),null,true);?>" 
     title="Search database for all records recorded by <?php echo 
     $this->escape($this->tit3);?> <?php echo $this->escape($this->fore3);?> 
-    <?php echo $this->escape($this->sur3);?>">view all attributed records</a>]
+    <?php echo $this->escape($this->sur3);?>"><i class="icon-search"></i></a>]
 </span><br />
 <?php endif;?>
 
 <?php if(!is_null($this->identifier1ID)) :?>
 Identified by: <span property="pas:identifier foaf:name" instanceof="foaf:person"><?php echo 
 $this->escape($this->tit2);?> <?php echo $this->escape($this->fore2);?> 
-<?php echo $this->escape($this->sur2);?></span> - <span class="scope">[<a href="
+<?php echo $this->escape($this->sur2);?></span> - <a href="
 <?php echo $this->url(array(
     'module' => 'database',
     'controller' => 'search',
@@ -25,14 +25,14 @@ $this->escape($this->tit2);?> <?php echo $this->escape($this->fore2);?>
     'identifierID' => $this->identifier1ID),null,true);?>" title="Search database for 
     all records identified by <?php echo $this->escape($this->tit2);?> 
 <?php echo $this->escape($this->fore2);?> <?php echo $this->escape($this->sur2);
-?>">view all attributed records</a>]</span><br />
+?>"><i class="icon-search"></i></a><br />
 <?php endif;?>
 
 <?php if(!is_null($this->identifier2ID)) :?>
 Secondary identifier: <span property="pas:identifierSecondary foaf:name" 
                             instanceof="foaf:person">
 <?php echo $this->escape($this->tit5);?> <?php echo $this->escape($this->fore5);?>
- <?php echo $this->escape($this->sur5);?></span> - <span class="scope">[<a href="
+ <?php echo $this->escape($this->sur5);?></span> - <a href="
  <?php echo $this->url(array(
      'module' => 'database',
      'controller' => 'search',
@@ -40,6 +40,6 @@ Secondary identifier: <span property="pas:identifierSecondary foaf:name"
      'identifier2ID' => $this->identifier2ID),null,true);?>" title="Search database for 
      all records identifed by <?php echo $this->escape($this->tit5);?> 
      <?php echo $this->escape($this->fore5);?> <?php echo $this->escape($this->sur5);?>">
-         view all attributed records</a>]</span><br />
+         <i class="icon-search"></i></a><br />
 <?php endif;?>
 </p>

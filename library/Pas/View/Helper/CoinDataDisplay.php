@@ -264,6 +264,28 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
         return $this->buildHtml();
     }
 
+    /** Coin data
+     * @var
+     */
+    protected $_data;
+
+    /** Set the coin data
+     * @access public
+     * @param array $data
+     */
+    public function setData(array $data)
+    {
+        $this->_data = $data;
+        return $this;
+    }
+
+    /** Get the coin data
+     * @access public
+     */
+    public function getData()
+    {
+        return $this->_data;
+    }
     /** Build the html
      * @access public
      * @return string
@@ -272,19 +294,18 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
     {
         $html = '';
         $finds = $this->getFinds();
+        $data = $this->getData();
         if (in_array(strtoupper($this->getObjectType()), $this->getTypes())) {
-            if (sizeof($this->getCoins()) > 0) {
+            if (!empty($data)) {
                 if (in_array(strtoupper($this->getBroadperiod()), $this->getBroadperiods())) {
-
                     if (in_array(strtoupper($this->getObjectType()), $this->getNumismatics())) {
                         $template = str_replace(' ', '', $this->getBroadperiod());
-                        $html .= $this->view->partialLoop(
-                            'partials/database/numismatics/' . strtolower($template)
-                            . 'Data.phtml', $this->getCoins());
+                        $partial = 'partials/database/numismatics/' . strtolower($template) . 'Data.phtml';
+                        $html .= $this->view->partialLoop($partial, $this->getCoins());
                     } elseif (in_array(strtoupper($this->getObjectType()),
                         $this->getObjects())) {
-                        $html .= $this->view->partialLoop(
-                            'partials/database/numismatics/jettonData.phtml', $this->getCoins());
+                        $partial = 'partials/database/numismatics/jettonData.phtml';
+                        $html .= $this->view->partialLoop($partial, $this->getCoins());
                     } else {
                         $html .= '';
                     }

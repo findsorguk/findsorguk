@@ -15,9 +15,7 @@
                     'controller' => 'search',
                     'action' => 'results',
                     'denomination' => $this->denominationID), null, true); ?>"
-                title="view all records assigned to denomination: <?php echo $this->denomination; ?>">view all
-                attributed
-                records</a>]</span><br/>
+                title="view all records assigned to denomination: <?php echo $this->denomination; ?>"><i class="icon-info-sign"></i></a><br/>
     <?php endif; ?>
     <?php if (!is_null($this->ruler1)): ?>
         Ruler/issuer: <?php echo $this->escape($this->primaryRuler); ?> <br/>
@@ -32,8 +30,7 @@
                     'controller' => 'search',
                     'action' => 'results',
                     'mint' => $this->mintID), null, true); ?>"
-                title="view all records assigned to <?php echo $this->mintName; ?>">view all attributed
-                records</a>]</span><br/>
+                title="view all records assigned to <?php echo $this->mintName; ?>"><i class="icon-info-sign"></i></a><br/>
     <?php endif; ?>
     <?php if (!is_null($this->obverseDescription)): ?>
         Obverse description: <?php echo ucfirst($this->obverseDescription); ?><br/>

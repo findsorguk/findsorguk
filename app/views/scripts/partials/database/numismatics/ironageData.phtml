@@ -11,124 +11,131 @@
     <?php if (!is_null($this->cciNumber)): ?>
         <strong>Celtic Coin Index Number:</strong> <span property="owl:sameAs"
                                                          resource="http://http://www.celticcoins.ca/record.php?coin_id=<?php echo str_replace('.', '', $this->cciNumber); ?>"><?php echo $this->cciNumber; ?></span>
-        <br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->denomination)) : ?>
-        Denomination: <?php echo $this->denomination; ?> <span class="scope">[<a
+        <br />
+        Denomination: <?php echo $this->denomination; ?> <a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'denominations', 'action' => 'denomination', 'id' => $this->denominationID), null, true); ?>"
-                title="Read scope note for <?php echo $this->denomination; ?>">scope notes</a> |  <a
+                title="Read scope note for <?php echo $this->denomination; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'denomination' => $this->denominationID), null, true); ?>"
-                title="view all records assigned to denomination: <?php echo $this->denomination; ?>">view all attributed
-                records</a>]</span><br/>
+                title="view all records assigned to denomination: <?php echo $this->denomination; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->ruler1)) : ?>
-        Ruler/issuer: <?php echo $this->escape($this->primaryRuler); ?> <span class="scope">[<a
+        <br />
+        Ruler/issuer: <?php echo $this->escape($this->primaryRuler); ?> <a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'rulers', 'action' => 'ruler', 'id' => $this->ruler1), null, true); ?>"
-                title="Read scope note for <?php echo $this->primaryRuler; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->primaryRuler; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->ruler1), null, true); ?>"
-                title="view all records assigned to <?php echo $this->primaryRuler; ?>">view all attributed
-                records</a>]</span><br/>
+                title="view all records assigned to <?php echo $this->primaryRuler; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->ruler2)) : ?>
-        Secondary ruler/issuer: <?php echo $this->escape($this->secondaryRuler); ?> <span class="scope">[<a
+        <br />
+        Secondary ruler/issuer: <?php echo $this->escape($this->secondaryRuler); ?> <a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'rulers', 'action' => 'ruler', 'id' => $this->ruler2), null, true); ?>"
-                title="Read scope note for <?php echo $this->secondaryRuler; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->secondaryRuler; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->ruler2), null, true); ?>"
-                title="view all records assigned to <?php echo $this->ruler2; ?>">view all attributed
-                records</a>]</span><br/>
+                title="view all records assigned to <?php echo $this->ruler2; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->tribe)) : ?>
-        Tribe: <?php echo $this->escape($this->tribe); ?> <span class="scope">[<a
+        <br />
+        Tribe: <?php echo $this->escape($this->tribe); ?> <a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'tribes', 'action' => 'tribe', 'id' => $this->tribeID), null, true); ?>"
-                title="Read scope note for <?php echo $this->tribe; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->tribe; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'tribe' => $this->tribeID), null, true); ?>"
-                title="view all records assigned to <?php echo $this->tribe; ?>">view all attributed records</a>]</span>
-        <br/>
+                title="view all records assigned to <?php echo $this->tribe; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->region)): ?>
+        <br />
         Geographic provenance: <?php echo $this->escape($this->area); ?> <?php echo $this->escape($this->region); ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->bmcType)): ?>
-        British Museum Catalogue type: <?php echo $this->escape($this->bmcType); ?> <br/>
+        <br />
+        British Museum Catalogue type: <?php echo $this->escape($this->bmcType); ?>x
     <?php endif; ?>
 
     <?php if (!is_null($this->allenType)): ?>
-        Allen Type: <?php echo $this->escape($this->allenType); ?> <span class="scope">[<a
+        <br />
+        Allen Type: <?php echo $this->escape($this->allenType); ?> <a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'allentypes', 'action' => 'type', 'id' => $this->allenType), null, true); ?>"
-                title="Read scope note for <?php echo $this->allenType; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->allenType; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'allen' => $this->allenType), null, true); ?>"
-                title="view all records assigned to <?php echo $this->allenType; ?>">view all attributed
-                records</a>]</span><br/>
+                title="view all records assigned to <?php echo $this->allenType; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->mack)): ?>
-        Mack Type: <?php echo $this->escape($this->mack); ?> <span class="scope">[<a
+        <br />
+        Mack Type: <?php echo $this->escape($this->mack); ?> <a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'macktypes', 'action' => 'type', 'id' => $this->mack), null, true); ?>"
-                title="Read scope note for <?php echo $this->mack; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->mack; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'mack' => $this->mack), null, true); ?>"
-                title="view all records assigned to <?php echo $this->allebn_type; ?>">view all attributed records]</a></span>
-        <br/>
+                title="view all records assigned to <?php echo $this->allebn_type; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->vaType)): ?>
-        Van Arsdell Type (VA): <?php echo $this->vaType; ?> <span class="scope">[<a
+        <br />
+        Van Arsdell Type (VA): <?php echo $this->vaType; ?> <a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'vanarsdelltypes', 'action' => 'type', 'id' => $this->vaType), null, true); ?>"
-                title="Read scope note for <?php echo $this->vaType; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->vaType; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'vaType' => $this->vaType), null, true); ?>"
-                title="view all records assigned to <?php echo $this->vaType; ?>">view all attributed
-                records]</a></span><br/>
+                title="view all records assigned to <?php echo $this->vaType; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->abcType)): ?>
-        Ancient British Coins (ABC): <?php echo $this->escape($this->abcType); ?> <br/>
+        <br />
+        Ancient British Coins (ABC): <?php echo $this->escape($this->abcType); ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->mintName)) : ?>
-        Mint or issue place: <?php echo $this->escape($this->mintName); ?> <span class="scope">[<a
+        <br />
+        Mint or issue place: <?php echo $this->escape($this->mintName); ?> <a
                 href="<?php echo $this->url(array('module' => 'ironagecoins', 'controller' => 'mints', 'action' => 'mint', 'id' => $this->mintID), null, true); ?>"
-                title="Read scope note for <?php echo $this->mintName; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->mintName; ?>"><i class="icon-info-sign"></i></a> | <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'mint' => $this->mintID), null, true); ?>"
-                title="view all records assigned to <?php echo $this->mintName; ?>">view all attributed
-                records</a>]</span><br/>
+                title="view all records assigned to <?php echo $this->mintName; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->obverseDescription)) : ?>
-        Obverse description: <?php echo $this->obverseDescription; ?><br/>
+        <br />
+        Obverse description: <?php echo $this->obverseDescription; ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->obverse_inscription)) : ?>
-        Obverse inscription: <?php echo $this->obverseInscription; ?><br/>
+        <br />
+        Obverse inscription: <?php echo $this->obverseInscription; ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->reverseDescription)) : ?>
-        Reverse description: <?php echo $this->reverseDescription; ?><br/>
+        <br />
+        Reverse description: <?php echo $this->reverseDescription; ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->reverseInscription)) : ?>
-        Reverse inscription: <?php echo $this->reverseInscription; ?><br/>
+        <br />
+        Reverse inscription: <?php echo $this->reverseInscription; ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->dieAxisName)) : ?>
-        Die axis measurement: <?php echo $this->escape($this->dieAxisName); ?> <span class="scope">[<a
+        <br />
+        Die axis measurement: <?php echo $this->escape($this->dieAxisName); ?> <a
                 href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'dieaxis', 'id' => $this->dieAxis), null, true); ?>"
-                title="Read scope note for <?php echo $this->dieAxisName; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->dieAxisName; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'axis' => $this->dieAxis), null, true); ?>"
-                title="view all records assigned to <?php echo $this->dieAxisName; ?>">view all attributed records</a>]</span>
-        <br/>
+                title="view all records assigned to <?php echo $this->dieAxisName; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->wear)) : ?>
-        Degree of wear: <?php echo $this->escape($this->wear); ?> <span class="scope">[<a
+        <br />
+        Degree of wear: <?php echo $this->escape($this->wear); ?> <a
                 href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'weartype', 'id' => $this->wearID), null, true); ?>"
-                title="Read scope note for <?php echo $this->wear; ?>">scope notes</a> | <a
+                title="Read scope note for <?php echo $this->wear; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'wear' => $this->wearID), null, true); ?>"
-                title="view all records assigned to <?php echo $this->wear; ?>">view all attributed records</a>]</span>
+                title="view all records assigned to <?php echo $this->wear; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
 </p>

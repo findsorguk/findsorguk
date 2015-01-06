@@ -10,10 +10,10 @@
                 <?php foreach($this->finders as $finder) : ?>
 Found by: <span property="pas:finder foaf:name" instanceof="foaf:person"><?php echo $this->escape($finder['title']);?>
                     <?php echo $this->escape($finder['forename']);?>
-                    <?php echo $this->escape($finder['surname']);?></span> - <span class="scope">[<a href="
+                    <?php echo $this->escape($finder['surname']);?></span> - <a href="
                     <?php echo $this->url(array('module' => 'database','controller' => 'search',
                             'action' => 'results', 'finderID' => $finder['finderID']),null,true);?>
-" title="View other discoveries" >view other discoveries by this finder</a>]</span><br />
+" title="View other discoveries" >view other discoveries by this finder</a><br />
                 <?php endforeach; ?>
 <?php
             }

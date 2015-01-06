@@ -7,7 +7,7 @@
         <li>
         <span property="pas:primaryMaterial"><?php echo $this->escape($material); ?></span>
 
-        <span class="scope">[<a href="<?php echo $this->url(array(
+        <a href="<?php echo $this->url(array(
                 'module' => 'datalabs', 'controller' => 'terminology',
                 'action' => 'material', 'id' => $matId), null, true);?>
             " title="View scope notes for <?php echo $this->escape($this->material); ?>">scope notes</a> |
@@ -15,7 +15,7 @@
             'module' => 'database', 'controller' => 'search', 'action' => 'results',
             'material' => $matId), null, true);?>
             " title="Find all records assigned to  <?php echo $this->material; ?>
-            ">view all attributed records</a>]</span>
+            "><i class="icon-search"></i></a>
         </li>
     <?php endforeach; ?>
 </ul>

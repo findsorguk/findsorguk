@@ -244,13 +244,12 @@
         <p>
             <?php if (!is_null($this->discmethod)) : ?>
                 Method of discovery: <?php echo $this->escape($this->discmethod); ?>
-                <span class="scope">[<a href="<?php echo $this->url(array(
+                <a href="<?php echo $this->url(array(
                         'module' => 'datalabs',
                         'controller' => 'terminology',
                         'action' => 'method',
                         'id' => $this->discmethod), null, true);?>"
-                                        title="Read scope note for <?php echo $this->method; ?>">scope
-                        notes</a>]</span><br/>
+                                        title="Read scope note for <?php echo $this->method; ?>"><i class="icon-info-sign"></i></a><br/>
             <?php endif; ?>
 
             <?php if (!is_null($this->disccircum)) : ?>
@@ -263,27 +262,24 @@
 
             <?php if (!is_null($this->landvalue)) : ?>
                 General landuse: <?php echo $this->landvalue; ?>
-                <span class="scope">[<a href="<?php echo $this->url(array(
+                <a href="<?php echo $this->url(array(
                             'module' => 'datalabs',
                             'controller' => 'terminology',
                             'action' => 'landuse',
                             'id' => $this->landusevalue)
-                        , NULL, true);?>"
-                                        title="View scope notes for <?php echo $this->landvalue; ?>">scope
-                        notes</a>]
-</span><br/>
+                        , NULL, true);?>" title="View scope notes for <?php echo $this->landvalue; ?>"><i class="icon-info-sign"></i></a>
+                <br/>
             <?php endif; ?>
 
             <?php if (!is_null($this->landuse)) : ?>
                 Specific landuse: <?php echo $this->escape($this->landuse); ?>
-                <span class="scope">[<a href="<?php echo $this->url(array(
+                <a href="<?php echo $this->url(array(
                         'module' => 'datalabs',
                         'controller' => 'terminology',
                         'action' => 'landuse',
                         'id' => $this->landusecode), null, true);?>"
-                                        title="Read scope note for <?php echo $this->landuse; ?>">scope
-                        notes</a>]
-</span><br/>
+                                        title="Read scope note for <?php echo $this->landuse; ?>"><i class="icon-info-sign"></i></a>
+                <br/>
             <?php endif; ?>
         </p>
     </div>

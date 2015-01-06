@@ -7,7 +7,6 @@ $url = array('module' => $module, 'controller' => $controller, 'action' => 'deno
 <li>
     <a href="<?php echo $this->url($url, null, true); ?>" title="View details for this
     <?php echo $this->denomination; ?>"><?php echo ucfirst($this->denomination); ?></a> -
-    <span class="scope">[<a href="<?php echo $this->url($url, null, true); ?>"
-                            title="Search database for all examples of <?php echo $this->denomination; ?>">view
-            attributed examples</a>]</span>
+    <a href="<?php echo $this->url($url, null, true); ?>"
+       title="Search database for all examples of <?php echo $this->denomination; ?>"><i class="icon-search"></i></a>
 </li>

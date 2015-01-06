@@ -27,12 +27,11 @@ echo $this->jettonEditDeleteLink()
     <?php endif; ?>
 
     <?php if (!is_null($this->denomination)) : ?>
-        Denomination: <?php echo $this->escape($this->denomination); ?> <span class="scope">[<a
+        Denomination: <?php echo $this->escape($this->denomination); ?> <a
                 href="<?php echo $this->url(array('module' => 'medievalcoins', 'controller' => 'denominations', 'action' => 'denomination', 'id' => $this->denominationID), null, true); ?>"
-                title="Read scope note for <?php echo $this->denomination; ?>">scope notes</a> |  <a
+                title="Read scope note for <?php echo $this->denomination; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'denomination' => $this->denominationID), null, true); ?>"
-                title="view all records assigned to denomination: <?php echo $this->denomination; ?>">view all attributed
-                records</a>]</span><br/>
+                title="view all records assigned to denomination: <?php echo $this->denomination; ?>"><i class="icon-search"></i></a><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->mint_name)): ?>

@@ -234,8 +234,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $this->view->recordID = $this->getParam('id');
             $id = $this->getParam('id');
             $this->view->finds = $this->getFinds()->getAllData($id);
-            $coinrefs = new CoinClassifications();
-            $this->view->coinrefs = $coinrefs->getAllClasses($id);
+            $coins = new Coins();
+            $this->view->coins = $coins->getCoinData($id);
+            $coinRefs = new CoinClassifications();
+            $this->view->coinrefs = $coinRefs->getAllClasses($id);
             $thumbs = new Slides;
             $this->view->thumbs = $thumbs->getThumbnails($id);
             $refs = new Publications;
@@ -300,9 +302,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         }
         $this->view->form = $form;
         if ($last == 'last') {
-            $finddata = $this->getFinds()->getLastRecord($this->getIdentityForForms());
-            foreach ($finddata as $finddataflat) {
-                $form->populate($finddataflat);
+            $findData = $this->getFinds()->getLastRecord($this->getIdentityForForms());
+            foreach ($findData as $findDataFlat) {
+                $form->populate($findDataFlat);
                 if (isset($user->peopleID)) {
                     $form->recorderID->setValue($user->peopleID);
                     $form->recordername->setValue($user->fullname);

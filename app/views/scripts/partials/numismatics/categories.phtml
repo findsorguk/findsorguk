@@ -4,14 +4,13 @@ $controller = strtolower(Zend_Controller_Front::getInstance()->getRequest()->get
 ?>
 <li>
     <?php echo
-        '<a href="'.
-        $this->url(array('module' => $module, 'controller' => $controller,'action' => 'category', 'id' => $this->id),null,true)
-        .'" title="View details for '
-        .$this->term
-        .'">'
-        .$this->term.
-        '</a>'
-    ;?> - <span class="scope">[<a href="<?php echo $this->url(array('module' => 'database','controller' => 'search',
-            'action' => 'results', 'category' => $this->id),null,true);?>" title="Search for all examples of
-            <?php echo $this->term;?> on the database">View all attributed examples</a>]</span>
+        '<a href="' .
+        $this->url(array('module' => $module, 'controller' => $controller, 'action' => 'category', 'id' => $this->id), null, true)
+        . '" title="View details for '
+        . $this->term
+        . '">'
+        . $this->term .
+        '</a>'; ?> - <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search',
+        'action' => 'results', 'category' => $this->id), null, true); ?>" title="Search for all examples of
+            <?php echo $this->term; ?> on the database"><i class="icon-search"></i></a>
 </li>
