@@ -1,11 +1,13 @@
-<h2 class="lead">Delete coin data attached to <?php echo $this->old_findID;?></h2>
+<h2 class="lead">Delete coin data attached to <?php echo $this->old_findID; ?></h2>
 <p>Are you sure that you want to delete <?php echo $this->escape($this->old_findID); ?> attached coin details?</p>
-<form action="<?php echo $this->url(array('module' => 'database','controller' => 'coins','action'=>'delete'),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->id; ?>" />
-<input type="hidden" name="returnID" value="<?php echo $this->returnID;?>"/>
-<input type="submit" name="del" value="Yes" />
-<input type="submit" name="del" value="No" />
-</div>
+<form action="<?php echo $this->url(array('module' => 'database', 'controller' => 'coins', 'action' => 'delete'), null, true); ?>" method="post">
+    <div>
+        <input type="hidden" name="id" value="<?php echo $this->id; ?>"/>
+        <input type="hidden" name="returnID" value="<?php echo $this->returnID; ?>"/>
+
+        <div class="btn-group">
+            <input type="submit" name="del" value="Yes" class="btn btn-danger"/>
+            <input type="submit" name="del" value="No" class="btn btn-success"/>
+        </div>
+    </div>
 </form>

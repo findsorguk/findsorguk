@@ -272,7 +272,6 @@ class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
     {
         $html = '';
         $finds = $this->getFinds();
-        Zend_Debug::dump($finds);
         if (in_array(strtoupper($this->getObjectType()), $this->getTypes())) {
             if (sizeof($this->getCoins()) > 0) {
                 if (in_array(strtoupper($this->getBroadperiod()), $this->getBroadperiods())) {

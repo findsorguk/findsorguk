@@ -70,7 +70,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
         if (($this->getParam('broadperiod', false))
             && ($this->getParam('findID', false))
         ) {
-            if($this->getCoins()->checkCoinData($this->getParam('findID'))) {
+            if ($this->getCoins()->checkCoinData($this->getParam('findID'))) {
                 throw new Pas_Exception('Record already exists', 500);
             }
             $broadperiod = (string)$this->getParam('broadperiod');
@@ -150,25 +150,24 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-        if ($this->getParam('id', false)) {
-            if ($this->_request->isPost()) {
-                $id = (int)$this->_request->getPost('id');
-                $returnID = (int)$this->_request->getPost('returnID');
-                $del = $this->_request->getPost('del');
-                if ($del == 'Yes' && $id > 0) {
-                    $where = 'id = ' . $id;
-                    $this->getCoins()->delete($where);
-                    $this->getFlash()->addMessage('Numismatic data deleted!');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $returnID);
-                }
-            } else {
-                $id = (int)$this->_request->getParam('id');
-                if ($id > 0) {
-                    $this->view->coins = $this->getCoins()->getFindToCoinDelete($id);
-                }
+
+        if ($this->_request->isPost()) {
+            $id = (int)$this->_request->getPost('id');
+            $recordID = (int)$this->_request->getPost('returnID');
+            $del = $this->_request->getPost('del');
+            if ($del == 'Yes' && $id > 0) {
+                $where = array();
+                $where[] = $this->getCoins()->getAdapter()->quoteInto('id = ?', $id);
+                $this->getCoins()->delete($where);
+                $this->getFlash()->addMessage('Record deleted!');
+                $this->_helper->solrUpdater->update('objects', $recordID);
+                $this->redirect(self::REDIRECT . 'record/id/' . $recordID);
+            } elseif ($del == 'No' && $id > 0) {
+                $this->getFlash()->addMessage('No changes made!');
+                $this->redirect(self::REDIRECT . 'record/id/' . $recordID);
             }
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter, 500);
+            $this->view->coins = $this->getCoins()->getFindToCoinDelete($this->getParam('id'));
         }
     }
 
@@ -177,7 +176,8 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      * @return void
      * @throws Pas_Exception_Param
      */
-    public function coinrefAction()
+    public
+    function coinrefAction()
     {
         $params = $this->getAllParams();
         if (!isset($params['returnID']) && !isset($params['findID'])) {
@@ -216,7 +216,8 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      * @access public
      * @return void
      */
-    public function editcoinrefAction()
+    public
+    function editcoinrefAction()
     {
         $form = new ReferenceCoinForm();
         $form->submit->setLabel('Edit reference');
@@ -253,7 +254,8 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      * @access public
      * @return void
      */
-    public function deletecoinrefAction()
+    public
+    function deletecoinrefAction()
     {
         $returnID = $this->getParam('returnID');
         $this->view->returnID = $returnID;

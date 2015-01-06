@@ -460,7 +460,8 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
             'module' => 'database',
             'controller' => 'coins',
             'action' => 'delete',
-            'id' => $this->getRecordID()
+            'id' => $this->getRecordID(),
+            'returnID' => $this->getFindID()
         );
         return $url;
     }
@@ -476,7 +477,7 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
         $editClass = 'btn btn-small btn-warning';
         $deleteClass = 'btn btn-small btn-danger';
         $html = '';
-        $html .= '<span class="noprint"><p><a class="';
+        $html .= '<span class="noprint"><div class="btn-group"><p><a class="';
         $html .= $editClass;
         $html .= '" href="';
         $html .= $editUrl;
@@ -487,7 +488,7 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
         $html .= '" href="';
         $html .= $deleteUrl;
         $html .= '" title="Delete numismatic data">Delete';
-        $html .= '<i class="icon-white icon-trash"></i></a></p></span>';
+        $html .= '<i class="icon-white icon-trash"></i></a></p></div></span>';
         return $html;
     }
 }

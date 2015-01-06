@@ -187,7 +187,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                 $where[] = $this->getModel()->getAdapter()->quoteInto('hoardID = ?', $hoardID);
                 $this->getModel()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                $this->_helper->solrUpdater->update('hoards', $hoardID);
+                $this->_helper->solrUpdater->update('objects', $hoardID);
                 $this->redirect('database/hoards/record/id/' . $hoardID);
             } elseif ($del == 'No' && $id > 0) {
                 $this->getFlash()->addMessage('No changes made!');

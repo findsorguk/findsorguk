@@ -1,7 +1,7 @@
 <h4 class="lead">Coin data (numismatics)</h4>
 <?php echo $this->CoinEditDeleteLink()
     ->setFindID($this->id)
-    ->setRecordID($this->id)
+    ->setRecordID($this->coinID)
     ->setBroadperiod($this->broadperiod)
     ->setSecuID($this->secuid)
     ->setInstitution($this->institution)
@@ -14,7 +14,7 @@
                     'module' => 'database',
                     'controller' => 'search',
                     'action' => 'results',
-                    'denomination' => $this->denom), null, true); ?>"
+                    'denomination' => $this->denominationID), null, true); ?>"
                 title="view all records assigned to denomination: <?php echo $this->denomination; ?>">view all
                 attributed
                 records</a>]</span><br/>

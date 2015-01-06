@@ -118,20 +118,20 @@
     <?php endif; ?>
 
 
-    <?php if (!is_null($this->die_axis_name)) : ?>
-        Die axis measurement: <?php echo $this->escape($this->die_axis_name); ?>
+    <?php if (!is_null($this->dieAxisName)) : ?>
+        Die axis measurement: <?php echo $this->escape($this->dieAxisName); ?>
         <span class="scope">[<a href="<?php echo $this->url(array(
                 'module' => 'datalabs',
                 'controller' => 'terminology',
                 'action' => 'dieaxis',
-                'id' => $this->die), null, true);?>" title="Read scope note for
-<?php echo $this->die_axis_name; ?>">scope notes</a> | <a href="<?php echo
+                'id' => $this->dieAxis), null, true);?>" title="Read scope note for
+<?php echo $this->dieAxisName; ?>">scope notes</a> | <a href="<?php echo
             $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'axis' => $this->die), null, true);?>" title="view all records assigned to
-<?php echo $this->die_axis_name; ?>">view all attributed records</a>]</span><br/>
+                'axis' => $this->dieAxis), null, true);?>" title="view all records assigned to
+<?php echo $this->dieAxisName; ?>">view all attributed records</a>]</span><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->wear)) : ?>
