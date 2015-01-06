@@ -13,3 +13,9 @@
 [submodule "library/easyrdf"]
 	path = library/easyrdf
 	url = https://github.com/njh/easyrdf
+[submodule "library/REST"]
+	path = library/REST
+	url = https://github.com/codeinchaos/restful-zend-framework.git
+[submodule "library/tcpdf"]
+	path = library/tcpdf
+	url = https://github.com/tcpdf-clone/tcpdf
