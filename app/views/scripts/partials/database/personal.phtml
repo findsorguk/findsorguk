@@ -1,73 +1,67 @@
 <?php
 $people = array($this->finder, $this->recorder, $this->identifier, $this->secondaryIdentifier);
 if (array_filter($people)):?>
-    <h4 class="lead">Personal details</h4>
 
+    <h4 class="lead">Personal details</h4>
     <p>
-        <?php
-        if (isset($this->finderID)) {
-            $auth = Zend_Registry::get('auth');
-            if ($auth->hasIdentity()) {
-                $user = $auth->getIdentity();
-                {
-                    $allowed = array('fa', 'admin', 'flos', 'hero', 'treasure');
-                    if (in_array($user->role, $allowed)) {
-                        ?>
-                        Found by: <span property="pas:finder foaf:name"
-                                        instanceof="foaf:person"><?php echo $this->finder; ?></span> - <a href="
-<?php echo $this->url(array('module' => 'database', 'controller' => 'search',
-                            'action' => 'results', 'finderID' => $this->finderID), null, true); ?>"
-                                                                                                          title="View other discoveries"><i
-                                class="icon-search"></i></a>
-                        <br/>
-                    <?php
-                    }
-                }
-            } else {
-                ?>
+        <?php if (!is_null($this->finder)): ?>
+            <?php $auth = Zend_Registry::get('auth'); ?>
+            <?php if ($auth->hasIdentity()): ?>
+
+                <?php $user = $auth->getIdentity(); ?>
+                <?php $allowed = array('fa', 'admin', 'flos', 'hero', 'treasure'); ?>
+
+                <?php if (in_array($user->role, $allowed)): ?>
+                    Found by: <span property="pas:finder foaf:name"
+                                    instanceof="foaf:person"><?php echo $this->finder; ?></span> - <a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'finderID' => $this->finderID), null, true); ?>"
+                        title="View other discoveries"><i class="icon-search"></i></a><br/>
+                <?php endif; ?>
+            <?php else: ?>
                 Found by: This information is restricted for your login. <br/>
-            <?php
-            }
-        }
-        ?>
+            <?php endif; ?>
+        <?php endif;?>
+
+
 
         <?php if (!is_null($this->recorderID)) : ?>
             Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?php echo
                 $this->recorder; ?></span>
-            -
             <a href="<?php echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
                 'recorderID' => $this->recorderID), null, true); ?>"
                title="Search database for all records recorded by <?php echo $this->recorderID; ?>"><i
-                    class="icon-search"></i></a><br/>
+                    class="icon-search"></i></a>
         <?php endif; ?>
 
         <?php if (!is_null($this->identifier1ID)) : ?>
+            <br/>
             Identified by: <span property="pas:identifier foaf:name"
-                                 instanceof="foaf:person"><?php echo $this->identifier; ?></span> - <a
-                href="
-        <?php echo $this->url(array(
-                    'module' => 'database',
-                    'controller' => 'search',
-                    'action' => 'results',
-                    'identifierID' => $this->identifier1ID), null, true); ?>"
-                title="Search database for all records identified by <?php echo $this->identifier; ?>"><i
-                    class="icon-search"></i></a><br/>
-        <?php endif; ?>
-
-        <?php if (!is_null($this->identifier2ID)) : ?>
-            Secondary identifier: <span property="pas:identifierSecondary foaf:name"
-                                        instanceof="foaf:person">
-<?php echo $this->secondaryIdentifier; ?></span> - <a href="
- <?php echo $this->url(array(
+                                 instanceof="foaf:person"><?php echo $this->identifier; ?></span>
+            <a href="<?php echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'search',
                 'action' => 'results',
-                'identifier2ID' => $this->identifier2ID), null, true); ?>"
-                                                      title="Search database for all records identifed by <?php echo $this->secondaryIdentifier; ?>"><i
-                    class="icon-search"></i></a><br/>
+                'identifierID' => $this->identifier1ID), null, true); ?>"
+               title="Search database for all records identified by <?php echo $this->identifier; ?>"><i
+                    class="icon-search"></i></a>
         <?php endif; ?>
+
+        <?php if (!is_null($this->identifier2ID)) : ?>
+            <br/>
+            Secondary identifier: <span property="pas:identifierSecondary foaf:name"
+                                        instanceof="foaf:person"><?php echo $this->secondaryIdentifier; ?></span> <a
+                href="<?php echo $this->url(array(
+                    'module' => 'database',
+                    'controller' => 'search',
+                    'action' => 'results',
+                    'identifier2ID' => $this->identifier2ID), null, true); ?>"
+                title="Search database for all records identifed by <?php echo $this->secondaryIdentifier; ?>"><i
+                    class="icon-search"></i></a>
+        <?php endif; ?>
+
     </p>
+
 <?php endif; ?>

@@ -1,6 +1,7 @@
-<acronym title="The Portable Antiquities Scheme">PAS</acronym> record number: <?php echo $this->old_findID;?><br />
-Object type: <?php echo ucfirst($this->objecttype);?><br />
-Broadperiod: <?php echo ucwords($this->broadperiod);?><br />
-County of discovery: <?php echo ucwords(strtolower($this->county));?><br />
-Stable url: <a href="<?php echo $this->serverUrl() . 
-$this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),null,true);?>" title="<?php echo $this->old_findID . ': a '. ucwords(strtolower($this->broadperiod)) . ' ' . ucfirst(strtolower($this->objecttype));?>"><?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'database','controller' => 'artefacts','action' => 'record','id' => $this->id),null,true);?></a>
+<acronym title="The Portable Antiquities Scheme">PAS</acronym> record number: <?php echo $this->old_findID; ?><br/>
+Object type: <?php echo ucfirst($this->objecttype); ?><br/>
+Broadperiod: <?php echo ucwords($this->broadperiod); ?><br/>
+County of discovery: <?php echo ucwords(strtolower($this->county)); ?><br/>
+Stable url: <a href="<?php echo $this->serverUrl() .
+    $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?>"
+               title="<?php echo $this->old_findID . ': a ' . ucwords(strtolower($this->broadperiod)) . ' ' . ucfirst(strtolower($this->objecttype)); ?>"><?php echo $this->serverUrl(); ?><?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?></a>

@@ -1,17 +1,18 @@
-<?php $this->mail->setSubject('A record of your has been made available on finds.org.uk');?>
-<p>Dear <?php echo $this->escape($this->splitName()->setName($this->fullname));?>,</p>
+<?php $this->mail->setSubject('A record of your has been made available on finds.org.uk'); ?>
+    <p>Dear <?php echo $this->escape($this->splitName()->setName($this->fullname)); ?>,</p>
 
-<p>This is an email to let you know that your object is available to view on the Scheme website.<br />
-Your find number is: <?php echo $this->old_findID;?> and it is located at: <a href="<?php echo $this->serverUrl();?>
-/database/artefacts/record/id/<?php echo $this->id;?>"><?php echo $this->serverUrl();?>
-/database/artefacts/record/id/<?php echo $this->id;?></a>.</p>
+    <p>This is an email to let you know that your object is available to view on the Scheme website.<br/>
+        Your find number is: <?php echo $this->old_findID; ?> and it is located at: <a
+            href="<?php echo $this->serverUrl(); ?>
+/database/artefacts/record/id/<?php echo $this->id; ?>"><?php echo $this->serverUrl(); ?>
+            /database/artefacts/record/id/<?php echo $this->id; ?></a>.</p>
 
-<p>The URI provided should not change, if you have problems with this link,
-    contact <?php echo $this->escape($this->splitName()->setName($this->name));?> via replying
-    to this email.</p>
+    <p>The URI provided should not change, if you have problems with this link,
+        contact <?php echo $this->escape($this->splitName()->setName($this->name)); ?> via replying
+        to this email.</p>
 
-<p>Yours sincerely,</p>
+    <p>Yours sincerely,</p>
 
-<p><?php echo $this->escape($this->splitName()->setName($this->name));?></p>
+    <p><?php echo $this->escape($this->splitName()->setName($this->name)); ?></p>
 
-<?php echo $this->emailSignature();?>
+<?php echo $this->emailSignature(); ?>

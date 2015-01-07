@@ -42,10 +42,10 @@ switch ($stat) {
     <td>
         <?php
         echo $this->gravatar($this->comment_author_email, array(
-                'imgSize' => 30,
-                'defaultImg' => $this->serverUrl() . $this->baseUrl()
-                    . '/assets/gravatar.png',
-                'secure' => true),
+            'imgSize' => 30,
+            'defaultImg' => $this->serverUrl() . $this->baseUrl()
+                . '/assets/gravatar.png',
+            'secure' => true),
             array(
                 'class' => 'avatar stelae pull-left img-circle',
                 'title' => $this->comment_author . '\'s gravatar representation',
@@ -69,7 +69,7 @@ switch ($stat) {
             'module' => 'database',
             'controller' => 'artefacts',
             'action' => 'record',
-            'id' => $this->id), null, true);?>"><?php echo $this->commentType()->setId($this->contentID)->setType($this->comment_type); ?></a>
+            'id' => $this->id), null, true); ?>"><?php echo $this->commentType()->setId($this->contentID)->setType($this->comment_type); ?></a>
     </td>
     <td><?php echo $t; ?></td>
     <td>

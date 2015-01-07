@@ -35,7 +35,7 @@
                 $url = 'http://www.flickr.com/photos/tags/' . $t;
                 $separator = ' ';
                 echo '<a href="' . $url . '" title="View all tagged photos on flickr with this tag">' . $t . '</a>' . $separator;
-            }?><br/>
+            } ?><br/>
             <?php if ($this->machine_tags): ?>
                 Machine tags: <?php echo $this->machine_tags; ?><br/>
             <?php endif; ?>
@@ -45,7 +45,7 @@
             <?php endif; ?>
             Views: <?php echo $this->views; ?><br/>
             <a href="<?php echo $this->url(array('module' => 'flickr', 'controller' => 'photos', 'action' => 'details',
-                'id' => $this->id), 'default', true);?>" title="View all details for this photo">More
+                'id' => $this->id), 'default', true); ?>" title="View all details for this photo">More
                 details &raquo;</a></p>
     </div>
 

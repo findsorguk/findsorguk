@@ -2,11 +2,11 @@
     <td class="author column-author">
         <?php
         echo $this->gravatar($this->comment_author_email, array(
-                'defaultImg' => $this->serverUrl() . $this->baseUrl()
-                    . '/assets/gravatar.png',
-                'imgSize' => 30,
-                'secure' => true
-            ),
+            'defaultImg' => $this->serverUrl() . $this->baseUrl()
+                . '/assets/gravatar.png',
+            'imgSize' => 30,
+            'secure' => true
+        ),
             array(
                 'class' => 'avatar stelae img-circle pull-left',
                 'title' => $this->comment_author . '\'s gravatar representation',
@@ -16,11 +16,11 @@
         );
         ?>
 
-        <?php if(!is_null($this->comment_author)):?>
-        <strong><?php echo $this->comment_author; ?></strong><br/>
-            <?php else:?>
+        <?php if (!is_null($this->comment_author)): ?>
+            <strong><?php echo $this->comment_author; ?></strong><br/>
+        <?php else: ?>
             Anonymous comment - how did that happen?
-        <?php endif;?>
+        <?php endif; ?>
 
         <?php if (!is_null($this->comment_author_url)) : ?>
             <a href="<?php echo $this->comment_author_url; ?>"

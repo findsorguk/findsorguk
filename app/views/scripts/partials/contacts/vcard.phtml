@@ -38,7 +38,7 @@
 
 
     <h4 class="lead"><a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff',
-            'action' => 'profile', 'id' => $this->id));?>" title="Read <?php echo $this->escape($this->firstname); ?>
+            'action' => 'profile', 'id' => $this->id)); ?>" title="Read <?php echo $this->escape($this->firstname); ?>
 <?php echo $this->escape($this->lastname); ?>'s profile"><span class="fn n" property="foaf:name">
 <span class="given-name">
 <?php echo $this->escape($this->firstname); ?>
@@ -89,8 +89,10 @@
     <?php echo $this->onlineAccountHtml()->setId($this->id); ?>
     <div class="btn-group">
         <h3 class="lead">Other formats</h3>
-        <a class="btn-mini btn" href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>">Vcard</a>
-        <a class="btn-mini btn" href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'foaf'), null, true); ?>"
+        <a class="btn-mini btn"
+           href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>">Vcard</a>
+        <a class="btn-mini btn"
+           href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'foaf'), null, true); ?>"
            rel="foaf">FOAF</a>
     </div>
 </div>

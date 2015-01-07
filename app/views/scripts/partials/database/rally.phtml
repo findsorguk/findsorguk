@@ -18,39 +18,39 @@ $this->headTitle($this->rally_name);
 
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<div class="btn-group">
-<?php
-$config = Zend_Controller_Front::getInstance()->getParam('bootstrap');
-$allowed = $config->getOption('higherLevel');
-echo $this->Href(array(
-    'module' => 'database',
-    'controller' => 'rallies',
-    'action' => 'edit',
-    'checkAcl' => true,
-    'acl' => 'Zend_Acl',
-    'params' => array('id' => $this->id),
-    'content' => 'Edit',
-    'attribs' => array(
-        'title' => 'Edit rally details',
-        'class' => 'btn btn-small btn-warning')
-));
-?>
+    <div class="btn-group">
+        <?php
+        $config = Zend_Controller_Front::getInstance()->getParam('bootstrap');
+        $allowed = $config->getOption('higherLevel');
+        echo $this->Href(array(
+            'module' => 'database',
+            'controller' => 'rallies',
+            'action' => 'edit',
+            'checkAcl' => true,
+            'acl' => 'Zend_Acl',
+            'params' => array('id' => $this->id),
+            'content' => 'Edit',
+            'attribs' => array(
+                'title' => 'Edit rally details',
+                'class' => 'btn btn-small btn-warning')
+        ));
+        ?>
 
-<?php
-echo $this->Href(array(
-    'module' => 'database',
-    'controller' => 'rallies',
-    'action' => 'delete',
-    'checkAcl' => true,
-    'acl' => 'Zend_Acl',
-    'params' => array('id' => $this->id),
-    'content' => 'Delete',
-    'attribs' => array(
-        'title' => 'Delete rally details',
-        'class' => 'btn btn-small btn-danger')
-));
-?>
-</div>
+        <?php
+        echo $this->Href(array(
+            'module' => 'database',
+            'controller' => 'rallies',
+            'action' => 'delete',
+            'checkAcl' => true,
+            'acl' => 'Zend_Acl',
+            'params' => array('id' => $this->id),
+            'content' => 'Delete',
+            'attribs' => array(
+                'title' => 'Delete rally details',
+                'class' => 'btn btn-small btn-danger')
+        ));
+        ?>
+    </div>
 <?php
 $auth = Zend_Auth::getInstance();
 if ($auth->hasIdentity()) {
@@ -204,7 +204,7 @@ if ($auth->hasIdentity()) {
             <?php endif;
         }
     }
-}?>
+} ?>
 
 
     <p>Start date: <?php echo $this->escape($this->df); ?><br/>
@@ -233,7 +233,7 @@ if (in_array($user->role, $allowed))
 <?php
 }
 }
-}?>
+} ?>
 <?php
 $auth = Zend_Auth::getInstance();
 if ($auth->hasIdentity()){
@@ -256,7 +256,7 @@ if (in_array($user->role, $allowed))
 <?php
 }
 }
-}?><br/>
+} ?><br/>
     County: <?php echo $this->escape($this->county); ?></p>
 
     <p>
@@ -275,12 +275,12 @@ if (in_array($user->role, $allowed))
     </p>
 <?php if ($this->finds) : ?>
     <p>View <a href="<?php echo $this->url(array(
-                'module' => 'database',
-                'controller' => 'search',
-                'action' => 'results',
-                'rally' => 1,
-                'rallyID' => $this->id),
-            null, true);?>" title="Search database for all records from <?php echo $this->rally_name; ?>">all
+            'module' => 'database',
+            'controller' => 'search',
+            'action' => 'results',
+            'rally' => 1,
+            'rallyID' => $this->id),
+            null, true); ?>" title="Search database for all records from <?php echo $this->rally_name; ?>">all
             <?php echo $this->finds; ?> records</a> from this rally.</p>
 <?php else: ?>
     <p>No records of any artefacts have been entered yet on the database.</p>

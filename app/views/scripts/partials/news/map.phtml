@@ -1,190 +1,189 @@
 <?php
 $apikey = Zend_Registry::get('config')->webservice->googlemaps->apikey;
-$this->inlineScript()->appendFile('http://maps.googleapis.com/maps/api/js?v=3.8&sensor=true&region=GB&key=' . $apikey,$type='text/javascript');
-$this->inlineScript()->appendFile($this->serverUrl() . '/js/markerclusterer.js',$type='text/javascript');
-$this->inlineScript()->appendFile('http://nls.tileserver.com/api-cluster.js',$type='text/javascript');
+$this->inlineScript()->appendFile('http://maps.googleapis.com/maps/api/js?v=3.8&sensor=true&region=GB&key=' . $apikey, $type = 'text/javascript');
+$this->inlineScript()->appendFile($this->serverUrl() . '/js/markerclusterer.js', $type = 'text/javascript');
+$this->inlineScript()->appendFile('http://nls.tileserver.com/api-cluster.js', $type = 'text/javascript');
 ?>
 
-<?php $this->inlineScript()->captureStart();?>
+<?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function() {
 
 <?php
-	$user = new Pas_User_Details();
-	$person = $user->getPerson()->role;
-	$allowed = array('admin', 'fa', 'flos', 'research', 'treasure');
-	if(in_array($person, $allowed)) {
-		$maxzoom = 18;
-		$minzoom = 1;
-	} else {
-		$maxzoom = 11;
-		$minzoom = 1;
-	}
+$user = new Pas_User_Details();
+$person = $user->getPerson()->role;
+$allowed = array('admin', 'fa', 'flos', 'research', 'treasure');
+if (in_array($person, $allowed)) {
+    $maxzoom = 18;
+    $minzoom = 1;
+} else {
+    $maxzoom = 11;
+    $minzoom = 1;
+}
 ?>
 
-	var max = <?php echo $maxzoom;?>;
-	var min = <?php echo $minzoom;?>;
+var max = <?php echo $maxzoom; ?>;
+var min = <?php echo $minzoom; ?>;
 
-    var nlsmap = new google.maps.ImageMapType({
-	   getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
-	   tileSize: new google.maps.Size(256, 256),
-	   isPng: false,
-	   maxZoom: max,
-	   minZoom: min,
-	   name: 'Historic',
-	   alt: "NLS Historic Map"
-	});
-
-
-
-    var osmMapType = new google.maps.ImageMapType({
-        getTileUrl: function (coord, zoom) {
-            return "http://tile.openstreetmap.org/" +
-                zoom + "/" + coord.x + "/" + coord.y + ".png";
-
-        },
-        tileSize: new google.maps.Size(256, 256),
-        isPng: true,
-        alt: "OpenStreetMap layer",
-        name: "OSM",
-        maxZoom: max
-    });
-
-   var soilMapType = new google.maps.ImageMapType({
-
-   getTileUrl: function(tile, zoom) {
-
-   var projection = map.getProjection();
-
-   var zpow = Math.pow(2, zoom);
-
-   var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
-
-   var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
-
-   var ulw = projection.fromPointToLatLng(ul);
-
-   var lrw = projection.fromPointToLatLng(lr);
-
-   var baseURL ="http://geonetwork3.fao.org/ows/14116?LAYERS=world_soilmap&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&SRS=EPSG:4326";
-
-   var version = "1.1.1";
-
-   var request = "GetMap";
-
-   var format = "image/png"; //type of image returned  or image/jpeg
+var nlsmap = new google.maps.ImageMapType({
+getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
+tileSize: new google.maps.Size(256, 256),
+isPng: false,
+maxZoom: max,
+minZoom: min,
+name: 'Historic',
+alt: "NLS Historic Map"
+});
 
 
-   var layers = "world_soilmap";
+var osmMapType = new google.maps.ImageMapType({
+getTileUrl: function (coord, zoom) {
+return "http://tile.openstreetmap.org/" +
+zoom + "/" + coord.x + "/" + coord.y + ".png";
 
-   var srs = "EPSG:4326";
+},
+tileSize: new google.maps.Size(256, 256),
+isPng: true,
+alt: "OpenStreetMap layer",
+name: "OSM",
+maxZoom: max
+});
 
-   var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
+var soilMapType = new google.maps.ImageMapType({
 
-   var service = "WMS";
+getTileUrl: function(tile, zoom) {
 
-   var width = "256";
+var projection = map.getProjection();
 
-   var height = "256";
+var zpow = Math.pow(2, zoom);
+
+var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
+
+var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
+
+var ulw = projection.fromPointToLatLng(ul);
+
+var lrw = projection.fromPointToLatLng(lr);
+
+var baseURL ="http://geonetwork3.fao.org/ows/14116?LAYERS=world_soilmap&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&SRS=EPSG:4326";
+
+var version = "1.1.1";
+
+var request = "GetMap";
+
+var format = "image/png"; //type of image returned  or image/jpeg
 
 
-   var styles = "default";
+var layers = "world_soilmap";
 
-   var url = baseURL +"&BBOX=" + bbox + "&WIDTH=" + width + "&HEIGHT=" + height;
+var srs = "EPSG:4326";
 
-   return url;
-    },
-        tileSize: new google.maps.Size(256, 256),
-        isPng: true,
-        alt: "Soil layer",
-        name: "Soil types",
-        maxZoom: max,
-        minZoom: min,
-        opacity: 0.2,
-    });
+var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
+
+var service = "WMS";
+
+var width = "256";
+
+var height = "256";
 
 
-    var myOptions = {
-          center: new google.maps.LatLng( <?php echo $this->centre_lat;?>, <?php echo $this->centre_lon;?>),
-          zoom: 11,
-          mapTypeControlOptions: {
-          mapTypeIds: [
-          google.maps.MapTypeId.TERRAIN,
-          google.maps.MapTypeId.SATELLITE,
-          'OSM',
-          'SOIL',
-          'historic'
-          ]
-    	  },
-    	  mapTypeControl: true,
-    	  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-          scaleControl: true,
-    	  zoomControl: true,
-          mapTypeId: 'OSM',
-          scrollwheel: false,
-        };
+var styles = "default";
 
-    var map = new google.maps.Map(document.getElementById("map"),myOptions);
-        map.mapTypes.set('OSM',osmMapType);
-        map.mapTypes.set('SOIL',soilMapType);
-        map.mapTypes.set('historic',nlsmap);
+var url = baseURL +"&BBOX=" + bbox + "&WIDTH=" + width + "&HEIGHT=" + height;
+
+return url;
+},
+tileSize: new google.maps.Size(256, 256),
+isPng: true,
+alt: "Soil layer",
+name: "Soil types",
+maxZoom: max,
+minZoom: min,
+opacity: 0.2,
+});
+
+
+var myOptions = {
+center: new google.maps.LatLng( <?php echo $this->centre_lat; ?>, <?php echo $this->centre_lon; ?>),
+zoom: 11,
+mapTypeControlOptions: {
+mapTypeIds: [
+google.maps.MapTypeId.TERRAIN,
+google.maps.MapTypeId.SATELLITE,
+'OSM',
+'SOIL',
+'historic'
+]
+},
+mapTypeControl: true,
+style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+scaleControl: true,
+zoomControl: true,
+mapTypeId: 'OSM',
+scrollwheel: false,
+};
+
+var map = new google.maps.Map(document.getElementById("map"),myOptions);
+map.mapTypes.set('OSM',osmMapType);
+map.mapTypes.set('SOIL',soilMapType);
+map.mapTypes.set('historic',nlsmap);
 
 
 
 <?php
 $bbox = $this->min_lat . ',' . $this->min_lon . ',' . $this->max_lat . ',' . $this->max_lon;
 $url = $this->serverUrl() . $this->url(array(
-    'module' => 'database',
-    'controller' => 'ajax',
-    'action' => 'mapdata2',
-    'bbox' => $bbox),
-        'default',true);
-       ?>
+        'module' => 'database',
+        'controller' => 'ajax',
+        'action' => 'mapdata2',
+        'bbox' => $bbox),
+        'default', true);
+?>
 
 
 
- 
+
 
 var markers = new Array();
 
 var infowindow = new google.maps.InfoWindow();
-    jQuery.get("<?php echo $url;?>", {}, function(data) {
+jQuery.get("<?php echo $url; ?>", {}, function(data) {
 
-    jQuery(data).find("marker").each(function() {
-        var markerXML = jQuery(this);
-        var latlng = new google.maps.LatLng(
-            parseFloat(markerXML.attr("lat")),
-            parseFloat(markerXML.attr("lng"))
-        );
-        var marker = new google.maps.Marker({position: latlng, map: map});
+jQuery(data).find("marker").each(function() {
+var markerXML = jQuery(this);
+var latlng = new google.maps.LatLng(
+parseFloat(markerXML.attr("lat")),
+parseFloat(markerXML.attr("lng"))
+);
+var marker = new google.maps.Marker({position: latlng, map: map});
 
-        // now that the marker is placed, assign event listener on the marker
-        // and create/assign infowindow to the event trigger.
-        markerInfoWindow(marker, markerXML.attr("content"));
-        markers.push(marker);
-    });
-    var markerCluster = new MarkerClusterer(map, markers);
+// now that the marker is placed, assign event listener on the marker
+// and create/assign infowindow to the event trigger.
+markerInfoWindow(marker, markerXML.attr("content"));
+markers.push(marker);
+});
+var markerCluster = new MarkerClusterer(map, markers);
 });
 
 function markerInfoWindow(marker, information){
-     google.maps.event.addListener(marker, 'click',
-    function() {
-        infowindow.close();
-        infowindow.setContent(information);
-        infowindow.setPosition(marker.getPosition());
-        infowindow.open(map, marker);
-    });
+google.maps.event.addListener(marker, 'click',
+function() {
+infowindow.close();
+infowindow.setContent(information);
+infowindow.setPosition(marker.getPosition());
+infowindow.open(map, marker);
+});
 }
- $('a[data-toggle="tab"]').on('shown', function (e) {
-  e.target // activated tab
-  e.relatedTarget // previous tab
+$('a[data-toggle="tab"]').on('shown', function (e) {
+e.target // activated tab
+e.relatedTarget // previous tab
 
-  google.maps.event.trigger(map, 'resize');
-  map.setZoom( map.getZoom() );
-  var latLngBounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(49.871159, -6.379880),
-    new google.maps.LatLng(55.811741, 1.768960)
-    );
-  map.fitBounds(latLngBounds);
+google.maps.event.trigger(map, 'resize');
+map.setZoom( map.getZoom() );
+var latLngBounds = new google.maps.LatLngBounds(
+new google.maps.LatLng(49.871159, -6.379880),
+new google.maps.LatLng(55.811741, 1.768960)
+);
+map.fitBounds(latLngBounds);
 })
 
 });
@@ -194,5 +193,5 @@ function markerInfoWindow(marker, information){
 
 
 
-<?php $this->inlineScript()->captureEnd();?>
+<?php $this->inlineScript()->captureEnd(); ?>
 <div id="map"></div>

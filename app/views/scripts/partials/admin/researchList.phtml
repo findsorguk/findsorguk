@@ -5,18 +5,18 @@
     <td><?php echo $this->investigator; ?></td>
     <td><?php echo $this->type; ?></td>
     <td>
-        <?php if (!is_null($this->start)):?>
-            <?php echo $this->start;?>
-        <?php  else:?>
+        <?php if (!is_null($this->start)): ?>
+            <?php echo $this->start; ?>
+        <?php else: ?>
             N/A
-        <?php endif;?>
+        <?php endif; ?>
     </td>
     <td>
-        <?php if (!is_null($this->finish)):?>
-            <?php echo $this->finish;?>
-        <?php  else:?>
+        <?php if (!is_null($this->finish)): ?>
+            <?php echo $this->finish; ?>
+        <?php else: ?>
             N/A
-        <?php endif;?>
+        <?php endif; ?>
     </td>
     <td>
         <div class="btn-group"><a class="btn btn-mini btn-default"

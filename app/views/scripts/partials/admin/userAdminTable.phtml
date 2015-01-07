@@ -7,7 +7,8 @@
     <td><?php echo $this->timeAgoInWords($this->lastLogin); ?></td>
     <td><?php echo $this->visits; ?></td>
     <td>
-        <a class="btn btn-mini btn-success" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
+        <a class="btn btn-mini btn-success"
+           href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
            title="Edit user profile for <?php echo $this->fullname; ?>">Edit</a>
     </td>
 </tr>

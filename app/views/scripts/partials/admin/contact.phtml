@@ -82,7 +82,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         <p>Short profile:</p>
         <?php if (!is_null($this->profile)): ?>
             <span class="summary"><?php echo $this->profile; ?></span>
-            <?php else:?>
+        <?php else: ?>
             <p>No profile added.</p>
         <?php endif; ?>
 
@@ -141,7 +141,8 @@ $('a[class^=delete]').confirm({
 dialogShow:'fadeIn',
 dialogSpeed:'slow',
 buttons: {
-wrapper:'<button></button>', separator:'  '
+wrapper:'
+<button></button>', separator:'  '
 }
 });
 });

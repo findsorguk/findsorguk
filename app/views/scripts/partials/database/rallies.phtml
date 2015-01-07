@@ -7,12 +7,12 @@
         <?php echo $this->niceShortDate()->setDate($this->date_from); ?>
     </td>
     <td>
-        <?php if(!is_null($this->date_to)):?>
-        <?php echo $this->niceShortDate()->setDate($this->date_to); ?>
-        <?php else:?>
+        <?php if (!is_null($this->date_to)): ?>
+            <?php echo $this->niceShortDate()->setDate($this->date_to); ?>
+        <?php else: ?>
             <?php echo $this->niceShortDate()->setDate($this->date_from); ?>
 
-        <?php endif;?>
+        <?php endif; ?>
     </td>
 
 </tr>

@@ -1,158 +1,161 @@
-<?php $this->headTitle($this->title.' on flickr');?>
-<?php 
-if($this->tags){
-$keywords = implode(',',$this->tags);
+<?php $this->headTitle($this->title . ' on flickr'); ?>
+<?php
+if ($this->tags) {
+    $keywords = implode(',', $this->tags);
 } else {
-$keywords = NULL;	
+    $keywords = NULL;
 }
 $this->metaBase()
-        ->setDescription($this->ellipsisString()->setString($this->description)->setMax(300))
-        ->setSubject('photo')
-        ->setKeywords($keywords)
-        ->generate();
+    ->setDescription($this->ellipsisString()->setString($this->description)->setMax(300))
+    ->setSubject('photo')
+    ->setKeywords($keywords)
+    ->generate();
 ?>
-<?php 
+<?php
 $config = Zend_Registry::get('config');
 $apikey = $config->googlemaps->apikey;
-$this->headScript()->appendFile('http://maps.google.com/maps?file=api&amp;v=2.x&key='.$apikey,$type='text/javascript')->appendFile('http://gmaps-utility-library.googlecode.com/svn/trunk/mapiconmaker/1.0/src/mapiconmaker.js',$type='text/javascript');?>
+$this->headScript()->appendFile('http://maps.google.com/maps?file=api&amp;v=2.x&key=' . $apikey, $type = 'text/javascript')->appendFile('http://gmaps-utility-library.googlecode.com/svn/trunk/mapiconmaker/1.0/src/mapiconmaker.js', $type = 'text/javascript'); ?>
 
-<h2 class="lead"><?php echo $this->title;?></h2>
+    <h2 class="lead"><?php echo $this->title; ?></h2>
 
-<img src="<?php echo $this->mediumimage;?>" width="<?php echo $this->sizes['-']['0'];?>" height="<?php echo $this->sizes['-']['1'];?>" alt="<?php echo $this->title;?>"/>
+    <img src="<?php echo $this->mediumimage; ?>" width="<?php echo $this->sizes['-']['0']; ?>"
+         height="<?php echo $this->sizes['-']['1']; ?>" alt="<?php echo $this->title; ?>"/>
 
 
 <?php
-echo '<p>'.$this->description.'</p>';
+echo '<p>' . $this->description . '</p>';
 ?>
-<?php if(!is_null($this->coords['lat'])):?>
+<?php if (!is_null($this->coords['lat'])): ?>
 
-<?php $this->inlineScript()->captureStart();?>
-$(document).ready(function() {
+    <?php $this->inlineScript()->captureStart(); ?>
+    $(document).ready(function() {
 
-if (GBrowserIsCompatible()) {
+    if (GBrowserIsCompatible()) {
 
- var locations = {};
-	var flickr_api_key = 'dbb87ca6390925131a4fedb34d9d8d80';
-	var yahoo_geoplanet_api_key = 'avT7WEDV34HLQLsINzdyv9D4QFGiJtNnPHgtE7C0dvVe7ItxzfuOkGTslkfR_iI9cUCVFKJsrzYTYQ--';
-	var bounds = new GLatLngBounds();
-	var woeid = '<?php echo $this->coords['woeid'];?>';
-	var colours = ["red", "blue", "green", "purple", "orange", "yellow", "darkred", "darkblue", "darkgreen", "aqua", "magenta", "springgreen"];
-	
-	function displayPolygon(woeid) {
-		$.getJSON('http://api.flickr.com/services/rest/?method=flickr.places.getInfo&api_key=' + flickr_api_key + '&woe_id=' + woeid + '&format=json&jsoncallback=?', function(data) {
-			if(data.place.has_shapedata == 1) {
-			
-				$.each(data.place.shapedata.polylines.polyline, function(index,polyline) {
-					thepoints = [];
-					$.each(polyline._content.split(/ /), function(pindex, point) {
-						lat = parseFloat(point.split(/,/)[0]);
-						lng = parseFloat(point.split(/,/)[1]);
-						thepoints[pindex] = new GLatLng(lat, lng);
-					});
-					
-					var polyOptions = {geodesic:true};
-					var colour = colours.shift();
-					var name = data.place.name.split(',')[0];
-					
-					var polygon = new GPolygon(thepoints, colour, 2, 1, colour, 0.1, polyOptions);
-					map.addOverlay(polygon);
-					$('ul#legend-items').append('<li style="color:' + colour + '"><a href="/database/search/results/woeid/' + woeid + '" title="View all data from adjacent places">' + name + '</a></li>');
-					
-					$.each(thepoints, function(pindex, point) {
-						bounds.extend(point);
-					});
-				});
-			
-				if(!bounds.isEmpty()) {
-					map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds));
-				}
-			}
-		});
-	};
-function displayNeighbours(woeid) {
-		$.getJSON('http://where.yahooapis.com/v1/place/' + woeid + '/neighbors?appid=' + yahoo_geoplanet_api_key + '&format=json&callback=?', function(data) {
-			neighbours = [];
-			$.each(data.places.place, function(index, place) {
-				displayPolygon(place.woeid, place.name);
-			});
-		});
-	}
-	
-$('ul#legend-items li a').live('click', function(event) {
-	
-	  return true;
-	});
+    var locations = {};
+    var flickr_api_key = 'dbb87ca6390925131a4fedb34d9d8d80';
+    var yahoo_geoplanet_api_key = 'avT7WEDV34HLQLsINzdyv9D4QFGiJtNnPHgtE7C0dvVe7ItxzfuOkGTslkfR_iI9cUCVFKJsrzYTYQ--';
+    var bounds = new GLatLngBounds();
+    var woeid = '<?php echo $this->coords['woeid']; ?>';
+    var colours = ["red", "blue", "green", "purple", "orange", "yellow", "darkred", "darkblue", "darkgreen", "aqua", "magenta", "springgreen"];
 
-		displayNeighbours(woeid);
+    function displayPolygon(woeid) {
+    $.getJSON('http://api.flickr.com/services/rest/?method=flickr.places.getInfo&api_key=' + flickr_api_key + '&woe_id=' + woeid + '&format=json&jsoncallback=?', function(data) {
+    if(data.place.has_shapedata == 1) {
 
-	
-	displayPolygon(woeid);
-	 
-	 var copyOSM = new GCopyrightCollection('<a href="http://www.openstreetmap.org/">OpenStreetMap</a>');
-  copyOSM.addCopyright(new GCopyright(1, 
+    $.each(data.place.shapedata.polylines.polyline, function(index,polyline) {
+    thepoints = [];
+    $.each(polyline._content.split(/ /), function(pindex, point) {
+    lat = parseFloat(point.split(/,/)[0]);
+    lng = parseFloat(point.split(/,/)[1]);
+    thepoints[pindex] = new GLatLng(lat, lng);
+    });
+
+    var polyOptions = {geodesic:true};
+    var colour = colours.shift();
+    var name = data.place.name.split(',')[0];
+
+    var polygon = new GPolygon(thepoints, colour, 2, 1, colour, 0.1, polyOptions);
+    map.addOverlay(polygon);
+    $('ul#legend-items').append('
+    <li style="color:' + colour + '"><a href="/database/search/results/woeid/' + woeid + '"
+                                        title="View all data from adjacent places">' + name + '</a></li>');
+
+    $.each(thepoints, function(pindex, point) {
+    bounds.extend(point);
+    });
+    });
+
+    if(!bounds.isEmpty()) {
+    map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds));
+    }
+    }
+    });
+    };
+    function displayNeighbours(woeid) {
+    $.getJSON('http://where.yahooapis.com/v1/place/' + woeid + '/neighbors?appid=' + yahoo_geoplanet_api_key + '&format=json&callback=?', function(data) {
+    neighbours = [];
+    $.each(data.places.place, function(index, place) {
+    displayPolygon(place.woeid, place.name);
+    });
+    });
+    }
+
+    $('ul#legend-items li a').live('click', function(event) {
+
+    return true;
+    });
+
+    displayNeighbours(woeid);
+
+
+    displayPolygon(woeid);
+
+    var copyOSM = new GCopyrightCollection('<a href="http://www.openstreetmap.org/">OpenStreetMap</a>');
+    copyOSM.addCopyright(new GCopyright(1,
     new GLatLngBounds(new GLatLng(-90, -180), new GLatLng(90, 180)),
     0, // minimum zoom level
     ' ' // no additional copyright message, but empty string hides entire copyright
-  ));
-	
-	var osmLayer = new GTileLayer(copyOSM, 0, 18, {
-		tileUrlTemplate: 'http://b.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/998/256/{Z}/{X}/{Y}.png',
-		isPng: true,
-		opacity: 1.0
-		});
-	  
-	var osmMap = new GMapType(
-		[osmLayer], // list of layers
-		G_NORMAL_MAP.getProjection(), // borrow the Mercator projection from the standard map
-		'OSM' // name should be short enough to fit in button
-	  );
-	 var map = new GMap2(document.getElementById("mapphoto"));
-		map.addControl(new GLargeMapControl());
-      	map.addControl(new GMapTypeControl());
-        map.setCenter(new GLatLng(<?php echo $this->coords['lat'];?>,<?php echo $this->coords['lon'];?>),9);
-		map.addMapType(osmMap);
-		map.setMapType(osmMap); 
-	    map.addMapType(G_PHYSICAL_MAP);
+    ));
 
-var tinyIcon = new GIcon();
-		tinyIcon.image = "http://labs.google.com/ridefinder/images/mm_20_red.png";
-		tinyIcon.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
-		tinyIcon.iconSize = new GSize(12, 20);
-		tinyIcon.shadowSize = new GSize(22, 20);
-		tinyIcon.iconAnchor = new GPoint(6, 20);
-		tinyIcon.infoWindowAnchor = new GPoint(5, 1);
-	markerOptions = { icon:tinyIcon };
+    var osmLayer = new GTileLayer(copyOSM, 0, 18, {
+    tileUrlTemplate: 'http://b.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/998/256/{Z}/{X}/{Y}.png',
+    isPng: true,
+    opacity: 1.0
+    });
 
-	var findIcon = new GIcon();
-		findIcon.image = "http://labs.google.com/ridefinder/images/mm_20_blue.png";
-		findIcon.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
-		findIcon.iconSize = new GSize(12, 20);
-		findIcon.shadowSize = new GSize(22, 20);
-		findIcon.iconAnchor = new GPoint(6, 20);
-		findIcon.infoWindowAnchor = new GPoint(5, 1);
-		
-		findOptions = { icon:findIcon };
+    var osmMap = new GMapType(
+    [osmLayer], // list of layers
+    G_NORMAL_MAP.getProjection(), // borrow the Mercator projection from the standard map
+    'OSM' // name should be short enough to fit in button
+    );
+    var map = new GMap2(document.getElementById("mapphoto"));
+    map.addControl(new GLargeMapControl());
+    map.addControl(new GMapTypeControl());
+    map.setCenter(new GLatLng(<?php echo $this->coords['lat']; ?>,<?php echo $this->coords['lon']; ?>),9);
+    map.addMapType(osmMap);
+    map.setMapType(osmMap);
+    map.addMapType(G_PHYSICAL_MAP);
 
-	var point = new GLatLng(<?php echo $this->coords['lat'];?>,<?php echo $this->coords['lon'];?>);
-	 	
-	var marker = new GMarker(point, markerOptions);
-        GEvent.addListener(marker, "click", function () {
-	      marker.openInfoWindowHtml("Image location");
-        });
-        map.addOverlay(marker);
+    var tinyIcon = new GIcon();
+    tinyIcon.image = "http://labs.google.com/ridefinder/images/mm_20_red.png";
+    tinyIcon.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
+    tinyIcon.iconSize = new GSize(12, 20);
+    tinyIcon.shadowSize = new GSize(22, 20);
+    tinyIcon.iconAnchor = new GPoint(6, 20);
+    tinyIcon.infoWindowAnchor = new GPoint(5, 1);
+    markerOptions = { icon:tinyIcon };
+
+    var findIcon = new GIcon();
+    findIcon.image = "http://labs.google.com/ridefinder/images/mm_20_blue.png";
+    findIcon.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
+    findIcon.iconSize = new GSize(12, 20);
+    findIcon.shadowSize = new GSize(22, 20);
+    findIcon.iconAnchor = new GPoint(6, 20);
+    findIcon.infoWindowAnchor = new GPoint(5, 1);
+
+    findOptions = { icon:findIcon };
+
+    var point = new GLatLng(<?php echo $this->coords['lat']; ?>,<?php echo $this->coords['lon']; ?>);
+
+    var marker = new GMarker(point, markerOptions);
+    GEvent.addListener(marker, "click", function () {
+    marker.openInfoWindowHtml("Image location");
+    });
+    map.addOverlay(marker);
 
     }
 
-});
-<?php $this->inlineScript()->captureEnd();?>
-<div id="mapphoto" style="width:400px;height:300px;float:right;"></div>
-<?php endif;?>
+    });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <div id="mapphoto" style="width:400px;height:300px;float:right;"></div>
+<?php endif; ?>
 
-<?php if($this->tags) :?>
-<h3 class="lead">Tagged as</h3>
-<ul>
-<?php foreach($this->tags as $t) {
-echo '<li><a href="' .$this->url(array('module' => 'flickr','controller' => 'photos','action' => 'tagged','as' => $t),NULL,true) . '" title="Find other photos tagged with '.$t.'">'.$t.'</a></li>';
-}?>
-</ul>
-<?php endif;?>
+<?php if ($this->tags) : ?>
+    <h3 class="lead">Tagged as</h3>
+    <ul>
+        <?php foreach ($this->tags as $t) {
+            echo '<li><a href="' . $this->url(array('module' => 'flickr', 'controller' => 'photos', 'action' => 'tagged', 'as' => $t), NULL, true) . '" title="Find other photos tagged with ' . $t . '">' . $t . '</a></li>';
+        } ?>
+    </ul>
+<?php endif; ?>

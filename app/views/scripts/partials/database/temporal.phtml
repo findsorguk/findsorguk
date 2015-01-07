@@ -11,10 +11,10 @@
     <?php if (!is_null($this->periodFrom)): ?>
         <br/>
         Period from: <span property="pas:periodFrom"><?php echo $this->escape($this->periodFrom); ?></span> <a
-                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->objdate1period), null, true); ?>"
-                title="Read scope note for <?php echo $this->periodFrom; ?>"><i class="icon-info-sign"></i></a> <a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodFrom' => $this->objdate1period), null, true); ?>"
-                title="view all records assigned to: <?php echo $this->term; ?>"><i class="icon-search"></i></a>
+            href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->objdate1period), null, true); ?>"
+            title="Read scope note for <?php echo $this->periodFrom; ?>"><i class="icon-info-sign"></i></a> <a
+            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodFrom' => $this->objdate1period), null, true); ?>"
+            title="view all records assigned to: <?php echo $this->term; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
     <?php if (!is_null($this->subPeriodTo)): ?>
@@ -27,15 +27,15 @@
         <br/>
         Period to: <span property="pas:periodTo"><?php echo $this->periodTo; ?></span>
         <a href="<?php echo $this->url(array(
-                'module' => 'datalabs',
-                'controller' => 'terminology',
-                'action' => 'period',
-                'id' => $this->objdate2period), null, true);?>" title="Read scope note for
+            'module' => 'datalabs',
+            'controller' => 'terminology',
+            'action' => 'period',
+            'id' => $this->objdate2period), null, true); ?>" title="Read scope note for
  <?php echo $this->periodTo; ?>"><i class="icon-info-sign"></i></a> <a href="<?php echo $this->url(array(
-                'module' => 'database',
-                'controller' => 'search',
-                'action' => 'results',
-                'periodTo' => $this->objdate2period), null, true);?>" title="view all records assigned to:
+            'module' => 'database',
+            'controller' => 'search',
+            'action' => 'results',
+            'periodTo' => $this->objdate2period), null, true); ?>" title="view all records assigned to:
  <?php echo $this->periodTo; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
@@ -44,15 +44,15 @@
         Ascribed Culture: <span property="pas:ascribedCulture" datatype="xsd:string">
     <?php echo $this->escape($this->culture); ?></span> <a href="
     <?php echo $this->url(array(
-                'module' => 'datalabs',
-                'controller' => 'terminology',
-                'action' => 'culture',
-                'id' => $this->culture), null, true);?>" title="Read scope note for
+            'module' => 'datalabs',
+            'controller' => 'terminology',
+            'action' => 'culture',
+            'id' => $this->culture), null, true); ?>" title="Read scope note for
     <?php echo $this->culture; ?>"><i class="icon-info-sign"></i></a> <a href="<?php echo $this->url(array(
-                'module' => 'database',
-                'controller' => 'search',
-                'action' => 'results',
-                'culture' => $this->culture), null, true);?>" title="view all records assigned to:
+            'module' => 'database',
+            'controller' => 'search',
+            'action' => 'results',
+            'culture' => $this->culture), null, true); ?>" title="view all records assigned to:
     <?php echo $this->culture; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
@@ -60,8 +60,8 @@
     <?php if (!is_null($this->numdate1)) : ?>
         <br/>
         Date from: <?php echo $this->fromCirca; ?> <span property="pas:dateFrom"
-                                                          content="<?php echo $this->numdate1; ?>"
-                                                          datatype="xsd:date"><?php echo $this->adBc()->setDate($this->numdate1); ?></span>
+                                                         content="<?php echo $this->numdate1; ?>"
+                                                         datatype="xsd:date"><?php echo $this->adBc()->setDate($this->numdate1); ?></span>
     <?php endif; ?>
 
     <?php if (!is_null($this->dateFromCertainty)): ?>
@@ -85,9 +85,9 @@
         <br/>
         Period of reuse: <span property="pas:periodOfReuse"><?php echo $this->escape($this->reusePeriod); ?></span>
         <a
-                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->reuse), null, true); ?>"
-                title="Read scope note for <?php echo $this->reusePeriod; ?>"><i class="icon-info-sign"></i></a> <a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodfrom' => $this->reuse), null, true); ?>"
-                title="view all records assigned to: <?php echo $this->reusePeriod; ?>"><i class="icon-search"></i></a>
+            href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'period', 'id' => $this->reuse), null, true); ?>"
+            title="Read scope note for <?php echo $this->reusePeriod; ?>"><i class="icon-info-sign"></i></a> <a
+            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodfrom' => $this->reuse), null, true); ?>"
+            title="view all records assigned to: <?php echo $this->reusePeriod; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 </p>

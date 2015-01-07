@@ -3,62 +3,64 @@
 
     <div class="span7">
 
-<div>
-<h4 class="lead">Title: <?php echo $this->title;?></h4>
+        <div>
+            <h4 class="lead">Title: <?php echo $this->title; ?></h4>
 
-<?php
-$len = strlen($this->description);
-if($len > 0):
-?>
+            <?php
+            $len = strlen($this->description);
+            if ($len > 0):
+                ?>
 
-<p><?php echo $this->description;?></p>
+                <p><?php echo $this->description;?></p>
 
-<?php endif;?>
+            <?php endif; ?>
 
-<p>
-<?php if($this->lat != 0):?>
-WOEID: <a href="<?php echo $this->url(array('module'=>'flickr', 'controller' => 'photos','action' => 'whereonearth','id' => $this->woeid),null,true);?>">
-<?php echo $this->woeid;?></a> &raquo; Latitude: <?php echo $this->lat;?> Longitude: <?php echo $this->lon;?><br />
-<?php // echo $this->FlickrGeo($this->woeid,NULL,NULL);?>
-<?php endif;?>
-<?php if($this->tags):?>
-Tags: <?php
-$tags = $this->tags;
-$pieces = explode(" ", $tags);
-	foreach($pieces as $t)
-	{
-	//$url = $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'tagged',
-	//'as' => $t),'default',true);
-	$url = $this->url(array('module' => 'flickr', 'controller' => 'photos', 'action' => 'tagged','as' => $t),'default',true);
-	$separator = ' ';
-	echo '<a href="'.$url.'" title="View all tagged photos with this tag">'.$t.'</a>'.$separator;
-	}?>
-	<br /><?php endif;?>
-Created: <?php echo $this->timeAgoInWords($this->datetaken);?><br />
-<a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'details',
-'id' => $this->id),'default',true);?>" title="View all details for this photo">More details &raquo;</a></p>
-</div>
+            <p>
+                <?php if ($this->lat != 0): ?>
+                    WOEID: <a
+                        href="<?php echo $this->url(array('module' => 'flickr', 'controller' => 'photos', 'action' => 'whereonearth', 'id' => $this->woeid), null, true); ?>">
+                        <?php echo $this->woeid; ?></a> &raquo; Latitude: <?php echo $this->lat; ?> Longitude: <?php echo $this->lon; ?>
+                    <br/>
+                    <?php // echo $this->FlickrGeo($this->woeid,NULL,NULL);?>
+                <?php endif; ?>
+                <?php if ($this->tags): ?>
+                    Tags: <?php
+                    $tags = $this->tags;
+                    $pieces = explode(" ", $tags);
+                    foreach ($pieces as $t) {
+                        //$url = $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'tagged',
+                        //'as' => $t),'default',true);
+                        $url = $this->url(array('module' => 'flickr', 'controller' => 'photos', 'action' => 'tagged', 'as' => $t), 'default', true);
+                        $separator = ' ';
+                        echo '<a href="' . $url . '" title="View all tagged photos with this tag">' . $t . '</a>' . $separator;
+                    } ?>
+                    <br/><?php endif; ?>
+                Created: <?php echo $this->timeAgoInWords($this->datetaken); ?><br/>
+                <a href="<?php echo $this->url(array('module' => 'flickr', 'controller' => 'photos', 'action' => 'details',
+                    'id' => $this->id), 'default', true); ?>" title="View all details for this photo">More
+                    details &raquo;</a></p>
+        </div>
 
-<div class="flickrthumbnail">
-<a rel="lightbox" href="<?php echo $this->url_m;?>" title="<?php echo $this->title;?>">
-<img src="<?php echo $this->url_s;?>" alt="<?php echo $this->title;?>" width="75" height="75" />
-</a>
-<?php if(isset($this->pathalias)):?>
-<?php
-if(($this->iconfarm) > 0){
-$image =  'http://farm' .  $this->iconfarm . '.static.flickr.com/' . $this->iconserver . '/buddyicons/' . $this->owner . '.jpg';
-} else {
-$image = 'http://www.flickr.com/images/buddyicon.jpg';
-}
-?>
-<br />
-<a href="http://www.flickr.com/photos/<?php echo $this->pathalias;?>"
-title="Go to <?php echo $this->ownername;?>'s profile on flickr">
-<img src="<?php echo $image;?>" height="48"
-width="48" alt="View <?php echo $this->username;?>'s images" style="float:left;padding:5px;"/></a>
-Image taken by: <?php echo $this->ownername;?>
-<?php endif;?>
+        <div class="flickrthumbnail">
+            <a rel="lightbox" href="<?php echo $this->url_m; ?>" title="<?php echo $this->title; ?>">
+                <img src="<?php echo $this->url_s; ?>" alt="<?php echo $this->title; ?>" width="75" height="75"/>
+            </a>
+            <?php if (isset($this->pathalias)): ?>
+                <?php
+                if (($this->iconfarm) > 0) {
+                    $image = 'http://farm' . $this->iconfarm . '.static.flickr.com/' . $this->iconserver . '/buddyicons/' . $this->owner . '.jpg';
+                } else {
+                    $image = 'http://www.flickr.com/images/buddyicon.jpg';
+                }
+                ?>
+                <br/>
+                <a href="http://www.flickr.com/photos/<?php echo $this->pathalias; ?>"
+                   title="Go to <?php echo $this->ownername; ?>'s profile on flickr">
+                    <img src="<?php echo $image; ?>" height="48"
+                         width="48" alt="View <?php echo $this->username; ?>'s images" style="float:left;padding:5px;"/></a>
+                Image taken by: <?php echo $this->ownername; ?>
+            <?php endif; ?>
 
-</div>
+        </div>
     </div>
 </div>

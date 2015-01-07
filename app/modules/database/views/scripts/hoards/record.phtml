@@ -127,7 +127,6 @@ echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
 
             <!-- Personal data -->
             <?php if (!empty($this->recordersIdentifiers)): ?>
-                <h4 class="lead">Personal details</h4>
                 <?php echo $this->partial('partials/hoards/finders.phtml', array('finders' => $this->finders)); ?>
                 <?php echo $this->partial('partials/hoards/personal.phtml', $this->recordersIdentifiers); ?>
             <?php endif; ?>
