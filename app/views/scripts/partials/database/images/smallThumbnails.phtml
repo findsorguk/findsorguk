@@ -8,11 +8,14 @@
  */
 ?>
 <li>
-    <?php
-    if (file_exists(IMAGE_PATH . $this->imagedir . $this->f)): ?>
+    <?php if (file_exists(IMAGE_PATH . '/' . $this->username . $this->f)): ?>
+        <?php $thumbnail = IMAGE_PATH . '/thumbnails/' . $this->thumbnail . '.jpg';
+        echo $thumbnail; ?>
+        <?php list($w, $h) = getimagesize($thumbnail); ?>
         <a href="<?php echo $this->baseUrl(); ?><?php echo $this->imagedir; ?>medium/<?php rawurlencode($this->f); ?>"
            rel="lightbox"><img class="img img-polaroid"
-                               src="<?php echo $this->baseUrl(); ?>/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"/></a>
+                               src="<?php echo $this->baseUrl(); ?>/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
+                               width="<?php echo $w; ?>" height="<?php echo $h; ?>"/></a>
         <br/>
         <a class="btn btn-small" href="<?php echo $this->url(array(
             'module' => 'database',

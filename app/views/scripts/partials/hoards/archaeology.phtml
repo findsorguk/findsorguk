@@ -1,5 +1,5 @@
 <h3 class="lead">
-    Archaeological context
+    Archaeological information
 </h3>
 <?php
 echo $this->editDeleteArchaeology()
@@ -19,6 +19,7 @@ echo $this->editDeleteArchaeology()
     ?>
     <?php if (array_filter($params)): ?>
         <div class="span4">
+            <h4 class="lead">Background</h4>
             <p>
                 <?php if ($this->knownsite == 1) : ?>
                     This hoard comes from a known archaeological site.
@@ -141,6 +142,21 @@ echo $this->editDeleteArchaeology()
     <?php endif; ?>
 </div>
 
+<?php
+$allowed = array(
+    'hero', 'flos', 'admin',
+    'treasure', 'research', 'fa',
+    'hoard'
+);
+$auth = Zend_registry::get('auth');
+$identity = $auth->getIdentity();
+if ($identity) {
+    $role = $identity->role;
+} else {
+    $role = 'member';
+}
+?>
+<?php if (in_array($role, $allowed)): ?>
 <div class="row-fluid">
     <?php if (!is_null($this->description) && ($this->description != '')): ?>
     <h4 class="lead">Archaeological context description </h4>
@@ -149,3 +165,4 @@ echo $this->editDeleteArchaeology()
         <?php endif; ?>
 
 </div>
+<?php endif;?>

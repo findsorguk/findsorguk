@@ -243,8 +243,12 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $refs = new Publications;
             $this->view->refs = $refs->getReferences($id);
             $this->view->comments = $this->getComments()->getFindComments($id);
+            $models = new SketchFab();
+            $this->view->sketchfab = $models->getModels($id);
             $form = new CommentFindForm();
             $form->submit->setLabel('Add a new comment');
+
+
             $this->view->form = $form;
             if ($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
