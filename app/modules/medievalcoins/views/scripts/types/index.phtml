@@ -17,7 +17,7 @@ $this->metaBase()->setSubject('Medieval numismatics')
         </tr>
         </thead>
         <tbody>
-        <?php echo $this->partialLoop('partials/numismatics/medievalTypes.phtml', $this->types); ?>
+        <?php echo $this->partialLoop('partials/numismatics/medieval/medievalTypes.phtml', $this->types); ?>
         </tbody>
     </table>
     <?php echo $this->paginationControl($this->types, 'Elastic', 'structure/pagination.phtml'); ?>

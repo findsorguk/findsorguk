@@ -19,7 +19,7 @@ $this->metaBase()->setDescription('This page lists all of the currently document
         </tr>
         </thead>
         <tbody>
-        <?php echo $this->partialLoop('partials/numismatics/moneyers.phtml', $this->moneyers); ?>
+        <?php echo $this->partialLoop('partials/numismatics/roman/moneyers.phtml', $this->moneyers); ?>
         </tbody>
     </table>
     <?php echo $this->paginationControl($this->moneyers, 'Elastic', 'structure/pagination.phtml'); ?>

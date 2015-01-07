@@ -142,14 +142,14 @@ $tempfilesmall = './' . $path . 'small/' . $name . $ext;
                         }
                         $exif = exif_read_data($location, 0, true);
                         if (isset($exif['FILE'])) {
-                            echo $this->partial('partials/database/exifData.phtml', $exif['FILE']);
+                            echo $this->partial('partials/database/images/exifData.phtml', $exif['FILE']);
                         }
                         if (isset($exif['COMPUTED'])) {
-                            echo $this->partial('partials/database/exifDataComputed.phtml', $exif['COMPUTED']);
+                            echo $this->partial('partials/database/images/exifDataComputed.phtml', $exif['COMPUTED']);
                         }
                         if (isset($exif['IFD0'])) {
 
-                            echo $this->partial('partials/database/exifDataIFD0.phtml', $exif['IFD0']);
+                            echo $this->partial('partials/database/images/exifDataIFD0.phtml', $exif['IFD0']);
                         }
                         if (isset($exif['EXIF'])) {
                             $extended = $exif['EXIF'];

@@ -20,9 +20,9 @@
                 ), null, true); ?></pre>
 
         <pre><?php if ($this->type == 'artefact'): ?>
-            <?php echo $this->escape($this->partialLoop('partials/database/embedDataFind.phtml', $this->finds)); ?>
+            <?php echo $this->escape($this->partialLoop('partials/database/embeds/embedDataFind.phtml', $this->finds)); ?>
         <?php else: ?>
-            <?php echo $this->escape($this->partialLoop('partials/database/embedDataHoard.phtml', $this->finds)); ?>
+            <?php echo $this->escape($this->partialLoop('partials/database/embeds.embedDataHoard.phtml', $this->finds)); ?>
         <?php endif; ?></pre>
         <hr/>
 
@@ -30,9 +30,9 @@
             [Preview]
         </h3>
         <?php if ($this->type == 'artefact'): ?>
-            <?php echo $this->partialLoop('partials/database/embedPreview.phtml', $this->finds) ?>
+            <?php echo $this->partialLoop('partials/database/embeds/embedPreview.phtml', $this->finds) ?>
         <?php else:?>
-            <?php echo $this->partialLoop('partials/database/embedPreviewHoard.phtml', $this->finds) ?>
+            <?php echo $this->partialLoop('partials/database/embeds/embedPreviewHoard.phtml', $this->finds) ?>
         <?php endif;?>
     </div>
 

@@ -44,18 +44,16 @@ echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
 
             </div>
             <!-- Start of image pane -->
-            <div class="span3 well" id="imagepane">
+            <div class="span3" id="imagepane">
 
                 <?php if (!is_null($this->thumbs)) : ?>
                     <?php echo $this->partialLoop('partials/database/images/thumbs.phtml', array_slice($this->thumbs, 0, 1)); ?>
                     <?php if (sizeof($this->thumbs) > 1): ?>
                         <!-- Start small thumbnails -->
-                        <ul class="thumbnails">
-                            <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', array_slice($this->thumbs, 1)); ?>
-                        </ul>
+                        <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', array_slice($this->thumbs, 1)); ?>
                         <!-- End small thumbnails -->
                     <?php endif; ?>
-
+                    <hr />
                     <h4 class="lead">
                         Image use policy
                     </h4>
@@ -173,26 +171,26 @@ echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
         </div>
         <!--  End of spatial data -->
 
-            <!-- Start of the archaeological context data -->
-            <div class="row-fluid">
+        <!-- Start of the archaeological context data -->
+        <div class="row-fluid">
 
-                <?php if (!empty($this->archaeologicalContext)) : ?>
-                    <!-- Check for archaeological context data and if there is render it -->
-                    <?php echo $this->partial('partials/hoards/archaeology.phtml', $this->archaeologicalContext); ?>
-                <?php else: ?>
-                    <!-- Render a link for adding archaeological context -->
-                    <div id="archaeologicalcontextdata">
-                        <h4 class="lead">Archaeological context</h4>
+            <?php if (!empty($this->archaeologicalContext)) : ?>
+                <!-- Check for archaeological context data and if there is render it -->
+                <?php echo $this->partial('partials/hoards/archaeology.phtml', $this->archaeologicalContext); ?>
+            <?php else: ?>
+                <!-- Render a link for adding archaeological context -->
+                <div id="archaeologicalcontextdata">
+                    <h4 class="lead">Archaeological context</h4>
 
-                        <p>
-                            No archaeological context available.
-                        </p>
-                        <?php echo $this->addArchaeology()->setHoardID($this->hoards['uniqueID'])->setID($this->hoards['id']); ?>
-                    </div>
-                <?php endif; ?>
+                    <p>
+                        No archaeological context available.
+                    </p>
+                    <?php echo $this->addArchaeology()->setHoardID($this->hoards['uniqueID'])->setID($this->hoards['id']); ?>
+                </div>
+            <?php endif; ?>
 
-            </div>
-            <!--  End of archaeological context data -->
+        </div>
+        <!--  End of archaeological context data -->
 
         <!--  Start of the references section -->
         <div class="row-fluid" id="references">

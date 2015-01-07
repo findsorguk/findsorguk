@@ -116,7 +116,7 @@ map.fitBounds(latLngBounds);
 <?php $this->inlineScript()->captureEnd(); ?>
 
 <div class="awld-scope">
-    <?php echo $this->partialLoop('partials/numismatics/emperor.phtml', $this->emps); ?>
+    <?php echo $this->partialLoop('partials/numismatics/roman/emperor.phtml', $this->emps); ?>
 </div>
 
 
@@ -134,13 +134,13 @@ map.fitBounds(latLngBounds);
         <div class="tab-pane fade in active" id="denoms">
             <h3 class="lead">Denominations issued</h3>
             <ul>
-                <?php echo $this->partialLoop('partials/numismatics/denominationToRuler.phtml', $this->denoms); ?>
+                <?php echo $this->partialLoop('partials/numismatics/shared/denominationToRuler.phtml', $this->denoms); ?>
             </ul>
         </div>
         <div class="tab-pane fade" id="mints">
             <h3 class="lead">Issuing mints</h3>
             <ul>
-                <?php echo $this->partialLoop('partials/numismatics/mintsRoman.phtml', $this->mints); ?>
+                <?php echo $this->partialLoop('partials/numismatics/roman/mintsRoman.phtml', $this->mints); ?>
             </ul>
         </div>
         <div class="tab-pane fade" id="maptab">

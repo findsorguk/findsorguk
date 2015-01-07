@@ -15,7 +15,7 @@ echo $this->Href(array('module' => 'database', 'controller' => 'rallies', 'actio
 
 <?php if (count($this->rallies)): ?>
     <ul id="yearrange">
-        <?php echo $this->partialLoop('partials/database/archiveYearsRallies.phtml', $this->yearList()->setStartYear(1998)->generateArray()); ?>
+        <?php echo $this->partialLoop('partials/database/statistics/archiveYearsRallies.phtml', $this->yearList()->setStartYear(1998)->generateArray()); ?>
     </ul>
     <a class="btn btn-small btn-info"
        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'rallies', 'action' => 'map'), NULL, true); ?>"
@@ -30,13 +30,13 @@ echo $this->Href(array('module' => 'database', 'controller' => 'rallies', 'actio
         </tr>
         </thead>
         <tbody>
-        <?php echo $this->partialLoop('partials/database/rallies.phtml', $this->rallies) ?>
+        <?php echo $this->partialLoop('partials/database/rallies/rallies.phtml', $this->rallies) ?>
         </tbody>
     </table>
     <?php echo $this->paginationControl($this->rallies, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else: ?>
     <ul id="yearrange">
-        <?php echo $this->partialLoop('partials/database/archiveYearsRallies.phtml', $this->years); ?>
+        <?php echo $this->partialLoop('partials/database/statistics/archiveYearsRallies.phtml', $this->years); ?>
     </ul>
     <p>There are no rallies in that date range.</p>
 <?php endif; ?>

@@ -14,7 +14,7 @@ $this->jQuery()->javascriptCaptureEnd();
 <p>These archives can be searched to find out what was found on a particular day of the year. We have been recording digitally since 1998.</p>
 <ul id="yearrange">
 <?php 
-echo $this->partialLoop('partials/database/archiveYearsStats.phtml', 
+echo $this->partialLoop('partials/database/statistics/archiveYearsStats.phtml',
         $this->yearList()->setStartYear(1998)->generateArray());
 ?>
 </ul>

@@ -7,7 +7,7 @@
  * @version 1
  */
 ?>
-<li>
+<div>
     <?php if (file_exists(IMAGE_PATH . '/' . $this->username . $this->f)): ?>
         <?php $thumbnail = IMAGE_PATH . '/thumbnails/' . $this->thumbnail . '.jpg';
         echo $thumbnail; ?>
@@ -24,8 +24,10 @@
             'id' => $this->i), null, true); ?>"
            title="View and edit image meta data">View <i class="icon-picture"></i></a>
     <?php else: ?>
-        <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" class="img img-circle" width="25px"
-             height="25px"/><br/>That image
-        (filename: <?php echo $this->f; ?>) is unavailable.
+        <hr />
+        <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" class="img img-circle pull-right" width="25px"
+             height="25px"/>
+        That image (filename: <?php echo $this->f; ?>) is unavailable right now (Error code 404).
+
     <?php endif; ?>
-</li>
+</div>

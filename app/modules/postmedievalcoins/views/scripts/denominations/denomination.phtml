@@ -1,7 +1,0 @@
-<?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denomination); ?>
-<?php if (!empty($this->rulers)): ?>
-    <h3 class="lead">Issued by</h3>
-    <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulerDenom.phtml', $this->rulers); ?>
-    </ul>
-<?php endif; ?>

@@ -1,5 +1,5 @@
 <?php if ($this->reverses): ?>
-    <?php echo $this->partialLoop('partials/numismatics/reverseTypeDetail.phtml', $this->reverses); ?>
+    <?php echo $this->partialLoop('partials/numismatics/roman/reverseTypeDetail.phtml', $this->reverses); ?>
 
 
     <div class="row-fluid">
@@ -18,7 +18,7 @@
                 <?php if (count($this->emps)): ?>
                     <h3 class="lead">Issuers</h3>
                     <ul>
-                        <?php echo $this->partialLoop('partials/numismatics/reverseTypeEmperor.phtml', $this->emps); ?>
+                        <?php echo $this->partialLoop('partials/numismatics/roman/reverseTypeEmperor.phtml', $this->emps); ?>
                     </ul>
                 <?php endif; ?>
             </div>
@@ -27,7 +27,7 @@
                 <?php if ($this->mints): ?>
                     <h3 class="lead">Issuing mints</h3>
                     <ul>
-                        <?php echo $this->partialLoop('partials/numismatics/reverseTypeMints.phtml', $this->mints); ?>
+                        <?php echo $this->partialLoop('partials/numismatics/roman/reverseTypeMints.phtml', $this->mints); ?>
                     </ul>
                 <?php endif; ?>
             </div>

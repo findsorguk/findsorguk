@@ -3,14 +3,14 @@ $this->headTitle('Image and metadata for ' . $this->images['0']['label']);
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
 
-<?php echo $this->partial('partials/database/image.phtml', $this->images['0']); ?>
+<?php echo $this->partial('partials/database/images/image.phtml', $this->images['0']); ?>
 
 <div id="linked">
     <h2 class="lead">Linked finds for this image</h2>
     <?php if (!is_null($this->finds['0']['old_findID'])): ?>
 
         <ul>
-            <?php echo $this->partialLoop('partials/database/linkedFinds.phtml', $this->finds); ?>
+            <?php echo $this->partialLoop('partials/database/structural/linkedFinds.phtml', $this->finds); ?>
         </ul>
     <?php endif; ?>
     <?php

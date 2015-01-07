@@ -130,7 +130,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
         if (!empty($data)) {
             $html .= '<h3 class="lead">Scheduled monuments within 250 metres of this find</h3>';
             $html .= '<ul>';
-            $html .= $this->view->partialLoop('partials/database/proximity.phtml', $data);
+            $html .= $this->view->partialLoop('partials/database/structural/proximity.phtml', $data);
             $html .= '</ul>';
         }
         return $html;

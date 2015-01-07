@@ -27,8 +27,8 @@ $this->dataEditDeleteCheck()->setInstitution($this->finds[0]['institution'])
 
 <div class="row-fluid">
 
-<?php echo $this->partialLoop('partials/database/recordHeadTitle.phtml', $this->finds); ?>
-<?php echo $this->partialLoop('partials/database/zoteroRecord.phtml', $this->finds); ?>
+<?php echo $this->partialLoop('partials/database/structural/recordHeadTitle.phtml', $this->finds); ?>
+<?php echo $this->partialLoop('partials/database/structural/zoteroRecord.phtml', $this->finds); ?>
 
 
     <div id="workflowstatus">
@@ -40,38 +40,38 @@ $this->dataEditDeleteCheck()->setInstitution($this->finds[0]['institution'])
 
         <div class="span8">
             <!-- Header of section -->
-            <?php echo $this->partial('partials/database/recordH2Section.phtml', $this->finds[0]); ?>
+            <?php echo $this->partial('partials/database/structural/recordH2Section.phtml', $this->finds[0]); ?>
 
             <!-- Notification message if public record -->
             <?php echo $this->notifyFloPublic()->setInstitution($this->finds[0]['institution'])->setId($this->finds[0]['id'])->setWorkflow($this->finds[0]['secwfstage']); ?>
 
             <!-- The description of the object -->
-            <?php echo $this->partial('partials/database/recordDescriptive.phtml', $this->finds[0]); ?>
+            <?php echo $this->partial('partials/database/structural/recordDescriptive.phtml', $this->finds[0]); ?>
 
             <!-- Treasure find info -->
-            <?php echo $this->partial('partials/database/treasureFindDetails.phtml', $this->finds[0]); ?>
+            <?php echo $this->partial('partials/database/structural/treasureFindDetails.phtml', $this->finds[0]); ?>
 
             <!-- Temporal details -->
-            <?php echo $this->partial('partials/database/temporal.phtml', $this->finds[0]); ?>
+            <?php echo $this->partial('partials/database/structural/temporal.phtml', $this->finds[0]); ?>
 
             <!-- Dimensional data -->
-            <?php echo $this->partial('partials/database/dimensions.phtml', $this->finds[0]); ?>
+            <?php echo $this->partial('partials/database/structural/dimensions.phtml', $this->finds[0]); ?>
 
             <!-- Date found -->
-            <?php echo $this->partial('partials/database/dateFound.phtml', $this->finds[0]); ?>
+            <?php echo $this->partial('partials/database/structural/dateFound.phtml', $this->finds[0]); ?>
 
             <!-- Rally data -->
             <?php echo $this->partial('partials/database/rallies/rallyFind.phtml', $this->finds[0]); ?>
 
             <!-- Personal data -->
-            <?php echo $this->partial('partials/database/personal.phtml', $this->finds[0]) ?>
+            <?php echo $this->partial('partials/database/structural/personal.phtml', $this->finds[0]) ?>
 
 
             <!-- Other references -->
-            <?php echo $this->partial('partials/database/otherReferences.phtml', $this->finds[0]); ?>
+            <?php echo $this->partial('partials/database/structural/otherReferences.phtml', $this->finds[0]); ?>
 
             <!-- Finds materials -->
-            <?php echo $this->partial('partials/database/materials.phtml', $this->finds[0]); ?>
+            <?php echo $this->partial('partials/database/structural/materials.phtml', $this->finds[0]); ?>
 
             <!-- Display coins data -->
             <?php
@@ -93,7 +93,7 @@ echo $this->coinDataDisplay()
         <!-- existing coin references -->
         <?php if (!empty($this->coinrefs)): ?>
             <ul>
-                <?php echo $this->partial('partials/numismatics/coinReferences.phtml', $this->coinrefs['0']); ?>
+                <?php echo $this->partial('partials/numismatics/shared/coinReferences.phtml', $this->coinrefs['0']); ?>
             </ul>
         <?php else: ?>
             <p>
@@ -118,17 +118,19 @@ echo $this->coinDataDisplay()
 
         </div>
         <!-- Start of image pane -->
-        <div class="span3 well" id="imagepane">
+        <div class="span3" id="imagepane">
 
             <?php if (!is_null($this->thumbs)): ?>
 
     <?php echo $this->partialLoop('partials/database/images/thumbs.phtml', array_slice($this->thumbs, 0, 1)); ?>
+
+
     <?php if (sizeof($this->thumbs) > 1): ?>
+
         <!-- Start small thumbnails -->
-        <ul class="thumbnails">
             <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', array_slice($this->thumbs, 1)); ?>
-        </ul>
         <!-- End small thumbnails -->
+        <hr />
     <?php endif; ?>
 
     <h4>
@@ -287,7 +289,7 @@ echo $this->imageLink()->setFindID($this->finds[0]['id'])
 
 
     <ul>
-        <?php echo $this->partialLoop('partials/database/comments.phtml', $this->comments); ?>
+        <?php echo $this->partialLoop('partials/database/structural/comments.phtml', $this->comments); ?>
     </ul>
 <?php endif; ?>
         </div>

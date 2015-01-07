@@ -18,7 +18,7 @@
  * @package Pas_View_Helper
  * @todo Split the amazon html generator into chunks
  * @todo add validator for ISBN number
- * @example /app/views/scripts/partials/database/publicationAmazonDetails.phtml
+ * @example /app/views/scripts/partials/database/publications/publicationAmazonDetails.phtml
  */
 class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
 {

@@ -208,9 +208,9 @@ class Pas_View_Helper_FindSpot extends Zend_View_Helper_Abstract {
     public function buildHtml() {
         $html = '';
         if ($this->checkByCreator()) {
-            $html .= $this->view->partial('partials/database/findSpot.phtml', $this->getData());
+            $html .= $this->view->partial('partials/database/geodata/findSpot.phtml', $this->getData());
         } else {
-            $html .= $this->view->partial('partials/database/unauthorisedFindspot.phtml', $this->getData());
+            $html .= $this->view->partial('partials/database/geodata/unauthorisedFindspot.phtml', $this->getData());
         }
         return $html;
     }

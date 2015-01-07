@@ -17,7 +17,7 @@
  * @category Pas
  * @package View_Helper
  * @subpackage Abstract
- * @example /app/views/scripts/partials/database/image.phtml
+ * @example /app/views/scripts/partials/database/images/image.phtml
  * @see http://stackoverflow.com/questions/15188033/human-readable-file-size
  *
  */

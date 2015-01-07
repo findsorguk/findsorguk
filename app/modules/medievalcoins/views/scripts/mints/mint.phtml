@@ -1,4 +1,4 @@
-<?php echo $this->partialLoop('partials/numismatics/medievalMintDetail.phtml', $this->mints); ?>
+<?php echo $this->partialLoop('partials/numismatics/medieval/medievalMintDetail.phtml', $this->mints); ?>
 <?php if (!empty($this->actives)): ?>
     <h3 class="lead">
         Issuers
@@ -8,6 +8,6 @@
     </p>
 
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/medMintsRulers.phtml', $this->actives); ?>
+        <?php echo $this->partialLoop('partials/numismatics/medieval/medievalMintsToRulers.phtml', $this->actives); ?>
     </ul>
 <?php endif; ?>
