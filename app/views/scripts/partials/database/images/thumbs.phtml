@@ -58,7 +58,7 @@ $location = ROOT_PATH . '/public_html/' . $imagedir . $file;
                                                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->thumbnail), null, true); ?>"
                                                 title="Download image">Download <i class="icon-download-alt"></i></a>
         <?php
-        echo $this->ImageEditDeleteLink($this->id, $this->i, $this->secuid, $this->createdBy);
+        echo $this->imageEditDeleteLink($this->id, $this->i, $this->secuid, $this->createdBy);
         ?>
 
     </div>

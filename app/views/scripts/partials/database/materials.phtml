@@ -21,8 +21,7 @@ $materials = array(
             <br/>
             Secondary material: <span property="pas:secondaryMaterial"><?php echo $this->secondaryMaterial; ?></span> <a
                 href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'material', 'id' => $this->material2), NULL, true); ?>"
-                title="View scope notes for <?php echo $this->secondaryMaterial; ?>"><i
-                    class="icon-info-sign"></i></a> <a
+                title="View scope notes for <?php echo $this->secondaryMaterial; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'material' => $this->material2), NULL, true); ?>"
                 title="Find all records assigned to  <?php echo $this->secondaryMaterial; ?>"><i class="icon-search"></i></a>
         <?php endif; ?>
@@ -30,8 +29,7 @@ $materials = array(
             <br/>
             Manufacture method: <span property="pas:manufactureMethod"><?php echo $this->manufacture; ?></span> <a
                 href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'manufacture', 'id' => $this->manmethod), NULL, true); ?>"
-                title="View scope notes for <?php echo $this->escape($this->manufacture); ?>"><i
-                    class="icon-info-sign"></i></a> <a
+                title="View scope notes for <?php echo $this->escape($this->manufacture); ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'manufacture' => $this->manmethod), NULL, true); ?>"
                 title="Find all records assigned to  <?php echo $this->manufacture; ?>"><i class="icon-search"></i></a>
         <?php endif; ?>
@@ -39,8 +37,7 @@ $materials = array(
             <br/>
             Decoration method: <span property="pas:decoration"><?php echo $this->decoration; ?></span> <a
                 href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'decorationmethod', 'id' => $this->decmethod), NULL, true); ?>"
-                title="View scope notes for <?php echo $this->escape($this->decoration); ?>"><i
-                    class="icon-info-sign"></i></a> <a
+                title="View scope notes for <?php echo $this->escape($this->decoration); ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'decoration' => $this->decoration), NULL, true); ?>"
                 title="Find all records assigned to  <?php echo $this->manufacture; ?>"><i class="icon-search"></i></a>
         <?php endif; ?>
@@ -48,8 +45,7 @@ $materials = array(
             <br/>
             Decoration style: <span property="pas:decorationStyle"><?php echo $this->style; ?></span> <a
                 href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'decorationstyle', 'id' => $this->decstyle), NULL, true); ?>"
-                title="View scope notes for <?php echo $this->escape($this->decoration); ?>"><i
-                    class="icon-info-sign"></i></a> <a
+                title="View scope notes for <?php echo $this->escape($this->decoration); ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'decstyle' => $this->decstyle), NULL, true); ?>"
                 title="Find all records assigned to  <?php echo $this->style; ?>"><i class="icon-search"></i></a>
         <?php endif; ?>
@@ -58,8 +54,7 @@ $materials = array(
             Completeness: <span
                 property="pas:completeness"><?php echo $this->completeness()->setInt($this->complete); ?></span>
             <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'completeness', 'id' => $this->complete), NULL, true); ?>"
-               title="View scope notes for <?php echo $this->completeness()->setInt($this->complete); ?>"><i
-                    class="icon-info-sign"></i></a> <a
+               title="View scope notes for <?php echo $this->completeness()->setInt($this->complete); ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'complete' => $this->complete), NULL, true); ?>"
                 title="Find all records assigned to <?php echo $this->completeness()->setInt($this->complete); ?>"><i
                     class="icon-search"></i></a>

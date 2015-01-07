@@ -46,12 +46,12 @@ $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
     <div class="span3 well" id="imagepane">
 
         <?php if (!empty($this->thumbs)) : ?>
-            <?php echo $this->partialLoop('partials/database/thumbs.phtml', array_slice($this->thumbs, 0, 1)); ?>
+            <?php echo $this->partialLoop('partials/database/images/thumbs.phtml', array_slice($this->thumbs, 0, 1)); ?>
             <?php if (sizeof($this->thumbs) > 1): ?>
                 <!-- Start small thumbnails -->
                 <ul class="thumbnails">
                     <?php foreach (array_slice($this->thumbs, 1) as $thumb) : ?>
-                        <?php echo $this->partialLoop('partials/database/smallThumbnails.phtml', $thumb); ?>
+                        <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', $thumb); ?>
                     <?php endforeach; ?>
                 </ul>
                 <!-- End small thumbnails -->
