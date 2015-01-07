@@ -1,30 +1,27 @@
 <?php
 $this->headTitle('Data mined from theyworkforyou website');
 $this->metaBase()
-        ->setDescription('The parliamentary data website, Theyworkforyou, provides a repository of information on parliamentary debates. This section is an archive of political comment relating to archaeology and the Portable Antiquities Scheme')
-        ->setSubject('parliamentary news')
-        ->setKeywords('archaeology,hansard,parliament,portable antiquities,scheme,mla,mp,house of lords,house of commons,theyworkforyou')
-        ->generate();
+    ->setDescription('The parliamentary data website, Theyworkforyou, provides a repository of information on parliamentary debates. This section is an archive of political comment relating to archaeology and the Portable Antiquities Scheme')
+    ->setSubject('parliamentary news')
+    ->setKeywords('archaeology,hansard,parliament,portable antiquities,scheme,mla,mp,house of lords,house of commons,theyworkforyou')
+    ->generate();
 ?>
-<h2 class="lead">
-    Parliamentary news: <?php echo $this->title();?>
-</h2>
+    <h2 class="lead">Parliamentary news: <?php echo $this->title(); ?></h2>
 
-<p>
-    The data produced below is collated by the excellent 
-    <a href="http://www.theyworkforyou.com" 
-       title="Visit the theyworkforyou website">theyworkforyou</a> website. 
-       All information is drawn from search data returned over their api.
-</p>
+    <p>
+        The data produced below is collated by the excellent
+        <a href="http://www.theyworkforyou.com" title="Visit the theyworkforyou website">theyworkforyou</a> website.
+        All information is drawn from search data returned over their api.
+    </p>
 
-<img src="<?php echo $this->baseUrl();?>/images/logos/twfy.png" 
-     width="423" height="80" alt="They work for you logo" />
+    <img src="<?php echo $this->baseUrl(); ?>/images/logos/twfy.png"
+         width="423" height="80" alt="They work for you logo"/>
 
-<?php if($this->data):?>
-    <?php echo $this->partialLoop('partials/news/debate.phtml',$this->data);?>
-<?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
+<?php if ($this->data): ?>
+    <?php echo $this->partialLoop('partials/news/debate.phtml', $this->data); ?>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
     <p>
         No news has been retrieved from They Work For You's API.
     </p>
-<?php endif;?>
+<?php endif; ?>

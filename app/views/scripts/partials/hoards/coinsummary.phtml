@@ -89,13 +89,13 @@
                 </td>
                 <td><?php echo $coinrow['quantity']; ?></td>
                 <td>
-                <?php
-                echo $this->editDeleteSummary()
-                    ->setID($coinrow['summaryID'])
-                    ->setHoardID($coinrow['id'])
-                    ->setCreatedBy($coinrow['createdBy'])
-                    ->setInstitution($coinrow['institution']);
-                ?>
+                    <?php
+                    echo $this->editDeleteSummary()
+                        ->setID($coinrow['summaryID'])
+                        ->setHoardID($coinrow['id'])
+                        ->setCreatedBy($coinrow['createdBy'])
+                        ->setInstitution($coinrow['institution']);
+                    ?>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -1,45 +1,45 @@
-<?php if(!is_null($this->recorderID)) : ?>
-Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?php echo 
-$this->escape($this->tit3);?> <?php echo $this->escape($this->fore3);?> 
-<?php echo $this->escape($this->sur3);?></span> 
+<?php if (!is_null($this->recorderID)) : ?>
+Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?php echo
+$this->escape($this->tit3); ?> <?php echo $this->escape($this->fore3); ?>
+    <?php echo $this->escape($this->sur3); ?></span>
 -
 <a href="<?php echo $this->url(array(
-    'module' => 'database',
-    'controller' => 'search',
-    'action' => 'results',
-    'recorderID' => $this->recorderID),null,true);?>" 
-    title="Search database for all records recorded by <?php echo 
-    $this->escape($this->tit3);?> <?php echo $this->escape($this->fore3);?> 
-    <?php echo $this->escape($this->sur3);?>"><i class="icon-search"></i></a>]
+        'module' => 'database',
+        'controller' => 'search',
+        'action' => 'results',
+        'recorderID' => $this->recorderID), null, true); ?>"
+    title="Search database for all records recorded by <?php echo
+    $this->escape($this->tit3); ?> <?php echo $this->escape($this->fore3); ?>
+    <?php echo $this->escape($this->sur3); ?>"><i class="icon-search"></i></a>
 </span><br />
-<?php endif;?>
+<?php endif; ?>
 
-<?php if(!is_null($this->identifier1ID)) :?>
-Identified by: <span property="pas:identifier foaf:name" instanceof="foaf:person"><?php echo 
-$this->escape($this->tit2);?> <?php echo $this->escape($this->fore2);?> 
-<?php echo $this->escape($this->sur2);?></span> - <a href="
+<?php if (!is_null($this->identifier1ID)) : ?>
+    Identified by: <span property="pas:identifier foaf:name" instanceof="foaf:person"><?php echo
+        $this->escape($this->tit2); ?> <?php echo $this->escape($this->fore2); ?>
+        <?php echo $this->escape($this->sur2); ?></span> - <a href="
 <?php echo $this->url(array(
-    'module' => 'database',
-    'controller' => 'search',
-    'action' => 'results',
-    'identifierID' => $this->identifier1ID),null,true);?>" title="Search database for 
-    all records identified by <?php echo $this->escape($this->tit2);?> 
-<?php echo $this->escape($this->fore2);?> <?php echo $this->escape($this->sur2);
-?>"><i class="icon-search"></i></a><br />
-<?php endif;?>
+        'module' => 'database',
+        'controller' => 'search',
+        'action' => 'results',
+        'identifierID' => $this->identifier1ID), null, true); ?>" title="Search database for
+    all records identified by <?php echo $this->escape($this->tit2); ?>
+<?php echo $this->escape($this->fore2); ?> <?php echo $this->escape($this->sur2);
+    ?>"><i class="icon-search"></i></a><br/>
+<?php endif; ?>
 
-<?php if(!is_null($this->identifier2ID)) :?>
-Secondary identifier: <span property="pas:identifierSecondary foaf:name" 
-                            instanceof="foaf:person">
-<?php echo $this->escape($this->tit5);?> <?php echo $this->escape($this->fore5);?>
- <?php echo $this->escape($this->sur5);?></span> - <a href="
+<?php if (!is_null($this->identifier2ID)) : ?>
+    Secondary identifier: <span property="pas:identifierSecondary foaf:name"
+                                instanceof="foaf:person">
+<?php echo $this->escape($this->tit5); ?> <?php echo $this->escape($this->fore5); ?>
+<?php echo $this->escape($this->sur5); ?></span> - <a href="
  <?php echo $this->url(array(
-     'module' => 'database',
-     'controller' => 'search',
-     'action' => 'results',
-     'identifier2ID' => $this->identifier2ID),null,true);?>" title="Search database for 
-     all records identifed by <?php echo $this->escape($this->tit5);?> 
-     <?php echo $this->escape($this->fore5);?> <?php echo $this->escape($this->sur5);?>">
-         <i class="icon-search"></i></a><br />
-<?php endif;?>
+        'module' => 'database',
+        'controller' => 'search',
+        'action' => 'results',
+        'identifier2ID' => $this->identifier2ID), null, true); ?>" title="Search database for
+     all records identifed by <?php echo $this->escape($this->tit5); ?>
+     <?php echo $this->escape($this->fore5); ?> <?php echo $this->escape($this->sur5); ?>">
+        <i class="icon-search"></i></a><br/>
+<?php endif; ?>
 </p>

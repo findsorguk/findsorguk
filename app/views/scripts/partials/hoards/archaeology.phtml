@@ -2,146 +2,150 @@
     Archaeological context
 </h3>
 <?php
-    echo $this->editDeleteArchaeology()
-        ->setHoardID($this->hoardId)
-        ->setID($this->id)
-        ->setCreatedBy($this->createdBy)
-        ->setInstitution($this->institution);
+echo $this->editDeleteArchaeology()
+    ->setHoardID($this->hoardId)
+    ->setID($this->id)
+    ->setCreatedBy($this->createdBy)
+    ->setInstitution($this->institution);
 ?>
 
 <div class="row-fluid">
 
     <?php
     $params = array(
-        $this->knownsite,$this->excavated, $this->yearexc1,
-        $this->yearexc2, $this->archiveloc,$this->archaeologicalcontextqualityrating
+        $this->knownsite, $this->excavated, $this->yearexc1,
+        $this->yearexc2, $this->archiveloc, $this->archaeologicalcontextqualityrating
     );
     ?>
-    <?php if(array_filter($params)):?>
-    <div class="span4">
+    <?php if (array_filter($params)): ?>
+        <div class="span4">
             <p>
-                <?php if($this->knownsite == 1) :?>
+                <?php if ($this->knownsite == 1) : ?>
                     This hoard comes from a known archaeological site.
-                    <br />
-                <?php endif;?>
-                <?php if($this->excavated == 1) :?>
+                    <br/>
+                <?php endif; ?>
+                <?php if ($this->excavated == 1) : ?>
                     The site has been excavated.
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->yearexc1)) :?>
-                    First excavation year: <?php echo $this->escape($this->yearexc1);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->yearexc2)) :?>
-                    Last excavation year: <?php echo $this->escape($this->yearexc2);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->archiveloc)) :?>
-                    Archive location: <?php echo $this->escape($this->archiveloc);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->archaeologicalcontextqualityrating)) :?>
-                    Archaeological context data quality: <?php echo $this->archaeologicalcontextqualityrating;?>
-                    <br />
-                <?php endif;?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->yearexc1)) : ?>
+                    First excavation year: <?php echo $this->escape($this->yearexc1); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->yearexc2)) : ?>
+                    Last excavation year: <?php echo $this->escape($this->yearexc2); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->archiveloc)) : ?>
+                    Archive location: <?php echo $this->escape($this->archiveloc); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->archaeologicalcontextqualityrating)) : ?>
+                    Archaeological context data quality: <?php echo $this->archaeologicalcontextqualityrating; ?>
+                    <br/>
+                <?php endif; ?>
             </p>
-    </div>
-    <?php endif;?>
+        </div>
+    <?php endif; ?>
 
     <?php
     $features = array($this->siteclass, $this->sitetype, $this->landscapefeature);
     ?>
-    <?php if(array_filter($features)):?>
+    <?php if (array_filter($features)): ?>
         <div class="span4">
             <h4 class="lead">Site details</h4>
+
             <p>
-                <?php if(!is_null($this->siteclass)) :?>
-                    Site class: <?php echo $this->siteclass;?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->sitetype)) :?>
-                    Site type: <?php echo $this->sitetype;?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->landscapefeature)) :?>
-                    Landscape and topography: <?php echo $this->landscapefeature;?>
-                    <br />
-                <?php endif;?>
+                <?php if (!is_null($this->siteclass)) : ?>
+                    Site class: <?php echo $this->siteclass; ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->sitetype)) : ?>
+                    Site type: <?php echo $this->sitetype; ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->landscapefeature)) : ?>
+                    Landscape and topography: <?php echo $this->landscapefeature; ?>
+                    <br/>
+                <?php endif; ?>
             </p>
         </div>
-    <?php endif;?>
+    <?php endif; ?>
 
-    <?php if(!is_null($this->broadperiod)) :?>
-    <div class="span4">
-        <h4 class="lead">Site chronology</h4>
+    <?php if (!is_null($this->broadperiod)) : ?>
+        <div class="span4">
+            <h4 class="lead">Site chronology</h4>
+
             <p>
-                <?php if(!is_null($this->broadperiod)) :?>
-                    Broad period: <?php echo $this->broadperiod;?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->subperiod1)) :?>
-                    Sub period from: <?php echo $this->earlyMiddleLate()->setQualifier($this->subperiod1);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->period1)) :?>
-                    Period from: <?php echo $this->escape($this->periodFrom);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->subperiod2)) :?>
-                    Sub period to: <?php echo $this->earlyMiddleLate()->setQualifier($this->subperiod2);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->period2)) :?>
-                    Period to: <?php echo $this->escape($this->periodTo);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->sitedateyear1)) :?>
-                    Date from: <?php echo $this->adBc()->setDate($this->sitedateyear1);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->sitedateyear2)) :?>
-                    Date to: <?php echo $this->adBc()->setDate($this->sitedateyear2);?>
-                    <br />
-                <?php endif;?>
+                <?php if (!is_null($this->broadperiod)) : ?>
+                    Broad period: <?php echo $this->broadperiod; ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->subperiod1)) : ?>
+                    Sub period from: <?php echo $this->earlyMiddleLate()->setQualifier($this->subperiod1); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->period1)) : ?>
+                    Period from: <?php echo $this->escape($this->periodFrom); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->subperiod2)) : ?>
+                    Sub period to: <?php echo $this->earlyMiddleLate()->setQualifier($this->subperiod2); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->period2)) : ?>
+                    Period to: <?php echo $this->escape($this->periodTo); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->sitedateyear1)) : ?>
+                    Date from: <?php echo $this->adBc()->setDate($this->sitedateyear1); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->sitedateyear2)) : ?>
+                    Date to: <?php echo $this->adBc()->setDate($this->sitedateyear2); ?>
+                    <br/>
+                <?php endif; ?>
             </p>
-    </div>
-    <?php endif;?>
+        </div>
+    <?php endif; ?>
 
 </div>
 
 <div class="row-fluid">
     <?php
-    $methods = array($this->feature, $this->featuredateyear1,$this->featuredateyear2,$this->recoverymethod);
+    $methods = array($this->feature, $this->featuredateyear1, $this->featuredateyear2, $this->recoverymethod);
     ?>
-    <?php if(array_filter($methods)):?>
+    <?php if (array_filter($methods)): ?>
         <div class="span4">
             <h4 class="lead">Context details</h4>
+
             <p>
-                <?php if(!is_null($this->feature)) :?>
-                    Feature: <?php echo $this->escape($this->feature);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->featuredateyear1)) :?>
-                    Feature date from: <?php echo $this->adBc()->setDate($this->featuredateyear1);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->featuredateyear2)) :?>
-                    Feature date to: <?php echo $this->adBc()->setDate($this->featuredateyear2);?>
-                    <br />
-                <?php endif;?>
-                <?php if(!is_null($this->recoverymethod)) :?>
-                    Recovery method: <?php echo $this->escape($this->recoverymethod);?>
-                    <br />
-                <?php endif;?>
+                <?php if (!is_null($this->feature)) : ?>
+                    Feature: <?php echo $this->escape($this->feature); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->featuredateyear1)) : ?>
+                    Feature date from: <?php echo $this->adBc()->setDate($this->featuredateyear1); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->featuredateyear2)) : ?>
+                    Feature date to: <?php echo $this->adBc()->setDate($this->featuredateyear2); ?>
+                    <br/>
+                <?php endif; ?>
+                <?php if (!is_null($this->recoverymethod)) : ?>
+                    Recovery method: <?php echo $this->escape($this->recoverymethod); ?>
+                    <br/>
+                <?php endif; ?>
             </p>
         </div>
-    <?php endif;?>
+    <?php endif; ?>
 </div>
 
 <div class="row-fluid">
-    <?php if(!is_null($this->description) && ($this->description != '')):?>
+    <?php if (!is_null($this->description) && ($this->description != '')): ?>
     <h4 class="lead">Archaeological context description </h4>
-        <p><?php echo strip_tags($this->description);?><br />
-    <?php endif;?>
+
+    <p><?php echo strip_tags($this->description); ?><br/>
+        <?php endif; ?>
 
 </div>

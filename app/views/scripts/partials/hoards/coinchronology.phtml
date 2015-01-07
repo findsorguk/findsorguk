@@ -1,20 +1,30 @@
-<?php if(!empty($this->lastRuler) || !empty($this->lastReecePeriod) || !empty($this->terminalDateFrom) || !empty($this->terminalDateTo) || !empty($this->terminalReason)):?>
+<?php
+$dates = array(
+    $this->lastRuler, $this->lastReecePeriod, $this->terminalDateFrom,
+    $this->terminalDateTo, $this->terminalReason
+);
+?>
+<?php if(array_filter($dates)):?>
 <h4 class="lead">Coin chronology</h4>
-<?php endif;?>
 <p>
-<?php if(!is_null($this->lastRuler)):?>
-Last ruler: <span property="pas:lastRuler"><?php echo $this->escape($this->lastRuler);?></span><br />
-<?php endif;?>
-<?php if(!is_null($this->lastReecePeriod)):?>
-Last Reece period: <span property="pas:lastReecePeriod"><?php echo $this->escape($this->lastReecePeriod);?></span><br />
-<?php endif;?>
-<?php if((int)($this->terminalDateFrom)) : ?>
-Date from: <span property="pas:terminalDateFrom" content="<?php echo $this->terminalDateFrom;?>" datatype="xsd:date" ><?php echo $this->adBc()->setDate($this->terminalDateFrom);?></span><br />
-<?php endif;?>
-<?php if((int)($this->terminalDateTo)) : ?>
-Date to: <span property="pas:terminalDateTo" content="<?php echo $this->terminalDateTo;?>" datatype="xsd:date" ><?php echo $this->adBc()->setDate($this->terminalDateTo);?></span><br />
-<?php endif;?>
-<?php if(!is_null($this->terminalReason)) :?>
-Terminal reason: <span property="pas:terminalReason"><?php echo $this->escape($this->terminalReason);?></span> <br />
-<?php endif;?>
+    <?php if (!is_null($this->lastRuler)): ?>
+        Last ruler: <span property="pas:lastRuler"><?php echo $this->escape($this->lastRuler); ?></span><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->lastReecePeriod)): ?>
+        Last Reece period: <span
+            property="pas:lastReecePeriod"><?php echo $this->escape($this->lastReecePeriod); ?></span><br/>
+    <?php endif; ?>
+    <?php if ((int)($this->terminalDateFrom)) : ?>
+        Date from: <span property="pas:terminalDateFrom" content="<?php echo $this->terminalDateFrom; ?>"
+                         datatype="xsd:date"><?php echo $this->adBc()->setDate($this->terminalDateFrom); ?></span><br/>
+    <?php endif; ?>
+    <?php if ((int)($this->terminalDateTo)) : ?>
+        Date to: <span property="pas:terminalDateTo" content="<?php echo $this->terminalDateTo; ?>"
+                       datatype="xsd:date"><?php echo $this->adBc()->setDate($this->terminalDateTo); ?></span><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->terminalReason)) : ?>
+        Terminal reason: <span property="pas:terminalReason"><?php echo $this->escape($this->terminalReason); ?></span>
+        <br/>
+    <?php endif; ?>
 </p>
+<?php endif;?>

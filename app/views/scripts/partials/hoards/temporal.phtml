@@ -17,7 +17,7 @@ Period to: <span property="pas:periodTo"><?php echo $this->periodTo;?></span>
     'controller' => 'terminology',
     'action'=>'period',
     'id' => $this->period2),null,true);?>" title="Read scope note for
- <?php echo $this->periodTo;?>">scope notes</a> |  <a href="<?php echo $this->url(array(
+ <?php echo $this->periodTo;?>"><i class="icon-info-sign"></i></a> <a href="<?php echo $this->url(array(
      'module'=>'database',
      'controller' => 'search',
      'action'=>'results',
@@ -32,7 +32,7 @@ Ascribed Culture: <span property="pas:ascribedCulture" datatype="xsd:string">
         'controller' => 'terminology',
         'action'=>'culture',
         'id' => $this->culture),null,true);?>" title="Read scope note for
-    <?php echo $this->cult;?>">scope notes</a>|  <a href="<?php echo $this->url(array(
+    <?php echo $this->cult;?>"><i class="icon-info-sign"></i></a> <a href="<?php echo $this->url(array(
         'module'=>'database',
         'controller' => 'search',
         'action'=>'results',

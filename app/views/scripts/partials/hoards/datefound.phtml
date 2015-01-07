@@ -1,11 +1,15 @@
-<?php if (!is_null($this->datefound1)) : ?>
-    <h4 class="lead">Discovery dates</h4>
-    <p>Date(s) of discovery:
+<?php $dates = array($this->datefound1, $this->datefound2); ?>
+<?php if (array_filter($dates)): ?>
+
+    <?php if (!is_null($this->datefound1)) : ?>
+        <h4 class="lead">Discovery dates</h4>
+        <p>Date(s) of discovery:
         <span property="pas:firstDateFound" datatype="xsd:date"
               content="<?php echo $this->datefound1; ?>"><?php echo $this->niceShortDate()->setDate($this->datefound1); ?></span>
-        <?php if (!is_null($this->datefound2)) { ?>
-            - <span property="pas:secondDateFound" datatype="xsd:date" content="<?php echo $this->datefound2; ?>">
+            <?php if (!is_null($this->datefound2)): ?>
+                - <span property="pas:secondDateFound" datatype="xsd:date" content="<?php echo $this->datefound2; ?>">
 <?php echo $this->niceShortDate()->setDate($this->datefound2); ?></span>
-        <?php } ?>
-    </p>
+            <?php endif; ?>
+        </p>
+    <?php endif; ?>
 <?php endif; ?>

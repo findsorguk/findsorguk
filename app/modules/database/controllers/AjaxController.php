@@ -71,12 +71,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function init()
     {
         $this->_helper->_acl->allow('public', null);
-        $this->_helper->_acl->deny('public', array(
-                'nearest', 'kml', 'her', 'gis', 'workflow')
-        );
-        $this->_helper->_acl->deny('member', array(
-                'nearest', 'kml', 'her', 'gis', 'workflow')
-        );
+        $this->_helper->_acl->deny('public', array('kml', 'her', 'gis', 'workflow'));
+        $this->_helper->_acl->deny('member', array('kml', 'her', 'gis', 'workflow'));
         $this->_helper->_acl->allow('flos', null);
         $this->_helper->_acl->allow('hero', null);
         $this->_helper->_acl->allow('research', null);
@@ -98,7 +94,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $this->redirect(self::REDIRECT);
     }
 
-    /** Display the webcitation page
+    /** Display the web citation page
      * @access public
      * @return void
      * @throws Pas_Exception_Param
@@ -139,21 +135,6 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
-    }
-
-    /** Retrieve the nearest finds to a lat lon point
-     * @access public
-     * @return void
-     */
-    public function nearestAction()
-    {
-        $lat = $this->getParam('lat');
-        $long = $this->getParam('long');
-        $distance = (int)$this->getParam('distance');
-        $this->view->finds = $this->getFinds()->getByLatLong($lat, $long, $distance);
-        $this->view->distance = $distance;
-        $this->view->lat = $lat;
-        $this->view->long = $long;
     }
 
     /** Download a file
@@ -747,21 +728,22 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
-    public function upload() {
+    public function upload()
+    {
         if ($this->_helper->Identity()) {
             //Check if images path directory is writable
-            if(!is_writable(IMAGE_PATH)){
+            if (!is_writable(IMAGE_PATH)) {
                 throw new Pas_Exception_NotAuthorised('The images directory is not writable', 500);
             }
             // Create the imagedir path
             $imagedir = IMAGE_PATH . '/' . $this->_helper->Identity()->username;
 
             //Check if a directory and if not make directory
-            if( !is_dir( $imagedir ) ) {
-                mkdir( $imagedir, 0775, true );
+            if (!is_dir($imagedir)) {
+                mkdir($imagedir, 0775, true);
             }
             //Check if the personal image directory is writable
-            if(!is_writable( $imagedir )){
+            if (!is_writable($imagedir)) {
                 throw new Pas_Exception_NotAuthorised('The user image directory is not writable', 500);
             }
 
@@ -771,7 +753,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             $adapter->setOptions(array('useByteString' => false));
             // Only allow good image files!
             $adapter->addValidator('Extension', false, 'jpg, tiff');
-            $adapter->addValidator('NotExists', false, array( $imagedir ));
+            $adapter->addValidator('NotExists', false, array($imagedir));
             $files = $adapter->getFileInfo();
 
             // Create an array for the images
@@ -841,10 +823,11 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         return $this->view->serverUrl() . '/images/' . $user . '/small/' . $file;
     }
 
-    public function delete() {
+    public function delete()
+    {
         $file_name = $this->_request->getParam('files');
         $imagedir = IMAGE_PATH . '/' . $this->_helper->Identity()->username;
-        $file_path = $imagedir .  '/' . $file_name;
+        $file_path = $imagedir . '/' . $file_name;
         $success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
         echo json_encode($success);
     }

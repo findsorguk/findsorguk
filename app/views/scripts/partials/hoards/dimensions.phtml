@@ -1,37 +1,40 @@
+<?php $dimensions = array($this->length, $this->height, $this->width, $this->thickness, $this->weight, $this->quantity); ?>
+<?php if (array_filter($dimensions)): ?>
+
 <h4 class="lead">Dimensions and weight</h4>
 <div id="dims">
     <p>
         <?php if ($this->length > 0) : ?>
-            Length: <span property="pas:length"
-                          datatype="units:mm"><?php echo $this->escape($this->length); ?></span> mm<br/>
+            <br/>
+            Length: <span property="pas:length" datatype="units:mm"><?php echo $this->length; ?></span> mm
         <?php endif; ?>
 
         <?php if ($this->height > 0) : ?>
-            Height: <span property="pas:height"
-                          datatype="units:mm"><?php echo $this->escape($this->height); ?></span> mm<br/>
+            <br/>
+            Height: <span property="pas:height" datatype="units:mm"><?php echo $this->height; ?></span> mm
         <?php endif; ?>
 
         <?php if ($this->width > 0) : ?>
-            Width:  <span property="pas:width" datatype="units:mm"><?php echo $this->escape($this->width); ?></span> mm
             <br/>
+            Width:  <span property="pas:width" datatype="units:mm"><?php echo $this->width; ?></span> mm
         <?php endif; ?>
 
         <?php if ($this->thickness > 0) : ?>
-            Thickness: <span property="pas:thickness"
-                             datatype="units:mm"><?php echo $this->escape($this->thickness); ?></span> mm<br/>
+            <br/>
+            Thickness: <span property="pas:thickness" datatype="units:mm"><?php echo $this->thickness; ?></span> mm
         <?php endif; ?>
 
         <?php if (isset($this->weight)) : ?>
-            Weight: <span property="pas:weight" datatype="units:g"><?php echo $this->escape($this->weight); ?></span> g
             <br/>
+            Weight: <span property="pas:weight" datatype="units:g"><?php echo $this->weight; ?></span> g
         <?php endif; ?>
 
         <?php if ($this->diameter > 0) : ?>
-            Diameter:  <span property="pas:diameter"
-                             datatype="units:mm"><?php echo $this->escape($this->diameter); ?></span> mm<br/>
+            <br/>
+            Diameter:  <span property="pas:diameter" datatype="units:mm"><?php echo $this->diameter; ?></span> mm
         <?php endif; ?>
 
-        Quantity: <span property="pas:quantity"
-                        datatype="xsd:decimal"><?php echo $this->escape($this->quantity); ?></span>
+        Quantity: <span property="pas:quantity" datatype="xsd:decimal"><?php echo $this->quantity; ?></span>
     </p>
 </div>
+<?php endif; ?>

@@ -123,7 +123,7 @@ $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
     <?php echo $this->partial('partials/hoards/dateFound.phtml', $this->discoverySummary); ?>
     <!-- Rally data -->
     <?php if (!empty($this->rallyfind)): ?>
-        <?php echo $this->partial('partials/database/hoards/rallyFind.phtml', $this->rallyfind['0']); ?>
+        <?php echo $this->partial('partials/database/rallies/rallyFind.phtml', $this->rallyfind['0']); ?>
     <?php endif; ?>
 
     <!-- Personal data -->

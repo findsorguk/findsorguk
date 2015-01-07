@@ -1,21 +1,22 @@
-<h4 class="lead">
-    Materials of coins and artefacts in the hoard
-</h4>
+<?php if (!empty($this->hoardMaterials)): ?>
+    <h4 class="lead">
+        Materials of coins and artefacts in the hoard
+    </h4>
 
-<ul>
-    <?php foreach ($this->hoardMaterials as $matId => $material) : ?>
-        <li>
-        <span property="pas:primaryMaterial"><?php echo $this->escape($material); ?></span>
-
-        <a href="<?php echo $this->url(array(
-                'module' => 'datalabs', 'controller' => 'terminology',
-                'action' => 'material', 'id' => $matId), null, true);?>
-            " title="View scope notes for <?php echo $this->escape($this->material); ?>">scope notes</a> |
-        <a href="<?php echo $this->url(array(
-            'module' => 'database', 'controller' => 'search', 'action' => 'results',
-            'material' => $matId), null, true);?>
-            " title="Find all records assigned to  <?php echo $this->material; ?>
-            "><i class="icon-search"></i></a>
-        </li>
-    <?php endforeach; ?>
-</ul>
+    <ul>
+        <?php foreach ($this->hoardMaterials as $matId => $material) : ?>
+            <li>
+                <span property="pas:primaryMaterial"><?php echo $this->escape($material); ?></span>
+                <a href="<?php echo $this->url(array(
+                    'module' => 'datalabs', 'controller' => 'terminology',
+                    'action' => 'material', 'id' => $matId), null, true); ?>"
+                   title="View scope notes for <?php echo $this->escape($this->material); ?>"><i
+                        class="icon-info-sign"></i></a>
+                <a href="<?php echo $this->url(array(
+                    'module' => 'database', 'controller' => 'search', 'action' => 'results',
+                    'material' => $matId), null, true); ?>"
+                   title="Find all records assigned to  <?php echo $this->material; ?>"><i class="icon-search"></i></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
