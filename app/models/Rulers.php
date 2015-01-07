@@ -142,7 +142,7 @@ class Rulers extends Pas_Db_Table_Abstract {
     public function getEarlyMedRulers() {
         $rulers = $this->getAdapter();
         $select = $rulers->select()
-                ->from($this->_name, array('id','term' => 'CONCAT(issuer," (",date1," - ",date2,")")'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(issuer,' (',date1,' - ',date2,')')")))
                 ->where('period = ?',(int)47)
                 ->where('valid = ?',(int)1)
                 ->order('date1');
@@ -155,7 +155,7 @@ class Rulers extends Pas_Db_Table_Abstract {
      */
     public function getRomanRulers() {
         $select = $this->select()
-                ->from($this->_name, array('id','term' => 'CONCAT(issuer," (",date1," - ",date2,")")'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(issuer,' (',date1,' - ',date2,')')")))
                 ->where('period = ?',(int)21)
                 ->where('valid =?',(int)1)
                 ->order('date1')
@@ -185,7 +185,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         $select = $rulers->select()
                 ->from($this->_name, array(
                     'id', 
-                    'term' => 'CONCAT(issuer," (",date1," - ",date2,")")'
+                    'term' => new Zend_Db_Expr("CONCAT(issuer,' (',date1,' - ',date2,')')")
                     ))
                 ->where('period = ?', (int)29)
                 ->where('valid =?',(int)1)
@@ -308,7 +308,7 @@ class Rulers extends Pas_Db_Table_Abstract {
     public function getPostMedievalRulers() {
         $rulers = $this->getAdapter();
         $select = $rulers->select()
-                ->from($this->_name, array('id','term' => 'CONCAT(issuer," (",date1," - ",date2,")")'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(issuer,' (',date1,' - ',date2,')')")))
                 ->where('period = ?', (int)36)
                 ->where('valid = ?', (int)1)
                 ->order('date1');
@@ -347,7 +347,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         $select = $rulers->select()
                 ->from($this->_name, array(
                     'id',
-                    'term' => 'CONCAT(issuer," (",date1," - ",date2,")")'
+                    'term' => new Zend_Db_Expr("CONCAT(issuer,' (',date1,' - ',date2,')')")
                     ))
                 ->joinLeft('medievaltypes','medievaltypes.rulerID = ' 
                         . $this->_name . '.id',array())
@@ -371,7 +371,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         $select = $rulers->select()
                 ->from($this->_name, array(
                     'id',
-                    'term' => 'CONCAT(issuer," (",date1," - ",date2,")")'
+                    'term' => new Zend_Db_Expr("CONCAT(issuer,' (',date1,' - ',date2,')')")
                     ))
                 ->joinLeft('medievaltypes','medievaltypes.rulerID = ' 
                         . $this->_name . '.id',array())
@@ -395,7 +395,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         $select = $rulers->select()
                 ->from($this->_name, array(
                     'id',
-                    'term' => 'CONCAT(issuer," (",date1," - ",date2,")")'
+                    'term' => new Zend_Db_Expr("CONCAT(issuer,' (',date1,' - ',date2,')')")
                     ))
                 ->joinLeft('medievaltypes','medievaltypes.rulerID = ' 
                         . $this->_name . '.id',array())
@@ -582,7 +582,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         $rulers = $this->getAdapter();
         $select = $rulers->select()
                 ->from($this->_name, array(
-                    'id','term' => 'CONCAT(issuer," (",date1," - ",date2,")")'))
+                    'id','term' => new Zend_Db_Expr("CONCAT(issuer,' (',date1,' - ',date2,')')")))
                 ->joinLeft('denominations_rulers',
                         'rulers.id = denominations_rulers.ruler_id', array())
                 ->joinLeft('denominations',
@@ -797,7 +797,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         if (!$data = $this->_cache->load($key)) {
         $rulers = $this->getAdapter();
                 $select = $rulers->select()
-                        ->from($this->_name, array('id','term' => 'CONCAT(issuer," (",date1," - ",date2,")")'))
+                        ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(issuer,' (',date1,' - ',date2,')')")))
                         ->where('period = ?',(int)36)
                         ->where('id >= ?',(int)2207)
                         ->where('id <= ?',(int)2232)
@@ -818,7 +818,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         if (!$data = $this->_cache->load($key)) {
             $rulers = $this->getAdapter();
             $select = $rulers->select()
-                ->from($this->_name, array('id','term' => 'CONCAT_WS(" ", issuer, CONCAT(": From ", date1, " - ", date2))'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT_WS(' ', issuer, CONCAT(': From ', date1, ' - ', date2))")))
                 ->joinLeft('periods','periods.id = rulers.period', array())
                 ->where('term = ?', $period)
                 ->order('rulers.date1');
@@ -838,7 +838,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         if (!$data = $this->_cache->load($key)) {
             $rulers = $this->getAdapter();
             $select = $rulers->select()
-                ->from($this->_name, array('id','term' => 'CONCAT_WS(" ", issuer, CONCAT(": From ", date1, " - ", date2))'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT_WS(' ', issuer, CONCAT(': From ', date1, ' - ', date2))")))
                 ->joinLeft('periods','periods.id = rulers.period', array())
                 ->where('term = ?', $period)
                 ->order('rulers.date1');

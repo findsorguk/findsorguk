@@ -71,7 +71,7 @@ class Reeces extends Pas_Db_Table_Abstract {
         $select = $reeces->select()
                 ->from($this->_name, array(
                     'id',
-                    'term' => 'CONCAT(period_name," - ",description," ","(",date_range,")")'))
+                    'term' => new Zend_Db_Expr("CONCAT(period_name,' - ',description,' ','(',date_range,')')")))
                 ->joinLeft('reeceperiods_rulers','reeceperiods.id = reeceperiods_rulers.reeceperiod_id',
                         array())
                 ->joinLeft('rulers','rulers.id = reeceperiods_rulers.ruler_id',
@@ -88,7 +88,7 @@ class Reeces extends Pas_Db_Table_Abstract {
     public function getReeceUnassigned(){
         $reeces2 = $this->getAdapter();
         $select = $reeces2->select()
-                ->from($this->_name, array('id','term' => 'CONCAT(period_name," - ",description," ","(",date_range,")")'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(period_name,' - ',description,' ','(',date_range,')')")))
                 ->where('reeceperiods.id > ?', (int)14)			
                 ->order('period_name ASC');
         return $reeces2->fetchAll($select);
@@ -102,7 +102,7 @@ class Reeces extends Pas_Db_Table_Abstract {
     public function getReeces() {
         $reeces2 = $this->getAdapter();
         $select = $reeces2->select()
-                ->from($this->_name, array('id','term' => 'CONCAT(period_name," - ",description," ","(",date_range,")")'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(period_name,' - ',description,' ','(',date_range,')')")))
                 ->where('valid = ?',(int)1)
                 ->order('id ASC');
         return $reeces2->fetchPairs($select);

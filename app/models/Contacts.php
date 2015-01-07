@@ -370,7 +370,7 @@ class Contacts extends Pas_Db_Table_Abstract
             $persons = $this->getAdapter();
             $select = $persons->select()
                 ->from($this->_name, array(
-                    'id' => 'dbaseID', 'name' => 'CONCAT(firstname," ",lastname,": ",county)'))
+                    'id' => 'dbaseID', 'name' => new Zend_Db_Expr("CONCAT(firstname,' ',lastname,': ',county)")))
                 ->order($this->_name . '.id')
                 ->where('alumni = ?', (int)1)
                 ->where('role IN (7,10)');
@@ -392,7 +392,7 @@ class Contacts extends Pas_Db_Table_Abstract
             $persons = $this->getAdapter();
             $select = $persons->select()
                 ->from($this->_name, array(
-                    'email' => 'email_one', 'name' => 'CONCAT(firstname," ",lastname)'))
+                    'email' => 'email_one', 'name' => new Zend_Db_Expr("CONCAT(firstname,' ',lastname)")))
                 ->where('alumni = ?', (int)1)
                 ->where('dbaseID = ?', (int)$id);
             $data = $persons->fetchAll($select);
@@ -409,7 +409,7 @@ class Contacts extends Pas_Db_Table_Abstract
     {
         $persons = $this->getAdapter();
         $select = $persons->select()
-            ->from($this->_name, array('dbaseID', 'term' => 'CONCAT(firstname," ",lastname)'))
+            ->from($this->_name, array('dbaseID', 'term' => new Zend_Db_Expr("CONCAT(firstname,' ',lastname)")))
             ->order($this->_name . '.firstname');
         return $persons->fetchPairs($select);
     }
@@ -425,7 +425,7 @@ class Contacts extends Pas_Db_Table_Abstract
             $users = $this->getAdapter();
             $select = $users->select()
                 ->from($this->_name, array(
-                    'name' => 'CONCAT(firstname," ", lastname)',
+                    'name' => new Zend_Db_Expr("CONCAT(firstname,' ', lastname)"),
                     'email' => 'email_one'
                 ))
                 ->joinLeft('finds', 'finds.institution = '
@@ -449,7 +449,7 @@ class Contacts extends Pas_Db_Table_Abstract
             $users = $this->getAdapter();
             $select = $users->select()
                 ->from($this->_name, array(
-                    'name' => 'CONCAT(firstname," ", lastname)',
+                    'name' => new Zend_Db_Expr("CONCAT(firstname,' ', lastname)"),
                     'email' => 'email_one'
                 ))
                 ->joinLeft('hoards', 'hoards.institution = '

@@ -46,7 +46,7 @@ class Geography extends Pas_Db_Table_Abstract {
         $regions = $this->getAdapter();
         $select = $regions->select()
                 ->from($this->_name, array(
-                    'id', 'term' => 'CONCAT(region,"  ",IFNULL(area,""),"  ",IFNULL(tribe,""))'
+                    'id', 'term' => new Zend_Db_Expr("CONCAT(region,'  ',IFNULL(area,''),'  ',IFNULL(tribe,''))")
                     ))
                 ->joinLeft('ironagedenomxregion',
                         'ironagedenomxregion.regionID = geographyironage.id',
@@ -68,7 +68,7 @@ class Geography extends Pas_Db_Table_Abstract {
         $regions = $this->getAdapter();
         $select = $regions->select()
                 ->from($this->_name, array(
-                    'id', 'term' => 'CONCAT(region,"  ",IFNULL(area,""),"  ",IFNULL(tribe,""))'
+                    'id', 'term' => new Zend_Db_Expr("CONCAT(region,'  ',IFNULL(area,''),'  ',IFNULL(tribe,''))")
                     ))
                 ->where('valid = ?', (int)1)
                 ->order('region');
@@ -84,7 +84,7 @@ class Geography extends Pas_Db_Table_Abstract {
         $regions = $this->getAdapter();
         $select = $regions->select()
             ->from($this->_name, array(
-                'id', 'term' => 'CONCAT(region,"  ",IFNULL(area,""),"  ",IFNULL(tribe,""))'
+                'id', 'term' => new Zend_Db_Expr("CONCAT(region,'  ',IFNULL(area,''),'  ',IFNULL(tribe,''))")
             ))
             ->where('valid = ?', (int)1)
             ->order('region');
@@ -123,7 +123,7 @@ class Geography extends Pas_Db_Table_Abstract {
     public function getIronAgeGeographyMenu($term){
         $regions = $this->getAdapter();
         $select = $regions->select()
-                ->from($this->_name, array('id','term' =>'CONCAT(region," - ",area," - ",tribe)'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(region,' - ',area,' - ',tribe)")))
                 ->joinLeft('ironagedenomxregion',
                         'ironagedenomxregion.regionID = geographyironage.id',
                         array())

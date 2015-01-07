@@ -45,7 +45,7 @@ class MedievalTypes extends Pas_Db_Table_Abstract {
      */
     public function getEarlyMedTypes($rulerID) {
         $select = $this->select()
-                ->from($this->_name, array('id','term' => 'CONCAT(type," (",datefrom," - ",dateto,")")'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(type,' (',datefrom,' - ',dateto,')')")))
                 ->where('periodID = ? ', (int)47)
                 ->where('rulerID = ?', (int)$rulerID)
                 ->order($this->_primary);
@@ -60,7 +60,7 @@ class MedievalTypes extends Pas_Db_Table_Abstract {
     public function getEarlyMedTypeRuler($rulerID) {
         $rulers = $this->getAdapter();
         $select = $rulers->select()
-                ->from($this->_name, array('id','term' => 'CONCAT(type," (",datefrom," - ",dateto,")")'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(type,' (',datefrom,' - ',dateto,')')")))
                 ->joinLeft('rulers','rulers.id = medievaltypes.rulerID', array())
                 ->where('medievaltypes.rulerID = ?', (int)$rulerID)
                 ->order('medievaltypes.id');
@@ -75,7 +75,7 @@ class MedievalTypes extends Pas_Db_Table_Abstract {
     public function getEarlyMedTypeRulerAdmin($rulerID){
         $rulers = $this->getAdapter();
         $select = $rulers->select()
-                ->from($this->_name, array('linkid' => 'id','term' => 'CONCAT(type," (",datefrom," - ",dateto,")")','created'))
+                ->from($this->_name, array('linkid' => 'id','term' => new Zend_Db_Expr("CONCAT(type,' (',datefrom,' - ',dateto,')')"),'created'))
                 ->joinLeft('rulers','rulers.id = medievaltypes.rulerID',array())
                 ->joinLeft('users','users.id = ' . $this->_name . '.createdBy', array('fullname'))
                 ->where('medievaltypes.rulerID = ?', (int)$rulerID)
@@ -140,7 +140,7 @@ class MedievalTypes extends Pas_Db_Table_Abstract {
     public function getMedievalTypeToRulerMenu($rulerID) {
         $rulers = $this->getAdapter();
         $select = $rulers->select()
-                ->from($this->_name, array('id','term' => 'CONCAT(type," (",datefrom," - ",dateto,")")'))
+                ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(type,' (',datefrom,' - ',dateto,')')")))
                 ->joinLeft('rulers','rulers.id = medievaltypes.rulerID', array())
                 ->where('medievaltypes.rulerID = ?',(int)$rulerID)
                 ->order('medievaltypes.id');
@@ -287,7 +287,7 @@ class MedievalTypes extends Pas_Db_Table_Abstract {
         $key = md5('searchformedieval' . $periodID);
         if (!$data = $this->_cache->load($key)) {
             $select = $this->select()
-                    ->from($this->_name, array('id','term' => 'CONCAT(type," (",datefrom," - ",dateto,")")'))
+                    ->from($this->_name, array('id','term' => new Zend_Db_Expr("CONCAT(type,' (',datefrom,' - ',dateto,')')")))
                     ->where('periodID = ? ', (int)$periodID)
                     ->order($this->_primary);
             $data = $this->getAdapter()->fetchPairs($select);

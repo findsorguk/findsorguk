@@ -225,7 +225,7 @@ class Slides extends Pas_Db_Table_Abstract
         $slides = $this->getAdapter();
         $select = $slides->select()
             ->from($this->_name, array(
-                'identifier' => 'CONCAT("images-",imageID)',
+                'identifier' => new Zend_Db_Expr("CONCAT('images-',imageID)"),
                 'id' => 'imageID',
                 'title' => 'label',
                 'filename',
@@ -245,7 +245,7 @@ class Slides extends Pas_Db_Table_Abstract
                     'woeid',
                     'latitude' => 'declat',
                     'longitude' => 'declong',
-                    'coordinates' => 'CONCAT( findspots.declat,  ",", findspots.declong )',
+                    'coordinates' => new Zend_Db_Expr("CONCAT( findspots.declat,  ',', findspots.declong )"),
                     'county'
                 ))
             ->joinLeft('users', 'slides.createdBy = users.id',

@@ -54,7 +54,7 @@ class OsCounties extends Pas_Db_Table_Abstract {
         $key = md5('countyNamesList');
         if (!$data = $this->_cache->load($key)) {
             $select = $this->select()
-                    ->from($this->_name, array('label', 'CONCAT(label," (",type,")")'))
+                    ->from($this->_name, array('label', new Zend_Db_Expr("CONCAT(label,' (',type,')')")))
                     ->order('label');
             $data = $this->getAdapter()->fetchPairs($select);
             $this->_cache->save($data, $key);
@@ -70,7 +70,7 @@ class OsCounties extends Pas_Db_Table_Abstract {
         $key = md5('countyIDs');
         if (!$data = $this->_cache->load($key)) {
             $select = $this->select()
-                    ->from($this->_name, array('osID', 'CONCAT(label," (",type,")")'))
+                    ->from($this->_name, array('osID', new Zend_Db_Expr("CONCAT(label,' (',type,')')")))
                     ->order('label');
             $data = $this->getAdapter()->fetchPairs($select);
             $this->_cache->save($data, $key);
@@ -93,7 +93,7 @@ class OsCounties extends Pas_Db_Table_Abstract {
                             'osRegions.osID = osCounties.regionID',
                             array(
                                 'id' => 'osID', 
-                                'term' => 'CONCAT(osRegions.label," (",osRegions.type,")")'
+                                'term' => new Zend_Db_Expr("CONCAT(osRegions.label,' (',osRegions.type,')')")
                                 ))
                 ->where('osCounties.osID =?', (int) $county);
             $data = $table->fetchAll($select);
@@ -116,8 +116,8 @@ class OsCounties extends Pas_Db_Table_Abstract {
                     ->joinLeft('osRegions', 
                             'osRegions.osID = osCounties.regionID',
                             array(
-                                'osID', 
-                                'CONCAT(osRegions.label," (",osRegions.type,")")'
+                                'osID',
+                                new Zend_Db_Expr("CONCAT(osRegions.label,' (',osRegions.type,')')")
                                 ))
                     ->where('osCounties.osID =?', (int) $county);
             $data = $table->fetchPairs($select);
