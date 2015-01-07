@@ -53,7 +53,7 @@ class OsRegions extends Pas_Db_Table_Abstract {
         $key = md5('regionIDs');
         if (!$data = $this->_cache->load($key)) {
             $select = $this->select()
-                    ->from($this->_name, array('osID', 'CONCAT(label," (",type,")")'))
+                    ->from($this->_name, array('osID', new Zend_Db_Expr("CONCAT(label,' (',type,')')")))
                     ->order('label');
             $data = $this->getAdapter()->fetchPairs($select);
             $this->_cache->save($data, $key);

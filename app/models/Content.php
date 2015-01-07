@@ -262,7 +262,7 @@ class Content extends Pas_Db_Table_Abstract {
         $contents = $this->getAdapter();
         $select = $contents->select()
                 ->from($this->_name,array(
-                        'identifier' => 'CONCAT("content-",content.id)',
+                        'identifier' => new Zend_Db_Expr("CONCAT('content-',content.id)"),
                         'id',
                         'title',
                         'excerpt',
@@ -271,7 +271,7 @@ class Content extends Pas_Db_Table_Abstract {
                         'slug',
                         'created',
                         'updated',
-                        'type' => 'CONCAT("sitecontent")',
+                        'type' => new Zend_Db_Expr("CONCAT('sitecontent')"),
                          ))
             ->joinLeft('users','users.id = content.createdBy',
                 array('createdBy' => 'fullname'))

@@ -54,7 +54,7 @@ class Users extends Pas_Db_Table_Abstract {
      */
     public function getOptions() {
         $select = $this->select()
-                ->from($this->_name, array('ID', 'CONCAT(username," - ",fullname)'))
+                ->from($this->_name, array('ID', new Zend_Db_Expr("CONCAT(username,' - ',fullname)")))
                 ->where('institution IS NOT NULL')
                 ->where('valid = ?',1)
                 ->order('username ASC');

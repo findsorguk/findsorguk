@@ -46,7 +46,7 @@ class Moneyers extends Pas_Db_Table_Abstract {
         $select = $moneyers->select()
                 ->from($this->_name, array(
                     'id', 
-                    'term' => 'CONCAT(name,"(", IFNULL(date_1,""), " " , IFNULL(date_2, ""), ")")'
+                    'term' => new Zend_Db_Expr("CONCAT(name,'(', IFNULL(date_1,''), ' ' , IFNULL(date_2, ''), ')')")
                     ))
                 ->order('name ASC');
         return $moneyers->fetchAll($select);
@@ -63,7 +63,7 @@ class Moneyers extends Pas_Db_Table_Abstract {
 	$select = $moneyers->select()
 		->from($this->_name, array(
                     'id',
-                    'term' => 'CONCAT(name,"(", IFNULL(date_1,""), " " , IFNULL(date_2, ""), ")")'
+                    'term' => new Zend_Db_Expr("CONCAT(name,'(', IFNULL(date_1,''), ' ' , IFNULL(date_2, ''), ')')")
                     ))
 		->order('name ASC');
 	return $moneyers->fetchPairs($select);

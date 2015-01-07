@@ -55,7 +55,7 @@ class OsDistricts extends Pas_Db_Table_Abstract {
             $select = $this->select()
                     ->from($this->_name, array(
                         'osID', 
-                        'label' => 'CONCAT(label," (",type,")")'
+                        'label' => new Zend_Db_Expr("CONCAT(label,' (',type,')')")
                         ))
                     ->order('label');
             $data = $this->getAdapter()->fetchPairs($select);
@@ -76,7 +76,7 @@ class OsDistricts extends Pas_Db_Table_Abstract {
                     ->from($this->_name, 
                             array(
                                 'id' => 'osID', 
-                                'term' => 'CONCAT(label," (",type,")")'
+                                'term' => new Zend_Db_Expr("CONCAT(label,' (',type,')')")
                                 ))
                     ->order('label')
                     ->where('countyID =?', (int) $county);
@@ -95,7 +95,7 @@ class OsDistricts extends Pas_Db_Table_Abstract {
         $key = md5('districtsCountyList' . $county);
         if (!$data = $this->_cache->load( $key )) {
             $select = $this->select()
-                    ->from($this->_name, array('osID', 'CONCAT(label," (",type,")")'))
+                    ->from($this->_name, array('osID', new Zend_Db_Expr("CONCAT(label,' (',type,')')")))
                     ->order('label')
                     ->where('countyID =?', (int) $county);
             $data = $this->getAdapter()->fetchPairs($select);
