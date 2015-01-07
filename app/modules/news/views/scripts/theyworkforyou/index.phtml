@@ -21,9 +21,7 @@ $this->metaBase()
      width="423" height="80" alt="They work for you logo" />
 
 <?php if($this->data):?>
-<ul>
     <?php echo $this->partialLoop('partials/news/debate.phtml',$this->data);?>
-</ul>
 <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else:?>
     <p>

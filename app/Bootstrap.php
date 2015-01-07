@@ -234,6 +234,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $redirects = new Pas_Controller_Action_Helper_LoginRedirect();
         Zend_Controller_Action_HelperBroker::addHelper($redirects);
+
+
     }
 
     /** Set up rest routing
@@ -254,5 +256,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->getResource('View');
         $view->placeholder('tag');
     }
+
 
 }

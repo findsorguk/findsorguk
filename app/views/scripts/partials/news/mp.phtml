@@ -1,20 +1,38 @@
-
 <p>
-Party: <?php echo $this->party;?><br />
-Constituency: <?php echo $this->constituency;?><br />
-Entered house: <?php echo $this->timeAgoInWords($this->entered_house);?>
-<?php if($this->left_house != '9999-12-31') {?><br />
-Left house: <?php echo$this->timeAgoInWords($this->left_house);?><br />
-Reason for leaving: <?php echo str_replace('_', ' ', $this->left_reason);?>
-<?php
-}?>
-<?php if(isset($this->office)):?>
-<?php foreach ($this->office as $o)
-{
-?>
-Department: <?php echo $o->dept;?><br />
-Position: <?php echo $o->position;?><br />
-Took up office: <?php echo $this->niceShortDate()->setDate($o->from_date);?><br />
-<?php
-}?></p>
-<?php endif;?>
+    <?php if (!is_null($this->party)): ?>
+        Party: <?php echo $this->party; ?>
+    <?php endif; ?>
+
+    <?php if (!is_null($this->constituency)): ?>
+        <br/>
+        Constituency: <a
+            href="http://theyworkforyou.com<?php echo $this->url; ?>"><?php echo $this->constituency; ?></a>
+    <?php endif; ?>
+
+    <?php if (!is_null($this->entered_house)): ?>
+        <br/>
+        Entered house: <?php echo $this->timeAgoInWords($this->entered_house); ?>
+    <?php endif; ?>
+    <?php if ($this->left_house != '9999-12-31'): ?><br/>
+        Left house: <?php echo $this->timeAgoInWords($this->left_house); ?>
+        <?php if (!is_null($this->left_reason)): ?>
+            <br/>
+            Reason for leaving: <?php echo str_replace('_', ' ', $this->left_reason); ?>
+        <?php endif; ?>
+    <?php endif; ?>
+</p>
+<p>
+    <?php if (!empty($this->office)): ?>
+    <?php if(array_key_exists('dept', $this->office) && !is_null($this->office['dept'])):?>
+    Department: <?php echo $this->office['dept']; ?>
+    <?php endif;?>
+    <?php if(array_key_exists('position', $this->office) && strlen($this->office['position']) > 0):?>
+    <br/>
+    Position: <?php echo $this->office['position']; ?>
+    <?php endif;?>
+    <?php if(array_key_exists('from_date', $this->office)):?>
+    <br/>
+    Took up office: <?php echo $this->niceShortDate()->setDate($this->office['from_date']); ?>
+    <?php endif;?>
+</p>
+<?php endif; ?>

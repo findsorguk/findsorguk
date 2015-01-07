@@ -166,7 +166,7 @@ class Pas_View_Helper_PoliticalHouse extends Zend_View_Helper_Abstract
     /** Get the logo to display
      * @access public
      * @param  int $house
-     * @return function
+     * @return string
      */
     public function getLogo($house)
     {

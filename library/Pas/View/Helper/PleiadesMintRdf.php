@@ -52,7 +52,7 @@ class Pas_View_Helper_PleiadesMintRdf extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_PleiadesMintRdf
      */
-    public function PleiadesMintRdf()  {
+    public function pleiadesMintRdf()  {
         $this->_client = new Pas_RDF_Client();
         $this->_cache = Zend_Registry::get('cache');
         return $this;
@@ -68,7 +68,7 @@ class Pas_View_Helper_PleiadesMintRdf extends Zend_View_Helper_Abstract {
         if (isset($uri)) {
             $this->_uri = $uri;
         } else {
-            throw new Pas_Exception_Url('No uri set');
+            throw new Pas_Exception_Url('No uri set', 500);
         }
         return $this;
     }

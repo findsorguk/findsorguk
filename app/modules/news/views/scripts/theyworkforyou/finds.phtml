@@ -19,7 +19,7 @@ $this->metaBase()
             <?php endif; ?>
         </div>
         <div class="span3">
-            <?php echo $this->facetCreator($this->facets); ?>
+            <?php echo $this->facetCreator()->setFacets($this->facets); ?>
         </div>
     </div>
 <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
