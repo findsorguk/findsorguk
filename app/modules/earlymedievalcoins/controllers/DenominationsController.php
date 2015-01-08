@@ -64,10 +64,10 @@ class EarlyMedievalCoins_DenominationsController extends Pas_Controller_Action_A
      * @throws Pas_Exception_Param
      */
     public function denominationAction() {
-        if($this->_getParam('id',false)) {
-        $this->view->id = $this->_getParam('id');
-        $this->view->denoms = $this->getDenominations()->getDenom($this->_getParam('id'),(int)$this->_period);
-        $this->view->rulers = $this->getDenominations()->getRulerDenomination($this->_getParam('id'));
+        if($this->getParam('id',false)) {
+        $this->view->id = $this->getParam('id');
+        $this->view->denoms = $this->getDenominations()->getDenom($this->getParam('id'),(int)$this->_period);
+        $this->view->rulers = $this->getDenominations()->getRulerDenomination($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

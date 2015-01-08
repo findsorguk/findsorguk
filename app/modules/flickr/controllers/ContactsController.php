@@ -36,7 +36,7 @@ class Flickr_ContactsController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->acl->allow('public', null);
-        $this->_flickr = Zend_Registry::get('config')->webservice->flickr;
+        $this->_flickr = $this->_helper->config()->webservice->flickr;
         $this->_api = new Pas_Yql_Flickr($this->_flickr);
 
     }
@@ -47,7 +47,7 @@ class Flickr_ContactsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $page = $this->_getParam('page');
+        $page = $this->getParam('page');
         if (!isset($page)) {
             $start = 1;
         } else {
@@ -75,13 +75,13 @@ class Flickr_ContactsController extends Pas_Controller_Action_Admin
      */
     public function knownAction()
     {
-        if ($this->_getParam('as', false)) {
-            $this->view->details = $this->_api->getContactDetails($this->_getParam('as'));
-            if (!($this->getCache()->test(md5('contacts' . $this->_getParam('as'))))) {
-                $ph = $this->_api->getContactPhotos($this->_getParam('as'), 0, 18);
+        if ($this->getParam('as', false)) {
+            $this->view->details = $this->_api->getContactDetails($this->getParam('as'));
+            if (!($this->getCache()->test(md5('contacts' . $this->getParam('as'))))) {
+                $ph = $this->_api->getContactPhotos($this->getParam('as'), 0, 18);
                 $this->getCache()->save($ph);
             } else {
-                $ph = $this->getCache()->load(md5('contacts' . $this->_getParam('as')));
+                $ph = $this->getCache()->load(md5('contacts' . $this->getParam('as')));
             }
             $this->view->photos = $ph;
         } else {

@@ -1,12 +1,12 @@
-<?php if(isset($this->knownas)):?>
+<?php if (isset($this->knownas)): ?>
     <h4 class="lead">Known as</h4>
     <p>
-        <?php echo $this->knownas;?><br />
-        <?php if(isset($this->alsoknownas)):?>
+        <?php echo $this->knownas; ?><br/>
+        <?php if (isset($this->alsoknownas)): ?>
             <?php $alsoknownasArray = explode(";", $this->alsoknownas); ?>
-            <?php foreach($alsoknownasArray as $place) : ?>
-                Also known as: <?php echo $place;?><br />
+            <?php foreach ($alsoknownasArray as $place) : ?>
+                Also known as: <?php echo $place; ?><br/>
             <?php endforeach; ?>
-        <?php endif;?>
+        <?php endif; ?>
     </p>
-<?php endif;?>
+<?php endif; ?>

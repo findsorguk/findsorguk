@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for getting the next find from the index
  *
@@ -77,7 +78,8 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
@@ -86,10 +88,11 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getSolrConfig() {
+    public function getSolrConfig()
+    {
         $this->_solrConfig = array(
             'adapteroptions' => $this->getConfig()->solr->toArray()
-                );
+        );
         return $this->_solrConfig;
     }
 
@@ -97,11 +100,12 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getSolr() {
+    public function getSolr()
+    {
         $this->_solr = new Solarium_Client($this->getSolrConfig());
         $loadbalancer = $this->_solr->getPlugin('loadbalancer');
         $master = $this->getConfig()->solr->asgard->toArray();
-        $slave  = $this->getConfig()->solr->valhalla->toArray();
+        $slave = $this->getConfig()->solr->valhalla->toArray();
         $loadbalancer->addServer('master', $master, 100);
         $loadbalancer->addServer('slave', $slave, 200);
         $loadbalancer->setFailoverEnabled(true);
@@ -112,7 +116,8 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         $this->_config = Zend_Registry::get('config');
         return $this->_config;
     }
@@ -121,11 +126,12 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getRole() {
+    public function getRole()
+    {
         $user = new Pas_User_Details();
         $person = $user->getPerson();
         if ($person) {
-        $this->_role = $person->role;
+            $this->_role = $person->role;
         }
         return $this->_role;
     }
@@ -140,7 +146,7 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access protected
      * @var array
      */
-    protected $_allowed =  array(
+    protected $_allowed = array(
         'fa', 'flos', 'admin',
         'treasure', 'hoard'
     );
@@ -161,7 +167,8 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getKey() {
+    public function getKey()
+    {
         $this->_key = md5('previousfind' . $this->getFindID() . $this->getRole());
         return $this->_key;
     }
@@ -170,7 +177,8 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getFindID() {
+    public function getFindID()
+    {
         return $this->_findID;
     }
 
@@ -179,7 +187,8 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @param int $findID
      * @return \Pas_View_Helper_PreviousFind
      */
-    public function setFindID( $findID) {
+    public function setFindID($findID)
+    {
         $this->_findID = $findID;
         return $this;
     }
@@ -188,7 +197,8 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_PreviousFind
      */
-    public function previousFind() {
+    public function previousFind()
+    {
         return $this;
     }
 
@@ -196,8 +206,9 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return the string to the view
      */
-    public function __toString() {
-        return $this->getSolrData( $this->getFindID() );
+    public function __toString()
+    {
+        return $this->getSolrData($this->getFindID());
     }
 
     /** Get the data from solr
@@ -205,36 +216,37 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @param int $findID
      * @return string
      */
-    public function getSolrData( $findID) {
+    public function getSolrData($findID)
+    {
         if (!($this->getCache()->test($this->getKey()))) {
-            $query = 'id:[* TO ' . $findID  . ']';
+            $query = 'id:[* TO ' . $findID . ']';
             $select = array(
-                'query'         => $query,
+                'query' => $query,
                 'filterquery' => array(),
-                );
+            );
             $select['fields'] = $this->_fields;
             $select['sort'] = array('id' => 'desc');
             $select['start'] = 1;
             $select['rows'] = 1;
             $this->_query = $this->getSolr()->createSelect($select);
             if (!in_array($this->getRole(), $this->_allowed) ||
-                    is_null($this->getRole()) ) {
+                is_null($this->getRole())
+            ) {
                 $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
             }
 
             $this->_resultset = $this->getSolr()->select($this->_query);
             $results = $this->_processResults($this->_resultset);
             $this->getCache()->save($results);
-            } else {
-                $results = $this->getCache()->load($this->getKey());
-            }
+        } else {
+            $results = $this->getCache()->load($this->getKey());
+        }
 
-            if ($results) {
-                $html = $this->view->partial('partials/database/previous.phtml',
-                        $results['0']);
-            } else {
-                $html = '';
-            }
+        if ($results) {
+            $html = $this->view->partial('partials/database/paginations/previous.phtml', $results['0']);
+        } else {
+            $html = '';
+        }
         return $html;
     }
 
@@ -242,7 +254,8 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
      * @access public
      * @return array
      */
-    public function _processResults() {
+    public function _processResults()
+    {
         $data = array();
         foreach ($this->_resultset as $doc) {
             $fields = array();
@@ -250,9 +263,9 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
                 $fields[$key] = $value;
             }
             $data[] = $fields;
-            }
-            $processor = new Pas_Solr_SensitiveFields();
-            $clean = $processor->cleanData($data, $this->getRole(), $this->_core);
+        }
+        $processor = new Pas_Solr_SensitiveFields();
+        $clean = $processor->cleanData($data, $this->getRole(), $this->_core);
         return $clean;
     }
 }

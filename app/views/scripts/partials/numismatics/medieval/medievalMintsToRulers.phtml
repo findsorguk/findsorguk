@@ -1,0 +1,10 @@
+<?php
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+?>
+<li>
+    <a href="<?php echo $this->url(array('module' => $module, 'controller' => 'rulers', 'action' => 'ruler', 'id' => $this->id), null, true); ?>"
+       title="View Ruler's profile"><?php echo $this->escape($this->issuer); ?></a>
+    - <?php echo $this->adBc()->setDate($this->date1); ?> - <?php echo $this->adBc()->setDate($this->date2); ?> - <a
+        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'mint_id' => $this->mintid, 'ruler' => $this->id), null, true); ?>"
+        title="Search for all coins issued by <?php echo $this->issuer; ?>"><i class="icon-search"></i> for this mint
+        by <?php echo $this->escape($this->issuer); ?></a></li>

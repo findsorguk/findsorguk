@@ -227,7 +227,7 @@ class RomanCoinForm extends Pas_Form {
 		->addFilters(array('StripTags', 'StringTrim'));
 
 	$reverse_mintmark = new Zend_Form_Element_Textarea('reverse_mintmark');
-	$reverse_mintmark->setLabel('Reverse mintmark: ')
+	$reverse_mintmark->setLabel('Reverse mint mark: ')
 		->setAttribs(array('rows' => 3, 'cols' => 80, 'class' => 'span6'))
 		->addFilters(array('StripTags', 'StringTrim'));
 

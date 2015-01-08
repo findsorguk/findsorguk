@@ -72,8 +72,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->getFlash()->addMessage('You cannot access the archaeological context index.');
-        $this->getResponse()->setHttpResponseCode(301)
-            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->getResponse()->setHttpResponseCode(301)->setRawHeader('HTTP/1.1 301 Moved Permanently');
         $this->redirect('/');
     }
 
@@ -85,7 +84,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
      */
     public function addAction()
     {
-        if ($this->_getParam('findID', false)) {
+        if ($this->getParam('findID', false)) {
             $form = $this->getSketchFabForm();
             $form->submit->setLabel('Add a model');
             $this->view->form = $form;
@@ -93,7 +92,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 // Get data
                 $data = $form->getValues();
-                $data['findID'] = $this->_getParam('findID');
+                $data['findID'] = $this->getParam('findID');
                 // Add the data
                 $this->getModel()->add($data);
                 //Add a flash message
@@ -117,7 +116,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
     public function editAction()
     {
         //Check if parameter for ID exists
-        if ($this->_getParam('findID', false)) {
+        if ($this->getParam('findID', false)) {
             $form = $this->getSketchFabForm();
             // Check if the id parameter exists
             $form->submit->setLabel('Edit model data');
@@ -128,13 +127,13 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     // Create where clause array
                     $where = array();
-                    $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     // Get the data and update based on where value
                     $this->getModel()->update($form->getValues(), $where);
                     // Add flash message and redirect back to record
                     $this->getFlash()->addMessage('You have edited the model details');
                     // Now redirect to the correct URL
-                    $this->redirect(self::REDIRECT . $this->getParam('id'));
+                    $this->redirect(self::REDIRECT . $this->getParam('returnID'));
                 } else {
                     // Repopulate with the posted values
                     $form->populate($this->_request->getPost());

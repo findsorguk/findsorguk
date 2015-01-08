@@ -46,18 +46,18 @@ lat:
 </span>
 </span>
         <?php if (!is_null($this->image)): ?>
-            <?php if(file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)):?>
-            <?php list($w, $h) = getimagesize(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image); ?>
+            <?php if (file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)): ?>
+                <?php list($w, $h) = getimagesize(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image); ?>
 
-            <a href="<?php echo $this->baseUrl(); ?>/assets/staffphotos/resized/<?php echo $this->image; ?>"
-               rel="lightbox"
-               title="Profile image of <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>">
-                <img property="foaf:img google:photo"
-                     src="<?php echo $this->baseUrl(); ?>/assets/staffphotos/thumbnails/<?php echo $this->image; ?>"
-                     title="Image of <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"
-                     class="staffimage" width="<?php echo $w; ?>" height="<?php echo $h; ?>"
-                     alt="A profile picture chosen by <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"/></a>
-            <?php endif;?>
+                <a href="<?php echo $this->baseUrl(); ?>/assets/staffphotos/resized/<?php echo $this->image; ?>"
+                   rel="lightbox"
+                   title="Profile image of <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>">
+                    <img property="foaf:img google:photo"
+                         src="<?php echo $this->baseUrl(); ?>/assets/staffphotos/thumbnails/<?php echo $this->image; ?>"
+                         title="Image of <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"
+                         class="staffimage" width="<?php echo $w; ?>" height="<?php echo $h; ?>"
+                         alt="A profile picture chosen by <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"/></a>
+            <?php endif; ?>
         <?php endif; ?>
 
         <p>Short profile:</p><img

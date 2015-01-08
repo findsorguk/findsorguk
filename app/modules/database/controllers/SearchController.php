@@ -344,16 +344,16 @@ class Database_SearchController extends Pas_Controller_Action_Admin
         } else {
             $private = null;
         }
-        if ($this->_getParam('by') === 'me') {
+        if ($this->getParam('by') === 'me') {
             $this->view->data = $this->_searches->getAllSavedSearches(
                 $this->_helper->identity->getPerson()->id,
-                $this->_getParam('page'),
+                $this->getParam('page'),
                 $private
             );
         } else {
             $this->view->data = $this->_searches->getAllSavedSearches(
                 null,
-                $this->_getParam('page'),
+                $this->getParam('page'),
                 $private
             );
         }
@@ -512,7 +512,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
 
     public function taggedAction()
     {
-        if($this->_getParam('term', false)) {
+        if($this->getParam('term', false)) {
             $params = $this->getAllParams();
             $search = new Pas_Solr_Handler();
             $search->setCore('tags');

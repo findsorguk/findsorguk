@@ -31,11 +31,8 @@ class Database_SitemapController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $page = $this->_getParam('page');
-        $config = new Zend_Config_Xml(
-                'http://finds.org.uk/info/sitemap/databaserecords/page/' 
-                . $page,'nav'
-                );
+        $page = $this->getParam('page');
+        $config = new Zend_Config_Xml('http://finds.org.uk/info/sitemap/databaserecords/page/' . $page,'nav');
         $navigation = new Zend_Navigation($config);
         $this->view->navigation($navigation);
         $this->view->navigation()
@@ -48,7 +45,7 @@ class Database_SitemapController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function imagesAction() {
-        $page = $this->_getParam('page');
+        $page = $this->getParam('page');
         $config = new Zend_Config_Xml(
                 'http://finds.org.uk/info/sitemap/images/page/' 
                 . $page,'nav'
@@ -65,7 +62,7 @@ class Database_SitemapController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function booksAction() {
-        $page = $this->_getParam('page');
+        $page = $this->getParam('page');
         $config = new Zend_Config_Xml(
                 'http://finds.org.uk/info/sitemap/books/page/' 
                 . $page,'nav');

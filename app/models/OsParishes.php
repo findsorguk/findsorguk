@@ -60,7 +60,7 @@ class OsParishes extends Pas_Db_Table_Abstract {
         if (!$data = $this->_cache->load( $key )) {
             $select = $this->select()
                     ->from($this->_name, array(
-                        'id' => 'osID', 'term' => 'CONCAT(label," (",type,")")'
+                        'id' => 'osID', 'term' => new Zend_Db_Expr("CONCAT(label,' (',type,')')")
                         ))
                     ->order('label')
                     ->where('districtID =?', (int) $district);
@@ -80,7 +80,7 @@ class OsParishes extends Pas_Db_Table_Abstract {
         if (!$data = $this->_cache->load( $key )) {
             $select = $this->select()
                     ->from($this->_name, array(
-                        'osID', 'CONCAT(label," (",type,")")'
+                        'osID', new Zend_Db_Expr("CONCAT(label,' (',type,')')")
                         ))
                     ->order('label')
                     ->where('districtID =?', (int) $district);
@@ -99,7 +99,7 @@ class OsParishes extends Pas_Db_Table_Abstract {
         if (!$data = $this->_cache->load( $key )) {
             $select = $this->select()
                     ->from($this->_name, array(
-                        'osID', 'label' => 'CONCAT(label," (",type,")")'
+                        'osID', 'label' => new Zend_Db_Expr("CONCAT(label,' (',type,')')")
                         ))
                     ->order('label DESC')
                     ->where('countyID =?', (int) $county);
@@ -119,7 +119,7 @@ class OsParishes extends Pas_Db_Table_Abstract {
         if (!$data = $this->_cache->load( $key )) {
             $select = $this->select()
                     ->from($this->_name, array(
-                        'osID', 'label' => 'CONCAT(label," (",type,")")'
+                        'osID', 'label' => new Zend_Db_Expr("CONCAT(label,' (',type,')')")
                         ))
                     ->order('label')
                     ->where('regionID =?', (int) $region);

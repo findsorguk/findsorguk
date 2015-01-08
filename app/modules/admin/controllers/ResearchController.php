@@ -65,11 +65,10 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
         $form = new ResearchForm();
         $form->submit->setLabel('Add a project');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->_research->add($form->getValues());
-                $this->getFlash()
-                    ->addMessage('A new research project has been entered.');
+                $this->getFlash()->addMessage('A new research project has been entered.');
                 $this->redirect(self::REDIRECT);
             } else {
                 $form->populate($form->getValues());
@@ -85,13 +84,13 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new ResearchForm();
             $form->submit->setLabel('Submit changes to project');
             $this->view->form = $form;
-            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                if ($form->isValid($form->getValues())) {
-                    $where = $this->_research->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
+                    $where = $this->_research->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->_research->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Research project details updated.');
                     $this->redirect(self::REDIRECT);
@@ -116,8 +115,8 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
         $form = new SuggestedForm();
         $form->submit->setLabel('Add a project');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->_suggested->add($form->getValues());
                 $this->getFlash()->addMessage('A new suggested research project has been entered.');
                 $this->redirect(self::REDIRECT . 'suggested/');
@@ -143,13 +142,13 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
      */
     public function editsuggestedAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new SuggestedForm();
             $form->submit->setLabel('Submit changes to project');
             $this->view->form = $form;
-            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                if ($form->isValid($form->getValues())) {
-                    $where = $this->_suggested->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
+                    $where = $this->_suggested->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->_suggested->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Suggested research project details updated.');
                     $this->redirect(self::REDIRECT . 'suggested/');

@@ -47,7 +47,7 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->view->currentvacs = $this->_vacancies
-            ->getJobsAdmin($this->_getParam('page'));
+            ->getJobsAdmin($this->getParam('page'));
     }
 
     /** Add a new vacancy
@@ -58,13 +58,10 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin
         $form = new VacancyForm();
         $form->submit->setLabel('Add a new vacancy');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() &&
-            $form->isValid($this->_request->getPost())
-        ) {
-            if ($form->isValid($form->getValues())) {
+        if ( $this->getRequest()->isPost() ) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->_vacancies->add($form->getValues());
-                $this->getFlash()->addMessage('Vacancy details created: '
-                    . $form->getValue('title'));
+                $this->getFlash()->addMessage('Vacancy details created: ' . $form->getValue('title'));
                 $this->redirect(self::REDIRECT);
             } else {
                 $form->populate($form->getValues());
@@ -78,14 +75,14 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new VacancyForm();
             $form->submit->setLabel('Update details');
             $this->view->form = $form;
-            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                if ($form->isValid($form->getValues())) {
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
                     $where = array();
-                    $where[] = $this->_vacancies->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->_vacancies->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->_vacancies->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Vacancy details updated!');
                     $this->redirect(self::REDIRECT);
@@ -94,7 +91,7 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin
                 }
             } else {
                 // find id is expected in $params['id']
-                $id = (int)$this->_getParam('id', 0);
+                $id = (int)$this->getParam('id', 0);
                 if ($id > 0) {
                     $vac = $this->_vacancies->fetchRow('id = ' . $id);
                     if (count($vac)) {
@@ -116,7 +113,7 @@ class Admin_VacanciesController extends Pas_Controller_Action_Admin
     public function deleteAction()
     {
         if ($this->_request->isPost()) {
-            $id = (int)$this->_getParam('id');
+            $id = (int)$this->getParam('id');
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . (int)$id;

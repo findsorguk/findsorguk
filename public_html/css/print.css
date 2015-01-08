@@ -22,7 +22,10 @@
 #commentary, 
 .imagebar, 
 .noprint, 
-.btn {
+.btn,
+#resultsSidebar,
+.pagination
+{
 	display:none;
 }
 

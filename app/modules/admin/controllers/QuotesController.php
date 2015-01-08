@@ -46,7 +46,7 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->view->quotes = $this->_quotes->getQuotesAdmin($this->_getParam('page'));
+        $this->view->quotes = $this->_quotes->getQuotesAdmin($this->getParam('page'));
     }
 
     /** Add a new quote
@@ -59,10 +59,8 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin
         $form->details->setLegend('Add a new quote or announcement');
         $form->submit->setLabel('Submit details');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost()
-            && $form->isValid($this->_request->getPost())
-        ) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->_quotes->add($form->getValues());
                 $this->getFlash()->addMessage('New quote/announcement entered');
                 $this->redirect(self::REDIRECT);
@@ -78,19 +76,16 @@ class Admin_QuotesController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new QuoteForm();
             $form->details->setLegend('Edit quote/announcement details');
             $form->submit->setLabel('Submit changes');
             $this->view->form = $form;
-            if ($this->getRequest()->isPost()
-                && $form->isValid($this->_request->getPost())
-            ) {
-                if ($form->isValid($form->getValues())) {
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
                     $where = array();
-                    $where[] = $this->_quotes->getAdapter()->quoteInto('id = ?',
-                        $this->_getParam('id'));
-                    $update = $this->_quotes->update($form->getValues(), $where);
+                    $where[] = $this->_quotes->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
+                    $this->_quotes->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Details updated!');
                     $this->redirect(self::REDIRECT);
                 } else {

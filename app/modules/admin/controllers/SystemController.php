@@ -228,10 +228,10 @@ class Admin_SystemController extends Pas_Controller_Action_Admin
      */
     public function roleAction()
     {
-        $this->view->roles = $this->getRoles()->getRole($this->_getParam('id'));
+        $this->view->roles = $this->getRoles()->getRole($this->getParam('id'));
         $users = new Users();
         $this->view->members = $users->getRolesMembers(
-            $this->_getParam('id'), $this->_getParam('page'));
+            $this->getParam('id'), $this->getParam('page'));
     }
 
     /** Edit a system role
@@ -252,7 +252,7 @@ class Admin_SystemController extends Pas_Controller_Action_Admin
                     'updatedBy' => $this->getIdentityForForms()
                 );
                 $where = array();
-                $where[] = $this->getRoles()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] = $this->getRoles()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $this->getRoles()->update($updateData, $where);
                 $this->getFlash()->addMessage($form->getValue('role') . '\'s details updated.');
                 $this->redirect('/admin/systemroles/');

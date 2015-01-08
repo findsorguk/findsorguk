@@ -11,7 +11,7 @@
  * $curl->setUri('http://finds.org.uk');
  * $curl->getRequest();
  * $code = $curl->getResponseCode();
- * $json = $curl->decodeJson();
+ * $json = $curl->getJson();
  * </code>
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett

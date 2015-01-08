@@ -42,8 +42,8 @@ class Postmedievalcoins_ArticlesController extends Pas_Controller_Action_Admin
      */
     public function pageAction()
     {
-        if ($this->_getParam('slug', false)) {
-            $this->view->contents = $this->_content->getContent('postmedievalcoins', $this->_getParam('slug'));
+        if ($this->getParam('slug', false)) {
+            $this->view->contents = $this->_content->getContent('postmedievalcoins', $this->getParam('slug'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

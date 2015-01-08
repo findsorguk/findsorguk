@@ -48,8 +48,8 @@ class RomanCoins_MintsController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function mintAction() {
-        if($this->_getParam('id',false)) {
-            $id = $this->_getParam('id');
+        if($this->getParam('id',false)) {
+            $id = $this->getParam('id');
             $this->view->rommints = $this->_mints->getMintDetails($id);
             $actives = new Rulers();
             $this->view->actives = $actives->getRomanMintRulerList($id);

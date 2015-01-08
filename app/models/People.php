@@ -44,7 +44,7 @@ class People extends Pas_Db_Table_Abstract {
         $select = $this->select()
                 ->from($this->_name, array(
                     'id' => 'secuid',
-                    'term' => 'CONCAT(fullname," ",ifnull(county,""))'
+                    'term' => new Zend_Db_Expr("CONCAT(fullname,' ',ifnull(county,''))")
                     ))
                 ->where('fullname LIKE ?', '%' . $q . '%')
                 ->order('secuid')
@@ -206,7 +206,7 @@ if (!$data = $this->_cache->load('valuers')) {
         $persons = $this->getAdapter();
         $select = $persons->select()
                 ->from($this->_name,array(
-                    'identifier' => 'CONCAT("people-",people.id)',
+                    'identifier' => new Zend_Db_Expr("CONCAT('people-',people.id)"),
                     'people.id',
                     'fullname',
                     'surname',
@@ -216,8 +216,8 @@ if (!$data = $this->_cache->load('valuers')) {
                     'email',
                     'created',
                     'updated',
-                    'coordinates' => 'CONCAT(people.lat,",",people.lon)',
-                    'place' => 'CONCAT(people.address," ",people.town_city," ",people.county)',
+                    'coordinates' => new Zend_Db_Expr("CONCAT(people.lat,',',people.lon)"),
+                    'place' => new Zend_Db_Expr("CONCAT(people.address,' ',people.town_city,' ',people.county)"),
                     'county',
                     'postcode'
                     ))

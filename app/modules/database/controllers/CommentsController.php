@@ -53,7 +53,7 @@ class Database_CommentsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $comments = $this->getComments()->getCommentsToFinds($this->_getParam('page'));
+        $comments = $this->getComments()->getCommentsToFinds($this->getParam('page'));
         $context = $this->_helper->contextSwitch()->getCurrentContext();
 
         if (in_array($context, array('rss', 'atom'))) {

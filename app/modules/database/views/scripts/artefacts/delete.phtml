@@ -7,9 +7,7 @@ $this->headTitle('Delete find');
     <p>Are you sure that you want to delete
         '<?php echo $this->escape($this->find->objecttype); ?>'
     </p>
-    <form
-        action="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'delete'), null, true); ?>"
-        method="post">
+    <form action="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'delete'), null, true); ?>" method="post">
         <div>
             <input type="hidden" name="id" value="<?php echo $this->find->id; ?>"/>
             <input type="hidden" name="findID" value="<?php echo $this->find->old_findID; ?>"/>

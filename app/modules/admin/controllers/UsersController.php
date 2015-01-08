@@ -72,10 +72,10 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
         $this->view->paginator = $this->getUsers()->getUsersAdmin($this->getAllParams());
         $form = new UserFilterForm();
         $this->view->form = $form;
-        $form->username->setValue($this->_getParam('username'));
-        $form->fullname->setValue($this->_getParam('fullname'));
-        $form->role->setValue($this->_getParam('role'));
-        if ($this->_request->isPost() && !is_null($this->_getParam('submit'))) {
+        $form->username->setValue($this->getParam('username'));
+        $form->fullname->setValue($this->getParam('fullname'));
+        $form->role->setValue($this->getParam('role'));
+        if ($this->_request->isPost() && !is_null($this->getParam('submit'))) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $params = $this->getArrayFunctions()->array_cleanup($formData);
@@ -100,8 +100,8 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
      */
     public function accountAction()
     {
-        if ($this->_getParam('username', false)) {
-            $this->view->users = $this->getUsers()->findUserAccount((string)$this->_getParam('username'));
+        if ($this->getParam('username', false)) {
+            $this->view->users = $this->getUsers()->findUserAccount((string)$this->getParam('username'));
         } else {
             throw new Pas_Exception_Param('Parameter not found');
         }
@@ -114,7 +114,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new EditAccountForm();
             $form->submit->setLabel('Edit account details');
             $form->removeElement('password');
@@ -122,7 +122,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
             if ($this->_request->isPost()) {
                 $formData = $this->_request->getPost();
                 if ($form->isValid($formData)) {
-                    $id = (int)$this->_getParam('id');
+                    $id = (int)$this->getParam('id');
                     $updateData = array(
                         'username' => $form->getValue('username'),
                         'first_name' => $form->getValue('first_name'),
@@ -139,15 +139,15 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                     );
                     $where = array();
                     $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $id);
-                    $oldData = $this->getUsers()->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    $oldData = $this->getUsers()->fetchRow('id=' . $this->getParam('id'))->toArray();
                     $this->getUsers()->update($updateData, $where);
 
                     $this->_helper->audit(
                         $updateData,
                         $oldData,
                         'UsersAudit',
-                        $this->_getParam('id'),
-                        $this->_getParam('id')
+                        $this->getParam('id'),
+                        $this->getParam('id')
                     );
                     $this->getFlash()->addMessage('You updated: <em>'
                         . $form->getValue('fullname')
@@ -246,7 +246,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
      */
     public function upgradesAction()
     {
-        $this->view->users = $this->getUsers()->getUpgrades($this->_getParam('page'));
+        $this->view->users = $this->getUsers()->getUpgrades($this->getParam('page'));
     }
 
     /** Upgrade a user's account to research status
@@ -255,15 +255,13 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
      */
     public function upgradeAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
             $form = new AcceptUpgradeForm();
             $form->role->removeMultiOption('admin');
             $this->view->form = $form;
-            if ($this->getRequest()->isPost()
-                && $form->isValid($this->_request->getPost())
-            ) {
-                if ($form->isValid($form->getValues())) {
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
                     $approvalData = array(
                         'status' => 'approved',
                         'message' => $form->getValue('message'),
@@ -331,8 +329,8 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
      */
     public function rejectAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
             $form = new RejectUpgradeForm();
             $this->view->form = $form;
             if ($this->_request->isPost()) {

@@ -151,7 +151,7 @@ class TokenJettonForm extends Pas_Form {
 		->setAttribs(array('rows' => 3, 'cols' => 80, 'class' => 'span6'));
 
 	$reverse_mintmark = new Zend_Form_Element_Textarea('reverse_mintmark');
-	$reverse_mintmark->setLabel('Reverse mintmark: ')
+	$reverse_mintmark->setLabel('Reverse mint mark: ')
 		->addValidators(array('NotEmpty'))
 		->setAttribs(array('rows' => 3, 'cols' => 80, 'class' => 'span6'))
 		->addFilters(array('StripTags', 'StringTrim'));

@@ -1,9 +1,9 @@
-<?php echo $this->partialLoop('partials/numismatics/romanDenom.phtml', $this->denoms); ?>
+<?php echo $this->partialLoop('partials/numismatics/roman/romanDenomination.phtml', $this->denoms); ?>
 
     <h3 class="lead">Issued by</h3>
 <?php if (!empty($this->rulers)): ?>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulerDenom.phtml', $this->rulers); ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/rulerDenomination.phtml', $this->rulers); ?>
     </ul>
 <?php else: ?>
     <p>No rulers listed.</p>

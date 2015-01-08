@@ -8,9 +8,6 @@
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses Zend_View_Helper_Abstract
- * @todo Change the curl method to zend_http?
- * @todo change to YQL tables?
- * @todo change the view helper to pass in key as a parameter in the construct function?
  * @author Daniel Pett
  * @since September 13 2011
  * @see http://www.theyworkforyou.com/api/ for documentation of their api.
@@ -34,36 +31,56 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract
      */
     protected $_twfykey;
 
-    /** The config object
-     * @access protected
-     * @var \Zend_Config
+    /** The mp id number
+     * @var int
      */
-    protected $_config;
+    protected $_id;
 
-    /** Construct the cache, config and retrieve the api key
-     * @access public
-     * @return void
+    /** Get the id key
+     * @return mixed
      */
-    public function __construct()
+    public function getId()
     {
-        $this->_cache = Zend_Registry::get('cache');
-        $this->_config = Zend_Registry::get('config');
-        $this->_twfykey = $this->_config->webservice->twfy->apikey;
+        return $this->_id;
     }
 
-    /** Retrieve the URL's content via curl
+    /** Set the id key
      * @access public
-     * @param string $url
-     *
+     * @param mixed $id
      */
-    public function get($url)
+    public function setId($id)
     {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);
-        curl_close($ch);
-        return $output;
+        $this->_id = $id;
+        return $this;
+    }
+
+    /** Get the cache
+     * @access public
+     * @return \Zend_Cache
+     */
+    public function getCache()
+    {
+        $this->_cache = Zend_Registry::get('cache');
+        return $this->_cache;
+    }
+
+    /** Get the api key
+     * @access public
+     * @return string
+     */
+    public function getTwfykey()
+    {
+        $this->_twfykey = Zend_Registry::get('config')->webservice->twfy->apikey;
+        return $this->_twfykey;
+    }
+
+    /** Set the api key
+     * @param \Zend_Config $twfykey
+     */
+    public function setTwfykey($config)
+    {
+        $this->_twfykey = $config;
+        return $this;
     }
 
     /** Call the they work for you api, caches response
@@ -72,15 +89,17 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract
      * @return array
      */
 
-    public function callapi($id)
+    public function callApi($id)
     {
-        if (!($this->_cache->test('mptwfy' . $id))) {
-            $twfy = 'http://www.theyworkforyou.com/api/getPerson?key='
-                . $this->_twfykey . '&id=' . $id . '&output=js';
-            $data = json_decode($this->get($twfy));
-            $this->_cache->save($data);
+        if (!($this->getCache()->test('mptwfy' . $id))) {
+            $twfy = 'http://www.theyworkforyou.com/api/getPerson?key=' . $this->getTwfykey() . '&id=' . $id . '&output=js';
+            $curl = new Pas_Curl();
+            $curl->setUri($twfy);
+            $curl->getRequest();
+            $data = $curl->getJson();
+            $this->getCache()->save($data);
         } else {
-            $data = $this->_cache->load('mptwfy' . $id);
+            $data = $this->getCache()->load('mptwfy' . $id);
         }
         return $data;
     }
@@ -90,14 +109,14 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract
      * @param integer $id The MP or Lord's ID number
      * @return string
      */
-    public function twfyImage($id = null)
+    public function twfyImage()
     {
-        if (isset($id)) {
-            $data = $this->callapi($id);
-            return $this->buildHtml($data);
-        } else {
-            return false;
-        }
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->buildHtml($this->callapi($this->getId()));
     }
 
     /** Build the HTML for return
@@ -106,11 +125,16 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract
      */
     public function buildHtml($data)
     {
-        if (!is_null($data['0']->image)) {
-            $html = '<img src="http://www.theyworkforyou.com/';
-            $html .= $data['0']->image . '" class="flow" alt="Profile picture for ';
-            $html .= $data['0']->full_name . '" height="' . $data['0']->image_height;
-            $html .= '" width="' . $data['0']->image_width . '"/>';
+        $html = '';
+        $data = array_slice($data, 0, 1);
+        foreach ($data as $mp) {
+            if (array_key_exists('image', $mp)) {
+                $html .= '<img src="http://www.theyworkforyou.com/';
+                $html .= $mp->image . '" class="flow" alt="Profile picture for ';
+                $html .= $mp->full_name . '" height="' . $mp->image_height;
+                $html .= '" width="' . $mp->image_width . '"/>';
+            }
+
         }
         return $html;
     }

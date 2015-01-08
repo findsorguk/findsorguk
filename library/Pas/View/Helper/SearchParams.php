@@ -155,9 +155,10 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
     public function htmlRender($params)
     {
         $html = '<p>You searched for: ';
+        $searches = array();
         if (!empty($params)) {
             $html .= '</p><ul>';
-            $searches = array();
+
             foreach ($params as $k => $v) {
                 switch ($k) {
                     case 'fromdate':

@@ -57,8 +57,8 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
     public function renderForm()
     {
         $form = new DatePickerForm();
-        $form->datefrom->setValue($this->_getParam('datefrom'));
-        $form->dateto->setValue($this->_getParam('dateto'));
+        $form->datefrom->setValue($this->getParam('datefrom'));
+        $form->dateto->setValue($this->getParam('dateto'));
         $form->submit->setLabel('Search');
         $form->setMethod('post');
         return $form;
@@ -70,7 +70,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $date = $this->_getParam('date') ? $this->_getParam('date') : $this->getTimeForForms();
+        $date = $this->getParam('date') ? $this->getParam('date') : $this->getTimeForForms();
         $calendar = new Calendar($date);
         $cases = $this->_finds->getFindsByDay();
         $lists = array();
@@ -98,9 +98,9 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
      */
     public function annualAction()
     {
-        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom')
+        $datefrom = $this->getParam('datefrom') ? $this->getParam('datefrom')
             : Zend_Date::now()->toString('yyyy') . '-01-01';
-        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto')
+        $dateto = $this->getParam('dateto') ? $this->getParam('dateto')
             : Zend_Date::now()->toString('yyyy-MM-dd');
         $this->view->annualsum = $this->_finds->getReportTotals($datefrom, $dateto);
         $this->view->officers = $this->_finds->getOfficerTotals($datefrom, $dateto);
@@ -132,11 +132,11 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
      */
     public function countyAction()
     {
-        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom')
+        $datefrom = $this->getParam('datefrom') ? $this->getParam('datefrom')
             : Zend_Date::now()->toString('yyyy') . '-01-01';
-        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto')
+        $dateto = $this->getParam('dateto') ? $this->getParam('dateto')
             : Zend_Date::now()->toString('yyyy-MM-dd');
-        $county = $this->_getParam('county');
+        $county = $this->getParam('county');
         $this->view->county = $county;
         $this->view->datefrom = $datefrom;
         $this->view->dateto = $dateto;
@@ -176,11 +176,11 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
      */
     public function regionalAction()
     {
-        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom')
+        $datefrom = $this->getParam('datefrom') ? $this->getParam('datefrom')
             : Zend_Date::now()->toString('yyyy') . '-01-01';
-        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto')
+        $dateto = $this->getParam('dateto') ? $this->getParam('dateto')
             : Zend_Date::now()->toString('yyyy-MM-dd');
-        $region = $this->_getParam('region');
+        $region = $this->getParam('region');
         $this->view->region = $region;
         $this->view->datefrom = $datefrom;
         $this->view->dateto = $dateto;
@@ -220,11 +220,11 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
      */
     public function institutionAction()
     {
-        $datefrom = $this->_getParam('datefrom') ? $this->_getParam('datefrom')
+        $datefrom = $this->getParam('datefrom') ? $this->getParam('datefrom')
             : Zend_Date::now()->toString('yyyy') . '-01-01';
-        $dateto = $this->_getParam('dateto') ? $this->_getParam('dateto')
+        $dateto = $this->getParam('dateto') ? $this->getParam('dateto')
             : Zend_Date::now()->toString('yyyy-MM-dd');
-        $institution = $this->_getParam('institution');
+        $institution = $this->getParam('institution');
         $this->view->institution = $institution;
         if (!isset($institution)) {
             $this->view->institutions = $this->_finds->getInstitutions($datefrom, $dateto);

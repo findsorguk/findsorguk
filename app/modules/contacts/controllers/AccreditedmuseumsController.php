@@ -50,7 +50,7 @@ class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin
      */
     public function museumAction()
     {
-        $this->view->museum = $this->_accredited->fetchRow('id = ' . $this->_getParam('id'));
+        $this->view->museum = $this->_accredited->fetchRow('id = ' . $this->getParam('id'));
     }
 
     /** Map the museums

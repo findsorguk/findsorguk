@@ -1,6 +1,6 @@
 <?php
 $params = unserialize($this->searchString);
-if($params == NULL) {
+if ($params == NULL) {
     $params = array('module' => 'database', 'controller' => 'search', 'action' => 'results');
 }
 $url = $this->url($params, null, true);
@@ -8,10 +8,10 @@ $url = $this->url($params, null, true);
 <div class="row-fluid">
     <?php
     echo $this->gravatar($this->email, array(
-            'imgSize' => 40,
-            'defaultImg' => $this->serverUrl() . $this->baseUrl()
-                . '/assets/gravatar.png',
-            'secure' => true),
+        'imgSize' => 40,
+        'defaultImg' => $this->serverUrl() . $this->baseUrl()
+            . '/assets/gravatar.png',
+        'secure' => true),
         array(
             'class' => 'avatar pull-left stelae img-circle',
             'title' => $this->username . '\'s gravatar representation',
@@ -20,8 +20,11 @@ $url = $this->url($params, null, true);
             'height' => 40)
     );
     ?>    <a href="<?php echo $url; ?>"
-       title="Permanent link"><?php echo strip_tags($this->title); ?></a>: <?php echo $this->searchDescription; ?><br/>
-    Created by username: <a href="/users/named/person/as/<?php echo $this->username; ?>"><?php echo $this->username; ?></a> Search saved for reuse: <span class="published timestamp"
-                                                                                     data="{time:'<?php echo date('W3C', $this->created); ?>'}">
+             title="Permanent link"><?php echo strip_tags($this->title); ?></a>: <?php echo $this->searchDescription; ?>
+    <br/>
+    Created by username: <a
+        href="/users/named/person/as/<?php echo $this->username; ?>"><?php echo $this->username; ?></a> Search saved for
+    reuse: <span class="published timestamp"
+                 data="{time:'<?php echo date('W3C', $this->created); ?>'}">
 <?php echo $this->timeAgoInWords($this->created); ?></span>
 </div>

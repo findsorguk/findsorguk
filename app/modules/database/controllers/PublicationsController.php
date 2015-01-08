@@ -78,7 +78,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
 
         if ($this->getRequest()->isPost()
             && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
+            && !is_null($this->getParam('submit'))
         ) {
 
             if ($form->isValid($form->getValues())) {
@@ -112,8 +112,8 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
      */
     public function publicationAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->publications = $this->getPublications()->getPublicationDetails($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->publications = $this->getPublications()->getPublicationDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -154,13 +154,13 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
             if ($form->isValid($this->_request->getPost())) {
                 $updateData = $form->getValues();
                 $where = array();
-                $where[] = $this->getPublications()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] = $this->getPublications()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $this->getPublications()->update($updateData, $where);
-                $this->_helper->solrUpdater->update('publications', $this->_getParam('id'));
+                $this->_helper->solrUpdater->update('publications', $this->getParam('id'));
                 $this->getFlash()->addMessage('Details for "'
                     . $form->getValue('title') . '" updated!');
                 $this->redirect(self::REDIRECT . 'publication/id/'
-                    . $this->_getParam('id'));
+                    . $this->getParam('id'));
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -180,14 +180,14 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = array();
                     $where[] = $this->getPublications()->getAdapter()
-                        ->quoteInto('id = ?', $this->_getParam('id'));
+                        ->quoteInto('id = ?', $this->getParam('id'));
                     $this->getFlash()->addMessage('Record deleted!');
                     $this->getPublications()->delete($where);
                     $this->_helper->solrUpdater->deleteById('publications', $id);
@@ -196,7 +196,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {
-                    $this->view->publication = $this->getPublications()->fetchRow('id= ' . (int)$this->_getParam('id'));
+                    $this->view->publication = $this->getPublications()->fetchRow('id= ' . (int)$this->getParam('id'));
                 }
             }
         } else {

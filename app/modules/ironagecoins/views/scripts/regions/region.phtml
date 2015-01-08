@@ -1,8 +1,8 @@
-<?php echo $this->partialLoop('partials/numismatics/ironAgeRegion.phtml', $this->regions); ?>
+<?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeRegion.phtml', $this->regions); ?>
 <h3 class="lead">Denominations issued in this region</h3>
 <?php if (!empty($this->denominations)): ?>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/ironAgeDenominations.phtml', $this->denominations); ?>
+        <?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeDenominations.phtml', $this->denominations); ?>
     </ul>
 <?php else: ?>
     <p>There are no denominations listed for this region.</p>
@@ -12,7 +12,7 @@
     <h3 class="lead">Issuing rulers in this region</h3>
 
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/ironAgeRulers.phtml', $this->rulers); ?>
+        <?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeRulers.phtml', $this->rulers); ?>
     </ul>
 <?php else: ?>
     <p>There are no rulers listed for this region.</p>

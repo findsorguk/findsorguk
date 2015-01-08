@@ -52,10 +52,8 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
         $search->setFields(array('*'));
         $search->setFacets(array('county', 'district'));
 
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-        ) {
-
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost() ) {
+            if ($form->isValid($this->_request->getPost())) {
                 $params = $form->getValues();
                 unset($params['csrf']);
                 $this->_helper->Redirector->gotoSimple('index', 'smr', 'datalabs', $params);
@@ -86,9 +84,9 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
      */
     public function oneto50kAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $gazetteers = new OsData();
-            $this->view->gazetteer = $gazetteers->getGazetteer($this->_getParam('id'));
+            $this->view->gazetteer = $gazetteers->getGazetteer($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -98,8 +96,8 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
      */
     public function recordAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->smrs = $this->getSmrs()->getSmrDetails($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->smrs = $this->getSmrs()->getSmrDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -109,9 +107,9 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
      */
     public function bywoeidAction()
     {
-        if ($this->_getParam('number', false)) {
-            $this->view->woeid = $this->_getParam('number');
-            $this->view->smrs = $this->getSmrs()->getSmrsByWoeid($this->_getParam('number'), $this->_getParam('page'));
+        if ($this->getParam('number', false)) {
+            $this->view->woeid = $this->getParam('number');
+            $this->view->smrs = $this->getSmrs()->getSmrsByWoeid($this->getParam('number'), $this->getParam('page'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

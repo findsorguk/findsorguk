@@ -1,4 +1,5 @@
 <?php
+
 /** Base class for interfacing with the theyworkforyou api
  *
  * An example of code use:
@@ -8,7 +9,7 @@
  * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
- * @see theyworkforyou.com/api
+ * @see  theyworkforyou.com/api
  * @since 1/2/2012
  * @uses Zend_Cache
  * @uses Zend_Http_Client
@@ -18,23 +19,24 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example path description
  */
-class Pas_Twfy {
+class Pas_Twfy
+{
 
     /** The base url for api calls to twfy
-    *
-    */
+     *
+     */
     const TWFYURL = 'http://www.theyworkforyou.com/api/';
 
     /** Set the type of response to retrieve
-    * @access protected
-    * @var string $format
-    */
+     * @access protected
+     * @var string $format
+     */
     protected $_format = 'js';
 
     /** Set up the cache
-    * @access protected
-    * @var \Zend_Cache
-    */
+     * @access protected
+     * @var \Zend_Cache
+     */
     protected $_cache;
 
     /** The api key
@@ -47,7 +49,8 @@ class Pas_Twfy {
      * @access public
      * @param string $key
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->_apikey = Zend_Registry::get('config')->webservice->twfy->apikey;
         $this->_cache = Zend_Registry::get('cache');
     }
@@ -58,20 +61,21 @@ class Pas_Twfy {
      * @param array $params
      * @return type
      */
-    public function get($method, array $params) {
-        $url = $this->createUrl($method,$params);
+    public function get($method, $params)
+    {
+        $url = $this->createUrl($method, $params);
         if (!($this->_cache->test(md5($url)))) {
             $config = array(
 
-                'adapter'   => 'Zend_Http_Client_Adapter_Curl',
+                'adapter' => 'Zend_Http_Client_Adapter_Curl',
                 'curloptions' => array(
-                    CURLOPT_POST =>  true,
-                    CURLOPT_USERAGENT =>  $_SERVER["HTTP_USER_AGENT"],
+                    CURLOPT_POST => true,
+                    CURLOPT_USERAGENT => $_SERVER["HTTP_USER_AGENT"],
                     CURLOPT_FOLLOWLOCATION => true,
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_LOW_SPEED_TIME => 1,
-                    ),
-                );
+                ),
+            );
             $client = new Zend_Http_Client($url, $config);
             $response = $client->request();
             $data = $response->getBody();
@@ -89,11 +93,12 @@ class Pas_Twfy {
      * @return string
      * @throws Pas_Twfy_Exception
      */
-    public function createUrl($method, array $params){
-        if(is_array($params)){
+    public function createUrl($method, array $params)
+    {
+        if (is_array($params)) {
             return self::TWFYURL . $method . '?' . http_build_query($params);
         } else {
-            throw new Pas_Twfy_Exception('Parameters have to be an array',500);
+            throw new Pas_Twfy_Exception('Parameters have to be an array', 500);
         }
     }
 }

@@ -29,7 +29,7 @@ class Analytics_MobileController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);
@@ -45,7 +45,7 @@ class Analytics_MobileController extends Pas_Controller_Action_Admin {
         $analytics->setMax(500);
         $analytics->setSort(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS);
         $analytics->setSortDirection(true);
-        switch($this->_getParam('segment')){
+        switch($this->getParam('segment')){
             case 'mobile':
                 $analytics->setSegment(Pas_Analytics_Gateway::SEGMENT_MOBILE_TRAFFIC);
                 break;
@@ -64,7 +64,7 @@ class Analytics_MobileController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);

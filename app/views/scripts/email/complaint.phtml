@@ -1,9 +1,9 @@
-<?php 
-$this->mail->setSubject('A complaint has been submitted by ' . $this->escape($this->comment_author) );
+<?php
+$this->mail->setSubject('A complaint has been submitted by ' . $this->escape($this->comment_author));
 ?>
-<p>Dear <?php echo $this->escape($this->comment_author);?>,</p>
+<p>Dear <?php echo $this->escape($this->comment_author); ?>,</p>
 <p>This complaint about the Scheme has been submitted:</p>
-<?php echo $this->purify()->setValue($this->comment_content);?>
+<?php echo $this->purify()->setValue($this->comment_content); ?>
 
-<p>Sent to us by: <?php echo $this->escape($this->comment_author);?>, 
-with the email address of <?php echo $this->escape($this->comment_author_email);?></p>
+<p>Sent to us by: <?php echo $this->escape($this->comment_author); ?>,
+    with the email address of <?php echo $this->escape($this->comment_author_email); ?></p>

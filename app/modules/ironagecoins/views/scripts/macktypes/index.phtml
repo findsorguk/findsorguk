@@ -8,7 +8,7 @@ $this->metaBase()->setSubject('Iron Age Numismatics')
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php if (!empty($this->macks)): ?>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/mackTypes.phtml', $this->macks); ?>
+        <?php echo $this->partialLoop('partials/numismatics/ironAge/mackTypes.phtml', $this->macks); ?>
     </ul>
     <?php echo $this->paginationControl($this->macks, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else: ?>

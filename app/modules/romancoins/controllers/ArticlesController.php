@@ -46,6 +46,6 @@ class Romancoins_ArticlesController extends Pas_Controller_Action_Admin
      */
     public function pageAction()
     {
-        $this->view->contents = $this->_content->getContent('romancoins', $this->_getParam('slug'));
+        $this->view->contents = $this->_content->getContent('romancoins', $this->getParam('slug'));
     }
 }

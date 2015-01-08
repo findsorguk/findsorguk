@@ -1,0 +1,40 @@
+<h4 class="lead">Dimensions and weight</h4>
+<p>
+    Quantity: <span property="pas:quantity"
+                    datatype="xsd:decimal"><?php echo $this->escape($this->quantity); ?></span>
+    <?php if (!is_null($this->length)): ?>
+        <br/>
+        Length: <span property="pas:length"
+                      datatype="units:mm"><?php echo $this->escape($this->length); ?></span> mm
+    <?php endif; ?>
+
+    <?php if (!is_null($this->height)) : ?>
+        <br/>
+        Height: <span property="pas:height"
+                      datatype="units:mm"><?php echo $this->escape($this->height); ?></span> mm
+    <?php endif; ?>
+
+    <?php if (!is_null($this->width)) : ?>
+        <br/>
+        Width:  <span property="pas:width" datatype="units:mm"><?php echo $this->escape($this->width); ?></span> mm
+    <?php endif; ?>
+
+    <?php if (!is_null($this->thickness)) : ?>
+        <br/>
+        Thickness: <span property="pas:thickness"
+                         datatype="units:mm"><?php echo $this->escape($this->thickness); ?></span> mm
+    <?php endif; ?>
+
+    <?php if (!is_null($this->weight)) : ?>
+        <br/>
+        Weight: <span property="pas:weight" datatype="units:g"><?php echo $this->escape($this->weight); ?></span> g
+    <?php endif; ?>
+
+    <?php if (!is_null($this->diameter)) : ?>
+        <br/>
+        Diameter:  <span property="pas:diameter"
+                         datatype="units:mm"><?php echo $this->escape($this->diameter); ?></span> mm
+    <?php endif; ?>
+
+
+</p>

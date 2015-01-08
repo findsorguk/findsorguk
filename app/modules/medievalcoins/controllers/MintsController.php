@@ -44,8 +44,8 @@ class MedievalCoins_MintsController extends Pas_Controller_Action_Admin {
     /** Individual mint page
     */	
     public function mintAction() {
-        if($this->_getParam('id',false)) {
-            $id = $this->_getParam('id');
+        if($this->getParam('id',false)) {
+            $id = $this->getParam('id');
             $this->view->mints = $this->_mints->getMintDetails($id);
             $actives = new Rulers();
             $this->view->actives = $actives->getMedievalMintRulerList($id);

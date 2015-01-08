@@ -10,7 +10,7 @@ $this->dataEditDeleteCheck()->setInstitution($this->find->institution)
     ->setFindID($this->find->id)
     ->sesame();
 ?>
-<?php echo $this->partial('partials/database/editFindH2.phtml', $this->find); ?>
+<?php echo $this->partial('partials/database/structural/editFindH2.phtml', $this->find); ?>
 
 <?php echo $this->form; ?>
 <?php

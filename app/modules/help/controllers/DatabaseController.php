@@ -33,7 +33,7 @@ class Help_DatabaseController extends Pas_Controller_Action_Admin {
      */
     public function indexAction() {
         $this->view->help = $this->_help->getTopics(
-                $this->_getParam('page'),
+                $this->getParam('page'),
                 'databasehelp'
                 );
     }
@@ -45,7 +45,7 @@ class Help_DatabaseController extends Pas_Controller_Action_Admin {
     public function topicAction() {
         $this->view->help = $this->_help->getTopic(
                 'databasehelp',
-                $this->_getParam('id')
+                $this->getParam('id')
                 );
     }
 	

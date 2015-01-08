@@ -117,7 +117,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
             ));
         $search->setFacets(array('licenseAcronym','broadperiod','county', 'objecttype','institution'));
         if($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))){
+            && !is_null($this->getParam('submit'))){
         //Check if valid
             if ($form->isValid($form->getValues())) {
                 $params = $this->_arrayTools->array_cleanup($form->getValues());
@@ -155,9 +155,9 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
      * @throws Exception
      */
     public function imageAction() {
-        if($this->_getParam('id',false)) {
-            $this->view->images = $this->_images->getImage((int)$this->_getParam('id'));
-            $this->view->finds = $this->_images->getLinkedFinds((int)$this->_getParam('id'));
+        if($this->getParam('id',false)) {
+            $this->view->images = $this->_images->getImage((int)$this->getParam('id'));
+            $this->view->finds = $this->_images->getLinkedFinds((int)$this->getParam('id'));
         } else {
             throw new Pas_Exception_Param('No parameter found on the url string', 500);
         }
@@ -168,7 +168,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function editAction() {
-        if($this->_getParam('id',0)) {
+        if($this->getParam('id',0)) {
             $form = new ImageEditForm();
             $form->submit->setLabel('Update image..');
             $this->view->form = $form;
@@ -176,7 +176,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 $formData = $this->_request->getPost();
                 if ($form->isValid($formData)) {
                 $updateData = $form->getValues();
-                $where =  $this->_images->getAdapter()->quoteInto('imageID = ?', $this->_getParam('id'));
+                $where =  $this->_images->getAdapter()->quoteInto('imageID = ?', $this->getParam('id'));
                 $rotate = $form->getValue('rotate');
                 $filename = $form->getValue('filename');
                 $imagedir = $form->getValue('imagedir');
@@ -187,7 +187,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 $smallpath = './'.$imagedir.'small/';
                 $displaypath = './'.$imagedir.'display/';
                 $thumbpath = IMAGE_PATH. 'thumbnails/';
-                $id = $this->_getParam('id');
+                $id = $this->getParam('id');
                 $name = substr($filename, 0, strrpos($filename, '.'));
                 $ext = '.jpg';
                 if(isset($rotate)) {
@@ -249,9 +249,9 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 }
 
                 $this->_images->update($updateData, $where);
-                $this->_helper->solrUpdater->update('images', $this->_getParam('id'));
+                $this->_helper->solrUpdater->update('images', $this->getParam('id'));
                 $this->getFlash()->addMessage('Image and metadata updated!');
-                $this->redirect(self::REDIRECT . 'image/id/' . $this->_getParam('id'));
+                $this->redirect(self::REDIRECT . 'image/id/' . $this->getParam('id'));
                 } else {
                     $form->populate($form->getValues());
                 }
@@ -322,14 +322,14 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function linkAction() {
-        if($this->_getParam('imageID',false)) {
+        if($this->getParam('imageID',false)) {
             $form = new ImageLinkForm();
             $this->view->form = $form;
             if ($this->_request->isPost()) {
                 $formData = $this->_request->getPost();
                 if ($form->isValid($formData)) {
                     $updateData = array();
-                    $updateData['image_id'] = $this->_getParam('imageID');
+                    $updateData['image_id'] = $this->getParam('imageID');
                     $updateData['find_id'] = $form->getValue('findID');
                     $updateData['secuid'] = $this->secuid();
                     $updateData['created'] = $this->getTimeForForms();
@@ -354,9 +354,9 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function unlinkAction() {
-        if($this->_getParam('returnID',false)) {
-            $this->view->findID = $this->_getParam('secuid');
-            $this->view->returnID = $this->_getParam('returnID');
+        if($this->getParam('returnID',false)) {
+            $this->view->findID = $this->getParam('secuid');
+            $this->view->returnID = $this->getParam('returnID');
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $del = $this->_request->getPost('del');
@@ -373,7 +373,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
                 //	$this->_helper->solrUpdater->update('images', $imageID);
                     $this->_helper->solrUpdater->update('objects', $findID);
                     $this->getFlash()->addMessage('Links deleted!');
-                    $this->redirect('/database/artefacts/record/id/' . $this->_getParam('returnID'));
+                    $this->redirect('/database/artefacts/record/id/' . $this->getParam('returnID'));
                 }
             } else {
                 $id = (int)$this->_request->getParam('id');
@@ -393,8 +393,8 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function zoomAction() {
-        if($this->_getParam('id',false)) {
-            $imageID = $this->_getParam('id');
+        if($this->getParam('id',false)) {
+            $imageID = $this->getParam('id');
             $imagedata = $this->_images->getFileName($imageID);
             $this->view->data = $imagedata;
             $zoomdir = 'zoom/';

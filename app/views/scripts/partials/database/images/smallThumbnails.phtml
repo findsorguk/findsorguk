@@ -1,0 +1,33 @@
+<?php
+/**
+ * A partial view for displaying small thumbnails of images
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ */
+?>
+<div>
+    <?php if (file_exists(IMAGE_PATH . '/' . $this->username . $this->f)): ?>
+        <?php $thumbnail = IMAGE_PATH . '/thumbnails/' . $this->thumbnail . '.jpg';
+        echo $thumbnail; ?>
+        <?php list($w, $h) = getimagesize($thumbnail); ?>
+        <a href="<?php echo $this->baseUrl(); ?><?php echo $this->imagedir; ?>medium/<?php rawurlencode($this->f); ?>"
+           rel="lightbox"><img class="img img-polaroid"
+                               src="<?php echo $this->baseUrl(); ?>/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
+                               width="<?php echo $w; ?>" height="<?php echo $h; ?>"/></a>
+        <br/>
+        <a class="btn btn-small" href="<?php echo $this->url(array(
+            'module' => 'database',
+            'controller' => 'images',
+            'action' => 'image',
+            'id' => $this->i), null, true); ?>"
+           title="View and edit image meta data">View <i class="icon-picture"></i></a>
+    <?php else: ?>
+        <hr />
+        <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" class="img img-circle pull-right" width="25px"
+             height="25px"/>
+        That image (filename: <?php echo $this->f; ?>) is unavailable right now (Error code 404).
+
+    <?php endif; ?>
+</div>

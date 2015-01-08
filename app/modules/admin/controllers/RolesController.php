@@ -53,8 +53,8 @@ class Admin_RolesController extends Pas_Controller_Action_Admin
      */
     public function roleAction()
     {
-        $this->view->roles = $this->_staffroles->getRole($this->_getParam('id'));
-        $this->view->members = $this->_staffroles->getMembers($this->_getParam('id'));
+        $this->view->roles = $this->_staffroles->getRole($this->getParam('id'));
+        $this->view->members = $this->_staffroles->getMembers($this->getParam('id'));
     }
 
     /** Add a role
@@ -65,10 +65,8 @@ class Admin_RolesController extends Pas_Controller_Action_Admin
     {
         $form = new StaffRoleForm();
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() &&
-            $form->isValid($this->_request->getPost())
-        ) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->_staffroles->add($form->getValues());
                 $this->getFlash()->addMessage('A new staff role has been created.');
                 $this->redirect($this->_redirectUrl);
@@ -86,23 +84,18 @@ class Admin_RolesController extends Pas_Controller_Action_Admin
     {
         $form = new StaffRoleForm();
         $this->view->form = $form;
-        if ($this->getRequest()->isPost()
-            && $form->isValid($this->_request->getPost())
-        ) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $where = array();
-                $where[] = $this->_staffroles->getAdapter()->quoteInto('id = ?',
-                    $this->_getParam('id'));
+                $where[] = $this->_staffroles->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $this->_staffroles->update($form->getValues(), $where);
-                $this->getFlash()->addMessage($form->getValue('role')
-                    . '\'s details updated.');
+                $this->getFlash()->addMessage($form->getValue('role') . '\'s details updated.');
                 $this->redirect($this->_redirectUrl);
             } else {
                 $form->populate($form->getValues());
             }
         } else {
-            $form->populate($this->_staffroles->fetchRow('id='
-                . $this->_getParam('id'))->toArray());
+            $form->populate($this->_staffroles->fetchRow('id=' . $this->getParam('id'))->toArray());
         }
     }
 

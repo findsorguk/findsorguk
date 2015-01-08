@@ -65,7 +65,6 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
         $this->_helper->_acl->deny('public', null);
         $this->_helper->_acl->allow('member', array('index'));
         $this->_helper->_acl->allow('member', array('add', 'delete', 'edit'));
-        $this->_archaeology = new Archaeology();
     }
 
     /** The index page with no root access
@@ -89,12 +88,12 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
     public function addAction()
     {
         // Check if data already added, if so redirect back.
-        if ($this->getModel()->fetchRow('id=' . $this->_getParam('id'))) {
+        if ($this->getModel()->fetchRow('id=' . $this->getParam('id'))) {
             $this->getFlash()->addMessage('Archaeological context already exists on record');
             // Redirect back to the record
             $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
         }
-        if ($this->_getParam('id', false) || $this->_getParam('hoardID', false)) {
+        if ($this->getParam('id', false) || $this->getParam('hoardID', false)) {
             $form = $this->getArchaeologyForm();
             $form->submit->setLabel('Add archaeological context');
             $this->view->form = $form;
@@ -102,7 +101,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 // Get data
                 $data = $form->getValues();
-                $data['hoardID'] = $this->_getParam('hoardID');
+                $data['hoardID'] = $this->getParam('hoardID');
                 // Add the data
                 $this->getModel()->add($data);
                 //Add a flash message
@@ -127,7 +126,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
     public function editAction()
     {
         //Check if parameter for ID exists
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = $this->getArchaeologyForm();
             // Check if the id parameter exists
             $form->submit->setLabel('Edit archaeological context');
@@ -138,9 +137,9 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     // Create where clause array
                     $where = array();
-                    $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     // Set up auditing by grabbing old data
-                    $oldData = $this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    $oldData = $this->getModel()->fetchRow('id=' . $this->getParam('id'))->toArray();
                     // Get the data and update based on where value
                     $this->getModel()->update($form->getValues(), $where);
                     // Perform comparison audit between old and new data
@@ -163,7 +162,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                 }
             } else {
                 // If GET, then populate with data from model
-                $form->populate($this->getModel()->fetchRow('id=' . $this->_getParam('id'))->toArray());
+                $form->populate($this->getModel()->fetchRow('id=' . $this->getParam('id'))->toArray());
             }
         } else {
             // As parameter missing, throw exception and set code
@@ -188,7 +187,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                 $where[] = $this->getModel()->getAdapter()->quoteInto('hoardID = ?', $hoardID);
                 $this->getModel()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                $this->_helper->solrUpdater->update('hoards', $hoardID);
+                $this->_helper->solrUpdater->update('objects', $hoardID);
                 $this->redirect('database/hoards/record/id/' . $hoardID);
             } elseif ($del == 'No' && $id > 0) {
                 $this->getFlash()->addMessage('No changes made!');

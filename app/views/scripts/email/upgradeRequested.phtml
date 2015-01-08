@@ -1,13 +1,15 @@
-<?php $this->mail->setSubject('Account upgrade request');?>
-<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name));?>,</p>
+<?php $this->mail->setSubject('Account upgrade request'); ?>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name)); ?>,</p>
 
-<p>Thank you for asking to be upgraded to research level on our database. This should be processed within 15 working days, and we may have to contact your referee. </p>
+<p>Thank you for asking to be upgraded to research level on our database. This should be processed within 15 working
+    days, and we may have to contact your referee. </p>
 
-<p>Enclosed is a copy of our terms and conditions that you agree to abide by. These cannot be changed. We also request a copy of any of your work that uses our data in electronic format for reference purposes.</p>
+<p>Enclosed is a copy of our terms and conditions that you agree to abide by. These cannot be changed. We also request a
+    copy of any of your work that uses our data in electronic format for reference purposes.</p>
 
 <p>For your own reference, this is the abstract you submitted:</p>
 
-<?php echo $this->purify($this->researchOutline);?>
+<?php echo $this->purify($this->researchOutline); ?>
 
 <p>Yours,</p>
 

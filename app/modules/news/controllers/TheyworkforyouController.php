@@ -52,10 +52,13 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $term = $this->_getParam('term');
+        $term = $this->getParam('term');
         $search = $term ? $term : 'portable antiquities scheme';
         $twfy = new Pas_Twfy_Hansard();
-        $arts = $twfy->get($search, $this->getPage(), 20);
+        $twfy->setLimit(20);
+        $twfy->setSearch($search);
+        $twfy->setPage($this->getPage());
+        $arts = $twfy->fetchData();
         $data = array();
         foreach ($arts->rows as $row) {
             $data[] = get_object_vars($row);
@@ -66,9 +69,8 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
             'total_results' => (int)$arts->info->total_results
         );
         $paginator = Zend_Paginator::factory($pagination['total_results']);
-        $paginator->setCurrentPageNumber($pagination['page'])
-            ->setItemCountPerPage($pagination['perpage'])
-            ->setCache($this->getCache());
+        $paginator->setCurrentPageNumber($pagination['page'])->setItemCountPerPage($pagination['perpage']);
+        $paginator->setCache($this->getCache());
         $this->view->data = $data;
         $this->view->paginator = $paginator;
     }
@@ -81,15 +83,23 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function mpAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $person = new Pas_Twfy_Person();
-            $unclean = $person->get($this->_getParam('id'));
+            $unclean = $person->get($this->getParam('id'));
             $clean = array();
             foreach ($unclean as $object) {
                 $mp = array();
-                $object = get_object_vars($object);
                 foreach ($object as $k => $v) {
-                    $mp[$k] = utf8_encode($v);
+                    if (!is_array($v)) {
+                        $mp[$k] = $v;
+                    } elseif (is_array($v)) {
+                        $property = array();
+                        $office = $v[0];
+                        foreach($office as $k => $v){
+                            $property[$k] = $v;
+                        }
+                    $mp['office'] = $property;
+                    }
                 }
                 $clean[] = $mp;
             }
@@ -105,14 +115,12 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function findsAction()
     {
-        if ($this->_getParam('constituency', false)) {
+        if ($this->getParam('constituency', false)) {
             $geo = new Pas_Twfy_Geometry();
-            $const = urldecode($this->_getParam('constituency'));
+            $const = urldecode($this->getParam('constituency'));
             $cons = $geo->get($const);
-            $bbox = array(
-                $cons->min_lat,
-                $cons->min_lon,
-                $cons->max_lat,
+            $boundingBox = array(
+                $cons->min_lat, $cons->min_lon, $cons->max_lat,
                 $cons->max_lon
             );
             $search = new Pas_Solr_Handler();
@@ -121,7 +129,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
             $fields = new Pas_Solr_FieldGeneratorFinds($context);
             $search->setFields($fields->getFields());
             $params = $this->getAllParams();
-            $params['bbox'] = implode(',', $bbox);
+            $params['bbox'] = implode(',', $boundingBox);
             $search->setFacets(array(
                 'objectType', 'county', 'broadperiod',
                 'institution', 'workflow'
@@ -153,9 +161,8 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
             }
         }
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($clean));
-        $paginator->setCurrentPageNumber($this->getPage())
-            ->setItemCountPerPage(40)
-            ->setCache($this->getCache());
+        $paginator->setCurrentPageNumber($this->getPage())->setItemCountPerPage(40);
+        $paginator->setCache($this->getCache());
         $this->view->data = $paginator;
     }
 
@@ -178,9 +185,8 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
         }
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($clean));
         $paginator->setCurrentPageNumber((int)$this->getPage());
-        $paginator->setItemCountPerPage(30)
-            ->setPageRange(10)
-            ->setCache($this->getCache());
+        $paginator->setItemCountPerPage(30)->setPageRange(10);
+        $paginator->setCache($this->getCache());
         $this->view->data = $paginator;
     }
 
@@ -196,14 +202,14 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
         $form->removeElement('distance');
         $form->postcode->setLabel('Search by postcode');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $place = $constituency->get($form->getValue('postcode'));
             }
             $this->redirect('/news/theyworkforyou/finds/constituency/' . $place->name);
         } else {
             $this->getFlash()->addMessage('Please check and correct errors!');
-            $form->populate($form->getValues());
+            $form->populate($this->_request->getPost());
         }
     }
 }

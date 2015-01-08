@@ -35,7 +35,7 @@ class Analytics_AjaxController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_id, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);
@@ -47,7 +47,7 @@ class Analytics_AjaxController extends Pas_Controller_Action_Admin {
         $analytics->setMax(500);
         $analytics->setSort(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS);
         $analytics->setSortDirection(true);
-        switch($this->_getParam('segment')){
+        switch($this->getParam('segment')){
                 case 'mobile':
                         $analytics->setSegment(Pas_Analytics_Gateway::SEGMENT_MOBILE_TRAFFIC);
                         break;
@@ -68,7 +68,7 @@ class Analytics_AjaxController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_id, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);
@@ -81,13 +81,13 @@ class Analytics_AjaxController extends Pas_Controller_Action_Admin {
                 Zend_Gdata_Analytics_DataQuery::DIMENSION_LONGITUDE,
                 )
                 );
-        if(is_null($this->_getParam('url'))){
+        if(is_null($this->getParam('url'))){
         throw new Pas_Analytics_Exception('A path must be set');
             } else {
         $analytics->setFilters(array(
             Zend_Gdata_Analytics_DataQuery::DIMENSION_PAGE_PATH 
             . Zend_Gdata_Analytics_DataQuery::EQUALS 
-            . base64_decode(rawurldecode($this->_getParam('url')))
+            . base64_decode(rawurldecode($this->getParam('url')))
             ));
             }
         $analytics->setMax(100);

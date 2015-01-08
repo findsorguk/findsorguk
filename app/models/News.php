@@ -312,7 +312,7 @@ class News extends Pas_Db_Table_Abstract
     {
         $contents = $this->getAdapter();
         $select = $contents->select()->from($this->_name, array(
-            'identifier' => 'CONCAT("news-",news.id)',
+            'identifier' => new Zend_Db_Expr("CONCAT('news-',news.id)"),
             'id',
             'title',
             'excerpt' => 'summary',

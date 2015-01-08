@@ -35,7 +35,7 @@ class Pas_Twfy_Geometry extends Pas_Twfy {
      * @return array
      * @throws Pas_Twfy_Exception
      */
-    public function get($constituency) {
+    public function get($constituency, $params = array()) {
         if(!is_null($constituency) && is_string($constituency)){
             $params = array(
                 'key'       => $this->_apikey,
@@ -44,7 +44,7 @@ class Pas_Twfy_Geometry extends Pas_Twfy {
                 );
             return parent::get(self::METHOD, $params);
         } else {
-            throw new Pas_Twfy_Exception('No constituency provided');
+            throw new Pas_Twfy_Exception('No constituency provided', 500);
         }
     }
 

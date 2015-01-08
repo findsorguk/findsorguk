@@ -125,7 +125,7 @@ class Pas_View_Helper_NotifyFloPublic extends Zend_View_Helper_Abstract {
     public function __toString(){
         $html = '';
         if(($this->getWorkflow() < 3) && ($this->getInstitution() === 'PUBLIC')
-            && in_array($this->getUser()>role, $this->_allowed)){
+            && in_array($this->getUser()->role, $this->_allowed)){
             $html .= $this->_buildHtml($this->getId());
         }
         return $html;

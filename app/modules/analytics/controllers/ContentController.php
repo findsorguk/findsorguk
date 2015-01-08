@@ -30,7 +30,7 @@ class Analytics_ContentController  extends Pas_Controller_Action_Admin {
      * @return integer
      */
     public function getPage() {
-        $page = $this->_getParam('page');
+        $page = $this->getParam('page');
         if(!isset($page)){
             $start = 1;
         } else {
@@ -67,7 +67,7 @@ class Analytics_ContentController  extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -86,7 +86,7 @@ class Analytics_ContentController  extends Pas_Controller_Action_Admin {
                     Zend_Gdata_Analytics_DataQuery::DIMENSION_PAGE_TITLE,
                     Zend_Gdata_Analytics_DataQuery::DIMENSION_PAGE_PATH,		
     		));
-    	if(is_null($this->_getParam('filter'))){
+    	if(is_null($this->getParam('filter'))){
     	$analytics->setFilters(
                 array(
                     Zend_Gdata_Analytics_DataQuery::DIMENSION_PAGE_PATH 
@@ -97,7 +97,7 @@ class Analytics_ContentController  extends Pas_Controller_Action_Admin {
                 array(
                     Zend_Gdata_Analytics_DataQuery::DIMENSION_PAGE_PATH 
                 . Zend_Gdata_Analytics_DataQuery::REGULAR . '/'
-                    . $this->_getParam('filter')
+                    . $this->getParam('filter')
 	    ));
 	    }
     	$analytics->setMax(20);
@@ -119,7 +119,7 @@ class Analytics_ContentController  extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -138,14 +138,14 @@ class Analytics_ContentController  extends Pas_Controller_Action_Admin {
                     Zend_Gdata_Analytics_DataQuery::DIMENSION_PAGE_TITLE,
                     Zend_Gdata_Analytics_DataQuery::DIMENSION_PAGE_PATH,
     		));
-    	if(is_null($this->_getParam('url'))){
+    	if(is_null($this->getParam('url'))){
     	throw new Pas_Analytics_Exception('A path must be set');
         } else {
             $analytics->setFilters(
                     array(
                         Zend_Gdata_Analytics_DataQuery::DIMENSION_PAGE_PATH 
                     . Zend_Gdata_Analytics_DataQuery::EQUALS 
-                    . base64_decode(rawurldecode($this->_getParam('url')))
+                    . base64_decode(rawurldecode($this->getParam('url')))
 	    ));
 	    }
     	$analytics->setMax(20);
@@ -154,7 +154,7 @@ class Analytics_ContentController  extends Pas_Controller_Action_Admin {
     	
     	$this->view->results = $analytics->getData();
     	$this->view->total = (int)$analytics->getTotal();
-    	$this->view->path = $this->_getParam('url');
+    	$this->view->path = $this->getParam('url');
     }
 }
 

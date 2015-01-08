@@ -28,7 +28,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -47,7 +47,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
     	
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
-    	new Pas_Analytics_Timespan(); $timeframe->setTimespan($this->_getParam('timespan'));
+    	new Pas_Analytics_Timespan(); $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -71,7 +71,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -99,7 +99,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
     	$analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
     	$analytics->setProfile(25726058);
     	$timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
     	$dates = $timeframe->getDates();
     	$analytics->setStart($dates['start']);
     	$analytics->setEnd($dates['end']);
@@ -117,11 +117,11 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
     	$analytics->setMax(100);
     	$analytics->setSort(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS);
     	$analytics->setSortDirection(true);
-    	if($this->_getParam('identifier',false)){
+    	if($this->getParam('identifier',false)){
 	    	$analytics->setFilters(array(
 	    		Zend_Gdata_Analytics_DataQuery::DIMENSION_BROWSER 
                         . Zend_Gdata_Analytics_DataQuery::EQUALS 
-                        . $this->_getParam('identifier')
+                        . $this->getParam('identifier')
 	    	));	  
 	    	}
     	$this->view->results = $analytics->getData();
@@ -134,7 +134,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);
@@ -159,7 +159,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);
@@ -177,11 +177,11 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
                 Zend_Gdata_Analytics_DataQuery::DIMENSION_MOBILE_DEVICE_INFO
                 )
                 );
-        if($this->_getParam('brand',false)){
+        if($this->getParam('brand',false)){
         $analytics->setFilters(array(
                 Zend_Gdata_Analytics_DataQuery::DIMENSION_MOBILE_DEVICE_BRANDING 
                 . Zend_Gdata_Analytics_DataQuery::EQUALS 
-                . $this->_getParam('brand')
+                . $this->getParam('brand')
         ));	  
         }
         $analytics->setMax(500);
@@ -198,7 +198,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);
@@ -228,7 +228,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
        $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
        $analytics->setProfile(25726058);
        $timeframe = new Pas_Analytics_Timespan(); 
-       $timeframe->setTimespan($this->_getParam('timespan'));
+       $timeframe->setTimespan($this->getParam('timespan'));
        $dates = $timeframe->getDates();
        $analytics->setStart($dates['start']);
        $analytics->setEnd($dates['end']);
@@ -259,7 +259,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);
@@ -280,13 +280,13 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
               . 'Yes',
               Zend_Gdata_Analytics_DataQuery::DIMENSION_OPERATING_SYSTEM	
               . Zend_Gdata_Analytics_DataQuery::REGULAR 
-              . $this->_getParam('os')    	
+              . $this->getParam('os')
               ));	  
         $analytics->setMax(500);
         $analytics->setSort(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS);
         $analytics->setSortDirection(true);
         $this->view->results = $analytics->getData();
-        $this->view->os = $this->_getParam('os');
+        $this->view->os = $this->getParam('os');
     }
 
     /** Find out about mobile OS interaction
@@ -296,7 +296,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);
@@ -325,7 +325,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);
@@ -346,14 +346,14 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
                 . 'Yes',
             Zend_Gdata_Analytics_DataQuery::DIMENSION_OPERATING_SYSTEM
                 . Zend_Gdata_Analytics_DataQuery::REGULAR 
-                . $this->_getParam('os')    	
+                . $this->getParam('os')
             ));	
         $analytics->setMax(500);
         $analytics->setSort(Zend_Gdata_Analytics_DataQuery::METRIC_VISITORS);
         $analytics->setSegment(11);  	
         $analytics->setSortDirection(true);
         $this->view->results = $analytics->getData();
-        $this->view->os = $this->_getParam('os');
+        $this->view->os = $this->getParam('os');
     }
 
     /** Find out about OS and browser combos
@@ -363,7 +363,7 @@ class Analytics_TechnologyController extends Pas_Controller_Action_Admin {
         $analytics = new Pas_Analytics_Gateway($this->_ID, $this->_pword);
         $analytics->setProfile(25726058);
         $timeframe = new Pas_Analytics_Timespan(); 
-        $timeframe->setTimespan($this->_getParam('timespan'));
+        $timeframe->setTimespan($this->getParam('timespan'));
         $dates = $timeframe->getDates();
         $analytics->setStart($dates['start']);
         $analytics->setEnd($dates['end']);

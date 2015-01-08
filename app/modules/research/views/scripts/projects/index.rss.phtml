@@ -7,14 +7,14 @@ $feedArray = array(
     'author' => 'The Portable Antiquities Scheme',
     'image' => $this->serverUrl() . '/assets/logos/pas.jpg',
     'email' => 'info@finds.org.uk',
-    'copyright' => 'Creative Commons Licenced',
-    'generator' => 'The Scheme database powered by Zend Framework and Dan\'s magic',
-    'language' => 'en',
+    'copyright' => 'The Trustees of the British Museum: CC-BY',
+    'generator' => 'Powered by @findsorguk and the magic of Dan',
+    'language' => 'en-GB',
     'entries' => array()
 );
 foreach ($this->projects as $project) {
     $feedArray['entries'][] = array(
-        'title' => $proj['title'],
+        'title' => $project['title'],
         'link' => $this->serverUrl() . '/research/projects/project/id/' . $project['id'],
         'guid' => $this->serverUrl() . '/research/projects/project/id/' . $project['id'],
         'description' => strip_tags(substr(str_replace('£', '&pound;', $project['description']), 0, 300)),

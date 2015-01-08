@@ -1,0 +1,53 @@
+<h4 class="lead">Coin data (numismatics)</h4>
+<?php echo $this->CoinEditDeleteLink()
+    ->setFindID($this->id)
+    ->setRecordID($this->coinID)
+    ->setBroadperiod($this->broadperiod)
+    ->setSecuID($this->secuid)
+    ->setInstitution($this->institution)
+    ->setCreatedBy($this->createdBy);
+?>
+<p>
+    <?php if (!is_null($this->denomination)): ?>
+        Denomination: <?php echo $this->denomination; ?> <a
+                href="<?php echo $this->url(array(
+                    'module' => 'database',
+                    'controller' => 'search',
+                    'action' => 'results',
+                    'denomination' => $this->denominationID), null, true); ?>"
+                title="view all records assigned to denomination: <?php echo $this->denomination; ?>"><i class="icon-search"></i></a><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->ruler1)): ?>
+        Ruler/issuer: <?php echo $this->escape($this->primaryRuler); ?> <br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->ruler2)): ?>
+        Secondary ruler/issuer: <?php echo $this->escape($this->secondaryRuler); ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->mintName)): ?>
+        Mint or issue place: <?php echo $this->escape($this->mintName); ?> <a
+                href="<?php echo $this->url(array(
+                    'module' => 'database',
+                    'controller' => 'search',
+                    'action' => 'results',
+                    'mint' => $this->mintID), null, true); ?>"
+                title="view all records assigned to <?php echo $this->mintName; ?>"><i class="icon-search"></i></a><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->obverseDescription)): ?>
+        Obverse description: <?php echo ucfirst($this->obverseDescription); ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->obverseInscription)): ?>
+        Obverse inscription: <?php echo $this->obverseInscription; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->reverseDescription)): ?>
+        Reverse description: <?php echo ucfirst($this->reverseDescription); ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->reverseInscription)): ?>
+        Reverse inscription: <?php echo $this->reverseInscription; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->dieAxisName)): ?>
+        Die axis measurement: <?php echo $this->escape($this->dieAxisName); ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->wear)): ?>
+        Degree of wear: <?php echo $this->escape($this->wear); ?>
+    <?php endif; ?>
+</p>

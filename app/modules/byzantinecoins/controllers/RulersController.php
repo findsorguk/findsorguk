@@ -38,15 +38,15 @@ class ByzantineCoins_RulersController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->rulers = $this->_rulers->getRulersByzantineList($this->_getParam('page'));
+        $this->view->rulers = $this->_rulers->getRulersByzantineList($this->getParam('page'));
     }
 
     /** Get individual ruler page
     */
     public function rulerAction() {
-        if($this->_getParam('id',false)){
-            $this->view->ruler = $this->_rulers->getRulerProfile((int)$this->_getParam('id'));
-            $this->view->id = $this->_getParam('id');
+        if($this->getParam('id',false)){
+            $this->view->ruler = $this->_rulers->getRulerProfile((int)$this->getParam('id'));
+            $this->view->id = $this->getParam('id');
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

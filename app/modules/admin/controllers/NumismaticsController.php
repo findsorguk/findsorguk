@@ -163,7 +163,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editdieaxisAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new DieAxisForm();
             $form->submit->setLabel('Update details');
             $this->view->form = $form;
@@ -171,7 +171,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $dieAxes = new DieAxes();
                     $where = array();
-                    $where[] = $dieAxes->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $dieAxes->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $dieAxes->update($form->getValues(), $where);
                     $this->redirect($this->_redirectUrl . 'dieaxes');
                     $this->getFlash()->addMessage('Die axis information updated!');
@@ -251,13 +251,13 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editdenominationAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new DenominationForm();
             $form->submit->setLabel('Update details');
             $this->view->form = $form;
             if ($this->_request->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
-                    $id = (int)$this->_getParam('id');
+                    $id = (int)$this->getParam('id');
                     $denominations = new Denominations();
                     $where = array();
                     $where[] = $denominations->getAdapter()->quoteInto('id = ?', (int)$id);
@@ -316,11 +316,11 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function denominationsAction()
     {
-        if ($this->_getParam('period', false)) {
-            $period = $this->_getParam('period');
+        if ($this->getParam('period', false)) {
+            $period = $this->getParam('period');
             $this->view->period = $period;
             $denoms = new Denominations();
-            $this->view->paginator = $denoms->getDenominations($period, $this->_getParam('page'));
+            $this->view->paginator = $denoms->getDenominations($period, $this->getParam('page'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -332,7 +332,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function addmedievalrulerAction()
     {
-        $dbaseID = $this->_getParam('id');
+        $dbaseID = $this->getParam('id');
         $form = new MonarchForm();
         $form->submit->setLabel('Add biography to system');
         if (!is_null($dbaseID)) {
@@ -394,7 +394,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editmintAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new MintForm();
             $form->submit->setLabel('Update details on database');
             $this->view->form = $form;
@@ -403,7 +403,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($formData)) {
                     $mints = new Mints();
                     $where = array();
-                    $where[] = $mints->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+                    $where[] = $mints->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
                     $mints->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Active mint information updated!');
                     $this->redirect($this->_redirectUrl . 'mints/period/'
@@ -460,12 +460,12 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
     public function rulersAction()
     {
         $form = new RulerFilterForm();
-        $ruler = $this->_getParam('ruler');
+        $ruler = $this->getParam('ruler');
         $form->ruler->setValue($ruler);
         $this->view->form = $form;
         $rulers = new Rulers();
         $this->view->paginator = $rulers->getRulerListAdmin($this->getAllParams());
-        if ($this->_request->isPost() && !is_null($this->_getParam('submit'))) {
+        if ($this->_request->isPost() && !is_null($this->getParam('submit'))) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $params = $this->_functions->array_cleanup($formData);
@@ -478,7 +478,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 $whereString = implode('/', $where);
                 $query = $whereString;
                 $this->redirect('admin/numismatics/rulers/period/'
-                    . $this->_getParam('period') . '/'
+                    . $this->getParam('period') . '/'
                     . $query . '/');
             } else {
                 $form->populate($this->_request->getPost());
@@ -515,7 +515,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editrulerAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new RulerForm();
             $form->submit->setLabel('Update details on database');
             $this->view->form = $form;
@@ -523,7 +523,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $rulers = new Rulers();
                     $where = array();
-                    $where[] = $rulers->getAdapter()->quoteInto('id = ?', (int)$this->_getParam('id'));
+                    $where[] = $rulers->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
                     $rulers->update($form->getValues(), $where);
                     $this->getFlash()->addMessage($form->getValue('issuer') . '\'s information updated!');
                     $this->redirect($this->_redirectUrl . 'rulers/period/' . $form->getValue('period'));
@@ -580,8 +580,8 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function romanrulerAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
             $rulers = new Rulers();
             $this->view->details = $rulers->getRulerProfileAdmin($id);
             $images = new RulerImages();
@@ -606,8 +606,8 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function ironagerulerAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
             $rulers = new Rulers();
             $this->view->details = $rulers->getRulerProfileAdmin($id);
             $images = new RulerImages();
@@ -628,8 +628,8 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function medrulerAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
             $rulers = new Rulers();
             $this->view->details = $rulers->getRulerProfileAdmin($id);
             $images = new RulerImages();
@@ -654,8 +654,8 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function byzrulerAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -668,8 +668,8 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function greekrulerAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -682,7 +682,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
     public function emperorbiosAction()
     {
         $emperors = new Emperors();
-        $this->view->paginator = $emperors->getEmperorsAdminList($this->_getParam('page'));
+        $this->view->paginator = $emperors->getEmperorsAdminList($this->getParam('page'));
     }
 
     /** Add an emperor
@@ -714,7 +714,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editemperorAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new EmperorForm();
             $form->submit->setLabel('Save Emperor\'s details');
             $form->details->setLegend('Biographical details');
@@ -723,7 +723,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $emperors = new Emperors();
                     $where = array();
-                    $where[] = $emperors->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $emperors->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $emperors->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Issuer details for ' . $form->getValue('name') . ' updated!');
                     $this->redirect($this->_redirectUrl . 'emperorbios/');
@@ -781,9 +781,9 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
     public function addmedievaltypeAction()
     {
         $form = new AddMedievalTypeForm();
-        $r = $this->_getParam('rulerid');
+        $r = $this->getParam('rulerid');
         $form->rulerID->setValue($r);
-        $p = $this->_getParam('period');
+        $p = $this->getParam('period');
         $form->periodID->setValue($p);
         $this->view->form = $form;
         if ($this->_request->isPost()) {
@@ -809,7 +809,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
         $this->view->form = $form;
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
-                $id = $this->_getParam('id');
+                $id = $this->getParam('id');
                 $types = new MedievalTypes();
                 $where = array();
                 $where[] = $types->getAdapter()->quoteInto('id = ?', $id);
@@ -869,7 +869,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editreeceperiodAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new ReecePeriodForm();
             $form->submit->setLabel('Save Reece period details');
             $this->view->form = $form;
@@ -878,7 +878,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $reeces = new Reeces();
                     $where = array();
-                    $where[] = $reeces->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $reeces->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $reeces->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Reece Period details updated!');
                     $this->redirect($this->_redirectUrl . 'reeceperiods/');
@@ -967,7 +967,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editreversetypeAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new ReverseTypeForm();
             $form->submit->setLabel('Save reverse type\'s details');
             $this->view->form = $form;
@@ -975,7 +975,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $reverses = new RevTypes();
                     $where = array();
-                    $where[] = $reverses->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $reverses->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $reverses->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Reverse type details updated!');
                     $this->redirect($this->_redirectUrl . 'reversetypes/');
@@ -1028,7 +1028,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
     public function addrulerimageAction()
     {
         $form = new AddRulerImageForm();
-        $form->rulerID->setValue($this->_getParam('rulerid'));
+        $form->rulerID->setValue($this->getParam('rulerid'));
         $form->submit->setLabel('Add an image for a ruler');
         $this->view->form = $form;
         if ($this->_request->isPost()) {
@@ -1078,7 +1078,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                         $upload->receive();
                         $rulers->insert($insertData);
                         $this->getFlash()->addMessage('The image has been resized.');
-                        $this->redirect($this->_redirectUrl . 'romanruler/id/' . $this->_getParam('rulerid'));
+                        $this->redirect($this->_redirectUrl . 'romanruler/id/' . $this->getParam('rulerid'));
                     } else {
                         $this->getFlash()->addMessage('There is a problem with your upload.Probably that image exists.');
                         $this->view->errors = $upload->getMessages();
@@ -1129,7 +1129,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editdegreeofwearAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new DegreeOfWearForm();
             $form->details->setLegend('Edit degree of wear details');
             $form->submit->setLabel('Submit term detail changes');
@@ -1138,7 +1138,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $degrees = new WearTypes();
                     $where = array();
-                    $where[] = $degrees->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $degrees->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $degrees->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Degree of wear: ' . $form->getValue('term') . ' updated!');
                     $this->redirect($this->_redirectUrl . 'degreesofwear');
@@ -1192,13 +1192,13 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editmedievalrulerAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new MonarchForm();
             $form->submit->setLabel('Edit a biography.');
             $this->view->form = $form;
             if ($this->_request->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
-                    $id = $this->_getParam('id');
+                    $id = $this->getParam('id');
                     $monarchs = new Monarchs();
                     $where = array();
                     $where[] = $monarchs->getAdapter()->quoteInto('dbaseID = ?', $id);
@@ -1235,8 +1235,8 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
     public function rulertodenominationAction()
     {
         $form = new AddDenomToRulerForm();
-        $rulerid = $this->_getParam('rulerid');
-        $period = $this->_getParam('period');
+        $rulerid = $this->getParam('rulerid');
+        $period = $this->getParam('period');
         $denoms = new Denominations();
         $denomsList = $denoms->getDenomsAdd($period);
         $form->ruler_id->setValue($rulerid);
@@ -1267,8 +1267,8 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
     public function rulertomintAction()
     {
         $form = new AddMintToRulerForm();
-        $rulerid = $this->_getParam('rulerid');
-        $period = $this->_getParam('period');
+        $rulerid = $this->getParam('rulerid');
+        $period = $this->getParam('period');
         $mints = new Mints();
         $mintsList = $mints->getMints($period);
         $form->ruler_id->setValue($rulerid);
@@ -1296,7 +1296,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
     public function rulertoreversetypeAction()
     {
         $form = new AddReverseToRulerForm();
-        $rulerid = $this->_getParam('rulerid');
+        $rulerid = $this->getParam('rulerid');
         $form->rulerID->setValue($rulerid);
         $reversetypes = new RevTypes();
         $reversetypesList = $reversetypes->getRevTypes();
@@ -1321,7 +1321,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function tribesAction()
     {
-        $this->view->tribes = $this->getTribes()->getTribesListAdmin($this->_getParam('page'));
+        $this->view->tribes = $this->getTribes()->getTribesListAdmin($this->getParam('page'));
     }
 
     /** Edit iron age tribe details
@@ -1330,7 +1330,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function edittribeAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new IronAgeTribeForm();
             $form->details->setLegend('Edit tribe\'s details');
             $form->submit->setLabel('Submit tribe detail changes');
@@ -1338,7 +1338,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
             if ($this->_request->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
                     $where = array();
-                    $where[] = $this->getTribes()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->getTribes()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->getTribes()->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Details for ' . $form->getValue('tribe') . ' updated!');
                     $this->redirect($this->_redirectUrl . 'tribes/');
@@ -1443,7 +1443,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editregionAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new IronAgeRegionForm();
             $form->details->setLegend('Edit region\'s details');
             $form->submit->setLabel('Submit region detail changes');
@@ -1451,7 +1451,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
             if ($this->_request->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
                     $where = array();
-                    $where[] = $this->getGeography()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->getGeography()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->getGeography()->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Details updated!');
                     $this->redirect('/admin/regions/');
@@ -1505,9 +1505,9 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function categoriesAction()
     {
-        if ($this->_getParam('period', false)) {
+        if ($this->getParam('period', false)) {
             $categories = new CategoriesCoins();
-            $this->view->categories = $categories->getCategoriesPeriodAdmin((int)$this->_getParam('period'));
+            $this->view->categories = $categories->getCategoriesPeriodAdmin((int)$this->getParam('period'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -1543,7 +1543,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editcategoryAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new MedCategoryForm();
             $form->details->setLegend('Edit category details');
             $form->submit->setLabel('Submit category detail changes');
@@ -1552,7 +1552,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $cats = new CategoriesCoins();
                     $where = array();
-                    $where[] = $cats->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $cats->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $cats->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Reverse type details for updated!');
                     $this->redirect($this->_redirectUrl . 'categories/period/' . $form->getValue('periodID'));
@@ -1642,7 +1642,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function edittypeAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new MedTypeForm();
             $form->details->setLegend('Edit type details');
             $form->submit->setLabel('Submit type detail changes');
@@ -1651,7 +1651,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $medtypes = new MedievalTypes();
                     $where = array();
-                    $where[] = $medtypes->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $medtypes->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $medtypes->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Reverse type details updated!');
                     $this->redirect($this->_redirectUrl . 'types/period/' . $form->getValue('periodID'));
@@ -1740,7 +1740,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editdynastyAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new DynastyForm();
             $form->details->setLegend('Edit dynasty details');
             $form->submit->setLabel('Submit dynastic detail changes');
@@ -1749,7 +1749,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $dynasties = new Dynasties();
                     $where = array();
-                    $where[] = $dynasties->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $dynasties->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $dynasties->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Dynasty details updated!');
                     $this->redirect($this->_redirectUrl . 'dynasties');
@@ -1828,7 +1828,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editrefAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new CoinClassForm();
             $form->details->setLegend('Edit reference volume details');
             $form->submit->setLabel('Submit changes');
@@ -1837,7 +1837,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $classes = new CoinClassifications();
                     $where = array();
-                    $where[] = $classes->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $classes->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $classes->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('Reference volume details changed');
                     $this->redirect('/admin/numismatics/refs/');
@@ -1881,16 +1881,16 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
         $form = new ReeceEmperorForm();
         $form->submit->setLabel('Submit details');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $updateData = array(
                     'periodID' => 21,
-                    'ruler_id' => $this->_getParam('rulerid'),
+                    'ruler_id' => $this->getParam('rulerid'),
                     'reeceperiod_id' => $form->getValue('reeceperiod_id')
                 );
                 $periods = new ReecePeriodEmperors();
                 $periods->add($updateData);
-                $this->redirect('/admin/numismatics/romanruler/id/' . $this->_getParam('rulerid'));
+                $this->redirect('/admin/numismatics/romanruler/id/' . $this->getParam('rulerid'));
                 $this->getFlash()->addMessage('Period added');
             } else {
                 $form->populate($form->getValues());
@@ -1909,19 +1909,19 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
             $form = new ReeceEmperorForm();
             $form->submit->setLabel('Update details');
             $this->view->form = $form;
-            if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                if ($form->isValid($form->getValues())) {
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
                     $updateData = array(
                         'periodID' => 21,
-                        'ruler_id' => $this->_getParam('rulerid'),
+                        'ruler_id' => $this->getParam('rulerid'),
                         'reeceperiod_id' => $form->getValue('reeceperiod_id')
                     );
                     $periods = new ReecePeriodEmperors();
                     $where = array();
-                    $where[] = $periods->getAdapter()->quoteInto('ruler_id = ?', (int)$this->_getParam('rulerid'));
+                    $where[] = $periods->getAdapter()->quoteInto('ruler_id = ?', (int)$this->getParam('rulerid'));
                     $periods->update($updateData, $where);
                     $this->getFlash()->addMessage('Reece period updated');
-                    $this->redirect('/admin/numismatics/romanruler/id/' . $this->_getParam('rulerid'));
+                    $this->redirect('/admin/numismatics/romanruler/id/' . $this->getParam('rulerid'));
                 } else {
                     $form->populate($form->getValues());
                 }

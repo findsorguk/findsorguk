@@ -5,10 +5,10 @@
 <?php endif; ?>
 <tr>
     <?php
-        $url = array(
-            'module' => 'database', 'controller' => 'search', 'action' => 'results',
-            'createdBy' => $this->id, 'createdAfter' => $this->datefrom, 'createdBefore' => $this->dateto
-        );
+    $url = array(
+        'module' => 'database', 'controller' => 'search', 'action' => 'results',
+        'createdBy' => $this->id, 'createdAfter' => $this->datefrom, 'createdBefore' => $this->dateto
+    );
     ?>
     <td>
         <a href="<?php echo $this->url($url, 'default', true); ?>" title="Find all records created by

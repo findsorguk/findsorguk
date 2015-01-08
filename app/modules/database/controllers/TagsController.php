@@ -50,7 +50,7 @@ class Database_TagsController extends Pas_Controller_Action_Admin {
      * @return void
     */	
     public function opencalaisAction() {
-        if($this->_getParam('tag',false)) {
+        if($this->getParam('tag',false)) {
 
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -61,7 +61,7 @@ class Database_TagsController extends Pas_Controller_Action_Admin {
      * @return void
      */	
     public function geotagAction() {
-        if($this->_getParam('tag',false)) {
+        if($this->getParam('tag',false)) {
             
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);

@@ -7,7 +7,7 @@ $this->metaBase()->setDescription('All comments entered on our database in rever
     <h2 class="lead">Comments on records</h2>
 <div class="row-fluid">
 <?php if (!empty($this->comments)): ?>
-    <?php echo $this->partialLoop('partials/database/commentsOnFinds.phtml', $this->comments); ?>
+    <?php echo $this->partialLoop('partials/database/structural/commentsOnFinds.phtml', $this->comments); ?>
     </div>
     <div class="row-fluid">
         <?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>

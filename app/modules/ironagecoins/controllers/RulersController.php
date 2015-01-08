@@ -46,8 +46,8 @@ class IronAgeCoins_RulersController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function rulerAction() {
-        if($this->_getParam('id',false)){
-            $id = (int)$this->_getParam('id');
+        if($this->getParam('id',false)){
+            $id = (int)$this->getParam('id');
             $this->view->id = $id;
             $this->view->rulers = $this->_rulers->getIronAgeRuler($id);
             $regions = new Geography();

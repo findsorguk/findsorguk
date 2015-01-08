@@ -1,28 +1,28 @@
 <h3 class="lead">Your site profile's avatar</h3>
 <div>
-<?php if(isset($this->avatar))
-{
-/*echo '<div id="avatar"><img src="'.$this->baseUrl().'/images/avatars/thumbnails/'.$this->avatar.'" alt="Your avatar"></div>';
-} else {
-echo 'Add an avatar';
-*/
-}
-?>
-<div>
-	<?php 
-	echo $this->gravatar($this->email,array( 
-	'imgSize' => 80, 
-	'defaultImg' => $this->baseUrl() . 'http://finds.org.uk/assets/gravatar.png', 
-	'secure' => true),
-	array(
-	'class' => 'avatar img-circle stelae',
-	'title' => $this->fullname . '\'s gravatar representation', 
-	'rating' => 'G',
-	'width' => 80,
-	'height' => 80));
-	 ?>
-    <p >This is supplied by <a href="http://en.gravatar.com" title="Change your gravatar settings">gravatar</a>. <br />
-You can change this with them, but we only accept G rated images.</p>
-</div>
+    <?php if (isset($this->avatar)) {
+        /*echo '<div id="avatar"><img src="'.$this->baseUrl().'/images/avatars/thumbnails/'.$this->avatar.'" alt="Your avatar"></div>';
+        } else {
+        echo 'Add an avatar';
+        */
+    }
+    ?>
+    <div>
+        <?php
+        echo $this->gravatar($this->email, array(
+            'imgSize' => 80,
+            'defaultImg' => $this->baseUrl() . 'http://finds.org.uk/assets/gravatar.png',
+            'secure' => true),
+            array(
+                'class' => 'avatar img-circle stelae',
+                'title' => $this->fullname . '\'s gravatar representation',
+                'rating' => 'G',
+                'width' => 80,
+                'height' => 80));
+        ?>
+        <p>This is supplied by <a href="http://en.gravatar.com" title="Change your gravatar settings">gravatar</a>.
+            <br/>
+            You can change this with them, but we only accept G rated images.</p>
+    </div>
 
 </div>

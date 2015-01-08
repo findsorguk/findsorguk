@@ -47,7 +47,7 @@ class PostMedievalCoins_DenominationsController extends Pas_Controller_Action_Ad
      */
     public function indexAction() {
         $this->view->denominations = $this->_denominations->getDenominations($this->_period,
-                $this->_getParam('page'));
+                $this->getParam('page'));
     }
 
     /** Individual denomination page details
@@ -55,11 +55,11 @@ class PostMedievalCoins_DenominationsController extends Pas_Controller_Action_Ad
      * @throws Pas_Exception_Param
      */
     public function denominationAction()  {
-        if($this->_getParam('id',false)){
+        if($this->getParam('id',false)){
             $this->view->denomination = $this->_denominations
-                    ->getDenom($this->_getParam('id'),(int)$this->_period);
+                    ->getDenom($this->getParam('id'),(int)$this->_period);
             $this->view->rulers = $this->_denominations
-                    ->getRulerDenomination($this->_getParam('id'));
+                    ->getRulerDenomination($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

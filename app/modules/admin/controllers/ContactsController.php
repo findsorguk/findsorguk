@@ -126,11 +126,11 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
      */
     public function contactAction()
     {
-        if ($this->_getParam('format') == ('vcf')) {
+        if ($this->getParam('format') == ('vcf')) {
             $this->_helper->layout->disableLayout();
-            $this->view->persons = $this->getContacts()->getPersonDetails($this->_getParam('id'));
+            $this->view->persons = $this->getContacts()->getPersonDetails($this->getParam('id'));
         } else {
-            $this->view->staffs = $this->getContacts()->getPersonDetails($this->_getParam('id'));
+            $this->view->staffs = $this->getContacts()->getPersonDetails($this->getParam('id'));
         }
     }
 
@@ -249,11 +249,11 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
                     'woeid' => $woeid
                 );
                 $where = array();
-                $where[] = $this->getContacts()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] = $this->getContacts()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $insert = $this->getContacts()->update($updateData, $where);
                 $this->getFlash()->addMessage('Contact information for ' . $form->getValue('firstname') . ' '
                     . $form->getValue('lastname') . ' updated!');
-                $this->redirect($this->_redirectUrl . 'contact/id/' . $this->_getParam('id'));
+                $this->redirect($this->_redirectUrl . 'contact/id/' . $this->getParam('id'));
             } else {
                 $form->populate($formData);
             }
@@ -333,11 +333,11 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
 
                         $staffs = new Contacts();
                         $where = array();
-                        $where[] = $staffs->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                        $where[] = $staffs->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                         $staffs->update($insertData, $where);
                         $upload->receive();
                         $this->getFlash()->addMessage('The image has been resized and zoomified!');
-                        $this->redirect('/admin/contacts/contact/id/' . $this->_getParam('id'));
+                        $this->redirect('/admin/contacts/contact/id/' . $this->getParam('id'));
                     } else {
                         $this->getFlash()->addMessage('There is a problem with your upload.
                 Probably that image exists.');
@@ -398,11 +398,11 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
 
                     $regions = new StaffRegions();
                     $where = array();
-                    $where[] = $regions->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $regions->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $regions->update($insertData, $where);
                     $upload->receive();
                     $this->getFlash()->addMessage('The image has been resized and zoomified!');
-                    $this->redirect('/admin/contacts/institution/id/' . $this->_getParam('id'));
+                    $this->redirect('/admin/contacts/institution/id/' . $this->getParam('id'));
                 } else {
                     $this->getFlash()->addMessage('There is a problem with your upload.
                 Probably that image exists.');

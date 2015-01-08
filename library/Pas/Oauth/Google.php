@@ -1,6 +1,7 @@
 <?php
+
 /** A class for interfacing with the Google Oauth system and getting a token
- * 
+ *
  * An example of code use:
  * <code>
  * <?php
@@ -8,10 +9,10 @@
  * $google->setCallback($callback);
  * $google->setConsumerKey($key);
  * $google->setConsumerSecret($secret);
- * $google->generate();	
+ * $google->generate();
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
@@ -23,11 +24,12 @@
  * @uses \Zend_Session_Namespace
  * @uses \Zend_Oauth_Consumer
  * @uses \Zend_Controller_Front
- * @todo change set methods to instance of zend config and check if uri is 
+ * @todo change set methods to instance of zend config and check if uri is
  * correct format
  */
-class Pas_Oauth_Google{
-	
+class Pas_Oauth_Google
+{
+
     /** The callback to use
      * @access protected
      * @var string
@@ -38,7 +40,8 @@ class Pas_Oauth_Google{
      * @access public
      * @return string
      */
-    public function getCallback() {
+    public function getCallback()
+    {
         return $this->_callback;
     }
 
@@ -46,9 +49,10 @@ class Pas_Oauth_Google{
      * @access public
      * @param string $callback
      * @return \Pas_Oauth_Google
-     * @todo check if uri 
+     * @todo check if uri
      */
-    public function setCallback($callback) {
+    public function setCallback($callback)
+    {
         $this->_callback = Zend_Registry::get('siteurl') . $callback;
         return $this;
     }
@@ -58,12 +62,13 @@ class Pas_Oauth_Google{
      * @var string
      */
     protected $_consumerKey;
-    
+
     /** Get the consumer key to use
      * @access protected
      * @return string The key to use with the oauth endpoint.
      */
-    public function getConsumerKey() {
+    public function getConsumerKey()
+    {
         return $this->_consumerKey;
     }
 
@@ -72,7 +77,8 @@ class Pas_Oauth_Google{
      * @param type $consumerKey The consumer key string
      * @return \Pas_Oauth_Google
      */
-    public function setConsumerKey($consumerKey) {
+    public function setConsumerKey($consumerKey)
+    {
         $this->_consumerKey = $consumerKey;
         return $this;
     }
@@ -87,7 +93,8 @@ class Pas_Oauth_Google{
      * @access public
      * @return stringb
      */
-    public function getConsumerSecret() {
+    public function getConsumerSecret()
+    {
         return $this->_consumerSecret;
     }
 
@@ -96,14 +103,16 @@ class Pas_Oauth_Google{
      * @param string $consumerSecret
      * @return \Pas_Oauth_Google
      */
-    public function setConsumerSecret($consumerSecret) {
+    public function setConsumerSecret($consumerSecret)
+    {
         $this->_consumerSecret = $consumerSecret;
         return $this;
     }
-    
+
     /** Request a token from twitter and authorise the app
      */
-    public function generate(){
+    public function generate()
+    {
         $config = array(
             'requestTokenUrl' => 'https://www.google.com/accounts/OAuthGetRequestToken',
             'accessTokenUrl' => 'https://www.google.com/accounts/OAuthGetAccessToken',
@@ -112,12 +121,12 @@ class Pas_Oauth_Google{
             'callbackUrl' => $this->getCallback(),
             'consumerKey' => $this->getConsumerKey(),
             'consumerSecret' => $this->getConsumerSecret(),
-            'version' => '1.0', 
+            'version' => '1.0',
             'signatureMethod' => 'HMAC-SHA1',
         );
         $consumer = new Zend_Oauth_Consumer($config);
         $consumer->setAuthorizeUrl('https://www.google.com/accounts/OAuthAuthorizeToken');
-        $token	= $consumer->getRequestToken();
+        $token = $consumer->getRequestToken();
         $session = new Zend_Session_Namespace('google_oauth');
         $session->token = $token->getToken();
         $session->secret = $token->getTokenSecret();
@@ -127,9 +136,9 @@ class Pas_Oauth_Google{
     /** Create the access token and save to database
      * @access public
      * @return void
-     * 
      */
-    public function access(){
+    public function access()
+    {
         $config = array(
             'requestTokenUrl' => 'https://www.google.com/accounts/OAuthGetRequestToken',
             'accessTokenUrl' => 'https://www.google.com/accounts/OAuthGetAccessToken',
@@ -138,7 +147,7 @@ class Pas_Oauth_Google{
             'callbackUrl' => $this->getCallback(),
             'consumerKey' => $this->getConsumerKey(),
             'consumerSecret' => $this->getConsumerSecret(),
-            'version' => '1.0', 
+            'version' => '1.0',
             'signatureMethod' => 'HMAC-SHA1',
         );
         $session = new Zend_Session_Namespace('flickr_oauth');
@@ -149,11 +158,11 @@ class Pas_Oauth_Google{
         unset($session->secret);
         $consumer = new Zend_Oauth_Consumer($config);
         $token = $consumer->getAccessToken(
-                Zend_Controller_Front::getInstance()->getRequest()->getQuery(),
-                $request
-                );
+            Zend_Controller_Front::getInstance()->getRequest()->getQuery(),
+            $request
+        );
         $tokens = new OauthTokens();
-        $tokenRow = $tokens->createRow();	
+        $tokenRow = $tokens->createRow();
         $tokenRow->service = 'googleAccess';
         $tokenRow->accessToken = serialize($token);
         $tokenRow->created = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');;

@@ -54,8 +54,8 @@ class GreekRomanCoins_RulersController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function rulerAction() {
-        if($this->_getParam('id',false)){
-            $this->view->greek= $this->_rulers->getRulerProfile($this->_getParam('id'));
+        if($this->getParam('id',false)){
+            $this->view->greek= $this->_rulers->getRulerProfile($this->getParam('id'));
 	} else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);		
         }

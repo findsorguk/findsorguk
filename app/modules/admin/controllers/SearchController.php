@@ -31,6 +31,6 @@ class Admin_SearchController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $search = new Searches();
-        $this->view->searches = $search->getAllSearchesAdmin($this->_getParam('page'));
+        $this->view->searches = $search->getAllSearchesAdmin($this->getParam('page'));
     }
 }

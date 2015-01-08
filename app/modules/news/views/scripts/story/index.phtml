@@ -3,7 +3,7 @@
 <?php if (!empty($this->comments)) : ?>
     <p>There are <?php echo count($this->comments); ?> comments on this story.</p>
     <div id="comm">
-        <ul><?php echo $this->partialLoop('partials/database/comments.phtml', $this->comments); ?></ul>
+        <ul><?php echo $this->partialLoop('partials/database/structural/comments.phtml', $this->comments); ?></ul>
     </div>
 <?php else: ?>
     <p>Be the first to comment on this news story.</p>

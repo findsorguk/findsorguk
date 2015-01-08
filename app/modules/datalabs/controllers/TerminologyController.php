@@ -207,8 +207,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function periodAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->periods = $this->getPeriods()->getPeriodDetails($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->periods = $this->getPeriods()->getPeriodDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -221,9 +221,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function activityAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $this->view->activities = $this->getPrimaryActivities()
-                ->getActivityDetails($this->_getParam('id'));
+                ->getActivityDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -246,8 +246,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function methodAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->methods = $this->getDiscoMethods()->getDiscmethodInformation($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->methods = $this->getDiscoMethods()->getDiscmethodInformation($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -269,9 +269,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function preservationAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $this->view->preserves = $this->getPreservations()
-                ->getPreservationDetails($this->_getParam('id'));
+                ->getPreservationDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -309,9 +309,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function noteAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $this->view->notes = $this->getFindsOfNoteReasons()
-                ->getReasonDetails($this->_getParam('id'));
+                ->getReasonDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -350,9 +350,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function cultureAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $this->view->cultures = $this->getCultures()
-                ->getCulture($this->_getParam('id'));
+                ->getCulture($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -390,8 +390,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function materialAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->materials = $this->getMaterials()->getMaterialDetails($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->materials = $this->getMaterials()->getMaterialDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -413,8 +413,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function decorationstyleAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->decs = $this->getDecStyles()->getDecStyleDetails($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->decs = $this->getDecStyles()->getDecStyleDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -452,9 +452,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function manufactureAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $this->view->manufactures = $this->getManufactures()
-                ->getManufactureDetails($this->_getParam('id'));
+                ->getManufactureDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -494,9 +494,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function decorationmethodAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $this->view->decs = $this->getDecorationMethods()
-                ->getDecorationDetails($this->_getParam('id'));
+                ->getDecorationDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -616,9 +616,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function landuseAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->landuses = $this->getLanduses()->getLanduseDetails($this->_getParam('id'));
-            $this->view->landuses2 = $this->getLanduses()->getLandusesChild($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->landuses = $this->getLanduses()->getLanduseDetails($this->getParam('id'));
+            $this->view->landuses2 = $this->getLanduses()->getLandusesChild($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -656,8 +656,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function workflowAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->workflows = $this->getWorkflows()->getStageName($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->workflows = $this->getWorkflows()->getStageName($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -697,7 +697,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
     {
         if ($this->_getparam('id', false)) {
             $this->view->surfaces = $this->getSurfaceTreatments()
-                ->getSurfaceTreatmentDetails($this->_getParam('id'));
+                ->getSurfaceTreatmentDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -745,8 +745,8 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function dieaxisAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->dieaxes = $this->getDieAxes()->getDieAxesDetails((int)$this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->dieaxes = $this->getDieAxes()->getDieAxesDetails((int)$this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -883,9 +883,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function objectAction()
     {
-        if ($this->_getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $this->view->objectdata = $this->getObjectTerms()
-                ->getObjectTermDetail($this->_getParam('term'));
+                ->getObjectTermDetail($this->getParam('term'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -914,9 +914,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function completenessAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $this->view->comps = $this->getCompleteness()
-                ->getDetails($this->_getParam('id'));
+                ->getDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -1025,9 +1025,9 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function weartypeAction()
     {
-        if($this->_getParam('id', false)) {
+        if($this->getParam('id', false)) {
             $wear = new WearTypes();
-            $this->view->wear = $wear->getWearType($this->_getParam('id'));
+            $this->view->wear = $wear->getWearType($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

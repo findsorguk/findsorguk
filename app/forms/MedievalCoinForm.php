@@ -186,7 +186,7 @@ class MedievalCoinForm extends Pas_Form {
 		->addFilters(array('StripTags', 'StringTrim','BasicHtml','WordChars','EmptyParagraph'));
 
 	$rev_mm = new Zend_Form_Element_Textarea('reverse_mintmark');
-	$rev_mm->setLabel('Reverse mintmark: ')
+	$rev_mm->setLabel('Reverse mint mark: ')
 		->addValidators(array('NotEmpty'))
 		->setAttribs(array('rows' => 5, 'cols' => 40, 'class' => 'span6'))
 		->addFilters(array('StripTags', 'StringTrim','BasicHtml','WordChars','EmptyParagraph'));

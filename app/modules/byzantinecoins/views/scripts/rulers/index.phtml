@@ -11,7 +11,7 @@ $this->headTitle("Issuing rulers of the Byzantine period");
 <?php if (count($this->rulers)): ?>
 
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->rulers) ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/rulers.phtml', $this->rulers) ?>
     </ul>
     <?php echo $this->paginationControl($this->rulers, 'Sliding',
         'structure/pagination.phtml'); ?>

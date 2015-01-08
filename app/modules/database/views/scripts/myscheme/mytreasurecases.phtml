@@ -15,7 +15,7 @@ $this->headTitle('All my Treasure cases');
 <div class="row-fluid">
     	<?php if ($this->results): ?>
 		<div class="span9">
-        <?php echo $this->partialLoop('partials/database/findRecordList.phtml',$this->results);?>
+        <?php echo $this->partialLoop('partials/database/structural/findRecordList.phtml',$this->results);?>
         </div>
         <div class="span3">
 		<p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'institutionmap'),null,false);?>" title="Map these records">Map these finds <i class="icon-map-marker"></i></a></p>

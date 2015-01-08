@@ -77,9 +77,8 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin
         $form = new InstitutionForm();
         $form->details->setLegend('Add institution details: ');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
-
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->_institutions->add($form->getValues());
                 $this->getFlash()->addMessage('A new recording institution has been created.');
                 $this->redirect($this->_redirectUrl . 'institutions/');
@@ -103,7 +102,7 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin
         ) {
             if ($form->isValid($form->getValues())) {
                 $where = array();
-                $where[] = $this->_institutions->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                $where[] = $this->_institutions->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $this->_institutions->update($form->getValues(), $where);
                 $this->getFlash()->addMessage($form->getValue('institution') . '\'s details updated.');
                 $this->redirect($this->_redirectUrl . 'institutions/');
@@ -126,9 +125,9 @@ class Admin_InstitutionsController extends Pas_Controller_Action_Admin
      */
     public function institutionAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->inst = $this->_institutions->getInst($this->_getParam('id'));
-            $this->view->members = $this->getUsers()->getMembersInstitution($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->inst = $this->_institutions->getInst($this->getParam('id'));
+            $this->view->members = $this->getUsers()->getMembersInstitution($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

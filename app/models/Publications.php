@@ -152,7 +152,7 @@ class Publications extends Pas_Db_Table_Abstract {
         $refs = $this->getAdapter();
         $select = $refs->select()
                 ->from($this->_name,array(
-                    'identifier' => 'CONCAT("publications-",publications.id)',
+                    'identifier' => new Zend_Db_Expr("CONCAT('publications-',publications.id)"),
                     'publications.id',
                     'title',
                     'authors',

@@ -58,11 +58,8 @@ class Admin_NewsController extends Pas_Controller_Action_Admin
             'updated', 'updatedBy', 'publishState',
             'title', 'created', 'createdBy', 'id'
         ));
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
-        ) {
-
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost() && !is_null($this->getParam('submit'))) {
+            if ($form->isValid($this->_request->getPost())) {
                 $params = $cleaner->array_cleanup($form->getValues());
                 $this->_helper->Redirector->gotoSimple('index', 'news', 'admin', $params);
             } else {
@@ -92,8 +89,8 @@ class Admin_NewsController extends Pas_Controller_Action_Admin
         $form = new NewsStoryForm();
         $form->submit->setLabel('Add story');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $insert = $this->_news->addNews($form->getValues());
                 $this->_helper->solrUpdater->update('content', $insert, 'news');
                 $this->getFlash()->addMessage('News story created!');
@@ -113,10 +110,10 @@ class Admin_NewsController extends Pas_Controller_Action_Admin
         $form = new NewsStoryForm();
         $form->submit->setLabel('Update story');
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
-                $this->_news->updateNews($form->getValues(), $this->_getParam('id'));
-                $this->_helper->solrUpdater->update('content', $this->_getParam('id'), 'news');
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
+                $this->_news->updateNews($form->getValues(), $this->getParam('id'));
+                $this->_helper->solrUpdater->update('content', $this->getParam('id'), 'news');
                 $this->getFlash()->addMessage('News story information updated!');
                 $this->redirect(self::REDIRECT);
             } else {

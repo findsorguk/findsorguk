@@ -47,7 +47,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin
      */
     public function eventAction()
     {
-        $this->view->event = $this->_gcal->getEvent($this->_getParam('id'));
+        $this->view->event = $this->_gcal->getEvent($this->getParam('id'));
     }
 
     /** Add an event to gcal
@@ -81,7 +81,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin
         $form = new CalendarForm();
         $form->details->setLegend('Edit an event');
         $this->view->form = $form;
-        $event = $this->_gcal->getEvent($this->_getParam('id'));
+        $event = $this->_gcal->getEvent($this->getParam('id'));
         $eventData = array(
             'title' => $event->title,
             'id' => substr($event->id, strrpos($event->id, '/') + 1, 26),
@@ -99,7 +99,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin
         if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
-                $formData['id'] = $this->_getParam('id');
+                $formData['id'] = $this->getParam('id');
                 $formData['creator'] = $this->_helper->identity->getPerson()->fullname;
                 $edit = $this->_gcal->editEvent($formData);
                 $this->getFlash()->addMessage('Calendar event updated');
@@ -116,7 +116,7 @@ class Users_CalendarController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-        $event = $this->_gcal->getEvent($this->_getParam('id'));
+        $event = $this->_gcal->getEvent($this->getParam('id'));
         $this->view->id = substr($event->id, strrpos($event->id, '/') + 1, 26);
         $this->view->title = $event->title;
         if ($this->_request->isPost()) {

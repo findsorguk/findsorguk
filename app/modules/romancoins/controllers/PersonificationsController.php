@@ -51,8 +51,8 @@ class RomanCoins_PersonificationsController extends Pas_Controller_Action_Admin 
      * @return void
      */
     public function namedAction() {
-        if($this->_getParam('as',false)) {
-            $this->view->details =  $this->_reverses->getPersonification($this->_getParam('as'));
+        if($this->getParam('as',false)) {
+            $this->view->details =  $this->_reverses->getPersonification($this->getParam('as'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

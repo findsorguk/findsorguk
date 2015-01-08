@@ -1,26 +1,24 @@
-<p>
-<?php 
-    if(isset($this->finders[0]['finderID'])) {
-        $auth = Zend_Registry::get('auth');
-        if($auth->hasIdentity()){
-            $user = $auth->getIdentity();
-            $allowed = array('fa','admin','flos','hero', 'treasure');
-            if(in_array($user->role,$allowed)){
-?>
-                <?php foreach($this->finders as $finder) : ?>
-Found by: <span property="pas:finder foaf:name" instanceof="foaf:person"><?php echo $this->escape($finder['title']);?>
-                    <?php echo $this->escape($finder['forename']);?>
-                    <?php echo $this->escape($finder['surname']);?></span> - <span class="scope">[<a href="
-                    <?php echo $this->url(array('module' => 'database','controller' => 'search',
-                            'action' => 'results', 'finderID' => $finder['finderID']),null,true);?>
-" title="View other discoveries" >view other discoveries by this finder</a>]</span><br />
-                <?php endforeach; ?>
 <?php
-            }
-            } else {
-?>
-Found by: This information is restricted for your login. <br />
-<?php 
-            }
-}
-?>
+if (isset($this->finders[0]['finderID'])):?>
+    <?php $auth = Zend_Registry::get('auth');?>
+    <?php if ($auth->hasIdentity()): ?>
+        <?php
+        $user = $auth->getIdentity();
+        $allowed = array('fa', 'admin', 'flos', 'hero', 'treasure');
+        ?>
+        <?php if (in_array($user->role, $allowed)): ?>
+            <p>
+                <?php foreach ($this->finders as $finder) : ?>
+                    Found by: <span property="pas:finder foaf:name"
+                                    instanceof="foaf:person"><?php echo $this->escape($finder['title']); ?>
+                        <?php echo $this->escape($finder['forename']); ?>
+                        <?php echo $this->escape($finder['surname']); ?></span> - <a href="
+                    <?php echo $this->url(array('module' => 'database', 'controller' => 'search',
+                        'action' => 'results', 'finderID' => $finder['finderID']), null, true); ?>" title="View other discoveries"><i class="icon-info-sign"></i></a><br/>
+                <?php endforeach; ?>
+            </p>
+        <?php endif; ?>
+    <?php else: ?>
+        <p>Found by: This information is restricted for your login. </p>
+    <?php endif;?>
+<?php endif; ?>

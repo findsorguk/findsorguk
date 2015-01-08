@@ -102,8 +102,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         'xml', 'rss', 'json',
         'atom', 'kml', 'georss',
         'ics', 'rdf', 'xcs',
-        'vcf', 'csv', 'pdf',
-        'geojson');
+        'vcf', 'csv', 'pdf');
 
     /** The auth object
      * @access protected
@@ -228,7 +227,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
             ->addContext('rdf', array('suffix' => 'rdf', 'headers' => array('Content-Type' => 'application/xml')))
             ->addContext('qrcode', array('suffix' => 'qrcode'))
             ->addContext('geojson', array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json')))
-            ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'rdf'))
+            ->addActionContext('record', array('qrcode', 'json', 'xml'))
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
         $this->_user = $this->_helper->identity->getPerson();
@@ -252,8 +251,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function recordAction()
     {
-        if ($this->_getParam('id', false)) { // Check there is a hoardID in the URL
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) { // Check there is a hoardID in the URL
+            $id = $this->getParam('id');
             $hoardsdata = $this->getHoards()->getBasicHoardData($id);
             if (!empty($hoardsdata)) {
                 $this->view->hoards = $hoardsdata;
@@ -319,7 +318,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
 
         $this->view->form = $form;
 
-        $last = $this->_getParam('copy');
+        $last = $this->getParam('copy');
         if ($last == 'last') {
             $data = $this->getHoards()->getLastRecord($this->getIdentityForForms());
             $form->populate($data[0]);
@@ -350,7 +349,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        $id = $this->_getParam('id', false);
+        $id = $this->getParam('id', false);
         if (isset($id)) {
             $form = $this->getHoardForm();
             $form->submit->setLabel('Update record');
@@ -369,17 +368,17 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $form->preValidation($this->_request->getPost());
                 if ($form->isValid($this->_request->getPost())) {
                     $updateData = $form->getValues();
-                    $oldData = $this->getHoards()->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    $oldData = $this->getHoards()->fetchRow('id=' . $this->getParam('id'))->toArray();
                     $update = $this->getHoards()->editHoard($updateData, $id);
                     $this->_helper->audit(
                         $updateData,
                         $oldData,
                         'HoardsAudit',
-                        $this->_getParam('id'),
-                        $this->_getParam('id')
+                        $this->getParam('id'),
+                        $this->getParam('id')
                     );
                     if ($update != 'error') {
-                        $this->_helper->solrUpdater->update('objects', $this->_getParam('id'), 'hoards');
+                        $this->_helper->solrUpdater->update('objects', $this->getParam('id'), 'hoards');
                         $this->redirect(self::REDIRECT . 'record/id/' . $id);
                     } else { // If there is a database error, repopulate form so users don't lose their work
                         $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
@@ -445,7 +444,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     public function linkAction()
     {
         // The secuid and id of the hoard is passed in the url
-        if ($this->_getParam('hoardID', false) || $this->_getParam('id', false)) {
+        if ($this->getParam('hoardID', false) || $this->getParam('id', false)) {
             $form = $this->getArtefactLinkForm();
             $this->view->form = $form;
 
@@ -454,7 +453,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
 
                 if ($form->isValid($formData)) {
                     // The secuid of the hoard is retrieved from the url
-                    $updateData['hoardID'] = $this->_getParam('hoardID');
+                    $updateData['hoardID'] = $this->getParam('hoardID');
 
                     // The secuid of the artefact to link is retrieved from the form
                     $findSecuid = $form->getValue('findID');
@@ -469,7 +468,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
 
                     // $this->_helper->solrUpdater->update('objects', $findID);
                     $this->getFlash()->addMessage('Success! Coin, artefact or container linked to this hoard');
-                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('id'));
+                    $this->redirect('/database/hoards/record/id/' . $this->getParam('id'));
                 }
             }
         } else {
@@ -483,10 +482,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function unlinkAction()
     {
-        if ($this->_getParam('findID', false) || $this->_getParam('hoardID', false) || $this->_getParam('secuid', false)) {
+        if ($this->getParam('findID', false) || $this->getParam('hoardID', false) || $this->getParam('secuid', false)) {
             // Pass the hoard secuid and id into the view from the url
-            $this->view->hoardSecuid = $this->_getParam('secuid');
-            $this->view->hoardID = $this->_getParam('hoardID');
+            $this->view->hoardSecuid = $this->getParam('secuid');
+            $this->view->hoardID = $this->getParam('hoardID');
 
             if ($this->_request->isPost()) {
                 // The find id is retrieved from the form
@@ -502,10 +501,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                     //	$this->_helper->solrUpdater->update('finds', $findID);
 
                     $this->getFlash()->addMessage('Link deleted!');
-                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('hoardID'));
+                    $this->redirect('/database/hoards/record/id/' . $this->getParam('hoardID'));
 
                 } else { // If 'No' to cancel unlinking
-                    $this->redirect('/database/hoards/record/id/' . $this->_getParam('hoardID'));
+                    $this->redirect('/database/hoards/record/id/' . $this->getParam('hoardID'));
                 }
             } else { // If not POST view the confirmation
                 $findID = (int)$this->_request->getParam('findID');
@@ -526,14 +525,14 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function workflowAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $people = new People();
-            $exist = $people->checkEmailOwner($this->_getParam('id'));
+            $exist = $people->checkEmailOwner($this->getParam('id'));
             $person = $this->getAccount();
             $from = array('name' => $person->fullname, 'email' => $person->email);
             $this->view->from = $exist;
             $form = new ChangeWorkFlowForm();
-            $findStatus = $this->getHoards()->fetchRow($this->getHoards()->select()->where('id = ?', $this->_getParam('id')));
+            $findStatus = $this->getHoards()->fetchRow($this->getHoards()->select()->where('id = ?', $this->getParam('id')));
             $this->view->find = $findStatus->hoardID;
             $form->populate($findStatus->toArray());
             $this->view->form = $form;
@@ -549,7 +548,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         $assignData = array(
                             'name' => $exist['0']['name'],
                             'hoardID' => $findStatus->hoardID,
-                            'id' => $this->_getParam('id'),
+                            'id' => $this->getParam('id'),
                             'from' => $person->fullname,
                             'workflow' => $form->getValue('secwfstage'),
                             'content' => $form->getValue('content')
@@ -557,17 +556,17 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         $this->_helper->mailer($assignData, 'informFinderWorkflow', $exist, array($from), array($from), null, null);
                     }
                     $where = array();
-                    $where[] = $this->getHoards()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->getHoards()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->getHoards()->update($updateData, $where);
                     $this->_helper->audit(
                         $updateData,
                         $findStatus->toArray(),
                         'FindsAudit',
-                        $this->_getParam('id'),
-                        $this->_getParam('id'));
-                    // $this->_helper->solrUpdater->update('objects', $this->_getParam('findID'));
+                        $this->getParam('id'),
+                        $this->getParam('id'));
+                    // $this->_helper->solrUpdater->update('objects', $this->getParam('findID'));
                     $this->getFlash()->addMessage('Workflow status changed');
-                    $this->redirect('database/hoards/record/id/' . $this->_getParam('id'));
+                    $this->redirect('database/hoards/record/id/' . $this->getParam('id'));
                     $this->_request->setMethod('GET');
                 } else {
                     $this->getFlash()->addMessage('There were problems changing the workflow');
@@ -586,10 +585,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function errorAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new CommentOnErrorFindForm();
             $form->submit->setLabel('Submit your error report');
-            $finds = $this->getHoards()->fetchRow($this->getHoards()->select()->where('id = ?', $this->_getParam('id')))->toArray();
+            $finds = $this->getHoards()->fetchRow($this->getHoards()->select()->where('id = ?', $this->getParam('id')))->toArray();
             $this->view->finds = $finds;
             $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
@@ -609,7 +608,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                     $data
                 );
                 $this->getFlash()->addMessage('Your error report has been submitted. Thank you!');
-                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('id'));
             } else {
                 $form->populate($this->_request->getPost());
             }

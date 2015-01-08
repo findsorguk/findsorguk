@@ -3,9 +3,9 @@
        title="View <?php echo $this->escape($this->username); ?>'s profile on our site">
         <?php
         echo $this->gravatar($this->email, array(
-                'imgSize' => 80,
-                'defaultImg' => 'http://finds.org.uk/assets/gravatar.png',
-                'secure' => true),
+            'imgSize' => 80,
+            'defaultImg' => 'http://finds.org.uk/assets/gravatar.png',
+            'secure' => true),
             array(
                 'class' => 'avatar img-circle pull-left stelae',
                 'title' => $this->fullname . '\'s gravatar representation',

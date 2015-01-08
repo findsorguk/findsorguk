@@ -1,6 +1,4 @@
-<?php 
-echo $this->partialLoop('partials/database/publicationAmazonDetails.phtml',$this->publications);
-?>
+<?php echo $this->partialLoop('partials/database/publications/publicationAmazonDetails.phtml', $this->publications); ?>
 <div class="row-fluid">
-    <?php echo $this->latestRecordsPublications('pubID:'  . Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));?>
+    <?php echo $this->latestRecordsPublications('pubID:' . Zend_Controller_Front::getInstance()->getRequest()->getParam('id')); ?>
 </div>

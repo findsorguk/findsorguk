@@ -230,29 +230,35 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     public function recordAction()
     {
 
-        if ($this->_getParam('id', false)) {
-            $this->view->recordID = $this->_getParam('id');
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $this->view->recordID = $this->getParam('id');
+            $id = $this->getParam('id');
             $this->view->finds = $this->getFinds()->getAllData($id);
-            $coinrefs = new CoinClassifications();
-            $this->view->coinrefs = $coinrefs->getAllClasses($id);
+            $coins = new Coins();
+            $this->view->coins = $coins->getCoinData($id);
+            $coinRefs = new CoinClassifications();
+            $this->view->coinrefs = $coinRefs->getAllClasses($id);
             $thumbs = new Slides;
             $this->view->thumbs = $thumbs->getThumbnails($id);
             $refs = new Publications;
             $this->view->refs = $refs->getReferences($id);
             $this->view->comments = $this->getComments()->getFindComments($id);
+            $models = new SketchFab();
+            $this->view->sketchfab = $models->getModels($id);
             $form = new CommentFindForm();
             $form->submit->setLabel('Add a new comment');
+
+
             $this->view->form = $form;
             if ($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
                     $data = $this->_helper->akismet($form->getValues());
-                    $data['contentID'] = $this->_getParam('id');
+                    $data['contentID'] = $this->getParam('id');
                     $data['comment_type'] = 'findComment';
                     $data['comment_approved'] = 'moderation';
                     $this->getComments()->add($data);
                     $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('id'));
                     $this->_request->setMethod('GET');
                 } else {
                     $this->getFlash()->addMessage('There are problems with your comment submission');
@@ -277,7 +283,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         ) {
             $this->redirect('/error/accountproblem');
         }
-        $last = $this->_getParam('copy');
+        $last = $this->getParam('copy');
         $this->view->secuid = $this->secuid();
         $form = $this->getFindForm();
         $form->submit->setLabel('Save record');
@@ -300,9 +306,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         }
         $this->view->form = $form;
         if ($last == 'last') {
-            $finddata = $this->getFinds()->getLastRecord($this->getIdentityForForms());
-            foreach ($finddata as $finddataflat) {
-                $form->populate($finddataflat);
+            $findData = $this->getFinds()->getLastRecord($this->getIdentityForForms());
+            foreach ($findData as $findDataFlat) {
+                $form->populate($findDataFlat);
                 if (isset($user->peopleID)) {
                     $form->recorderID->setValue($user->peopleID);
                     $form->recordername->setValue($user->fullname);
@@ -339,7 +345,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $user = $this->getAccount();
             $form = $this->getFindForm();
             $form->submit->setLabel('Update record');
@@ -365,22 +371,22 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                     unset($updateData['idBy']);
                     unset($updateData['id2by']);
                     unset($updateData['secondfinder']);
-                    $oldData = $this->getFinds()->fetchRow('id=' . $this->_getParam('id'))->toArray();
+                    $oldData = $this->getFinds()->fetchRow('id=' . $this->getParam('id'))->toArray();
                     $where = array();
-                    $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->getFinds()->update($updateData, $where);
                     $this->_helper->audit(
                         $updateData,
                         $oldData,
                         'FindsAudit',
-                        $this->_getParam('id'),
-                        $this->_getParam('id')
+                        $this->getParam('id'),
+                        $this->getParam('id')
                     );
-                    $this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('id'));
                     $this->getFlash()->addMessage('Artefact information updated and audited!');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('id'));
                 } else {
-                    $this->view->find = $this->getFinds()->fetchRow('id=' . $this->_getParam('id'));
+                    $this->view->find = $this->getFinds()->fetchRow('id=' . $this->getParam('id'));
                     $form->populate($this->_request->getPost());
                 }
             } else {
@@ -434,10 +440,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
      */
     public function errorreportAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new CommentOnErrorFindForm();
             $form->submit->setLabel('Submit your error report');
-            $finds = $this->getFinds()->getRelevantAdviserFind($this->_getParam('id', 0));
+            $finds = $this->getFinds()->getRelevantAdviserFind($this->getParam('id', 0));
             $this->view->form = $form;
             $this->view->finds = $finds;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
@@ -463,7 +469,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                     $data
                 );
                 $this->getFlash()->addMessage('Your error report has been submitted. Thank you!');
-                $this->redirect(self::REDIRECT . 'record/id/' . $this->_getParam('id'));
+                $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('id'));
             } else {
                 $form->populate($this->_request->getPost());
             }
@@ -479,10 +485,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
      */
     public function notifyfloAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new NotifyFloForm();
             $this->view->form = $form;
-            $find = $this->getFinds()->fetchRow($this->getFinds()->select()->where('id = ?', $this->_getParam('id')));
+            $find = $this->getFinds()->fetchRow($this->getFinds()->select()->where('id = ?', $this->getParam('id')));
             $this->view->find = $find->toArray();
             if ($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
@@ -506,14 +512,14 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
 
     public function workflowAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $people = new People();
-            $exist = $people->checkEmailOwner($this->_getParam('id'));
+            $exist = $people->checkEmailOwner($this->getParam('id'));
             $person = $this->getAccount();
             $from = array('name' => $person->fullname, 'email' => $person->email);
             $this->view->from = $exist;
             $form = new ChangeWorkFlowForm();
-            $findStatus = $this->getFinds()->fetchRow($this->getFinds()->select()->where('id = ?', $this->_getParam('id')));
+            $findStatus = $this->getFinds()->fetchRow($this->getFinds()->select()->where('id = ?', $this->getParam('id')));
             $this->view->find = $findStatus->old_findID;
             $form->populate($findStatus->toArray());
             $this->view->form = $form;
@@ -529,7 +535,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                         $assignData = array(
                             'name' => $exist['0']['name'],
                             'old_findID' => $findStatus->old_findID,
-                            'id' => $this->_getParam('id'),
+                            'id' => $this->getParam('id'),
                             'from' => $person->fullname,
                             'workflow' => $form->getValue('secwfstage'),
                             'content' => $form->getValue('content')
@@ -537,17 +543,17 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                         $this->_helper->mailer($assignData, 'informFinderWorkflow', $exist, array($from), array($from), null, null);
                     }
                     $where = array();
-                    $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->getFinds()->update($updateData, $where);
                     $this->_helper->audit(
                         $updateData,
                         $findStatus->toArray(),
                         'FindsAudit',
-                        $this->_getParam('findID'),
-                        $this->_getParam('findID'));
-                    $this->_helper->solrUpdater->update('objects', $this->_getParam('id'));
+                        $this->getParam('findID'),
+                        $this->getParam('findID'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('id'));
                     $this->getFlash()->addMessage('Workflow status changed');
-                    $this->redirect('database/artefacts/record/id/' . $this->_getParam('id'));
+                    $this->redirect('database/artefacts/record/id/' . $this->getParam('id'));
                     $this->_request->setMethod('GET');
                 } else {
                     $this->getFlash()->addMessage('There were problems changing the workflow');

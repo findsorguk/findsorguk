@@ -74,8 +74,8 @@ class Contacts_StaffController extends Pas_Controller_Action_Admin
      */
     public function profileAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
             $staffs = new Contacts();
             $this->view->persons = $staffs->getPersonDetails($id);
             $this->view->findstotals = $this->getFinds()->getFindsFloQuarter($id);

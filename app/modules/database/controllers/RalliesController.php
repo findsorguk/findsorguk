@@ -124,12 +124,12 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
      */
     public function rallyAction()
     {
-        if ($this->_getParam('id', false)) {
-            $rallies = $this->getRallies()->getRally($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $rallies = $this->getRallies()->getRally($this->getParam('id'));
             if (count($rallies)) {
                 $this->view->rallies = $rallies;
                 $attending = new RallyXFlo();
-                $this->view->atts = $attending->getStaff($this->_getParam('id'));
+                $this->view->atts = $attending->getStaff($this->getParam('id'));
             } else {
                 throw new Pas_Param_Exception('No rally exists with that id', 404);
             }
@@ -186,7 +186,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new RallyForm();
             $form->submit->setLabel('Update details');
             $this->view->form = $form;
@@ -194,12 +194,12 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
                 if ($form->isValid($formData)) {
                     $updateData = $this->_rallies->updateAndProcess($form->getValues());
                     $where = array();
-                    $where[] = $this->_rallies->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where[] = $this->_rallies->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     unset($updateData['created']);
                     $this->_rallies->update($updateData, $where);
                     $this->getCache()->remove('rallydds');
                     $this->getFlash()->addMessage('Rally information updated!');
-                    $this->redirect(self::URL . 'rally/id/' . $this->_getParam('id'));
+                    $this->redirect(self::URL . 'rally/id/' . $this->getParam('id'));
                 } else {
                     if (!is_null($formData['districtID'])) {
                         $district_list = $this->_districts
@@ -282,13 +282,13 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
      */
     public function addfloAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new AddFloRallyForm();
             $this->view->form = $form;
             if ($this->_request->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
                     $rallies = new RallyXFlo();
-                    $rallyID = $this->_getParam('id');
+                    $rallyID = $this->getParam('id');
                     $insertData = array(
                         'rallyID' => $rallyID,
                         'staffID' => $form->getValue('staffID'),

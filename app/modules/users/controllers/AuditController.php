@@ -46,7 +46,7 @@ class Users_AuditController extends Pas_Controller_Action_Admin
      */
     public function loginsAction()
     {
-        $this->view->logins = $this->getLogins()->myLogins((string)$this->getUsername(), (int)$this->_getParam('page'));
+        $this->view->logins = $this->getLogins()->myLogins((string)$this->getUsername(), (int)$this->getParam('page'));
         $this->view->ips = $this->getLogins()->myIps($this->getUsername());
     }
 
@@ -56,7 +56,7 @@ class Users_AuditController extends Pas_Controller_Action_Admin
      */
     public function ispAction()
     {
-        $this->view->logins = $this->getLogins()->listIps((int)$this->_getParam('page'));
+        $this->view->logins = $this->getLogins()->listIps((int)$this->getParam('page'));
     }
 
     /** The ip to users action
@@ -65,8 +65,8 @@ class Users_AuditController extends Pas_Controller_Action_Admin
      */
     public function iptousersAction()
     {
-        if ($this->_getParam('ip', false)) {
-            $ip = $this->_getParam('ip');
+        if ($this->getParam('ip', false)) {
+            $ip = $this->getParam('ip');
             $this->view->logins = $this->getLogins()->users2Ip($ip);
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
@@ -79,6 +79,6 @@ class Users_AuditController extends Pas_Controller_Action_Admin
      */
     public function iphistoryAction()
     {
-        $this->view->ips = $this->getLogins()->myIps($this->getUsername(), $this->_getParam('page'));
+        $this->view->ips = $this->getLogins()->myIps($this->getUsername(), $this->getParam('page'));
     }
 }

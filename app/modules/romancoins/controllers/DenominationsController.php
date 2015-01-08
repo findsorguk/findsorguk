@@ -55,8 +55,8 @@ class RomanCoins_DenominationsController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function denominationAction() {
-        if($this->_getParam('id',false)) {
-            $id = $this->_getParam('id');
+        if($this->getParam('id',false)) {
+            $id = $this->getParam('id');
             $this->view->denoms = $this->_denominations->getDenom($id,(int)21);
             $emps = new Emperors();
             $this->view->emps = $emps->getDenomEmperor($id);

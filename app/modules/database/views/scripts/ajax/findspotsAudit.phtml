@@ -8,10 +8,10 @@
     <div class="modal-body">
         <ul>
             <li>
-                <Audit changes made <?php echo $this->timeAgoInWords($this->audit['0']['created']); ?>
+                Audit changes made <?php echo $this->timeAgoInWords($this->audit[0]['created']); ?>
             </li>
             <li>
-                All changes made by <?php echo $this->audit['0']['fullname']; ?>
+                All changes made by <?php echo $this->audit[0]['fullname']; ?>
             </li>
         </ul>
 

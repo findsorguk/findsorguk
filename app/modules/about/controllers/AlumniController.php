@@ -54,8 +54,8 @@ class About_AlumniController extends Pas_Controller_Action_Admin
      */
     public function profileAction()
     {
-        if ($this->_getParam('id', false)) {
-            $id = $this->_getParam('id');
+        if ($this->getParam('id', false)) {
+            $id = $this->getParam('id');
             $this->view->staffs = $this->_contacts->getPersonDetails($id);
             $this->view->findstotals = $this->_finds->getFindsFloQuarter($id);
             $this->view->periodtotals = $this->_finds->getFindsFloPeriod($id);

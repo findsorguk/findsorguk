@@ -25,10 +25,10 @@
            title="View all projects at the level of research equal to: <?php echo $this->type; ?>"><?php echo $this->type; ?></a>
     </td>
     <td>
-        <?php if ($this->finish != 0000 || is_null($this->finish)): ?>
+        <?php if (!is_null($this->finish)): ?>
             <?php echo $this->finish; ?>
         <?php else: ?>
-            Not disclosed
+            -
         <?php endif; ?>
     </td>
 </tr>

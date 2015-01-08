@@ -58,7 +58,7 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin
      */
     public function publishAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $form = new PublishCommentFindForm();
             $form->submit->setLabel('Submit changes');
             $this->view->form = $form;
@@ -68,7 +68,7 @@ class Admin_CommentsController extends Pas_Controller_Action_Admin
                     $to[] = array(
                         'name' => $form->getValue('comment_author'),
                         'email' => $form->getValue('comment_author_email'));
-                    $where = $this->getComments()->getAdapter()->quoteInto('id = ?', $this->_getParam('id'));
+                    $where = $this->getComments()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->getComments()->update($data, $where);
 
                     $this->_helper->mailer($form->getValues(), 'commentPublished', $to);

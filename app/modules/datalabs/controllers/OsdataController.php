@@ -46,11 +46,8 @@ class Datalabs_OsdataController extends Pas_Controller_Action_Admin
         $search->setFields(array('*'));
         $search->setFacets(array('county'));
 
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
-            && !is_null($this->_getParam('submit'))
-        ) {
-
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost() && !is_null($this->getParam('submit'))) {
+            if ($form->isValid($this->_request->getPost())) {
                 $params = $form->getValues();
                 unset($params['csrf']);
                 $this->_helper->Redirector->gotoSimple('index', 'osdata', 'datalabs', $params);
@@ -62,7 +59,7 @@ class Datalabs_OsdataController extends Pas_Controller_Action_Admin
             $form->populate($this->_request->getPost());
         }
 
-        $q = $this->_getParam('q');
+        $q = $this->getParam('q');
         if (is_null($q)) {
             $params['q'] = 'type:R OR type:A';
         } else {
@@ -85,9 +82,9 @@ class Datalabs_OsdataController extends Pas_Controller_Action_Admin
      */
     public function oneto50kAction()
     {
-        if ($this->_getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $gazetteers = new OsData();
-            $this->view->gazetteer = $gazetteers->getGazetteer($this->_getParam('id'));
+            $this->view->gazetteer = $gazetteers->getGazetteer($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

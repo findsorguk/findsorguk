@@ -79,8 +79,8 @@ class EarlyMedievalCoins_RulersController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function rulerAction() {
-        if($this->_getParam('id',false)){
-            $id = $this->_getParam('id');
+        if($this->getParam('id',false)){
+            $id = $this->getParam('id');
             $this->view->rulers = $this->_rulers->getRulerImage($id);
             $this->view->monarchs = $this->_rulers->getRulerProfileMed($id);
             $denominations = new Denominations();

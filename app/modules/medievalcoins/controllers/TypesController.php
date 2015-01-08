@@ -46,7 +46,7 @@ class MedievalCoins_TypesController extends Pas_Controller_Action_Admin {
      * @return void
      */
     public function indexAction() {
-        $this->view->types = $this->_types->getTypesByPeriod((int)$this->_period,(int)$this->_getParam('page'));
+        $this->view->types = $this->_types->getTypesByPeriod((int)$this->_period,(int)$this->getParam('page'));
     }
 
     /** Medieval type details page
@@ -55,8 +55,8 @@ class MedievalCoins_TypesController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function typeAction() {
-        if($this->_getParam('id',false)){
-            $this->view->types = $this->_types->getTypeDetails((int)$this->_getParam('id'));
+        if($this->getParam('id',false)){
+            $this->view->types = $this->_types->getTypeDetails((int)$this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

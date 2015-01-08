@@ -31,14 +31,14 @@ class Bronzeage_ObjectsController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $content = new Content();
-        if (!in_array($this->_getParam('slug'), array('gold', 'other'))) {
-            $this->view->content = $content->getContent('bronzeage', $this->_getParam('slug'));
+        if (!in_array($this->getParam('slug'), array('gold', 'other'))) {
+            $this->view->content = $content->getContent('bronzeage', $this->getParam('slug'));
         } else {
-            if ($this->_getParam('slug') == 'gold') {
-                $this->view->content = $content->getContent('bronzeage', $this->_getParam('slug'));
+            if ($this->getParam('slug') == 'gold') {
+                $this->view->content = $content->getContent('bronzeage', $this->getParam('slug'));
                 $this->view->menu = 'gold';
-            } else if ($this->_getParam('slug') == 'other') {
-                $this->view->content = $content->getContent('bronzeage', $this->_getParam('slug'));
+            } else if ($this->getParam('slug') == 'other') {
+                $this->view->content = $content->getContent('bronzeage', $this->getParam('slug'));
                 $this->view->menu = 'other';
             }
         }

@@ -55,8 +55,8 @@ class GetInvolved_VolunteeringController extends Pas_Controller_Action_Admin
      */
     public function roleAction()
     {
-        if ($this->_getParam('id', false)) {
-            $this->view->vols = $this->_volunteers->getOppDetails($this->_getParam('id'));
+        if ($this->getParam('id', false)) {
+            $this->view->vols = $this->_volunteers->getOppDetails($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

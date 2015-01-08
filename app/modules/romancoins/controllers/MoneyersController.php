@@ -46,8 +46,8 @@ class Romancoins_MoneyersController extends Pas_Controller_Action_Admin {
      * @throws Pas_Exception_Param
      */
     public function calledAction() {
-        if($this->_getParam('by',false)){
-            $this->view->moneyer = $this->_moneyers->getMoneyer($this->_getParam('by'));
+        if($this->getParam('by',false)){
+            $this->view->moneyer = $this->_moneyers->getMoneyer($this->getParam('by'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
