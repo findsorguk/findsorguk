@@ -68,4 +68,17 @@ class Pas_ArrayFunctions {
     public function combine(array $array1, array $array2) {
             return array_combine($array1,$array2);
     }
+
+    /** Sort an array by an array
+     * @access public
+     * @param array $toSort
+     * @param array $sortByValuesAsKeys
+     * @return array
+     */
+    public function sortArrayByArray(array $toSort, array $sortByValuesAsKeys){
+        $commonKeysInOrder = array_intersect_key(array_flip($sortByValuesAsKeys), $toSort);
+        $commonKeysWithValue = array_intersect_key($toSort, $commonKeysInOrder);
+        $sorted = array_merge($commonKeysInOrder, $commonKeysWithValue);
+        return $sorted;
+    }
 }

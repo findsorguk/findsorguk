@@ -447,8 +447,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $exporter = new Pas_Exporter_Generate();
         $exporter->setFormat('nms');
         $data = $exporter->execute();
-        $filename = 'NMSRecordsExport_For_' . $this->getUsername()
-            . '_' . Zend_Date::now()->toString('yyyyMMddHHmmss') . '.pdf';
+        $filename = 'NMSRecordsExport_For_' . $this->getUsername() . '_' . Zend_Date::now()->toString('yyyyMMddHHmmss') . '.pdf';
         $this->view->filename = $filename;
         $this->view->path = CACHE_PATH;
         $this->view->nms = $data;
