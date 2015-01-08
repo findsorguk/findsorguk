@@ -1,0 +1,18 @@
+<li>
+    <div class="commgrav">
+        <?php
+        echo $this->gravatar($this->comment_author_email, array(
+            'imgSize' => 30,
+            'defaultImg' => $this->baseUrl() . '/assets/gravatar.png',
+            'secure' => true),
+            array(
+                'class' => 'avatar pull-left stelae img-circle',
+                'title' => $this->comment_author . '\'s gravatar representation',
+                'rating' => 'G',
+                'height' => 30,
+                'width' => 30)
+        );
+        ?>
+    </div>
+    <?php echo $this->comment_author; ?> wrote @ <?php echo $this->df; ?>.  <?php echo $this->comment_content; ?>
+</li>

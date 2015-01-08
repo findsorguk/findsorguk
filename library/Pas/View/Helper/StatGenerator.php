@@ -61,7 +61,7 @@ class Pas_View_Helper_StatGenerator extends Zend_View_Helper_Abstract
      */
     public function html()
     {
-        return $this->view->partial('partials/database/statSearch.phtml',
+        return $this->view->partial('partials/database/structural/statSearch.phtml',
             $this->getStats());
     }
 

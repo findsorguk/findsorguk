@@ -10,7 +10,7 @@ $this->metaBase()
 </h2>
 <p><span class="updated dtstamp" title="<?php
     $date = strtotime($this->golive);
-    echo date(DATE_ATOM, $date);?>">Published: <?php echo $this->timeAgoInWords($this->golive); ?></span>
+    echo date(DATE_ATOM, $date); ?>">Published: <?php echo $this->timeAgoInWords($this->golive); ?></span>
 <span class="vcard">
 Author: <span class="fn"><a rel="author"
                             href="<?php echo $this->serverUrl(); ?>/contacts/staff/profile/id/<?php echo $this->personID; ?>"><?php echo $this->escape($this->author); ?></a></span> <a

@@ -33,7 +33,7 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
 
             <div class="span9">
 
-                <?php echo $this->partialLoop('partials/database/findRecordList.phtml', $this->results); ?>
+                <?php echo $this->partialLoop('partials/database/structural/findRecordList.phtml', $this->results); ?>
             </div>
             <div class="span3" id="resultsSidebar">
                 <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>

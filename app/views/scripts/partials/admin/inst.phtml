@@ -10,20 +10,20 @@ $this->metaBase()->setDescription($this->title())->generate();
                 'id' => $this->id
             ), null, true); ?>" title="Edit this institution's details">Edit</a>
         <?php if (!is_null($this->host)) : ?>
-    <a class="btn btn-success btn-small" href="<?php echo $this->url(
-        array(
-            'module' => 'admin', 'controller' => 'logos', 'action' => 'add',
-            'id' => $this->id
-        ), null, true); ?>" title="Add a new logo">Add logo</a>
-    <?php else : ?>
-    <a class="btn btn-success btn-small" href="<?php echo $this->url(
-        array(
-            'module' => 'admin', 'controller' => 'logos', 'action' => 'delete',
-            'id' => $this->id
-        ), null, true); ?>" title="Delete an institutional logo">Delete logo</a>
+            <a class="btn btn-success btn-small" href="<?php echo $this->url(
+                array(
+                    'module' => 'admin', 'controller' => 'logos', 'action' => 'add',
+                    'id' => $this->id
+                ), null, true); ?>" title="Add a new logo">Add logo</a>
+        <?php else : ?>
+            <a class="btn btn-success btn-small" href="<?php echo $this->url(
+                array(
+                    'module' => 'admin', 'controller' => 'logos', 'action' => 'delete',
+                    'id' => $this->id
+                ), null, true); ?>" title="Delete an institutional logo">Delete logo</a>
         <?php endif; ?>
     </div>
-<hr />
+    <hr/>
 <?php if (!is_null($this->description)): ?>
     <p><?php echo $this->description; ?></p>
 <?php endif; ?>

@@ -28,4 +28,18 @@ class SketchFab extends Pas_Db_Table_Abstract
      */
     protected $_primary = 'id';
 
+    /** Get sketchfab models attached to record
+     * @access public
+     * @param int $id
+     */
+    public function getModels($id)
+    {
+        $models = $this->getAdapter();
+        $select = $models->select()
+            ->from($this->_name, array('modelID'))
+            ->joinLeft('finds', 'finds.secuid = sketchFab.findID', array())
+            ->where('finds.id = ?', (string)$id);
+        return $models->fetchAll($select);
+    }
+
 }

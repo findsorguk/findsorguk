@@ -9,19 +9,19 @@
     <td><?php echo $this->validity()->setValid($this->valid); ?></td>
     <td>
         <div class="btn-group">
-        <a class="btn btn-mini btn-success" href="<?php echo $this->url(array(
-                    'module' => 'admin',
-                    'controller' => 'roles',
-                    'action' => 'edit',
-                    'id' => $this->id),
-                'default', true);?>">edit</a>
+            <a class="btn btn-mini btn-success" href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'roles',
+                'action' => 'edit',
+                'id' => $this->id),
+                'default', true); ?>">edit</a>
 
-        <a class="btn btn-mini btn-danger" href="<?php echo $this->url(array(
-                    'module' => 'admin',
-                    'controller' => 'roles',
-                    'action' => 'delete',
-                    'id' => $this->id),
-                'default', true);?>">delete</a>
+            <a class="btn btn-mini btn-danger" href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'roles',
+                'action' => 'delete',
+                'id' => $this->id),
+                'default', true); ?>">delete</a>
         </div>
     </td>
 </tr>

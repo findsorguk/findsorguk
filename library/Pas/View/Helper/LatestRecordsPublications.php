@@ -95,7 +95,7 @@ class Pas_View_Helper_LatestRecordsPublications extends Zend_View_Helper_Abstrac
             $html = '<h3 class="lead">Referenced finds recorded with images</h3>';
             $html .= '<p>We have recorded ' . $data['numberFound'] . ' examples.</p>';
             $html .= '<div id="latest">';
-            $html .= $this->view->partialLoop('partials/database/imagesPaged.phtml', $data['images']);
+            $html .= $this->view->partialLoop('partials/database/images/imagesPaged.phtml', $data['images']);
             $html .= '</div>';
 
             return $html;

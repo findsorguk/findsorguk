@@ -371,7 +371,7 @@ class Pas_View_Helper_LatestRecords extends Zend_View_Helper_Abstract
             $html .= '<p>We have recorded ' . number_format($data['numberFound']);
             $html .= ' examples.</p>';
             $html .= '<div class="row-fluid ">';
-            $html .= $this->view->partialLoop('partials/database/imagesPaged.phtml', $data['images']);
+            $html .= $this->view->partialLoop('partials/database/images/imagesPaged.phtml', $data['images']);
             $html .= '</div>';
         }
         return $html;

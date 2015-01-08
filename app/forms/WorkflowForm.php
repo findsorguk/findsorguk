@@ -52,22 +52,28 @@ class WorkflowForm extends Pas_Form {
 	
 	//Submit button 
 	$submit = new Zend_Form_Element_Submit('submit');
-	$submit->setAttrib('id', 'submitbutton')
+	$submit->setAttrib('id', 'submit')
 		->removeDecorator('DtDdWrapper')
 		->removeDecorator('HtmlTag');
+
+    $cancel = new Zend_Form_Element_Button('cancel');
+    $cancel->setAttrib('id', 'cancel')
+        ->setLabel('Cancel change')
+        ->removeDecorator('DtDdWrapper')
+        ->removeDecorator('HtmlTag');
 	
 	$hash = new Zend_Form_Element_Hash('csrf');
 	$hash->setValue($this->_salt)->setTimeout(4800);		
 	
 	$this->addElements(array(
             $workflowstage, $valid, $termdesc,
-            $submit, $hash));
+            $submit, $cancel, $hash));
 
 	$this->addDisplayGroup(array('workflowstage','termdesc','valid'), 'details');
 	
 	$this->details->setLegend('HER details: ');
 
-	$this->addDisplayGroup(array('submit'), 'buttons');
+	$this->addDisplayGroup(array('submit', 'cancel'), 'buttons');
 	
 	parent::init();
 	}

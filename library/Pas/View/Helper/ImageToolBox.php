@@ -15,7 +15,7 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
- * @example /app/views/scripts/partials/database/image.phtml Image view
+ * @example /app/views/scripts/partials/database/images/image.phtml Image view
  * @category Pas
  * @package View_Helper
  *

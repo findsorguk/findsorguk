@@ -33,13 +33,13 @@ $home = $graph->resource($this->serverUrl());
 $me->add('foaf:homepage', $home);
 $phone = $graph->resource($this->telephone);
 $me->add('foaf:phone', $phone);
-$me->add('foaf:workplaceHomepage',$home);
+$me->add('foaf:workplaceHomepage', $home);
 $info = $graph->resource($this->serverUrl() . '/contacts/staff/profile/id/' . $this->number);
 $me->add('foaf:workInfoHomepage', $info);
 
 // Add depiction if available
-if(!is_null($this->image)) {
-    if(file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)) {
+if (!is_null($this->image)) {
+    if (file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)) {
         $depiction = $graph->resource($this->serverUrl() . '/assets/staffphotos/thumbnails/' . $this->image);
         $me->add('foaf:depiction', $depiction);
     }

@@ -14,7 +14,7 @@ $this->metaBase()->setDescription('A list of all foreign issuing rulers of the M
     <h3 class="lead">Late medieval French coins</h3>
     <p>This period had <?php echo count($this->french); ?> issuers.</p>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->french); ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/rulers.phtml', $this->french); ?>
     </ul>
 <?php endif; ?>
 
@@ -22,7 +22,7 @@ $this->metaBase()->setDescription('A list of all foreign issuing rulers of the M
     <h3 class="lead">Coins of Scotland</h3>
     <p>This period had <?php echo count($this->scots); ?> issuers.</p>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->scots); ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/rulers.phtml', $this->scots); ?>
     </ul>
 <?php endif; ?>
 
@@ -30,7 +30,7 @@ $this->metaBase()->setDescription('A list of all foreign issuing rulers of the M
     <h3 class="lead">The Doges of Venice</h3>
     <p>This period had <?php echo count($this->doges); ?> issuers.</p>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->doges); ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/rulers.phtml', $this->doges); ?>
     </ul>
 <?php endif; ?>
 
@@ -38,7 +38,7 @@ $this->metaBase()->setDescription('A list of all foreign issuing rulers of the M
     <h3 class="lead">Coins of Portugal</h3>
     <p>This period had <?php echo count($this->portugal); ?> issuers.</p>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->portugal); ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/rulers.phtml', $this->portugal); ?>
     </ul>
 <?php endif; ?>
 
@@ -46,7 +46,7 @@ $this->metaBase()->setDescription('A list of all foreign issuing rulers of the M
     <h3 class="lead">Coins of the Medieval Low Countries</h3>
     <p>This period had <?php echo count($this->low); ?> issuers.</p>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->low); ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/rulers.phtml', $this->low); ?>
     </ul>
 <?php endif; ?>
 
@@ -54,7 +54,7 @@ $this->metaBase()->setDescription('A list of all foreign issuing rulers of the M
     <h3 class="lead">Edwardian imitations (Continental)</h3>
     <p>This period had <?php echo count($this->imitate); ?> issuers.</p>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->imitate); ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/rulers.phtml', $this->imitate); ?>
     </ul>
 <?php endif; ?>
 
@@ -62,6 +62,6 @@ $this->metaBase()->setDescription('A list of all foreign issuing rulers of the M
     <h3 class="lead">Short Long cross imitations (Continental)</h3>
     <p>This period had <?php echo count($this->shortlongs); ?> issuers.</p>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/rulers.phtml', $this->shortlongs); ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/rulers.phtml', $this->shortlongs); ?>
     </ul>
 <?php endif; ?>

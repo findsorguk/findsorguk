@@ -72,8 +72,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->getFlash()->addMessage('You cannot access the archaeological context index.');
-        $this->getResponse()->setHttpResponseCode(301)
-            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->getResponse()->setHttpResponseCode(301)->setRawHeader('HTTP/1.1 301 Moved Permanently');
         $this->redirect('/');
     }
 
@@ -134,7 +133,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
                     // Add flash message and redirect back to record
                     $this->getFlash()->addMessage('You have edited the model details');
                     // Now redirect to the correct URL
-                    $this->redirect(self::REDIRECT . $this->getParam('id'));
+                    $this->redirect(self::REDIRECT . $this->getParam('returnID'));
                 } else {
                     // Repopulate with the posted values
                     $form->populate($this->_request->getPost());

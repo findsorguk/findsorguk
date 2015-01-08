@@ -14,6 +14,10 @@
 class Pas_View_Helper_DataEditDeleteCheck extends Zend_View_Helper_Abstract
 {
 
+    /** The workflow level
+     * @var  */
+    protected $_workflow = NULL;
+
     /** The people with no access
      * @var array
      * @access protected
@@ -197,6 +201,23 @@ class Pas_View_Helper_DataEditDeleteCheck extends Zend_View_Helper_Abstract
      */
     protected $findID = NULL;
 
+    /**
+     * @return mixed
+     */
+    public function getWorkflow()
+    {
+        return $this->_workflow;
+    }
+
+    /**
+     * @param mixed $workflow
+     */
+    public function setWorkflow($workflow)
+    {
+        $this->_workflow = $workflow;
+        return $this;
+    }
+
 
 
 
@@ -259,9 +280,10 @@ class Pas_View_Helper_DataEditDeleteCheck extends Zend_View_Helper_Abstract
 
     public function sesame()
     {
-        if(!$this->performChecks()){
-            throw new Pas_Exception_NotAuthorised('You are not authorised for this record', 401);
-        }
+        return $this->getWorkflow();
+//        if(!$this->performChecks()){
+//            throw new Pas_Exception_NotAuthorised('You are not authorised for this record', 401);
+//        }
     }
 
     /** Perform the checks for access
@@ -272,7 +294,11 @@ class Pas_View_Helper_DataEditDeleteCheck extends Zend_View_Helper_Abstract
     {
         // If role = public return false
         if (in_array($this->getRole(), $this->noaccess)) {
-            return false;
+            if($this->getWorkflow() > 2) {
+                return false;
+            } else {
+                return true;
+            }
         }
         //If role in restricted and created = createdby return true
         if (in_array($this->getRole(), $this->restricted) && $this->getCreatedBy() == $this->getUserID()) {

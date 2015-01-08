@@ -1,25 +1,25 @@
-<?php $this->headTitle('User account public data for ' . $this->username);?>
-<h2 class="lead"><?php echo $this->title();?></h2>
+<?php $this->headTitle('User account public data for ' . $this->username); ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<div class="row-fluid">
-<?php
-echo $this->gravatar($this->email,array(
-		'imgSize' => 60, 
-		'defaultImg' => 'http://finds.org.uk/assets/gravatar.png',
-        'secure' => true),
-	array(
-        'class' => 'avatar img-circle stelae pull-left',
-        'title' => $this->fullname . '\'s gravatar representation',
-        'rating' => 'G',
-		'height' => 60,
-		'width' => 60));
-?>
-<p>
-Username: <?php echo $this->username;?><br />
-Last login: <?php echo $this->timeAgoInWords($this->lastLogin);?><br />
-Account created: <?php echo $this->timeAgoInWords($this->created);?><br />
-Number of visits: <?php echo $this->visits;?><br />
-</p>
-</div>
+    <div class="row-fluid">
+        <?php
+        echo $this->gravatar($this->email, array(
+            'imgSize' => 60,
+            'defaultImg' => 'http://finds.org.uk/assets/gravatar.png',
+            'secure' => true),
+            array(
+                'class' => 'avatar img-circle stelae pull-left',
+                'title' => $this->fullname . '\'s gravatar representation',
+                'rating' => 'G',
+                'height' => 60,
+                'width' => 60));
+        ?>
+        <p>
+            Username: <?php echo $this->username; ?><br/>
+            Last login: <?php echo $this->timeAgoInWords($this->lastLogin); ?><br/>
+            Account created: <?php echo $this->timeAgoInWords($this->created); ?><br/>
+            Number of visits: <?php echo $this->visits; ?><br/>
+        </p>
+    </div>
 <?php echo $this->userRecords()->setUsername($this->username); ?>
-<?php echo $this->onlineAccountHtmlPublic()->setId($this->id);?>
+<?php echo $this->onlineAccountHtmlPublic()->setId($this->id); ?>

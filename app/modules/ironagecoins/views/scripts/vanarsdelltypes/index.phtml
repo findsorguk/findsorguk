@@ -7,7 +7,7 @@ $this->metaBase()->setSubject('Iron Age Numismatics')
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php if ($this->va): ?>
-    <ul><?php echo $this->partialLoop('partials/numismatics/vanArsdellTypes.phtml', $this->va); ?></ul>
+    <ul><?php echo $this->partialLoop('partials/numismatics/ironAge/vanArsdellTypes.phtml', $this->va); ?></ul>
     <?php echo $this->paginationControl($this->va, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else: ?>
     <p>No Allen types available</p>

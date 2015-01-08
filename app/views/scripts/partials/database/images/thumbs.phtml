@@ -1,0 +1,31 @@
+<?php if (file_exists(IMAGE_PATH . '/' . $this->username . '/' . $this->f)): ?>
+    <?php $mediumFile = IMAGE_PATH . '/' . $this->username . '/' . strtolower($this->f); ?>
+    <?php if (file_exists($mediumFile)): ?>
+        <a href="<?php echo $this->serverUrl() . $this->imagedir . 'medium/' . strtolower($this->f); ?>" rel="lightbox"
+           title="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>"><img
+                src="<?php echo $this->serverUrl() . $this->imagedir . 'display/' . strtolower($this->f); ?>"
+                alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>"></a>
+    <?php else: ?>
+        <img src="<?php echo $this->serverUrl() . $this->imagedir . 'display/' . strtolower($this->f); ?>"
+             alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>">
+    <?php endif; ?>
+
+    <div class="imagebar">
+        <a class="btn btn-small"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->i), null, true); ?>"
+           title="View and edit image meta data">View <i class="icon-picture"></i></a> <a class="btn btn-small"
+                                                                                          href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom', 'id' => $this->i), null, true); ?>"
+                                                                                          title="View high resolution zoom">Zoom
+            <i class="icon-zoom-in"></i></a> <a class="btn btn-small"
+                                                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->thumbnail), null, true); ?>"
+                                                title="Download image">Download <i class="icon-download-alt"></i></a>
+        <?php echo $this->imageEditDeleteLink($this->id, $this->i, $this->secuid, $this->createdBy); ?>
+
+    </div>
+<?php else: ?>
+    <p>
+        <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" class="img img-circle"/>
+        <br/>
+        That image (filename: <?php echo $this->f; ?>) is unavailable.
+    </p>
+<?php endif; ?>

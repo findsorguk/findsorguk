@@ -126,7 +126,7 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract
     public function buildHtml($data)
     {
         $html = '';
-        $data = array_slice($data, 0,1);
+        $data = array_slice($data, 0, 1);
         foreach ($data as $mp) {
             if (array_key_exists('image', $mp)) {
                 $html .= '<img src="http://www.theyworkforyou.com/';
@@ -136,8 +136,6 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract
             }
 
         }
-
-
         return $html;
     }
 }

@@ -329,6 +329,6 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
             'recordID' => $this->getRecordID(),
             'id' => $this->getFindID()
         );
-        return $this->view->partial('partials/database/editDeleteRecordLinks.phtml', $data);
+        return $this->view->partial('partials/database/structural/editDeleteRecordLinks.phtml', $data);
     }
 }

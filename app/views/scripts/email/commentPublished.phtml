@@ -1,18 +1,20 @@
 <?php $this->mail->setSubject('Your comment has been published on finds.org.uk'); ?>
 
-<p>Dear <?php echo $this->escape($this->splitName()->setName($this->comment_author));?></p>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->comment_author)); ?></p>
 
 <p>Your comment <?php
-if (!function_exists('lcfirst')) {
-    function lcfirst($string) {
-        return substr_replace($string, strtolower(substr($string, 0, 1)), 0, 1);
+    if (!function_exists('lcfirst')) {
+        function lcfirst($string)
+        {
+            return substr_replace($string, strtolower(substr($string, 0, 1)), 0, 1);
+        }
     }
-}
-echo lcfirst($this->commentType()->setId($this->contentID)->setType($this->comment_type));?> has now been published.</p>
+    echo lcfirst($this->commentType()->setId($this->contentID)->setType($this->comment_type)); ?> has now been
+    published.</p>
 
 <p>For your own reference, this is what you submitted:</p>
 
-<?php echo $this->purify()->setValue($this->comment_content);?>
+<?php echo $this->purify()->setValue($this->comment_content); ?>
 
 <p>Many thanks for taking the time to comment!</p>
 
@@ -20,4 +22,4 @@ echo lcfirst($this->commentType()->setId($this->contentID)->setType($this->comme
 
 <p>The staff of the Portable Antiquities Scheme.</p>
 
-<?php echo $this->emailSignature();?>
+<?php echo $this->emailSignature(); ?>

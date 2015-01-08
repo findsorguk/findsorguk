@@ -15,18 +15,18 @@
         This record can be cited in the Harvard bibliographic style using the text below:
     </p>
     <?php if ($this->type == 'artefact'): ?>
-        <?php echo $this->partial('partials/database/webCiteData.phtml', $this->finds[0]); ?>
+        <?php echo $this->partial('partials/database/citations/webCiteData.phtml', $this->finds[0]); ?>
     <?php else: ?>
-        <?php echo $this->partial('partials/database/webCiteHoard.phtml', $this->finds[0]); ?>
+        <?php echo $this->partial('partials/database/citations/webCiteHoard.phtml', $this->finds[0]); ?>
     <?php endif; ?>
 
     <h3 class="lead">
         Wikipedia citation
     </h3>
     <?php if ($this->type == 'artefact'): ?>
-        <?php echo $this->partial('partials/database/wikiCite.phtml', $this->finds[0]); ?>
+        <?php echo $this->partial('partials/database/citations/wikiCite.phtml', $this->finds[0]); ?>
     <?php else: ?>
-        <?php echo $this->partial('partials/database/wikiCiteHoard.phtml', $this->finds[0]); ?>
+        <?php echo $this->partial('partials/database/citations/wikiCiteHoard.phtml', $this->finds[0]); ?>
     <?php endif; ?>
 </div>
 

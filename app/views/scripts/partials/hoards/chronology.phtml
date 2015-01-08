@@ -1,5 +1,8 @@
-<?php
-
-    echo '<h4 class="lead">Chronology</h4><p>Period from: '.$this->escape($this->period1).'<br />Period to: '.$this->escape($this->period2).'</p>';
-
- ?>
+<h4 class="lead">Chronology</h4>
+<p>
+    Period from: <?php echo $this->period1; ?>
+    <?php if (!is_null($this->period2)): ?>
+        <br/>
+        Period to: <?php echo $this->period2; ?>
+    <?php endif; ?>
+</p>

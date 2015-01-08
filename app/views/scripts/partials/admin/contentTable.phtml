@@ -1,27 +1,27 @@
-<tr class="valid-<?php echo $this->publishState;?>">
-<td><?php echo $this->truncate($this->title)->toLength(30)->withPostfix('...');?></td>
-<td><?php echo $this->sectionTitle()->setTitle($this->section);?></td>
-<td><?php echo $this->timeAgoInWords($this->created);?></td>
-<td><?php echo $this->createdBy;?></td>
-<td><?php echo $this->timeAgoInWords($this->updated);?></td>
-<td><?php echo $this->updatedBy;?></td>
-<td width="150px">
-<?php
-$edit = $this->url(array(
-    'module' => 'admin',
-    'controller' => 'content',
-    'action' => 'edit',
-    'id' => $this->id),
-        'default', true);
-$delete = $this->url(array(
-    'module' => 'admin',
-    'controller' => 'content',
-    'action' => 'delete',
-    'id' => $this->id),
-        'default', true);
+<tr class="valid-<?php echo $this->publishState; ?>">
+    <td><?php echo $this->truncate($this->title)->toLength(30)->withPostfix('...'); ?></td>
+    <td><?php echo $this->sectionTitle()->setTitle($this->section); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->created); ?></td>
+    <td><?php echo $this->createdBy; ?></td>
+    <td><?php echo $this->timeAgoInWords($this->updated); ?></td>
+    <td><?php echo $this->updatedBy; ?></td>
+    <td width="150px">
+        <?php
+        $edit = $this->url(array(
+            'module' => 'admin',
+            'controller' => 'content',
+            'action' => 'edit',
+            'id' => $this->id),
+            'default', true);
+        $delete = $this->url(array(
+            'module' => 'admin',
+            'controller' => 'content',
+            'action' => 'delete',
+            'id' => $this->id),
+            'default', true);
 
-?>
-    <div class="btn-group"><a href="<?php echo $edit;?>" class="btn-mini btn btn-info">Edit</a>
-    <a href="<?php echo $delete;?>" class="btn-mini btn btn-danger">Delete</a></div>
-</td>
+        ?>
+        <div class="btn-group"><a href="<?php echo $edit; ?>" class="btn-mini btn btn-info">Edit</a>
+            <a href="<?php echo $delete; ?>" class="btn-mini btn btn-danger">Delete</a></div>
+    </td>
 </tr>

@@ -340,7 +340,7 @@ class Pas_View_Helper_SemanticTags extends Zend_View_Helper_Abstract
         $html = '';
         if (array_key_exists('tags', $data)) {
             $html .= '<h3 class="lead ">Semantic tags</h3><ul>';
-            $html .= $this->view->partialLoop('partials/database/tags.phtml', $data['tags']);
+            $html .= $this->view->partialLoop('partials/database/structural/tags.phtml', $data['tags']);
         }
         $html .= '</ul>';
         return $html;

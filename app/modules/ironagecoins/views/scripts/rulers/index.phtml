@@ -8,7 +8,7 @@ $this->metaBase()->setSubject('Iron Age numismatics')
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php if (!empty($this->rulers)): ?>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/ironAgeRulers.phtml', $this->rulers) ?>
+        <?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeRulers.phtml', $this->rulers) ?>
     </ul>
 <?php else: ?>
     <p>There are no rulers available.</p>

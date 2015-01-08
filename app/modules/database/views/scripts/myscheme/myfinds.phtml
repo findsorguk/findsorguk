@@ -16,7 +16,7 @@ $this->metaBase()->setDescription($this->title())->generate();
 
     <?php if ($this->results): ?>
         <div class="span9">
-            <?php echo $this->partialLoop('partials/database/findRecordList.phtml', $this->results); ?>
+            <?php echo $this->partialLoop('partials/database/structural/findRecordList.phtml', $this->results); ?>
         </div>
         <div class="span3">
             <p><a class="btn btn-small" href="<?php echo $this->url(array('action' => 'map', 'q' => 'createdBy:' . $this->userID), null, false); ?>"

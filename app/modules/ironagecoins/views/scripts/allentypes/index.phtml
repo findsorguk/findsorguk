@@ -15,7 +15,7 @@ $this->metaBase()->setSubject('Iron Age numismatics')
         </tr>
         </thead>
         <tbody>
-        <?php echo $this->partialLoop('partials/numismatics/allenType.phtml', $this->allens); ?>
+        <?php echo $this->partialLoop('partials/numismatics/ironAge/allenType.phtml', $this->allens); ?>
         </tbody>
     </table>
     <?php echo $this->paginationControl($this->allens, 'Sliding', 'structure/pagination.phtml'); ?>

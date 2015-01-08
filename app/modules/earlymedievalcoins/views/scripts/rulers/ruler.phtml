@@ -190,7 +190,7 @@ return marker;
 <?php $this->inlineScript()->captureEnd();?>
 
 
-<?php echo $this->partialLoop('partials/numismatics/rulerProfile.phtml', $this->monarchs) ?>
+<?php echo $this->partialLoop('partials/numismatics/shared/rulerProfile.phtml', $this->monarchs) ?>
 
 <div class="row-fluid">
 	<!--  Navigation for tabs  -->
@@ -209,7 +209,7 @@ return marker;
 		<?php if (count($this->denominations > 0)):?>
 		<h3 class="lead">Denominations issued</h3>
 			<ul>
-			<?php echo $this->partialLoop('partials/numismatics/denomination.phtml', $this->denominations);?>
+			<?php echo $this->partialLoop('partials/numismatics/shared/denomination.phtml', $this->denominations);?>
 			</ul>
 		<?php endif;?>    
 		</div>
@@ -218,7 +218,7 @@ return marker;
 		<?php if(count($this->mints > 0)):?>
 		<h3 class="lead">Active Mints</h3>
 		<ul>
-			<?php echo $this->partialLoop('partials/numismatics/medievalMintsList.phtml', $this->mints);?>
+			<?php echo $this->partialLoop('partials/numismatics/medieval/medievalMintsList.phtml', $this->mints);?>
 		</ul>
 		<?php endif;?>
 		</div>
@@ -227,7 +227,7 @@ return marker;
 		<?php if(count($this->types > 0 )):?>
 		<h3 class="lead"><?php echo count($this->types) . ' coin types issued';?></h3>
 		<ul>
-			<?php echo $this->partialLoop('partials/numismatics/types.phtml', $this->types);?>
+			<?php echo $this->partialLoop('partials/numismatics/medieval/types.phtml', $this->types);?>
 		</ul>
 		<?php endif;?>
 		</div>

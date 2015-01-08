@@ -2,10 +2,10 @@
     <td class="author column-author">
         <?php
         echo $this->gravatar($this->comment_author_email, array(
-                'imgSize' => 30,
-                'defaultImg' => $this->serverUrl() . $this->baseUrl()
-                    . '/assets/gravatar.png',
-                'secure' => true),
+            'imgSize' => 30,
+            'defaultImg' => $this->serverUrl() . $this->baseUrl()
+                . '/assets/gravatar.png',
+            'secure' => true),
             array(
                 'class' => 'avatar stelae pull-left img-circle',
                 'title' => $this->fullname . '\'s gravatar representation',
@@ -24,7 +24,7 @@
     <td class="comment column-comment" width="20%">
         <div id="submitted-on">Submitted:<br/>
             <?php echo $this->comment_date; ?></div><?php echo
-        $this->ellipsisString()->setString(strip_tags($this->comment_content))->setMax(200);?></td>
+        $this->ellipsisString()->setString(strip_tags($this->comment_content))->setMax(200); ?></td>
     <td><?php if ($this->replied == 1) {
             echo 'Replied ' . $this->timeAgoInWords($this->updated);
             ?>
@@ -34,10 +34,14 @@
         <?php
         } else {
             echo 'Reply needed';
-        }?></td>
-    <td><div class="btn-group"><a class="btn btn-mini btn-info" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'messages',
-            'action' => 'reply', 'id' => $this->id), 'default', true);?>" title="Reply to this message">Reply</a><a
-            href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'messages',
-                'action' => 'delete', 'id' => $this->id), 'default', true);?>" title="Delete this message" class="btn-mini btn btn-danger">Delete</a></div>
+        } ?></td>
+    <td>
+        <div class="btn-group"><a class="btn btn-mini btn-info"
+                                  href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'messages',
+                                      'action' => 'reply', 'id' => $this->id), 'default', true); ?>"
+                                  title="Reply to this message">Reply</a><a
+                href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'messages',
+                    'action' => 'delete', 'id' => $this->id), 'default', true); ?>" title="Delete this message"
+                class="btn-mini btn btn-danger">Delete</a></div>
     </td>
 </tr>

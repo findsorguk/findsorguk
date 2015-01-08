@@ -9,7 +9,7 @@ $this->metaBase()->setKeywords('byzantium,coins,numismatics,denominations, nummi
 <?php if (!empty($this->denominations)): ?>
     <p>The following coins were issued during the Byzantine period.</p>
     <ul>
-        <?php echo $this->partialLoop('partials/numismatics/denominations.phtml', $this->denominations); ?>
+        <?php echo $this->partialLoop('partials/numismatics/shared/denominations.phtml', $this->denominations); ?>
     </ul>
 
     <?php echo $this->paginationControl($this->denominations, 'Sliding', 'structure/pagination.phtml'); ?>

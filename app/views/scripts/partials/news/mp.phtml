@@ -23,16 +23,16 @@
 </p>
 <p>
     <?php if (!empty($this->office)): ?>
-    <?php if(array_key_exists('dept', $this->office) && !is_null($this->office['dept'])):?>
-    Department: <?php echo $this->office['dept']; ?>
-    <?php endif;?>
-    <?php if(array_key_exists('position', $this->office) && strlen($this->office['position']) > 0):?>
-    <br/>
-    Position: <?php echo $this->office['position']; ?>
-    <?php endif;?>
-    <?php if(array_key_exists('from_date', $this->office)):?>
-    <br/>
-    Took up office: <?php echo $this->niceShortDate()->setDate($this->office['from_date']); ?>
-    <?php endif;?>
+    <?php if (array_key_exists('dept', $this->office) && !is_null($this->office['dept'])): ?>
+        Department: <?php echo $this->office['dept']; ?>
+    <?php endif; ?>
+    <?php if (array_key_exists('position', $this->office) && strlen($this->office['position']) > 0): ?>
+        <br/>
+        Position: <?php echo $this->office['position']; ?>
+    <?php endif; ?>
+    <?php if (array_key_exists('from_date', $this->office)): ?>
+        <br/>
+        Took up office: <?php echo $this->niceShortDate()->setDate($this->office['from_date']); ?>
+    <?php endif; ?>
 </p>
 <?php endif; ?>

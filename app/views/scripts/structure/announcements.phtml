@@ -1,24 +1,24 @@
 <?php if (!empty($this->announcements[0])): ?>
 
-<?php 
-$this->jQuery()->addJavascriptFile('/js/JQuery/jquery.cookie.js', $type='text/javascript');
-?>
-<?php
-$this->jQuery()->javascriptCaptureStart();?>
-$(document).ready(function(){
-if ($.cookie('noShowSurvey')) $('#announcement').hide();
+    <?php
+    $this->jQuery()->addJavascriptFile('/js/JQuery/jquery.cookie.js', $type = 'text/javascript');
+    ?>
+    <?php
+    $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function(){
+    if ($.cookie('noShowSurvey')) $('#announcement').hide();
     else {
-        $("#close-welcome").click(function() {
-            $("#announcement").fadeOut(1000);
-            $.cookie('noShowSurvey', true);    
-        });
+    $("#close-welcome").click(function() {
+    $("#announcement").fadeOut(1000);
+    $.cookie('noShowSurvey', true);
+    });
     }
-});
-<?php $this->jQuery()->javascriptCaptureEnd();?>
-<div class="alert alert-info" id="announcement">
-<?php foreach($this->announcements as $announce):?>
-<?php echo $announce['quote']; ?>
-<p><strong><a id="close-welcome" href="#">Dismiss this announcement</a></strong></p>
-<?php endforeach;?>
-</div>
-<?php endif;?>
+    });
+    <?php $this->jQuery()->javascriptCaptureEnd(); ?>
+    <div class="alert alert-info" id="announcement">
+        <?php foreach ($this->announcements as $announce): ?>
+            <?php echo $announce['quote']; ?>
+            <p><strong><a id="close-welcome" href="#">Dismiss this announcement</a></strong></p>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

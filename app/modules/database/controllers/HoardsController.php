@@ -102,8 +102,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         'xml', 'rss', 'json',
         'atom', 'kml', 'georss',
         'ics', 'rdf', 'xcs',
-        'vcf', 'csv', 'pdf',
-        'geojson');
+        'vcf', 'csv', 'pdf');
 
     /** The auth object
      * @access protected
@@ -228,7 +227,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
             ->addContext('rdf', array('suffix' => 'rdf', 'headers' => array('Content-Type' => 'application/xml')))
             ->addContext('qrcode', array('suffix' => 'qrcode'))
             ->addContext('geojson', array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json')))
-            ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'rdf'))
+            ->addActionContext('record', array('qrcode', 'json', 'xml'))
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
         $this->_user = $this->_helper->identity->getPerson();

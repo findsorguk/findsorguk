@@ -1,17 +1,18 @@
 <?php
+
 /**
- * Data model for accessing and manipulating scheduled monument data, derived 
+ * Data model for accessing and manipulating scheduled monument data, derived
  * from the English Heritage NMR data dump.
- * 
+ *
  * An example of code:
- * 
+ *
  * <code>
  * <?php
  * $smrs = new ScheduledMonuments();
  * $this->view->smrs = $smrs->getSmrDetails($this->_getParam('id'));
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -21,8 +22,9 @@
  * @version 1
  * @since 20 August 2010, 12:23:46
  * @example /app/modules/datalabs/controllers/SmrController.php
-*/
-class ScheduledMonuments extends Pas_Db_Table_Abstract {
+ */
+class ScheduledMonuments extends Pas_Db_Table_Abstract
+{
 
     /** The table name
      * @access protected
@@ -45,7 +47,8 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param integer $distance
      * @return array
      */
-    public function getSMRSNearby($lat, $lon, $distance) {
+    public function getSMRSNearby($lat, $lon, $distance)
+    {
         $config = $this->_config->solr->asgard->toArray();
         $config['core'] = 'geodata';
         $solr = new Solarium_Client(array('adapteroptions' => $config));
@@ -69,9 +72,9 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
         return $data;
     }
 
-    /** Find objects recorded with proximity to SMRs within a certain distance 
-     * of a lat lon pair, this is set up to work in kilometres from point. You 
-     * can adapt this for miles. This perhaps can be swapped out for a SOLR 
+    /** Find objects recorded with proximity to SMRs within a certain distance
+     * of a lat lon pair, this is set up to work in kilometres from point. You
+     * can adapt this for miles. This perhaps can be swapped out for a SOLR
      * based search in future.
      * @access public
      * @param double $lat
@@ -79,7 +82,8 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param integer $distance
      * @return array
      */
-    public function getSMRSNearbyFinds($lat, $lon, $distance) {
+    public function getSMRSNearbyFinds($lat, $lon, $distance)
+    {
         $config = $this->_config->solr->asgard->toArray();
         $config['core'] = 'objects';
         $solr = new Solarium_Client(array('adapteroptions' => $config));
@@ -113,27 +117,28 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param string $monumentName
      * @return array
      */
-    public function getSmrs($page, $county, $district, $parish, $monumentName) {
+    public function getSmrs($page, $county, $district, $parish, $monumentName)
+    {
         $nearbys = $this->getAdapter();
         $select = $nearbys->select()
-                ->from($this->_name)
-                ->order('county');
-        if(isset($monumentName) && ($monumentName != "")){
-        $select->where('monumentName LIKE ?',(string)'%' . $monumentName . '%');
+            ->from($this->_name)
+            ->order('county');
+        if (isset($monumentName) && ($monumentName != "")) {
+            $select->where('monumentName LIKE ?', (string)'%' . $monumentName . '%');
         }
-        if(isset($district) && ($district != "")){
-        $select->where('district = ?',(string)$district);
+        if (isset($district) && ($district != "")) {
+            $select->where('district = ?', (string)$district);
         }
-        if(isset($county) && ($county != "")){
-        $select->where('county = ?',(string)$county);
+        if (isset($county) && ($county != "")) {
+            $select->where('county = ?', (string)$county);
         }
-        if(isset($parish) && ($parish != "")){
-        $select->where('parish = ?',(string)$parish);
+        if (isset($parish) && ($parish != "")) {
+            $select->where('parish = ?', (string)$parish);
         }
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(20)
-                ->setPageRange(10);
-        if(isset($page) && ($page != "")) {
+            ->setPageRange(10);
+        if (isset($page) && ($page != "")) {
             $paginator->setCurrentPageNumber((int)$page);
         }
         return $paginator;
@@ -145,16 +150,17 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param integer $page
      * @return \Zend_Paginator
      */
-    public function getSmrsByWoeid($id,$page){
+    public function getSmrsByWoeid($id, $page)
+    {
         $nearbys = $this->getAdapter();
         $select = $nearbys->select()
-                ->from($this->_name)
-                ->order('county')
-                ->where('woeid = ?',(int)$id);
+            ->from($this->_name)
+            ->order('county')
+            ->where('woeid = ?', (int)$id);
         $paginator = Zend_Paginator::factory($select);
         Zend_Paginator::setCache($this->_cache);
         $paginator->setItemCountPerPage(20)->setPageRange(10);
-        if(isset($page) && ($page != "")) {
+        if (isset($page) && ($page != "")) {
             $paginator->setCurrentPageNumber((int)$page);
         }
         return $paginator;
@@ -165,11 +171,12 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function getSmrDetails($id) {
+    public function getSmrDetails($id)
+    {
         $nearbys = $this->getAdapter();
         $select = $nearbys->select()
-                ->from($this->_name)
-                ->where('id = ?',(int)$id);
+            ->from($this->_name)
+            ->where('id = ?', (int)$id);
         return $nearbys->fetchAll($select);
     }
 
@@ -177,10 +184,11 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function listMonuments() {
+    public function listMonuments()
+    {
         $select = $this->select()
-                ->from($this->_name, array('id','monumentName'))
-                ->order('monumentName');
+            ->from($this->_name, array('id', 'monumentName'))
+            ->order('monumentName');
         return $this->getAdapter()->fetchPairs($select);
     }
 
@@ -189,7 +197,8 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param string $constituency
      * @return null
      */
-    public function getSmrsConstituency($constituency) {
+    public function getSmrsConstituency($constituency)
+    {
         $twfy = 'http://www.theyworkforyou.com/api/getGeometry?name=';
         $twfy .= urlencode((string)$constituency);
         $twfy .= '&output=js&key=';
@@ -198,7 +207,7 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
         $curl->setUri($twfy);
         $curl->getRequest();
         $data = $curl->decodeJson();
-        if(array_key_exists('min_lat',$data)) {
+        if (array_key_exists('min_lat', $data)) {
             $latmin = $data->min_lat;
             $latmax = $data->max_lat;
             $longmin = $data->min_lon;
@@ -206,13 +215,13 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
 
             $finds = $this->getAdapter();
             $select = $finds->select()
-                    ->from($this->_name)
-                    ->where('lat > ?',(double)$latmin)
-                    ->where('lat < ?',(double)$latmax)
-                    ->where('lon > ?',(double)$longmin)
-                    ->where('lon < ?',(double)$longmax);
+                ->from($this->_name)
+                ->where('lat > ?', (double)$latmin)
+                ->where('lat < ?', (double)$latmax)
+                ->where('lon > ?', (double)$longmin)
+                ->where('lon < ?', (double)$longmax);
             $osdata = $finds->fetchAll($select);
-            return  $osdata;
+            return $osdata;
         } else {
             return FALSE;
         }
@@ -223,13 +232,14 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param string $q
      * @return array
      */
-    public function nameLookup($q){
+    public function nameLookup($q)
+    {
         $mons = $this->getAdapter();
         $select = $mons->select()
-                ->from($this->_name, array('id' => 'monumentName','term' => 'monumentName'))
-                ->where('monumentName LIKE ?', (string)'%' . $q . '%')
-                ->order('monumentName')
-                ->limit(10);
+            ->from($this->_name, array('id' => 'monumentName', 'term' => 'monumentName'))
+            ->where('monumentName LIKE ?', (string)'%' . $q . '%')
+            ->order('monumentName')
+            ->limit(10);
         return $mons->fetchAll($select);
     }
 
@@ -238,13 +248,14 @@ class ScheduledMonuments extends Pas_Db_Table_Abstract {
      * @param string $q
      * @return array
      */
-    public function samLookup($q){
+    public function samLookup($q)
+    {
         $mons = $this->getAdapter();
         $select = $mons->select()
-                ->from($this->_name, array('id','term' => 'monumentName'))
-                ->where('monumentName LIKE ?', '%' . $q . '%')
-                ->order('monumentName')
-                ->limit(10);
+            ->from($this->_name, array('id', 'term' => 'monumentName'))
+            ->where('monumentName LIKE ?', '%' . $q . '%')
+            ->order('monumentName')
+            ->limit(10);
         return $mons->fetchAll($select);
     }
 }
