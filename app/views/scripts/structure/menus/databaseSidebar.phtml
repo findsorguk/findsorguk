@@ -1,71 +1,110 @@
 <?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 
-<div class="sidebar-nav col-md-3" >
-	<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
-		<li <?php echo $this->currentPage()->active('database','search','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search'),NULL,true);?>"><i class="icon-search"></i>Search database</a></li>
-		<li <?php echo $this->currentPage()->active('database','search','results');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'search', 'action' => 'results'),NULL,true);?>" title="All finds recorded on the database"><i class="icon-list"></i>All artefacts &amp; coins</a></li>
-<?php
-$auth = Zend_Auth::getInstance();
-if($auth->hasIdentity()) {
-	$user = $auth->getIdentity();
-	{
-		$allowedAccess = array('member','flos','hero','research','fa','admin', 'treasure');
-		if(in_array($user->role,$allowedAccess)) {
-?>
-		<li <?php echo $this->currentPage()->active('database','myscheme','myfinds');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme', 'action' => 'myfinds'),null,true);?>" title="View all finds I have recorded"><i class="icon-list"></i>Finds recorded by me</a></li>
-<?php if($user->role === 'member'):?>
-		<li <?php echo $this->currentPage()->active('database','myscheme','recordedbyflos');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme', 'action' => 'recordedbyflos'),null,true);?>" title="View all finds recorded by PAS staff for me">Finds recorded for me by flos</a></li>
-<?php endif;?>
-		<li <?php echo $this->currentPage()->active('database','myscheme','myinstitution');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme', 'action' => 'myinstitution'),null,true);?>" title="View everything recorded by people with my prefix"><i class="icon-list"></i>My institution's records</a></li>
-		<li <?php echo $this->currentPage()->active('database','myscheme','myimages');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme','action' => 'myimages'),null,true);?>"><i class="icon-camera"></i>My images</a></li>
-		<li <?php echo $this->currentPage()->active('database','images','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'images'),null,true);?>"><i class="icon-picture"></i>All images</a></li>
-<?php
-		}
-	}
-}
-else
-{
-?>
-		<li <?php echo $this->currentPage()->active('database','images','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'images'),null,true);?>"><i class="icon-picture"></i>All images</a></li>
+<div class="sidebar-nav col-md-3">
+    <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('database', 'search', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search'), NULL, true); ?>"><i
+                    class="icon-search"></i>Search database</a></li>
+        <li <?php echo $this->currentPage()->active('database', 'search', 'results'); ?>><a
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results'), NULL, true); ?>"
+                title="All finds recorded on the database"><i class="icon-list"></i>All artefacts &amp; coins</a></li>
+        <?php
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $user = $auth->getIdentity();
+            {
+                $allowedAccess = array('member', 'flos', 'hero', 'research', 'fa', 'admin', 'treasure');
+                if (in_array($user->role, $allowedAccess)) {
+                    ?>
+                    <li <?php echo $this->currentPage()->active('database', 'myscheme', 'myfinds'); ?>><a
+                            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'myfinds'), null, true); ?>"
+                            title="View all finds I have recorded"><i class="icon-list"></i>Finds recorded by me</a>
+                    </li>
+                    <?php if ($user->role === 'member'): ?>
+                        <li <?php echo $this->currentPage()->active('database', 'myscheme', 'recordedbyflos'); ?>><a
+                                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'recordedbyflos'), null, true); ?>"
+                                title="View all finds recorded by PAS staff for me">Finds recorded for me by flos</a>
+                        </li>
+                    <?php endif; ?>
+                    <li <?php echo $this->currentPage()->active('database', 'myscheme', 'myinstitution'); ?>><a
+                            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'myinstitution'), null, true); ?>"
+                            title="View everything recorded by people with my prefix"><i class="icon-list"></i>My
+                            institution's records</a></li>
+                    <li <?php echo $this->currentPage()->active('database', 'myscheme', 'myimages'); ?>><a
+                            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'myimages'), null, true); ?>"><i
+                                class="icon-camera"></i>My images</a></li>
+                    <li <?php echo $this->currentPage()->active('database', 'images', 'index'); ?>><a
+                            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images'), null, true); ?>"><i
+                                class="icon-picture"></i>All images</a></li>
+                <?php
+                }
+            }
+        } else {
+            ?>
+            <li <?php echo $this->currentPage()->active('database', 'images', 'index');?>><a
+                    href="<?php echo $this->url(array('controller' => 'database', 'action' => 'images'), null, true);?>"><i
+                        class="icon-picture"></i>All images</a></li>
 
-<?php
-}
+        <?php
+        }
 
-$array = array('people','organisations','publications','rallies');
-?>
-                
-                <li <?php if(in_array($controller, $array)) { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>More searches</a>
-                    <ul class="nav nav-pills nav-stacked menuindent">
-<?php
-$auth = Zend_Auth::getInstance();
-if($auth->hasIdentity()) {
-	$user = $auth->getIdentity();
-	{
-		$allowed = array('fa','admin','flos', 'treasure');
-		if(in_array($user->role,$allowed)) {
-?>
-			<li <?php echo $this->currentPage()->active('database','people','index');?> ><a href="<?php echo $this->url(array('controller' => 'database','action' => 'people'),NULL,true);?>" title="List of all personal details"><i class="icon-user"></i>People</a></li>
-			<li <?php echo $this->currentPage()->active('database','organisations','index');?>><a href="<?php echo $this->url(array('controller' => 'database','action' => 'organisations'),NULL,true);?> " title="Contributing organisations"><i class="icon-user"></i>Organisations</a></li>
-<?php 
-		}
-	}
-}
-?>
+        $array = array('people', 'organisations', 'publications', 'rallies');
+        ?>
 
-			<li <?php echo $this->currentPage()->active('database','publications','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller'=>  'publications'),NULL,true);?>" title="Reference works cited on database"><i class="icon-book"></i>References</a></li>
-			<li <?php echo $this->currentPage()->active('database','rallies','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'rallies'),null,true);?>" title="View list of rallies we have recorded at"><i class="icon-map-marker"></i>Rallies</a></li>
-                    </ul>
-		</li>
+        <li <?php if (in_array($controller, $array)) {
+            echo 'class="expandfirst"';
+        }; ?>><a href="#"><i class="icon-folder-open"></i>More searches</a>
+            <ul class="nav nav-pills nav-stacked menuindent">
+                <?php
+                $auth = Zend_Auth::getInstance();
+                if ($auth->hasIdentity()) {
+                    $user = $auth->getIdentity();
+                    {
+                        $allowed = array('fa', 'admin', 'flos', 'treasure');
+                        if (in_array($user->role, $allowed)) {
+                            ?>
+                            <li <?php echo $this->currentPage()->active('database', 'people', 'index'); ?> ><a
+                                    href="<?php echo $this->url(array('controller' => 'database', 'action' => 'people'), NULL, true); ?>"
+                                    title="List of all personal details"><i class="icon-user"></i>People</a></li>
+                            <li <?php echo $this->currentPage()->active('database', 'organisations', 'index'); ?>><a
+                                    href="<?php echo $this->url(array('controller' => 'database', 'action' => 'organisations'), NULL, true); ?> "
+                                    title="Contributing organisations"><i class="icon-user"></i>Organisations</a></li>
+                        <?php
+                        }
+                    }
+                }
+                ?>
 
-		<li <?php if($controller == 'statistics') { echo 'class="expandfirst"';};?>><a href="#"><i class="icon-folder-open"></i>Statistics</a>
-			<ul class="nav nav-pills nav-stacked  menuindent">
-				<li <?php echo $this->currentPage()->active('database','statistics','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics'),null,true);?>" title="Find out what was recorded daily">Archives by day</a></li>
-				<li <?php echo $this->currentPage()->active('database','statistics','annual');?>><a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'statistics','action' => 'annual'),null,true);?>" title="View annual archived statistics">Overall statistics</a></li>
-				<li <?php echo $this->currentPage()->active('database','statistics','regional');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'regional'),null,true);?>" title="View annual regional archived statistics">Regional statistics</a></li>
-				<li <?php echo $this->currentPage()->active('database','statistics','institution');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'institution'),null,true);?>" title="View annual institutional archived statistics">Institution statistics</a></li>
-				<li <?php echo $this->currentPage()->active('database','statistics','county');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'statistics','action' => 'county'),null,true);?>" title="View annual county archived statistics">County statistics</a></li>
-			</ul>
-		</li>
+                <li <?php echo $this->currentPage()->active('database', 'publications', 'index'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'publications'), NULL, true); ?>"
+                        title="Reference works cited on database"><i class="icon-book"></i>References</a></li>
+                <li <?php echo $this->currentPage()->active('database', 'rallies', 'index'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'rallies'), null, true); ?>"
+                        title="View list of rallies we have recorded at"><i class="icon-map-marker"></i>Rallies</a></li>
+            </ul>
+        </li>
 
-	</ul>
+        <li <?php if ($controller == 'statistics') {
+            echo 'class="expandfirst"';
+        }; ?>><a href="#"><i class="icon-folder-open"></i>Statistics</a>
+            <ul class="nav nav-pills nav-stacked  menuindent">
+                <li <?php echo $this->currentPage()->active('database', 'statistics', 'index'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'statistics'), null, true); ?>"
+                        title="Find out what was recorded daily">Archives by day</a></li>
+                <li <?php echo $this->currentPage()->active('database', 'statistics', 'annual'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'statistics', 'action' => 'annual'), null, true); ?>"
+                        title="View annual archived statistics">Overall statistics</a></li>
+                <li <?php echo $this->currentPage()->active('database', 'statistics', 'regional'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'statistics', 'action' => 'regional'), null, true); ?>"
+                        title="View annual regional archived statistics">Regional statistics</a></li>
+                <li <?php echo $this->currentPage()->active('database', 'statistics', 'institution'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'statistics', 'action' => 'institution'), null, true); ?>"
+                        title="View annual institutional archived statistics">Institution statistics</a></li>
+                <li <?php echo $this->currentPage()->active('database', 'statistics', 'county'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'statistics', 'action' => 'county'), null, true); ?>"
+                        title="View annual county archived statistics">County statistics</a></li>
+            </ul>
+        </li>
+
+    </ul>
 </div>

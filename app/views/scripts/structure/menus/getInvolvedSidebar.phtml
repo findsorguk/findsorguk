@@ -1,10 +1,47 @@
-<div class="sidebar-nav col-md-3" >
-    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
-        <li <?php echo $this->currentPage()->active('getinvolved','index','index');?>><a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'index'),'default',true);?>" title="How to report your finds">Report your finds</a></li>
-        
-        <?php // echo $this->involvedMenu();?>
-        
-        <li <?php echo $this->currentPage()->active('getinvolved','volunteering','index');?>><a href="<?php echo $this->url(array('module' => 'getinvolved','controller' => 'volunteering'),'default',true);?>" title="Volunteer opportunities with the Scheme">Volunteer opportunities</a></li>
-        <li><a href="<?php echo $this->url(array('module' => 'volunteerrecording'),'default',true);?>" title="Learn more about recording"><i class="icon-eye-open"></i>Volunteer recording guide</a></li>
+<div class="sidebar-nav col-md-3">
+    <ul id="menu1" class="nav nav-stacked nav-pills collapsible menu">
+        <li <?php echo $this->currentPage()->active('getinvolved', 'index', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'index'), 'default', true); ?>"
+                title="How to report your finds">Report your finds</a></li>
+        <li <?php echo $this->currentPage()->active('getinvolved', 'faq', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'faq'), 'default', true); ?>"
+                title="Frequently asked questions">FAQs</a></li>
+        <li <?php
+        $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+        if ($controller == 'guides') {
+            echo 'class="expandfirst "';
+        }; ?>>
+            <a href="#"><i class="icon-folder-open"></i>Guidance and briefings</a>
+            <ul class="nav nav-pills nav-stacked menuindent">
+                <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'ngr'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'ngr'), 'default', true); ?>"
+                        title="How to take a grid">How to take a Grid reference</a></li>
+                <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'gps'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'gps'), 'default', true); ?>"
+                        title="How to use a GPS">How to use a GPS</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'codeofpractice'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'codeofpractice'), 'default', true); ?>"
+                        title="Code of practice">Code of practice</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'rallycode'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'rallycode'), 'default', true); ?>"
+                        title="Rally organiser's code of practice">Rally code of practice</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'guidancelandowners'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'guidancelandowners'), 'default', true); ?>"
+                        title="guidance for landowners">Guidance for land owners</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'pressures'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'pressures'), 'default', true); ?>"
+                        title="Presures for flos">FLO working pressures</a>
+                </li>
+            </ul>
+        </li>
+        <li <?php echo $this->currentPage()->active('getinvolved', 'volunteering', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'volunteering'), 'default', true); ?>"
+                title="Volunteer opportunities with the Scheme">Volunteer opportunities</a></li>
+        <li><a href="<?php echo $this->url(array('module' => 'volunteerrecording'), 'default', true); ?>"
+               title="Learn more about recording"><i class="icon-eye-open"></i>Volunteer recording guide</a></li>
     </ul>
 </div>
