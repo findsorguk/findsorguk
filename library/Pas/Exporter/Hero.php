@@ -21,31 +21,7 @@ class Pas_Exporter_Hero extends Pas_Exporter_Generate {
      * @access protected
      * @var array
      */
-    protected $_heroFields = array(
-        'secuid', 'old_findID', 'objecttype',
-        'description','classification', 'subClassification',
-        'inscription', 'notes', 'fromdate',
-        'todate', 'cultureName', 'materialTerm',
-        'secondaryMaterialTerm', 'manufactureTerm', 'treatment',
-        'length', 'width', 'thickness',
-        'diameter', 'weight', 'quantity',
-        'preservationTerm', 'completenessTerm',
-        'gridref', 'easting', 'northing',
-        'finder', 'datefound1', 'datefound2',
-        'discoveryMethod', 'recorder', 'identifier',
-        'secondaryIdentifier', 'currentLocation', 'musaccno',
-        'subsequentActionTerm', 'otherRef', 'fromsubperiod',
-        'tosubperiod', 'decstyleTerm', 'note',
-        'smrRef', 'broadperiod', 'workflow',
-        'creator', 'county', 'district',
-        'parish', 'description', 'knownas',
-        'id', 'rulerName', 'denominationName',
-        'mintName', 'typeTerm', 'moneyerName',
-        'obverseDescription', 'obverseInscription',
-        'reverseDescription', 'reverseInscription',
-        'mintmark', 'axis', 'reeceID',
-        'periodFromName', 'periodToName', 'Findspotcode'
-	);
+    protected $_heroFields = array('*');
 
     /** The exegesis names
      * @access protected
@@ -97,7 +73,7 @@ class Pas_Exporter_Hero extends Pas_Exporter_Generate {
         $this->_search->setFields($this->_heroFields);
         $this->_search->setParams($this->_params);
         $this->_search->execute();
-        return $this->_search->_processResults();
+        return $this->_search->processResults();
     }
 
     /** Create the data to export
@@ -107,8 +83,8 @@ class Pas_Exporter_Hero extends Pas_Exporter_Generate {
         $this->_search->setFields($this->_heroFields);
         $this->_search->setParams($this->_params);
         $this->_search->execute();
-        $data = $this->_search->_processResults();
-        $paginator = $this->_search->_createPagination();
+        $data = $this->_search->processResults();
+        $paginator = $this->_search->createPagination();
         $pages = $paginator->getPages();
         $iterator = $pages->pageCount;
         $converter = new Pas_Exporter_ArrayToHero($this->_exegesis);
@@ -118,9 +94,9 @@ class Pas_Exporter_Hero extends Pas_Exporter_Generate {
             ini_set('memory_limit', '256M');
         }
         $file = fopen('php://temp/maxmemory:'. (12*1024*1024), 'r+');
-        fputcsv($file,$this->_exegesis,',','""');
+        fputcsv($file,$this->_exegesis,',','"');
         foreach($clean as $c){
-            fputcsv($file,array_values($c),',','""');
+            fputcsv($file,array_values($c),',','"');
         }
         if($iterator > 1){
             foreach (range(2, $iterator) as $number) {

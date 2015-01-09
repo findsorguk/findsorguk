@@ -56,7 +56,6 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
     {
         $controller = $request->getControllerName();
         $module = $request->getModuleName();
-        if($module != 'api') {
             $contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');
             $response = $this->getResponse();
 
@@ -79,7 +78,6 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
                         );
                     } else {
                         $layout = 'new';
-                        $view->headTitle('The PAS website')->setSeparator(' - ');
                     }
 
                 }
@@ -115,25 +113,6 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
                 $contextSwitch->setAutoDisableLayout(true)->initContext();
             }
         }
-    }
 
-    public function preDispatch(Zend_Controller_Request_Abstract $request)
-    {
-        if ($request->getModuleName() === 'api') {
-//            $frontController = Zend_Controller_Front::getInstance();
-//            // set custom request object
-//            $frontController->setRequest(new REST_Request);
-//            $frontController->setResponse(new REST_Response);
-////            // register the RestHandler plugin
-//            $frontController->registerPlugin(new REST_Controller_Plugin_RestHandler($frontController));
-//            $frontController->registerPlugin(new Pas_Controller_Plugin_Errors($frontController));
-//            // add REST contextSwitch helper
-//            $contextSwitch = new REST_Controller_Action_Helper_ContextSwitch();
-//            Zend_Controller_Action_HelperBroker::addHelper($contextSwitch);
-//            // add restContexts helper
-//            $restContexts = new REST_Controller_Action_Helper_RestContexts();
-//            Zend_Controller_Action_HelperBroker::addHelper($restContexts);
-        }
-    }
 }
 

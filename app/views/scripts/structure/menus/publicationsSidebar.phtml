@@ -5,7 +5,7 @@
     <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
         <li <?php echo $this->currentPage()->active('publications', 'index', 'index'); ?>>
             <a href="<?php echo $this->url(array('module' => 'publications'), 'default', true); ?>"
-               title="Introduction to our publications">Our publications</a></li>
+               title="Introduction to our publications"><i class="icon-pencil"></i> Our publications</a></li>
 
         <li <?php if ($controller == 'reports' && $action == 'annual') {
             echo 'class="expandfirst active"';
@@ -15,7 +15,7 @@
                 <?php echo $this->menu()
                     ->setSection('publications')
                     ->setController('reports')
-                    ->setRoute('reports');?>
+                    ->setRoute('reports'); ?>
             </ul>
         </li>
 
@@ -41,7 +41,7 @@
 
         <li <?php echo $this->currentPage()->active('publications', 'research', 'index'); ?>>
             <a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'research'), 'default', true); ?>"
-               title="Our research publication output">Research publications</a></li>
+               title="Our research publication output"><i class="icon-pencil"></i> Research publications</a></li>
 
     </ul>
 </div>

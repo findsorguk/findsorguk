@@ -763,8 +763,7 @@ class Pas_Solr_Handler
 
             $this->checkFieldList(array_keys($params));
             foreach ($params as $key => $value) {
-                $this->_query->createFilterQuery($key . $value)->setQuery($key . ':"'
-                    . $value . '"');
+                $this->_query->createFilterQuery($key . $value)->setQuery($key . ':"' . $value . '"');
             }
         } else {
             throw new Pas_Solr_Exception('The search params must be an array');

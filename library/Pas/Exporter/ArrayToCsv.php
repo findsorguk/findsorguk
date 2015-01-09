@@ -1,4 +1,5 @@
 <?php
+
 /** A class for exporting an array to a csv file
  *
  * An example of use:
@@ -16,7 +17,8 @@
  * @version 1
  * @example /library/Pas/Exporter/Csv.php
  */
-class Pas_Exporter_ArrayToCsv {
+class Pas_Exporter_ArrayToCsv
+{
 
     /** Fields to use
      * @access protected
@@ -40,13 +42,13 @@ class Pas_Exporter_ArrayToCsv {
      * @access protected
      * @var array
      */
-    protected $_maybe = array('hero','research');
+    protected $_maybe = array('hero', 'research');
 
     /** Never allowed
      * @access protected
      * @var array
      */
-    protected $_never = array('member',null,'public');
+    protected $_never = array('member', null, 'public');
 
     /** The base uri
      * @access protected
@@ -58,7 +60,8 @@ class Pas_Exporter_ArrayToCsv {
      * @access public
      * @param array $fields
      */
-    public function __construct($fields){
+    public function __construct($fields)
+    {
         $this->_fields = $fields;
         $user = new Pas_User_Details();
         $this->_role = $user->getPerson()->role;
@@ -70,7 +73,8 @@ class Pas_Exporter_ArrayToCsv {
      * @param array $sortByValuesAsKeys
      * @return array
      */
-    public function sortArrayByArray(array $toSort, array $sortByValuesAsKeys){
+    public function sortArrayByArray(array $toSort, array $sortByValuesAsKeys)
+    {
         $commonKeysInOrder = array_intersect_key(array_flip($sortByValuesAsKeys), $toSort);
         $commonKeysWithValue = array_intersect_key($toSort, $commonKeysInOrder);
         $sorted = array_merge($commonKeysInOrder, $commonKeysWithValue);
@@ -82,11 +86,12 @@ class Pas_Exporter_ArrayToCsv {
      * @param array $data
      * @return array
      */
-    public function convert($data) {
+    public function convert($data)
+    {
         $remove = array_merge($this->_never, $this->_maybe);
-        foreach($data as $dat){
-            foreach($this->_fields as $k){
-                if(!array_key_exists($k, $dat)){
+        foreach ($data as $dat) {
+            foreach ($this->_fields as $k) {
+                if (!array_key_exists($k, $dat)) {
                     $dat[$k] = null;
                 }
             }
@@ -94,29 +99,29 @@ class Pas_Exporter_ArrayToCsv {
         }
         $record = array();
         foreach ($nullified AS $null) {
+            foreach ($null as $k => $v) {
 
-            foreach($null as $k => $v){
+                $trimmed = trim(strip_tags(str_replace(array('<br />'), array("\n", "\r"), utf8_decode($v))));
+                $record[$k] = preg_replace( "/\r|\n/", "", $trimmed );
 
-                $record[$k] = trim(strip_tags(str_replace('<br />',array( "\n", "\r"), utf8_decode( $v ))));
-                if(in_array($this->_role,$remove)){
+                if (in_array($this->_role, $remove)) {
                     $record['finder'] = 'Restricted info';
                 }
-
-                foreach($record as $k => $v){
-                    if($v === ''){
+                foreach ($record as $k => $v) {
+                    if ($v === '') {
                         $record[$k] = null;
                     }
                 }
-                Zend_Debug::dump($record);
-                exit;
-                $record['uri'] = $this->_uri . $record['id'];
-                if(in_array($this->_role,$this->_never)){
+//                Zend_Debug::dump($record);
+
+//                $record['uri'] = $this->_uri . $record['id'];
+                if (in_array($this->_role, $this->_never)) {
                     $record['gridref'] = null;
                     $record['easting'] = null;
                     $record['northing'] = null;
                     $record['latitude'] = null;
                     $record['longitude'] = null;
-                    if(!is_null($record['knownas']) ){
+                    if (!is_null($record['knownas'])) {
                         $record['parish'] = 'Restricted access';
                         $record['fourFigure'] = 'Restricted access';
                     }
@@ -125,8 +130,6 @@ class Pas_Exporter_ArrayToCsv {
             $cleanSort = $this->sortArrayByArray($record, $this->_fields);
             $finalData[] = $cleanSort;
         }
-        Zend_Debug::dump($finalData);
-        exit;
         return $finalData;
     }
 }

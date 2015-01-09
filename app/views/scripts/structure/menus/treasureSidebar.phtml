@@ -1,22 +1,135 @@
-<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
+<?php
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+$slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
+?>
 
 <div class="sidebar-nav col-md-3">
     <ul id="menu1" class="nav nav-stacked nav-pills collapsible menu">
         <li <?php echo $this->currentPage()->active('treasure', 'index', 'index'); ?>>
             <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'index'), 'default', true); ?>"
-               title="An introduction to the Treasure Act">Introduction</a></li>
-
-        <?php echo $this->treasureMenu(); ?>
-
-        <li <?php if ($controller == 'reports') {
+               title="An introduction to the Treasure Act"><i class="icon-info-sign"></i>Reporting Treasure</a>
+        </li>
+        <li <?php
+        $what = array('summary', 'piercedcoins', 'forearchaeologists');
+        if (in_array($slug, $what)) {
+            echo 'class="expandfirst"';
+        }; ?>><a href=""><i class="icon-folder-open"></i>What is Treasure?</a>
+            <ul class="nav nav-pills nav-stacked menuindent">
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'summary'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'summary'), 'treasure', true); ?>"
+                       title="Summary of the act">Summary of the Act</a></li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'forearchaeologists'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'forearchaeologists'), 'treasure', true); ?>"
+                       title="archaeological treasure">Archaeological Treasure</a></li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'piercedcoins'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'piercedcoins'), 'treasure', true); ?>"
+                       title="Pierced coins">Pierced coins</a></li>
+            </ul>
+        </li>
+        <li <?php
+        $process = array(
+            'discovery-and-reporting', 'descriptive-report', 'conservation-and-analysis',
+            'museum-interest', 'writing-to-coroner', 'inquests',
+            'valuation-and-reward', 'acquisition-and-closure'
+        );
+        if (in_array($slug, $process)) {
             echo 'class="expandfirst "';
-        }; ?> >
-            <a href="#"><i class="icon-folder-open"></i>Treasure Reports</a>
-            <ul class="nav nav-pills nav-stacked menuindent"><?php echo $this->treasureReportsMenu(); ?></ul>
+        }; ?>>
+            <a href=""><i class="icon-folder-open"></i>The Treasure process</a>
+            <ul class="nav nav-pills nav-stacked menuindent">
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'discovery-and-reporting'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'discovery-and-reporting'), 'treasure', true); ?>"
+                       title="Discovery and reporting">Discovery and reporting</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'descriptive-report'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'descriptive-report'), 'treasure', true); ?>"
+                       title="Coroner's report">Coroner's report</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'conservation-and-analysis'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'conservation-and-analysis'), 'treasure', true); ?>"
+                       title="Conservation and analysis">Conservation and analysis</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'museum-interest'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'museum-interest'), 'treasure', true); ?>"
+                       title="Museum interest">Museum interest</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'writing-to-coroner'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'writing-to-coroner'), 'treasure', true); ?>"
+                       title="Writing to the coroner">Writing to the coroner</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'inquests'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'inquests'), 'treasure', true); ?>"
+                       title="Coroner's inquests">Coroner's inquests</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'valuation-and-reward'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'valuation-and-reward'), 'treasure', true); ?>"
+                       title="Valuation and reward">Valuation and reward</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'minutes', 'index', 'acquisition-and-closure'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'acquisition-and-closure'), 'treasure', true); ?>"
+                       title="Acquisition and closure">Acquisition and closure</a>
+                </li>
+            </ul>
+        </li>
+        <li <?php
+        $valuation = array('people', 'finders');
+        if (in_array($slug, $valuation) or $controller == 'minutes') {
+            echo 'class="expandfirst "';
+        }; ?> ><a href=""><i class="icon-folder-open"></i>Treasure valuation</a>
+            <ul class="nav nav-pills nav-stacked menuindent">
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'finders'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'finders'), 'treasure', true); ?>"
+                       title="When your finds are declared Treasure">When your finds are declared Treasure</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'people'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'people'), 'default', true); ?>"
+                       title="TVC committee and valuers">Treasure Valuation Committee and valuers</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'minutes', 'index'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'minutes'), 'default', true); ?>"
+                       title="TVC minutes">Committee minutes</a>
+                </li>
+
+            </ul>
         </li>
 
-        <li <?php echo $this->currentPage()->active('treasure', 'minutes', 'index'); ?>>
-            <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'minutes'), 'default', true); ?>"
-               title="TVC minutes">TVC Minutes</a></li>
+        <?php $acquisition = array('museums', 'museumacquistionfunding'); ?>
+
+        <li <?php if (in_array($slug, $acquisition)) {
+            echo 'class="expandfirst"';
+        }; ?>>
+            <a href="#"><i class="icon-folder-open"></i>Treasure acquisition</a>
+            <ul class="nav nav-pills nav-stacked menuindent">
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'museums'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'museums'), 'treasure', true); ?>"
+                       title="Advcie for museums">Advice for museums</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'museumacquistionfunding'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'museumacquistionfunding'), 'default', true); ?>"
+                       title="Funding bodies">National funding bodies</a>
+                </li>
+            </ul>
+        </li>
+
+        <?php $buying = array('schemeandebay', 'adviceonbuying', 'export'); ?>
+        <li <?php if (in_array($slug, $buying)) {
+            echo 'class="expandfirst"';
+        }; ?>>
+            <a href="#"><i class="icon-folder-open"></i>Buying and exporting</a>
+            <ul class="nav nav-pills nav-stacked menuindent">
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'schemeandebay'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'schemeandebay'), 'treasure', true); ?>"
+                       title="Ebay and the Scheme">The Scheme and eBay</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'adviceonbuying'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'adviceonbuying'), 'treasure', true); ?>"
+                       title="Advice on buying objects">Advice on buying antiquities</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'export'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'export'), 'treasure', true); ?>"
+                       title="Exp">Export licenses</a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </div>
