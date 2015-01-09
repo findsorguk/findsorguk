@@ -2,10 +2,10 @@
     <ul id="menu1" class="nav nav-stacked nav-pills collapsible menu">
         <li <?php echo $this->currentPage()->active('getinvolved', 'index', 'index'); ?>><a
                 href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'index'), 'default', true); ?>"
-                title="How to report your finds">Report your finds</a></li>
+                title="How to report your finds"><i class="icon-info-sign"></i>Report your finds</a></li>
         <li <?php echo $this->currentPage()->active('getinvolved', 'faq', 'index'); ?>><a
                 href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'faq'), 'default', true); ?>"
-                title="Frequently asked questions">FAQs</a></li>
+                title="Frequently asked questions"><i class="icon-question-sign"></i> FAQs</a></li>
         <li <?php
         $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
         if ($controller == 'guides') {
@@ -40,7 +40,7 @@
         </li>
         <li <?php echo $this->currentPage()->active('getinvolved', 'volunteering', 'index'); ?>><a
                 href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'volunteering'), 'default', true); ?>"
-                title="Volunteer opportunities with the Scheme">Volunteer opportunities</a></li>
+                title="Volunteer opportunities with the Scheme"><i class="icon-user"></i> Volunteer opportunities</a></li>
         <li><a href="<?php echo $this->url(array('module' => 'volunteerrecording'), 'default', true); ?>"
                title="Learn more about recording"><i class="icon-eye-open"></i>Volunteer recording guide</a></li>
     </ul>
