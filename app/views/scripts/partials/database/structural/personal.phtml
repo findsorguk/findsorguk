@@ -13,7 +13,7 @@ if (array_filter($people)):?>
 
                 <?php if (in_array($user->role, $allowed)): ?>
                     Found by: <span property="pas:finder foaf:name"
-                                    instanceof="foaf:person"><?php echo $this->finder; ?></span> - <a
+                                    instanceof="foaf:person"><?php echo $this->finder; ?></span> <a
                         href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'finderID' => $this->finderID), null, true); ?>"
                         title="View other discoveries"><i class="icon-search"></i></a><br/>
                 <?php endif; ?>
