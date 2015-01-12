@@ -1,21 +1,20 @@
 <div class="vcard" typeof="foaf:Person">
-<span class="fn n" property="foaf:name">
+<h4 class="lead"><span class="fn n" property="foaf:name">
 <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners', 'action' => 'profile', 'id'
-=> $this->id), null, true);?>" title="View full profile">
+=> $this->id), null, true); ?>" title="View full profile">
 <span class="given-name">
 <?php echo $this->escape($this->firstname); ?>
 </span>
 <span class="family-name">
 <?php echo $this->escape($this->lastname); ?>
 </span></a>
-</span><br/>
-
+</span></h4>
     <strong><span class="title"><?php
             if (!is_null($this->staffroles)) {
                 echo $this->escape($this->staffroles);
             } else {
                 echo $this->region_name;
-            };?></span></strong>
+            }; ?></span></strong>
     <br/>
 
     <div class="adr">
@@ -39,13 +38,14 @@
         <span class="latitude" property="geo:lat"><?php echo $this->latitude; ?></span>,
         <span class="longitude" property="geo:lon"><?php echo $this->longitude; ?></span>
     </div>
-    <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners',
-        'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true);?>" title="Get a vcard for outlook">vcard</a>
-    |
-    <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners',
-        'action' => 'profile', 'id' => $this->id, 'format' => 'foaf'), null, true);?>"
-       title="View foaf rdf representation">foaf</a><br/>
-
+    <div class="btn-group">
+            Other formats:<br />
+        <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners',
+            'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>"
+           title="Get a vcard for outlook" class="btn btn-mini">vcard</a>
+        <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners',
+            'action' => 'profile', 'id' => $this->id, 'format' => 'foaf'), null, true); ?>"
+           title="View foaf rdf representation" class="btn btn-mini">foaf</a>
+    </div>
 
 </div>
-<br/>
