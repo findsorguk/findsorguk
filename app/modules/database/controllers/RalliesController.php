@@ -51,6 +51,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
      */
     public function getPeople()
     {
+        $this->_people = new People();
         return $this->_people;
     }
 
@@ -221,20 +222,20 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
                 // find id is expected in $params['id']
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $rally = $this->_rallies->fetchRow('id=' . $id);
+                    $rally = $this->getRallies()->fetchRow('id=' . $id);
                     if ($rally) {
                         $form->populate($rally->toArray());
                     } else {
                         throw new Pas_Param_Exception($this->_nothingFound, 404);
                     }
 
-                    $district_list = $this->_districts
+                    $district_list = $this->getDistricts()
                         ->getDistrictsToCountyList($rally['countyID']);
                     $form->districtID->addMultiOptions(array(
                         null => 'Choose a district',
                         'Available districts' => $district_list
                     ));
-                    $parish_list = $this->_parishes
+                    $parish_list = $this->getParishes()
                         ->getParishesToDistrictList($rally['districtID']);
                     $form->parishID->addMultiOptions(array(
                         null => 'Choose a parish',
