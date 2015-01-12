@@ -13,7 +13,7 @@ if ($auth->hasIdentity()) {
                     <ul class="nav nav-pills nav-stacked menuindent">
                         <li <?php echo $this->currentPage()->active('users', 'configuration', 'index'); ?>><a
                                 href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration'), null, true); ?>"
-                                title="Database settings"><i class="icon-folder-open"></i>Configure copy fields</a>
+                                title="Database settings">Configure copy fields</a>
                         <li <?php echo $this->currentPage()->active('users', 'social', 'index'); ?>><a
                                 href="<?php echo $this->url(array('module' => 'users', 'controller' => 'social',), null, true); ?>"
                                 title="Administer my social sites available to other users">My social web</a></li>
@@ -73,7 +73,7 @@ if ($auth->hasIdentity()) {
 
             <?php if (in_array($user->role, $allowed)): ?>
                 <li>
-                    <a href=""><i class="icon-folder-open"></i> News and Events</a>
+                    <a href=""><i class="icon-folder-open"></i>News and Events</a>
                     <ul class="nav nav-pills nav-stacked menuindent">
                         <li <?php echo $this->currentPage()->active('users', 'news', 'index'); ?>><a
                                 href="<?php echo $this->url(array('module' => 'users', 'controller' => 'news'), null, true); ?>"

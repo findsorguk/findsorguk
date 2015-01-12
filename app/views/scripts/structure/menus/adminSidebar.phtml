@@ -113,7 +113,7 @@ function active($controllerName, $actionName)
 
                 <li <?php echo active('numismatics', 'index'); ?>><a
                         href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics'), null, true); ?>"
-                        title="Administer the numismatic options"><i class="icon-shopping-cart"></i>Numismatics</a></li>
+                        title="Administer the numismatic options"><i class="icon-money"></i>Numismatics</a></li>
                 <li <?php echo active('terminology', 'index'); ?>><a
                         href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'terminology'), null, true); ?>"
                         title="Administer controlled terms"><i class="icon-list"></i>Controlled terminology</a></li>
@@ -122,7 +122,7 @@ function active($controllerName, $actionName)
                 <li <?php echo active('system', 'index'); ?>><a
                         href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system'), null, true); ?>"
                         title="Change system setup"><i class="icon-cog"></i>System configuration</a></li>
-                <li <?php if ($controller == 'comments') {
+                <li <?php if (in_array($controller, array('comments', 'errors'))) {
                     echo 'class="expandfirst"';
                 }; ?>><a href="#" title="Administer comments"><i class="icon-folder-open"></i>Comments</a>
                     <ul class="nav nav-pills nav-stacked menuindent">
@@ -138,6 +138,9 @@ function active($controllerName, $actionName)
                         <li>
                             <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'comments', 'approval' => 'approved'), 'default', true); ?>"
                                title="View all comments as one table">Authorised comments</a></li>
+                        <li>
+                            <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'errors'), 'default', true); ?>" title="Error reports">Error reports</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
