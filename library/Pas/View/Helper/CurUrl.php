@@ -133,7 +133,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @return string
      */
     public function __toString() {
-        return $this->createUrl();
+            return $this->createUrl();
     }
 
     /** Create the url

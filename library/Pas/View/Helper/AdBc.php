@@ -72,7 +72,6 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      */
     public function getValidator() {
         $this->_validator = new Zend_Validate_Int();
-
         return $this->_validator;
     }
 
@@ -157,6 +156,10 @@ class Pas_View_Helper_AdBc extends Zend_View_Helper_Abstract
      * @return string
      */
     public function __toString() {
-        return $this->html();
+        try {
+            return $this->html();
+        } catch (Exception $e){
+
+        }
     }
  }

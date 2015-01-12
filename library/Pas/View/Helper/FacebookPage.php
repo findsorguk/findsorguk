@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for determining which findspot partial to display to the user
  *
@@ -8,14 +9,14 @@
  * echo $this->facebookPage();
  * ?>
  * </code>
- * 
+ *
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @license http://framework.zend.com/license/new-bsd     New BSD License
- * @see Zend_View_Helper_Abstract
+ * @see  Zend_View_Helper_Abstract
  * @uses Zend_Http_Client_Adapter_Curl
  * @uses Zend_Http_Client
  * @todo this class can be cut substantially for the user object to come from just one call
@@ -56,7 +57,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function getCache() {
+    public function getCache()
+    {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
     }
@@ -65,7 +67,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getPageid() {
+    public function getPageid()
+    {
         $this->_pageid = $this->getConfig()->webservice->facebook->pageid;
         return $this->_pageid;
     }
@@ -74,7 +77,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         $this->_config = Zend_Registry::get('config');
         return $this->_config;
     }
@@ -83,7 +87,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         $this->_url = 'https://graph.facebook.com/' . $this->getPageid();
         return $this->_url;
     }
@@ -98,7 +103,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getPort() {
+    public function getPort()
+    {
         return $this->_port;
     }
 
@@ -107,7 +113,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @param int $port
      * @return \Pas_View_Helper_FacebookPage
      */
-    public function setPort( $port) {
+    public function setPort($port)
+    {
         $this->_port = $port;
         return $this;
     }
@@ -116,12 +123,13 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @access public
      * @return object The curl client
      */
-    public function getCurlConfig() {
+    public function getCurlConfig()
+    {
         $config = array(
-            'adapter'   => 'Zend_Http_Client_Adapter_Curl',
+            'adapter' => 'Zend_Http_Client_Adapter_Curl',
             'curloptions' => array(
-                CURLOPT_POST =>  false,
-                CURLOPT_USERAGENT =>  $_SERVER["HTTP_USER_AGENT"],
+                CURLOPT_POST => false,
+                CURLOPT_USERAGENT => $_SERVER["HTTP_USER_AGENT"],
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_PORT => $this->getPort(),
                 CURLOPT_HEADER => false,
@@ -130,16 +138,18 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
                 CURLOPT_SSL_VERIFYHOST => false,
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_CONNECTTIMEOUT => 1,
-                ),
-            );
-         $client = new Zend_Http_Client($this->getUrl(), $config);
-         return $client;
+            ),
+        );
+        $client = new Zend_Http_Client($this->getUrl(), $config);
+        return $client;
     }
+
     /** Get the data
      * @access public
      * @return type
      */
-    public function getData() {
+    public function getData()
+    {
         $data = '';
         $response = $this->getCurlConfig()->request();
         $code = $this->getStatus($response);
@@ -154,7 +164,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_FacebookPage
      */
-    public function facebookPage() {
+    public function facebookPage()
+    {
         return $this;
     }
 
@@ -162,12 +173,13 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function parseFacebook() {
+    public function parseFacebook()
+    {
         if (!($this->getCache()->test('facebookCounts'))) {
-        $data = $this->getData();
-        $this->getCache()->save($data);
+            $data = $this->getData();
+            $this->getCache()->save($data);
         } else {
-        $data = $this->getCache()->load('facebookCounts');
+            $data = $this->getCache()->load('facebookCounts');
         }
         return $this->buildHtml($data);
     }
@@ -177,7 +189,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @param stdClass $data
      * @return string
      */
-    public function buildHtml(stdClass $data){
+    public function buildHtml(stdClass $data)
+    {
         $html = '';
         $html .= '<li class="purple"><p>Join our ';
         $html .= $data->likes;
@@ -193,7 +206,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @param Zend_Http_Response $response
      * @return type
      */
-    private function getDecode( Zend_Http_Response $response) {
+    private function getDecode(Zend_Http_Response $response)
+    {
         $data = $response->getBody();
         $json = json_decode($data);
         return $json;
@@ -205,7 +219,8 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @param Zend_Http_Response $response
      * @return int
      */
-    private function getStatus( Zend_Http_Response $response) {
+    private function getStatus(Zend_Http_Response $response)
+    {
         $code = $response->getStatus();
         switch ($code) {
             case ($code == 200):
@@ -231,7 +246,11 @@ class Pas_View_Helper_FacebookPage extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
-        return $this->parseFacebook();
+    public function __toString()
+    {
+        try {
+            return $this->parseFacebook();
+        } catch (Exception $e) {
+        }
     }
 }
