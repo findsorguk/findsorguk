@@ -2,11 +2,20 @@
 $this->headTitle('Edit details for a person');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
-    <h2 class="lead"><?php echo $this->title();?></h2>
-<?php echo $this->form ;?>
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php $url = array(
+    'module' => 'database',
+    'controller' => 'people',
+    'action' => 'person',
+    'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
+?>
+    <a href="<?php echo $this->url($url, 'default', true); ?>" class="btn btn-small btn-success"
+       title="Return to record">Return to record</a>
+<?php echo $this->form; ?>
+
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript'); ?>
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
-$(document).ready(function() {
-$('form').areYouSure();
-});
+    $(document).ready(function() {
+    $('form').areYouSure();
+    });
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>
