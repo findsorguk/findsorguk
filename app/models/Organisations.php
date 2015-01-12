@@ -68,6 +68,7 @@ class Organisations extends Pas_Db_Table_Abstract {
         $orgs = $this->getAdapter();
         $select = $orgs->select()
                 ->from($this->_name)
+                ->joinLeft('osCounties', 'organisations.county = osCounties.osID', array('label'))
                 ->joinLeft('countries','organisations.country = countries.iso', 
                         array('abode' => 'printable_name'))
                 ->joinLeft('people','organisations.contactpersonID = people.secuid', 

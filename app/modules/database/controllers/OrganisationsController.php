@@ -35,7 +35,13 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->allow('flos', null);
 
+    }
+
+
+    public function getOrganisations()
+    {
         $this->_organisations = new Organisations();
+        return $this->_organisations;
     }
 
     /** The redirect uri
@@ -49,7 +55,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $paginator = $this->_organisations->getOrganisations((array)$this->getAllParams());
+        $paginator = $this->getOrganisations()->getOrganisations((array)$this->getAllParams());
         $this->view->paginator = $paginator;
         $form = new OrganisationFilterForm();
         $this->view->form = $form;
@@ -86,8 +92,8 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
     public function organisationAction()
     {
         if ($this->getParam('id', false)) {
-            $this->view->orgs = $this->_organisations->getOrgDetails($this->getParam('id'));
-            $this->view->members = $this->_organisations->getMembers($this->getParam('id'));
+            $this->view->orgs = $this->getOrganisations()->getOrgDetails($this->getParam('id'));
+            $this->view->members = $this->getOrganisations()->getMembers($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -109,8 +115,8 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
                 $audit = $this->_organisations->fetchRow('id=' . $this->getParam('id'));
                 $oldArray = $audit->toArray();
                 $where = array();
-                $where[] = $this->_organisations->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
-                $this->_organisations->update($updateData, $where);
+                $where[] = $this->getOrganisations()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
+                $this->getOrganisations()->update($updateData, $where);
                 $this->_helper->audit(
                     $updateData,
                     $oldArray,
@@ -126,7 +132,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
         } else {
             $id = (int)$this->_request->getParam('id', 0);
             if ($id > 0) {
-                $organisation = $this->_organisations->fetchRow('id=' . $id);
+                $organisation = $this->getOrganisations()->fetchRow('id=' . $id);
                 $form->populate($organisation->toArray());
             }
         }
@@ -145,7 +151,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
             if ($form->isValid($this->_request->getPost())) {
                 $data = $form->getValues();
                 unset($data['contact']);
-                $insert = $this->_organisations->add($data);
+                $insert = $this->getOrganisations()->add($data);
                 $this->redirect(self::REDIRECT . 'organisation/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else {
@@ -167,15 +173,14 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = 'id = ' . $id;
-                    $this->_organisations->delete($where);
+                    $this->getOrganisations()->delete($where);
+                    $this->getFlash()->addMessage('Record deleted!');
                 }
-                $this->getFlash()->addMessage('Record deleted!');
                 $this->redirect(self::REDIRECT);
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {
-                    $this->view->organisation = $this->_organisations
-                        ->fetchRow('id=' . $id);
+                    $this->view->organisation = $this->getOrganisations()->fetchRow('id=' . $id);
                 }
             }
         } else {
