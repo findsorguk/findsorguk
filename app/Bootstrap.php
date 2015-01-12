@@ -15,6 +15,25 @@
  * @uses Zend_Controller_Front
  * @uses Zend_Controller_Response_Http
  */
+
+set_exception_handler(function ($exception) {
+    $log = array(
+        'message' => $exception->getMessage(),
+        'trace' => array(),
+    );
+    foreach ($exception->getTrace() as $item) {
+        $trace = isset($item['class']) ? $item['class'] . $item['type'] : '';
+        $trace .= $item['function'] . '()';
+        $log['trace'][] = $trace;
+    }
+//    echo $log['message'] . "\n";
+//    foreach ($log['trace'] as $trace) {
+//        echo " - $trace\n";
+//    }
+
+    echo 'An error has occurred during start up.';
+});
+
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
@@ -23,10 +42,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initConfig()
     {
-        //Zend_Registry::set('config', new Zend_Config_Ini('app/config/config.ini', 'production'));
         $config = new Zend_Config($this->getOptions());
         Zend_Registry::set('config', $config);
     }
+
 
     /** Setup the default timezone
      * @access protected
@@ -41,21 +60,31 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      * @access protected
      * @throws Exception
      */
-    protected function _initDatabase()
-    {
-        $this->bootstrap('db');
-        $this->getPluginResource('db');
-        $database = Zend_Registry::get('config')->resources->db;
-        try {
-            // setup database
-            $db = Zend_Db::factory($database);
-            Zend_Registry::set('db', $db);
-            Zend_Db_Table::setDefaultAdapter($db);
-        } catch (Exception $e) {
-            echo '<h1>The server is currently down</h1>';
-            exit;
-        }
-    }
+//    protected function _initDatabase()
+//    {
+//        $this->bootstrap('db');
+//        $this->getPluginResource('db');
+//        $database = Zend_Registry::get('config')->resources->db;
+//
+//            // setup database
+//            $db = Zend_Db::factory($database);
+//            Zend_Registry::set('db', $db);
+//            Zend_Db_Table::setDefaultAdapter($db);
+//        } catch (Zend_Db_Adapter_Exception $e) {
+//            if ($e->getPrevious()) {
+//                echo '[' . get_class($e)
+//                    . '] has the previous exception of ['
+//                    . get_class($e->getPrevious())
+//                    . ']' . PHP_EOL;
+//            } else {
+//                echo '[' . get_class($e)
+//                    . '] does not have a previous exception'
+//                    . PHP_EOL;
+//            }
+//
+//            echo $e;
+//        }
+//    }
 
 
     /** Setup layouts for the site and modules
@@ -120,8 +149,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
 
         if (isset($options['resources']['view']['contentType'])) {
-            $view->headMeta()->appendHttpEquiv('Content-Type',
-                $options['resources']['view']['contentType']);
+            $view->headMeta()->appendHttpEquiv('Content-Type', $options['resources']['view']['contentType']);
         }
 
         $view->setScriptPath(APPLICATION_PATH . '/views/scripts/');
@@ -256,6 +284,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->getResource('View');
         $view->placeholder('tag');
     }
+
+    public function __construct($application)
+    {
+        parent::__construct($application);
+        Pas_Controller_Plugin_BootstrapError::set();
+    }
+
 
 
 }
