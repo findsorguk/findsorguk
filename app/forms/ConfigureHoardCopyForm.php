@@ -94,11 +94,14 @@ class ConfigureHoardCopyForm extends Pas_Form
         foreach (array_keys($fields) as $field) {
             $label = $view->fieldNamesDb()->setField($field);
             $field = new Zend_Form_Element_Checkbox($field);
-            if (array_key_exists($label, $labels)) {
-                $clean = ucfirst($labels[$label]);
-            } else {
-                $clean = ucfirst($label);
+            if (!is_null($label)) {
+                if (array_key_exists((string)$label, $labels)) {
+                    $clean = ucfirst($labels[$label]);
+                } else {
+                    $clean = ucfirst($label);
+                }
             }
+
 
             $field->setLabel($clean)
                 ->setRequired(false)

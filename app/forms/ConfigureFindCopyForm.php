@@ -31,7 +31,8 @@ class ConfigureFindCopyForm extends Pas_Form
             'createdBy', 'institution', 'secwfstage',
             'secowner', 'sectag', 'old_candidate',
             'old_finderID', 'objdate2subperiod_old', 'objdate1subperiod_old',
-            'finder2ID', 'datefound2flag', 'datefound1flag'
+            'finder2ID', 'datefound2flag', 'datefound1flag',
+            'hoardID'
         );
 
         $labels = array(
