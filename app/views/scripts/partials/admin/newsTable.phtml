@@ -5,10 +5,12 @@
     <td><?php echo $this->niceShortDate()->setDate($this->updated); ?></td>
     <td><?php echo $this->updatedBy; ?></td>
     <td>
-        <div class="btn-group"><a class="btn btn-mini btn-success"
-                                  href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'news', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
-                                  title="Edit this story">Edit</a><a class="btn btn-mini btn-danger"
-                                                                     href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'news', 'action' => 'delete', 'id' => $this->id), null, true); ?>"
-                                                                     title="Delete this story">Delete</a></div>
+        <div class="btn-group">
+            <a class="btn btn-mini btn-success"
+               href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'news', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
+               title="Edit this story">Edit</a><a class="btn btn-mini btn-danger"
+                                                  href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'news', 'action' => 'delete', 'id' => $this->id), null, true); ?>"
+                                                  title="Delete this story">Delete</a>
+        </div>
     </td>
 </tr>
