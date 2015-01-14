@@ -927,6 +927,14 @@ class Pas_Solr_Handler
      */
     public function execute()
     {
+        // create a ping query
+        $ping = $this->getSolr()->createPing();
+
+        try{
+            $result = $this->getSolr()->ping($ping);
+        } catch(Solarium_Exception $e){
+
+        }
         $params = $this->getParams();
         $select = array(
             'query' => '*:*',

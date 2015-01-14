@@ -62,9 +62,7 @@ class News extends Pas_Db_Table_Abstract
      */
     public function getGeoPlanet()
     {
-        $this->_geoPlanet = new Pas_Service_Geo_Geoplanet(
-            $this->_config->webservice->ydnkeys->appid
-        );
+        $this->_geoPlanet = new Pas_Service_Geo_GeoPlanet($this->_config->webservice->ydnkeys->appid);
         return $this->_geoPlanet;
     }
 

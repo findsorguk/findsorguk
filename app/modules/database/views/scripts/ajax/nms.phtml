@@ -1,140 +1,3 @@
-<?php
-//============================================================+
-// File name   : example_011.php
-// Begin       : 2008-03-04
-// Last Update : 2010-08-08
-//
-// Description : Example 011 for TCPDF class
-//               Colored Table
-//
-// Author: Nicola Asuni
-//
-// (c) Copyright:
-//               Nicola Asuni
-//               Tecnick.com s.r.l.
-//               Via Della Pace, 11
-//               09044 Quartucciu (CA)
-//               ITALY
-//               www.tecnick.com
-//               info@tecnick.com
-//============================================================+
-
-/**
- * Creates an example PDF TEST document using TCPDF
- * @package com.tecnick.tcpdf
- * @abstract TCPDF - Example: Colored Table
- * @author Nicola Asuni
- * @since 2008-03-04
- */
-
-//require_once(ROOT_PATH . '/library/tcpdf/config/lang/eng.php');
-require_once(ROOT_PATH . '/library/tcpdf/tcpdf.php');
-
-// extend TCPF with custom functions
-class MYPDF extends TCPDF {
-
-	
-    public function Header() {
-		$view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
-    	// Logo
-        $image_file = $view->serverUrl() . '/assets/logos/pas.jpg';
-        $this->Image($image_file, 10, 10, 15, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        // Set font
-        $this->SetFont('helvetica', 'B', 20);
-        // Title
-        $this->Cell(0, 15, 'Exported search results', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-    }
-
-    // Page footer
-    public function Footer() {
-        // Position at 15 mm from bottom
-        $this->SetY(-15);
-        // Set font
-        $this->SetFont('helvetica', 'I', 8);
-        // Page number
-        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
-    }
-
-
-
-    // Load table data from file
-    public function LoadData($dataLoad) {
-//    	Zend_Debug::dump($dataLoad);
-  //  	exit;
-        $data = array();
-        foreach($dataLoad as $k => $v) {
-            $data[] = $v;
-        }
-        return $data;
-    }
-    
-     public function ellipsisstring($string, $max = 300, $rep = '&hellip;') {
-	if (strlen($string) < $max) {
-	return $string;
-	} else  {
-	$leave = $max - strlen ($rep);
-	return strip_tags(substr_replace($string, $rep, $leave),'<br /><a><em>');
-	}
-	}
-
-public function lowerCaseIt($string){
-    return ucwords(strtolower($string));
-}
-
-public function purify($value){
-    $filter = new Pas_Filter_HtmlCleaned();
-	return $filter->filter($value);
-}
-}
-
-// create new PDF document
-$pdf = new MYPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-// set document information
-$pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('The Portable Antiquities Scheme');
-$pdf->SetTitle('Norfolk Museums Service Search export');
-$pdf->SetSubject('Database export');
-$pdf->SetKeywords('Search export');
-
-// set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 011', PDF_HEADER_STRING);
-
-// set header and footer fonts
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-// set default monospaced font
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-//set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-//set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-//set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-//set some language-dependent strings
-$pdf->setLanguageArray($l);
-
-// ---------------------------------------------------------
-
-// set font
-$pdf->SetFont('helvetica', '', 8);
-
-// add a page
-$pdf->AddPage();
-
-
-
-//Data loading
-$data = $pdf->LoadData($this->nms);
-
-$tbl = <<<EOD
 <table border="1" cellpadding="2" cellspacing="0" nobr="true" >
 <thead>
 <tr>
@@ -148,41 +11,22 @@ $tbl = <<<EOD
 </tr>
 </thead>
 <tbody>
-EOD;
-foreach($data as $d){
-    $desc = $pdf->purify($d['description']);
-    $tbl .= '<tr nobr="true">';
-    $tbl .= '<td width="10%">' . $d['old_findID'] . '</td>';
-    $tbl .= '<td width="10%">' . $d['broadperiod'] . '</td>';
-    $tbl .= '<td width="10%">' . $d['finder'] . '</td>';
-    $tbl .= '<td width="10%">' . $d['objecttype'] . '</td>';
-    $tbl .= '<td width="40%">' . $desc . '</td>';
-    $tbl .= '<td width="15%">County: ' . $pdf->lowerCaseIt($d['county']) . '<br />';
-    $tbl .= 'District: ' . $pdf->lowerCaseIt($d['district']) . '<br />';
-    $tbl .= 'Parish: ' . $pdf->lowerCaseIt($d['parish']) . '<br />';
+<?php foreach($data as $d):?>
+   <tr nobr="true">
+   <td width="10%"><?php echo $d['old_findID'];?></td>
+   <td width="10%"><?php echo $d['broadperiod'];?></td>
+   <td width="10%"><?php echo $d['finder'];?></td>
+   <td width="10%"><?php echo $d['objecttype'];?></td>
+   <td width="40%"><?php echo $d['description'];?></td>
+   <td width="15%">County: ' . $pdf->lowerCaseIt($d['county']) . '<br />';
+   District: ' . $pdf->lowerCaseIt($d['district']) . '<br />';
+   Parish: ' . $pdf->lowerCaseIt($d['parish']) . '<br />';
     if(!is_null($d['knownas'])){
-    $tbl .= 'Known as: ' . $d['knownas'] . '<br />';
+   Known as: ' . $d['knownas'] . '<br />';
     }
     $tbl .=  'NGR: ' . $d['gridref'] . '<br />';
-    $tbl .= 'Four figure: ' . $d['fourFigure'] . '</td>';
-    $tbl .= '<td width="5%">' . $d['smrRef'] . '</td>';
-    $tbl .= '</tr>';
-}
-
-$tbl .= <<<EOD
-</tbody>
-</table>
-EOD;
-
-
-
-$pdf->writeHTML($tbl, true, false, false, false, '');
-
-// ---------------------------------------------------------
-
-//Close and output PDF document
-$pdf->Output($this->filename, 'I');
-
-//============================================================+
-// END OF FILE
-//============================================================+
+   Four figure: ' . $d['fourFigure'] . '</td>';
+   <td width="5%">' . $d['smrRef'] . '</td>';
+   </tr>';
+<?php endforeach;?>
+</tbody></table>

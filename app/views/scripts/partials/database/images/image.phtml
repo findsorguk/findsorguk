@@ -3,7 +3,6 @@
 <?php
 $file = $this->filename;
 $path = $this->imagedir;
-//Zend_Debug::dump($path);
 $location = './' . $this->baseUrl() . $path . $file;
 $name = substr($file, 0, strrpos($file, '.'));
 $ext = '.jpg';
@@ -20,7 +19,6 @@ $tempfile = './' . $path . 'medium/' . $name . $ext;
 
 $tempfilesmall = './' . $path . 'small/' . $name . $ext;
 
-//Zend_Debug::dump($tempfile);
 ?>
 
 <div id="image">
@@ -32,10 +30,10 @@ $tempfilesmall = './' . $path . 'small/' . $name . $ext;
         list($w, $h, $type, $attr) = getimagesize('./' . $this->baseUrl() . '/' . $path . 'medium/' . $name . $ext);
         echo '<img src="' . $this->baseUrl() . '/' . $path . 'medium/' . $name . $ext . '" height="' . $h . '" width="' . $w . '" alt="A resized image of ' . $this->label . '" />';
     } else {
-        $phMagick = new phMagick($location, $tempfile);
-        $phMagick->resize(500, 500);
-        $phMagick->convert();
-        echo '<img src="' . $this->baseUrl() . '/' . $path . 'medium/' . $name . $ext . '" alt="A resized image of ' . $this->label . '">';
+        ?>
+    <p>Image unavailable</p>
+    <?php
+
     }
     $this->metaBase()
         ->setDescription($this->label)
@@ -89,14 +87,8 @@ $tempfilesmall = './' . $path . 'small/' . $name . $ext;
                 if (file_exists($thumb)) { ?>
                     <img src="<?php echo $this->baseUrl(); ?>/images/thumbnails/<?php echo $this->id; ?>.jpg"
                          alt="A resized image of <?php echo $this->label; ?>"/>
-                <?php } else {
-                    $phMagick = new phMagick($location, $thumb);
-                    $phMagick->resize(100, 0);
-                    $phMagick->convert();
-                    //Zend_Debug::dump($phMagick);
-                    ?>
-                    <img src="<?php echo $this->baseUrl(); ?>/images/thumbnails/<?php echo $this->id; ?>.jpg"
-                         alt="A resized image of <?php echo $this->label; ?>"/>
+                <?php } else { ?>
+                    <p>Image unavailable</p>
                 <?php
 
                 }

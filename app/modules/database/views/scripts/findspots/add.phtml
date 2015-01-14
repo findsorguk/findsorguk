@@ -30,6 +30,7 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinked
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');
 
 $front = Zend_Controller_Front::getInstance()->getRequest();
+
 $copy = $front->getParam('copy');
 if (!is_null($copy)) {
     $this->headTitle(' copied from last record');

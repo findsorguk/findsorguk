@@ -461,4 +461,10 @@ class Contacts extends Pas_Db_Table_Abstract
         }
         return $accounts;
     }
+
+    public function resizeImage()
+    {
+        $thumbnailWidth = 100;
+        $resizedWidth = 300;
+    }
 }

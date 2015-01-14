@@ -32,7 +32,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                 <?php if (file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)): ?>
                     <img class="img-circle"
                          src="<?php echo $this->baseUrl() . '/assets/staffphotos/thumbnails/' . $this->image; ?>"/>
-                    <p><a href="#" class="deleteimage btn-danger btn">Delete this image</a></p>
+                    <p><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'contacts', 'action' => 'deleteavatar', 'id' => $this->number),'default', true);?>" class="deleteavatar btn-danger btn">Delete this image</a></p>
                 <?php else: ?>
                     <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
                          class="img-circle"/>
@@ -44,7 +44,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                         array(
                             'module' => 'admin',
                             'controller' => 'contacts',
-                            'action' => 'addpicture',
+                            'action' => 'avatar',
                             'id' => $this->number
                         ), 'default', true); ?>"
                        title="Add a new image">Add a photo

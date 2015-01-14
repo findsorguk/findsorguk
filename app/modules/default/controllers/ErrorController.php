@@ -215,6 +215,9 @@ class ErrorController extends Pas_Controller_Action_Admin
             $data['errorLineNumber'] = $errors['exception']->getLine();
             $data['errorLineNumberFormatted'] = self::addPadding($errors['exception']->getLine());
             $data['traceStack'] = array();
+
+
+
             foreach ($errors['exception']->getTrace() as $trace) {
                 if ($extended) {
                     $trace['lineNumberFormatted'] = self::addPadding($trace['line']);
@@ -261,6 +264,7 @@ class ErrorController extends Pas_Controller_Action_Admin
                 $compiledTrace .= '</li>' . "\n";
             }
             switch ($errors->type) {
+
                 case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
                 case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
                     // 404 error -- controller or action not found
@@ -293,6 +297,14 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->view->code = 403;
                             $this->sendEmail();
                             $this->view->headTitle('Not authorised.');
+                            break;
+                        case 'Solarium_Exception':
+                            $this->getResponse()->setHttpResponseCode(500);
+                            $this->view->message = 'Search index broken';
+                            $this->view->info = $errors->exception;
+                            $this->view->code = 500;
+                            $this->sendEmail();
+                            $this->view->headTitle('Search broken');
                             break;
                         case 'Pas_Exception':
                             $this->getResponse()->setHttpResponseCode(500);
@@ -345,7 +357,6 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->sendEmail();
                             $this->view->headTitle('The server adapter has gone away.');
                             break;
-
                         case 'PDOException':
                             $this->getResponse()->setHttpResponseCode(500);
                             $this->view->code = 500;
@@ -393,6 +404,16 @@ class ErrorController extends Pas_Controller_Action_Admin
                     $this->view->info = $errors->exception;
                     $this->view->headTitle('A generic application error has been made');
                     break;
+            }
+            if($errors->exception and $errors->exception instanceof Zend_Db_Exception) {
+                $this->view->message =  $errors->exception->getMessage();
+                try {
+                    if ($errors->exception->getPrevious() and $errors->exception->getPrevious() instanceof PDOException){
+                        $e = $errors->exception->getPrevious();
+                    }
+                } catch (PDOException $e ){
+
+                }
             }
             // pass the actual exception object to the view
             $this->view->exception = $errors->exception;

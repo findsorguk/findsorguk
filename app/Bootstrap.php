@@ -16,23 +16,23 @@
  * @uses Zend_Controller_Response_Http
  */
 
-set_exception_handler(function ($exception) {
-    $log = array(
-        'message' => $exception->getMessage(),
-        'trace' => array(),
-    );
-    foreach ($exception->getTrace() as $item) {
-        $trace = isset($item['class']) ? $item['class'] . $item['type'] : '';
-        $trace .= $item['function'] . '()';
-        $log['trace'][] = $trace;
-    }
-//    echo $log['message'] . "\n";
-//    foreach ($log['trace'] as $trace) {
-//        echo " - $trace\n";
+//set_exception_handler(function ($exception) {
+//    $log = array(
+//        'message' => $exception->getMessage(),
+//        'trace' => array(),
+//    );
+//    foreach ($exception->getTrace() as $item) {
+//        $trace = isset($item['class']) ? $item['class'] . $item['type'] : '';
+//        $trace .= $item['function'] . '()';
+//        $log['trace'][] = $trace;
 //    }
-
-    echo 'An error has occurred during start up.';
-});
+////    echo $log['message'] . "\n";
+////    foreach ($log['trace'] as $trace) {
+////        echo " - $trace\n";
+////    }
+//
+//    echo 'An error has occurred during start up.';
+//});
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
@@ -284,9 +284,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->placeholder('tag');
     }
 
-    public function __construct($application)
-    {
-        parent::__construct($application);
-        Pas_Controller_Plugin_BootstrapError::set();
-    }
+//    public function __construct($application)
+//    {
+//        parent::__construct($application);
+//        Pas_Controller_Plugin_BootstrapError::set();
+//    }
 }
