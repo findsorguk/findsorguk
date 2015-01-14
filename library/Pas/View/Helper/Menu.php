@@ -188,7 +188,7 @@ class Pas_View_Helper_Menu extends Zend_View_Helper_Abstract {
 
         foreach ($menus as $m) {
             $html .= '<li ';
-            if ($m['slug'] == $this->_param) {
+            if ($m['slug'] == $this->getParam()) {
                 $html .= 'class="active"';
             }
             $html .= '><a href="';
