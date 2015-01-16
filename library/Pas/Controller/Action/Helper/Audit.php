@@ -63,7 +63,9 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
                     } // if
                 } else {
                     // remove slashes (escape characters) from $newarray
-                    $auditData[$item] = stripslashes($auditData[$item]);
+                    if(!is_array($auditData[$item])) {
+                        $auditData[$item] = stripslashes($auditData[$item]);
+                    }
                 } // if
             } // foreach
             // remove entry from $oldarray which does not exist in $newarray
@@ -114,7 +116,7 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
                 }
             }
             $audit = new $model();
-            $auditing = $audit->add($f);
+            $audit->add($f);
         }
     }
 

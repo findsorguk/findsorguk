@@ -931,7 +931,7 @@ class Pas_Solr_Handler
         $ping = $this->getSolr()->createPing();
 
         try{
-            $result = $this->getSolr()->ping($ping);
+            $this->getSolr()->ping($ping);
         } catch(Solarium_Exception $e){
 
         }
