@@ -104,7 +104,7 @@ class Publications extends Pas_Db_Table_Abstract {
                     'in_publication'
                     ))
                 ->joinLeft('bibliography','publications.secuid = bibliography.pubID',
-                        array('pp' => 'pages_plates','i' => 'id'))
+                        array('pp' => 'pages_plates','i' => 'id', 'ref' => 'reference'))
                 ->joinLeft(array('recordtable' => $table),'recordtable.secuid = bibliography.findID',
                         array('fID' => 'id','createdBy'))
                 ->joinLeft('publicationtypes',

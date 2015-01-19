@@ -8,7 +8,7 @@
 ?>
 <li>
     <?php echo $this->authors; ?>, <?php echo $this->publication_year; ?><em>
-        <a href="<?php echo $this->url(array('controller' => 'database', 'action' => 'publication', 'id' => $this->id), null, true); ?>"
+        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication', 'id' => $this->id), null, true); ?>"
            title="View reference work\'s details">'
-            <?php echo $this->title; ?></a></em><?php echo $this->vol_no; ?>,<?php echo $this->pp; ?>.
+            <?php echo $this->title; ?></a></em><?php echo $this->vol_no; ?>,<?php echo $this->pp; ?>, <?php echo $this->ref; ?>.
 </li>
