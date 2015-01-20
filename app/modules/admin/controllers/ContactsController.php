@@ -208,7 +208,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
                 $updateData['woeid'] = $woeid;
                 $where = array();
                 $where[] = $this->getContacts()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
-                $insert = $this->getContacts()->update($updateData, $where);
+                $this->getContacts()->update($updateData, $where);
                 $this->getFlash()->addMessage('Contact information updated!');
                 $this->redirect($this->_redirectUrl . 'contact/id/' . $this->getParam('id'));
             } else {
@@ -253,27 +253,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
      */
     public function avatarAction()
     {
-        $directories = array(
-            'orginal' =>   ASSETS_PATH . '/'.  self::STAFFPATH,
-            'thumbnail' => ASSETS_PATH . '/'.  self::STAFFPATH . self::SMALL,
-            'resized' => ASSETS_PATH . '/'.  self::STAFFPATH . self::RESIZED
-        );
-        $errors = array();
-        foreach($directories as $key => $value){
-            if(!is_dir($value)){
-                $errors[] = $key . 'does not exist';
-            } else {
-                mkdir($value, 0777);
-            }
-            if(!is_writable($value)){
-                $errors[] = $key . ' is not writable';
-            } else {
 
-            }
-        }
-        if(!empty($errors)){
-            throw new Pas_Exception_NotAuthorised(implode(',', $errors), 500);
-        }
         $form = new AddStaffPhotoForm();
         $this->view->form = $form;
 
@@ -289,7 +269,9 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
 
                     $where[] = $this->getContacts()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->getContacts()->update($form->getValues, $where);
-
+                    $imageProcess = new Pas_Image_MagickGeneral();
+                    $imageProcess->setDirectoryPath(ASSETS_PATH . '');
+                    $imageProcess->setImage($filename);
                     $this->getFlash()->addMessage('The image has been resized and zoomified!');
                     $this->redirect('/admin/contacts/contact/id/' . $this->getParam('id'));
                 } else {
