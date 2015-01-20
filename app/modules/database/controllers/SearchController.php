@@ -73,6 +73,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
                 'rss', 'atom', 'kml',
                 'geojson', 'qrcode', 'midas'
             ))
+            ->addActionContext('summaries', array('json', 'xml'))
             ->setAutoJsonSerialization(false);
         $this->_cleaner = new Pas_ArrayFunctions();
         $this->_helper->contextSwitch()->initContext();
