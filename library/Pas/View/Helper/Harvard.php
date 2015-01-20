@@ -80,7 +80,7 @@ class Pas_View_Helper_Harvard extends Zend_View_Helper_Abstract
                     $html .= $this->view->partial('partials/publications/harvard/style3.phtml', $refs);
                     break;
                 case 4:
-                    $html .= "Do this";
+                    $html .= $this->view->partial('partials/publications/harvard/style4.phtml', $refs);
                     break;
                 case 5:
                     $html .= $this->view->partial('partials/publications/harvard/style5.phtml', $refs);
