@@ -21,7 +21,8 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
     protected $_cache;
 
     /** The params array
-     * @var arrary */
+     * @var arrary
+     */
     protected $_params;
 
     protected $_format = true;
@@ -42,7 +43,6 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         $this->_format = $format;
         return $this;
     }
-
 
 
     /** Create the cache object
@@ -115,7 +115,26 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         'identifier1ID' => 'Primary identifier (obfuscated for security)',
         'identifier2ID' => 'Secondary identifier (obfuscated for security)',
         'recorderID' => 'Recorded by (obfuscated for security)',
-        'decstyle' => 'Decorative style'
+        'decstyle' => 'Decorative style',
+        'knownSite' => 'Known archaeological site',
+        'featureDateYear1' => 'Feature date year from',
+        'featureDateYear2' => 'Feature date year to',
+        'excavatedYear1' => 'Excavated date year from',
+        'excavatedYear2' => 'Excavated date year to',
+        'quantityArtefacts' => 'Quantity of artefacts in hoard',
+        'quantityCoins' => 'Quantity of coins in hoard',
+        'quantityContainers' => 'Quantity of containers in hoard',
+        'archaeologyDescription' => 'Archaeological description of site',
+        'terminalReasonID' => 'Terminal dating reasoning',
+        'siteDateYear1' => 'Site date from',
+        'siteDateYear2' => 'Site date to',
+        'terminalYear1' => 'Terminal dating from',
+        'terminalYear2' => 'Terminal dating to',
+        'qualityRating' => 'Rating of information',
+        'featureDateYear1' => 'Feature dating from',
+        'featureDateYear2' => 'Feature dating to',
+        'legacyID' => 'Legacy hoard database ID number',
+        'lastRulerID' => 'Last ruler present in hoard'
 
     );
 
@@ -127,6 +146,7 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
     {
         return $this;
     }
+
     /** Generate the search string from parameters submitted
      * @access public
      * @param  array $params
@@ -185,6 +205,18 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
                     case 'createdAfter':
                         $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->NiceShortDate()->setDate($v) . '</li>';
                         break;
+                    case 'featureDateYear2':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->adBc()->setDate($v) . '</li>';
+                        break;
+                    case 'featureDateYear1':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->adBc()->setDate($v) . '</li>';
+                        break;
+                    case 'excavatedYear1':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->adBc()->setDate($v) . '</li>';
+                        break;
+                    case 'excavatedYear2':
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->adBc()->setDate($v) . '</li>';
+                        break;
                     default:
                         $html .= '<li>' . $this->cleanKey($k) . ': ' . $v . '</li>';
                         break;
@@ -192,7 +224,7 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
                 $searches[] = $this->cleanKey($k) . ' ' . $v;
 
             }
-            if($this->getFormat()) {
+            if ($this->getFormat()) {
                 $this->view->headTitle('Search results from the database');
                 $this->view->headMeta(implode(' - ', $searches), 'description');
                 $this->view->headMeta(implode(',', $searches), 'keywords');
@@ -201,7 +233,7 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         } else {
             $html .= 'Everything we have</p>';
         }
-        if(!$this->getFormat()){
+        if (!$this->getFormat()) {
             $html = strip_tags(implode(',', $searches));
         }
         return $html;
@@ -266,6 +298,9 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
                     break;
                 case 'denomination':
                     $params[$key] = $this->getData('Denominations', 'denomination', $value);
+                    break;
+                case 'lastRulerID':
+                    $params[$key] = $this->getData('Rulers', 'issuer', $value);
                     break;
                 case 'ruler':
                     $params[$key] = $this->getData('Rulers', 'issuer', $value);

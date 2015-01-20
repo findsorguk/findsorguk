@@ -75,50 +75,48 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
         $params['controller'] = 'ajax';
         $kmlRoute = array_merge($params, array('action' => 'kml'));
         $csvRoute = array_merge($params, array('action' => 'csv'));
-        $gisRoute = array_merge($params, array('action' => 'gis'));
         $herRoute = array_merge($params, array('action' => 'her'));
-        $nmsRoute = array_merge($params, array('action' => 'nms'));
+        $pdfRoute = array_merge($params, array('action' => 'pdf'));
         $class = 'btn btn-small';
         $classDisabled = 'btn btn-small btn-info';
         $html = '';
         if ($quantity < 2000) {
             $html .= ' <a class="' . $class . '" href="';
             $html .= $this->view->url($kmlRoute, null, false);
-            $html .= '">Export all results as KML <i class="icon-download-alt"></i></a> ';
+            $html .= '"><i class="icon-download-alt"></i> Export all results as KML</a> ';
         } else {
-            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 2000 records" class="tipme ' . $classDisabled . '" href="#">KML disabled <i class="icon-download-alt"></i></a> ';
+            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 2000 records" class="tipme ' . $classDisabled . '" href="#"><i class="icon-download-alt"></i> KML disabled</a> ';
         }
         if ($quantity < 12000) {
             $html .= '<a class="' . $class . '" href="';
             $html .= $this->view->url($csvRoute, null, false);
-            $html .= '">Export as CSV <i class="icon-download-alt"></i></a> ';
+            $html .= '"><i class="icon-download-alt"></i> Export as CSV</a> ';
         } else {
-            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme ' . $classDisabled . '" href="#">CSV disabled <i class="icon-download-alt"></i></a> ';
+            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme ' . $classDisabled . '" href="#"><i class="icon-download-alt"></i> CSV disabled</a> ';
         }
         if ($quantity < 12000) {
             $html .= '<a class="' . $class . '" href="';
             $html .= $this->view->url($herRoute, null, false);
-            $html .= '">Export for HER import <i class="icon-download-alt"></i></a>';
+            $html .= '"><i class="icon-download-alt"></i> Export for HER import</a>';
         } else {
-            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme '. $classDisabled . '" href="#">HERO disabled <i class="icon-download-alt"></i></a> ';
+            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme '. $classDisabled . '" href="#"><i class="icon-download-alt"></i> HERO disabled</a> ';
         }
-//	$html .= '<a href="#" class="' . $class . '">Export for GIS <i class="icon-download-alt"></i></a>';
-        if ($quantity < 500) {
+        if ($quantity < 200) {
             if (in_array($this->_user->role, array('flos', 'admin', 'fa'))) {
                 $html .= ' <a class="' . $class . '" href="';
-                $html .= $this->view->url($nmsRoute, null, false);
-                $html .= '">PDF report format <i class="icon-download-alt"></i></a>';
+                $html .= $this->view->url($pdfRoute, null, false);
+                $html .= '"><i class="icon-download-alt"></i> PDF report format</a>';
             }
         } else {
-            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 500 records" class="tipme ' . $classDisabled . '" href="#">PDF disabled <i class="icon-download-alt"></i></a> ';
+            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 200 records" class="tipme ' . $classDisabled . '" href="#"><i class="icon-download-alt"></i> PDF disabled</a> ';
         }
         if ($this->_user->canRecord === '1') {
             $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'add'),
                     null, false);
-            $html .= '" class="btn btn-small btn-primary">Add record <i class="icon-white icon-plus"></i></a>';
+            $html .= '" class="btn btn-small btn-primary"><i class="icon-white icon-plus"></i> Add record</a>';
             $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'hoards', 'action' => 'add'),
                     null, false);
-            $html .= '" class="btn btn-small btn-primary">Add hoard <i class="icon-white icon-plus"></i></a>';
+            $html .= '" class="btn btn-small btn-primary"><i class="icon-white icon-plus"></i> Add hoard</a>';
         }
 
         return $html;
