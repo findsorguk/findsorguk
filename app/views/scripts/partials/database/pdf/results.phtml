@@ -1,0 +1,35 @@
+<p>
+    Find ID: <?php echo $this->old_findID; ?><br/>
+    <?php if (!is_null($this->broadperiod)): ?>
+        Broad period: <?php echo $this->broadperiod; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->finder)): ?>
+        Finder: <?php echo $this->finder; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->objecttype)): ?>
+        Object type: <?php echo $this->objecttype; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->description)): ?>
+        Description: <?php echo $this->description; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->county)): ?>
+        County:<?php echo $this->county; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->district)): ?>
+        District: <?php echo $this->district; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->parish)): ?>
+        Parish: <?php echo $this->parish; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->knownas)): ?>
+        Known as: <?php echo $this->knownas; ?><br/>
+    <?php endif; ?>
+    <?php if (!is_null($this->gridref)): ?>
+        NGR: <?php echo $this->gridref; ?><br/>
+        Four figure: <?php echo $this->fourFigure; ?>
+    <?php endif; ?>
+    <?php if (!is_null($this->smrRef)): ?>
+        <?php echo $this->smrRef; ?>
+    <?php endif; ?>
+</p>
+<hr/>

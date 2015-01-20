@@ -2,7 +2,7 @@
     <div style="max-width:200px;">
         <a href="/<?php echo $this->imagedir . 'medium/' . $this->filename; ?>" rel="lightbox" title="Thumbnail of <?php echo $this->old_findID; ?>">
             <?php
-            $thumb = IMAGES_PATH . '/thumbnails/' . $this->id . '.jpg';
+            $thumb = IMAGE_PATH . '/thumbnails/' . $this->id . '.jpg';
             $location = './' . $this->imagedir . $this->id;
             ?>
             <?php if (file_exists($thumb)): ?>
