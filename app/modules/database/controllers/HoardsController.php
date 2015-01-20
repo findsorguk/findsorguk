@@ -214,10 +214,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->deny('public', array('add', 'edit'));
-        $this->_helper->_acl->allow('public', array(
-            'index', 'record', 'error',
-            'notifyflo'
-        ));
+        $this->_helper->_acl->deny('member', array('add', 'edit'));
+        $this->_helper->_acl->allow('public', array('index', 'error', 'notifyflo'));
         $this->_helper->_acl->allow('member', null);
 
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false)
