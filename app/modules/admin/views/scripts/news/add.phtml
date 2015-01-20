@@ -3,5 +3,7 @@ $this->headTitle('Add a news story to the website');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
     <h2 class="lead">Add a news story</h2>
+    <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'news'), 'default', true); ?>"
+       class="btn btn-small btn-success">Return to news list</a>
 <?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
 <?php echo $this->form; ?>

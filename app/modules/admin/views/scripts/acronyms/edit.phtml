@@ -3,8 +3,6 @@ $this->headTitle('Edit acronym');
 $this->metaBase()->setSubject('Acronyms')->setDescription('Edit acronyms in use on the database')->generate();
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
-<?php if ($this->form): ?>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'acronyms'), 'default', true); ?>"
+   class="btn btn-small btn-success">Return to acronyms list</a>
     <?php echo $this->form; ?>
-<?php else: ?>
-    <p>Form not initiated.</p>
-<?php endif; ?>
