@@ -57,7 +57,6 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
             unset($params['controller']);
             unset($params['action']);
             unset($params['page']);
-
             return $params;
         } else {
             throw new Pas_Exception('Parameters have to be an array');

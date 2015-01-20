@@ -438,6 +438,13 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $exporter->execute();
     }
 
+    public function summaryAction()
+    {
+        $exporter = new Pas_Exporter_SummaryGenerate();
+        $exporter->setFormat('csvsummary');
+        $exporter->execute();
+    }
+
     /** The Norfolk exporter
      * @access public
      * @return void
