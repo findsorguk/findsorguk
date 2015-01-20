@@ -124,8 +124,12 @@ function active($controllerName, $actionName)
                         title="Change system setup"><i class="icon-cog"></i>System configuration</a></li>
                 <li <?php if (in_array($controller, array('comments', 'errors'))) {
                     echo 'class="expandfirst"';
-                }; ?>><a href="#" title="Administer comments"><i class="icon-folder-open"></i>Comments</a>
+                }; ?>><a href="#" title="Administer comments"><i class="icon-folder-open"></i>Comments, errors & messages</a>
                     <ul class="nav nav-pills nav-stacked menuindent">
+                        <li <?php echo active('messages', 'index'); ?>><a
+                                href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'messages'), 'default', true); ?>"
+                                title="View all comments as one table">Messages</a></li>
+                        <li>
                         <li <?php echo active('comments', 'index'); ?>><a
                                 href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'comments'), 'default', true); ?>"
                                 title="View all comments as one table">All comments</a></li>
