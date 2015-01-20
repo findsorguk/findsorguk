@@ -7,6 +7,11 @@
     ?>
     <h4 class="lead">Coin summary</h4>
 
+    <?php
+    $base = array('module' => 'database', 'controller' => 'ajax', 'action' => 'summary', 'hoard' => $this->coinSummary[0]['recordID']);
+    ?>
+    <a href="<?php echo $this->url($base, 'default', true); ?>"
+       class="btn-small btn"><i class="icon-download-alt"></i> Download as CSV</a>
     <table class="table table-striped">
         <thead>
         <tr>
