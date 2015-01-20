@@ -42,7 +42,7 @@ class CoinSummarySearchForm extends Pas_Form
         $mint_options = $mints->getMintsByzantine();
 
         $periods = new Periods();
-        $periodword_options = $periods->getPeriodFromWords();
+        $periodword_options = $periods->getPeriodsHoards();
 
 
         parent::__construct($options);
@@ -64,7 +64,7 @@ class CoinSummarySearchForm extends Pas_Form
         ##Numismatic data
         ###
         //Denomination
-        $denomination = new Zend_Form_Element_Select('denomination');
+        $denomination = new Zend_Form_Element_Select('denominationID');
         $denomination->setLabel('Denomination: ')
             ->setRegisterInArrayValidator(false)
             ->setRequired(false)
@@ -77,7 +77,7 @@ class CoinSummarySearchForm extends Pas_Form
             ->setOrder(2);
 
         //Primary ruler
-        $ruler = new Zend_Form_Element_Select('ruler');
+        $ruler = new Zend_Form_Element_Select('rulerID');
         $ruler->setLabel('Ruler / issuer: ')
             ->setRegisterInArrayValidator(false)
             ->setAttribs(array(
@@ -90,7 +90,7 @@ class CoinSummarySearchForm extends Pas_Form
             ->setOrder(3);
 
         //Mint
-        $mint = new Zend_Form_Element_Select('mint');
+        $mint = new Zend_Form_Element_Select('mintID');
         $mint->setLabel('Issuing mint: ')
             ->setAttribs(array(
                 'class' => 'input-xlarge selectpicker show-menu-arrow'))
@@ -140,8 +140,8 @@ class CoinSummarySearchForm extends Pas_Form
         ));
 
         $this->addDisplayGroup(array(
-                'broadperiod', 'denomination', 'ruler',
-                'mint', 'fromDate', 'toDate',
+                'broadperiod', 'denominationID', 'rulerID',
+                'mintID', 'fromDate', 'toDate',
                 'quantity', 'institution', ),
             'numismatics');
 
