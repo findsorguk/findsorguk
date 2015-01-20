@@ -7,6 +7,10 @@ defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FIL
 
 //Define the cache path
 defined('CACHE_PATH') || define('CACHE_PATH', realpath(dirname(__FILE__) . '/../cache/'));
+//Create cache if not a directory
+if(!is_dir(CACHE_PATH)){
+    mkdir(CACHE_PATH, 0775);
+}
 
 // Define application environment
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
@@ -15,16 +19,33 @@ defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV
 defined('SOLR_PATH') || define('SOLR_PATH', realpath(dirname(__FILE__) . '/../solr/'));
 
 //Define the logs path
-defined('LOGS_PATH') || define('LOGS_PATH', realpath(dirname(__FILE__) . '/../logs/'));
+defined('LOGS_PATH') || define('LOGS_PATH', realpath(dirname(__FILE__) . '/../app/logs/'));
+if(!is_dir(LOGS_PATH)){
+    mkdir(LOGS_PATH, 0775);
+}
 
 // Set up image path
 defined('IMAGE_PATH') || define('IMAGE_PATH', realpath(dirname(__FILE__) . '/images/'));
 
+if(!is_dir(IMAGE_PATH)){
+    mkdir(IMAGE_PATH, 0775);
+}
+
 // Set up assets constant for path
 defined('ASSETS_PATH') || define('ASSETS_PATH', realpath(dirname(__FILE__) . '/assets/'));
 
+if(!is_dir(ASSETS_PATH)){
+    mkdir(ASSETS_PATH, 0775);
+}
+
+// check for apc support
+define('APC_SUPPORT', extension_loaded('apc') && ini_get('apc.enabled'));
+
+
 // Set Memory limit
 ini_set('memory_limit', '128M');
+
+ini_set("pcre.backtrack_limit","1000000");
 
 //Set upload max size
 ini_set('upload_max_filesize','20M');
@@ -37,7 +58,7 @@ set_include_path(
         . PATH_SEPARATOR . '../library/Pas/'
         . PATH_SEPARATOR . '../library/HTMLPurifier/library/'
         . PATH_SEPARATOR . '../library/EasyBib/library/'
-        . PATH_SEPARATOR . '../library/tcpdf/'
+        . PATH_SEPARATOR . '../library/mPDF/'
         . PATH_SEPARATOR . '../library/easyrdf/lib/'
         . PATH_SEPARATOR . '../library/imagecow/'
         . PATH_SEPARATOR . '../app/models/'
@@ -45,6 +66,7 @@ set_include_path(
         . PATH_SEPARATOR . get_include_path()
         );
 require_once '../library/ZendX/Loader/StandardAutoloader.php';
+
 $loader = new ZendX_Loader_StandardAutoloader(array(
     'prefixes' => array(
         'Zend' => '../library/Zend/library',
@@ -53,6 +75,7 @@ $loader = new ZendX_Loader_StandardAutoloader(array(
         'ZendX' => '../library/ZendX/',
         'Imagecow' => '../library/imagecow/src/',
         'easyRDF' => '../library/easyrdf/lib/',
+        'mPDF' => '../library/mPDF/',
     ),
     'namespaces' => array(
         'Imagecow' => '../library/imagecow/src/',
