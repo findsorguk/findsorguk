@@ -29,9 +29,9 @@ class Pas_Exporter_Generate
      */
     protected $_user;
 
-    /** The datatime object
+    /** The date time object
      * @access protected
-     * @var type
+     * @var string
      */
     protected $_dateTime;
 
@@ -55,7 +55,7 @@ class Pas_Exporter_Generate
 
     /** The kml fields
      * @access protected
-     * @var type
+     * @var array
      */
     protected $_kmlFields = array(
         'id', 'old_findID', 'description',
@@ -97,7 +97,7 @@ class Pas_Exporter_Generate
      */
     protected $_formats = array(
         'csv', 'kml', 'hero',
-        'gis', 'report', 'nms'
+        'gis', 'report', 'pdf'
     );
 
     /** The format
@@ -155,7 +155,7 @@ class Pas_Exporter_Generate
     }
 
     /** Set the number of rows per export
-     * @accees public
+     * @access public
      * @param int $maxRows
      * @return \Pas_Exporter_Generate
      */
@@ -199,6 +199,7 @@ class Pas_Exporter_Generate
      * @access public
      * @param string $format
      * @throws Pas_Exporter_Exception
+     * @return string
      */
     public function setFormat($format)
     {

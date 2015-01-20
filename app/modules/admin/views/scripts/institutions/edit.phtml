@@ -1,6 +1,8 @@
 <?php
-$this->headTitle('Edit ' . $this->inst['description'] . ' a recording institution');
+$this->headTitle('Edit ' . strip_tags($this->inst['description']) . ' a recording institution');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'institutions'), 'default', true); ?>"
+       class="btn btn-small btn-success">Return to institutions list</a>
 <?php echo $this->form; ?>

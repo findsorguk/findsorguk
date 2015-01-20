@@ -88,6 +88,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->deny('public', null);
         $this->_helper->_acl->allow('member', array('index', 'add', 'delete', 'edit'));
+        $this->_helper->_acl->allow('admin', array('updatehoards'));
         $this->setController($this->getParam('recordtype', 'artefacts'));
         $this->setRedirect($this->getController());
         $this->_findspots = new Findspots();
@@ -238,5 +239,21 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
+    }
+
+    public function updatehoardsAction()
+    {
+        $findspots = $this->_findspots;
+        $records = $findspots->getNewData('IARCH');
+        foreach($records as $data) {
+            echo 'Updating ' . $data['id'] . '<br/>';
+            $newData = $this->_findspots->updateAndProcessGrids($data);
+            $where = array();
+            $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?', $newData['id']);
+            $this->_findspots->update($newData, $where);
+            Zend_Debug::dump($data);
+            usleep(2000);
+        }
+        echo 'Done';
     }
 }

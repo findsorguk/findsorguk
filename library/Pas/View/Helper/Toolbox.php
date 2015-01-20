@@ -229,7 +229,7 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract {
                 ),null,true);
             $html .= '" title="Get citation information">Cite record</a> <a class="';
             $html .= $class . ' overlay" href="';
-            $html .= $this->view->url(array(
+            $html .= $this->view->serverUrl() . $this->view->url(array(
                 'module' => 'database',
                 'controller' => 'ajax',
                 'action' => 'embed',

@@ -3,4 +3,6 @@ $this->headTitle('Add a new user account');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users'), 'default', true); ?>"
+       class="btn btn-small btn-success">Return to users list</a>
 <?php echo $this->form; ?>

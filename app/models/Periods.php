@@ -213,4 +213,22 @@ class Periods extends Pas_Db_Table_Abstract {
         }
         return $data;
     }
+
+    /** Get period from in words dropdown
+     * @access public
+     * @return array
+     */
+    public function getPeriodsHoards(){
+        $key = md5('periodlistwordsHoards');
+        if (!$options = $this->_cache->load($key)) {
+            $select = $this->select()
+                ->from($this->_name, array('term', 'term'))
+                ->order('id')
+                ->where('id > ?', 9)
+                ->where('valid = ?', (int)1);
+            $options = $this->getAdapter()->fetchPairs($select);
+            $this->_cache->save($options, $key);
+        }
+        return $options;
+    }
 }

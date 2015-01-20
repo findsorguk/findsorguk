@@ -1,0 +1,20 @@
+<?php
+$mpdf = new mPDF('utf-8', 'A4-L');
+$mpdf->useOnlyCoreFonts = true;    // false is default
+$mpdf->SetProtection(array('print'));
+$mpdf->SetTitle("Portable Antiquities Scheme Database Report");
+$mpdf->SetAuthor("The Portable Antiquities Scheme");
+$mpdf->SetWatermarkText("finds.org.uk");
+$mpdf->showWatermarkText = true;
+$mpdf->watermark_font = 'DejaVuSansCondensed';
+$mpdf->watermarkTextAlpha = 0.03;
+$mpdf->SetDisplayMode('fullpage');
+?>
+<?php
+$mpdf->WriteHTML('<h1>Export of search results from finds.org.uk</h1>');
+?>
+<?php foreach ($this->data as $data): ?>
+    <?php $mpdf->WriteHTML($this->partial('partials/database/pdf/results.phtml', $data)); ?>
+<?php endforeach; ?>
+<?php $mpdf->WriteHTML($tableEnd); ?>
+<?php $mpdf->Output($this->filename, 'D'); ?>

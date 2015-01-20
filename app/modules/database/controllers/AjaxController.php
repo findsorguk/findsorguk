@@ -442,14 +442,12 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      * @access public
      * @return void
      */
-    public function nmsAction()
+    public function pdfAction()
     {
         $exporter = new Pas_Exporter_Generate();
-        $exporter->setFormat('nms');
-        $filename = 'NMSRecordsExport_For_' . $this->getUsername() . '_' . Zend_Date::now()->toString('yyyyMMddHHmmss') . '.pdf';
+        $exporter->setFormat('pdf');
+        $this->view->filename = 'PDFRecordsExport_For_' . $this->getUsername() . '_' . Zend_Date::now()->toString('yyyyMMddHHmmss') . '.pdf';
         $this->view->data = $exporter->execute();
-        $this->getResponse()->setHeader('Content-Type', 'application/x-pdf')
-            ->setHeader('Content-Disposition', 'inline; filename=' . $filename);
     }
 
     /** An action for exporting as GIS shp files

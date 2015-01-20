@@ -126,11 +126,28 @@ class Database_SearchController extends Pas_Controller_Action_Admin
     {
         $form = new AdvancedSearchForm();
         $this->view->form = $form;
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
                 $this->process($form->getValues());
             } else {
-                $form->populate($form->getValues());
+                $form->populate($this->_request->getPost());
+            }
+        }
+    }
+
+    /** Generate the advanced search page
+     * @access public
+     * @return void
+     */
+    public function hoardsAction()
+    {
+        $form = new AdvancedHoardsSearchForm();
+        $this->view->form = $form;
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
+                $this->process($form->getValues());
+            } else {
+                $form->populate($this->_request->getPost());
             }
         }
     }

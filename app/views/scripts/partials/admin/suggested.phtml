@@ -1,5 +1,5 @@
 <tr>
-    <td><?php echo $this->escape($this->title); ?></td>
+    <td width="15%"><?php echo $this->escape($this->title); ?></td>
     <td>
         <?php if ($this->temporal): ?>
             <?php echo $this->temporal; ?>
@@ -7,14 +7,24 @@
             N/A
         <?php endif; ?>
     </td>
-    <td><?php echo $this->type; ?></td>
-    <td><?php echo $this->niceShortDate()->setDate($this->created); ?></td>
+    <td width="10%"><?php echo $this->type; ?></td>
+    <td><?php echo $this->created; ?></td>
     <td><?php echo $this->nameThem()->setName($this->fullname); ?></td>
-    <td><?php echo $this->niceShortDate()->setDate($this->updated); ?></td>
-    <td><?php echo $this->nameThem()->setName($this->fn); ?></td>
     <td>
-        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'editsuggested', 'id' => $this->id), 'default', true); ?>"
-           title="Edit this topic">Edit</a> | <a
-            href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'deletesuggested', 'id' => $this->id), 'default', true); ?>"
-            title="Delete this topic">Delete</a></td>
+        <?php if (!is_null($this->updated)): ?>
+            <?php echo $this->updated; ?>
+        <?php else: ?>
+            -
+        <?php endif; ?>
+    </td>
+    <td width="10%"><?php echo $this->nameThem()->setName($this->fn); ?></td>
+    <td>
+        <div class="btn-group">
+            <a class="btn btn-mini btn-success"
+               href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'editsuggested', 'id' => $this->id), 'default', true); ?>"
+               title="Edit this topic">Edit</a><a
+                href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'deletesuggested', 'id' => $this->id), 'default', true); ?>"
+                title="Delete this topic" class="btn-mini btn btn-danger">Delete</a>
+        </div>
+    </td>
 </tr>
