@@ -12,20 +12,20 @@ ini_set('memory_limit', '64M');
  * @copyright Daniel Pett
  * @author Daniel Pett
  */
-class Pas_Exporter_Nms extends Pas_Exporter_Generate
+class Pas_Exporter_Pdf extends Pas_Exporter_Generate
 {
 
     /** The format name
      * @access protected
      * @var string
      */
-    protected $_format = 'nms';
+    protected $_format = 'pdf';
 
     /** The fields to return
      * @access protected
      * @var array
      */
-    protected $_nmsFields = array(
+    protected $_pdfFields = array(
 
         'id', 'old_findID', 'description',
         'fourFigure', 'gridref', 'county',
@@ -49,7 +49,7 @@ class Pas_Exporter_Nms extends Pas_Exporter_Generate
     public function create()
     {
         $params = array_merge($this->_params, array('show' => 500, 'format' => 'pdf'));
-        $this->_search->setFields($this->_nmsFields);
+        $this->_search->setFields($this->_pdfFields);
         $this->_search->setParams($params);
         $this->_search->execute();
         return $this->_clean($this->_search->processResults());
