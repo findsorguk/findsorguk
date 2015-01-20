@@ -258,6 +258,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
             ) {
                 $functions = new Pas_ArrayFunctions();
                 $params = $functions->array_cleanup($form->getValues());
+                $params['objectType'] = 'HOARD';
                 $this->getFlash()->addMessage('Your search is complete');
                 $this->_helper->Redirector->gotoSimple(
                     'results', 'search', 'database', $params);
