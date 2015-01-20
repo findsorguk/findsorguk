@@ -43,7 +43,7 @@ class SuggestedResearch extends Pas_Db_Table_Abstract {
      * @param integer $taken Whether taken or not
      * @return \Zend_Paginator
      */
-    public function getAll($params,$taken){
+    public function getAll($params, $taken){
         $topics = $this->getAdapter();
 	$select = $topics->select()
                 ->from($this->_name, array(
