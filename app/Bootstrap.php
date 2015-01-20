@@ -60,31 +60,31 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      * @access protected
      * @throws Exception
      */
-//    protected function _initDatabase()
-//    {
-//        $this->bootstrap('db');
-//        $this->getPluginResource('db');
-//        $database = Zend_Registry::get('config')->resources->db;
-//
-//            // setup database
-//            $db = Zend_Db::factory($database);
-//            Zend_Registry::set('db', $db);
-//            Zend_Db_Table::setDefaultAdapter($db);
-//        } catch (Zend_Db_Adapter_Exception $e) {
-//            if ($e->getPrevious()) {
-//                echo '[' . get_class($e)
-//                    . '] has the previous exception of ['
-//                    . get_class($e->getPrevious())
-//                    . ']' . PHP_EOL;
-//            } else {
-//                echo '[' . get_class($e)
-//                    . '] does not have a previous exception'
-//                    . PHP_EOL;
-//            }
-//
-//            echo $e;
-//        }
-//    }
+    protected function _initDatabase()
+    {
+        $this->bootstrap('db');
+        $this->getPluginResource('db');
+        $database = Zend_Registry::get('config')->resources->db;
+        try {
+            // setup database
+            $db = Zend_Db::factory($database);
+            Zend_Registry::set('db', $db);
+            Zend_Db_Table::setDefaultAdapter($db);
+        } catch (Zend_Db_Adapter_Exception $e) {
+            if ($e->getPrevious()) {
+                echo '[' . get_class($e)
+                    . '] has the previous exception of ['
+                    . get_class($e->getPrevious())
+                    . ']' . PHP_EOL;
+            } else {
+                echo '[' . get_class($e)
+                    . '] does not have a previous exception'
+                    . PHP_EOL;
+            }
+
+            echo $e;
+        }
+    }
 
 
     /** Setup layouts for the site and modules
