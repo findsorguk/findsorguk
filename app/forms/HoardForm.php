@@ -674,8 +674,12 @@ class HoardForm extends Pas_Form {
         }
         // Update the hiddenfield so that the add new finder fields jQuery works properly
         $hiddenfield = $this->getElement('hiddenfield');
-        $hiddenvalue = count($findersData) + 1;
-        $hiddenfield->setValue($hiddenvalue);
+        $countOfFinders = count($findersData);
+        if ($countOfFinders > 0){
+            $hiddenvalue = $countOfFinders + 1;
+            $hiddenfield->setValue($hiddenvalue);
+        }
+
     }
 
     /**
