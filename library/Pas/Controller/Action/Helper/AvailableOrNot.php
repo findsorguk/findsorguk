@@ -22,15 +22,17 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
 {
 
 
-    protected $_restricted = array('1','2');
+    protected $_restricted = array('1', '2');
 
-    protected $_allowed = array('3','4');
+    protected $_allowed = array('3', '4');
 
     protected $_role = NULL;
 
-    protected $_allowedRoles = array('flos', 'admin', 'hoard', 'fa', 'member');
+    protected $_userID = 3;
 
-    protected $_notAllowedRoles = array('public', 'her', 'research');
+    protected $_allowedRoles = array('flos', 'admin', 'hoard', 'fa');
+
+    protected $_notAllowedRoles = array('public', 'her', 'research', 'member');
 
     public function getUser()
     {
@@ -40,12 +42,22 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
 
     protected function getRole()
     {
-        if($this->getUser()){
+        if ($this->getUser()) {
             $this->_role = $this->getUser()->getRole();
         } else {
             $this->_role = NULL;
         }
         return $this->_role;
+    }
+
+    protected function getUserId()
+    {
+        if ($this->getUser()) {
+            $this->_userID = $this->getUser()->getPerson()->id;
+        } else {
+            $this->_userID = NULL;
+        }
+        return $this->_userID;
     }
 
     /** Direct method for getting the user's redirect
@@ -59,14 +71,16 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
 
     public function checkAccess($data)
     {
-        if(is_array($data)){
-            if(array_key_exists('secwfstage', $data[0])){
+        if (is_array($data)) {
+            if (array_key_exists('secwfstage', $data[0])) {
                 $workflow = $data[0]['secwfstage'];
-
-                if(!in_array($this->getRole(), $this->_allowedRoles) && in_array($workflow, $this->_restricted)){
-                    $this->getResponse()->setHttpResponseCode(401)->setRawHeader('HTTP/1.1 301 Moved Permanently');
-                    $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-                    $redirector->gotoUrl('database/artefacts/unavailable/id/' . $data[0]['id']);
+                if(!array_key_exists('objecttype', $data[0])){
+                    $data[0]['objecttype'] = 'HOARD';
+                }
+                if (in_array($this->getRole(), $this->_notAllowedRoles) && ($this->getUserId() != $data[0]['createdBy'])) {
+                    $this->urlSend($data[0]['id'], $data[0]['objecttype']);
+                } elseif (!in_array($this->getRole(), $this->_allowedRoles) && in_array($workflow, $this->_restricted)) {
+                    $this->urlSend($data[0]['id'], $data[0]['objecttype']);
                 } else {
                     return false;
                 }
@@ -76,6 +90,18 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
         } else {
             throw new Pas_Exception('The data sent to this helper must be an array', 500);
         }
+    }
+
+    public function urlSend($id, $objectType)
+    {
+        if ($objectType == 'HOARD') {
+            $controller = 'hoards';
+        } else {
+            $controller = 'artefacts';
+        }
+        $this->getResponse()->setHttpResponseCode(401)->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
+        $redirector->gotoUrl('database/' . $controller . '/unavailable/id/' . $id);
     }
 
 }
