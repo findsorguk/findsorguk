@@ -281,6 +281,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         if ($this->getParam('id', false)) { // Check there is a hoardID in the URL
             $id = $this->getParam('id');
             $hoardsdata = $this->getHoards()->getBasicHoardData($id);
+            $this->_helper->availableOrNot(array($hoardsdata));
             if (!empty($hoardsdata)) {
                 $this->view->hoards = $hoardsdata;
                 $this->view->multipleKnownAs = $this->getHoards()->getKnownAs($id);
@@ -692,5 +693,19 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         $assignData = array_merge($to['0'], $data);
 
         $this->_helper->mailer($assignData, 'errorHoard', $to, $cc, $from);
+    }
+
+    public function unavailableAction()
+    {
+        if($this->getParam('id',false))
+        {
+            $finds = array($this->getHoards()->getAllHoardData($this->getParam('id')));
+            if(!array_key_exists('old_findID', $finds[0])){
+                $finds[0]['old_findID'] = $finds[0]['hoardID'];
+            }
+            $this->view->finds = $finds;
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
     }
 }
