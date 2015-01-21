@@ -52,7 +52,7 @@ class Datalabs_SmrController extends Pas_Controller_Action_Admin
         $search->setFields(array('*'));
         $search->setFacets(array('county', 'district'));
 
-        if ($this->getRequest()->isPost() ) {
+        if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $params = $form->getValues();
                 unset($params['csrf']);

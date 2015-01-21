@@ -64,7 +64,6 @@ class Datalabs_OaiController extends Pas_Controller_Action_Admin
                 $this->view->response = new Pas_OaiPmhRepository_ResponseGenerator($clean);
                 break;
             case $request->isPost():
-                //Forbidden
                 throw new Pas_Exception('Post requests are not valid', 401);
             default:
                 throw new Pas_Exception('Error determining request type', 500);

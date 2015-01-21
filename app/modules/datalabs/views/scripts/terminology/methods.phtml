@@ -5,14 +5,14 @@ $this->metaBase()
     ->setSubject('terminology')
     ->generate();
 ?>
-<?php if(!empty( $this->methods)): ?>
-<h2 class="lead">
-    <?php echo $this->title(); ?>
-</h2>
+<?php if (!empty($this->methods)): ?>
+    <h2 class="lead">
+        <?php echo $this->title(); ?>
+    </h2>
 
-<ul>
-    <?php echo $this->partialLoop('partials/datalabs/methodsList.phtml', $this->methods); ?>
-</ul>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/methodsList.phtml', $this->methods); ?>
+    </ul>
 <?php else: ?>
-<p>No discovery methods available</p>
-<?php endif;?>
+    <p>No discovery methods available</p>
+<?php endif; ?>
