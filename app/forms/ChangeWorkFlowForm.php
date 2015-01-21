@@ -1,4 +1,5 @@
 <?php
+
 /** Form for submitting an error
  *
  * An example of use:
@@ -17,48 +18,57 @@
  * @version 1
  * @example /app/modules/database/controllers/ArtefactsController.php
  */
-class ChangeWorkFlowForm extends Pas_Form {
+class ChangeWorkFlowForm extends Pas_Form
+{
 
     /** The constructor
      * @access public
      * @param array $options
      * @return void
      */
-    public function __construct(array $options = null) {
+    public function __construct(array $options = null)
+    {
 
-	parent::__construct($options);
+        parent::__construct($options);
 
-	$this->setName('workflowChange');
-	$wfstage = new Zend_Form_Element_Radio('secwfstage');
-	$wfstage->setRequired(true)
-                ->addMultiOptions(array(
-                    '1' => 'Quarantine',
-                    '2' => 'Review',
-                    '4' => 'Validation',
-                    '3' => 'Published'))
-                ->addFilters(array('StripTags', 'StringTrim'));
+        $this->setName('workflowChange');
+        $wfstage = new Zend_Form_Element_Radio('secwfstage');
+        $wfstage->setRequired(true)
+            ->addMultiOptions(array(
+                '1' => 'Quarantine',
+                '2' => 'Review',
+                '4' => 'Validation',
+                '3' => 'Published'))
+            ->addFilters(array('StripTags', 'StringTrim'));
 
-	$finder = new Zend_Form_Element_Checkbox('finder');
-	$finder->setLabel('Inform finder of workflow change?: ');
-	$finder->setUncheckedValue(null);
+        $finder = new Zend_Form_Element_Checkbox('finder');
+        $finder->setLabel('Inform finder of workflow change?: ');
+        $finder->setUncheckedValue(null);
 
-	$content = new Pas_Form_Element_CKEditor('content');
-	$content->setLabel('Enter your comment: ')
-                ->addFilter('StringTrim')
-                ->setAttrib('Height',400)
-                ->setAttrib('ToolbarSet','Basic')
-                ->addFilters(array('StringTrim','WordChars','HtmlBody','EmptyParagraph'))
-                ->addErrorMessage('Please enter something in the comments box!');
+        $content = new Pas_Form_Element_CKEditor('content');
+        $content->setLabel('Enter your comment: ')
+            ->addFilter('StringTrim')
+            ->setAttrib('Height', 400)
+            ->setAttrib('ToolbarSet', 'Basic')
+            ->addFilters(array('StringTrim', 'WordChars', 'HtmlBody', 'EmptyParagraph'))
+            ->addErrorMessage('Please enter something in the comments box!');
 
-	$submit = new Zend_Form_Element_Submit('submit');
-	$submit->setLabel('Change status');
+        $submit = new Zend_Form_Element_Submit('submit');
+        $submit->setLabel('Change status');
 
-	$this->addElements(array($wfstage, $finder, $content, $submit));
+        $cancel = new Zend_Form_Element_Button('cancel');
+        $cancel->setAttrib('id', 'cancel')
+            ->setLabel('Cancel change')
+            ->removeDecorator('DtDdWrapper')
+            ->removeDecorator('HtmlTag');
 
-	$this->addDisplayGroup(array('secwfstage','finder', 'content', ), 'details');
 
-	$this->addDisplayGroup(array('submit'), 'buttons');
+        $this->addElements(array($wfstage, $finder, $content, $submit, $cancel));
 
-	parent::init();
-	}
+        $this->addDisplayGroup(array('secwfstage', 'finder', 'content',), 'details');
+
+        $this->addDisplayGroup(array('submit', 'cancel'), 'buttons');
+
+        parent::init();
+    }
 }

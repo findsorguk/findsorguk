@@ -98,6 +98,17 @@ class Database_SearchController extends Pas_Controller_Action_Admin
             'finder', 'idby', 'recordby',
             'idBy', 'recordername'
         ));
+
+        if(array_key_exists('3D', $cleaned)) {
+            if(is_null($cleaned['3D'])){
+                unset($cleaned['3D']);
+            }
+        }
+        if(array_key_exists('thumbnail', $cleaned)) {
+            if(is_null($cleaned['thumbnail'])){
+                unset($cleaned['thumbnail']);
+            }
+        }
         $this->getFlash()->addMessage('Your search is complete');
         $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $cleaned);
     }

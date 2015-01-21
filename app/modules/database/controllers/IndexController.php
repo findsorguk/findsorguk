@@ -43,11 +43,34 @@ class Database_IndexController extends Pas_Controller_Action_Admin {
                 && $form->isValid($this->_request->getPost())) {
             $functions = new Pas_ArrayFunctions();
             $params = $functions->array_cleanup($form->getValues());
+            $params = $this->process($params);
             $this->getFlash()->addMessage('Your search is complete');
             $this->_helper->Redirector->gotoSimple(
                     'results', 'search', 'database', $params);
         } else {
             $form->populate($this->_request->getPost());
         }
+    }
+
+    public function process(array $data)
+    {
+        $params = array_filter($data);
+        $this->_cleaner = new Pas_ArrayFunctions();
+        $cleaned = $this->_cleaner->array_cleanup($params, array(
+            'finder', 'idby', 'recordby',
+            'idBy', 'recordername'
+        ));
+
+        if(array_key_exists('3D', $cleaned)) {
+            if(is_null($cleaned['3D'])){
+                unset($cleaned['3D']);
+            }
+        }
+        if(array_key_exists('thumbnail', $cleaned)) {
+            if(is_null($cleaned['thumbnail'])){
+                unset($cleaned['thumbnail']);
+            }
+        }
+        return $cleaned;
     }
 }
