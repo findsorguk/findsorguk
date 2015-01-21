@@ -34,7 +34,7 @@ class Datalabs_OaiController extends Pas_Controller_Action_Admin
         $this->_helper->layout->setLayout('database');
         $response = $this->getResponse();
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
-        $response->insert('sidebar', $view->render('structure/menus/datalabsSidebar.phtml'));
+        $response->insert('sidebar', $view->render('structure/menus/datalabsSidebara.phtml'));
         $response->insert('userdata', $view->render('structure/loggedInOrOut.phtml'));
         $response->insert('breadcrumb', $view->render('structure/breadcrumb.phtml'));
         $response->insert('navigation', $view->render('structure/navigation.phtml'));
