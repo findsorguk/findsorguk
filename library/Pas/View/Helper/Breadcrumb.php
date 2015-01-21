@@ -485,6 +485,12 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'medruler':
                 $clean = 'Medieval ruler';
                 break;
+            case 'accreditedmuseums':
+                $clean = 'Accredited museums';
+                break;
+            case 'faq':
+                $clean = 'Frequently asked questions';
+                break;
             default:
                 $clean = ucfirst($this->getAction());
                 break;
