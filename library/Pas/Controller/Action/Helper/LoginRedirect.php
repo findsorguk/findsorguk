@@ -1,8 +1,9 @@
-<?php 
+<?php
+
 /** Action helper to get the redirect for a user upon login
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $this->_redirect( $this->_helper->loginRedirect() );
@@ -15,24 +16,26 @@
  * @uses Pas_User_Details
  * @uses Zend_Exception
  * @example /app/modules/users/controllers/IndexController.php
- * 
+ *
  */
-class Pas_Controller_Action_Helper_LoginRedirect 
-    extends Zend_Controller_Action_Helper_Abstract {
+class Pas_Controller_Action_Helper_LoginRedirect extends Zend_Controller_Action_Helper_Abstract
+{
 
     /** Direct method for getting the user's redirect
      * @access public
      * @return string
      */
-    public function direct() {
+    public function direct()
+    {
         return $this->_getUserRedirect();
     }
-  
+
     /** Get the user's redirect from the model
-    * @access private
-    * @return $string
-    */
-    private function _getUserRedirect() {
+     * @access private
+     * @return $string
+     */
+    private function _getUserRedirect()
+    {
         $redirects = new LoginRedirect();
         $redirect = $redirects->getConfig();
         $clean = array_flip($redirect);

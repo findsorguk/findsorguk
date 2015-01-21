@@ -1,3 +1,11 @@
 <?php
-    echo Zend_Json::prettyPrint(Zend_Json::encode(( array('record', $this->hoards) )));
+$data = array_merge(
+    $this->hoards, $this->multipleKnownAs, $this->temporals, $this->coinChronology,
+    $this->hoardDescription, $this->coinDataQuality, $this->subsequentActions,
+    $this->treasureDetails, $this->linkedCoins,
+    $this->linkedArtefacts, $this->linkedContainers, $this->recordersIdentifiers,
+    $this->discoverySummary, $this->referenceNumbers, $this->coinSummary,
+    $this->refs);
+
+echo Zend_Json::prettyPrint(Zend_Json::encode((array('record', $data))));
 ?>

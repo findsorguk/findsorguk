@@ -77,7 +77,7 @@ class Pas_User_Details
             $user = $this->_auth->getIdentity();
             $role = $user->role;
         } else {
-            $role = 'member';
+            $role = 'public';
         }
         return $role;
     }

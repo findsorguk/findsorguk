@@ -189,7 +189,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         $this->_helper->_acl->deny('public', array('add', 'edit'));
         $this->_helper->_acl->allow('public', array(
             'index', 'record', 'errorreport',
-            'notifyflo'
+            'notifyflo', 'unavailable'
         ));
         $this->_helper->_acl->allow('member', null);
 
@@ -233,7 +233,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         if ($this->getParam('id', false)) {
             $this->view->recordID = $this->getParam('id');
             $id = $this->getParam('id');
-            $this->view->finds = $this->getFinds()->getAllData($id);
+            $finds = $this->getFinds()->getAllData($id);
+            $this->_helper->availableOrNot($finds);
+            $this->view->finds = $finds;
             $coins = new Coins();
             $this->view->coins = $coins->getCoinData($id);
             $coinRefs = new CoinClassifications();
@@ -247,8 +249,6 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $this->view->sketchfab = $models->getModels($id);
             $form = new CommentFindForm();
             $form->submit->setLabel('Add a new comment');
-
-
             $this->view->form = $form;
             if ($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
@@ -692,5 +692,15 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $sendto[] = array('email' => $v, 'name' => $k);
         }
         return $sendto;
+    }
+
+    public function unavailableAction()
+    {
+        if($this->getParam('id',false))
+        {
+            $this->view->finds = $this->getFinds()->getAllData($this->getParam('id'));
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
     }
 }
