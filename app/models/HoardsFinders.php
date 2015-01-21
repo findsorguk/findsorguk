@@ -57,8 +57,7 @@ class HoardsFinders extends Pas_Db_Table_Abstract {
                         $insertFinder = $this->add($insertData);
             }
         }
-        // Returns the last id produced by the loop
-        return $insertFinder;
+        return;
     }
 
     /** Update finders of a hoard
@@ -70,7 +69,7 @@ class HoardsFinders extends Pas_Db_Table_Abstract {
         $where[0] = $this->getAdapter()->quoteInto('hoardID = ?', $updateData['hoardID']);
 
         foreach ($findersData['finderID'] as $finder) {
-            if($finder['finderID'] != NULL) {
+            if($finder['finderID'] != NULL) { // If there is at least one finderID
                 $updateData['finderID'] = $finder['finderID'];
                 $updateData['viewOrder'] = $finder['viewOrder'];
                 $where[1] = $this->getAdapter()->quoteInto('viewOrder = ?', $finder['viewOrder']);
@@ -101,12 +100,14 @@ class HoardsFinders extends Pas_Db_Table_Abstract {
             ->where('hoardID = ?', $updateData['hoardID']);
         $rowset = $this->getAdapter()->fetchAll($select);
         $numberOfOldFinders = count($rowset);
-        for ($i = $numberOfNewFinders + 1; $i <= $numberOfOldFinders; $i++) {
+        if($numberOfNewFinders == 0 && $numberOfOldFinders == 0){ // Do nothing for no changes to zero finders
+            return;
+        } else {
+            for ($i = $numberOfNewFinders + 1; $i <= $numberOfOldFinders; $i++) {
                 $where[1] = $this->getAdapter()->quoteInto('viewOrder = ?', $i);
                 $deleteFinder = $this->delete($where);
             }
-
-        // Returns the last finder that was updated or added
-        return $updateFinder;
+        }
+        return;
         }
 }
