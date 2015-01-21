@@ -761,6 +761,11 @@ class Pas_Solr_Handler
                 unset($params['thumbnail']);
             }
 
+            if (isset($params['3D'])) {
+                $this->_query->createFilterQuery('3dcontent')->setQuery('3D:[* TO *]');
+                unset($params['3D']);
+            }
+
             $this->checkFieldList(array_keys($params));
             foreach ($params as $key => $value) {
                 $this->_query->createFilterQuery($key . $value)->setQuery($key . ':"' . $value . '"');
