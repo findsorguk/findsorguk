@@ -81,7 +81,11 @@ class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
      */
     public function __toString()
     {
-        return $this->generate();
+        try {
+            return $this->generate();
+        } catch (Exception $e) {
+            
+        }
     }
 
     /** The function to return
