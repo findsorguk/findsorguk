@@ -84,7 +84,7 @@ class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
         try {
             return $this->generate();
         } catch (Exception $e) {
-            
+
         }
     }
 
