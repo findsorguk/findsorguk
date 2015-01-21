@@ -55,64 +55,64 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
     public function postDispatch(Zend_Controller_Request_Abstract $request)
     {
         $controller = $request->getControllerName();
-        $module = $request->getModuleName();
-            $contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');
-            $response = $this->getResponse();
 
-            $view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
-            $route = Zend_Controller_Front::getInstance()->getRouter()->getCurrentRoute();
-            if (!in_array($controller, $this->_disabled) && (!in_array($contextSwitch->getCurrentContext(), $this->_contexts))) {
-                if (!in_array($contextSwitch->getCurrentContext(), $this->_contexts)) {
-                    $module = strtolower($request->getModuleName());
-                    $view->contexts = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch')
-                        ->getActionContexts(Zend_Controller_Front::getInstance()->getRequest()->getActionName());
-                    $view->messages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
-                    $ini = new Zend_Config_Ini(APPLICATION_PATH . '/config/menus.ini', 'production');
-                    $menus = $ini->toArray();
+        $contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');
+        $response = $this->getResponse();
 
-                    if (in_array($module, array_keys($menus))) {
-                        $layout = $menus[$module]['layout'];
-                        $view->headTitle($menus[$module]['layout'])->setSeparator(' - ');
-                        $response->insert('sidebar', $view->render(
-                            $this->getBasePath() . $menus[$module]['menu'] . 'Sidebar.phtml')
-                        );
-                    } else {
-                        $layout = 'new';
-                    }
+        $view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
+        $route = Zend_Controller_Front::getInstance()->getRouter()->getCurrentRoute();
+        if (!in_array($controller, $this->_disabled) && (!in_array($contextSwitch->getCurrentContext(), $this->_contexts))) {
+            if (!in_array($contextSwitch->getCurrentContext(), $this->_contexts)) {
+                $module = strtolower($request->getModuleName());
+                $view->contexts = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch')
+                    ->getActionContexts(Zend_Controller_Front::getInstance()->getRequest()->getActionName());
+                $view->messages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
+                $ini = new Zend_Config_Ini(APPLICATION_PATH . '/config/menus.ini', 'production');
+                $menus = $ini->toArray();
 
-                }
-                if (!$route instanceOf Zend_Rest_Route) {
-                    $response->insert('userdata', $view->render('structure/userData.phtml'));
-                    $response->insert('breadcrumb', $view->render('structure/breadcrumb.phtml'));
-                    $response->insert('navigation', $view->render('structure/navigation.phtml'));
-                    $response->insert('footer', $view->render('structure/footer.phtml'));
-                    $response->insert('messages', $view->render('structure/messages.phtml'));
-                    $response->insert('contexts', $view->render('structure/contexts.phtml'));
-                    $response->insert('analytics', $view->render('structure/analytics.phtml'));
-                    $response->insert('searchfacet', $view->render('structure/facetSearch.phtml'));
-                    $response->insert('announcements', $view->render('structure/announcements.phtml'));
-                    $response->insert('bronzeage', $view->render('structure/bronzeAgeWidget.phtml'));
-                    $response->insert('staffs', $view->render('structure/staffordshireHoardWidget.phtml'));
-                    $response->insert('searchForm', $view->render('structure/searchForm.phtml'));
-                    $response->insert('tags', $view->render('structure/tag.phtml'));
-                    $template = Zend_Layout::getMvcInstance();
-                    if ($template->getMvcEnabled()) {
-                        $template->setLayoutPath(APPLICATION_PATH . '/layouts/');
-                        if ($controller != 'error') {
-                            $template->setLayout($layout);
-                        } else {
-                            $template->setLayout('home');
-                        }
-                    }
+                if (in_array($module, array_keys($menus))) {
+                    $layout = $menus[$module]['layout'];
+                    $view->headTitle($menus[$module]['layout'])->setSeparator(' - ');
+                    $response->insert('sidebar', $view->render(
+                        $this->getBasePath() . $menus[$module]['menu'] . 'Sidebar.phtml')
+                    );
                 } else {
-                    $contextSwitch->setAutoDisableLayout(true)->initContext();
-
+                    $layout = 'new';
                 }
 
+            }
+            if (!$route instanceOf Zend_Rest_Route) {
+                //$response->insert('userdata', $view->render('structure/userData.phtml'));
+                $response->insert('breadcrumb', $view->render('structure/breadcrumb.phtml'));
+                $response->insert('navigation', $view->render('structure/navigation.phtml'));
+                $response->insert('footer', $view->render('structure/footer.phtml'));
+                $response->insert('messages', $view->render('structure/messages.phtml'));
+                $response->insert('contexts', $view->render('structure/contexts.phtml'));
+                $response->insert('analytics', $view->render('structure/analytics.phtml'));
+                $response->insert('searchfacet', $view->render('structure/facetSearch.phtml'));
+                $response->insert('announcements', $view->render('structure/announcements.phtml'));
+                $response->insert('bronzeage', $view->render('structure/bronzeAgeWidget.phtml'));
+                $response->insert('staffs', $view->render('structure/staffordshireHoardWidget.phtml'));
+                $response->insert('searchForm', $view->render('structure/searchForm.phtml'));
+                $response->insert('tags', $view->render('structure/tag.phtml'));
+                $template = Zend_Layout::getMvcInstance();
+                if ($template->getMvcEnabled()) {
+                    $template->setLayoutPath(APPLICATION_PATH . '/layouts/');
+                    if ($controller != 'error') {
+                        $template->setLayout($layout);
+                    } else {
+                        $template->setLayout('home');
+                    }
+                }
             } else {
                 $contextSwitch->setAutoDisableLayout(true)->initContext();
+
             }
+
+        } else {
+            $contextSwitch->setAutoDisableLayout(true)->initContext();
         }
+    }
 
 }
 
