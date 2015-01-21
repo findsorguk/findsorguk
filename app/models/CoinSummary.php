@@ -60,11 +60,9 @@ class CoinSummary extends Pas_Db_Table_Abstract {
                 'institution'
             ))
             ->joinLeft('hoards','coinsummary.hoardID = hoards.secuid',
-                array(
-                    'id'))
+                array('id','recordID' => 'hoardID'))
             ->joinLeft('denominations','coinsummary.denomination = denominations.id',
-                array(
-                'denomination'))
+                array('denomination'))
             ->joinLeft('rulers','coinsummary.ruler_id = rulers.id',
                 array(
                 'ruler' => 'issuer'))

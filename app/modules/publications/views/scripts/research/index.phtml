@@ -23,24 +23,18 @@ $this->metaBase()
     Britannia
 </h3>
 <ul>
-    <?php
-    foreach (new DirectoryIterator(
-                 ROOT_PATH . '/public_html/documents/britannia/'
-             ) as $fileInfo) {
-        if ($fileInfo->isDot()) continue;
-        ?>
+    <?php foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/britannia/') as $fileInfo): ?>
+        <?php if ($fileInfo->isDot()) continue; ?>
         <li>
             <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
             if (!$root) {
                 $root = $filename;
-            }?>
+            } ?>
             <a href="documents/britannia/<?php
             echo $fileInfo->getFilename();
             ?>"><?php echo $root; ?></a>
         </li>
-    <?php
-    }
-    ?>
+    <?php endforeach; ?>
 
 </ul>
 
@@ -48,21 +42,16 @@ $this->metaBase()
     Medieval Archaeology
 </h3>
 <ul>
-    <?php
-    foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/medieval/') as $fileInfo) {
-        if ($fileInfo->isDot()) continue;
-        ?>
+    <?php foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/medieval/') as $fileInfo): ?>
+        <?php if ($fileInfo->isDot()) continue; ?>
         <li>
             <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
             if (!$root) {
                 $root = $filename;
-            }?>
-            <a href="<?php echo $this->baseUrl(); ?>/documents/medieval/<?php
-            echo $fileInfo->getFilename();
-            ?>"><?php echo $root; ?></a></li><!--  -->
-    <?php
-    }
-    ?>
+            } ?>
+            <a href="<?php echo $this->baseUrl(); ?>/documents/medieval/<?php echo $fileInfo->getFilename();?>"><?php echo $root; ?></a>
+        </li>
+    <?php endforeach; ?>
 
 </ul>
 
@@ -79,10 +68,10 @@ $this->metaBase()
             <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
             if (!$root) {
                 $root = $filename;
-            }?>
+            } ?>
             <a href="<?php echo $this->baseUrl(); ?>/documents/postmedieval/<?php
             echo $fileInfo->getFilename();
-            ?>"><?php echo $root; ?></a></li><!--  -->
+            ?>"><?php echo $root; ?></a></li>
     <?php } ?>
 
 </ul>

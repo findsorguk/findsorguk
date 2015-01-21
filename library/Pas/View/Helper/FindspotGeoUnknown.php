@@ -55,7 +55,7 @@ class Pas_View_Helper_FindspotGeoUnknown extends Zend_View_Helper_Abstract
      * @return \Pas_Service_Geo_Geoplanet
      */
     public function getGeoplanet() {
-        $this->_geoplanet = new Pas_Service_Geo_Geoplanet($this->getAppid());
+        $this->_geoplanet = new Pas_Service_Geo_GeoPlanet($this->getAppid());
         return $this->_geoplanet;
     }
 

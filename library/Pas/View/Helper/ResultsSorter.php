@@ -271,7 +271,7 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
             } else {
                 $sort .= ' class="btn-mini btn"';
             }
-            $sort .= '>' . $k . '<i class="icon-arrow-' . $icon . '"></i></a> ';
+            $sort .= '>' . $k . ' <i class="icon-arrow-' . $icon . '"></i></a> ';
             $sorter[] = $sort;
         }
         $html .= '<div class="btn-group">';

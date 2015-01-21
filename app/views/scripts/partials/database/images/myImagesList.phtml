@@ -1,35 +1,28 @@
 <li class="span3">
     <div style="max-width:200px;">
-        <a href="/<?php echo $this->imagedir . 'medium/' . $this->filename; ?>" rel="lightbox"
-           title="Thumbnail of <?php echo $this->old_findID; ?>">
+        <a href="/<?php echo $this->imagedir . 'medium/' . $this->filename; ?>" rel="lightbox" title="Thumbnail of <?php echo $this->old_findID; ?>">
             <?php
-            $thumb = './images/thumbnails/' . $this->id . '.jpg';
+            $thumb = IMAGE_PATH . '/thumbnails/' . $this->id . '.jpg';
             $location = './' . $this->imagedir . $this->id;
             ?>
             <?php if (file_exists($thumb)): ?>
-
                 <img class="img-polaroid" src="<?php echo $this->baseUrl() . '/images/thumbnails/' . $this->id; ?>.jpg"
                      alt="Thumbnail image of <?php echo $this->old_find; ?>"/>
-            <?php else:?>
-            <?php
-            //$phMagick = new phMagick($location, $thumb);
-            //$phMagick->resize(100,0);
-            //$phMagick->convert();
-            ?>
+            <?php else: ?>
                 <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
                      class="img-circle"/>
                 <p>Image unavailable<br/>Error: 404</p>
-            <?php endif;?>
+            <?php endif; ?>
         </a>
 
         <div class="caption">
 
-            <?php if (!is_null($this->objecttype)):?>
-                <?php echo ucfirst(strtolower($this->objecttype));?>
+            <?php if (!is_null($this->objecttype)): ?>
+                <?php echo ucfirst(strtolower($this->objecttype)); ?>
             <?php endif; ?>
 
             <?php if (!is_null($this->old_findID)): ?>
-                <br />
+                <br/>
                 <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->findID), null, true); ?>"
                    title="View this image's record"><?php echo $this->old_findID; ?></a><br/>
             <?php endif; ?>
@@ -48,30 +41,26 @@
 
             <span class="download"><a href="<?php echo $this->url(array('module' => 'database',
                     'controller' => 'ajax',
-                    'action' => 'download', 'id' => $this->id), null, true);?>"
+                    'action' => 'download', 'id' => $this->id), null, true); ?>"
                                       title="Download image">Download</a></span> | <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->id), null, true); ?>"
                 title="View image and meta data">View</a><br/>
 
-            <?php
-            $auth = Zend_Auth::getInstance();
-            if ($auth->hasIdentity()) {
+            <?php $auth = Zend_Auth::getInstance(); ?>
+            <?php if ($auth->hasIdentity()) : ?>
+                <?php
                 $user = $auth->getIdentity();
-                {
-                    $allowed = array('flos', 'fa', 'admin');
-                    if (in_array($user->role, $allowed)) {
-                        ?>
-                        <div class="image-controls">
-                            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->id), null, true); ?>">Edit</a>
-                            | <a
-                                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->id), null, true); ?>"
-                                class="delete">Delete</a>
-                        </div>
-                    <?php
-                    }
-                }
-            }
-            ?>
+                $allowed = array('flos', 'fa', 'admin');
+                ?>
+                <?php if (in_array($user->role, $allowed)): ?>
+                    <div class="btn-group">
+                        <a class="btn-mini btn btn-success"
+                           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->id), null, true); ?>">Edit</a>
+                        <a class="delete btn btn-mini btn-danger"
+                           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->id), null, true); ?>">Delete</a>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
         </div>
     </div>
 </li>

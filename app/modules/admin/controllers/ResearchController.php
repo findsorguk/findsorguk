@@ -132,7 +132,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
      */
     public function suggestedAction()
     {
-        $this->view->suggested = $this->_suggested->getAll($this->getAllParams());
+        $this->view->suggested = $this->_suggested->getAll($this->getAllParams(), 0);
     }
 
     /** Edit a suggested topic

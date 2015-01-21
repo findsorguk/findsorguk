@@ -5,4 +5,7 @@ $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/publicationLinke
 
 ?>
 <h2 class="lead">Edit reference</h2>
+    <?php $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();?>
+    <a href="<?php echo $this->url(array('module' => 'database', 'controller' => $params['recordtype'], 'action' => 'record', 'id' => $params['findID']), 'default', true); ?>"
+       class="btn btn-small btn-success">Return to record</a>
 <?php echo $this->form;?>

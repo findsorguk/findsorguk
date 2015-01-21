@@ -1,0 +1,29 @@
+<?php
+$mpdf = new mPDF('utf-8', 'A4');
+$mpdf->debug = true;
+$mpdf->allow_output_buffering = true;
+$mpdf->useOnlyCoreFonts = true;    // false is default
+$mpdf->SetProtection(array('print'));
+$mpdf->SetTitle("Portable Antiquities Scheme Database Report");
+$mpdf->SetAuthor("The Portable Antiquities Scheme");
+$mpdf->SetWatermarkText("finds.org.uk");
+$mpdf->showWatermarkText = true;
+$mpdf->watermark_font = 'DejaVuSansCondensed';
+$mpdf->watermarkTextAlpha = 0.03;
+$mpdf->SetDisplayMode('fullpage');
+
+?>
+
+<?php $mpdf->WriteHTML(preg_replace("/<img[^>]+\>/i", " ", $this->partial('partials/database/structural/recordH2Section.phtml', $this->finds[0])));?>
+<?php $mpdf->WriteHTML($this->partial('partials/database/structural/recordDescriptive.phtml', $this->finds[0])); ?>
+<?php $mpdf->WriteHTML($this->partial('partials/database/structural/treasureFindDetails.phtml', $this->finds[0]));?>
+<?php $mpdf->WriteHTML($this->partial('partials/database/structural/temporal.phtml', $this->finds[0]));?>
+<?php $mpdf->WriteHTML($this->partial('partials/database/structural/dimensions.phtml', $this->finds[0])); ?>
+<?php $mpdf->WriteHTML($this->partial('partials/database/structural/dateFound.phtml', $this->finds[0])); ?>
+<?php $mpdf->WriteHTML($this->partial('partials/database/rallies/rallyFind.phtml', $this->finds[0])); ?>
+<?php $mpdf->WriteHTML($this->partial('partials/database/structural/personal.phtml', $this->finds[0])); ?>
+<?php $mpdf->WriteHTML($this->partial('partials/database/structural/otherReferences.phtml', $this->finds[0])); ?>
+<?php $mpdf->WriteHTML($this->partial('partials/database/structural/materials.phtml', $this->finds[0])); ?>
+<?php $mpdf->WriteHTML($this->findspot()->setData($this->finds[0])->setCreatedBy($this->finds[0]['createdBy'])->__toString());?>
+<?php $mpdf->WriteHTML($this->harvard()->setRefs($this->refs)->__toString()); ?>
+<?php $mpdf->Output(); ?>

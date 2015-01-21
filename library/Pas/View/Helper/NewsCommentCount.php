@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for displaying a count of unpublished comments on news
  *
@@ -34,7 +35,8 @@ class Pas_View_Helper_NewsCommentCount extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->_id;
     }
 
@@ -43,16 +45,19 @@ class Pas_View_Helper_NewsCommentCount extends Zend_View_Helper_Abstract
      * @param int $id
      * @return \Pas_View_Helper_NewsCommentCount
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->_id = $id;
         return $this;
     }
+
     /** Get a count of the comments from the model
      * @access public
      * @param integer $id The ID number to query
      * @return int The count of the comments
      */
-    public function getCount($id) {
+    public function getCount($id)
+    {
         $news = new Comments();
         $comments = $news->getCommentsNews($id);
         return count($comments);
@@ -62,12 +67,18 @@ class Pas_View_Helper_NewsCommentCount extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_NewsCommentCount
      */
-    public function newsCommentCount() {
+    public function newsCommentCount()
+    {
         return $this;
     }
 
-    public function __toString() {
-        return $this->buildHtml($this->getCount($this->getId()), $this->getId());
+    public function __toString()
+    {
+        try {
+            return $this->buildHtml($this->getCount($this->getId()), $this->getId());
+        } catch (Exception $e) {
+
+        }
     }
 
     /** Create the html for rendering
@@ -76,12 +87,13 @@ class Pas_View_Helper_NewsCommentCount extends Zend_View_Helper_Abstract
      * @param int $id
      * @return string
      */
-    public function buildHtml($total, $id) {
+    public function buildHtml($total, $id)
+    {
         $url = $this->view->url(array(
             'module' => 'news',
-            'controller' => 'stories',
-            'action' => 'article',
-            'id' => $id),NULL,true);
+            'controller' => 'story',
+            'action' => 'index',
+            'id' => $id), 'newsstory', true);
         $html = '';
         if ($total > 0) {
             $html .= '<p><strong>Comments: </strong> There are already ';

@@ -204,11 +204,15 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
 
     /** The to string method
      * @access public
-     * @return the string to the view
+     * @return string string to the view
      */
     public function __toString()
     {
-        return $this->getSolrData($this->getFindID());
+        try {
+            return $this->getSolrData($this->getFindID());
+        } catch (Exception $e) {
+
+        }
     }
 
     /** Get the data from solr

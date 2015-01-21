@@ -100,7 +100,8 @@ class Pas_Controller_Plugin_StyleAndAlternate extends Zend_Controller_Plugin_Abs
             ->appendAlternate(
                 $view->serverUrl() . $view->baseUrl()
                 . '/database/search/results/note/1/format/atom',
-                'application/atom+xml', 'Amazing finds recorded on the database');
+                'application/atom+xml', 'Amazing finds recorded on the database')
+            ->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css');
         $view->headLink(array(
             'rel' => 'search',
             'href' => $view->serverUrl() . $view->baseUrl() . '/OpenSearchDatabase.xml',

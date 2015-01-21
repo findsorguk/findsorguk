@@ -1,62 +1,143 @@
 <?php
-$allowed = array('flos','fa','admin','treasure');
-$backups = array('research', 'flos','admin', 'treasure', 'hero', 'admin', 'member','fa', 'hoard');
+$allowed = array('flos', 'fa', 'admin', 'treasure');
+$backups = array('research', 'flos', 'admin', 'treasure', 'hero', 'admin', 'member', 'fa', 'hoard');
 $auth = Zend_Auth::getInstance();
-if($auth->hasIdentity()) {
-$user = $auth->getIdentity();
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-?>
-<div class="sidebar-nav col-md-3" >
-<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
-<?php if(!is_null($user->peopleID) && !is_null($user->canRecord)):?>
-<li <?php echo $this->currentPage()->active('users','configuration','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller'=>'configuration'),null,true);?>" title="Database settings">Database settings</a></li>
-<?php endif;?>
-<li <?php echo $this->currentPage()->active('users','named','index');?>><a href="<?php echo $this->url(array(
-    'module' => 'users',
-    'controller' => 'named'),null,true);?>" title="View all our registered users">View all users</a></li>
-<li <?php echo $this->currentPage()->active('users','audit','logins');?>><a href="<?php echo $this->url(array(
-    'module' => 'users',
-    'controller' => 'audit',
-    'action' => 'logins'),null,true);?>" title="When have I logged in and where from">Login history</a></li>
-<li <?php echo $this->currentPage()->active('users','audit','iphistory');?>><a href="<?php echo $this->url(array(
-    'module' => 'users',
-    'controller' => 'audit',
-    'action' => 'iphistory'),null,true);?>" title="When have I logged in and where from">IP address history</a></li>
-<?php
-if(in_array($user->role,$allowed)) {
-?>
-<li <?php echo $this->currentPage()->active('users','backups','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'backups'),null,true);?>" title="View latest backups">Full Database CSV downloads</a></li>
-<li <?php echo $this->currentPage()->active('users','news','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'news'),null,true);?>" title="Change and update news stories you entered">Administer news</a></li>
-<li <?php echo $this->currentPage()->active('users','events','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'events'),null,true);?>" title="Change and update events you entered">Administer events</a></li>
-<li <?php echo $this->currentPage()->active('users','calendar','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'calendar'),null,true);?>" title="View and add events for shared calendar">Scheme shared calendar</a></li>
-<?php
-}
-?>
-<?php
-if(in_array($user->role,$backups)) {
-?>
-<li <?php echo $this->currentPage()->active('database','data','index');?>><a href="<?php echo $this->url(array('module' => 'database','controller' => 'data'),null,true);?>" title="View latest backups">Role specific Database CSV downloads</a></li>
-<?php }?>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller'=>'myscheme','action'=>'recordedbyflos'),null,true);?>" title="View finds recorded for me by the Scheme">My finds recorded by FLOs</a></li>
+if ($auth->hasIdentity()) {
+    $user = $auth->getIdentity();
+    $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+    ?>
+    <div class="sidebar-nav col-md-3">
+        <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+            <?php if (!is_null($user->peopleID) && !is_null($user->canRecord)): ?>
+                <li><a href=""><i class="icon-folder-open"></i>Database settings</a>
+                    <ul class="nav nav-pills nav-stacked menuindent">
+                        <li <?php echo $this->currentPage()->active('users', 'configuration', 'index'); ?>><a
+                                href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration'), null, true); ?>"
+                                title="Database settings">Configure copy fields</a>
+                        <li <?php echo $this->currentPage()->active('users', 'social', 'index'); ?>><a
+                                href="<?php echo $this->url(array('module' => 'users', 'controller' => 'social',), null, true); ?>"
+                                title="Administer my social sites available to other users">My social web</a></li>
+                    </ul>
+                </li>
+            <?php endif; ?>
 
-<li><a href="<?php echo $this->url(array('module' => 'database','controller'=>'myscheme','action'=>'myfinds'),null,true);?>" title="View finds I have recorded">Finds I recorded</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller'=>'myscheme','action'=>'myinstitution'),null,true);?>" title="View finds my institution has recorded">My institution's finds</a></li>
-<li <?php if($controller == 'search') { echo 'class="expandfirst"';}?>><a href="#" title="Expand search">Search</a>
-<ul class="nav nav-pills nav-stacked menuindent">
-<li <?php echo $this->currentPage()->active('users','search','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'search'),null,true);?>" title="Facts about your searches">My search</a></li>
-<li <?php echo $this->currentPage()->active('users','search','history');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'search','action' => 'history'),null,true);?>" title="View your search history">History</a></li>
-<li <?php echo $this->currentPage()->active('users','search','saved');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'search','action' => 'saved'),null,true);?>" title="View all your saved searches">Saved searches</a></li>
-</ul>
-</li>
-<li><a href="<?php echo $this->url(array('module' => 'database','controller' => 'myscheme','action' => 'myimages'),null,true);?>" title="View all images I have added">My images</a></li>
-<li <?php echo $this->currentPage()->active('users','social','index');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'social',),null,true);?>" title="Administer my social sites available to other users">My social web</a></li>
-<li <?php if($controller == 'comments') { echo 'class="expandfirst"';}?>><a href="#" title="Expand comments section">Comments</a>
-<ul class="nav nav-pills nav-stacked">
-<li <?php echo $this->currentPage()->active('users','comments','imade');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'imade'),null,true);?>" title="View my comments">My comments</a></li>
-<li <?php echo $this->currentPage()->active('users','comments','onmine');?>><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'onmine'),null,true);?>" title="View all comments on my records">Comments on my records</a></li>
-</ul>
-</li>
-</ul>
+            <li>
+                <a href=""><i class="icon-folder-open"></i>Database searches</a>
+                <ul class="nav nav-pills nav-stacked menuindent">
+                    <li>
+                        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'recordedbyflos'), null, true); ?>"
+                           title="View finds recorded for me by the Scheme">My finds recorded by FLOs</a></li>
 
-</div>
-<?php }?>
+                    <li>
+                        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'myfinds'), null, true); ?>"
+                           title="View finds I have recorded">Finds I recorded</a></li>
+                    <li>
+                        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'myinstitution'), null, true); ?>"
+                           title="View finds my institution has recorded">My institution's finds</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'myimages'), null, true); ?>"
+                           title="View all images I have added">My images</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href=""><i class="icon-cog"></i>Login data</a>
+                <ul class="nav nav-pills nav-stacked menuindent">
+                    <li <?php echo $this->currentPage()->active('users', 'audit', 'logins'); ?>><a
+                            href="<?php echo $this->url(array(
+                                'module' => 'users',
+                                'controller' => 'audit',
+                                'action' => 'logins'), null, true); ?>" title="When have I logged in and where from">Login
+                            history</a>
+                    </li>
+                    <li <?php echo $this->currentPage()->active('users', 'audit', 'iphistory'); ?>><a
+                            href="<?php echo $this->url(array(
+                                'module' => 'users',
+                                'controller' => 'audit',
+                                'action' => 'iphistory'), null, true); ?>" title="When have I logged in and where from">IP
+                            address history</a>
+                    </li>
+                </ul>
+
+            </li>
+
+            <li <?php echo $this->currentPage()->active('users', 'named', 'index'); ?>><a
+                    href="<?php echo $this->url(array(
+                        'module' => 'users',
+                        'controller' => 'named'), null, true); ?>" title="View all our registered users"><i
+                        class="icon-user"></i>View all
+                    users</a>
+            </li>
+
+            <?php if (in_array($user->role, $allowed)): ?>
+                <li>
+                    <a href=""><i class="icon-folder-open"></i>News and Events</a>
+                    <ul class="nav nav-pills nav-stacked menuindent">
+                        <li <?php echo $this->currentPage()->active('users', 'news', 'index'); ?>><a
+                                href="<?php echo $this->url(array('module' => 'users', 'controller' => 'news'), null, true); ?>"
+                                title="Change and update news stories you entered">Administer news</a></li>
+                        <li <?php echo $this->currentPage()->active('users', 'events', 'index'); ?>><a
+                                href="<?php echo $this->url(array('module' => 'users', 'controller' => 'events'), null, true); ?>"
+                                title="Change and update events you entered">Administer events</a></li>
+                    </ul>
+                </li>
+            <?php endif; ?>
+
+
+
+            <li>
+                <a href=""><i class="icon-folder-open"></i>Data Export</a>
+                <ul class="nav nav-pills nav-stacked menuindent">
+                    <?php if (in_array($user->role, $backups)): ?>
+                        <li <?php echo $this->currentPage()->active('database', 'data', 'index'); ?>><a
+                                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'data'), null, true); ?>"
+                                title="View latest backups">Role specific Database CSV downloads</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (in_array($user->role, $allowed)): ?>
+                        <li <?php echo $this->currentPage()->active('users', 'backups', 'index'); ?>><a
+                                href="<?php echo $this->url(array('module' => 'users', 'controller' => 'backups'), null, true); ?>"
+                                title="View latest backups">Full Database CSV downloads</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </li>
+
+
+            <li <?php if ($controller == 'search') {
+                echo 'class="expandfirst"';
+            } ?>><a href="#" title="Expand search"><i class="icon-folder-open"></i>Search</a>
+                <ul class="nav nav-pills nav-stacked menuindent">
+                    <li <?php echo $this->currentPage()->active('users', 'search', 'index'); ?>><a
+                            href="<?php echo $this->url(array('module' => 'users', 'controller' => 'search'), null, true); ?>"
+                            title="Facts about your searches">My search</a></li>
+                    <li <?php echo $this->currentPage()->active('users', 'search', 'history'); ?>><a
+                            href="<?php echo $this->url(array('module' => 'users', 'controller' => 'search', 'action' => 'history'), null, true); ?>"
+                            title="View your search history">History</a></li>
+                    <li <?php echo $this->currentPage()->active('users', 'search', 'saved'); ?>><a
+                            href="<?php echo $this->url(array('module' => 'users', 'controller' => 'search', 'action' => 'saved'), null, true); ?>"
+                            title="View all your saved searches">Saved searches</a></li>
+                </ul>
+            </li>
+
+
+            <li <?php if ($controller == 'comments') {
+                echo 'class="expandfirst"';
+            } ?>><a href="#" title="Expand comments section"><i class="icon-folder-open"></i>Comments</a>
+                <ul class="nav nav-pills nav-stacked menuindent">
+                    <li <?php echo $this->currentPage()->active('users', 'comments', 'imade'); ?>><a
+                            href="<?php echo $this->url(array('module' => 'users', 'controller' => 'comments', 'action' => 'imade'), null, true); ?>"
+                            title="View my comments">My comments</a>
+                    </li>
+                    <li <?php echo $this->currentPage()->active('users', 'comments', 'onmine'); ?>><a
+                            href="<?php echo $this->url(array('module' => 'users', 'controller' => 'comments', 'action' => 'onmine'), null, true); ?>"
+                            title="View all comments on my records">Comments on my records</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+<?php } ?>

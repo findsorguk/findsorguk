@@ -62,6 +62,13 @@ ul {
     padding: 20px;
     border: 1px solid black;
 }
+.sketchfab {
+    padding: 10px;
+    margin: auto;
+}
+.sketchfab h4 {
+    text-align: center;
+}
 
 #workflow .controls {
     margin-left: 0px;

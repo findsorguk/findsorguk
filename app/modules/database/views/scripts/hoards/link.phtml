@@ -3,6 +3,14 @@ $this->headTitle('Add a link to a coin, artefact or container for this hoard');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php $url = array(
+    'module' => 'database',
+    'controller' => 'hoards',
+    'action' => 'record',
+    'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
+?>
+    <a href="<?php echo $this->url($url, 'default', true); ?>" class="btn btn-small btn-success"
+       title="Return to record">Return to record</a>
 <?php echo $this->form; ?>
 <?php
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.autocomplete.pack.js', $type = 'text/javascript');

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for displaying workflow icons
  *
@@ -8,7 +9,7 @@
  * echo $this->workflow()->setWorkflow(1);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
@@ -17,7 +18,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @uses Zend_View_Helper_Abstract
  * @uses Zend_Exception
- * @example /app/views/scripts/email/informFinderWorkflow.phtml 
+ * @example /app/views/scripts/email/informFinderWorkflow.phtml
  */
 class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
 {
@@ -42,7 +43,8 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
      * @param  int $secwfstage
      * @return \Pas_View_Helper_Workflow
      */
-    public function setWorkflow($secwfstage) {
+    public function setWorkflow($secwfstage)
+    {
         $this->_secwfstage = $secwfstage;
         return $this;
     }
@@ -51,7 +53,8 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_Workflow
      */
-    public function workflow() {
+    public function workflow()
+    {
         return $this;
     }
 
@@ -59,7 +62,8 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
      * @access public
      * @return type
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->_buildHtml();
     }
 
@@ -68,16 +72,17 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
      * @return string
      * @throws Zend_Exception
      */
-    public function _buildHtml() {
-        switch ( $this->getSecwfstage() ) {
+    public function _buildHtml()
+    {
+        switch ($this->getSecwfstage()) {
             case 1:
-        $wf = 'quarantine.png';
+                $wf = 'quarantine.png';
                 $alt = 'Find in quarantine';
                 break;
             case 2:
                 $wf = 'flag_red.gif';
                 $alt = 'Find on review';
-        break;
+                break;
             case 4:
                 $wf = 'flag_orange.gif';
                 $alt = 'Find awaiting validation';
@@ -88,9 +93,9 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
                 break;
             default:
                 throw new Zend_Exception('No workflow status set', 500);
-    }
+        }
         $imageTag = '<img src="';
-        $imageTag .= $this->view->baseUrl();
+        $imageTag .= $this->view->serverUrl() . $this->view->baseUrl();
         $imageTag .= '/assets/icons/';
         $imageTag .= $wf;
         $imageTag .= '" width="16" height="16"';
@@ -98,6 +103,6 @@ class Pas_View_Helper_Workflow extends Zend_View_Helper_Abstract
         $imageTag .= $alt;
         $imageTag .= '"/>';
 
-    return $imageTag;
+        return $imageTag;
     }
 }

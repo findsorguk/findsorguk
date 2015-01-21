@@ -88,7 +88,7 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
         $this->_cache = Zend_Registry::get('cache');
         $this->_config = Zend_Registry::get('config');
         $this->_appid = $this->_config->webservice->ydnkeys->consumerkey;
-        $this->_geoplanet = new Pas_Service_Geo_Geoplanet($this->_appid);
+        $this->_geoplanet = new Pas_Service_Geo_GeoPlanet($this->_appid);
     }
     
     /** Call the function to created findspot with geo data

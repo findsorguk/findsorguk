@@ -164,16 +164,18 @@ class Pas_View_Helper_ContextsAvailable extends Zend_View_Helper_Abstract
 
         if ( is_array( $contexts ) && !empty( $contexts ) ) {
             $html .= '<div id="contexts" class="row-fluid">';
-            $html .= '<h4 class="lead">Other formats</h4>';
-            $html .= '<p>This page';
-            $html .= ' is available in ';
+            $html .= '<p><strong>Other formats:</strong>';
+            $html .= ' this page';
+            $html .= ' is available as ';
+            $router = Zend_Controller_Front::getInstance()->getRouter();
+            $route = $router->getCurrentRouteName();
             foreach ($contexts as $key => $value) {
                 $url = $this->view->url(array(
                     'module' => $this->getModule(),
                     'controller' => $this->getController(),
                     'action' => $this->getAction(),
                     'format' => $value)
-                        ,null,false);
+                        , $route, false);
                 $html .= '<a href="';
                 $html .= $url;
                 $html .= '" title="Obtain data in ';

@@ -90,7 +90,7 @@ class Quotes extends Pas_Db_Table_Abstract {
     */
     public function getAnnouncements(){
         $key = md5('announcements');
-        if (!$data = $this->_cache->load($key)) {
+        if ($data = $this->_cache->load($key)) {
             $quotes = $this->getAdapter();
             $select = $quotes->select()
                     ->from($this->_name,array('quote','quotedBy'))

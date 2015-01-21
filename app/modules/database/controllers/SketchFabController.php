@@ -62,7 +62,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->deny('public', null);
-        $this->_helper->_acl->allow('member', array('add', 'delete', 'edit'));
+        $this->_helper->_acl->allow('flos', array('add', 'delete', 'edit'));
     }
 
     /** The index page with no root access
@@ -71,7 +71,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->getFlash()->addMessage('You cannot access the archaeological context index.');
+        $this->getFlash()->addMessage('You cannot access the 3D index page at present.');
         $this->getResponse()->setHttpResponseCode(301)->setRawHeader('HTTP/1.1 301 Moved Permanently');
         $this->redirect('/');
     }
@@ -88,6 +88,17 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
             $form = $this->getSketchFabForm();
             $form->submit->setLabel('Add a model');
             $this->view->form = $form;
+            $exists = new Zend_Validate_Db_NoRecordExists(
+                array(
+                    'table' => 'sketchFab',
+                    'field' => 'modelID',
+                    'exclude'   => array(
+                        'field' => 'findID',
+                        'value' => $this->getParam('findID')
+                    )
+                )
+            );
+            $form->getElement('modelID')->addValidator($exists);
             // Check if request is POST and whether valid
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 // Get data
@@ -98,7 +109,7 @@ class Database_SketchFabController extends Pas_Controller_Action_Admin
                 //Add a flash message
                 $this->getFlash()->addMessage('You have added a model to the record');
                 // Redirect back to the record
-                $this->redirect(self::REDIRECT . $this->getParam('id'));
+                $this->redirect(self::REDIRECT . $this->getParam('returnID'));
             } else {
                 // Form was not valid so fill with posted values
                 $form->populate($this->_request->getPost());

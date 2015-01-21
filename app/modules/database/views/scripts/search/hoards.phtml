@@ -1,0 +1,59 @@
+<?php
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/typeaheads/objectType.js', $type='text/javascript');
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/typeaheads/treasureID.js', $type='text/javascript');
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/typeaheads/otherRef.js', $type='text/javascript');
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/typeaheads/finder.js', $type='text/javascript');
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/typeaheads/primaryID.js', $type='text/javascript');
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/typeaheads/recorder.js', $type='text/javascript');
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/typeaheads/secondaryID.js', $type='text/javascript');
+
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/bootstrap-datepicker.js',$type='text/javascript');
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/jQueryLinkedSelect.js',$type='text/javascript');
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/findSpotLinkedSelect.js',$type='text/javascript');
+    $this->jQuery()->addJavascriptFile($this->baseUrl()
+            . '/js/JQuery/findSpotLinkedQuery.js',$type='text/javascript');
+
+    $this->headTitle('Advanced search for hoards on the database');
+    $this->metaBase()
+            ->setDescription('A complex form generating highly targeted searches')
+            ->setSubject('Search the PAS database')
+            ->setKeywords('search,database,coin,artefact,form')
+            ->generate();
+?>
+
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+    $(document).ready(function() {
+        $("#createdBefore").datepicker({ maxDate: '+1y'});
+        $("#createdAfter").datepicker({ maxDate: '+1y' });
+        $("#updatedBefore").datepicker({ maxDate: '+1y'});
+        $("#updatedAfter").datepicker({ maxDate: '+1y' });
+    });
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
+
+<p>
+    This form allows you to perform searches on hoards only.
+</p>
+
+<div>
+    <?php echo $this->form;?>
+</div>
+
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function() {
+    $('#broadperiod').linkedSelect('/ajax/lastruler','#lastRulerID',{firstOption: 'Please select a ruler'});
+    });
+
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

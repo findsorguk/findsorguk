@@ -2,11 +2,13 @@
 $this->headTitle('Scheme news stories');
 ?>
 <h2 class="lead">News from the Scheme</h2>
-<p><a class="btn btn-success btn-small" href="<?php echo $this->url(array('module' => 'admin','controller' => 'news','action' => 'add'),'default',true);?>" title="Add a new story">Add a new story</a></p>
+<p><a class="btn btn-success btn-small"
+      href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'news', 'action' => 'add'), 'default', true); ?>"
+      title="Add a new story">Add a new story</a></p>
 <?php if ($this->news): ?>
-<table class="table table-striped" summary="All news stories listed">
-<caption>All news stories on the site</caption>
-    <thead>
+    <table class="table table-striped" summary="All news stories listed">
+        <caption>All news stories on the site</caption>
+        <thead>
         <tr>
             <th>Title</th>
             <th>Date filed</th>
@@ -15,13 +17,13 @@ $this->headTitle('Scheme news stories');
             <th>Updated by</th>
             <th>Edit</th>
         </tr>
-    </thead>
-<tbody>
-<?php echo $this->partialLoop('partials/admin/newsTable.phtml',$this->news);?>
+        </thead>
+        <tbody>
+        <?php echo $this->partialLoop('partials/users/newsTable.phtml', $this->news); ?>
 
-</tbody>
-</table>
-<?php echo $this->paginationControl($this->news, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>There are no news articles availble at the moment.</p>
+        </tbody>
+    </table>
+    <?php echo $this->paginationControl($this->news, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>There are no news articles available at the moment.</p>
 <?php endif; ?>

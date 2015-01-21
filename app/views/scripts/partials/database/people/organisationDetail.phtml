@@ -92,9 +92,9 @@ $this->metaBase()->setDescription($this->title())->generate();
             Address: <?php echo $this->escape($this->address1); ?> <?php echo $this->escape($this->address2); ?> <?php echo $this->escape($this->address3); ?>
         <?php endif; ?>
 
-        <?php if (!is_null($this->county)): ?>
+        <?php if (!is_null($this->label)): ?>
             <br/>
-            County: <?php echo $this->escape($this->county); ?>
+            County: <?php echo $this->escape($this->label); ?>
         <?php endif; ?>
 
         <?php if (!is_null($this->postcode)): ?>

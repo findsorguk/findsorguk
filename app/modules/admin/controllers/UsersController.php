@@ -120,25 +120,10 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
             $form->removeElement('password');
             $this->view->form = $form;
             if ($this->_request->isPost()) {
-                $formData = $this->_request->getPost();
-                if ($form->isValid($formData)) {
-                    $id = (int)$this->getParam('id');
-                    $updateData = array(
-                        'username' => $form->getValue('username'),
-                        'first_name' => $form->getValue('first_name'),
-                        'last_name' => $form->getValue('last_name'),
-                        'fullname' => $form->getValue('fullname'),
-                        'email' => $form->getValue('email'),
-                        'institution' => $form->getValue('institution'),
-                        'role' => $form->getValue('role'),
-                        'peopleID' => $form->getValue('peopleID'),
-                        'updated' => $this->getTimeForForms(),
-                        'updatedBy' => $this->getIdentityForForms(),
-                        'preferred_name' => $form->getValue('preferred_name'),
-                        'canRecord' => $form->getValue('canRecord')
-                    );
+                if ($form->isValid($this->_request->getPost())) {
+                    $updateData = $form->getValues();
                     $where = array();
-                    $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $id);
+                    $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $oldData = $this->getUsers()->fetchRow('id=' . $this->getParam('id'))->toArray();
                     $this->getUsers()->update($updateData, $where);
 
@@ -149,17 +134,15 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                         $this->getParam('id'),
                         $this->getParam('id')
                     );
-                    $this->getFlash()->addMessage('You updated: <em>'
-                        . $form->getValue('fullname')
-                        . '</em> successfully.');
+                    $this->getFlash()->addMessage('You updated the account successfully.');
                     $this->redirect('/admin/users/account/username/' . $form->getValue('username'));
                 } else {
-                    $form->populate($formData);
+                    $form->populate($this->_request->getPost());
                 }
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $user = $this->getUsers()->fetchRow('id =' . $id);
+                    $user = $this->getUsers()->fetchRow('id =' . $this->getParam('id'));
                     if (!empty($user)) {
                         $data = $user->toArray();
                         if (isset($data['peopleID'])) {
@@ -171,7 +154,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                                 $form->person->setValue($person['fullname']);
                             }
                         }
-                        $form->populate($data);
+                        $form->populate($this->_request->getPost());
                     } else {
                         throw new Pas_Exception_Param('No user account found with that id');
                     }

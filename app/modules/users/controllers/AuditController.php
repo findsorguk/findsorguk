@@ -47,7 +47,7 @@ class Users_AuditController extends Pas_Controller_Action_Admin
     public function loginsAction()
     {
         $this->view->logins = $this->getLogins()->myLogins((string)$this->getUsername(), (int)$this->getParam('page'));
-        $this->view->ips = $this->getLogins()->myIps($this->getUsername());
+        $this->view->ips = $this->getLogins()->myIps($this->getUsername(), (int)$this->getParam('page'));
     }
 
     /** Display the ISP user has used

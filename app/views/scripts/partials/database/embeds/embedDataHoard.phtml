@@ -1,14 +1,9 @@
 <abbr title="The Portable Antiquities Scheme">PAS</abbr> hoard number: <?php echo $this->hoardID; ?><br/>
 Object type: Hoard<br/>
 Broadperiod: <?php echo $this->broadperiod; ?><br/>
-<?php if ($this->county): ?>
-    County of discovery: <?php echo $this->county; ?><br/>
-<?php endif; ?>
-<?php $url = array(
+<?php if ($this->county): ?>County of discovery: <?php echo $this->county; ?><br/><?php endif; ?><?php $url = array(
     'module' => 'database',
     'controller' => 'hoards',
     'action' => 'record',
     'id' => $this->id);
-?>
-Stable url: <a href="<?php echo $this->serverUrl(); ?><?php echo $this->url($url, null, true); ?>"
-               title="<?php echo $this->hoardID; ?>: a <?php echo $this->broadperiod; ?> hoard"><?php echo $this->serverUrl(); ?><?php echo $this->url($url, null, true); ?></a>
+?>Stable url: <a href="<?php echo $this->serverUrl(); ?><?php echo $this->url($url, null, true); ?>" title="<?php echo $this->hoardID; ?>: a <?php echo $this->broadperiod; ?> hoard"><?php echo $this->serverUrl(); ?><?php echo $this->url($url, null, true); ?></a>

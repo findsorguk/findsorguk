@@ -1,4 +1,5 @@
 <?php
+
 /** A service class for getting postcode from geo data
  *
  * An example of code use:
@@ -20,7 +21,8 @@
  * @example /app/modules/contacts/controllers/StaffController.php
  *
  */
-class Pas_Service_Geo_PostCodeToGeo {
+class Pas_Service_Geo_PostCodeToGeo
+{
 
     /** The cache object
      * @access protected
@@ -49,7 +51,8 @@ class Pas_Service_Geo_PostCodeToGeo {
     /** The constructor function
      * @access public
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_cache = Zend_Registry::get('cache');
         $this->_validator = new Pas_Validate_ValidPostCode();
     }
@@ -60,8 +63,9 @@ class Pas_Service_Geo_PostCodeToGeo {
      * @return array
      * @throws Pas_Geo_Exception
      */
-    public function getData($postcode) {
-        if($this->_validator->isValid($postcode)){
+    public function getData($postcode)
+    {
+        if ($this->_validator->isValid($postcode)) {
             $postcode = str_replace(' ', '', $postcode);
         } else {
             throw new Pas_Geo_Exception('Invalid postcode sent');
@@ -82,24 +86,25 @@ class Pas_Service_Geo_PostCodeToGeo {
      * @param string $postcode
      * @return object
      */
-    protected function _get($postcode){
+    protected function _get($postcode)
+    {
         $config = array(
-        'adapter'   => 'Zend_Http_Client_Adapter_Curl',
-        'curloptions' => array(
-            CURLOPT_POST =>  true,
-            CURLOPT_USERAGENT =>  $_SERVER["HTTP_USER_AGENT"],
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_LOW_SPEED_TIME => 1
+            'adapter' => 'Zend_Http_Client_Adapter_Curl',
+            'curloptions' => array(
+                CURLOPT_POST => true,
+                CURLOPT_USERAGENT => $_SERVER["HTTP_USER_AGENT"],
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_LOW_SPEED_TIME => 1
             ),
-            );
+        );
         $client = new Zend_Http_Client($this->_uri . $postcode, $config);
         $response = $client->request();
         $code = $this->getStatus($response);
-        if($code == true){
+        if ($code == true) {
             return $response->getBody();
         } else {
-                return null;
+            return null;
         }
     }
 
@@ -109,9 +114,10 @@ class Pas_Service_Geo_PostCodeToGeo {
      * @return boolean
      * @throws Exception
      */
-    public function getStatus(Zend_Http_Response $response) {
+    public function getStatus(Zend_Http_Response $response)
+    {
         $code = $response->getStatus();
-        switch($code) {
+        switch ($code) {
             case ($code == 200):
                 return true;
                 break;
@@ -134,8 +140,9 @@ class Pas_Service_Geo_PostCodeToGeo {
      * @param string $postCode
      * @return boolean
      */
-    public function validatePostcode($postCode){
-        if($this->_validator->isValid($postCode)){
+    public function validatePostcode($postCode)
+    {
+        if ($this->_validator->isValid($postCode)) {
             return true;
         } else {
             return false;

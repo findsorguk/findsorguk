@@ -12,7 +12,16 @@ $this->metaBase()->setDescription('A set of results from the coin hoard summary 
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 <div class="row-fluid">
-
+    <?php
+        $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+        unset($params['module']);
+        unset($params['controller']);
+        unset($params['action']);
+        $base = array('module' => 'database', 'controller' => 'ajax', 'action' => 'summary');
+        $route = array_merge($base, $params);
+    ?>
+    <a href="<?php echo $this->url($route, 'default', true); ?>"
+       class="btn-small btn"><i class="icon-download-alt"></i> Download as CSV</a>
 <?php if ($this->results): ?>
     <table class="table table-striped">
         <thead>

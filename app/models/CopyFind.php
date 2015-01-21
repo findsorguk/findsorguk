@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A model for interfacing with the copy find table
  *
@@ -21,8 +22,8 @@
  * @since 22 September 2011
  * @example  /app/modules/users/controllers/ConfigurationController.php
  */
-
-class CopyFind extends Pas_Db_Table_Abstract {
+class CopyFind extends Pas_Db_Table_Abstract
+{
 
     /** The table name
      * @access protected
@@ -55,26 +56,27 @@ class CopyFind extends Pas_Db_Table_Abstract {
         'height', 'quantity', 'curr_loc',
         'recorderID', 'finder2ID', 'identifier1ID',
         'identifier2ID', 'findofnotereason', 'findofnote',
-        'numdate1qual', 'numdate2qual','objdate1cert',
-        'objdate2cert',	'treasure', 'treasureID',
+        'numdate1qual', 'numdate2qual', 'objdate1cert',
+        'objdate2cert', 'treasure', 'treasureID',
         'subs_action', 'musaccno', 'smr_ref',
-        'objdate1subperiod','objdate2subperiod'
-        );
+        'objdate1subperiod', 'objdate2subperiod'
+    );
 
     /** Get the base config
      * @access public
      * @return array
      */
-    public function getConfig(){
+    public function getConfig()
+    {
         $copy = $this->getAdapter();
         $select = $copy->select()
-                ->from($this->_name, array('fields'))
-                ->where('userID = ?', (int)$this->getUserNumber());
+            ->from($this->_name, array('fields'))
+            ->where('userID = ?', (int)$this->getUserNumber());
         $fields = $copy->fetchAll($select);
-        if($fields) {
+        if ($fields) {
             $checked = unserialize($fields['0']['fields']);
         } else {
-            $checked =  $this->_default;
+            $checked = $this->_default;
         }
         return $checked;
     }
@@ -84,15 +86,16 @@ class CopyFind extends Pas_Db_Table_Abstract {
      * @param array $data The update data
      * @return int
      */
-    public function updateConfig( array $data ){
-        if(array_key_exists('csrf', $data)){
+    public function updateConfig(array $data)
+    {
+        if (array_key_exists('csrf', $data)) {
             unset($data['csrf']);
         }
-        foreach ( $data as $key => $value){
-            if(is_null($value) || $value === '' || $value === '0'){
+        foreach ($data as $key => $value) {
+            if (is_null($value) || $value === '' || $value === '0') {
                 unset($data[$key]);
-                }
             }
+        }
         $newFields = array_keys($data);
         $updateData['fields'] = serialize($newFields);
         $updateData['created'] = $this->timeCreation();
@@ -100,5 +103,5 @@ class CopyFind extends Pas_Db_Table_Abstract {
         $updateData['userID'] = $this->getUserNumber();
         parent::delete('userID =' . $this->getUserNumber());
         return parent::insert($updateData);
-	}
+    }
 }

@@ -93,7 +93,11 @@ class Pas_View_Helper_FindSmrs extends Zend_View_Helper_Abstract
      */
     public function __toString()
     {
-        return $this->getMonuments();;
+        try {
+            return $this->getMonuments();
+        } catch (Exception $e) {
+
+        }
     }
 
     /** Get the data

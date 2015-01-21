@@ -288,7 +288,8 @@ class Finds extends Pas_Db_Table_Abstract
                     'identifier2ID',
                     'smrRef' => 'smr_ref',
                     'createdBy',
-                    'updatedBy'
+                    'updatedBy',
+                    'hoardcontainer'
                     ))
                 ->joinLeft('findofnotereasons',
                         'finds.findofnotereason = findofnotereasons.id',

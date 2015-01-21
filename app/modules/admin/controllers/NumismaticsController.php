@@ -1040,43 +1040,11 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                     $filesize = $upload->getFileSize();
                     if ($upload->isValid()) {
                         $filename = $form->getValue('image');
-                        $rulerID = $formData['rulerID'];
-                        $caption = $formData['caption'];
-                        $insertData = array();
-                        $insertData['filename'] = $filename;
-                        $insertData['caption'] = $caption;
-                        $insertData['rulerID'] = $rulerID;
-                        $insertData['created'] = $this->getTimeForForms();
-                        $insertData['createdBy'] = $this->getIdentityForForms();
+                        $insertData = $form->getValues();
                         $insertData['filesize'] = $filesize;
-                        foreach ($insertData as $key => $value) {
-                            if (is_null($value) || $value == "") {
-                                unset($insertData[$key]);
-                            }
-                        }
-                        $location = './assets/rulers/';
-                        $largepath = './assets/rulers/resized/';
-                        $smallpath = './assets/rulers/thumbnails/';
-                        $name = substr($filename, 0, strrpos($filename, '.'));
-
-                        $ext = '.jpg';
-
-                        $converted = $name . $ext;
-                        $convertlarge = $largepath . $converted;
-                        $original = $location . $converted;
-                        $convertsmall = $smallpath . $converted;
-                        //create medium size
-                        $phMagick = new phMagick($original, $convertlarge);
-                        $phMagick->resize(300, 0);
-                        //create thumbnail size
-                        $phMagick = new phMagick($original, $convertsmall);
-                        $phMagick->resize(100, 0);
-                        $phMagick->convert();
-
-                        //Zoom it baby
                         $rulers = new RulerImages();
                         $upload->receive();
-                        $rulers->insert($insertData);
+                        $rulers->add($insertData);
                         $this->getFlash()->addMessage('The image has been resized.');
                         $this->redirect($this->_redirectUrl . 'romanruler/id/' . $this->getParam('rulerid'));
                     } else {

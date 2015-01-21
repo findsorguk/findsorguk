@@ -64,7 +64,7 @@ $this->dataEditDeleteCheck()->setInstitution($this->finds[0]['institution'])
             <?php echo $this->partial('partials/database/rallies/rallyFind.phtml', $this->finds[0]); ?>
 
             <!-- Personal data -->
-            <?php echo $this->partial('partials/database/structural/personal.phtml', $this->finds[0]) ?>
+            <?php echo $this->partial('partials/database/structural/personal.phtml', $this->finds[0]); ?>
 
 
             <!-- Other references -->
@@ -117,6 +117,35 @@ echo $this->coinDataDisplay()
 
 
         </div>
+
+        <!-- End of the image pane -->
+        <div class="sketchfab" >
+        <!-- Start of Sketchfab -->
+        <?php if (empty($this->sketchfab)): ?>
+
+    <?php
+    echo $this->sketchFabAddLink()
+        ->setFindID($this->finds[0]['secuid'])
+        ->setReturnID($this->finds[0]['id'])
+        ->setType('artefacts')
+        ->setInstitution($this->finds[0]['institution'])
+        ->setCreatedBy($this->finds[0]['createdBy']);
+    ?>
+<?php else: ?>
+    <?php $sketchfab = array_slice($this->sketchfab, 0, 1); ?>
+    <?php echo $this->partial('partials/database/3D/sketchFabModel.phtml', $sketchfab[0]); ?>
+    <?php if (sizeof($this->sketchfab) > 1): ?>
+        <h4 class="lead">More 3D models</h4>
+        <?php foreach (array_slice($this->sketchfab, 1) as $sf): ?>
+
+            <?php echo $this->sketchFabThumbnail()->setModelID($sf['modelID']); ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+</div>
+        <!-- End of Sketchfab -->
+
+
         <!-- Start of image pane -->
         <div class="span3" id="imagepane">
 
@@ -128,9 +157,9 @@ echo $this->coinDataDisplay()
     <?php if (sizeof($this->thumbs) > 1): ?>
 
         <!-- Start small thumbnails -->
-            <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', array_slice($this->thumbs, 1)); ?>
+        <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', array_slice($this->thumbs, 1)); ?>
         <!-- End small thumbnails -->
-        <hr />
+        <hr/>
     <?php endif; ?>
 
     <h4>
@@ -157,30 +186,7 @@ echo $this->imageLink()->setFindID($this->finds[0]['id'])
 ?>
             <!-- End of image link if appropriate -->
         </div>
-        <!-- End of the image pane -->
-        <!-- Start of Sketchfab -->
-        <?php if (empty($this->sketchfab)): ?>
-    <?php
-        echo $this->sketchFabAddLink()
-            ->setFindID($this->secuid)
-            ->setReturnID($this->id)
-            ->setType('artefacts')
-            ->setInstitution($this->institution)
-            ->setCreatedBy($this->createdBy);
-    ?>
-    <?php else:?>
-    <?php echo $this->partialLoop('partials/database/3D/sketchFabModel.phtml', $this->sketchfab); ?>
-    <?php
-    echo $this->sketchFabAddEditDeleteLink()
-        ->setFindID($this->secuid)
-        ->setReturnID($this->id)
-        ->setType('artefacts')
-        ->setInstitution($this->institution)
-        ->setCreatedBy($this->createdBy);
-    ?>
-<?php endif; ?>
 
-        <!-- End of Sketchfab -->
     </div>
     <!--  End of descriptive data -->
 

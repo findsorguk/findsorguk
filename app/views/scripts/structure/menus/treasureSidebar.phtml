@@ -65,7 +65,7 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'valuation-and-reward'), 'treasure', true); ?>"
                        title="Valuation and reward">Valuation and reward</a>
                 </li>
-                <li <?php echo $this->currentPage()->active('treasure', 'minutes', 'index', 'acquisition-and-closure'); ?>>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'acquisition-and-closure'); ?>>
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'info', 'slug' => 'acquisition-and-closure'), 'treasure', true); ?>"
                        title="Acquisition and closure">Acquisition and closure</a>
                 </li>

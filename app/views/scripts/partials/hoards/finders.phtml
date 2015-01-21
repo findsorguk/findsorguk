@@ -12,9 +12,9 @@ if (isset($this->finders[0]['finderID'])):?>
                     Found by: <span property="pas:finder foaf:name"
                                     instanceof="foaf:person"><?php echo $this->escape($finder['title']); ?>
                         <?php echo $this->escape($finder['forename']); ?>
-                        <?php echo $this->escape($finder['surname']); ?></span> - <a href="
+                        <?php echo $this->escape($finder['surname']); ?></span> <a href="
                     <?php echo $this->url(array('module' => 'database', 'controller' => 'search',
-                        'action' => 'results', 'finderID' => $finder['finderID']), null, true); ?>" title="View other discoveries"><i class="icon-info-sign"></i></a><br/>
+                        'action' => 'results', 'finderID' => $finder['finderID']), null, true); ?>" title="View other discoveries"><i class="icon-search"></i></a><br/>
                 <?php endforeach; ?>
             </p>
         <?php endif; ?>

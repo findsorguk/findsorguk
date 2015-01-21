@@ -348,7 +348,7 @@ class Findspots extends Pas_Db_Table_Abstract {
             $results = $conversion->convert();
             $fourFigure = new Pas_Geo_Gridcalc($results['fourFigureGridRef']);
             $fourFigureData = $fourFigure->convert();
-            $place = new Pas_Service_Geo_Geoplanet($this->_appid);
+            $place = new Pas_Service_Geo_GeoPlanet($this->_appid);
             $geoHash = new Pas_Geo_Hash();
             $hash = $geoHash->encode($results['decimalLatLon']['decimalLatitude'],
             $results['decimalLatLon']['decimalLongitude']);
@@ -483,5 +483,16 @@ class Findspots extends Pas_Db_Table_Abstract {
                 ->where('elevation IS NULL')
                 ->limit($limit);
         return $findspots->fetchAll($select);
+    }
+
+    public function getNewData($institution) {
+        $findspotdata = $this->getAdapter();
+        $select = $findspotdata->select()
+            ->from($this->_name)
+            ->where('findspots.institution = ?', $institution)
+            ->where('gridref IS NOT NULL')
+            ->where('fourFigureLat IS NULL')
+            ->limit('1000');
+        return $findspotdata->fetchAll($select);
     }
 }

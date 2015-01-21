@@ -158,7 +158,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
 
     /** Get the findspots model
      * @access public
-     * @return \Findspost
+     * @return \Findspots
      */
     public function getFindspots()
     {
@@ -214,10 +214,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->deny('public', array('add', 'edit'));
-        $this->_helper->_acl->allow('public', array(
-            'index', 'record', 'error',
-            'notifyflo'
-        ));
+        $this->_helper->_acl->deny('member', array('add', 'edit'));
+        $this->_helper->_acl->allow('public', array('index', 'error', 'notifyflo'));
         $this->_helper->_acl->allow('member', null);
 
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false)
@@ -240,14 +238,41 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->getResponse()->setHttpResponseCode(301)
-            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
-        $this->redirect('database/search/results/');
+        if ($this->_user) {
+            $role = $this->_user->role;
+        } else {
+            $role = NULL;
+        }
+        if (!in_array($role, array('admin', 'fa', 'hoard'))) {
+            $this->getFlash()->addMessage('No access to that resource');
+            $this->getResponse()->setHttpResponseCode(301)
+                ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+            $this->redirect('database/search/results/');
+        } else {
+            $form = new SolrForm();
+            $form->q->setLabel('Search our database: ');
+            $form->setMethod('post');
+            $this->view->form = $form;
+            if ($this->getRequest()->isPost()
+                && $form->isValid($this->_request->getPost())
+            ) {
+                $functions = new Pas_ArrayFunctions();
+                $params = $functions->array_cleanup($form->getValues());
+                $params['objectType'] = 'HOARD';
+                $this->getFlash()->addMessage('Your search is complete');
+                $this->_helper->Redirector->gotoSimple(
+                    'results', 'search', 'database', $params);
+            } else {
+                $form->populate($this->_request->getPost());
+            }
+        }
     }
 
     /** Display individual hoard record
      * @access public
      * @return void
+     * @throws Pas_Exception_NotAuthorised
+     * @throws Pas_Exception_Param
      */
     public function recordAction()
     {
@@ -345,7 +370,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     /** Edit a hoard
      * @access public
      * @return void
-     * @todo move update logic to model finds.php
+     * @throws Pas_Exception_Param
      */
     public function editAction()
     {
@@ -440,6 +465,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     /** Links an artefact record to a hoard record
      * @access public
      * @return void
+     * @throws Pas_Exception_Param
      */
     public function linkAction()
     {
@@ -449,9 +475,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
             $this->view->form = $form;
 
             if ($this->_request->isPost()) {
-                $formData = $this->_request->getPost();
 
-                if ($form->isValid($formData)) {
+                if ($form->isValid($this->_request->getPost())) {
                     // The secuid of the hoard is retrieved from the url
                     $updateData['hoardID'] = $this->getParam('hoardID');
 
@@ -466,9 +491,11 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                     // Update the Find table with the hoard secuid
                     $this->getFinds()->linkFind($updateData, $findID);
 
-                    // $this->_helper->solrUpdater->update('objects', $findID);
+                    $this->_helper->solrUpdater->update('objects', $findID);
                     $this->getFlash()->addMessage('Success! Coin, artefact or container linked to this hoard');
                     $this->redirect('/database/hoards/record/id/' . $this->getParam('id'));
+                } else {
+                    $form->populate($this->_request->getPost());
                 }
             }
         } else {
@@ -498,7 +525,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                     // The artefact is unlinked
                     $this->getFinds()->unlinkFind($findID);
 
-                    //	$this->_helper->solrUpdater->update('finds', $findID);
+                    $this->_helper->solrUpdater->update('finds', $findID);
 
                     $this->getFlash()->addMessage('Link deleted!');
                     $this->redirect('/database/hoards/record/id/' . $this->getParam('hoardID'));
@@ -564,7 +591,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         'FindsAudit',
                         $this->getParam('id'),
                         $this->getParam('id'));
-                    // $this->_helper->solrUpdater->update('objects', $this->getParam('findID'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('findID'));
                     $this->getFlash()->addMessage('Workflow status changed');
                     $this->redirect('database/hoards/record/id/' . $this->getParam('id'));
                     $this->_request->setMethod('GET');

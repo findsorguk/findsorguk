@@ -76,8 +76,7 @@ class Pas_View_Helper_OnlineAccountHtmlPublic extends Zend_View_Helper_Abstract
         $html = '';
         $html .= '<p>Social profiles: ';
         $html .= '<div class="btn-group">';
-        $html .= $this->view->partialLoop('partials/contacts/foafAccts.phtml',
-            $data);
+        $html .= $this->view->partialLoop('partials/contacts/foafAccts.phtml', $data);
         $html .= '</div>';
         $html .= '</p>';
         return $html;

@@ -107,8 +107,13 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
      */
     public function getData()
     {
-        $smr = new ScheduledMonuments();
-        return $smr->getSMRSNearby($this->getLat(), $this->getLon(), $this->getDistance());
+        $coords = array($this->getLat(), $this->getLon());
+        if(array_filter($coords)) {
+            $smr = new ScheduledMonuments();
+            return $smr->getSMRSNearby($this->getLat(), $this->getLon(), $this->getDistance());
+        } else {
+            return false;
+        }
     }
 
     /** The main function
@@ -138,6 +143,10 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
 
     public function __toString()
     {
-        return $this->buildHtml($this->getData());
+        try {
+            return $this->buildHtml($this->getData());
+        } catch (Exception $e) {
+
+        }
     }
 }

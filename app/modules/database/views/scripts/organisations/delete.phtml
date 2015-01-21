@@ -4,7 +4,7 @@
 <p>Are you sure that you want to delete
 '<?php echo $this->escape($this->organisation->name); ?>' 
 </p>
-<form action="<?php echo $this->url(array('module' => 'database','controller' => 'organisations','action'=>'deleteorganisation'),null,true); ?>"
+<form action="<?php echo $this->url(array('module' => 'database','controller' => 'organisations','action'=>'delete'),null,true); ?>"
 method="post">
 <div>
 <input type="hidden" name="id" value="<?php echo $this->organisation->id; ?>" />
