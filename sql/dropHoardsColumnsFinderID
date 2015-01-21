@@ -1,0 +1,2 @@
+ALTER TABLE `hoards` DROP COLUMN `finderID`;
+ALTER TABLE `hoards` DROP COLUMN `finder2ID`;
