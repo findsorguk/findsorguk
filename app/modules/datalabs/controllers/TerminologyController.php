@@ -1025,7 +1025,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function weartypeAction()
     {
-        if($this->getParam('id', false)) {
+        if ($this->getParam('id', false)) {
             $wear = new WearTypes();
             $this->view->wear = $wear->getWearType($this->getParam('id'));
         } else {
