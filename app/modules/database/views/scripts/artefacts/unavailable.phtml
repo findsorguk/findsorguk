@@ -1,0 +1,13 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 21/01/15
+ * Time: 10:05
+ */
+$this->headTitle('Unavailable record');
+$this->metaBase()->setDescription('This record is unavailable to you at present')->generate();
+?>
+<h2 class="lead"><?php echo $this->title();?>: <?php echo $this->finds[0]['old_findID'];?></h2>
+
+<p>This record is currently unavailable to view for your access levels. Please contact the relevant FLO to gain access.</p>

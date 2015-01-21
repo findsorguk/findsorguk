@@ -263,6 +263,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $redirects = new Pas_Controller_Action_Helper_LoginRedirect();
         Zend_Controller_Action_HelperBroker::addHelper($redirects);
 
+        $available = new Pas_Controller_Action_Helper_AvailableOrNot();
+        Zend_Controller_Action_HelperBroker::addHelper($available);
+
     }
 
     /** Set up rest routing

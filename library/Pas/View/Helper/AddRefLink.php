@@ -340,7 +340,7 @@ class Pas_View_Helper_AddRefLink extends Zend_View_Helper_Abstract {
         $html .= '<a class="btn btn-small btn-primary" href="';
         $html .= $url;
         $html .= '" title="Add a reference"';
-        $html .= ' accesslkey="r">';
+        $html .= ' accesskey="r">';
         $html .= 'Add a reference</a></div>';
         return $html;
     }

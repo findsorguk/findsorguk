@@ -154,7 +154,7 @@ class Hoards extends Pas_Db_Table_Abstract
         while ($i > 0) {
             try {
                 $insert = $this->add($insertData);
-                $insertFinders = $findersTable->addFinders($findersData);
+                $findersTable->addFinders($findersData);
                 break;
             } catch (Zend_Db_Exception $e) {
                 $code = $e->getCode();
@@ -211,7 +211,7 @@ class Hoards extends Pas_Db_Table_Abstract
 
         try {
             $update = $this->update($updateData, $where);
-            $updateFinders = $findersTable->updateFinders($findersData);
+            $findersTable->updateFinders($findersData);
         } catch (Zend_Db_Exception $e) {
             return 'error';
         }

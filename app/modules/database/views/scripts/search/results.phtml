@@ -38,6 +38,7 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
             <div class="span3" id="resultsSidebar">
                 <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
                 <?php echo $this->thumbnailToggler(); ?>
+                <?php echo $this->threeDToggler();?>
                 <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
                 <p>
                     Total results available: <?php echo number_format($this->paginator->getTotalItemCount()); ?><br/>

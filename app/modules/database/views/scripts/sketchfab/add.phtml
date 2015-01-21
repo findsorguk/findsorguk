@@ -8,5 +8,15 @@
 $this->headTitle('Add a SketchFab 3D model to a record');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
-<h2 class="lead"><?php echo $this->title();?></h2>
-<?php echo $this->form;?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php
+$params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+?>
+
+    <a class="btn btn-success"
+       href="<?php echo $this->url(array(
+           'module' => 'database',
+           'controller' => 'artefacts',
+           'action' => 'record', 'id' => $params['returnID']), null, true); ?>"
+       title="return to the record">Return to record</a>
+<?php echo $this->form; ?>
