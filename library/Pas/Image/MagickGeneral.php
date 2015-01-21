@@ -9,16 +9,13 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @uses Imagecow
- * @uses Pas_User_Details
- * @uses Pas_Image_Exception
- * @uses Pas_Image_Rename
  *
  */
 
 use Imagecow\Image;
 
 
-class Pas_Image_Magick
+class Pas_Image_MagickGeneral
 {
 
     /** Set up array of sizes */
@@ -38,8 +35,6 @@ class Pas_Image_Magick
     /** Basename of file */
     protected $_basename;
 
-    /** The record number to create the thumbnail */
-    protected $_imageNumber;
 
     /** Allowed mime types */
     protected $_mimeTypes = array(
@@ -94,8 +89,7 @@ class Pas_Image_Magick
     }
 
     /** Get the user
-     * @access public
-     * @return object
+     * @
      */
     public function getUser()
     {
@@ -105,7 +99,7 @@ class Pas_Image_Magick
 
     /** Set up the image
      * @access public
-     * @param string $image
+     * @param unknown_type $image
      */
     public function setImage($image)
     {
@@ -116,33 +110,8 @@ class Pas_Image_Magick
         return $this;
     }
 
-    /** Set the image id number
-     * @access public
-     * @return int
-     * @throws Pas_Image_Exception
-     */
-    public function setImageNumber($id)
-    {
-        if (is_int($id)) {
-            $this->_imageNumber = $id;
-        } else {
-            throw new Pas_Image_Exception('No file to create', 500);
-        }
-        return $this;
-    }
-
-    /** Get the image number
-     * @access public
-     * @return int
-     */
-    public function getImageNumber()
-    {
-        return $this->_imageNumber;
-    }
-
     /** get the image
-     * @access public
-     * @return string Path to file
+     *
      */
     public function getImage()
     {
@@ -150,18 +119,13 @@ class Pas_Image_Magick
         return $this->_original;
     }
 
-    /** Get the array of mime types accepted
-     * @access public
-     * @return array
-     */
     public function getMimeTypes()
     {
         return $this->_mimeTypes;
     }
 
-    /** Get the basename of the image minus extension
-     * @access public
-     * @return strinb
+    /** get the basename of the image minus extension
+     *
      */
     public function getBasename()
     {
@@ -170,9 +134,7 @@ class Pas_Image_Magick
     }
 
     /** Get the user's path
-     * @access public
-     * @return string
-     * @throws Pas_Image_Exception
+     *
      */
     public function getUserPath()
     {
@@ -183,7 +145,7 @@ class Pas_Image_Magick
             //Check if exists
             if (is_null($user)) {
                 //If not throw exception
-                throw new Pas_Image_Exception('No upload directory for that user');
+                throw new Zend_Exception('No upload directory for that user');
             }
             $this->_userPath = '/' . $user->username;
         } else {
@@ -192,27 +154,24 @@ class Pas_Image_Magick
         return $this->_userPath;
     }
 
-    /** Get the directory path
-     * @return string
-     * @access public
+    /**
+     * @return mixed
      */
     public function getDirectoryPath()
     {
         return $this->_directoryPath;
     }
 
-    /** Set the directory path
-     * @access public
-     * @param string $directoryPath
-     * @throws Zend_Exception
+    /**
+     * @param mixed $directoryPath
      */
     public function setDirectoryPath($directoryPath)
     {
         if (!is_dir($directoryPath)) {
-            throw new Pas_Image_Exception('That directory path does not exist', 500);
+            throw new Exception('That directory path does not exist', 500);
         }
         if (!is_writable($directoryPath)) {
-            throw new Pas_Image_Exception('That directory is not writable', 500);
+            throw new Exception('That directory is not writable', 500);
         }
         $this->_directoryPath = $directoryPath;
         return $this;
@@ -220,8 +179,7 @@ class Pas_Image_Magick
 
 
     /** Check directories exist for a user
-     * @access public
-     * @return void
+     *
      */
     public function checkDirectories()
     {
@@ -237,11 +195,6 @@ class Pas_Image_Magick
         return $this;
     }
 
-    /** Check permissions for the user directories
-     * @access public
-     * @return void
-     * @throws Pas_Image_Exception
-     */
     public function checkPermissions()
     {
         //For each directory in the list, check that the directory exists
@@ -251,17 +204,14 @@ class Pas_Image_Magick
             //Check if directory exists and if not create.
             if (!is_writable($directory)) {
                 chmod($directory, self::PERMS);
-            } else {
-                throw new Pas_Image_Exception('The directory ' . $directory . ' is not writable', 500);
             }
         }
         return $this;
     }
 
     /** Create the different sizes of images
-     * @access public
-     * @throws Pas_Image_Exception
-     * @return void
+     *
+     * @param $image
      */
 
     public function resize()
@@ -270,28 +220,20 @@ class Pas_Image_Magick
         $image = $this->getImage();
         // If image parameter not set, throw exception
         if (is_null($image)) {
-            throw new Pas_Image_Exception('You must specify an image', 500);
+            throw new Zend_Exception('You must specify an image', 500);
         }
 
         //Check file exists and if not throw exception
         if (!file_exists($image)) {
-            throw new Pas_Image_Exception('That image does not exist', 500);
+            throw new Zend_Exception('That image does not exist', 500);
         }
         //Make directory check for existence
         $this->checkDirectories();
         // Make directory check for permissions
         $this->checkPermissions();
-
         //Loop through each size and create the image
         foreach ($this->getSizes() as $resize) {
-            // Set the file name
-            if ($resize['destination'] == self::THUMB) {
-                // Thumbnail sets record number as thumbnail ID
-                $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getImageNumber() . self::EXT;
-            } else {
-                // Normal base name otherwise
-                $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getBasename();
-            }
+            $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getBasename();
             // Set up the image creation class using imagick
             $surrogate = Image::create($this->getImage(), 'Imagick');
             // Get the mime type
