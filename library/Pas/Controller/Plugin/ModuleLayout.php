@@ -89,7 +89,7 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
                 $response->insert('messages', $view->render('structure/messages.phtml'));
                 $response->insert('contexts', $view->render('structure/contexts.phtml'));
                 $response->insert('analytics', $view->render('structure/analytics.phtml'));
-                $response->insert('searchfacet', $view->render('structure/facetSearch.phtml'));
+                //$response->insert('searchfacet', $view->render('structure/facetSearch.phtml'));
                 $response->insert('announcements', $view->render('structure/announcements.phtml'));
                 $response->insert('bronzeage', $view->render('structure/bronzeAgeWidget.phtml'));
                 $response->insert('staffs', $view->render('structure/staffordshireHoardWidget.phtml'));
