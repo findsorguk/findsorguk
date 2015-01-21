@@ -4,7 +4,7 @@
             'controller' => 'stories',
             'action' => 'article',
             'id' => $this->id), 'default', true); ?>"
-                                      title="Read more on this story"><?php echo $this->ellipsisstring()->setString($this->title)->setMax(100); ?></a>
+                                      title="Read more on this story"><?php echo $this->ellipsisString()->setString($this->title)->setMax(100); ?></a>
     </h2>
 
     <h3 class="muted"><?php echo $this->timeAgoInWords($this->datePublished); ?></h3>

@@ -19,7 +19,7 @@ foreach ($this->finds as $find) {
         'guid' => $this->serverUrl() . $this->baseUrl() .'/database/artefacts/record/id/' . $find['id'],
         'description' => $this->ellipsisString()->setString(strip_tags($find['description'])),
         'lastUpdate' => strtotime($find['updated']),
-        'content' => $this->ellipsisstring()->setString(strip_tags($find['description'])),
+        'content' => $this->ellipsisString()->setString(strip_tags($find['description'])),
         );
     }
 $feed = Zend_Feed::importArray($feedArray,'atom');
