@@ -25,6 +25,6 @@ $url = $this->url($params, null, true);
     Created by username: <a
         href="/users/named/person/as/<?php echo $this->username; ?>"><?php echo $this->username; ?></a> Search saved for
     reuse: <span class="published timestamp"
-                 data="{time:'<?php echo date('W3C', $this->created); ?>'}">
+                 data="{time:'<?php echo date('W3C', strtotime($this->created)); ?>'}">
 <?php echo $this->timeAgoInWords($this->created); ?></span>
 </div>
