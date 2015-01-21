@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for displaying name or the Latin phrase
  *
@@ -17,7 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see Zend_View_Helper_Abstract
  */
-
 class Pas_View_Helper_NameThem extends Zend_View_Helper_Abstract
 {
     /** The name to present
@@ -30,7 +30,8 @@ class Pas_View_Helper_NameThem extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->_name;
     }
 
@@ -39,7 +40,8 @@ class Pas_View_Helper_NameThem extends Zend_View_Helper_Abstract
      * @param string $name
      * @return \Pas_View_Helper_NameThem
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->_name = $name;
         return $this;
     }
@@ -48,7 +50,8 @@ class Pas_View_Helper_NameThem extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         $html = '';
         if (!$this->getName()) {
             $html = '<em>Nemo hic adest illius nominis</em>';
@@ -62,7 +65,8 @@ class Pas_View_Helper_NameThem extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_Namethem
      */
-    public function nameThem() {
+    public function nameThem()
+    {
         return $this;
     }
 }
