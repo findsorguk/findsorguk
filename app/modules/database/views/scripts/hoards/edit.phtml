@@ -65,6 +65,14 @@ $(document).ready(function() {
         }
     );
 
+    // Show the Remove Finder button on error repopulate if more than 1 finder
+    if($("#hiddenfield").val() > 2) {
+    $("#removeFinder").attr('class', "btn btn-warning")
+    };
+    // Hide the Add Finder button on error repopulate if more than 10 finders
+    if($("#hiddenfield").val() >= 11) {
+    $("#addFinder").attr('class', "btn btn-info hidden")
+    };
 
 });
 
