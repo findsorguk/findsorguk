@@ -134,7 +134,8 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         'featureDateYear1' => 'Feature dating from',
         'featureDateYear2' => 'Feature dating to',
         'legacyID' => 'Legacy hoard database ID number',
-        'lastRulerID' => 'Last ruler present in hoard'
+        'lastRulerID' => 'Last ruler present in hoard',
+        '3D' => '3D content ready'
 
     );
 
@@ -340,6 +341,9 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
                     break;
                 case 'thumbnail':
                     $params[$key] = 'Only records with images please';
+                    break;
+                case '3D':
+                    $params[$key] = 'Only records with 3D please';
                     break;
                 case 'surface':
                     $params[$key] = $this->getData('Surftreatments', 'term', $value);
