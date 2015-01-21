@@ -82,14 +82,14 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
 
             }
             if (!$route instanceOf Zend_Rest_Route) {
-                //$response->insert('userdata', $view->render('structure/userData.phtml'));
+                $response->insert('userdata', $view->render('structure/userData.phtml'));
                 $response->insert('breadcrumb', $view->render('structure/breadcrumb.phtml'));
                 $response->insert('navigation', $view->render('structure/navigation.phtml'));
                 $response->insert('footer', $view->render('structure/footer.phtml'));
                 $response->insert('messages', $view->render('structure/messages.phtml'));
                 $response->insert('contexts', $view->render('structure/contexts.phtml'));
                 $response->insert('analytics', $view->render('structure/analytics.phtml'));
-                //$response->insert('searchfacet', $view->render('structure/facetSearch.phtml'));
+                $response->insert('searchfacet', $view->render('structure/facetSearch.phtml'));
                 $response->insert('announcements', $view->render('structure/announcements.phtml'));
                 $response->insert('bronzeage', $view->render('structure/bronzeAgeWidget.phtml'));
                 $response->insert('staffs', $view->render('structure/staffordshireHoardWidget.phtml'));
