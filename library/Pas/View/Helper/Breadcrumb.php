@@ -271,6 +271,12 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'allentypes':
                 $clean = 'Allen types';
                 break;
+            case 'Accreditedmuseums':
+                $clean = 'Accredited museums';
+                break;
+            case 'faq':
+                $clean = 'Frequently asked questions';
+                break;
             default:
                 $clean = ucfirst($this->getController());
                 break;
@@ -485,7 +491,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'medruler':
                 $clean = 'Medieval ruler';
                 break;
-            case 'accreditedmuseums':
+            case 'Accreditedmuseums':
                 $clean = 'Accredited museums';
                 break;
             case 'faq':
