@@ -4,9 +4,6 @@
 [submodule "library/HTMLPurifier"]
 	path = library/HTMLPurifier
 	url = git://github.com/ezyang/htmlpurifier.git
-[submodule "library/Solarium"]
-	path = library/Solarium
-	url = git://github.com/basdenooijer/solarium.git
 [submodule "library/EasyBib"]
 	path = library/EasyBib
 	url = git://github.com/easybib/EasyBib_Form_Decorator.git

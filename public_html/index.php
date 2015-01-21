@@ -61,6 +61,7 @@ set_include_path(
         . PATH_SEPARATOR . '../library/mPDF/'
         . PATH_SEPARATOR . '../library/easyrdf/lib/'
         . PATH_SEPARATOR . '../library/imagecow/'
+        . PATH_SEPARATOR . '../library/Solarium/'
         . PATH_SEPARATOR . '../app/models/'
         . PATH_SEPARATOR . '../app/forms/'
         . PATH_SEPARATOR . get_include_path()
@@ -76,6 +77,7 @@ $loader = new ZendX_Loader_StandardAutoloader(array(
         'Imagecow' => '../library/imagecow/src/',
         'easyRDF' => '../library/easyrdf/lib/',
         'mPDF' => '../library/mPDF/',
+        'Solarium' => '../library/Solarium/'
     ),
     'namespaces' => array(
         'Imagecow' => '../library/imagecow/src/',
