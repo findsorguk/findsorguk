@@ -32,7 +32,9 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
 
     protected $_allowedRoles = array('flos', 'admin', 'hoard', 'fa');
 
-    protected $_notAllowedRoles = array('public', 'her', 'research', 'member');
+    protected $_notAllowedRoles = array('public', 'her', 'research');
+
+    protected $_veryRestricted = array(NULL, 'member');
 
     public function getUser()
     {
@@ -74,10 +76,12 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
         if (is_array($data)) {
             if (array_key_exists('secwfstage', $data[0])) {
                 $workflow = $data[0]['secwfstage'];
-                if(!array_key_exists('objecttype', $data[0])){
+                if (!array_key_exists('objecttype', $data[0])) {
                     $data[0]['objecttype'] = 'HOARD';
                 }
-                if (in_array($this->getRole(), $this->_notAllowedRoles) && ($this->getUserId() != $data[0]['createdBy'])) {
+                if (in_array($this->getRole(), $this->_notAllowedRoles) && ($this->getUserId() != $data[0]['createdBy']) && in_array($workflow, $this->_allowed )) {
+                    $this->urlSend($data[0]['id'], $data[0]['objecttype']);
+                } elseif (in_array($this->getRole(), $this->_veryRestricted) && in_array($workflow, $this->_restricted)) {
                     $this->urlSend($data[0]['id'], $data[0]['objecttype']);
                 } elseif (!in_array($this->getRole(), $this->_allowedRoles) && in_array($workflow, $this->_restricted)) {
                     $this->urlSend($data[0]['id'], $data[0]['objecttype']);
