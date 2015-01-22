@@ -28,7 +28,7 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
 
     protected $_role = NULL;
 
-    protected $_userID = 3;
+    protected $_userID = '3';
 
     protected $_allowedRoles = array('flos', 'admin', 'hoard', 'fa');
 
@@ -46,18 +46,14 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
     {
         if ($this->getUser()) {
             $this->_role = $this->getUser()->getRole();
-        } else {
-            $this->_role = NULL;
         }
         return $this->_role;
     }
 
     protected function getUserId()
     {
-        if (!is_null($this->getUser())) {
+        if (!$this->getUser()) {
             $this->_userID = $this->getUser()->getPerson()->id;
-        } else {
-            $this->_userID = NULL;
         }
         return $this->_userID;
     }
@@ -79,17 +75,17 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
                 if (!array_key_exists('objecttype', $data[0])) {
                     $data[0]['objecttype'] = 'HOARD';
                 }
+//                Zend_Debug::dump($this->getRole());
+//                Zend_Debug::dump($workflow);
+//                exit;
                 // Not allowed roles, and not the creator of the record
-                if (in_array($this->getRole(), $this->_notAllowedRoles)
-                    && ($this->getUserId() != $data[0]['createdBy'])
-                    && in_array($workflow, $this->_allowed )) {
-                    $this->urlSend($data[0]['id'], $data[0]['objecttype']);
+                if (in_array($this->getRole(), $this->_notAllowedRoles) && !in_array($workflow, $this->_restricted )) {
+                    return false;
                 //In the restricted roles
-                } elseif (in_array($this->getRole(), $this->_veryRestricted)
-                    && in_array($workflow, $this->_restricted)) {
+                } elseif (in_array($this->getRole(), $this->_veryRestricted) && in_array($workflow, $this->_restricted)) {
                     $this->urlSend($data[0]['id'], $data[0]['objecttype']);
                 //In allowed roles can see
-                } elseif (!in_array($this->getRole(), $this->_allowedRoles)) {
+                } elseif (in_array($this->getRole(), $this->_allowedRoles)) {
                     return false;
                 } else {
                     $this->urlSend($data[0]['id'], $data[0]['objecttype']);
