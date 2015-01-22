@@ -67,7 +67,7 @@ class GreekRomanSearchForm extends Pas_Form {
 	$mints = new Mints();
 	$mint_options = $mints->getMintsGreek();
 
-	$axis = new DieAxes();
+	$axis = new Dieaxes();
 	$axis_options = $axis->getAxes();
 
 	$regions = new OsRegions();

@@ -725,7 +725,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function getDieAxes()
     {
-        $this->_dieAxes = new DieAxes();
+        $this->_dieAxes = new Dieaxes();
         return $this->_dieAxes;
     }
 

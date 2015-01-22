@@ -65,7 +65,7 @@ class MedNumismaticSearchForm extends Pas_Form {
 	$mints = new Mints();
 	$mint_options = $mints->getMedievalMints();
 
-	$axis = new DieAxes();
+	$axis = new Dieaxes();
 	$axis_options = $axis->getAxes();
 
 	$cats = new CategoriesCoins();

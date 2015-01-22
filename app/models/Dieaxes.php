@@ -6,7 +6,7 @@
  * 
  * <code>
  * <?php
- * $model = new DieAxes();
+ * $model = new Dieaxes();
  * $data = $model->getDieList();
  * ?>
  * </code>

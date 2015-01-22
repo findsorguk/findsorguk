@@ -50,7 +50,7 @@ class RomanNumismaticSearchForm extends Pas_Form {
         $mints = new Mints();
         $mint_options = $mints->getRomanMints();
 
-        $axes = new DieAxes();
+        $axes = new Dieaxes();
         $axis_options = $axes->getAxes();
 
         $reeces = new Reeces();

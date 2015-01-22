@@ -14,7 +14,7 @@ echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
     <div class="row-fluid">
 
         <!-- The descriptive bit for the record, generates meta data -->
-        <?php echo $this->partialLoop('partials/hoards/recordHeadTitle.phtml', array('hoards' => $this->hoards)); ?>
+        <?php echo $this->partialLoop('partials/hoards/recordHeadTitleHoards.phtml', array('hoards' => $this->hoards)); ?>
 
         <!-- The zotero data -->
         <?php echo $this->partialLoop('partials/hoards/zoteroRecord.phtml', array('hoards' => $this->hoards)); ?>
