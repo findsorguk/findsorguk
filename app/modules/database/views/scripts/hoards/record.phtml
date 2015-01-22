@@ -29,7 +29,7 @@ echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
 
             <div class="span8">
                 <!-- Header of section displaying unique ID and workflow  -->
-                <?php echo $this->partial('partials/hoards/hoardsh2section.phtml', $this->hoards); ?>
+                <?php echo $this->partial('partials/hoards/hoardsH2Section.phtml', $this->hoards); ?>
                 <!-- Notification message if public record -->
                 <?php //echo $this->notifyFloPublic($this->finds['0']['institution'],$this->finds['0']['id'],$this->finds['0']['secwfstage']);?>
                 <!-- Names the hoard is known as  -->
@@ -81,10 +81,10 @@ echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
         <div class="row-fluid">
 
             <!-- Summary details of the coins in the hoard -->
-            <?php echo $this->partial('partials/hoards/coinsummary.phtml', array('coinSummary' => $this->coinSummary, 'hoards' => $this->hoards)); ?>
+            <?php echo $this->partial('partials/hoards/coinSummary.phtml', array('coinSummary' => $this->coinSummary, 'hoards' => $this->hoards)); ?>
 
             <!-- Coin data quality rating -->
-            <?php echo $this->partial('partials/hoards/coindataquality.phtml', $this->coinDataQuality); ?>
+            <?php echo $this->partial('partials/hoards/coinDataQuality.phtml', $this->coinDataQuality); ?>
 
             <!-- The description of the object -->
             <?php echo $this->partial('partials/hoards/hoardsDescriptive.phtml', $this->hoardDescription); ?>
