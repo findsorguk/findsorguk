@@ -57,17 +57,18 @@ class Pas_View_Helper_PleiadesFlickrImages extends Zend_View_Helper_Abstract {
         $html = '';
         if (isset($pleiadesID)) {
             $photos = $this->_api->getMachineTagged('pleiades:depicts=' . $pleiadesID, 5);
-            if (array_key_exists('photo', $photos)) {
-                if(is_object($photos->photo)) {
-                    $photos = array($photos->photo);
-                } else {
-                    $photos = $photos->photo;
-                }
-                if (is_array($photos)) {
-                    $html .= '<div class="row-fluid"><h3 class="lead">Photos linked to this Pleiades ID</h3>';
-                    $html .= $this->view->partialLoop('partials/flickr/mints.phtml', $photos);
-                    $html .= '</div>';
-                    return $html;
+            if(!empty($photos)) {
+                if (array_key_exists('photo', $photos)) {
+                    if (is_object($photos->photo)) {
+                        $photos = array($photos->photo);
+                    } else {
+                        $photos = $photos->photo;
+                    }
+                    if (is_array($photos)) {
+                        $html .= '<div class="row-fluid"><h3 class="lead">Photos linked to this Pleiades ID</h3>';
+                        $html .= $this->view->partialLoop('partials/flickr/mints.phtml', $photos);
+                        $html .= '</div>';
+                    }
                 }
             }
         } 

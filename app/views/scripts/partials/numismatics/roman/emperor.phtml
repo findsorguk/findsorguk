@@ -4,14 +4,6 @@ $this->metaBase()->setDescription($this->title())->generate();
 if (!is_null($this->filename)) {
     list($w, $h) = getimagesize('./assets/rulers/resized/' . $this->escape($this->filename));
 }
-$this->twitterCard('summary')
-    ->setTitle($this->title())
-    ->setUrl($this->curUrl())
-    ->setDescription('Biographical and related data for ' . $this->name)
-    ->setImage($this->serverUrl() . './assets/rulers/resized/' . $this->escape($this->filename), $w, $h)
-    ->setSiteAccount('findsorguk', 15156713)
-    ->setCreatorAccount('portableant', 12640312)
-    ->create();
 $this->headLink()->appendAlternate($this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->pasID, 'format' => 'rss'), null, true), 'application/rss+xml', 'Latest finds for ' . $this->name . '- RSS Feed'); ?>
 <div about="nm:<?php echo $this->name; ?>" typeof="nm:roman_emperor" property="dcterms:partof"
      resource="roman_numismatics">

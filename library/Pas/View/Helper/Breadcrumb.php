@@ -202,6 +202,9 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'volunteerrecording':
                 $clean = 'Voluntary recording';
                 break;
+            case 'datalabs':
+                $clean = 'Data labs';
+                break;
             default:
                 $clean = ucfirst($this->getModule());
                 break;
