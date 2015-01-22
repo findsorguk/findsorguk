@@ -1,6 +1,7 @@
 <li class="span3">
     <div style="max-width:200px;">
-        <a href="/<?php echo $this->imagedir . 'medium/' . $this->filename; ?>" rel="lightbox" title="Thumbnail of <?php echo $this->old_findID; ?>">
+        <a href="/<?php echo $this->imagedir . 'medium/' . $this->filename; ?>" rel="lightbox"
+           title="Thumbnail of <?php echo $this->old_findID; ?>">
             <?php
             $thumb = IMAGE_PATH . '/thumbnails/' . $this->id . '.jpg';
             $location = './' . $this->imagedir . $this->id;
@@ -38,27 +39,37 @@
             <?php if (!is_null($this->licenseAcronym)): ?>
                 License terms: <?php echo $this->licenseAcronym; ?><br/>
             <?php endif; ?>
+            <?php if (file_exists($thumb)): ?>
+                <div class="btn-group">
+                    <a href="<?php echo $this->url(array(
+                        'module' => 'database',
+                        'controller' => 'ajax',
+                        'action' => 'download',
+                        'id' => $this->id), null, true); ?>"
+                       title="Download image" class="btn btn-mini btn-success">Download</a></span>
+                    <a href="<?php echo $this->url(array(
+                        'module' => 'database',
+                        'controller' => 'images',
+                        'action' => 'image',
+                        'id' => $this->id), null, true); ?>"
+                       title="View image and meta data" class="btn-mini btn">View</a>
+                </div>
+                <br/>
 
-            <span class="download"><a href="<?php echo $this->url(array('module' => 'database',
-                    'controller' => 'ajax',
-                    'action' => 'download', 'id' => $this->id), null, true); ?>"
-                                      title="Download image">Download</a></span> | <a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->id), null, true); ?>"
-                title="View image and meta data">View</a><br/>
-
-            <?php $auth = Zend_Auth::getInstance(); ?>
-            <?php if ($auth->hasIdentity()) : ?>
-                <?php
-                $user = $auth->getIdentity();
-                $allowed = array('flos', 'fa', 'admin');
-                ?>
-                <?php if (in_array($user->role, $allowed)): ?>
-                    <div class="btn-group">
-                        <a class="btn-mini btn btn-success"
-                           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->id), null, true); ?>">Edit</a>
-                        <a class="delete btn btn-mini btn-danger"
-                           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->id), null, true); ?>">Delete</a>
-                    </div>
+                <?php $auth = Zend_Auth::getInstance(); ?>
+                <?php if ($auth->hasIdentity()) : ?>
+                    <?php
+                    $user = $auth->getIdentity();
+                    $allowed = array('flos', 'fa', 'admin');
+                    ?>
+                    <?php if (in_array($user->role, $allowed)): ?>
+                        <div class="btn-group">
+                            <a class="btn-mini btn btn-success"
+                               href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->id), null, true); ?>">Edit</a>
+                            <a class="delete btn btn-mini btn-danger"
+                               href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->id), null, true); ?>">Delete</a>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
             <?php endif; ?>
         </div>
