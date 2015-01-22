@@ -21,7 +21,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         </tr>
         </thead>
         <tbody>
-        <?php echo $this->partialLoop('partials/numismatics/reverseTypeList.phtml', $this->reverses); ?>
+        <?php echo $this->partialLoop('partials/numismatics/roman/reverseTypeList.phtml', $this->reverses); ?>
         </tbody>
     </table>
 <?php else: ?>
@@ -41,7 +41,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         </tr>
         </thead>
         <tbody>
-        <?php echo $this->partialLoop('partials/numismatics/reverseTypeList.phtml', $this->uncommonreverses); ?>
+        <?php echo $this->partialLoop('partials/numismatics/roman/reverseTypeList.phtml', $this->uncommonreverses); ?>
     </table>
 <?php else: ?>
     <p>No uncommon reverses available.</p>
