@@ -38,7 +38,7 @@ class RomanCoinForm extends Pas_Form {
 	$statuses = new Statuses();
 	$status_options = $statuses->getCoinStatus();
 
-	$dies = new DieAxes();
+	$dies = new Dieaxes();
 	$die_options = $dies->getAxes();
 
 	$wears = new WearTypes;

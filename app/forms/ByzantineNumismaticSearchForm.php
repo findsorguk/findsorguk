@@ -65,7 +65,7 @@ class ByzantineNumismaticSearchForm extends Pas_Form {
         $mints = new Mints();
 	    $mint_options = $mints->getMintsByzantine();
 
-        $axis = new DieAxes();
+        $axis = new Dieaxes();
 	    $axis_options = $axis->getAxes();
 
 	    $regions = new OsRegions();

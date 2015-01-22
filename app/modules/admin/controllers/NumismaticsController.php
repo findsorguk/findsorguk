@@ -130,7 +130,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function dieaxesAction()
     {
-        $dieAxes = new DieAxes();
+        $dieAxes = new Dieaxes();
         $this->view->dieaxes = $dieAxes->getDieListAdmin();
     }
 
@@ -145,7 +145,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
         $this->view->form = $form;
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
-                $dieAxes = new DieAxes();
+                $dieAxes = new Dieaxes();
                 $dieAxes->add($form->getValues());
                 $this->getFlash()->addMessage('A new die axis term been created on the system!');
                 $this->redirect($this->_redirectUrl . 'dieaxes/');
@@ -169,7 +169,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
             $this->view->form = $form;
             if ($this->_request->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
-                    $dieAxes = new DieAxes();
+                    $dieAxes = new Dieaxes();
                     $where = array();
                     $where[] = $dieAxes->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $dieAxes->update($form->getValues(), $where);
@@ -183,7 +183,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 // find id is expected in $params['id']
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $dieaxes = new DieAxes();
+                    $dieaxes = new Dieaxes();
                     $dieaxis = $dieaxes->fetchRow('id=' . $id);
                     if (count($dieaxis)) {
                         $form->populate($dieaxis->toArray());
@@ -207,7 +207,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
-                $dieaxes = new DieAxes();
+                $dieaxes = new Dieaxes();
                 $where = 'id = ' . $id;
                 $dieaxes->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
@@ -216,7 +216,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
-                $dieaxes = new DieAxes();
+                $dieaxes = new Dieaxes();
                 $this->view->dieaxis = $dieaxes->fetchRow('id=' . $id);
             }
         }

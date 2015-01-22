@@ -33,7 +33,7 @@ class TokenJettonForm extends Pas_Form {
 	$rulers = new Rulers();
 	$ro = $rulers->getJettonRulers();
 	
-        $dies = new DieAxes();
+        $dies = new Dieaxes();
 	$die_options = $dies->getAxes();
 	
         $wears = new WearTypes;

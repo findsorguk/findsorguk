@@ -68,7 +68,7 @@ class EarlyMedNumismaticSearchForm extends Pas_Form {
 	$mints = new Mints();
 	$mint_options = $mints->getEarlyMedievalMints();
 
-	$axis = new DieAxes();
+	$axis = new Dieaxes();
 	$axis_options = $axis->getAxes();
 
 	$types = new MedievalTypes();
