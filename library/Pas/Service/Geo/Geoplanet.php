@@ -6,7 +6,7 @@
  *
  * <code>
  * <?php
- * $geoPlanet = new Pas_Service_Geo_Geoplanet($appid);
+ * $geoPlanet = new Pas_Service_Geo_GeoPlanet($appid);
  * $yahoo = $place->reverseGeoCode($lat,$lon);
  * ?>
  * </code>
