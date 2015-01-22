@@ -348,7 +348,6 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
     }
 
     /** Function to return the html
-     * @todo might be worth moving the html to a partial
      * @access private
      * @return string
      */
