@@ -180,7 +180,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $insertData = $this->_findspots->updateAndProcess($updateData);
                     $this->_findspots->update($insertData, $where);
                     $returnID = (int)$this->_findspots->getFindNumber($this->getParam('id'), $this->getController());
-                    $this->_helper->audit($insertData, $oldData, 'FindSpotsAudit', $this->getParam('id'), $returnID);
+                    $this->_helper->audit($insertData, $oldData, 'FindspotsAudit', $this->getParam('id'), $returnID);
                     $this->_helper->solrUpdater->update('objects', $returnID, $this->getParam('recordtype'));
                     $this->getFlash()->addMessage('Findspot updated!');
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
