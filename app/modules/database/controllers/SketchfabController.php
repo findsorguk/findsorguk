@@ -13,7 +13,7 @@
  * @uses Archaeology
  * @uses ArchaeologyForm
  */
-class Database_SketchFabController extends Pas_Controller_Action_Admin
+class Database_SketchfabController extends Pas_Controller_Action_Admin
 {
 
     /** The sketchfab model
