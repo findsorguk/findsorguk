@@ -56,8 +56,8 @@ class Users_IndexController extends Pas_Controller_Action_Admin
                 $this->redirect($this->_helper->loginRedirect());
             } else {
                 $this->_auth->clearIdentity();
-                $this->getFlash()->addMessage('Sorry, there was a
-                        problem with your submission. Please check and try again');
+//                $this->getFlash()->addMessage('Sorry, there was a
+//                        problem with your submission. Please check and try again');
                 $form->populate($this->_request->getPost());
             }
         } else {
