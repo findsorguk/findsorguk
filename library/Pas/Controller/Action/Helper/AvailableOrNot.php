@@ -54,7 +54,7 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
 
     protected function getUserId()
     {
-        if ($this->getUser()) {
+        if (!is_null($this->getUser())) {
             $this->_userID = $this->getUser()->getPerson()->id;
         } else {
             $this->_userID = NULL;
@@ -79,14 +79,20 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
                 if (!array_key_exists('objecttype', $data[0])) {
                     $data[0]['objecttype'] = 'HOARD';
                 }
-                if (in_array($this->getRole(), $this->_notAllowedRoles) && ($this->getUserId() != $data[0]['createdBy']) && in_array($workflow, $this->_allowed )) {
+                // Not allowed roles, and not the creator of the record
+                if (in_array($this->getRole(), $this->_notAllowedRoles)
+                    && ($this->getUserId() != $data[0]['createdBy'])
+                    && in_array($workflow, $this->_allowed )) {
                     $this->urlSend($data[0]['id'], $data[0]['objecttype']);
-                } elseif (in_array($this->getRole(), $this->_veryRestricted) && in_array($workflow, $this->_restricted)) {
+                //In the restricted roles
+                } elseif (in_array($this->getRole(), $this->_veryRestricted)
+                    && in_array($workflow, $this->_restricted)) {
                     $this->urlSend($data[0]['id'], $data[0]['objecttype']);
-                } elseif (!in_array($this->getRole(), $this->_allowedRoles) && in_array($workflow, $this->_restricted)) {
-                    $this->urlSend($data[0]['id'], $data[0]['objecttype']);
-                } else {
+                //In allowed roles can see
+                } elseif (!in_array($this->getRole(), $this->_allowedRoles)) {
                     return false;
+                } else {
+                    $this->urlSend($data[0]['id'], $data[0]['objecttype']);
                 }
             } else {
                 throw new Pas_Exception('The workflow key is missing from this record', 500);
