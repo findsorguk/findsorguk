@@ -561,3 +561,6 @@ select[multiple].select-large {
     transition: all 0.3s ease-out;
     opacity: 1;
 }
+#preview {
+    min-height: 120px;  
+}
