@@ -844,7 +844,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->order('month ASC')
             ->group('month');
         $select->setIntegrityCheck(false);
-        return $this->getAdapter->fetchAll($select);
+        return $this->getAdapter()->fetchAll($select);
     }
 
     /** Get discovery year for finds found between certain dates
