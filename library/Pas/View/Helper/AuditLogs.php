@@ -141,7 +141,8 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
             if ($this->getController() == 'artefacts') {
                 $html .= $this->view->auditDisplay()->setId($id)->setTableName('finds');
             } else {
-                $html .= $this->view->auditDisplay()->setId($id)->setTableName('hoards');
+                $html .= '';
+                //$html .= $this->view->auditDisplay()->setId($id)->setTableName('hoards');
             }
             $html .= '</div>';
             $html .= '<div class="tab-pane fade" id="fspot">';
