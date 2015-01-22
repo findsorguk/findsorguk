@@ -15,7 +15,7 @@ class ActivateForm extends Pas_Form {
      * @param string $actionUrl
      * @param array $options
      */
-    public function __construct($actionUrl, array $options = null) {
+    public function __construct(array $options = null) {
         parent::__construct($options);
         $this->init();
     }
