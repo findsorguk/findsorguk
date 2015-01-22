@@ -54,7 +54,7 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
 
     protected function getUserId()
     {
-        if ($this->getUser()) {
+        if (!is_null($this->getUser())) {
             $this->_userID = $this->getUser()->getPerson()->id;
         } else {
             $this->_userID = NULL;
