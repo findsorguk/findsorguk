@@ -45,7 +45,7 @@ class Database_IndexController extends Pas_Controller_Action_Admin {
             $params = $functions->array_cleanup($form->getValues());
             $params = $this->process($params);
             $this->getFlash()->addMessage('Your search is complete');
-            $this->_helper->Redirector->gotoSimple('database', 'search', 'results', $params);
+            $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $params);
         } else {
             $form->populate($this->_request->getPost());
         }
