@@ -1,0 +1,14 @@
+<?php
+$actions = array($this->curr_loc, $this->subsequentActionTerm);
+?>
+<?php if (array_filter($actions)): ?>
+    <h4 class="lead">Subsequent actions</h4>
+    <p>
+        <?php if (!is_null($this->curr_loc)): ?>
+            Current location of find: <?php echo $this->curr_loc; ?><br/>
+        <?php endif; ?>
+        <?php if (!is_null($this->subsequentActionTerm)): ?>
+            Subsequent action after recording: <?php echo $this->subsequentActionTerm; ?>
+        <?php endif; ?>
+    </p>
+<?php endif; ?>
