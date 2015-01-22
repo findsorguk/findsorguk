@@ -1,7 +1,6 @@
 <?php
 $this->headTitle('Profile for Emperor:  ' . $this->name);
-$this->headMeta('Biographical and related data for ' . $this->name, 'Description');
-$this->headMeta('roman,numismatics,biography,emperor,' . $this->name . ',portable antiquities', 'Keywords');
+$this->metaBase()->setDescription($this->title())->generate();
 if (!is_null($this->filename)) {
     list($w, $h) = getimagesize('./assets/rulers/resized/' . $this->escape($this->filename));
 }
@@ -16,7 +15,7 @@ $this->twitterCard('summary')
 $this->headLink()->appendAlternate($this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->pasID, 'format' => 'rss'), null, true), 'application/rss+xml', 'Latest finds for ' . $this->name . '- RSS Feed'); ?>
 <div about="nm:<?php echo $this->name; ?>" typeof="nm:roman_emperor" property="dcterms:partof"
      resource="roman_numismatics">
-    <h2 property="skos:prefLabel"><?php echo $this->escape($this->name); ?></h2>
+    <h2 class="lead" property="skos:prefLabel"><?php echo $this->escape($this->name); ?></h2>
     <?php if (isset($this->p)): ?>
         <p>Reece Period attributed: <a
                 href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'reeceperiods', 'action' => 'period', 'id' => $this->reeceID), 'default', true); ?>"
