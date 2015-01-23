@@ -121,7 +121,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
     /** Individual rally details
      * @access public
      * @return void
-     * @throws Pas_Param_Exception
+     * @throws Pas_Exception_Param
      */
     public function rallyAction()
     {
@@ -132,10 +132,10 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
                 $attending = new RallyXFlo();
                 $this->view->atts = $attending->getStaff($this->getParam('id'));
             } else {
-                throw new Pas_Param_Exception('No rally exists with that id', 404);
+                throw new Pas_Exception_Param('No rally exists with that id', 404);
             }
         } else {
-            throw new Pas_Param_Exception($this->parameterMissing, 404);
+            throw new Pas_Exception_Param($this->parameterMissing, 404);
         }
     }
 
@@ -183,7 +183,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
      * @access public
      * @return void
      * @todo DRY this
-     * @throws Pas_Param_Exception
+     * @throws Pas_Exception_Param
      */
     public function editAction()
     {
@@ -226,7 +226,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
                     if ($rally) {
                         $form->populate($rally->toArray());
                     } else {
-                        throw new Pas_Param_Exception($this->_nothingFound, 404);
+                        throw new Pas_Exception_Param($this->_nothingFound, 404);
                     }
 
                     $district_list = $this->getDistricts()
@@ -250,7 +250,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
                 }
             }
         } else {
-            throw new Pas_Param_Exception($this->_missingParameter, 404);
+            throw new Pas_Exception_Param($this->_missingParameter, 404);
         }
     }
 
