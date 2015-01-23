@@ -67,7 +67,7 @@ class AdvancedSearchForm extends Pas_Form {
 	$cultures = new Cultures();
 	$culture_options = $cultures->getCultures();
 
-	$surfaces = new SurfTreatments();
+	$surfaces = new SurfaceTreatments();
 	$surface_options = $surfaces->getSurfaces();
 
 	$decorations = new DecStyles();

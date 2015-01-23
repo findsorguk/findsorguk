@@ -5,7 +5,7 @@
  * 
  * <code>
  * <?php
- * $form = new SurfTreatmentsForm();
+ * $form = new SurfaceTreatmentsForm();
  * ?>
  * </code>
  * @author Daniel Pett <dpett at britishmuseum.org>

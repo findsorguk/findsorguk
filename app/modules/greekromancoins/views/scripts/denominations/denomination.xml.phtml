@@ -1,44 +1,44 @@
 <?php
 $site = $this->serverUrl();
-$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
-$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');
 $param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
 $contexts = $contextSwitch->getContexts();
 
 $dom = new DomDocument("1.0", "UTF-8");
-$denominations  = $dom->createElement('response');
+$denominations = $dom->createElement('response');
 
 $meta = $dom->createElement('meta');
 $denominations->appendChild($meta);
-$meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
+$meta->appendChild($dom->createElement('generated', date(DATE_W3C, time())));
 $formats = $dom->createElement('formats');
-$meta->appendChild($formats);	
-foreach ($contexts as $k => $v){
-$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
-'controller' => $controller,'action' => $action,'id' => $param,'format' => $k),NULL,true)  ));
+$meta->appendChild($formats);
+foreach ($contexts as $k => $v) {
+    $formats->appendChild($dom->createElement($k, $site . $this->url(array('module' => $module,
+            'controller' => $controller, 'action' => $action, 'id' => $param, 'format' => $k), NULL, true)));
 }
-$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
-'controller' => $controller,'action' => $action,'id' => $param),NULL,true)  ));
+$formats->appendChild($dom->createElement('html', $site . $this->url(array('module' => $module,
+        'controller' => $controller, 'action' => $action, 'id' => $param), NULL, true)));
 $denominationsElem = $dom->createElement('denominations');
-$denominations->appendChild( $denominationsElem );
-foreach($this->denoms as $d){
-$d = (object)$d;
-$denominationElem = $dom->createElement('denomination');
-$denominationElem->appendChild( $dom->createElement('id', $d->id));
-$denominationElem->appendChild( $dom->createElement('name', $d->denomination));
-$denominationElem->appendChild( $dom->createElement('rarity', $d->rarity));
-$denominationElem->appendChild( $dom->createElement('description', $d->description));
-$denominationElem->appendChild( $dom->createElement('weight', $d->weight));
-$denominationElem->appendChild( $dom->createElement('diameter', $d->diameter));
-$denominationElem->appendChild( $dom->createElement('material', $d->old_material));
-$denominationElem->appendChild( $dom->createElement('created', $d->created));
-$denominationElem->appendChild( $dom->createElement('updated', $d->updated));
-$denominationsElem->appendChild( $denominationElem );
+$denominations->appendChild($denominationsElem);
+foreach ($this->denoms as $d) {
+    $d = (object)$d;
+    $denominationElem = $dom->createElement('denomination');
+    $denominationElem->appendChild($dom->createElement('id', $d->id));
+    $denominationElem->appendChild($dom->createElement('name', $d->denomination));
+    $denominationElem->appendChild($dom->createElement('rarity', $d->rarity));
+    $denominationElem->appendChild($dom->createElement('description', $d->description));
+    $denominationElem->appendChild($dom->createElement('weight', $d->weight));
+    $denominationElem->appendChild($dom->createElement('diameter', $d->diameter));
+    $denominationElem->appendChild($dom->createElement('material', $d->old_material));
+    $denominationElem->appendChild($dom->createElement('created', $d->created));
+    $denominationElem->appendChild($dom->createElement('updated', $d->updated));
+    $denominationsElem->appendChild($denominationElem);
 }
 
-$dom->appendChild( $denominations );
+$dom->appendChild($denominations);
 
-$xmlData  = $dom->saveXML();
+$xmlData = $dom->saveXML();
 echo $xmlData;

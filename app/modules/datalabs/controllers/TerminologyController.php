@@ -684,7 +684,7 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function getSurfaceTreatments()
     {
-        $this->_surfaceTreatments = new SurfTreatments();
+        $this->_surfaceTreatments = new SurfaceTreatments();
         return $this->_surfaceTreatments;
     }
 

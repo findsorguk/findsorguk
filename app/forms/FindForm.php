@@ -61,7 +61,7 @@ class FindForm extends Pas_Form {
 	$culture_options = $cultures->getCultures();
 
 	//Get data to form Surface treatments menu
-	$surfaces = new SurfTreatments();
+	$surfaces = new SurfaceTreatments();
 	$surface_options = $surfaces->getSurfaces();
 
 	//Get data to form Decoration styles menu
