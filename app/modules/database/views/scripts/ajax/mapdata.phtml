@@ -7,41 +7,39 @@ $response = Zend_Controller_Front::getInstance()->getResponse();
 $response->setHeader('Content-type', 'application/vnd.google-earth.kml+xml');
 
 
-$dom 	  = new DomDocument("1.0", "UTF-8");
+$dom = new DomDocument("1.0", "UTF-8");
 $dom->createElement('kml');
 $nameSpace = $dom->createElementNS('http://www.opengis.net/kml/2.2',
-'kml');
+    'kml');
 
 $dom->appendChild($nameSpace);
 
 $documentNode = $dom->createElement('Document');
 $nameSpace->appendChild($documentNode);
-$nameSpace->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:gx', 'http://www.google.com/kml/ext/2.2');
-$documentName = $dom->createElement('name','search.kml');
+$nameSpace->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gx', 'http://www.google.com/kml/ext/2.2');
+$documentName = $dom->createElement('name', 'search.kml');
 $documentNode->appendChild($documentName);
 
-foreach($this->results as $result){
-    if(!is_null($result['longitude'])){
+foreach ($this->results as $result) {
+    if (array_key_exists('longitude', $result)) {
 
-          if(isset($result['thumbnail'])){
+        if (isset($result['thumbnail'])) {
             $url = '/images/thumbnails/';
-        $description = '<img src="' . $this->serverUrl() . $url . $result['thumbnail'] . '.jpg" style="float:right;"/>';
+            $description = '<img src="' . $this->serverUrl() . $url . $result['thumbnail'] . '.jpg" style="float:right;"/>';
         }
         $description .= htmlspecialchars($result['description']);
-
         $description .= '<p>Record Url: <a href="' . $this->serverUrl() . '/database/artefacts/record/id/' . $result['id'] . '">';
         $description .= $this->serverUrl() . '/database/artefacts/record/id/' . $result['id'] . '</a></p>';
-	$place = $dom->createElement('Placemark');
-	$place->appendChild( $dom->createElement('name', $result['old_findID']));
-	$place->appendChild( $dom->createElement('description', $description));
-	$point = $dom->createElement('Point');
-	$point->appendChild( $dom->createElement('coordinates', $result['longitude'] . ',' . $result['latitude']));
-	$place->appendChild( $point );
-	$documentNode->appendChild( $place );
+        $place = $dom->createElement('Placemark');
+        $place->appendChild($dom->createElement('name', $result['old_findID']));
+        $place->appendChild($dom->createElement('description', $description));
+        $point = $dom->createElement('Point');
+        $point->appendChild($dom->createElement('coordinates', $result['longitude'] . ',' . $result['latitude']));
+        $place->appendChild($point);
+        $documentNode->appendChild($place);
     }
 }
 
 
-
-$xmlData  = $dom->saveXML();
+$xmlData = $dom->saveXML();
 echo $xmlData;
