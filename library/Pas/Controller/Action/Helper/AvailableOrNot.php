@@ -32,7 +32,7 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
 
     protected $_allowedRoles = array('flos', 'admin', 'hoard', 'fa');
 
-    protected $_notAllowedRoles = array('public', 'her', 'research');
+    protected $_notAllowedRoles = array('public', 'hero', 'research');
 
     protected $_veryRestricted = array(NULL, 'member');
 

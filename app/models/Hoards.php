@@ -48,13 +48,13 @@ class Hoards extends Pas_Db_Table_Abstract
      * @access public
      * @var array
      */
-    protected $_parishStop = array('admin', 'flos', 'fa', 'hero', 'treasure', 'research');
+    protected $_parishStop = array('admin', 'flos', 'fa', 'hero', 'treasure', 'research', 'hoard');
 
     /** The restricted access array
      * @access protected
      * @var array
      */
-    protected $_restricted = array(null, 'public', 'member', 'research');
+    protected $_restricted = array(null, 'public', 'member');
 
     /** The array of numismatic terms
      * @var array coins pseudonyms
@@ -731,7 +731,7 @@ class Hoards extends Pas_Db_Table_Abstract
             ->from($this->_name, $fields)
             ->joinLeft(array('identifier' => 'people'), 'identifier.secuid = hoards.identifier1ID', array('idby' => 'fullname'))
             ->joinLeft(array('identifierTwo' => 'people'), 'identifierTwo.secuid = hoards.identifier2ID', array('id2by' => 'fullname'))
-            ->joinLeft(array('recorder' => 'people'), 'recorder.secuid = hoards.finderID', array('recordername' => 'fullname'))
+            ->joinLeft(array('recorder' => 'people'), 'recorder.secuid = hoards.recorderID', array('recordername' => 'fullname'))
             ->where('hoards.createdBy = ?', (int)$userId)
             ->order('hoards.id DESC')
             ->limit(1);
