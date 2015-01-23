@@ -38,8 +38,12 @@ class Pas_Controller_Action_Helper_LoginRedirect extends Zend_Controller_Action_
     {
         $redirects = new LoginRedirect();
         $redirect = $redirects->getConfig();
-        $clean = array_flip($redirect);
-        $uri = array_values($clean);
+        if(is_array($redirect)) {
+            $clean = array_flip($redirect);
+            $uri = array_values($clean);
+        } else {
+            $uri = array('/database' => 'Simple search');
+        }
         return $uri[0];
     }
 }
