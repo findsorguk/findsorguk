@@ -60,38 +60,32 @@ class Pas_Controller_Action_Ajax extends Zend_Controller_Action {
      * @access public
      * @return string
      */
-    protected function getInstitution() {
-        if($this->_auth->hasIdentity()) {
-            $user = $this->_auth->getIdentity();
-            $inst = $user->institution;
-        } else {
-            $inst = 'PUBLIC';
-        }
-        return $inst;
+    public function getInstitution()
+    {
+        return $this->_helper->identity->getPerson()->institution;
     }
+
+
     /** Get a user's identity
      * @access public
      * @return integer
      */
-    public function getIdentityForForms(){
-        if($this->_auth->hasIdentity()){
-            $user = $this->_auth->getIdentity();
-            $id = $user->id;
-        } else {
-            $id = 3;
-        }
-        return $id;
+    public function getIdentityForForms()
+    {
+        return $this->_helper->identity->getIdentityForForms();
     }
+
     /** Get a user's role
      * @access public
      * @return string
      */
-    public function getRole(){
-        if($this->_auth->hasIdentity()) {
-            $user = $this->_auth->getIdentity();
-            $role = $user->role;
+    public function getRole()
+    {
+        $person = $this->_helper->identity->getPerson();
+        if (!$person) {
+            $role = 'public';
         } else {
-        $role = 'public';
+            $role = $person->role;
         }
         return $role;
     }
