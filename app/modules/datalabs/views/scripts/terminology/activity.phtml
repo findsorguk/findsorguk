@@ -1,1 +1,6 @@
-<?php echo $this->partialLoop('partials/datalabs/activityDetail.phtml', $this->activities); ?>
+<?php if (!empty($this->activities)): ?>
+    <?php echo $this->partialLoop('partials/datalabs/activityDetail.phtml', $this->activities); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No activities have been retrieved.</p>
+<?php endif; ?>

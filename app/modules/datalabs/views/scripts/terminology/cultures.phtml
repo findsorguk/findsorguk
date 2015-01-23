@@ -10,8 +10,13 @@ $this->metaBase()
 <h2 class="lead">
     <?php echo $this->title(); ?>
 </h2>
-<p>The Scheme has broken the Early Medieval period down into the following ascribed cultures to make it easier to search
-    the database.</p>
-<ul>
-    <?php echo $this->partialLoop('partials/datalabs/culture.phtml', $this->cultures); ?>
-</ul>
+<?php if (!empty($this->cultures)): ?>
+    <p>The Scheme has broken the Early Medieval period down into the following ascribed cultures to make it easier to
+        search the database.</p>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/culture.phtml', $this->cultures); ?>
+    </ul>
+<?php else: ?>
+    <h2 class="lead">An error has occurred.</h2>
+    <p>Nothing has been found.</p>
+<?php endif; ?>

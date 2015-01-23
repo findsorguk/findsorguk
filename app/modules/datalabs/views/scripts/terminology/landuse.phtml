@@ -1,9 +1,14 @@
-<?php echo $this->partialLoop('partials/datalabs/landUseList.phtml', $this->landuses); ?>
-<?php if (count($this->landuses2)): ?>
-    <h3 class="lead">
-        Child terms
-    </h3>
-    <ul>
-        <?php echo $this->partialLoop('partials/datalabs/landUseListChildren.phtml', $this->landuses2); ?>
-    </ul>
+<?php if (!empty($this->landuses)): ?>
+    <?php echo $this->partialLoop('partials/datalabs/landUseList.phtml', $this->landuses); ?>
+    <?php if (!empty($this->landuses2)): ?>
+        <h3 class="lead">
+            Child terms
+        </h3>
+        <ul>
+            <?php echo $this->partialLoop('partials/datalabs/landUseListChildren.phtml', $this->landuses2); ?>
+        </ul>
+    <?php endif; ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred.</h2>
+    <p>Nothing has been found.</p>
 <?php endif; ?>

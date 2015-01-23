@@ -154,7 +154,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                                 $form->person->setValue($person['fullname']);
                             }
                         }
-                        $form->populate($this->_request->getPost());
+                        $form->populate($user->toArray());
                     } else {
                         throw new Pas_Exception_Param('No user account found with that id');
                     }

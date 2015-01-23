@@ -1,1 +1,6 @@
-<?php echo $this->partial('partials/datalabs/presDetail.phtml', $this->preserves[0]); ?>
+<?php if (!empty($this->preserves)): ?>
+    <?php echo $this->partial('partials/datalabs/presDetail.phtml', $this->preserves[0]); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred.</h2>
+    <p>Nothing has been found.</p>
+<?php endif; ?>

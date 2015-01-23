@@ -1,1 +1,6 @@
+<?php if(!empty($this->comps)):?>
 <?php echo $this->partial('partials/datalabs/completenessDetails.phtml', $this->comps[0]); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred.</h2>
+    <p>Nothing has been found.</p>
+<?php endif; ?>

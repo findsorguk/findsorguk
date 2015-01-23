@@ -1,1 +1,6 @@
-<?php echo $this->partialLoop('partials/datalabs/method.phtml', $this->methods); ?>
+<?php if (!empty($this->methods)): ?>
+    <?php echo $this->partialLoop('partials/datalabs/method.phtml', $this->methods); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred.</h2>
+    <p>Nothing has been found.</p>
+<?php endif; ?>
