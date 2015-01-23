@@ -1,1 +1,6 @@
-<?php echo $this->partial('partials/datalabs/objectTermData.phtml', $this->objectdata[0]); ?>
+<?php if (!empty($this->objectdata)): ?>
+    <?php echo $this->partial('partials/datalabs/objectTermData.phtml', $this->objectdata[0]); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>There is no object with that identifier.</p>
+<?php endif; ?>
