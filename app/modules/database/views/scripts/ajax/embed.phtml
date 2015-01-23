@@ -8,6 +8,7 @@
 <div class="modal-body">
 
     <div class="row-fluid">
+        <?php if(!empty($this->finds)):?>
         <p>
             Copy the text in the form fields below and you can reuse it where ever you want.
         </p>
@@ -29,6 +30,10 @@
             <?php echo $this->partialLoop('partials/database/embeds/embedPreview.phtml', $this->finds) ?>
         <?php else:?>
             <?php echo $this->partialLoop('partials/database/embeds/embedPreviewHoard.phtml', $this->finds) ?>
+        <?php endif;?>
+        <?php else:?>
+        <h2>An error has occurred</h2>
+            <p>An object has not been found for embedding.</p>
         <?php endif;?>
     </div>
 
