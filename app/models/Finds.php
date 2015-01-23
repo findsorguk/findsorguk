@@ -1042,7 +1042,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->where('findspots.county = ?', (string)$county)
             ->group('broadperiod');
         $select->setIntegrityCheck(false);
-        return $this->getAdapter->fetchAll($select);
+        return $this->getAdapter()->fetchAll($select);
     }
 
     /** Get counts for finders by county
