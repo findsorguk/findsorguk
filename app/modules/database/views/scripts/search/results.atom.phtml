@@ -26,6 +26,14 @@ foreach ($this->results as $find) {
         $updated = strtotime($find['created']);
     }
 
+    if(!array_key_exists('broadperiod', $find)){
+        $find['broadperiod'] = 'Unknown period';
+    }
+
+    if(!array_key_exists('objecttype', $find)){
+        $find['objecttype'] = 'Unidentified object';
+    }
+
     $feedArray['entries'][] = array(
         'title' => $find['old_findID'] . ' ' . $find['objecttype'] . ' ' . $find['broadperiod'],
         'link' => $this->serverUrl() . '/database/artefacts/record/id/' . $find['id'],
