@@ -5,11 +5,17 @@ $this->metaBase()->setKeywords('archaeology,thesauri,terminology,preferred terms
     ->setSubject('terminology')
     ->generate();
 ?>
-<h2 class="lead"><?php echo $this->title(); ?></h2>
-<p>The vocabularies below are standardised and run our data entry system.</p>
-<ul>
-    <?php foreach ($this->vocabularies as $k): ?>
-        <li><a href="<?php echo $k['html'] ?>"
-               title="learn more about the <?php echo $k['type']; ?> vocab"><?php echo ucfirst($k['type']); ?></a></li>
-    <?php endforeach; ?>
-</ul>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>The vocabularies below are standardised and run our data entry system.</p>
+<?php if (!empty($this->vocabularies)): ?>
+    <ul>
+        <?php foreach ($this->vocabularies as $k): ?>
+            <li><a href="<?php echo $k['html'] ?>"
+                   title="learn more about the <?php echo $k['type']; ?> vocab"><?php echo ucfirst($k['type']); ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <h2 class="lead">An error has occurred.</h2>
+    <p>Nothing has been found.</p>
+<?php endif; ?>

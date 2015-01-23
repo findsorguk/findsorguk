@@ -7,9 +7,13 @@ discovering artefacts')
     ->setKeywords('metal detecting,fieldwalking,methods,discovery,personal')
     ->generate();
 ?>
-<h2 class="lead">
-    <?php echo $this->title(); ?>
-</h2>
-<ul>
-    <?php echo $this->partialLoop('partials/datalabs/activityList.phtml', $this->activities); ?>
-</ul>
+    <h2 class="lead">
+        <?php echo $this->title(); ?>
+    </h2>
+<?php if ($this->activities): ?>
+    <ul>
+        <?php echo $this->partialLoop('partials/datalabs/activityList.phtml', $this->activities); ?>
+    </ul>
+<?php else: ?>
+    <p>No activities have been found.</p>
+<?php endif; ?>
