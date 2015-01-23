@@ -50,11 +50,10 @@ class CopyHoards extends Pas_Db_Table_Abstract {
         'findofnote', 'findofnotereason', 'treasure',
         'treasureID', 'qualityrating', 'materials',
         'recorderID', 'identifier1ID', 'identifier2ID',
-        'finderID', 'finder2ID', 'disccircum',
-        'discmethod', 'datefound1', 'datefound2',
-        'rally', 'rallyID', 'legacyID',
-        'other_ref', 'smrrefno', 'musaccno',
-        'curr_loc', 'subs_action'
+        'disccircum', 'discmethod', 'datefound1',
+        'datefound2', 'rally', 'rallyID',
+        'legacyID', 'other_ref', 'smrrefno',
+        'musaccno', 'curr_loc', 'subs_action'
         );
 
     /** Get the base config
