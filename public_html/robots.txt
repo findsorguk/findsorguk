@@ -1,2 +1,10 @@
 User-agent: *
 Crawl-delay: 15
+# Block pricepi
+User-agent: pimonster
+Disallow: /
+User-agent: Pimonster
+Disallow: /
+# Block WiseGuys Robot
+User-agent: WiseGuys Robot
+Disallow: /
