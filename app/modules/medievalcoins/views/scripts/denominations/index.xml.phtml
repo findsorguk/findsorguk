@@ -36,7 +36,7 @@ $denominationElem->appendChild( $dom->createElement($k, $v));
 }
 
 $denominationElem->appendChild( $dom->createElement('url',$site . $this->url(array('module' => $module,
-'controller' => $controller,'action' => 'denomination','id' => $denomination['id']'),NULL,true) ));
+'controller' => $controller,'action' => 'denomination','id' => $denomination['id']),NULL,true) ));
 $denominationsElem->appendChild( $denominationElem );
 }
 
