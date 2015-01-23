@@ -33,7 +33,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         </tr>
         </thead>
         <tbody id="the-comment-list" class="list:comment">
-        <?php echo $this->partialLoop('partials/admin/allComments.phtml', $this->comments) ?>
+        <?php echo $this->partialLoop('partials/admin/allCommentsMade.phtml', $this->comments) ?>
         </tbody>
     </table>
 <?php else: ?>

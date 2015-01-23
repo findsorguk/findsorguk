@@ -5,7 +5,7 @@ $this->metaBase()->setDescription($this->title())->generate();
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php if (!empty($this->comments)): ?>
     <ol id="timeline" class="statuses">
-        <?php echo $this->partialLoop('partials/users/allComments.phtml', $this->comments) ?>
+        <?php echo $this->partialLoop('partials/users/allCommentsMade.phtml', $this->comments) ?>
     </ol>
     <?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>
 <?php else: ?>
