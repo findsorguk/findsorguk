@@ -1,69 +1,55 @@
 <?php
 $site = $this->serverUrl();
-$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
-$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');
 $param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
 $contexts = $contextSwitch->getContexts();
 
 $dom = new DomDocument("1.0", "UTF-8");
-$mints  = $dom->createElement('response');
+$mints = $dom->createElement('response');
 
 $meta = $dom->createElement('meta');
 $mints->appendChild($meta);
-$meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
+$meta->appendChild($dom->createElement('generated', date(DATE_W3C, time())));
 $formats = $dom->createElement('formats');
-$meta->appendChild($formats);	
-foreach ($contexts as $k => $v){
-$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
-'controller' => $controller,'action' => $action,'id' => $param,'format' => $k),NULL,true)  ));
+$meta->appendChild($formats);
+foreach ($contexts as $k => $v) {
+    $formats->appendChild($dom->createElement($k, $site . $this->url(array('module' => $module,
+            'controller' => $controller, 'action' => $action, 'id' => $param, 'format' => $k), NULL, true)));
 }
-$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
-'controller' => $controller,'action' => $action,'id' => $param),NULL,true)  ));
+$formats->appendChild($dom->createElement('html', $site . $this->url(array('module' => $module,
+        'controller' => $controller, 'action' => $action, 'id' => $param), NULL, true)));
 
-foreach($this->mints as $r){
-$r = (object)$r;
-$mintElem = $dom->createElement('mint');
-$mintElem->appendChild( $dom->createElement('id', $r->id));
-$mintElem->appendChild( $dom->createElement('name', $r->mint_name));
-$mintElem->appendChild( $dom->createElement('created', $r->created));
-$mintElem->appendChild( $dom->createElement('updated', $r->updated));
-$imageElem = $dom->createElement('recentRecords');	
-$empsElem = $dom->createElement('rulers');	
-$mintElem->appendChild($empsElem);
-$mintElem->appendChild($imageElem);
+foreach ($this->mints as $r) {
+    $r = (object)$r;
+    $mintElem = $dom->createElement('mint');
+    $mintElem->appendChild($dom->createElement('id', $r->id));
+    $mintElem->appendChild($dom->createElement('name', $r->mint_name));
+    $mintElem->appendChild($dom->createElement('created', $r->created));
+    $mintElem->appendChild($dom->createElement('updated', $r->updated));
+    $imageElem = $dom->createElement('recentRecords');
+    $empsElem = $dom->createElement('rulers');
+    $mintElem->appendChild($empsElem);
+    $mintElem->appendChild($imageElem);
 
+    foreach ($this->actives as $i) {
+        $i = (object)$i;
+        $empElem = $dom->createElement('emperor');
+        $empsElem->appendChild($empElem);
+        $empElem->appendChild($dom->createElement('id', $i->id));
+        $empElem->appendChild($dom->createElement('name', $i->issuer));
+        $empElem->appendChild($dom->createElement('ruledFrom', $i->date1));
+        $empElem->appendChild($dom->createElement('ruledTo', $i->date2));
+        $empElem->appendChild($dom->createElement('created', $i->created));
+        $empElem->appendChild($dom->createElement('updated', $i->updated));
+    }
 
-foreach($this->images as $i){
-$i = (object)$i;
-$recordElem = $dom->createElement('record');
-$imageElem->appendChild( $recordElem);
-$recordElem->appendChild( $dom->createElement('findID', $i->old_findID));
-$recordElem->appendChild( $dom->createElement('objectType', $i->objecttype));
-$recordElem->appendChild( $dom->createElement('broadPeriod', $i->broadperiod));
-$recordElem->appendChild( $dom->createElement('url', $site . '/database/artefacts/record/id/' . $i->id));
-$recordElem->appendChild( $dom->createElement('thumbnail', $site . ' /images/' . $i->id . '.jpg'));
-}
-
-foreach($this->actives as $i){
-$i = (object)$i;
-$empElem = $dom->createElement('emperor');
-$empsElem->appendChild( $empElem);
-$empElem->appendChild( $dom->createElement('id', $i->id));
-$empElem->appendChild( $dom->createElement('name', $i->issuer));
-$empElem->appendChild( $dom->createElement('ruledFrom', $i->date1));
-$empElem->appendChild( $dom->createElement('ruledTo', $i->date2));
-$empElem->appendChild( $dom->createElement('created', $i->created));
-$empElem->appendChild( $dom->createElement('updated', $i->updated));
+    $mints->appendChild($mintElem);
 }
 
-$mints->appendChild( $mintElem );
+$dom->appendChild($mints);
 
-
-}
-
-$dom->appendChild( $mints );
-
-$xmlData  = $dom->saveXML();
+$xmlData = $dom->saveXML();
 echo $xmlData;
