@@ -13,7 +13,6 @@
  * @uses Manufactures();
  * @uses Periods
  * @uses Cultures
- * @uses SurfTreatments
  * @uses DecStyles
  * @uses DecMethods
  * @uses FindOfNoteReasons
@@ -54,9 +53,6 @@ class AdvancedHoardsSearchForm extends Pas_Form {
 
         $periods = new Periods();
         $period_options = $periods->getPeriodFrom();
-
-        $primaries = new Materials();
-        $primary_options = $primaries->getPrimaries();
 
         $periods = new Periods();
         $periodword_options = $periods->getPeriodFromWords();
