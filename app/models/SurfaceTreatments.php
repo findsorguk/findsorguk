@@ -20,7 +20,7 @@
  * @since 22 October 2010, 17:12:34
  * @example /app/forms/AdvancedSearchForm.php 
  */
-class SurfTreatments extends Pas_Db_Table_Abstract {
+class SurfaceTreatments extends Pas_Db_Table_Abstract {
     
     /** The primary Key
      * @access protected

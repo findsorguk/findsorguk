@@ -58,7 +58,7 @@ set_include_path(
         . PATH_SEPARATOR . '../library/Pas/'
         . PATH_SEPARATOR . '../library/HTMLPurifier/library/'
         . PATH_SEPARATOR . '../library/EasyBib/library/'
-        . PATH_SEPARATOR . '../library/mPDF/'
+        . PATH_SEPARATOR . '../library/mpdf/'
         . PATH_SEPARATOR . '../library/easyrdf/lib/'
         . PATH_SEPARATOR . '../library/imagecow/'
         . PATH_SEPARATOR . '../library/Solarium/'
@@ -76,7 +76,7 @@ $loader = new ZendX_Loader_StandardAutoloader(array(
         'ZendX' => '../library/ZendX/',
         'Imagecow' => '../library/imagecow/src/',
         'easyRDF' => '../library/easyrdf/lib/',
-        'mPDF' => '../library/mPDF/',
+        'mPDF' => '../library/mpdf/',
         'Solarium' => '../library/Solarium/'
     ),
     'namespaces' => array(
