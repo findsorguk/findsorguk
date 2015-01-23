@@ -17,8 +17,6 @@
  *
  * @category Pas
  * @package Pas_View_Helper
- * @todo streamline code
- * @todo extend the view helper for auth and config objects
  * @copyright DEJ Pett
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
@@ -366,9 +364,9 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
                 'recordType' => $this->getType()
             );
             $url = $this->view->url($params, null, TRUE);
-            $string .= '<div class="btn-group"><a class="btn btn-primary" href="';
+            $string .= '<a class="btn btn-primary btn-mini" href="';
             $string .= $url;
-            $string .= '" title="Add Sketchfab model">Add 3D model</a></div>';
+            $string .= '" title="Add Sketchfab model">Add 3D model</a>';
         }
         return $string;
     }
