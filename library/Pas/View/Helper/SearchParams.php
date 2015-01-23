@@ -346,7 +346,7 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
                     $params[$key] = 'Only records with 3D please';
                     break;
                 case 'surface':
-                    $params[$key] = $this->getData('Surftreatments', 'term', $value);
+                    $params[$key] = $this->getData('SurfaceTreatments', 'term', $value);
                     break;
                 case 'workflow':
                     $params[$key] = $this->getData('Workflows', 'workflowstage', $value);

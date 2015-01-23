@@ -367,7 +367,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function surfacesAction()
     {
-        $surfaces = new SurfTreatments();
+        $surfaces = new SurfaceTreatments();
         $this->view->surfaces = $surfaces->getSurfaceTreatmentsAdmin();
     }
 
@@ -377,12 +377,12 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function addsurfaceAction()
     {
-        $form = new SurfTreatmentsForm();
+        $form = new SurfaceTreatmentsForm();
         $form->submit->setLabel('Add new surface treatment');
         $this->view->form = $form;
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
-                $surfaces = new SurfTreatments();
+                $surfaces = new SurfaceTreatments();
                 $surfaces->add($form->getValues());
                 $this->getFlash()->addMessage('A new surface treatment has been created on the system!');
                 $this->redirect($this->_redirectUrl . 'surfaces');
@@ -400,12 +400,12 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
     public function editsurfaceAction()
     {
         if ($this->getParam('id', false)) {
-            $form = new SurfTreatmentsForm();
+            $form = new SurfaceTreatmentsForm();
             $form->submit->setLabel(self::UPDATE);
             $this->view->form = $form;
             if ($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
-                    $surfaces = new SurfTreatments();
+                    $surfaces = new SurfaceTreatments();
                     $where = array();
                     $where[] = $surfaces->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $surfaces->update($form->getValues(), $where);
@@ -417,7 +417,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $surfaces = new SurfTreatments();
+                    $surfaces = new SurfaceTreatments();
                     $surface = $surfaces->fetchRow('id=' . $id);
                     if (count($surface)) {
                         $form->populate($surface->toArray());
@@ -441,7 +441,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
-                $surfaces = new SurfTreatments();
+                $surfaces = new SurfaceTreatments();
                 $where = 'id = ' . $id;
                 $surfaces->delete($where);
             }
@@ -450,7 +450,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
-                $surfaces = new SurfTreatments();
+                $surfaces = new SurfaceTreatments();
                 $this->view->surface = $surfaces->fetchRow('id=' . $id);
             }
         }

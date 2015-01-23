@@ -1,39 +1,39 @@
 <?php
 $site = $this->serverUrl();
-$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();	
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();	
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
-$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');	
+$contextSwitch = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch');
 $param = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
 $contexts = $contextSwitch->getActionContexts($action);
 $dom = new DomDocument("1.0", "UTF-8");
-$artefact  = $dom->createElement('response');
+$artefact = $dom->createElement('response');
 
 $meta = $dom->createElement('meta');
 
 $artefact->appendChild($meta);
 
-$meta->appendChild( $dom->createElement('generated', date(DATE_W3C,time())));
+$meta->appendChild($dom->createElement('generated', date(DATE_W3C, time())));
 
 $formats = $dom->createElement('formats');
 
-$meta->appendChild($formats);	
-foreach ($contexts as $k ){
-$formats->appendChild( $dom->createElement($k, $site . $this->url(array('module' => $module,
-'controller' => $controller,'action' => $action,'id' => $param,'format' => $k),NULL,true)  ));
+$meta->appendChild($formats);
+foreach ($contexts as $k) {
+    $formats->appendChild($dom->createElement($k, $site . $this->url(array('module' => $module,
+            'controller' => $controller, 'action' => $action, 'id' => $param, 'format' => $k), NULL, true)));
 }
-$formats->appendChild( $dom->createElement('html', $site . $this->url(array('module' => $module,
-'controller' => $controller,'action' => $action,'id' => $param),NULL,true)  ));
+$formats->appendChild($dom->createElement('html', $site . $this->url(array('module' => $module,
+        'controller' => $controller, 'action' => $action, 'id' => $param), NULL, true)));
 
 $artefactElem = $dom->createElement('artefact');
 
-foreach($this->record as $r){
-   foreach($r as $k => $a){
-       $artefactElem->appendChild( $dom->createElement($k, htmlspecialchars(strip_tags($a)))); 
-   }
+foreach ($this->finds as $r) {
+    foreach ($r as $k => $a) {
+        $artefactElem->appendChild($dom->createElement($k, htmlspecialchars(strip_tags($a))));
+    }
 
-   $artefact->appendChild( $artefactElem );
+    $artefact->appendChild($artefactElem);
 }
-$dom->appendChild( $artefact );
-$xmlData  = $dom->saveXML();
+$dom->appendChild($artefact);
+$xmlData = $dom->saveXML();
 echo $xmlData;

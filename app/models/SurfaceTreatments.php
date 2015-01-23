@@ -5,7 +5,7 @@
  * 
  * <code>
  * <?php
- * $surfaces = new SurfTreatments();
+ * $surfaces = new SurfaceTreatments();
  * $surface_options = $surfaces->getSurfaces();
  * ?>
  * </code>
