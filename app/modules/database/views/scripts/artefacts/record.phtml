@@ -118,32 +118,6 @@ echo $this->coinDataDisplay()
 
         </div>
 
-        <!-- End of the image pane -->
-        <div class="sketchfab" >
-        <!-- Start of Sketchfab -->
-        <?php if (empty($this->sketchfab)): ?>
-
-    <?php
-    echo $this->sketchFabAddLink()
-        ->setFindID($this->finds[0]['secuid'])
-        ->setReturnID($this->finds[0]['id'])
-        ->setType('artefacts')
-        ->setInstitution($this->finds[0]['institution'])
-        ->setCreatedBy($this->finds[0]['createdBy']);
-    ?>
-<?php else: ?>
-    <?php $sketchfab = array_slice($this->sketchfab, 0, 1); ?>
-    <?php echo $this->partial('partials/database/3D/sketchFabModel.phtml', $sketchfab[0]); ?>
-    <?php if (sizeof($this->sketchfab) > 1): ?>
-        <h4 class="lead">More 3D models</h4>
-        <?php foreach (array_slice($this->sketchfab, 1) as $sf): ?>
-
-            <?php echo $this->sketchFabThumbnail()->setModelID($sf['modelID']); ?>
-        <?php endforeach; ?>
-    <?php endif; ?>
-<?php endif; ?>
-</div>
-        <!-- End of Sketchfab -->
 
 
         <!-- Start of image pane -->
@@ -178,13 +152,42 @@ echo $this->coinDataDisplay()
 <?php endif; ?>
 
 <!-- The image link addition -->
+<div class="btn-group">
 <?php
 echo $this->imageLink()->setFindID($this->finds[0]['id'])
     ->setSecuID($this->finds[0]['secuid'])
     ->setCreatedBy($this->finds[0]['createdBy'])
     ->setInstitution($this->finds[0]['institution']);
 ?>
+<?php
+echo $this->sketchFabAddLink()
+    ->setFindID($this->finds[0]['secuid'])
+    ->setReturnID($this->finds[0]['id'])
+    ->setType('artefacts')
+    ->setInstitution($this->finds[0]['institution'])
+    ->setCreatedBy($this->finds[0]['createdBy']);
+?>
+    </div>
             <!-- End of image link if appropriate -->
+
+             <div class="sketchfab" >
+        <!-- Start of Sketchfab -->
+        <?php if (empty($this->sketchfab)): ?>
+
+
+<?php else: ?>
+    <?php $sketchfab = array_slice($this->sketchfab, 0, 1); ?>
+    <?php echo $this->partial('partials/database/3D/sketchFabModel.phtml', $sketchfab[0]); ?>
+    <?php if (sizeof($this->sketchfab) > 1): ?>
+        <h4 class="lead">More 3D models</h4>
+        <?php foreach (array_slice($this->sketchfab, 1) as $sf): ?>
+
+            <?php echo $this->sketchFabThumbnail()->setModelID($sf['modelID']); ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+</div>
+        <!-- End of Sketchfab -->
         </div>
 
     </div>
