@@ -349,7 +349,11 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         $last = $this->getParam('copy');
         if ($last == 'last') {
             $data = $this->getHoards()->getLastRecord($this->getIdentityForForms());
-            $form->populate($data[0]);
+            if(!empty($data)) {
+                $form->populate($data[0]);
+            } else {
+                $this->getFlash()->addMessage('No records to copy');
+            }
         }
         if ($this->getRequest()->isPost()) {
             $form->preValidation($this->_request->getPost());
