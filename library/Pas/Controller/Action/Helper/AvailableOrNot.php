@@ -69,11 +69,13 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
 
     public function checkAccess($data)
     {
-        if (is_array($data)) {
+        if (is_array($data) && !empty($data)) {
             if (array_key_exists('secwfstage', $data[0])) {
                 $workflow = $data[0]['secwfstage'];
                 if (!array_key_exists('objecttype', $data[0])) {
                     $data[0]['objecttype'] = 'HOARD';
+                } else {
+                    $data[0]['objecttype'] = 'UNIDENTIFIED OBJECT';
                 }
                 // Not allowed roles, and not the creator of the record
                 if (in_array($this->getRole(), $this->_notAllowedRoles) && !in_array($workflow, $this->_restricted )) {
