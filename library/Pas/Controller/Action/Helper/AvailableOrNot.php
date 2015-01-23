@@ -75,9 +75,6 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
                 if (!array_key_exists('objecttype', $data[0])) {
                     $data[0]['objecttype'] = 'HOARD';
                 }
-//                Zend_Debug::dump($this->getRole());
-//                Zend_Debug::dump($workflow);
-//                exit;
                 // Not allowed roles, and not the creator of the record
                 if (in_array($this->getRole(), $this->_notAllowedRoles) && !in_array($workflow, $this->_restricted )) {
                     return false;

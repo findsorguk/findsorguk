@@ -1,1 +1,6 @@
-<?php echo $this->partial('partials/datalabs/materialDetails.phtml', $this->materials[0]); ?>
+<?php if (!empty($this->materials)): ?>
+    <?php echo $this->partial('partials/datalabs/materialDetails.phtml', $this->materials[0]); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No material with that ID exists.</p>
+<?php endif; ?>
