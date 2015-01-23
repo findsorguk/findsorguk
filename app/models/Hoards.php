@@ -93,7 +93,8 @@ class Hoards extends Pas_Db_Table_Abstract
      * @access    public
      * @return    array of arrays $finders
      */
-    public function prepareFinders($insertData) {
+    public function prepareFinders($insertData)
+    {
         // This loop removes non-finder fields
         // And empties finder IDs for empty finder names
         foreach ($insertData as $field => $value) {
@@ -113,7 +114,7 @@ class Hoards extends Pas_Db_Table_Abstract
         $finders = array();
         $order = 1;
         foreach ($insertData as $field => $value) {
-            if(!empty($value)){
+            if (!empty($value)) {
                 $finders[] = array('finderID' => $value, 'viewOrder' => $order);
                 $order += 1;
             }
@@ -519,7 +520,7 @@ class Hoards extends Pas_Db_Table_Abstract
             ))
             ->joinLeft('finds',
                 'hoards.secuid = finds.hoardID',
-                array('id', 'old_findID', 'objecttype',  'broadperiod',
+                array('id', 'old_findID', 'objecttype', 'broadperiod',
                     'treasureID', 'hoardcontainer', 'createdBy', 'institution'
                 ))
             ->where('hoards.id = ?', (int)$hoardId)
@@ -543,7 +544,7 @@ class Hoards extends Pas_Db_Table_Abstract
             ))
             ->joinLeft('finds',
                 'hoards.secuid = finds.hoardID',
-                array('id', 'old_findID', 'objecttype',  'broadperiod',
+                array('id', 'old_findID', 'objecttype', 'broadperiod',
                     'treasureID', 'hoardcontainer', 'createdBy', 'institution'
                 ))
             ->where('hoards.id = ?', (int)$hoardId)
@@ -728,21 +729,9 @@ class Hoards extends Pas_Db_Table_Abstract
         $fields = $fieldList->getConfig();
         $select = $this->select()
             ->from($this->_name, $fields)
-            ->joinLeft(array('finderOne' => 'people'),
-                'finderOne.secuid = hoards.finderID',
-                array('finder' => 'fullname'))
-            ->joinLeft(array('finderTwo' => 'people'),
-                'finderTwo.secuid = hoards.finder2ID',
-                array('secondfinder' => 'fullname'))
-            ->joinLeft(array('identifier' => 'people'),
-                'identifier.secuid = hoards.identifier1ID',
-                array('idby' => 'fullname'))
-            ->joinLeft(array('identifierTwo' => 'people'),
-                'identifierTwo.secuid = hoards.identifier2ID',
-                array('id2by' => 'fullname'))
-            ->joinLeft(array('recorder' => 'people'),
-                'recorder.secuid = hoards.finderID',
-                array('recordername' => 'fullname'))
+            ->joinLeft(array('identifier' => 'people'), 'identifier.secuid = hoards.identifier1ID', array('idby' => 'fullname'))
+            ->joinLeft(array('identifierTwo' => 'people'), 'identifierTwo.secuid = hoards.identifier2ID', array('id2by' => 'fullname'))
+            ->joinLeft(array('recorder' => 'people'), 'recorder.secuid = hoards.finderID', array('recordername' => 'fullname'))
             ->where('hoards.createdBy = ?', (int)$userId)
             ->order('hoards.id DESC')
             ->limit(1);
@@ -880,7 +869,8 @@ class Hoards extends Pas_Db_Table_Abstract
      * @param integer $findID
      * @return array
      */
-    public function getSolrData($findID) {
+    public function getSolrData($findID)
+    {
         $data = $this->getAdapter();
         $select = $data->select()
             ->from($this->_name,
@@ -920,7 +910,7 @@ class Hoards extends Pas_Db_Table_Abstract
                     'identifierID' => 'identifier1ID',
                     'createdBy'
                 ))
-            ->joinLeft('findspots','hoards.secuid = findspots.findID',
+            ->joinLeft('findspots', 'hoards.secuid = findspots.findID',
                 array(
                     'regionID',
                     'countyID',
@@ -946,27 +936,27 @@ class Hoards extends Pas_Db_Table_Abstract
                     'geohash',
                     'findspotcode' => 'old_findspotID'
                 ))
-            ->joinLeft('users','users.id = hoards.createdBy',
+            ->joinLeft('users', 'users.id = hoards.createdBy',
                 array(
                     'creator' => 'CONCAT(users.first_name," ",users.last_name)'
                 ))
-            ->joinLeft(array('users2' => 'users'),'users2.id = hoards.updatedBy', array('updatedBy' => 'fullname'))
-            ->joinLeft('periods','hoards.period1 = periods.id', array('periodFromName' => 'term', 'periodFromBM' => 'bmID'))
+            ->joinLeft(array('users2' => 'users'), 'users2.id = hoards.updatedBy', array('updatedBy' => 'fullname'))
+            ->joinLeft('periods', 'hoards.period1 = periods.id', array('periodFromName' => 'term', 'periodFromBM' => 'bmID'))
             ->joinLeft(array('sub1' => 'subperiods'), 'hoards.subperiod1 = sub1.id', array('subperiodFrom' => 'term'))
             ->joinLeft(array('sub2' => 'subperiods'), 'hoards.subperiod2 = sub2.id', array('subperiodTo' => 'term'))
-            ->joinLeft(array('p' => 'periods'),'hoards.period2 = p.id',
+            ->joinLeft(array('p' => 'periods'), 'hoards.period2 = p.id',
                 array(
                     'periodToName' => 'term',
                     'periodToBM' => 'bmID'
                 ))
-            ->joinLeft(array('p2' => 'periods'),'hoards.broadperiod = p2.term', array('broadperiodBM' => 'bmID'))
-            ->joinLeft('discmethods','discmethods.id = hoards.discmethod', array('discoveryMethod' => 'method'))
-            ->joinLeft('subsequentActions','hoards.subs_action = subsequentActions.id', array('subsequentActionTerm' => 'action'))
-            ->joinLeft('finds_images','hoards.secuid = finds_images.find_id', array())
-            ->joinLeft('slides','slides.secuid = finds_images.image_id', array('filename','thumbnail' => 'imageID'))
+            ->joinLeft(array('p2' => 'periods'), 'hoards.broadperiod = p2.term', array('broadperiodBM' => 'bmID'))
+            ->joinLeft('discmethods', 'discmethods.id = hoards.discmethod', array('discoveryMethod' => 'method'))
+            ->joinLeft('subsequentActions', 'hoards.subs_action = subsequentActions.id', array('subsequentActionTerm' => 'action'))
+            ->joinLeft('finds_images', 'hoards.secuid = finds_images.find_id', array())
+            ->joinLeft('slides', 'slides.secuid = finds_images.image_id', array('filename', 'thumbnail' => 'imageID'))
             ->joinLeft(array('users3' => 'users'), 'users3.id = slides.createdBy', array('imagedir'))
-            ->joinLeft('rallies','hoards.rallyID = rallies.id', array('rallyName' => 'rally_name'))
-            ->joinLeft('regions','findspots.regionID = regions.id', array('regionName' => 'region'))
+            ->joinLeft('rallies', 'hoards.rallyID = rallies.id', array('rallyName' => 'rally_name'))
+            ->joinLeft('regions', 'findspots.regionID = regions.id', array('regionName' => 'region'))
             ->joinLeft('people', 'hoards.finderID = people.secuid', array('finder' => 'fullname'))
             ->where('hoards.id = ?', (int)$findID)
             ->group('hoards.id')
