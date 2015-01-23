@@ -125,6 +125,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                     $where = array();
                     $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $oldData = $this->getUsers()->fetchRow('id=' . $this->getParam('id'))->toArray();
+                    unset($updateData['person']);
                     $this->getUsers()->update($updateData, $where);
 
                     $this->_helper->audit(
