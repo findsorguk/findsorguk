@@ -1,17 +1,28 @@
+<?php
+$this->headTitle('Comments on my records');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<?php if (!empty($this->comments)): ?>
+    <ul id="commentslist">
+        <li>
+            <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'comments', 'action' => 'onmine'), 'default', true); ?>"
+               title="View all comments as one table">All comments</a></li>
+        <li>
+            <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'comments', 'action' => 'onmine', 'approval' => 'spam'), 'default', true); ?>"
+               title="View all comments as one table">Spam comments</a></li>
+        <li>
+            <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'comments', 'action' => 'onmine', 'approval' => 'moderation'), 'default', true); ?>"
+               title="View all comments as one table">Pending comments</a></li>
+        <li>
+            <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'comments', 'action' => 'onmine', 'approval' => 'approved'), 'default', true); ?>"
+               title="View all comments as one table">Authorised comments</a></li>
+    </ul>
+    <ol id="timeline" class="statuses">
 
-<?php echo $this->commentTitle($this->params);?>
-<?php if(count($this->comments)):?>
-<ul id="commentslist">
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'onmine'),'default',true);?>" title="View all comments as one table">All comments</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'onmine','approval' => 'spam'),'default',true);?>" title="View all comments as one table">Spam comments</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'onmine','approval' => 'moderation'),'default',true);?>" title="View all comments as one table">Pending comments</a></li>
-<li><a href="<?php echo $this->url(array('module' => 'users','controller' => 'comments','action' => 'onmine','approval' => 'approved'),'default',true);?>" title="View all comments as one table">Authorised comments</a></li>
-</ul>
-<ol id="timeline" class="statuses">
-
-<?php echo $this->partialLoop('partials/users/allComments.phtml', $this->comments) ?>
-</ol>
-<?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>
-<?php else:?>
-<p>No comments are listed or available to you</p>
-<?php endif;?>
+        <?php echo $this->partialLoop('partials/users/allComments.phtml', $this->comments) ?>
+    </ol>
+    <?php echo $this->paginationControl($this->comments, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else: ?>
+    <p>No comments are listed or available to you</p>
+<?php endif; ?>

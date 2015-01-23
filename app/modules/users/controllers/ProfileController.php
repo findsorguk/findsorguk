@@ -105,7 +105,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin
                 $form->populate($formData);
             }
         } else {
-            $contact = $this->_contacts->fetchRow($contacts->select()
+            $contact = $this->_contacts->fetchRow($this->_contacts->select()
                 ->where('dbaseID = ' . $this->getIdentityForForms()));
             if (is_null($contact)) {
                 throw new Pas_Exception_Param('Admin has not yet set up a profile for you', 500);
