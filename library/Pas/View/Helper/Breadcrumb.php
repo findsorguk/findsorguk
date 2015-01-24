@@ -500,6 +500,12 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'faq':
                 $clean = 'Frequently asked questions';
                 break;
+            case 'changepassword':
+                $clean = 'Change my password';
+                break;
+            case 'activate':
+                $clean = 'Activate your account';
+                break;
             default:
                 $clean = ucfirst($this->getAction());
                 break;
