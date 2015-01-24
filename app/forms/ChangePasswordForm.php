@@ -21,10 +21,9 @@ class ChangePasswordForm extends Pas_Form {
 
     /** The constructor
      * @access public
-     * @param string $actionUrl
      * @param array $options
      */
-    public function __construct($actionUrl, array $options) {
+    public function __construct(array $options = NULL) {
         parent::__construct($options);
         $this->init();
     }

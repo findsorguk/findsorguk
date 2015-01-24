@@ -10,42 +10,22 @@
 */
 
 class AccountForm extends Pas_Form {
-   
-    /** The action url for the form
-     * @access protected
-     * @var string
-     */
-    protected $_actionUrl;
 
     /** The constructor
      * @access @access public
-     * @param string $actionUrl
      * @param array $options
      */
-    public function __construct($actionUrl = null, array $options = null) {
+    public function __construct(array $options = null) {
         parent::__construct($options);
-        $this->setActionUrl($actionUrl);
         $this->init();
     }
 
-    /** Set the action url
-     * @access public
-     * @param string $actionUrl
-     * @return \AccountForm
-     */
-    public function setActionUrl($actionUrl) {
-        $this->_actionUrl = $actionUrl;
-        return $this;
-    }
+
 
     /** Initalise the form
      * 
      */
     public function init() {
-
-        $this->setAction($this->_actionUrl)
-                ->setMethod('post')
-                 ->setAttrib('id', 'accountform');
 
         $username = $this->addElement('text','username',
                 array('label' => 'Username: '))->username;
