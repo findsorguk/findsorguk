@@ -66,6 +66,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
     {
         $form = new SolrForm();
         $form->removeElement('thumbnail');
+        $form->removeElement('3D');
         $form->q->setLabel('Search the publications: ');
         $form->q->setAttrib('placeholder', 'Try Geake for example');
         $this->view->form = $form;

@@ -37,6 +37,7 @@ class IndexController extends Pas_Controller_Action_Admin
         $form->setAttrib('class', 'form-inline');
         $this->view->form = $form;
         $form->removeElement('thumbnail');
+        $form->removeElement('3D');
         $form->q->removeDecorator('label');
         $form->q->setAttrib('class', 'input-large');
         if ($this->getRequest()->isPost()) {
