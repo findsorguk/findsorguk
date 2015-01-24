@@ -19,7 +19,7 @@ $placedata = $place->reverseGeoCode($this->latitude, $this->longitude);
 <h2 class="lead">1:50K Gazetteer data for <?php echo $this->name; ?></h2>
 <img
     src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&zoom=14&size=300x300&maptype=terrain&markers=color:green|label:G|
-<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&sensor=false" class="flow"/>
+<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&sensor=false" class="pull-right"/>
 <ul>
     <li>4 Figure grid reference: <?php echo $this->km_ref; ?></li>
     <li>Easting: <?php echo $this->easting; ?></li>

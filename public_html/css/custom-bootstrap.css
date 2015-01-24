@@ -8,11 +8,6 @@ body {
     padding-left: 50px;
 }
 
-.flow {
-    float: right;
-    margin-left: 5px;
-}
-
 .forRDFOnly {
     display: none;
 }

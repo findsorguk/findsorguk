@@ -177,7 +177,7 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
             if (array_key_exists('MediumImage', $book) &&
                 (!is_null($book->MediumImage))
             ) {
-                $html .= '<img class="flow" src="';
+                $html .= '<img class="img-circle pull-right" src="';
                 $html .= $book->MediumImage->Url;
                 $html .= '" alt="Cover image for ';
                 $html .= $book->Title;
