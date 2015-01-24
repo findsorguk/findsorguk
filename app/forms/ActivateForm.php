@@ -12,7 +12,6 @@ class ActivateForm extends Pas_Form {
 
     /** Construct the form
      * @access public
-     * @param string $actionUrl
      * @param array $options
      */
     public function __construct(array $options = null) {
