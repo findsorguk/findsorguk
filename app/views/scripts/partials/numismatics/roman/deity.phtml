@@ -10,7 +10,7 @@ $this->metaBase()->setDescription('Details for the Roman personfication identifi
     <?php if (isset($this->image) && file_exists(IMAGE_PATH . '/images/coins/reverses/' . $this->image)): ?>
         <img src="<?php echo IMAGE_PATH; ?>/coins/reverses/<?php echo $this->image; ?>"
              alt="Thumbnail image of a reverse depicting <?php echo $this->name; ?>" property="foaf:depiction"
-             class="flow"/>
+             class="img-circle pull-right"/>
     <?php endif; ?>
     <p>
         <?php echo $this->description; ?>

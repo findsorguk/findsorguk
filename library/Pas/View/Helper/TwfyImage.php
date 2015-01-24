@@ -130,7 +130,7 @@ class Pas_View_Helper_TwfyImage extends Zend_View_Helper_Abstract
         foreach ($data as $mp) {
             if (array_key_exists('image', $mp)) {
                 $html .= '<img src="http://www.theyworkforyou.com/';
-                $html .= $mp->image . '" class="flow" alt="Profile picture for ';
+                $html .= $mp->image . '" class="img-circle pull-right" alt="Profile picture for ';
                 $html .= $mp->full_name . '" height="' . $mp->image_height;
                 $html .= '" width="' . $mp->image_width . '"/>';
             }
