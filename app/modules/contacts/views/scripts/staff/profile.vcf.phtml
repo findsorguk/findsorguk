@@ -21,5 +21,5 @@ foreach ($this->persons as $person) {
     $data['timezone'] = "00:00";
 }
 $vc->setData($data);
-$vc->setClass('PUBLIC');
-$vc->createCard();
+$vc->setClass('PUBLIC');;
+echo $vc->createCard();
