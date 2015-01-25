@@ -1,20 +1,25 @@
-<?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeRegion.phtml', $this->regions); ?>
-<h3 class="lead">Denominations issued in this region</h3>
-<?php if (!empty($this->denominations)): ?>
-    <ul>
-        <?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeDenominations.phtml', $this->denominations); ?>
-    </ul>
+<?php if (!empty($this->regions)): ?>
+    <?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeRegion.phtml', $this->regions); ?>
+    <h3 class="lead">Denominations issued in this region</h3>
+    <?php if (!empty($this->denominations)): ?>
+        <ul>
+            <?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeDenominations.phtml', $this->denominations); ?>
+        </ul>
+    <?php else: ?>
+        <p>There are no denominations listed for this region.</p>
+    <?php endif; ?>
+
+    <?php if (!empty($this->rulers)): ?>
+        <h3 class="lead">Issuing rulers in this region</h3>
+
+        <ul>
+            <?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeRulers.phtml', $this->rulers); ?>
+        </ul>
+    <?php else: ?>
+        <p>There are no rulers listed for this region.</p>
+    <?php endif; ?>
+
 <?php else: ?>
-    <p>There are no denominations listed for this region.</p>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No region with that ID has been found</p>
 <?php endif; ?>
-
-<?php if (!empty($this->rulers)): ?>
-    <h3 class="lead">Issuing rulers in this region</h3>
-
-    <ul>
-        <?php echo $this->partialLoop('partials/numismatics/ironAge/ironAgeRulers.phtml', $this->rulers); ?>
-    </ul>
-<?php else: ?>
-    <p>There are no rulers listed for this region.</p>
-<?php endif; ?>
-

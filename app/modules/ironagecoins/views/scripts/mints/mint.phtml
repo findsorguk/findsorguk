@@ -1,1 +1,6 @@
-<?php echo $this->partialLoop('partials/numismatics/shared/mintDetail.phtml', $this->mints);
+<?php if (!empty($this->mints)): ?>
+    <?php echo $this->partialLoop('partials/numismatics/shared/mintDetail.phtml', $this->mints); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No mints found for that path.</p>
+<?php endif; ?>
