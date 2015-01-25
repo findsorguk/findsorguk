@@ -5,4 +5,7 @@
     <ul>
         <?php echo $this->partialLoop('partials/numismatics/medieval/issuersMedievalMints.phtml', $this->actives); ?>
     </ul>
+<?php else: ?>
+    <h3 class="lead">An error has occurred.</h3>
+    <p>No records have been found for that identifier.</p>
 <?php endif; ?>

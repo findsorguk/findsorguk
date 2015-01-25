@@ -1,12 +1,6 @@
 <?php $date = Zend_Date::now(); ?>
 <span class="row-fluid">
-    <p><?php echo $this->sur3; ?>, <?php echo substr($this->fore3, 0, 1); ?> (<?php echo $this->created; ?>)
-        <em><?php echo $this->old_findID; ?>: A <?php echo $this->broadperiod; ?> <?php echo $this->objecttype; ?></em>
-        Web page available at: <a
-            href="<?php echo $this->serverUrl(); ?><?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?>"><?php echo $this->serverUrl(); ?><?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?></a>
-        [Accessed: <?php echo $date; ?>]
+    <p><?php echo $this->sur3; ?>, <?php echo substr($this->fore3, 0, 1); ?> (<?php echo $this->created; ?>) <em><?php echo $this->old_findID; ?>: A <?php echo $this->broadperiod; ?> <?php echo $this->objecttype; ?></em> Web page available at: <a href="<?php echo $this->serverUrl(); ?><?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?>"><?php echo $this->serverUrl(); ?><?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?></a> [Accessed: <?php echo $date; ?>]
     </p>
-    <pre><?php echo $this->sur3; ?>, <?php echo substr($this->fore3, 0, 1); ?> (<?php echo $this->created; ?>
-        ) "<?php echo $this->old_findID; ?>: A <?php echo $this->broadperiod; ?> <?php echo $this->objecttype; ?>" Web page available at: <?php echo $this->serverUrl(); ?><?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?>
-        [Accessed: <?php echo $date; ?>]</pre>
+    <pre><?php echo $this->sur3; ?>, <?php echo substr($this->fore3, 0, 1); ?> (<?php echo $this->created; ?>) "<?php echo $this->old_findID; ?>: A <?php echo $this->broadperiod; ?> <?php echo $this->objecttype; ?>" Web page available at: <?php echo $this->serverUrl(); ?><?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), null, true); ?> [Accessed: <?php echo $date; ?>]</pre>
 </span>

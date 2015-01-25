@@ -1,11 +1,17 @@
 <?php
 $this->headTitle('Roman coin articles');
 $this->metaBase()->setDescription('A series of articles on Roman Numismatics')
-->setSubject('Roman Numismatics')
-->setKeywords('roman,numismatics,learning,articles')
-->generate();
+    ->setSubject('Roman Numismatics')
+    ->setKeywords('roman,numismatics,learning,articles')
+    ->generate();
 ?>
-<h2 class="lead">Roman coin articles</h2>
-<ul>
-    <?php echo $this->partialLoop('partials/numismatics/roman/romanCoinsArticles.phtml', $this->contents); ?>
-</ul>
+
+<?php if (!empty($this->contents)): ?>
+    <h2 class="lead">Roman coin articles</h2>
+    <ul>
+        <?php echo $this->partialLoop('partials/numismatics/roman/romanCoinsArticles.phtml', $this->contents); ?>
+    </ul>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No articles available to you at the moment.</p>
+<?php endif; ?>

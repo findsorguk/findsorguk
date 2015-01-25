@@ -1,24 +1,47 @@
-<div class="sidebar-nav col-md-3" >
-<ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
+<div class="sidebar-nav col-md-3">
+    <ul id="menu1" class="menu nav nav-stacked nav-pills collapsible">
 
-<li <?php echo $this->currentPage()->active('earlymedievalcoins','index','index');?>><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins'),NULL, true);?>" title="Read an introduction to Early Medieval coins">Introduction</a></li>
-<li <?php echo $this->currentPage()->active('earlymedievalcoins','rulers','index');?>><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins','controller'=>'rulers'),NULL, true);?>">Issuing rulers of England</a></li>
-<li <?php echo $this->currentPage()->active('earlymedievalcoins','rulers','foreign');?>><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins','controller'=>'rulers','action' => 'foreign'),NULL, true);?>">Foreign issuing rulers</a></li>
-<li <?php echo $this->currentPage()->active('earlymedievalcoins','mints','index');?>><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins','controller'=> 'mints'),NULL,true);?>" title="Issuing mints of the Early Medieval period">Issuing mints</a></li>
-<li <?php echo $this->currentPage()->active('earlymedievalcoins','denominations','index');?>><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins','controller'=> 'denominations'),NULL,true);?>" title="Denominations of the Early Medieval period">Denominations</a></li>
-<li <?php echo $this->currentPage()->active('earlymedievalcoins','categories','index');?>><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins','controller'=> 'categories'),NULL,true);?>" title="Coin categories of the Early Medieval period">Categories</a></li>
-<li <?php echo $this->currentPage()->active('earlymedievalcoins','types','index');?>><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins','controller'=> 'types'),NULL,true);?>" title="Coin types of the Early Medieval period">Types</a></li>
-<li><a href="<?php echo $this->url(array('module'=>'database','controller'=> 'search','action' =>"earlymednumismatics"),NULL,true);?>" title="Search for coins of the Early Medieval period">Search</a></li>
-<li><a href="#"><i class="icon-folder-open"></i>Other numismatic periods</a>
-<ul class="nav nav-stacked nav-pills menuindent">
-<li><a href="<?php echo $this->url(array('controller'=>'ironagecoins'),NULL, true);?>" title="Learn about Iron age coins">Iron age coins</a></li>
-<li><a href="<?php echo $this->url(array('module'=>'romancoins'),NULL, true);?>" title="Learn about Roman coins">Roman coins</a></li>
-<li><a href="<?php echo $this->url(array('module'=>'greekromancoins'),NULL, true);?>" title="Learn about Greek and Roman coins">Greek &amp; Roman coins</a></li>
-<li><a href="<?php echo $this->url(array('module'=>'byzantinecoins'),NULL, true);?>" title="Learn about Byzantine coins">Byzantine coins</a></li>
-<li><a href="<?php echo $this->url(array('module'=>'earlymedievalcoins'),NULL, true);?>" title="Learn about Early Medieval coins">Early Medieval coins</a></li>
-<li><a href="<?php echo $this->url(array('module'=>'medievalcoins'),NULL, true);?>" title="Learn about Medieval coins">Medieval coins</a></li>
-<li><a href="<?php echo $this->url(array('module'=>'postmedievalcoins'),NULL, true);?>" title="Learn about Post Medieval coins">Post Medieval  coins</a></li>
-</ul>
-</li>
-</ul>
+        <li <?php echo $this->currentPage()->active('earlymedievalcoins', 'index', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'earlymedievalcoins'), NULL, true); ?>"
+                title="Read an introduction to Early Medieval coins">Introduction</a></li>
+        <li <?php echo $this->currentPage()->active('earlymedievalcoins', 'rulers', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'earlymedievalcoins', 'controller' => 'rulers'), NULL, true); ?>">Issuing
+                rulers of England</a></li>
+        <li <?php echo $this->currentPage()->active('earlymedievalcoins', 'rulers', 'foreign'); ?>><a
+                href="<?php echo $this->url(array('module' => 'earlymedievalcoins', 'controller' => 'rulers', 'action' => 'foreign'), NULL, true); ?>">Foreign
+                issuing rulers</a></li>
+        <li <?php echo $this->currentPage()->active('earlymedievalcoins', 'mints', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'earlymedievalcoins', 'controller' => 'mints'), NULL, true); ?>"
+                title="Issuing mints of the Early Medieval period">Issuing mints</a></li>
+        <li <?php echo $this->currentPage()->active('earlymedievalcoins', 'denominations', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'earlymedievalcoins', 'controller' => 'denominations'), NULL, true); ?>"
+                title="Denominations of the Early Medieval period">Denominations</a></li>
+        <li <?php echo $this->currentPage()->active('earlymedievalcoins', 'categories', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'earlymedievalcoins', 'controller' => 'categories'), NULL, true); ?>"
+                title="Coin categories of the Early Medieval period">Categories</a></li>
+        <li <?php echo $this->currentPage()->active('earlymedievalcoins', 'types', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'earlymedievalcoins', 'controller' => 'types'), NULL, true); ?>"
+                title="Coin types of the Early Medieval period">Types</a></li>
+        <li>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => "earlymednumismatics"), NULL, true); ?>"
+               title="Search for coins of the Early Medieval period">Search</a></li>
+        <li><a href="#"><i class="icon-folder-open"></i>Other numismatic periods</a>
+            <ul class="nav nav-stacked nav-pills menuindent">
+                <li><a href="<?php echo $this->url(array('controller' => 'ironagecoins'), NULL, true); ?>"
+                       title="Learn about Iron age coins">Iron age coins</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'romancoins'), NULL, true); ?>"
+                       title="Learn about Roman coins">Roman coins</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'greekromancoins'), NULL, true); ?>"
+                       title="Learn about Greek and Roman coins">Greek &amp; Roman coins</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'byzantinecoins'), NULL, true); ?>"
+                       title="Learn about Byzantine coins">Byzantine coins</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'earlymedievalcoins'), NULL, true); ?>"
+                       title="Learn about Early Medieval coins">Early Medieval coins</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'medievalcoins'), NULL, true); ?>"
+                       title="Learn about Medieval coins">Medieval coins</a></li>
+                <li><a href="<?php echo $this->url(array('module' => 'postmedievalcoins'), NULL, true); ?>"
+                       title="Learn about Post Medieval coins">Post Medieval coins</a></li>
+            </ul>
+        </li>
+    </ul>
 </div>

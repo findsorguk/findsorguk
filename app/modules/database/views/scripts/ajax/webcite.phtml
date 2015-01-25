@@ -10,23 +10,26 @@
     <h3 class="lead">
         Publication citation
     </h3>
+    <?php if (!empty($this->finds)): ?>
+        <p>
+            This record can be cited in the Harvard bibliographic style using the text below:
+        </p>
+        <?php if ($this->type == 'artefact'): ?>
+            <?php echo $this->partial('partials/database/citations/webCiteData.phtml', $this->finds[0]); ?>
+        <?php else: ?>
+            <?php echo $this->partial('partials/database/citations/webCiteHoard.phtml', $this->finds[0]); ?>
+        <?php endif; ?>
 
-    <p>
-        This record can be cited in the Harvard bibliographic style using the text below:
-    </p>
-    <?php if ($this->type == 'artefact'): ?>
-        <?php echo $this->partial('partials/database/citations/webCiteData.phtml', $this->finds[0]); ?>
+        <h3 class="lead">
+            Wikipedia citation
+        </h3>
+        <?php if ($this->type == 'artefact'): ?>
+            <?php echo $this->partial('partials/database/citations/wikiCite.phtml', $this->finds[0]); ?>
+        <?php else: ?>
+            <?php echo $this->partial('partials/database/citations/wikiCiteHoard.phtml', $this->finds[0]); ?>
+        <?php endif; ?>
     <?php else: ?>
-        <?php echo $this->partial('partials/database/citations/webCiteHoard.phtml', $this->finds[0]); ?>
-    <?php endif; ?>
-
-    <h3 class="lead">
-        Wikipedia citation
-    </h3>
-    <?php if ($this->type == 'artefact'): ?>
-        <?php echo $this->partial('partials/database/citations/wikiCite.phtml', $this->finds[0]); ?>
-    <?php else: ?>
-        <?php echo $this->partial('partials/database/citations/wikiCiteHoard.phtml', $this->finds[0]); ?>
+        <p>An error has occurred, no data retrieved.</p>
     <?php endif; ?>
 </div>
 
