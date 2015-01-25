@@ -1,7 +1,10 @@
-<?php $this->headTitle('A daily archive of record creation');
-$this->headMeta('An archive of daily record entries for the Scheme database', 'description');
-$this->headMeta('records,daily,archive,portable antiquities scheme,archaeology,england,wales, finds liasion', 'dc.keywords'); ?>
-<h2 class="lead">Annual artefact record archives</h2>
+<?php
+$this->headTitle('A daily archive of record creation');
+$this->metaBase()->setDescription('An archive of daily record entries for the Scheme database')
+    ->setKeywords('records,daily,archive,portable antiquities scheme,archaeology,england,wales, finds liasion')
+    ->generate();
+?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <p>These archives can be searched to find out what was recorded on a particular day of the year. We have been recording
     digitally since 1998.</p>
 
