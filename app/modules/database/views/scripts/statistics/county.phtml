@@ -113,7 +113,7 @@ $recordsPeriodTotal = array_sum($records_period);
 <th>Institution</th>
 <th>Number of finders</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/finderQuantities.phtml',$this->finders);?>
+<?php echo $this->partialLoop('partials/annual/quantitiesPerFinder.phtml',$this->finders);?>
 <tr>
 <?php 
 $finders = array();
@@ -138,7 +138,7 @@ $finderstotal = array_sum($finders);
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/averageMonth.phtml',$this->averages);?>
+<?php echo $this->partialLoop('partials/annual/averagesPerMonth.phtml',$this->averages);?>
 <tr>
 <?php 
 $finds_month = array();

@@ -33,7 +33,7 @@ echo $this->partialLoop('partials/database/statistics/archiveYearsStats.phtml',
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/instStats.phtml',$this->institutions);?>
+<?php echo $this->partialLoop('partials/annual/institutionalStats.phtml',$this->institutions);?>
 </table>
 <?php else : ?>
 
@@ -48,7 +48,7 @@ echo $this->partialLoop('partials/database/statistics/archiveYearsStats.phtml',
 </tr>
 </thead>
 <tbody>
-<?php echo $this->partialLoop('partials/annual/instStats.phtml',$this->instTotal);?>
+<?php echo $this->partialLoop('partials/annual/institutionalStats.phtml',$this->instTotal);?>
 </tbody>
 </table>
 </div>
@@ -129,7 +129,7 @@ $recordsPeriodTotal = array_sum($records_period);
 <th>Institution</th>
 <th>Number of finders</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/finderQuantities.phtml',$this->finders);?>
+<?php echo $this->partialLoop('partials/annual/quantitiesPerFinder.phtml',$this->finders);?>
 <tr>
 <?php
 $finders = array();
@@ -154,7 +154,7 @@ $finderstotal = array_sum($finders);
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/averageMonth.phtml',$this->averages);?>
+<?php echo $this->partialLoop('partials/annual/averagesPerMonth.phtml',$this->averages);?>
 <tr>
 <?php
 $finds_month = array();

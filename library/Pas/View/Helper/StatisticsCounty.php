@@ -112,7 +112,7 @@ class Pas_View_Helper_StatisticsCounty extends Zend_View_Helper_Abstract
     {
         $html = '';
 
-        $html .= $this->view->partialLoop('partials/annual/countiesStats.phtml', $data);
+        $html .= $this->view->partialLoop('partials/annual/countiesStatistics.phtml', $data);
 
         return $html;
     }
