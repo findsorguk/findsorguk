@@ -131,8 +131,6 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         'terminalYear1' => 'Terminal dating from',
         'terminalYear2' => 'Terminal dating to',
         'qualityRating' => 'Rating of information',
-        'featureDateYear1' => 'Feature dating from',
-        'featureDateYear2' => 'Feature dating to',
         'legacyID' => 'Legacy hoard database ID number',
         'lastRulerID' => 'Last ruler present in hoard',
         '3D' => '3D content ready'
@@ -240,7 +238,7 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         return $html;
     }
 
-    /** Clean the key for nicename
+    /** Clean the key for nice name
      * @access public
      * @param  string $string
      * @return string
@@ -278,7 +276,13 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
             $data = $this->getCache()->load($key);
         }
 
-        return $data->$field;
+        if(!empty($data)){
+            $term = $data->$field;
+        } else {
+            $term = 'Not found in lookup table';
+        }
+
+        return $term;
     }
 
     /** Clean up the parameters submitted
