@@ -189,7 +189,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         </table>
     <?php endif; ?>
 
-    <?php if (empty($this->discovery)): ?>
+    <?php if (!empty($this->discovery)): ?>
         <h3 class="lead">Discovery method</h3>
         <table class="table-striped table">
             <tr>

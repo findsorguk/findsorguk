@@ -46,7 +46,7 @@ define('APC_SUPPORT', extension_loaded('apc') && ini_get('apc.enabled'));
 ini_set('memory_limit', '128M');
 
 ini_set("pcre.backtrack_limit","1000000");
-
+ini_set("magic_quotes_runtime", 0);
 //Set upload max size
 ini_set('upload_max_filesize','20M');
 
@@ -81,6 +81,7 @@ $loader = new ZendX_Loader_StandardAutoloader(array(
     ),
     'namespaces' => array(
         'Imagecow' => '../library/imagecow/src/',
+        'mPDF' => '../library/mPDF/'
     ),
     'fallback_autoloader' => true,
 ));
