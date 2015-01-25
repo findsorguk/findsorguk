@@ -71,6 +71,7 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
     {
         if (is_array($data) && !empty($data)) {
             if (array_key_exists('secwfstage', $data[0])) {
+
                 $workflow = $data[0]['secwfstage'];
                 if (!array_key_exists('objecttype', $data[0])) {
                     $data[0]['objecttype'] = 'HOARD';
@@ -82,12 +83,11 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
                     return false;
                 //In the restricted roles
                 } elseif (in_array($this->getRole(), $this->_veryRestricted) && in_array($workflow, $this->_restricted)) {
+
                     $this->urlSend($data[0]['id'], $data[0]['objecttype']);
                 //In allowed roles can see
                 } elseif (in_array($this->getRole(), $this->_allowedRoles)) {
                     return false;
-                } else {
-                    $this->urlSend($data[0]['id'], $data[0]['objecttype']);
                 }
             } else {
                 throw new Pas_Exception('The workflow key is missing from this record', 500);

@@ -39,7 +39,7 @@ $data = array();
 foreach($this->officers as $of) {
 $data[] = array_merge($dates,$of);
 }
-echo $this->partialLoop('partials/annual/perOfficer.phtml',$data);?>
+echo $this->partialLoop('partials/annual/perFindsLiaisionOfficer.phtml',$data);?>
 
 <?php 
 $finds_officers = array();
@@ -99,7 +99,7 @@ $recordsInstTotal = array_sum($records_inst);
 <th>Objects</th>
 <th>Records</th>
 </tr>
-<?php echo $this->partialLoop('partials/annual/objectPeriods.phtml',$this->periods);?>
+<?php echo $this->partialLoop('partials/annual/objectPeriodsBreakdown.phtml',$this->periods);?>
 <tr>
 <?php 
 $finds_period = array();

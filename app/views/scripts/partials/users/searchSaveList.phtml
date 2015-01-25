@@ -12,7 +12,7 @@ $query = '';
 foreach ($string as $k => $v) {
     $query .= $k . '/' . $v . '/';
 }
-$url = 'http://' . $_SERVER['SERVER_NAME'] . '/database/search/results/' . $query;
+$url = $this->serverUrl() . '/database/search/results/' . $query;
 ?>
 <li id="search-<?php echo $this->id; ?>">
 
@@ -24,7 +24,7 @@ Created by: <a
 Saved search parameters: <?php echo $this->searchParams()->setParams($string); ?>
     <br/>
 Search performed: <span class="published timestamp"
-                        data="{time:'<?php echo date('W3C', $this->created); ?>'}"><?php echo $this->timeAgoInWords($this->created); ?></span>
+                        data="{time:'<?php echo date('W3C', strtotime($this->created)); ?>'}"><?php echo $this->timeAgoInWords($this->created); ?></span>
 <br/>
 <a href="<?php echo $url; ?>" title="Permanent link">Permalink to search</a> <a href="<?php echo $url; ?>format/rss/"
                                                                                 title="RSS feed of these results">RSS</a> <a

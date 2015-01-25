@@ -112,7 +112,7 @@ class Pas_View_Helper_StatisticsCountyBroadPeriod extends Zend_View_Helper_Abstr
     {
         $html = '';
 
-        $html .= $this->view->partialLoop('partials/annual/objectPeriods.phtml', $data);
+        $html .= $this->view->partialLoop('partials/annual/objectPeriodsBreakdown.phtml', $data);
 
         return $html;
     }

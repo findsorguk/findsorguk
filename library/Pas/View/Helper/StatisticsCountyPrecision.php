@@ -316,8 +316,9 @@ class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstrac
             $sort['precision'][$k] = $v['precision'];
             $sort['finds'][$k] = $v['finds'];
         }
+        Zend_Debug::dump($sort['precision']);
+        exit;
         array_multisort($sort['precision'], SORT_ASC, $sort['finds'], SORT_ASC, $stats);
-
         return $stats;
     }
 
