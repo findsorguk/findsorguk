@@ -52,7 +52,7 @@ class Yahoo extends Pas_Db_Table_Abstract {
      *
      * @var string
      */
-    const SITEYAHOOCALLBACK = 'http://finds.org.uk/admin/oauth/yahooaccess/';
+    const SITEYAHOOCALLBACK = 'http://beta.finds.org.uk/admin/oauth/yahooaccess/';
 
     /** The consumer key
      * @access protected
@@ -135,7 +135,7 @@ class Yahoo extends Pas_Db_Table_Abstract {
     public function access(){
         $config = array(
             'siteUrl' => self::YAHOOTOKENGET,
-            'callbackUrl' => 'http://finds.org.uk/admin/oauth/',
+            'callbackUrl' => 'http://beta.finds.org.uk/admin/oauth/',
             'consumerKey' => $this->_consumerKey,
             'consumerSecret' => $this->_consumerSecret,
         );
@@ -161,7 +161,7 @@ class Yahoo extends Pas_Db_Table_Abstract {
 	$oauth_session_handle ) {
          $config = array(
             'siteUrl' => self::YAHOOTOKENGET,
-            'callbackUrl' => 'http://finds.org.uk/admin/oauth/',
+            'callbackUrl' => 'http://beta.finds.org.uk/admin/oauth/',
             'consumerKey' => $this->_consumerKey,
             'consumerSecret' => $this->_consumerSecret,
              

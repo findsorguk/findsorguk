@@ -1,10 +1,15 @@
-<?php
-$this->headTitle('Details for Van Arsdell Type: ' . $this->type->type);
-$this->metaBase()->setSubject('Iron Age numismatics')
-    ->setDescription($this->title())
-    ->setKeywords('iron,age,numismatics,types')
-    ->generate();
-?>
+    <?php if ($this->type): ?>
+    <?php
+    $this->headTitle('Details for Van Arsdell Type: ' . $this->type->type);
+    $this->metaBase()->setSubject('Iron Age numismatics')
+        ->setDescription($this->title())
+        ->setKeywords('iron,age,numismatics,types')
+        ->generate();
+    ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
-<?php echo $this->searchLink()->setField('vaType')->setId($this->type->type); ?>
-<?php echo $this->latestRecords()->setQuery('vaType:"' . $this->type->type . '"');
+    <?php echo $this->searchLink()->setField('vaType')->setId($this->type->type); ?>
+    <?php echo $this->latestRecords()->setQuery('vaType:"' . $this->type->type . '"'); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No Van Arsdell type with that identifier exists.</p>
+<?php endif; ?>
