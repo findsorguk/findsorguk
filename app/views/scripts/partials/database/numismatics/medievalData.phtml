@@ -86,8 +86,7 @@
                 'controller' => 'search',
                 'action' => 'results',
                 'typeID' => $this->typeID), null, true);?>" title="view all records
-        assigned to <?php echo $this->type; ?>"><i class="icon-search"></i></a>]
-</span><br/>
+        assigned to <?php echo $this->type; ?>"><i class="icon-search"></i></a></span><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->obverseDescription)): ?>
@@ -115,8 +114,8 @@
     <?php endif; ?>
 
     <?php if (!is_null($this->dieAxisName)): ?>
-        Die axis measurement: <?php echo $this->escape($this->die_axis_name); ?> <span
-            class="scope">[<a href="<?php echo $this->url(array(
+        Die axis measurement: <?php echo $this->escape($this->dieAxisName); ?> <span
+            class="scope"><a href="<?php echo $this->url(array(
                 'module' => 'datalabs',
                 'controller' => 'terminology',
                 'action' => 'dieaxis',
