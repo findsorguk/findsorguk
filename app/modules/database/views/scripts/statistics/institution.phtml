@@ -1,6 +1,6 @@
 <?php
 $this->headTitle('Statistical analysis of the database for ' . $this->niceShortDate()->setDate($this->escape($this->datefrom)) . ' until ' . $this->niceShortDate()->setDate($this->escape($this->dateto)));
-$this->metabase()->setDescription($this->title())
+$this->metaBase()->setDescription($this->title())
     ->setKeywords('recorded,artefacts,archaeology')
     ->generate();
 ?>
