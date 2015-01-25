@@ -1,1 +1,6 @@
-<?php echo $this->partial('partials/research/projectDetails.phtml', $this->projects['0']); ?>
+<?php if (!empty($this->projects)): ?>
+    <?php echo $this->partial('partials/research/projectDetails.phtml', $this->projects['0']); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No project with that identifier can be found.</p>
+<?php endif; ?>

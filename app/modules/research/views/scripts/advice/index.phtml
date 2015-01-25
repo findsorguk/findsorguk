@@ -1,1 +1,6 @@
-<?php echo $this->partialLoop('partials/content/article.phtml', $this->contents); ?>
+<?php if (!empty($this->contents)): ?>
+    <?php echo $this->partialLoop('partials/content/article.phtml', $this->contents); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No content with that path can be found.</p>
+<?php endif; ?>

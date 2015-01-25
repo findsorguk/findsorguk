@@ -1,7 +1,14 @@
-<?php echo $this->partialLoop('partials/numismatics/roman/romanDenomination.phtml', $this->denomination); ?>
+<?php if ($this->denomination): ?>
+    <?php echo $this->partialLoop('partials/numismatics/roman/romanDenomination.phtml', $this->denomination); ?>
+<?php else: ?>
+    <p>No denomination details available.</p>
+<?php endif; ?>
 <?php if (!empty($this->rulers)): ?>
     <h3 class="lead">Issued by</h3>
     <ul>
         <?php echo $this->partialLoop('partials/numismatics/shared/rulerDenomination.phtml', $this->rulers); ?>
     </ul>
+    <?php else: ?>
+    <h3 class="lead"></h3>
+    <p>No issuers associated.</p>
 <?php endif; ?>

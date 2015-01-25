@@ -1,1 +1,6 @@
-<?php echo $this->partial('partials/research/topic.phtml', $this->topic['0']); ?>
+<?php if (!empty($this->topic)): ?>
+    <?php echo $this->partial('partials/research/topic.phtml', $this->topic['0']); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No topic with that ID has been found.</p>
+<?php endif; ?>
