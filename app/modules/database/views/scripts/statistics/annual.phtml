@@ -1,292 +1,285 @@
-<?php 
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');$this->jQuery()->javascriptCaptureStart(); ?>
-$(document).ready(function(){
-$("#datefrom").datepicker();
-$("#dateto").datepicker();
-});
-<?php
-$this->jQuery()->javascriptCaptureEnd();
- ?>
+<?php $this->headTitle('Statistical analysis of the database for ' . $this->niceShortDate()->setDate($this->escape($this->datefrom)) . ' until ' . $this->niceShortDate()->setDate($this->escape($this->dateto))); ?>
+<?php $this->metaBase()->setDescription($this->title())->generate(); ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <p>These archives can be searched to find out what was found on a particular day of the year. We have been recording
+        digitally since 1998.</p>
+    <ul id="yearrange">
+        <?php echo $this->partialLoop('partials/database/statistics/archiveYearsStats.phtml',
+            $this->yearList()->setStartYear(1998)->generateArray()); ?>
+    </ul>
 
-<?php $this->headTitle('Statistical analysis of the database for '. $this->niceShortDate()->setDate($this->escape($this->datefrom)). ' until '. $this->niceShortDate()->setDate($this->escape($this->dateto)));?>
-<p>These archives can be searched to find out what was found on a particular day of the year. We have been recording digitally since 1998.</p>
-<ul id="yearrange">
-<?php echo $this->partialLoop('partials/database/statistics/archiveYearsStats.phtml',
-        $this->yearList()->setStartYear(1998)->generateArray());?>
-</ul>
+    <p>You can also choose your own date ranges. You must choose a date from and a date to to interrogate this
+        properly.</p>
+<?php echo $this->form; ?>
 
-<p>You can also choose your own date ranges. You must choose a date from and a date to to interrogate this properly.</p>
-<?php echo $this->form;?>
+    <h3 class="lead">Quantities of objects and records found</h3>
+    <ul>
+        <?php echo $this->partialLoop('partials/statistics/rawQuantities.phtml', $this->annualsum); ?>
+    </ul>
 
-<h3 class="lead">Quantities of objects and records found</h3>
-<ul>
-<?php echo $this->partialLoop('partials/statistics/rawQuantities.phtml',$this->annualsum);?>
-</ul>
+    <h3 class="lead">Quantities recorded per Officer and assistants</h3>
 
-<h3 class="lead">Quantities recorded per Officer and assistants</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Fullname</th>
+            <th>Institution</th>
+            <th>Objects</th>
+            <th>Records</th>
+        </tr>
+        <tr>
+            <?php
+            $dates = array('datefrom' => $this->datefrom, 'dateto' => $this->dateto);
+            $data = array();
+            foreach ($this->officers as $of) {
+                $data[] = array_merge($dates, $of);
+            }
+            echo $this->partialLoop('partials/annual/perFindsLiaisionOfficer.phtml', $data); ?>
 
-<table class="table table-striped">
-<tr>
-<th>Fullname</th>
-<th>Institution</th>
-<th>Objects</th>
-<th>Records</th>
-</tr>
-<tr>
-<?php 
-$dates = array('datefrom' => $this->datefrom,'dateto' => $this->dateto);
-$data = array();
-foreach($this->officers as $of) {
-$data[] = array_merge($dates,$of);
-}
-echo $this->partialLoop('partials/annual/perFindsLiaisionOfficer.phtml',$data);?>
+            <?php
+            $finds_officers = array();
+            $records_officers = array();
+            foreach ($this->officers as $off) {
+                $finds_officers[] = $off['finds'];
+                $records_officers[] = $off['records'];
+            }
 
-<?php 
-$finds_officers = array();
-$records_officers = array();
-foreach($this->officers as $off)
-{
-$finds_officers[] = $off['finds'];
-$records_officers[] = $off['records'];
-}
+            $findsOffTotal = array_sum($finds_officers);
+            $recordsOffTotal = array_sum($records_officers);
+            ?>
+            <th></th>
+            <th></th>
+            <th><?php echo $findsOffTotal; ?>
+            </th>
+            <th><?php echo $recordsOffTotal; ?></th>
 
-$findsOffTotal = array_sum($finds_officers);
-$recordsOffTotal = array_sum($records_officers);
-?>
-<th></th>
-<th></th>
-<th><?php echo $findsOffTotal;?>
-</th>
-<th><?php echo $recordsOffTotal;?></th>
+        </tr>
+    </table>
 
-</tr>
-</table>
+    <h3 class="lead">Quantities recorded per Institution</h3>
 
-<h3 class="lead">Quantities recorded per Institution</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Institution</th>
+            <th>Objects</th>
+            <th>Records</th>
+        </tr>
+        <?php echo $this->partialLoop('partials/annual/perInstitution.phtml', $this->institution); ?>
+        <tr>
+            <?php
+            $finds_inst = array();
+            $records_inst = array();
+            foreach ($this->institution as $inst) {
+                $finds_inst[] = $inst['finds'];
+                $records_inst[] = $inst['records'];
+            }
 
-<table class="table table-striped">
-<tr>
-<th>Institution</th>
-<th>Objects</th>
-<th>Records</th>
-</tr>
-<?php echo $this->partialLoop('partials/annual/perInstitution.phtml',$this->institution);?>
-<tr>
-<?php 
-$finds_inst = array();
-$records_inst = array();
-foreach($this->institution as $inst)
-{
-$finds_inst[] = $inst['finds'];
-$records_inst[] = $inst['records'];
-}
+            $findsInstTotal = array_sum($finds_inst);
+            $recordsInstTotal = array_sum($records_inst);
+            ?>
+            <th></th>
+            <th><?php echo $findsInstTotal; ?>
+            </th>
+            <th><?php echo $recordsInstTotal; ?></th>
 
-$findsInstTotal = array_sum($finds_inst);
-$recordsInstTotal = array_sum($records_inst);
-?>
-<th></th>
-<th><?php echo $findsInstTotal;?>
-</th>
-<th><?php echo $recordsInstTotal;?></th>
+        </tr>
+    </table>
+    <h3 class="lead">Quantities by period</h3>
 
-</tr>
-</table>
-<h3 class="lead">Quantities by period</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Period</th>
+            <th>Objects</th>
+            <th>Records</th>
+        </tr>
+        <?php echo $this->partialLoop('partials/annual/objectPeriodsBreakdown.phtml', $this->periods); ?>
+        <tr>
+            <?php
+            $finds_period = array();
+            $records_period = array();
+            foreach ($this->periods as $find) {
+                $finds_period[] = $find['finds'];
+                $records_period[] = $find['records'];
+            }
 
-<table class="table table-striped">
-<tr>
-<th>Period</th>
-<th>Objects</th>
-<th>Records</th>
-</tr>
-<?php echo $this->partialLoop('partials/annual/objectPeriodsBreakdown.phtml',$this->periods);?>
-<tr>
-<?php 
-$finds_period = array();
-$records_period = array();
-foreach($this->periods as $find)
-{
-$finds_period[] = $find['finds'];
-$records_period[] = $find['records'];
-}
+            $findsPeriodTotal = array_sum($finds_period);
+            $recordsPeriodTotal = array_sum($records_period);
+            ?>
+            <th></th>
+            <th><?php echo $findsPeriodTotal; ?>
+            </th>
+            <th><?php echo $recordsPeriodTotal; ?></th>
 
-$findsPeriodTotal = array_sum($finds_period);
-$recordsPeriodTotal = array_sum($records_period);
-?>
-<th></th>
-<th><?php echo $findsPeriodTotal;?>
-</th>
-<th><?php echo $recordsPeriodTotal;?></th>
+        </tr>
+    </table>
+    <h3 class="lead">Number of recorders per insitution</h3>
 
-</tr>
-</table>
-<h3 class="lead">Number of recorders per insitution</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Institution</th>
+            <th>Number of finders</th>
+        </tr>
+        <?php echo $this->partialLoop('partials/annual/quantitiesPerFinder.phtml', $this->finders); ?>
+        <tr>
+            <?php
+            $finders = array();
+            foreach ($this->finders as $find) {
+                $finders[] = $find['finders'];
+            }
 
-<table class="table table-striped">
-<tr>
-<th>Institution</th>
-<th>Number of finders</th>
-</tr>
-<?php echo $this->partialLoop('partials/annual/quantitiesPerFinder.phtml',$this->finders);?>
-<tr>
-<?php 
-$finders = array();
-foreach($this->finders as $find)
-{
-$finders[] = $find['finders'];
-}
+            $finderstotal = array_sum($finders);
+            ?>
 
-$finderstotal = array_sum($finders);
-?>
+            <th></th>
+            <th><?php echo $finderstotal; ?></th>
 
-<th></th>
-<th><?php echo $finderstotal;?></th>
+        </tr>
+    </table>
+    <h3 class="lead">Average per month</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Month</th>
+            <th>Objects</th>
+            <th>Records</th>
+        </tr>
+        <?php echo $this->partialLoop('partials/annual/averagesPerMonth.phtml', $this->averages); ?>
+        <tr>
+            <?php
+            $finds_mean = array();
+            $records_mean = array();
+            foreach ($this->averages as $mean) {
+                $finds_mean[] = $mean['finds'];
+                $records_mean[] = $mean['records'];
+            }
 
-</tr>
-</table>
-<h3 class="lead">Average per month</h3>
-<table class="table table-striped">
-<tr>
-<th>Month</th>
-<th>Objects</th>
-<th>Records</th>
-</tr>
-<?php echo $this->partialLoop('partials/annual/averagesPerMonth.phtml',$this->averages);?>
-<tr>
-<?php 
-$finds_mean = array();
-$records_mean = array();
-foreach($this->averages as $mean)
-{
-$finds_mean[] = $mean['finds'];
-$records_mean[] = $mean['records'];
-}
+            $findsMeanTotal = array_sum($finds_mean);
+            $recordsMeanTotal = array_sum($records_mean);
+            ?>
+            <th></th>
+            <th><?php echo $findsMeanTotal; ?>
+            </th>
+            <th><?php echo $recordsMeanTotal; ?></th>
 
-$findsMeanTotal = array_sum($finds_mean);
-$recordsMeanTotal = array_sum($records_mean);
-?>
-<th></th>
-<th><?php echo $findsMeanTotal;?>
-</th>
-<th><?php echo $recordsMeanTotal;?></th>
+        </tr>
+    </table>
 
-</tr>
-</table>
+    <h3 class="lead">Year of discovery</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Year</th>
+            <th>Objects</th>
+            <th>Records</th>
+        </tr>
+        <?php echo $this->partialLoop('partials/annual/year.phtml', $this->year); ?>
+        <tr>
+            <?php
+            $finds_year = array();
+            $records_year = array();
+            foreach ($this->year as $yr) {
+                $finds_year[] = $yr['finds'];
+                $records_year[] = $yr['records'];
+            }
 
-<h3 class="lead">Year of discovery</h3>
-<table class="table table-striped">
-<tr>
-<th>Year</th>
-<th>Objects</th>
-<th>Records</th>
-</tr>
-<?php echo $this->partialLoop('partials/annual/year.phtml',$this->year);?>
-<tr>
-<?php 
-$finds_year = array();
-$records_year = array();
-foreach($this->year as $yr)
-{
-$finds_year[] = $yr['finds'];
-$records_year[] = $yr['records'];
-}
+            $findsYearTotal = array_sum($finds_year);
+            $recordsYearTotal = array_sum($records_year);
+            ?>
+            <th></th>
+            <th><?php echo $findsYearTotal; ?>
+            </th>
+            <th><?php echo $recordsYearTotal; ?></th>
 
-$findsYearTotal = array_sum($finds_year);
-$recordsYearTotal = array_sum($records_year);
-?>
-<th></th>
-<th><?php echo $findsYearTotal;?>
-</th>
-<th><?php echo $recordsYearTotal;?></th>
+        </tr>
+    </table>
 
-</tr>
-</table>
+    <h3 class="lead">Discovery method</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Discovery method</th>
+            <th>Objects</th>
+            <th>Records</th>
+        </tr>
+        <?php echo $this->partialLoop('partials/annual/dicovery.phtml', $this->discovery); ?>
+        <tr>
+            <?php
+            $finds_disc = array();
+            $records_disc = array();
+            foreach ($this->discovery as $disc) {
+                $finds_disc[] = $disc['finds'];
+                $records_disc[] = $disc['records'];
+            }
 
-<h3 class="lead">Discovery method</h3>
-<table class="table table-striped">
-<tr>
-<th>Discovery method</th>
-<th>Objects</th>
-<th>Records</th>
-</tr>
-<?php echo $this->partialLoop('partials/annual/dicovery.phtml',$this->discovery);?>
-<tr>
-<?php 
-$finds_disc = array();
-$records_disc = array();
-foreach($this->discovery as $disc)
-{
-$finds_disc[] = $disc['finds'];
-$records_disc[] = $disc['records'];
-}
+            $findsDiscYearTotal = array_sum($finds_disc);
+            $recordsDiscYearTotal = array_sum($records_disc);
+            ?>
+            <th></th>
+            <th><?php echo $findsDiscYearTotal; ?>
+            </th>
+            <th><?php echo $recordsDiscYearTotal; ?></th>
 
-$findsDiscYearTotal = array_sum($finds_disc);
-$recordsDiscYearTotal = array_sum($records_disc);
-?>
-<th></th>
-<th><?php echo $findsDiscYearTotal;?>
-</th>
-<th><?php echo $recordsDiscYearTotal;?></th>
+        </tr>
+    </table>
 
-</tr>
-</table>
+    <h3 class="lead">Type of landuse</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Landuse</th>
+            <th>Objects</th>
+            <th>Records</th>
+        </tr>
+        <?php echo $this->partialLoop('partials/annual/landUseStatistics.phtml', $this->landuse); ?>
+        <tr>
+            <?php
+            $finds_lu = array();
+            $records_lu = array();
+            foreach ($this->landuse as $lu) {
+                $finds_lu[] = $lu['finds'];
+                $records_lu[] = $lu['records'];
+            }
 
-<h3 class="lead">Type of landuse</h3>
-<table class="table table-striped">
-<tr>
-<th>Landuse</th>
-<th>Objects</th>
-<th>Records</th>
-</tr>
-<?php echo $this->partialLoop('partials/annual/landuse.phtml',$this->landuse);?>
-<tr>
-<?php 
-$finds_lu = array();
-$records_lu = array();
-foreach($this->landuse as $lu)
-{
-$finds_lu[] = $lu['finds'];
-$records_lu[] = $lu['records'];
-}
+            $findsLanduseTotal = array_sum($finds_inst);
+            $recordsLanduseTotal = array_sum($records_inst);
+            ?>
+            <th></th>
+            <th><?php echo $findsLanduseTotal; ?>
+            </th>
+            <th><?php echo $recordsLanduseTotal; ?></th>
 
-$findsLanduseTotal = array_sum($finds_inst);
-$recordsLanduseTotal = array_sum($records_inst);
-?>
-<th></th>
-<th><?php echo $findsLanduseTotal;?>
-</th>
-<th><?php echo $recordsLanduseTotal;?></th>
+        </tr>
+    </table>
 
-</tr>
-</table>
+    <h3 class="lead">Findspot precision</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Grid reference precision</th>
+            <th>Objects</th>
+            <th>Records</th>
+        </tr>
+        <?php echo $this->partialLoop('partials/annual/precision.phtml', $this->precision); ?>
+        <tr>
+            <?php
+            $finds_pre = array();
+            $records_pre = array();
+            foreach ($this->precision as $pre) {
+                $finds_pre[] = $pre['finds'];
+                $records_pre[] = $pre['records'];
+            }
 
-<h3 class="lead">Findspot precision</h3>
-<table class="table table-striped">
-<tr>
-<th>Grid reference precision</th>
-<th>Objects</th>
-<th>Records</th>
-</tr>
-<?php echo $this->partialLoop('partials/annual/precision.phtml',$this->precision);?>
-<tr>
-<?php 
-$finds_pre = array();
-$records_pre = array();
-foreach($this->precision as $pre)
-{
-$finds_pre[] = $pre['finds'];
-$records_pre[] = $pre['records'];
-}
+            $findsPrecisionTotal = array_sum($finds_pre);
+            $recordsPrecisionTotal = array_sum($records_pre);
 
-$findsPrecisionTotal = array_sum($finds_pre);
-$recordsPrecisionTotal = array_sum($records_pre);
+            ?>
+            <th></th>
+            <th><?php echo $findsPrecisionTotal; ?>
+            </th>
+            <th><?php echo $recordsPrecisionTotal; ?></th>
 
-?>
-<th></th>
-<th><?php echo $findsPrecisionTotal;?>
-</th>
-<th><?php echo $recordsPrecisionTotal;?></th>
+        </tr>
+    </table>
 
-</tr>
-</table>
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
 
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function(){
+    $("#datefrom").datepicker();
+    $("#dateto").datepicker();
+    });
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>
