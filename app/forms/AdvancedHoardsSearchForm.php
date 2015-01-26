@@ -10,13 +10,8 @@
  * @uses Institutions
  * @uses Materials
  * @uses DiscoMethods
- * @uses Manufactures();
  * @uses Periods
- * @uses Cultures
- * @uses DecStyles
- * @uses DecMethods
  * @uses FindOfNoteReasons
- * @uses Preservations
  * @uses Rallies
  * @uses OsCounties
  * @uses OsRegions();
@@ -78,6 +73,10 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $current_year = date('Y');
         $years = range(1650, $current_year);
         $years_list = array_combine($years,$years);
+
+        $reeces = new Reeces();
+        $reece_options = $reeces->getReeces();
+
 
         parent::__construct($options);
 
@@ -450,6 +449,16 @@ class AdvancedHoardsSearchForm extends Pas_Form {
 
         $legacyID = new Zend_Form_Element_Text('legacyID');
         $legacyID->setLabel('Legacy hoard database number: ');
+        //Reece
+        $reece = new Zend_Form_Element_Select('reeceID');
+        $reece->setLabel('Reece period: ')
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->addMultiOptions(array(
+                null => 'Choose Reece period',
+                'Available Reece periods' => $reece_options
+            ))
+            ->addValidator('InArray', false, array(array_keys($reece_options)))
+            ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow');
 
         $hash = new Zend_Form_Element_Hash('csrf');
         $hash->setValue($this->_salt)->setTimeout(4800);
@@ -473,7 +482,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                     $siteDateYear2, $siteDateYear1, $featureDateYear1,
                     $featureDateYear2, $knownSite, $excavated,
                     $quantityArtefacts, $quantityCoins, $quantityContainers,
-                    $legacyID
+                    $legacyID, $reece
                     ));
             } else {
                 $this->addElements(array(
@@ -495,7 +504,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                     $excavatedYear1, $excavatedYear2, $siteDateYear2,
                     $siteDateYear1, $featureDateYear1, $featureDateYear2,
                     $knownSite, $excavated, $quantityArtefacts, $quantityCoins,
-                    $quantityContainers, $legacyID
+                    $quantityContainers, $legacyID, $reece
                     ));
         }
 
@@ -509,11 +518,11 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $this->details->setLegend('Main details: ');
 
         $this->addDisplayGroup(array(
-            'broadperiod', 'lastRulerID', 'fromsubperiod', 'periodFrom',
-            'tosubperiod', 'periodTo', 'culture',
-            'fromdate', 'todate', 'terminalyear1', 'terminalyear2',
-                'terminalReasonID', 'legacyID')
-                    , 'numismatics');
+            'broadperiod', 'lastRulerID', 'reeceID',
+            'periodFrom', 'periodTo', 'culture',
+            'fromdate', 'todate', 'terminalyear1',
+            'terminalyear2', 'terminalReasonID', 'legacyID'),
+            'numismatics');
         $this->numismatics->setLegend('Numismatic analysis: ');
 
         $this->addDisplayGroup(array(
