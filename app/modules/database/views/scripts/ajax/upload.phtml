@@ -7,6 +7,4 @@
  */
 if($this->data) {
     echo Zend_Json::prettyPrint(Zend_Json::encode(array('files' =>  $this->data)));
-} else {
-    echo Zend_Json::prettyPrint(Zend_Json::encode(array('files' => null)));
 }

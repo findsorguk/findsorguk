@@ -9,7 +9,7 @@
         $user = $auth->getIdentity();
         {
             if (in_array($user->role, $allowed)) {
-                $string .= ' <a class="btn-small btn btn-warning" href="' . $deletelink . '" title="Delete the image link" class="delete">Delete link</a>';
+                $string .= ' <a class="btn-mini btn btn-warning" href="' . $deletelink . '" title="Delete the image link" class="delete">Delete link</a>';
             }
         }
     }

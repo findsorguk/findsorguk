@@ -91,6 +91,7 @@ class Slides extends Pas_Db_Table_Abstract
                 array())
             ->joinLeft('finds', 'finds.secuid = finds_images.find_id',
                 array('old_findID', 'objecttype', 'id', 'secuid'))
+            ->joinLeft('users', 'slides.createdBy = users.id', array('username'))
             ->where('finds.id = ?', (int)$id)
             ->order('slides.' . $this->_primary . ' ASC');
         return $thumbs->fetchAll($select);

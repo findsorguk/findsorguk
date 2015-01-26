@@ -45,14 +45,15 @@ $tempfilesmall = './' . $path . 'small/' . $name . $ext;
         ->generate();
 
     ?>
-    <p><a class="btn"
+    <div class="btn-group">
+        <a class="btn"
           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->id), null, true); ?>"
           title="Download image">Download original</a>
         <a class="btn"
            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom', 'id' => $this->id), null, true); ?>"
            title="Zoom this image">Zoom image</a>
         <?php echo $this->imageToolBox()->setID($this->id)->setCreatedBy($this->createdBy)->setInstitution($this->institution); ?>
-    </p>
+    </div>
 </div>
 
 
@@ -176,5 +177,3 @@ $tempfilesmall = './' . $path . 'small/' . $name . $ext;
 <?php
 }
 ?>
-
-</div>
