@@ -66,8 +66,7 @@ class ProvisionalValuationForm extends Pas_Form {
 		->setRequired(true)
 		->setJQueryParam('dateFormat', 'yy-mm-dd')
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size', 20)
-		->addValidator('Datetime');
+		->setAttrib('size', 20);
 	
 	$submit = new Zend_Form_Element_Submit('submit');
 	

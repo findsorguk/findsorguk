@@ -99,7 +99,6 @@ class EventForm extends Pas_Form {
 	->setRequired(true)
 	->setJQueryParam('dateFormat', 'yy-mm-dd')
 	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('Datetime')
 	->addErrorMessage('You need a start date')
 	->setAttrib('size', 20);
 
@@ -108,7 +107,6 @@ class EventForm extends Pas_Form {
 	->setRequired(false)
 	->setJQueryParam('dateFormat', 'yy-mm-dd')
 	->addFilters(array('StripTags','StringTrim'))
-	->addValidator('Datetime')
 	->addErrorMessage('You need an end date')
 	->setAttrib('size', 20);
 

@@ -74,7 +74,6 @@ class VacancyForm extends Pas_Form {
 		->setJQueryParam('dateFormat', 'yy-mm-dd')
 		->setJQueryParam('maxDate', '+1y')
 		->addFilters(array('StringTrim', 'StripTags'))
-		->addValidator('Datetime')
 		->addErrorMessage('Come on it\'s not that hard, enter a title!')
 		->setAttrib('size', 20);
 	
@@ -84,7 +83,6 @@ class VacancyForm extends Pas_Form {
 		->setJQueryParam('dateFormat', 'yy-mm-dd')
 		->setJQueryParam('maxDate', '+1y')
 		->addFilters(array('StringTrim', 'StripTags'))
-		->addValidator('Datetime')
 		->addErrorMessage('Come on it\'s not that hard, enter a title!')
 		->setAttrib('size', 20);
 	

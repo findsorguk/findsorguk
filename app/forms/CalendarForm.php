@@ -100,7 +100,6 @@ class CalendarForm extends Pas_Form {
                 ->setRequired(true)
                 ->setJQueryParam('dateFormat', 'yy-mm-dd')
                 ->addFilters(array('StripTags','StringTrim'))
-                ->addValidator('Datetime')
                 ->setAttrib('placeholder','Format of YYYY-mm-dd')
                 ->addErrorMessage('You must enter a date')
                 ->setAttrib('size', 20);
@@ -110,7 +109,6 @@ class CalendarForm extends Pas_Form {
                 ->setRequired(true)
                 ->setJQueryParam('dateFormat', 'yy-mm-dd')
                 ->addFilters(array('StripTags','StringTrim'))
-                ->addValidator('Datetime')
                 ->setAttrib('placeholder','Format of YYYY-mm-dd')
                 ->addErrorMessage('You must enter a date')
                 ->setAttrib('size', 20);

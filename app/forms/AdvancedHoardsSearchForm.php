@@ -315,22 +315,18 @@ class AdvancedHoardsSearchForm extends Pas_Form {
 
         $created = new Zend_Form_Element_Text('createdBefore');
         $created->setLabel('Date record created on or before: ')
-            ->addValidator('Datetime')
             ->addFilters(array('StringTrim','StripTags'));
 
         $created2 = new Zend_Form_Element_Text('createdAfter');
         $created2->setLabel('Date record created on or after: ')
-            ->addValidator('Datetime')
             ->addFilters(array('StringTrim','StripTags'));
 
         $updated = new Zend_Form_Element_Text('updatedBefore');
         $updated->setLabel('Date record updated on or before: ')
-            ->addValidator('Datetime')
             ->addFilters(array('StringTrim','StripTags'));
 
         $updated2 = new Zend_Form_Element_Text('updatedAfter');
         $updated2->setLabel('Date record updated on or after: ')
-            ->addValidator('Datetime')
             ->addFilters(array('StringTrim','StripTags'));
 
         $finder = new Zend_Form_Element_Text('finder');
