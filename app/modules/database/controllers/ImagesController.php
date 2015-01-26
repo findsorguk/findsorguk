@@ -316,6 +316,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
             }
         }
     }
+
     /** Link an image to a record
      * @access public
      * @return void

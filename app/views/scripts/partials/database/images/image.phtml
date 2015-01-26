@@ -35,14 +35,6 @@ $tempfilesmall = './' . $path . 'small/' . $name . $ext;
     <?php
 
     }
-    $this->metaBase()
-        ->setDescription($this->label)
-        ->setSubject('archaeology')
-        ->setKeywords(implode(',', array($this->broadperiod, $this->county, $this->objecttype)))
-        ->setImage($this->serverUrl() . '/' . $path . 'medium/' . rawurlencode($name) . $ext)
-        ->setImageWidth($w)
-        ->setImageHeight($h)
-        ->generate();
 
     ?>
     <div class="btn-group">
