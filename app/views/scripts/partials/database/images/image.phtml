@@ -1,171 +1,79 @@
+<?php $path = implode('/',array(IMAGE_PATH,$this->username, 'medium', $this->filename));?>
+<?php if(file_exists($path)):?>
 <h2 class="lead">Large image view and metadata</h2>
 
-<?php
-$file = $this->filename;
-$path = $this->imagedir;
-$location = './' . $this->baseUrl() . $path . $file;
-$name = substr($file, 0, strrpos($file, '.'));
-$ext = '.jpg';
-$smalldir = './' . $path . 'small/';
-$mediumdir = './' . $path . 'medium/';
-$create_mode = 0777;
-if (!is_dir($smalldir)) {
-    mkdir($smalldir, $create_mode, true);
-}
-if (!is_dir($mediumdir)) {
-    mkdir($mediumdir, $create_mode, true);
-}
-$tempfile = './' . $path . 'medium/' . $name . $ext;
-
-$tempfilesmall = './' . $path . 'small/' . $name . $ext;
-
-?>
-
 <div id="image">
-    <?php
-    if (file_exists($location)) {
-    ?>
-    <?php
-    if (file_exists($tempfile)) {
-        list($w, $h, $type, $attr) = getimagesize('./' . $this->baseUrl() . '/' . $path . 'medium/' . $name . $ext);
-        echo '<img src="' . $this->baseUrl() . '/' . $path . 'medium/' . $name . $ext . '" height="' . $h . '" width="' . $w . '" alt="A resized image of ' . $this->label . '" />';
-    } else {
-        ?>
-    <p>Image unavailable</p>
-    <?php
 
-    }
-
-    ?>
+        <?php list($w, $h, $type, $attr) = getimagesize($path); ?>
+        <?php $src = array($this->serverUrl(),'images', $this->username, 'medium', $this->filename);?>
+        <img src="<?php echo implode('/', $src); ?>"  height="<?php echo $h; ?>" width="<?php echo $w; ?>"
+             alt="A resized image of <?php echo $this->label; ?>"/>
     <div class="btn-group">
         <a class="btn"
-          href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->id), null, true); ?>"
-          title="Download image">Download original</a>
-        <a class="btn"
-           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom', 'id' => $this->id), null, true); ?>"
-           title="Zoom this image">Zoom image</a>
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->id), null, true); ?>"
+           title="Download image">Download original</a>
         <?php echo $this->imageToolBox()->setID($this->id)->setCreatedBy($this->createdBy)->setInstitution($this->institution); ?>
     </div>
 </div>
 
 
-    <div class="row-fluid">
-        <!--  Navigation for tabs  -->
-        <ul id="tab" class="nav nav-tabs">
-            <li><a class="active" href="#meta" data-toggle="tab">Metadata</a></li>
-            <li><a href="#exif" data-toggle="tab">Exif data</a></li>
-            <li><a href="#others" data-toggle="tab">Other sizes</a></li>
-        </ul>
-        <!--  End of Tabs navigation -->
+<div class="row-fluid">
+    <!--  Navigation for tabs  -->
+    <ul id="tab" class="nav nav-tabs">
+        <li><a class="active" href="#meta" data-toggle="tab">Metadata</a></li>
+        <li><a href="#exif" data-toggle="tab">Exif data</a></li>
+    </ul>
+    <!--  End of Tabs navigation -->
 
-        <!-- Start of tabbed content div -->
-        <div id="myTabContent" class="tab-content">
+    <!-- Start of tabbed content div -->
+    <div id="myTabContent" class="tab-content">
 
-            <div class="tab-pane fade in active" id="meta">
-                <h3 class="lead">Image meta data</h3>
-                <ul>
-                    <li>Label: <?php echo $this->label; ?></li>
-                    <li>Broadperiod: <?php echo $this->broadperiod; ?></li>
-                    <li>County: <?php echo $this->county; ?></li>
-                    <li>Filesize: <?php echo $this->humanFileSize()->setSize($this->filesize); ?></li>
-                    <li>Copyright: <?php echo $this->imagerights; ?></li>
-                    <li>License: <?php echo $this->license; ?></li>
-                </ul>
-            </div>
-
-            <div class="tab-pane fade " id="others">
-                <h4 class="lead">Other sizes</h4>
-                <?php
-                $thumb = './images/thumbnails/' . $this->id . '.jpg';
-                if (file_exists($thumb)) { ?>
-                    <img src="<?php echo $this->baseUrl(); ?>/images/thumbnails/<?php echo $this->id; ?>.jpg"
-                         alt="A resized image of <?php echo $this->label; ?>"/>
-                <?php } else { ?>
-                    <p>Image unavailable</p>
-                <?php
-
-                }
-                ?>
-                <?php
-                if (file_exists($tempfilesmall)) {
-                    echo '<img src="' . $this->baseUrl() . '/' . $path . 'small/' . $name . $ext . '" alt="A resized image of ' . $this->label . '" />';
-                } else {
-                    $phMagick = new phMagick($location, $tempfilesmall);
-                    $phMagick->resize(40, 0);
-                    $phMagick->convert();
-                    //Zend_Debug::dump($phMagick);
-                    echo '<img src="' . $this->baseUrl() . '/' . $path . 'small/' . $name . $ext . '" alt="A resized image of ' . $this->label . '" />';
-                }
-                ?>
-            </div>
-
-            <div class="tab-pane fade" id="exif">
-                <h3 class="lead">Extracted data</h3>
-                <ul>
-                    <?php $img = getimagesize($location);
-                    //Zend_Debug::dump($img);
-                    echo '<li>Width: ' . $img['0'] . ' pixels </li>';
-                    echo '<li>Height: ' . $img['1'] . ' pixels </li>';
-                    if (isset($img['channels'])) {
-                        echo '<li>Channels: ' . $img['channels'] . '</li>';
-                    }
-                    if (isset($img['bits'])) {
-                        echo '<li>Bits: ' . $img['bits'] . '</li>';
-                    }
-                    echo '<li>Mime type: ' . $img['mime'] . '</li>';
-                    if (isset($img["APP13"])) {
-                        $iptc = iptcparse($img["APP13"]);
-                        //   Zend_Debug::dump($iptc);
-                    }
-                    if ($img['mime'] == 'image/jpeg') {
-
-                        $data = new Pas_Exif_Reader($location);
-                        //Zend_Debug::dump($data->getImageInfo());
-                        //Zend_Debug::dump($data->getThumbnail());
-                        if ($data->ThumbnailSize > 0) {
-                            echo "<br /><img src='" . $data->getThumbnail() . "'>";
-                        }
-                        $exif = exif_read_data($location, 0, true);
-                        if (isset($exif['FILE'])) {
-                            echo $this->partial('partials/database/images/exifData.phtml', $exif['FILE']);
-                        }
-                        if (isset($exif['COMPUTED'])) {
-                            echo $this->partial('partials/database/images/exifDataComputed.phtml', $exif['COMPUTED']);
-                        }
-                        if (isset($exif['IFD0'])) {
-
-                            echo $this->partial('partials/database/images/exifDataIFD0.phtml', $exif['IFD0']);
-                        }
-                        if (isset($exif['EXIF'])) {
-                            $extended = $exif['EXIF'];
-                            unset($extended['MakerNote']);
-                            unset($extended['UserComment']);
-                            foreach ($extended as $k => $v) {
-                                echo '<li>' . $k . ' : ' . $v . '</li>';
-                            }
-                        }
-                    }
-
-                    ?>
-
-                </ul>
-            </div>
-
-
+        <div class="tab-pane fade in active" id="meta">
+            <h3 class="lead">Image meta data</h3>
+            <ul>
+                <li>Label: <?php echo $this->label; ?></li>
+                <li>Broadperiod: <?php echo $this->broadperiod; ?></li>
+                <li>County: <?php echo $this->county; ?></li>
+                <li>Filesize: <?php echo $this->humanReadableFileSize()->setSize($this->filesize); ?></li>
+                <li>Copyright: <?php echo $this->imagerights; ?></li>
+                <li>License: <?php echo $this->license; ?></li>
+            </ul>
         </div>
-        <!--  End of tabbed content div -->
+
+
+        <div class="tab-pane fade" id="exif">
+            <h3 class="lead">Extracted data</h3>
+            <ul>
+                <?php $location = implode('/',array(IMAGE_PATH,$this->username, $this->filename));?>
+                <?php $img = getimagesize($location); ?>
+
+                <li>Width: <?php echo $img['0']; ?> pixels</li>
+
+                <li>Height: <?php echo $img['1']; ?> pixels</li>
+
+                <?php if (array_key_exists('channels', $img)): ?>
+                    <li>Channels: <?php echo $img['channels']; ?></li>
+                <?php endif; ?>
+
+                <?php if (array_key_exists('bits', $img)): ?>
+                    <li>Bits: <?php echo $img['bits']; ?></li>
+                <?php endif; ?>
+
+                <li>Mime type: <?php echo $img['mime']; ?></li>
+
+                <?php if (array_key_exists('APP13', $img)): ?>
+                    <?php $iptc = iptcparse($img["APP13"]); ?>
+                <?php endif; ?>
+
+
+            </ul>
+        </div>
+
 
     </div>
+    <!--  End of tabbed content div -->
 
-
-
-<?php
-} else { ?>
-    <img src="http://farm4.static.flickr.com/3407/3478660349_f8ed50f4d7.jpg" alt="The trip home" class="img img-circle"
-         width="500" height="322"/>
-    <p>Image unavailable just now: <?php echo $this->filename; ?></p>
-    <p>The image above is a CC licenced image by <a href="http://www.flickr.com/photos/kwl/">Kennymatic</a>.</p>
-
-<?php
-}
-?>
+</div>
+<?php else:?>
+    <p>No file found</p>
+<?php endif;?>

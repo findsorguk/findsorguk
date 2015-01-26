@@ -21,7 +21,7 @@
  * @see http://stackoverflow.com/questions/15188033/human-readable-file-size
  *
  */
-class Pas_View_Helper_HumanFileSize extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_HumanReadableFileSize extends Zend_View_Helper_Abstract {
 
     /** The size of the file
      * @access protected
@@ -51,7 +51,7 @@ class Pas_View_Helper_HumanFileSize extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_HumanFileSize
      */
-    public function humanFileSize() {
+    public function humanReadableFileSize() {
         return $this;
     }
 

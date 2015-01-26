@@ -130,14 +130,14 @@ class Slides extends Pas_Db_Table_Abstract
                 'id' => 'imageID', 'filename', 'label',
                 'filesize', 'county', 'period',
                 'imagerights', 'institution', 'secuid',
-                'created', 'createdBy'
+                'created', 'createdBy', 'ccLicense'
             ))
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id',
                 array())
             ->joinLeft('finds', 'finds.secuid = finds_images.find_id',
                 array('old_findID', 'broadperiod'))
             ->joinLeft('users', 'users.id = slides.createdBy',
-                array('imagedir', 'fullname'))
+                array('imagedir', 'fullname', 'username'))
             ->joinLeft('licenseType', 'slides.ccLicense = licenseType.id',
                 array('license'))
             ->where('slides.imageID = ?', (int)$id);
@@ -233,7 +233,8 @@ class Slides extends Pas_Db_Table_Abstract
                 'keywords',
                 'createdBy',
                 'updated',
-                'created'
+                'created',
+                'license' => 'ccLicense'
             ))
             ->joinLeft('periods', $this->_name . '.period = periods.id',
                 array('broadperiod' => 'term'))

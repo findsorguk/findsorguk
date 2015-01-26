@@ -61,9 +61,9 @@ $file = implode('/', $parts);
         </div>
 
         <div class="btn-group">
-            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->id),'default', true);?>" class="btn-mini btn">Edit</a>
-            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->id),'default', true);?>" class="btn-mini btn">View</a>
-            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->id),'default', true);?>" class="btn-mini btn">Delete</a>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->imageID),'default', true);?>" class="btn-mini btn">Edit</a>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->imageID),'default', true);?>" class="btn-mini btn">View</a>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->imageID),'default', true);?>" class="btn-mini btn">Delete</a>
         </div>
     <?php else: ?>
         <div class="pull-right">
@@ -100,7 +100,7 @@ $file = implode('/', $parts);
                 Key words need entering<br/>
             <?php endif; ?>
 
-            <strong>File size: </strong><?php echo $this->filesize; ?> <br/>
+            <strong>File size: </strong><?php echo $this->humanReadableFileSize()->setSize($this->filesize); ?> <br/>
             <strong>File added: </strong><?php echo $this->timeAgoInWords($this->filecreated); ?><br/>
             <strong>File name: </strong><?php echo $this->filename; ?><br/>
             <strong>File type: </strong><?php echo $this->type; ?><br/>

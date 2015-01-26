@@ -18,14 +18,14 @@ $this->metaBase()->setDescription($this->title())->generate();
             Server space total:
             <?php
             $df = disk_total_space("/");
-            echo $this->humanFileSize()->setSize($df);
+            echo $this->humanReadableFileSize()->setSize($df);
             ?>
         </li>
         <li>
             Free space total:
             <?php
             $df = disk_free_space("/");
-            echo $this->humanFileSize()->setSize($df);
+            echo $this->humanReadableFileSize()->setSize($df);
             ?>
         </li>
         <li>
@@ -34,19 +34,19 @@ $this->metaBase()->setDescription($this->title())->generate();
             $dt = disk_total_space('/');
             $df = disk_free_space('/');
             $used = $dt - $df;
-            echo $this->humanFileSize()->setSize($used);
+            echo $this->humanReadableFileSize()->setSize($used);
             ?>
         </li>
         <li>
             Cache directory size:
             <?php
-            echo $this->humanFileSize()->setSize($this->humanDirectorySize()->setPath(CACHE_PATH)->dirSize());
+            echo $this->humanReadableFileSize()->setSize($this->humanDirectorySize()->setPath(CACHE_PATH)->dirSize());
             ?>
         </li>
         <li>
             Image directory size:
             <?php
-            echo $this->humanFileSize()->setSize($this->humanDirectorySize()->setPath(IMAGE_PATH)->dirSize());
+            echo $this->humanReadableFileSize()->setSize($this->humanDirectorySize()->setPath(IMAGE_PATH)->dirSize());
             ?>
         </li>
     </ul>
