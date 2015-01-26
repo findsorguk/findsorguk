@@ -1,28 +1,36 @@
-<div class="sidebar-nav col-md-3" >
-    <ul  id="menu1" class="nav nav-stacked nav-pills collapsible">
-        <li <?php echo $this->currentPage()->active('flickr','index','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'flickr'),'default',true);?>" title="Our flickr presence">Us on flickr</a></li>
+<div class="sidebar-nav col-md-3">
+    <ul id="menu1" class="nav nav-stacked nav-pills collapsible">
+        <li <?php echo $this->currentPage()->active('flickr', 'index', 'index'); ?>>
+            <a href="<?php echo $this->url(array('module' => 'flickr'), 'default', true); ?>"
+               title="Our flickr presence">Us on flickr</a></li>
 
-        <li <?php echo $this->currentPage()->active('flickr','photos','sets');?>>
-            <a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'sets'),'default',true);?>" title="Find all our sets of images">Our sets</a></li>
-        
-        <li <?php echo $this->currentPage()->active('flickr','photos','favourites');?>>
-            <a href="<?php echo $this->url(array('module' => 'flickr','controller' => 'photos','action' => 'favourites'),'default',true);?>" title="View all our favourites from other users">Our favourite images</a></li>
-        
-        <li <?php echo $this->currentPage()->active('flickr','map','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'flickr','controller' =>  'map'),'default',true);?>" title="View georeffed images on map">Our images mapped</a></li>
-        
-        <li <?php echo $this->currentPage()->active('flickr','photos','interesting');?>>
-            <a href="<?php echo $this->url(array('module' => 'flickr','controller' =>  'photos','action' => 'interesting'),'default',true);?>" title="View interesting photos">Archaeology photos</a></li>
-        
-        <li <?php echo $this->currentPage()->active('flickr','contacts','index');?>>
-            <a href="<?php echo $this->url(array('module' => 'flickr','controller' =>  'contacts'),'default',true);?>" title="View our contacts">Our contacts</a></li>
+        <li <?php echo $this->currentPage()->active('flickr', 'photos', 'sets'); ?>>
+            <a href="<?php echo $this->url(array('module' => 'flickr', 'controller' => 'photos', 'action' => 'sets'), 'default', true); ?>"
+               title="Find all our sets of images">Our sets</a></li>
+
+        <li <?php echo $this->currentPage()->active('flickr', 'photos', 'favourites'); ?>>
+            <a href="<?php echo $this->url(array('module' => 'flickr', 'controller' => 'photos', 'action' => 'favourites'), 'default', true); ?>"
+               title="View all our favourites from other users">Our favourite images</a></li>
+
+        <li <?php echo $this->currentPage()->active('flickr', 'map', 'index'); ?>>
+            <a href="<?php echo $this->url(array('module' => 'flickr', 'controller' => 'map'), 'default', true); ?>"
+               title="View georeffed images on map">Our images mapped</a></li>
+
+        <li <?php echo $this->currentPage()->active('flickr', 'photos', 'interesting'); ?>>
+            <a href="<?php echo $this->url(array('module' => 'flickr', 'controller' => 'photos', 'action' => 'interesting'), 'default', true); ?>"
+               title="View interesting photos">Archaeology photos</a></li>
+
+        <li <?php echo $this->currentPage()->active('flickr', 'contacts', 'index'); ?>>
+            <a href="<?php echo $this->url(array('module' => 'flickr', 'controller' => 'contacts'), 'default', true); ?>"
+               title="View our contacts">Our contacts</a></li>
     </ul>
-    
+
     <div id="powered">
         <p>All images retrieved from:</p>
-        <img src="<?php echo $this->baseUrl();?>/assets/logos/flickr.png" alt="flickr's logo" height="39" width="140"/><br />
+        <img src="<?php echo $this->baseUrl(); ?>/assets/logos/flickr.png" alt="flickr's logo" height="39" width="140"/><br/>
+
         <p>Powered by:</p>
-        <img src="<?php echo $this->baseUrl();?>/assets/logos/YQL.png" alt="YQL from Yahoo! logo" height="77" width="70"/><img src="<?php echo $this->baseUrl();?>/assets/logos/geoplanet.png" alt="Geoplanet from Yahoo! logo" height="68" width="70"/>
+        <img src="<?php echo $this->baseUrl(); ?>/assets/logos/YQL.png" alt="YQL from Yahoo! logo" height="77"
+             width="70"/>
     </div>
 </div>
