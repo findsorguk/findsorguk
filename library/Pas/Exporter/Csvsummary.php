@@ -32,7 +32,8 @@ class Pas_Exporter_Csvsummary extends Pas_Exporter_Generate
      */
     protected $_csvFields = array(
         'id', 'hoard', 'hoardID', 'broadperiod',
-        'ruler', 'mint', 'geography',
+        'ruler', 'denomination', 'fromDate',
+        'toDate','mint', 'geography',
         'quantity', 'created', 'createdBy',
         'updated', 'updatedBy'
     );

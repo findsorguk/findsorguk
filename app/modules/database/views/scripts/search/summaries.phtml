@@ -20,8 +20,10 @@ $this->metaBase()->setDescription('A set of results from the coin hoard summary 
         $base = array('module' => 'database', 'controller' => 'ajax', 'action' => 'summary');
         $route = array_merge($base, $params);
     ?>
-    <a href="<?php echo $this->url($route, 'default', true); ?>"
+    <div class="btn-group">
+        <a href="<?php echo $this->url($route, 'default', true); ?>"
        class="btn-small btn"><i class="icon-download-alt"></i> Download as CSV</a>
+    </div>
 <?php if ($this->results): ?>
     <table class="table table-striped">
         <thead>
