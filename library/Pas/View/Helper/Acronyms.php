@@ -77,7 +77,7 @@ class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
 
     /** Magic method return string
      * @access public
-     * @return function
+     * @return string
      */
     public function __toString()
     {

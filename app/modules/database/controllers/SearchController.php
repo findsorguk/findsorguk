@@ -69,9 +69,9 @@ class Database_SearchController extends Pas_Controller_Action_Admin
                     'Content-Type' => 'text/xml')
             ))
             ->addActionContext('results', array(
-                'json', 'xml', 'rdf',
+                'json', 'xml',
                 'rss', 'atom', 'kml',
-                'geojson', 'qrcode', 'midas'
+                'geojson', 'qrcode'
             ))
             ->addActionContext('summaries', array('json', 'xml'))
             ->setAutoJsonSerialization(false);
@@ -81,8 +81,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
         if (!in_array($this->_helper->contextSwitch()->getCurrentContext(),
             $this->_contexts)
         ) {
-            $this->view->googleapikey = $this->_helper->config()
-                ->webservice->googlemaps->apikey;
+            $this->view->googleapikey = $this->_helper->config()->webservice->googlemaps->apikey;
         }
     }
 
