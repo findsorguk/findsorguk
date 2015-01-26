@@ -84,7 +84,7 @@ echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
             <?php echo $this->partial('partials/hoards/coinSummary.phtml', array('coinSummary' => $this->coinSummary, 'hoards' => $this->hoards)); ?>
 
             <!-- Coin data quality rating -->
-            <?php echo $this->partial('partials/hoards/coinDataQuality.phtml', $this->coinDataQuality); ?>
+            <?php echo $this->partial('partials/hoards/coinDataQualityIndicator.phtml', $this->coinDataQuality); ?>
 
             <!-- The description of the object -->
             <?php echo $this->partial('partials/hoards/hoardsDescriptive.phtml', $this->hoardDescription); ?>
