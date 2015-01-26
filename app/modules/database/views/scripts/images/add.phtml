@@ -51,7 +51,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                 <div class="progress-extended">&nbsp;</div>
             </div>
             <div class="span6">
-                <?php $url = array('module' => 'database', 'controller' => 'images', 'action' => 'metadata', 'id' => $this->findID); ?>
+                <?php $url = array('module' => 'database', 'controller' => 'images', 'action' => 'attached', 'id' => $this->findID); ?>
                 <a href="<?php echo $this->url($url);?>" class="btn btn-success">Finished uploads? Add metadata to images</a>
             </div>
         </div>

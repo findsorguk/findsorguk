@@ -1,0 +1,25 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 26/01/15
+ * Time: 14:23
+ */
+$parts = array(IMAGE_PATH, $this->username, $this->filename);
+$file = implode('/', $parts);
+?>
+<div>
+<?php if(!file_exists($file)):?>
+    <?php $src = array($this->serverUrl(), 'images', $this->username, 'medium', $this->filename);?>
+
+    <img src="<?php echo implode('/', $src);?>" />
+    <div class="btn-group">
+        <a href="#" class="btn-mini btn">Edit</a>
+        <a href="#" class="btn-mini btn">View</a>
+        <a href="#" class="btn-mini btn">Delete</a>
+    </div>
+<?php else:?>
+    Add new error image of Lego here.
+<?php endif;?>
+</div>
+<hr />
