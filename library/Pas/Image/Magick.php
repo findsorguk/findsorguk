@@ -227,11 +227,18 @@ class Pas_Image_Magick
     {
         //For each directory in the list, check that the directory exists
         foreach ($this->getSizes() as $dir) {
-            //Set up each directory path
-            $directory = IMAGE_PATH . $this->getUserPath() . $dir['destination'];
-            //Check if directory exists and if not create.
-            if (!is_dir($directory)) {
-                $this->_makeDirectory($directory);
+            if ($dir['destination'] != self::THUMB) {
+                //Set up each directory path
+                $directory = IMAGE_PATH . $this->getUserPath() . $dir['destination'];
+                //Check if directory exists and if not create.
+                if (!is_dir($directory)) {
+                    $this->_makeDirectory($directory);
+                }
+            } else {
+                $directory = IMAGE_PATH . self::THUMB;
+                if (!is_dir($directory)) {
+                    $this->_makeDirectory($directory);
+                }
             }
         }
         return $this;
@@ -249,11 +256,11 @@ class Pas_Image_Magick
             //Set up each directory path
             $directory = IMAGE_PATH . $this->getUserPath() . $dir['destination'];
             //Check if directory exists and if not create.
-            if (!is_writable($directory)) {
-                chmod($directory, self::PERMS);
-            } else {
-                throw new Pas_Image_Exception('The directory ' . $directory . ' is not writable', 500);
-            }
+//            if (!is_writable($directory)) {
+//                chmod($directory, self::PERMS);
+//            } else {
+//                throw new Pas_Image_Exception('The directory ' . $directory . ' is not writable', 500);
+//            }
         }
         return $this;
     }
@@ -280,14 +287,14 @@ class Pas_Image_Magick
         //Make directory check for existence
         $this->checkDirectories();
         // Make directory check for permissions
-        $this->checkPermissions();
+//        $this->checkPermissions();
 
         //Loop through each size and create the image
         foreach ($this->getSizes() as $resize) {
             // Set the file name
             if ($resize['destination'] == self::THUMB) {
                 // Thumbnail sets record number as thumbnail ID
-                $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getImageNumber() . self::EXT;
+                $newImage = IMAGE_PATH . $resize['destination'] . $this->getImageNumber() . self::EXT;
             } else {
                 // Normal base name otherwise
                 $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getBasename();

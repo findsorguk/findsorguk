@@ -1,0 +1,18 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 01/12/14
+ * Time: 13:25
+ */
+$this->headTitle('Images attached to this record');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+
+<?php if ($this->images): ?>
+    <h2 class="lead"><?php echo $this->title(); ?></h2>
+        <?php echo $this->partialLoop('partials/database/images/largeImage.phtml', $this->images); ?>
+<?php else: ?>
+    <h2 class="lead">An error has occurred</h2>
+    <p>No images attached.</p>
+<?php endif; ?>

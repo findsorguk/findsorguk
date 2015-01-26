@@ -137,8 +137,7 @@ class Pas_Yql_Oauth
      * @param boolean $passOAuthInHeader
      * @param string $method
      */
-    private function callYQL($q, $access_token, $access_token_secret, $passOAuthInHeader = true,
-                             $method = 'GET')
+    private function callYQL($q, $access_token, $access_token_secret, $passOAuthInHeader = true, $method = 'GET')
     {
         $url = self::YQL;
         $params['q'] = (string)$q;
@@ -435,7 +434,7 @@ class Pas_Yql_Oauth
         $where = array();
         $where[] = $tokens->getAdapter()->quoteInto('service = ?', 'yahooAccess');
         $where[] = $tokens->getAdapter()->quoteInto('expires <= ?', $this->_now);
-        $delete = $tokens->delete($where);
+        $tokens->delete($where);
     }
 
     /** Refresh the access token with yahoo's service if expired

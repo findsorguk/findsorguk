@@ -441,18 +441,13 @@ class Database_ImagesController extends Pas_Controller_Action_Admin {
         $this->view->findID = $this->getParam('id');
     }
 
-    public function metadataAction()
+    public function attachedAction()
     {
-        $former = new MetaDataForm();
-        $this->view->former = $former;
-
         if($this->getParam('id', false)){
-
             $help = new Help();
-            //Send contents to the view
             $this->view->contents = $help->fetchRow('id = 14')->toArray();
-//            $form = new ImageForm($options = array('id' =>$this->getParam('id')));
-//            $this->view->form = $form;
+            $images = new Slides();
+            $this->view->images = $images->getSlides($this->getParam('id'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

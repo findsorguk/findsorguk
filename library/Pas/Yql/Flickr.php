@@ -193,6 +193,7 @@ class Pas_Yql_Flickr
             'per_page' => $per_page
         );
         $yql = 'Select * from xml where url ="' . self::FLICKRURI . $this->buildQuery($args) . '"';
+        Zend_Debug::dump($this->getData($yql));
         return $this->getData($yql)->query->results->rsp;
     }
 

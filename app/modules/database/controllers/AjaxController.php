@@ -767,8 +767,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
 
 
                 // file uploaded & is valid
-                if (!$adapter->isUploaded($file)) continue;
-                if (!$adapter->isValid($file)) continue;
+//                if (!$adapter->isUploaded($file)) continue;
+//                if (!$adapter->isValid($file)) continue;
 
                 // Clean up the image name for crappy characters
                 $filename = pathinfo($adapter->getFileName($file));
@@ -780,35 +780,42 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                 $adapter->addFilter('rename', $cleaned);
                 // receive the files into the user directory
                 $adapter->receive($file); // this has to be on top
+                if(!$adapter->hasErrors()){
+                    // Create the object for reuse
+                    $image = new stdClass();
+                    $image->cleaned = $cleaned;
+                    $image->basename = $filename['basename'];
+                    $image->extension = $filename['extension'];
+                    $image->thumbnailUrl = $this->createThumbnailUrl($adapter->getFileName($file, false));
+                    $image->deleteUrl = $this->_createUrl($adapter->getFileName($file, false));
+                    $image->path = $adapter->getFileName($file);
+                    $image->name = $adapter->getFileName($file, false);
+                    $image->size = $adapter->getFileSize($file);
+                    $image->type = $adapter->getMimeType($file);
+                    // The secure ID stuff for linking images
+                    $image->secuid = $this->_helper->GenerateSecuID();
+                    // Get the image dims
+                    $imagesize = getimagesize($adapter->getFileName($file));
+                    $image->width = $imagesize[0];
+                    $image->height = $imagesize[1];
+                    $params = $this->getAllParams();
+                    $image->findID = $params['findID'];
+                    // Create the raw image url
+                    $image->url = $this->_createUrl($adapter->getFileName($file, false));
+                    $image->deleteType = 'DELETE';
+                    $images[] = $image;
 
-                // Create the object for reuse
-                $image = new stdClass();
-                $image->cleaned = $cleaned;
-                $image->basename = $filename['basename'];
-                $image->extension = $filename['extension'];
-                $image->thumbnailUrl = $this->createThumbnailUrl($adapter->getFileName($file, false));
-                $image->deleteUrl = $this->_createUrl($adapter->getFileName($file, false));
-                $image->path = $adapter->getFileName($file);
-                $image->name = $adapter->getFileName($file, false);
-                $image->size = $adapter->getFileSize($file);
-                $image->type = $adapter->getMimeType($file);
-                // The secure ID stuff for linking images
-                $image->secuid = $this->_helper->GenerateSecuID();
-                // Get the image dims
-                $imagesize = getimagesize($adapter->getFileName($file));
-                $image->width = $imagesize[0];
-                $image->height = $imagesize[1];
-                $params = $this->getAllParams();
-                $image->findID = $params['findID'];
-                // Create the raw image url
-                $image->url = $this->_createUrl($adapter->getFileName($file, false));
-                $image->deleteType = 'DELETE';
-                $images[] = $image;
-
-                $slides = new Slides();
-                $slides->addAndResize($images);
+                    $slides = new Slides();
+                    $slides->addAndResize($images);
+                    $this->view->data = $images;
+                } else {
+                    $image = new stdClass();
+                    $image->error = $adapter->getErrors();
+                    $images[] = $image;
+                    $this->view->data = $images;
+                }
             }
-            $this->view->data = $images;
+
         } else {
             throw new Pas_Exception_NotAuthorised('Your account does not seem enabled to do this', 500);
         }
@@ -823,7 +830,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function createThumbnailUrl($file)
     {
         $user = $this->_helper->Identity()->username;
-        return $this->view->serverUrl() . '/images/' . $user . '/small/' . $file;
+        return $this->view->serverUrl() . '/images/' . $user . '/medium/' . $file;
     }
 
     public function delete()

@@ -156,6 +156,8 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
         $where = array();
         $where[] = $tokens->getAdapter()->quoteInto('service = ?','yahooAccess');
         $validToken = $tokens->fetchRow($where);
+        Zend_Debug::dump($validToken);
+        exit;
         $access = array();
         if (!is_null($validToken)) {
             $access['access_token'] = unserialize($validToken->accessToken);
@@ -175,7 +177,9 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
     public function getFlickr() {
         $openup = $this->getAccessKeys();
         $access = (object) $openup;
-        $key = 'flickrfontrecent';
+        $key = md5('flickrfontrecent');
+        Zend_Debug::dump($this->getFlickrConfig());
+        exit;
 //        if (!($this->getCache()->test($key))) {
             $oauth = new Pas_Yql_Oauth();
             $q = 'SELECT * FROM flickr.photos.search WHERE';
@@ -200,8 +204,6 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
 //        } else {
 //            $data = $this->getCache()->load($key);
 //        }
-        Zend_Debug::dump($data);
-        exit;
         return $this->parseFlickr($data);
     }
 
@@ -248,11 +250,11 @@ class Pas_View_Helper_FlickrFront extends Zend_View_Helper_Abstract
         return $this;
     }
 
-    /** Render the html string using to String
-     * @access public
-     * @return string
-     */
-    public function __toString() {
-        Zend_Debug::dump($this->getFlickr());
-    }
+//    /** Render the html string using to String
+//     * @access public
+//     * @return string
+//     */
+//    public function __toString() {
+//        return $this->getFlickr();
+//    }
 }

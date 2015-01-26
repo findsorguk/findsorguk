@@ -19,6 +19,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row-fluid fileupload-buttonbar">
             <div class="btn-group">
+
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <input type="file" name="files[]" multiple>
                 <button type="submit" class="btn btn-primary start">
@@ -29,11 +30,14 @@ $this->metaBase()->setDescription($this->title())->generate();
                     <i class="icon-white icon-ban-circle"></i>
                     <span>Cancel upload</span>
                 </button>
-                <button type="button" class="btn btn-danger delete">
-                    <i class="icon-white icon-trash"></i>
-                    <span>Delete</span>
-                </button><br/>
-                Toggle delete button: <input type="checkbox" class="toggle">
+                <a class="btn btn-success btn-small"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id')), null, true); ?>"
+           title="return to the record">Return to record</a>
+<!--                <button type="button" class="btn btn-danger delete">-->
+<!--                    <i class="icon-white icon-trash"></i>-->
+<!--                    <span>Delete</span>-->
+<!--                </button><br/>-->
+<!--                Toggle delete button: <input type="checkbox" class="toggle">-->
                 <!-- The global file processing state -->
                 <span class="fileupload-process"></span>
             </div>
@@ -91,6 +95,7 @@ $this->metaBase()->setDescription($this->title())->generate();
             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
         </td>
         <td>
+            <div class="btn-group">
             {% if (!i && !o.options.autoUpload) { %}
                 <button class="btn btn-primary start" disabled>
                     <i class="icon-white icon-upload"></i>
@@ -103,6 +108,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                     <span>Cancel</span>
                 </button>
             {% } %}
+            </div>
         </td>
     </tr>
 {% } %}
@@ -123,35 +129,22 @@ $this->metaBase()->setDescription($this->title())->generate();
             <p class="name">
                 {% if (file.url) { %}
                     <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-                {% } else { %}
-                    <span>{%=file.name%}</span>
-                    <br />
-                    Width:{%=file.width%} px
-                    <br />
-                    Height: {%=file.height%} px
                 {% } %}
             </p>
             {% if (file.error) { %}
-                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                <div><h4 class="lead">An error has occurred with that upload</h4>
+                <ul>
+                    {% if(file.error = 'fileNotExistsDoesExist') { %}
+                    <li>That file already exists</li>
+                    {% } %}
+                </ul>
+                </div>
             {% } %}
         </td>
         <td>
             <span class="size">{%=o.formatFileSize(file.size)%}</span>
         </td>
-        <td>
-            {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                    <i class="icon-white icon-trash"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
-            {% } else { %}
-                <button class="btn btn-warning cancel">
-                    <i class="icon-white icon-ban-circle"></i>
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
+
     </tr>
 {% } %}
 
