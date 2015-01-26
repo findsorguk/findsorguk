@@ -164,7 +164,7 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
 
     /** get the data from the service
      * @access public
-     * @return function
+     * @return string
      */
     public function getManors()
     {
@@ -190,8 +190,8 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
     /** Get the places near to point
      * @access public
      * @param  array $params
-     * @param  type $key
-     * @return type
+     * @param  string $key
+     * @return string
      */
     public function getPlacesNear(array $params, $key)
     {
@@ -217,9 +217,9 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
             $html .= '<h3 class="lead">Adjacent Domesday Book places</h3>';
             $html .= '<a  href="';
             $html .= $this->_url;
-            $html .= '"><img class="dec flow"';
+            $html .= '"><img class="pull-right img-circle"';
             $html .= 'src="http://domesdaymap.co.uk/media/images/lion1.gif"';
-            $html . -'width="67" height="93"/></a>';
+            $html .= 'width="67" height="93"/></a>';
             $html .= '<ul>';
             foreach ($response as $domesday) {
                 $html .= '<li><a href="';
@@ -228,9 +228,9 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
                 $html .= '">' . $domesday->vill . '</a></li>';
             }
             $html .= '</ul>';
-            $html .= '<p>Domesday data  within ';
+            $html .= '<p>Mentions within ';
             $html .= $radius;
-            $html .= ' km of discovery point is surfaced via the excellent ';
+            $html .= ' km of discovery point. This is obtained via the excellent ';
             $html .= '<a href="http://domesdaymap.co.uk">Open Domesday</a> website.</p>';
         }
         return $html;
