@@ -905,7 +905,6 @@ class Hoards extends Pas_Db_Table_Abstract
                     'secuid',
                     'subsequentAction' => 'subs_action',
                     'discovery' => 'discmethod',
-                    'finderID',
                     'recorderID',
                     'identifierID' => 'identifier1ID',
                     'createdBy'
@@ -957,7 +956,6 @@ class Hoards extends Pas_Db_Table_Abstract
             ->joinLeft(array('users3' => 'users'), 'users3.id = slides.createdBy', array('imagedir'))
             ->joinLeft('rallies', 'hoards.rallyID = rallies.id', array('rallyName' => 'rally_name'))
             ->joinLeft('regions', 'findspots.regionID = regions.id', array('regionName' => 'region'))
-            ->joinLeft('people', 'hoards.finderID = people.secuid', array('finder' => 'fullname'))
             ->where('hoards.id = ?', (int)$findID)
             ->group('hoards.id')
             ->limit(1);
