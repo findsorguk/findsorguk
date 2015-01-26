@@ -30,7 +30,6 @@ class TVCForm extends Pas_Form {
 		->setJQueryParam('dateFormat', 'yy-mm-dd')
 		->addFilters(array('StripTags','StringTrim'))
 		->addErrorMessage('You must enter a chase date')
-		->addValidator('Datetime')
 		->setAttrib('size', 20);
 
 	$location = new Zend_Form_Element_Text('location');

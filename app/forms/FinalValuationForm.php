@@ -54,7 +54,6 @@ class FinalValuationForm extends Pas_Form {
                 ->setRequired(true)
                 ->setJQueryParam('dateFormat', 'yy-mm-dd')
                 ->addFilters(array('StripTags','StringTrim'))
-                ->addValidator('Datetime')
                 ->addErrorMessage('You must enter a chase date')
                 ->setAttrib('size', 20);
 

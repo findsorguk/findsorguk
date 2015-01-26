@@ -339,8 +339,7 @@ class IronAgeCoinForm extends Pas_Form {
 
 	$depositionDate = new Zend_Form_Element_Text('depositionDate');
 	$depositionDate->setLabel('Date of deposition: ')
-		->addFilters(array('StripTags', 'StringTrim','Purifier'))
-		->addValidator('Datetime');
+		->addFilters(array('StripTags', 'StringTrim','Purifier'));
 
 	$numChiab = new Zend_Form_Element_Text('numChiab');
 	$numChiab->setLabel('Coin hoards of Iron Age Britain number: ')

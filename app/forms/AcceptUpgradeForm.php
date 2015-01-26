@@ -116,13 +116,11 @@ class AcceptUpgradeForm extends Pas_Form {
                 ->setJQueryParam('dateFormat', 'yy-mm-dd')
                 ->addFilter('StringTrim')
                 ->addFilter('StripTags')
-                ->addValidator('Datetime')
                 ->setRequired(false)
                 ->addErrorMessage('You must enter a valid start date for this project');
 
         $endDate = new ZendX_JQuery_Form_Element_DatePicker('endDate');
         $endDate->setLabel('End date of project: ')
-                ->addValidator('Datetime')
                 ->addFilter('StringTrim')
                 ->addFilter('StripTags')
                 ->setJQueryParam('dateFormat', 'yy-mm-dd')

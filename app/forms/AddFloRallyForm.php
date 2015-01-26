@@ -40,7 +40,6 @@ class AddFloRallyForm extends Pas_Form{
 	$dateFrom->setLabel('Attended from: ')
                 ->setRequired(true)
                 ->setJQueryParam('dateFormat', 'yy-mm-dd')
-                ->addValidator('Datetime')
                 ->addFilters(array('StripTags', 'StringTrim'))
                 ->addValidator('NotEmpty')
                 ->setAttrib('size', 20);
@@ -49,7 +48,6 @@ class AddFloRallyForm extends Pas_Form{
 	$dateTo->setLabel('Attended to: ')
                 ->setRequired(false)
                 ->setJQueryParam('dateFormat', 'yy-mm-dd')
-                ->addValidator('Datetime')
                 ->addFilters(array('StripTags', 'StringTrim'))
                 ->setAttrib('size', 20);
 
