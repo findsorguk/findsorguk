@@ -280,10 +280,14 @@ echo $this->sketchFabAddLink()
     <div class="row-fluid" id="commentary">
 
         <p>
-            <?php $url = array('module' => 'database', 'controller' => 'artefacts', 'action' => 'errorreport'); ?>
-            <a class="btn btn-small btn-warning" href="<?php echo $this->url($url, 'default', true); ?>"
-               title="Send message to the allotted National Finds Adviser"><i class="icon-warning-sign"></i> Report a
-                mistake</a>
+        <a class="btn btn-small btn-warning" href="<?php echo $this->url(array(
+            'module' => 'database',
+            'controller' => 'artefacts',
+            'action' => 'errorreport',
+            'id' => $this->finds[0]['id']
+        )); ?>"
+           title="Send message to the allotted National Finds Adviser"><i class="icon-warning-sign"></i> Report a
+            mistake</a>
         </p>
 
         <div id="comm">

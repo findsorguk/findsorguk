@@ -45,7 +45,7 @@ class IndexController extends Pas_Controller_Action_Admin
                 $params = array_filter($form->getValues());
                 unset($params['csrf']);
                 $this->getFlash()->addMessage('Your search is complete');
-                $this->_helper->Redirector->gotoSimple('database', 'results', 'search', $params);
+                $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $params);
             } else {
                 $form->populate($form->getValues());
             }
