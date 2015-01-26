@@ -12,7 +12,7 @@ $dates = array(
         <?php endif; ?>
         <?php if (!is_null($this->lastReecePeriod)): ?>
             Last Reece period: <span
-                property="pas:lastReecePeriod"><?php echo $this->escape($this->lastReecePeriod); ?></span><br/>
+                property="pas:lastReecePeriod">Period <?php echo $this->reeceID;?> <?php echo $this->escape($this->lastReecePeriod); ?></span> (<?php echo $this->date_range;?>)<br/>
         <?php endif; ?>
         <?php if ((int)($this->terminalDateFrom)) : ?>
             Date from: <span property="pas:terminalDateFrom" content="<?php echo $this->terminalDateFrom; ?>"
