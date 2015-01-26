@@ -377,7 +377,7 @@ class Hoards extends Pas_Db_Table_Abstract
                 ))
             ->joinLeft('reeceperiods', 'hoards.reeceID = reeceperiods.id',
                 array(
-                    'lastReecePeriod' => 'description'
+                    'lastReecePeriod' => 'description', 'date_range'
                 ))
             ->joinLeft('terminalreason', 'hoards.terminalreason = terminalreason.id',
                 array(
