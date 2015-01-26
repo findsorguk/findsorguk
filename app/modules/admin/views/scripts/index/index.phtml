@@ -1,15 +1,6 @@
 <?php
 $this->headTitle('Administration section');
 $this->metaBase()->setDescription($this->title())->generate();
-$welcome = array(
-    'Welcome', 'Welkom', 'Namaste',
-    'Ayubowan', 'Marhaban', 'F&agrave;ilte',
-    'Witam', 'Haere mai', 'Khosh aamadid'
-);
-$randomWelcome = $welcome[array_rand($welcome)];
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
-    <div class="well text-success">
-        <h1 class="lead"><?php echo $randomWelcome; ?>!</h1>
-    </div>
 <?php echo $this->whatYouWantToDoAdmin(); ?>
