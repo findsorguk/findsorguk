@@ -9,7 +9,7 @@
                 'id' => $this->id), null, true); ?></a> [Accessed: <?php echo $date; ?>]
     </p>
 
-    <pre><?php echo $this->sur3; ?>,<?php echo substr($this->fore3, 0, 1); ?> (<?php echo $this->created; ?>) <?php echo $this->hoardID; ?> A <?php echo $this->broadperiod; ?> hoard. Web page available at: <?php echo $this->serverUrl(); ?><?php echo $this->url(array(
+    <code><?php echo $this->sur3; ?>,<?php echo substr($this->fore3, 0, 1); ?> (<?php echo $this->created; ?>) <?php echo $this->hoardID; ?> A <?php echo $this->broadperiod; ?> hoard. Web page available at: <?php echo $this->serverUrl(); ?><?php echo $this->url(array(
             'module' => 'database', 'controller' => 'hoards', 'action' => 'record',
-            'id' => $this->id), null, true); ?> [Accessed: <?php echo $date; ?>]</pre>
+            'id' => $this->id), null, true); ?> [Accessed: <?php echo $date; ?>]</code>
 </span>
