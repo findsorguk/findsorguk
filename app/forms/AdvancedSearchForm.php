@@ -16,7 +16,7 @@
  * @uses SurfTreatments
  * @uses DecStyles
  * @uses DecMethods
- * @uses FindOfNoteReasons
+ * @uses Findofnotereasons
  * @uses Preservations
  * @uses Rallies
  * @uses OsCounties
@@ -76,7 +76,7 @@ class AdvancedSearchForm extends Pas_Form {
 	$decmeths = new DecMethods();
 	$decmeth_options = $decmeths->getDecmethods();
 
-	$reasons = new FindOfNoteReasons();
+	$reasons = new Findofnotereasons();
 	$reason_options = $reasons->getReasons();
 
 	$preserves = new Preservations();
