@@ -144,7 +144,7 @@ echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
 
                 <!-- Check for findspot data and if exists render -->
 
-                <?php echo $this->findspot()->setData($this->findspots[0])->setCreatedBy($this->findspots[0]['createdBy']); ?>
+                <?php echo $this->findSpot()->setData($this->findspots[0])->setCreatedBy($this->findspots[0]['createdBy']); ?>
 
             <?php else: ?>
                 <!-- Render a link for adding find spot -->
