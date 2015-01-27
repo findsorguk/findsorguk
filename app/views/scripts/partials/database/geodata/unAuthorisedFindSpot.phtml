@@ -203,7 +203,9 @@
             <?php if (!is_null($this->gridref) && is_null($this->knownas)): ?>
                 <span class="fourfigure">4 Figure: <?php echo $this->fourFigure; ?></span>
                 <br/>
-                Four figure Latitude: <?php echo $this->fourFigureLat; ?> Four figure longitude: <?php echo $this->fourFigureLon; ?>
+                Four figure Latitude: <?php echo $this->fourFigureLat; ?>
+                <br />
+                Four figure longitude: <?php echo $this->fourFigureLon; ?>
                 <?php if (!is_null($this->map25k)): ?>
                     <br/>
                     1:25K map: <?php echo $this->map25k; ?>
@@ -242,7 +244,7 @@
         <h3 class="lead">Discovery metadata</h3>
 
         <p>
-            <?php if (!is_null($this->discmethod)) : ?>
+            <?php if (!is_null($this->method)) : ?>
                 Method of discovery: <?php echo $this->method; ?>
                 <a href="<?php echo $this->url(array(
                         'module' => 'datalabs',
