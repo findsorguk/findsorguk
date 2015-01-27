@@ -128,7 +128,7 @@ echo $this->coinDataDisplay()
     <?php echo $this->partialLoop('partials/database/images/thumbs.phtml', array_slice($this->thumbs, 0, 1)); ?>
 
 
-    <?php if (sizeof($this->thumbs) > 1): ?>
+    <?php if (!empty($this->thumbs)): ?>
 
         <!-- Start small thumbnails -->
         <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', array_slice($this->thumbs, 1)); ?>
