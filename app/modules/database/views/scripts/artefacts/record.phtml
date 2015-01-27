@@ -134,8 +134,6 @@ echo $this->coinDataDisplay()
         <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', array_slice($this->thumbs, 1)); ?>
         <!-- End small thumbnails -->
         <hr/>
-    <?php endif; ?>
-
     <h4 class="lead">
         Image use policy
     </h4>
@@ -143,6 +141,7 @@ echo $this->coinDataDisplay()
         Our images can be used under a <a href="https://creativecommons.org/licenses/by/2.0/">CC
             BY attribution licence</a> (unless stated otherwise).
     </p>
+    <?php endif; ?>
 <?php else: ?>
     <p>
         There are currently no images available.
