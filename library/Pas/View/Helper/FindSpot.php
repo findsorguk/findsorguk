@@ -210,7 +210,7 @@ class Pas_View_Helper_FindSpot extends Zend_View_Helper_Abstract {
         if ($this->checkByCreator()) {
             $html .= $this->view->partial('partials/database/geodata/findSpot.phtml', $this->getData());
         } else {
-            $html .= $this->view->partial('partials/database/geodata/unAuthorisedFindspot.phtml', $this->getData());
+            $html .= $this->view->partial('partials/database/geodata/unAuthorisedFindSpot.phtml', $this->getData());
         }
         return $html;
     }
