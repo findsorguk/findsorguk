@@ -5,12 +5,12 @@
         <?php if (isset($this->thumbnail)): ?>
 
             <?php
-            $path = '/var/www/beowulf/public_html/images/thumbnails/';
+            $path = IMAGE_PATH . 'thumbnails/';
             $ext = '.jpg';
             $file = $path . $this->thumbnail . $ext;
-            if (file_exists($file)) {
-                list($w, $h) = getimagesize($file);
-                ?>
+            ?>
+            <?php if (file_exists($file)):?>
+                <?php list($w, $h) = getimagesize($file);?>
                 <ul class="thumbnails pull-right">
                     <li>
                         <div property="crm:P138i_has_representation">
@@ -24,9 +24,7 @@
                         </div>
                     </li>
                 </ul>
-            <?php
-            } else {
-                ?>
+            <?php else:?>
                 <ul class="thumbnails pull-right">
                     <li>
                         <div>
@@ -37,10 +35,9 @@
                         </div>
                     </li>
                 </ul>
-            <?php
-            }
-        endif; ?>
-        <?php if (!isset($this->thumbnail)): ?>
+            <?php endif;?>
+        <?php endif; ?>
+        <?php if (is_null($this->thumbnail)): ?>
             <ul class="thumbnails pull-right">
                 <li>
                     <div>
