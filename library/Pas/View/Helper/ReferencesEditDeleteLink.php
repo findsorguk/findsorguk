@@ -429,7 +429,7 @@ class Pas_View_Helper_ReferencesEditDeleteLink extends Zend_View_Helper_Abstract
         $html .= $deleteUrl;
         $html .= '" title="Delete reference data">';
         $html .= '<i class="icon-white icon-trash"></i> Delete';
-        $html .= '</i></a></div></span>';
+        $html .= '</a></div></span>';
         return $html;
     }
 }
