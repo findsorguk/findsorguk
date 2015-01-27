@@ -7,19 +7,111 @@
  */
 $parts = array(IMAGE_PATH, $this->username, $this->filename);
 $file = implode('/', $parts);
+//echo $file;
 ?>
-<div>
-<?php if(!file_exists($file)):?>
-    <?php $src = array($this->serverUrl(), 'images', $this->username, 'medium', $this->filename);?>
+<?php $src = array($this->serverUrl(), 'images', $this->username, 'medium', $this->filename); ?>
 
-    <img src="<?php echo implode('/', $src);?>" />
-    <div class="btn-group">
-        <a href="#" class="btn-mini btn">Edit</a>
-        <a href="#" class="btn-mini btn">View</a>
-        <a href="#" class="btn-mini btn">Delete</a>
-    </div>
-<?php else:?>
-    Add new error image of Lego here.
-<?php endif;?>
+<div style="min-height:200px;">
+    <?php if (file_exists($file)): ?>
+        <div class="pull-right" >
+            <strong>Attached to find: </strong><?php echo $this->old_findID; ?><br/>
+            <strong>Object type: </strong>
+            <?php if (!empty($this->objecttype)): ?>
+                <?php echo $this->objecttype; ?><br/>
+            <?php else: ?>
+                The object type needs entering<br/>
+            <?php endif; ?>
+            <strong>Label: </strong>
+            <?php if (!empty($this->label)): ?>
+                <?php echo $this->label; ?><br/>
+            <?php else: ?>
+                The label needs entering<br/>
+            <?php endif; ?>
+            <strong>County: </strong>
+            <?php if (!is_null($this->county)): ?>
+                <?php echo $this->county; ?><br/>
+            <?php else: ?>
+                County needs to be entered.<br/>
+            <?php endif; ?>
+
+            <strong>Broad period: </strong>
+            <?php if (!is_null($this->broadperiod)): ?>
+                <?php echo $this->broadperiod; ?><br/>
+            <?php else: ?>
+                Period needs to be entered.<br/>
+            <?php endif; ?>
+            <strong>Key words: </strong>
+            <?php if (!is_null($this->keywords)): ?>
+                <?php echo $this->explode(',', $this->keywords); ?><br/>
+            <?php else: ?>
+                Key words need entering<br/>
+            <?php endif; ?>
+
+            <strong>File size: </strong><?php echo $this->filesize; ?> <br/>
+            <strong>File added: </strong><?php echo $this->timeAgoInWords($this->filecreated); ?><br/>
+            <strong>File name: </strong><?php echo $this->filename; ?><br/>
+            <strong>File type: </strong><?php echo $this->type; ?><br/>
+            <strong>File associated with institution: </strong><?php echo $this->institution; ?>
+
+        </div>
+        <div>
+            <?php $src = array($this->serverUrl(), 'images', $this->username, 'medium', $this->filename); ?>
+
+            <img src="<?php echo implode('/', $src); ?>"/>
+        </div>
+
+        <div class="btn-group">
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->imageID),'default', true);?>" class="btn-mini btn">Edit</a>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->imageID),'default', true);?>" class="btn-mini btn">View</a>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->imageID),'default', true);?>" class="btn-mini btn">Delete</a>
+        </div>
+    <?php else: ?>
+        <div class="pull-right">
+            <strong>Attached to find: </strong><?php echo $this->old_findID; ?><br/>
+            <strong>Object type: </strong>
+            <?php if (!empty($this->objecttype)): ?>
+                <?php echo $this->objecttype; ?><br/>
+            <?php else: ?>
+                The object type needs entering<br/>
+            <?php endif; ?>
+            <strong>Label: </strong>
+            <?php if (!empty($this->label)): ?>
+                <?php echo $this->label; ?><br/>
+            <?php else: ?>
+                The label needs entering<br/>
+            <?php endif; ?>
+            <strong>County: </strong>
+            <?php if (!is_null($this->county)): ?>
+                <?php echo $this->county; ?><br/>
+            <?php else: ?>
+                County needs to be entered.<br/>
+            <?php endif; ?>
+
+            <strong>Broad period: </strong>
+            <?php if (!is_null($this->broadperiod)): ?>
+                <?php echo $this->broadperiod; ?><br/>
+            <?php else: ?>
+                Period needs to be entered.<br/>
+            <?php endif; ?>
+            <strong>Key words: </strong>
+            <?php if (!is_null($this->keywords)): ?>
+                <?php echo $this->explode(',', $this->keywords); ?><br/>
+            <?php else: ?>
+                Key words need entering<br/>
+            <?php endif; ?>
+
+            <strong>File size: </strong><?php echo $this->humanReadableFileSize()->setSize($this->filesize); ?> <br/>
+            <strong>File added: </strong><?php echo $this->timeAgoInWords($this->filecreated); ?><br/>
+            <strong>File name: </strong><?php echo $this->filename; ?><br/>
+            <strong>File type: </strong><?php echo $this->type; ?><br/>
+            <strong>File associated with institution: </strong><?php echo $this->institution; ?>
+
+        </div>
+
+        <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
+             class="img-circle"/>
+        <p>Image unavailable<br/>Error: 404</p>
+
+    <?php endif; ?>
 </div>
-<hr />
+<hr/>
