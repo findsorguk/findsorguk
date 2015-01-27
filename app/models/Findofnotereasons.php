@@ -5,7 +5,7 @@
  * 
  * <code>
  * <?php
- * $model = new FindOfNoteReasons();
+ * $model = new Findofnotereasons();
  * $data = $model->getReasons();
  * ?>
  * </code>
@@ -21,7 +21,7 @@
  * @example /app/forms/AdvancedSearchForm.php
 */
 
-class FindOfNoteReasons extends Pas_Db_Table_Abstract {
+class Findofnotereasons extends Pas_Db_Table_Abstract {
 
     /** The table name
      * @access protected

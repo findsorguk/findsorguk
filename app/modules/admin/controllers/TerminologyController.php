@@ -27,7 +27,7 @@
  * @uses OriginForm
  * @uses Preservations
  * @uses PreservationsForm
- * @uses FindOfNoteReasons
+ * @uses Findofnotereasons
  * @uses ManufacturesForm
  * @uses Manufactures
  * @uses Materials
@@ -943,7 +943,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
      */
     public function notesAction()
     {
-        $notes = new FindOfNoteReasons();
+        $notes = new Findofnotereasons();
         $this->view->notes = $notes->getReasonsListAdmin();
     }
 
@@ -958,7 +958,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
         $this->view->form = $form;
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
-                $notes = new FindOfNoteReasons();
+                $notes = new Findofnotereasons();
                 $notes->add($form->getValues());
                 $this->redirect($this->_redirectUrl . 'notes');
                 $this->getFlash()->addMessage('Preservation state created!');
@@ -981,7 +981,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
             $this->view->form = $form;
             if ($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
-                    $notes = new FindOfNoteReasons();
+                    $notes = new Findofnotereasons();
                     $where = array();
                     $where[] = $notes->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
                     $notes->update($form->getValues(), $where);
@@ -993,7 +993,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
             } else {
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $notes = new FindOfNoteReasons();
+                    $notes = new Findofnotereasons();
                     $note = $notes->fetchRow('id=' . $id);
                     if (count($note)) {
                         $form->populate($note->toArray());
@@ -1017,7 +1017,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
-                $notes = new FindOfNoteReasons();
+                $notes = new Findofnotereasons();
                 $where = 'id = ' . $id;
                 $notes->delete($where);
                 $this->getFlash()->addMessage(self::DELETED);
@@ -1026,7 +1026,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
-                $notes = new FindOfNoteReasons();
+                $notes = new Findofnotereasons();
                 $this->view->note = $notes->fetchRow('id=' . $id);
             }
         }

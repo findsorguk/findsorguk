@@ -23,7 +23,7 @@
  * @uses DiscoMethods
  * @uses Materials
  * @uses Periods
- * @uses FindOfNoteReasons
+ * @uses Findofnotereasons
  * @uses Rallies
  * @uses Periods
  * @uses SubsequentActions
@@ -53,7 +53,7 @@ class HoardForm extends Pas_Form {
         $qualityrating_options = $qualityrating->getRatings();
 
         //Get Find of note reason options for select menu
-        $reasons = new FindOfNoteReasons();
+        $reasons = new Findofnotereasons();
         $reason_options = $reasons->getReasons();
 
         //Get primary materials for multiselect
