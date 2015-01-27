@@ -10,7 +10,7 @@
              alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>">
     <?php endif; ?>
 
-    <div class="imagebar">
+    <div class="btn-group">
         <a class="btn btn-mini"
            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->i), null, true); ?>"
            title="View and edit image meta data">View <i class="icon-picture"></i></a> <a class="btn btn-mini"
@@ -18,7 +18,6 @@
                                                                                           title="View high resolution zoom">Zoom
             <i class="icon-zoom-in"></i></a> <a class="btn btn-mini" href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->thumbnail), null, true); ?>"
                                                 title="Download image">Download <i class="icon-download-alt"></i></a>
-        <?php echo $this->imageEditDeleteLink($this->id, $this->i, $this->secuid, $this->createdBy); ?>
 
     </div>
 <?php else: ?>
