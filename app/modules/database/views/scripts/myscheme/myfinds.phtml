@@ -5,7 +5,7 @@ $this->metaBase()->setDescription($this->title())->generate();
 
 <h2 class="lead">All finds and coins recorded by <?php echo $this->fullName(); ?></h2>
 
-<?php echo $this->loggedInLinks(); ?>
+<?php echo $this->loggedInlinks(); ?>
 
 <?php if (!empty($this->params)): ?>
     <?php echo $this->searchParams()->setParams($this->params); ?>

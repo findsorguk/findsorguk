@@ -43,7 +43,7 @@ class Pas_View_Helper_LoggedInlinks extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_LoggedInlinks
      */
-    public function loggedInLinks() {
+    public function loggedInlinks() {
         return $this;
     }
 
