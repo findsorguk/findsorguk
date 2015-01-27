@@ -13,7 +13,7 @@
  * @uses Pas_Exception_Param
  * @uses PrimaryActivities
  * @uses DiscoMethods
- * @uses FindOfNoteReasons
+ * @uses Findofnotereasons
  * @uses Landuses
  * @uses Materials
  * @uses Denominations
@@ -288,17 +288,17 @@ class Datalabs_TerminologyController extends Pas_Controller_Action_Admin
 
     /** The find of note reason model
      * @access protected
-     * @var \FindOfNoteReasons
+     * @var \Findofnotereasons
      */
     protected $_findsOfNoteReasons;
 
     /** Get the find of note model
      * @access public
-     * @return \FindOfNoteReasons
+     * @return \Findofnotereasons
      */
     public function getFindsOfNoteReasons()
     {
-        $this->_findsOfNoteReasons = new FindOfNoteReasons();
+        $this->_findsOfNoteReasons = new Findofnotereasons();
         return $this->_findsOfNoteReasons;
     }
 

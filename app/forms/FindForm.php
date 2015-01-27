@@ -25,7 +25,7 @@
  * @uses SurfTreatments
  * @uses DecStyles
  * @uses DecMethods
- * @uses FindOfNoteReasons
+ * @uses Findofnotereasons
  * @uses Preservations
  * @uses Rallies
  * @uses Periods
@@ -73,7 +73,7 @@ class FindForm extends Pas_Form {
 	$decmeth_options = $decmeths->getDecmethods();
 
 	//Get Find of note reason data
-	$reasons = new FindOfNoteReasons();
+	$reasons = new Findofnotereasons();
 	$reason_options = $reasons->getReasons();
 
 	//Get Preservation data

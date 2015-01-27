@@ -11,7 +11,7 @@
  * @uses Materials
  * @uses DiscoMethods
  * @uses Periods
- * @uses FindOfNoteReasons
+ * @uses Findofnotereasons
  * @uses Rallies
  * @uses OsCounties
  * @uses OsRegions();
@@ -52,7 +52,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $periods = new Periods();
         $periodword_options = $periods->getPeriodFromWords();
 
-        $reasons = new FindOfNoteReasons();
+        $reasons = new Findofnotereasons();
         $reason_options = $reasons->getReasons();
 
         $rallies = new Rallies();
