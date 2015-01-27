@@ -21,7 +21,7 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  */
 
-class Pas_View_Helper_ShowLoggedInlinks extends Zend_View_Helper_Abstract
+class Pas_View_Helper_LoggedInlinks extends Zend_View_Helper_Abstract
 {
 
     /** The auth object
@@ -43,7 +43,7 @@ class Pas_View_Helper_ShowLoggedInlinks extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_LoggedInlinks
      */
-    public function showloggedInLinks() {
+    public function loggedInLinks() {
         return $this;
     }
 
