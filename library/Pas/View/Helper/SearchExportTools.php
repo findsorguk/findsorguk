@@ -112,7 +112,7 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
         if ($this->_user->canRecord === '1') {
             $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'add'),
                     null, false);
-            $html .= '" class="btn btn-small btn-primary"><i class="icon-white icon-plus"></i> Add record</a>';
+            $html .= '" class="btn btn-small btn-primary"><i class="icon-white icon-plus"></i> Add artefact</a>';
             $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'hoards', 'action' => 'add'),
                     null, false);
             $html .= '" class="btn btn-small btn-primary"><i class="icon-white icon-plus"></i> Add hoard</a>';
