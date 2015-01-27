@@ -72,7 +72,7 @@ class Pas_View_Helper_HumanReadableFileSize extends Zend_View_Helper_Abstract {
         if ($bytes < 1024){
             return "$bytes Bytes";
         }
-        $units = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        $units = array('KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
         foreach ($units as $i => $unit) {
         // The reason for this threshold is to avoid e.g., "1000 KB",
         // instead jumping from e.g., "999 KB" to "0.97 MB".
