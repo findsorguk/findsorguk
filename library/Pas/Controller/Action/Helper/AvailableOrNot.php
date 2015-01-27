@@ -71,8 +71,6 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
     {
         if (is_array($data) && !empty($data)) {
             if (array_key_exists('secwfstage', $data[0])) {
-                Zend_Debug::dump($data);
-                Zend_Debug::dump($this->getRole());
                 $workflow = $data[0]['secwfstage'];
                 if (!array_key_exists('objecttype', $data[0])) {
                     $data[0]['objecttype'] = 'HOARD';
