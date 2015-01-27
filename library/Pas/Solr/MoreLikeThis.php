@@ -1,15 +1,15 @@
 <?php
 /** A Solr class for dealing with more like this
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $solr = new Pas_Solr_MoreLikeThis();
  * ?>
  * </code>
- * 
- * 
+ *
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -53,12 +53,12 @@ class Pas_Solr_MoreLikeThis {
     /** The solr configuration array
      * @access protected
      * @var array
-     * 
+     *
      */
     protected $_solrConfig;
 
     /** The constructor
-     * 
+     *
      */
     public function __construct(){
         $this->_cache = Zend_Registry::get('cache');
@@ -92,7 +92,7 @@ class Pas_Solr_MoreLikeThis {
 
     /** Roles allowed for higher level access
      * @access public
-     * @var type 
+     * @var type
      */
     protected $_allowed =  array(
         'fa', 'flos', 'admin',
@@ -146,9 +146,10 @@ class Pas_Solr_MoreLikeThis {
         }
         $resultset = $client->select($query);
         $mlt = $resultset->getMoreLikeThis();
+        $mltArray = array();
+
         foreach($resultset as $result){
             $mltResult = $mlt->getResult($result->findIdentifier);
-            $mltArray = array();
             if($mltResult){
                 $mltArray['maxScore'] = $mltResult->getMaximumScore();
                 $mltArray['numFound'] = $mltResult->getNumFound();
