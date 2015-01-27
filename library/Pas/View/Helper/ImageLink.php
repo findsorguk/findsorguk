@@ -330,7 +330,7 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
     public function buildHtml() {
         $url = $this->view->url($this->urlBuild(),null,true);
         $html = '';
-        $html .= '<a class="btn btn-mini btn-primary" href="';
+        $html .= '<a class="btn btn-small btn-primary" href="';
         $html .= $url;
         $html .= '" title="Add an image to this find">';
         $html .= 'Add an image</a>';
