@@ -1,5 +1,10 @@
 <abbr title="The Portable Antiquities Scheme">PAS</abbr> record number: <?php echo $this->hoardID;?><br />
-Broadperiod: <?php echo $this->broadperiod;?><br />
+Object type: Hoard<br/>
+<?php if(!is_null($this->broadperiod)):?>
+Broadperiod: <?php echo $this->broadperiod; ?><br/>
+<?php else:?>
+    Broadperiod: Unknown<br />
+<?php endif;?>
 <?php if($this->county):?>
     County of discovery: <?php  echo $this->county;?><br />
 <?php endif;?>
