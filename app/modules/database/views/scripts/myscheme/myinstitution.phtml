@@ -1,6 +1,6 @@
 <?php $this->headTitle('All finds created by ' . $this->institution()->setInstitution($this->inst)); ?>
 <h2 class="lead"><?php echo $this->title();?></h2>
-<?php echo $this->loggedInLinks();?>
+<?php echo $this->loggedInlinks();?>
 <?php if($this->params):?>
 <?php echo $this->searchParams()->setParams($this->params);?>
 <?php endif;?>

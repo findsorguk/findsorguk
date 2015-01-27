@@ -121,7 +121,7 @@ class Pas_View_Helper_FindSpot extends Zend_View_Helper_Abstract {
         return $this->_inst;
     }
 
-        /** Default institution
+    /** Default institution
      * @access protected
      * @var string
      */
