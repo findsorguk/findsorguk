@@ -364,7 +364,7 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
                 'recordType' => $this->getType()
             );
             $url = $this->view->url($params, null, TRUE);
-            $string .= '<a class="btn btn-primary btn-mini" href="';
+            $string .= '<a class="btn btn-primary btn-small" href="';
             $string .= $url;
             $string .= '" title="Add Sketchfab model">Add 3D model</a>';
         }
