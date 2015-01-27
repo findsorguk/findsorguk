@@ -1,5 +1,5 @@
 <div class="vcard" typeof="foaf:Person">
-<h4 class="lead"><span class="fn n" property="foaf:name">
+    <h4 class="lead"><span class="fn n" property="foaf:name">
 <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners', 'action' => 'profile', 'id'
 => $this->id), null, true); ?>" title="View full profile">
 <span class="given-name">
@@ -39,7 +39,7 @@
         <span class="longitude" property="geo:lon"><?php echo $this->longitude; ?></span>
     </div>
     <div class="btn-group">
-            Other formats:<br />
+        Other formats:<br/>
         <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners',
             'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>"
            title="Get a vcard for outlook" class="btn btn-mini">vcard</a>
@@ -49,3 +49,4 @@
     </div>
 
 </div>
+<hr />
