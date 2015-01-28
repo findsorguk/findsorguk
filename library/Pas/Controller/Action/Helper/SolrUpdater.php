@@ -203,8 +203,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                         $model = new Publications();
                         break;
                     case 'content':
-                        $type = ucfirst($type);
-                        $model = new $type;
+                        $model = ucfirst($core);
                         break;
                     case 'coinsummary':
                         $model = new CoinSummary();
