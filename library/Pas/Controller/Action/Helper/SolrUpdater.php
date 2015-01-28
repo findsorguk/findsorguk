@@ -190,20 +190,8 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                     case 'objects':
                         $model = new Finds();
                         break;
-                    case 'people':
-                        $model = new People();
-                        break;
-                    case 'bibliography':
-                        $model = new Bibliography();
-                        break;
                     case 'images':
                         $model = new Slides();
-                        break;
-                    case 'publications':
-                        $model = new Publications();
-                        break;
-                    case 'content':
-                        $model = new ucfirst($core);
                         break;
                     case 'coinsummary':
                         $model = new CoinSummary();
@@ -211,11 +199,28 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                     default:
                         throw new Exception('Your core does not exist', 500);
                 }
-            } elseif($type == 'hoards') {
+            } elseif ($type == 'hoards') {
                 switch ($core) {
-
                     case 'objects':
                         $model = new Hoards();
+                        break;
+                }
+            } else {
+                switch ($core) {
+                    case 'content':
+                        $model = new ucfirst($core);
+                        break;
+                    case 'people':
+                        $model = new People();
+                        break;
+                    case 'bibliography':
+                        $model = new Bibliography();
+                        break;
+                    case 'publications':
+                        $model = new Publications();
+                        break;
+                    case 'tags':
+                        $model = new SemanticTags();
                         break;
                 }
             }
