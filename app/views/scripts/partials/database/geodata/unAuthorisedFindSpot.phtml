@@ -240,6 +240,10 @@
 
 
     <!-- Start of the discovery column -->
+    <?php
+    $discovery = array($this->method, $this->disccircum, $this->curr_loc, $this->landvalue, $this->landuse);
+    if(array_filter($discovery)):
+        ?>
     <div class="span4">
         <h3 class="lead">Discovery metadata</h3>
 
@@ -286,6 +290,7 @@
         </p>
     </div>
     <!-- end of discovery column -->
+        <?php endif;?>
 
 <?php endif; ?>
 
