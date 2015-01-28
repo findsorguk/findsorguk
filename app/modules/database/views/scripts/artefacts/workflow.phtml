@@ -5,13 +5,16 @@ $this->metaBase()
     ->setKeywords('archaeology,object')
     ->generate();
 ?>
-<h3 class="lead"><?php echo $this->title(); ?></h3>
+    <h3 class="lead"><?php echo $this->title(); ?></h3>
+<?php if (!empty($this->from)): ?>
+    <?php if (!is_null($this->from[0]['email'])): ?>
+        <p>The finder has an email address associated with their finder record. If you tick the inform finder box and
+            leave
+            a message,you can tell them about workflow change.</p>
 
-<?php if (!is_null($this->from[0]['email'])): ?>
-    <p>The finder has an email address associated with their finder record. If you tick the inform finder box and leave
-        a message,you can tell them about workflow change.</p>
-
-    <p>Their email: <?php echo $this->from[0]['email']; ?><br/>Their name: <?php echo $this->from[0]['name']; ?></p>
+        <p>Their email: <?php echo $this->from[0]['email']; ?><br/>Their name: <?php echo $this->from[0]['name']; ?></p>
+    <?php endif; ?>
+<?php else: ?>
+    <p>No finder associated with this record.</p>
 <?php endif; ?>
-
 <?php echo $this->form; ?>

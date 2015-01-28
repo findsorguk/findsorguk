@@ -522,10 +522,12 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $this->view->find = $findStatus->old_findID;
             $form->populate($findStatus->toArray());
             $this->view->form = $form;
-            if (is_null($exist['0']['email'])) {
-                $form->finder->setAttrib('disabled', 'disabled');
-                $form->finder->setDescription('No email associated with finder yet.');
-                $form->removeElement('content');
+            if(!empty($exist)) {
+                if (is_null($exist['0']['email'])) {
+                    $form->finder->setAttrib('disabled', 'disabled');
+                    $form->finder->setDescription('No email associated with finder yet.');
+                    $form->removeElement('content');
+                }
             }
             if ($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
