@@ -130,10 +130,10 @@ $this->metaBase()->setDescription($this->title())->generate();
 
 <?php $contacts = array($this->website, $this->fn); ?>
 <?php if (array_filter($contacts)): ?>
-    <h3 class="lead">Contact details</h3>>
+    <h3 class="lead">Contact details</h3>
     <p>
         <?php if (!is_null($this->website)): ?>
-            Website address: <?php echo $this->website; ?>
+            Website address: <a href="<?php echo $this->website; ?>"><?php echo $this->website; ?></a>
         <?php endif; ?>
         <?php if (!is_null($this->fn)): ?>
             <br/>
