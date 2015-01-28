@@ -1,1 +1,3 @@
-<?php echo $this->partial('partials/content/article.phtml', $this->contents); ?>
+<?php if (!empty): ?>
+    <?php echo $this->partial('partials/content/article.phtml', $this->contents[0]); ?>
+<?php endif; ?>
