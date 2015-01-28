@@ -208,13 +208,14 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                         $model = new Hoards();
                         break;
                 }
-            } elseif($type = 'news') {
+            } elseif($type == 'news') {
                 $model = new News();
+            } elseif($type = 'content') {
+                $model = new Content();
+            } elseif($type == 'events'){
+                $model = new Events();
             } else  {
                 switch ($core) {
-                    case 'content':
-                        $model = new Content();
-                        break;
                     case 'people':
                         $model = new People();
                         break;
