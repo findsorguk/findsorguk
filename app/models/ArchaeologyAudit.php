@@ -28,7 +28,7 @@ class ArchaeologyAudit extends Pas_Db_Table_Abstract {
      * @access protected
      * @var string
      */
-    protected $_name = 'archaeologyAudit';
+    protected $_name = 'archaeologyaudit';
 
     /** the primary key
      * @access protected
