@@ -307,6 +307,7 @@ class Slides extends Pas_Db_Table_Abstract
             $processor->setImageNumber((int)$slideID);
             // Resize loop
             $processor->resize();
+            return $slideID;
         }
     }
 }

@@ -804,10 +804,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     $image->url = $this->_createUrl($adapter->getFileName($file, false));
                     $image->deleteType = 'DELETE';
                     $images[] = $image;
-
                     $slides = new Slides();
-                    $slides->addAndResize($images);
+                    $insert = $slides->addAndResize($images);
                     $this->view->data = $images;
+                    $this->_helper->solrUpdater->update('images', (int)$insert);
                 } else {
                     $image = new stdClass();
                     $image->error = $adapter->getErrors();
