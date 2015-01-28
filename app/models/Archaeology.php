@@ -62,7 +62,7 @@ class Archaeology extends Pas_Db_Table_Abstract
                 'createdBy'
             ))
             ->joinLeft('hoards', 'archaeology.hoardID = hoards.secuid',
-                array('old_hoardID' => 'hoardID'))
+                array('old_hoardID' => 'hoardID', 'recordID' => 'id'))
             ->joinLeft('periods', 'archaeology.period1 = periods.id',
                 array('periodFrom' => 'term'))
             ->joinLeft(array('periods2' => 'periods'), 'archaeology.period2 = periods2.id',

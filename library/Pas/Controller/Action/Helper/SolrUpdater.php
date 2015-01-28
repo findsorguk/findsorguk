@@ -30,7 +30,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
     protected $_cores = array(
         'objects', 'people', 'images',
         'publications', 'bibliography', 'content',
-        'geodata'
+        'geodata', 'coinsummary', 'tags'
     );
 
     /** The solr object
@@ -124,39 +124,54 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
     /** Get the preferred identifier by core
      * @access protected
      * @param string $core
+     * @param string type
      * @return string
      * @throws Exception
      */
     protected function _getIdentifier($core, $type = null)
     {
-        if (in_array($core, $this->getCores())) {
-            switch ($core) {
-                case 'objects':
+        if (is_null($type)) {
+            if (in_array($core, $this->getCores())) {
+                switch ($core) {
+                    case 'objects':
+                        $identifier = 'finds-';
+                        break;
+                    case 'people':
+                        $identifier = 'people-';
+                        break;
+                    case 'content':
+                        $identifier = 'content-';
+                        break;
+                    case 'bibliography':
+                        $identifier = 'biblio-';
+                        break;
+                    case 'images':
+                        $identifier = 'images-';
+                        break;
+                    case 'publications':
+                        $identifier = 'publications-';
+                        break;
+                    case 'tags':
+                        $identifier = 'tags';
+                        break;
+                    case 'coinsummary':
+                        $identifier = 'coinsummary-';
+                        break;
+                }
+            }
+        } elseif (in_array($type, array('hoards', 'artefacts'))) {
+            switch ($type) {
+                case 'artefacts':
                     $identifier = 'finds-';
                     break;
-                case 'people':
-                    $identifier = 'people-';
+                case 'hoards':
+                    $identifier = 'hoards-';
                     break;
-                case 'content':
-                    $identifier = 'content-';
-                    break;
-                case 'bibliography':
-                    $identifier = 'biblio-';
-                    break;
-                case 'images':
-                    $identifier = 'images-';
-                    break;
-                case 'publications':
-                    $identifier = 'publications-';
-                    break;
-
-                default:
-                    throw new Exception('Your core does not exist', 500);
             }
-            return $identifier;
         } else {
             throw new Exception('That core does not exist', 500);
         }
+        return $identifier;
     }
 
     /** Get update data for a core
@@ -170,7 +185,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
     public function getUpdateData($core, $id, $type = null)
     {
         if (in_array($core, $this->getCores())) {
-            if ($type != 'hoards') {
+            if (in_array($type, array(null, 'artefacts'))) {
                 switch ($core) {
                     case 'objects':
                         $model = new Finds();
@@ -191,12 +206,16 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                         $type = ucfirst($type);
                         $model = new $type;
                         break;
+                    case 'coinsummary':
+                        $model = new CoinSummary();
+                        break;
                     default:
                         throw new Exception('Your core does not exist', 500);
                 }
-            } else {
-                switch ($type) {
-                    case 'hoards':
+            } elseif($type == 'hoards') {
+                switch ($core) {
+
+                    case 'objects':
                         $model = new Hoards();
                         break;
                 }

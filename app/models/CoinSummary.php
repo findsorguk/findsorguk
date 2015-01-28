@@ -109,7 +109,7 @@ class CoinSummary extends Pas_Db_Table_Abstract {
         $slides = $this->getAdapter();
         $select = $slides->select()
             ->from($this->_name,array(
-                'summaryIdentifier' => new Zend_Db_Expr("CONCAT('coinsummary-',coinsummary.id"),
+                'summaryIdentifier' => new Zend_Db_Expr("CONCAT('coinsummary-',coinsummary.id)"),
                 'id' => 'coinsummary.id',
                 'broadperiod',
                 'fromDate' => 'numdate1',
@@ -128,7 +128,7 @@ class CoinSummary extends Pas_Db_Table_Abstract {
             ->joinLeft('denominations', 'coinsummary.denomination = denominations.id', array('denomination'))
             ->joinLeft('mints', 'coinsummary.mint_id = mints.id', array('mint' => 'mint_name'))
             ->joinLeft('geographyironage', 'coinsummary.geographyID = geographyironage.id',
-                array('geography' => new Zend_Db_Expr("CONCAT(region, ' ' , area, ' ' , tribe)")))
+                array('geography' => new Zend_Db_Expr("CONCAT(geographyironage.region, ' ' , area, ' ' , tribe)")))
             ->joinLeft('rulers', 'coinsummary.ruler_id = rulers.id', array('ruler' => 'issuer'))
             ->joinLeft('users', 'coinsummary.createdBy = users.id', array('creator' => 'fullname'))
             ->joinLeft(array('users2' => 'users'), 'coinsummary.updatedBy = users2.id', array('updater' => 'fullname'))

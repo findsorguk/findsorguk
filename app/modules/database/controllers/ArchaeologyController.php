@@ -106,6 +106,8 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                 $this->getModel()->add($data);
                 //Add a flash message
                 $this->getFlash()->addMessage('You have added archaeology to the record');
+                $this->_helper->solrUpdater->update('objects', $this->getParam('id'), 'hoards' );
+
                 // Redirect back to the record
                 $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
             } else {
@@ -143,15 +145,10 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                     // Get the data and update based on where value
                     $this->getModel()->update($form->getValues(), $where);
                     // Perform comparison audit between old and new data
-                    $this->_helper->audit(
-                        $form->getValues(),
-                        $oldData,
-                        'ArchaeologyAudit',
-                        $this->getParam('id'),
-                        $this->getParam('id')
+                    $this->_helper->audit($form->getValues(), $oldData, 'ArchaeologyAudit', $this->getParam('id'), $this->getParam('id')
                     );
                     // Add SOLR update logic here when ready
-                    $this->_helper->solrUpdater->update('hoards', $this->getParam('id'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('hoardID'), 'hoards' );
                     // Add flash message and redirect back to record
                     $this->getFlash()->addMessage('You have edited some archaeology successfully');
                     // Now redirect to the correct URL
@@ -177,21 +174,24 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
+        $hoardID = $this->getParam('hoardID');
+        $this->view->hoardID = $hoardID;
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
-            $hoardID = $this->_request->getPost('hoardID');
+
+
             if ($del == 'Yes' && $id > 0) {
                 $where = array();
                 $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $id);
-                $where[] = $this->getModel()->getAdapter()->quoteInto('hoardID = ?', $hoardID);
+//                $where[] = $this->getModel()->getAdapter()->quoteInto('hoardID = ?', $hoardID);
                 $this->getModel()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                $this->_helper->solrUpdater->update('objects', $hoardID);
-                $this->redirect('database/hoards/record/id/' . $hoardID);
+                $this->_helper->solrUpdater->update('objects', $this->getParam('hoardID'), 'hoards');
+                $this->redirect('database/hoards/record/id/' . $this->getParam('hoardID'));
             } elseif ($del == 'No' && $id > 0) {
                 $this->getFlash()->addMessage('No changes made!');
-                $this->redirect('database/hoards/record/id/' . $hoardID);
+                $this->redirect('database/hoards/record/id/' . $this->getParam('hoardID'));
             }
         } else {
             $this->view->hoard = $this->getModel()->fetchRow('id=' . $this->_request->getParam('id'));
