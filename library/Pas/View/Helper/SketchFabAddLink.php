@@ -10,7 +10,8 @@
  * ->setFindID($id)
  * ->setCreatedBy($createBy)
  * ->setBroadperiod($broadperiod)
- * ->setInstitution($institution);
+ * ->setInstitution($institution)
+ * ->setRecordType($type);
  * ?>
  * </code>
  *
@@ -49,12 +50,11 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
      */
     protected $_higherLevel = array('admin', 'fa', 'treasure');
 
-    protected $_type;
-
+    protected $_recordType;
     /**
      * @return mixed
      */
-    public function getType()
+    public function getRecordType()
     {
         return $this->_type;
     }
@@ -62,7 +62,7 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
     /**
      * @param mixed $type
      */
-    public function setType($type)
+    public function setRecordType($type)
     {
         $this->_type = $type;
         return $this;
@@ -361,7 +361,7 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
                 'action' => 'add',
                 'findID' => $this->getFindID(),
                 'returnID' => $this->getReturnID(),
-                'recordType' => $this->getType()
+                'recordType' => $this->getRecordType()
             );
             $url = $this->view->url($params, null, TRUE);
             $string .= '<a class="btn btn-primary btn-small" href="';

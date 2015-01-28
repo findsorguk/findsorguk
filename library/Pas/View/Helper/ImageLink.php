@@ -12,7 +12,8 @@
  * echo $this->imageLink()
  * ->setInstitution($institution)
  * ->setSecuID($secuid)
- * ->setCreatedBy($createdBy);
+ * ->setCreatedBy($createdBy)
+ * ->setRecordType($type);
  * ?>
  * </code>
  *
@@ -90,6 +91,27 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
      * @var string
      */
     protected $_role = null;
+
+    protected $_recordType = null;
+
+    /**
+     * @return null
+     */
+    public function getRecordType()
+    {
+        return $this->_recordType;
+    }
+
+    /**
+     * @param null $recordType
+     */
+    public function setRecordType($recordType)
+    {
+        $this->_recordType = $recordType;
+        return $this;
+    }
+
+
 
     /** get the creator
      * @access public
@@ -318,7 +340,8 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
             'controller' => 'images',
             'action' => 'add',
             'secuid' => $this->getSecuID(),
-            'id' => $this->getFindID()
+            'id' => $this->getFindID(),
+            'recordtype' => $this->getRecordType()
         );
         return $url;
     }
