@@ -9,16 +9,18 @@
         <?php echo $this->fullname;?>
     </td> 
     <td>
-        <a href="<?php echo $this->url(array(
+        <div class="btn-group">
+        <a class="btn btn-mini" href="<?php echo $this->url(array(
             'module' => 'database',
             'controller' => 'organisations',
             'action' => 'edit',
             'id' => $this->id)
                 ,null,true);?>" title="Edit <?php echo $this->name;?>'s details">Edit</a>
-        <a href="<?php echo $this->url(array(
+        <a class="btn btn-mini" href="<?php echo $this->url(array(
             'module' => 'database',
             'controller' => 'organisations',
             'action' => 'delete',
             'id' => $this->id),null,true);?>" title="Delete <?php echo $this->name;?>">Delete</a>
+        </div>
     </td>
 </tr>
