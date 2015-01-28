@@ -9,7 +9,7 @@ RewriteRule ^index\.php(.*)$ /$1 [R=301,L]
 
 Header add Access-Control-Allow-Origin: *
 #Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
-
+ModPagespeed off
 
 #php_value session.auto_start 0
 # Disable all magic quoting.
@@ -21,6 +21,10 @@ php_value	magic_quotes_runtime off
 php_flag zend.ze1_compatibility_mode Off 
 php_flag zlib.output_compression ON 
 php_value zlib.output_compression_level 5
+
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
 
 </IfModule>
 
