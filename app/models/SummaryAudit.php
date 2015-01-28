@@ -28,7 +28,7 @@ class SummaryAudit extends Pas_Db_Table_Abstract {
      * @access protected
      * @var string
      */
-    protected $_name = 'summaryAudit';
+    protected $_name = 'summaryaudit';
 
     /** the primary key
      * @access protected
