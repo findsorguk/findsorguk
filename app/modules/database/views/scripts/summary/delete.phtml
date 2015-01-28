@@ -24,7 +24,7 @@ $this->metaBase()->setDescription($this->title())->generate();
           method="post">
         <div>
             <input type="hidden" name="id" value="<?php echo $this->summary->id; ?>"/>
-            <input type="hidden" name="hoardID" value="<?php echo $this->summary->hoardID; ?>"/>
+            <input type="hidden" name="hoardID" value="<?php echo $this->hoardID; ?>"/>
 
             <input type="submit" name="del" value="Yes"/>
             <input type="submit" name="del" value="No"/>
