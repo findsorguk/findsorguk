@@ -37,6 +37,7 @@ class Pas_Controller_Plugin_StyleAndAlternate extends Zend_Controller_Plugin_Abs
         '/css/jquery.reject.css' => 'screen',
         '/css/bootstrap-responsive.min.css' => 'screen',
         '/css/print.css' => 'print'
+
     );
 
     /** Head meta stuff
@@ -101,7 +102,8 @@ class Pas_Controller_Plugin_StyleAndAlternate extends Zend_Controller_Plugin_Abs
                 $view->serverUrl() . $view->baseUrl()
                 . '/database/search/results/note/1/format/atom',
                 'application/atom+xml', 'Amazing finds recorded on the database')
-            ->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css');
+            ->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css')
+            ->appendStylesheet('http://fonts.googleapis.com/css?family=Open+Sans');
         $view->headLink(array(
             'rel' => 'search',
             'href' => $view->serverUrl() . $view->baseUrl() . '/OpenSearchDatabase.xml',
