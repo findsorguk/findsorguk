@@ -117,7 +117,7 @@ class Admin_NewsController extends Pas_Controller_Action_Admin
                 $this->getFlash()->addMessage('News story information updated!');
                 $this->redirect(self::REDIRECT);
             } else {
-                $form->populate($form->getValues());
+                $form->populate($this->_request->getPost());
             }
         } else {
             // find id is expected in $params['id']

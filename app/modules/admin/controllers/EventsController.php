@@ -78,7 +78,7 @@ class Admin_EventsController extends Pas_Controller_Action_Admin
         $form->submit->setLabel('Save event');
         $this->view->form = $form;
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
-            $this->_events->insert($form->getValues());
+            $this->_events->add($form->getValues());
             $this->getFlash()->addMessage('New event created!');
             $this->redirect('/admin/events/');
         } else {
@@ -97,17 +97,19 @@ class Admin_EventsController extends Pas_Controller_Action_Admin
         $form->details->setLegend('Edit event');
         $form->submit->setLabel('Save event');
         $this->view->form = $form;
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
-            $where = array();
-            $where[] = $this->_events->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
-            $this->_events->update($form->getValues(), $where);
-            $this->getFlash()->addMessage(
-                'You updated: <em>'
-                . $form->getValue('eventTitle')
-                . '</em> successfully.');
-            $this->redirect('/admin/events/');
+        if ($this->_request->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
+                $where = array();
+                $where[] = $this->_events->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
+                $this->_events->update($form->getValues(), $where);
+                $this->getFlash()->addMessage(
+                    'You updated this events successfully.');
+                $this->redirect('/admin/events/');
+            } else {
+                $form->populate($this->_request->getPost());
+            }
         } else {
-            $form->populate($this->_request->getPost());
+            $form->populate($this->_events->fetchRow('id=' . $this->getParam('id'))->toArray());
         }
     }
 
