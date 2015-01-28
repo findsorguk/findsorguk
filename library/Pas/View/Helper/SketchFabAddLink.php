@@ -146,6 +146,27 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
         return $this;
     }
 
+    protected $_returnID;
+
+    /**
+     * @return mixed
+     */
+    public function getReturnID()
+    {
+        return $this->_returnID;
+    }
+
+    /**
+     * @param mixed $returnID
+     */
+    public function setReturnID($returnID)
+    {
+        $this->_returnID = $returnID;
+        return $this;
+    }
+
+
+
     /** Get the institution to use
      * @access public
      * @return string
