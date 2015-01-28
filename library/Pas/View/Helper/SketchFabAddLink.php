@@ -165,6 +165,26 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
         return $this;
     }
 
+    protected $_recordType;
+
+    /**
+     * @return mixed
+     */
+    public function getRecordType()
+    {
+        return $this->_recordType;
+    }
+
+    /**
+     * @param mixed $recordType
+     */
+    public function setRecordType($recordType)
+    {
+        $this->_recordType = $recordType;
+        return $this;
+    }
+
+
 
 
     /** Get the institution to use
