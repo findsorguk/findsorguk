@@ -301,7 +301,7 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
             && $this->checkAccessbyUserID ($this->getCreatedBy())) {
             $allowed = true;
         } elseif (in_array($this->getRole(), $this->_recorders)
-            && $institution == 'PUBLIC') {
+            && $institution == 'PUBLIC' || $this->getCreatedBy() == $this->getUserID()) {
             $allowed = true;
         } else {
             $allowed = false;

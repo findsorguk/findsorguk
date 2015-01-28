@@ -1,6 +1,7 @@
 <?php
 // Check edit status, which essentially says you can't view needs changing!
-$this->dataEditDeleteCheck()->setInstitution($this->finds[0]['institution'])
+$this->dataEditDeleteCheck()
+    ->setInstitution($this->finds[0]['institution'])
     ->setCreatedBy($this->finds[0]['createdBy'])
     ->setFindID($this->finds[0]['id'])
     ->setWorkflow($this->finds[0]['secwfstage'])

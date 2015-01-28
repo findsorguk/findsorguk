@@ -239,27 +239,98 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
         return $this;
     }
 
-    /** Get the user's role
-     * @access public
-     * @return string
+    /** The people with no access
+     * @var array
+     * @access protected
      */
-    public function getRole()
-    {
-        if ($this->getAuth()->hasIdentity()) {
-            $user = $this->getAuth()->getIdentity();
-            $this->_role = $user->role;
-        }
-        return $this->_role;
-    }
+    protected $noaccess = array('public');
+
+    /** The restricted users groups
+     * @var array
+     * @access protected
+     */
+    protected $restricted = array('member', 'research', 'hero');
+
+    /** The recording group
+     * @var array
+     * @access protected
+     */
+    protected $recorders = array('flos');
+
+    /** The higher level array
+     * @access protected
+     * @var array
+     */
+    protected $higherLevel = array('admin', 'fa', 'treasure', 'hoard');
+
+    /** The missing group message
+     * @access protected
+     * @var string
+     */
+    protected $_missingGroup = 'User is not assigned to a group';
+
+    /** The message for no access
+     * @access protected
+     * @var string
+     */
+    protected $_message = 'You are not allowed edit rights to this record';
 
     /** Get the auth object
-     * @access public
-     * @return object
+     * @return mixed|null
      */
     public function getAuth()
     {
         $this->_auth = Zend_Registry::get('auth');
         return $this->_auth;
+    }
+
+    /** Get the user's role from identity
+     * @access private
+     * @return string $role The user's role
+     */
+    public function getRole()
+    {
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $role = $user->role;
+        } else {
+            $role = null;
+        }
+        return $role;
+    }
+
+    /** Get the user's identity number
+     * @access private
+     * @return integer $id The user's id number
+     */
+    public function getUserID()
+    {
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $id = $user->id;
+        } else {
+            $id = null;
+        }
+        return $id;
+    }
+
+    /** Get the user's institution
+     * @access private
+     * @return string $inst The institution name
+     * @throws Pas_Exception_Group
+     */
+    public function getInst()
+    {
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $inst = $user->institution;
+            if (is_null($inst)) {
+                throw new Pas_Exception_Group($this->_missingGroup);
+            }
+        } else {
+            $inst = null;
+        }
+        return $inst;
     }
 
     /** Set the find ID to query
@@ -294,31 +365,6 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
      */
     protected $_userID;
 
-    /** Get the user's ID
-     * @access public
-     * @return int
-     */
-    public function getUserID()
-    {
-        if ($this->getAuth()->hasIdentity()) {
-            $user = $this->getAuth()->getIdentity();
-            $this->_userID = $user->id;
-        }
-        return $this->_userID;
-    }
-
-    /** Get the user's institution
-     * @access public
-     * @return string
-     */
-    public function getInst()
-    {
-        if ($this->getAuth()->hasIdentity()) {
-            $user = $this->getAuth()->getIdentity();
-            $this->_inst = $user->institution;
-        }
-        return $this->_inst;
-    }
 
     /** Check whether access is allowed by userid for that record
      *
@@ -342,47 +388,29 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
         return $allowed;
     }
 
-    /** Check institutional access by user's institution
-     *
-     * This function conditionally checks whether a user's institution allows
-     * them editing rights to a record.
-     *
-     * First condition: if role is in recorders array and their institution is
-     * the same, then allow.
-     *
-     * Second condition: if role is in higher level, then allow
-     *
-     * Third condition: if role is in restricted (public) and they created,
-     * then allow.
-     *
-     * Fourth condition: if role is in restricted and institution is public,
-     * then allow.
-     *
+    /** Perform the checks for access
      * @access public
-     * @param string $institution
      * @return boolean
-     *
      */
-    public function checkAccessbyInstitution($institution)
+    public function performChecks()
     {
-        if (in_array($this->getRole(), $this->_recorders)
-            && $this->getInst() == $institution
-        ) {
-            $allowed = true;
-        } elseif (in_array($this->getRole(), $this->_higherLevel)) {
-            $allowed = true;
-        } elseif (in_array($this->getRole(), $this->_restricted)
-            && $this->checkAccessbyUserID($this->getCreatedBy())
-        ) {
-            $allowed = true;
-        } elseif (in_array($this->getRole(), $this->_recorders)
-            && $institution == 'PUBLIC'
-        ) {
-            $allowed = true;
-        } else {
-            $allowed = false;
+        // If role = public return false
+        if (in_array($this->getRole(), $this->noaccess)) {
+            return false;
         }
-        return $allowed;
+        //If role in restricted and created = createdby return true
+        if (in_array($this->getRole(), $this->restricted) && $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in recorders and institution = inst or createdby = created return true
+        if ((in_array($this->getRole(), $this->recorders) && $this->getInst() == $this->getInstitution()) || $this->getCreatedBy() == $this->getUserID()) {
+
+            return true;
+        }
+        //If role in higher level return true
+        if (in_array($this->getRole(), $this->higherLevel)) {
+            return true;
+        }
     }
 
     /** The function to return
@@ -410,8 +438,8 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
     public function generateLink()
     {
         $html = '';
-        if ($this->checkAccessbyInstitution($this->getInstitution())) {
-            $this->checkBroadperiod();
+        if ($this->performChecks() && $this->checkBroadperiod()) {
+            ;
             $html .= $this->buildHtml();
         }
         return $html;
@@ -440,14 +468,14 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
     /** Check the broadperiod
      * @access public
      * @return \Pas_View_Helper_CoinEditDeleteLink
-     * @throws Zend_Exception
      */
     public function checkBroadperiod()
     {
         if (!in_array($this->getBroadperiod(), $this->getBroadperiods())) {
-            throw new Zend_Exception('Broadperiod is incorrect', 500);
+            return false;
+        } else {
+            return true;
         }
-        return $this;
     }
 
     /** Build just the url
