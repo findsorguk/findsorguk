@@ -1,3 +1,6 @@
-<?php if (!empty): ?>
+<?php if (!empty)): ?>
     <?php echo $this->partial('partials/content/article.phtml', $this->contents[0]); ?>
+    <?php else:?>
+    <h2 class="lead">An error has occurred.</h2>
+    <p>No article has been found.</p>
 <?php endif; ?>
