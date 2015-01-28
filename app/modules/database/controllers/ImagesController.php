@@ -1,7 +1,6 @@
 <?php
 
 /** Controller for displaying images
- * @todo replace some of functions when solr is installed
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package Pas_Controller_Action

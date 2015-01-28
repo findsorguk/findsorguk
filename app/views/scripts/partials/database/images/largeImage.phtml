@@ -40,18 +40,13 @@ $file = implode('/', $parts);
             <?php else: ?>
                 Period needs to be entered.<br/>
             <?php endif; ?>
-            <strong>Key words: </strong>
-            <?php if (!is_null($this->keywords)): ?>
-                <?php echo $this->explode(',', $this->keywords); ?><br/>
-            <?php else: ?>
-                Key words need entering<br/>
-            <?php endif; ?>
 
             <strong>File size: </strong><?php echo $this->filesize; ?> <br/>
             <strong>File added: </strong><?php echo $this->timeAgoInWords($this->filecreated); ?><br/>
             <strong>File name: </strong><?php echo $this->filename; ?><br/>
             <strong>File type: </strong><?php echo $this->type; ?><br/>
             <strong>File associated with institution: </strong><?php echo $this->institution; ?>
+            <strong>Image type: </strong>
 
         </div>
         <div>
@@ -93,12 +88,7 @@ $file = implode('/', $parts);
             <?php else: ?>
                 Period needs to be entered.<br/>
             <?php endif; ?>
-            <strong>Key words: </strong>
-            <?php if (!is_null($this->keywords)): ?>
-                <?php echo $this->explode(',', $this->keywords); ?><br/>
-            <?php else: ?>
-                Key words need entering<br/>
-            <?php endif; ?>
+
 
             <strong>File size: </strong><?php echo $this->humanReadableFileSize()->setSize($this->filesize); ?> <br/>
             <strong>File added: </strong><?php echo $this->timeAgoInWords($this->filecreated); ?><br/>

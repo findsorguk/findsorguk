@@ -791,7 +791,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     $image->path = $adapter->getFileName($file);
                     $image->name = $adapter->getFileName($file, false);
                     $image->size = $adapter->getFileSize($file);
-                    $image->type = $adapter->getMimeType($file);
+                    $image->mimetype = $adapter->getMimeType($file);
                     // The secure ID stuff for linking images
                     $image->secuid = $this->_helper->GenerateSecuID();
                     // Get the image dims

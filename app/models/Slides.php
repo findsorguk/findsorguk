@@ -92,6 +92,7 @@ class Slides extends Pas_Db_Table_Abstract
             ->joinLeft('finds', 'finds.secuid = finds_images.find_id',
                 array('old_findID', 'objecttype', 'id', 'secuid'))
             ->joinLeft('users', 'slides.createdBy = users.id', array('username'))
+            ->joinLeft('periods', 'slides.period = periods.id', array('broadperiod' => 'term'))
             ->where('finds.id = ?', (int)$id)
             ->order('slides.' . $this->_primary . ' ASC');
         return $thumbs->fetchAll($select);
@@ -130,7 +131,8 @@ class Slides extends Pas_Db_Table_Abstract
                 'id' => 'imageID', 'filename', 'label',
                 'filesize', 'county', 'period',
                 'imagerights', 'institution', 'secuid',
-                'created', 'createdBy', 'ccLicense'
+                'created', 'createdBy', 'ccLicense',
+                'type'
             ))
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id',
                 array())
@@ -274,7 +276,7 @@ class Slides extends Pas_Db_Table_Abstract
                 'secuid' => $data->secuid,
                 'filesize' => $data->size,
                 'filename' => $data->name,
-                'type' => $data->type,
+                'mimetype' => $data->mimetype,
                 'filecreated' => $this->timeCreation(),
                 'institution' => $this->getInstitution(),
                 'created' => $this->timeCreation(),
