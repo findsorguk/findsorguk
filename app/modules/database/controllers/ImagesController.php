@@ -108,7 +108,6 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         $form = new SolrForm();
         $form->removeElement('thumbnail');
         $this->view->form = $form;
-//        $params = $this->_arrayTools->array_cleanup($this->getAllParams());
         $search = new Pas_Solr_Handler();
         $search->setCore('images');
         $search->setFields(array(
@@ -139,6 +138,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         if (!isset($params['q']) || $params['q'] == '') {
             $params['q'] = '*';
         }
+        $params['show'] = 18;
         //Set the search params
         $search->setParams($params);
         //Execute the search

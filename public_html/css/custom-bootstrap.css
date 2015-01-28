@@ -567,3 +567,19 @@ select[multiple].select-large {
 #preview {
     min-height: 120px;
 }
+
+#listNone li {
+    list-style: none;
+    width: 200px;
+    height: 270px;
+    vertical-align: top;
+}
+#listNone .thmbnails ul {
+    display: inline;
+    margin-left: auto;
+}
+ul.inline > li, ol.inline > li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+}
