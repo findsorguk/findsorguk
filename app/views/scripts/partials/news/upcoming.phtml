@@ -1,6 +1,6 @@
 <tr>
     <td>
-        <?php echo $this->niceShortDate($this->eventStartDate); ?>
+        <?php echo $this->niceShortDate(strtotime($this->eventStartDate)); ?>
     </td>
     <td>
         <a href="<?php echo $this->url(array(
