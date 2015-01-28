@@ -142,7 +142,7 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
                 $html .= $this->view->auditDisplay()->setId($id)->setTableName('finds');
             } else {
                 $html .= '';
-                //$html .= $this->view->auditDisplay()->setId($id)->setTableName('hoards');
+                $html .= $this->view->auditDisplay()->setId($id)->setTableName('hoards');
             }
             $html .= '</div>';
             $html .= '<div class="tab-pane fade" id="fspot">';
@@ -153,11 +153,11 @@ class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract
             $html .= '</div>';
             if ($this->getController() == 'hoards') {
                 $html .= '<div class="tab-pane fade" id="summary">';
-//                $html .= $this->view->auditDisplay()->setId($id)->setTableName('summary');
+                $html .= $this->view->auditDisplay()->setId($id)->setTableName('summary');
                 $html .= '</div>';
 
                 $html .= '<div class="tab-pane fade" id="archaeology">';
-//                $html .= $this->view->auditDisplay()->setId($id)->setTableName('archaeology');
+                $html .= $this->view->auditDisplay()->setId($id)->setTableName('archaeology');
                 $html .= '</div>';
             }
             $html .= '</div>';
