@@ -152,7 +152,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                     // Add flash message and redirect back to record
                     $this->getFlash()->addMessage('You have edited some archaeology successfully');
                     // Now redirect to the correct URL
-                    $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
+                    $this->redirect(self::REDIRECT . 'id/' . $this->getParam('hoardID'));
                 } else {
                     // Repopulate with the posted values
                     $form->populate($this->_request->getPost());
