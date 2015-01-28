@@ -10,7 +10,7 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
                title="An introduction to the Treasure Act"><i class="icon-info-sign"></i>Reporting Treasure</a>
         </li>
         <li <?php
-        $what = array('summary', 'piercedcoins', 'forearchaeologists');
+        $what = array('summary', 'piercedcoins', 'forarchaeologists');
         if (in_array($slug, $what)) {
             echo 'class="expandfirst"';
         }; ?>><a href=""><i class="icon-folder-open"></i>What is Treasure?</a>
@@ -18,7 +18,7 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
                 <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'summary'); ?>>
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'summary'), 'treasure', true); ?>"
                        title="Summary of the act">Summary of the Act</a></li>
-                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'forearchaeologists'); ?>>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'forarchaeologists'); ?>>
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'forearchaeologists'), 'treasure', true); ?>"
                        title="archaeological treasure">Archaeological Treasure</a></li>
                 <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'piercedcoins'); ?>>
