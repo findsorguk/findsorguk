@@ -3,7 +3,7 @@
     <?php if (file_exists($mediumFile)): ?>
         <a href="<?php echo $this->serverUrl();?>/<?php echo $this->imagedir;?>medium/<?php echo urlencode($this->f); ?>" rel="lightbox"
            title="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>"><img
-                src="<?php echo $this->serverUrl();?>/<?php echo $this->imagedir;?>display/<?php echo urlencode($this->f); ?>"
+                src="<?php echo $this->serverUrl();?>/<?php echo $this->imagedir;?>medium/<?php echo urlencode($this->f); ?>"
                 alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>"></a>
     <?php else: ?>
         <img src="<?php echo $this->serverUrl() . '/' . $this->imagedir . 'display/' . urlencode($this->f); ?>"
