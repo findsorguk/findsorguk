@@ -53,12 +53,20 @@ class Slides extends Pas_Db_Table_Abstract
      * @param integer $id
      * @return array
      */
-    public function getThumbnails($id)
+    public function getThumbnails($id, $type)
     {
+        if ($type === 'artefacts') {
+            $joinTable = 'finds';
+            $join = $joinTable . '.secuid = finds_images.find_id';
+            $fields = array('old_findID', 'objecttype', 'id', 'secuid');
+        } else {
+            $joinTable === 'hoards';
+            $join = '.secuid = finds_images.find_id';
+            $fields = array('old_findID' => 'hoardID' , 'HOARD', 'id', 'secuid');
+        }
         $thumbs = $this->getAdapter();
         $select = $thumbs->select()
-            ->from($this->_name,
-                array(
+            ->from($this->_name, array(
                     'thumbnail' => 'slides.imageID',
                     'f' => 'filename',
                     'i' => 'imageID',
@@ -67,8 +75,7 @@ class Slides extends Pas_Db_Table_Abstract
                 ))
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id',
                 array())
-            ->joinLeft('finds', 'finds.secuid = finds_images.find_id',
-                array('old_findID', 'objecttype', 'id', 'secuid'))
+            ->joinLeft($joinTable, $join, $fields)
             ->joinLeft('users', 'users.id = slides.createdBy',
                 array('username', 'imagedir'))
             ->where('finds.id = ?', (int)$id)
@@ -223,7 +230,7 @@ class Slides extends Pas_Db_Table_Abstract
      * @param integer $id
      * @return array
      */
-    public function getSolrData($id)
+    public function getSolrData($id, $type)
     {
         $slides = $this->getAdapter();
         $select = $slides->select()
