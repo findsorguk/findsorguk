@@ -127,7 +127,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             if ($this->getParam('type') == 'artefact') {
                 $this->view->finds = $this->getFinds()->getEmbedFind($id);
                 $thumbs = new Slides;
-                $this->view->thumbs = $thumbs->getThumbnails($id);
+                $this->view->thumbs = $thumbs->getThumbnails($id, 'artefacts');
             } else {
                 $this->view->finds = $this->getHoards()->getEmbedHoard($id);
             }

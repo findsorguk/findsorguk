@@ -1,4 +1,4 @@
-<?php if (file_exists(IMAGE_PATH . '/' . $this->username . '/display/' . $this->f)): ?>
+<?php if (file_exists(IMAGE_PATH . '/' . $this->username . '/' . $this->f)): ?>
     <?php $mediumFile = IMAGE_PATH . '/' . $this->username . '/medium/' . strtolower($this->f); ?>
     <?php if (file_exists($mediumFile)): ?>
         <a href="<?php echo $this->serverUrl();?>/<?php echo $this->imagedir;?>medium/<?php echo strtolower($this->f); ?>" rel="lightbox"
@@ -6,7 +6,7 @@
                 src="<?php echo $this->serverUrl();?>/<?php echo $this->imagedir;?>display/<?php echo strtolower($this->f); ?>"
                 alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>"></a>
     <?php else: ?>
-        <img src="<?php echo $this->serverUrl() . '/' . $this->imagedir . 'display/' . strtolower($this->f); ?>"
+        <img src="<?php echo $this->serverUrl() . '/' . $this->imagedir . 'display/' . $this->f; ?>"
              alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>">
     <?php endif; ?>
 
