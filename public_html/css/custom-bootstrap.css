@@ -2,6 +2,12 @@ body {
     padding-top: 60px;
     padding-bottom: 40px;
     font-weight: 200;
+    font-family: 'Open Sans', sans-serif;
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+
 }
 
 .form-horizontal .form-actions {
