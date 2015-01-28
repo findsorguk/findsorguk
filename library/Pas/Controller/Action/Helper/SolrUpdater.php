@@ -159,13 +159,16 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                         break;
                 }
             }
-        } elseif (in_array($type, array('hoards', 'artefacts'))) {
+        } elseif (in_array($type, array('hoards', 'artefacts', 'news'))) {
             switch ($type) {
                 case 'artefacts':
                     $identifier = 'finds-';
                     break;
                 case 'hoards':
                     $identifier = 'hoards-';
+                    break;
+                case 'news':
+                    $identifier = 'news-';
                     break;
             }
         } else {
@@ -205,7 +208,9 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                         $model = new Hoards();
                         break;
                 }
-            } else {
+            } elseif($type = 'news') {
+                $model = new News();
+            } else  {
                 switch ($core) {
                     case 'content':
                         $model = new Content();
