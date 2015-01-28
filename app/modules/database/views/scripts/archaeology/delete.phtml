@@ -3,17 +3,17 @@ $this->headTitle('Delete hoard record');
 ?>
 <?php if ($this->hoard) : ?>
     <h2 class="lead">
-        Delete <?php echo $this->hoard->hoardID; ?>
+        Delete archaeology attached
     </h2>
     <p>
-        Are you sure that you want to delete <?php echo $this->hoard->hoardID; ?>
+        Are you sure that you want to delete this?
     </p>
     <?php $url = array('module' => 'database', 'controller' => 'archaeology', 'action' => 'delete'); ?>
     <form action="<?php echo $this->url($url, 'default', true); ?>"
           method="post">
         <div>
             <input type="hidden" name="id" value="<?php echo $this->hoard->id; ?>"/>
-            <input type="hidden" name="hoardID" value="<?php echo $this->hoard->hoardID; ?>"/>
+            <input type="hidden" name="hoardID" value="<?php echo $this->hoardID; ?>"/>
 
             <input type="submit" name="del" value="Yes"/>
             <input type="submit" name="del" value="No"/>

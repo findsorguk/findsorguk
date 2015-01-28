@@ -24,6 +24,6 @@ $mpdf->SetDisplayMode('fullpage');
 <?php $mpdf->WriteHTML($this->partial('partials/database/structural/personal.phtml', $this->finds[0])); ?>
 <?php $mpdf->WriteHTML($this->partial('partials/database/structural/otherReferences.phtml', $this->finds[0])); ?>
 <?php $mpdf->WriteHTML($this->partial('partials/database/structural/materials.phtml', $this->finds[0])); ?>
-<?php $mpdf->WriteHTML($this->findspot()->setData($this->finds[0])->setCreatedBy($this->finds[0]['createdBy'])->__toString());?>
+<?php $mpdf->WriteHTML(preg_replace("/<img[^>]+\>/i", " ", $this->findSpot()->setData($this->finds[0])->setCreatedBy($this->finds[0]['createdBy'])->__toString()));?>
 <?php $mpdf->WriteHTML($this->harvard()->setRefs($this->refs)->__toString()); ?>
 <?php $mpdf->Output(); ?>

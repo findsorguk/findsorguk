@@ -82,6 +82,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
                 $data = $form->getValues();
                 $data['hoardID'] = $this->getParam('secUID');
                 $this->getModel()->add($data);
+                $this->_helper->solrUpdater->update('coinsummary', $this->getParam('id'));
                 $this->getFlash()->addMessage('You have added a summary record');
                 $this->redirect('/database/hoards/record/id/' . $this->getParam('id'));
             } else {
@@ -117,6 +118,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
                     $this->getModel()->update($form->getValues(), $where);
                     // Audit the data being entered
                     $this->_helper->audit( $form->getValues(), $oldData, 'SummaryAudit', $this->getParam('hoardID'), $this->getParam('hoardID'));
+                    $this->_helper->solrUpdater->update('coinsummary', $this->getParam('id'));
                     // Add flash message
                     $this->getFlash()->addMessage('You have edited data successfully');
                     // Redirect back to record
@@ -152,7 +154,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
                 $where[] = $this->getModel()->getAdapter()->quoteInto('hoardID = ?', $hoardID);
                 $this->getModel()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                //$this->_helper->solrUpdater->deleteById('objects', $id);
+                $this->_helper->solrUpdater->deleteById('objects', $id, $this->getParam('recordtype'));
                 $this->redirect('database/hoards/record/id/' . $hoardID);
             } elseif ($del == 'No' && $id > 0) {
                 $this->getFlash()->addMessage('No changes made!');

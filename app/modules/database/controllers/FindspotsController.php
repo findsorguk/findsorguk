@@ -142,7 +142,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $updateData['findID'] = $this->getParam('secuid');
                     $updateData['institution'] = $this->_helper->identity->getPerson()->institution;
                     $this->_findspots->addAndProcess($updateData);
-                    $this->_helper->solrUpdater->update('objects', $returnID);
+                    $this->_helper->solrUpdater->update('objects', $returnID, $this->getParam('recordtype'));
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                     $this->getFlash()->addMessage('A new findspot has been created.');
                 } else {
@@ -225,15 +225,14 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                 if ($del == 'Yes' && $id > 0) {
                     $where = 'id = ' . $id;
                     $this->_findspots->delete($where);
-                    $this->_helper->solrUpdater->update('objects', $findID);
+                    $this->_helper->solrUpdater->update('objects', $recordID, $this->getParam('recordtype'));
                     $this->getFlash()->addMessage('Findspot deleted.');
                 }
                 $this->redirect($this->getRedirect() . 'record/id/' . $recordID);
             } else {
                 $id = (int)$this->_request->getParam('id');
                 if ($id > 0) {
-                    $this->view->findspot = $this->_findspots
-                        ->getFindtoFindspotDelete($this->getParam('id'), $this->getController());
+                    $this->view->findspot = $this->_findspots->getFindtoFindspotDelete($this->getParam('id'), $this->getController());
                 }
             }
         } else {

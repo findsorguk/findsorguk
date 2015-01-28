@@ -5,11 +5,11 @@ $this->metaBase()->setDescription($this->ellipsisString()->setString($this->spec
 ?>
 
 <h2 class="lead"><?php echo $this->title(); ?></h2>
-<?php if ($this->expiredJob()->setDate($this->expire)) { ?>
+<?php if ($this->expiredJob()->setDate($this->expire)->checkDate()) : ?>
     <p class="valid-0 jobexpire">
         This job is no longer available, it expired on the <?php echo $this->niceShortDate()->setDate($this->expire); ?>
     </p>
-<?php } ?>
+<?php endif; ?>
 
 <p>
     Salary: &pound; <?php echo $this->escape($this->salary); ?>

@@ -78,8 +78,4 @@ class Pas_View_Helper_ExpiredJob extends Zend_View_Helper_Abstract
                 );
         return $difference;
     }
-
-    public function __toString(){
-        return $this->checkDate();
-    }
 }
