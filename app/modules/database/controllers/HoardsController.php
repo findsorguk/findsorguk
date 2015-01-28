@@ -361,7 +361,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $insertData = $form->getValues();
                 $insert = $this->getHoards()->addHoard($insertData);
                 if ($insert != 'error') {
-                    $this->_helper->solrUpdater->update('objects', $insert);
+                    $this->_helper->solrUpdater->update('objects', $insert, 'hoards');
                     $this->redirect(self::REDIRECT . 'record/id/' . $insert);
                 } else { // If there is a database error, repopulate form so users don't lose their work
                     $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
@@ -459,7 +459,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->getFindspots()->delete($whereFindspots);
                 $this->getHoardsFinders()->delete($whereHoardsFinders);
-                $this->_helper->solrUpdater->deleteById('objects', $id);
+                $this->_helper->solrUpdater->deleteById('objects', $id, 'hoards');
                 $this->redirect('database');
             }
             $this->getFlash()->addMessage('No changes made!');
@@ -498,7 +498,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                     // Update the Find table with the hoard secuid
                     $this->getFinds()->linkFind($updateData, $findID);
 
-                    $this->_helper->solrUpdater->update('objects', $findID);
+                    $this->_helper->solrUpdater->update('objects', $findID, 'hoards');
                     $this->getFlash()->addMessage('Success! Coin, artefact or container linked to this hoard');
                     $this->redirect('/database/hoards/record/id/' . $this->getParam('id'));
                 } else {
@@ -532,7 +532,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                     // The artefact is unlinked
                     $this->getFinds()->unlinkFind($findID);
 
-                    $this->_helper->solrUpdater->update('finds', $findID);
+                    $this->_helper->solrUpdater->update('objects', $findID, 'hoards');
 
                     $this->getFlash()->addMessage('Link deleted!');
                     $this->redirect('/database/hoards/record/id/' . $this->getParam('hoardID'));
@@ -598,7 +598,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         'FindsAudit',
                         $this->getParam('id'),
                         $this->getParam('id'));
-                    $this->_helper->solrUpdater->update('objects', $this->getParam('findID'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('findID'), 'hoards');
                     $this->getFlash()->addMessage('Workflow status changed');
                     $this->redirect('database/hoards/record/id/' . $this->getParam('id'));
                     $this->_request->setMethod('GET');

@@ -139,11 +139,8 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
                     $oldData = $this->_content->fetchRow($this->_content->select()->where('id= ?', (int)$this->getParam('id')))->toArray();
                     $this->_helper->audit($updateData, $oldData, 'ContentAudit', $this->getParam('id'), $this->getParam('id'));
                     $this->_content->update($updateData, $where);
-                    $this->_helper->solrUpdater->update('content',
-                        $this->getParam('id'), 'content');
-                    $this->getFlash()->addMessage('You updated: <em>'
-                        . $form->getValue('title')
-                        . '</em> successfully. It is now available for use.');
+                    $this->_helper->solrUpdater->update('content', $this->getParam('id'), 'content');
+                    $this->getFlash()->addMessage('You updated successfully. It is now available for use.');
                     $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
                     $this->redirect('admin/content/');
                 } else {

@@ -176,7 +176,7 @@ class Database_SketchfabController extends Pas_Controller_Action_Admin
                 $where[] = $this->getModel()->getAdapter()->quoteInto('findID = ?', $findID);
                 $this->getModel()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                $this->_helper->solrUpdater->update('hoards', $findID);
+                $this->_helper->solrUpdater->update('objects', $findID, $this->getParam('recordtype'));
                 $this->redirect(self::REDIRECT . $findID);
             } elseif ($del == 'No' && $id > 0) {
                 $this->getFlash()->addMessage('No changes made!');
