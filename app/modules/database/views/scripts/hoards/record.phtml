@@ -67,10 +67,11 @@ echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
                 <?php endif; ?>
                 <?php
                 echo $this->imageLink()
-                    ->setFindID($this->finds['0']['id'])
-                    ->setSecuID($this->finds['0']['secuid'])
-                    ->setCreatedBy($this->finds['0']['createdBy'])
-                    ->setInstitution($this->finds['0']['institution']);
+                    ->setFindID($this->hoards['id'])
+                    ->setSecuID($this->hoards['uniqueID'])
+                    ->setCreatedBy($this->hoards['createdBy'])
+                    ->setInstitution($this->hoards['institution'])
+                    ->setRecordType(Zend_Controller_Front::getInstance()->getRequest()->getControllerName());
                 ?>
             </div>
             <!-- End of the image pane -->
