@@ -134,13 +134,13 @@
 		<foaf:name><xsl:attribute name="xsd:string">The Portable Antiquities Scheme</xsl:attribute></foaf:name>
 		<foaf:nick><xsl:attribute name="xsd:string">PAS</xsl:attribute></foaf:nick>
 		<foaf:fundedBy>Department for Culture, Media and Sport</foaf:fundedBy>
-		<foaf:logo rdf:resource="http://finds.org.uk/images/logos/pasrgbsize5.gif"/>
+		<foaf:logo rdf:resource="http://finds.org.uk/assets/logos/pasrgbsize5.gif"/>
 		<foaf:mbox_sha1sum>842a757b9667def6fd8276a25929c1d80c8cec7d</foaf:mbox_sha1sum>
 		<foaf:mbox rdf:resource="mailto:info@finds.org.uk"/>
 		<foaf:workplaceHomepage rdf:resource="http://finds.org.uk"/>
 		<foaf:weblog rdf:resource="http://finds.org.uk/blogs"/>
 		<foaf:workInfoHomepage rdf:resource="http://www.britishmuseum.org/the_museum/departments/portable_antiquities_treasure.aspx"/>
-		<foaf:depiction rdf:resource="http://finds.org.uk/images/logos/pasrgbsize5.gif"/>
+		<foaf:depiction rdf:resource="http://finds.org.uk/assets/logos/pasrgbsize5.gif"/>
 	</foaf:Organization>
 	
 	<xsl:for-each select="//results/result">

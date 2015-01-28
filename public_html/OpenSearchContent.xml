@@ -5,7 +5,7 @@
         <Tags>archaeology public discovery</Tags>
 	<Description>Search the PAS database of over 750,000 objects found by the Public in England and Wales</Description>
 	<Image height="16" width="16" type="image/vnd.microsoft.icon">http://finds.org.uk/favicon.ico</Image>
-        <Image height="64" width="64" type="image/png">http://finds.org.uk/images/logoSearch.png</Image>
+        <Image height="64" width="64" type="image/png">http://finds.org.uk/assets/logos/logoSearch.png</Image>
         <Contact>info@finds.org.uk</Contact>
 	<Url type="text/html"
         template="http://finds.org.uk/search/results/?q={searchTerms}" />
