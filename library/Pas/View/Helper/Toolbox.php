@@ -16,6 +16,26 @@
 class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract
 {
 
+    protected $_institution = 'PUBLIC';
+
+    /**
+     * @return string
+     */
+    public function getInstitution()
+    {
+        return $this->_institution;
+    }
+
+    /**
+     * @param string $institution
+     */
+    public function setInstitution($institution)
+    {
+        $this->_institution = $institution;
+        return $this;
+    }
+
+
     /** The allowed roles for access
      * @access protected
      * @var array
@@ -199,7 +219,12 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract
         $class = 'btn btn-small btn-primary';
         $html = '<div id="toolBox" class="btn-group">';
 
-        $html .= $this->view->recordEditDeleteLinks()->setCreatedBy($this->getCreatedBy())->setFindID($this->getId())->setRecordID($this->getOldFindID())->setController($this->getController());
+        $html .= $this->view->recordEditDeleteLinks()
+            ->setCreatedBy($this->getCreatedBy())
+            ->setFindID($this->getId())
+            ->setRecordID($this->getOldFindID())
+            ->setController($this->getController())
+            ->setInstitution($this->getInstitution());
 
         $html .= $this->view->href(array(
             'module' => 'database',

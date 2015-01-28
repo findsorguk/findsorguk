@@ -309,7 +309,8 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
             return true;
         }
         //If role in recorders and institution = inst or createdby = created return true
-        if (in_array($this->getRole(), $this->recorders) || $this->getCreatedBy() == $this->getUserID()) {
+        if ((in_array($this->getRole(), $this->recorders) && $this->getInst() == $this->getInstitution()) || $this->getCreatedBy() == $this->getUserID()) {
+
             return true;
         }
         //If role in higher level return true

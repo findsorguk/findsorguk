@@ -1,190 +1,152 @@
 <?php
 
-/** A view helper for determining whether coin link should be printed.
- *
- * An example of use:
- *
- * <code>
- * <?php
- * $this->view->addCoinLink()
- * ->setFindID($id)
- * ->setCreatedBy($createBy)
- * ->setBroadperiod($broadperiod)
- * ->setInstitution($institution)
- * ->setRecordType($type);
- * ?>
- * </code>
- *
- *
- * @category Pas
- * @package Pas_View_Helper
- * @copyright DEJ Pett
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @version 1
- * @since 29 September 2011
- * @author dpett
+/**
+ * A view helper for printing links on image page
+ * @category   Pas
+ * @package    Pas_View_Helper
+ * @subpackage Abstract
+ * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @see  Zend_View_Helper_Abstract
+ * @uses Zend_View_Helper_Url
+ * @author Daniel Pett
  */
 class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
 {
-    /** Array of roles with limited access
+
+    /** The people with no access
+     * @var array
+     * @access protected
+     */
+    protected $noaccess = array('public');
+
+    /** The restricted users groups
+     * @var array
+     * @access protected
+     */
+    protected $restricted = array('member', 'research', 'hero');
+
+    /** The recording group
+     * @var array
+     * @access protected
+     */
+    protected $recorders = array('flos');
+
+    /** The higher level array
      * @access protected
      * @var array
      */
-    protected $_noaccess = array('public', null);
+    protected $higherLevel = array('admin', 'fa', 'treasure', 'hoard');
 
-    /** Array of roles with restricted access
+    /** The auth object
      * @access protected
-     * @var array
+     * @var mixed|null
      */
-    protected $_restricted = array('member', 'research', 'hero');
+    protected $_auth = NULL;
 
-    /** The recorders array
-     * @access protected
-     * @var array
-     */
-    protected $_recorders = array('flos');
-
-    /** The array of foles with higher level access
-     * @access protected
-     * @var array
-     */
-    protected $_higherLevel = array('admin', 'fa', 'treasure');
-
-    protected $_recordType;
-    /**
-     * @return mixed
-     */
-    public function getRecordType()
-    {
-        return $this->_type;
-    }
-
-    /**
-     * @param mixed $type
-     */
-    public function setRecordType($type)
-    {
-        $this->_type = $type;
-        return $this;
-    }
-
-
-    /** The find ID to use
-     * @access protected
-     * @var string
-     */
-    protected $_findID;
-
-    /** The institution to use
-     * @access protected
-     * @var string
-     */
-    protected $_institution;
-
-    /** The secureID to query
-     * @access protected
-     * @var string
-     */
-    protected $_returnID;
-
-    /** The created by integer
-     * @access protected
-     * @var int
-     */
-    protected $_createdBy;
-
-    /** Can create
-     * @access protected
-     * @var string
-     */
-    protected $_canCreate;
-
-    /** Exception text to return for missing group
+    /** The missing group message
      * @access protected
      * @var string
      */
     protected $_missingGroup = 'User is not assigned to a group';
 
-    /** The error message to throw
+    /** The message for no access
      * @access protected
      * @var string
      */
     protected $_message = 'You are not allowed edit rights to this record';
 
-    /** Get the current user to check
-     * @access public
-     * @return object
+    /** Get the auth object
+     * @return mixed|null
      */
-    public function getUser()
+    public function getAuth()
     {
-        $person = new Pas_User_Details();
-        return $person->getPerson();
+        $this->_auth = Zend_Registry::get('auth');
+        return $this->_auth;
     }
 
-    /** The role of the user
-     * @access protected
-     * @var string
-     */
-    protected $_role = 'public';
-
-    /** The user's id from the model
-     * @access protected
-     * @var int
-     */
-    protected $_userID = null;
-
-    /** The user's institution from the model
-     * @access protected
-     * @var string
-     */
-    protected $_userInst = null;
-
-    /** Get the user's institution
-     * @access public
-     * @return string
-     */
-    public function getUserInst()
-    {
-        if ($this->getUser()) {
-            $this->_userInst = $this->getUser()->institution;
-        }
-        return $this->_userInst;
-    }
-
-    /** Get the user's role from the model
-     * @access public
-     * @return string
+    /** Get the user's role from identity
+     * @access private
+     * @return string $role The user's role
      */
     public function getRole()
     {
-        if ($this->getUser()) {
-            $this->_role = $this->getUser()->role;
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $role = $user->role;
+        } else {
+            $role = null;
         }
-        return $this->_role;
+        return $role;
     }
 
-    /** Get the user's ID from the model
-     * @access public
-     * @return int
+    /** Get the user's identity number
+     * @access private
+     * @return integer $id The user's id number
      */
     public function getUserID()
     {
-        if ($this->getUser()) {
-            $this->_userID = $this->getUser()->id;
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $id = $user->id;
+        } else {
+            $id = null;
         }
-        return $this->_userID;
+        return $id;
     }
 
-    /** Get the set findID for the find
-     * @access public
-     * @return int
+    /** Get the user's institution
+     * @access private
+     * @return string $inst The institution name
+     * @throws Pas_Exception_Group
      */
-    public function getFindID()
+    public function getInst()
     {
-        return $this->_findID;
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $inst = $user->institution;
+            if (is_null($inst)) {
+                throw new Pas_Exception_Group($this->_missingGroup);
+            }
+        } else {
+            $inst = null;
+        }
+        return $inst;
     }
 
-    /** Get the set institution for the find
+    /** The institution value
+     * @access protected
+     * @var null
+     */
+    protected $_institution = NULL;
+
+    /** The created by value
+     * @access protected
+     * @var  null
+     */
+    protected $_createdBy = NULL;
+
+    /** Get the created by value
+     * @access public
+     * @return mixed
+     */
+    public function getCreatedBy()
+    {
+        return $this->_createdBy;
+    }
+
+    /** Set the createdby value
+     * @param mixed $createdBy
+     * @access public
+     * @return \Pas_View_Helper_RecordEditDeleteLinks
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->_createdBy = $createdBy;
+        return $this;
+    }
+
+    /** Get the institution to use
      * @access public
      * @return string
      */
@@ -193,82 +155,10 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
         return $this->_institution;
     }
 
-    /** Get the set secure ID for the find
+    /** Set the institution to query
      * @access public
-     * @return string
-     */
-    public function getReturnID()
-    {
-        return $this->_returnID;
-    }
-
-
-    /** Get the creator of the find
-     * @access public
-     * @return int
-     */
-    public function getCreatedBy()
-    {
-        return $this->_createdBy;
-    }
-
-
-    /** Function to check whether the institution of creator == user's
-     * @access protected
-     * @return boolean
-     */
-    protected function _checkInstitution()
-    {
-        if ($this->getInstitution() === $this->getUserInst()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /** Function to check creator of record against user's id
-     * @access protected
-     * @return boolean
-     */
-    protected function _checkCreator()
-    {
-        if ($this->getCreatedBy() === $this->getUserID()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /** Set the find ID
-     * @access public
-     * @param  int $findID
-     * @return \Pas_View_Helper_AddCoinLink
-     * @throws Zend_Exception
-     */
-    public function setFindID($findID)
-    {
-        $this->_findID = $findID;
-        return $this;
-    }
-
-    /** Function to set the secuid
-     * @access public
-     * @param  string $secuid
-     * @return \Pas_View_Helper_AddCoinLink
-     * @throws Zend_Exception
-     */
-    public function setReturnID($returnID)
-    {
-        $this->_returnID = $returnID;
-        return $this;
-    }
-
-
-    /** Function to set the institution
-     * @access public
-     * @param  string $institution
-     * @return \Pas_View_Helper_AddCoinLink
-     * @throws Zend_Exception
+     * @param mixed $institution
+     * @return \Pas_View_Helper_RecordEditDeleteLinks
      */
     public function setInstitution($institution)
     {
@@ -276,107 +166,177 @@ class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract
         return $this;
     }
 
-    /** Function to set created by
-     * @access public
-     * @param  int $createdBy
-     * @return \Pas_View_Helper_AddCoinLink
-     * @throws Zend_Exception
+    /** The controller to use - default to artefacts
+     * @var string
+     * @access protected
      */
-    public function setCreatedBy($createdBy)
+    protected $_controller = 'artefacts';
+
+    /** Get the controller to use
+     * @return mixed
+     * @access public
+     */
+    public function getController()
     {
-        $this->_createdBy = $createdBy;
+        return $this->_controller;
+    }
+
+    /** Set the controller for the partial to use
+     * @param mixed $controller
+     * @access public
+     */
+    public function setController($controller)
+    {
+        $this->_controller = $controller;
         return $this;
     }
 
-    /** Function to check that all parameters are set
+    /** The find ID to use
+     * @var null
+     * @access protected
+     */
+    protected $findID = NULL;
+
+    /** The record ID to link to
+     * @var null
+     * @access protected
+     */
+    protected $recordID = NULL;
+
+    /** Get the record ID
+     * @return mixed
+     * @access public
+     */
+    public function getRecordID()
+    {
+        return $this->recordID;
+    }
+
+    /** Set the recordID to use
+     * @access public
+     * @param string $recordID
+     */
+    public function setRecordID($recordID)
+    {
+        $this->recordID = $recordID;
+        return $this;
+    }
+
+
+    /** Get the find ID to use
+     * @return mixed
+     * @access public
+     */
+    public function getFindID()
+    {
+        return $this->findID;
+    }
+
+    /** Set the find ID to use
+     * @access public
+     * @param mixed $findID
+     */
+    public function setFindID($findID)
+    {
+        $this->findID = $findID;
+        return $this;
+    }
+
+    /** Check the user's access by ID number and created by
      * @access private
+     * @param  integer $createdBy the created by number for the find
      * @return boolean
-     * @throws Zend_Exception
      */
-    private function _checkParameters()
+    public function checkAccessbyUserID()
     {
-        $parameters = array(
-            'createdBy' => $this->getCreatedBy(),
-            'findID' => $this->getFindID(),
-            'inst' => $this->getInstitution()
-        );
-        foreach ($parameters as $parameter => $value) {
-            if (is_null($value)) {
-                echo 'A parameter ' .  $parameter  . ' is missing';
-            }
-        }
-        return true;
-    }
-
-    /** Function to run internal checks
-     * @access private
-     * @return \Pas_View_Helper_AddCoinLink
-     */
-    private function _performChecks()
-    {
-        if (in_array($this->getRole(), $this->_restricted)) {
-            if (($this->_checkCreator() && !$this->_checkInstitution())
-                || ($this->_checkCreator() && $this->_checkInstitution())
-            ) {
-                $this->_canCreate = true;
-            }
-        } elseif (in_array($this->getRole(), $this->_higherLevel)) {
-            $this->_canCreate = true;
-        } elseif (in_array($this->getRole(), $this->_recorders)) {
-            if (($this->_checkCreator() && !$this->_checkInstitution())
-                || ($this->_checkCreator() && $this->_checkInstitution())
-                || (!$this->_checkCreator() && $this->_checkInstitution())
-                || (!$this->_checkCreator() && $this->getUserInst() === 'PUBLIC')
-            ) {
-                $this->_canCreate = true;
-            }
+        if ($this->getCreatedBy() == $this->getUserID()) {
+            return true;
         } else {
-            $this->_canCreate = false;
+            return false;
         }
-        return $this;
     }
 
-    /** Function to add the coin link html
+
+    /** Check access by the institutional ID
      * @access public
-     * @return \Pas_View_Helper_AddCoinLink
+     * @param  string $oldfindID The record ID
+     * @return boolean
+     */
+    public function checkAccessbyInstitution()
+    {
+        if ($this->getInstitution() == $this->getInst()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /** the class to return
+     * @access public
+     * \Pas_View_Helper_RecordEditDeleteLinks
      */
     public function sketchFabAddLink()
     {
         return $this;
     }
 
-    /** Function to return the html
-     * @access private
-     * @return string
-     */
-    private function _buildHtml()
-    {
-        $this->_checkParameters();
-        $this->_performChecks();
-        $string = '';
-        if ($this->_canCreate) {
-            $params = array(
-                'module' => 'database',
-                'controller' => 'sketchfab',
-                'action' => 'add',
-                'findID' => $this->getFindID(),
-                'returnID' => $this->getReturnID(),
-                'recordType' => $this->getRecordType()
-            );
-            $url = $this->view->url($params, null, TRUE);
-            $string .= '<a class="btn btn-primary btn-small" href="';
-            $string .= $url;
-            $string .= '" title="Add Sketchfab model">Add 3D model</a>';
-        }
-        return $string;
-    }
-
-    /** Function magic method to return string
+    /** To string function
      * @access public
-     * @return string function
+     * @return string
      */
     public function __toString()
     {
-        return $this->_buildHtml();
+        $html = '';
+        if ($this->performChecks()) {
+            $html .= $this->renderHtml();
+        }
+        return $html;
+    }
+
+
+    /** Perform the checks for access
+     * @access public
+     * @return boolean
+     */
+    public function performChecks()
+    {
+        // If role = public return false
+        if (in_array($this->getRole(), $this->noaccess)) {
+            return false;
+        }
+        //If role in restricted and created = createdby return true
+        if (in_array($this->getRole(), $this->restricted) && $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in recorders and institution = inst or createdby = created return true
+        if ((in_array($this->getRole(), $this->recorders) && $this->getInst() == $this->getInstitution()) || $this->getCreatedBy() == $this->getUserID()) {
+
+            return true;
+        }
+        //If role in higher level return true
+        if (in_array($this->getRole(), $this->higherLevel)) {
+            return true;
+        }
+    }
+
+    /** Render the view partial
+     * @access public
+     * @return string
+     */
+    public function renderHtml()
+    {
+        $params = array(
+            'module' => 'database',
+            'controller' => 'sketchfab',
+            'action' => 'add',
+            'findID' => $this->getFindID(),
+            'returnID' => $this->getReturnID(),
+            'recordType' => $this->getRecordType()
+        );
+        $url = $this->view->url($params, null, TRUE);
+        $string .= '<a class="btn btn-primary btn-small" href="';
+        $string .= $url;
+        $string .= '" title="Add Sketchfab model">Add 3D model</a>';
+        return $string;
     }
 }
