@@ -235,6 +235,7 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         if (!$this->getFormat()) {
             $html = strip_tags(implode(',', $searches));
         }
+        $html .= '<hr />';
         return $html;
     }
 
