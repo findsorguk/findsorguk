@@ -10,7 +10,7 @@ $this->metaBase()
 <?php if (count($this->vacs)) : ?>
 
     <ul>
-        <?php echo $this->partialLoop('partials/getinvolved/vacancyList.phtml', $this->vacs); ?>
+        <?php echo $this->partialLoop('partials/about/vacancyList.phtml', $this->vacs); ?>
     </ul>
     <?php echo $this->paginationControl($this->vacs, 'Sliding', 'structure/pagination.phtml'); ?>
 
