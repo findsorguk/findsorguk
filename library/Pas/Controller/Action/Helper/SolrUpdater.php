@@ -208,7 +208,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
             } else {
                 switch ($core) {
                     case 'content':
-                        $model = new ucfirst($core);
+                        $model = new Content();
                         break;
                     case 'people':
                         $model = new People();
