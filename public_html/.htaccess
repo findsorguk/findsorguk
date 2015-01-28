@@ -114,6 +114,7 @@ redirect 301 /kml/Suffolk.kml /kml/SUFFOLK.kml
 redirect 301 /background/cop.php /getinvolved/guides/codeofpractice
 redirect 301 /rallycode /getinvolved/guides/rallycode
 redirect 301 /discoveries/romansindevon /news/stories/article/id/216
+redirect 301 /treasure/advice/forearchaeologists /treasure/advice/forarchaeologists
 redirect 410 /documents/tmp/
 
 
