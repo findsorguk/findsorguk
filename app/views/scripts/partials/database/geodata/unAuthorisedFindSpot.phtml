@@ -28,7 +28,7 @@
 
     var imperium = new google.maps.ImageMapType({
     getTileUrl: function (coord, zoom) {
-    return "http://finds.org.uk/imperium/" +
+    return "<?php echo $this->serverUrl();?>/imperium/" +
     zoom + "/" + coord.x + "/" + coord.y + ".png";
 
     },

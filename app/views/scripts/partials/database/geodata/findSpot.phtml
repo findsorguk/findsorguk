@@ -4,7 +4,11 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 ?>
 
 <h3 class="lead">Spatial data</h3>
-<?php echo $this->findSpotEditDeleteLink($this->old_findspotid, $this->findSpotID, $controller, $this->createdBy); ?>
+<?php
+echo $this->findSpotEditDeleteLink()->setController($controller)
+->setCreatedBy($this->createdBy)
+->setInstitution($this->institution)
+->setRecordID($this->findSpotID); ?>
 
 <?php if (!is_null($this->lon) && !is_null($this->lat)) : ?>
 
@@ -74,7 +78,7 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 
     var imperium = new google.maps.ImageMapType({
     getTileUrl: function (coord, zoom) {
-    return "http://finds.org.uk/imperium/" +
+    return "<?php echo $this->serverUrl();?>/imperium/" +
     zoom + "/" + coord.x + "/" + coord.y + ".png";
 
     },
