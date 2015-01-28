@@ -1,4 +1,4 @@
-<?php if (file_exists(IMAGE_PATH . '/' . $this->username . '/' . $this->f)): ?>
+<?php if (file_exists(IMAGE_PATH . '/' . $this->username . '/display/' . $this->f)): ?>
     <?php $mediumFile = IMAGE_PATH . '/' . $this->username . '/medium/' . strtolower($this->f); ?>
     <?php if (file_exists($mediumFile)): ?>
         <a href="<?php echo $this->serverUrl();?>/<?php echo $this->imagedir;?>medium/<?php echo strtolower($this->f); ?>" rel="lightbox"
