@@ -489,16 +489,13 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
 
                     // The secuid of the artefact to link is retrieved from the form
                     $findSecuid = $form->getValue('findID');
-
                     // The id of the artefact to link is retrieved from the database
-                    $findRow = $this->getFinds()->fetchRow($this->getFinds()->select()->where(
-                        'secuid = ?', $findSecuid
-                    ));
+                    $findRow = $this->getFinds()->fetchRow($this->getFinds()->select()->where('secuid = ?', $findSecuid));
                     $findID = $findRow['id'];
                     // Update the Find table with the hoard secuid
                     $this->getFinds()->linkFind($updateData, $findID);
 
-                    $this->_helper->solrUpdater->update('objects', $findID, 'hoards');
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('id'), 'hoards');
                     $this->getFlash()->addMessage('Success! Coin, artefact or container linked to this hoard');
                     $this->redirect('/database/hoards/record/id/' . $this->getParam('id'));
                 } else {
@@ -532,7 +529,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                     // The artefact is unlinked
                     $this->getFinds()->unlinkFind($findID);
 
-                    $this->_helper->solrUpdater->update('objects', $findID, 'hoards');
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('hoardID'), 'hoards');
 
                     $this->getFlash()->addMessage('Link deleted!');
                     $this->redirect('/database/hoards/record/id/' . $this->getParam('hoardID'));
