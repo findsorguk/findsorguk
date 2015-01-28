@@ -13,7 +13,7 @@ $file = implode('/', $parts);
 
 <div style="min-height:200px;">
     <?php if (file_exists($file)): ?>
-        <div class="pull-right" >
+        <div class="pull-right">
             <strong>Attached to find: </strong><?php echo $this->old_findID; ?><br/>
             <strong>Object type: </strong>
             <?php if (!empty($this->objecttype)): ?>
@@ -44,9 +44,13 @@ $file = implode('/', $parts);
             <strong>File size: </strong><?php echo $this->filesize; ?> <br/>
             <strong>File added: </strong><?php echo $this->timeAgoInWords($this->filecreated); ?><br/>
             <strong>File name: </strong><?php echo $this->filename; ?><br/>
-            <strong>File type: </strong><?php echo $this->type; ?><br/>
-            <strong>File associated with institution: </strong><?php echo $this->institution; ?>
-            <strong>Image type: </strong>
+            <?php if (!is_null($this->mimetype)): ?>
+                <strong>File type: </strong><?php echo $this->mimetype; ?><br/>
+            <?php endif; ?>
+            <strong>File associated with institution: </strong><?php echo $this->institution; ?><br/>
+            <?php if (!is_null($this->type)): ?>
+                <strong>Image type: </strong><?php echo $this->type; ?>
+            <?php endif; ?>
 
         </div>
         <div>
@@ -56,9 +60,12 @@ $file = implode('/', $parts);
         </div>
 
         <div class="btn-group">
-            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->imageID),'default', true);?>" class="btn-mini btn">Edit</a>
-            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->imageID),'default', true);?>" class="btn-mini btn">View</a>
-            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->imageID),'default', true);?>" class="btn-mini btn">Delete</a>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->imageID), 'default', true); ?>"
+               class="btn-mini btn">Edit</a>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->imageID), 'default', true); ?>"
+               class="btn-mini btn">View</a>
+            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->imageID), 'default', true); ?>"
+               class="btn-mini btn">Delete</a>
         </div>
     <?php else: ?>
         <div class="pull-right">
@@ -93,9 +100,13 @@ $file = implode('/', $parts);
             <strong>File size: </strong><?php echo $this->humanReadableFileSize()->setSize($this->filesize); ?> <br/>
             <strong>File added: </strong><?php echo $this->timeAgoInWords($this->filecreated); ?><br/>
             <strong>File name: </strong><?php echo $this->filename; ?><br/>
-            <strong>File type: </strong><?php echo $this->type; ?><br/>
-            <strong>File associated with institution: </strong><?php echo $this->institution; ?>
-
+            <?php if (!is_null($this->mimetype)): ?>
+                <strong>File type: </strong><?php echo $this->mimetype; ?><br/>
+            <?php endif; ?>
+            <strong>File associated with institution: </strong><?php echo $this->institution; ?><br/>
+            <?php if (!is_null($this->type)): ?>
+                <strong>Image type: <?php echo $this->type; ?></strong>
+            <?php endif; ?>
         </div>
 
         <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"

@@ -132,7 +132,7 @@ class Slides extends Pas_Db_Table_Abstract
                 'filesize', 'county', 'period',
                 'imagerights', 'institution', 'secuid',
                 'created', 'createdBy', 'ccLicense',
-                'type'
+                'type', 'mimetype'
             ))
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id',
                 array())
