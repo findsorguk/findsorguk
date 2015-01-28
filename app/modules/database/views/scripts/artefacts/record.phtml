@@ -88,9 +88,7 @@ echo $this->coinDataDisplay()
             <?php if (in_array($this->finds[0]['objecttype'], array('coin', 'COIN', 'Coin'))): ?>
 
     <div id="coinrefslinked">
-        <h4>
-            Coin references
-        </h4>
+        <h4 class="lead">Coin references</h4>
         <!-- existing coin references -->
         <?php if (!empty($this->coinrefs)): ?>
             <ul>

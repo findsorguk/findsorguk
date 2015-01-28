@@ -10,5 +10,6 @@
     <?php echo $this->authors; ?>, <?php echo $this->publication_year; ?>
     <em><?php echo $this->title; ?></em> [<?php echo $this->medium; ?>]
     Available at: <a href="<?php echo $this->url; ?>" title="View webpage referenced">
-        <?php echo $this->url; ?></a> [Accessed <?php echo $this->accessedDate; ?>]. <?php echo $this->referencesEditDeleteLink()->setRecordID($this->i)->setFindID($this->fID)->setCreatedBy($this->createdBy); ?>
+        <?php echo $this->url; ?></a> [Accessed <?php echo $this->accessedDate; ?>
+    ]. <?php echo $this->referencesEditDeleteLink()->setRecordID($this->i)->setFindID($this->fID)->setCreatedBy($this->createdBy); ?>
 </li>

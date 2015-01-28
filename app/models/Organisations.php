@@ -102,9 +102,10 @@ class Organisations extends Pas_Db_Table_Abstract {
     public function getOrganisations($params) {
         $orgs = $this->getAdapter();
         $select = $orgs->select()
-                ->from($this->_name)
+                ->from($this->_name, array('name', 'id'))
                 ->joinLeft('people','organisations.contactpersonID = people.secuid', 
                         array('fullname','i' => 'id'))
+                ->joinLeft('osCounties', 'osCounties.osID = organisations.county', array('county' => 'label'))
                 ->order(array('name'));
         if(isset($params['county']) && ($params['county'] != ""))  {
             $county = strip_tags($params['county']);
