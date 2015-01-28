@@ -144,14 +144,14 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
+        $hoardID = $this->getParam('hoardID');
+        $this->view->hoardID = $hoardID;
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
-            $hoardID = $this->_request->getPost('hoardID');
             if ($del == 'Yes' && $id > 0) {
                 $where = array();
                 $where[] = $this->getModel()->getAdapter()->quoteInto('id = ?', $id);
-                $where[] = $this->getModel()->getAdapter()->quoteInto('hoardID = ?', $hoardID);
                 $this->getModel()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->_helper->solrUpdater->deleteById('coinsummary', $id);
