@@ -54,9 +54,6 @@
                         'action' => 'image',
                         'id' => $this->id), null, true); ?>"
                        title="View image and meta data" class="btn-mini btn">View</a>
-                </div>
-                <br/>
-
                 <?php $auth = Zend_Auth::getInstance(); ?>
                 <?php if ($auth->hasIdentity()) : ?>
                     <?php
@@ -64,7 +61,6 @@
                     $allowed = array('flos', 'fa', 'admin');
                     ?>
                     <?php if (in_array($user->role, $allowed)): ?>
-                        <div class="btn-group">
                             <a class="btn-mini btn btn-success"
                                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->id), null, true); ?>">Edit</a>
                             <a class="delete btn btn-mini btn-danger"
