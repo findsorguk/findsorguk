@@ -2,10 +2,10 @@
      about="<?php echo $this->serverUrl(); ?>/database/artefacts/record/id/<?php echo $this->id; ?>">
 
     <div id="preview">
-        <?php if (isset($this->thumbnail)): ?>
+        <?php if (!is_null($this->thumbnail)): ?>
 
             <?php
-            $path = IMAGE_PATH . 'thumbnails/';
+            $path = IMAGE_PATH . '/thumbnails/';
             $ext = '.jpg';
             $file = $path . $this->thumbnail . $ext;
             ?>
