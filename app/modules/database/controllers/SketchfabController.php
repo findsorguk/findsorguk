@@ -103,6 +103,9 @@ class Database_SketchfabController extends Pas_Controller_Action_Admin
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 // Get data
                 $data = $form->getValues();
+                Zend_Debug::dump($this->getParam('returnID'));
+                Zend_Debug::dump($this->getParam('recordType'));
+                exit;
                 $data['findID'] = $this->getParam('findID');
                 // Add the data
                 $this->getModel()->add($data);
