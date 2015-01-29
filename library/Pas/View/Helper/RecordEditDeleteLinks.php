@@ -287,6 +287,7 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
     public function __toString()
     {
         $html = '';
+        Zend_Debug::dump($this->checkAccess());
         if ($this->checkAccess()) {
             $html .= $this->renderHtml();
         }
