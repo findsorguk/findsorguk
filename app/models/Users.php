@@ -113,7 +113,7 @@ class Users extends Pas_Db_Table_Abstract {
         $data['institution'] = 'PUBLIC';
         $data['imagedir'] = 'images/' . $data['username'] . '/';
         $data['created'] = parent::timeCreation();
-        $data['createdBy'] = parent::userNumber();
+        $data['createdBy'] = parent::getUserNumber();
         return parent::insert($data);
     }
 
@@ -208,7 +208,7 @@ class Users extends Pas_Db_Table_Abstract {
         if (!$accounts = $this->_cache->load('authorlist')) {
             $select = $this->select()
                 ->from($this->_name, array('id', 'fullname'))
-                ->where('role IN ("admin", "flos", "fa", "treasure")')
+                ->where('role IN ("admin", "flos", "fa", "")')
                 ->order('fullname');
             $accounts =  $this->getAdapter()->fetchPairs($select);
             $this->_cache->save($accounts, 'authorlist');
