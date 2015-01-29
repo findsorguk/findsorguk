@@ -1,6 +1,6 @@
 <?php $this->mail->setSubject('Activate your account on finds.org.uk'); ?>
 <p>
-    Dear <?php echo $this->escape($this->splitName->setName($this->name)); ?>,
+    Dear <?php echo $this->escape($this->splitName()->setName($this->name)); ?>,
 </p>
 
 <p>
