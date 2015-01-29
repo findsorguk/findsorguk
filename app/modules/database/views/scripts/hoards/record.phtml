@@ -1,11 +1,3 @@
-<?php
-echo $this->dataEditDeleteCheck()->setInstitution($this->hoards['institution'])
-    ->setCreatedBy($this->hoards['createdBy'])
-    ->setFindID($this->hoards['id'])
-    ->setWorkflow($this->finds[0]['workflow'])
-    ->sesame();
-?>
-
 <div typeof="crm:E22_Man-Made_Object"
      about="<?php echo $this->serverUrl(); ?>/database/hoards/record/id/<?php echo $this->hoards['id']; ?>"
      class="record">

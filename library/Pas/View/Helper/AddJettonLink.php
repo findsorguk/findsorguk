@@ -1,6 +1,6 @@
 <?php
 /** A view helper for determining whether coin link should be printed
-*
+ *
  * An example of use:
  *
  * <code>
@@ -12,10 +12,8 @@
  *
  * @category Pas
  * @package Pas_View_Helper
- * @todo streamline code
- * @todo extend the view helper for auth and config objects
  * @copyright DEJ Pett
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 29 September 2011
  * @author dpett
