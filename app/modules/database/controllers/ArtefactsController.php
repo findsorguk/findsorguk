@@ -519,6 +519,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $this->view->from = $exist;
             $form = new ChangeWorkFlowForm();
             $findStatus = $this->getFinds()->fetchRow($this->getFinds()->select()->where('id = ?', $this->getParam('id')));
+            $this->view->details = $findStatus;
             $this->view->find = $findStatus->old_findID;
             $form->populate($findStatus->toArray());
             $this->view->form = $form;
