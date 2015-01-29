@@ -186,8 +186,12 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                 } else {
                     // If error fill with posted values
+
+                    $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
+                    $findSpot = $this->_findspots->fetchRow($where);
+                    $this->view->findspot = $findSpot;
                     $form->populate($this->_request->getPost());
-//                    Zend_Debug::dump($this->_helper->findspotFailedOptions($this->_request->getPost()));
+                    $this->_helper->findspotFailedOptions($this->_request->getPost());
                 }
             } else {
                 // As GET, refill from db
