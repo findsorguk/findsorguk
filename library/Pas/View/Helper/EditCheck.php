@@ -308,12 +308,12 @@ class Pas_View_Helper_EditCheck extends Zend_View_Helper_Abstract
     }
 
     public function canThey(){
-        echo $this->getUserID();
-        echo $this->getInst();
-        echo $this->getController();
-        echo $this->getCreatedBy();
-        echo $this->getRole();
-        echo $this->getInstitution();
+//        echo $this->getUserID();
+//        echo $this->getInst();
+//        echo $this->getController();
+//        echo $this->getCreatedBy();
+//        echo $this->getRole();
+//        echo $this->getInstitution();
         if(!$this->performChecks()){
             throw new Pas_Exception_NotAuthorised($this->_message, 401);
         }
