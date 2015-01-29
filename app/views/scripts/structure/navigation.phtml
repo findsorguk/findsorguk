@@ -31,10 +31,10 @@ $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
             echo 'class="active" ';
         } ?>href="<?php echo $this->url(array('module' => 'news'), 'default', true); ?>"
            title="Keep up to date with the latest news and events">News &amp; Events</a></li>
-    <li><a <?php if ($module == 'flickr') {
-            echo 'class="active" ';
-        } ?>href="<?php echo $this->url(array('module' => 'flickr'), 'default', true); ?>"
-           title="View photos in our Flickr gallery">Photos</a></li>
+<!--    <li><a --><?php //if ($module == 'flickr') {
+//            echo 'class="active" ';
+//        } ?><!--href="--><?php //echo $this->url(array('module' => 'flickr'), 'default', true); ?><!--"-->
+<!--           title="View photos in our Flickr gallery">Photos</a></li>-->
     <li><a <?php if ($module == 'publications') {
             echo 'class="active" ';
         } ?>href="<?php echo $this->url(array('module' => 'publications'), 'default', true); ?>"
