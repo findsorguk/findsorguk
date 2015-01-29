@@ -4,6 +4,10 @@ $this->metaBase()
     ->setDescription('This page allows one to change the workflow status of a record')
     ->setKeywords('archaeology,object')
     ->generate();
+$this->editCheck()
+    ->setInstitution($this->details->institution)
+    ->setCreatedBy($this->details->createdBy)
+    ->canThey();
 ?>
     <h3 class="lead"><?php echo $this->title(); ?></h3>
 <?php if (!empty($this->from)): ?>
