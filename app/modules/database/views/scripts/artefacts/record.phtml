@@ -143,7 +143,8 @@ echo $this->coinDataDisplay()
 <!-- The image link addition -->
 <div class="btn-group">
 <?php
-echo $this->imageLink()->setFindID($this->finds[0]['id'])
+echo $this->imageLink()
+    ->setFindID($this->finds[0]['id'])
     ->setSecuID($this->finds[0]['secuid'])
     ->setCreatedBy($this->finds[0]['createdBy'])
     ->setInstitution($this->finds[0]['institution'])
@@ -174,7 +175,10 @@ echo $this->sketchFabAddLink()
         <?php endforeach; ?>
     <?php endif; ?>
             <img src="https://farm3.staticflickr.com/2813/12070982995_f38aa033bc_s.jpg" class="pull-right img-circle" width="25" />
-            <p>These models have been created as part of the <a href="http://micropasts.org">MicroPasts</a> project by the crowd, and are available for download and reuse under a CC-BY license.</p>
+            <p>
+                These models have been created as part of the <a href="http://micropasts.org">MicroPasts</a> project by the crowd,
+                and are available for download and reuse under a CC-BY license.
+            </p>
 <?php endif; ?>
 </div>
         <!-- End of Sketchfab -->

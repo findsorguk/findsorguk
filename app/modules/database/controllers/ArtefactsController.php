@@ -686,8 +686,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                 $adviseremail = $this->_catchallemail;
                 break;
         }
-
-        $people = $this->_combine($adviserdetails->toArray(), $adviseremail->toArray());
+        $combine = new Pas_ArrayFunctions();
+        $people = $combine->combine($adviserdetails->toArray(), $adviseremail->toArray());
         $sendto = array();
         foreach ($people as $k => $v) {
             $sendto[] = array('email' => $v, 'name' => $k);

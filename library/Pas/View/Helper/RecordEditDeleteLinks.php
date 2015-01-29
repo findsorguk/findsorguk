@@ -18,25 +18,25 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
      * @var array
      * @access protected
      */
-    protected $noaccess = array('public');
+    protected $_noaccess = array('public');
 
     /** The restricted users groups
      * @var array
      * @access protected
      */
-    protected $restricted = array('member', 'research', 'hero');
+    protected $_restricted = array('member', 'research', 'hero');
 
     /** The recording group
      * @var array
      * @access protected
      */
-    protected $recorders = array('flos');
+    protected $_recorders = array('flos');
 
     /** The higher level array
      * @access protected
      * @var array
      */
-    protected $higherLevel = array('admin', 'fa', 'treasure', 'hoard');
+    protected $_higherLevel = array('admin', 'fa', 'treasure', 'hoard');
 
     /** The auth object
      * @access protected
@@ -287,7 +287,7 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
     public function __toString()
     {
         $html = '';
-        if ($this->performChecks()) {
+        if ($this->checkAccess()) {
             $html .= $this->renderHtml();
         }
         return $html;
@@ -331,5 +331,28 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
             'id' => $this->getFindID()
         );
         return $this->view->partial('partials/database/structural/editDeleteRecordLinks.phtml', $data);
+    }
+
+    public function checkAccess()
+    {
+        // If role = public return false
+        if (in_array($this->getRole(), $this->_noaccess)) {
+            return false;
+        }
+        //If role in restricted and created = created by return true
+        else if (in_array($this->getRole(), $this->_restricted) && $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in recorders and institution = inst or created by = created return true
+        else if ((in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution())
+            || $this->getCreatedBy() == $this->getUserID() || $this->getInst() == 'PUBLIC') {
+            return true;
+        }
+        //If role in higher level return true
+        else if (in_array($this->getRole(), $this->_higherLevel)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

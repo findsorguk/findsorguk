@@ -1,0 +1,83 @@
+<?php
+$type = $this->comment_type;
+switch ($type) {
+    case($type == 'findComment'):
+        $t = 'Record';
+        break;
+    case($type == 'newsComment'):
+        $t = 'News';
+        break;
+    case($type == 'event'):
+        $t = 'Event';
+        break;
+    default:
+        $t = 'Record';
+        break;
+}
+?>
+<?php
+$stat = $this->comment_approved;
+
+switch ($stat) {
+    case($stat == 'approved'):
+        $status = 'Published';
+        break;
+    case($stat == 'ham'):
+        $status = 'Ham detected';
+        break;
+    case($stat == 'spam'):
+        $status = 'Spamalot Spamalot ahoy!';
+        break;
+    case($stat == 'moderation'):
+        $status = 'Awaiting publication';
+        break;
+    default:
+        $status = 'Awaiting action';
+        break;
+
+}
+?>
+
+<tr id="comment-<?php echo $this->commentID; ?>" class="status-<?php echo $this->comment_approved; ?>">
+    <td>
+        <?php
+        echo $this->gravatar($this->comment_author_email, array(
+            'imgSize' => 30,
+            'defaultImg' => $this->serverUrl() . $this->baseUrl()
+                . '/assets/gravatar.png',
+            'secure' => true),
+            array(
+                'class' => 'avatar stelae pull-left img-circle',
+                'title' => $this->comment_author . '\'s gravatar representation',
+                'rating' => 'G',
+                'width' => 30,
+                'height' => 30)
+        );
+        ?>
+
+        <strong><?php echo $this->comment_author; ?></strong><br/>
+        <?php if (isset($this->comment_author_url)) : ?><a href="<?php echo $this->comment_author_url; ?>"
+                                                           title="<?php echo $this->comment_author_url; ?>"><?php echo $this->comment_author_url; ?></a>
+            <br/><?php endif; ?>
+        <a href="mailto:<?php echo $this->comment_author_email; ?>"><?php echo $this->comment_author_email; ?></a><br/>
+        Submitted from: <?php echo $this->user_ip; ?> using <?php echo $this->user_agent; ?></td>
+    <td width="14%">
+        <div id="submitted-on">Submitted:<?php echo $this->df; ?></div>
+        <?php echo $this->ellipsisString()->setString(strip_tags($this->comment_content))->setMax(200); ?></td>
+    <td>
+        <a href="<?php echo $this->url(array(
+            'module' => 'database',
+            'controller' => 'artefacts',
+            'action' => 'record',
+            'id' => $this->id), null, true); ?>"><?php echo $this->commentType()->setId($this->contentID)->setType($this->comment_type); ?></a>
+    </td>
+    <td><?php echo $t; ?></td>
+    <td>
+        <div class="btn-group"><a class="btn btn-mini btn-success"
+                                  href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'comments', 'action' => 'publish', 'id' => $this->commentID), 'default', true); ?>"
+                                  title="Publish comment on record: <?php echo $this->old_findID; ?>">Moderate</a> <br/>
+            <a class="btn btn-mini btn-danger" href="#" title="Delete this comment" class="delete">Delete</a><br/>
+        </div>
+        Status: <?php echo $status; ?>
+    </td>
+</tr>

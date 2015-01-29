@@ -318,7 +318,7 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
      */
     public function generateLink() {
         $html = '';
-        if( $this->checkAccessbyInstitution( $this->getInstitution() ) ) {
+        if( $this->checkAccess() ) {
             $html .= $this->buildHtml();
         }
         return $html;
@@ -354,6 +354,29 @@ class Pas_View_Helper_FindSpotLink extends Zend_View_Helper_Abstract {
         $html .= ' accesskey="f">';
         $html .= 'Add a find spot</a></div>';
         return $html;
+    }
+
+    public function checkAccess()
+    {
+        // If role = public return false
+        if (in_array($this->getRole(), $this->_noaccess)) {
+            return false;
+        }
+        //If role in restricted and created = created by return true
+        else if (in_array($this->getRole(), $this->_restricted) && $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in recorders and institution = inst or created by = created return true
+        else if ((in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution())
+            || $this->getCreatedBy() == $this->getUserID() || $this->getInst() == 'PUBLIC') {
+            return true;
+        }
+        //If role in higher level return true
+        else if (in_array($this->getRole(), $this->_higherLevel)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

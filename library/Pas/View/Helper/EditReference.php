@@ -115,19 +115,10 @@ class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
      * @access public
      * @return string|boolean
      */
-    public function editReference($i, $fID, $createdBy)
+    public function editReference($i, $fID)
     {
-        $byID = $this->checkAccessbyUserID($createdBy);
-        if (in_array($this->getRole(), $this->noaccess)) {
-            return FALSE;
-        } elseif (in_array($this->getRole(), $this->restricted) && $byID == TRUE) {
+        if ($this->checkAccess()){
             return $this->buildHtml($i, $fID);
-        } elseif (in_array($this->getRole(), $this->recorders)) {
-            return $this->buildHtml($i, $fID);
-        } elseif (in_array($this->getRole(), $this->higherLevel)) {
-            return $this->buildHtml($i, $fID);
-        } else {
-            return FALSE;
         }
     }
 
@@ -159,4 +150,28 @@ class Pas_View_Helper_EditReference extends Zend_View_Helper_Abstract
 
         return $html;
     }
+
+    public function checkAccess()
+    {
+        // If role = public return false
+        if (in_array($this->getRole(), $this->_noaccess)) {
+            return false;
+        }
+        //If role in restricted and created = created by return true
+        else if (in_array($this->getRole(), $this->_restricted) && $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in recorders and institution = inst or created by = created return true
+        else if ((in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution())
+            || $this->getCreatedBy() == $this->getUserID() || $this->getInstitution() == 'PUBLIC') {
+            return true;
+        }
+        //If role in higher level return true
+        else if (in_array($this->getRole(), $this->_higherLevel)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

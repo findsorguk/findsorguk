@@ -296,8 +296,6 @@ class Pas_View_Helper_DataEditDeleteCheck extends Zend_View_Helper_Abstract
         if (in_array($this->getRole(), $this->noaccess)) {
             if($this->getWorkflow() > 2) {
                 return false;
-            } else {
-                return true;
             }
         }
         //If role in restricted and created = createdby return true
