@@ -1013,7 +1013,7 @@ class Pas_Solr_Handler
             }
             if ((array_key_exists('parish', $params)
                     || array_key_exists('fourFigure', $params
-                        || array_key_exists('parishID'))) && ($this->getCore() === 'objects')
+                        || array_key_exists('parishID', $params))) && ($this->getCore() === 'objects')
             ) {
                 $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
             }
