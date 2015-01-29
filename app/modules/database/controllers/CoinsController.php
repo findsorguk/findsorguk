@@ -188,9 +188,6 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
         if (!isset($params['returnID'])) {
             throw new Pas_Exception_Param('The return ID parameter is missing.');
         }
-        if (!isset($params['findID'])) {
-            throw new Pas_Exception_Param('The find ID parameter is missing.');
-        }
         $form = new ReferenceCoinForm();
         $form->submit->setLabel('Add reference');
         $this->view->form = $form;
@@ -200,7 +197,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
                 $coins = new CoinXClass();
                 $secuid = $this->secuid();
                 $insertData = array(
-                    'findID' => (string)$this->getParam('findID'),
+                    'findID' => (string)$this->getParam('returnID'),
                     'classID' => $form->getValue('classID'),
                     'vol_no' => $form->getValue('vol_no'),
                     'reference' => $form->getValue('reference')
