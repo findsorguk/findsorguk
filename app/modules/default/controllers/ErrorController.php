@@ -432,7 +432,6 @@ class ErrorController extends Pas_Controller_Action_Admin
     {
         $this->getResponse()->setHttpResponseCode(401);
         $this->_helper->layout()->setLayout('database');
-        $this->view->headTitle('None shall pass');
         $this->view->message = 'You are not authorised to view this resource';
         $this->view->code = 401;
     }
