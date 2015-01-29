@@ -7,12 +7,12 @@
                     'controller' => 'rallies',
                     'action' => 'rally',
                     'id' => $this->id), 'default', true); ?>"
-            title="Details for <?php echo $this->rally_name; ?>"><?php echo $this->rally_name; ?></a>
+            title="Details for <?php echo $this->rallyName; ?>"><?php echo $this->rallyName; ?></a>
 
         <?php if (isset($this->df)) { ?>
-            held <?php echo $this->niceShortDate()->setDate($this->df); ?>
+            held <?php echo $this->niceShortDate()->setDate($this->rallyDateFrom); ?>
             <?php if (isset($this->dt)) { ?>
-                - <?php echo $this->niceShortDate()->setDate($this->dt); ?>
+                - <?php echo $this->niceShortDate()->setDate($this->rallyDateTo); ?>
             <?php
             }
         }
