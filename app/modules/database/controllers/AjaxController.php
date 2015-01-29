@@ -103,7 +103,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     {
         if ($this->getParam('id', false)) {
             $this->view->type = $this->getParam('type');
-            if ($this->getParam('type') == 'artefact') {
+            if ($this->getParam('type') == 'artefacts') {
                 $this->view->finds = $this->getFinds()->getWebCiteFind($this->getParam('id'));
             } else {
                 $this->view->finds = $this->getHoards()->getWebCiteHoard($this->getParam('id'));
@@ -124,7 +124,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         if ($this->getParam('id', false)) {
             $id = (int)$this->getParam('id');
             $this->view->type = $this->getParam('type');
-            if ($this->getParam('type') == 'artefact') {
+            if ($this->getParam('type') == 'artefacts') {
                 $this->view->finds = $this->getFinds()->getEmbedFind($id);
                 $thumbs = new Slides;
                 $this->view->thumbs = $thumbs->getThumbnails($id, 'artefacts');
