@@ -130,11 +130,13 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
                     $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
                 } else {
                     $form->populate($this->_request->getPost());
+                    $this->view->coin = $this->getCoins()->getCoinToEdit($id);
                 }
             } else {
                 $id = (int)$this->getParam('id', 0);
                 if ($id > 0) {
                     $coin = $this->getCoins()->getCoinToEdit($id);
+                    $this->view->coin = $coin;
                     $form->populate($coin['0']);
                     $this->_helper->coinFormLoaderOptions($this->getParam('broadperiod'), $coin);
                 }
