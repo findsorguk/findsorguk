@@ -209,10 +209,10 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                 foreach ($data as $document) {
                     $html .= '<div class="span3">';
                     if (($document->thumbnail)) {
-                        $file = $this->view->baseUrl() . '/images/thumbnails/' . $document->thumbnail . '.jpg';
+                        $file = IMAGE_PATH . '/thumbnails/' . $document->thumbnail . '.jpg';
                         if (file_exists($file)) {
                             $html .= '<img class="img-polaroid pull-right" src="';
-                            $html .= $file;
+                            $html .= $this->serverUrl() . '/images/thumbnails/' . $document->thumbnail . '.jpg';
                             $html .= ' />';
                         } else {
                             $html .= '<img class="pull-right img-circle" src="';
