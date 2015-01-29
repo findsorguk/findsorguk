@@ -345,7 +345,7 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
         }
         //If role in recorders and institution = inst or created by = created return true
         else if (in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution()
-            || $this->getCreatedBy() == $this->getUserID() || $this->getInst() == 'PUBLIC') {
+            || $this->getCreatedBy() == $this->getUserID() || in_array($this->getRole(), $this->_recorders) && $this->getInst() == 'PUBLIC' ) {
             Zend_Debug::dump((in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution()), 'test1');
             Zend_Debug::dump($this->getCreatedBy() == $this->getUserID(), 'test2');
             Zend_Debug::dump($this->getInst() == 'PUBLIC', 'test3');
