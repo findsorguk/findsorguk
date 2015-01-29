@@ -1,4 +1,5 @@
 <?php
+
 /** An action helper for adding correct options to a form
  *
  * An example of use:
@@ -24,7 +25,8 @@
  * @uses MedievalTypes
  */
 class Pas_Controller_Action_Helper_CoinFormLoaderOptions
-    extends Zend_Controller_Action_Helper_Abstract {
+    extends Zend_Controller_Action_Helper_Abstract
+{
 
     /** The view object
      * @access protected
@@ -36,8 +38,9 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
      * @access public
      * @return void
      */
-    public function preDispatch(){
-	$this->_view = $this->_actionController->view;
+    public function preDispatch()
+    {
+        $this->_view = $this->_actionController->view;
     }
 
     /** The direct action
@@ -46,7 +49,8 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
      * @param array $coinDataFlat
      * @return void
      */
-    public function direct($broadperiod, array $coinDataFlat){
+    public function direct($broadperiod, array $coinDataFlat)
+    {
         $broadperiod = $this->_filter->filter($broadperiod);
         return $this->optionsAddClone($broadperiod, $coinDataFlat);
     }
@@ -61,7 +65,8 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
      * @access public
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_filter = new Zend_Filter_StringToUpper();
     }
 
@@ -70,10 +75,10 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
      * @var array
      */
     protected $_periods = array(
-        'ROMAN','IRON AGE', 'EARLY MEDIEVAL',
+        'ROMAN', 'IRON AGE', 'EARLY MEDIEVAL',
         'POST MEDIEVAL', 'MEDIEVAL', 'BYZANTINE',
         'GREEK AND ROMAN PROVINCIAL'
-        );
+    );
 
     /** add and clone last record
      * @access public
@@ -81,36 +86,36 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
      * @param array $coinDataFlat
      * @return void
      */
-    public function optionsAddClone($broadperiod, array $coinDataFlat){
-	$coinDataFlat = $coinDataFlat['0'];
+    public function optionsAddClone($broadperiod, array $coinDataFlat)
+    {
         switch ($broadperiod) {
             case 'IRON AGE':
-                if(isset($coinDataFlat['denomination'])) {
-                    $geographies= new Geography();
+                if (isset($coinDataFlat['denomination'])) {
+                    $geographies = new Geography();
                     $geography_options = $geographies
-                            ->getIronAgeGeographyMenu($coinDataFlat['denomination']);
+                        ->getIronAgeGeographyMenu($coinDataFlat['denomination']);
                     $this->_view->form->geographyID->addMultiOptions(array(
                         null => 'Choose geographic region',
                         'Available regions' => $geography_options
-                            ));
+                    ));
                     $this->_view->form->geographyID->addValidator('InArray',
-                            false, array(array_keys($geography_options)));
+                        false, array(array_keys($geography_options)));
                 }
                 break;
             case 'ROMAN':
-                if(isset($coinDataFlat['ruler_id'])) {
+                if (isset($coinDataFlat['ruler_id'])) {
                     $reverses = new RevTypes();
                     $reverse_options = $reverses->getRevTypesForm($coinDataFlat['ruler_id']);
-                    if($reverse_options) {
+                    if ($reverse_options) {
                         $this->_view->form->revtypeID->addMultiOptions(array(
                             null => 'Choose reverse type',
                             'Available reverses' => $reverse_options
-                                ));
+                        ));
                         $this->_view->form->revtypeID->setRegisterInArrayValidator(false);
                     } else {
                         $this->_view->form->revtypeID->addMultiOptions(array(
                             null => 'No options available'
-                            ));
+                        ));
                         $this->_view->form->revtypeID->setRegisterInArrayValidator(false);
                     }
                 } else {
@@ -118,17 +123,17 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
                         null => 'No options available'));
                     $this->_view->form->revtypeID->setRegisterInArrayValidator(false);
                 }
-                if(isset($coinDataFlat['ruler']) && ($coinDataFlat['ruler_id'] == 242)){
+                if (isset($coinDataFlat['ruler']) && ($coinDataFlat['ruler_id'] == 242)) {
                     $moneyers = new Moneyers();
                     $moneyer_options = $moneyers->getRepublicMoneyers();
                     $this->_view->form->moneyer->addMultiOptions(array(
                         null => 'Choose moneyer',
                         'Available moneyers' => $moneyer_options
-                            ));
+                    ));
                 } else {
                     $this->_view->form->moneyer->addMultiOptions(array(
                         null => 'No options available'
-                        ));
+                    ));
                 }
                 break;
             case 'EARLY MEDIEVAL':
@@ -144,7 +149,7 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
                 $this->_view->form->typeID->addMultiOptions(array(
                     null => 'Choose Medieval type',
                     'Available types' => $type_options
-                        ));
+                ));
                 break;
             case 'POST MEDIEVAL':
                 $types = new MedievalTypes();
@@ -152,7 +157,7 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
                 $this->_view->form->typeID->addMultiOptions(array(
                     null => 'Choose Post Medieval type',
                     'Available types' => $type_options
-                        ));
+                ));
                 break;
             default:
                 return false;

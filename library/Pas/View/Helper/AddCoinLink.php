@@ -382,26 +382,24 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
      */
     private function _buildHtml()
     {
-        $this->_checkParameters();
-        $this->_performChecks();
         $string = '';
-        if ($this->_canCreate) {
-            $params = array(
-                'module' => 'database',
-                'controller' => 'coins',
-                'action' => 'add',
-                'broadperiod' => $this->getBroadperiod(),
-                'findID' => $this->getSecuid(),
-                'returnID' => $this->getFindID()
-            );
-            $url = $this->view->url($params, null, TRUE);
-            $string .= '<a class="btn btn-primary" href="';
-            $string .= $url;
-            $string .= '" title="Add ';
-            $string .= $this->getBroadperiod();
-            $string .= ' coin data" accesskey="m">Add ';
-            $string .= $this->getBroadperiod();
-            $string .= ' coin data</a>';
+        if($this->checkAccess()) {
+                $params = array(
+                    'module' => 'database',
+                    'controller' => 'coins',
+                    'action' => 'add',
+                    'broadperiod' => $this->getBroadperiod(),
+                    'findID' => $this->getSecuid(),
+                    'returnID' => $this->getFindID()
+                );
+                $url = $this->view->url($params, null, TRUE);
+                $string .= '<a class="btn btn-primary" href="';
+                $string .= $url;
+                $string .= '" title="Add ';
+                $string .= ucfirst(strtolower($this->getBroadperiod()));
+                $string .= ' coin data" accesskey="m">Add ';
+                $string .= ucfirst(strtolower($this->getBroadperiod()));
+                $string .= ' coin data</a>';
         }
         return $string;
     }
@@ -413,5 +411,75 @@ class Pas_View_Helper_AddCoinLink extends Zend_View_Helper_Abstract
     public function __toString()
     {
         return $this->_buildHtml();
+    }
+
+
+    /** Check institutional access by user's institution
+     *
+     * This function conditionally checks whether a user's institution allows
+     * them editing rights to a record.
+     *
+     * First condition: if role is in recorders array and their institution is
+     * the same, then allow.
+     *
+     * Second condition: if role is in higher level, then allow
+     *
+     * Third condition: if role is in restricted (public) and they created,
+     * then allow.
+     *
+     * Fourth condition: if role is in restricted and institution is public,
+     * then allow.
+     *
+     * @access public
+     * @param string $institution
+     * @return boolean
+     *
+     */
+    public function checkAccess()
+    {
+        // If role = public return false
+        if (in_array($this->getRole(), $this->_noaccess)) {
+            return false;
+        }
+        //If role in restricted and created = created by return true
+        else if (in_array($this->getRole(), $this->_restricted) && $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in recorders and institution = inst or created by = created return true
+        else if ((in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution())
+            || $this->getCreatedBy() == $this->getUserID() || $this->getInstitution() == 'PUBLIC') {
+            return true;
+        }
+        //If role in higher level return true
+        else if (in_array($this->getRole(), $this->_higherLevel)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /** Get the user's institution
+     * @access public
+     * @return string
+     */
+    public function getInst()
+    {
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            $this->_inst = $user->institution;
+        }
+        return $this->_inst;
+    }
+
+    protected $_auth;
+
+    /** Get the auth object
+     * @access public
+     * @return object
+     */
+    public function getAuth()
+    {
+        $this->_auth = Zend_Registry::get('auth');
+        return $this->_auth;
     }
 }

@@ -312,11 +312,53 @@ class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract
     public function generateLink()
     {
         $html = '';
-        if ($this->checkAccessbyInstitution($this->getInstitution())) {
+        if ($this->checkAccess()) {
             $html .= $this->buildHtml();
         }
         return $html;
     }
 
+    /** Check institutional access by user's institution
+     *
+     * This function conditionally checks whether a user's institution allows
+     * them editing rights to a record.
+     *
+     * First condition: if role is in recorders array and their institution is
+     * the same, then allow.
+     *
+     * Second condition: if role is in higher level, then allow
+     *
+     * Third condition: if role is in restricted (public) and they created,
+     * then allow.
+     *
+     * Fourth condition: if role is in restricted and institution is public,
+     * then allow.
+     *
+     * @access public
+     * @param string $institution
+     * @return boolean
+     *
+     */
+    public function checkAccess()
+    {
+        // If role = public return false
+        if (in_array($this->getRole(), $this->_noaccess)) {
+            return false;
+        }
+        //If role in restricted and created = created by return true
+        else if (in_array($this->getRole(), $this->_restricted) && $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in recorders and institution = inst or created by = created return true
+        else if ((in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution()) || $this->getCreatedBy() == $this->getUserID()) {
+            return true;
+        }
+        //If role in higher level return true
+        else if (in_array($this->getRole(), $this->_higherLevel)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

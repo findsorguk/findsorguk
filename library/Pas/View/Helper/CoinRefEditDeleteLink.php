@@ -177,36 +177,30 @@ class Pas_View_Helper_CoinRefEditDeleteLink extends Zend_View_Helper_Abstract {
         return $this;
     }
 
-    /** Perform checks to see whether access is allowed
-     * @access public
-     * @return boolean
-     */
-    public function performChecks() {
-        echo $this->getRole();
+    public function checkAccess()
+    {
+        // If role = public return false
         if (in_array($this->getRole(), $this->_noaccess)) {
-            //If role is in no access, false returns
             return false;
-        } elseif (in_array($this->getRole(), $this->_restricted)) {
-            //Check if created by = their ID
-            if($this->getUser()->getPerson()->institution == 'PUBLIC' 
-                    && $this->getId() == $this->getCreator()) {
-                return true;
-            } else {
-                return false;
-            }
-        } elseif (in_array($this->getRole(), $this->_higherLevel)) {
-            //Just return true as they can do whatever they want
+        }
+        //If role in restricted and created = created by return true
+        else if (in_array($this->getRole(), $this->_restricted) && $this->getCreatedBy() == $this->getUserID()) {
             return true;
-        } elseif (in_array($this->getRole(), $this->_recorders)) {
-            //Check if institution of user = the record institution
-            if($this->getUser()->getPerson()->institution == $this->getInstitution()) {
-                return true;
-            } else {
-                return false;
-            }
-        } 
+        }
+        //If role in recorders and institution = inst or created by = created return true
+        else if ((in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution())
+            || $this->getCreatedBy() == $this->getUserID() || $this->getInstitution() == 'PUBLIC') {
+            return true;
+        }
+        //If role in higher level return true
+        else if (in_array($this->getRole(), $this->_higherLevel)) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
+
     /** The function to return
      * @access public
      * @return \Pas_View_Helper_CoinRefEditDeleteLink
