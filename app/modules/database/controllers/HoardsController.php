@@ -213,13 +213,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function init()
     {
-        $this->_helper->_acl->deny(array('flos'), array('add', 'edit', 'delete'));
-        $this->_helper->_acl->allow('public', array(
-            'index', 'record', 'errorreport',
-            'notifyflo'
-        ));
+        $this->_helper->_acl->deny(array('member'), array('add', 'edit', 'delete'));
+        $this->_helper->_acl->allow('fa', array('add', 'edit', 'delete'));
+        $this->_helper->_acl->allow('public', array('index', 'record', 'errorreport', 'notifyflo'));
         $this->_helper->_acl->allow('member', null);
-
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false)
             ->setAutoDisableLayout(true)
             ->addContext('csv', array('suffix' => 'csv'))
