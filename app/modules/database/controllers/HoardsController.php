@@ -213,7 +213,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function init()
     {
-        $this->_helper->_acl->deny('public', array('add', 'edit'));
+        $this->_helper->_acl->deny(array('flos'), array('add', 'edit', 'delete'));
         $this->_helper->_acl->allow('public', array(
             'index', 'record', 'errorreport',
             'notifyflo'
