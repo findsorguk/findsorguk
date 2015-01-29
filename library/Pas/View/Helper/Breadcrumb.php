@@ -506,6 +506,9 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'activate':
                 $clean = 'Activate your account';
                 break;
+            case 'notauthorised':
+                $clean = 'Not authorised for this page';
+                break;
             default:
                 $clean = ucfirst($this->getAction());
                 break;
