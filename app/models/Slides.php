@@ -230,7 +230,7 @@ class Slides extends Pas_Db_Table_Abstract
      * @param integer $id
      * @return array
      */
-    public function getSolrData($id, $type)
+    public function getSolrData($id, $type = NULL)
     {
         $slides = $this->getAdapter();
         $select = $slides->select()
