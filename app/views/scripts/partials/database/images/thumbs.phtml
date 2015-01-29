@@ -7,7 +7,7 @@
         <?php
         $image = new Pas_Image_MagickDust();
         $image->setImage(IMAGE_PATH . '/' . $this->username . '/' . $this->f);
-        $image->setImageNumber($this->thumbnail);
+        $image->setImageNumber((int)$this->thumbnail);
         $image->setUser($this->username);
         $image->resize();
         ?>
