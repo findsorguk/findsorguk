@@ -175,9 +175,9 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract
     public function getRecordType($controller)
     {
         if ($controller == 'artefacts') {
-            $this->_recordType = 'artefact';
+            $this->_recordType = 'artefacts';
         } elseif ($controller == 'hoards') {
-            $this->_recordType = 'hoard';
+            $this->_recordType = 'hoards';
         }
         return $this->_recordType;
     }
