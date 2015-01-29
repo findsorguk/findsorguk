@@ -13,7 +13,6 @@ $this->metaBase()->setDescription($this->title())->generate();
             </ul>
         </div>
         <div class="span3">
-            <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
             <?php echo $this->thumbnailToggler(); ?>
             <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
             <?php echo $this->facetCreatorMyImages($this->facets); ?>

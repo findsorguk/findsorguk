@@ -571,6 +571,7 @@ select[multiple].select-large {
 #listNone li {
     list-style: none;
     width: 200px;
+    max-width: 200px;
     height: 270px;
     vertical-align: top;
 }
