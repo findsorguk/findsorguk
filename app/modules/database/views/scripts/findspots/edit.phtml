@@ -6,7 +6,12 @@ $this->metaBase()->setDescription('Edit a findspot and geo data')->setKeywords('
 <?php
 $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 ?>
-
+<?php
+$this->editCheck()
+    ->setInstitution($this->findspot['institution'])
+    ->setCreatedBy($this->findspot['createdBy'])
+    ->canThey();
+?>
     <p>
         <a class="btn btn-success"
            href="<?php echo $this->url(array(

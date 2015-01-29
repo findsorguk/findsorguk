@@ -2,7 +2,12 @@
 $this->headTitle('Edit find details');
 $this->metaBase()->setDescription($this->title())->setSubject('Database editing')->generate();
 ?>
-
+<?php
+$this->editCheck()
+    ->setInstitution($this->find['institution'])
+    ->setCreatedBy($this->find['createdBy'])
+    ->canThey();
+?>
 <?php echo $this->partial('partials/database/structural/editFindH2.phtml', $this->find); ?>
 
 <?php echo $this->form; ?>
