@@ -2,6 +2,12 @@
 $this->headTitle('Delete find');
 ?>
 <?php if (!is_null($this->find)) : ?>
+    <?php
+    $this->editCheck()
+        ->setInstitution($this->find->institution)
+        ->setCreatedBy($this->find->createdBy)
+        ->canThey();
+    ?>
     <h2 class="lead">
         Delete <?php echo $this->escape($this->find->old_findID) . ' - ' . $this->escape($this->find->objecttype); ?></h2>
     <p>Are you sure that you want to delete

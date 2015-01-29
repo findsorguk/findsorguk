@@ -13,6 +13,12 @@ $this->metaBase()->setDescription($this->title())->generate();
               ), null, true); ?>" title="return to the record">Return to record</a></p>
 
 <?php
+$this->editCheck()
+    ->setInstitution($this->coin[0]['institution'])
+    ->setCreatedBy($this->coin[0]['createdBy'])
+    ->canThey();
+?>
+<?php
 $this->form->setLegend('Edit data');
 echo $this->form;
 ?>

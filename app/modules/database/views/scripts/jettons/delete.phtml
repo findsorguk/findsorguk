@@ -3,6 +3,12 @@ $this->headTitle('Delete coin data');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
 <?php if (!empty($this->coins)) : ?>
+    <?php
+    $this->editCheck()
+        ->setInstitution($this->coins[0]['institution'])
+        ->setCreatedBy($this->coins[0]['createdBy'])
+        ->canThey();
+    ?>
     <?php echo $this->partial('partials/database/structural/deleteCoin.phtml', $this->coins['0']); ?>
 <?php else: ?>
     <p>Cannot find the item requested.</p>

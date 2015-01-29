@@ -133,7 +133,8 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         'qualityRating' => 'Rating of information',
         'legacyID' => 'Legacy hoard database ID number',
         'lastRulerID' => 'Last ruler present in hoard',
-        '3D' => '3D content ready'
+        '3D' => '3D content ready',
+        'denominationName' => 'Denomination'
 
     );
 

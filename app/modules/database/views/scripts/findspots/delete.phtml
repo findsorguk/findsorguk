@@ -1,5 +1,11 @@
 <?php if (!empty($this->findspot)) : ?>
     <?php
+    $this->editCheck()
+        ->setInstitution($this->findspot[0]['institution'])
+        ->setCreatedBy($this->findspot[0]['createdBy'])
+        ->canThey();
+    ?>
+    <?php
     $this->headTitle("Delete Findspot");
     $this->metaBase()->setDescription($this->title())->generate();
     ?>

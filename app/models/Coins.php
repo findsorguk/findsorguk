@@ -156,7 +156,8 @@ class Coins extends Pas_Db_Table_Abstract
                 'va_type', 'cciNumber', 'phase_date_1',
                 'phase_date_2', 'context', 'depositionDate',
                 'numChiab', 'categoryID', 'typeID',
-                'type', 'initial_mark', 'greekstateID'
+                'type', 'initial_mark', 'greekstateID',
+                'createdBy', 'institution'
             ))
             ->where('coins.id = ?', (int)$id);
         return $coins->fetchAll($select);
