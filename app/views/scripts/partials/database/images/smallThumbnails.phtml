@@ -12,7 +12,7 @@
     $thumbnail = IMAGE_PATH . '/thumbnails/' . $this->thumbnail . '.jpg';
     $full = IMAGE_PATH . '/' . $this->username . '/'.  $this->f;
     ?>
-    <?php if (file_exists($thumbnail) && file_exists($thumbnail)): ?>
+    <?php if (file_exists($thumbnail) && file_exists($full)): ?>
         <?php list($w, $h) = getimagesize($thumbnail); ?>
         <a href="<?php echo $this->serverUrl(); ?>/<?php echo $this->imagedir; ?>medium/<?php echo rawurlencode($this->f); ?>"
            rel="lightbox"><img class="img img-polaroid"

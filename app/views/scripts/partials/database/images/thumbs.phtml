@@ -1,10 +1,10 @@
 <?php if (file_exists(IMAGE_PATH . '/' . $this->username . '/' . $this->f)): ?>
     <?php $mediumFile = IMAGE_PATH . '/' . $this->username . '/medium/' . $this->f; ?>
     <?php if (file_exists($mediumFile)): ?>
-        <img src="<?php echo $this->serverUrl();?>/<?php echo $this->imagedir;?>medium/<?php echo str_replace('.JPG', '.jpg',urlencode($this->f)); ?>"
+        <img src="<?php echo $this->serverUrl();?>/<?php echo $this->imagedir;?>medium/<?php echo $this->f; ?>"
                 alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>">
     <?php else: ?>
-        <img src="<?php echo $this->serverUrl() . '/' . $this->imagedir . 'display/' . urlencode($this->f); ?>"
+        <img src="<?php echo $this->serverUrl() . '/' . $this->imagedir . 'display/' . $this->f; ?>"
              alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>">
     <?php endif; ?>
 
