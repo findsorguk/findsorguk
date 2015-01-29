@@ -2229,6 +2229,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('jettonClasses', 'coins.jettonClass = jettonClasses.id', array('jettonClass' => 'className'))
             ->joinLeft('jettonTypes', 'coins.jettonType = jettonTypes.id', array('jettonType' => 'typeName'))
             ->joinLeft('jettonGroup', 'coins.jettonGroup = jettonGroup.id', array('jettonGroup' => 'groupName'))
+            ->joinLeft('sketchFab', 'finds.secuid = sketchFab.findID', array('3D' => 'modelID'))
             ->joinLeft(array('recorder' => 'people'),
                 'finds.recorderID =recorder.secuid',
                 array('recorder' => 'fullname'))
