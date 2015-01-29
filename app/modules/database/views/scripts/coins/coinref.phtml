@@ -5,6 +5,6 @@ $this->headTitle('Add a coin reference');
 <?php $id = Zend_Controller_Front::getInstance()->getRequest()->getParam('returnID'); ?>
 <div class="btn-group">
     <a class="btn btn-success btn-small"
-       href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $id), null, false); ?>"
+       href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $id), 'default', true); ?>"
        title="return to the record">Return to record</a></div>
 <?php echo $this->form;?>
