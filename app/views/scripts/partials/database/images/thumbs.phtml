@@ -4,7 +4,13 @@
         <img src="<?php echo $this->serverUrl();?>/<?php echo $this->imagedir;?>medium/<?php echo $this->f; ?>"
                 alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>">
     <?php else: ?>
-        <img src="<?php echo $this->serverUrl() . '/' . $this->imagedir . 'display/' . $this->f; ?>"
+        <?php
+//        $image = new Pas_Image_Magick();
+//        $image->setImage(IMAGE_PATH . '/' . $this->username . '/' . $this->f);
+//        $image->setImageNumber($this->)
+//        $image->resize();
+        ?>
+        <img src="<?php echo $this->serverUrl() . '/' . $this->imagedir . 'medium/' . $this->f; ?>"
              alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>">
     <?php endif; ?>
 

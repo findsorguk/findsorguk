@@ -114,6 +114,7 @@ echo $this->coinDataDisplay()
         <div class="span6" id="imagepane">
 
             <?php if (!empty($this->thumbs)): ?>
+                <?php Zend_Debug::dump($this->thumbs);?>
 
     <?php echo $this->partialLoop('partials/database/images/thumbs.phtml', array_slice($this->thumbs, 0, 1)); ?>
 
