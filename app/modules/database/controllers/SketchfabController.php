@@ -103,16 +103,14 @@ class Database_SketchfabController extends Pas_Controller_Action_Admin
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 // Get data
                 $data = $form->getValues();
-                Zend_Debug::dump($this->getParam('returnID'));
-                Zend_Debug::dump($this->getParam('recordType'));
-                exit;
+
                 $data['findID'] = $this->getParam('findID');
                 // Add the data
                 $this->getModel()->add($data);
                 //Add a flash message
                 $this->getFlash()->addMessage('You have added a model to the record');
 
-                $this->_helper->solrUpdater('objects', (int)$this->getParam('returnID'), $this->getParam('recordType'));
+                $this->_helper->solrUpdater->update('objects', (int)$this->getParam('returnID'), $this->getParam('recordType'));
                 // Redirect back to the record
                 $this->redirect(self::REDIRECT . $this->getParam('returnID'));
             } else {
