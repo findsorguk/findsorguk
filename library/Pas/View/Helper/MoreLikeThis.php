@@ -212,7 +212,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
                         $file = IMAGE_PATH . '/thumbnails/' . $document->thumbnail . '.jpg';
                         if (file_exists($file)) {
                             $html .= '<img class="img-polaroid pull-right" src="';
-                            $html .= $this->view->serverUrl() . '/images/thumbnails/' . $document->thumbnail . '.jpg';
+                            $html .= $this->view->serverUrl() . '/images/thumbnails/' . $document->thumbnail . '.jpg"';
                             $html .= ' />';
                         } else {
                             $html .= '<img class="pull-right img-circle" src="';
