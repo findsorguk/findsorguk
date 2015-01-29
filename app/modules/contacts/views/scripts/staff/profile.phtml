@@ -1,7 +1,7 @@
 <?php echo $this->partial('partials/contacts/staff.phtml', $this->persons['0']); ?>
 
 <?php if (!empty($this->periodtotals)): ?>
-    <?php echo $this->partial('partials/contacts/searchFinds.phtml', $this->persons['0']); ?>
+    <?php echo $this->partial('partials/contacts/searchFindsData.phtml', $this->persons['0']); ?>
     <?php
     $this->inlineScript()->appendFile($this->baseUrl() . '/js/bootstrap-tab.js',
         $type = 'text/javascript');?>
