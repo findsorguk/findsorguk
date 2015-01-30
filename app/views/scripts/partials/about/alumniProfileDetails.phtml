@@ -16,8 +16,10 @@ $this->metaBase()->setDescription($this->title())
             Role: <span class="title"><?php echo $this->escape($this->staffroles); ?></span> <br/>
             Database records prefix: <strong><?php echo $this->escape($this->identifier); ?></strong>
         </p>
-        <img src="<?php echo $this->baseUrl(); ?>/assets/logos/<?php echo $this->escape($this->host); ?>"
-             alt="Institutional logo" class="instlogo"/>
+        <?php if (file_exists(ASSETS_PATH . '/logos/' . $this->host)): ?>
+            <img src="<?php echo $this->baseUrl(); ?>/assets/logos/<?php echo $this->escape($this->host); ?>"
+                 alt="Institutional logo" class="instlogo"/>
+        <?php endif; ?>
 
         <p class="adr work">
             <span class="org organization-name"></span>
