@@ -202,7 +202,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                     default:
                         throw new Exception('Your core does not exist', 500);
                 }
-            } elseif(in_array($core, array('images', 'coinsummary'))){
+            } elseif (in_array($core, array('images', 'coinsummary'))) {
                 switch ($core) {
                     case 'images':
                         $model = new Slides();
@@ -213,20 +213,19 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                     default:
                         throw new Exception('Your core does not exist', 500);
                 }
-              }
             } elseif ($type == 'hoards') {
                 switch ($core) {
                     case 'objects':
                         $model = new Hoards();
                         break;
                 }
-            } elseif($type == 'news') {
+            } elseif ($type == 'news') {
                 $model = new News();
-            } elseif($type == 'content') {
+            } elseif ($type == 'content') {
                 $model == new Content();
-            } elseif($type == 'events'){
+            } elseif ($type == 'events') {
                 $model = new Events();
-            } else if(is_null($type))  {
+            } else if (is_null($type)) {
                 switch ($core) {
                     case 'people':
                         $model = new People();
