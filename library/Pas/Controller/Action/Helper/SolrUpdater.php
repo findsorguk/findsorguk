@@ -188,7 +188,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
     public function getUpdateData($core, $id, $type = null)
     {
         if (in_array($core, $this->getCores())) {
-            if (in_array($type, array(null, 'artefacts'))) {
+            if (in_array($type, array('artefacts'))) {
                 switch ($core) {
                     case 'objects':
                         $model = new Finds();
