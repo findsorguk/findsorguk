@@ -231,8 +231,7 @@ if (in_array($role, $allowed)) {
     position: latlng,
     map: map,
     title: title,
-    icon: "<?php echo $this->serverUrl() . $this->baseUrl(); ?>
-    /assets/mapIcons/museumArcheological.png" });
+    icon: "<?php echo $this->serverUrl();?>/assets/mapIcons/museumArcheological.png" });
 
     // now that the marker is placed, assign event listener on the marker
     // and create/assign infowindow to the event trigger.
