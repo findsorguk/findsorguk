@@ -380,6 +380,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     {
         $id = $this->getParam('id', false);
         if (isset($id)) {
+            $this->view->hoard = $this->getHoards()->fetchRow('id=' . $id);
             $form = $this->getHoardForm();
             $form->submit->setLabel('Update record');
             $this->view->form = $form;
@@ -425,7 +426,6 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         $form->addFinders($findersData);
                         $form->populate($formData);
                         $form->getElement('materials')->setValue($materialsData);
-                        $this->view->hoard = $this->getHoards()->fetchRow('id=' . $id);
                     } else {
                         throw new Pas_Exception_Param($this->_nothingFound, 404);
                     }
