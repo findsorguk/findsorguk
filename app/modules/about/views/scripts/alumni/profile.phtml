@@ -34,7 +34,7 @@ $recordsOffTotal = array_sum($records_officers);
                 </tr>
                 </thead>
                 <tbody>
-                <?php echo $this->partialLoop('partials/statistics/periodTotals.phtml', $this->periodtotals);
+                <?php echo $this->partialLoop('partials/statistics/periodTotalsData.phtml', $this->periodtotals);
                 ?>
                 <tr>
                     <th></th>
@@ -64,7 +64,7 @@ $recordsOffTotal = array_sum($records_officers);
                 </tr>
                 </thead>
                 <tbody>
-                <?php echo $this->partialLoop('partials/statistics/quarterTotals.phtml', $this->findstotals); ?>
+                <?php echo $this->partialLoop('partials/statistics/quarterTotalsData.phtml', $this->findstotals); ?>
                 <tr>
                     <th></th>
                     <th></th>
