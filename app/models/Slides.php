@@ -287,7 +287,8 @@ class Slides extends Pas_Db_Table_Abstract
                 'filecreated' => $this->timeCreation(),
                 'institution' => $this->getInstitution(),
                 'created' => $this->timeCreation(),
-                'createdBy' => $this->getUserNumber()
+                'createdBy' => $this->getUserNumber(),
+                'ccLicense' => 4
             );
 
             // Create the linking data
