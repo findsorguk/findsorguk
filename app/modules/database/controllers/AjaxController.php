@@ -261,7 +261,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function findspotsauditAction()
     {
-        $audit = new FindSpotsAudit();
+        $audit = new FindSpotsAuditData();
         $this->view->audit = $audit->getChange($this->getParam('id'));
     }
 
