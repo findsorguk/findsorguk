@@ -107,7 +107,6 @@ class ErrorController extends Pas_Controller_Action_Admin
 
     /** Send emails
      * @access public
-     * @todo Create options from config
      * @return \Zend_Mail
      */
     public function sendEmail()
@@ -115,15 +114,15 @@ class ErrorController extends Pas_Controller_Action_Admin
         if ($this->getEmail()) {
             $to[] = array(
                 'name' => 'Daniel Pett',
-                'email' => 'dpett@britishmuseum.org'
+                'email' => 'danielpett@gmail.com'
             );
             $cc[] = array(
-                'name' => 'Daniel Pett',
-                'email' => 'danielpett@gmail.com'
+                'name' => 'Mary Chester-Kadwell',
+                'email' => 'mchester-kadwell@britishmuseum.org'
             );
             $from[] = array(
                 'name' => 'The Portable Antiquities Server',
-                'email' => 'info@finds.org.uk'
+                'email' => 'no-reply@finds.org.uk'
             );
             $assignData = array_merge($this->_mailData(), $to['0']);
             return $this->_helper->mailer($assignData, 'serverError', $to, $cc, $from, null, null);
