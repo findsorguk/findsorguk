@@ -23,7 +23,7 @@
  * @example /app/modules/database/controllers/AjaxController.php
  */
 
-class FindSpotsAuditData extends Pas_Db_Table_Abstract {
+class FindSpotsAudit extends Pas_Db_Table_Abstract {
 
     /** The table name
      * @access protected
