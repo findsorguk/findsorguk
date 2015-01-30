@@ -242,6 +242,9 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                     case 'slides':
                         $model = new Slides();
                         break;
+                    default:
+                        $model = 'objects';
+                        break;
                 }
             }
             $data = $model->getSolrData($id);
