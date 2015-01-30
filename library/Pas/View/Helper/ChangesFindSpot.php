@@ -75,7 +75,7 @@ class Pas_View_Helper_ChangesFindSpot extends Zend_View_Helper_Abstract
     private function _getData() {
         $html = '';
         if(in_array($this->_getRole(), $this->getAllowed())){
-            $audit = new FindSpotsAudit();
+            $audit = new FindSpotsAuditData();
             $auditdata = $audit->getChanges($thos->getId());
             if($auditdata) {
                 $html .= '<h5>Find spot data audit</h5>';
