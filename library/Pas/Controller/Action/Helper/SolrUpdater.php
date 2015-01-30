@@ -188,7 +188,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
     public function getUpdateData($core, $id, $type = null)
     {
         if (in_array($core, $this->getCores())) {
-            if (in_array($type, array(null, 'artefacts'))) {
+            if (in_array($type, array('artefacts'))) {
                 switch ($core) {
                     case 'objects':
                         $model = new Finds();
@@ -210,11 +210,11 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                 }
             } elseif($type == 'news') {
                 $model = new News();
-            } elseif($type = 'content') {
+            } elseif($type == 'content') {
                 $model = new Content();
             } elseif($type == 'events'){
                 $model = new Events();
-            } else  {
+            } else if(is_null($type))  {
                 switch ($core) {
                     case 'people':
                         $model = new People();
