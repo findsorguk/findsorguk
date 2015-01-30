@@ -239,7 +239,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                     case 'tags':
                         $model = new SemanticTags();
                         break;
-                    case 'slides':
+                    case 'images':
                         $model = new Slides();
                         break;
                     default:
