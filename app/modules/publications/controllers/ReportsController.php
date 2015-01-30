@@ -40,8 +40,10 @@ class Publications_ReportsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        //Magic in view
-    }
+        $this->getFlash()->addMessage('You cannot access the root page');
+        $this->getResponse()->setHttpResponseCode(301)
+            ->setRawHeader('HTTP/1.1 301 Moved Permanently');
+        $this->redirect('publications/');    }
 
     /** Render annual report pages
      * @access public

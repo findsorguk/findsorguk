@@ -317,19 +317,15 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $insertData = $form->getValues();
-                $insertData['secuid'] = $this->secuid();
-                $insertData['old_findID'] = $this->FindUid();
-                $insertData['secwfstage'] = (int)2;
-                $insertData['institution'] = $this->getInstitution();
-                unset($insertData['recordername']);
-                unset($insertData['finder']);
-                unset($insertData['idBy']);
-                unset($insertData['id2by']);
-                unset($insertData['secondfinder']);
-                $insert = $this->getFinds()->add($insertData);
-                $this->_helper->solrUpdater->update('objects', $insert, 'artefacts');
-                $this->redirect(self::REDIRECT . 'record/id/' . $insert);
-                $this->getFlash()->addMessage('Record created!');
+                $insert = $this->getFinds()->addFind($insertData);
+                if ($insert != 'error') {
+                    $this->_helper->solrUpdater->update('objects', $insert, 'artefacts');
+                    $this->redirect(self::REDIRECT . 'record/id/' . $insert);
+                    $this->getFlash()->addMessage('Record created!');
+                } else { // If there is a database error, repopulate form so users don't lose their work
+                    $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
+                    $form->populate($this->_request->getPost());
+                }
             } else {
                 $this->getFlash()->addMessage('Please check and correct errors!');
                 $form->populate($this->_request->getPost());
