@@ -13,7 +13,7 @@ if ($auth->hasIdentity()) {
                     <ul class="nav nav-pills nav-stacked menuindent">
                         <li <?php echo $this->currentPage()->active('users', 'configuration', 'index'); ?>><a
                                 href="<?php echo $this->url(array('module' => 'users', 'controller' => 'configuration'), null, true); ?>"
-                                title="Database settings">Configure copy fields</a>
+                                title="Database settings">Configure database preferences</a>
                         <li <?php echo $this->currentPage()->active('users', 'social', 'index'); ?>><a
                                 href="<?php echo $this->url(array('module' => 'users', 'controller' => 'social',), null, true); ?>"
                                 title="Administer my social sites available to other users">My social web</a></li>
