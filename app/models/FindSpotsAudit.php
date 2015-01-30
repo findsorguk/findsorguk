@@ -41,7 +41,6 @@ class FindSpotsAudit extends Pas_Db_Table_Abstract {
      * @access public
      * @param integer $id
      * @return array
-     * @todo add caching functions
      */
     public function getChanges($id) {
         $finds = $this->getAdapter();

@@ -183,7 +183,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
                 $coords = $this->geoCodeAddress($address);
                 $insertData = array_merge($updateData, $coords);
                 $insert = $this->getPeople()->add($insertData);
-                $this->_helper->solrUpdater->update('people', $insert, 'people');
+                $this->_helper->solrUpdater->update('people', $insert);
                 $this->redirect(self::REDIRECT . 'person/id/' . $insert);
                 $this->getFlash()->addMessage('Record created!');
             } else {
@@ -228,7 +228,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
                     $clean = $this->getPeople()->updateAndProcess($merged);
                     //Update the solr instance
                     $this->getPeople()->update($clean, $where);
-                    $this->_helper->solrUpdater->update('people', $this->getParam('id'), 'people');
+                    $this->_helper->solrUpdater->update('people', $this->getParam('id'));
                     //Update the audit log
                     $this->_helper->audit($updateData, $oldData, 'PeopleAudit', $this->getParam('id'), $this->getParam('id'));
                     $this->getFlash()->addMessage('Person information updated!');
