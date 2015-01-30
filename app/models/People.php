@@ -245,7 +245,7 @@ if (!$data = $this->_cache->load('valuers')) {
 
         }
         if(empty($data['createdBy'])){
-            $data['createdBy'] = $this->userNumber();
+            $data['createdBy'] = $this->getUserNumber();
         }
         if(array_key_exists('countyID', $data) && !is_null($data['countyID'])){
             $counties = new OsCounties();
