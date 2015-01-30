@@ -30,9 +30,84 @@
     <!--  Start of descriptive data -->
     <div class="row-fluid">
 
-        <div class="span6">
+        <div>
             <!-- Header of section -->
             <?php echo $this->partial('partials/database/structural/recordH2Section.phtml', $this->finds[0]); ?>
+
+
+            <!-- Start of image pane -->
+            <div class="pull-right" id="imagepane" style="max-width:400px;">
+
+                <?php if (!empty($this->thumbs)): ?>
+
+                    <?php echo $this->partialLoop('partials/database/images/thumbs.phtml', array_slice($this->thumbs, 0, 1)); ?>
+
+
+                    <?php if (!empty($this->thumbs)): ?>
+
+                        <!-- Start small thumbnails -->
+                        <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', array_slice($this->thumbs, 1)); ?>
+                        <!-- End small thumbnails -->
+                        <hr/>
+                        <h4 class="lead">
+                            Image use policy
+                        </h4>
+                        <p>
+                            Our images can be used under a <a href="https://creativecommons.org/licenses/by/2.0/">CC
+                                BY attribution licence</a> (unless stated otherwise).
+                        </p>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <p>
+                        There are currently no images available.
+                        <br/>
+                        If you own this object please send us a picture of it.
+                    </p>
+                <?php endif; ?>
+
+                <!-- The image link addition -->
+                <div class="btn-group">
+                    <?php
+                    echo $this->imageLink()
+                        ->setFindID($this->finds[0]['id'])
+                        ->setSecuID($this->finds[0]['secuid'])
+                        ->setCreatedBy($this->finds[0]['createdBy'])
+                        ->setInstitution($this->finds[0]['institution'])
+                    ?>
+                    <?php
+                    echo $this->sketchFabAddLink()
+                        ->setFindID($this->finds[0]['secuid'])
+                        ->setReturnID($this->finds[0]['id'])
+                        ->setRecordType(Zend_Controller_Front::getInstance()->getRequest()->getControllerName())
+                        ->setInstitution($this->finds[0]['institution'])
+                        ->setCreatedBy($this->finds[0]['createdBy']);
+                    ?>
+                </div>
+                <!-- End of image link if appropriate -->
+
+                <div class="sketchfab" >
+                    <!-- Start of Sketchfab -->
+                    <?php if (empty($this->sketchfab)): ?>
+
+
+                    <?php else: ?>
+                        <?php $sketchfab = array_slice($this->sketchfab, 0, 1); ?>
+                        <?php echo $this->partial('partials/database/3D/sketchFabModel.phtml', $sketchfab[0]); ?>
+                        <?php if (sizeof($this->sketchfab) > 1): ?>
+                            <h4 class="lead">More 3D models</h4>
+                            <?php foreach (array_slice($this->sketchfab, 1) as $sf): ?>
+                                <?php echo $this->sketchFabThumbnail()->setModelID($sf['modelID']); ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <img src="https://farm3.staticflickr.com/2813/12070982995_f38aa033bc_s.jpg" class="pull-right img-circle" width="25" />
+                        <p>
+                            These models have been created as part of the <a href="http://micropasts.org">MicroPasts</a> project by the crowd,
+                            and are available for download and reuse under a CC-BY license.
+                        </p>
+                    <?php endif; ?>
+                </div>
+                <!-- End of Sketchfab -->
+            </div>
 
             <!-- Notification message if public record -->
             <?php echo $this->notifyFloPublic()->setInstitution($this->finds[0]['institution'])->setId($this->finds[0]['id'])->setWorkflow($this->finds[0]['secwfstage']); ?>
@@ -110,79 +185,7 @@ echo $this->coinDataDisplay()
 
 
 
-        <!-- Start of image pane -->
-        <div class="span6" id="imagepane">
 
-            <?php if (!empty($this->thumbs)): ?>
-
-    <?php echo $this->partialLoop('partials/database/images/thumbs.phtml', array_slice($this->thumbs, 0, 1)); ?>
-
-
-    <?php if (!empty($this->thumbs)): ?>
-
-        <!-- Start small thumbnails -->
-        <?php echo $this->partialLoop('partials/database/images/smallThumbnails.phtml', array_slice($this->thumbs, 1)); ?>
-        <!-- End small thumbnails -->
-        <hr/>
-    <h4 class="lead">
-        Image use policy
-    </h4>
-    <p>
-        Our images can be used under a <a href="https://creativecommons.org/licenses/by/2.0/">CC
-            BY attribution licence</a> (unless stated otherwise).
-    </p>
-    <?php endif; ?>
-<?php else: ?>
-    <p>
-        There are currently no images available.
-        <br/>
-        If you own this object please send us a picture of it.
-    </p>
-<?php endif; ?>
-
-<!-- The image link addition -->
-<div class="btn-group">
-<?php
-echo $this->imageLink()
-    ->setFindID($this->finds[0]['id'])
-    ->setSecuID($this->finds[0]['secuid'])
-    ->setCreatedBy($this->finds[0]['createdBy'])
-    ->setInstitution($this->finds[0]['institution'])
-?>
-<?php
-echo $this->sketchFabAddLink()
-    ->setFindID($this->finds[0]['secuid'])
-    ->setReturnID($this->finds[0]['id'])
-    ->setRecordType(Zend_Controller_Front::getInstance()->getRequest()->getControllerName())
-    ->setInstitution($this->finds[0]['institution'])
-    ->setCreatedBy($this->finds[0]['createdBy']);
-?>
-    </div>
-            <!-- End of image link if appropriate -->
-
-             <div class="sketchfab" >
-        <!-- Start of Sketchfab -->
-        <?php if (empty($this->sketchfab)): ?>
-
-
-<?php else: ?>
-    <?php $sketchfab = array_slice($this->sketchfab, 0, 1); ?>
-    <?php echo $this->partial('partials/database/3D/sketchFabModel.phtml', $sketchfab[0]); ?>
-    <?php if (sizeof($this->sketchfab) > 1): ?>
-        <h4 class="lead">More 3D models</h4>
-        <?php foreach (array_slice($this->sketchfab, 1) as $sf): ?>
-            <?php echo $this->sketchFabThumbnail()->setModelID($sf['modelID']); ?>
-        <?php endforeach; ?>
-    <?php endif; ?>
-            <img src="https://farm3.staticflickr.com/2813/12070982995_f38aa033bc_s.jpg" class="pull-right img-circle" width="25" />
-            <p>
-                These models have been created as part of the <a href="http://micropasts.org">MicroPasts</a> project by the crowd,
-                and are available for download and reuse under a CC-BY license.
-            </p>
-<?php endif; ?>
-</div>
-        <!-- End of Sketchfab -->
-        </div>
 
     </div>
     <!--  End of descriptive data -->
