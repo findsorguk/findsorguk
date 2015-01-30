@@ -134,6 +134,7 @@ class ImageEditForm extends Pas_Form
                 null => 'Select a license',
                 'Available licenses' => $license
             ))
+            ->setValue(4)
             ->addValidator('Int');
 
         $type = new Zend_Form_Element_Select('type');
