@@ -42,18 +42,18 @@
     <?php if (!is_null($this->culture)) : ?>
         <br/>
         Ascribed Culture: <span property="pas:ascribedCulture" datatype="xsd:string">
-    <?php echo $this->escape($this->culture); ?></span> <a href="
+    <?php echo $this->escape($this->ascribedCulture); ?></span> <a href="
     <?php echo $this->url(array(
             'module' => 'datalabs',
             'controller' => 'terminology',
             'action' => 'culture',
             'id' => $this->culture), null, true); ?>" title="Read scope note for
-    <?php echo $this->culture; ?>"><i class="icon-info-sign"></i></a> <a href="<?php echo $this->url(array(
+    <?php echo $this->ascribedCulture; ?>"><i class="icon-info-sign"></i></a> <a href="<?php echo $this->url(array(
             'module' => 'database',
             'controller' => 'search',
             'action' => 'results',
             'culture' => $this->culture), null, true); ?>" title="view all records assigned to:
-    <?php echo $this->culture; ?>"><i class="icon-search"></i></a>
+    <?php echo $this->ascribedCulture; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
 
