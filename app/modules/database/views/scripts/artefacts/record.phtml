@@ -31,8 +31,6 @@
     <div class="row-fluid">
 
         <div>
-            <!-- Header of section -->
-            <?php echo $this->partial('partials/database/structural/recordH2Section.phtml', $this->finds[0]); ?>
 
 
             <!-- Start of image pane -->
@@ -108,6 +106,9 @@
                 </div>
                 <!-- End of Sketchfab -->
             </div>
+
+            <!-- Header of section -->
+            <?php echo $this->partial('partials/database/structural/recordH2Section.phtml', $this->finds[0]); ?>
 
             <!-- Notification message if public record -->
             <?php echo $this->notifyFloPublic()->setInstitution($this->finds[0]['institution'])->setId($this->finds[0]['id'])->setWorkflow($this->finds[0]['secwfstage']); ?>
