@@ -36,6 +36,7 @@ class Database_TagsController extends Pas_Controller_Action_Admin {
     */	
     public function init() {
         $this->_helper->_acl->allow(null);
+        $this->view->addScriptPath('/app/modules/database/views/scripts/');
 
     }
     /** Display index page
@@ -43,28 +44,26 @@ class Database_TagsController extends Pas_Controller_Action_Admin {
      * @return void
      */	
     public function indexAction() {
-        //Magic in view
+        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 410 Gone');
+        $this->renderScript('pageGone.phtml');
     }
     /** Tags created by opencalais
      * @access public
      * @return void
     */	
     public function opencalaisAction() {
-        if($this->getParam('tag',false)) {
-
-        } else {
-            throw new Pas_Exception_Param($this->_missingParameter, 500);
-        }
+        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 410 Gone');
+        $this->renderScript('pageGone.phtml');
     }
     /** Tags created by yahoo
      * @access public
      * @return void
      */	
     public function geotagAction() {
-        if($this->getParam('tag',false)) {
-            
-        } else {
-            throw new Pas_Exception_Param($this->_missingParameter, 500);
-        }
+        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 410 Gone');
+        $this->renderScript('pageGone.phtml');
     }
 }
