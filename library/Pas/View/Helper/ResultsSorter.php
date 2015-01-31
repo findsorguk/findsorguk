@@ -244,7 +244,7 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
         if(array_key_exists('direction', $request)) {
             $key = $request['direction'];
         } else {
-            $key = 'asc';
+            $key = 'desc';
         }
         $class = 'btn btn-mini ';
         $html = '<p>Which direction? </p>';
@@ -266,7 +266,7 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
             $sort = '<a href="' . $this->view->url($request, 'default', true) . '" ';
             if (array_key_exists('direction', $request) && $request['direction'] === $key) {
                 $sort .= ' class="btn btn-mini btn-success" ';
-            } elseif (!array_key_exists('direction', $request) && $v === 'asc') {
+            } elseif (array_key_exists('direction', $request) && $v === 'asc') {
                 $sort .= ' class="btn btn-mini" ';
             } else {
                 $sort .= ' class="btn-mini btn"';
