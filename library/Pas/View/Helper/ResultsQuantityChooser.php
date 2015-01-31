@@ -114,11 +114,11 @@ class Pas_View_Helper_ResultsQuantityChooser extends Zend_View_Helper_Abstract
         $request = $this->getRequest();
         foreach ($urls as $k => $v) {
             $html .= '<a href="' . $v . '" title="show ' . $k . ' records" ';
-            if (!array_key_exists('show', $request) &&  $k === 20) {
-                $html .= ' class="highlight" ';
+            if (!array_key_exists('show', $request) &&  $k == 20) {
+                $html .= ' class="label" ';
             }
-            if (array_key_exists('show', $request) && $request['show'] === $k) {
-                $html .= ' class="highlight" ';
+            if (array_key_exists('show', $request) && $request['show'] == $k) {
+                $html .= ' class="label-danger label" ';
             }
             $html .= '>' . $k . '</a> ';
         }
