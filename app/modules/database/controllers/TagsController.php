@@ -44,26 +44,27 @@ class Database_TagsController extends Pas_Controller_Action_Admin {
      * @return void
      */	
     public function indexAction() {
-        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
         $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 410 Gone');
         $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
     }
     /** Tags created by opencalais
      * @access public
      * @return void
     */	
     public function opencalaisAction() {
-        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
         $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 410 Gone');
         $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
     }
     /** Tags created by yahoo
      * @access public
      * @return void
      */	
     public function geotagAction() {
-        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
         $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 410 Gone');
         $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
+
     }
 }

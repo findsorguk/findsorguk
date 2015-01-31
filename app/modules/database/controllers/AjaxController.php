@@ -808,7 +808,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     $insert = $slides->addAndResize($images);
                     $this->view->data = $images;
                     $this->_helper->solrUpdater->update('images', (int)$insert);
-                    $this->_helper->solrUpdater->update('objects', $params['findID'], $this->getParam('recordtype'));
+                    $this->_helper->solrUpdater->update('objects', $params['findID'], 'artefacts');
                 } else {
                     $image = new stdClass();
                     $image->error = $adapter->getErrors();

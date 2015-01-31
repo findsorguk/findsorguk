@@ -274,7 +274,7 @@ class Pas_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
             case 'allentypes':
                 $clean = 'Allen types';
                 break;
-            case 'Accreditedmuseums':
+            case 'accreditedmuseums':
                 $clean = 'Accredited museums';
                 break;
             case 'faq':
