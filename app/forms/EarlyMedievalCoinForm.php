@@ -179,7 +179,7 @@ class EarlyMedievalCoinForm extends Pas_Form {
 	$typeID->setLabel('Coin type: ')
                 ->setRegisterInArrayValidator(false)
                 ->addValidator('Int')
-                ->setAttribs(array('class' => 'span6'))
+                ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
                 ->addFilters(array('StripTags','StringTrim'));
 
 	$submit = new Zend_Form_Element_Submit('submit');
