@@ -104,7 +104,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
                     $insertData['secuid'] = $this->secuid();
                     $insertData['findID'] = $this->getParam('findID');
                     $this->getCoins()->add($insertData);
-                    $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'), 'artefacts');
                     $this->getFlash()->addMessage('Jetton data saved for this record.');
                     $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
                 } else {
@@ -152,7 +152,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
                     $this->_helper->audit($updateData, $oldData, 'CoinsAudit', $this->getParam('id'), $this->getParam('returnID'));
                     $this->getFlash()->addMessage('Numismatic details updated.');
                     $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
-                    $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'), 'artefacts');
                 } else {
                     $this->getFlash()->addMessage('Please check your form for errors');
                     $form->populate($this->_request->getPost());
@@ -181,7 +181,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
                     $where = 'id = ' . $id;
                     $this->getCoins()->delete($where);
                     $this->getFlash()->addMessage('Numismatic data deleted!');
-                    $this->_helper->solrUpdater->update('objects', $returnID);
+                    $this->_helper->solrUpdater->update('objects', $returnID, 'artefacts');
                     $this->redirect(self::REDIRECT . 'record/id/' . $returnID);
                 }
             } else {
