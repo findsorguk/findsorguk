@@ -374,7 +374,6 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
     }
 
     /** Function to return the html
-     * @todo might be worth moving the html to a partial
      * @access private
      * @return string
      */
@@ -397,7 +396,7 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
                 $string .= ucfirst(strtolower($this->getBroadperiod()));
                 $string .= ' coin data" accesskey="m">Add ';
                 $string .= ucfirst(strtolower($this->getBroadperiod()));
-                $string .= ' coin data</a>';
+                $string .= ' jetton or token data</a>';
         }
         return $string;
     }
@@ -445,7 +444,8 @@ class Pas_View_Helper_AddJettonLink extends Zend_View_Helper_Abstract
         }
         else if (in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution()
             || $this->getCreatedBy() == $this->getUserID()
-            || in_array($this->getRole(), $this->_recorders) && $this->getInst() == 'PUBLIC' ) {
+            || in_array($this->getRole(), $this->_recorders) && $this->getInst() == 'PUBLIC'
+            || in_array($this->getRole(), $this->_recorders) && $this->getInstitution() == 'PUBLIC') {
             return true;
         }
         //If role in higher level return true
