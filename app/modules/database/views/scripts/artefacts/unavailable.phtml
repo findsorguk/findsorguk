@@ -22,6 +22,7 @@ $this->metaBase()->setDescription('This record is unavailable to you at present'
     <?php endif; ?>
 
     <?php if(array_key_exists('id', $this->finds[0])):?>
+        <h3>Relevant FLOs</h3>
         <?php echo $this->relevantFlo()->setFindID($this->finds[0]['id']); ?>
     <?php endif;?>
 
