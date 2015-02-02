@@ -7,3 +7,4 @@ $this->metaBase()->setDescription($this->title())->generate();
        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id')), null, true); ?>"
        title="return to the record">Return to record</a>
 <?php echo $this->form; ?>
+<?php echo $this->partial('partials/content/article.phtml', $this->contents);?>
