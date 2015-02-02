@@ -106,11 +106,12 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             'created', 'findIdentifier'
         ));
         $search->setFacets(array('objectType', 'county', 'broadperiod', 'institution'));
+        $search->setMyfinds(true);
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->getParam('submit'))
         ) {
             $params = $this->getCleaner()->array_cleanup($form->getValues());
-
+            $params['createdBy'] = $this->getIdentityForForms();
             $this->_helper->Redirector->gotoSimple(
                 'myfinds', 'myscheme', 'database',
                 $params);
