@@ -94,6 +94,7 @@ class Pas_Exporter_ArrayToHero
                 'SecUID' => 'secuid',
                 'FindID' => 'old_findID',
                 'ObjectType' => 'objecttype',
+                'ObjectTypeCertainty' => 'objectCertainty',
                 'ObjectDescription' => 'description',
                 'ObjectInscription' => 'inscription',
                 'notes' => 'notes',

@@ -100,7 +100,6 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
         foreach ($data as $k => $v) {
             $doc->$k = $v;
         }
-
         $update->addDocument($doc);
         $update->addCommit();
         return $solr->update($update);
