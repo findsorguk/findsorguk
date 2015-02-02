@@ -122,6 +122,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
+        $this->view->coin = $coin = $this->getCoins()->fetchRow('id=' . $this->getParam('id'))->toArray();
         if ($this->getParam('id', false)) {
             $finds = new Finds();
             $this->view->finds = $finds->getFindNumbersEtc($this->getParam('returnID'));
@@ -174,6 +175,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
     public function deleteAction()
     {
         if ($this->getParam('id', false)) {
+            $this->view->coins = $this->getCoins()->getFindToCoinDelete($this->getParam('id'));
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $returnID = (int)$this->_request->getPost('returnID');
