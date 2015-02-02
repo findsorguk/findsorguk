@@ -1,3 +1,4 @@
+<?php if(!empty($this->finds)):?>
 <?php
 /**
  * Created by PhpStorm.
@@ -11,19 +12,34 @@ $this->metaBase()->setDescription('This record is unavailable to you at present'
 <h2 class="lead"><?php echo $this->title(); ?>: <?php echo $this->finds[0]['old_findID']; ?></h2>
 <p>
     Object type: <?php echo $this->finds[0]['objecttype']; ?><br/>
+
     <?php if (array_key_exists('broadperiod', $this->finds[0])): ?>
         Broad period: <?php echo $this->finds[0]['broadperiod']; ?><br/>
     <?php endif; ?>
+
     <?php if (array_key_exists('institution', $this->finds[0])): ?>
         Institution responsible: <?php echo $this->finds[0]['institution']; ?><br/>
     <?php endif; ?>
+
+    <?php if(array_key_exists('id', $this->finds[0])):?>
+        <?php echo $this->relevantFlo()->setFindID($this->finds[0]['id']); ?>
+    <?php endif;?>
+
     <?php if (array_key_exists('created', $this->finds[0])): ?>
         Created: <?php echo $this->timeAgoInWords($this->finds[0]['created']); ?><br/>
     <?php endif; ?>
+
     <?php if (array_key_exists('updated', $this->finds[0])): ?>
         Last updated: <?php echo $this->timeAgoInWords($this->finds[0]['updated']); ?>
     <?php endif; ?>
 </p>
-<p>This record is currently unavailable to view for your access levels. Please contact the relevant FLO to gain
-    access.</p>
-
+<p>
+    This record is currently unavailable to view for your access levels. Please contact the relevant FLO to gain
+    access.
+</p>
+<?php else:?>
+    <h2 class="lead">No record found</h2>
+    <p>
+        No record can be found with that ID. Please contact us if you believe this is an error.
+    </p>
+<?php endif;?>
