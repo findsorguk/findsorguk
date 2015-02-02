@@ -182,7 +182,7 @@ class ImageEditForm extends Pas_Form
             'details');
 
         $this->addDisplayGroup(array('submit'), 'buttons');
-        $this->details->setLegend('Attach an image');
+        $this->details->setLegend('Edit metadata on an image');
 
         parent::init();
     }

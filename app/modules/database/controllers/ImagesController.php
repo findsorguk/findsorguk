@@ -175,6 +175,8 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
     public function editAction()
     {
         if ($this->getParam('id', 0)) {
+            $help = new Help();
+            $this->view->contents = $help->fetchRow('id = 14')->toArray();
             $form = new ImageEditForm();
             $form->submit->setLabel('Update image');
             $this->view->form = $form;
