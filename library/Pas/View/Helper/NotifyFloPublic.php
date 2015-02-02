@@ -138,9 +138,9 @@ class Pas_View_Helper_NotifyFloPublic extends Zend_View_Helper_Abstract {
      */
     private function _buildHtml($id) {
         $html = '<div>';
-        $html .= '<p><a class="btn btn-large btn-info" href ="';
-        $html .= $this->view->serverUrl() . '/database/artefacts/notifyflo/id/' . $id;
-        $html .= '" title="Get this published">Get this record checked or published by your flo</a></p></div>';
+        $html .= '<p><a class="btn btn-small btn-info" href ="';
+        $html .= '/database/artefacts/notifyflo/id/' . $id;
+        $html .= '" title="Get this published">Get this record checked or published by your FLO</a></p></div>';
         return $html;
     }
 
