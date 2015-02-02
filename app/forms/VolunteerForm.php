@@ -55,7 +55,7 @@ class VolunteerForm extends Pas_Form {
 	$length = new Zend_Form_Element_Text('length');
 	$length->setLabel('Length of project: ')
 		->setAttrib('size',12)
-		->setRequired(true)
+		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
 		->addErrorMessage('You must enter a duration for this project in months')
 		->addValidator('Digits')
@@ -64,7 +64,7 @@ class VolunteerForm extends Pas_Form {
 	$managedBy = new Zend_Form_Element_Select('managedBy');
 	$managedBy->setLabel('Managed by: ')
 		->addMultiOptions(array('Choose an author' => $authorOptions))
-		->setRequired(true)
+		->setRequired(false)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addFilters(array('StripTags','StringTrim'))
 		->addValidator('InArray', false, array(array_keys($authorOptions)))
@@ -77,7 +77,7 @@ class VolunteerForm extends Pas_Form {
                     null => 'Choose type of research', 
                     'Available types' => $projectype_list
                 ))
-		->setRequired(true)
+		->setRequired(false)
 		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->addValidator('InArray', false, array(array_keys($projectype_list)))
 		->addFilters(array('StripTags','StringTrim'))
