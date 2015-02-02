@@ -82,7 +82,9 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
     protected function getUserId()
     {
         if ($this->getUser()) {
-            $this->_userID = $this->getUser()->getPerson()->id;
+            if ($this->getUser()->getPerson()) {
+                $this->_userID = $this->getUser()->getPerson()->id;
+            }
         }
         return $this->_userID;
     }
@@ -94,6 +96,7 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
         }
         return $this->_institution;
     }
+
     /** Direct method for checking
      * @access public
      * @return string
@@ -123,16 +126,17 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
                     $data[0]['objecttype'] = 'UNIDENTIFIED OBJECT';
                 }
                 // Not allowed roles, and not the creator of the record
-                if (in_array($this->getRole(), $this->_notAllowedRoles) && !in_array($workflow, $this->_restricted )) {
+                if (in_array($this->getRole(), $this->_notAllowedRoles) && !in_array($workflow, $this->_restricted)) {
                     return false;
                     //In the restricted roles and created record
-                } else if(in_array($this->getRole(), $this->_veryRestricted) && $this->getUserId() == $data[0]['createdBy'] ||
-                $this->getUserId() == $data[0]['createdBy'] && $this->getInstitution() == $data[0]['institution']) {
+                } else if (in_array($this->getRole(), $this->_veryRestricted) && $this->getUserId() == $data[0]['createdBy'] ||
+                    $this->getUserId() == $data[0]['createdBy'] && $this->getInstitution() == $data[0]['institution']
+                ) {
                     return false;
                     //In restricted roles
                 } else if (in_array($this->getRole(), $this->_veryRestricted) && in_array($workflow, $this->_restricted)) {
                     $this->urlSend($data[0]['id'], $data[0]['objecttype']);
-                //In allowed roles can see
+                    //In allowed roles can see
                 } else if (in_array($this->getRole(), $this->_allowedRoles)) {
                     return false;
                 }
