@@ -113,7 +113,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
                 $updateData = $form->getValues();
                 $updateData['secuid'] = $this->secuid();
                 unset($updateData['contact']);
-                $audit = $this->_organisations->fetchRow('id=' . $this->getParam('id'));
+                $audit = $this->getOrganisations()->fetchRow('id=' . $this->getParam('id'));
                 $oldArray = $audit->toArray();
                 $where = array();
                 $where[] = $this->getOrganisations()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
