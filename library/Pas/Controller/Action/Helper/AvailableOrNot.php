@@ -1,12 +1,11 @@
 <?php
 
-/** Action helper to get the redirect for a user upon login
+/** Action helper to check access to a record
  *
  * An example of use:
  *
  * <code>
  * <?php
- * $this->_redirect( $this->_helper->loginRedirect() );
  * ?>
  * </code>
  * @author Daniel Pett <dpett@britishmuseum.org>
@@ -15,33 +14,58 @@
  * @since 1
  * @uses Pas_User_Details
  * @uses Zend_Exception
- * @example /app/modules/users/controllers/IndexController.php
  *
  */
 class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action_Helper_Abstract
 {
 
-
+    /** Restricted workflow stages
+     * @var array
+     */
     protected $_restricted = array('1', '2');
 
+    /** Globally allowed workflow stages
+     * @var array
+     */
     protected $_allowed = array('3', '4');
 
+    /** Role default
+     * @var null
+     */
     protected $_role = NULL;
 
+    /** Default user ID
+     * @var string
+     */
     protected $_userID = '3';
 
-    protected $_allowedRoles = array('flos', 'admin', 'hoard', 'fa');
+    /** Allowed roles
+     * @var array
+     */
+    protected $_allowedRoles = array('flos', 'admin', 'hoard', 'fa', 'treasure');
 
+    /** Not allowed roles
+     * @var array
+     */
     protected $_notAllowedRoles = array('hero', 'research');
 
+    /** Very restricted groups
+     * @var array
+     */
     protected $_veryRestricted = array(NULL, 'member', 'public');
 
+    /** Get the user
+     * @return \Pas_User_Details
+     */
     public function getUser()
     {
         $user = new Pas_User_Details();
         return $user;
     }
 
+    /** Get the role of the user
+     * @return string
+     */
     protected function getRole()
     {
         if ($this->getUser()) {
@@ -50,6 +74,9 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
         return $this->_role;
     }
 
+    /** Get the user id of the user
+     * @return int
+     */
     protected function getUserId()
     {
         if (!$this->getUser()) {
@@ -58,7 +85,7 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
         return $this->_userID;
     }
 
-    /** Direct method for getting the user's redirect
+    /** Direct method for checking
      * @access public
      * @return string
      */
@@ -67,6 +94,9 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
         return $this->checkAccess($data);
     }
 
+    /** Check if data and access okay
+     * @param array $data
+     */
     public function checkAccess(array $data)
     {
         if (is_array($data) && !empty($data)) {
@@ -94,7 +124,7 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
                 throw new Pas_Exception('The workflow key is missing from this record', 500);
             }
         } else {
-            throw new Pas_Exception('The data sent to this helper must be an array', 500);
+            throw new Pas_Exception_Url('This record does not exist', 404);
         }
     }
 
