@@ -176,8 +176,7 @@ $this->jQuery()->addJavascriptFile('/thirdParty/js/bootstrap.file-input.js', $ty
         // Initialize the jQuery File Upload widget:
         $('#fileupload').fileupload({
             url: '<?php echo $this->serverUrl();?>/database/ajax/upload/',
-            disableImageResize: /Android(?!.*Chrome)|Opera/
-            .test(window.navigator.userAgent),
+            disableImageResize: true,
             maxFileSize: 200000000,
             acceptFileTypes: /(\.|\/)(tif|jpe?g)$/i
 
