@@ -111,6 +111,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $updateData = $form->getValues();
+                $updateData['secuid'] = $this->secuid();
                 unset($updateData['contact']);
                 $audit = $this->_organisations->fetchRow('id=' . $this->getParam('id'));
                 $oldArray = $audit->toArray();
@@ -150,6 +151,7 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $data = $form->getValues();
+                $data['secuid'] = $this->secuid();
                 unset($data['contact']);
                 $insert = $this->getOrganisations()->add($data);
                 $this->redirect(self::REDIRECT . 'organisation/id/' . $insert);
