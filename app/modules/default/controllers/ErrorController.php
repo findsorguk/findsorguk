@@ -440,7 +440,7 @@ class ErrorController extends Pas_Controller_Action_Admin
      */
     public function accountproblemAction()
     {
-        $this->sendEmail();
+//        $this->sendEmail();
     }
 
     public function databasedownAction()
