@@ -241,6 +241,9 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                     case 'images':
                         $model = new Slides();
                         break;
+                    case 'content':
+                        $model = new Content();
+                        break;
                     default:
                         $model = 'objects';
                         break;

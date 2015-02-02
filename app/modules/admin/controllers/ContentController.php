@@ -107,7 +107,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
                 $insertData = $form->getValues();
                 $content = new Content();
                 $insert = $content->add($insertData);
-                $this->_helper->solrUpdater->update('content', $insert, 'content');
+                $this->_helper->solrUpdater->update('content', $insert);
                 $this->getFlash()->addMessage('Static content added');
                 $this->redirect('/admin/content');
             } else {
@@ -139,7 +139,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
                     $oldData = $this->_content->fetchRow($this->_content->select()->where('id= ?', (int)$this->getParam('id')))->toArray();
                     $this->_helper->audit($updateData, $oldData, 'ContentAudit', $this->getParam('id'), $this->getParam('id'));
                     $this->_content->update($updateData, $where);
-                    $this->_helper->solrUpdater->update('content', $this->getParam('id'), 'content');
+                    $this->_helper->solrUpdater->update('content', $this->getParam('id'));
                     $this->getFlash()->addMessage('You updated successfully. It is now available for use.');
                     $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
                     $this->redirect('admin/content/');
