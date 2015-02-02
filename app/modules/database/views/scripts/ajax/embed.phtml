@@ -16,11 +16,11 @@
                     'id' => $this->finds[0]['id']
                 ), null, true); ?></code>
 
-        <code><?php if ($this->type == 'artefact'): ?><?php echo $this->escape($this->partialLoop('partials/database/embeds/embedDataFind.phtml', $this->finds)); ?><?php else: ?><?php echo $this->escape($this->partialLoop('partials/database/embeds/embedDataHoard.phtml', $this->finds)); ?><?php endif; ?></code>
+        <code><?php if ($this->type == 'artefacts'): ?><?php echo $this->escape($this->partialLoop('partials/database/embeds/embedDataFind.phtml', $this->finds)); ?><?php else: ?><?php echo $this->escape($this->partialLoop('partials/database/embeds/embedDataHoard.phtml', $this->finds)); ?><?php endif; ?></code>
         <hr/>
 
         <h3 class="lead">Preview</h3>
-        <?php if ($this->type == 'artefact'): ?>
+        <?php if ($this->type == 'artefacts'): ?>
             <?php echo $this->partialLoop('partials/database/embeds/embedPreview.phtml', $this->finds) ?>
         <?php else:?>
             <?php echo $this->partialLoop('partials/database/embeds/embedPreviewHoard.phtml', $this->finds) ?>
