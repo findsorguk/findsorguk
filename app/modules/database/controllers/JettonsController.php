@@ -75,14 +75,14 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
             switch ($broadperiod) {
                 case 'MEDIEVAL':
                     $form = new TokenJettonForm();
-                    $form->details->setLegend('Add Medieval jetton data');
-                    $form->submit->setLabel('Add jetton data');
+                    $form->details->setLegend('Add Medieval jetton or token data');
+                    $form->submit->setLabel('Add data');
                     $this->view->headTitle('Add a Medieval jetton\'s details');
                     break;
                 case 'POST MEDIEVAL':
                     $form = new TokenJettonForm();
-                    $form->details->setLegend('Add Post Medieval jetton data');
-                    $form->submit->setLabel('Add jetton data');
+                    $form->details->setLegend('Add Post Medieval jetton or token data');
+                    $form->submit->setLabel('Add data');
                     $this->view->headTitle('Add a Post Medieval jetton\'s details');
                     break;
                 default:
@@ -129,13 +129,13 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
             switch ($broadperiod) {
                 case 'MEDIEVAL':
                     $form = new TokenJettonForm();
-                    $form->details->setLegend('Edit Medieval jetton data');
+                    $form->details->setLegend('Edit Medieval jetton or token data');
                     $form->submit->setLabel('Save data');
                     $this->view->headTitle('Edit a Medieval jetton\'s details');
                     break;
                 case 'POST MEDIEVAL':
                     $form = new TokenJettonForm();
-                    $form->details->setLegend('Edit Post Medieval jetton data');
+                    $form->details->setLegend('Edit Post Medieval jetton or token data');
                     $form->submit->setLabel('Save data');
                     $this->view->headTitle('Edit a Post Medieval jetton\'s details');
                     break;
@@ -150,9 +150,10 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
                     $where = $this->getCoins()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $this->getCoins()->update($updateData, $where);
                     $this->_helper->audit($updateData, $oldData, 'CoinsAudit', $this->getParam('id'), $this->getParam('returnID'));
-                    $this->getFlash()->addMessage('Numismatic details updated.');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
+                    $this->getFlash()->addMessage('Jetton or token data updated.');
                     $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'), 'artefacts');
+                    $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
+
                 } else {
                     $this->getFlash()->addMessage('Please check your form for errors');
                     $form->populate($this->_request->getPost());
@@ -180,7 +181,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
                 if ($del == 'Yes' && $id > 0) {
                     $where = 'id = ' . $id;
                     $this->getCoins()->delete($where);
-                    $this->getFlash()->addMessage('Numismatic data deleted!');
+                    $this->getFlash()->addMessage('Jetton or token data deleted!');
                     $this->_helper->solrUpdater->update('objects', $returnID, 'artefacts');
                     $this->redirect(self::REDIRECT . 'record/id/' . $returnID);
                 }
