@@ -181,6 +181,27 @@ class Pas_Solr_Handler
      */
     protected $_facets = array();
 
+    protected $_myfinds = false;
+
+    /**
+     * @return null
+     */
+    public function getMyfinds()
+    {
+        return $this->_myfinds;
+    }
+
+    /**
+     * @param null $myfinds
+     */
+    public function setMyfinds($myfinds)
+    {
+        $this->_myfinds = $myfinds;
+        return $this;
+    }
+
+
+
     /** Get the sort array
      * @access public
      * @return array
@@ -1008,7 +1029,9 @@ class Pas_Solr_Handler
             }
         }
         if (!in_array($this->getRole(), $this->getAllowed()) || is_null($this->getRole())) {
-            if (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
+            if($this->getRole() == 'member' && $this->getMyfinds()){
+                $this->_query->createFilterQuery('myfinds')->setQuery('createdBy:' . $params['createdBy']);
+            } else if (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
                 $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
             }
             if ((array_key_exists('parish', $params)
