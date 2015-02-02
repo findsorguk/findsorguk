@@ -91,7 +91,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
                 $insertData['secuid'] = (string)$this->secuid();
                 $insertData['institution'] = $this->getInstitution();
                 $this->getCoins()->add($insertData);
-                $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'));
+                $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'), 'artefacts');
                 $this->getFlash()->addMessage('Coin data saved.');
                 $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
             } else {
@@ -125,7 +125,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
                     //Audit the changes
                     $this->_helper->audit($updateData, $oldData, 'CoinsAudit', $this->getParam('id'), $this->getParam('returnID'));
                     //Update solr index
-                    $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'));
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'), 'artefacts');
                     $this->getFlash()->addMessage('Numismatic details updated.');
                     $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
                 } else {
@@ -162,7 +162,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
                 $where[] = $this->getCoins()->getAdapter()->quoteInto('id = ?', $id);
                 $this->getCoins()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                $this->_helper->solrUpdater->update('objects', $recordID);
+                $this->_helper->solrUpdater->update('objects', $recordID, 'artefacts');
                 $this->redirect(self::REDIRECT . 'record/id/' . $recordID);
             } elseif ($del == 'No' && $id > 0) {
                 $this->getFlash()->addMessage('No changes made!');
@@ -178,8 +178,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      * @return void
      * @throws Pas_Exception_Param
      */
-    public
-    function coinrefAction()
+    public function coinrefAction()
     {
         $params = $this->getAllParams();
         if (!isset($params['returnID']) && !isset($params['findID'])) {
@@ -215,8 +214,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      * @access public
      * @return void
      */
-    public
-    function editcoinrefAction()
+    public function editcoinrefAction()
     {
         $form = new ReferenceCoinForm();
         $form->submit->setLabel('Edit reference');
@@ -253,8 +251,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      * @access public
      * @return void
      */
-    public
-    function deletecoinrefAction()
+    public function deletecoinrefAction()
     {
         $returnID = $this->getParam('returnID');
         $this->view->returnID = $returnID;

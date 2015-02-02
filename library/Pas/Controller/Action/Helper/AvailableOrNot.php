@@ -39,6 +39,8 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
      */
     protected $_userID = '3';
 
+    protected $_institution = 'PUBLIC';
+
     /** Allowed roles
      * @var array
      */
@@ -79,12 +81,19 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
      */
     protected function getUserId()
     {
-        if (!$this->getUser()) {
+        if ($this->getUser()) {
             $this->_userID = $this->getUser()->getPerson()->id;
         }
         return $this->_userID;
     }
 
+    protected function getInstitution()
+    {
+        if (!$this->getUser()) {
+            $this->_institution = $this->getUser()->getPerson()->institution;
+        }
+        return $this->_institution;
+    }
     /** Direct method for checking
      * @access public
      * @return string
@@ -99,6 +108,12 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
      */
     public function checkAccess(array $data)
     {
+//        Zend_Debug::dump($data[0]['createdBy'], 'get created by');
+//        Zend_Debug::dump($data[0]['institution'], 'get created by inst');
+//        Zend_Debug::dump($this->getRole(), 'get role');
+//        Zend_Debug::dump($this->getUserId(), 'get userid');
+//        Zend_Debug::dump($this->getInstitution(), 'get inst');
+
         if (is_array($data) && !empty($data)) {
             if (array_key_exists('secwfstage', $data[0])) {
                 $workflow = $data[0]['secwfstage'];
@@ -111,7 +126,8 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
                 if (in_array($this->getRole(), $this->_notAllowedRoles) && !in_array($workflow, $this->_restricted )) {
                     return false;
                     //In the restricted roles and created record
-                } else if(in_array($this->getRole(), $this->_veryRestricted) && $this->getUserId() == $data[0]['createdBy']) {
+                } else if(in_array($this->getRole(), $this->_veryRestricted) && $this->getUserId() == $data[0]['createdBy'] ||
+                $this->getUserId() == $data[0]['createdBy'] && $this->getInstitution() == $data[0]['institution']) {
                     return false;
                     //In restricted roles
                 } else if (in_array($this->getRole(), $this->_veryRestricted) && in_array($workflow, $this->_restricted)) {
