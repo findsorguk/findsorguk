@@ -76,6 +76,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $this->_helper->_acl->allow('flos', null);
         $this->_helper->_acl->allow('hero', null);
         $this->_helper->_acl->allow('research', null);
+        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
+        $this->_helper->contextSwitch()->addActionContext('timeline',array('json'))->initContext();
         $this->_helper->layout->disableLayout();
 
     }
@@ -841,5 +843,16 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $file_path = $imagedir . '/' . $file_name;
         $success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
         echo json_encode($success);
+    }
+
+    public function timelineAction()
+    {
+        $this->_helper->layout->disableLayout();
+        if($this->getParam('id', false)) {
+            $finds = new Finds();
+            $this->view->data = $finds->getAllData($this->getParam('id'));
+        } else {
+            $this->view->data = 'Error';
+        }
     }
 }
