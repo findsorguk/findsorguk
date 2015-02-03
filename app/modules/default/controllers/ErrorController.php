@@ -302,7 +302,6 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->view->message = 'Search index broken';
                             $this->view->info = $errors->exception;
                             $this->view->code = 500;
-                            $this->sendEmail();
                             $this->view->headTitle('Search broken');
                             break;
                         case 'Pas_Exception':
@@ -367,14 +366,12 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->getResponse()->setHttpResponseCode(500);
                             $this->view->code = 500;
                             $this->view->message = 'The search handler has an error';
-                            $this->sendEmail();
                             $this->view->headTitle('The search engine has an error.');
                             break;
                         case 'Solarium_Client_HttpException':
                             $this->getResponse()->setHttpResponseCode(500);
                             $this->view->code = 500;
                             $this->view->message = 'Search engine error: The server is not responding, but will be back shortly';
-                            $this->sendEmail();
                             $this->view->headTitle('Problem with search engine');
                             break;
                         case 'Zend_Loader_PluginLoader_Exception':
@@ -399,7 +396,6 @@ class ErrorController extends Pas_Controller_Action_Admin
                     $this->getResponse()->setHttpResponseCode(500);
                     $this->view->message = 'Application error';
                     $this->view->code = 500;
-                    $this->sendEmail();
                     $this->view->info = $errors->exception;
                     $this->view->headTitle('A generic application error has been made');
                     break;
