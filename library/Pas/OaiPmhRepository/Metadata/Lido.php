@@ -176,7 +176,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             //Basic terms for DC
             $dcterms = array(
                 'created' => date('Y-m-d', strtotime($this->item['created'])),
-                'medium' => $this->item['materialTerm'],
+                'medium' => $material,
                 'isPartOf' => self::SOURCE,
                 'provenance' => self::PROVENANCE
             );
