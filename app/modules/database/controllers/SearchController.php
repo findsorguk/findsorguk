@@ -439,7 +439,8 @@ class Database_SearchController extends Pas_Controller_Action_Admin
         }
         $paramCount = count($testArray);
         $evenOrOdd = ($paramCount % 2 == 0);
-        if ($evenOrOdd === true || $evenOrOdd == 0) {
+        Zend_Debug::dump($evenOrOdd);
+        if ($evenOrOdd === true || $paramCount == 0) {
             $search = new Pas_Solr_Handler();
             $search->setCore('objects');
             $context = $this->_helper->contextSwitch->getCurrentContext();
