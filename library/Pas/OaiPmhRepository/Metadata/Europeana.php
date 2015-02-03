@@ -133,7 +133,7 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
             $ese['provider'] = self::RIGHTS_HOLDER;
             $ese['type'] = 'TEXT';
 
-            $dates = array($this->item['fromdate'], $this->item['todate']));
+            $dates = array($this->item['fromdate'], $this->item['todate']);
             if(array_filter($dates)) {
                 if(!isset($this->item['todate'])){
                     $this->item['todate'] = $this->item['fromdate'];
