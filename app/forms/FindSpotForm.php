@@ -98,7 +98,7 @@ class FindSpotForm extends Pas_Form {
 
         $gridref = new Zend_Form_Element_Text('gridref');
         $gridref->setLabel('Grid reference: ')
-            ->setRequired(true)
+            ->setRequired(false)
             ->addValidators(array('NotEmpty','ValidGridRef'))
             ->addFilters(array('StripTags', 'StringTrim', 'StringToUpper', 'StripSpaces'))
             ->setAttribs(array('placeholder' => 'In the format of SU123123', 'class' => 'span4'));
