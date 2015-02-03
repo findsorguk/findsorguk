@@ -98,13 +98,13 @@ class Database_SearchController extends Pas_Controller_Action_Admin
             'idBy', 'recordername'
         ));
 
-        if(array_key_exists('3D', $cleaned)) {
-            if(is_null($cleaned['3D'])){
+        if (array_key_exists('3D', $cleaned)) {
+            if (is_null($cleaned['3D'])) {
                 unset($cleaned['3D']);
             }
         }
-        if(array_key_exists('thumbnail', $cleaned)) {
-            if(is_null($cleaned['thumbnail'])){
+        if (array_key_exists('thumbnail', $cleaned)) {
+            if (is_null($cleaned['thumbnail'])) {
                 unset($cleaned['thumbnail']);
             }
         }
@@ -337,21 +337,21 @@ class Database_SearchController extends Pas_Controller_Action_Admin
         $form = new EmailSearchForm();
         $this->view->form = $form;
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                $to[] = array(
-                    'email' => $form->getValue('email'),
-                    'name' => $form->getValue('fullname')
-                );
-                $from[] = array(
-                    'email' => $user->email,
-                    'name' => $user->fullname
-                );
-                $url = array('url' => $params);
+            $to[] = array(
+                'email' => $form->getValue('email'),
+                'name' => $form->getValue('fullname')
+            );
+            $from[] = array(
+                'email' => $user->email,
+                'name' => $user->fullname
+            );
+            $url = array('url' => $params);
 
-                $assignData = array_merge($form->getValues(), $from[0], $url);
-                $this->_helper->mailer($assignData, 'sendSearch', $to, null, $from);
+            $assignData = array_merge($form->getValues(), $from[0], $url);
+            $this->_helper->mailer($assignData, 'sendSearch', $to, null, $from);
 
-                $this->getFlash()->addMessage('Your email has been sent to ' . $form->getValue('fullname'));
-                $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $params);
+            $this->getFlash()->addMessage('Your email has been sent to ' . $form->getValue('fullname'));
+            $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $params);
         } else {
             $form->populate($params);
         }
@@ -432,31 +432,43 @@ class Database_SearchController extends Pas_Controller_Action_Admin
     public function resultsAction()
     {
         $params = $this->getAllParams();
-        $search = new Pas_Solr_Handler();
-        $search->setCore('objects');
-        $context = $this->_helper->contextSwitch->getCurrentContext();
-        $fields = new Pas_Solr_FieldGeneratorFinds();
-        $fields->setContext($context);
-
-        if ($context) {
-            $params['format'] = $context;
+        $testArray = $params;
+        if(array_key_exists('format', $testArray))
+        {
+            unset($testArray['format']);
         }
-        $search->setFacets(array(
-            'objectType', 'county', 'broadperiod',
-            'institution', 'rulerName', 'denominationName',
-            'mintName', 'materialTerm', 'workflow',
-            'reeceID',
-        ));
-        $search->setParams($params);
-        $search->execute();
-        $this->view->facets = $search->processFacets();
-        $this->view->paginator = $search->createPagination();
-        $this->view->stats = $search->processStats();
-        $this->view->results = $search->processResults();
-        $this->view->server = $search->getLoadBalancerKey();
-        if (array_key_exists('submit', $params)) {
-            $queries = new Searches();
-            $queries->insertResults(serialize($params));
+        $paramCount = count($testArray);
+        $evenOrOdd = ($paramCount % 2 == 0);
+        if ($evenOrOdd === true || $evenOrOdd == 0) {
+            $search = new Pas_Solr_Handler();
+            $search->setCore('objects');
+            $context = $this->_helper->contextSwitch->getCurrentContext();
+            $fields = new Pas_Solr_FieldGeneratorFinds();
+            $fields->setContext($context);
+
+            if ($context) {
+                $params['format'] = $context;
+            }
+            $search->setFacets(array(
+                'objectType', 'county', 'broadperiod',
+                'institution', 'rulerName', 'denominationName',
+                'mintName', 'materialTerm', 'workflow',
+                'reeceID',
+            ));
+
+            $search->setParams($params);
+            $search->execute();
+            $this->view->facets = $search->processFacets();
+            $this->view->paginator = $search->createPagination();
+            $this->view->stats = $search->processStats();
+            $this->view->results = $search->processResults();
+            $this->view->server = $search->getLoadBalancerKey();
+            if (array_key_exists('submit', $params)) {
+                $queries = new Searches();
+                $queries->insertResults(serialize($params));
+            }
+        } else {
+            throw new Pas_Exception('The parameters submitted are not correct', 500);
         }
     }
 
@@ -540,7 +552,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
 
     public function taggedAction()
     {
-        if($this->getParam('term', false)) {
+        if ($this->getParam('term', false)) {
             $params = $this->getAllParams();
             $search = new Pas_Solr_Handler();
             $search->setCore('tags');
