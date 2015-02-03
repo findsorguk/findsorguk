@@ -14,7 +14,7 @@
  * @since 30/1/2012
  * @copyright Daniel Pett
  * @author Daniel Pett
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
@@ -23,29 +23,60 @@ class Pas_View_Helper_FacetCreatorMyInstitution extends Zend_View_Helper_Abstrac
 {
     /** Create the facets boxes for rendering
      * @access public
-     * @param  array                 $facets
+     * @param  array $facets
      * @return string
      * @throws Pas_Exception
      */
 
-    public function facetCreatorMyInstitution(array $facets)
+    public function facetCreatorMyInstitution()
     {
-        if (is_array($facets)) {
-        $html = '<h3 class="lead">Search facets</h3>';
-        foreach ($facets as $facetName => $facet) {
-            $html .= $this->_processFacet($facet, $facetName);
-        }
+        return $this;
+    }
 
-        return $html;
+    /** Create the string of html
+     * @return string
+     * @access public
+     */
+    public function __toString()
+    {
+        if (is_array($this->getFacets())) {
+            $html = '<h3 class="lead">Search facets</h3>';
+            foreach ($this->getFacets() as $facetName => $facet) {
+                $html .= $this->_processFacet($facet, $facetName);
+            }
+
+            return $html;
         } else {
             throw new Pas_Exception('The facets sent are not an array');
         }
     }
 
+    /** The array of facets
+     * @var array
+     */
+    protected $_facets;
+
+    /** get the facets array
+     * @return mixed
+     */
+    public function getFacets()
+    {
+        return $this->_facets;
+    }
+
+    /**
+     * @param mixed $facets
+     */
+    public function setFacets($facets)
+    {
+        $this->_facets = $facets;
+        return $this;
+    }
+
     /** Process the facet array and name
      * @access public
-     * @param  array                 $facet
-     * @param  string                $facetName
+     * @param  array $facet
+     * @param  string $facetName
      * @return string
      * @throws Pas_Exception
      * @uses Zend_Controller_Front
@@ -55,61 +86,61 @@ class Pas_View_Helper_FacetCreatorMyInstitution extends Zend_View_Helper_Abstrac
     {
         if (is_array($facet)) {
             if (count($facet)) {
-        $html = '<div id="facet-' . $facetName .'">';
-        $html .= '<h4 class="lead">' . $this->_prettyName($facetName) . '</h4>';
-        $html .= '<ul class="navpills nav-stacked nav">';
+                $html = '<div id="facet-' . $facetName . '">';
+                $html .= '<h4 class="lead">' . $this->_prettyName($facetName) . '</h4>';
+                $html .= '<ul class="navpills nav-stacked nav">';
 
-        if ($facetName !== 'workflow') {
-            $facets = array_slice($facet,0,10);
-        } else {
-            $facets = $facet;
-        }
-        foreach ($facets as $key => $value) {
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-        if (isset($request['page'])) {
-            unset($request['page']);
-        }
-        $request[$facetName] = $key;
+                if ($facetName !== 'workflow') {
+                    $facets = array_slice($facet, 0, 10);
+                } else {
+                    $facets = $facet;
+                }
+                foreach ($facets as $key => $value) {
+                    $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+                    if (isset($request['page'])) {
+                        unset($request['page']);
+                    }
+                    $request[$facetName] = $key;
 
-        $url = $this->view->url($request,'default',true);
+                    $url = $this->view->url($request, 'default', true);
 
-        $html .= '<li>';
+                    $html .= '<li>';
 
-        if ($facetName !== 'workflow') {
-        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection()->setString($key);
-        $html .= '">';
-        $html .= $key . ' ('. number_format($value) .')';
-        } else {
-        $html .=  '<a href="' . $url . '" title="Facet query for ' . $this->_workflow($key);
-        $html .= '">';
-        $html .= $this->_workflow($key) . ' ('. number_format($value) .')';
-        }
+                    if ($facetName !== 'workflow') {
+                        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection()->setString($key);
+                        $html .= '">';
+                        $html .= $key . ' (' . number_format($value) . ')';
+                    } else {
+                        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->_workflow($key);
+                        $html .= '">';
+                        $html .= $this->_workflow($key) . ' (' . number_format($value) . ')';
+                    }
 
-        $html .= '</a>';
-        $html .= '</li>';
-        }
+                    $html .= '</a>';
+                    $html .= '</li>';
+                }
 
-        $html .= '</ul>';
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+                $html .= '</ul>';
+                $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 
-        if (isset($request['page'])) {
-            unset($request['page']);
-        }
-        if (count($facet) > 10) {
-            $request['controller'] = 'ajax';
-            $request['action'] = 'myinstitutionfacet';
-            $request['facetType'] = $facetName;
-            $html .= '<a class="btn btn-small overlay" href="' . $this->view->url(($request),'default',true) . '">All ' . $this->_prettyName($facetName) . ' options <i class="icon-plus"></i></a>';
-        }
-        if (array_key_exists($facetName, $request)) {
-            unset($request[$facetName]);
-            $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request),'default',true)
-                    . '" title="Clear the facet">Clear this facet</a></p>';
-        }
+                if (isset($request['page'])) {
+                    unset($request['page']);
+                }
+                if (count($facet) > 10) {
+                    $request['controller'] = 'ajax';
+                    $request['action'] = 'myinstitutionfacet';
+                    $request['facetType'] = $facetName;
+                    $html .= '<a class="btn btn-small overlay" href="' . $this->view->url(($request), 'default', true) . '">All ' . $this->_prettyName($facetName) . ' options <i class="icon-plus"></i></a>';
+                }
+                if (array_key_exists($facetName, $request)) {
+                    unset($request[$facetName]);
+                    $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request), 'default', true)
+                        . '" title="Clear the facet">Clear this facet</a></p>';
+                }
 
-        $html .= '</div>';
+                $html .= '</div>';
 
-        return $html;
+                return $html;
             }
         } else {
             throw new Pas_Exception('The facet is not an array');
@@ -180,9 +211,9 @@ class Pas_View_Helper_FacetCreatorMyInstitution extends Zend_View_Helper_Abstrac
             default:
                 $type = 'Unset workflow';
                 break;
-            }
-
-            return $type;
         }
+
+        return $type;
+    }
 
 }

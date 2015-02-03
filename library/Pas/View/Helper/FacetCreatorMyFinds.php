@@ -23,24 +23,47 @@ class Pas_View_Helper_FacetCreatorMyFinds extends Zend_View_Helper_Abstract
 {
     /** Create the facets boxes for rendering
      * @access public
-     * @param  array                 $facets
+     * @param  array $facets
      * @return string
      * @throws Pas_Exception
      */
 
-    public function facetCreatorMyFinds(array $facets)
+    public function facetCreatorMyFinds() {
+        return $this;
+    }
+
+    public function __toString()
     {
-        if (is_array($facets)) {
-        $html = '<h3 class="lead">Search facets</h3>';
-        foreach ($facets as $facetName => $facet) {
+        $html = '';
+        $html .= '<h3 class="lead">Search facets</h3>';
+        foreach ($this->getFacets() as $facetName => $facet) {
             $html .= $this->_processFacet($facet, $facetName);
         }
 
         return $html;
-        } else {
-            throw new Pas_Exception('The facets sent are not an array');
-        }
+
     }
+
+    protected $_facets;
+
+    /**
+     * @return mixed
+     */
+    public function getFacets()
+    {
+        return $this->_facets;
+    }
+
+    /**
+     * @param mixed $facets
+     */
+    public function setFacets(array $facets)
+    {
+        $this->_facets = $facets;
+        return $this;
+    }
+
+
 
     /** Process the facet array and name
      * @access public

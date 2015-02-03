@@ -19,7 +19,7 @@
         <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>
         <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
 		<?php echo $this->statGenerator()->setStats($this->stats);?>
-        <?php echo $this->facetCreatorMyInstitution($this->facets); ?>
+        <?php echo $this->facetCreatorMyInstitution()->setFacets($this->facets); ?>
 		</div>
         <?php else:?>
 

@@ -1,4 +1,5 @@
 <?php
+
 /** This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
  * @category Pas
@@ -24,29 +25,48 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract
 
     /** Create the facets boxes for rendering
      * @access public
-     * @param  array                 $facets
+     * @param  array $facets
      * @return string
      * @throws Pas_Exception
      */
 
-    public function facetCreatorAjaxMyFinds(array $facets)
+    public function facetCreatorAjaxMyFinds()
     {
-        if (is_array($facets)) {
+        return $this;
+    }
+
+    protected $_facets;
+
+    /**
+     * @return mixed
+     */
+    public function getFacets()
+    {
+        return $this->_facets;
+    }
+
+    /**
+     * @param mixed $facets
+     */
+    public function setFacets(array $facets)
+    {
+        $this->_facets = $facets;
+        return $this;
+    }
+
+    public function __toString()
+    {
         $html = '';
-        foreach ($facets as $facetName => $facet) {
+        foreach ($this->getFacets() as $facetName => $facet) {
             $html .= $this->_processFacet($facet, $facetName);
         }
-
         return $html;
-        } else {
-            throw new Pas_Exception('The facets sent are not an array');
-        }
     }
 
     /** Process the facet array and name
      * @access public
-     * @param  array                 $facet
-     * @param  string                $facetName
+     * @param  array $facet
+     * @param  string $facetName
      * @return string
      * @throws Pas_Exception
      * @uses Zend_Controller_Front
@@ -56,61 +76,55 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract
     {
         if (is_array($facets)) {
             if (count($facets)) {
-        $html = '<div id="facet-' . $facetName .'">';
-        $html .= '<ul class="facetExpand">';
+                $html = '<div id="facet-' . $facetName . '">';
+                $html .= '<ul class="facetExpand">';
 
-        foreach ($facets as $key => $value) {
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-        if (isset($request['page'])) {
-            unset($request['page']);
-        }
-        unset($request['facetType']);
-        $request[$facetName] = $key;
-        $request['controller'] = 'myscheme';
-        $request['action'] = 'myfinds';
-        $url = $this->view->url($request,'default',true);
+                foreach ($facets as $key => $value) {
+                    $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+                    if (isset($request['page'])) {
+                        unset($request['page']);
+                    }
+                    unset($request['facetType']);
+                    $request[$facetName] = $key;
+                    $request['controller'] = 'myscheme';
+                    $request['action'] = 'myfinds';
+                    $url = $this->view->url($request, 'default', true);
 
-        $html .= '<li>';
-        if ($facetName !== 'workflow') {
-        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection()->setString($key);
-        $html .= '">';
-        $html .= $key . ' ('. number_format($value) .')';
-        } else {
-        $html .=  '<a href="' . $url . '" title="Facet query for ' . $this->_workflow($key);
-        $html .= '">';
-        $html .= $this->_workflow($key) . ' ('. number_format($value) .')';
-        }
+                    $html .= '<li>';
+                    if ($facetName !== 'workflow') {
+                        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection()->setString($key);
+                        $html .= '">';
+                        $html .= $key . ' (' . number_format($value) . ')';
+                    } else {
+                        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->_workflow($key);
+                        $html .= '">';
+                        $html .= $this->_workflow($key) . ' (' . number_format($value) . ')';
+                    }
 
-        $html .= '</a>';
-        $html .= '</li>';
-        }
-
-        $html .= '</ul>';
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-        $request['controller'] = 'search';
-        $request['action'] = 'results';
-        if (isset($request['page'])) {
-            unset($request['page']);
-        }
-        if (count($facets) > 10) {
-            $request['controller'] = 'ajax';
-            $request['action'] = 'facet';
-            unset($request['facetType']);
-            $html .= '<a class="btn btn-small overlay" href="' . $this->view->url(($request),'default',false)
-                                . '">All ' . $this->_prettyName($facetName) . ' options <i class="icon-plus"></i></a>';
-        }
-        if (array_key_exists($facetName,$request)) {
-        $facet = $request[$facetName];
-        if (isset($facet)) {
-            unset($request[$facetName]);
-            unset($request['facetType']);
-            $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request),'default',true)
-                    . '" title="Clear the facet">Clear this facet</a></p>';
-        }
+                    $html .= '</a>';
+                    $html .= '</li>';
                 }
-        $html .= '</div>';
 
-        return $html;
+                $html .= '</ul>';
+                $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+                $request['controller'] = 'search';
+                $request['action'] = 'results';
+                if (isset($request['page'])) {
+                    unset($request['page']);
+                }
+//
+                if (array_key_exists($facetName, $request)) {
+                    $facet = $request[$facetName];
+                    if (isset($facet)) {
+                        unset($request[$facetName]);
+                        unset($request['facetType']);
+                        $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request), 'default', true)
+                            . '" title="Clear the facet">Clear this facet</a></p>';
+                    }
+                }
+                $html .= '</div>';
+
+                return $html;
             }
         } else {
             throw new Pas_Exception('The facet is not an array');
@@ -181,9 +195,9 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract
             default:
                 $type = 'Unset workflow';
                 break;
-            }
-
-            return $type;
         }
+
+        return $type;
+    }
 
 }
