@@ -1,0 +1,68 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 03/02/15
+ * Time: 10:18
+ */
+$data = array();
+foreach($this->data as $record) {
+    if(array_key_exists('numdate1', $record)) {
+            $dateEvent['startDate'] = $record['numdate1'];
+            if(!is_null($record['numdate2'])) {
+                $dateEvent['endDate'] = $record['numdate2'];
+            } else {
+                $dateEvent['endDate'] = $record['numdate1'];
+            }
+        $dateEvent['headline'] = 'Date range for object';
+        $data[] = $dateEvent;
+    }
+    if(array_key_exists('datefound1', $record)){
+        $date1 = explode('-', $record['datefound1']);
+        $discoveryEvent['startDate'] = implode(',', $date1);
+        if(array_key_exists('datefound2', $record) && !is_null($record['datefound2'])) {
+            $date = explode('-', $record['datefound2']);
+            $discoveryEvent['endDate'] = implode(',', $date);
+        } else {
+            $discoveryEvent['endDate'] = $discoveryEvent['startDate'];
+        }
+        $discoveryEvent['headline'] = 'Date range for discovery';
+        $data[] = $discoveryEvent;
+    }
+
+    $ranges = array(
+        'UNKNOWN' => array('start' => -100000000, 'end' => 2050),
+        'PALAEOLITHIC' => array('start' => -500000, 'end' => -10001),
+        'MESOLITHIC' => array('start' => -10000, 'end' => -4001),
+        'NEOLITHIC' => array('start' => -4000, 'end' => -2351),
+        'BRONZE AGE' => array('start' => -2350, -801),
+        'IRON AGE' => array('start' => -800, 'end' => 42),
+        'ROMAN' => array('start' => 43, 'end' => 410),
+        'EARLY MEDIEVAL' => array('start' => 410, 'end' => 1066),
+        'MEDIEVAL' => array('start' => 1066, 'end' => 1539),
+        'POST MEDIEVAL' => array('start' => 1540, 'end' => 1900),
+        'MODERN' => array('start' => 1900, 'end' => 2050),
+        'BYZANTINE' => array('start' => 491, 'end' => 1453),
+        'GREEK AND ROMAN PROVINCIAL' => array('start' => -700, 'end' => 297)
+    );
+    if(array_key_exists('broadperiod', $record)){
+        if(array_key_exists('broadperiod', $record)){
+            $range = $ranges[$record['broadperiod']];
+        }
+        $dateRange = array(
+            'startDate' => (string)$range['start'],
+            'endDate' => (string)$range['end'],
+            'headline' => 'Broad period date range',
+            'text' => 'Date range for ' . $record['broadperiod'] . ' period'
+        );
+        $data[] = $dateRange;
+    }
+}
+$start = array(
+    'headline' => 'Associated dates for ' . $record['old_findID'],
+    'type' => 'default',
+    'text' => 'Dates mentioned in this record',
+    'startDate' => $record['numdate1'],
+    'date' => $data
+);
+echo Zend_Json::prettyPrint(Zend_Json::encode(array('timeline' => $start)));
