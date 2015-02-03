@@ -6,6 +6,7 @@ body {
 
 p {
     font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
 }
 
 .form-horizontal .form-actions {

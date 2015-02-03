@@ -93,6 +93,31 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
             if(!array_key_exists('county', $this->item)){
                 $this->item['county'] = 'Not recorded';
             }
+
+            if(!array_key_exists('knownas', $this->item)){
+                $this->item['knownas'] = NULL;
+            }
+
+            if(!array_key_exists('fourFigure', $this->item)){
+                $this->item['fourFigure'] = NULL;
+            }
+
+            if(!array_key_exists('fourFigureLon', $this->item)){
+                $this->item['fourFigureLon'] = NULL;
+            }
+
+            if(!array_key_exists('fourFigureLat', $this->item)){
+                $this->item['fourFigureLat'] = NULL;
+            }
+
+            if(!array_key_exists('fromdate', $this->item)){
+                $this->item['fromdate'] = NULL;
+            }
+
+            if(!array_key_exists('todate', $this->item)){
+                $this->item['todate'] = NULL;
+            }
+
             $dc = array(
                 'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
                 'creator' => $this->item['identifier'],
@@ -135,7 +160,7 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
 
             $dates = array($this->item['fromdate'], $this->item['todate']);
             if(array_filter($dates)) {
-                if(!isset($this->item['todate'])){
+                if(!is_null($this->item['todate'])){
                     $this->item['todate'] = $this->item['fromdate'];
                 }
                 $temporal = array(
