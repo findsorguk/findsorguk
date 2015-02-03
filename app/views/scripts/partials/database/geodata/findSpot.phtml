@@ -205,7 +205,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
         <p>
             <?php if (!is_null($this->region)) : ?>
                 Region: <a
-                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->regionID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->region; ?></a>
+                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->regionID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->region; ?></a> <i class="icon-external-link"></i>
 
                 <?php if (!is_null($this->regionType)): ?>
                     (<?php echo $this->regionType; ?>)
@@ -214,13 +214,14 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
             <?php endif; ?>
             <?php if (!is_null($this->county)) : ?>
                 County or Unitary authority: <a
-                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->countyID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->county; ?></a> <?php if (!is_null($this->countyType)): ?>
+                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->countyID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->county; ?></a> <i class="icon-external-link"></i>
+                <?php if (!is_null($this->countyType)): ?>
                     (<?php echo $this->countyType; ?>)
                 <?php endif; ?><br/>
             <?php endif; ?>
             <?php if (!is_null($this->district)) : ?>
                 District: <a
-                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->districtID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->district; ?></a>
+                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->districtID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->district; ?></a> <i class="icon-external-link"></i>
                 <?php if (!is_null($this->districtType)): ?>
                     (<?php echo $this->districtType; ?>)
                 <?php endif; ?>
@@ -229,7 +230,8 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
             <?php if (!is_null($this->parish)) : ?>
                 <br/>
                 Parish or ward: <a
-                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->parishID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->parish; ?></a> <?php if (!is_null($this->parishType)): ?>
+                    href="http://data.ordnancesurvey.co.uk/doc/7000000000<?php echo str_pad($this->parishID, 6, '0', STR_PAD_LEFT); ?>"><?php echo $this->parish; ?></a> <i class="icon-external-link"></i>
+                <?php if (!is_null($this->parishType)): ?>
                     (<?php echo $this->parishType; ?>)
                 <?php endif; ?>
             <?php endif; ?>
@@ -302,13 +304,13 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
             <h3 class="lead">Discovery metadata</h3>
 
             <p>
-                <?php if (!is_null($this->method)) : ?>
-                    Method of discovery: <?php echo $this->escape($this->method); ?>
+                <?php if (!is_null($this->discoveryMethod)) : ?>
+                    Method of discovery: <?php echo $this->escape($this->discmethod); ?>
                     <a href="<?php echo $this->url(array(
                             'module' => 'datalabs',
                             'controller' => 'terminology',
                             'action' => 'method',
-                            'id' => $this->discmethod), null, true);?>" title="Read scope note for <?php echo $this->method; ?>"><i class="icon-search"></i></a><br/>
+                            'id' => $this->discoveryMethod), null, true);?>" title="Read scope note for <?php echo $this->discmethod; ?>"><i class="icon-search"></i></a><br/>
                 <?php endif; ?>
 
                 <?php if (!is_null($this->disccircum)) : ?>
@@ -345,11 +347,12 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
 <?php endif; ?>
 
 <!-- </div> -->
-
+<?php $details = array($this->findspotDescription, $this->comments, $this->landOwnerName, $this->address, $this->postcode);?>
+<?php if(array_filter($details)):?>
 <div class="row-fluid">
     <p>
         <?php if (!is_null($this->findspotDescription)): ?>
-        Find spot description: <?php echo strip_tags($this->findspotDescription); ?>
+            Find spot description: <?php echo strip_tags($this->findspotDescription); ?>
         <?php endif; ?>
 
         <?php if (!is_null($this->comments)): ?>
@@ -359,7 +362,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
 
         <?php if (!is_null($this->landOwnerName)): ?>
             <br/>
-            Land is owned by: <?php echo $this->landOwnerName; ?>
+            Land owned by: <?php echo $this->landOwnerName; ?>
         <?php endif; ?>
 
         <?php if (!is_null($this->address)): ?>
@@ -374,3 +377,4 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
 
     </p>
 </div>
+<?php endif;?>

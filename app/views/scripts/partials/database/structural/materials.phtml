@@ -26,37 +26,34 @@ $materials = array(
             <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'material' => $this->material2), NULL, true); ?>"
                 title="Find all records assigned to  <?php echo $this->secondaryMaterial; ?>"><i
-                    class="icon-search"></i></a>
+                    class="icon-search"></i></a><br />
         <?php endif; ?>
         <?php if (!is_null($this->manufacture)) : ?>
-            <br/>
+
             Manufacture method: <span property="pas:manufactureMethod"><?php echo $this->manufacture; ?></span> <a
                 href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'manufacture', 'id' => $this->manmethod), NULL, true); ?>"
                 title="View scope notes for <?php echo $this->escape($this->manufacture); ?>"><i
                     class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'manufacture' => $this->manmethod), NULL, true); ?>"
-                title="Find all records assigned to  <?php echo $this->manufacture; ?>"><i class="icon-search"></i></a>
+                title="Find all records assigned to  <?php echo $this->manufacture; ?>"><i class="icon-search"></i></a><br/>
         <?php endif; ?>
         <?php if (!is_null($this->decoration)) : ?>
-            <br/>
             Decoration method: <span property="pas:decoration"><?php echo $this->decoration; ?></span> <a
                 href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'decorationmethod', 'id' => $this->decmethod), NULL, true); ?>"
                 title="View scope notes for <?php echo $this->escape($this->decoration); ?>"><i
                     class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'decoration' => $this->decoration), NULL, true); ?>"
-                title="Find all records assigned to  <?php echo $this->manufacture; ?>"><i class="icon-search"></i></a>
+                title="Find all records assigned to  <?php echo $this->manufacture; ?>"><i class="icon-search"></i></a><br />
         <?php endif; ?>
         <?php if (!is_null($this->style)) : ?>
-            <br/>
             Decoration style: <span property="pas:decorationStyle"><?php echo $this->style; ?></span> <a
                 href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'decorationstyle', 'id' => $this->decstyle), NULL, true); ?>"
                 title="View scope notes for <?php echo $this->escape($this->decoration); ?>"><i
                     class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'decstyle' => $this->decstyle), NULL, true); ?>"
-                title="Find all records assigned to  <?php echo $this->style; ?>"><i class="icon-search"></i></a>
+                title="Find all records assigned to  <?php echo $this->style; ?>"><i class="icon-search"></i></a><br />
         <?php endif; ?>
         <?php if (!is_null($this->completeness)) : ?>
-            <br/>
             Completeness: <span
                 property="pas:completeness"><?php echo $this->completeness()->setInt($this->complete); ?></span>
             <a href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'completeness', 'id' => $this->complete), NULL, true); ?>"
