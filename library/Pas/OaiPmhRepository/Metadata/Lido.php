@@ -168,7 +168,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             if (array_key_exists('secondaryIdentifer', $this->item)) {
                 $people['secondary identifer'] = $this->item['secondaryIdentifer'];
             }
-            if(array_key_exists('materialTerm')){
+            if(array_key_exists('materialTerm', $this->item)){
                 $material = $this->item['materialTerm'];
             } else {
                 $material = 'Unknown';
