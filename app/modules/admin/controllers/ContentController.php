@@ -68,7 +68,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
         $search = new Pas_Solr_Handler();
         $search->setCore('content');
 
-        if ($this->getRequest()->isPost() && !is_null($this->getParam('submit'))) {
+        if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $params = $this->getCleaner()->array_cleanup($form->getValues());
                 $this->_helper->Redirector->gotoSimple('index', 'content', 'admin', $params);

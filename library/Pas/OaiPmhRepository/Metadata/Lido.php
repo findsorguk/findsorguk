@@ -242,7 +242,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
 
             $typeWrap->appendChild($searchTerm);
             $searchTerm->setAttribute('lido:addedSearchTerm', 'no');
-            if ($this->item['thumbnail']) {
+            if (array_key_exists('thumbnail', $this->item)) {
                 $classification = $this->document->createElement('lido:classificationWrap');
                 $classWrap->appendChild($classification);
                 $class = $this->document->createElement('lido:classification');
