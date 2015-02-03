@@ -35,6 +35,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
      */
     public function getCleaner()
     {
+        $this->_cleaner = new Pas_ArrayFunctions();
         return $this->_cleaner;
     }
 
