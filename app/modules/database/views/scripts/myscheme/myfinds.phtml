@@ -27,7 +27,7 @@ $this->metaBase()->setDescription($this->title())->generate();
             <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount()); ?></p>
             <?php echo $this->paginationControl($this->paginator, 'elastic', 'structure/paginationSolr.phtml'); ?>
             <?php echo $this->statGenerator()->setStats($this->stats); ?>
-            <?php echo $this->facetCreatorMyFinds($this->facets); ?>
+            <?php echo $this->facetCreatorMyFinds()->setFacets($this->facets); ?>
         </div>
     <?php else: ?>
 
@@ -54,9 +54,7 @@ if (href.indexOf('#') == 0) {
 $(href).modal('open');
 } else {
 $.get(href, function(data) {
-$('
-<div class="modal fade">' + data + '</div>').modal();
-});
+$('<div class="modal fade">' + data + '</div>').modal();});
 }
 });
 

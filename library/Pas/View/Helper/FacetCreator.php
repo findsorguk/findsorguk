@@ -70,12 +70,6 @@ class Pas_View_Helper_FacetCreator extends Zend_View_Helper_Abstract
     {
         return $this->generateFacet($this->getFacets());
     }
-    /** Create the facets boxes for rendering
-     * @access public
-     * @param  array $facets
-     * @return string
-     * @throws Pas_Exception
-     */
 
     /** Generate the facets
      * @access public

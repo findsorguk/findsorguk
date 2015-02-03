@@ -1,10 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
  * @category Pas
@@ -14,7 +8,7 @@
  * @since 30/1/2012
  * @copyright Daniel Pett
  * @author Daniel Pett
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
@@ -23,16 +17,44 @@ class Pas_View_Helper_FacetCreatorMyImages extends Zend_View_Helper_Abstract
 {
     /** Create the facets boxes for rendering
      * @access public
-     * @param  array                 $facets
-     * @return string
-     * @throws Pas_Exception
+     * @return \Pas_View_Helper_FacetCreatorMyImages
      */
 
-    public function facetCreatorMyImages(array $facets)
+    public function facetCreatorMyImages()
     {
-        if (is_array($facets)) {
+        return $this;
+    }
+
+
+    /** The facets array
+     * @var array */
+    protected $_facets;
+
+    /** Get the facets array
+     * @return array
+     */
+    public function getFacets()
+    {
+        return $this->_facets;
+    }
+
+    /** Set the facets array
+     * @param mixed $facets
+     */
+    public function setFacets($facets)
+    {
+        $this->_facets = $facets;
+        return $this;
+    }
+
+    /** Generate the html
+     * @return string
+     */
+    public function __toString()
+    {
+        if (is_array($this->getFacets())) {
         $html = '<h3 class="lead">Search facets</h3>';
-        foreach ($facets as $facetName => $facet) {
+        foreach ($this->getFacets() as $facetName => $facet) {
             $html .= $this->_processFacet($facet, $facetName);
         }
 
@@ -44,8 +66,8 @@ class Pas_View_Helper_FacetCreatorMyImages extends Zend_View_Helper_Abstract
 
     /** Process the facet array and name
      * @access public
-     * @param  array                 $facet
-     * @param  string                $facetName
+     * @param  array $facet
+     * @param  string $facetName
      * @return string
      * @throws Pas_Exception
      * @uses Zend_Controller_Front

@@ -15,7 +15,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         <div class="span3">
             <?php echo $this->thumbnailToggler(); ?>
             <?php echo $this->resultsSorter()->setResults($this->paginator); ?>
-            <?php echo $this->facetCreatorMyImages($this->facets); ?>
+            <?php echo $this->facetCreatorMyImages()->setFacets($this->facets); ?>
         </div>
     </div>
 
