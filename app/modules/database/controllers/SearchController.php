@@ -432,52 +432,34 @@ class Database_SearchController extends Pas_Controller_Action_Admin
     public function resultsAction()
     {
         $params = $this->getAllParams();
-        $testArray = $params;
-        unset($testArray['controller']);
-        unset($testArray['module']);
-        unset($testArray['action']);
-        if(array_key_exists('format', $testArray))
-        {
-            unset($testArray['format']);
+        $search = new Pas_Solr_Handler();
+        $search->setCore('objects');
+        $context = $this->_helper->contextSwitch->getCurrentContext();
+        $fields = new Pas_Solr_FieldGeneratorFinds();
+        $fields->setContext($context);
+
+        if ($context) {
+            $params['format'] = $context;
         }
-        $paramCount = count($testArray);
-        if($paramCount > 0) {
-            $evenOrOdd = ($paramCount % 2 == 0);
-        } else {
-            $evenOrOdd = true;
+        $search->setFacets(array(
+            'objectType', 'county', 'broadperiod',
+            'institution', 'rulerName', 'denominationName',
+            'mintName', 'materialTerm', 'workflow',
+            'reeceID',
+        ));
+
+        $search->setParams($params);
+        $search->execute();
+        $this->view->facets = $search->processFacets();
+        $this->view->paginator = $search->createPagination();
+        $this->view->stats = $search->processStats();
+        $this->view->results = $search->processResults();
+        $this->view->server = $search->getLoadBalancerKey();
+        if (array_key_exists('submit', $params)) {
+            $queries = new Searches();
+            $queries->insertResults(serialize($params));
         }
         
-        if ($evenOrOdd === true || $paramCount == 0) {
-            $search = new Pas_Solr_Handler();
-            $search->setCore('objects');
-            $context = $this->_helper->contextSwitch->getCurrentContext();
-            $fields = new Pas_Solr_FieldGeneratorFinds();
-            $fields->setContext($context);
-
-            if ($context) {
-                $params['format'] = $context;
-            }
-            $search->setFacets(array(
-                'objectType', 'county', 'broadperiod',
-                'institution', 'rulerName', 'denominationName',
-                'mintName', 'materialTerm', 'workflow',
-                'reeceID',
-            ));
-
-            $search->setParams($params);
-            $search->execute();
-            $this->view->facets = $search->processFacets();
-            $this->view->paginator = $search->createPagination();
-            $this->view->stats = $search->processStats();
-            $this->view->results = $search->processResults();
-            $this->view->server = $search->getLoadBalancerKey();
-            if (array_key_exists('submit', $params)) {
-                $queries = new Searches();
-                $queries->insertResults(serialize($params));
-            }
-        } else {
-            throw new Pas_Exception('The parameters submitted are not correct', 500);
-        }
     }
 
     public function mapAction()
