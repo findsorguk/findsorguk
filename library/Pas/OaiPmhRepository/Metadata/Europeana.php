@@ -67,6 +67,28 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
         $europeana->setAttribute('xmlns:dcterms', self::DC_TERMS_NAMESPACE);
         //Create the dublin core metadata from an array of objects
         if (!array_key_exists('0', $this->item)) {
+
+            if(!array_key_exists('objecttype', $this->item)){
+                $this->item['objecttype'] = 'Unidentified object';
+            }
+            if(!array_key_exists('broadperiod', $this->item)){
+                $this->item['broadperiod'] = 'UNKNOWN';
+            }
+            if(!array_key_exists('identifier', $this->item)){
+                $this->item['identifier'] = 'Unidentified';
+            }
+
+            if(!array_key_exists('county', $this->item)){
+                $this->item['county'] = 'Not recorded';
+            }
+
+            if(!array_key_exists('district', $this->item)){
+                $this->item['district'] = 'Not recorded';
+            }
+
+            if(!array_key_exists('county', $this->item)){
+                $this->item['county'] = 'Not recorded';
+            }
             $dc = array(
                 'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
                 'creator' => $this->item['identifier'],
@@ -112,7 +134,7 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
 
             $formats = array();
 
-            if (!is_null($this->item['thumbnail'])) {
+            if (array_key_exists('thumbnail',$this->item) && !is_null($this->item['thumbnail'])) {
                 $ese['isShownBy'] = $this->_serverUrl . self::THUMB_PATH . $this->item['thumbnail'] . self::EXTENSION;
                 $formats[] = $this->_serverUrl . '/' . $this->item['imagedir'] . $this->item['filename'];
             }
