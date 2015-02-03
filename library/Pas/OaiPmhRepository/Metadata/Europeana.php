@@ -82,6 +82,10 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
                 $this->item['county'] = 'Not recorded';
             }
 
+            if(!array_key_exists('description', $this->item)){
+                $this->item['description'] = 'No description available';
+            }
+
             if(!array_key_exists('district', $this->item)){
                 $this->item['district'] = 'Not recorded';
             }
@@ -110,13 +114,15 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
                 'county' => $this->item['county'],
                 'district' => $this->item['district']
             );
-            //Check for availability of NGR and therefore latlon conversions
-            if (is_null($this->item['knownas']) && !is_null($this->item['fourFigure'])) {
-                $lat = $this->item['fourFigureLat'];
-                $lon = $this->item['fourFigureLon'];
-                $spatial['coords'] = $lat . ',' . $lon;
+            $geo = array( $this->item['knownas'], $this->item['fourFigure'], $this->item['fourFigureLat'], $this->item['fourFigureLon']);
+            if(array_filter($geo)) {
+                //Check for availability of NGR and therefore latlon conversions
+                if (is_null($this->item['knownas']) && !is_null($this->item['fourFigure'])) {
+                    $lat = $this->item['fourFigureLat'];
+                    $lon = $this->item['fourFigureLon'];
+                    $spatial['coords'] = $lat . ',' . $lon;
+                }
             }
-
             $dcterms = array(
                 'created' => date('Y-m-d', strtotime($this->item['created'])),
                 'medium' => $this->item['materialTerm'],
@@ -127,10 +133,16 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
             $ese['provider'] = self::RIGHTS_HOLDER;
             $ese['type'] = 'TEXT';
 
-            $temporal = array(
-                'year1' => $this->item['fromdate'],
-                'year2' => $this->item['todate'],
-            );
+            $dates = array($this->item['fromdate'], $this->item['todate']));
+            if(array_filter($dates)) {
+                if(!isset($this->item['todate'])){
+                    $this->item['todate'] = $this->item['fromdate'];
+                }
+                $temporal = array(
+                    'year1' => $this->item['fromdate'],
+                    'year2' => $this->item['todate'],
+                );
+            }
 
             $formats = array();
 
