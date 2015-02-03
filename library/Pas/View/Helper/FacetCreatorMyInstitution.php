@@ -1,10 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
  * @category Pas
@@ -23,9 +17,7 @@ class Pas_View_Helper_FacetCreatorMyInstitution extends Zend_View_Helper_Abstrac
 {
     /** Create the facets boxes for rendering
      * @access public
-     * @param  array $facets
-     * @return string
-     * @throws Pas_Exception
+     * @return \Pas_View_Helper_FacetCreatorMyInstitution
      */
 
     public function facetCreatorMyInstitution()
@@ -193,6 +185,10 @@ class Pas_View_Helper_FacetCreatorMyInstitution extends Zend_View_Helper_Abstrac
         return $clean;
     }
 
+    /** Workflow switch
+     * @access protected
+     * @return string
+     */
     protected function _workflow($key)
     {
         switch ($key) {

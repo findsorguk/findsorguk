@@ -21,7 +21,7 @@ $this->metaBase()->setDescription($this->title())->generate();
             <div class="btn-group">
 
                 <!-- The fileinput-button span is used to style the file input field as button -->
-                <input type="file" name="files[]" multiple>
+                <input type="file" name="files[]" multiple class="btn-info">
                 <button type="submit" class="btn btn-primary start">
                     <i class="icon-white icon-upload"></i>
                     <span>Start upload</span>
@@ -52,7 +52,7 @@ $this->metaBase()->setDescription($this->title())->generate();
             </div>
             <div class="span6">
                 <?php $url = array('module' => 'database', 'controller' => 'images', 'action' => 'attached', 'id' => $this->findID); ?>
-                <a href="<?php echo $this->url($url);?>" class="btn btn-success">Finished uploads? Add metadata to images</a>
+                <a href="<?php echo $this->url($url);?>" class="btn btn-success">Finished uploads? Add labels and captions to images</a>
             </div>
         </div>
         <!-- The table listing the files available for upload/download -->
