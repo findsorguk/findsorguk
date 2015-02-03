@@ -20,6 +20,8 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
      */
     const RECORD_URI = '/database/artefacts/record/id/';
 
+    const HOARD_URI = '/database/hoards/record/id';
+
     /** The license type for system
      *
      */

@@ -47,30 +47,51 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
             'xsi:schemaLocation', self::METADATA_NAMESPACE . ' ' . self::METADATA_SCHEMA);
 
         if (!array_key_exists('0', $this->item)) {
+            if(array_key_exists('objecttype', $this->item)){
+                $objecttype = $this->item['objecttype'];
+            } else {
+                $objecttype = 'HOARD';
+            }
+            if($objecttype = 'HOARD'){
+                $uri = self::HOARD_URI;
+            } else {
+                $uri = self::RECORD_URI;
+            }
+
+            if(array_key_exists('description', $this->item)){
+                $description = strip_tags(strtr($this->item['description'], array('\x0B' => '&#x0B;')));
+            } else {
+                $description = 'No description available';
+            }
+
+            if(array_key_exists('broadperiod', $this->item)){
+                $broadperiod = $this->item['broadperiod'];
+            } else {
+                $broadperiod = 'UNKNOWN';
+            }
             $data = array(
-                'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
+                'title' => $this->item['broadperiod'] . ' ' . $objecttype,
                 'creator' => $this->item['creator'],
                 'subject' => self::SUBJECT,
-                'description' => strip_tags(strtr($this->item['description'], array('\x0B' => '&#x0B;'))),
+                'description' => $description,
                 'publisher' => self::RIGHTS_HOLDER,
                 'contributor' => $this->item['institution'],
                 'date' => $this->item['created'],
-                'type' => $this->item['objecttype'],
+                'type' => $objecttype,
                 'format' => self::FORMAT,
                 'id' => $this->item['id'],
-                'identifier' => $this->_serverUrl . self::RECORD_URI . $this->item['id'],
+                'identifier' => $this->_serverUrl . $uri . $this->item['id'],
                 'source' => self::SOURCE,
                 'language' => self::LANGUAGE
             );
 
-            if (isset($this->item['thumbnail'])) {
-                $relation = $this->_serverUrl . '/' . $this->item['imagedir']
-                    . $this->item['filename'];
+            if (array_key_exists('thumbnail', $this->item)) {
+                $relation = $this->_serverUrl . '/' . $this->item['imagedir'] . $this->item['filename'];
                 $data['relation'] = $relation;
             } else {
                 $data['relation'] = '';
             }
-            $data['coverage'] = $this->item['broadperiod'];
+            $data['coverage'] = $broadperiod;
             $data['rights'] = self::LICENSE;
             unset($data['id']);
             foreach ($data as $k => $v) {
