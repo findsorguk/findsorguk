@@ -33,11 +33,10 @@ if (array_filter($people)):?>
                 'action' => 'results',
                 'recorderID' => $this->recorderID), null, true); ?>"
                title="Search database for all records recorded by <?php echo $this->recorderID; ?>"><i
-                    class="icon-search"></i></a>
+                    class="icon-search"></i></a><br />
         <?php endif; ?>
 
         <?php if (!is_null($this->identifier1ID)) : ?>
-            <br/>
             Identified by: <span property="pas:identifier foaf:name"
                                  instanceof="foaf:person"><?php echo $this->identifier; ?></span>
             <a href="<?php echo $this->url(array(
@@ -46,11 +45,10 @@ if (array_filter($people)):?>
                 'action' => 'results',
                 'identifierID' => $this->identifier1ID), null, true); ?>"
                title="Search database for all records identified by <?php echo $this->identifier; ?>"><i
-                    class="icon-search"></i></a>
+                    class="icon-search"></i></a><br />
         <?php endif; ?>
 
         <?php if (!is_null($this->identifier2ID)) : ?>
-            <br/>
             Secondary identifier: <span property="pas:identifierSecondary foaf:name"
                                         instanceof="foaf:person"><?php echo $this->secondaryIdentifier; ?></span> <a
                 href="<?php echo $this->url(array(
