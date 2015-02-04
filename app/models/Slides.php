@@ -275,7 +275,6 @@ class Slides extends Pas_Db_Table_Abstract
     {
         // Loop through the array of objects to add
         foreach ($imageData as $data) {
-
             $finds = new Finds();
             $findID = $finds->fetchRow($finds->select()->where('id = ?', $data->findID))->secuid;
             // Create the image data array
