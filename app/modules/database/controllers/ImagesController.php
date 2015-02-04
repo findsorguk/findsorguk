@@ -45,7 +45,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow('public', array('image', 'zoom', 'index'));
-        $this->_helper->_acl->allow('member', array('add', 'delete', 'edit', 'attached'));
+        $this->_helper->_acl->allow('member', array('add', 'delete', 'edit'));
         $this->_helper->_acl->allow('flos', null);
 
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
