@@ -1,7 +1,7 @@
 <?php
 $this->headTitle('Record ID: '.$this->old_findID. " - ".$this->broadperiod." ".strtolower($this->objecttype),$type = 'PREPEND');
 $this->metaBase()
-        ->setDescription($this->description)
+        ->setDescription(strip_tags($this->truncate($this->description)->toLength(250)->withPostfix(' ')))
         ->setSubject('archaeological object record')
         ->setKeywords(implode(',',array($this->objecttype, $this->broadperiod, $this->county)))
         ->generate();
