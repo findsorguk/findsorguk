@@ -104,7 +104,7 @@ class Organisations extends Pas_Db_Table_Abstract {
         $select = $orgs->select()
                 ->from($this->_name, array('name', 'id'))
                 ->joinLeft('people','organisations.contactpersonID = people.secuid', 
-                        array('fullname','i' => 'id'))
+                        array('fullname','peopleID' => 'id'))
                 ->joinLeft('osCounties', 'osCounties.osID = organisations.county', array('county' => 'label'))
                 ->order(array('name'));
         if(isset($params['county']) && ($params['county'] != ""))  {

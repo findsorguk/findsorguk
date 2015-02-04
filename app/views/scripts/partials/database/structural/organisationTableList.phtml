@@ -3,10 +3,18 @@
         <a href="<?php echo $this->url(array('module' => 'database','controller' => 'organisations','action' => 'organisation','id' => $this->escape($this->id)),null,true);?>" title="View <?php echo $this->escape($this->name);?> details"><?php echo $this->escape($this->name);?></a>
     </td> 
     <td>
-        <?php echo $this->county;?>
+        <?php if (!is_null($this->county)): ?>
+            <?php echo $this->county; ?>
+        <?php else: ?>
+            -
+        <?php endif; ?>
     </td>
     <td>
-        <?php echo $this->fullname;?>
+        <?php if (!is_null($this->fullname)): ?>
+            <a href="<?php echo $this->url(array('module'=> 'database', 'controller' => 'people', 'action' => 'person', 'id' => $this->peopleID),'default', true);?>"><?php echo $this->fullname; ?></a>
+        <?php else: ?>
+            -
+        <?php endif; ?>
     </td> 
     <td>
         <div class="btn-group">

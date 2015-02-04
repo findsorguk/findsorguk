@@ -46,7 +46,6 @@ class OrganisationFilterForm extends Pas_Form {
 	$name = new Zend_Form_Element_Text('organisation');
 	$name->setLabel('Filter by name')
 		->addFilters(array('StripTags','StringTrim', 'Purifier'))
-		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
 		->setAttrib('size', 40);
 	
 	$contact = new Zend_Form_Element_Text('contact');
@@ -67,6 +66,8 @@ class OrganisationFilterForm extends Pas_Form {
 		->addMultiOptions(array(
                     null => 'Choose a county',
                     'Available counties' => $county_options))
+		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+
 		->addValidator('InArray', false, array(array_keys($county_options)));
 	
 	//Submit button 
