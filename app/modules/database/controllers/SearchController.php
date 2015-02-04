@@ -459,7 +459,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
             $queries = new Searches();
             $queries->insertResults(serialize($params));
         }
-        
+
     }
 
     public function mapAction()

@@ -36,7 +36,38 @@ class ImageEditForm extends Pas_Form
      * @access public
      * @var string
      */
-    protected $_copyright;
+    protected $_copyright = NULL;
+
+    public function getCopyright()
+    {
+        $auth = Zend_Auth::getInstance();
+        $this->_auth = $auth;
+        if ($this->_auth->hasIdentity()) {
+            $user = $this->_auth->getIdentity();
+            if (!is_null($user->copyright)) {
+                $this->_copyright = $user->copyright;
+            }
+        }
+        return $this->_copyright;
+    }
+
+    public function getCopyrights()
+    {
+        $copyrights = new Copyrights();
+        $copy = $copyrights->getTypes();
+        $auth = Zend_Auth::getInstance();
+        $this->_auth = $auth;
+        if ($this->_auth->hasIdentity()) {
+            $user = $this->_auth->getIdentity();
+            if (is_null($user->fullname)) {
+                $userCopyright = $user->forename . ' ' . $user->surname;
+            } else {
+                $userCopyright = $user->fullname;
+            }
+        }
+        $personal = array($userCopyright => $userCopyright);
+        return array_merge($copy, $personal);
+    }
 
     /** The constructor
      * @access public
@@ -52,30 +83,10 @@ class ImageEditForm extends Pas_Form
         $periods = new Periods();
         $period_options = $periods->getPeriodFrom();
 
-        $copyrights = new Copyrights();
-        $copy = $copyrights->getTypes();
-
         $licenses = new LicenseTypes();
         $license = $licenses->getList();
 
-        $auth = Zend_Auth::getInstance();
-        $this->_auth = $auth;
-        if ($this->_auth->hasIdentity()) {
-            $user = $this->_auth->getIdentity();
-
-            if (!is_null($user->copyright)) {
-                $this->_copyright = $user->copyright;
-            } elseif (!is_null($user->fullname)) {
-                $this->_copyright = $user->forename . ' ' . $user->surname;
-            } else {
-                $this->_copyright = $user->fullname;
-            }
-        }
-
         parent::__construct($options);
-
-        $copyList = array_filter(array_merge(
-            array($this->_copyright => $this->_copyright), $copy));
 
         $this->setName('imageeditfind');
 
@@ -112,15 +123,12 @@ class ImageEditForm extends Pas_Form
             ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
             ->setRequired(true)
             ->addErrorMessage('You must enter a licence holder')
-            ->addMultiOptions(array(
-                null => 'Select a licence holder',
-                'Valid copyrights' => $copyList
-            ))
+            ->addMultiOptions(array(null => 'Select a licence holder', 'Valid copyrights' => $this->getCopyrights()))
             ->setDescription('You can set the copyright of your image here
                     to your institution. If you are a public recorder, it
                     should default to your full name. For institutions that do
                     not appear contact head office to suggest its addition.')
-            ->setValue($this->_copyright);
+            ->setValue($this->getCopyright());
 
         $licenseField = new Zend_Form_Element_Select('ccLicense');
         $licenseField->setDescription('Our philosophy is to make our content

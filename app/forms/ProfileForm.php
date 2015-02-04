@@ -94,10 +94,9 @@ class ProfileForm extends Pas_Form
             ->copyright;
         $copyright = $this->getElement('copyright');
         $copyright->setRequired(true);
-        $copyright->addMultiOptions(array(
-            null => 'Select a licence holder',
-            'Valid copyrights' => $copy))
-            ->addValidator('InArray', false, array(array_keys($copy)));
+        $copyright->addMultiOptions(array(null => 'Select a licence holder', 'Valid copyrights' => $copy))
+            ->addValidator('InArray', false, array(array_keys($copy)))
+            ->setAttribs(array('class' => 'span8 selectpicker show-menu-arrow '));
 
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save details');
