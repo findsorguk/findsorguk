@@ -270,9 +270,9 @@ echo $this->coinDataDisplay()
         <?php echo $this->moreLikeThis()->setQuery('old_findID:' . $this->finds[0]['old_findID']); ?>
     </div>
     <!--  End of more like this section -->
-
+    <div class="row-fluid" id="slider">
     <?php echo $this->partial('partials/database/structural/timeline.phtml', $this->finds[0]);?>
-
+    </div>
     </div>
     <!--  End of main body of record -->
 

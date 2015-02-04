@@ -225,13 +225,13 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
                 $html .= '<li><a href="';
                 $html .= $this->_baseurl . $domesday->grid;
                 $html .= '/' . $domesday->vill_slug;
-                $html .= '">' . $domesday->vill . '</a></li>';
+                $html .= '">' . $domesday->vill . '</a> <i class="icon-external-link"></i></li>';
             }
             $html .= '</ul>';
             $html .= '<p>Mentions within ';
             $html .= $radius;
             $html .= ' km of discovery point. This is obtained via the excellent ';
-            $html .= '<a href="http://domesdaymap.co.uk">Open Domesday</a> website.</p>';
+            $html .= '<a href="http://domesdaymap.co.uk">Open Domesday</a> <i class="icon-external-link"></i> website.</p>';
         }
         return $html;
     }

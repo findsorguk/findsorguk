@@ -24,7 +24,9 @@
 .noprint, 
 .btn,
 #resultsSidebar,
-.pagination
+.pagination,
+.btn,
+#slider
 {
 	display:none;
 }

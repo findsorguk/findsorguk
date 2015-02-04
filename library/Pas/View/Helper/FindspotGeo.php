@@ -145,7 +145,7 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
             $html .= '<p>The spatially enriched data provided here was sourced from the excellent Places/Placemaker service';
             $html .= ' from Yahoo\'s geo team.<br />';
             $html .= 'Settlement type: ' . $data['placeTypeName'] . '<br/>';
-            $html .= 'WOEID: <a href="http://woe.spum.org/id/' . $data['woeid'] . '">' . $data['woeid'] . '</a><br/>';
+            $html .= 'WOEID: <a href="http://woe.spum.org/id/' . $data['woeid'] . '">' . $data['woeid'] . '</a> <i class="icon-external-link"></i><br/>';
             if (array_key_exists('postal',$data)) {
                 $html .= 'Postcode: ' . $data['postal'] . '<br/>';
             }
