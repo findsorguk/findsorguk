@@ -107,6 +107,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
     {
         $form = new SolrForm();
         $form->removeElement('thumbnail');
+        $form->removeElement('3D');
         $this->view->form = $form;
         $search = new Pas_Solr_Handler();
         $search->setCore('images');
