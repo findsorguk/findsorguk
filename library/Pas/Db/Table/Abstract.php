@@ -5,9 +5,9 @@
  * Has config, cache and auth objects setp. This is the base code for all
  * models used in this app.
  *
- * @category    Pas
- * @package    Pas_Db_Table
- * @subpackage    Abstract
+ * @category Pas
+ * @package  Pas_Db_Table
+ * @subpackage Abstract
  * @version 1
  * @since 22nd September 2011
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0

@@ -44,9 +44,6 @@ class ProfileForm extends Pas_Form
      */
     public function init()
     {
-
-        $required = true;
-
         $copyrights = new Copyrights();
         $copy = $copyrights->getTypes();
 
