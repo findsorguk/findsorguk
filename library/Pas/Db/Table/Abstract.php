@@ -106,6 +106,15 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract
         return $this->_user->getRole();
     }
 
+    public function getCopyright()
+    {
+        $copy =  $this->_user->getPerson()->copyright;
+        if(is_null($copy)){
+            $copy = 'The Portable Antiquities Scheme';
+        }
+        return $copy;
+    }
+
     /** Create an update time stamp
      * @access public
      * @uses Zend_Date
@@ -129,7 +138,7 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract
         if ($person) {
             return $person->institution;
         } else {
-            throw new Pas_Exception_BadJuJu('No user credentials found', 500);
+            throw new Pas_Exception('No user credentials found', 500);
         }
     }
 
