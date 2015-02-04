@@ -1,12 +1,27 @@
+<?php
+$user = new Pas_User_Details();
+$role = $user->getRole();
+$notAllowed = array(null, 'member', 'public', 'research');
+?>
+
 <h4 class="lead">Audit data</h4>
 <p>
-    Recording Institution: <?php echo $this->institution;?>
-    <br />
+    Recording Institution: <?php echo $this->institution; ?> <a
+        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'institution' => 'SF'), 'default', true); ?> "
+        title="View all records for this institution"><i class="icon-search"></i></a>
+    <br/>
     Created: <span property="dc:created" datatype="xsd:datetime" content="<?php echo $this->created; ?>">
 <?php echo $this->timeAgoInWords($this->created); ?></span>
+    <?php if (!in_array($role, $notAllowed)): ?>
+        by <?php echo $this->fullname; ?>
+    <?php endif; ?>
+
     <?php if (!is_null($this->updated)): ?>
         <br/>
-        <span property="dc:modified" datatype="xsd:datetime" content="<?php echo $this->updated; ?>">
-Updated: <?php echo $this->timeAgoInWords($this->updated); ?></span> by <?php echo $this->fullnameUpdate;?>
+        <span property="dc:modified" datatype="xsd:datetime"
+              content="<?php echo $this->updated; ?>">Updated: <?php echo $this->timeAgoInWords($this->updated); ?></span>
+        <?php if (!in_array($role, $notAllowed)): ?>
+            by <?php echo $this->fullnameUpdate; ?>
+        <?php endif; ?>
     <?php endif; ?>
 </p>
