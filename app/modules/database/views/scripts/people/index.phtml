@@ -1,9 +1,7 @@
 <?php
 $this->headTitle('People registered with the Scheme');
-$this->jQuery()->addJavascriptFile($this->baseUrl()
-    . '/js/JQuery/jquery.autocomplete.pack.js', $type = 'text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl()
-    . '/js/JQuery/autocompleteinitpeople1.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.autocomplete.pack.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/autocompleteinitpeople1.js', $type = 'text/javascript');
 $this->headLink()->appendStylesheet($this->baseUrl() . '/css/autocomplete.css')
 ?>
 <h2 class="lead">People registered with the Scheme</h2>
@@ -61,9 +59,7 @@ if (href.indexOf('#') == 0) {
 $(href).modal('open');
 } else {
 $.get(href, function(data) {
-$('
-<div class="modal fade">' + data + '</div>').modal();
-});
+$('<div class="modal fade">' + data + '</div>').modal();});
 }
 });
 

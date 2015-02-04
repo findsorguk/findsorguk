@@ -228,9 +228,8 @@ class Pas_View_Helper_FacetCreator extends Zend_View_Helper_Abstract
 
     /** Function for rendering workflow labels
      * @access protected
-     * @param type $key
+     * @param string $key
      * @return string
-     * @todo move this to a library function
      */
     public function _workflow($key)
     {
