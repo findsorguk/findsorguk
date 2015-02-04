@@ -2,6 +2,10 @@ body {
     padding-top: 60px;
     padding-bottom: 40px;
     font-family: 'Open Sans', sans-serif;
+}
+
+p, li {
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
 }
 
