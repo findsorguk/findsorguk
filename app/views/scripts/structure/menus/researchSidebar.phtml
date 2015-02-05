@@ -6,7 +6,10 @@
         
         <li <?php echo $this->currentPage()->active('research','projects','index');?>>
             <a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects'),'default',true);?>" title="View our research register"><i class="icon-file"></i> Research projects</a></li>
-        
+
+        <li <?php echo $this->currentPage()->active('research','advice','index');?>>
+            <a href="<?php echo $this->url(array('module' => 'research','controller' => 'advice'),'default',true);?>" title="View our guide for researchers"><i class="icon-file"></i> Guide for researchers</a></li>
+
         <li <?php echo $this->currentPage()->active('research','projects','suggested');?>>
             <a href="<?php echo $this->url(array('module' => 'research','controller' => 'projects','action' => 'suggested'),'default',true);?>" title="Some topics we believe need investigating"><i class="icon-file"></i> Suggested projects</a></li>
         
