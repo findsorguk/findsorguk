@@ -224,9 +224,8 @@ class Contacts extends Pas_Db_Table_Abstract
                     'telephone', 'fax', 'role',
                     'longitude', 'latitude', 'image'
                 ))
-                ->joinLeft(array('position' => 'staffroles'),
-                    'staff.role = position.ID',
-                    array('staffroles' => 'role'))
+                ->joinLeft(array('position' => 'staffroles'), 'staff.role = position.ID', array('staffroles' => 'role'))
+                ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
                 ->where('staff.role IN (1,2,3,4,24,25)')
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
@@ -259,6 +258,8 @@ class Contacts extends Pas_Db_Table_Abstract
                 ->joinLeft(array('position' => 'staffroles'),
                     'staff.role = position.ID',
                     array('staffroles' => 'role'))
+                ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
+
                 ->where('staff.role IN (7,10) AND alumni =1')
                 ->order('locality.description');
             $data = $persons->fetchAll($select);
@@ -318,6 +319,7 @@ class Contacts extends Pas_Db_Table_Abstract
                     'staff.role = position.ID',
                     array('staffroles' => 'role'))
                 ->where('staff.role IN (12,16,17,18,19,20)')
+                ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
             $data = $persons->fetchAll($select);

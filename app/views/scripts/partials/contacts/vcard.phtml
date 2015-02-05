@@ -1,4 +1,4 @@
-<div class="vcard" typeof="foaf:Person">
+<div class="vcard" typeof="foaf:Person" >
 
     <?php if (!is_null($this->image)): ?>
         <?php
@@ -37,7 +37,7 @@
     <?php endif; ?>
 
 
-    <h4 class="lead"><a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff',
+    <h4 class="lead" id="<?php echo $this->institution;?>"><a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff',
             'action' => 'profile', 'id' => $this->id)); ?>" title="Read <?php echo $this->escape($this->firstname); ?>
 <?php echo $this->escape($this->lastname); ?>'s profile"><span class="fn n" property="foaf:name">
 <span class="given-name">
