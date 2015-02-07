@@ -204,11 +204,11 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             ->addContext('midas', array('suffix' => 'midas', 'headers' => array('Content-Type' => 'application/xml')))
             ->addContext('qrcode', array('suffix' => 'qrcode'))
             ->addContext('geojson', array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json')))
-            ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'pdf'))
+            ->addActionContext('record', array('qrcode'))
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
     }
-
+    
     /** Display a list of objects recorded with pagination
      * This redirects to just the search results as there is nothing else here.
      * @access public
