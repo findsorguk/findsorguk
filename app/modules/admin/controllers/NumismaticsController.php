@@ -468,7 +468,7 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
         if ($this->_request->isPost() && !is_null($this->getParam('submit'))) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
-                $params = $this->_functions->array_cleanup($formData);
+                $params = $this->getFunctions()->array_cleanup($formData);
                 $where = array();
                 foreach ($params as $key => $value) {
                     if (!is_null($value)) {
