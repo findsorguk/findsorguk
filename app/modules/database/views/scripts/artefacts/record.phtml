@@ -157,7 +157,9 @@ echo $this->coinDataDisplay()
     <div id="coinrefslinked">
         <h4 class="lead">Coin references</h4>
         <!-- existing coin references -->
+        <?php Zend_Debug::dump($this->coinrefs);?>
         <?php if (!empty($this->coinrefs)): ?>
+            <?php Zend_Debug::dump($this->coinrefs);?>
             <ul>
                 <?php echo $this->partial('partials/numismatics/shared/coinReferences.phtml', $this->coinrefs['0']); ?>
             </ul>
