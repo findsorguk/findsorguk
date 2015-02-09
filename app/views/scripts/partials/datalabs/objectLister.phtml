@@ -5,7 +5,7 @@
                 'module' => 'datalabs',
                 'controller' => 'terminology',
                 'action' => 'object',
-                'term' => strtolower($this->term)), 'default', true); ?>"
+                'term' => $this->term, 'default', true); ?>"
            title="View term's details"><?php echo $this->term; ?></a></td>
     <td><?php echo $this->scopeNote; ?></td>
     <td><?php echo $this->preferNarrow()->setTerm($this->status); ?></td>
