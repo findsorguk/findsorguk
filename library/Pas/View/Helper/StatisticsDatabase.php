@@ -75,14 +75,12 @@ class Pas_View_Helper_StatisticsDatabase extends Zend_View_Helper_Abstract
         $stats->createField('quantity');
         $resultset = $this->_solr->select($query);
         $data = $resultset->getStats();
-
         $stats = array();
         // Create array of data for use in partial
         foreach ($data as $result) {
             $stats['total'] = $result->getSum();
             $stats['records'] = $result->getCount();
         }
-
         return $stats;
     }
 }
