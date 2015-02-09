@@ -137,5 +137,12 @@
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'wear' => $this->wearID), null, true); ?>"
                 title="view all records assigned to <?php echo $this->wear; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
+    <?php if (!is_null($this->status)): ?>
+        <br/>
+        Status: <span property="pas:status"><?php echo $this->status; ?></span><br/>
+        <?php if (!is_null($this->rulerQualifier)): ?>
+            Status qualifier: <?php echo $this->certainty()->setCertainty($this->statusQualifier); ?>
+        <?php endif; ?>
+    <?php endif; ?>
 
 </p>
