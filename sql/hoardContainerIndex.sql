@@ -1,1 +1,0 @@
-ALTER TABLE `finds` ADD INDEX(`hoardcontainer`);

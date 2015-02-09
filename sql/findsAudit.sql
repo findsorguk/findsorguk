@@ -1,1 +1,0 @@
-ALTER TABLE `findsAudit` CHANGE `editID` `editID` VARCHAR(55) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL;

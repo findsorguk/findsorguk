@@ -1,2 +1,0 @@
-ALTER TABLE `archfeature` ADD `monTypeEH` varchar(255) collate utf8_unicode_ci default NULL AFTER `termdesc`;
-ALTER TABLE `archsitetype` ADD `monTypeEH` varchar(255) collate utf8_unicode_ci default NULL AFTER `termdesc`;
