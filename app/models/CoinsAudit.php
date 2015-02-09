@@ -46,7 +46,7 @@ class CoinsAudit extends Pas_Db_Table_Abstract {
                 'editID'))
                 ->joinLeft('users','users.id = ' . $this->_name . '.createdBy', 
                     array('id','fullname','username'))
-                ->where($this->_name . '.recordID= ?',(int)$id)
+                ->where($this->_name . '.entityID= ?',(int)$id)
                 ->order($this->_name . '.id DESC')
                 ->group($this->_name . '.created');
         return  $finds->fetchAll($select);
