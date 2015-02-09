@@ -1,82 +1,80 @@
-<?php 
+<?php
 $results = array();
 
 $fieldsRemove = array(
-	'finderID', 'finder', 'gridref',
-	'latitude', 'longitude', 'usernameUpdate',
-	'fullnameUpdate', 'geohash', 'elevation',
-	'landOwnerName', 'address', 'postcode',
-	'easting', 'northing', 'findspotDescription',
-	'comments', 'disccircum', 'coordinates'
+    'finderID', 'finder', 'gridref',
+    'latitude', 'longitude', 'usernameUpdate',
+    'fullnameUpdate', 'geohash', 'elevation',
+    'landOwnerName', 'address', 'postcode',
+    'easting', 'northing', 'findspotDescription',
+    'comments', 'disccircum', 'coordinates'
 
 );
 $knownasRemove = array(
-	'parish', 'parishID', 'centreLat',
-	'centreLon', 'fourFigureLat', 'fourFigureLon',
-	'fourFigure', 'map25k', 'map10k', 'woeid',
-	'geonamesID'
+    'parish', 'parishID', 'centreLat',
+    'centreLon', 'fourFigureLat', 'fourFigureLon',
+    'fourFigure', 'map25k', 'map10k', 'woeid',
+    'geonamesID'
 );
-foreach($this->results as $result){
-	foreach ($result as $k => $v) {
-		if (in_array($k, $fieldsRemove)) {
-			unset($result[$k]);
-		}
-	}
-	if(array_key_exists('knownas', $result) && !is_null($result['knownas'])){
-		foreach ($result as $k => $v) {
-			if (in_array($k, $knownasRemove)) {
-				unset($result[$k]);
-			}
-		}
-	}
-	if(array_key_exists('description',$result)){
-	$description = trim(preg_replace( '/\s+/', ' ',$result['description']));
-	$result['description'] = $description;
-	} else {
-	$result['description'] = 'No description available';	
-	}
-	if(!array_key_exists('thumbnail',$result)){
-	unset($result['imagedir']);
-	unset($result['thumbnail']);
-	unset($result['filename']);	
-	} else {
-		$result['thumbnail'] = $this->serverUrl() . '/images/thumbnails/' . $result['thumbnail'] . '.jpg';
-	}
-	$result['url'] = $this->serverUrl() . '/database/artefacts/record/id/' . $result['id'];
+foreach ($this->results as $result) {
+    foreach ($result as $k => $v) {
+        if (in_array($k, $fieldsRemove)) {
+            unset($result[$k]);
+        }
+    }
+    if (array_key_exists('knownas', $result) && !is_null($result['knownas'])) {
+        foreach ($result as $k => $v) {
+            if (in_array($k, $knownasRemove)) {
+                unset($result[$k]);
+            }
+        }
+    }
+    if (array_key_exists('description', $result)) {
+        $description = trim(preg_replace('/\s+/', ' ', $result['description']));
+        $result['description'] = $description;
+    } else {
+        $result['description'] = 'No description available';
+    }
+    if (!array_key_exists('thumbnail', $result)) {
+        unset($result['imagedir']);
+        unset($result['thumbnail']);
+        unset($result['filename']);
+    } else {
+        $result['thumbnail'] = $this->serverUrl() . '/images/thumbnails/' . $result['thumbnail'] . '.jpg';
+    }
+    $result['url'] = $this->serverUrl() . '/database/artefacts/record/id/' . $result['id'];
 
-	if(isset($result['fourFigure'])){
-		$geoJson = array(
-		'type' => 'Point',
-		'coordinates' => array(
-		$result['fourFigureLon'],
-		$result['fourFigureLat'],
-		)
-		);
-	} else {
-		$geoJson = array(
-		'type' => 'Point',
-		'coordinates' => array(
-		NULL,
-		NULL
-		)
-		);
-	}
-	
-	
-	
-	
-	$results[] = array('type' => 'Feature','geometry' => $geoJson, 'properties' => $result, 'id' => $result['id']);
-	
+    if (isset($result['fourFigure'])) {
+        $geoJson = array(
+            'type' => 'Point',
+            'coordinates' => array(
+                $result['fourFigureLon'],
+                $result['fourFigureLat'],
+            )
+        );
+    } else {
+        $geoJson = array(
+            'type' => 'Point',
+            'coordinates' => array(
+                NULL,
+                NULL
+            )
+        );
+    }
+
+
+    $results[] = array('type' => 'Feature', 'geometry' => $geoJson, 'properties' => $result, 'id' => $result['id']);
+
 }
-$meta = array( 
-	'currentPage' => $this->paginator->getCurrentPageNumber(), 
-	'totalResults' => $this->paginator->getTotalItemCount(), 
-	'resultsPerPage' => $this->paginator->getItemCountPerPage(),
+$meta = array(
+    'currentPage' => $this->paginator->getCurrentPageNumber(),
+    'totalResults' => $this->paginator->getTotalItemCount(),
+    'resultsPerPage' => $this->paginator->getItemCountPerPage(),
 );
-echo Zend_Json::prettyPrint(Zend_Json::encode(( 
-	array(
-	'meta' => $meta, 
-	'type' => 'FeatureCollection',
-	'features' =>  $results
-	)))
-	);
+echo Zend_Json::prettyPrint(Zend_Json::encode((
+array(
+    'meta' => $meta,
+    'type' => 'FeatureCollection',
+    'features' => $results
+)))
+);
