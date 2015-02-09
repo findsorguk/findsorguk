@@ -202,7 +202,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             ->addContext('midas', array('suffix' => 'midas', 'headers' => array('Content-Type' => 'application/xml')))
             ->addContext('qrcode', array('suffix' => 'qrcode'))
             ->addContext('geojson', array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json')))
-            ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'pdf' ))
+            ->addActionContext('index', array('qrcode', 'json', 'xml', 'geojson', 'pdf' ))
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
     }
