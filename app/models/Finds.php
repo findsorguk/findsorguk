@@ -395,7 +395,7 @@ class Finds extends Pas_Db_Table_Abstract
                     'categoryID',
                     'typeID',
                     'tribeID' => 'tribe',
-                    'status',
+                    'statusID' => 'status',
                     'rulerQualifier' => 'ruler_qualifier',
                     'denominationQualifier' => 'denomination_qualifier',
                     'mintQualifier' => 'mint_qualifier',
