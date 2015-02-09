@@ -1,7 +1,35 @@
 <?php $results = array(); ?>
+<?php
+$fieldsRemove = array(
+    'finderID', 'finder', 'gridref',
+    'latitude', 'longitude', 'usernameUpdate',
+    'fullnameUpdate', 'geohash', 'elevation',
+    'landOwnerName', 'address', 'postcode',
+    'easting', 'northing', 'findspotDescription',
+    'comments', 'disccircum', 'coordinates'
+
+);
+$knownasRemove = array(
+    'parish', 'parishID', 'centreLat',
+    'centreLon', 'fourFigureLat', 'fourFigureLon',
+    'fourFigure', 'map25k', 'map10k', 'woeid',
+    'geonamesID'
+);
+?>
 <?php if ($this->record): ?>
     <?php foreach ($this->record as $result) {
-
+        foreach ($result as $k => $v) {
+            if (in_array($k, $fieldsRemove)) {
+                unset($result[$k]);
+            }
+        }
+        if(array_key_exists('knownas', $result) && !is_null($result['knownas'])){
+            foreach ($result as $k => $v) {
+                if (in_array($k, $knownasRemove)) {
+                    unset($result[$k]);
+                }
+            }
+        }
         if (array_key_exists('description', $result)) {
             $description = trim(preg_replace('/\s+/', ' ', $result['description']));
             $result['description'] = $description;
@@ -18,6 +46,7 @@
         $result['url'] = $this->serverUrl() . '/database/artefacts/record/id/' . $result['id'];
         if (isset($result['knownas'])) {
             unset($result['parish']);
+            unset($result['parishID']);
             unset($result['fourFigure']);
             unset($result['fourFigureLat']);
             unset($result['fourFigureLon']);
