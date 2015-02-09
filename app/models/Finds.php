@@ -494,11 +494,8 @@ class Finds extends Pas_Db_Table_Abstract
                     'centreLon' => 'lon',
                     'parish' => 'label'
                 ))
-            ->joinLeft('people', 'findspots.landowner = people.secuid',
-                array('landOwnerName' => 'fullname'))
-            ->joinLeft('subsequentActions',
-                'finds.subs_action = subsequentActions.id',
-                array('subsequentActionTerm' => 'action'))
+            ->joinLeft(array('landowners' => 'people'), 'findspots.landowner = landowners.secuid', array('landOwnerName' => 'fullname', 'landOwnerID' => 'id'))
+            ->joinLeft('subsequentActions', 'finds.subs_action = subsequentActions.id', array('subsequentActionTerm' => 'action'))
             ->where('finds.id = ?', (int)$findID)
             ->group('finds.id')
             ->limit(1);
