@@ -7,7 +7,7 @@ $notAllowed = array(null, 'member', 'public', 'research');
 <h4 class="lead">Audit data</h4>
 <p>
     Recording Institution: <?php echo $this->institution; ?> <a
-        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'institution' => 'SF'), 'default', true); ?> "
+        href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'institution' => $this->institution), 'default', true); ?> "
         title="View all records for this institution"><i class="icon-search"></i></a>
     <br/>
     Created: <span property="dc:created" datatype="xsd:datetime" content="<?php echo $this->created; ?>">
