@@ -228,7 +228,7 @@ class ArchaeologyForm extends Pas_Form
         //Recovery method: Assigned via dropdown
         $recmethod = new Zend_Form_Element_Select('recmethod');
         $recmethod->setLabel('Recovery method: ')
-            ->setRequired(true)
+            ->setRequired(false)
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addValidator('Int')
             ->addValidator('inArray', true, array(array_keys($rec_options)))
