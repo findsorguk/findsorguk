@@ -193,11 +193,11 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
             $this->view->form = $form;
             if ($this->_request->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
-                    $updateData = $this->_rallies->updateAndProcess($form->getValues());
+                    $updateData = $this->getRallies()->updateAndProcess($form->getValues());
                     $where = array();
-                    $where[] = $this->_rallies->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
+                    $where[] = $this->getRallies()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     unset($updateData['created']);
-                    $this->_rallies->update($updateData, $where);
+                    $this->getRallies()->update($updateData, $where);
                     $this->getCache()->remove('rallydds');
                     $this->getFlash()->addMessage('Rally information updated!');
                     $this->redirect(self::URL . 'rally/id/' . $this->getParam('id'));
@@ -321,8 +321,8 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
             if ($del == 'Yes') {
                 $rallies = new RallyXFlo();
                 $where = array();
-                $where[] = $this->_rallies->getAdapter()->quoteInto('staffID = ?', (int)$staffID);
-                $where[] = $this->_rallies->getAdapter()->quoteInto('rallyID = ?', (int)$rallyID);
+                $where[] = $this->getRallies()->getAdapter()->quoteInto('staffID = ?', (int)$staffID);
+                $where[] = $this->getRallies()->getAdapter()->quoteInto('rallyID = ?', (int)$rallyID);
                 $rallies->delete($where);
                 $this->getFlash()->addMessage('Attending FLO for rally deleted!');
             }
