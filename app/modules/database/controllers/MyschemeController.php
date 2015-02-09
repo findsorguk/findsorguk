@@ -25,13 +25,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->allow('member', null);
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
-        $contexts = array('xml', 'json');
-        $this->_helper->contextSwitch()->setAutoDisableLayout(true)
-            ->addActionContext('myimages', $contexts)
-            ->addActionContext('myfinds', $contexts)
-            ->addActionContext('recordedbyflos', $contexts)
-            ->addActionContext('myinstitution', $contexts)
-            ->initContext();
+        $this->_helper->contextSwitch()->setAutoDisableLayout(true)->initContext();
     }
 
     /** The array cleaning functions
