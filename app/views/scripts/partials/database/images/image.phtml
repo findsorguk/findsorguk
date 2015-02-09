@@ -75,7 +75,8 @@
 
 </div>
 <?php else:?>
-    <p>No file found</p>
+    <h2 class="lead">We've had a problem</h2>
+    <p>An error has occurred, try reloading the page and see if that recreates the image.</p>
     <?php
     $image = new Pas_Image_MagickDust();
     $image->setImage(IMAGE_PATH . '/' . $this->username . '/' . $this->filename);
