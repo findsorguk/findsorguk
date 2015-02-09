@@ -43,10 +43,9 @@ class JettonGroups extends Pas_Db_Table_Abstract
      */
     public function getGroups()
     {
-        $key = md5('jettonClasses');
+        $key = md5('jettonGroups');
         if (!$data = $this->_cache->load($key)) {
-            $select = $this->select()
-                ->from($this->_name, array('id', 'groupName'));
+            $select = $this->select()->from($this->_name, array('id', 'groupName'));
             $data = $this->getAdapter()->fetchPairs($select);
             $this->_cache->save($data, $key);
         }
@@ -62,9 +61,7 @@ class JettonGroups extends Pas_Db_Table_Abstract
     {
         $select = $this->select()
             ->from($this->_name, array('id', 'term' => 'groupName'))
-            ->joinLeft('classesJettonGroups',
-                'classesJettonGroups.groupID = jettonGroup.id ',
-                array())
+            ->joinLeft('classesJettonGroups', 'classesJettonGroups.groupID = jettonGroup.id ', array())
             ->where('classesJettonGroups.classID = ?', (int)$classID);
         return $this->getAdapter()->fetchAll($select);
     }
