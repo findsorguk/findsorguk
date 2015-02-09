@@ -346,7 +346,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             'gridref', 'fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
             'district', 'parish', 'knownas',
-            'thumbnail'
+            'thumbnail', 'objecttype'
         ));
         $search->setParams($params);
         $search->execute();
@@ -372,7 +372,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             'gridref', 'fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
             'district', 'parish', 'knownas',
-            'thumbnail'
+            'thumbnail', 'objecttype'
         ));
         $search->setParams($params);
         $search->execute();
