@@ -69,8 +69,8 @@ if(!empty($results)) {
         $artefactsElem->appendChild($artefactElem);
     }
     $artefact->appendChild($artefactsElem);
-    $dom->appendChild($artefact);
-}
 
+}
+$dom->appendChild($artefact);
 $xmlData = $dom->saveXML();
 echo $xmlData;
