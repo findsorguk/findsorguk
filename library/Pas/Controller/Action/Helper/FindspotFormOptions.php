@@ -68,8 +68,7 @@ class Pas_Controller_Action_Helper_FindspotFormOptions extends Zend_Controller_A
         $findspot = $findspots->getLastRecord($this->_getIdentity());
         $data = $findspot[0];
         $this->_view->form->populate($data);
-        Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')
-            ->addMessage('Your last record data has been cloned');
+        Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->addMessage('Your last record data has been cloned');
         if(array_key_exists('countyID', $data) && !is_null($data['countyID'])) {
             
             $districts = new OsDistricts();
@@ -115,7 +114,7 @@ class Pas_Controller_Action_Helper_FindspotFormOptions extends Zend_Controller_A
         
         if(array_key_exists('landowner', $data)) {
             $finders = new People();
-            $finders = $finders->getName($findspot['landowner']);
+            $finders = $finders->getName($data['landowner']);
             foreach($finders as $finder) {
                 $form->landownername->setValue($finder['term']);
             }
