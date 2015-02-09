@@ -188,11 +188,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->deny('public', array('add', 'edit'));
         $this->_helper->_acl->allow('public', array(
-            'index', 'record', 'errorreport',
-            'notifyflo', 'unavailable'
+            'index', 'record', 'errorreport', 'notifyflo', 'unavailable'
         ));
         $this->_helper->_acl->allow('member', null);
-
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false)
             ->setAutoDisableLayout(true)
             ->addContext('csv', array('suffix' => 'csv'))
@@ -204,7 +202,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             ->addContext('midas', array('suffix' => 'midas', 'headers' => array('Content-Type' => 'application/xml')))
             ->addContext('qrcode', array('suffix' => 'qrcode'))
             ->addContext('geojson', array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json')))
-            ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'pdf'))
+            ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'pdf' ))
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
     }

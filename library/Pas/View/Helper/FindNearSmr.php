@@ -6,7 +6,7 @@
  * An example of use:
  *
  * <?php
- * echo $this->findsSmr()
+ * echo $this->findsNearSmr()
  * ->setLat($lat)
  * ->setLon($lon)
  * ->setDistance($distance);
@@ -20,7 +20,7 @@
  * @example path description
  *
  */
-class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
+class Pas_View_Helper_FindNearSmr extends Zend_View_Helper_Abstract
 {
 
     /** The latitude to query
@@ -108,7 +108,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
     public function getData()
     {
         $coords = array($this->getLat(), $this->getLon());
-        if(array_filter($coords)) {
+        if (array_filter($coords)) {
             $smr = new ScheduledMonuments();
             return $smr->getSMRSNearby($this->getLat(), $this->getLon(), $this->getDistance());
         } else {
@@ -118,9 +118,9 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
 
     /** The main function
      * @access public
-     * @return \Pas_View_Helper_FindsSmr
+     * @return \Pas_View_Helper_FindsNearSmr
      */
-    public function findsSmr()
+    public function findNearSmr()
     {
         return $this;
     }
@@ -143,10 +143,7 @@ class Pas_View_Helper_FindsSmr extends Zend_View_Helper_Abstract
 
     public function __toString()
     {
-        try {
-            return $this->buildHtml($this->getData());
-        } catch (Exception $e) {
-
-        }
+        return Zend_Debug::dump($this->getData());
+            //$this->buildHtml($this->getData());
     }
 }

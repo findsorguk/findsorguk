@@ -1,1 +1,35 @@
-<?php echo Zend_Json::prettyPrint(Zend_Json::encode((array('record', $this->finds))));
+<?php
+$fieldsRemove = array(
+    'finderID', 'finder', 'gridref',
+    'lat', 'lon', 'usernameUpdate',
+    'fullnameUpdate', 'geohash', 'elevation',
+    'landOwnerName', 'address', 'postcode',
+    'easting', 'northing', 'findspotDescription',
+    'comments', 'disccircum'
+
+);
+$knownasRemove = array(
+    'parish', 'parishID', 'centreLat',
+    'centreLon', 'fourFigureLat', 'fourFigureLon',
+    'fourFigure', 'map25k', 'map10k', 'woeid',
+    'geonamesID'
+);
+$cleaned = array();
+foreach ($this->finds as $find) {
+    foreach ($find as $k => $v) {
+        if (in_array($k, $fieldsRemove)) {
+            unset($find[$k]);
+        }
+    }
+    if(array_key_exists('knownas', $find) && !is_null($find['knownas'])){
+        foreach ($find as $k => $v) {
+            if (in_array($k, $knownasRemove)) {
+                unset($find[$k]);
+            }
+        }
+    }
+    $cleaned[] = $find;
+}
+?>
+
+<?php echo Zend_Json::prettyPrint(Zend_Json::encode((array('record', $cleaned))));

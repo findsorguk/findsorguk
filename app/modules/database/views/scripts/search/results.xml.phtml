@@ -29,7 +29,38 @@ $statistics->appendChild($dom->createElement('resultsPerPage', $this->paginator-
 $meta->appendChild($statistics);
 
 $artefactsElem = $dom->createElement('results');
-foreach ($this->results as $r) {
+
+$fieldsRemove = array(
+    'finderID', 'finder', 'gridref',
+    'latitude', 'longitude', 'usernameUpdate',
+    'fullnameUpdate', 'geohash', 'elevation',
+    'landOwnerName', 'address', 'postcode',
+    'easting', 'northing', 'findspotDescription',
+    'comments', 'disccircum', 'coordinates'
+
+);
+$knownasRemove = array(
+    'parish', 'parishID', 'centreLat',
+    'centreLon', 'fourFigureLat', 'fourFigureLon',
+    'fourFigure', 'map25k', 'map10k', 'woeid',
+    'geonamesID'
+);
+foreach ($this->results as $find) {
+    foreach ($find as $k => $v) {
+        if (in_array($k, $fieldsRemove)) {
+            unset($find[$k]);
+        }
+    }
+    if(array_key_exists('knownas', $find) && !is_null($find['knownas'])){
+        foreach ($find as $k => $v) {
+            if (in_array($k, $knownasRemove)) {
+                unset($find[$k]);
+            }
+        }
+    }
+    $results[] = $find;
+}
+foreach ($results as $r) {
     if (array_key_exists('knownas', $r)) {
         unset($r['fourFigure']);
     }
