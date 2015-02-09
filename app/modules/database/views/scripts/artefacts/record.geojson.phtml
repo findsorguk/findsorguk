@@ -16,8 +16,9 @@ $knownasRemove = array(
     'geonamesID'
 );
 ?>
-<?php if ($this->record): ?>
-    <?php foreach ($this->record as $result) {
+
+<?php if ($this->finds): ?>
+    <?php foreach ($this->finds as $result) {
         foreach ($result as $k => $v) {
             if (in_array($k, $fieldsRemove)) {
                 unset($result[$k]);
