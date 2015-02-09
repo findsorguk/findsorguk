@@ -1,1 +1,0 @@
-ALTER TABLE `hoards_finders` ADD `viewOrder` INT(2) NULL DEFAULT NULL AFTER `finderID`;

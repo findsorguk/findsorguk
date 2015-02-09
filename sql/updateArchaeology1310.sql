@@ -1,2 +1,0 @@
-ALTER TABLE `archaeology` ADD `createdBy` INT(11) NULL DEFAULT NULL AFTER `valid`, ADD `created` DATETIME NULL DEFAULT NULL AFTER `createdBy`, ADD `updatedBy` INT(11) NULL DEFAULT NULL AFTER `created`, ADD `updated` DATETIME NULL DEFAULT NULL AFTER `updatedBy`;
-ALTER TABLE `archaeology` ADD `institution` VARCHAR(10) NULL DEFAULT NULL AFTER `valid`;
