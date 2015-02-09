@@ -2,12 +2,12 @@
 /**
  * A view helper for determining which findspot partial to display to the user
  *
- * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_View_Helper
  * @subpackage Abstract
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @see Zend_View_Helper_Abstract
  * @todo this class can be cut substantially for the user object to come from just one call
  * @uses Zend_Auth
