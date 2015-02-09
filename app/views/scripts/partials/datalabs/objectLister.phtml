@@ -11,7 +11,7 @@
     <td><?php echo $this->preferNarrow()->setTerm($this->status); ?></td>
     <td>
         <?php if (!is_null($this->ehID)): ?>
-            <?php echo $this->ehID; ?>
+            <a href="http://purl.org/heritagedata/schemes/mda_obj/concepts/<?php echo $this->ehID;?>"><?php echo $this->ehID; ?></a>
         <?php else: ?>
             -
         <?php endif; ?>
