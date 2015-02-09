@@ -143,13 +143,12 @@
 
             <!-- Display coins data -->
             <?php
-echo $this->coinDataDisplay()
-    ->setObjectType($this->finds[0]['objecttype'])
-    ->setBroadperiod($this->finds[0]['broadperiod'])
-    ->setCoins($this->finds)
-    ->setFinds($this->finds)
-    ->setData($this->coins);
-?>
+                echo $this->coinDataDisplay()->setObjectType($this->finds[0]['objecttype'])
+                    ->setBroadperiod($this->finds[0]['broadperiod'])
+                    ->setCoins($this->finds)
+                    ->setFinds($this->finds)
+                    ->setData($this->coins);
+            ?>
 
             <!--  Start the numismatic references -->
             <?php if (in_array($this->finds[0]['objecttype'], array('coin', 'COIN', 'Coin'))): ?>

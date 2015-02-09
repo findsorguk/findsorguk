@@ -49,9 +49,9 @@
                 title="view all records assigned to <?php echo $this->tribe; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
 
-    <?php if (!is_null($this->region)): ?>
+    <?php if (!is_null($this->ironAgeRegion)): ?>
         <br />
-        Geographic provenance: <?php echo $this->escape($this->area); ?> <?php echo $this->escape($this->region); ?>
+        Geographic provenance: <?php echo $this->ironAgeArea; ?> <?php echo $this->ironAgeRegion; ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->bmcType)): ?>
