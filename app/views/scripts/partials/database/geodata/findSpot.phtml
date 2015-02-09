@@ -347,7 +347,12 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
 <?php endif; ?>
 
 <!-- </div> -->
-<?php $details = array($this->findspotDescription, $this->comments, $this->landOwnerName, $this->address, $this->postcode);?>
+<?php
+$details = array(
+    $this->findspotDescription, $this->comments, $this->landOwnerName,
+    $this->address, $this->postcode, $this->landOwnerID
+);
+?>
 <?php if(array_filter($details)):?>
 <div class="row-fluid">
     <p>
@@ -362,7 +367,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
 
         <?php if (!is_null($this->landOwnerName)): ?>
             <br/>
-            Land owned by: <?php echo $this->landOwnerName; ?>
+            Land owned by: <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'people', 'action' => 'person', 'id' => $this->landOwnerID),'default', true);?>"><?php echo $this->landOwnerName; ?></a>
         <?php endif; ?>
 
         <?php if (!is_null($this->address)): ?>
