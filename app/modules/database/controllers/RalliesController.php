@@ -192,7 +192,7 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
             $form->submit->setLabel('Update details');
             $this->view->form = $form;
             if ($this->_request->isPost()) {
-                if ($form->isValid($formData)) {
+                if ($form->isValid($this->_request->getPost())) {
                     $updateData = $this->_rallies->updateAndProcess($form->getValues());
                     $where = array();
                     $where[] = $this->_rallies->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
