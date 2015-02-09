@@ -271,7 +271,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      * @access public
      * @return void
      */
-    public function coinauditAction()
+    public function coinsauditAction()
     {
         $audit = new CoinsAudit();
         $this->view->audit = $audit->getChange($this->getParam('id'));
