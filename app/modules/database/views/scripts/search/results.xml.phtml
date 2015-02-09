@@ -60,23 +60,17 @@ foreach ($this->results as $find) {
     }
     $results[] = $find;
 }
-foreach ($results as $r) {
-    if (array_key_exists('knownas', $r)) {
-        unset($r['fourFigure']);
+if(!empty($results)) {
+    foreach ($results as $r) {
+        $artefactElem = $dom->createElement('result');
+        foreach ($r as $k => $a) {
+            $artefactElem->appendChild($dom->createElement($k, htmlspecialchars(strip_tags($a))));
+        }
+        $artefactsElem->appendChild($artefactElem);
     }
-    if (!array_key_exists('thumbnail', $r)) {
-        unset($r['imagedir']);
-        unset($r['filename']);
-    }
-    $artefactElem = $dom->createElement('result');
-    foreach ($r as $k => $a) {
-
-        $artefactElem->appendChild($dom->createElement($k, htmlspecialchars(strip_tags($a))));
-    }
-    $artefactsElem->appendChild($artefactElem);
+    $artefact->appendChild($artefactsElem);
+    $dom->appendChild($artefact);
 }
-$artefact->appendChild($artefactsElem);
-$dom->appendChild($artefact);
 
 $xmlData = $dom->saveXML();
 echo $xmlData;
