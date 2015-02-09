@@ -76,4 +76,11 @@
 </div>
 <?php else:?>
     <p>No file found</p>
+    <?php
+    $image = new Pas_Image_MagickDust();
+    $image->setImage(IMAGE_PATH . '/' . $this->username . '/' . $this->filename);
+    $image->setImageNumber((int)$this->id);
+    $image->setUser($this->username);
+    $image->resize();
+    ?>
 <?php endif;?>

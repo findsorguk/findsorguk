@@ -73,11 +73,9 @@ class Slides extends Pas_Db_Table_Abstract
                     'label',
                     'createdBy'
                 ))
-            ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id',
-                array())
+            ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id', array())
             ->joinLeft($joinTable, $join, $fields)
-            ->joinLeft('users', 'users.id = slides.createdBy',
-                array('username', 'imagedir'))
+            ->joinLeft('users', 'users.id = slides.createdBy', array('username', 'imagedir'))
             ->where('finds.id = ?', (int)$id)
             ->order('slides.' . $this->_primary . ' ASC');
         return $thumbs->fetchAll($select);
