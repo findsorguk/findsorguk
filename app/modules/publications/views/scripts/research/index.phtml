@@ -30,7 +30,7 @@ $this->metaBase()
             if (!$root) {
                 $root = $filename;
             } ?>
-            <a href="documents/britannia/<?php
+            <a href="/documents/britannia/<?php
             echo $fileInfo->getFilename();
             ?>"><?php echo $root; ?></a>
         </li>
@@ -49,7 +49,7 @@ $this->metaBase()
             if (!$root) {
                 $root = $filename;
             } ?>
-            <a href="<?php echo $this->baseUrl(); ?>/documents/medieval/<?php echo $fileInfo->getFilename();?>"><?php echo $root; ?></a>
+            <a href="/documents/medieval/<?php echo $fileInfo->getFilename();?>"><?php echo $root; ?></a>
         </li>
     <?php endforeach; ?>
 
@@ -69,9 +69,8 @@ $this->metaBase()
             if (!$root) {
                 $root = $filename;
             } ?>
-            <a href="<?php echo $this->baseUrl(); ?>/documents/postmedieval/<?php
-            echo $fileInfo->getFilename();
-            ?>"><?php echo $root; ?></a></li>
+            <a href="/documents/postmedieval/<?php echo $fileInfo->getFilename();?>"><?php echo $root; ?></a>
+        </li>
     <?php } ?>
 
 </ul>
