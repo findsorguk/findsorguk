@@ -407,10 +407,9 @@ class Finds extends Pas_Db_Table_Abstract
                     'ruler2' => 'ruler2_id',
                     'mintID' => 'mint_id'
                 ))
-            ->joinLeft('ironagetribes', 'coins.tribe = ironagetribes.id',
-                array('tribe'))
-            ->joinLeft('geographyironage', 'geographyironage.id = coins.geographyID',
-                array('region', 'area'))
+            ->joinLeft('ironagetribes', 'coins.tribe = ironagetribes.id', array('tribe'))
+            ->joinLeft('geographyironage', 'geographyironage.id = coins.geographyID', array('ironAgeRegion' => 'region',
+                'ironAgeArea' => 'area'))
             ->joinLeft('denominations', 'denominations.id = coins.denomination',
                 array(
                     'denomination',
@@ -468,8 +467,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft(array('u' => 'users'), 'slides.createdBy = u.id',
                 array('imagedir')
             )
-            ->joinLeft('regions', 'findspots.regionID = regions.id',
-                array('region'))
+            ->joinLeft('regions', 'findspots.regionID = regions.id', array('region'))
             ->joinLeft('rallies', 'rallies.id = finds.rallyID',
                 array(
                     'rallyID' => 'id', 'rallyName' => 'rally_name',

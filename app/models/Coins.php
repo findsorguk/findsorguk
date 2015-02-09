@@ -62,8 +62,7 @@ class Coins extends Pas_Db_Table_Abstract
                 array('broadperiod', 'returnID' => 'id', 'old_findID'))
             ->joinLeft('ironagetribes', 'coins.tribe = ironagetribes.id',
                 array('tribe'))
-            ->joinLeft('geographyironage', 'geographyironage.id = coins.geographyID',
-                array('r' => 'region', 'a' => 'area'))
+            ->joinLeft('geographyironage', 'geographyironage.id = coins.geographyID', array('r' => 'region', 'a' => 'area'))
             ->joinLeft('denominations', 'denominations.id = coins.denomination',
                 array('d' => 'denomination'))
             ->joinLeft('rulers', 'rulers.id = coins.ruler_id',
