@@ -158,7 +158,7 @@
         <!-- existing coin references -->
         <?php if (!empty($this->coinrefs)): ?>
             <ul>
-                <?php echo $this->partial('partials/numismatics/shared/coinReferences.phtml', $this->coinrefs['0']); ?>
+                <?php echo $this->partialLoop('partials/numismatics/shared/coinReferences.phtml', $this->coinrefs); ?>
             </ul>
         <?php else: ?>
             <p>

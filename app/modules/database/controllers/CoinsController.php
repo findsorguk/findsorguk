@@ -194,14 +194,13 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
                 $coins = new CoinXClass();
-                $secuid = $this->secuid();
                 $insertData = array(
-                    'findID' => (string)$this->getParam('returnID'),
+                    'findID' => $this->getParam('returnID'),
                     'classID' => $form->getValue('classID'),
                     'vol_no' => $form->getValue('vol_no'),
                     'reference' => $form->getValue('reference')
                 );
-                $coins->insert($insertData);
+                $coins->add($insertData);
                 $this->getFlash()->addMessage('Coin reference data saved.');
                 $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
             } else {
@@ -223,7 +222,6 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
             if ($form->isValid($this->_request->getPost())) {
                 $coins = new CoinXClass();
                 $updateData = array(
-                    'findID' => (string)$this->getParam('findID'),
                     'classID' => $form->getValue('classID'),
                     'vol_no' => $form->getValue('vol_no'),
                     'reference' => $form->getValue('reference')
@@ -261,7 +259,6 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
             if ($del == 'Yes' && $id > 0) {
                 $coins = new CoinXClass();
                 $where = $coins->getAdapter()->quoteInto('id = ?', $id);
-                $this->_helper->solrUpdater->update('objects', $returnID);
                 $this->getFlash()->addMessage('Record deleted!');
                 $coins->delete($where);
                 $this->redirect(self::REDIRECT . 'record/id/' . $returnID);
