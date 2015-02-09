@@ -56,8 +56,8 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow('fa', null);
+        $this->_helper->_acl->allow('hoard', null);
         $this->_helper->_acl->allow('admin', null);
-
     }
 
     /** The array functions class

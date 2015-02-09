@@ -385,7 +385,7 @@ class HoardForm extends Pas_Form {
         //Discovery method
         $discmethod = new Zend_Form_Element_Select('discmethod');
         $discmethod->setLabel('Discovery method: ')
-            ->setRequired(true)
+            ->setRequired(false)
             ->setValue(1)
             ->addFilters(array('StripTags','StringTrim', 'Null'))
             ->addValidator('Int')
