@@ -103,6 +103,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
                     $insertData = $form->getValues();
                     $insertData['secuid'] = $this->secuid();
                     $insertData['findID'] = $this->getParam('findID');
+                    $insertData['institution'] = $this->getInstitution();
                     $this->getCoins()->add($insertData);
                     $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'), 'artefacts');
                     $this->getFlash()->addMessage('Jetton data saved for this record.');
@@ -122,7 +123,7 @@ class Database_JettonsController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        $this->view->coin = $coin = $this->getCoins()->fetchRow('id=' . $this->getParam('id'))->toArray();
+        $this->view->coin = $this->getCoins()->fetchRow('id=' . $this->getParam('id'))->toArray();
         if ($this->getParam('id', false)) {
             $finds = new Finds();
             $this->view->finds = $finds->getFindNumbersEtc($this->getParam('returnID'));
