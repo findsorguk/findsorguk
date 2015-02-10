@@ -24,8 +24,7 @@
  * @uses Moneyers
  * @uses MedievalTypes
  */
-class Pas_Controller_Action_Helper_CoinFormLoaderOptions
-    extends Zend_Controller_Action_Helper_Abstract
+class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller_Action_Helper_Abstract
 {
 
     /** The view object
@@ -88,12 +87,12 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
      */
     public function optionsAddClone($broadperiod, array $coinDataFlat)
     {
+        $coinDataFlat = $coinDataFlat[0];
         switch ($broadperiod) {
             case 'IRON AGE':
-                if (isset($coinDataFlat['denomination'])) {
+                if (array_key_exists('denomination', $coinDataFlat)) {
                     $geographies = new Geography();
-                    $geography_options = $geographies
-                        ->getIronAgeGeographyMenu($coinDataFlat['denomination']);
+                    $geography_options = $geographies->getIronAgeGeographyMenu($coinDataFlat['denomination']);
                     $this->_view->form->geographyID->addMultiOptions(array(
                         null => 'Choose geographic region',
                         'Available regions' => $geography_options
@@ -103,7 +102,7 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
                 }
                 break;
             case 'ROMAN':
-                if (isset($coinDataFlat['ruler_id'])) {
+                if (array_key_exists('ruler_id', $coinDataFlat)) {
                     $reverses = new RevTypes();
                     $reverse_options = $reverses->getRevTypesForm($coinDataFlat['ruler_id']);
                     if ($reverse_options) {
@@ -123,7 +122,7 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
                         null => 'No options available'));
                     $this->_view->form->revtypeID->setRegisterInArrayValidator(false);
                 }
-                if (isset($coinDataFlat['ruler']) && ($coinDataFlat['ruler_id'] == 242)) {
+                if (array_key_exists('ruler_id', $coinDataFlat) && ($coinDataFlat['ruler_id'] == 242)) {
                     $moneyers = new Moneyers();
                     $moneyer_options = $moneyers->getRepublicMoneyers();
                     $this->_view->form->moneyer->addMultiOptions(array(
@@ -137,27 +136,33 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions
                 }
                 break;
             case 'EARLY MEDIEVAL':
-                $types = new MedievalTypes();
-                $type_options = $types->getMedievalTypeToRulerMenu($coinDataFlat['ruler_id']);
-                $this->_view->form->typeID->addMultiOptions(array(
-                    null => 'Choose Early Medieval type',
-                    'Available types' => $type_options));
+                if (array_key_exists('ruler_id', $coinDataFlat)) {
+                    $types = new MedievalTypes();
+                    $type_options = $types->getMedievalTypeToRulerMenu($coinDataFlat['ruler_id']);
+                    $this->_view->form->typeID->addMultiOptions(array(
+                        null => 'Choose Early Medieval type',
+                        'Available types' => $type_options));
+                }
                 break;
             case 'MEDIEVAL':
-                $types = new MedievalTypes();
-                $type_options = $types->getMedievalTypeToRulerMenu($coinDataFlat['ruler_id']);
-                $this->_view->form->typeID->addMultiOptions(array(
-                    null => 'Choose Medieval type',
-                    'Available types' => $type_options
-                ));
+                if (array_key_exists('ruler_id', $coinDataFlat)) {
+                    $types = new MedievalTypes();
+                    $type_options = $types->getMedievalTypeToRulerMenu($coinDataFlat['ruler_id']);
+                    $this->_view->form->typeID->addMultiOptions(array(
+                        null => 'Choose Medieval type',
+                        'Available types' => $type_options
+                    ));
+                }
                 break;
             case 'POST MEDIEVAL':
-                $types = new MedievalTypes();
-                $type_options = $types->getMedievalTypeToRulerMenu((int)$coinDataFlat['ruler_id']);
-                $this->_view->form->typeID->addMultiOptions(array(
-                    null => 'Choose Post Medieval type',
-                    'Available types' => $type_options
-                ));
+                if (array_key_exists('ruler_id', $coinDataFlat)) {
+                    $types = new MedievalTypes();
+                    $type_options = $types->getMedievalTypeToRulerMenu((int)$coinDataFlat['ruler_id']);
+                    $this->_view->form->typeID->addMultiOptions(array(
+                        null => 'Choose Post Medieval type',
+                        'Available types' => $type_options
+                    ));
+                }
                 break;
             default:
                 return false;
