@@ -289,13 +289,14 @@ class Finds extends Pas_Db_Table_Abstract
                 'smrRef' => 'smr_ref',
                 'createdBy',
                 'updatedBy',
-                'hoardcontainer'
+                'hoardcontainer',
+                'institution'
             ))
             ->joinLeft('findofnotereasons',
                 'finds.findofnotereason = findofnotereasons.id',
                 array('reason' => 'term'))
             ->joinLeft('users', 'users.id = finds.createdBy',
-                array('username', 'fullname', 'institution'))
+                array('username', 'fullname'))
             ->joinLeft(array('users2' => 'users'), 'users2.id = finds.updatedBy',
                 array(
                     'usernameUpdate' => 'username',
