@@ -907,7 +907,8 @@ class Hoards extends Pas_Db_Table_Abstract
                     'discovery' => 'discmethod',
                     'recorderID',
                     'identifierID' => 'identifier1ID',
-                    'createdBy'
+                    'createdBy',
+                    'reeceID'
                 ))
             ->joinLeft('findspots', 'hoards.secuid = findspots.findID',
                 array(
