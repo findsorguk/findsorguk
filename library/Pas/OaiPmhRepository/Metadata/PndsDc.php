@@ -102,8 +102,14 @@ class Pas_OaiPmhRepository_Metadata_PndsDc extends Pas_OaiPmhRepository_Metadata
 
         if (!array_key_exists('0', $this->item)) {
 
+            if (array_key_exists('objecttype', $this->item) && $this->item['objecttype'] === 'HOARD') {
+                $uri = self::HOARD_URI;
+            } else {
+                $uri = self::RECORD_URI;
+            }
+
             $data = array(
-                'identifier' => $this->_serverUrl . self::RECORD_URI . $this->item['id'],
+                'identifier' => $this->_serverUrl . $uri. $this->item['id'],
                 'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
                 'description' => strip_tags($this->_xmlEscape($this->item['description'])),
                 'subject' => self::SUBJECT,

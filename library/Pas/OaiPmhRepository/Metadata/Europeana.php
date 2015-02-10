@@ -68,54 +68,63 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
         //Create the dublin core metadata from an array of objects
         if (!array_key_exists('0', $this->item)) {
 
-            if(!array_key_exists('objecttype', $this->item)){
+            if (array_key_exists('objecttype', $this->item) && $this->item['objecttype'] === 'HOARD') {
+                $uri = self::HOARD_URI;
+            } else {
+                $uri = self::RECORD_URI;
+            }
+
+            if (!array_key_exists('objecttype', $this->item)) {
                 $this->item['objecttype'] = 'Unidentified object';
             }
-            if(!array_key_exists('broadperiod', $this->item)){
+            if (!array_key_exists('broadperiod', $this->item)) {
                 $this->item['broadperiod'] = 'UNKNOWN';
             }
-            if(!array_key_exists('identifier', $this->item)){
+            if (!array_key_exists('identifier', $this->item)) {
                 $this->item['identifier'] = 'Unidentified';
             }
 
-            if(!array_key_exists('county', $this->item)){
+            if (!array_key_exists('county', $this->item)) {
                 $this->item['county'] = 'Not recorded';
             }
 
-            if(!array_key_exists('description', $this->item)){
+            if (!array_key_exists('description', $this->item)) {
                 $this->item['description'] = 'No description available';
             }
 
-            if(!array_key_exists('district', $this->item)){
+            if (!array_key_exists('district', $this->item)) {
                 $this->item['district'] = 'Not recorded';
             }
 
-            if(!array_key_exists('county', $this->item)){
+            if (!array_key_exists('county', $this->item)) {
                 $this->item['county'] = 'Not recorded';
             }
 
-            if(!array_key_exists('knownas', $this->item)){
+            if (!array_key_exists('knownas', $this->item)) {
                 $this->item['knownas'] = NULL;
             }
 
-            if(!array_key_exists('fourFigure', $this->item)){
+            if (!array_key_exists('fourFigure', $this->item)) {
                 $this->item['fourFigure'] = NULL;
             }
 
-            if(!array_key_exists('fourFigureLon', $this->item)){
+            if (!array_key_exists('fourFigureLon', $this->item)) {
                 $this->item['fourFigureLon'] = NULL;
             }
 
-            if(!array_key_exists('fourFigureLat', $this->item)){
+            if (!array_key_exists('fourFigureLat', $this->item)) {
                 $this->item['fourFigureLat'] = NULL;
             }
 
-            if(!array_key_exists('fromdate', $this->item)){
+            if (!array_key_exists('fromdate', $this->item)) {
                 $this->item['fromdate'] = NULL;
             }
 
-            if(!array_key_exists('todate', $this->item)){
+            if (!array_key_exists('todate', $this->item)) {
                 $this->item['todate'] = NULL;
+            }
+            if (!array_key_exists('materialTerm', $this->item)) {
+                $this->item['materialTerm'] = NULL;
             }
 
             $dc = array(
@@ -139,8 +148,8 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
                 'county' => $this->item['county'],
                 'district' => $this->item['district']
             );
-            $geo = array( $this->item['knownas'], $this->item['fourFigure'], $this->item['fourFigureLat'], $this->item['fourFigureLon']);
-            if(array_filter($geo)) {
+            $geo = array($this->item['knownas'], $this->item['fourFigure'], $this->item['fourFigureLat'], $this->item['fourFigureLon']);
+            if (array_filter($geo)) {
                 //Check for availability of NGR and therefore latlon conversions
                 if (is_null($this->item['knownas']) && !is_null($this->item['fourFigure'])) {
                     $lat = $this->item['fourFigureLat'];
@@ -159,8 +168,8 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
             $ese['type'] = 'TEXT';
 
             $dates = array($this->item['fromdate'], $this->item['todate']);
-            if(array_filter($dates)) {
-                if(!is_null($this->item['todate'])){
+            if (array_filter($dates)) {
+                if (!is_null($this->item['todate'])) {
                     $this->item['todate'] = $this->item['fromdate'];
                 }
                 $temporal = array(
@@ -171,11 +180,11 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
 
             $formats = array();
 
-            if (array_key_exists('thumbnail',$this->item) && !is_null($this->item['thumbnail'])) {
+            if (array_key_exists('thumbnail', $this->item) && !is_null($this->item['thumbnail'])) {
                 $ese['isShownBy'] = $this->_serverUrl . self::THUMB_PATH . $this->item['thumbnail'] . self::EXTENSION;
                 $formats[] = $this->_serverUrl . '/' . $this->item['imagedir'] . $this->item['filename'];
             }
-            $ese['isShownAt'] = $this->_serverUrl . self::RECORD_URI . $this->item['id'];
+            $ese['isShownAt'] = $this->_serverUrl . $uri . $this->item['id'];
             foreach ($dc as $k => $v) {
                 $this->appendNewElement($europeana, 'dc:' . $k, $v);
             }
@@ -185,11 +194,15 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
             foreach ($formats as $k => $v) {
                 $this->appendNewElement($europeana, 'dcterms:hasFormat', $v);
             }
-            foreach ($temporal as $k => $v) {
-                $this->appendNewElement($europeana, 'dcterms:temporal', $v);
+            if (array_filter($dates)) {
+                foreach ($temporal as $k => $v) {
+                    $this->appendNewElement($europeana, 'dcterms:temporal', $v);
+                }
             }
-            foreach ($spatial as $k => $v) {
-                $this->appendNewElement($europeana, 'dcterms:spatial', $v);
+            if (array_filter($geo)) {
+                foreach ($spatial as $k => $v) {
+                    $this->appendNewElement($europeana, 'dcterms:spatial', $v);
+                }
             }
             foreach ($ese as $k => $v) {
                 $this->appendNewElement($europeana, 'ese:' . $k, $v);
