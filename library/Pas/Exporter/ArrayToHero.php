@@ -98,12 +98,10 @@ class Pas_Exporter_ArrayToHero
                 'ObjectDescription' => 'description',
                 'ObjectInscription' => 'inscription',
                 'notes' => 'notes',
-                'DateFrom' => 'datefrom',
-                'DateTo' => 'dateto',
+                'DateFrom' => 'fromdate',
+                'DateTo' => 'todate',
                 'PeriodFrom' => 'periodFromName',
                 'PeriodTo' => 'periodToName',
-                'DateTo' => 'todate',
-                'DateFrom' => 'fromdate',
                 'AscribedCulture' => 'cultureName',
                 'PrimaryMaterial' => 'materialTerm',
                 'AdditionalMaterial' => 'secondaryMaterialTerm',
@@ -130,7 +128,7 @@ class Pas_Exporter_ArrayToHero
                 'BroadPeriod' => 'broadperiod',
                 'WorkflowStage' => 'workflow',
                 'Ruler' => 'rulerName',
-                'Denomination' => 'denomination',
+                'Denomination' => 'denominationName',
                 'Mint' => 'mintName',
                 'CoinType' => 'typeTerm',
                 'Moneyer' => 'moneyerName',
@@ -140,13 +138,60 @@ class Pas_Exporter_ArrayToHero
                 'Reverse_inscription' => 'reverseLegend',
                 'Reverse_mintmark' => 'mintmark',
                 'Die_axis_measurement' => 'axis',
-                'Completeness' => 'completenessTerm',
                 'FindOfficer' => 'recorder',
                 'KnownAs' => 'knownas',
                 'IDOfFind' => 'id',
                 'Decstyle' => 'decstyleTerm',
-                'Denomination' => 'denominationName',
-                'FindspotCode' => 'Findspotcode'
+                'FindspotCode' => 'Findspotcode',
+                'ObjectClassification' => 'classification',
+                'ObjectSubClassification' => 'subclass',
+                'Notes' => 'notes',
+                'ObjectDate1Certainty' => 'periodFromCertainty',
+                'ObjectDate2Certainty' => 'periodToCertainty',
+                'CalendarDate1Qualifier' => 'dateFromCertainty',
+                'CalendarDate2Qualifier' => 'dateToCertainty',
+                'reeceID' => 'reeceID',
+                'Die_axis_certainty' => 'dieAxisCertainty',
+                'Degree_of_wear' => 'wear',
+                'length' => 'length',
+                'width' => 'width',
+                'thickness' => 'thickness',
+                'diameter' => 'diameter',
+                'weight' => 'weight',
+                'quantity' => 'quantity',
+                'county' => 'county',
+                'district' => 'district',
+                'parish' => 'parish',
+                'address' => 'address',
+                'postcode' => 'postcode',
+                'description' => 'findspotDescription',
+                'comments' => 'comments',
+                'Occupier' => null,
+                'FormerFinderID' => 'finderID',
+                'DateFound1Qualifier' => null,
+                'DateFound2Qualifier' => null,
+                'DecmethodObsolete' => null,
+                'FormerPhotoReference' => null,
+                'FormerDrawingReference' => null,
+                'FormerCandidateTerm' => null,
+                'ExportedToWeb' => null,
+                'FindOfficerFindspot' => 'recorder',
+                'RulerQualifier' => 'rulerQualifier',
+                'MintQualifier' => 'mintQualifier',
+                'DenominationQualifier' => 'denominationQualifier',
+                'StatusQualifier' => 'statusQualifier',
+                'SpecificLanduse' => null,
+                'GeneralLanduse' => null,
+                'Wear' => null,
+                'EvidenceOfReuse' => 'reuse',
+                'CircumstancesofDiscovery' => null,
+                'PeriodOfReuse' => null,
+                'LandOwner' => 'landowner',
+                'STATUS' => 'statusTerm',
+                'SubperiodFrom' => 'subperiodFrom',
+                'SubperiodTo' => 'subperiodTo'
+
+
             );
             foreach ($cleanedArray as $key => $value) {
                 if (array_key_exists($value, $dat)) {
@@ -156,11 +201,9 @@ class Pas_Exporter_ArrayToHero
                 }
             }
             $new['Initial_mark'] = null;
-            $new['SubperiodFrom'] = null;
-            $new['SubperiodTo'] = null;
-            $new['STATUS'] = null;
             $nullified[] = $new;
         }
+
         foreach ($nullified AS $null) {
             foreach ($null as $k => $v) {
                 $trimmed = trim(strip_tags(str_replace(array('<br />'), array("\n", "\r"), utf8_decode($v))));
@@ -174,6 +217,7 @@ class Pas_Exporter_ArrayToHero
                     }
                 }
             }
+
             $cleanSort = $this->sortArrayByArray($record, $this->_fields);
             $finalData[] = $cleanSort;
         }
