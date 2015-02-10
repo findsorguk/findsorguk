@@ -47,12 +47,7 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
             'xsi:schemaLocation', self::METADATA_NAMESPACE . ' ' . self::METADATA_SCHEMA);
 
         if (!array_key_exists('0', $this->item)) {
-            if(array_key_exists('objecttype', $this->item)){
-                $objecttype = $this->item['objecttype'];
-            } else {
-                $objecttype = 'HOARD';
-            }
-            if($objecttype = 'HOARD'){
+            if (array_key_exists('objecttype', $this->item) && $this->item['objecttype'] === 'HOARD') {
                 $uri = self::HOARD_URI;
             } else {
                 $uri = self::RECORD_URI;

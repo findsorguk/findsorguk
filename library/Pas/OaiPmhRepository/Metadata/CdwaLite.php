@@ -58,7 +58,7 @@ class Pas_OaiPmhRepository_Metadata_CdwaLite extends Pas_OaiPmhRepository_Metada
         $descriptive = $this->appendNewElement($cdwalite, 'cdwalite:descriptiveMetadata');
         $types = array('Archaeological artefact record');
         $objectWorkTypeWrap = $this->appendNewElement($descriptive, 'cdwalite:objectWorkTypeWrap');
-        if (count($types) == 0) {
+        if (!empty($types)) {
             $types[] = 'Unknown';
         }
         foreach ($types as $type) {
@@ -73,7 +73,7 @@ class Pas_OaiPmhRepository_Metadata_CdwaLite extends Pas_OaiPmhRepository_Metada
             . ucfirst(strtolower($this->item['objecttype'])));
 
         $titleWrap = $this->appendNewElement($descriptive, 'cdwalite:titleWrap');
-        if (count($titles) == 0) {
+        if (!empty($titles)) {
             $titles[] = 'Unknown';
         }
 
@@ -82,6 +82,9 @@ class Pas_OaiPmhRepository_Metadata_CdwaLite extends Pas_OaiPmhRepository_Metada
             $this->appendNewElement($titleSet, 'cdwalite:title', $title);
         }
 
+        if(!array_key_exists('creator', $this->item)){
+            $this->item['creator'] = 'The Portable Antiquities Scheme';
+        }
         $creators = array($this->item['creator']);
         foreach ($creators as $creator) {
             $creatorTexts[] = $creator;
@@ -90,7 +93,7 @@ class Pas_OaiPmhRepository_Metadata_CdwaLite extends Pas_OaiPmhRepository_Metada
         $this->appendNewElement($descriptive, 'cdwalite:displayCreator', $creatorText);
 
         $indexingCreatorWrap = $this->appendNewElement($descriptive, 'cdwalite:indexingCreatorWrap');
-        if (count($creators) == 0) {
+        if (!empty($creators)) {
             $creators[] = 'Unknown';
         }
         foreach ($creators as $creator) {
@@ -99,9 +102,15 @@ class Pas_OaiPmhRepository_Metadata_CdwaLite extends Pas_OaiPmhRepository_Metada
             $this->appendNewElement($nameCreatorSet, 'cdwalite:nameCreator', $creator);
             $this->appendNewElement($indexingCreatorSet, 'cdwalite:roleCreator', 'Unknown');
         }
+        if(!array_key_exists('materialTerm', $this->item)){
+            $this->item['materialTerm'] = NULL;
+        }
 
-        $materials = array($this->item['materialTerm'], $this->item['secondaryMaterialTerm']);
-        if (count($materials) == 0) {
+        if(!array_key_exists('secondaryMaterialTerm', $this->item)){
+            $this->item['secondaryMaterialTerm'] = NULL;
+        }
+        $materials = array($this->item['materialTerm'], $this->item['secondaryMaterialTerm'] );
+        if (array_filter($materials)) {
             $materials[] = 'Unknown';
         }
 
@@ -118,6 +127,12 @@ class Pas_OaiPmhRepository_Metadata_CdwaLite extends Pas_OaiPmhRepository_Metada
         * Required. Fill with 'Unknown' if omitted.
         * Non-repeatable, include only first date.
         */
+        if (!array_key_exists('fromdate', $this->item)) {
+            $this->item['fromdate'] = NULL;
+        }
+        if (!array_key_exists('todate', $this->item)) {
+            $this->item['todate'] = NULL;
+        }
         $dates = array($this->item['fromdate'], $this->item['todate']);
         $dateText = count($dates) > 0 ? $dates[0] : 'Unknown';
         $this->appendNewElement($descriptive, 'cdwalite:displayCreationDate', $dateText);
@@ -143,6 +158,9 @@ class Pas_OaiPmhRepository_Metadata_CdwaLite extends Pas_OaiPmhRepository_Metada
         /* Description => descriptiveNoteWrap->descriptiveNoteSet->descriptiveNote
         * Not required.
         */
+        if (!array_key_exists('description', $this->item)) {
+            $this->item['description'] = NULL;
+        }
         $descriptions = array($this->item['description']);
         if (count($descriptions) > 0) {
             $descriptiveNoteWrap = $this->appendNewElement($descriptive, 'cdwalite:descriptiveNoteWrap');

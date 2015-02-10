@@ -82,6 +82,12 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
         $lidoElement->setAttribute('xsi:schemaLocation', self::METADATA_NAMESPACE . ' ' . self::METADATA_SCHEMA);
         //Create the dublin core metadata from an array of objects
         if (!array_key_exists('0', $this->item)) {
+
+            if (array_key_exists('objecttype', $this->item) && $this->item['objecttype'] === 'HOARD') {
+                $uri = self::HOARD_URI;
+            } else {
+                $uri = self::RECORD_URI;
+            }
             //The base LIDO array
             $lido = array();
             if (array_key_exists('broadperiod', $this->item)) {
@@ -111,7 +117,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             $lido['identifier'] = $this->item['old_findID'];
             $lido['coverage'] = $this->item['broadperiod'];
             $lido['rights'] = self::LICENSE;
-            $lido['uri'] = $this->_serverUrl . self::RECORD_URI . $this->item['id'];
+            $lido['uri'] = $this->_serverUrl . $uri . $this->item['id'];
             //The array of dates
             $dates = array();
             if (array_key_exists('fromdate', $this->item)) {
@@ -399,7 +405,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
 
             $types = array('html');
             foreach ($types as $type) {
-                $link = $url->get() . self::RECORD_URI . $this->item['id'];
+                $link = $url->get() . $uri . $this->item['id'];
                 $this->appendNewElement($recordInfoSet, 'lido:recordInfoLink', $link)
                     ->setAttribute('lido:formatResource', $type);
             }
@@ -413,30 +419,32 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
                 $resourceWrapSet->appendChild($resourceSet);
 
                 foreach ($formats as $k => $v) {
-                    list($width, $height) = getimagesize('./' . $this->item['imagedir'] . $this->item['filename']);
-                    $representation = $this->document->createElement('lido:resourceRepresentation');
-                    $resourceSet->appendChild($representation);
-                    $representation->setAttribute('lido:type', $k);
-
-                    $this->appendNewElement($representation, 'lido:linkResource', $v)
-                        ->setAttribute('lido:formatResource', 'jpg');
-
-                    if (file_exists('./' . $this->item['imagedir'] . $this->item['filename'])) {
+                    if(file_exists('./' . $this->item['imagedir'] . $this->item['filename'])) {
                         list($width, $height) = getimagesize('./' . $this->item['imagedir'] . $this->item['filename']);
-                        //Add height measurement set
-                        $measurementSetHeight = $this->document->createElement('lido:resourceMeasurementsSet');
-                        $representation->appendChild($measurementSetHeight);
-                        //Add image height
-                        $this->appendNewElement($measurementSetHeight, 'lido:measurementType', 'height');
-                        $this->appendNewElement($measurementSetHeight, 'lido:measurementUnit', 'pixel');
-                        $this->appendNewElement($measurementSetHeight, 'lido:measurementValue', $height);
-                        //Add Width Measurement Set
-                        $measurementSetWidth = $this->document->createElement('lido:resourceMeasurementsSet');
-                        $representation->appendChild($measurementSetWidth);
-                        //Add image width
-                        $this->appendNewElement($measurementSetWidth, 'lido:measurementType', 'width');
-                        $this->appendNewElement($measurementSetWidth, 'lido:measurementUnit', 'pixel');
-                        $this->appendNewElement($measurementSetWidth, 'lido:measurementValue', $width);
+                        $representation = $this->document->createElement('lido:resourceRepresentation');
+                        $resourceSet->appendChild($representation);
+                        $representation->setAttribute('lido:type', $k);
+
+                        $this->appendNewElement($representation, 'lido:linkResource', $v)
+                            ->setAttribute('lido:formatResource', 'jpg');
+
+                        if (file_exists('./' . $this->item['imagedir'] . $this->item['filename'])) {
+                            list($width, $height) = getimagesize('./' . $this->item['imagedir'] . $this->item['filename']);
+                            //Add height measurement set
+                            $measurementSetHeight = $this->document->createElement('lido:resourceMeasurementsSet');
+                            $representation->appendChild($measurementSetHeight);
+                            //Add image height
+                            $this->appendNewElement($measurementSetHeight, 'lido:measurementType', 'height');
+                            $this->appendNewElement($measurementSetHeight, 'lido:measurementUnit', 'pixel');
+                            $this->appendNewElement($measurementSetHeight, 'lido:measurementValue', $height);
+                            //Add Width Measurement Set
+                            $measurementSetWidth = $this->document->createElement('lido:resourceMeasurementsSet');
+                            $representation->appendChild($measurementSetWidth);
+                            //Add image width
+                            $this->appendNewElement($measurementSetWidth, 'lido:measurementType', 'width');
+                            $this->appendNewElement($measurementSetWidth, 'lido:measurementUnit', 'pixel');
+                            $this->appendNewElement($measurementSetWidth, 'lido:measurementValue', $width);
+                        }
                     }
 
                 }

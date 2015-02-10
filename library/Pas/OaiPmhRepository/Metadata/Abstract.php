@@ -15,12 +15,11 @@
 abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhRepository_OaiXmlGeneratorAbstract
 {
 
-    /** The base record url
-     *
-     */
+    /** The base record url for artefacts */
     const RECORD_URI = '/database/artefacts/record/id/';
 
-    const HOARD_URI = '/database/hoards/record/id';
+    /** The base record url for hoards */
+    const HOARD_URI = '/database/hoards/record/id/';
 
     /** The license type for system
      *
@@ -60,7 +59,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
     /** How was it sourced
      *
      */
-    const PROVENANCE = 'Crowdsourced from the public of England and Wales';
+    const PROVENANCE = 'Crowd-sourced from the public of England and Wales';
 
     /** The thumbnail path
      *
