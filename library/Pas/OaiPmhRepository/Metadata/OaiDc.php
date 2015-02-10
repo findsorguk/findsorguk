@@ -54,25 +54,24 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
             }
 
             if(array_key_exists('description', $this->item)){
-                $description = strip_tags(strtr($this->item['description'], array('\x0B' => '&#x0B;')));
+                $this->item['description'] = strip_tags(strtr($this->item['description'], array('\x0B' => '&#x0B;')));
             } else {
-                $description = 'No description available';
+                $this->item['description'] = 'No description available';
             }
 
-            if(array_key_exists('broadperiod', $this->item)){
-                $broadperiod = $this->item['broadperiod'];
-            } else {
-                $broadperiod = 'UNKNOWN';
+            if(!array_key_exists('broadperiod', $this->item)){
+                $this->item['broadperiod'] = 'UNKNOWN';
             }
+
             $data = array(
-                'title' => $this->item['broadperiod'] . ' ' . $objecttype,
+                'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
                 'creator' => $this->item['creator'],
                 'subject' => self::SUBJECT,
-                'description' => $description,
+                'description' => $this->item['description'],
                 'publisher' => self::RIGHTS_HOLDER,
                 'contributor' => $this->item['institution'],
                 'date' => $this->item['created'],
-                'type' => $objecttype,
+                'type' => $this->item['objecttype'],
                 'format' => self::FORMAT,
                 'id' => $this->item['id'],
                 'identifier' => $this->_serverUrl . $uri . $this->item['id'],
@@ -86,7 +85,7 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
             } else {
                 $data['relation'] = '';
             }
-            $data['coverage'] = $broadperiod;
+            $data['coverage'] = $this->item['broadperiod'];
             $data['rights'] = self::LICENSE;
             unset($data['id']);
             foreach ($data as $k => $v) {
