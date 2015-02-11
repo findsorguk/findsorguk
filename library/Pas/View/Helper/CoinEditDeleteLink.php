@@ -22,11 +22,10 @@
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
- * @version 1
- * @since September 30 2011
+ * @version 2
+ * @since September 11/2/2015
  * @copyright Daniel Pett
  * @author Daniel Pett
- * @todo Streamline and DRY the code
  * @uses Zend_Exception
  * @uses Zend_View_Helper_Url
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
@@ -82,10 +81,7 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
      * @access protected
      * @var array $higherLevel
      */
-    protected $_higherLevel = array(
-        'admin', 'fa', 'treasure',
-        'hoard'
-    );
+    protected $_higherLevel = array('admin', 'fa', 'treasure', 'hoard');
 
     /** The auth object
      * @access protected
@@ -170,7 +166,7 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
 
     /** Set the array of broadperiods
      * @access public
-     * @param type $broadperiods
+     * @param array $broadperiods
      * @return \Pas_View_Helper_CoinDataDisplay
      */
     public function setBroadperiods(array $broadperiods)
@@ -238,30 +234,6 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
         $this->_secuid = $secuid;
         return $this;
     }
-
-    /** The people with no access
-     * @var array
-     * @access protected
-     */
-    protected $noaccess = array('public');
-
-    /** The restricted users groups
-     * @var array
-     * @access protected
-     */
-    protected $restricted = array('member', 'research', 'hero');
-
-    /** The recording group
-     * @var array
-     * @access protected
-     */
-    protected $recorders = array('flos');
-
-    /** The higher level array
-     * @access protected
-     * @var array
-     */
-    protected $higherLevel = array('admin', 'fa', 'treasure', 'hoard');
 
     /** The missing group message
      * @access protected
@@ -384,6 +356,8 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
             } else {
                 $allowed = false;
             }
+        } else {
+            $allowed = false;
         }
         return $allowed;
     }
@@ -395,21 +369,25 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
     public function performChecks()
     {
         // If role = public return false
-        if (in_array($this->getRole(), $this->noaccess)) {
+        if (in_array($this->getRole(), $this->_noaccess)) {
             return false;
         }
-        //If role in restricted and created = createdby return true
-        if (in_array($this->getRole(), $this->restricted) && $this->getCreatedBy() == $this->getUserID()) {
+        //If role in restricted and created = created by return true
+        else if (in_array($this->getRole(), $this->_restricted) && $this->getCreatedBy() == $this->getUserID()) {
             return true;
         }
-        //If role in recorders and institution = inst or createdby = created return true
-        if ((in_array($this->getRole(), $this->recorders) && $this->getInst() == $this->getInstitution()) || $this->getCreatedBy() == $this->getUserID()) {
-
+        //If role in recorders and institution = inst or created by = created return true
+        else if (in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution()
+            || $this->getCreatedBy() == $this->getUserID()
+            || in_array($this->getRole(), $this->_recorders) && $this->getInst() == 'PUBLIC'
+            || in_array($this->getRole(), $this->_recorders) && $this->getInstitution() == 'PUBLIC') {
             return true;
         }
         //If role in higher level return true
-        if (in_array($this->getRole(), $this->higherLevel)) {
+        else if (in_array($this->getRole(), $this->_higherLevel)) {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -459,7 +437,6 @@ class Pas_View_Helper_CoinEditDeleteLink extends Zend_View_Helper_Abstract
             'id' => $this->getRecordID(),
             'broadperiod' => $this->getBroadperiod(),
             'returnID' => $this->getFindID(),
-            'secuid' => $this->getSecuid()
         );
         return $url;
     }
