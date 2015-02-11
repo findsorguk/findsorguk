@@ -22,8 +22,8 @@
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
-<?php if ($this->serverUrl() == 'http://beta.finds.org.uk'): ?>
+<?php if (in_array($this->serverUrl(), array('http://beta.finds.org.uk', 'http://valhalla.finds.org.uk', 'http://finds.dev'))): ?>
     <div class="alert alert-danger" id="announcement">
-        <h2 class="lead">You are on the backup server - there are no images here</h2>
+        <p>You are on the backup server - there are no images here</p>
     </div>
 <?php endif; ?>
