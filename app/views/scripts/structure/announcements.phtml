@@ -22,3 +22,8 @@
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
+<?php if ($this->serverUrl() == 'http://beta.finds.org.uk'): ?>
+    <div class="alert alert-danger" id="announcement">
+        <h2 class="lead">You are on the backup server - there are no images here</h2>
+    </div>
+<?php endif; ?>
