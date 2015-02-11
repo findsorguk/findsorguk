@@ -3,7 +3,7 @@
         <?php
         echo $this->gravatar($this->comment_author_email, array(
             'imgSize' => 30,
-            'defaultImg' => $this->baseUrl() . '/assets/gravatar.png',
+            'defaultImg' => $this->serverUrl() . '/assets/gravatar.png',
             'secure' => true),
             array(
                 'class' => 'avatar pull-left stelae img-circle',
