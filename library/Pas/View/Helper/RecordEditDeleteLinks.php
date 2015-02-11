@@ -309,7 +309,8 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
             return true;
         }
         //If role in recorders and institution = inst or createdby = created return true
-        if ((in_array($this->getRole(), $this->recorders) && $this->getInst() == $this->getInstitution()) || $this->getCreatedBy() == $this->getUserID()) {
+        if ((in_array($this->getRole(), $this->recorders) && $this->getInst() == $this->getInstitution())
+            || $this->getCreatedBy() == $this->getUserID()) {
 
             return true;
         }
@@ -344,9 +345,9 @@ class Pas_View_Helper_RecordEditDeleteLinks extends Zend_View_Helper_Abstract
             return true;
         }
         //If role in recorders and institution = inst or created by = created return true
-        else if (in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution()
+        else if (
+            in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution()
             || $this->getCreatedBy() == $this->getUserID()
-            || in_array($this->getRole(), $this->_recorders) && $this->getInst() == 'PUBLIC'
             || in_array($this->getRole(), $this->_recorders) && $this->getInstitution() == 'PUBLIC') {
             return true;
         }

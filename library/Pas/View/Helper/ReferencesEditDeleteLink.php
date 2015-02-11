@@ -21,11 +21,10 @@
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
- * @version 1
- * @since September 30 2011
+ * @version 2
+ * @since 11/2/2015
  * @copyright Daniel Pett
  * @author Daniel Pett
- * @todo Streamline and DRY the code
  * @uses Zend_Exception
  * @uses Zend_View_Helper_Url
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
@@ -264,70 +263,6 @@ class Pas_View_Helper_ReferencesEditDeleteLink extends Zend_View_Helper_Abstract
         return $this->_inst;
     }
 
-    /** Check whether access is allowed by userid for that record
-     *
-     * This function conditionally checks to see if a user is in the restricted
-     * group and then checks whether they created the record. If true, they can
-     * edit it.
-     *
-     * @access public
-     * @param int $createdBy
-     * @return boolean
-     */
-    public function checkAccessbyUserID($createdBy)
-    {
-        if (in_array($this->getRole(), $this->_restricted)) {
-            if ($createdBy == $this->getUserID()) {
-                $allowed = true;
-            } else {
-                $allowed = false;
-            }
-        }
-        return $allowed;
-    }
-
-    /** Check institutional access by user's institution
-     *
-     * This function conditionally checks whether a user's institution allows
-     * them editing rights to a record.
-     *
-     * First condition: if role is in recorders array and their institution is
-     * the same, then allow.
-     *
-     * Second condition: if role is in higher level, then allow
-     *
-     * Third condition: if role is in restricted (public) and they created,
-     * then allow.
-     *
-     * Fourth condition: if role is in restricted and institution is public,
-     * then allow.
-     *
-     * @access public
-     * @param string $institution
-     * @return boolean
-     *
-     */
-    public function checkAccessbyInstitution($institution)
-    {
-        if (in_array($this->getRole(), $this->_recorders)
-            && $this->getInst() == $institution
-        ) {
-            $allowed = true;
-        } elseif (in_array($this->getRole(), $this->_higherLevel)) {
-            $allowed = true;
-        } elseif (in_array($this->getRole(), $this->_restricted)
-            && $this->checkAccessbyUserID($this->getCreatedBy())
-        ) {
-            $allowed = true;
-        } elseif (in_array($this->getRole(), $this->_recorders)
-            && $institution == 'PUBLIC'
-        ) {
-            $allowed = true;
-        } else {
-            $allowed = false;
-        }
-        return $allowed;
-    }
 
     /** Get the controller
      * @access public
@@ -388,8 +323,6 @@ class Pas_View_Helper_ReferencesEditDeleteLink extends Zend_View_Helper_Abstract
         return $url;
     }
 
-
-
     /** Build just the url
      * @access public
      * @return string
@@ -446,7 +379,6 @@ class Pas_View_Helper_ReferencesEditDeleteLink extends Zend_View_Helper_Abstract
         //If role in recorders and institution = inst or created by = created return true
         else if (in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution()
             || $this->getCreatedBy() == $this->getUserID()
-            || in_array($this->getRole(), $this->_recorders) && $this->getInst() == 'PUBLIC'
             || in_array($this->getRole(), $this->_recorders) && $this->getInstitution() == 'PUBLIC') {
             return true;
         }
