@@ -17,9 +17,7 @@
         <tr>
             <th>Period</th>
 
-            <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
-                <th>Ruler</th>
-            <?php endif; ?>
+            <th>Ruler</th>
 
             <th>Denomination</th>
 
@@ -45,17 +43,21 @@
                     <?php echo $coinrow['broadperiod']; ?>
                 </td>
 
-                <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
-                    <td>
-                        <?php if (!is_null($coinrow['ruler'])) : ?>
-                            <?php echo $coinrow['ruler']; ?>
-                        <?php else: ?>
-                            -
-                        <?php endif; ?>
-                    </td>
-                <?php endif; ?>
+                <td>
+                    <?php if (!is_null($coinrow['ruler'])) : ?>
+                        <?php echo $coinrow['ruler']; ?>
+                    <?php else: ?>
+                        -
+                    <?php endif; ?>
+                </td>
 
-                <td><?php echo $coinrow['denomination']; ?></td>
+                <td>
+                    <?php if (!is_null($coinrow['denomination'])) : ?>
+                        <?php echo $coinrow['denomination']; ?>
+                    <?php else: ?>
+                        -
+                    <?php endif; ?>
+                </td>
 
                 <?php if (in_array('ROMAN', $broadperiodarray)) : ?>
                     <td>
