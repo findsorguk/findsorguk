@@ -68,7 +68,7 @@ class CoinClassifications extends Pas_Db_Table_Abstract
             ->from($this->_name, array('referenceName'))
             ->joinLeft('coinxclass', 'coinxclass.classID = coinclassifications.id',
                 array('vol_no', 'reference', 'id'))
-            ->joinLeft('finds', 'finds.id =  coinxclass.findID', array('returnID' => 'id'))
+            ->joinLeft('finds', 'finds.id =  coinxclass.findID', array('returnID' => 'id', 'institution'))
             ->where('finds.id = ?', (int)$id);
         return $coins->fetchAll($select);
     }

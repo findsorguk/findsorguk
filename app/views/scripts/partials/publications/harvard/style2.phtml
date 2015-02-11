@@ -10,5 +10,5 @@
             href="<?php echo $this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication', 'id' => $this->id), null, true); ?>"
             title="View reference work's details"><?php echo $this->title; ?></a></em>. <?php echo $this->publication_place; ?>
     : <?php echo $this->publisher; ?>, <?php echo $this->pp; ?>
-    , <?php echo $this->ref; ?> <?php echo $this->referencesEditDeleteLink()->setRecordID($this->i)->setFindID($this->fID)->setCreatedBy($this->createdBy); ?>
+    , <?php echo $this->ref; ?> <?php echo $this->referencesEditDeleteLink()->setRecordID($this->i)->setFindID($this->fID)->setCreatedBy($this->createdBy)->setInstitution($this->institution); ?>
 </li>

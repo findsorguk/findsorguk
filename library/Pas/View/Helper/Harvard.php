@@ -37,7 +37,6 @@ class Pas_View_Helper_Harvard extends Zend_View_Helper_Abstract
         return $this;
     }
 
-
     /** The class for returning the harvard book style
      * @access public
      * @return string

@@ -339,7 +339,6 @@ class Pas_View_Helper_AddCoinSummary extends Zend_View_Helper_Abstract
         }
         else if (in_array($this->getRole(), $this->_recorders) && $this->getInst() == $this->getInstitution()
             || $this->getCreatedBy() == $this->getUserID()
-            || in_array($this->getRole(), $this->_recorders) && $this->getInst() == 'PUBLIC'
             || in_array($this->getRole(), $this->_recorders) && $this->getInstitution() == 'PUBLIC') {
             return true;
         }
