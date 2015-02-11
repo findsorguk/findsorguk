@@ -23,12 +23,9 @@ $this->metaBase()->setDescription('A list of available data dumps warehoused on 
     <blockquote>
         <p>id, objecttype, broadperiod, periodFromName, periodToName, fromdate, todate, description, notes, workflow,
             materialTerm, secondaryMaterialTerm, subsequentActionTerm, discoveryMethod, datefound1, datefound2, TID,
-            rallyName,
-            weight, height, diameter, thickness, diameter, length, quantity, identifier, recorder, denominationName,
-            rulerName, mintName,
-            obverseDescription, obverseLegend, reverseDescription, reverseLegend, tribeName, reeceID, cciNumber,
-            mintmark, abcType,
-            categoryTerm, typeTerm, moneyerName, reverseType, regionName, county, district</p>
+            rallyName,weight, height, diameter, thickness, diameter, length, quantity, identifier, recorder, denominationName,
+            rulerName, mintName, obverseDescription, obverseLegend, reverseDescription, reverseLegend, tribeName, reeceID, cciNumber,
+            mintmark, abcType, categoryTerm, typeTerm, moneyerName, reverseType, regionName, county, district</p>
     </blockquote>
     <p>These files are hosted securely at Amazon's server farm and cost a couple of cents to download.</p>
     <ul>
@@ -43,17 +40,12 @@ $this->metaBase()->setDescription('A list of available data dumps warehoused on 
     <blockquote>
         <p>id, objecttype, broadperiod, periodFromName, periodToName, fromdate, todate, description, notes, workflow,
             materialTerm, secondaryMaterialTerm, subsequentActionTerm, discoveryMethod, datefound1, datefound2, TID,
-            rallyName,
-            weight, height, diameter, thickness, diameter, length, quantity, identifier, recorder, denominationName,
-            rulerName,
-            mintName, obverseDescription, obverseLegend, reverseDescription, reverseLegend, tribeName, reeceID,
-            cciNumber, mintmark, abcType,
-            categoryTerm, typeTerm,moneyerName, reverseType, regionName, county, district, parish, fourFigure,
-            gridSource, fourFigureLat,
-            fourFigureLon</p>
+            rallyName, weight, height, diameter, thickness, diameter, length, quantity, identifier, recorder, denominationName,
+            rulerName, mintName, obverseDescription, obverseLegend, reverseDescription, reverseLegend, tribeName, reeceID,
+            cciNumber, mintmark, abcType, categoryTerm, typeTerm,moneyerName, reverseType, regionName, county, district, parish, fourFigure,
+            gridSource, fourFigureLat,fourFigureLon
+        </p>
     </blockquote>
     <ul>
         <?php echo $this->amazonDataDumpPublicGrids(); ?>
     </ul>
-
-<?php echo $this->amazonDataDumpResearch(); ?>
