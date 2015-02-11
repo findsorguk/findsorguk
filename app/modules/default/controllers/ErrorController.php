@@ -293,9 +293,14 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->view->message = 'This record falls outside your access levels. If you contact us,
                                                 we can let you know when you can see it. This normally means the record is not on public view.';
                             $this->view->info = $errors->exception;
-                            $this->view->code = 403;
+                            $this->view->code = 401;
                             $this->sendEmail();
                             $this->view->headTitle('Not authorised.');
+                            break;
+                        case 'Pas_Exception_AccountProblem' :
+                            $this->getResponse()->setHttpResponseCode(401);
+                            $this->view->message = 'You cannot record objects';
+                            $this->view->info = $errors->exception;
                             break;
                         case 'Solarium_Exception':
                             $this->getResponse()->setHttpResponseCode(500);
