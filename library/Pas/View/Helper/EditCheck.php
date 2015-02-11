@@ -126,6 +126,20 @@ class Pas_View_Helper_EditCheck extends Zend_View_Helper_Abstract
      */
     protected $_createdBy = NULL;
 
+
+    /**
+     * @return null
+     */
+    public function getCanRecord()
+    {
+        if ($this->getAuth()->hasIdentity()) {
+            $user = $this->getAuth()->getIdentity();
+            return $user->canRecord;
+        }
+    }
+
+
+
     /** Get the created by value
      * @access public
      * @return mixed
@@ -316,6 +330,10 @@ class Pas_View_Helper_EditCheck extends Zend_View_Helper_Abstract
 //        echo $this->getCreatedBy();
 //        echo $this->getRole();
 //        echo $this->getInstitution();
+
+        if(!in_array($this->getRole(), $this->_higherLevel) && !$this->getCanRecord()){
+            throw new Pas_Exception_NotAuthorised('You do not have recording rights', 401);
+        }
         if(!$this->performChecks()){
             throw new Pas_Exception_NotAuthorised($this->_message, 401);
         }
