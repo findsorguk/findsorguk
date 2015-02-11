@@ -330,10 +330,8 @@ class Pas_View_Helper_AddCheck extends Zend_View_Helper_Abstract
 //        echo $this->getCreatedBy();
 //        echo $this->getRole();
 //        echo $this->getInstitution();
-        echo $this->getCanRecord();
-
         if(!in_array($this->getRole(), $this->_higherLevel) && !($this->getCanRecord())){
-            throw new Pas_Exception_NotAuthorised('You do not have recording rights', 401);
+            throw new Pas_Exception_AccountProblem('You do not have recording rights', 401);
         }
 
     }
