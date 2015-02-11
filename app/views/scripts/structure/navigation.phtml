@@ -43,14 +43,5 @@ $module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
             echo 'class="active" ';
         } ?>href="<?php echo $this->url(array('module' => 'research'), 'default', true); ?>"
            title="Academic research using our data">Research</a></li>
-    <?php
-    $auth = Zend_Auth::getInstance();
-    if ($auth->hasIdentity()) {
-        $user = $auth->getIdentity();
-        $allowed = array('flos', 'heros', 'fa', 'admin', 'treasure', 'hoard');
-        if (in_array($user->role, $allowed)) {
-            echo '<li><a href="http://forum.finds.org.uk/" title="Go to our staff forum and hassle your colleagues">Forum</a></li>';
-        }
-    }
-    ?>
+    <li><a href="http://forum.finds.org.uk/" title="Go to our support forum">Forum</a></li>
 </ul>
