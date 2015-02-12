@@ -387,7 +387,8 @@ class Users extends Pas_Db_Table_Abstract
         $select = $this->select()
             ->from($this->_name)
             ->where($this->_name . '.higherLevel = ?', (int)1)
-            ->where('role IN ( "public" ,"member" )');
+            ->where('role IN ( "public" ,"member" )')
+            ->order('created DESC');
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(20)->setPageRange(10);
         if (isset($page) && ($page != "")) {
