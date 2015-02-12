@@ -1,4 +1,5 @@
 <?php
+
 /** Model for interacting with the user's table
  *
  * An example of use:
@@ -15,12 +16,12 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @example /app/forms/ContactForm.php
-*/
-
-class Users extends Pas_Db_Table_Abstract {
+ */
+class Users extends Pas_Db_Table_Abstract
+{
 
     /** The table name
      * @access protected
@@ -39,12 +40,13 @@ class Users extends Pas_Db_Table_Abstract {
      * @param integer $createdby
      * @return array
      */
-    public function getCreatedBy($createdby) {
+    public function getCreatedBy($createdby)
+    {
         $select = $this->select()
-                ->from($this->_name, array('fullname'))
-                ->joinLeft('staff','staff.dbaseID = users.id', array('i' => 'id'))
-                ->where('users.id = ?' , (int)$createdby)
-                ->limit(1);
+            ->from($this->_name, array('fullname'))
+            ->joinLeft('staff', 'staff.dbaseID = users.id', array('i' => 'id'))
+            ->where('users.id = ?', (int)$createdby)
+            ->limit(1);
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -52,26 +54,28 @@ class Users extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         $select = $this->select()
-                ->from($this->_name, array('ID', new Zend_Db_Expr("CONCAT(username,' - ',fullname)")))
-                ->where('institution IS NOT NULL')
-                ->where('valid = ?',1)
-                ->order('username ASC');
+            ->from($this->_name, array('ID', new Zend_Db_Expr("CONCAT(username,' - ',fullname)")))
+            ->where('institution IS NOT NULL')
+            ->where('valid = ?', 1)
+            ->order('username ASC');
         return $this->getAdapter()->fetchPairs($select);
     }
 
     /** Get a key value list of userid and fullname for a dropdown population for members higher than basic level
-    * and where institution is inserted.
+     * and where institution is inserted.
      * @access public
      * @return array
      */
-    public function getUserNamesSearch() {
+    public function getUserNamesSearch()
+    {
         $select = $this->select()
-                ->from($this->_name, array('ID', 'username'))
-                ->where('institution IS NOT NULL')
-                ->where('role != ?','member')
-                ->order('fullname ASC');
+            ->from($this->_name, array('ID', 'username'))
+            ->where('institution IS NOT NULL')
+            ->where('role != ?', 'member')
+            ->order('fullname ASC');
         return $this->getAdapter()->fetchPairs($select);
     }
 
@@ -80,7 +84,8 @@ class Users extends Pas_Db_Table_Abstract {
      * @param array $data
      * @return integer
      */
-    public function resetPassword( array $data ){
+    public function resetPassword(array $data)
+    {
         unset($data['csrf']);
         unset($data['captcha']);
         $where = array();
@@ -88,7 +93,7 @@ class Users extends Pas_Db_Table_Abstract {
         $where[] = $this->getAdapter()->quoteInto('email = ?', $data['email']);
         $person = $this->getUserByUsername($data['email']);
         $updateData = array(
-            'password' => SHA1($this->_config->auth->salt. $data['password']),
+            'password' => SHA1($this->_config->auth->salt . $data['password']),
             'activationKey' => null,
             'valid' => 1,
             'updated' => parent::timeCreation(),
@@ -102,10 +107,11 @@ class Users extends Pas_Db_Table_Abstract {
      * @param array $data
      * @return integer
      */
-    public function register(array $data){
+    public function register(array $data)
+    {
         unset($data['csrf']);
         unset($data['captcha']);
-        $data['password'] = SHA1($this->_config->auth->salt. $data['password']);
+        $data['password'] = SHA1($this->_config->auth->salt . $data['password']);
         $data['activationKey'] = md5($data['username'] . $data['first_name']);
         $data['fullname'] = $data['first_name'] . ' ' . $data['last_name'];
         $data['valid'] = 0;
@@ -122,13 +128,14 @@ class Users extends Pas_Db_Table_Abstract {
      * @param array $data
      * @return integer
      */
-    public function activate(array $data){
+    public function activate(array $data)
+    {
         unset($data['csrf']);
         $where = array();
         $where[] = $this->getAdapter()->quoteInto('activationKey = ?', $data['activationKey']);
         $where[] = $this->getAdapter()->quoteInto('username = ?', $data['username']);
         $where[] = $this->getAdapter()->quoteInto('email = ?', $data['email']);
-        $data = array (
+        $data = array(
             'valid' => 1,
             'activationKey' => null,
         );
@@ -149,12 +156,13 @@ class Users extends Pas_Db_Table_Abstract {
      * @param integer $valid
      * @return array
      */
-    public function activation($key, $username, $valid = 0) {
+    public function activation($key, $username, $valid = 0)
+    {
         $select = $this->select()
-                ->from($this->_name, array('activationKey', 'username', 'valid'))
-                ->where('users.activationKey = ?', (string)$key)
-                ->where('users.username = ?', (string)$username)
-                ->where('users.valid = ?', (int)$valid);
+            ->from($this->_name, array('activationKey', 'username', 'valid'))
+            ->where('users.activationKey = ?', (string)$key)
+            ->where('users.username = ?', (string)$username)
+            ->where('users.valid = ?', (int)$valid);
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -164,11 +172,12 @@ class Users extends Pas_Db_Table_Abstract {
      * @param string $username
      * @return array
      */
-    public function findUser($email,$username){
+    public function findUser($email, $username)
+    {
         $select = $this->select()
-                ->from($this->_name, array('username','fullname'))
-                ->where('users.email = ?', (string) $email)
-                ->where('users.username = ?', (string)$username);
+            ->from($this->_name, array('username', 'fullname'))
+            ->where('users.email = ?', (string)$email)
+            ->where('users.username = ?', (string)$username);
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -177,10 +186,11 @@ class Users extends Pas_Db_Table_Abstract {
      * @param string $email
      * @return array
      */
-    public function getUserByUsername($email) {
+    public function getUserByUsername($email)
+    {
         $select = $this->select()
-                ->from($this->_name, array('username', 'fullname', 'id'))
-                ->where('users.email = ?', (string)$email);
+            ->from($this->_name, array('username', 'fullname', 'id'))
+            ->where('users.email = ?', (string)$email);
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -189,28 +199,30 @@ class Users extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function getUserProfile($id) {
+    public function getUserProfile($id)
+    {
         $select = $this->select()
-                ->from($this->_name)
-                ->joinLeft($this->_name,$this->_name
-                        . '.createdBy = ' . $this->_name . '_2.id',
-                        array('creator' => 'fullname'))
-                ->joinLeft($this->_name,$this->_name
-                        . '.updatedBy = ' . $this->_name . '_3.id',
-                        array('updater' => 'fullname'))
-                ->where('users.id = ?', (int)$id);
+            ->from($this->_name)
+            ->joinLeft($this->_name, $this->_name
+                . '.createdBy = ' . $this->_name . '_2.id',
+                array('creator' => 'fullname'))
+            ->joinLeft($this->_name, $this->_name
+                . '.updatedBy = ' . $this->_name . '_3.id',
+                array('updater' => 'fullname'))
+            ->where('users.id = ?', (int)$id);
         return $this->getAdapter()->fetchAll($select);
     }
 
     /** Retrieve a list of authors for the content section.
-    */
-    public function getAuthors() {
+     */
+    public function getAuthors()
+    {
         if (!$accounts = $this->_cache->load('authorlist')) {
             $select = $this->select()
                 ->from($this->_name, array('id', 'fullname'))
                 ->where('role IN ("admin", "flos", "fa", "")')
                 ->order('fullname');
-            $accounts =  $this->getAdapter()->fetchPairs($select);
+            $accounts = $this->getAdapter()->fetchPairs($select);
             $this->_cache->save($accounts, 'authorlist');
         }
         return $accounts;
@@ -221,35 +233,36 @@ class Users extends Pas_Db_Table_Abstract {
      * @param type $params
      * @return \Zend_Paginator
      */
-    public function getUsersAdmin(array $params) {
+    public function getUsersAdmin(array $params)
+    {
         $select = $this->select()
-                ->from($this->_name)
-                ->where('valid = ?',1)
-                ->order('lastlogin DESC');
-        if(isset($params['username']) && ($params['username'] != "")) {
+            ->from($this->_name)
+            ->where('valid = ?', 1)
+            ->order('lastlogin DESC');
+        if (isset($params['username']) && ($params['username'] != "")) {
             $un = strip_tags($params['username']);
-            $select->where('username LIKE ?', (string)'%'.$un.'%');
+            $select->where('username LIKE ?', (string)'%' . $un . '%');
         }
-        if(isset($params['role']) && ($params['role'] != "")) {
+        if (isset($params['role']) && ($params['role'] != "")) {
             $r = strip_tags($params['role']);
             $select->where('role = ?', (string)$r);
         }
-        if(isset($params['fullname']) && ($params['fullname'] != "")) {
+        if (isset($params['fullname']) && ($params['fullname'] != "")) {
             $fn = strip_tags($params['fullname']);
             $select->where('fullname = ?', (string)$fn);
         }
-        if(isset($params['visits']) && ($params['visits'] != ""))  {
+        if (isset($params['visits']) && ($params['visits'] != "")) {
             $v = strip_tags($params['visits']);
             $select->where('visits >= ?', (string)$v);
         }
-        if(isset($params['lastlogin']) && ($params['lastlogin'] != "")) {
+        if (isset($params['lastlogin']) && ($params['lastlogin'] != "")) {
             $ll = strip_tags($params['lastlogin']);
-            $select->where('lastLogin >= ?', $ll.' 00:00:00');
+            $select->where('lastLogin >= ?', $ll . ' 00:00:00');
         }
         $paginator = Zend_Paginator::factory($select);
         Zend_Paginator::setCache($this->_cache);
-        $paginator->setItemCountPerPage(20)->setPageRange(10) ;
-        if(isset($params['page']) && ($params['page'] != ""))  {
+        $paginator->setItemCountPerPage(20)->setPageRange(10);
+        if (isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber($params['page']);
         }
         return $paginator;
@@ -260,15 +273,16 @@ class Users extends Pas_Db_Table_Abstract {
      * @param string $username
      * @return array
      */
-    public function findUserAccount($username) {
+    public function findUserAccount($username)
+    {
         $select = $this->select()
             ->from($this->_name)
-            ->joinLeft($this->_name,$this->_name . '.createdBy = '
-                    . $this->_name . '_2.id',
-                    array('creator' => 'fullname'))
-            ->joinLeft($this->_name,$this->_name . '.updatedBy = '
-                    . $this->_name . '_3.id',
-                    array('updater' => 'fullname'))
+            ->joinLeft($this->_name, $this->_name . '.createdBy = '
+                . $this->_name . '_2.id',
+                array('creator' => 'fullname'))
+            ->joinLeft($this->_name, $this->_name . '.updatedBy = '
+                . $this->_name . '_3.id',
+                array('updater' => 'fullname'))
             ->where('users.username = ?', (string)$username);
         return $this->getAdapter()->fetchAll($select);
     }
@@ -278,12 +292,13 @@ class Users extends Pas_Db_Table_Abstract {
      * @param integer $instID
      * @return array
      */
-    public function getMembersInstitution($instID) {
+    public function getMembersInstitution($instID)
+    {
         $select = $this->select()
-                ->from($this->_name)
-                ->joinLeft('institutions',$this->_name
-                        .'.institution = institutions.institution', array())
-                ->where('institutions.id = ?',(int)$instID);
+            ->from($this->_name)
+            ->joinLeft('institutions', $this->_name
+                . '.institution = institutions.institution', array())
+            ->where('institutions.id = ?', (int)$instID);
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -291,29 +306,31 @@ class Users extends Pas_Db_Table_Abstract {
      * @param integer $visits
      * @return array
      */
-    public function getMoreTotals($visits) {
+    public function getMoreTotals($visits)
+    {
         $select = $this->select()
-                ->from($this->_name ,array('morethan' => 'COUNT(*)'))
-                ->where($this->_name.'.visits > ?',(int)$visits);
+            ->from($this->_name, array('morethan' => 'COUNT(*)'))
+            ->where($this->_name . '.visits > ?', (int)$visits);
         return $this->getAdapter()->fetchAll($select);
     }
 
     /** Retrieve a paginated list of members with certain privilege
-    * @param integer $visits
-    * @return \Zend_Paginator
-    */
-    public function getRolesMembers($role,$page) {
+     * @param integer $visits
+     * @return \Zend_Paginator
+     */
+    public function getRolesMembers($role, $page)
+    {
         $select = $this->select()
-                ->from($this->_name,
-                        array(
-                            'username', 'createdBy', 'updatedBy',
-                            'id', 'fullname'
-                            ))
-                ->joinLeft('roles',$this->_name . '.role = roles.role', array())
-                ->where('roles.id = ?',(int)$role);
+            ->from($this->_name,
+                array(
+                    'username', 'createdBy', 'updatedBy',
+                    'id', 'fullname'
+                ))
+            ->joinLeft('roles', $this->_name . '.role = roles.role', array())
+            ->where('roles.id = ?', (int)$role);
         $data = $this->getAdapter()->fetchAll($select);
         $paginator = Zend_Paginator::factory($data);
-        if(isset($page) && ($page != "")) {
+        if (isset($page) && ($page != "")) {
             $paginator->setCurrentPageNumber((int)$page);
         }
         $paginator->setItemCountPerPage(50)->setPageRange(10);
@@ -325,13 +342,13 @@ class Users extends Pas_Db_Table_Abstract {
      * @param string $username
      * @return array
      */
-    public function getUserAccountData($username) {
+    public function getUserAccountData($username)
+    {
         $select = $this->select()
-                ->from($this->_name)
-                ->where('users.username = ?', (string)$username);
+            ->from($this->_name)
+            ->where('users.username = ?', (string)$username);
         return $this->getAdapter()->fetchAll($select);
     }
-
 
 
     /** Retrieve a user's ID number
@@ -339,10 +356,11 @@ class Users extends Pas_Db_Table_Abstract {
      * @param string $username
      * @return array
      */
-    public function getUserID($username){
+    public function getUserID($username)
+    {
         $select = $this->select()
-                ->from($this->_name,array('id'))
-                ->where($this->_name . '.username = ?', (string)$username);
+            ->from($this->_name, array('id'))
+            ->where($this->_name . '.username = ?', (string)$username);
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -350,10 +368,11 @@ class Users extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function getNewHigherLevelRequests()	{
+    public function getNewHigherLevelRequests()
+    {
         $select = $this->select()
-            ->from($this->_name,array('applicants' => 'COUNT(id)'))
-            ->where($this->_name.'.higherLevel = ?', (int)1)
+            ->from($this->_name, array('applicants' => 'COUNT(id)'))
+            ->where($this->_name . '.higherLevel = ?', (int)1)
             ->where('role IN ( "public" ,"member" )');
         return $this->getAdapter()->fetchAll($select);
     }
@@ -363,15 +382,15 @@ class Users extends Pas_Db_Table_Abstract {
      * @param integer $page
      * @return \Zend_Paginator
      */
-    public function getUpgrades($page) {
+    public function getUpgrades($page)
+    {
         $select = $this->select()
-                ->from($this->_name)
-                ->where($this->_name.'.higherLevel = ?', (int)1)
-                ->where('role IN ( "public" ,"member" )');
+            ->from($this->_name)
+            ->where($this->_name . '.higherLevel = ?', (int)1)
+            ->where('role IN ( "public" ,"member" )');
         $paginator = Zend_Paginator::factory($select);
-        $paginator->setCache($this->_cache);
-        $paginator->setItemCountPerPage(20)->setPageRange(10) ;
-        if(isset($page) && ($page != "")) {
+        $paginator->setItemCountPerPage(20)->setPageRange(10);
+        if (isset($page) && ($page != "")) {
             $paginator->setCurrentPageNumber($page);
         }
         return $paginator;
@@ -381,14 +400,15 @@ class Users extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function newPeople() {
+    public function newPeople()
+    {
         $key = md5('newUsers');
         if (!$accounts = $this->_cache->load($key)) {
             $select = $this->select()
-                    ->from($this->_name,array('username'))
-                    ->where('created >= CURDATE()')
-                    ->where('activationKey IS NULL')
-                    ->where('valid = ?', 1);
+                ->from($this->_name, array('username'))
+                ->where('created >= CURDATE()')
+                ->where('activationKey IS NULL')
+                ->where('valid = ?', 1);
             $accounts = $this->getAdapter()->fetchAll($select);
             $this->_cache->save($accounts, $key);
         }
@@ -401,12 +421,13 @@ class Users extends Pas_Db_Table_Abstract {
      * @param array $where
      * @return integer
      */
-    public function updateVisits(array $data, array $where){
-        if(array_key_exists('csrf', $data)){
+    public function updateVisits(array $data, array $where)
+    {
+        if (array_key_exists('csrf', $data)) {
             unset($data['csrf']);
         }
-        foreach($data as $k => $v) {
-            if ( $v == "") {
+        foreach ($data as $k => $v) {
+            if ($v == "") {
                 $data[$k] = NULL;
             }
         }
@@ -415,17 +436,18 @@ class Users extends Pas_Db_Table_Abstract {
     }
 
     /** Retrieve a user based around their email and their username
-    * @param string $q The user's name on system
-    * @return array
-    */
-    public function userNames($q){
+     * @param string $q The user's name on system
+     * @return array
+     */
+    public function userNames($q)
+    {
         $select = $this->select()
-                ->from($this->_name, array(
-                    'id' => 'username',
-                    'term' => 'username'
-                    ))
-                ->where('users.username LIKE ?', '%' . (string)$q . '%')
-                ->limit(10);
+            ->from($this->_name, array(
+                'id' => 'username',
+                'term' => 'username'
+            ))
+            ->where('users.username LIKE ?', '%' . (string)$q . '%')
+            ->limit(10);
         return $this->getAdapter()->fetchAll($select);
     }
 
@@ -434,9 +456,10 @@ class Users extends Pas_Db_Table_Abstract {
      * @param string $q
      * @return array
      */
-    public function userFullNames($q){
+    public function userFullNames($q)
+    {
         $select = $this->select()
-            ->from($this->_name, array('id' => 'fullname','term' => 'fullname'))
+            ->from($this->_name, array('id' => 'fullname', 'term' => 'fullname'))
             ->where('users.fullname LIKE ?', '%' . (string)$q . '%')
             ->limit(10);
         return $this->getAdapter()->fetchAll($select);

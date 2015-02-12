@@ -1,4 +1,5 @@
 <?php
+
 /** Form for requesting an upgrade for a user's account
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
@@ -7,13 +8,15 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
-class AccountUpgradeForm extends Pas_Form {
+class AccountUpgradeForm extends Pas_Form
+{
 
     /** The form constructor
      * @access public
      * @param array $options
      */
-    public function __construct(array $options = null) {
+    public function __construct(array $options = null)
+    {
 
         parent::__construct($options);
 
@@ -21,38 +24,38 @@ class AccountUpgradeForm extends Pas_Form {
 
         $researchOutline = new Pas_Form_Element_CKEditor('researchOutline');
         $researchOutline->setLabel('Research outline: ')
-                ->setAttribs(array('rows' => 10, 'cols' => 40, 'Height' => 400))
-                ->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'))
-                ->addErrorMessage('Outline must be present.')
-                ->setDescription('Use this textarea to tell us whether you want to 
+            ->setAttribs(array('rows' => 10, 'cols' => 40, 'Height' => 400))
+            ->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'))
+            ->addErrorMessage('Outline must be present.')
+            ->setDescription('Use this text area to tell us whether you want to
                     become a research level user and why. We would also like to know 
                     the probable length of time for this project so that we can 
                     inform our research board of progress. We need a good idea,
-                    as we have to respect privacy of findspots and 
+                    as we have to respect privacy of find spots and
                     landowner/finder personal data');
 
-        $reference = $this->addElement('Text','reference',
-                array(
-                    'label' => 'Please provide a referee:', 'size' => '40',
-                    'description' => 'We ask you to provide a referee who can 
+        $reference = $this->addElement('Text', 'reference',
+            array(
+                'label' => 'Please provide a referee:', 'size' => '40',
+                'description' => 'We ask you to provide a referee who can
                         substantiate your request for higher level access.
                         Ideally they will be an archaeologist of good standing.'))
-                        ->reference;
+            ->reference;
         $reference->setRequired(false)->addFilters(array('StripTags', 'StringTrim'));
 
-        $referenceEmail = $this->addElement('Text','referenceEmail',
-                array(
-                    'label' => 'Please provide an email address for your referee:', 
-                    'size' => '40'))->referenceEmail;
+        $referenceEmail = $this->addElement('Text', 'referenceEmail',
+            array(
+                'label' => 'Please provide an email address for your referee:',
+                'size' => '40'))->referenceEmail;
         $referenceEmail->setRequired(false)
-                ->addFilters(array('StripTags', 'StringTrim'))
-                ->addValidator('EmailAddress');
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->addValidator('EmailAddress');
 
         $already = new Zend_Form_Element_Radio('already');
         $already->setLabel('Is your topic already listed on our research register?: ')
-                ->addMultiOptions(array( 1 => 'Yes it is',0 => 'No it isn\'t' ))
-                ->setRequired(true)
-                ->setOptions(array('separator' => ''));
+            ->addMultiOptions(array(1 => 'Yes it is', 0 => 'No it isn\'t'))
+            ->setRequired(true)
+            ->setOptions(array('separator' => ''));
 
 
         //Submit button
