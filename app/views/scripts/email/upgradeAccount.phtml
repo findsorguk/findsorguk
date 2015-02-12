@@ -4,11 +4,11 @@
 
     <p>RE: Account upgraded to <?php echo $this->escape($this->role); ?></p>
 
-<?php echo $this->purify($this->message); ?>
+<?php echo $this->purify()->setValue($this->message); ?>
 
     <p>With the research outline you provided us with as follows:</p>'
 
-<?php echo $this->purify($this->researchOutline); ?>
+<?php echo $this->purify()->setValue($this->researchOutline); ?>
 
     <p>Yours sincerely,</p>
 
