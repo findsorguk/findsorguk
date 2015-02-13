@@ -41,7 +41,8 @@ class Pas_Filter_BasicHtml implements Zend_Filter_Interface {
             . 'a[href|title|class|rel],ul,ol,li,code,pre,'
             . 'blockquote,img[src|alt|height|width|class],'
             . 'sub,sup,br,span[class|id],div[class|id],'
-            . 'table[border|width|style],tbody,tr,td,th'
+            . 'table[border|cellspacing|cellpadding|width|summary|style]
+,tr,tbody,td[colspan|abbr|rowspan|valign],th[abbr|colspan|rowspan|valign]'
         );
         $config->set('AutoFormat.RemoveEmpty.RemoveNbsp',true);
         $config->set('AutoFormat.RemoveEmpty', true);
