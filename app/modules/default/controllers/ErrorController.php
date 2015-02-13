@@ -73,11 +73,11 @@ class ErrorController extends Pas_Controller_Action_Admin
         $details['username'] = $this->whois();
         $errors = $this->getParam('error_handler');
         $details['file'] = get_class($errors['exception']);
-        $server = $this->getRequest()->getServer();
-        $details['ip'] = $server->get('REMOTE_ADDR');
-        $details['method'] = $server->get('REQUEST_METHOD');
-        $details['agent'] = $server->get('HTTP_USER_AGENT');
-        $details['referrer'] = $server->get('HTTP_REFERER');
+        $server = Zend_Controller_Front::getInstance()->getRequest();
+        $details['ip'] = $server->getClientIp();
+//        $details['method'] = $server->getRe
+//        $details['agent'] = $server->get('HTTP_USER_AGENT');
+//        $details['referrer'] = $server->get('HTTP_REFERER');
         $details['url'] = $this->view->curUrl();
         if ($errors) {
             $details['exception'] = $errors->exception->getMessage();
