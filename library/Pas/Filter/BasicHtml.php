@@ -40,7 +40,9 @@ class Pas_Filter_BasicHtml implements Zend_Filter_Interface {
         $config->set('HTML.Allowed', 'br,p,em,h1,h2,h3,h4,h5,strong,'
             . 'a[href|title|class|rel],ul,ol,li,code,pre,'
             . 'blockquote,img[src|alt|height|width|class],'
-            . 'sub,sup,br,span[class|id],div[class|id],table');
+            . 'sub,sup,br,span[class|id],div[class|id],'
+            . 'table[border|width|style],tbody,tr,td,th'
+        );
         $config->set('AutoFormat.RemoveEmpty.RemoveNbsp',true);
         $config->set('AutoFormat.RemoveEmpty', true);
         $config->set('AutoFormat.Linkify', true);
