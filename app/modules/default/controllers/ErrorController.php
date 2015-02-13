@@ -139,7 +139,6 @@ class ErrorController extends Pas_Controller_Action_Admin
 
     /** The error action
      * @access public
-     * @param type $extended
      */
     public function errorAction()
     {
@@ -150,7 +149,6 @@ class ErrorController extends Pas_Controller_Action_Admin
         $errors = $this->getParam('error_handler');
         if ($errors) {
             switch ($errors->type) {
-
                 case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
                     // 404 error -- controller or action not found
                     $this->getResponse()->setHttpResponseCode(404);
@@ -170,7 +168,7 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $log->log($this->view->message . ' ' . $errors->exception, $priority, $errors->exception);
                         }
                     }
-                break;
+                    break;
                 case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
                     // 404 error -- controller or action not found
                     $this->getResponse()->setHttpResponseCode(404);
@@ -281,8 +279,13 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->view->message = 'Rendering of view error.';
                             $this->sendEmail();
                             break;
+                        default:
+                            // application error
+                            $this->getResponse()->setHttpResponseCode(500);
+                            $this->view->message = 'Application error';
+                            $this->view->code = 500;
+                            break;
                     }
-                    break;
                 default:
                     // application error
                     $this->getResponse()->setHttpResponseCode(500);
@@ -290,13 +293,13 @@ class ErrorController extends Pas_Controller_Action_Admin
                     $this->view->code = 500;
                     break;
             }
-            if($errors->exception and $errors->exception instanceof Zend_Db_Exception) {
-                $this->view->message =  $errors->exception->getMessage();
+            if ($errors->exception and $errors->exception instanceof Zend_Db_Exception) {
+                $this->view->message = $errors->exception->getMessage();
                 try {
-                    if ($errors->exception->getPrevious() and $errors->exception->getPrevious() instanceof PDOException){
+                    if ($errors->exception->getPrevious() and $errors->exception->getPrevious() instanceof PDOException) {
                         $e = $errors->exception->getPrevious();
                     }
-                } catch (PDOException $e ){
+                } catch (PDOException $e) {
 
                 }
             }
