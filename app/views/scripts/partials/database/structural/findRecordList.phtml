@@ -10,14 +10,7 @@
             $file = $path . $this->thumbnail . $ext;
             ?>
             <?php if (file_exists($file)): ?>
-                <?php if (!file_exists(IMAGE_PATH . '../' . $this->imagedir . 'medium/' . $this->filename)): ?>
-                    <?php
-                    $magic = new Pas_Image_MagickDust();
-                    $magic->setImageNumber($this->thumbnail);
-                    $magic->setImage(IMAGE_PATH . '../' . $this->imagedir . 'medium/' . $this->filename);
-                    $magic->resize();
-                    ?>
-                <?php endif; ?>
+                
             <?php list($w, $h) = getimagesize($file); ?>
             <ul class="thumbnails pull-right">
                 <li>
