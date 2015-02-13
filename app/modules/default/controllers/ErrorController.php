@@ -195,40 +195,34 @@ class ErrorController extends Pas_Controller_Action_Admin
                         case 'Pas_Exception_NotAuthorised' :
                             $this->getResponse()->setHttpResponseCode(401);
                             $this->view->message = 'This record falls outside your access levels. ';
-                            $this->view->info = $errors->exception;
                             $this->view->code = 401;
                             $this->sendEmail();
                             break;
                         case 'Pas_Exception_AccountProblem' :
-                            $this->getResponse()->setHttpResponseCode(401);
+                            $this->getResponse()->setHttpResponseCode(412);
                             $this->view->message = 'You cannot record objects';
-                            $this->view->info = $errors->exception;
+                            $this->view->code = 412;
                             break;
                         case 'Solarium_Exception':
                             $this->getResponse()->setHttpResponseCode(500);
                             $this->view->message = 'Search index has not returned results this time';
-                            $this->view->info = $errors->exception;
                             $this->view->code = 500;
                             break;
                         case 'Pas_Exception':
                             $this->getResponse()->setHttpResponseCode(500);
                             $this->view->message = 'There has been an internal server error!';
-                            $this->view->info = $errors->exception;
                             $this->view->code = 500;
                             break;
                         case 'Pas_Exception_Param':
                             $this->getResponse()->setHttpResponseCode(500);
                             $this->view->message = 'The url you used is missing a parameter';
-                            $this->view->info = $errors->exception;
                             $this->view->code = 500;
                             break;
                         case 'Zend_Db_Statement_Exception' :
                             $this->getResponse()->setHttpResponseCode(503);
-                            $this->view->info = $errors->exception;
                             $this->view->code = 503;
                             $this->view->message = 'A SQL error has been found';
                             $this->sendEmail();
-                            $this->view->headTitle('SQL error returned');
                             break;
                         case 'Zend_Db_Adapter_Exception':
                             $this->getResponse()->setHttpResponseCode(500);
