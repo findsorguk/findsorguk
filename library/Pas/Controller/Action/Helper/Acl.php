@@ -112,21 +112,12 @@ class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abs
             $resource = null;
         }
 
-
         if (!$this->_acl->isAllowed($role, $resource, $privilege)) {
             $request->setModuleName('default');
             $request->setControllerName('error');
-            $request->setActionName('error');
+            $request->setActionName('notauthorised');
             $request->setDispatched(false);
         }
-
-	/**
-		 if (!$this->_acl->isAllowed($role, $resource, $privilege)){
-		throw new Pas_Exception_NotAuthorised('Not authorised');
-
-		}
-
-		***/
     }
 
     /** Proxy to the underlying Zend_Acl's allow()
