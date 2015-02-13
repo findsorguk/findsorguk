@@ -171,7 +171,7 @@ class Rallies extends Pas_Db_Table_Abstract {
      * @param integer $year
      * @return array
      */
-    public function getMapdata($year){
+    public function getMapdata($year = null){
         $rallies = $this->getAdapter();
         $select = $rallies->select()
                 ->from($this->_name, array(
