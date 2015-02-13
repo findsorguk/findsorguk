@@ -165,7 +165,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
             $this->view->images = $this->_images->getImage((int)$this->getParam('id'));
             $this->view->finds = $this->_images->getLinkedFinds((int)$this->getParam('id'));
         } else {
-            throw new Pas_Exception_Param('No parameter found on the url string', 500);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -202,7 +202,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 }
             }
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter, 404);
+            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
