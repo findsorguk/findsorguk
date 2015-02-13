@@ -288,7 +288,6 @@ class ErrorController extends Pas_Controller_Action_Admin
                     $this->getResponse()->setHttpResponseCode(500);
                     $this->view->message = 'Application error';
                     $this->view->code = 500;
-                    $this->view->info = $errors->exception;
                     break;
             }
             if($errors->exception and $errors->exception instanceof Zend_Db_Exception) {
@@ -306,8 +305,8 @@ class ErrorController extends Pas_Controller_Action_Admin
             // pass the request to the view
             $this->view->request = $errors->request;
         } else {
-            $this->redirect('/error/notauthorised');
-
+            $this->view->code(500);
+            $this->view->message('An error has occurred.');
         }
     }
 
