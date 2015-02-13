@@ -9,21 +9,22 @@
             $ext = '.jpg';
             $file = $path . $this->thumbnail . $ext;
             ?>
-            <?php if (file_exists($file)):?>
-                <?php list($w, $h) = getimagesize($file);?>
+            <?php if (file_exists($file)): ?>
+                <?php list($w, $h) = getimagesize($file); ?>
                 <ul class="thumbnails pull-right">
                     <li>
                         <div property="crm:P138i_has_representation">
-                            <img
+                            <a href="<?php $this->serverUrl() ?>/images/<?php echo $this->username; ?>/medium/<?php echo $this->file; ?>"
+                               rel="lightbox"><img
                                     property="crm:E38_Image"
                                     about="<?php $this->serverUrl() ?>/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
                                     src="/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
                                     alt="Thumbnail image of <?php echo $this->old_findID; ?>"
-                                    class="img-polaroid" height="<?php echo $h; ?>"/>
+                                    class="img-polaroid" height="<?php echo $h; ?>"/></a>
                         </div>
                     </li>
                 </ul>
-            <?php else:?>
+            <?php else: ?>
                 <ul class="thumbnails pull-right">
                     <li>
                         <div>
@@ -34,7 +35,7 @@
                         </div>
                     </li>
                 </ul>
-            <?php endif;?>
+            <?php endif; ?>
         <?php endif; ?>
         <?php if (is_null($this->thumbnail)): ?>
             <ul class="thumbnails pull-right">
@@ -113,4 +114,4 @@
     </div>
 
 </div>
-<hr />
+<hr/>
