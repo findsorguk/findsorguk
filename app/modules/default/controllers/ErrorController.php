@@ -73,10 +73,11 @@ class ErrorController extends Pas_Controller_Action_Admin
         $details['username'] = $this->whois();
         $errors = $this->getParam('error_handler');
         $details['file'] = get_class($errors['exception']);
-        $details['ip'] = $_SERVER['REMOTE_ADDR'];
-        $details['method'] = $_SERVER['REQUEST_METHOD'];
-        $details['agent'] = $_SERVER['HTTP_USER_AGENT'];
-        $details['referrer'] = $_SERVER['HTTP_REFERER'];
+        $server = $this->getRequest()->getServer();
+        $details['ip'] = $server->get('REMOTE_ADDR');
+        $details['method'] = $server->get('REQUEST_METHOD');
+        $details['agent'] = $server->get('HTTP_USER_AGENT');
+        $details['referrer'] = $server->get('HTTP_REFERER');
         $details['url'] = $this->view->curUrl();
         if ($errors) {
             $details['exception'] = $errors->exception->getMessage();
@@ -298,7 +299,7 @@ class ErrorController extends Pas_Controller_Action_Admin
             $this->view->request = $errors->request;
         } else {
             $this->view->code = 500;
-            $this->view->message('An error has occurred.');
+            $this->view->message = 'An error has occurred.';
         }
     }
 
