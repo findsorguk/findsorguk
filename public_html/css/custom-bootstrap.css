@@ -430,7 +430,7 @@ select[multiple].select-large {
 }
 
 #dims abbr {
-    text-transform: lowercase;
+    text-transform: none;
 }
 
 .btn-mini [class^="icon-"],
