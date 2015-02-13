@@ -190,6 +190,7 @@ class ErrorController extends Pas_Controller_Action_Admin
                     }
                     break;
                 case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_OTHER:
+                    Zend_Debug::dump(get_class($errors['exception']));
                     switch (get_class($errors['exception'])) {
                         case 'Pas_Exception_NotAuthorised' :
                             $this->getResponse()->setHttpResponseCode(401);
@@ -279,19 +280,8 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->view->message = 'Rendering of view error.';
                             $this->sendEmail();
                             break;
-                        default:
-                            // application error
-                            $this->getResponse()->setHttpResponseCode(500);
-                            $this->view->message = 'Application error';
-                            $this->view->code = 500;
-                            break;
                     }
-                default:
-                    // application error
-                    $this->getResponse()->setHttpResponseCode(500);
-                    $this->view->message = 'Application error';
-                    $this->view->code = 500;
-                    break;
+                
             }
             if ($errors->exception and $errors->exception instanceof Zend_Db_Exception) {
                 $this->view->message = $errors->exception->getMessage();
