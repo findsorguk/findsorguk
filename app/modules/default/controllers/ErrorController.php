@@ -54,7 +54,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     public function whois()
     {
         $user = new Pas_User_Details();
-        if (is_null($user->getPerson()->username)) {
+        if (is_null($user->getPerson())) {
             $string = 'Public user';
         } else {
             $name = $user->getPerson()->fullname;
@@ -323,7 +323,6 @@ class ErrorController extends Pas_Controller_Action_Admin
         $this->view->message = 'There is a problem with your account';
         $this->view->code = 412;
         $this->renderScript('error/error.phtml');
-        $this->sendEmail();
     }
 
     /** Database down action

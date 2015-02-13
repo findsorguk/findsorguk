@@ -45,7 +45,7 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
     /** Set up contexts to disable layout for based on modules
      * @var array $_disabled
      */
-    protected $_disabled = array('ajax', 'oai', 'error');
+    protected $_disabled = array('ajax', 'oai');
 
     /** Create the layout after the request has been dispatched
      *  Disable or enable layouts depending on type.
