@@ -10,32 +10,40 @@
             $file = $path . $this->thumbnail . $ext;
             ?>
             <?php if (file_exists($file)): ?>
-                <?php list($w, $h) = getimagesize($file); ?>
-                <ul class="thumbnails pull-right">
-                    <li>
-                        <div property="crm:P138i_has_representation">
-                            <a href="<?php $this->serverUrl() ?>/<?php echo $this->imagedir; ?>medium/<?php echo $this->filename; ?>"
-                               rel="lightbox"><img
-                                    property="crm:E38_Image"
-                                    about="<?php $this->serverUrl() ?>/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
-                                    src="/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
-                                    alt="Thumbnail image of <?php echo $this->old_findID; ?>"
-                                    class="img-polaroid" height="<?php echo $h; ?>"/></a>
-                        </div>
-                    </li>
-                </ul>
-            <?php else: ?>
-                <ul class="thumbnails pull-right">
-                    <li>
-                        <div>
-                            <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
-                                 class="img-circle"/>
+                <?php if (!file_exists(IMAGE_PATH . '../' . $this->imagedir . 'medium/' . $this->filename)): ?>
+                    <?php
+                    $magic = new Pas_Image_MagickDust();
+                    $magic->setImageNumber($this->thumbnail);
+                    $magic->setImage(IMAGE_PATH . '../' . $this->imagedir . 'medium/' . $this->filename);
+                    $magic->resize();
+                    ?>
+                <?php endif; ?>
+            <?php list($w, $h) = getimagesize($file); ?>
+            <ul class="thumbnails pull-right">
+                <li>
+                    <div property="crm:P138i_has_representation">
+                        <a href="<?php $this->serverUrl() ?>/<?php echo $this->imagedir; ?>medium/<?php echo $this->filename; ?>"
+                           rel="lightbox"><img
+                                property="crm:E38_Image"
+                                about="<?php $this->serverUrl() ?>/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
+                                src="/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
+                                alt="Thumbnail image of <?php echo $this->old_findID; ?>"
+                                class="img-polaroid" height="<?php echo $h; ?>"/></a>
+                    </div>
+                </li>
+            </ul>
+        <?php else: ?>
+            <ul class="thumbnails pull-right">
+                <li>
+                    <div>
+                        <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
+                             class="img-circle"/>
 
-                            <p>Image unavailable<br/>Error: 404</p>
-                        </div>
-                    </li>
-                </ul>
-            <?php endif; ?>
+                        <p>Image unavailable<br/>Error: 404</p>
+                    </div>
+                </li>
+            </ul>
+        <?php endif; ?>
         <?php endif; ?>
         <?php if (is_null($this->thumbnail)): ?>
             <ul class="thumbnails pull-right">
