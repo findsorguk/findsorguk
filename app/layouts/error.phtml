@@ -1,7 +1,5 @@
 <?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
-
 <?php echo $this->docType(); ?>
-
 <html
 
     xmlns="http://www.w3.org/1999/xhtml"
@@ -31,13 +29,18 @@
 
     <?php echo $this->headLink(); ?>
 
+    <link href="/css/errors.css" rel="stylesheet">
+
     <?php echo $this->headScript(); ?>
+
 
 </head>
 
 <body>
 
 
+<!-- NAVBAR
+================================================== -->
 <div class="navbar navbar-fixed-top">
 
     <div class="navbar-inner">
@@ -50,76 +53,34 @@
 
             <div class="nav-collapse">
                 <?php echo $this->layout()->navigation ?>
-                <?php
-                //echo $this->layout()->searchForm;
-                ?>
             </div>
             <!--/.nav-collapse -->
         </div>
-
     </div>
-
-
 </div>
 
+<?php echo $this->layout()->messages; ?>
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span2">
-
-            <a href="<?php echo $this->serverUrl(); ?>" title="Go to the homepage"><img src="/assets/logos/pas.jpg"
-                                                                                        alt="The Scheme's logo"
-                                                                                        width="213" height="104"/></a>
-
-            <div class="sidebar-nav">
-
-                <div class="well"><?php echo $this->layout()->userdata; ?></div>
-
-                <?php echo $this->layout()->sidebar; ?>
-
-            </div>
-            <!--/.well -->
-
-        </div>
-        <!--/span-->
+<?php echo $this->layout()->content; ?>
 
 
-        <div class="span9">
+<!-- FOOTER -->
+<footer>
+    <?php echo $this->layout()->footer; ?>
+</footer>
 
-            <div class="row-fluid">
-
-                <?php echo $this->layout()->messages; ?>
-
-                <?php echo $this->acronyms()->setString($this->layout()->content); ?>
-
-                <?php echo $this->layout()->contexts; ?>
-
-            </div>
-            <!--/row-->
-
-        </div>
-        <!--/span-->
+</div><!-- /.container -->
 
 
-    </div>
-    <!--/row-->
-
-    <hr/>
-
-    <div class="row-fluid">
-
-        <?php echo $this->layout()->footer; ?>
-
-    </div>
-
-</div>
-<!--/.fluid-container-->
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
 
 <?php echo $this->jQuery(); ?>
-
 <?php echo $this->inlineScript(); ?>
 
 <?php echo $this->layout()->analytics; ?>
+
 
 </body>
 </html>

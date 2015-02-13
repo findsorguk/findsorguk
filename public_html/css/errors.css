@@ -1,0 +1,59 @@
+body {
+    padding-top: 0px;
+}
+footer {
+    margin-top: 10px;
+}
+.jumbotron h1 {
+    font-size: 80px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 1;
+    color: #ffffff;
+    width: 100%;
+}
+
+.jumbotron p {
+
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.25;
+    color: #ffffff;
+}
+.jumbotron {
+    background: linear-gradient(45deg, #020031 0%, #11156d 100%);
+}
+
+.masthead {
+    padding: 70px 0 80px;
+    margin-bottom: 0;
+    color: #fff;
+}
+.errorImage {
+    height: 250px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#error-401 {
+    background-image: url('../assets/accessdenied.png');
+    background-repeat: repeat-x;
+}
+#error-403 {
+    background-image: url('https://farm7.staticflickr.com/6051/6432122477_e0b9b17530_b.jpg');
+}
+#error-404 {
+    background-image: url('../assets/museumDuck.jpg');
+}
+#error-410 {
+    background-image: url('../assets/museumDuck.jpg');
+}
+#error-500 {
+    background-image: url('https://farm9.staticflickr.com/8103/8552248001_ef4a73ad6a_k.jpg');
+}
+#error-503 {
+    background-image: url('../assets/museumDuck.jpg');
+}
+#error-412 {
+    background-image: url('../assets/museumDuck.jpg');
+}

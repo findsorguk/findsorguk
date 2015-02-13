@@ -21,8 +21,8 @@ class IndexController extends Pas_Controller_Action_Admin
      */
     public function init()
     {
-
         $this->_helper->acl->allow(null);
+        $this->_helper->layout->setLayout('new');
     }
 
     /** The index action

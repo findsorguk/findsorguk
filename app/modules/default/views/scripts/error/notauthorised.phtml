@@ -1,15 +1,12 @@
 <?php
 $this->headTitle('None shall pass! - Nemo hac praeteribit!');
 $this->metaBase()->setSubject('Error report')->setDescription('Access denied page')->generate();
-?>
-<h1 class="lead"><?php echo $this->title(); ?></h1>
-<p><?php echo $this->message ?></p>
-<p>This request has produced error <strong><?php echo $this->code; ?>.</strong></p>
-<div class="row-fluid"><img src="<?php echo $this->baseUrl(); ?>/assets/accessdenied.png"
-                            alt="The Roman Soldier says no access to you!" width="262" height="400" class="nav"/><img
-        src="<?php echo $this->baseUrl(); ?>/assets/accessdenied.png" alt="The Roman Soldier says no access to you!"
-        width="262" height="400"/>
 
-    <p>From a <a href="http://www.flickr.com/photos/dunechaser/2623043223/">CC BY-NC-SA image</a> by <a
-            href="http://www.flickr.com/photos/dunechaser/">Dunechaser</a></p>
+?>
+<div class="errorImage" id="error-<?php echo $this->code;?>"></div>
+<div class="jumbotron masthead">
+    <div class="container">
+        <h1><?php echo $this->errorCodeTitle()->setCode($this->code);?>: <?php echo $this->code; ?></h1>
+        <p><?php echo $this->message;?></p>
+    </div>
 </div>
