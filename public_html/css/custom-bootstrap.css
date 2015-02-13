@@ -428,8 +428,7 @@ select[multiple].select-large {
 #commentary .btn-warning {
     margin-top: 10px;
 }
-
-#dims abbr {
+abbr {
     text-transform: none;
 }
 
