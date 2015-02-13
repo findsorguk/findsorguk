@@ -205,7 +205,7 @@ class ErrorController extends Pas_Controller_Action_Admin
                             break;
                         case 'Solarium_Exception':
                             $this->getResponse()->setHttpResponseCode(500);
-                            $this->view->message = 'Search index broken';
+                            $this->view->message = 'Search index has not returned results this time';
                             $this->view->info = $errors->exception;
                             $this->view->code = 500;
                             break;
@@ -297,7 +297,7 @@ class ErrorController extends Pas_Controller_Action_Admin
             // pass the request to the view
             $this->view->request = $errors->request;
         } else {
-            $this->view->code(500);
+            $this->view->code = 500;
             $this->view->message('An error has occurred.');
         }
     }
