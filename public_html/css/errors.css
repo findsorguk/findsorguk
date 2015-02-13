@@ -39,6 +39,9 @@ footer {
     background-image: url('../assets/accessdenied.png');
     background-repeat: repeat-x;
 }
+#error- {
+    background-image: url('https://farm7.staticflickr.com/6051/6432122477_e0b9b17530_b.jpg');
+}
 #error-403 {
     background-image: url('https://farm7.staticflickr.com/6051/6432122477_e0b9b17530_b.jpg');
 }
