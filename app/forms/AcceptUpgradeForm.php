@@ -106,6 +106,7 @@ class AcceptUpgradeForm extends Pas_Form
             null => 'Available institutions',
             'Choose institution' => $inst_options
         ));
+        $institution->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
         $role = $this->addElement('select', 'role', array('label' => 'Site role: '))->role;
         $role->addMultiOptions(array(
