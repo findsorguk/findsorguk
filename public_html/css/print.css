@@ -26,7 +26,9 @@
 #resultsSidebar,
 .pagination,
 .btn,
-#slider
+#slider,
+.sidebar-nav,
+#footer
 {
 	display:none;
 }
