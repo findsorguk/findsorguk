@@ -68,9 +68,9 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
                 $view->messages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
                 $ini = new Zend_Config_Ini(APPLICATION_PATH . '/config/menus.ini', 'production');
                 $menus = $ini->toArray();
-                if (in_array($module, array_keys($menus))) {
+                if (in_array($module, array_keys($menus)) && !in_array($controller, $this->_disabled)) {
                     $this->inject($menus, $module);
-                } else if ($module === 'default') {
+                } else if ($module === 'default' && !in_array($controller, $this->_disabled)) {
                     $this->inject($menus, $module);
                 }
             }
