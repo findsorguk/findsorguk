@@ -96,7 +96,6 @@ class Pas_Controller_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
         $response->insert('tags', $view->render('structure/tag.phtml'));
         if ($module != 'default') {
             $layout = $menus[$module]['layout'];
-            $view->headTitle($menus[$module]['layout'])->setSeparator(' - ');
             $response->insert('sidebar', $view->render($this->getBasePath() . $menus[$module]['menu'] . 'Sidebar.phtml')
             );
         }

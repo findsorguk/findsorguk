@@ -190,7 +190,6 @@ class ErrorController extends Pas_Controller_Action_Admin
                     }
                     break;
                 case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_OTHER:
-                    Zend_Debug::dump(get_class($errors['exception']));
                     switch (get_class($errors['exception'])) {
                         case 'Pas_Exception_NotAuthorised' :
                             $this->getResponse()->setHttpResponseCode(401);
@@ -281,7 +280,7 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->sendEmail();
                             break;
                     }
-                
+
             }
             if ($errors->exception and $errors->exception instanceof Zend_Db_Exception) {
                 $this->view->message = $errors->exception->getMessage();
