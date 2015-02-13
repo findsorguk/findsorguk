@@ -381,9 +381,25 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $termDate2->setLabel('Terminal year to: ')
             ->setAttribs(array('placeholder' => 'Positive for AD, negative for BC'));
 
-        $qualityRating = new Zend_Form_Element_Select('qualityRating');
-        $qualityRating->setLabel('Quality rating: ')
-            ->addMultiOptions(array(null => 'Choose quality reasoning', 'Available options' => $qualityStreet))
+        $qualityRatingNum = new Zend_Form_Element_Select('qualityRatingNumismatic');
+        $qualityRatingNum->setLabel('Coin data quality rating: ')
+            ->addMultiOptions(array(null => 'Choose quality rating', 'Available options' => $qualityStreet))
+            ->addValidator('Int')
+            ->addValidator('InArray', false, array(array_keys($qualityStreet)))
+            ->addFilters(array('StringTrim','StripTags'))
+            ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
+
+        $qualityRatingArch = new Zend_Form_Element_Select('qualityRatingArchaeological');
+        $qualityRatingArch->setLabel('Archaeology data quality rating: ')
+            ->addMultiOptions(array(null => 'Choose quality rating', 'Available options' => $qualityStreet))
+            ->addValidator('Int')
+            ->addValidator('InArray', false, array(array_keys($qualityStreet)))
+            ->addFilters(array('StringTrim','StripTags'))
+            ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'));
+
+        $qualityRatingFindspot = new Zend_Form_Element_Select('qualityRatingFindspot');
+        $qualityRatingFindspot->setLabel('Findspot data quality rating: ')
+            ->addMultiOptions(array(null => 'Choose quality rating', 'Available options' => $qualityStreet))
             ->addValidator('Int')
             ->addValidator('InArray', false, array(array_keys($qualityStreet)))
             ->addFilters(array('StringTrim','StripTags'))
@@ -473,7 +489,8 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                     $created2, $updated, $updated2,
                     $submit, $elevation, $woeid,
                     $institution, $hash, $smrRef, $lastRulerID,
-                    $termDate2, $terminalReasonID, $qualityRating,
+                    $termDate2, $terminalReasonID,
+                    $qualityRatingNum, $qualityRatingArch, $qualityRatingFindspot,
                     $archaeologicalDescription, $excavatedYear1, $excavatedYear2,
                     $siteDateYear2, $siteDateYear1, $featureDateYear1,
                     $featureDateYear2, $knownSite, $excavated,
@@ -496,7 +513,8 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                     $identifierID, $lastRulerID,
                     $submit,  $institution, $archaeologicalDescription,
                     $smrRef, $hash, $termDate1,
-                    $termDate2, $terminalReasonID, $qualityRating,
+                    $termDate2, $terminalReasonID,
+                    $qualityRatingNum, $qualityRatingArch, $qualityRatingFindspot,
                     $excavatedYear1, $excavatedYear2, $siteDateYear2,
                     $siteDateYear1, $featureDateYear1, $featureDateYear2,
                     $knownSite, $excavated, $quantityArtefacts, $quantityCoins,
@@ -509,7 +527,8 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                 'notes', 'note', 'reason',
                 'treasure', 'TID', 'rally',
                 'rallyID', 'workflow', 'otherRef',
-                'smrRef'),
+                'smrRef', 'quantityArtefacts', 'quantityCoins',
+            'quantityContainers'),
                 'details');
         $this->details->setLegend('Main details: ');
 
@@ -517,7 +536,8 @@ class AdvancedHoardsSearchForm extends Pas_Form {
             'broadperiod', 'lastRulerID', 'reeceID',
             'periodFrom', 'periodTo', 'culture',
             'fromdate', 'todate', 'terminalyear1',
-            'terminalyear2', 'terminalReasonID', 'legacyID'),
+            'terminalyear2', 'terminalReasonID', 'legacyID',
+            'qualityRatingNumismatic'),
             'numismatics');
         $this->numismatics->setLegend('Numismatic analysis: ');
 
@@ -525,15 +545,14 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                 'archaeologicalDescription','excavatedYear1', 'excavatedYear2',
                 'siteDateYear1','siteDateYear2', 'featureDateYear1',
                 'featureDateYear2', 'knownSite', 'excavated',
-                'qualityRating', 'quantityArtefacts', 'quantityCoins',
-                'quantityContainers' )
+                'qualityRatingArchaeological')
                     , 'archaeology');
         $this->archaeology->setLegend('Archaeological context: ');
 
         $this->addDisplayGroup(array(
                 'countyID', 'regionID', 'districtID',
                 'parishID', 'fourFigure', 'elevation',
-                'woeid'), 'Spatial');
+                'woeid', 'qualityRatingFindspot'), 'Spatial');
         $this->Spatial->setLegend('Spatial details: ');
         if(in_array($this->_role,$this->_restricted)) {
                 $this->addDisplayGroup(array(
