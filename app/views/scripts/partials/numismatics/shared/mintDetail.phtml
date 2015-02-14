@@ -66,9 +66,9 @@ $this->metaBase('Full details for issuing  mint at ' . $this->name . ' describin
     <?php endif; ?>
     <?php if (!is_null($this->pleiadesID)): ?>
         <h3 class="lead">Data from Pleiades</h3>
-        <?php echo $this->pleiadesMintRdf()->setUri($this->pleiadesID); ?>
+        <?php //echo $this->pleiadesMintRdf()->setUri($this->pleiadesID); ?>
         <?php echo $this->pelagiosAnnotations()->setPleiadesPlace($this->pleiadesID); ?>
-        <?php echo $this->pleiadesFlickrImages($this->pleiadesID); ?>
+        <?php //echo $this->pleiadesFlickrImages($this->pleiadesID); ?>
 
     <?php endif; ?>
 
