@@ -371,7 +371,7 @@ class Pas_Zoomify_FileProcessor
      */
     public function getTileFileName($scaleNumber, $columnNumber, $rowNumber)
     {
-        return $scaleNumber . '- ' . $columnNumber . '-' . $rowNumber . self::EXT;
+        return basename($this->getFileName(), '.jpg') . $columnNumber . '-' . $rowNumber . self::EXT;
     }
 
     /** This function generates the name of the next tile group container
@@ -405,7 +405,9 @@ class Pas_Zoomify_FileProcessor
         $tier = 0;
         $tileGroupNumber = 0;
         $numberOfTiles = 0;
-        Zend_Debug::dump($this->_scaleInfo);
+        if ($this->getDebug()) {
+            Zend_Debug::dump($this->_scaleInfo, 'SCALEINFO');
+        }
         foreach ($this->_scaleInfo as $width_height) {
             list($width, $height) = $width_height;
             #		cycle through columns, then rows
@@ -418,26 +420,41 @@ class Pas_Zoomify_FileProcessor
             while (!(($lr_x == $width) && ($lr_y == $height))) {
 
                 $tileFileName = $this->getTileFileName($tier, $column, $row);
+                if ($this->getDebug()) {
+                    Zend_Debug::dump($tileFileName, 'tile mappings filename' . __LINE__);
+                }
                 $tileContainerName = $this->getNewTileContainerName($tileGroupNumber);
+                if ($this->getDebug()) {
+                    Zend_Debug::dump($tileContainerName, 'TILE container name');
+                }
                 if ($numberOfTiles == 0) {
                     $this->createTileContainer($tileContainerName);
-                } elseif ($numberOfTiles % $this->tileSize == 0) {
+                } elseif ($numberOfTiles % $this->getTileSize() == 0) {
                     $tileGroupNumber++;
                     $tileContainerName = $this->getNewTileContainerName($tileGroupNumber);
+                    if ($this->getDebug()) {
+                        Zend_Debug::dump($tileContainerName, 'TILE container name');
+                    }
                     $this->createTileContainer($tileContainerName);
                 }
                 $this->_tileGroupMappings[$tileFileName] = $tileContainerName;
+                if ($this->getDebug()) {
+                    Zend_Debug::dump($this->_tileGroupMappings, 'tile mappings ' . __LINE__);
+                }
                 $numberOfTiles++;
 
+                if ($this->getDebug()) {
+                    Zend_Debug::dump($numberOfTiles, 'number of tiles');
+                }
                 # for the next tile, set lower right cropping point
-                if ($ul_x + $this->_tileSize < $width) {
-                    $lr_x = $ul_x + $this->_tileSize;
+                if ($ul_x + $this->getTileSize() < $width) {
+                    $lr_x = $ul_x + $this->getTileSize();
                 } else {
                     $lr_x = $width;
                 }
 
-                if ($ul_y + $this->_tileSize < $height) {
-                    $lr_y = $ul_y + $this->_tileSize;
+                if ($ul_y + $this->getTileSize() < $height) {
+                    $lr_y = $ul_y + $this->getTileSize();
                 } else {
                     $lr_y = $height;
                 }
@@ -463,27 +480,64 @@ class Pas_Zoomify_FileProcessor
      */
     public function processRowImage($tier = 0, $row = 0)
     {
+
+        if ($this->getDebug()) {
+            Zend_Debug::dump('Tier = ' . $tier . ' Row = ' . $row, "VARIABLES");
+        }
         list($tierWidth, $tierHeight) = $this->_scaleInfo[$tier];
-        $rowsForTier = floor($tierHeight / $this->_tileSize);
-        if ($tierHeight % $this->_tileSize > 0) $rowsForTier++;
-        list($root, $ext) = explode(".", $this->getFileName());
-        if (!$root) $root = $this->_fi;
+
+        if ($this->getDebug()) {
+            Zend_Debug::dump($this->_scaleInfo[$tier], __LINE__ . 'SCALEINFO');
+        }
+
+        $rowsForTier = floor($tierHeight / $this->getTileSize());
+
+        if ($this->getDebug()) {
+            Zend_Debug::dump($rowsForTier, 'Rows for tier');
+        }
+        if ($tierHeight % $this->getTileSize() > 0) {
+            $rowsForTier++;
+        }
+
+        $root = basename($this->getFileName(), '.jpg');
+
+        if ($this->getDebug()) {
+            Zend_Debug::dump(basename($this->getFileName(), '.jpg'), 'BASENAME ');
+        }
+        if (!$root) {
+            $root = $this->getFileName();
+        }
         $ext = ".jpg";
 
+        if ($this->getDebug()) {
+            Zend_Debug::dump(count($this->_scaleInfo) - 1, 'COUNT OF TIER');
+        }
         if ($tier == count($this->_scaleInfo) - 1) {
+            Zend_Debug::dump($tier, 'LINE 516');
             $firstTierRowFile = $root . $tier . "-" . $row . $ext;
-            if (is_file($firstTierRowFile)) {
+            if ($this->getDebug()) {
+                Zend_Debug::dump($firstTierRowFile, 'PATH ONE');
+            }
+            if (!file_exists($firstTierRowFile)) {
                 $imageRow = imagecreatefromjpeg($firstTierRowFile);
                 if ($this->getDebug()) {
+                    Zend_Debug::dump($imageRow, 'LINE TEST' . __LINE__) ;
                     print "firstTierRowFile exists<br>";
                 }
             }
         } else {
+            Zend_Debug::dump($tierWidth, 'Tier width');
             # create this row from previous tier's rows
-            $imageRow = imagecreatetruecolor($tierWidth, $this->_tileSize);
+            $imageRow = imagecreatetruecolor($tierWidth, $this->getTileSize());
+            if ($this->getDebug()) {
+                Zend_Debug::dump($imageRow, 'THE IMAGE ROW 0');
+            }
             $t = $tier + 1;
             $r = $row + $row;
             $firstRowFile = $root . $t . "-" . $r . $ext;
+            if ($this->getDebug()) {
+                Zend_Debug::dump($firstRowFile, 'THE IMAGE ROW 1');
+            }
             $firstRowWidth = 0;
             $firstRowHeight = 0;
             $secondRowWidth = 0;
@@ -492,12 +546,15 @@ class Pas_Zoomify_FileProcessor
                 $firstRowImage = imagecreatefromjpeg($firstRowFile);
                 $firstRowWidth = imagesx($firstRowImage);
                 $firstRowHeight = imagesy($firstRowImage);
-                $imageRowHalfHeight = floor($this->_tileSize / 2);
+                $imageRowHalfHeight = floor($this->getTileSize() / 2);
                 imagecopyresized($imageRow, $firstRowImage, 0, 0, 0, 0, $tierWidth, $imageRowHalfHeight, $firstRowWidth, $firstRowHeight);
                 unlink($firstRowFile);
             }
             $r = $r + 1;
             $secondRowFile = $root . $t . "-" . $r . $ext;
+            if ($this->getDebug()) {
+                Zend_Debug::dump($secondRowFile, 'THE IMAGE ROW 2');
+            }
             if (is_file($secondRowFile)) {
                 $secondRowImage = imagecreatefromjpeg($secondRowFile);
                 $secondRowWidth = imagesx($secondRowImage);
@@ -509,11 +566,12 @@ class Pas_Zoomify_FileProcessor
 
             # the last row may be less than $this->tileSize...
             $rowHeight = $firstRowHeight + $secondRowHeight;
-            $tileHeight = $this->_tileSize * 2;
-            if (($firstRowHeight + $secondRowHeight) < $this->_tileSize * 2) {
-                $imageRow = imageCrop($imageRow, 0, 0, $tierWidth, $firstRowHeight + $secondRowHeight);
+            $tileHeight = $this->getTileSize() * 2;
+            if (($firstRowHeight + $secondRowHeight) < $this->getTileSize() * 2) {
+                $imageRow = cropTheImage($imageRow, 0, 0, $tierWidth, $firstRowHeight + $secondRowHeight);
             }
         }
+        Zend_Debug::dump($imageRow, 'THE IMAGE ROW');
         if ($imageRow) {
 
             # cycle through columns, then rows
@@ -525,14 +583,14 @@ class Pas_Zoomify_FileProcessor
             $lr_x = 0;
             $lr_y = 0;
             while (!(($lr_x == $imageWidth) && ($lr_y == $imageHeight))) {
-                if (($ul_x + $this->_tileSize) < $imageWidth) {
-                    $lr_x = $ul_x + $this->_tileSize;
+                if (($ul_x + $this->getTileSize()) < $imageWidth) {
+                    $lr_x = $ul_x + $this->getTileSize();
                 } else {
                     $lr_x = $imageWidth;
                 }
 
-                if (($ul_y + $this->_tileSize) < $imageHeight) {
-                    $lr_y = $ul_y + $this->_tileSize;
+                if (($ul_y + $this->getTileSize()) < $imageHeight) {
+                    $lr_y = $ul_y + $this->getTileSize();
                 } else {
                     $lr_y = $imageHeight;
                 }
@@ -541,7 +599,7 @@ class Pas_Zoomify_FileProcessor
                 if ($this->getDebug() === true) {
                     print "line 248 calling crop<br>";
                 }
-                $this->saveTile(imageCrop($imageRow, $ul_x, $ul_y, $lr_x, $lr_y), $tier, $column, $row);
+                $this->saveTile(cropTheImage($imageRow, $ul_x, $ul_y, $lr_x, $lr_y), $tier, $column, $row);
                 $this->_numberOfTiles++;
                 if ($this->getDebug()) {
                     print "created tile: numberOfTiles= $this->_numberOfTiles tier column row =($tier,$column,$row)<br>\n";
@@ -609,15 +667,25 @@ class Pas_Zoomify_FileProcessor
             $root = $this->getFileName();
         }
         $image = $this->_openImage();
-        while ($row * $this->_tileSize < $this->getOriginalHeight()) {
-            $ul_y = $row * $this->_tileSize;
-            if ($ul_y + $this->_tileSize < $this->getOriginalHeight()) {
-                $lr_y = $ul_y + $this->_tileSize;
+        while ($row * $this->getTileSize() < $this->getOriginalHeight()) {
+            $ul_y = $row * $this->getTileSize();
+            if ($ul_y + $this->getTileSize() < $this->getOriginalHeight()) {
+                $lr_y = $ul_y + $this->getTileSize();
             } else {
                 $lr_y = $this->getOriginalHeight();
             }
             $imageRow = cropTheImage($image, 0, $ul_y, $this->getOriginalWidth(), $lr_y);
-            $saveFilename = $this->getNameOfContainer() . '/' . $root . $tier . '-' . $row . self::EXT;
+            if ($this->getDebug()) {
+                Zend_Debug::dump($imageRow, 'IMAGEROW');
+                Zend_Debug::dump($tier, 'TIER');
+                Zend_Debug::dump($row, 'ROW');
+            }
+            $firstTierRowFile = $root . $tier . "-" . $row . $ext;
+            $path = $this->getAssignedTileContainerName($firstTierRowFile);
+            $saveFilename = $this->getNameOfContainer() . '/' .  $path . '/' . $root . $tier . '-' . $row . self::EXT;
+            if ($this->getDebug()) {
+                Zend_Debug::dump($saveFilename, 'Filename');
+            }
 //            touch($saveFilename);
 //            chmod($saveFilename, $this->getFileMode());
             imagejpeg($imageRow, $saveFilename, $this->getQualitySetting());
@@ -647,7 +715,7 @@ class Pas_Zoomify_FileProcessor
         $newnode = $xml->appendChild($node);
         $newnode->setAttribute('WIDTH', $this->getOriginalWidth());
         $newnode->setAttribute('HEIGHT', $this->getOriginalHeight());
-        $newnode->setAttribute('NUMTILES', $this->getNumberOfTiles());
+        $newnode->setAttribute('NUMTILES', $this->_numberOfTiles);
         $newnode->setAttribute('NUMIMAGES', '1');
         $newnode->setAttribute('VERSION', '1.8');
         $newnode->setAttribute('TILESIZE', $this->getTileSize());
@@ -661,15 +729,18 @@ class Pas_Zoomify_FileProcessor
     public function getAssignedTileContainerName($tileFileName)
     {
         if ($tileFileName) {
-            if (!is_null($this->getTileGroupMappings()) && $this->getTileGroupMappings()) {
-                $containerName = $this->getTileGroupMappings()[$tileFileName];
+            if (!is_null($this->_tileGroupMappings) && $this->_tileGroupMappings) {
+                Zend_Debug::dump($this->_tileGroupMappings);
+                $containerName = $this->_tileGroupMappings[$tileFileName];
                 if ($containerName) {
+                    if ($this->getDebug()) {
+                        Zend_Debug::dump($containerName, 'Assigned container');
+                    }
                     return $containerName;
                 }
             }
         }
-        $containerName = $this->getNewTileContainerName();
-        return $containerName;
+        return $this->getNewTileContainerName();
     }
 
     /** Retrieve the image metadata for an image
@@ -681,23 +752,21 @@ class Pas_Zoomify_FileProcessor
         $width = $this->getOriginalWidth();
         $height = $this->getOriginalHeight();
         $width_height = array($width, $height);
-        $scale = $this->_scaleInfo;
-        array_unshift($scale, $width_height);
+        array_unshift($this->_scaleInfo, $width_height);
         if ($this->getDebug()) {
-            Zend_Debug::dump($width_height);
+            Zend_Debug::dump(array_unshift($this->_scaleInfo, $width_height), "UNSHIFT");
         }
         while (($width > $this->getTileSize()) || ($height > $this->getTileSize())) {
             $width = floor($width / 2);
             $height = floor($height / 2);
             $width_height = array($width, $height);
-            $scale = $this->_scaleInfo;
-            array_unshift($scale, $width_height);
-            if ($this->_debug) {
-                print "getImageMetadata newWidth=$width newHeight=$height<br>\n";
+            array_unshift($this->_scaleInfo, $width_height);
+            if ($this->getDebug()) {
+                Zend_Debug::dump("getImageMetadata newWidth=$width newHeight=$height", 'NEW DIMS');
             }
         }
         if ($this->getDebug()) {
-            Zend_Debug::dump($width_height);
+            Zend_Debug::dump($width_height, 'WIDTH_HEIGHT');
         }
         // Process the image
         $this->preProcess();
@@ -709,11 +778,12 @@ class Pas_Zoomify_FileProcessor
      */
     public function createTileContainer($tileContainerName = "")
     {
-        $tileContainerPath = $this->getSaveLocation() . '/' . $tileContainerName;
+        $tileContainerPath = implode('/', array($this->getNameOfContainer(), $tileContainerName));
+        if ($this->getDebug()) {
+            Zend_Debug::dump('Making container: ' . $tileContainerPath);
+        }
         if (!is_dir($tileContainerPath)) {
             $this->_makeDirectory($tileContainerPath, self::PERMS, true);
-            chmod($tileContainerPath, $this->getFileMode());
-//            chown($tileContainerPath, $this->getFileGroup());
         }
     }
 
@@ -723,7 +793,9 @@ class Pas_Zoomify_FileProcessor
      */
     protected function _makeDirectory($path, $recursive = TRUE)
     {
-        return mkdir($path, self::PERMS, $recursive);
+        if (!is_dir($path)) {
+            return mkdir($path, self::PERMS, $recursive);
+        }
     }
 
     /** Create the data container from the image name
@@ -735,12 +807,12 @@ class Pas_Zoomify_FileProcessor
         //If the paths already exist, an image is being re-processed, clean up for it.
         if (is_dir($directory)) {
             if ($this->getDebug()) {
-                echo 'Removing directory';
+                Zend_Debug::dump('Removing directory', 'REMOVE DIRECTORY');
             }
-            rm($directory);
+//            rm($directory);
         }
         if ($this->getDebug()) {
-            echo __LINE__ . ' making ' . $directory . ' Perms: ' . self::PERMS;
+            Zend_Debug::dump('Line: ' . __LINE__ . ' making ' . $directory . ' Perms: ' . self::PERMS, 'CREATE DATA');
         }
         //Make the directory
         $this->_makeDirectory($directory, self::PERMS, true);
@@ -817,7 +889,7 @@ class Pas_Zoomify_FileProcessor
         $directory = $this->getImagePath() . $this->getContainer();
         if (!is_dir($directory)) {
             if ($this->getDebug() === true) {
-                echo __LINE__ . ' Making directory with ' . self::PERMS;
+                Zend_Debug::dump('Line: ' . __LINE__ . ' Making directory ' . $directory . ' with ' . self::PERMS, 'CREATE CONTAINER');
             }
             $this->_makeDirectory($directory, self::PERMS, true);
         }
@@ -832,6 +904,7 @@ class Pas_Zoomify_FileProcessor
 
 function rm($fileglob)
 {
+//    Zend_Debug::dump($fileglob);
     if (is_string($fileglob)) {
         if (is_file($fileglob)) {
             return unlink($fileglob);
