@@ -342,7 +342,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
                 ->addFilters(array('StripTags', 'StringTrim'))
                 ->addValidator('Alnum',false, array('allowWhiteSpace' => true));
 
-        $rudd_type = new Zend_Form_Element_Text('ruddType');
+        $rudd_type = new Zend_Form_Element_Text('abcType');
         $rudd_type->setLabel('Ancient British Coins number (ABC): ')
                 ->addFilters(array('StripTags', 'StringTrim'))
                 ->addValidator('Alnum',false, array('allowWhiteSpace' => true));
@@ -409,7 +409,7 @@ class IronAgeNumismaticSearchForm extends Pas_Form {
             'ruler2', 'tribe', 'mint',
             'axis', 'obverseLegend', 'obverseDescription',
             'reverseLegend', 'reverseDescription', 'bmc',
-            'vaType', 'allenType', 'ruddType',
+            'vaType', 'allenType', 'abcType',
             'mackType', 'numChiab', 'context',
             'phase_date_1', 'phase_date_2','depositionDate'),
             'numismatics')
