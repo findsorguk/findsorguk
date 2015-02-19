@@ -24,7 +24,7 @@ function active($controllerName, $actionName)
     $auth = Zend_Auth::getInstance();
     if ($auth->hasIdentity()) {
         $user = $auth->getIdentity();
-        $allowed = array('admin', 'fa');
+        $allowed = array('admin', 'fa', 'hoard', 'treasure');
         if (in_array($user->role, $allowed)) {
             ?>
 

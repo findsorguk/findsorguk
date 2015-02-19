@@ -5,11 +5,10 @@
 <p>An object that you had recorded on finds.org.uk by a Finds Liaison Officer has progressed through our workflow.</p>
 <p>Object number <?php echo $this->old_findID; ?>, is now at stage:
     <strong><?php echo $this->workflowStatus()->setWorkflow($this->workflow); ?></strong>.<br/>
-    You can find out more about what that means at <a href="http://finds.org.uk/database/terminology/workflows">http://finds.org.uk/database/terminology/workflows</a>.
+    You can find out more about what that means at <a href="<?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'workflows'), 'default', true); ?>"><?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'workflows'), 'default', true); ?></a>.
     <?php if (in_array($this->workflow, array('3', '4'))): ?><br/>
-        <?php $url = array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id); ?>
         It can be found at:
-        <a href="<?php echo $this->serverUrl($this->url($url, 'default', true)); ?>"><?php echo $this->serverUrl($this->url($url, 'default', true)); ?></a>
+        <a href="<?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), 'default', true)); ?>"><?php echo $this->serverUrl();?><?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->id), 'default', true); ?></a>
     <?php endif; ?>
 </p>
 

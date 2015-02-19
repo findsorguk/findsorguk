@@ -85,7 +85,7 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract
             $this->view->headMeta(ucfirst($user->fullname),
                 'page-user-screen_name');
 
-            $allowed = array('admin', 'fa');
+            $allowed = array('admin', 'fa', 'hoard');
             if (in_array($user->role, $allowed)) {
                 $string .= '<br /><a class="btn btn-small btn-danger" href="';
                 $string .= $this->view->url(array('module' => 'admin'), 'default', true);

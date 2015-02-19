@@ -77,6 +77,15 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $reeces = new Reeces();
         $reece_options = $reeces->getReeces();
 
+        $siteclasses = new ArchaeologicalSiteClass();
+        $siteclass_options = $siteclasses->getOptions();
+
+        $contexts = new ArchaeologicalContexts();
+        $context_options = $contexts->getOptions();
+
+        $features = new ArchaeologicalFeatures();
+        $feature_options = $features->getOptions();
+
 
         parent::__construct($options);
 
@@ -94,7 +103,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                     ->addErrorMessage('Please enter a valid object type!');
 
         $description = new Zend_Form_Element_Text('description');
-        $description->setLabel('Object description contains: ')
+        $description->setLabel('Hoard description contains: ')
                     ->addFilters(array('StringTrim','StripTags'))
                     ->addErrorMessage('Please enter a valid term');
 
@@ -371,6 +380,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
             ->addMultiOptions(array(null => 'Choose primary ruler', 'Available rulers'=> $ruler_options))
             ->addFilters(array('StringTrim','StripTags'))
             ->setAttribs(array('class' => 'input-xlarge selectpicker show-menu-arrow'))
+            ->setDescription('You need to pick a broad period first')
             ->setRegisterInArrayValidator(false);
 
         $termDate1 = new Zend_Form_Element_Text('terminalyear1');
@@ -421,7 +431,27 @@ class AdvancedHoardsSearchForm extends Pas_Form {
             ->setAttribs(array('placeholder' => 'Positive for AD, negative for BC'));
 
         $archaeologicalDescription = new Zend_Form_Element_Text('archaeologicalDescription');
-        $archaeologicalDescription->setLabel('Archaeological Description: ');
+        $archaeologicalDescription->setLabel('Archaeological description contains: ');
+
+        //Period from: Assigned via dropdown
+        $archdate1period = new Zend_Form_Element_Select('archaeologyPeriodFrom');
+        $archdate1period->setLabel('Period from: ')
+            ->addFilters(array('StringTrim','StripTags'))
+            ->addMultiOptions(array(
+                null => 'Choose period from' ,
+                'Available periods' => $period_options))
+            ->setAttribs(array(
+                'class' => 'input-xlarge selectpicker show-menu-arrow'));
+
+        //Period to: Assigned via dropdown
+        $archdate2period = new Zend_Form_Element_Select('archaeologyPeriodTo');
+        $archdate2period->setLabel('Period to: ')
+            ->addFilters(array('StringTrim','StripTags'))
+            ->addMultiOptions(array(
+                null => 'Choose period to',
+                'Available periods' => $period_options))
+            ->setAttribs(array(
+                'class' => 'input-xlarge selectpicker show-menu-arrow'));
 
         $siteDateYear1 = new Zend_Form_Element_Text('siteDateYear1');
         $siteDateYear1->setLabel('Site date from: ')
@@ -449,15 +479,57 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $excavated->setLabel('Excavated: ')
             ->setUncheckedValue(null);
 
+        $siteclass = new Zend_Form_Element_Select('sitecontext');
+        $siteclass->setLabel('Site class: ')
+            ->addMultioptions(array(
+                null => 'Choose class of site',
+                'Available classes' => $siteclass_options
+            ))
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->addValidator('InArray', false, array(array_keys($siteclass_options)))
+            ->addValidator('Int')
+            ->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
+
+        $arch_context = new Zend_Form_Element_Select('sitetype');
+        $arch_context->setLabel('Context: ')
+            ->addMultioptions(array(
+                null => 'Choose a context',
+                'Available contexts' => $context_options
+            ))
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->addValidator('InArray', false, array(array_keys($context_options)))
+            ->addValidator('Int')
+            ->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
+
+        $arch_feature = new Zend_Form_Element_Select('feature');
+        $arch_feature->setLabel('Feature: ')
+            ->addMultioptions(array(
+                null => 'Choose a feature',
+                'Available features' => $feature_options
+            ))
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->addValidator('InArray', false, array(array_keys($feature_options)))
+            ->addValidator('Int')
+            ->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
+
 
         $quantityCoins = new Zend_Form_Element_Text('quantityCoins');
         $quantityCoins->setLabel('Quantity of coins in hoard: ');
+        $quantityCoins->setDescription('This searches for an exact quantity. '
+            . 'To search for a range use advanced search syntax in the simple '
+            . 'search box');
 
         $quantityArtefacts = new Zend_Form_Element_Text('quantityArtefacts');
         $quantityArtefacts->setLabel('Quantity of artefacts in hoard: ');
+        $quantityArtefacts->setDescription('This searches for an exact quantity. '
+            . 'To search for a range use advanced search syntax in the simple '
+            . 'search box');
 
         $quantityContainers = new Zend_Form_Element_Text('quantityContainers');
         $quantityContainers->setLabel('Quantity of containers in hoard: ');
+        $quantityContainers->setDescription('This searches for an exact quantity. '
+            . 'To search for a range use advanced search syntax in the simple '
+            . 'search box');
 
         $legacyID = new Zend_Form_Element_Text('legacyID');
         $legacyID->setLabel('Legacy hoard database number: ');
@@ -492,10 +564,12 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                     $termDate2, $terminalReasonID,
                     $qualityRatingNum, $qualityRatingArch, $qualityRatingFindspot,
                     $archaeologicalDescription, $excavatedYear1, $excavatedYear2,
-                    $siteDateYear2, $siteDateYear1, $featureDateYear1,
+                    $featureDateYear1,
                     $featureDateYear2, $knownSite, $excavated,
+                    $siteclass, $arch_context, $arch_feature,
                     $quantityArtefacts, $quantityCoins, $quantityContainers,
-                    $legacyID, $reece
+                    $legacyID, $reece,
+                    $archdate1period, $archdate2period,
                     ));
             } else {
                 $this->addElements(array(
@@ -515,10 +589,11 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                     $smrRef, $hash, $termDate1,
                     $termDate2, $terminalReasonID,
                     $qualityRatingNum, $qualityRatingArch, $qualityRatingFindspot,
-                    $excavatedYear1, $excavatedYear2, $siteDateYear2,
-                    $siteDateYear1, $featureDateYear1, $featureDateYear2,
+                    $excavatedYear1, $excavatedYear2, $featureDateYear1, $featureDateYear2,
+                    $siteclass, $arch_context, $arch_feature,
                     $knownSite, $excavated, $quantityArtefacts, $quantityCoins,
-                    $quantityContainers, $legacyID, $reece
+                    $quantityContainers, $legacyID, $reece,
+                    $archdate1period, $archdate2period,
                     ));
         }
 
@@ -533,18 +608,24 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $this->details->setLegend('Main details: ');
 
         $this->addDisplayGroup(array(
-            'broadperiod', 'lastRulerID', 'reeceID',
-            'periodFrom', 'periodTo', 'culture',
-            'fromdate', 'todate', 'terminalyear1',
+            'broadperiod', 'periodFrom', 'periodTo',
+            'fromdate', 'todate'),
+            'temporaldetails');
+        $this->temporaldetails->setLegend('Dates and periods: ');
+
+        $this->addDisplayGroup(array(
+            'lastRulerID', 'reeceID', 'terminalyear1',
             'terminalyear2', 'terminalReasonID', 'legacyID',
             'qualityRatingNumismatic'),
             'numismatics');
         $this->numismatics->setLegend('Numismatic analysis: ');
 
         $this->addDisplayGroup(array(
+                'knownSite', 'excavated',
+                'archaeologyPeriodFrom', 'archaeologyPeriodTo',
                 'archaeologicalDescription','excavatedYear1', 'excavatedYear2',
-                'siteDateYear1','siteDateYear2', 'featureDateYear1',
-                'featureDateYear2', 'knownSite', 'excavated',
+                'sitecontext', 'sitetype', 'feature',
+                'featureDateYear1', 'featureDateYear2',
                 'qualityRatingArchaeological')
                     , 'archaeology');
         $this->archaeology->setLegend('Archaeological context: ');
