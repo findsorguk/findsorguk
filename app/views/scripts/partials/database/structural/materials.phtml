@@ -65,12 +65,12 @@ $materials = array(
         <?php endif; ?>
         <?php if (!is_null($this->surface)) : ?>
             <br/>
-            Surface Treatment: <span property="pas:surfaceTreatment"><?php echo $this->surface; ?></span> <a
-                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'surface', 'id' => $this->surftreat), NULL, true); ?>"
-                title="View scope notes for <?php echo $this->escape($this->surface); ?>"><i class="icon-info-sign"></i></a>
+            Surface Treatment: <span property="pas:surfaceTreatment"><?php echo $this->surfaceTreatment; ?></span> <a
+                href="<?php echo $this->url(array('module' => 'datalabs', 'controller' => 'terminology', 'action' => 'surface', 'id' => $this->surface), NULL, true); ?>"
+                title="View scope notes for <?php echo $this->escape($this->surfaceTreatment); ?>"><i class="icon-info-sign"></i></a>
             <a
-                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'surface' => $this->surftreat), NULL, true); ?>"
-                title="Find all records assigned to  <?php echo $this->surface; ?>"><i class="icon-search"></i></a>
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'surface' => $this->surface), NULL, true); ?>"
+                title="Find all records assigned to  <?php echo $this->surfaceTreatment; ?>"><i class="icon-search"></i></a>
         <?php endif; ?>
     </p>
 <?php endif; ?>
