@@ -266,38 +266,16 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
     public function zoomAction()
     {
         if ($this->getParam('id', false)) {
-            $imageID = $this->getParam('id');
-            $imagedata = $this->_images->getFileName($imageID);
-            $this->view->data = $imagedata;
-            $zoomdir = 'zoom/';
-            $imagepath = $imagedata['0']['imagedir'];
-            $filename = $imagedata['0']['f'];
-            $stripped = explode('.', $filename);
-            $stripped = end($stripped);
-            $new = str_replace('.', '_', $filename);
-            $new[strrpos($new, '_')] = '.';
-            $stripit = explode('.', $new);
-            $zoomedimagepath = $stripit['0'];
-
-            $filepath = './' . $imagepath . $filename;
-            $path = './' . $imagepath . $zoomdir;
-            $ord = $imagepath . $zoomdir;
-            if (file_exists($filepath)) {
-                if (!file_exists($path)) {
-                    mkdir($path, 0777);
-                }
-                if (!file_exists($path . $zoomedimagepath . '_zdata')) {
-                    $this->_zoomifyObject->_filegroup = "www-data";
-                    $this->_zoomifyObject->_dir = $imagepath;
-                    $this->_zoomifyObject->_vSaveToLocation = $ord . $zoomedimagepath . '_zdata';
-                    $this->_zoomifyObject->ZoomifyProcess($filename, $imagepath);
-                    $this->view->path = $ord . $zoomedimagepath . '_zdata';
-                } else {
-                    $this->view->path = $ord . $zoomedimagepath . '_zdata';
-                }
-            }
+            $file = $this->_images->getFileName($this->getParam('id'));
+            $zoomify = new Pas_Zoomify_FileProcessor();
+            $zoomify->setImagePath(implode('/', array(IMAGE_PATH, $this->getUsername())))
+                ->setFileName($file[0]['f'])
+                ->setDebug(false)
+                ->zoomTheImage();
+            $this->view->data = $file;
+            $this->view->path = $file[0]['f'];
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter, 500);
+            throw new Pas_Exception_Param($this->_missingParameter, 404);
         }
     }
 
@@ -326,7 +304,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
             $images = new Slides();
             $this->view->images = $images->getSlides($this->getParam('id'));
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter, 500);
+            throw new Pas_Exception_Param($this->_missingParameter, 404);
         }
     }
 }
