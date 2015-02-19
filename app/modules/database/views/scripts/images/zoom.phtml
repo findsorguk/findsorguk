@@ -25,19 +25,7 @@ $this->metaBase()->setDescription($this->title())->generate();
     </div>
 
     <div class="row-fluid span12">
-        <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-                codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
-                width="750"
-                height="450" id="theMovie">
-            <param name="FlashVars"
-                   value="zoomifyImagePath=/<?php echo $this->data[0]['imagedir'] . '/zoom/' . basename($this->path, '.jpg') . '_zoomify'; ?>">
-            <param name="MENU" value="FALSE">
-            <param name="SRC" value="<?php echo $this->serverUrl(); ?>/ZoomifyViewer.swf">
-            <embed flashvars="zoomifyImagePath=/<?php echo $this->data[0]['imagedir']  . '/zoom/' . basename($this->path, '.jpg') . '_zoomify'; ?>"
-                   src="<?php echo $this->serverUrl(); ?>/ZoomifyViewer.swf" menu="false"
-                   pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"
-                   width="750" height="650" name="theMovie"></embed>
-        </object>
+        <?php echo $this->zoomify()->setData($this->data[0]);?>
     </div>
 <?php else: ?>
     <h2 class="lead">An error has occurred</h2>

@@ -267,11 +267,6 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
     {
         if ($this->getParam('id', false)) {
             $file = $this->_images->getFileName($this->getParam('id'));
-            $zoomify = new Pas_Zoomify_FileProcessor();
-            $zoomify->setImagePath(implode('/', array(IMAGE_PATH, $this->getUsername())))
-                ->setFileName($file[0]['f'])
-                ->setDebug(false)
-                ->zoomTheImage();
             $this->view->data = $file;
             $this->view->path = $file[0]['f'];
         } else {
