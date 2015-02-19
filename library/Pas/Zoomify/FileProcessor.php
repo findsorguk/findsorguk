@@ -7,14 +7,7 @@
  * <code>
  * <?php
  * $zoom = new Pas_Zoomify_FileProcessor();
- * $zoom->setFileGroup($group);
- * $zoom->setFileMode(775);
- * $zoom->setDirMode(2555);
- * $zoom->setDirectory($directory);
- * $zoom->setSaveLocation($location);
- * $zoom->setFileName($filename);
- * $zoom->setImagePath($path);
- * $zoom->createTiles();
+ * $zoom->setImagePath($path)->setFileName($this->getFilename($data))->setDebug(false)->zoomTheImage();
  * ?>
  * </code>
  * @author Ported from Python to PHP by Wes Wright
@@ -74,6 +67,9 @@ class Pas_Zoomify_FileProcessor
      */
     protected $_dirMode = 2775;
 
+    /** The default permissions to use
+     *
+     */
     const PERMS = 0777;
 
     /** File group for owner
@@ -94,7 +90,7 @@ class Pas_Zoomify_FileProcessor
     /** @var int */
     protected $_debug = null;
 
-    /**
+    /** Get whether to debug or not
      * @return mixed
      */
     public function getDebug()
@@ -102,6 +98,11 @@ class Pas_Zoomify_FileProcessor
         return $this->_debug;
     }
 
+    /** Set whether to debug or not
+     * @access public
+     * @param boolean $flag
+     * @return Pas_Zoomify_FileProcessor
+     */
     public function setDebug($flag)
     {
         $this->_debug = $flag;
@@ -398,7 +399,9 @@ class Pas_Zoomify_FileProcessor
     }
 
 
-    /** plan for the arrangement of the tile groups
+    /** Plan for the arrangement of the tile groups
+     * So pre processing applied
+     * @return void
      */
     public function preProcess()
     {
@@ -475,6 +478,7 @@ class Pas_Zoomify_FileProcessor
     }
 
     /** For each image, create and save tiles for zoomify
+     * @access public
      * @param int $tier
      * @param int $row
      */
@@ -686,6 +690,9 @@ class Pas_Zoomify_FileProcessor
         imagedestroy($image);
     }
 
+    /**
+     * @return resource
+     */
     public function _openImage()
     {
         return imagecreatefromjpeg(implode('/', array($this->getImagePath(), $this->getFileName())));
@@ -761,7 +768,7 @@ class Pas_Zoomify_FileProcessor
     }
 
     /** create a container for the next group of tiles within the data container
-     *
+     * @access public
      * @param $tileContainerName
      */
     public function createTileContainer($tileContainerName = "")
@@ -788,6 +795,7 @@ class Pas_Zoomify_FileProcessor
 
     /** Create the data container from the image name
      * @param string $imageName
+     * @access public
      */
     public function createDataContainer($imageName)
     {
@@ -797,7 +805,6 @@ class Pas_Zoomify_FileProcessor
             if ($this->getDebug()) {
                 Zend_Debug::dump('Removing directory', 'REMOVE DIRECTORY');
             }
-//            rm($directory);
         }
         if ($this->getDebug()) {
             Zend_Debug::dump('Line: ' . __LINE__ . ' making ' . $directory . ' Perms: ' . self::PERMS, 'CREATE DATA');
@@ -806,10 +813,12 @@ class Pas_Zoomify_FileProcessor
         $this->_makeDirectory($directory, self::PERMS, true);
         //Change the permissions
         chmod($directory, $this->getDirMode());
-//        chown($directory, $this->getFileGroup());
-
     }
 
+    /** Get the name of the container for the image
+     * @access public
+     * @return string
+     */
     public function getNameOfContainer()
     {
         return implode('/', array($this->getSaveLocation(), basename($this->getFileName(), '.jpg'))) . self::SUFFIX;
@@ -846,8 +855,6 @@ class Pas_Zoomify_FileProcessor
         $xmlFile = fopen($this->getNameOfContainer() . '/ImageProperties.xml', 'w');
         fwrite($xmlFile, $this->getXMLOutput());
         fclose($xmlFile);
-//        chmod($this->getNameOfContainer() . '/ImageProperties.xml', $this->getFileMode());
-//        chown($this->getSaveLocation() . '/ImageProperties.xml', $this->getFileGroup());
     }
 
 
@@ -862,8 +869,6 @@ class Pas_Zoomify_FileProcessor
     public function saveTile($image, $scaleNumber, $column, $row)
     {
         $tile_file = $this->getFileReference($scaleNumber, $column, $row);
-//        touch($tile_file);
-//        chmod($tile_file, $this->getFileMode());
         imagejpeg($image, $tile_file, $this->getQualitySetting());
     }
 
