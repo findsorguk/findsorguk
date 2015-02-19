@@ -92,7 +92,7 @@ class Pas_Zoomify_FileProcessor
     protected $_imagePath = '';
 
     /** @var int */
-    protected $_debug = false;
+    protected $_debug = null;
 
     /**
      * @return mixed
@@ -371,7 +371,7 @@ class Pas_Zoomify_FileProcessor
      */
     public function getTileFileName($scaleNumber, $columnNumber, $rowNumber)
     {
-        return basename($this->getFileName(), '.jpg') . $columnNumber . '-' . $rowNumber . self::EXT;
+        return $scaleNumber . '-' . $columnNumber . '-' . $rowNumber . self::EXT;
     }
 
     /** This function generates the name of the next tile group container
@@ -405,7 +405,7 @@ class Pas_Zoomify_FileProcessor
         $tier = 0;
         $tileGroupNumber = 0;
         $numberOfTiles = 0;
-        if ($this->getDebug()) {
+        if ($this->getDebug() == true) {
             Zend_Debug::dump($this->_scaleInfo, 'SCALEINFO');
         }
         foreach ($this->_scaleInfo as $width_height) {
@@ -478,7 +478,7 @@ class Pas_Zoomify_FileProcessor
      * @param int $tier
      * @param int $row
      */
-    public function processRowImage($tier = 0, $row = 0)
+    public function processRowImage($tier = 0, $row = 0, $saveFilename = '')
     {
 
         if ($this->getDebug()) {
@@ -513,20 +513,21 @@ class Pas_Zoomify_FileProcessor
             Zend_Debug::dump(count($this->_scaleInfo) - 1, 'COUNT OF TIER');
         }
         if ($tier == count($this->_scaleInfo) - 1) {
-            Zend_Debug::dump($tier, 'LINE 516');
-            $firstTierRowFile = $root . $tier . "-" . $row . $ext;
+
+            $firstTierRowFile = $saveFilename;
+
             if ($this->getDebug()) {
                 Zend_Debug::dump($firstTierRowFile, 'PATH ONE');
             }
-            if (!file_exists($firstTierRowFile)) {
+            if (is_file($firstTierRowFile)) {
                 $imageRow = imagecreatefromjpeg($firstTierRowFile);
                 if ($this->getDebug()) {
                     Zend_Debug::dump($imageRow, 'LINE TEST' . __LINE__) ;
                     print "firstTierRowFile exists<br>";
                 }
             }
+
         } else {
-            Zend_Debug::dump($tierWidth, 'Tier width');
             # create this row from previous tier's rows
             $imageRow = imagecreatetruecolor($tierWidth, $this->getTileSize());
             if ($this->getDebug()) {
@@ -534,7 +535,7 @@ class Pas_Zoomify_FileProcessor
             }
             $t = $tier + 1;
             $r = $row + $row;
-            $firstRowFile = $root . $t . "-" . $r . $ext;
+            $firstRowFile = $this->getNameOfContainer() . '/' . $root . $t . "-" . $r . $ext;
             if ($this->getDebug()) {
                 Zend_Debug::dump($firstRowFile, 'THE IMAGE ROW 1');
             }
@@ -551,7 +552,7 @@ class Pas_Zoomify_FileProcessor
                 unlink($firstRowFile);
             }
             $r = $r + 1;
-            $secondRowFile = $root . $t . "-" . $r . $ext;
+            $secondRowFile =  $this->getNameOfContainer() . '/' . $root . $t . "-" . $r . $ext;
             if ($this->getDebug()) {
                 Zend_Debug::dump($secondRowFile, 'THE IMAGE ROW 2');
             }
@@ -571,9 +572,7 @@ class Pas_Zoomify_FileProcessor
                 $imageRow = cropTheImage($imageRow, 0, 0, $tierWidth, $firstRowHeight + $secondRowHeight);
             }
         }
-        Zend_Debug::dump($imageRow, 'THE IMAGE ROW');
         if ($imageRow) {
-
             # cycle through columns, then rows
             $column = 0;
             $imageWidth = imagesx($imageRow);
@@ -600,7 +599,9 @@ class Pas_Zoomify_FileProcessor
                     print "line 248 calling crop<br>";
                 }
                 $this->saveTile(cropTheImage($imageRow, $ul_x, $ul_y, $lr_x, $lr_y), $tier, $column, $row);
+
                 $this->_numberOfTiles++;
+
                 if ($this->getDebug()) {
                     print "created tile: numberOfTiles= $this->_numberOfTiles tier column row =($tier,$column,$row)<br>\n";
                 }
@@ -618,36 +619,25 @@ class Pas_Zoomify_FileProcessor
             if ($tier > 0) {
                 $halfWidth = max(1, floor($imageWidth / 2));
                 $halfHeight = max(1, floor($imageHeight / 2));
-                #        tempImage = imageRow.resize((imageWidth/2, imageHeight/2), PIL.Image.ANTIALIAS)
                 $tempImage = imagecreatetruecolor($halfWidth, $halfHeight);
-                #	imagecopyresampled ( resource dst_im, resource src_im, int dst_x, int dst_y, int src_x, int src_y,       int dst_w,       int dst_h,   int src_w,   int src_h )
                 imagecopyresampled($tempImage, $imageRow, 0, 0, 0, 0, $halfWidth, $halfHeight, $imageWidth, $imageHeight);
-                #        tempImage = imageRow.resize((halfWidth, halfHeight), PIL.Image.ANTIALIAS)
-                #        print 'resize as ' + str(imageWidth/2) + ' by ' + str(imageHeight/2) + ' (or ' + str(halfWidth) + ' x ' + str(halfHeight) + ')'
-                #        tempImage.save(root + str(tier) + '-' + str(row) + ext)
                 $rowFileName = $root . $tier . "-" . $row . $ext;
-                touch($rowFileName);
-                imagejpeg($tempImage, $rowFileName);
-                chmod($rowFileName, $this->_filemode);
-                chgrp($rowFileName, $this->_filegroup);
+                imagejpeg($tempImage, $this->getNameOfContainer() . '/' . $rowFileName);
                 imagedestroy($tempImage);
-                #        print 'saved row file: ' + root + str(tier) + '-' + str(row) + ext
-                #        tempImage = None
-                #      rowImage = None
             }
 
             if ($tier > 0) {
-                if ($this->_debug) print "processRowImage final checks for tier $tier row=$row rowsForTier=$rowsForTier<br>\n";
+                if ($this->getDebug()) print "processRowImage final checks for tier $tier row=$row rowsForTier=$rowsForTier<br>\n";
                 if ($row % 2 != 0) {
-                    if ($this->_debug) print "processRowImage final checks tier=$tier row=$row mod 2 check before<br>\n";
+                    if ($this->getDebug()) print "processRowImage final checks tier=$tier row=$row mod 2 check before<br>\n";
 #				  $this->processRowImage($tier=$tier-1,$row=($row-1)/2);
                     $this->processRowImage($tier - 1, floor(($row - 1) / 2));
-                    if ($this->_debug) print "processRowImage final checks tier=$tier row=$row mod 2 check after<br>\n";
+                    if ($this->getDebug()) print "processRowImage final checks tier=$tier row=$row mod 2 check after<br>\n";
                 } elseif ($row == $rowsForTier - 1) {
-                    if ($this->_debug) print "processRowImage final checks tier=$tier row=$row rowsForTier=$rowsForTier check before<br>\n";
+                    if ($this->getDebug()) print "processRowImage final checks tier=$tier row=$row rowsForTier=$rowsForTier check before<br>\n";
 #				  $this->processRowImage($tier=$tier-1, $row=$row/2);
                     $this->processRowImage($tier - 1, floor($row / 2));
-                    if ($this->_debug) print "processRowImage final checks tier=$tier row=$row rowsForTier=$rowsForTier check after<br>\n";
+                    if ($this->getDebug()) print "processRowImage final checks tier=$tier row=$row rowsForTier=$rowsForTier check after<br>\n";
                 }
             }
         }
@@ -681,8 +671,7 @@ class Pas_Zoomify_FileProcessor
                 Zend_Debug::dump($row, 'ROW');
             }
             $firstTierRowFile = $root . $tier . "-" . $row . $ext;
-            $path = $this->getAssignedTileContainerName($firstTierRowFile);
-            $saveFilename = $this->getNameOfContainer() . '/' .  $path . '/' . $root . $tier . '-' . $row . self::EXT;
+            $saveFilename = $this->getNameOfContainer() . '/' . $root . $tier . '-' . $row . self::EXT;
             if ($this->getDebug()) {
                 Zend_Debug::dump($saveFilename, 'Filename');
             }
@@ -691,7 +680,7 @@ class Pas_Zoomify_FileProcessor
             imagejpeg($imageRow, $saveFilename, $this->getQualitySetting());
 //            chown($saveFilename, $this->getFileGroup());
             imagedestroy($imageRow);
-            $this->processRowImage($tier, $row);
+            $this->processRowImage($tier, $row, $saveFilename);
             $row++;
         }
         imagedestroy($image);
@@ -730,7 +719,6 @@ class Pas_Zoomify_FileProcessor
     {
         if ($tileFileName) {
             if (!is_null($this->_tileGroupMappings) && $this->_tileGroupMappings) {
-                Zend_Debug::dump($this->_tileGroupMappings);
                 $containerName = $this->_tileGroupMappings[$tileFileName];
                 if ($containerName) {
                     if ($this->getDebug()) {
@@ -837,7 +825,7 @@ class Pas_Zoomify_FileProcessor
     {
         $tileFileName = $this->getTileFileName($scaleNumber, $columnNumber, $rowNumber);
         $tileContainerName = $this->getAssignedTileContainerName($tileFileName);
-        return $this->getSaveLocation() . '/' . $tileContainerName . '/' . $tileFileName;
+        return $this->getNameOfContainer() . '/' . $tileContainerName . '/' . $tileFileName;
     }
 
     /** Get the number of tiles generated
@@ -874,8 +862,8 @@ class Pas_Zoomify_FileProcessor
     public function saveTile($image, $scaleNumber, $column, $row)
     {
         $tile_file = $this->getFileReference($scaleNumber, $column, $row);
-        touch($tile_file);
-        chmod($tile_file, $this->getFileMode());
+//        touch($tile_file);
+//        chmod($tile_file, $this->getFileMode());
         imagejpeg($image, $tile_file, $this->getQualitySetting());
     }
 
@@ -904,7 +892,6 @@ class Pas_Zoomify_FileProcessor
 
 function rm($fileglob)
 {
-//    Zend_Debug::dump($fileglob);
     if (is_string($fileglob)) {
         if (is_file($fileglob)) {
             return unlink($fileglob);

@@ -270,8 +270,10 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
             $zoomify = new Pas_Zoomify_FileProcessor();
             $zoomify->setImagePath(implode('/', array(IMAGE_PATH, $this->getUsername())))
                 ->setFileName($file[0]['f'])
-                ->setDebug(true)
+                ->setDebug(false)
                 ->zoomTheImage();
+            $this->view->data = $file;
+            $this->view->path = $file[0]['f'];
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 404);
         }

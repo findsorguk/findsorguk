@@ -30,11 +30,11 @@ $this->metaBase()->setDescription($this->title())->generate();
                 width="750"
                 height="450" id="theMovie">
             <param name="FlashVars"
-                   value="zoomifyImagePath=<?php echo $this->serverUrl() . '/' . $this->path; ?>">
+                   value="zoomifyImagePath=/<?php echo $this->data[0]['imagedir'] . '/zoom/' . basename($this->path, '.jpg') . '_zoomify'; ?>">
             <param name="MENU" value="FALSE">
             <param name="SRC" value="<?php echo $this->serverUrl(); ?>/ZoomifyViewer.swf">
-            <embed flashvars="zoomifyImagePath=<?php echo $this->serverUrl() . '/' . $this->path; ?>"
-                   src="<?php echo 'http://' . $_SERVER['SERVER_NAME']; ?>/ZoomifyViewer.swf" menu="false"
+            <embed flashvars="zoomifyImagePath=/<?php echo $this->data[0]['imagedir']  . '/zoom/' . basename($this->path, '.jpg') . '_zoomify'; ?>"
+                   src="<?php echo $this->serverUrl(); ?>/ZoomifyViewer.swf" menu="false"
                    pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"
                    width="750" height="650" name="theMovie"></embed>
         </object>
