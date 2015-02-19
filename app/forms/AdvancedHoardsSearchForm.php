@@ -383,11 +383,11 @@ class AdvancedHoardsSearchForm extends Pas_Form {
             ->setDescription('You need to pick a broad period first')
             ->setRegisterInArrayValidator(false);
 
-        $termDate1 = new Zend_Form_Element_Text('terminalyear1');
+        $termDate1 = new Zend_Form_Element_Text('fromTerminalYear');
         $termDate1->setLabel('Terminal year from: ')
             ->setAttribs(array('placeholder' => 'Positive for AD, negative for BC'));
 
-        $termDate2 = new Zend_Form_Element_Text('terminalyear2');
+        $termDate2 = new Zend_Form_Element_Text('toTerminalYear');
         $termDate2->setLabel('Terminal year to: ')
             ->setAttribs(array('placeholder' => 'Positive for AD, negative for BC'));
 
@@ -614,8 +614,8 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $this->temporaldetails->setLegend('Dates and periods: ');
 
         $this->addDisplayGroup(array(
-            'lastRulerID', 'reeceID', 'terminalyear1',
-            'terminalyear2', 'terminalReasonID', 'legacyID',
+            'lastRulerID', 'reeceID', 'fromTerminalYear',
+            'toTerminalYear', 'terminalReasonID', 'legacyID',
             'qualityRatingNumismatic'),
             'numismatics');
         $this->numismatics->setLegend('Numismatic analysis: ');

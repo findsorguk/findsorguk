@@ -888,16 +888,26 @@ class Hoards extends Pas_Db_Table_Abstract
                     'tosubperiod' => 'subperiod2',
                     'fromdate' => 'numdate1',
                     'todate' => 'numdate2',
+                    'lastRulerID',
+                    'reeceID',
+                    'fromTerminalYear' => 'terminalyear1',
+                    'toTerminalYear' => 'terminalyear2',
+                    'terminalReasonID' => 'terminalreason',
                     'treasure',
                     'rally',
                     'rallyID',
                     'TID' => 'treasureID',
                     'note' => 'findofnote',
+                    'reason' => 'findofnotereason',
                     'workflow' => 'secwfstage',
                     'institution',
+                    'quantityCoins',
+                    'quantityArtefacts',
+                    'quantityContainers',
                     'datefound1',
                     'datefound2',
                     'otherRef' => 'other_ref',
+                    'smrRef' => 'smrrefno',
                     'musaccno',
                     'currentLocation' => 'curr_loc',
                     'created',
@@ -908,7 +918,7 @@ class Hoards extends Pas_Db_Table_Abstract
                     'recorderID',
                     'identifierID' => 'identifier1ID',
                     'createdBy',
-                    'reeceID'
+                    'qualityRatingNumismatic' => 'qualityrating'
                 ))
             ->joinLeft('findspots', 'hoards.secuid = findspots.findID',
                 array(
@@ -934,7 +944,20 @@ class Hoards extends Pas_Db_Table_Abstract
                     'coordinates' => 'CONCAT(declat,",",declong)',
                     'precision' => 'gridlen',
                     'geohash',
-                    'findspotcode' => 'old_findspotID'
+                    'findspotcode' => 'old_findspotID',
+                    'qualityRatingFindspot' => 'qualityrating'
+                ))
+            ->joinLeft('archaeology', 'hoards.secuid = archaeology.hoardID',
+                array(
+                    'siteDateYear1' => 'sitedateyear1',
+                    'siteDateYear2' => 'sitedateyear2',
+                    'excavatedYear1' => 'yearexc1',
+                    'excavatedYear2' => 'yearexc2',
+                    'archaeologyDescription' => 'description',
+                    'knownSite' => 'knownsite',
+                    'excavated',
+                    'siteContextID' => 'sitecontext',
+                    'qualityRatingArchaeological' => 'contextualrating',
                 ))
             ->joinLeft('users', 'users.id = hoards.createdBy',
                 array(
@@ -957,6 +980,14 @@ class Hoards extends Pas_Db_Table_Abstract
             ->joinLeft(array('users3' => 'users'), 'users3.id = slides.createdBy', array('imagedir'))
             ->joinLeft('rallies', 'hoards.rallyID = rallies.id', array('rallyName' => 'rally_name'))
             ->joinLeft('regions', 'findspots.regionID = regions.id', array('regionName' => 'region'))
+            ->joinLeft('rulers', 'hoards.lastRulerID = rulers.id',
+                array(
+                    'lastRuler' => 'issuer',
+                ))
+            ->joinLeft('terminalreason', 'hoards.terminalreason = terminalreason.id',
+                array(
+                    'terminalReason' => 'reason',
+                ))
             ->where('hoards.id = ?', (int)$findID)
             ->group('hoards.id')
             ->limit(1);
