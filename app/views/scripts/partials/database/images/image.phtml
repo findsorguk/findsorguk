@@ -13,6 +13,7 @@
            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->id), null, true); ?>"
            title="Download image">Download original</a>
         <?php echo $this->imageToolBox()->setID($this->id)->setCreatedBy($this->createdBy)->setInstitution($this->institution); ?>
+        <a class="btn btn-default" href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom', 'id' => $this->id), null, true); ?>">Zoom image</a>
     </div>
 </div>
 
