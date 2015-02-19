@@ -19,12 +19,20 @@
                                src="<?php echo $this->baseUrl(); ?>/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
                                width="<?php echo $w; ?>" height="<?php echo $h; ?>"/></a>
         <br/>
+        <div class="btn-group">
         <a class="btn btn-mini" href="<?php echo $this->url(array(
             'module' => 'database',
             'controller' => 'images',
             'action' => 'image',
             'id' => $this->i), null, true); ?>"
            title="View and edit image meta data">View</i></a>
+            <a class="btn btn-mini" href="<?php echo $this->url(array(
+                'module' => 'database',
+                'controller' => 'images',
+                'action' => 'zoom',
+                'id' => $this->i), null, true); ?>"
+               title="Zoom image">Zoom</i></a>
+            </div>
     <?php else: ?>
         <hr />
         <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" class="img img-circle pull-right" width="25px"
