@@ -280,7 +280,7 @@ class Finds extends Pas_Db_Table_Abstract
                 'decmethod',
                 'decstyle',
                 'complete' => 'completeness',
-                'surftreat',
+                'surface' => 'surftreat',
                 'culture',
                 'finderID',
                 'recorderID',
