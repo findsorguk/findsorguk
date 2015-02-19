@@ -141,9 +141,12 @@ class Pas_View_Helper_FindNearSmr extends Zend_View_Helper_Abstract
         return $html;
     }
 
+
+    /** Create html
+     * @return string
+     */
     public function __toString()
     {
-        return Zend_Debug::dump($this->getData());
-            //$this->buildHtml($this->getData());
+        return $this->buildHtml($this->getData());
     }
 }
