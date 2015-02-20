@@ -174,6 +174,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->jQuery()->enable()
             ->setVersion('1.11.1')
             ->setUiVersion('1.11.0')
+            ->setCdnSsl(true)
             ->uiEnable();
     }
 
@@ -285,6 +286,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('View');
         $view = $this->getResource('View');
         $view->placeholder('tag');
+    }
+
+    protected function _initSSL() {
+        $frontController = Zend_Controller_Front::getInstance();
+        $frontController->registerPlugin( new Pas_Controller_Plugin_Ssl());
     }
 
 //    public function __construct($application)

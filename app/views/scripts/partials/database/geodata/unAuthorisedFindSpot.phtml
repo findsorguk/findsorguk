@@ -1,7 +1,7 @@
 <?php if (!is_null($this->gridref) && is_null($this->knownas)) : ?>
     <?php
     $this->googleDynamicMap(null, null, true);
-    $this->inlineScript()->appendFile('http://maps.stamen.com/js/tile.stamen.js', $type = 'text/javascript');
+    $this->inlineScript()->appendFile('https://maps.stamen.com/js/tile.stamen.js', $type = 'text/javascript');
     ?>
     <?php $this->inlineScript()->captureStart(); ?>
     $(document).ready(function() {
@@ -42,7 +42,7 @@
 
     var osmMapType = new google.maps.ImageMapType({
     getTileUrl: function (coord, zoom) {
-    return "http://tile.openstreetmap.org/" +
+    return "https://a.tile.openstreetmap.org/" +
     zoom + "/" + coord.x + "/" + coord.y + ".png";
 
     },

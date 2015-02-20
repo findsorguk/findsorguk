@@ -13,7 +13,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
 <?php if (!is_null($this->lon) && !is_null($this->lat)) : ?>
 
     <div id="map">
-        <noscript><img src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->lat; ?>,
+        <noscript><img src="https://maps.google.com/maps/api/staticmap?center=<?php echo $this->lat; ?>,
 	<?php echo $this->lon; ?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
 	<?php echo $this->lat; ?>,<?php echo $this->lon; ?>&sensor=false"/>
         </noscript>
@@ -92,7 +92,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
 
     var osmMapType = new google.maps.ImageMapType({
     getTileUrl: function (coord, zoom) {
-    return "http://tile.openstreetmap.org/" +
+    return "https://b.tile.openstreetmap.org/" +
     zoom + "/" + coord.x + "/" + coord.y + ".png";
 
     },
