@@ -35,7 +35,7 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @access protected
      * @var string
      */
-    protected $_staticUrl = 'http://maps.google.com/maps/api/staticmap';
+    protected $_staticUrl = 'https://maps.google.com/maps/api/staticmap';
     
     /** The parameter array
      * @access protected
