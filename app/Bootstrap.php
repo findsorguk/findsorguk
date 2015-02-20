@@ -287,6 +287,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->placeholder('tag');
     }
 
+    protected function _initSSL() {
+        $frontController = Zend_Controller_Front::getInstance();
+        $frontController->registerPlugin( new Pas_Controller_Plugin_Ssl());
+    }
+
 //    public function __construct($application)
 //    {
 //        parent::__construct($application);
