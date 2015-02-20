@@ -174,6 +174,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->jQuery()->enable()
             ->setVersion('1.11.1')
             ->setUiVersion('1.11.0')
+            ->setCdnSsl(true)
             ->uiEnable();
     }
 
