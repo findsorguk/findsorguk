@@ -105,7 +105,7 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
     {
         $html = '';
         if (is_object($data)) {
-            $html .= '<img src="http://maps.google.com/maps/api/staticmap?center=' . $data->get('geo:lat')
+            $html .= '<img src="https://maps.google.com/maps/api/staticmap?center=' . $data->get('geo:lat')
                 . ',' . $data->get('geo:long') . '&zoom=5&size=200x200&maptype=hybrid&markers=color:green|label:G|'
                 . $data->get('geo:lat') . ',' . $data->get('geo:long') . '&sensor=false" class="stelae"/>';
             $html .= '<ul>';

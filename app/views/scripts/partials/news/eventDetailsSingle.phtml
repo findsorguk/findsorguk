@@ -49,8 +49,8 @@ $this->headMeta('The Portable Antiquities Scheme and the British Museum', 'dc.Pu
 
         <?php $this->inlineScript()->captureEnd(); ?>
         <div id="eventmap" style="width:640px;height:300px;margin:auto;">
-            <noscript><img
-                    src="http://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:X|<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&sensor=false"/>
+            <noscript>
+                <img src="https://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:X|<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&sensor=false"/>
             </noscript>
         </div>
     <?php endif; ?>
