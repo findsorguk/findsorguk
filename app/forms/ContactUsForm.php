@@ -72,7 +72,8 @@ class ContactUsForm extends Pas_Form {
                         'captcha' => 'ReCaptcha',
                         'privKey' => $this->_privateKey,
                         'pubKey' => $this->_pubKey,
-                        'theme'=> 'clean')
+                        'theme'=> 'clean',
+                        'ssl' => true)
                     ));
 
 	$hash = new Zend_Form_Element_Hash('csrf');

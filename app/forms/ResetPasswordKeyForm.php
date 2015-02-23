@@ -100,7 +100,8 @@ class ResetPasswordKeyForm extends Pas_Form
                 'captchaOptions' => array(
                     'captcha' => 'ReCaptcha',
                     'service' => $recaptcha,
-                    'theme' => 'clean'
+                    'theme' => 'clean',
+                    'ssl' => true
                 )
             ));
 
