@@ -79,7 +79,9 @@ class CommentFindForm extends Pas_Form
                 'captchaOptions' => array(
                     'captcha' => 'ReCaptcha',
                     'service' => $recaptcha,
-                    'theme' => 'clean')
+                    'theme' => 'clean',
+                    'ssl' => true
+                )
             ));
 
         $submit = new Zend_Form_Element_Submit('submit');
