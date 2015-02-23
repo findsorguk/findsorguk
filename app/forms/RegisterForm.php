@@ -106,7 +106,8 @@ class RegisterForm extends Pas_Form
                 'captchaOptions' => array(
                     'captcha' => 'ReCaptcha',
                     'service' => $recaptcha,
-                    'theme' => 'clean'
+                    'theme' => 'clean',
+                    'ssl' => true
                 )
             ));
         $captcha->setDescription('Due to the surge in robotic activity, we 
