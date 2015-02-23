@@ -1,7 +1,6 @@
 <?php if (!is_null($this->gridref) && is_null($this->knownas)) : ?>
     <?php
     $this->googleDynamicMap(null, null, true);
-    $this->inlineScript()->appendFile('https://maps.stamen.com/js/tile.stamen.js', $type = 'text/javascript');
     ?>
     <?php $this->inlineScript()->captureStart(); ?>
     $(document).ready(function() {
