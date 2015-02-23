@@ -103,15 +103,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
     maxZoom: max
     });
 
-    var nlsmap = new google.maps.ImageMapType({
-    getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
-    tileSize: new google.maps.Size(256, 256),
-    isPng: false,
-    maxZoom: max,
-    minZoom: min,
-    name: 'Historic',
-    alt: "NLS Historic Map"
-    });
+
     var myOptions = {
     center: new google.maps.LatLng(<?php echo $this->lat; ?>, <?php echo $this->lon; ?>),
     zoom: 12,
