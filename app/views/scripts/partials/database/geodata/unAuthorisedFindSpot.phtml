@@ -53,15 +53,6 @@
     maxZoom: max
     });
 
-    var nlsmap = new google.maps.ImageMapType({
-    getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
-    tileSize: new google.maps.Size(256, 256),
-    isPng: false,
-    maxZoom: max,
-    minZoom: min,
-    name: 'Historic',
-    alt: "NLS Historic Map"
-    });
 
     var myOptions = {
     center: new google.maps.LatLng(<?php echo $this->fourFigureLat; ?>, <?php echo $this->fourFigureLon; ?>),
@@ -74,9 +65,6 @@
     google.maps.MapTypeId.SATELLITE,
     'OSM',
     'Imperium',
-    'historic',
-    'Watercolor',
-    'Toner'
     ]
     },
     mapTypeControl: true,
@@ -91,10 +79,7 @@
     var map = new google.maps.Map(document.getElementById("map"),
     myOptions);
     map.mapTypes.set('OSM',osmMapType);
-    map.mapTypes.set('historic',nlsmap);
     map.mapTypes.set('Imperium',imperium);
-    map.mapTypes.set("Watercolor", new google.maps.StamenMapType("watercolor"));
-    map.mapTypes.set("Toner", new google.maps.StamenMapType("toner"));
     map.setTilt(45);
 
     var myTitle = document.createElement('h1');
