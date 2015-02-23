@@ -218,7 +218,7 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
             $html .= '<a  href="';
             $html .= $this->_url;
             $html .= '"><img class="pull-right img-circle"';
-            $html .= 'src="http://domesdaymap.co.uk/media/images/lion1.gif"';
+            $html .= 'src="/assets/logos/domesday.gif"';
             $html .= 'width="67" height="93"/></a>';
             $html .= '<ul>';
             foreach ($response as $domesday) {
