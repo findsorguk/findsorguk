@@ -54,21 +54,9 @@
                         'action' => 'image',
                         'id' => $this->id), null, true); ?>"
                        title="View image and meta data" class="btn-mini btn">View</a>
-                <?php $auth = Zend_Auth::getInstance(); ?>
-                <?php if ($auth->hasIdentity()) : ?>
-                    <?php
-                    $user = $auth->getIdentity();
-                    $allowed = array('flos', 'fa', 'admin');
-                    ?>
-                    <?php if (in_array($user->role, $allowed)): ?>
-                            <a class="btn-mini btn btn-success"
-                               href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->id), null, true); ?>">Edit</a>
-                            <a class="delete btn btn-mini btn-danger"
-                               href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->id), null, true); ?>">Delete</a>
-                        </div>
-                    <?php endif; ?>
-                <?php endif; ?>
+                <?php echo $this->editDeleteImagesAll()->setId($this->id)->setInstitution($this->institution); ?>
             <?php endif; ?>
         </div>
     </div>
+        <?php echo $this->editDeleteImagesAll()->setId($this->id)->setInstitution($this->institution); ?>
 </li>
