@@ -255,7 +255,6 @@ class Hoards extends Pas_Db_Table_Abstract
                 'recorderID',
                 'identifier1ID',
                 'identifier2ID',
-                'finder2ID',
                 'disccircum',
                 'discmethod',
                 'datefound1',
