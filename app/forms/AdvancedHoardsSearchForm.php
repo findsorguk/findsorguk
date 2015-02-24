@@ -479,7 +479,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $excavated->setLabel('Excavated: ')
             ->setUncheckedValue(null);
 
-        $siteclass = new Zend_Form_Element_Select('sitecontext');
+        $siteclass = new Zend_Form_Element_Select('siteClassID');
         $siteclass->setLabel('Site class: ')
             ->addMultioptions(array(
                 null => 'Choose class of site',
@@ -490,7 +490,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
             ->addValidator('Int')
             ->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
 
-        $arch_context = new Zend_Form_Element_Select('sitetype');
+        $arch_context = new Zend_Form_Element_Select('siteContextID');
         $arch_context->setLabel('Context: ')
             ->addMultioptions(array(
                 null => 'Choose a context',
@@ -501,7 +501,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
             ->addValidator('Int')
             ->setAttrib('class', 'input-xlarge selectpicker show-menu-arrow');
 
-        $arch_feature = new Zend_Form_Element_Select('feature');
+        $arch_feature = new Zend_Form_Element_Select('featureID');
         $arch_feature->setLabel('Feature: ')
             ->addMultioptions(array(
                 null => 'Choose a feature',
@@ -624,7 +624,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
                 'knownSite', 'excavated',
                 'archaeologyPeriodFrom', 'archaeologyPeriodTo',
                 'archaeologyDescription','excavatedYear1', 'excavatedYear2',
-                'sitecontext', 'sitetype', 'feature',
+                'siteClassID', 'siteContextID', 'featureID',
                 'featureDateYear1', 'featureDateYear2',
                 'qualityRatingArchaeological')
                     , 'archaeology');

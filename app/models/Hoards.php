@@ -949,14 +949,20 @@ class Hoards extends Pas_Db_Table_Abstract
                 ))
             ->joinLeft('archaeology', 'hoards.secuid = archaeology.hoardID',
                 array(
+                    'archaeologyPeriodFrom' => 'period1',
+                    'archaeologyPeriodTo' => 'period2',
                     'siteDateYear1' => 'sitedateyear1',
                     'siteDateYear2' => 'sitedateyear2',
+                    'featureDateYear1' => 'featuredateyear1',
+                    'featureDateYear2' => 'featuredateyear2',
                     'excavatedYear1' => 'yearexc1',
                     'excavatedYear2' => 'yearexc2',
                     'archaeologyDescription' => 'description',
                     'knownSite' => 'knownsite',
                     'excavated',
-                    'siteContextID' => 'sitecontext',
+                    'siteClassID' => 'sitecontext', // Yes this is correct
+                    'siteContextID' => 'sitetype', // Yes this is correct
+                    'featureID' => 'feature',
                     'qualityRatingArchaeological' => 'contextualrating',
                 ))
             ->joinLeft('users', 'users.id = hoards.createdBy',
