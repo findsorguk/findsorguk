@@ -54,7 +54,7 @@ class Pas_Exporter_ArrayToHero
 
     /** Get the user role and the fields
      * @access public
-     * @param type $fields
+     * @param array $fields
      */
     public function __construct($fields)
     {
@@ -86,7 +86,7 @@ class Pas_Exporter_ArrayToHero
     public function convert($data)
     {
         $remove = array_merge($this->_never, $this->_maybe);
-
+        $nullified = array();
         foreach ($data as $dat) {
             $new = array();
             set_time_limit(0);
@@ -190,9 +190,8 @@ class Pas_Exporter_ArrayToHero
                 'STATUS' => 'statusTerm',
                 'SubperiodFrom' => 'subperiodFrom',
                 'SubperiodTo' => 'subperiodTo'
-
-
             );
+
             foreach ($cleanedArray as $key => $value) {
                 if (array_key_exists($value, $dat)) {
                     $new[$key] = $dat[$value];
