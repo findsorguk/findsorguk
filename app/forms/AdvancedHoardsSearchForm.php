@@ -430,7 +430,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $excavatedYear2->setLabel('Excavated year end date: ')
             ->setAttribs(array('placeholder' => 'Positive for AD, negative for BC'));
 
-        $archaeologicalDescription = new Zend_Form_Element_Text('archaeologicalDescription');
+        $archaeologicalDescription = new Zend_Form_Element_Text('archaeologyDescription');
         $archaeologicalDescription->setLabel('Archaeological description contains: ');
 
         //Period from: Assigned via dropdown
@@ -623,7 +623,7 @@ class AdvancedHoardsSearchForm extends Pas_Form {
         $this->addDisplayGroup(array(
                 'knownSite', 'excavated',
                 'archaeologyPeriodFrom', 'archaeologyPeriodTo',
-                'archaeologicalDescription','excavatedYear1', 'excavatedYear2',
+                'archaeologyDescription','excavatedYear1', 'excavatedYear2',
                 'sitecontext', 'sitetype', 'feature',
                 'featureDateYear1', 'featureDateYear2',
                 'qualityRatingArchaeological')
