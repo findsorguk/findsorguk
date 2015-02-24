@@ -89,6 +89,7 @@ class Pas_Exporter_ArrayToCsv
     public function convert($data)
     {
         $remove = array_merge($this->_never, $this->_maybe);
+        $nullified = array();
         foreach ($data as $dat) {
             foreach ($this->_fields as $k) {
                 if (!array_key_exists($k, $dat)) {
@@ -112,7 +113,6 @@ class Pas_Exporter_ArrayToCsv
                         $record[$k] = null;
                     }
                 }
-//                Zend_Debug::dump($record);
 
 //                $record['uri'] = $this->_uri . $record['id'];
                 if (in_array($this->_role, $this->_never)) {

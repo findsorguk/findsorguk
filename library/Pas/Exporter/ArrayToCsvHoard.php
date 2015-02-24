@@ -89,6 +89,7 @@ class Pas_Exporter_ArrayToCsvHoard
     public function convert($data)
     {
         $remove = array_merge($this->_never, $this->_maybe);
+        $nullified = array();
         foreach ($data as $dat) {
             foreach ($this->_fields as $k) {
                 if (!array_key_exists($k, $dat)) {
