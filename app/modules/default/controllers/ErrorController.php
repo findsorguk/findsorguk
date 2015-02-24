@@ -274,6 +274,11 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->view->message = 'Rendering of view error.';
                             $this->sendEmail();
                             break;
+                        default:
+                            $this->getResponse()->setHttpResponseCode(500);
+                            $this->view->code = 500;
+                            $this->view->message = $errors->exception->getMessage();
+                            break;
                     }
 
             }
@@ -317,7 +322,6 @@ class ErrorController extends Pas_Controller_Action_Admin
         $this->getResponse()->setHttpResponseCode(412);
         $this->view->message = 'There is a problem with your account';
         $this->view->code = 412;
-        $this->renderScript('error/error.phtml');
     }
 
     /** Database down action
@@ -339,7 +343,6 @@ class ErrorController extends Pas_Controller_Action_Admin
         $this->getResponse()->setHttpResponseCode(412);
         $this->view->message = 'There is a problem with your account';
         $this->view->code = 412;
-        $this->renderScript('error/error.phtml');
         $this->sendEmail();
     }
 
@@ -351,6 +354,5 @@ class ErrorController extends Pas_Controller_Action_Admin
         $this->getResponse()->setHttpResponseCode(503);
         $this->view->message = 'The system is currently offline';
         $this->view->code = 503;
-        $this->renderScript('error/error.phtml');
     }
 }
