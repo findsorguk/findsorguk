@@ -122,6 +122,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
         $this->view->results = $search->processResults();
         $this->view->facets = $search->processFacets();
         $this->view->stats = $search->processStats();
+        $this->view->server = $search->getLoadBalancerKey();
     }
 
     /** Recorded by flo finds list action
@@ -247,6 +248,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
         $this->view->results = $search->processResults();
         $this->view->facets = $search->processFacets();
         $this->view->stats = $search->processStats();
+        $this->view->server = $search->getLoadBalancerKey();
     }
 
     /** Display all images that a user has added.
