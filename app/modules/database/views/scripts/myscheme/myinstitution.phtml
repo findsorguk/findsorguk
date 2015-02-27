@@ -16,7 +16,10 @@
       <?php echo $this->resultsQuantityChooser()->setResults($this->paginator);?>
         <?php echo $this->thumbnailToggler();?>
         <?php echo $this->resultsSorter()->setResults($this->paginator);?>
-        <p>Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?></p>
+        <p>
+            Total results available: <?php echo number_format($this->paginator->getTotalItemCount());?><br/>
+            Search server index: <?php echo $this->server; ?>
+        </p>
         <?php echo $this->paginationControl($this->paginator,'elastic','structure/paginationSolr.phtml'); ?>
 		<?php echo $this->statGenerator()->setStats($this->stats);?>
         <?php echo $this->facetCreatorMyInstitution()->setFacets($this->facets); ?>
