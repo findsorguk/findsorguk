@@ -324,14 +324,15 @@ class Pas_Image_Magick
      */
     public function convertTiff()
     {
+        $tiffDir = IMAGE_PATH . $this->getUserPath() . self::TIFFS;
         //Determine path to Tiff folder
-        $tiffPath = IMAGE_PATH . $this->getUserPath() . self::TIFFS . $this->getBasename() . self::EXT;
+        $tiffPath = $tiffDir . $this->getBasename() . self::EXT;
         //Where we will be saving the file
         $destination = $this->getUserPath();
 
         //Check if directory exists, if not then make directory
-        if (!is_dir($tiffPath)) {
-            $this->_makeDirectory($tiffPath);
+        if (!is_dir($tiffDir)) {
+            $this->_makeDirectory($tiffDir);
         }
 
         //Create an instance of the image to save
