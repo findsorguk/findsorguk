@@ -45,7 +45,7 @@ class Pas_Filter_BasicHtml implements Zend_Filter_Interface {
             . 'tr,tbody,td[colspan|abbr|rowspan|valign],'
             . 'th[abbr|colspan|rowspan|valign]'
         );
-        $config->set('AutoFormat.RemoveEmpty.RemoveNbsp',true);
+        $config->set('AutoFormat.RemoveEmpty.RemoveNbsp',false);
         $config->set('AutoFormat.RemoveEmpty', true);
         $config->set('AutoFormat.Linkify', true);
         $config->set('HTML.TidyLevel', 'heavy');
