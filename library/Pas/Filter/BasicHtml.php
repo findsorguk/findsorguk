@@ -35,6 +35,7 @@ class Pas_Filter_BasicHtml implements Zend_Filter_Interface {
     public function __construct() {
         $config = HTMLPurifier_Config::createDefault();
         $this->_htmlPurifier = new HTMLPurifier($config);
+        $config->set('Core.Encoding', 'UTF-8');
         $config->set('Cache.SerializerPath',  CACHE_PATH . '/htmlpurifier');
         $config->set('HTML.Doctype', 'XHTML 1.0 Strict');
         $config->set('HTML.Allowed', 'br,p,em,h1,h2,h3,h4,h5,strong,'
@@ -56,6 +57,7 @@ class Pas_Filter_BasicHtml implements Zend_Filter_Interface {
     * @return object
     */
     public function filter($value) {
+        $value = str_replace('&nbsp;',' ', $value);
         return $this->_htmlPurifier->purify($value);
     }
 }
