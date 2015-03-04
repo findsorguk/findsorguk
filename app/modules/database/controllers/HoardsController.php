@@ -593,7 +593,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                         'FindsAudit',
                         $this->getParam('id'),
                         $this->getParam('id'));
-                    $this->_helper->solrUpdater->update('objects', $this->getParam('findID'), 'hoards');
+                    $this->_helper->solrUpdater->update('objects', $this->getParam('id'), 'hoards');
                     $this->getFlash()->addMessage('Workflow status changed');
                     $this->redirect('database/hoards/record/id/' . $this->getParam('id'));
                     $this->_request->setMethod('GET');
