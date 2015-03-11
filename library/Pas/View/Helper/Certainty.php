@@ -87,20 +87,20 @@ class Pas_View_Helper_Certainty extends Zend_View_Helper_Abstract
     public function html() {
         $this->_checkValid();
         switch ($this->getCertainty()) {
-            case 1:
+            case '1':
                 $html = 'Certain';
                 break;
-            case 2:
+            case '2':
                 $html = 'Probably';
                 break;
-            case 3:
+            case '3':
                 $html = 'Possibly';
                 break;
             default:
                 $html = 'Certain';
                 break;
         }
-    return $html;
+        return $html;
     }
 
     /** Magic method to return string of html
