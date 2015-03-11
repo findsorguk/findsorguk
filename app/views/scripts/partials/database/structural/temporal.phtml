@@ -16,6 +16,10 @@
             href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'periodFrom' => $this->objdate1period), null, true); ?>"
             title="view all records assigned to: <?php echo $this->term; ?>"><i class="icon-search"></i></a>
     <?php endif; ?>
+     <?php if (!is_null($this->periodFromCertainty)): ?>
+        <br/>
+        Period from certainty: <?php echo $this->certainty()->setCertainty($this->periodFromCertainty); ?>
+    <?php endif; ?>
 
     <?php if (!is_null($this->subPeriodTo)): ?>
         <br/>
@@ -37,6 +41,10 @@
             'action' => 'results',
             'periodTo' => $this->objdate2period), null, true); ?>" title="view all records assigned to:
  <?php echo $this->periodTo; ?>"><i class="icon-search"></i></a>
+    <?php endif; ?>
+     <?php if (!is_null($this->periodToCertainty)): ?>
+        <br/>
+        Period to certainty: <?php echo $this->certainty()->setCertainty($this->periodToCertainty); ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->culture)) : ?>
@@ -64,10 +72,7 @@
                                                          datatype="xsd:date"><?php echo $this->adBc()->setDate($this->numdate1); ?></span>
     <?php endif; ?>
 
-    <?php if (!is_null($this->dateFromCertainty)): ?>
-        <br/>
-        Date from certainty: <?php echo $this->certainty()->setCertainty($this->dateFromCertainty); ?>
-    <?php endif; ?>
+   
 
     <?php if (!is_null($this->numdate2)) : ?>
         <br/>
@@ -75,10 +80,7 @@
                                                       datatype="xsd:date"><?php echo $this->adBc()->setDate($this->numdate2); ?></span>
     <?php endif; ?>
 
-    <?php if (!is_null($this->dateToCertainty)): ?>
-        <br/>
-        Date to certainty: <?php echo $this->certainty()->setCertainty($this->dateToCertainty); ?>
-    <?php endif; ?>
+   
 
 
     <?php if (!is_null($this->reusePeriod)) : ?>
