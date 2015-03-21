@@ -28,7 +28,7 @@ class Pas_Exporter_Csv extends Pas_Exporter_Generate
 
     /** The array of fields to use
      * @access protected
-     * @var type
+     * @var array
      */
     protected $_csvFields = array(
         'id', 'uri', 'old_findID',

@@ -54,7 +54,7 @@ class Pas_Exporter_ArrayToCsv
      * @access protected
      * @var string
      */
-    protected $_uri = 'http://finds.org.uk/database/artefacts/record/id/';
+    protected $_uri = 'https://finds.org.uk/database/artefacts/record/id/';
 
     /** Construct the object
      * @access public
@@ -114,7 +114,7 @@ class Pas_Exporter_ArrayToCsv
                     }
                 }
 
-//                $record['uri'] = $this->_uri . $record['id'];
+                $record['uri'] = $this->createUri( $record['objectType'], $record['id']);
                 if (in_array($this->_role, $this->_never)) {
                     $record['gridref'] = null;
                     $record['easting'] = null;
@@ -131,5 +131,15 @@ class Pas_Exporter_ArrayToCsv
             $finalData[] = $cleanSort;
         }
         return $finalData;
+    }
+
+    public function createUri( $objectType, $id)
+    {
+        if($objectType != 'HOARD'){
+            $module = 'artefacts';
+        } else {
+            $module = 'hoards';
+        }
+        return 'https://finds.org.uk/database/' . $module . '/record/id/' . $id;
     }
 }
