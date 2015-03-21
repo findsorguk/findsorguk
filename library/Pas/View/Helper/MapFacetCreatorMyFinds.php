@@ -51,7 +51,6 @@ class Pas_View_Helper_MapFacetCreatorMyFinds extends Zend_View_Helper_Abstract
             foreach ($facets as $facetName => $facet) {
                 $html .= $this->_processFacet($facet, $facetName);
             }
-
             return $html;
         } else {
             throw new Pas_Exception('The facets sent are not an array');
