@@ -54,7 +54,7 @@ class Pas_Exporter_ArrayToCsv
      * @access protected
      * @var string
      */
-    protected $_uri = 'http://finds.org.uk/database/artefacts/record/id/';
+    protected $_uri = 'https://finds.org.uk/database/artefacts/record/id/';
 
     /** Construct the object
      * @access public
@@ -98,10 +98,10 @@ class Pas_Exporter_ArrayToCsv
             }
             $nullified[] = $dat;
         }
+
         $record = array();
         foreach ($nullified AS $null) {
             foreach ($null as $k => $v) {
-
                 $trimmed = trim(strip_tags(str_replace(array('<br />'), array("\n", "\r"), utf8_decode($v))));
                 $record[$k] = preg_replace( "/\r|\n/", "", $trimmed );
 
@@ -114,7 +114,6 @@ class Pas_Exporter_ArrayToCsv
                     }
                 }
 
-//                $record['uri'] = $this->_uri . $record['id'];
                 if (in_array($this->_role, $this->_never)) {
                     $record['gridref'] = null;
                     $record['easting'] = null;
@@ -127,9 +126,21 @@ class Pas_Exporter_ArrayToCsv
                     }
                 }
             }
+            $record['uri'] = $this->createUri( $record['objecttype'], $record['id']);
+
             $cleanSort = $this->sortArrayByArray($record, $this->_fields);
             $finalData[] = $cleanSort;
         }
         return $finalData;
+    }
+
+    public function createUri( $objectType, $id)
+    {
+        if($objectType != 'HOARD'){
+            $module = 'artefacts';
+        } else {
+            $module = 'hoards';
+        }
+        return 'https://finds.org.uk/database/' . $module . '/record/id/' . $id;
     }
 }
