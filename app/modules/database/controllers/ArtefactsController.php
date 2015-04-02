@@ -572,16 +572,17 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                 'email' => $responsible->email,
                 'name' => $responsible->fullname
             ));
-        } elseif (in_array($institution, array('PAS', 'DCMS', 'RAH'))) {
+        } elseif (in_array($institution, array('PAS', 'DCMS', 'RAH', 'BM'))) {
             $to = array(array('email' => 'info@finds.org.uk', 'name' => 'Central Unit'));
         } else {
             $responsible = new Contacts();
             $to = $responsible->getOwner($data['comment_findID']);
+            if(empty($to)){
+                $to = array(array('email' => 'info@finds.org.uk', 'name' => 'Central Unit'));
+            }
         }
         $cc = $this->_getAdviser($objecttype, $broadperiod);
-
         if ($this->_user) {
-
             $from = array(array(
                 'email' => $this->_user->email,
                 'name' => $this->_user->fullname
