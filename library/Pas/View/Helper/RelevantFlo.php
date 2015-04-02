@@ -90,6 +90,8 @@ class Pas_View_Helper_RelevantFlo extends Zend_View_Helper_Abstract
                 $html .= '</li>';
             }
             $html .= '</ul>';
+        } else {
+            $html .= '<p>No FLO is currently in post for this institution. Central Unit will be informed.';
         }
         return $html;
     }
