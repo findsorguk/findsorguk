@@ -74,10 +74,11 @@
         <h3 class="lead">Comments on person</h3>
         <?php echo $this->comments; ?>
     <?php endif; ?>
-    <p>
+    <div class="btn-group">
         <a class="btn btn-small"
            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'people', 'action' => 'person', 'id' => $this->id, 'format' => 'vcf'), 'default', true); ?>"
            title="Download vcard">Download vcard</a>
-    </p>
+        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'finderID' => $this->peopleID), 'default', true);?>" class="btn btn-small">Find all records</a>
+    </div>
 
 </div>
