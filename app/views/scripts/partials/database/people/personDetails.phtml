@@ -13,87 +13,6 @@
         'action' => 'delete',
         'id' => $this->id), null, true); ?>" title="Delete this person's details" class="btn btn-danger btn-small">
             Delete</a><?php endif; ?></div>
-<?php if (!is_null($this->lat)): ?>
-    <?php echo $this->googleDynamicMap(); ?>
-    <?php $this->inlineScript()->captureStart(); ?>
-    $(document).ready(function() {
-
-    var myOptions = {
-    center: new google.maps.LatLng(<?php echo $this->lat; ?>,<?php echo $this->lon ?>),
-    zoom: 6,
-    mapTypeControlOptions: {
-    mapTypeIds: [
-    google.maps.MapTypeId.TERRAIN,
-    google.maps.MapTypeId.SATELLITE
-    ]
-    },
-    mapTypeControl: true,
-    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-    scaleControl: true,
-    zoomControl: true,
-    mapTypeId: 'TERRAIN',
-    scrollwheel: false,
-    };
-    var map = new google.maps.Map(document.getElementById("personmap"),
-    myOptions);
-    google.maps.event.trigger(map, 'resize');
-    map.setZoom( map.getZoom() );
-    var markers = new Array();
-    <?php
-    $request = Zend_Controller_Front::getInstance()->getRequest();
-    $params = array('module' => 'database', 'controller' => 'ajax', 'action' => 'mapdata2');
-    $params['show'] = 20;
-    $params['page'] = Zend_Controller_Front::getInstance()->getRequest()->getParam('page');
-    $params['finderID'] = $this->secuid;
-    $url = $this->serverUrl() . $this->url($params, 'default', true);
-    ?>
-    var infowindow = new google.maps.InfoWindow();
-    jQuery.get("<?php echo $url; ?>", {}, function(data) {
-
-    jQuery(data).find("marker").each(function() {
-    var markerXML = jQuery(this);
-    var latlng = new google.maps.LatLng(
-    parseFloat(markerXML.attr("lat")),
-    parseFloat(markerXML.attr("lng"))
-    );
-    var marker = new google.maps.Marker({position: latlng, map: map});
-
-    // now that the marker is placed, assign event listener on the marker
-    // and create/assign infowindow to the event trigger.
-    markerInfoWindow(marker, markerXML.attr("content"));
-    markers.push(marker);
-    });
-    var markerCluster = new MarkerClusterer(map, markers);
-    });
-
-    function markerInfoWindow(marker, information){
-    google.maps.event.addListener(marker, 'click',
-    function() {
-    infowindow.close();
-    infowindow.setContent(information);
-    infowindow.setPosition(marker.getPosition());
-    infowindow.open(map, marker);
-    });
-    }
-    var center;
-
-    function calculateCenter() {
-    center = map.getCenter();
-    }
-    google.maps.event.addDomListener(map, 'idle', function() {
-    calculateCenter();
-    });
-    google.maps.event.addDomListener(window, 'resize', function() {
-    map.setCenter(center);
-    });
-
-    });
-    <?php $this->inlineScript()->captureEnd(); ?>
-
-    <div id="personmap" style="float:right;width:380px;min-height:250px;"></div>
-
-<?php endif; ?>
-
 <div class="vcard">
     <p>
 <span class="fn n">
@@ -151,7 +70,7 @@
             <?php echo $this->gridRef($this->lat, $this->lon); ?>
         <?php endif; ?>
     </p>
-    <?php if(!empty($this->comments)): ?>
+    <?php if (!empty($this->comments)): ?>
         <h3 class="lead">Comments on person</h3>
         <?php echo $this->comments; ?>
     <?php endif; ?>
