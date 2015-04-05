@@ -1,23 +1,23 @@
 <?php
-
-
 $vc = new Pas_VCard();
-foreach($this->peoples as $person) {
-$vc->_data['display_name'] = $person['forename'].' '.$person['surname'];
-$vc->_data['first_name'] = $person['forename'];
-$vc->_data['last_name'] = $person['surname'];
-$vc->_data['name_prefix'] = $person['title'];
-$vc->_data['company'] = $person['org'];
-$vc->_data['work_address'] = $person['address'];
-$vc->_data['work_city'] = $person['town_city'];
-$vc->_data['work_state'] = $person['county'];
-$vc->_data['work_postal_code'] = $person['postcode'];
-$vc->_data['work_country'] = $person['abode'];
-$vc->_data['home_tel'] = $person['hometel'];
-$vc->_data['office_tel'] = $person['worktel'];
-$vc->_data['email1'] = $person['email'];
+$data = array();
+foreach ($this->peoples as $person) {
+    $data['display_name'] = $person['forename'] . ' ' . $person['surname'];
+    $data['first_name'] = $person['forename'];
+    $data['last_name'] = $person['surname'];
+    $data['name_prefix'] = $person['title'];
+    $data['company'] = $person['org'];
+    $data['work_address'] = $person['address'];
+    $data['work_city'] = $person['town_city'];
+    $data['work_state'] = $person['county'];
+    $data['work_postal_code'] = $person['postcode'];
+    $data['work_country'] = $person['abode'];
+    $data['home_tel'] = $person['hometel'];
+    $data['office_tel'] = $person['worktel'];
+    $data['email1'] = $person['email'];
 }
-
-$vc->download();
-
-?>
+$data['timezone'] = "00:00";
+}
+$vc->setData($data);
+$vc->setClass('PUBLIC');;
+echo $vc->createCard();
