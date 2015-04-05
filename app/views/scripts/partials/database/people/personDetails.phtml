@@ -5,13 +5,13 @@
         'module' => 'database',
         'controller' => 'people',
         'action' => 'edit',
-        'id' => $this->id), null, true);?>" title="Edit this person's details"
+        'id' => $this->id), null, true); ?>" title="Edit this person's details"
                           class="btn btn-warning btn-small">Edit</a>
     <?php if (!$this->finds) : ?> <a href="<?php echo $this->url(array(
         'module' => 'database',
         'controller' => 'people',
         'action' => 'delete',
-        'id' => $this->id), null, true);?>" title="Delete this person's details" class="btn btn-danger btn-small">
+        'id' => $this->id), null, true); ?>" title="Delete this person's details" class="btn btn-danger btn-small">
             Delete</a><?php endif; ?></div>
 <?php if (!is_null($this->lat)): ?>
     <?php echo $this->googleDynamicMap(); ?>
@@ -169,15 +169,14 @@
             <?php echo $this->gridRef($this->lat, $this->lon); ?>
         <?php endif; ?>
     </p>
-    <?php if ($this->comments): ?>
+    <?php if(!empty($this->comments)): ?>
         <h3 class="lead">Comments on person</h3>
         <?php echo $this->comments; ?>
     <?php endif; ?>
     <p>
-        <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'people', 'action' => 'person', 'id' => $this->id, 'format' => 'vcf'), 'default', true); ?>"
-           title="Download vcard">Download vcard</a></p>
+        <a class="btn btn-small"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'people', 'action' => 'person', 'id' => $this->id, 'format' => 'vcf'), 'default', true); ?>"
+           title="Download vcard">Download vcard</a>
+    </p>
 
 </div>
-
-
-<div class="clear"></div>

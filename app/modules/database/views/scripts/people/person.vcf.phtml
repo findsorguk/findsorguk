@@ -15,8 +15,7 @@ foreach ($this->peoples as $person) {
     $data['home_tel'] = $person['hometel'];
     $data['office_tel'] = $person['worktel'];
     $data['email1'] = $person['email'];
-}
-$data['timezone'] = "00:00";
+    $data['timezone'] = "00:00";
 }
 $vc->setData($data);
 $vc->setClass('PUBLIC');;
