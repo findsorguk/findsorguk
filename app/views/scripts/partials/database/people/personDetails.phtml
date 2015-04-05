@@ -18,41 +18,24 @@
     <?php $this->inlineScript()->captureStart(); ?>
     $(document).ready(function() {
 
-    var osmMapType = new google.maps.ImageMapType({
-    getTileUrl: function (coord, zoom) {
-    return "http://tile.openstreetmap.org/" +
-    zoom + "/" + coord.x + "/" + coord.y + ".png";
-
-    },
-    tileSize: new google.maps.Size(256, 256),
-    isPng: true,
-    alt: "OpenStreetMap layer",
-    name: "OSM",
-    maxZoom: 18
-    });
-
-
     var myOptions = {
     center: new google.maps.LatLng(<?php echo $this->lat; ?>,<?php echo $this->lon ?>),
     zoom: 6,
     mapTypeControlOptions: {
     mapTypeIds: [
     google.maps.MapTypeId.TERRAIN,
-    google.maps.MapTypeId.SATELLITE,
-    'OSM'
+    google.maps.MapTypeId.SATELLITE
     ]
     },
     mapTypeControl: true,
     style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
     scaleControl: true,
     zoomControl: true,
-    mapTypeId: 'OSM',
+    mapTypeId: 'TERRAIN',
     scrollwheel: false,
     };
     var map = new google.maps.Map(document.getElementById("personmap"),
     myOptions);
-    map.mapTypes.set('OSM',osmMapType);
-
     google.maps.event.trigger(map, 'resize');
     map.setZoom( map.getZoom() );
     var markers = new Array();
@@ -99,7 +82,6 @@
     }
     google.maps.event.addDomListener(map, 'idle', function() {
     calculateCenter();
-    setCopyright();
     });
     google.maps.event.addDomListener(window, 'resize', function() {
     map.setCenter(center);
