@@ -74,8 +74,6 @@ redirect 301 /fromehoard /blogs/fromehoard/
 redirect 301 /patera.htm /database/images/zoom/id/9858/
 redirect 301 /background/index.php /info/advice/aboutus/
 redirect 301 /background/links.php /getinvolved/links
-redirect 301 /counties/ /blogs/
-redirect 301 /counties /blogs/
 redirect 301 /homepage.html /
 redirect 301 /index.asp /
 redirect 301 /index.html /
