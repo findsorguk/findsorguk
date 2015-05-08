@@ -94,7 +94,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
     public function addAction()
     {
         // Check if data already added, if so redirect back.
-        Zend_Debug::dump($this->getModel()->fetchRow($this->getModel()->select('hoardID = ?',  $this->getParam('hoardID')))->toArray());
+        Zend_Debug::dump($this->getModel()->fetchRow($this->getModel()->select('hoardID = ?',  $this->getParam('hoardID')))->hoardID);
         if ($this->getModel()->fetchRow($this->getModel()->select('hoardID = ?',  $this->getParam('hoardID')))) {
             $this->getFlash()->addMessage('Archaeological context already exists on record');
 //            $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
@@ -113,7 +113,6 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
                 //Add a flash message
                 $this->getFlash()->addMessage('You have added archaeology to the record');
                 $this->_helper->solrUpdater->update('objects', $this->getParam('id'), 'hoards' );
-
                 // Redirect back to the record
                 $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
             } else {
