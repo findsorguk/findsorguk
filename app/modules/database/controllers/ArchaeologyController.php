@@ -66,6 +66,9 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
         $this->_helper->_acl->allow('member', array('index'));
         $this->_helper->_acl->allow('member', array('add', 'delete', 'edit'));
         $this->_helper->_acl->allow('flos', array('add', 'delete', 'edit'));
+        $this->_helper->_acl->allow('fa', array('add', 'delete', 'edit'));
+        $this->_helper->_acl->allow('hoard', array('add', 'delete', 'edit'));
+        $this->_helper->_acl->allow('treasure', array('add', 'delete', 'edit'));
     }
 
     /** The index page with no root access
