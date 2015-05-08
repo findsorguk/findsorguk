@@ -65,6 +65,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
         $this->_helper->_acl->deny('public', null);
         $this->_helper->_acl->allow('member', array('index'));
         $this->_helper->_acl->allow('member', array('add', 'delete', 'edit'));
+        $this->_helper->_acl->allow('flos', array('add', 'delete', 'edit'));
     }
 
     /** The index page with no root access
@@ -88,9 +89,8 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
     public function addAction()
     {
         // Check if data already added, if so redirect back.
-        if ($this->getModel()->fetchRow('id=' . $this->getParam('hoardID'))) {
+        if ($this->getModel()->fetchRow('hoardID =' . $this->getParam('hoardID'))) {
             $this->getFlash()->addMessage('Archaeological context already exists on record');
-            // Redirect back to the record
             $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
         }
         if ($this->getParam('id', false) || $this->getParam('hoardID', false)) {
