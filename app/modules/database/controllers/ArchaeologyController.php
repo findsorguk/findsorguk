@@ -94,7 +94,7 @@ class Database_ArchaeologyController extends Pas_Controller_Action_Admin
     public function addAction()
     {
         // Check if data already added, if so redirect back.
-        if ($this->getModel()->fetchRow('hoardID =' . $this->getParam('hoardID'))) {
+        if ($this->getModel()->fetchRow($this->getModel()->select('hoardID = ?',  $this->getParam('hoardID')))) {
             $this->getFlash()->addMessage('Archaeological context already exists on record');
             $this->redirect(self::REDIRECT . 'id/' . $this->getParam('id'));
         }
