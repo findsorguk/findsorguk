@@ -116,7 +116,7 @@ class Pas_Controller_Action_Helper_FindspotFormOptions extends Zend_Controller_A
             $finders = new People();
             $finders = $finders->getName($data['landowner']);
             foreach($finders as $finder) {
-                $form->landownername->setValue($finder['term']);
+                $this->_view->form->landownername->setValue($finder['term']);
             }
         }
         return $this;
