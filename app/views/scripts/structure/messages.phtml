@@ -1,12 +1,13 @@
 <?php 
-echo $this->serverUrl();
 if (in_array($this->serverUrl(), array('https://beta.finds.org.uk', 'http://finds.dev'))): ?>
     <div class="alert alert-danger" id="announcement">
+        <h2>Server check!</h2>
         <p>You are on a backup or testing server - there are no images here</p>
     </div>
     <?php elseif(in_array($this->serverUrl(), array('https://training.finds.org.uk'))):?>
     <div class="alert alert-danger" >
-        <p>You are on the training database</p>
+        <h2>Server check!</h2>
+            <p>You are on the training database</p>
     </div>
 <?php endif; ?>
 
