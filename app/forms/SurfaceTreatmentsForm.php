@@ -44,7 +44,7 @@ class SurfaceTreatmentsForm extends Pas_Form {
 		->addErrorMessage('You must enter a description for this surface treatment');
 
 	$valid = new Zend_Form_Element_Checkbox('valid');
-	$valid->setLabel('Termis currently in use: ')
+	$valid->setLabel('Term is currently in use: ')
 		->setRequired(true)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addErrorMessage('You must set a status for this treatment term');
