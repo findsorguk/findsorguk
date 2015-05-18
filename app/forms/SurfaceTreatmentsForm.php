@@ -40,7 +40,7 @@ class SurfaceTreatmentsForm extends Pas_Form {
 	$termdesc->setLabel('Description of decoration style: ')
 		->setRequired(true)
 		->setAttribs(array('rows' => 10, 'cols' => 80))
-		->addFilter(array('BasicHtml', 'EmptyParagraph', 'StringTrim', 'WordChars'))
+		->addFilters(array('BasicHtml', 'EmptyParagraph', 'StringTrim', 'WordChars'))
 		->addErrorMessage('You must enter a description for this surface treatment');
 
 	$valid = new Zend_Form_Element_Checkbox('valid');
@@ -49,11 +49,8 @@ class SurfaceTreatmentsForm extends Pas_Form {
 		->addFilters(array('StripTags', 'StringTrim'))
 		->addErrorMessage('You must set a status for this treatment term');
 
-	$hash = new Zend_Form_Element_Hash('csrf');
-	$hash->setValue($this->_salt)->setTimeout(4800);
-
 	$submit = new Zend_Form_Element_Submit('submit');
-	$this->addElements(array($term, $termdesc, $valid, $submit, $hash));
+	$this->addElements(array($term, $termdesc, $valid, $submit));
 
 	$this->addDisplayGroup(array('term','termdesc','valid'), 'details');
 
