@@ -25,7 +25,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin
 
     /** The default query
      */
-    const QUERY = '"Portable Antiquities Scheme archaeology"';
+    const QUERY = '"Portable Antiquities Scheme"';
 
     /** The cache
      * @access protected
