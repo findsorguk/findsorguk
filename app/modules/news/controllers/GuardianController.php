@@ -70,7 +70,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin
     {
         $page = $this->getParam('page');
         $key = md5('pas' . self::QUERY);
-        if (!($this->getCache()->test($key))) {
+//        if (!($this->getCache()->test($key))) {
             $guardian = self::GUARDIANAPI_URL
                 . 'search?q=' . urlencode(self::QUERY) . '&page-size=50&order-by=newest&format='
                 . self::FORMAT . '&show-fields=all&show-tags=all&show-factboxes=all&show-references=all&api-key='
@@ -78,10 +78,10 @@ class News_GuardianController extends Pas_Controller_Action_Admin
             $this->_curl->setUri($guardian);
             $this->_curl->getRequest();
             $articles = $this->_curl->getJson();
-            $this->getCache()->save($articles);
-        } else {
-            $articles = $this->getCache()->load($key);
-        }
+//            $this->getCache()->save($articles);
+//        } else {
+//            $articles = $this->getCache()->load($key);
+//        }
         $results = array();
         foreach ($articles->response->results as $article) {
             if (isset($article->fields->thumbnail)) {
