@@ -78,6 +78,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin
             $this->_curl->setUri($guardian);
             $this->_curl->getRequest();
             $articles = $this->_curl->getJson();
+        Zend_Debug::dump($guardian);
 //            $this->getCache()->save($articles);
 //        } else {
 //            $articles = $this->getCache()->load($key);
