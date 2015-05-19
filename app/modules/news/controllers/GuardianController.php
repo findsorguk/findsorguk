@@ -21,7 +21,7 @@ class News_GuardianController extends Pas_Controller_Action_Admin
 
     /** The base url for the guardian api
      */
-    const GUARDIANAPI_URL = 'http://beta.content.guardianapis.com/';
+    const GUARDIANAPI_URL = 'http://content.guardianapis.com/';
 
     /** The default query
      */
