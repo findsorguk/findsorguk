@@ -1,9 +1,4 @@
 <?php
-echo $this->coins()
-    ->setTitle($this->title())
-    ->setAuthor($this->creator)
-    ->setPublished($this->created2)
-    ->setDescription($this->truncate($this->description)->toLength(100)->withPostfix(' '));
 echo $this->toolbox()
     ->setId($this->id)
     ->setOldFindID($this->old_findID)
