@@ -56,8 +56,10 @@ class Contacts extends Pas_Db_Table_Abstract
                     'county', 'postcode', 'country',
                     'profile', 'telephone', 'fax',
                     'dbaseID', 'longitude', 'latitude',
-                    'image'))
-                ->joinLeft(array('locality' => 'staffregions'), 'locality.ID = staff.region')
+                    'image', 'created', 'updated', 
+                    'createdBy', 'updatedBy'))
+                ->joinLeft(array('locality' => 'staffregions'), 'locality.ID = staff.region', 
+                array('description'))
                 ->joinLeft('instLogos', $this->_name . '.identifier = instID',
                     array('host' => 'image'))
                 ->joinLeft(array('position' => 'staffroles'), 'staff.role = position.ID',
