@@ -65,7 +65,7 @@ class Contacts extends Pas_Db_Table_Abstract
                 ->joinLeft(array('position' => 'staffroles'), 'staff.role = position.ID',
                     array('staffroles' => 'role'))
                 ->where('staff.id = ?', (int)$id)
-                ->group($this->_primary);
+                ->group('staff.id');
             $data = $persons->fetchAll($select);
             $this->_cache->save($data, $key);
         }
