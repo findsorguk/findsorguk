@@ -8,5 +8,6 @@ $this->headTitle('Database details for ' . $this->issuer);
     Ruler validity: <?php echo $this->validity($this->escape($this->valid)); ?>
 </p>
 <p>
-    <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'editruler', 'id' => $this->id), null, true); ?>"
-       title="Edit <?php echo $this->issuer; ?>'s details">Edit these details</a></p>
+    <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'editruler',
+        'id' => $this->id), null, true); ?>" title="Edit <?php echo $this->issuer; ?>'s details" class=""btn btn-mini">Edit these details</a>
+</p>

@@ -25,7 +25,7 @@ parent.remove();
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>
 <p>
     <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'addrulerimage', 'rulerid' => $this->details['0']['id']), null, true); ?>"
-       title="Add an image for this ruler">Add an image</a></p>
+       title="Add an image for this ruler" class="btn btn-mini btn-info">Add an image</a></p>
 <?php echo $this->partialLoop('partials/admin/rulerThumbnails.phtml', $this->images); ?>
 
 <h3 class="lead">Issuing mints</h3>
