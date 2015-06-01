@@ -1,8 +1,7 @@
 <?php
 $apikey = Zend_Registry::get('config')->webservice->googlemaps->apikey;
-$this->inlineScript()->appendFile('http://maps.googleapis.com/maps/api/js?v=3.8&sensor=true&region=GB&key=' . $apikey, $type = 'text/javascript');
+$this->inlineScript()->appendFile('https://maps.googleapis.com/maps/api/js?v=3.8&sensor=true&region=GB&key=' . $apikey, $type = 'text/javascript');
 $this->inlineScript()->appendFile($this->serverUrl() . '/js/markerclusterer.js', $type = 'text/javascript');
-$this->inlineScript()->appendFile('http://nls.tileserver.com/api-cluster.js', $type = 'text/javascript');
 ?>
 
 <?php $this->inlineScript()->captureStart(); ?>
@@ -23,17 +22,6 @@ if (in_array($person, $allowed)) {
 
 var max = <?php echo $maxzoom; ?>;
 var min = <?php echo $minzoom; ?>;
-
-var nlsmap = new google.maps.ImageMapType({
-getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
-tileSize: new google.maps.Size(256, 256),
-isPng: false,
-maxZoom: max,
-minZoom: min,
-name: 'Historic',
-alt: "NLS Historic Map"
-});
-
 
 var osmMapType = new google.maps.ImageMapType({
 getTileUrl: function (coord, zoom) {
@@ -125,9 +113,6 @@ scrollwheel: false,
 var map = new google.maps.Map(document.getElementById("map"),myOptions);
 map.mapTypes.set('OSM',osmMapType);
 map.mapTypes.set('SOIL',soilMapType);
-map.mapTypes.set('historic',nlsmap);
-
-
 
 <?php
 $bbox = $this->min_lat . ',' . $this->min_lon . ',' . $this->max_lat . ',' . $this->max_lon;
@@ -138,10 +123,6 @@ $url = $this->serverUrl() . $this->url(array(
         'bbox' => $bbox),
         'default', true);
 ?>
-
-
-
-
 
 var markers = new Array();
 
@@ -187,11 +168,6 @@ map.fitBounds(latLngBounds);
 })
 
 });
-
-
-
-
-
 
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="map"></div>

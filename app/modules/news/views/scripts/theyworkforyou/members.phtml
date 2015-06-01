@@ -9,7 +9,7 @@ $this->metaBase()
 <h2 class="lead">
     <?php echo $this->title();?>
 </h2>
-<?php if($this->data):?>
+<?php if(!empty($this->data)):?>
 <ul>
     <?php foreach($this->data as $d):?>
     <?php $url = $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'mp','id' => $d->person_id),null,true);?>

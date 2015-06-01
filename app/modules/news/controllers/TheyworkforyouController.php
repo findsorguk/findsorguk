@@ -153,7 +153,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
     public function constituenciesAction()
     {
         $cons = new Pas_Twfy_Constituencies();
-        $data = $cons->get('2010-05-07');
+        $data = $cons->get('2015-05-07');
         $clean = array();
         foreach ($data as $dat) {
             foreach ($dat as $k => $v) {
