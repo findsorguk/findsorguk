@@ -50,4 +50,11 @@ $this->headLink()->appendAlternate($this->baseUrl() . '/contacts/index/index/for
     </p>
     <?php echo $this->partialLoop('partials/contacts/vcard.phtml', $this->treasures); ?>
 
+    <h2 class="lead">PASt Explorers team</h2>
+
+    <p>
+        The Scheme currently employs <strong><?php echo count($this->pastexplorers); ?></strong> in this team.
+    </p>
+    <?php echo $this->partialLoop('partials/contacts/vcard.phtml', $this->pastexplorers); ?>
+
 </div>
