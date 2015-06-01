@@ -94,6 +94,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
                 $lido['title'] = $this->item['broadperiod'] . ' ' . $this->item['objecttype'];
             } else {
                 $lido['title'] = $this->item['objecttype'];
+                $this->item['broadperiod'] = 'UNKNOWN';
             }
             if (array_key_exists('creator', $this->item)) {
                 $lido['creator'] = $this->item['creator'];
