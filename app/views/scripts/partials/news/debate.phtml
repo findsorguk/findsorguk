@@ -4,7 +4,7 @@
 
     <p><?php echo $this->twfyImage()->setId($this->speaker->person_id); ?>By: <a
             href="<?php echo $this->url(array('module' => 'news', 'controller' => 'theyworkforyou', 'action' => 'mp', 'id' => $this->speaker->person_id), null, true); ?>"
-            title="View this speaker's record on archaeology"><?php echo $this->speaker->title; ?> <?php echo $this->speaker->first_name; ?> <?php echo $this->speaker->last_name; ?></a>
+            title="View this speaker's record on archaeology"><?php echo $this->speaker->name; ?></a>
         <br/>Party: <?php echo $this->speaker->party; ?>
         <br/>Constituency: <?php echo $this->speaker->constituency; ?><br/>
         <?php if (isset($this->office['0']->pretty)) { ?>
