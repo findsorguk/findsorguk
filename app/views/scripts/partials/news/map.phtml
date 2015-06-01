@@ -36,60 +36,6 @@ name: "OSM",
 maxZoom: max
 });
 
-var soilMapType = new google.maps.ImageMapType({
-
-getTileUrl: function(tile, zoom) {
-
-var projection = map.getProjection();
-
-var zpow = Math.pow(2, zoom);
-
-var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
-
-var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
-
-var ulw = projection.fromPointToLatLng(ul);
-
-var lrw = projection.fromPointToLatLng(lr);
-
-var baseURL ="http://geonetwork3.fao.org/ows/14116?LAYERS=world_soilmap&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&SRS=EPSG:4326";
-
-var version = "1.1.1";
-
-var request = "GetMap";
-
-var format = "image/png"; //type of image returned  or image/jpeg
-
-
-var layers = "world_soilmap";
-
-var srs = "EPSG:4326";
-
-var bbox = ulw.lng() + "," + ulw.lat() + "," + lrw.lng() + "," + lrw.lat();
-
-var service = "WMS";
-
-var width = "256";
-
-var height = "256";
-
-
-var styles = "default";
-
-var url = baseURL +"&BBOX=" + bbox + "&WIDTH=" + width + "&HEIGHT=" + height;
-
-return url;
-},
-tileSize: new google.maps.Size(256, 256),
-isPng: true,
-alt: "Soil layer",
-name: "Soil types",
-maxZoom: max,
-minZoom: min,
-opacity: 0.2,
-});
-
-
 var myOptions = {
 center: new google.maps.LatLng( <?php echo $this->centre_lat; ?>, <?php echo $this->centre_lon; ?>),
 zoom: 11,
@@ -112,7 +58,6 @@ scrollwheel: false,
 
 var map = new google.maps.Map(document.getElementById("map"),myOptions);
 map.mapTypes.set('OSM',osmMapType);
-map.mapTypes.set('SOIL',soilMapType);
 
 <?php
 $bbox = $this->min_lat . ',' . $this->min_lon . ',' . $this->max_lat . ',' . $this->max_lon;
