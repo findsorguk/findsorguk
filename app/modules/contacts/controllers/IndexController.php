@@ -46,6 +46,7 @@ class Contacts_IndexController extends Pas_Controller_Action_Admin
             $this->view->treasures = $contacts->getTreasures();
             $this->view->advisers = $contacts->getAdvisers();
             $this->view->schemes = $contacts->getCurrent();
+            $this->view->pastexplorers = $contacts->getPastExplorers();
         } else {
             $this->view->staff = $contacts->getCurrent();
         }

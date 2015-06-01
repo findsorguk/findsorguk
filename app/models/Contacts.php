@@ -108,7 +108,7 @@ class Contacts extends Pas_Db_Table_Abstract
                 ->joinLeft(array('position' => 'staffroles'),
                     'staff.role = position.ID',
                     array('staffroles' => 'role'))
-                ->where('alumni = ?', (int)0)
+                ->where('alumni IS NULL')
                 ->order('lastname');
             $data = $persons->fetchAll($select);
             $this->_cache->save($data, $key);
@@ -200,7 +200,7 @@ class Contacts extends Pas_Db_Table_Abstract
             ->joinLeft(array('position' => 'staffroles'),
                 'staff.role = position.ID',
                 array('role', 'roleid' => 'id'))
-            ->where('alumni = ?', (int)0);
+            ->where('alumni IS NULL');
         $paginator = Zend_Paginator::factory($select);
         if (isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber((int)$params['page']);
@@ -470,5 +470,34 @@ class Contacts extends Pas_Db_Table_Abstract
     {
         $thumbnailWidth = 100;
         $resizedWidth = 300;
+    }
+
+
+    /** Get a list of current staff for the central unit
+     * @access public
+     * @return array
+     */
+    public function getPastExplorers()
+    {
+        $key = md5('pastexplorersstaff');
+        if (!$data = $this->_cache->load($key)) {
+            $persons = $this->getAdapter();
+            $select = $persons->select()
+                ->from($this->_name, array(
+                    'id', 'firstname', 'lastname',
+                    'email_one', 'address_1', 'address_2',
+                    'town', 'county', 'postcode',
+                    'telephone', 'fax', 'role',
+                    'longitude', 'latitude', 'image'
+                ))
+                ->joinLeft(array('position' => 'staffroles'), 'staff.role = position.ID', array('staffroles' => 'role'))
+                ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
+                ->where('staff.role IN (26,27,28,29,30)')
+                ->where('alumni = ?', (int)1)
+                ->order('lastname');
+            $data = $persons->fetchAll($select);
+            $this->_cache->save($data, $key);
+        }
+        return $data;
     }
 }
