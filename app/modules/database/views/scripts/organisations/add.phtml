@@ -1,7 +1,5 @@
-<?php 
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/jquery.autocomplete.pack.js',$type='text/javascript');
-$this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/autocompleteinitpeople1.js',$type='text/javascript'); 
-$this->headLink()->appendStylesheet($this->baseUrl().'/css/autocomplete.css');
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/leadContact.js', $type = 'text/javascript');
 $this->headTitle('Add an organisation');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
