@@ -111,8 +111,6 @@ class Database_OrganisationsController extends Pas_Controller_Action_Admin
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $updateData = $form->getValues();
-                Zend_Debug::dump($updateData);
-                exit;
                 unset($updateData['contact']);
                 $audit = $this->getOrganisations()->fetchRow('id=' . $this->getParam('id'));
                 $oldArray = $audit->toArray();
