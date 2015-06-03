@@ -49,8 +49,8 @@ $(document).ready(function() {
     updater: function (item) {
         var item = JSON.parse(item);
         console.log(item.term);
-        $('#organiser').val(item.id);
-        $('#organisername').val(item.term);
+        $('#contactpersonID').val(item.id);
+        $('#contact').val(item.term);
         return item.name;
     }
 });
