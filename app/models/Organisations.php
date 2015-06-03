@@ -69,10 +69,9 @@ class Organisations extends Pas_Db_Table_Abstract {
         $select = $orgs->select()
                 ->from($this->_name)
                 ->joinLeft('osCounties', 'organisations.county = osCounties.osID', array('label'))
-                ->joinLeft('countries','organisations.country = countries.iso', 
-                        array('abode' => 'printable_name'))
-                ->joinLeft('people','organisations.contactpersonID = people.secuid', 
-                        array('fn' => 'fullname', 'tit' => 'title','i' => 'id'))
+                ->joinLeft('countries','organisations.country = countries.iso', array('abode' => 'printable_name'))
+                ->joinLeft('people','organisations.contactpersonID = people.secuid',
+                    array('fn' => 'fullname', 'tit' => 'title','i' => 'id'))
                 ->where('organisations.id = ?', (int)$id);
         return $orgs->fetchAll($select);
     }
