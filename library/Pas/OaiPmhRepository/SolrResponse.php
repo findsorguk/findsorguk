@@ -17,7 +17,7 @@ class Pas_OaiPmhRepository_SolrResponse
     /** The set limit for response
      *
      */
-    const LISTLIMIT = 30;
+    const LISTLIMIT = 100;
 
     /** The Solarium client
      * @access protected
