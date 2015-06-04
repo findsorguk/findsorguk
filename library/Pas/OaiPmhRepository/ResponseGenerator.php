@@ -469,7 +469,7 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
 
         $resumptionToken->verb = $verb;
         $resumptionToken->metadata_prefix = $metadataPrefix;
-        $resumptionToken->cursor = $cursor + 30;
+        $resumptionToken->cursor = $cursor + 100;
 
         if (isset($from)) {
             $resumptionToken->from = $from;
