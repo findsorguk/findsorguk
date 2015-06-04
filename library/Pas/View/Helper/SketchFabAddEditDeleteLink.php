@@ -29,7 +29,7 @@
  * @since 29 September 2011
  * @author dpett
  */
-class Pas_View_Helper_SketchFabAddLink extends Zend_View_Helper_Abstract {
+class Pas_View_Helper_SketchFabAddEditDeleteLink extends Zend_View_Helper_Abstract {
 
     /** Set up the user groups with no access
      * @access protected
