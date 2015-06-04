@@ -112,10 +112,17 @@ class Pas_OaiPmhRepository_Metadata_PndsDc extends Pas_OaiPmhRepository_Metadata
                 $this->item['creator'] = self::SOURCE;
             }
 
+            if (array_key_exists('description', $this->item)) {
+                $description = strip_tags(str_replace(array("\n", "\r", '    '),
+                    array('', '', ' '), $this->item['description']));
+            } else {
+                $description = 'No description available';
+            }
+
             $data = array(
                 'identifier' => $this->_serverUrl . $uri. $this->item['id'],
                 'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
-                'description' => strip_tags($this->_xmlEscape($this->item['description'])),
+                'description' => strtr($description, array('\x0B' => '&#x0B;')),
                 'subject' => self::SUBJECT,
                 'type' => $this->item['objecttype']
             );
@@ -140,29 +147,51 @@ class Pas_OaiPmhRepository_Metadata_PndsDc extends Pas_OaiPmhRepository_Metadata
                 $this->appendNewElement($pnds, 'dc:' . $k, $v);
             }
 
+            if(!array_key_exists('county', $this->item)) {
+                $this->item['county'] = NULL;
+            }
+
+            if(!array_key_exists('district', $this->item)) {
+                $this->item['district'] = NULL;
+            }
+
             $spatial = array(
                 'county' => $this->item['county'],
                 'district' => $this->item['district']
             );
-            $temporal = array(
-                'year1' => $this->item['fromdate'],
-                'year2' => $this->item['todate'],
-            );
-            if (!is_null($this->item['knownas']) && !is_null($this->item['fourFigure'])) {
-                $geo = new Pas_Geo_Gridcalc($this->item['fourFigure']);
-                $coords = $geo->convert();
-                $lat = $coords['decimalLatLon']['decimalLatitude'];
-                $lon = $coords['decimalLatLon']['decimalLongitude'];
-                $spatial['coords'] = $lat . ',' . $lon;
+
+            if(!array_key_exists('fromdate', $this->item)) {
+                $this->item['fromdate'] = NULL;
             }
 
-            foreach ($spatial as $k => $v) {
-                $this->appendNewElement($pnds, 'dcterms:spatial', $v);
+            if(!array_key_exists('todate', $this->item)) {
+                $this->item['todate'] = NULL;
             }
-            foreach ($temporal as $k => $v) {
-                $this->appendNewElement($pnds, 'dcterms:temporal', $v);
+
+            $temporal = array(
+                    'year1' => $this->item['fromdate'],
+                    'year2' => $this->item['todate'],
+                );
+
+            //Check for availability of NGR and therefore latlon conversions
+            if (array_key_exists('knownas', $this->item) && array_key_exists('fourFigure', $this->item))
+            {
+                $lat = $this->item['fourFigureLat'];
+                $lon = $this->item['fourFigureLon'];
+                $spatial['coords'] = $lat . ',' . $lon;
             }
-            if (!is_null($this->item['thumbnail'])) {
+            if(!empty($spatial)) {
+                foreach ($spatial as $k => $v) {
+                    $this->appendNewElement($pnds, 'dcterms:spatial', $v);
+                }
+            }
+            if(!empty($temporal)) {
+                foreach ($temporal as $k => $v) {
+                    $this->appendNewElement($pnds, 'dcterms:temporal', $v);
+                }
+            }
+
+            if (array_key_exists('thumbnail', $this->item)) {
                 $thumbnail = $this->_serverUrl . self::THUMB_PATH . $this->item['thumbnail'] . self::IMAGE_EXTENSION;
                 $this->appendNewElement($pnds, 'pndsterms:thumbnail', $thumbnail);
             }
