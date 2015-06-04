@@ -411,7 +411,7 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
     public function listResponse($verb, $metadataPrefix, $cursor, $set, $from, $until)
     {
 
-        $listLimit = 30;
+        $listLimit = 100;
         $solr = new Pas_OaiPmhRepository_SolrResponse();
         $items = $solr->getRecords($cursor, $set, $from, $until);
 
