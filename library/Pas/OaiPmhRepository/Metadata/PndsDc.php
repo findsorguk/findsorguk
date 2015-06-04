@@ -184,12 +184,12 @@ class Pas_OaiPmhRepository_Metadata_PndsDc extends Pas_OaiPmhRepository_Metadata
                 $lon = $this->item['fourFigureLon'];
                 $spatial['coords'] = $lat . ',' . $lon;
             }
-            if($spatial) {
+            if(count($spatial) > 0) {
                 foreach ($spatial as $k => $v) {
                     $this->appendNewElement($pnds, 'dcterms:spatial', $v);
                 }
             }
-            if($temporal) {
+            if(count($temporal) > 0) {
                 foreach ($temporal as $k => $v) {
                     $this->appendNewElement($pnds, 'dcterms:temporal', $v);
                 }
