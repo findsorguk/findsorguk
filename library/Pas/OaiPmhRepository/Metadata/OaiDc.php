@@ -63,6 +63,10 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
                 $this->item['broadperiod'] = 'UNKNOWN';
             }
 
+            if(!array_key_exists('creator', $this->item)){
+                $this->item['creator'] = self::SOURCE;
+            }
+
             $data = array(
                 'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
                 'creator' => $this->item['creator'],

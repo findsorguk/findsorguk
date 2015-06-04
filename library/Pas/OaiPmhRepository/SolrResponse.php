@@ -1,28 +1,50 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of OaiResponse
+ * This class returns data from the SOlR engine for use in the OAI engine.
  *
- * @author danielpett
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @category   Pas
+ * @package    Pas_View_Helper
+ * @subpackage Abstract
+ * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ *
  */
 class Pas_OaiPmhRepository_SolrResponse
 {
 
+    /** The set limit for response
+     *
+     */
     const LISTLIMIT = 30;
 
+    /** The Solarium client
+     * @access protected
+     * @var Solarium_Client
+     */
     protected $_solr;
 
+    /** The solr config array
+     * @var array
+     */
     protected $_solrConfig;
 
+    /** The cache object
+     * @access protected
+     * @var Zend_Cache
+     */
     protected $_cache;
 
+    /** The array of protected roles
+     * @access protected
+     * @var array
+     */
     protected $_allowed = array('fa', 'flos', 'admin', 'treasure', 'hoard');
 
+    /** Construct the class
+     * @access public
+     */
     public function __construct()
     {
         $this->_cache = Zend_Registry::get('cache');
@@ -31,6 +53,10 @@ class Pas_OaiPmhRepository_SolrResponse
         $this->_solr = new Solarium_Client($this->_solrConfig);
     }
 
+    /** Get the role of the user
+     * @access protected
+     * @return mixed
+     */
     protected function getRole()
     {
         $user = new Pas_User_Details();
@@ -43,6 +69,10 @@ class Pas_OaiPmhRepository_SolrResponse
     }
 
 
+    /** Get a record by the ID
+     * @access public
+     * @return array
+     */
     public function getRecord($id)
     {
         $fields = array(
@@ -81,6 +111,10 @@ class Pas_OaiPmhRepository_SolrResponse
         return $data;
     }
 
+    /** Get records from solr
+     * @access public
+     * @return array
+     */
     public function getRecords($cursor = 0, $set, $from, $until)
     {
 
@@ -133,6 +167,10 @@ class Pas_OaiPmhRepository_SolrResponse
         return $data;
     }
 
+    /** Convert date from string
+     * @access public
+     * @return string
+     */
     public function fromString($date_string)
     {
         if (is_integer($date_string) || is_numeric($date_string)) {

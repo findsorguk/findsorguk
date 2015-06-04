@@ -83,8 +83,9 @@ class Pas_OaiPmhRepository_Metadata_CdwaLite extends Pas_OaiPmhRepository_Metada
         }
 
         if(!array_key_exists('creator', $this->item)){
-            $this->item['creator'] = 'The Portable Antiquities Scheme';
+            $this->item['creator'] = self::SOURCE;
         }
+
         $creators = array($this->item['creator']);
         foreach ($creators as $creator) {
             $creatorTexts[] = $creator;
