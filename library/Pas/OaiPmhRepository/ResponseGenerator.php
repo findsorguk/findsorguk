@@ -33,7 +33,6 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
 
     /** The metadata classes
      *
-     * @var type
      */
     private $metadataFormatsClasses;
 
