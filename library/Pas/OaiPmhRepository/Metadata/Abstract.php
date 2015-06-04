@@ -49,7 +49,7 @@ abstract class Pas_OaiPmhRepository_Metadata_Abstract extends Pas_OaiPmhReposito
     /** The default language
      *
      */
-    const LANGUAGE = 'en-gb';
+    const LANGUAGE = 'en';
 
     /** Where did data come from
      *
