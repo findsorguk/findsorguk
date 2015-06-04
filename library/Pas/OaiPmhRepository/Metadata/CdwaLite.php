@@ -69,6 +69,11 @@ class Pas_OaiPmhRepository_Metadata_CdwaLite extends Pas_OaiPmhRepository_Metada
         foreach ($subjects as $subject) {
             $this->appendNewElement($classificationWrap, 'cdwalite:classification', $subject);
         }
+
+        if(!array_key_exists('broadperiod', $this->item)){
+            $this->item['broadperiod'] = 'UNKNOWN';
+        }
+
         $titles = array('A ' . ucfirst(strtolower($this->item['broadperiod'])) . ' '
             . ucfirst(strtolower($this->item['objecttype'])));
 
