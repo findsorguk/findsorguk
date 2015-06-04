@@ -108,6 +108,10 @@ class Pas_OaiPmhRepository_Metadata_PndsDc extends Pas_OaiPmhRepository_Metadata
                 $uri = self::RECORD_URI;
             }
 
+            if(!array_key_exists('creator', $this->item)){
+                $this->item['creator'] = self::SOURCE;
+            }
+
             $data = array(
                 'identifier' => $this->_serverUrl . $uri. $this->item['id'],
                 'title' => $this->item['broadperiod'] . ' ' . $this->item['objecttype'],
