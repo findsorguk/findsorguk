@@ -112,6 +112,10 @@ class Pas_OaiPmhRepository_Metadata_PndsDc extends Pas_OaiPmhRepository_Metadata
                 $this->item['creator'] = self::SOURCE;
             }
 
+            if(!array_key_exists('broadperiod', $this->item)){
+                $this->item['broadperiod'] = 'UNKNOWN';
+            }
+
             if (array_key_exists('description', $this->item)) {
                 $description = strip_tags(str_replace(array("\n", "\r", '    '),
                     array('', '', ' '), $this->item['description']));
@@ -180,12 +184,12 @@ class Pas_OaiPmhRepository_Metadata_PndsDc extends Pas_OaiPmhRepository_Metadata
                 $lon = $this->item['fourFigureLon'];
                 $spatial['coords'] = $lat . ',' . $lon;
             }
-            if(!empty($spatial)) {
+            if($spatial) {
                 foreach ($spatial as $k => $v) {
                     $this->appendNewElement($pnds, 'dcterms:spatial', $v);
                 }
             }
-            if(!empty($temporal)) {
+            if($temporal) {
                 foreach ($temporal as $k => $v) {
                     $this->appendNewElement($pnds, 'dcterms:temporal', $v);
                 }
