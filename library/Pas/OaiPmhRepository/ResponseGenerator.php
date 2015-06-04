@@ -486,7 +486,7 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
         } else {
             $resumptionToken->set = null;
         }
-        $resumptionToken->expiration = self::unixToDb(time() + 60 * 60);
+        $resumptionToken->expiration = self::unixToDb(time() + 60 * 60 * 24);
         $resumptionToken->useragent = $this->_userAgent();
         $resumptionToken->ipaddress = $this->_ipAddress();
         $resumptionToken->save();
