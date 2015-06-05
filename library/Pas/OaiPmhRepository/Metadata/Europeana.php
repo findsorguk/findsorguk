@@ -180,25 +180,30 @@ class Pas_OaiPmhRepository_Metadata_Europeana extends Pas_OaiPmhRepository_Metad
 
             $formats = array();
 
-            if (array_key_exists('thumbnail', $this->item) && !is_null($this->item['thumbnail'])) {
+            if (array_key_exists('thumbnail', $this->item) && array_key_exists('imagedir', $this->item)) {
                 $ese['isShownBy'] = $this->_serverUrl . self::THUMB_PATH . $this->item['thumbnail'] . self::EXTENSION;
                 $formats[] = $this->_serverUrl . '/' . $this->item['imagedir'] . $this->item['filename'];
             }
+
             $ese['isShownAt'] = $this->_serverUrl . $uri . $this->item['id'];
             foreach ($dc as $k => $v) {
                 $this->appendNewElement($europeana, 'dc:' . $k, $v);
             }
+
             foreach ($dcterms as $k => $v) {
                 $this->appendNewElement($europeana, 'dcterms:' . $k, $v);
             }
+
             foreach ($formats as $k => $v) {
                 $this->appendNewElement($europeana, 'dcterms:hasFormat', $v);
             }
+
             if (array_filter($dates)) {
                 foreach ($temporal as $k => $v) {
                     $this->appendNewElement($europeana, 'dcterms:temporal', $v);
                 }
             }
+
             if (array_filter($geo)) {
                 foreach ($spatial as $k => $v) {
                     $this->appendNewElement($europeana, 'dcterms:spatial', $v);
