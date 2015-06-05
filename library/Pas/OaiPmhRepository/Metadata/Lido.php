@@ -204,7 +204,7 @@ class Pas_OaiPmhRepository_Metadata_Lido extends Pas_OaiPmhRepository_Metadata_A
             //The formats for the images
             $formats = array();
 
-            if (array_key_exists('thumbnail', $this->item)) {
+            if (array_key_exists('thumbnail', $this->item) && array_key_exists('imagedir', $this->item)) {
                 $formats['image_thumb'] = 'http://finds.org.uk' . '/' . $this->item['imagedir'] . $this->item['filename'];
                 $formats['image_master'] = 'http://finds.org.uk' . '/' . $this->item['imagedir'] . $this->item['filename'];
             }

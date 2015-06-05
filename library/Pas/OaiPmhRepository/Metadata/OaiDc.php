@@ -83,12 +83,11 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
                 'language' => self::LANGUAGE
             );
 
-            if (array_key_exists('thumbnail', $this->item)) {
+            if (array_key_exists('thumbnail', $this->item) && array_key_exists('imagedir', $this->item)) {
                 $relation = $this->_serverUrl . '/' . $this->item['imagedir'] . $this->item['filename'];
                 $data['relation'] = $relation;
-            } else {
-                $data['relation'] = '';
             }
+
             $data['coverage'] = $this->item['broadperiod'];
             $data['rights'] = self::LICENSE;
             unset($data['id']);
