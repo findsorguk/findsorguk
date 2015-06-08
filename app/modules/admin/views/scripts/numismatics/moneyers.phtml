@@ -1,0 +1,22 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 08/06/15
+ * Time: 16:21
+ */
+?>
+<h2>A list of Republican Moneyers in use</h2>
+
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'numismatics', 'action' => 'addmoneyer'), 'default', true); ?>"
+   title="Add a new moneyer">Add a moneyer</a>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Date from</th>
+        <th>Date to</th>
+        <th>Valid?</th>
+    </tr>
+    <?php echo $this->partialLoop('partials/admin/moneyersListed.phtml', $this->moneyers); ?>
+</table>

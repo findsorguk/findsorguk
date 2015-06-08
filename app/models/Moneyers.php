@@ -101,4 +101,19 @@ class Moneyers extends Pas_Db_Table_Abstract {
 		->where($this->_primary . ' = ?',(int)$id);
 	return $moneyers->fetchAll($select);
     }
+
+
+    /** Retrieve moneyer list with concatenated names and dates in key value
+     * pair array
+     * @access public
+     * @return array
+     * @todo add caching
+     */
+    public function getRepublicMoneyersListed() {
+        $moneyers = $this->getAdapter();
+        $select = $moneyers->select()
+            ->from($this->_name, array('id', 'name', 'date_1', 'date_2', 'valid'))
+            ->order('name ASC');
+        return $moneyers->fetchAll($select);
+    }
 }
