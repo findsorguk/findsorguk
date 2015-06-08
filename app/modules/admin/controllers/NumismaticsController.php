@@ -1909,4 +1909,32 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
+    /** List the moneyers on the system
+     * @access public
+     * @return void
+     */
+    public function moneyersAction()
+    {
+        $moneyers = new Moneyers();
+        $this->view->moneyers = $moneyers->getRepublicMoneyersListed();
+    }
+
+    /** Add a moneyer to the system
+     * @access public
+     * @return void
+     */
+    public function addmoneyerAction()
+    {
+
+    }
+
+    /** Edit a moneyer on the system
+     * @access public
+     * @return void
+     */
+    public function editmoneyerAction()
+    {
+
+    }
 }
