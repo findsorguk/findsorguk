@@ -1,6 +1,6 @@
 <?php
 
-/** Form for editing and creating Republican Moneyers
+/** Form for editing and creating Republican Moneyers based on Ghey and Leins (After Crawford).
  *
  * An example of code use:
  *
