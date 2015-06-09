@@ -1963,10 +1963,10 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                     $form->populate($form->getValues());
                 }
             } else {
-                $id = (int)$this->_request->getParam('rulerid', 0);
+                $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
                     $coins = new Moneyers();
-                    $moneyer = $coins->fetchRow('id=' . (int)$id);
+                    $moneyer = $coins->fetchRow('id =' . (int)$id);
                     if (count($moneyer)) {
                         $form->populate($moneyer->toArray());
                     } else {
