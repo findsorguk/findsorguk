@@ -30,7 +30,7 @@ class MoneyerForm extends Pas_Form
     {
 
         $periods = new Periods();
-        $period_options = $periods->getMedievalCoinsPeriodList();
+        $period_options = $periods->getCoinsPeriod();
 
 
         parent::__construct($options);
