@@ -40,7 +40,7 @@ class MoneyerForm extends Pas_Form
         $name = new Zend_Form_Element_Text('name');
         $name->setLabel('Moneyer\'s name: ')
             ->setRequired(true)
-            ->addFilters(array('StripTags','StringTrim', 'Purifier'))
+            ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
             ->addErrorMessage('Enter a moneyer\'s name');
 
         $period = new Zend_Form_Element_Select('period');
@@ -54,35 +54,49 @@ class MoneyerForm extends Pas_Form
         $date_1 = new Zend_Form_Element_Text('date_1');
         $date_1->setLabel('Issued coins from: ')
             ->setRequired(true)
-            ->addFilters(array('StripTags','StringTrim'))
-            ->addValidator('Int')
+            ->addFilters(array('StripTags', 'StringTrim'))
             ->addErrorMessage('You must enter a date for the start of moneyer period');
 
         $date_2 = new Zend_Form_Element_Text('date_2');
         $date_2->setLabel('Issued coins until: ')
             ->setRequired(true)
-            ->addFilters(array('StripTags','StringTrim'))
-            ->addValidator('Int')
+            ->addFilters(array('StripTags', 'StringTrim'))
             ->addErrorMessage('You must enter a date for the end of moneyer period');
 
         $appear = new Zend_Form_Element_Text('appear');
         $appear->setLabel('Appearance on coins: ')
             ->setRequired(true)
-            ->addFilters(array('StripTags','StringTrim'));
+            ->addFilters(array('StripTags', 'StringTrim'));
+
+        $rrc = new Zend_Form_Element_Text('rrc');
+        $rrc->setLabel('RRC ID number: ')
+            ->setRequired(true)
+            ->addFilters(array('StripTags', 'StringTrim'));
 
         $bio = new Pas_Form_Element_CKEditor('bio');
         $bio->setLabel('Biography: ')
             ->setRequired(true)
-            ->addFilters(array('StringTrim','WordChars','BasicHtml','EmptyParagraph'))
+            ->addFilters(array('StringTrim', 'WordChars', 'BasicHtml', 'EmptyParagraph'))
             ->setAttribs(array('rows' => 10, 'cols' => 40, 'Height' => 400))
-            ->setAttrib('ToolbarSet','Finds')
+            ->setAttrib('ToolbarSet', 'Finds')
             ->addErrorMessage('You must enter a biography');
+
+        $valid = new Zend_Form_Element_Checkbox('valid');
+        $valid->setLabel('Is this term valid?: ');
 
         $submit = new Zend_Form_Element_Submit('submit');
 
-        $this->addElements(array($period, $name,  $date_1, $date_2, $bio, $appear, $submit));
+        $this->addElements(array(
+            $period, $name, $date_1,
+            $date_2, $bio, $appear,
+            $rrc, $valid, $submit
+        ));
 
-        $this->addDisplayGroup(array('name', 'period', 'date_1', 'date_2', 'appear', 'bio', 'submit'), 'details');
+        $this->addDisplayGroup(array(
+            'name', 'period', 'date_1',
+            'date_2', 'appear', 'rrc',
+            'bio', 'valid', 'submit'
+        ), 'details');
 
         parent::init();
     }
