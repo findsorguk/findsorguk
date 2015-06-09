@@ -68,8 +68,8 @@ class MoneyerForm extends Pas_Form
             ->setRequired(true)
             ->addFilters(array('StripTags', 'StringTrim'));
 
-        $rrc = new Zend_Form_Element_Text('rrc');
-        $rrc->setLabel('RRC ID number: ')
+        $RRC = new Zend_Form_Element_Text('RRC');
+        $RRC->setLabel('RRC ID number: ')
             ->setRequired(true)
             ->addFilters(array('StripTags', 'StringTrim'));
 
@@ -89,12 +89,12 @@ class MoneyerForm extends Pas_Form
         $this->addElements(array(
             $period, $name, $date_1,
             $date_2, $bio, $appear,
-            $rrc, $valid, $submit
+            $RRC, $valid, $submit
         ));
 
         $this->addDisplayGroup(array(
             'name', 'period', 'date_1',
-            'date_2', 'appear', 'rrc',
+            'date_2', 'appear', 'RRC',
             'bio', 'valid', 'submit'
         ), 'details');
 
