@@ -1,4 +1,5 @@
 <?php
+
 /** Form for editing and creating medieval categories
  *
  * An example of code use:
@@ -17,53 +18,54 @@
  * @version 1
  * @example /app/modules/admin/controllers/NumismaticsController.php
  */
-
-class MedCategoryForm extends Pas_Form {
+class MedCategoryForm extends Pas_Form
+{
 
     /** the constructor
      * @access public
      * @param array $options
      * @return void
      */
-    public function __construct(array $options = null) {
+    public function __construct(array $options = null)
+    {
 
-	$periods = new Periods();
-	$period_options = $periods->getMedievalCoinsPeriodList();
+        $periods = new Periods();
+        $period_options = $periods->getMedievalCoinsPeriodList();
 
 
-	parent::__construct($options);
+        parent::__construct($options);
 
-	$this->setName('medievaltype');
+        $this->setName('medievaltype');
 
-	$category = new Zend_Form_Element_Text('category');
-	$category->setLabel('Medieval coin category: ')
-		->setRequired(true)
-		->setAttrib('size',60)
-		->addFilters(array('StringTrim', 'StripTags'))
-		->addErrorMessage('You must enter a category name.');
+        $category = new Zend_Form_Element_Text('category');
+        $category->setLabel('Medieval coin category: ')
+            ->setRequired(true)
+            ->setAttrib('size', 60)
+            ->addFilters(array('StringTrim', 'StripTags'))
+            ->addErrorMessage('You must enter a category name.');
 
-	$periodID = new Zend_Form_Element_Select('periodID');
-	$periodID->setLabel('Medieval period: ')
-		->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-		->setRequired(true)
-		->addFilters(array('StringTrim', 'StripTags'))
-		->addErrorMessage('You must enter a period for this type')
-		->addMultioptions(array(null => 'Choose a period', 'Available Options' => $period_options));
+        $periodID = new Zend_Form_Element_Select('periodID');
+        $periodID->setLabel('Medieval period: ')
+            ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+            ->setRequired(true)
+            ->addFilters(array('StringTrim', 'StripTags'))
+            ->addErrorMessage('You must enter a period for this type')
+            ->addMultioptions(array(null => 'Choose a period', 'Available Options' => $period_options));
 
-	$description = new Pas_Form_Element_CKEditor('description');
-	$description->setLabel('Description: ')
-		->setRequired(true)
-		->setAttrib('rows',10)
-		->setAttrib('cols',40)
-		->setAttrib('Height',400)
-		->setAttrib('ToolbarSet','Finds')
-		->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
+        $description = new Pas_Form_Element_CKEditor('description');
+        $description->setLabel('Description: ')
+            ->setRequired(true)
+            ->setAttrib('rows', 10)
+            ->setAttrib('cols', 40)
+            ->setAttrib('Height', 400)
+            ->setAttrib('ToolbarSet', 'Finds')
+            ->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
 
-	$submit = new Zend_Form_Element_Submit('submit');
+        $submit = new Zend_Form_Element_Submit('submit');
 
-	$this->addElements(array($category, $description, $periodID, $submit));
+        $this->addElements(array($category, $description, $periodID, $submit));
 
-	$this->addDisplayGroup(array('category','periodID','description','submit'), 'details');
+        $this->addDisplayGroup(array('category', 'periodID', 'description', 'submit'), 'details');
 
         parent::init();
     }
