@@ -1926,7 +1926,19 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function addmoneyerAction()
     {
-
+        $form = new MoneyerForm();
+        $form->submit->setLabel('Submit details');
+        $this->view->form = $form;
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
+                $coin = new Moneyers();
+                $coin->add($form->getValues());
+                $this->redirect('/admin/numismatics/moneyers');
+                $this->getFlash()->addMessage('Republican moneyer added');
+            } else {
+                $form->populate($this->_request->getPost());
+            }
+        }
     }
 
     /** Edit a moneyer on the system
@@ -1935,6 +1947,35 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
      */
     public function editmoneyerAction()
     {
-
+        if ($this->_getparam('id', false)) {
+            $form = new MoneyerForm();
+            $form->submit->setLabel('Update details');
+            $this->view->form = $form;
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
+                    $coins = new Moneyers();
+                    $where = array();
+                    $where[] = $coins->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
+                    $coins->update($form->getValues(), $where);
+                    $this->getFlash()->addMessage('Moneyer updated');
+                    $this->redirect('/admin/numismatics/moneyers');
+                } else {
+                    $form->populate($form->getValues());
+                }
+            } else {
+                $id = (int)$this->_request->getParam('rulerid', 0);
+                if ($id > 0) {
+                    $coins = new Moneyers();
+                    $moneyer = $coins->fetchRow('id=' . (int)$id);
+                    if (count($moneyer)) {
+                        $form->populate($moneyer->toArray());
+                    } else {
+                        throw new Pas_Exception_Param($this->_nothingFound);
+                    }
+                }
+            }
+        } else {
+            throw new Pas_Exception_Param($this->_missingParameter, 404);
+        }
     }
 }
