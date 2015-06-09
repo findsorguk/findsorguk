@@ -53,13 +53,13 @@ class MoneyerForm extends Pas_Form
 
         $date_1 = new Zend_Form_Element_Text('date_1');
         $date_1->setLabel('Issued coins from: ')
-            ->setRequired(true)
+            ->setRequired(false)
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addErrorMessage('You must enter a date for the start of moneyer period');
 
         $date_2 = new Zend_Form_Element_Text('date_2');
         $date_2->setLabel('Issued coins until: ')
-            ->setRequired(true)
+            ->setRequired(false)
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addErrorMessage('You must enter a date for the end of moneyer period');
 
