@@ -120,6 +120,8 @@ class Pas_Exporter_ArrayToCsvHoard
             $cleanSort = $this->sortArrayByArray($record, $this->_fields);
             $finalData[] = $cleanSort;
         }
+        Zend_Debug::dump($finalData);
+        exit;
         return $finalData;
     }
 }
