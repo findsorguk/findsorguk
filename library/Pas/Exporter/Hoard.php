@@ -69,6 +69,9 @@ class Pas_Exporter_Hoard extends Pas_Exporter_Generate
         $this->_search->setFields($this->_csvFields);
         $this->_search->setParams($this->_params);
         $this->_search->execute();
+        $this->_search->debugQuery();
+        $this->_search->debugProcessing();
+        exit;
         return $this->_search->processResults();
     }
 
