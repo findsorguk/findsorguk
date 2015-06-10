@@ -1,20 +1,25 @@
 <?php
 /** View helper for generating the links for exporting data
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->searchExportTools();
+ * ?>
+ * </code>
+ *
  * @category Pas
  * @package Pas_View_Helper
  * @since 14/3/2012
- * @copyright Daniel Pett
+ * @copyright Daniel Pett <dpett @ britishmuseum dot org>
  * @author dpett
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- */
-
-/**
- * SearchExportTools helper
- *
  * @uses viewHelper Pas_View_Helper
  * @uses viewHelper Zend_View_Helper_Url
- * @todo assert ACL?
+ * @example /app/modules/database/views/scripts/search/results.phtml
+ *
  */
 class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
 {
@@ -76,6 +81,7 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
         $csvRoute = array_merge($params, array('action' => 'csv'));
         $herRoute = array_merge($params, array('action' => 'her'));
         $pdfRoute = array_merge($params, array('action' => 'pdf'));
+        $hoardRoute = array_merge($params, array('action' => 'hoard'));
         $class = 'btn btn-small';
         $classDisabled = 'btn btn-small btn-info';
         $html = '';
@@ -92,6 +98,14 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
             $html .= '"><i class="icon-download-alt"></i> Export as CSV</a> ';
         } else {
             $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme ' . $classDisabled . '" href="#"><i class="icon-download-alt"></i> CSV disabled</a> ';
+        }
+
+        if(array_key_exists('objectType', $params)) {
+            if($params['objectType'] == 'HOARD'){
+                $html .= '<a class="' . $class . '" href="';
+                $html .= $this->view->url($hoardRoute, null, false);
+                $html .= '"><i class="icon-download-alt"></i> Export Hoard specific CSV</a> ';
+            }
         }
         if ($quantity < 12000) {
             $html .= '<a class="' . $class . '" href="';

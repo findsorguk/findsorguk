@@ -429,6 +429,16 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $exporter->execute();
     }
 
+    /** The hoard specific module exporter
+     * @access public
+     * @return void
+     */
+    public function hoardAction()
+    {
+        $exporter = new Pas_Exporter_Generate();
+        $exporter->setFormat('hoard');
+        $exporter->execute();
+    }
     /** Create CSV export
      * @access public
      * @return void
@@ -440,6 +450,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $exporter->execute();
     }
 
+    /** Create a summary exporter for coins from hoards module
+     * @access public
+     * @return void
+     */
     public function summaryAction()
     {
         $exporter = new Pas_Exporter_SummaryGenerate();

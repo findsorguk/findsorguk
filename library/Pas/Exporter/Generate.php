@@ -97,7 +97,8 @@ class Pas_Exporter_Generate
      */
     protected $_formats = array(
         'csv', 'kml', 'hero',
-        'gis', 'report', 'pdf'
+        'gis', 'report', 'pdf',
+        'hoard'
     );
 
     /** The format
