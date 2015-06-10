@@ -114,9 +114,8 @@ class Pas_Exporter_ArrayToCsvHoard
                         $record[$k] = null;
                     }
                 }
-
-                $record['uri'] = $this->_uri . $record['id'];
             }
+            $record['uri'] = $this->_uri . $record['id'];
             $cleanSort = $this->sortArrayByArray($record, $this->_fields);
             $finalData[] = $cleanSort;
         }
