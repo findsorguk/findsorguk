@@ -89,6 +89,9 @@ class Pas_Exporter_Generate
      */
     protected $_lower = array('member');
 
+    /** The search handler
+     * @var Pas_Solr_Handler
+     */
     protected $_search;
 
     /** The formats available
