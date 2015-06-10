@@ -54,7 +54,7 @@ class Pas_Exporter_ArrayToCsvHoard
      * @access protected
      * @var string
      */
-    protected $_uri = 'http://finds.org.uk/database/hoards/record/id/';
+    protected $_uri = 'https://finds.org.uk/database/hoards/record/id/';
 
     /** Construct the object
      * @access public
