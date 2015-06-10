@@ -84,7 +84,7 @@ class Pas_Exporter_Hoard extends Pas_Exporter_Generate
         $paginator = $this->_search->createPagination();
         $pages = $paginator->getPages();
         $iterator = $pages->pageCount;
-        $converter = new Pas_Exporter_ArrayToCsv($this->_csvFields);
+        $converter = new Pas_Exporter_ArrayToCsvHoard($this->_csvFields);
         $clean = $converter->convert($data);
         if ($iterator > 300) {
             set_time_limit(0);
