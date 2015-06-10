@@ -92,6 +92,8 @@ class Pas_Exporter_Hoard extends Pas_Exporter_Generate
         }
         $file = fopen('php://temp/maxmemory:' . (12 * 1024 * 1024), 'r+');
         fputcsv($file, $this->_csvFields, ',', '"');
+        Zend_Debug::dump($clean);
+        exit;
         foreach ($clean as $c) {
             fputcsv($file, array_values($c), ',', '"');
         }
