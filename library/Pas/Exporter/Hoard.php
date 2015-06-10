@@ -107,10 +107,10 @@ class Pas_Exporter_Hoard extends Pas_Exporter_Generate
         rewind($file);
         $output = stream_get_contents($file);
         fclose($file);
-        $filename = 'CsvHoardDatabaseExportFor_' . $this->_user->username . '_' . $this->_dateTime . '.csv';
-        $fc = Zend_Controller_Front::getInstance();
-        $fc->getResponse()->setHeader('Content-type', 'text/csv; charset=utf-8');
-        $fc->getResponse()->setHeader('Content-Disposition', 'attachment; filename=' . $filename);
+//        $filename = 'CsvHoardDatabaseExportFor_' . $this->_user->username . '_' . $this->_dateTime . '.csv';
+//        $fc = Zend_Controller_Front::getInstance();
+//        $fc->getResponse()->setHeader('Content-type', 'text/csv; charset=utf-8');
+//        $fc->getResponse()->setHeader('Content-Disposition', 'attachment; filename=' . $filename);
         echo $output;
     }
 }
