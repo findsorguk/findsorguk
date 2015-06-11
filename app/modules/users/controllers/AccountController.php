@@ -350,7 +350,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     $advisers = new Contacts();
                     $emails = $advisers->getAdvisersEmails();
 
-                    $emails = array_merge($to[0], $emails);
+                    $emails = array_merge($to, $emails);
                     Zend_Debug::dump($emails);
                     exit;
                     $attachments = array(ROOT_PATH . '/public_html/documents/tac.pdf');
