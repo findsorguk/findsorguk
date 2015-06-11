@@ -354,7 +354,8 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     $assignData = array_merge($to[0], $form->getValues());
 //                    $this->_helper->mailer($assignData, 'upgradeRequested', null, $to, $emails, null, $attachments);
                     $toReferee = array(array('email' => $form->getValue('referenceEmail'), 'name' => $form->getValue('reference')));
-                    $this->_helper->mailer($assignData, 'upgradeReferee', null, $toReferee, $emails, null, null);
+                    //data, template, to, cc, from, bcc, attachments
+                    $this->_helper->mailer($assignData, 'upgradeReferee', $toReferee, $emails , null, null, null);
                     $this->getFlash()->addMessage('Thank you! We have received your request.');
                     $this->redirect('/users/account/');
                 } else {
