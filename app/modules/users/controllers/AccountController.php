@@ -352,8 +352,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     Zend_Debug::dump($emails);
                     $attachments = array(ROOT_PATH . '/public_html/documents/tac.pdf');
                     $assignData = array_merge($to[0], $form->getValues());
-                    $this->_helper->mailer($assignData, 'upgradeRequested', $to, $emails, null, null, $attachments,
-                        'Reference request for Portable Antiquities Scheme Database Access');
+                    $this->_helper->mailer($assignData, 'upgradeRequested', $to, $emails, null, null, $attachments, ' Upgraded requested');
                     $toReferee = array(array('email' => $form->getValue('referenceEmail'), 'name' => $form->getValue('reference')));
                     //data, template, to, cc, from, bcc, attachments
                     $this->sendAdvisers($assignData, $toReferee, $emails);
@@ -373,7 +372,8 @@ class Users_AccountController extends Pas_Controller_Action_Admin
 
     public function sendAdvisers($assignData, $toReferee, $emails)
     {
-        $this->_helper->mailer($assignData, 'upgradeReferee', $toReferee, $emails , null, null, null);
+        $this->_helper->mailer($assignData, 'upgradeReferee', $toReferee, $emails , null, null, null,
+            'Reference request for Portable Antiquities Scheme Database Access');
     }
 
     /** Configure the copy action
