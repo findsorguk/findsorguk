@@ -372,7 +372,6 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         }
     }
 
-    public function sendRequest
 
     public function sendAdvisers($assignData, $toReferee, $emails, $attachments)
     {
