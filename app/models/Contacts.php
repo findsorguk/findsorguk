@@ -351,7 +351,7 @@ class Contacts extends Pas_Db_Table_Abstract
                 ->joinLeft('users', 'users.id = staff.dbaseID')
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
-            $data = $persons->fetchPairs($select);
+            $data = $persons->fetchAll($select);
             $this->_cache->save($data, 'findsAdvisersEmails');
         }
         return $data;
