@@ -347,9 +347,16 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     $updateData['higherLevel'] = 1;
                     $this->_users->update($updateData, $where);
                     $to = array(array('email' => $user->email, 'name' => $user->fullname));
+                    $advisers = new Contacts();
+                    $emails = $advisers->getAdvisersEmails();
+                    $central = $advisers->getCentralEmails();
+                    $emails = array_merge($to, $emails, $central);
+
                     $attachments = array(ROOT_PATH . '/public_html/documents/tac.pdf');
                     $assignData = array_merge($to[0], $form->getValues());
-                    $this->_helper->mailer($assignData, 'upgradeRequested', null, $to, $to, null, $attachments);
+                    $toReferee = array(array('email' => $form->getValue('referenceEmail'), 'name' => $form->getValue('reference')));
+                    //data, template, to, cc, from, bcc, attachments, subject
+                    $this->sendAdvisers($assignData, $toReferee, $emails,  $attachments );
                     $this->getFlash()->addMessage('Thank you! We have received your request.');
                     $this->redirect('/users/account/');
                 } else {
@@ -359,9 +366,16 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                 }
             }
         } else {
-            $this->getFlash()->addMessage('You can\'t request an upgrade as you already have ' . $role . ' status!');
-            $this->_redirect('/users/account/');
+            $this->getFlash()->addMessage('You can\'t request an upgrade as you already have ' . $this->getRole() . ' status!');
+            $this->redirect('/users/account/');
         }
+    }
+
+
+    public function sendAdvisers($assignData, $toReferee, $emails, $attachments)
+    {
+        $this->_helper->mailer($assignData, 'upgradeReferee', $toReferee, $emails , null, null, $attachments,
+            'Reference request for Portable Antiquities Scheme Database Access');
     }
 
     /** Configure the copy action

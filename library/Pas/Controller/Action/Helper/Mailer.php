@@ -99,8 +99,9 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
      * @param array $bcc
      * @param array $attachments
      */
-    public function direct(array $assignData = null, $type, array $to = null, array $cc = null,
-                           array $from = null, array $bcc = null, array $attachments = null)
+    public function direct(
+        array $assignData = null, $type, array $to = null, array $cc = null,
+        array $from = null, array $bcc = null, array $attachments = null)
     {
         $script = $this->_getTemplate($type);
         $message = $this->_view->setScriptPath($this->_templates);
