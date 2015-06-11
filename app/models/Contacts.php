@@ -346,13 +346,12 @@ class Contacts extends Pas_Db_Table_Abstract
                     'email' => 'email_one'
                 ))
                 ->joinLeft(array('position' => 'staffroles'),
-                    'staff.role = position.ID',
-                    array('staffroles' => 'role'))
+                    'staff.role = position.ID')
                 ->where('staff.role IN (12,16,17,18,19,20)')
-                ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
+                ->joinLeft('users', 'users.id = staff.dbaseID')
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
-            $data = $persons->fetchAll($select);
+            $data = $persons->fetchPairs($select);
             $this->_cache->save($data, 'findsAdvisersEmails');
         }
         return $data;
