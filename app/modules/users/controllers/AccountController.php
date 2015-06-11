@@ -352,10 +352,10 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     Zend_Debug::dump($emails);
                     $attachments = array(ROOT_PATH . '/public_html/documents/tac.pdf');
                     $assignData = array_merge($to[0], $form->getValues());
-//                    $this->_helper->mailer($assignData, 'upgradeRequested', $to, $emails, null, null, $attachments);
+                    $this->_helper->mailer($assignData, 'upgradeRequested', $to, $emails, null, null, $attachments);
                     $toReferee = array(array('email' => $form->getValue('referenceEmail'), 'name' => $form->getValue('reference')));
                     //data, template, to, cc, from, bcc, attachments
-                    $this->_helper->mailer($assignData, 'upgradeReferee', $toReferee, $emails , null, null, null);
+                    $this->sendAdvisers($assignData, $toReferee, $emails);
                     $this->getFlash()->addMessage('Thank you! We have received your request.');
                     $this->redirect('/users/account/');
                 } else {
@@ -366,8 +366,13 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             }
         } else {
             $this->getFlash()->addMessage('You can\'t request an upgrade as you already have ' . $role . ' status!');
-            $this->_redirect('/users/account/');
+            $this->redirect('/users/account/');
         }
+    }
+
+    public function sendAdvisers($assignData, $toReferee, $emails)
+    {
+        $this->_helper->mailer($assignData, 'upgradeReferee', $toReferee, $emails , null, null, null);
     }
 
     /** Configure the copy action
