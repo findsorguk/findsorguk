@@ -351,7 +351,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     $emails = $advisers->getAdvisersEmails();
 
                     $emails = array_merge($to, $emails);
-                  
+
                     $attachments = array(ROOT_PATH . '/public_html/documents/tac.pdf');
                     $assignData = array_merge($to[0], $form->getValues());
                     $toReferee = array(array('email' => $form->getValue('referenceEmail'), 'name' => $form->getValue('reference')));
@@ -374,7 +374,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
 
     public function sendAdvisers($assignData, $toReferee, $emails, $attachments)
     {
-        $this->_helper->mailer($assignData, 'upgradeReferee', $toReferee, $emails , null, $attachments,
+        $this->_helper->mailer($assignData, 'upgradeReferee', $toReferee, $emails , null, null, $attachments,
             'Reference request for Portable Antiquities Scheme Database Access');
     }
 
