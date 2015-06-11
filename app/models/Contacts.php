@@ -347,7 +347,7 @@ class Contacts extends Pas_Db_Table_Abstract
                 ))
                 ->joinLeft(array('position' => 'staffroles'),
                     'staff.role = position.ID',
-                    array()
+                    array())
                 ->where('staff.role IN (12,16,17,18,19,20)')
                 ->joinLeft('users', 'users.id = staff.dbaseID', array())
                 ->where('alumni = ?', (int)1)
