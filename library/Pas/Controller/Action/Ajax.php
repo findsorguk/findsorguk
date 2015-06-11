@@ -7,10 +7,10 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
- * @package Controller_Action
- * @subpackage	Ajax
+ * @package Controller
+ * @subpackage Action
  * @version 2
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @since September 2009
  * @todo Refactor completely - is this actually needed?
  */

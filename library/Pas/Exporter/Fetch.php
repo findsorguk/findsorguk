@@ -1,13 +1,23 @@
 <?php
 
-/**
- * Description of Fetch
+/** A class for fetching data for exporting via solr
  *
- * @author danielpett
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category Pas
+ * @package Exporter
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
+ *
  */
 class Pas_Exporter_Fetch extends Pas_Exporter_Generate
 {
 
+    /** Get the data to reuse
+     * @access public
+     * @return void
+     * @param int|null $page
+     */
     public function getData($page = null)
     {
         $this->_params['show'] = $this->getMaxRows();

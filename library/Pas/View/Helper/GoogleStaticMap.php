@@ -1,9 +1,10 @@
 <?php
-/** 
+
+/**
  * A view helper for rendering a static google map
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * echo $this->googleStaticMap()
@@ -12,43 +13,45 @@
  * ->setCreateUrl(true);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @example /app/modules/flickr/views/scripts/photos/details.phtml 
+ * @example /app/modules/flickr/views/scripts/photos/details.phtml
  * @category Pas
- * @package View_Helper
+ * @package View
+ * @subpackage Helper
  * @see http://code.google.com/apis/maps/documentation/staticmaps/
- * 
+ *
  */
-class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
-    
+class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract
+{
+
     /** The api key for google
      * @access prp
-     * @var string 
+     * @var string
      */
     protected $_apiKey;
-    
+
     /** The base url for producing a map
      * @access protected
      * @var string
      */
     protected $_staticUrl = 'https://maps.google.com/maps/api/staticmap';
-    
+
     /** The parameter array
      * @access protected
      * @var array
      */
     protected $_parameters;
-    
+
     /** The alt tag to give the map
      * @access protected
      * @var string
      */
     protected $_alt;
-    
+
     /** The title tag to give
      * @access protected
      * @var string
@@ -60,12 +63,13 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @var boolean
      */
     protected $_createUrl = false;
-    
+
     /** Get the api key
      * @access public
      * @return string
      */
-    public function getApiKey() {
+    public function getApiKey()
+    {
         return $this->_apiKey;
     }
 
@@ -74,37 +78,40 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @param string $apiKey
      * @return \Pas_View_Helper_GoogleStaticMap
      */
-    public function setApiKey($apiKey) {
+    public function setApiKey($apiKey)
+    {
         $this->_apiKey = $apiKey;
         return $this;
     }
-   
+
     /** Get the parameters
      * @access public
      * @return array
      */
-    public function getParameters() {
+    public function getParameters()
+    {
         return $this->_parameters;
     }
 
     /** Set the parameters up
      * @access public
-     * @param array $parameters 
-     *		center: {required if markers not present} [array(lat,lon),string address]
-     *		zoom: {required if markers not present} [int]
-     *		size: {required} [array(width,height)]
-     *		format: {optional} [png8,png,png32,gif,jpg,jpg-baseling]
-     *		maptype: {optional} [roadmap, satellite, hybrid, terrain]
-     *		mobile: {optional} [true,false]
-     *		language: {optional} [string]
-     *		markers: {optional} [array(array(lat,lon),
-     *							string markerStyles|markerLocation1|markerLocation2|...)]
-     *		path: {optional} [array(array(lat,lon),string pathStyles|pathLocation1|pathLocation2|...)]
-     *		visible: {optional} [array(array(lat,lon),string)]
-     *		sensor: {optional} [true,false] (default will be false)
+     * @param array $parameters
+     *        center: {required if markers not present} [array(lat,lon),string address]
+     *        zoom: {required if markers not present} [int]
+     *        size: {required} [array(width,height)]
+     *        format: {optional} [png8,png,png32,gif,jpg,jpg-baseling]
+     *        maptype: {optional} [roadmap, satellite, hybrid, terrain]
+     *        mobile: {optional} [true,false]
+     *        language: {optional} [string]
+     *        markers: {optional} [array(array(lat,lon),
+     *                            string markerStyles|markerLocation1|markerLocation2|...)]
+     *        path: {optional} [array(array(lat,lon),string pathStyles|pathLocation1|pathLocation2|...)]
+     *        visible: {optional} [array(array(lat,lon),string)]
+     *        sensor: {optional} [true,false] (default will be false)
      * @return \Pas_View_Helper_GoogleStaticMap
      */
-    public function setParameters(array $parameters) {
+    public function setParameters(array $parameters)
+    {
         $this->_parameters = $parameters;
         return $this;
     }
@@ -113,7 +120,8 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getAlt() {
+    public function getAlt()
+    {
         return $this->_alt;
     }
 
@@ -122,7 +130,8 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @param string $alt
      * @return \Pas_View_Helper_GoogleStaticMap
      */
-    public function setAlt($alt) {
+    public function setAlt($alt)
+    {
         $this->_alt = $alt;
         return $this;
     }
@@ -131,7 +140,8 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @access public
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->_title;
     }
 
@@ -140,16 +150,18 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @param string $title
      * @return \Pas_View_Helper_GoogleStaticMap
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->_title = $title;
         return $this;
     }
-    
+
     /** Get the create url boolean
      * @access public
      * @return type
      */
-    public function getCreateUrl() {
+    public function getCreateUrl()
+    {
         return $this->_createUrl;
     }
 
@@ -158,9 +170,10 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @param boolean $createUrl
      * @return \Pas_View_Helper_GoogleStaticMap
      */
-    public function setCreateUrl(boolean $createUrl) {
-        if(is_bool($createUrl)){
-        $this->_createUrl = $createUrl;
+    public function setCreateUrl(boolean $createUrl)
+    {
+        if (is_bool($createUrl)) {
+            $this->_createUrl = $createUrl;
         }
         return $this;
     }
@@ -169,23 +182,25 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_GoogleStaticMap
      */
-    public function googleStaticMap() {
+    public function googleStaticMap()
+    {
         return $this;
     }
-    
+
     /** To string function
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->buildHtml(
-                $this->getParameters(), 
-                $this->getAlt(), 
-                $this->getTitle(), 
-                $this->getCreateUrl()
-                );
+            $this->getParameters(),
+            $this->getAlt(),
+            $this->getTitle(),
+            $this->getCreateUrl()
+        );
     }
-    
+
     /** Build the html to return
      * @access public
      * @param array $parameters
@@ -193,16 +208,18 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
      * @param string $title
      * @param boolean $createUrl
      */
-    public function buildHtml( array $parameters, $alt, $title, $createUrl) {
+    public function buildHtml(array $parameters, $alt, $title, $createUrl)
+    {
         $html = '';
-        if(isset($parameters['size']) && (isset($parameters['center'], 
-                $parameters['zoom']) || isset($parameters['markers']))){
+        if (isset($parameters['size']) && (isset($parameters['center'],
+                    $parameters['zoom']) || isset($parameters['markers']))
+        ) {
 
             //Check for sensor
-            if(!isset($parameters['sensor'])){
+            if (!isset($parameters['sensor'])) {
                 $parameters['sensor'] = 'false';
             }
-            
+
             $url = $this->_staticUrl . '?key=' . $this->getApiKey();
             $url .= '&sensor=';
             $url .= $parameters['sensor'];
@@ -210,25 +227,25 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
             $url .= $parameters['size'][0];
             $url .= 'x';
             $url .= $parameters['size'][1];
-            
+
             //Iterate through the markers array
             if (isset($parameters['markers'])) {
                 foreach ($parameters['markers'] as $marker) {
-                    if(is_array($marker)){
+                    if (is_array($marker)) {
                         $url .= '&markers=';
                         $url .= $marker[0];
                         $url .= ',';
                         $url .= $marker[1];
                     } else {
                         $url .= '&markers=';
-                        $url .=  $marker;
+                        $url .= $marker;
                     }
                 }
             }
             //Iterate through path parameter
             if (isset($parameters['path'])) {
-                foreach($parameters['path'] as $path) {
-                    if(is_array($path)) {
+                foreach ($parameters['path'] as $path) {
+                    if (is_array($path)) {
                         $url .= '&path=';
                         $url .= $path[0];
                         $url .= ',';
@@ -242,7 +259,7 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
             //Iterate through path parameter
             if (isset($parameters['visible'])) {
                 foreach ($parameters['visible'] as $visible) {
-                    if(is_array($visible)) {
+                    if (is_array($visible)) {
                         $url .= '&visible=';
                         $url .= $visible[0];
                         $url .= ',';
@@ -251,12 +268,12 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
                         $url .= '&visible=';
                         $url .= $visible;
                     }
-                } 
+                }
             }
-            
+
             if (isset($parameters['center'])) {
                 $url .= '&center=';
-                if(is_array($parameters['center'])) {
+                if (is_array($parameters['center'])) {
                     $url .= $parameters['center'][0];
                     $url .= ',';
                     $url .= $parameters['center'][1];
@@ -276,7 +293,7 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
                 $url .= $parameters['zoom'];
             }
             //Check for create url
-            if($createUrl) {
+            if ($createUrl) {
                 $html .= '<img width="';
                 $html .= $parameters['size'][0];
                 $html .= '" height="';
@@ -291,7 +308,7 @@ class Pas_View_Helper_GoogleStaticMap extends Zend_View_Helper_Abstract {
             } else {
                 $html .= $url;
             }
-        return $html;
-    }
+            return $html;
+        }
     }
 }

@@ -1,16 +1,35 @@
 <?php
 
-/**
+/** A view helper for adding archaeological data to a record
+ *
+ * An example of code use:
+ *
+ * <code>
+ * <?php
+ * echo $this->addArchaeology()->setHoardID($this->hoards['uniqueID'])->setID($this->hoards['id']);
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @category Pas
+ * @package View
+ * @subpackage Helper
+ * @version 1
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/modules/database/views/scripts/hoards/record.phtml
  * Created by PhpStorm.
  * User: danielpett
  * Date: 12/10/2014
  * Time: 08:16
- *
  * @todo Add in all the checking logic for who can edit.
  */
 class Pas_View_Helper_AddArchaeology extends Zend_View_Helper_Abstract
 {
-
+    /** The secure ID string
+     * @access protected
+     * @var  string
+     */
     protected $_secUID;
 
     /** The ID number of the record

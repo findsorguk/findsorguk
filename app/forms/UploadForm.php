@@ -1,9 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: danielpett
- * Date: 25/11/14
- * Time: 07:52
+/** A form for uploading images to the database using the blueimp uploader.
+ * An example of code:
+ *
+ * <code>
+ * <?php
+ * $form = new UploadForm();
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
  */
 
 class UploadForm extends Zend_Form {

@@ -4,7 +4,7 @@
  * A view helper for getting a count of SMR records within a constituency
  *
  * @category Pas
- * @package Pas_View
+ * @package View
  * @subpackage Helper
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @copyright Daniel Pett

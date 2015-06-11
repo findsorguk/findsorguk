@@ -9,10 +9,10 @@
  * </code>
  *
  * @category   Pas
- * @package    Pas_View_Helper
- * @subpackage Abstract
+ * @package    View
+ * @subpackage Helper
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
- * @license    GNU
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @example /app/modules/flickr/views/scripts/photos/details.phtml
  * @author Daniel Pett <dpett@britishmuseum.org>

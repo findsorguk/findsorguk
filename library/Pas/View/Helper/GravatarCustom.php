@@ -17,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @version    $Id: Doctype.php 16971 2009-07-22 18:05:45Z mikaelkael $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 
 /** Zend_View_Helper_HtmlElement */
@@ -29,7 +29,7 @@ require_once 'Zend/View/Helper/HtmlElement.php';
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @link http://pl.gravatar.com/site/implement/url
  */
 class Pas_View_Helper_GravatarCustom extends Zend_View_Helper_HtmlElement

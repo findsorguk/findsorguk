@@ -1,4 +1,5 @@
 <?php
+
 /** Adds a button to the view to link a find record (coin, artefact or container) to a hoard record
  *
  * An example of use:
@@ -13,7 +14,8 @@
  *
  *
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @todo Add in all the checking logic for who can edit.
  * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
  * @author Daniel Pett <dpett at britishmuseum.org>
@@ -23,9 +25,13 @@
  * @version 1
  * @since 26 October 2014
  */
+class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstract
+{
 
-class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstract {
-
+    /** The secure ID
+     * @access protected
+     * @var string
+     */
     protected $_secUID;
 
     /** The ID number of the record
@@ -42,11 +48,13 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
 
 
     protected $_role;
+
     /** Get the user's role
      * @access public
      * @return string
      */
-    public function getRole() {
+    public function getRole()
+    {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $this->_role = $user->role;
@@ -58,7 +66,8 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
      * @access public
      * @return object
      */
-    public function getAuth() {
+    public function getAuth()
+    {
         $this->_auth = Zend_Registry::get('auth');
         return $this->_auth;
     }
@@ -73,7 +82,7 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
      * @access protected
      * @var array $restricted
      */
-    protected $_restricted = array('member','research','hero');
+    protected $_restricted = array('member', 'research', 'hero');
 
     /** Set up the user groups with recorder access
      * @access protected
@@ -85,7 +94,7 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
      * @access protected
      * @var array $higherLevel
      */
-    protected $_higherLevel = array('admin','fa','treasure', 'hoard');
+    protected $_higherLevel = array('admin', 'fa', 'treasure', 'hoard');
 
     /** The default institution
      * @var string $_institution
@@ -152,7 +161,8 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
      * @access public
      * @return int
      */
-    public function getUserID() {
+    public function getUserID()
+    {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $this->_userID = $user->id;
@@ -164,7 +174,8 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
      * @access public
      * @return string
      */
-    public function getInst() {
+    public function getInst()
+    {
         if ($this->getAuth()->hasIdentity()) {
             $user = $this->getAuth()->getIdentity();
             $this->_inst = $user->institution;
@@ -210,7 +221,6 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
     }
 
 
-
     /** The view helper function
      * @access public
      * @return \Pas_View_Helper_LinkCoinArtefactContainer
@@ -237,7 +247,7 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
     {
         $html = '';
         $html .= $this->view->partial('partials/hoards/linkCoinArtefactContainer.phtml', array(
-                'id' => $this->getID(), 'hoardID' =>  $this->getHoardID()
+                'id' => $this->getID(), 'hoardID' => $this->getHoardID()
             )
         );
         return $html;
@@ -259,8 +269,9 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
      * @param int $createdBy
      * @return boolean
      */
-    public function checkAccessbyUserID($createdBy ) {
-        if (in_array( $this->getRole(), $this->_restricted ) ) {
+    public function checkAccessbyUserID($createdBy)
+    {
+        if (in_array($this->getRole(), $this->_restricted)) {
             if ($createdBy == $this->getUserID()) {
                 $allowed = true;
             } else {
@@ -291,17 +302,21 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
      * @return boolean
      *
      */
-    public function checkAccessbyInstitution( $institution ) {
-        if(in_array($this->getRole(), $this->_recorders)
-            && $this->getInst() == $institution) {
+    public function checkAccessbyInstitution($institution)
+    {
+        if (in_array($this->getRole(), $this->_recorders)
+            && $this->getInst() == $institution
+        ) {
             $allowed = true;
-        } elseif (in_array ($this->getRole(), $this->_higherLevel)) {
+        } elseif (in_array($this->getRole(), $this->_higherLevel)) {
             $allowed = true;
-        } elseif (in_array ($this->getRole(), $this->_restricted)
-            && $this->checkAccessbyUserID ($this->getCreatedBy())) {
+        } elseif (in_array($this->getRole(), $this->_restricted)
+            && $this->checkAccessbyUserID($this->getCreatedBy())
+        ) {
             $allowed = true;
         } elseif (in_array($this->getRole(), $this->_recorders)
-            && $institution == 'PUBLIC' || $this->getCreatedBy() == $this->getUserID()) {
+            && $institution == 'PUBLIC' || $this->getCreatedBy() == $this->getUserID()
+        ) {
             $allowed = true;
         } else {
             $allowed = false;
@@ -313,38 +328,33 @@ class Pas_View_Helper_LinkCoinArtefactContainer extends Zend_View_Helper_Abstrac
      * @access public
      * @return string
      */
-    public function generateLink() {
+    public function generateLink()
+    {
         $html = '';
-        if( $this->checkAccess() ) {
+        if ($this->checkAccess()) {
             $html .= $this->buildHtml();
         }
         return $html;
     }
 
+    /** Check access level
+     * @access public
+     * @return boolean
+     */
     public function checkAccess()
     {
         // If role = public return false
         if (in_array($this->getRole(), $this->_noaccess)) {
             return false;
-        }
-        //If role in restricted and created = created by return true
+        } //If role in restricted and created = created by return true
         else if (in_array($this->getRole(), $this->_restricted) && $this->getCreatedBy() == $this->getUserID()) {
             return true;
-        }
-        //If role in recorders and institution = inst or created by = created return true
+        } //If role in recorders and institution = inst or created by = created return true
         else if ((in_array($this->getRole(), $this->_recorders) && $this->getInst() === $this->getInstitution())
-            || $this->getCreatedBy() === $this->getUserID() || $this->getInst() === 'PUBLIC') {
-//            Zend_Debug::dump((in_array($this->getRole(), $this->_recorders) && $this->getInst() === $this->getInstitution()));
-//            Zend_Debug::dump($this->getCreatedBy() === $this->getUserID());
-//            Zend_Debug::dump($this->getInstitution() === 'PUBLIC');
-//            echo 'booleam';
-//            echo $this->getInstitution();
-//            echo $this->getInst();
-//            echo $this->getCreatedBy();
-//            echo $this->getUserID();
+            || $this->getCreatedBy() === $this->getUserID() || $this->getInst() === 'PUBLIC'
+        ) {
             return true;
-        }
-        //If role in higher level return true
+        } //If role in higher level return true
         else if (in_array($this->getRole(), $this->_higherLevel)) {
             return true;
         } else {

@@ -9,15 +9,23 @@
  * @since 30/1/2012
  * @copyright Daniel Pett
  * @author Daniel Pett
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
  */
 class Pas_View_Helper_MapFacetCreatorMyFinds extends Zend_View_Helper_Abstract
 {
+    /** The identifier
+     * @access protected
+     * @var  string
+     */
     protected $_id;
 
+    /** Construct the class
+     * @access public
+     * @return void
+     */
     public function __construct()
     {
         $person = new Pas_User_Details();
@@ -157,6 +165,11 @@ class Pas_View_Helper_MapFacetCreatorMyFinds extends Zend_View_Helper_Abstract
         return $clean;
     }
 
+    /** Render the workflow from the ID number
+     * @access protected
+     * @param string
+     * @return string
+     */
     protected function _workflow($key)
     {
         switch ($key) {

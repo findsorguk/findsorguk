@@ -1,4 +1,10 @@
 <?php
+/** A view helper for rendering Rich text editor
+ * @category Pas
+ * @package View
+ * @subpackage Helper
+ * @todo remove?
+ */
 class Pas_View_Helper_RTE extends Zend_View_Helper_FormElement
 {
     /**
@@ -28,16 +34,16 @@ class Pas_View_Helper_RTE extends Zend_View_Helper_FormElement
         $editor = new fckeditor($name);
 
         // set variables
-        $editor->BasePath    = $this->view->baseUrl() . '/js/ckeditor/' ;
+        $editor->BasePath = $this->view->baseUrl() . '/js/ckeditor/';
         $editor->ToolbarSet = empty($attribs['ToolbarSet']) ? 'Default' : $attribs['ToolbarSet'];
-        $editor->Width        = empty($attribs['Width']) ? '100%' : $attribs['Width'];
-        $editor->Height        = empty($attribs['Height']) ? 200 : $attribs['Height'];
-        $editor->Value        = $value;
+        $editor->Width = empty($attribs['Width']) ? '100%' : $attribs['Width'];
+        $editor->Height = empty($attribs['Height']) ? 200 : $attribs['Height'];
+        $editor->Value = $value;
 
         // set Config
         $editor->Config['BaseHref'] = $editor->BasePath;
         //$editor->Config['CustomConfigurationsPath'] = $editor->BasePath.'editor/fckconfig.js';
-        $editor->Config['CustomConfigurationsPath'] = $editor->BasePath.'ckconfig.js';
+        $editor->Config['CustomConfigurationsPath'] = $editor->BasePath . 'ckconfig.js';
 //        $editor->Config['SkinPath'] = $editor->BasePath.'editor/skins/silver/';
         return $editor->createHtml();
 

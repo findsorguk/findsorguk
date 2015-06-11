@@ -27,7 +27,7 @@ class Pas_View_Helper_QrCode extends Zend_View_Helper_Abstract
 
     /** Set the parameters
      *
-     * @param  array                   $params
+     * @param  array $params
      * @return \Pas_View_Helper_QrCode
      */
     public function setParams(array $params)
@@ -48,10 +48,10 @@ class Pas_View_Helper_QrCode extends Zend_View_Helper_Abstract
 
     /** Set the template to use
      *
-     * @param  string                  $template
+     * @param  string $template
      * @return \Pas_View_Helper_QrCode
      */
-    public function setTemplate( $template)
+    public function setTemplate($template)
     {
         $this->template = $template;
 
@@ -88,28 +88,28 @@ class Pas_View_Helper_QrCode extends Zend_View_Helper_Abstract
     public function google()
     {
         $default = array(
-            'text'  =>  $this->_view->curUrl(),
-            'size'  =>  '250x250',
-            'correction'    =>  'M',
-            'margin'    =>  0
-            );
+            'text' => $this->_view->curUrl(),
+            'size' => '250x250',
+            'correction' => 'M',
+            'margin' => 0
+        );
 
         $parameters = array_merge($default, $this->getParams());
 
-        $parameters['text']   = urlencode($parameters['text']);
-    $parameters['margin'] = (int) $parameters['margin'];
+        $parameters['text'] = urlencode($parameters['text']);
+        $parameters['margin'] = (int)$parameters['margin'];
 
         if (!in_array($parameters['correction'], array('L', 'M', 'Q', 'H'))) {
             $parameters['correction'] = 'M';
-    }
-    if (!preg_match('/^\d+x\d+$/', $parameters['size'])) {
+        }
+        if (!preg_match('/^\d+x\d+$/', $parameters['size'])) {
             $parameters['size'] = '100x100';
-    }
+        }
 
-    $url = self::APIURL
-    . '?cht=qr&chl=' . $parameters['text']  . '&chld='  . $parameters['correction']
-    . '|'  . $parameters['margin']  . '&chs='  . $parameters['size'];
+        $url = self::APIURL
+            . '?cht=qr&chl=' . $parameters['text'] . '&chld=' . $parameters['correction']
+            . '|' . $parameters['margin'] . '&chs=' . $parameters['size'];
 
-    return sprintf($this->template, $url);
+        return sprintf($this->template, $url);
     }
 }

@@ -25,7 +25,9 @@
  * @version 1
  * @since 1
  * @copyright (c) 2014, Daniel Pett
- *
+ * @category Pas
+ * @package View
+ * @subpackage Helper
  */
 class Pas_View_Helper_CoinDataDisplay extends Zend_View_Helper_Abstract
 {

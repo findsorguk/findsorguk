@@ -3,13 +3,14 @@
  * A view helper for determining which findspot partial to display to the user
  *
  * @category   Pas
- * @package    Pas_View_Helper
- * @subpackage Abstract
+ * @package    View
+ * @subpackage Helper
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @see Zend_View_Helper_Abstract
  * @uses Zend_Auth
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 
 class Pas_View_Helper_FindSpot extends Zend_View_Helper_Abstract {

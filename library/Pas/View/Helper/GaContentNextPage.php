@@ -20,7 +20,8 @@
  * @todo Decide whether to deprecate this function
  * @uses viewHelper Pas_View_Helper
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @example /app/modules/analytics/views/scripts/content/page.phtml
  */
 class Pas_View_Helper_GaContentNextPage extends Zend_View_Helper_Abstract

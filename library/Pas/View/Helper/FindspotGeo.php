@@ -2,10 +2,11 @@
 /** A view helper for creating findspot data when geo data is known
  * @version 1
  * @author Daniel Pett
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @since September 28 2011
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @subpackage Abstract
  * @uses Pas_Service_Geo_Geoplanet
  * @uses Pas_View_Helper_YahooGeoAdjacent

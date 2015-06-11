@@ -9,10 +9,11 @@
  * echo $this->osDataToConst()->setConstituency($geo->name);
  * ?>
  * </code>
+ *
  * @category Pas
  * @package Pas_View
  * @subpackage Helper
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @copyright Daniel Pett
  * @author Daniel Pett
  * @version 1

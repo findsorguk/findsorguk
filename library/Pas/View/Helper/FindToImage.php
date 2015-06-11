@@ -1,37 +1,42 @@
 <?php
+
 /**
  * Produce the finds to image html, might become obsolete when the solr comes online
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
- * <?php 
+ * <?php
  * echo $this->findToImage()->setId(1);
  * </code>
+ *
+ *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @category   Pas
- * @package    Pas_View_Helper
- * @subpackage Abstract
+ * @package    View
+ * @subpackage Helper
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @see Zend_View_Helper_Abstract
  * @todo add logging for missing images
  * @todo add caching
  * @todo fix the !file exists bit, it is wrong!
  */
-class Pas_View_Helper_FindToImage extends Zend_View_Helper_Abstract {
-    
+class Pas_View_Helper_FindToImage extends Zend_View_Helper_Abstract
+{
+
     /** Image id to query
      * @access public
      * @var int
      */
     protected $_id;
-    
+
     /** Get the id
      * @access public
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->_id;
     }
 
@@ -40,7 +45,8 @@ class Pas_View_Helper_FindToImage extends Zend_View_Helper_Abstract {
      * @param int $id
      * @return \Pas_View_Helper_FindToImage
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->_id = $id;
         return $this;
     }
@@ -49,33 +55,36 @@ class Pas_View_Helper_FindToImage extends Zend_View_Helper_Abstract {
      * @access public
      * @return \Pas_View_Helper_FindToImage
      */
-    public function findToImage() {
+    public function findToImage()
+    {
         return $this;
-    } 
-    
+    }
+
     /** Get finds data from the model
      * @access public
      * @param type $id
      * @return type
      */
-    public function getFindsData($id) {
+    public function getFindsData($id)
+    {
         $finds = new Finds();
         return $finds->getImageToFind($id);
     }
-    
+
     /** To string function
      * @access public
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         $html = '';
         $imageData = $this->getFindsData($this->getId());
         foreach ($imageData as $data) {
             if (!is_null($data['i'])) {
-                $file = './images/thumbnails/'.$data['i'].'.jpg';
+                $file = './images/thumbnails/' . $data['i'] . '.jpg';
                 if (file_exists($file)) {
                     list($w, $h, $type, $attr) = getimagesize($file);
-    
+
                     $html .= '<a href="/';
                     $html .= $data['imagedir'];
                     $html .= 'medium/';
@@ -97,11 +106,11 @@ class Pas_View_Helper_FindToImage extends Zend_View_Helper_Abstract {
                     $html .= '" alt="';
                     $html .= ucfirst($data['objecttype']);
                     $html .= '" rel="license" resource="http://creativecommons.org/licenses/by/2.0/"/></a>';
-                    }  else {
-                        $html .= '<img src="/assets/gravatar.png" width="80" height="80"
+                } else {
+                    $html .= '<img src="/assets/gravatar.png" width="80" height="80"
                              class="img-circle"/><p>Image unavailable<br/>Error: 404</p>';
-                    }
-                    }
+                }
+            }
         }
         return $html;
     }

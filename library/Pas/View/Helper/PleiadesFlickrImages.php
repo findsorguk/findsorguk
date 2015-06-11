@@ -10,7 +10,8 @@
  * @uses Zend_Registry
  * @uses Pas_Yql_Flickr
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  */
 class Pas_View_Helper_PleiadesFlickrImages extends Zend_View_Helper_Abstract {
     

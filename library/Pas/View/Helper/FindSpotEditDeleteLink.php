@@ -4,12 +4,13 @@
  * @todo Perhaps change to an asserts acl check
  * @todo DRY the access groups to another class, this is used too often
  * @category Pas
- * @package  Pas_View_Helper
- * @subpackage Abstract
+ * @package  View
+ * @subpackage Helper
  * @since September 27 2011
  * @author Daniel Pett
  * @version 1
  * @uses Zend_View_Helper_Url
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 class Pas_View_Helper_FindSpotEditDeleteLink extends Zend_View_Helper_Abstract
 {

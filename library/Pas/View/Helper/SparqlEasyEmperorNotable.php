@@ -1,16 +1,24 @@
 <?php
-
 /**
- * SparqlEasy helper for pulling back notable bits for an emperor
+ * Sparql Easy helper for pulling back notable bits for an emperor from an rdf view of a wikipedia.
+ *
+ * An example of code use:
+ *
+ * <code>
+ * <?php
+ * echo $this->sparqlEasyEmperorNotable()->setId($this->dbpedia);
+ * ?>
+ * </code>
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
  * @since 1
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/views/scripts/partials/numismatics/roman/emperor.phtml
  *
- * @uses viewHelper Pas_View_Helper
  */
 class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
 {
@@ -169,7 +177,7 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
     }
 
     /** Get the data via sparql
-     *
+     * @access public
      * @return object
      */
     public function getSparqlData()
@@ -184,14 +192,13 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
         } else {
             $data = $this->getCache()->load($key);
         }
-
         return $data;
     }
 
     /** Clean the string for dbpedia uri
      * @access protected
      * @param string $string
-     * @return type
+     * @return string
      */
     protected function _cleaner($string)
     {
@@ -240,7 +247,7 @@ class Pas_View_Helper_SparqlEasyEmperorNotable extends Zend_View_Helper_Abstract
 
     /** Return the string
      * @access public
-     * @return type
+     * @return string
      */
     public function __toString()
     {

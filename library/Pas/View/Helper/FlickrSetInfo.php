@@ -15,7 +15,8 @@
  * @copyright Daniel Pett
  * @author Daniel Pett
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @subpackage Abstract
  * @uses Zend_View_Helper_HeadTitle
  * @uses Pas_View_Helper_Metabase

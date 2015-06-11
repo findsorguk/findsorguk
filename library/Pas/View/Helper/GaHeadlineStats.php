@@ -19,7 +19,8 @@
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @uses viewHelper Pas_View_Helper
  * @version 1
  * @copyright (c) 2014, Daniel Pett

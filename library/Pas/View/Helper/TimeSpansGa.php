@@ -16,8 +16,8 @@
  * @version 1
  * @copyright (c) 2014, Daniel Pett
  * @category Pas
- * @package Pas_View_Helper
- * @uses viewHelper Pas_View_Helper_
+ * @package View
+ * @subpackage Helper * @uses viewHelper Pas_View_Helper_
  * @example /app/modules/analytics/views/scripts/content/page.phtml
  */
 class Pas_View_Helper_TimeSpansGa extends Zend_View_Helper_Abstract

@@ -13,7 +13,8 @@
  *
  *
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @todo Add in all the checking logic for who can edit.
  * @author Mary Chester-Kadwell <mchester-kadwell at britishmuseum.org>
  * @author Daniel Pett <dpett at britishmuseum.org>

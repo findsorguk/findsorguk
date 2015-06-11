@@ -9,6 +9,7 @@
  * @link http://style-vs-substance.com
  * @copyright Copyright (c) 2008, Jim Mayes
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt GPL v2.0
+ * @category Calendar
  */
 
 class Calendar{

@@ -21,7 +21,8 @@
  * @version 1
  * @license 
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @uses viewHelper Pas_View_Helper
  * @example /app/modules/analytics/views/scripts/content/page.phtml 
  * @todo Put in check for uri

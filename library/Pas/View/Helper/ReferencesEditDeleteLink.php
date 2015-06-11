@@ -19,7 +19,7 @@
  * </code>
  *
  * @category Pas
- * @package Pas_View
+ * @package View
  * @subpackage Helper
  * @version 2
  * @since 11/2/2015

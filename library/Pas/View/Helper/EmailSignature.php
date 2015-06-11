@@ -2,7 +2,7 @@
 /**
  * Email Signature helper for the email templates
  *
- * An exampleof use:
+ * An example of use:
  * 
  * <code>
  * <?php
@@ -12,7 +12,8 @@
  * 
  * @author  Daniel Pett <dpett@britishmuseum.org>
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @copyright (c) 2014, Daniel Pett
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses viewHelper Pas_View_Helper

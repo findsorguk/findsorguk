@@ -17,8 +17,9 @@
  * @version 1
  * @copyright (c) 2014, Daniel Pett
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @package Pas
- * @category Pas_View_Helper
+ * @package View
+ * @subpackage Helper
+ * @category Pas
  * @version 1
  */
 class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
@@ -213,7 +214,7 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
         $request = $this->getRequest();
         $html = '<p>Sort your search by: </p>';
         $html .= '<ul>';
-        if(array_key_exists('sort', $request)) {
+        if (array_key_exists('sort', $request)) {
             $key = $request['sort'];
         } else {
             $key = 'created';
@@ -241,7 +242,7 @@ class Pas_View_Helper_ResultsSorter extends Zend_View_Helper_Abstract
     protected function _buildHtmlDirection()
     {
         $request = $this->getRequest();
-        if(array_key_exists('direction', $request)) {
+        if (array_key_exists('direction', $request)) {
             $key = $request['direction'];
         } else {
             $key = 'desc';

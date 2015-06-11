@@ -4,6 +4,8 @@
  * SecondsToMinutes helper
  *
  * A view helper to convert seconds to minutes.
+ *
+ *
  * An example of use:
  * <code>
  * <?php
@@ -15,7 +17,8 @@
  * @copyright (c) 2014, Daniel Pett
  * @version 1
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @example /app/modules/analytics/views/scripts/audience/city.phtml
  * @uses viewHelper Pas_View_Helper
  */

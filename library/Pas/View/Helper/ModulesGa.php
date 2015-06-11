@@ -12,6 +12,7 @@
  * echo $this->modulesGa();
  * ?>
  * </code>
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
@@ -19,7 +20,8 @@
  * @todo Decide whether to deprecate this function
  * @uses viewHelper Pas_View_Helper
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @example /app/modules/analytics/views/scripts/content/overview.phtml
  * @uses viewHelper Pas_View_Helper_
  * @uses Zend_Controller_Front

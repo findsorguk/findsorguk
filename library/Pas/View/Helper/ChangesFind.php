@@ -1,10 +1,12 @@
 <?php
 /** View helper for displaying the number of changes for find records from audit table
+ *
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @uses Pas_View_Helper_TimeAgoInWords
  * @uses Zend_View_Helper_Url Url helper
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @copyright DEJ PETT
  * @author Daniel Pett
  * @version 1

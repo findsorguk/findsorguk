@@ -16,7 +16,8 @@
  * @copyright Daniel Pett
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @subpackage Abstract
  * @example /app/modules/flickr/views/scripts/index/index.phtml
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0

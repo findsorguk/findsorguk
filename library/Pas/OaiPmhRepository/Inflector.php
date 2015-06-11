@@ -34,6 +34,8 @@
  * @license GNU Lesser General Public License <http://www.gnu.org/copyleft/lesser.html>
  * @since 0.1
  * @version $Revision 0.1 $
+ * @category Pas
+ * @package OaiPmhRepository
  */
 class Pas_OaiPmhRepository_Inflector
 {

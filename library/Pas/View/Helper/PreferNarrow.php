@@ -16,8 +16,9 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
- * @package Pas
- * @category Pas_View_Helper
+ * @package View
+ * @subpackage Helper
+ * @category Pas
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example /app/views/scripts/database/objectLister.phtml
  */

@@ -8,11 +8,13 @@
  * <code>
  * <?php
  * echo $this->searchLink()->setId($id);
+ * ?>
  * </code>
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @version 1
  * @example /app/modules/database/views/scripts/terminology/preservation.phtml
  * @todo Probably get rid of this!

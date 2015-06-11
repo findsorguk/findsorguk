@@ -1,91 +1,95 @@
 <?php
-/**
- *
- * @author dpett
- * @version
- */
 
 /**
- * Geshi helper
+ * Geshi helper for rendering code samples in the page.
  *
+ *
+ * @category Pas
+ * @package View
+ * @subpackage Helper
  * @uses viewHelper Pas_View_Helper
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @version 1
+ * @since 1
+ * @copyright Daniel Pett <dpett@britishmuseum.org>
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 class Pas_View_Helper_Geshi extends Zend_View_Helper_Abstract
 {
-/**
- * Path the configuration file can be found on.
- *
- * @var string
- */
+    /**
+     * Path the configuration file can be found on.
+     *
+     * @var string
+     */
     public $configPath;
 
-/**
- * The Container Elements that could contain highlightable code
- *
- * @var array
- */
+    /**
+     * The Container Elements that could contain highlightable code
+     *
+     * @var array
+     */
     public $validContainers = array('pre');
 
-/**
- * Replace containers with divs to increase validation
- *
- * @var string
- */
+    /**
+     * Replace containers with divs to increase validation
+     *
+     * @var string
+     */
     public $containerMap = array('pre' => array('div class="code"', 'div'));
 
-/**
- * The languages you want to highlight.
- *
- * @var array
- */
+    /**
+     * The languages you want to highlight.
+     *
+     * @var array
+     */
     public $validLanguages = array(
         'css', 'html', 'php', 'javascript', 'python', 'sql',
         'ruby', 'coffeescript', 'bash',
     );
 
-/**
- * Default language to use if no valid language is found.  leave null to require a language attribute
- * to be set on each container.
- *
- * @var mixed  false for no default language, String for the default language
- */
+    /**
+     * Default language to use if no valid language is found.  leave null to require a language attribute
+     * to be set on each container.
+     *
+     * @var mixed  false for no default language, String for the default language
+     */
     public $defaultLanguage = false;
 
-/**
- * The Attribute use for finding the code Language.
- *
- * Common choices are lang and class
- *
- * @var string
- */
+    /**
+     * The Attribute use for finding the code Language.
+     *
+     * Common choices are lang and class
+     *
+     * @var string
+     */
     public $langAttribute = 'lang';
 
-/**
- * GeSHi Instance
- *
- * @var object
- */
+    /**
+     * GeSHi Instance
+     *
+     * @var object
+     */
     protected $_geshi = null;
 
-/**
- * Show the Button that can be used with JS to switch to plain text.
- *
- * @var bool
- */
+    /**
+     * Show the Button that can be used with JS to switch to plain text.
+     *
+     * @var bool
+     */
     public $showPlainTextButton = true;
 
-/**
- * Highlight a block of HTML containing defined blocks.  Converts blocks from plain text
- * into highlighted code.
- *
- * @param string $htmlString
- * @return void
- */
+    /**
+     * Highlight a block of HTML containing defined blocks.  Converts blocks from plain text
+     * into highlighted code.
+     *
+     * @param string $htmlString
+     * @return void
+     */
     public function highlight($htmlString)
     {
         $tags = implode('|', $this->validContainers);
         //yummy regex
-        $pattern = '#(<('. $tags .')[^>]'.$this->langAttribute.'=["\']+([^\'".]*)["\']+>)(.*?)(</\2\s*>|$)#s';
+        $pattern = '#(<(' . $tags . ')[^>]' . $this->langAttribute . '=["\']+([^\'".]*)["\']+>)(.*?)(</\2\s*>|$)#s';
         /*
             matches[0] = whole string
             matches[1] = open tag including lang attribute
@@ -96,16 +100,16 @@ class Pas_View_Helper_Geshi extends Zend_View_Helper_Abstract
         */
         $html = preg_replace_callback($pattern, array($this, '_processCodeBlock'), $htmlString);
 
-        return $this->output( $html );
+        return $this->output($html);
     }
 
-/**
- * Highlight all the provided text as a given language.
- *
- * @param string $text The text to highight.
- * @param string $language The language to highlight as.
- * @return string Highlighted HTML.
- */
+    /**
+     * Highlight all the provided text as a given language.
+     *
+     * @param string $text The text to highight.
+     * @param string $language The language to highlight as.
+     * @return string Highlighted HTML.
+     */
     public function geshi($text, $language)
     {
         $this->_getGeshi();
@@ -115,15 +119,15 @@ class Pas_View_Helper_Geshi extends Zend_View_Helper_Abstract
         return $this->_geshi->parse_code();
     }
 
-/**
- * Highlight all the provided text as a given language.
- * Formats the results into an HTML table.  This makes handling wide blocks
- * of code in a narrow page/space possible.
- *
- * @param string $text The text to highight.
- * @param string $language The language to highlight as.
- * @return string Highlighted HTML.
- */
+    /**
+     * Highlight all the provided text as a given language.
+     * Formats the results into an HTML table.  This makes handling wide blocks
+     * of code in a narrow page/space possible.
+     *
+     * @param string $text The text to highight.
+     * @param string $language The language to highlight as.
+     * @return string Highlighted HTML.
+     */
     public function highlightAsTable($text, $language)
     {
         $this->_getGeshi();
@@ -164,9 +168,9 @@ HTML;
         );
     }
 
-/**
- * Get the instance of GeSHI used by the helper.
- */
+    /**
+     * Get the instance of GeSHI used by the helper.
+     */
     protected function _getGeshi()
     {
         if (!$this->_geshi) {
@@ -177,12 +181,12 @@ HTML;
         return $this->_geshi;
     }
 
-/**
- * Preg Replace Callback
- * Uses matches made earlier runs geshi returns processed code blocks.
- *
- * @return string Completed replacement string
- */
+    /**
+     * Preg Replace Callback
+     * Uses matches made earlier runs geshi returns processed code blocks.
+     *
+     * @return string Completed replacement string
+     */
     protected function _processCodeBlock($matches)
     {
         list($block, $openTag, $tagName, $lang, $code, $closeTag) = $matches;
@@ -212,12 +216,12 @@ HTML;
         return $openTag . $code . $closeTag;
     }
 
-/**
- * Check if the current language is a valid language.
- *
- * @param string $lang Language
- * @return mixed.
- */
+    /**
+     * Check if the current language is a valid language.
+     *
+     * @param string $lang Language
+     * @return mixed.
+     */
     public function validLang($lang)
     {
         if (in_array($lang, $this->validLanguages)) {
@@ -230,18 +234,18 @@ HTML;
         return false;
     }
 
-/**
- * Configure a geshi Instance the way we want it.
- * app/config/geshi.php
- *
- * @param Geshi $geshi
- * @return void
- */
+    /**
+     * Configure a geshi Instance the way we want it.
+     * app/config/geshi.php
+     *
+     * @param Geshi $geshi
+     * @return void
+     */
     protected function _configureInstance($geshi)
     {
         $geshi->set_header_type(GESHI_HEADER_NONE);
-    $geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS, 2);
-    $geshi->enable_classes();
-    $geshi->set_tab_width(4);
+        $geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS, 2);
+        $geshi->enable_classes();
+        $geshi->set_tab_width(4);
     }
 }
