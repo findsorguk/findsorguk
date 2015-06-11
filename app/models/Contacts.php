@@ -346,9 +346,10 @@ class Contacts extends Pas_Db_Table_Abstract
                     'email' => 'email_one'
                 ))
                 ->joinLeft(array('position' => 'staffroles'),
-                    'staff.role = position.ID')
+                    'staff.role = position.ID',
+                    array()
                 ->where('staff.role IN (12,16,17,18,19,20)')
-                ->joinLeft('users', 'users.id = staff.dbaseID')
+                ->joinLeft('users', 'users.id = staff.dbaseID', array())
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
             $data = $persons->fetchAll($select);
