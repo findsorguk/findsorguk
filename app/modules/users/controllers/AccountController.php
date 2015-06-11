@@ -351,8 +351,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     $emails = $advisers->getAdvisersEmails();
 
                     $emails = array_merge($to, $emails);
-                    Zend_Debug::dump($emails);
-                    exit;
+                  
                     $attachments = array(ROOT_PATH . '/public_html/documents/tac.pdf');
                     $assignData = array_merge($to[0], $form->getValues());
                     $toReferee = array(array('email' => $form->getValue('referenceEmail'), 'name' => $form->getValue('reference')));
