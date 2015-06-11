@@ -111,12 +111,13 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
         $this->_mail->addHeader('X-MailGenerator', 'Portable Antiquities Scheme');
         $this->_mail->setBodyHtml($html);
         $this->_mail->setBodyText($text);
-        Zend_Debug::dump($this->_mail);
-        exit;
+
         $this->_setUpSending($to, $cc, $from, $bcc);
         if (!is_null($attachments)) {
             $this->_addAttachments($attachments);
         }
+        Zend_Debug::dump($this->_mail);
+        exit;
         $this->_sendIt();
     }
 
