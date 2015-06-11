@@ -347,9 +347,13 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     $updateData['higherLevel'] = 1;
                     $this->_users->update($updateData, $where);
                     $to = array(array('email' => $user->email, 'name' => $user->fullname));
+                    $advisers = new Contacts();
+                    $emails = $advisers->getAdvisersEmails();
                     $attachments = array(ROOT_PATH . '/public_html/documents/tac.pdf');
                     $assignData = array_merge($to[0], $form->getValues());
-                    $this->_helper->mailer($assignData, 'upgradeRequested', null, $to, $to, null, $attachments);
+                    $this->_helper->mailer($assignData, 'upgradeRequested', null, $to, $emails, null, $attachments);
+                    $toReferee = array(array('email' => $form->getValue('referenceEmail'), 'name' => $form->getValue('reference')));
+                    $this->_helper->mailer($assignData, 'upgradeReferee', null, $toReferee, $emails, null, null);
                     $this->getFlash()->addMessage('Thank you! We have received your request.');
                     $this->redirect('/users/account/');
                 } else {
