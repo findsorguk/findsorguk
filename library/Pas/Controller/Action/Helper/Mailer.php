@@ -117,7 +117,6 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
         if (!is_null($attachments)) {
             $this->_addAttachments($attachments);
         }
-        
         $this->_sendIt();
     }
 
