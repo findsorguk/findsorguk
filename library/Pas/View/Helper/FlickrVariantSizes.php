@@ -13,7 +13,8 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @version 1
  * @license
  * @example /app/modules/flickr/views/scripts/photos/details.phtml

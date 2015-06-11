@@ -1,13 +1,24 @@
 <?php
 /**
  * A view helper for interfacing with Easy RDF and getting Roman data
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->sparqlEasy()->setId($this->dbpedia);
+ * ?>
+ * </code>
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @version 1
  * @since 1
  * @category Pas
- * @package Pas_View_Helper
- * @uses viewHelper Pas_View_Helper
+ * @package View
+ * @subpackage Helper
+ * @uses viewHelper Zend_View_Helper
+ * @example /app/views/scripts/partials/numismatics/roman/emperor.phtml
  */
 class Pas_View_Helper_SparqlEasy extends Zend_View_Helper_Abstract
 {

@@ -14,7 +14,8 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @example /app/views/scripts/partials/admin/contentHelpTable.phtml
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @version 1
  * @copyright (c) 2014, Daniel Pett
  */

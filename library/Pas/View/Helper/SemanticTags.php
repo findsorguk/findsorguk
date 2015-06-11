@@ -1,18 +1,21 @@
 <?php
-
 /**
  * A view helper to redisplay the semantic tags that are extracted via open calais.
  *
  * An example of use
  *
+ * <code>
  * <?php
  * echo $this->semanticTags()->setQuery('id:3000');
  * ?>
+ * </code>
+ *
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @version 2
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @uses \Zend_Registry
  * @uses \Zend_Cache
  * @uses \Solarium_Client

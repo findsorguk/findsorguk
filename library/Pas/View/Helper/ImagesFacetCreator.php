@@ -1,10 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
  * @category Pas
@@ -14,7 +9,7 @@
  * @since 30/1/2012
  * @copyright Daniel Pett
  * @author Daniel Pett
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front
@@ -23,20 +18,19 @@ class Pas_View_Helper_ImagesFacetCreator extends Zend_View_Helper_Abstract
 {
     /** Create the facets boxes for rendering
      * @access public
-     * @param  array                 $facets
+     * @param  array $facets
      * @return string
      * @throws Pas_Exception
      */
-
     public function imagesFacetCreator(array $facets)
     {
         if (is_array($facets)) {
-        $html = '<h3 class="lead">Search facets</h3>';
-        foreach ($facets as $facetName => $facet) {
-            $html .= $this->_processFacet($facet, $facetName);
-        }
+            $html = '<h3 class="lead">Search facets</h3>';
+            foreach ($facets as $facetName => $facet) {
+                $html .= $this->_processFacet($facet, $facetName);
+            }
 
-        return $html;
+            return $html;
         } else {
             throw new Pas_Exception('The facets sent are not an array');
         }
@@ -44,8 +38,8 @@ class Pas_View_Helper_ImagesFacetCreator extends Zend_View_Helper_Abstract
 
     /** Process the facet array and name
      * @access public
-     * @param  array                 $facet
-     * @param  string                $facetName
+     * @param  array $facet
+     * @param  string $facetName
      * @return string
      * @throws Pas_Exception
      * @uses Zend_Controller_Front
@@ -55,62 +49,62 @@ class Pas_View_Helper_ImagesFacetCreator extends Zend_View_Helper_Abstract
     {
         if (is_array($facet)) {
             if (count($facet)) {
-        $html = '<div id="facet-' . $facetName .'">';
-        $html .= '<h4 class="lead">' . $this->_prettyName($facetName) . '</h4>';
-        $html .= '<ul class="navpills nav-stacked nav">';
+                $html = '<div id="facet-' . $facetName . '">';
+                $html .= '<h4 class="lead">' . $this->_prettyName($facetName) . '</h4>';
+                $html .= '<ul class="navpills nav-stacked nav">';
 
-        if ($facetName !== 'workflow') {
-            $facets = array_slice($facet,0,10);
-        } else {
-            $facets = $facet;
-        }
-        foreach ($facets as $key => $value) {
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-        if (isset($request['page'])) {
-            unset($request['page']);
-        }
-        $request[$facetName] = $key;
+                if ($facetName !== 'workflow') {
+                    $facets = array_slice($facet, 0, 10);
+                } else {
+                    $facets = $facet;
+                }
+                foreach ($facets as $key => $value) {
+                    $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+                    if (isset($request['page'])) {
+                        unset($request['page']);
+                    }
+                    $request[$facetName] = $key;
 
-        $url = $this->view->url($request,'default',true);
+                    $url = $this->view->url($request, 'default', true);
 
-        $html .= '<li>';
+                    $html .= '<li>';
 
-        if ($facetName !== 'workflow') {
-        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection()->setString($key);
-        $html .= '">';
-        $html .= $key . ' ('. number_format($value) .')';
-        } else {
-        $html .=  '<a href="' . $url . '" title="Facet query for ' . $this->_workflow($key);
-        $html .= '">';
-        $html .= $this->_workflow($key) . ' ('. number_format($value) .')';
-        }
+                    if ($facetName !== 'workflow') {
+                        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->view->facetContentSection()->setString($key);
+                        $html .= '">';
+                        $html .= $key . ' (' . number_format($value) . ')';
+                    } else {
+                        $html .= '<a href="' . $url . '" title="Facet query for ' . $this->_workflow($key);
+                        $html .= '">';
+                        $html .= $this->_workflow($key) . ' (' . number_format($value) . ')';
+                    }
 
-        $html .= '</a>';
-        $html .= '</li>';
-        }
+                    $html .= '</a>';
+                    $html .= '</li>';
+                }
 
-        $html .= '</ul>';
-        $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+                $html .= '</ul>';
+                $request = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 
-        if (isset($request['page'])) {
-            unset($request['page']);
-        }
-        if (count($facet) > 10) {
-            $request['controller'] = 'ajax';
-            $request['action'] = 'imagefacet';
-            $request['facetType'] = $facetName;
-            $html .= '<a class="btn btn-small overlay" href="' . $this->view->url(($request),'default',true) . '">All ' . $this->_prettyName($facetName) . ' options <i class="icon-plus"></i></a>';
-        }
-        //Check for removal html to be displayed.
-        if (array_key_exists($facetName, $request)) {
-            unset($request[$facetName]);
-            $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request),'default',true)
-                    . '" title="Clear the facet">Clear this facet</a></p>';
-        }
+                if (isset($request['page'])) {
+                    unset($request['page']);
+                }
+                if (count($facet) > 10) {
+                    $request['controller'] = 'ajax';
+                    $request['action'] = 'imagefacet';
+                    $request['facetType'] = $facetName;
+                    $html .= '<a class="btn btn-small overlay" href="' . $this->view->url(($request), 'default', true) . '">All ' . $this->_prettyName($facetName) . ' options <i class="icon-plus"></i></a>';
+                }
+                //Check for removal html to be displayed.
+                if (array_key_exists($facetName, $request)) {
+                    unset($request[$facetName]);
+                    $html .= '<p><i class="icon-remove-sign"></i> <a href="' . $this->view->url(($request), 'default', true)
+                        . '" title="Clear the facet">Clear this facet</a></p>';
+                }
 
-        $html .= '</div>';
+                $html .= '</div>';
 
-        return $html;
+                return $html;
             }
         } else {
             throw new Pas_Exception('The facet is not an array');
@@ -163,6 +157,11 @@ class Pas_View_Helper_ImagesFacetCreator extends Zend_View_Helper_Abstract
         return $clean;
     }
 
+    /** Render the workflow from the ID number
+     * @access protected
+     * @param string
+     * @return string
+     */
     protected function _workflow($key)
     {
         switch ($key) {
@@ -181,9 +180,9 @@ class Pas_View_Helper_ImagesFacetCreator extends Zend_View_Helper_Abstract
             default:
                 $type = 'Unset workflow';
                 break;
-            }
-
-            return $type;
         }
+
+        return $type;
+    }
 
 }

@@ -1,30 +1,58 @@
 <?php
-/**
- *
- * @author dpett
- * @version
- */
 
 /**
  * LatestRecords helper
  *
+ * @category Pas
+ * @package View
+ * @subpackage Helper
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses viewHelper Pas_View_Helper
+ * @copyright Daniel Pett
+ * @author Daniel Pett
+ * @version 1
  */
 class Pas_View_Helper_LatestRecordsPublications extends Zend_View_Helper_Abstract
 {
+    /** The Solarium client
+     * @access protected
+     * @var Solarium_Client
+     */
     protected $_solr;
 
+    /** The solr config
+     * @var array
+     * @access protected
+     */
     protected $_solrConfig;
 
+    /** The config object
+     * @access protected
+     * @var mixed
+     * @return \Zend_Config
+     */
     protected $_config;
 
+    /** The cache object
+     * @access protected
+     * @var mixed
+     * @return \Zend_Cache
+     */
     protected $_cache;
 
+    /** The allowed array
+     * @var array
+     * @access protected
+     */
     protected $_allowed = array(
         'fa', 'flos', 'admin',
         'treasure', 'hoard'
     );
 
+    /** Construct the class
+     * @access public
+     * @return void
+     */
     public function __construct()
     {
         $this->_cache = Zend_Registry::get('cache');
@@ -34,6 +62,9 @@ class Pas_View_Helper_LatestRecordsPublications extends Zend_View_Helper_Abstrac
         $this->_solr = new Solarium_Client(array('adapteroptions' => ($this->_solrConfig)));
     }
 
+    /** Get the user role
+     * @access public
+     */
     public function getRole()
     {
         $user = new Pas_User_Details();
@@ -46,7 +77,7 @@ class Pas_View_Helper_LatestRecordsPublications extends Zend_View_Helper_Abstrac
         return $role;
     }
 
-    /**
+    /** Get the latest records back from solr
      *
      */
     public function latestRecordsPublications($q = '*:*', $fields = 'id,old_findID,objecttype,imagedir,filename,thumbnail,broadperiod,workflow', $start = 0, $limit = 4,
@@ -89,6 +120,10 @@ class Pas_View_Helper_LatestRecordsPublications extends Zend_View_Helper_Abstrac
         return $this->buildHtml($data);
     }
 
+    /** Build html
+     * @access public
+     * @return string
+     */
     public function buildHtml($data)
     {
         if (array_key_exists('images', $data)) {

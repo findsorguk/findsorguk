@@ -4,11 +4,11 @@
  * A view helper for displaying optional task widgets on login pages when admin
  *
  * @category   Pas
- * @package    View_Helper
- * @subpackage WhatYouWantToDoAdmin
+ * @package    View
+ * @subpackage Helper
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @see Zend_View_Helper_Abstract
  * @uses Pas_View_Helper_RecordEditDeleteLinks
  */

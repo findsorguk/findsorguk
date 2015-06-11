@@ -3,8 +3,9 @@
  * A view helper for parsing Nomisma Rdf 
  * 
  * @author Daniel Pett <dpett at britishmuseum.org>
- * @catagory Pas
- * @package Pas_View_Helper
+ * @category Pas
+ * @package View
+ * @subpackage Helper
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_Rdf_Client

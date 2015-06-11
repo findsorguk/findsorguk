@@ -3,7 +3,7 @@
 /** This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
  * @category Pas
- * @package Pas_View
+ * @package View
  * @subpackage Helper
  * @version 1
  * @since 30/1/2012
@@ -16,8 +16,15 @@
  */
 class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract
 {
+    /** The action
+     * @var string action
+     */
     protected $_action;
 
+    /** Construct the classes
+     * @access public
+     * @return void
+     */
     public function __construct()
     {
         $this->_action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
@@ -35,9 +42,12 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract
         return $this;
     }
 
+    /** The facets array to use
+     * @var  array
+     */
     protected $_facets;
 
-    /**
+    /** Get the facets array
      * @return mixed
      */
     public function getFacets()
@@ -45,7 +55,7 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract
         return $this->_facets;
     }
 
-    /**
+    /** Set the facets array
      * @param mixed $facets
      */
     public function setFacets(array $facets)
@@ -54,6 +64,10 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract
         return $this;
     }
 
+    /** Return the string
+     * @access public
+     * @return string
+     */
     public function __toString()
     {
         $html = '';
@@ -177,6 +191,12 @@ class Pas_View_Helper_FacetCreatorAjaxMyFinds extends Zend_View_Helper_Abstract
         return $clean;
     }
 
+    /** Function for rendering workflow labels
+     * @access protected
+     * @param type $key
+     * @return string
+     * @todo move this to a library function
+     */
     protected function _workflow($key)
     {
         switch ($key) {

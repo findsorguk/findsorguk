@@ -1,12 +1,22 @@
 <?php
-
 /** A view helper to split names and retrieve first name
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->escape($this->splitName()->setName($this->name));
+ * ?>
+ * </code>
+ *
  * @copyright Daniel Pett <dpett at britishmuseum.org>
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @since 1
  * @category Pas
- * @package Pas_View_Helper
- * @license http:// GNU
+ * @package View
+ * @subpackage Helper
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/views/scripts/email/activateAccount.phtml
  */
 class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
 {
@@ -33,7 +43,6 @@ class Pas_View_Helper_SplitName extends Zend_View_Helper_Abstract
     public function setName($name)
     {
         $this->_name = $name;
-
         return $this;
     }
 

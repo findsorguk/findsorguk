@@ -19,7 +19,8 @@
  * </code>
  *
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @todo streamline code
  * @todo extend the view helper for auth and config objects
  * @copyright DEJ Pett

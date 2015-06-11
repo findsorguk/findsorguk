@@ -9,7 +9,10 @@
  * echo $this->analyticsLink();
  * ?>
  * </code>
- * @package PAS
+ *
+ * @category Pas
+ * @package View
+ * @subpackage Helper
  * @uses Zend_View_Helper_Abstract
  * @uses Pas_User_Details
  * @uses Pas_View_Helper_CurUrl

@@ -17,6 +17,10 @@
  * @uses Zend_Cache
  * @uses Solarium_Client
  * @uses Zend_Config
+ * @category Pas
+ * @package View
+ * @subpackage Helper
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 
 class Pas_View_Helper_CoinStatsSolr extends Zend_View_Helper_Abstract {

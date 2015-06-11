@@ -17,7 +17,7 @@
  * @subpackage Mps
  * @author Daniel Pett
  * @copyright Daniel Pett
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_Twfy
  * @uses Pas_Twfy_Exception
  * @see http://www.theyworkforyou.com/api/docs/getMPs

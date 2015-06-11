@@ -20,7 +20,8 @@
  * @version 1
  * @since 1
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  */
 class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
 {

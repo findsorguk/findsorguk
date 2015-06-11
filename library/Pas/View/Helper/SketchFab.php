@@ -1,5 +1,21 @@
 <?php
-/**
+/** A view helper for rendering Sketchfab retrieved 3D models
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * echo $this->sketchFab()->setModelID($this->modelID)->setWidth('100%')->setHeight(300);
+ * ?>
+ * </code>
+ *
+ * @category Pas
+ * @package View
+ * @subpackage Helper
+ * @version 1
+ * @author Daniel Pett <dpett@britishmuseum.org>
+ * @copyright (c) 2014, Daniel Pett
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * Created by PhpStorm.
  * User: danielpett
  * Date: 12/12/14

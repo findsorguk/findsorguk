@@ -13,7 +13,7 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @since 3 October 2011
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @example /app/modules/admin/controllers/OauthController.php 
  * @see https://developer.yahoo.com/oauth/guide/

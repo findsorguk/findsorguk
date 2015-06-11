@@ -19,7 +19,9 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_User_Details
- *
+ * @category Pas
+ * @package View
+ * @subpackage Helper
  * @uses viewHelper Pas_View_Helper
  */
 class Pas_View_Helper_AuditLogs extends Zend_View_Helper_Abstract

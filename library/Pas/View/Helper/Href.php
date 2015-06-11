@@ -5,7 +5,9 @@
  * Automatically adds attributes and parameters.
  *
  * @author Sergeev Anton xapon91@gmail.com
- * @package View_Helper_Href
+ * @category Pas
+ * @package View
+ * @subpackage Helper
  * @copyright Copyright (c) 2010 Sergeev Anton
  * @license http://www.gnu.org/licenses/gpl.html GNU GPL v3 license
  */
@@ -135,10 +137,10 @@ class Pas_View_Helper_Href extends Zend_View_Helper_Url
         if ($options['controller'] != null) {
 
             $url = $this->url(array_merge(array(
-                        'module' => $options['module'],
-                        'controller' => $options['controller'],
-                        'action' => $options['action']),
-                    $options['params']),
+                'module' => $options['module'],
+                'controller' => $options['controller'],
+                'action' => $options['action']),
+                $options['params']),
                 $options['router'],
                 $options['reset']
             );

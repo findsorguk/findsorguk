@@ -9,6 +9,10 @@
  * $this->_redirect( $this->_helper->loginRedirect() );
  * ?>
  * </code>
+ *
+ * @category Pas
+ * @package Controller
+ * @subpackage Action_Helper
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @author Mary Chester-Kadwell <mchester-kadwell @ britishmuseum.org>
  * @version 1

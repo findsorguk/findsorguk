@@ -1,13 +1,9 @@
 <?php
 /**
- *
- * @author dpett
- * @version
- */
-
-/**
  * StatisticsDatabase helper
- *
+ * @category Pas
+ * @package View
+ * @subpackage Helper
  * @uses viewHelper Pas_View_Helper
  */
 class Pas_View_Helper_StatisticsCounty extends Zend_View_Helper_Abstract

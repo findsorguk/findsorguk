@@ -19,7 +19,8 @@
  * @copyright 2014, Daniel Pett
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @subpackage Abstract
  * @uses Pas_Yql_Oauth
  * @example /app/modules/flickr/views/scripts/index/index.phtml

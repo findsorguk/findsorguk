@@ -15,7 +15,8 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @uses Zend_Cache
  * @uses EasyRdf_Grap
  * @version 1

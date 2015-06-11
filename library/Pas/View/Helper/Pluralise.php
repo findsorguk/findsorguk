@@ -5,7 +5,9 @@
  *
  * An example of usage
  * <code>
+ * <?php
  * $this->pluralise()->setQuantity(10);
+ * ?>
  * </code>
  * Would render: 10 coins
  *
@@ -15,8 +17,9 @@
  * @version 1
  * @since 1
  * @category Pas
- * @package Pas_View_Helper
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @package View
+ * @subpackage Helper
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example path description
  */
 class Pas_View_Helper_Pluralise
@@ -152,7 +155,7 @@ class Pas_View_Helper_Pluralise
         } elseif ($this->getQuantity() > 1) {
             $html .= $this->getQuantity();
             $html .= ' ';
-            $html = $this->getPlural();
+            $html .= $this->getPlural();
         }
         return $html;
     }

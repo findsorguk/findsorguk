@@ -12,6 +12,9 @@
  * @uses Zend_Cache
  * @uses Zend_Config
  * @uses Zend_Controller_Front
+ * @category Pas
+ * @package View
+ * @subpackage Helper
  */
 class Pas_View_Helper_StatisticsCountyPrecision extends Zend_View_Helper_Abstract
 {

@@ -3,10 +3,10 @@
  * A view helper for converting html characters for XML display
  *
  * @category   Pas
- * @package    Pas_View_Helper
- * @subpackage Abstract
+ * @package    View
+ * @subpackage Helper
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @see Zend_View_Helper_Abstract
  */
 class Pas_View_Helper_Xmlconvert extends Zend_View_Helper_Abstract
@@ -24,7 +24,7 @@ class Pas_View_Helper_Xmlconvert extends Zend_View_Helper_Abstract
     $str = preg_replace("/&(\w+);/",  "$temp\\1;", $str);
 
     $str = str_replace(
-    array("&", "<",">", "\"", "'", "-", "£", "&nbsp;", "&ndash;"),
+    array("&", "<",">", "\"", "'", "-", "ï¿½", "&nbsp;", "&ndash;"),
     array("&amp;", "&lt;", "&gt;", "&quot;", "&#39;",
     "&#45;","&#163;","&#160","&#39"),$str);
     // Decode the temp markers back to entities

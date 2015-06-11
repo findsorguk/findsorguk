@@ -7,7 +7,7 @@
  * @version 1
  * @since May 14 2014
  * @filesource /app/modules/volunteerrecording/controllers/IndexController.php
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @author Mary Chester-Kadwell
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett

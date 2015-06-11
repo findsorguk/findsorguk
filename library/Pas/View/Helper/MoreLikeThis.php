@@ -4,7 +4,7 @@
  * MoreLikeThis view helper for compiling an html render of 4 objects that are similar to
  * the current one being viewed.
  * @category Pas
- * @package  Pas_View_
+ * @package  View
  * @subpackage Helper
  * @version  1
  * @copyright Daniel Pett <dpett@britishmuseum.org>

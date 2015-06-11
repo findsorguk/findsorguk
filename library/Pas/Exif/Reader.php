@@ -1,6 +1,7 @@
 <?php
 /** PHP Class to read EXIF information that most of the digital camera produce
  * For more information on EXIF
+ *
  * @link http://www.exif.org/
  * Features:
  *   - Read Exif Information
@@ -12,7 +13,10 @@
  * @author Originally Vinay Yadav (vinayRas) < vinay@sanisoft.com > | Modified by Daniel Pett
  * @version 0.5
  * @license http://opensource.org/licenses/lgpl-license.php GNU LGPL
- * 
+ * @category Pas
+ * @package Exif
+ *
+ *
  * 1 - File does not exists!
  * 2 -
  * 3 - Filename not provided

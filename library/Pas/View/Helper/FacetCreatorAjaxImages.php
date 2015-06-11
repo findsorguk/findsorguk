@@ -15,7 +15,7 @@
  * @since 30/1/2012
  * @copyright Daniel Pett
  * @author Daniel Pett <dpett at britishmuseum.org>
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_Exception
  * @uses Zend_View_Helper_Url
  * @uses Zend_Controller_Front

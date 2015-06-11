@@ -1,8 +1,9 @@
 <?php
+
 /** This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
  * @category Pas
- * @package Pas_View
+ * @package View
  * @subpackage Helper
  * @version 1
  * @since 30/1/2012
@@ -15,8 +16,20 @@
  */
 class Pas_View_Helper_FacetCreatorAjaxMyImages extends Zend_View_Helper_Abstract
 {
-    protected $_action, $_controller;
+    /** The action to use
+     * @var string
+     */
+    protected $_action;
 
+    /** The controller to use
+     * @var string
+     */
+    protected $_controller;
+
+    /** Construct the class
+     * @access public
+     * @return void
+     */
     public function __construct()
     {
         $this->_controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
@@ -188,6 +201,12 @@ class Pas_View_Helper_FacetCreatorAjaxMyImages extends Zend_View_Helper_Abstract
         return $clean;
     }
 
+    /** Function for rendering workflow labels
+     * @access protected
+     * @param type $key
+     * @return string
+     * @todo move this to a library function
+     */
     protected function _workflow($key)
     {
         switch ($key) {

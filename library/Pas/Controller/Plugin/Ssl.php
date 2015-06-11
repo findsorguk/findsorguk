@@ -1,7 +1,25 @@
 <?php
-
 /** A controller plugin to force SSL (https)
  * Class Pas_Controller_Plugin_Ssl
+ *
+ * An example of use:
+ *
+ * <code>
+ * <?php
+ * protected function _initSSL() {
+ * $frontController = Zend_Controller_Front::getInstance();
+ * $frontController->registerPlugin( new Pas_Controller_Plugin_Ssl());
+ * }
+ * ?>
+ * </code>
+ * @category Pas
+ * @package Controller
+ * @subpackage Plugin
+ * @version 1
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example /app/Bootstrap.php
  */
 class Pas_Controller_Plugin_Ssl extends Zend_Controller_Plugin_Abstract
 {

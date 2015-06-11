@@ -17,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @version    $Id: HeadMeta.php 20096 2010-01-06 02:05:09Z bkarwin $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 
 /**
@@ -28,7 +28,7 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 class Pas_View_Helper_HeadRdf extends Zend_View_Helper_Placeholder_Container_Standalone
 {

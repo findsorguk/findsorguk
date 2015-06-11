@@ -4,8 +4,8 @@
  * A view helper for displaying toolbox of links
  *
  * @category   Pas
- * @package    Pas_View_Helper
- * @subpackage Abstract
+ * @package    View
+ * @subpackage Helper
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @see  Zend_View_Helper_Abstract
  * @uses Pas_View_Helper_RecordEditDeleteLinks
@@ -16,17 +16,23 @@
 class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract
 {
 
+    /** The institution to query
+     * @var string
+     * @access protected
+     */
     protected $_institution = 'PUBLIC';
 
-    /**
+    /** Get the institution
      * @return string
+     * @access public
      */
     public function getInstitution()
     {
         return $this->_institution;
     }
 
-    /**
+    /** Set the institution
+     * @access protected
      * @param string $institution
      */
     public function setInstitution($institution)

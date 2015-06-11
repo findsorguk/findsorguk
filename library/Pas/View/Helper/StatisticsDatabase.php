@@ -1,6 +1,6 @@
 <?php
 /**
- * StatisticsDatabase helper
+ * Statistics from the Database view helper. This draws data from the solr server.
  *
  * An example of use:
  *
@@ -12,7 +12,8 @@
  *
  * This view helper queries the solr objects index and gets count for objects and records
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @author Daniel Pett dpett@britishmuseum.org
  * @uses viewHelper Pas_View_Helper
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0

@@ -1,9 +1,17 @@
 <?php
 /** View helper for displaying the number of changes for coin records from audit table
+ *
+ * An example of use:
+ * <code>
+ * <?php
+ *
+ * ?>
+ * </code>
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @uses Pas_View_Helper_TimeAgoInWords
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @copyright DEJ PETT
  * @author Daniel Pett
  * @version 1

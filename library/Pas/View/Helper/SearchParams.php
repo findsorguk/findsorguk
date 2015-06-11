@@ -3,8 +3,8 @@
 /**
  * This class is to display search params
  * @category   Pas
- * @package    Pas_View_Helper
- * @subpackage Abstract
+ * @package    View
+ * @subpackage Helper
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @uses Zend_View_Helper_Abstract
  * @author Daniel Pett
@@ -278,7 +278,7 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
             $data = $this->getCache()->load($key);
         }
 
-        if(!empty($data)){
+        if (!empty($data)) {
             $term = $data->$field;
         } else {
             $term = 'Not found in lookup table';

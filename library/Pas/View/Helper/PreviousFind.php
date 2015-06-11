@@ -19,15 +19,14 @@
  * @version 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @uses Zend_Config
  * @uses Zend_Cache
  * @uses Solarium_Client
  * @uses Zend_Registry
  * @uses Pas_User_Details
  * @uses Zend_View_Helper_Partial
- * @todo Solr core needs correcting when the names are changed
- *
  */
 class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
 {

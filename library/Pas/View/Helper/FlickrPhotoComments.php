@@ -15,7 +15,7 @@
  * @category Pas
  * @package View_Helper
  * @version 1
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @copyright (c) 2014, Daniel Pett
  * @uses Zend_View_Helper_Abstract
  * @example /app/modules/flickr/views/scripts/photos/details.phtml

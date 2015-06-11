@@ -15,8 +15,9 @@
  * 
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category Pas
- * @package Pas_View_Helper
- * @license 
+ * @package View
+ * @subpackage Helper
+ * @license
  * @version 1
  * @copyright (c) 2014, Daniel Pett
  * @example /app/modules/experiments/views/scripts/middleeast/person.phtml

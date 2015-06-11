@@ -15,9 +15,10 @@
  * @version 1
  * @since 1
  * @copyright (c) 2014, Daniel Pett
-  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  */
 class Pas_View_Helper_FieldNamesDb extends Zend_View_Helper_Abstract
 {

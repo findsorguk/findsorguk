@@ -1,6 +1,6 @@
 <?php
 /** PHP Class to read, write and transfer EXIF information that most of the digital camera produces
- * Currenty it can only read JPEG file.
+ * Currently it can only read JPEG file.
  * @author Originally Vinay Yadav (vinayRas) < vinay@vinayras.com > | Adapted for PAS project Daniel Pett
  * @category Pas
  * @package Pas_Exif
@@ -8,11 +8,7 @@
  * @license http://opensource.org/licenses/lgpl-license.php GNU LGPL
  * @since September 27 2011
  */
-require_once("exifReader.inc");
 
-/**
-*
-*/
 class Pas_Exif_Writer extends Pas_Exif_Reader {
 
     /** Constructor

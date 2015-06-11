@@ -15,7 +15,8 @@
  * @version 1
  * @since 20/5/2014
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @uses Comments
  * @see Zend_View_Helper_Abstract
  * @todo check if this is still used

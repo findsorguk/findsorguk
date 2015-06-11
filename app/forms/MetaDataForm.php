@@ -1,9 +1,21 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: danielpett
- * Date: 16/12/14
- * Time: 11:10
+ * An example of code:
+ *
+ * <code>
+ * <?php
+ * $form = new MetaDataForm();
+ * ?>
+ * </code>
+ *
+ * @author Daniel Pett <dpett at britishmuseum.org>
+ * @copyright (c) 2014 Daniel Pett
+ * @category   Pas
+ * @package    Pas_Form
+ * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version 1
  */
 class MetaDataForm extends Pas_Form
 {
@@ -20,12 +32,20 @@ class MetaDataForm extends Pas_Form
      */
     protected $_copyright;
 
+    /** Get the county dropdown
+     * @access public
+     * @return array
+     */
     public function getCounties()
     {
         $counties = new OsCounties();
         return $counties->getCountyNames();
     }
 
+    /** Get the image copyrights for a user
+     * @access public
+     * @return array
+     */
     public function getCopyrights()
     {
         $copyrights = new Copyrights();
@@ -55,19 +75,30 @@ class MetaDataForm extends Pas_Form
         return $copyList;
     }
 
+    /** Get the periods dropdown
+     * @access public
+     * @return array
+     */
     public function getPeriods()
     {
         $periods = new Periods();
         return $periods->getPeriodFrom();
     }
 
-
+    /** Get the array of image licences
+     * @access public
+     * @return array
+     */
     public function getLicenses()
     {
         $licenses = new LicenseTypes();
         return $licenses->getList();
     }
 
+    /** Init the form and display fields
+     * @access public
+     * @return void
+     */
     public function init()
     {
         // Create user sub form: username and password
@@ -117,11 +148,16 @@ class MetaDataForm extends Pas_Form
 
         // Attach sub forms to main form
         $this->addSubForms(array(
-            'metadata'  => $meta,
+            'metadata' => $meta,
             'images' => $images,
         ));
     }
 
+    /** Prepare subform
+     * @param string $spec
+     * @access public
+     * @return void
+     */
     public function prepareSubForm($spec)
     {
         if (is_string($spec)) {
@@ -166,9 +202,9 @@ class MetaDataForm extends Pas_Form
         $subForm->addElement(new Zend_Form_Element_Submit(
             'save',
             array(
-                'label'    => 'Save and continue',
+                'label' => 'Save and continue',
                 'required' => false,
-                'ignore'   => true,
+                'ignore' => true,
             )
         ));
         return $this;

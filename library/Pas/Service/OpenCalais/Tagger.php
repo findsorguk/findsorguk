@@ -8,6 +8,10 @@
  *
  * Please see http://www.dangrossman.info/open-calais-tags
  * for documentation and license information.
+ * @category Pas
+ * @package View
+ * @subpackage Helper
+ * @version 1
  */
 class Pas_Service_OpenCalais_Tagger
 {

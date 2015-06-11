@@ -4,7 +4,9 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @version 1
  * @copyright 2014 Daniel Pett & Trustees of the British Museum
- *
+ * @category Pas
+ * @package Controller
+ * @subpackage Action
  */
 class AjaxController extends Pas_Controller_Action_Ajax
 {

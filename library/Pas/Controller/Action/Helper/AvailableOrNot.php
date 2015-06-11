@@ -6,14 +6,20 @@
  *
  * <code>
  * <?php
+ * $this->_helper->availableOrNot($finds);
  * ?>
  * </code>
+ *
+ * @category Pas
+ * @package Controller
+ * @subpackage Controller_Action
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @author Mary Chester-Kadwell <mchester-kadwell @ britishmuseum.org>
  * @version 1
  * @since 1
  * @uses Pas_User_Details
  * @uses Zend_Exception
+ * @example app/modules/database/controllers/ArtefactsController.php
  *
  */
 class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action_Helper_Abstract

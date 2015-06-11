@@ -1,14 +1,8 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /** This view helper takes the array of facets and their counts and produces
  * an html rendering of these with links for the search.
  * @category Pas
- * @package Pas_View
+ * @package View
  * @subpackage Helper
  * @version 1
  * @since 30/1/2012

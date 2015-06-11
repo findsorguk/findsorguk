@@ -11,7 +11,7 @@
  * </code>
  *
  * @category Pas
- * @package Pas_View
+ * @package View
  * @subpackage Helper
  * @version 1
  * @since 30/1/2012

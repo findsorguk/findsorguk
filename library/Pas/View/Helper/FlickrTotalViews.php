@@ -16,7 +16,8 @@
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright Daniel Pett
  * @category Pas
- * @package Pas_View_Helper
+ * @package View
+ * @subpackage Helper
  * @subpackage Abstract
  * @uses Pas_Yql_Flickr
  * @uses Zend_Cache
