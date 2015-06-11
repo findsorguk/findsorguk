@@ -358,6 +358,34 @@ class Contacts extends Pas_Db_Table_Abstract
         return $data;
     }
 
+    /** Get a list of current finds adviser team
+     * @access public
+     * @return array
+     */
+    public function getCentralEmails()
+    {
+        $key = md5('findsCentralEmails');
+        if (!$data = $this->_cache->load($key)) {
+            $persons = $this->getAdapter();
+            $select = $persons->select()
+                ->from($this->_name, array(
+                    'name' => new Zend_Db_Expr("CONCAT(firstname,' ',lastname)"),
+                    'email' => 'email_one'
+                ))
+                ->joinLeft(array('position' => 'staffroles'),
+                    'staff.role = position.ID',
+                    array())
+                ->where('staff.role IN (2,4,24,25)')
+                ->joinLeft('users', 'users.id = staff.dbaseID', array())
+                ->where('alumni = ?', (int)1)
+                ->order('lastname');
+            $data = $persons->fetchAll($select);
+            $this->_cache->save($data, 'findsCentralEmails');
+        }
+        return $data;
+    }
+
+
     /** Get a list of all current staff
      * @access public
      * @return array
