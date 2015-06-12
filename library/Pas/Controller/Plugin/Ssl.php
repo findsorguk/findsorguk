@@ -1,4 +1,5 @@
 <?php
+
 /** A controller plugin to force SSL (https)
  * Class Pas_Controller_Plugin_Ssl
  *
@@ -42,13 +43,12 @@ class Pas_Controller_Plugin_Ssl extends Zend_Controller_Plugin_Abstract
         // Force SSL Only use it production environment
         if (APPLICATION_ENV == 'production') {
             if ($secure_modules[0] == 'all' || in_array(strtolower($module), $secure_modules)
-                || in_array(strtolower($controller), $secure_controllers)) {
-                if(!array_key_exists('HTTPS', $_SERVER)) {
-                    if (!$_SERVER['HTTPS']) {
-                        $url = 'https://' . $_SERVER['HTTP_HOST'] . $request->getRequestUri();
-                        $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-                        $redirector->gotoUrl($url);
-                    }
+                || in_array(strtolower($controller), $secure_controllers)
+            ) {
+                if (!array_key_exists('HTTPS', $_SERVER)) {
+                    $url = 'https://' . $_SERVER['HTTP_HOST'] . $request->getRequestUri();
+                    $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
+                    $redirector->gotoUrl($url);
                 }
             }
         }
