@@ -22,6 +22,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow(null);
+        $this->getResponse()->setRawHeader('HTTP/1.1 410 Gone');
+        $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
     }
 
     /** Get the index page and results for PAS search of twfy
@@ -30,9 +33,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->getResponse()->setHttpResponseCode(200)->setRawHeader('HTTP/1.1 410 Gone');
-        $this->renderScript('pageGone.phtml');
-        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
+
     }
 
     /** Get data for a MP
