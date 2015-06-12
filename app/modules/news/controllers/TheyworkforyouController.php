@@ -34,19 +34,18 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
         $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
         $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
         $this->renderScript('pageGone.phtml');
-        $this->_helper->_acl->allow(null);
-        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
-        $this->_helper->contextSwitch()
-            ->setAutoDisableLayout(true)
-            ->addContext('kml', array('suffix' => 'kml'))
-            ->addContext('rss', array('suffix' => 'rss'))
-            ->addContext('atom', array('suffix' => 'atom'))
-            ->addActionContext('finds', array('xml', 'json', 'kml', 'rss', 'atom'))
-            ->addActionContext('members', array('xml', 'json'))
-            ->addActionContext('constituencies', array('xml', 'json'))
-            ->addActionContext('index', array('xml', 'json'))
-            ->initContext();
-
+//        $this->_helper->_acl->allow(null);
+//        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
+//        $this->_helper->contextSwitch()
+//            ->setAutoDisableLayout(true)
+//            ->addContext('kml', array('suffix' => 'kml'))
+//            ->addContext('rss', array('suffix' => 'rss'))
+//            ->addContext('atom', array('suffix' => 'atom'))
+//            ->addActionContext('finds', array('xml', 'json', 'kml', 'rss', 'atom'))
+//            ->addActionContext('members', array('xml', 'json'))
+//            ->addActionContext('constituencies', array('xml', 'json'))
+//            ->addActionContext('index', array('xml', 'json'))
+//            ->initContext();
     }
 
     /** Get the index page and results for PAS search of twfy
