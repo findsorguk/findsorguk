@@ -9,18 +9,6 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version    1.1
  * @since      1/2/2012
- * @uses Pas_Twfy_Hansard
- * @uses Zend_Paginator
- * @uses Pas_Twfy_Person
- * @uses Pas_Twfy_Geometry
- * @uses Pas_Solr_Handler
- * @uses Pas_Exception_Param
- * @uses Pas_Twfy_Constituencies
- * @uses Pas_Solr_FieldGeneratorFinds
- * @uses Pas_Twfy_FindConstituency
- * @uses PostcodeForm
- *
- *
  */
 class News_TheyworkforyouController extends Pas_Controller_Action_Admin
 {
@@ -32,8 +20,6 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow(null);
-        $this->view->addScriptPath('/app/modules/news/views/scripts/');
-
     }
 
     /** Get the index page and results for PAS search of twfy
@@ -43,7 +29,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
-        $this->renderScript('pageGone.phtml');
+        $this->redirect('error/error.phtml');
         $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
@@ -55,9 +41,6 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function mpAction()
     {
-        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
-        $this->renderScript('pageGone.phtml');
-        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
     /** Get the finds within a consituency
@@ -66,9 +49,6 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function findsAction()
     {
-        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
-        $this->renderScript('pageGone.phtml');
-        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
     /** Get a list of constituencies
@@ -78,9 +58,6 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function constituenciesAction()
     {
-        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
-        $this->renderScript('pageGone.phtml');
-        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
     /** get a list of members of parliament
@@ -88,9 +65,6 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function membersAction()
     {
-        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
-        $this->renderScript('pageGone.phtml');
-        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
     /** Get an MP based on a postcode
