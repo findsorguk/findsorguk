@@ -1,0 +1,15 @@
+<?php
+$paginator = $this->data;
+$results = array();
+foreach($paginator as $result){
+	$results[] = $result;
+}
+
+$meta = array(
+    'currentPage' => $paginator->getCurrentPageNumber(),
+    'totalResults' => $paginator->getTotalItemCount(),
+    'resultsPerPage' => $paginator->getItemCountPerPage(),
+    'totalPages' => ceil($paginator->getTotalItemCount()/$paginator->getItemCountPerPage()));
+
+
+echo Zend_Json::prettyPrint(Zend_Json::encode( ( array('meta' => $meta, 'constituencies' => $results ) ) ) );
