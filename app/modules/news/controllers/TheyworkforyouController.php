@@ -32,9 +32,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
-        $this->getResponse()->setHttpResponseCode(410)
-            ->setRawHeader('HTTP/1.1 Gone');
-        $this->redirect('/news');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
         $this->_helper->_acl->allow(null);
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()
