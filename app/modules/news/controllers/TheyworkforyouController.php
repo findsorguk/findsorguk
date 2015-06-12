@@ -23,8 +23,10 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->allow(null);
         $this->getResponse()->setRawHeader('HTTP/1.1 410 Gone');
-        $this->renderScript('pageGone.phtml');
-        $this->getFlash()->addMessage('Due to new charging tiers for MySociety this service has been removed.');
+        $this->view->message = 'Due to charging tiers for MySociety this service has been removed.';
+        $this->view->code = 410;
+        $this->view->addScriptPath('/app/modules/default/views/scripts/');
+        $this->renderScript('error/error.phtml');
         Zend_Layout::getMvcInstance()->setLayout("error");
     }
 
