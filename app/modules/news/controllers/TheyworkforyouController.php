@@ -9,6 +9,8 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version    1.1
  * @since      1/2/2012
+ *
+ *
  */
 class News_TheyworkforyouController extends Pas_Controller_Action_Admin
 {
@@ -28,9 +30,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
-        $this->redirect('error/error.phtml');
-        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
+        $this->getResponse()->setHttpResponseCode(200)->setRawHeader('HTTP/1.1 410 Gone');
+        $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
     }
 
     /** Get data for a MP
