@@ -24,7 +24,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
         $this->_helper->_acl->allow(null);
         $this->getResponse()->setRawHeader('HTTP/1.1 410 Gone');
         $this->renderScript('pageGone.phtml');
-        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
+        $this->getFlash()->addMessage('Due to new charging tiers for MySociety this service has been removed.');
     }
 
     /** Get the index page and results for PAS search of twfy
