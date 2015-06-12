@@ -86,5 +86,6 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      * @return void
      */
     public function findmympAction()
+    {
     }
 }
