@@ -1,0 +1,27 @@
+<?php
+$this->headTitle('A list of all Members of Parliament');
+$this->metaBase()
+        ->setDescription('This page lists all the members of Parliament elected in 2010 election')
+        ->setSubject('archaeology')
+        ->setKeywords('members,election,2010,hansard,parliament')
+        ->generate();
+?>
+<h2 class="lead">
+    <?php echo $this->title();?>
+</h2>
+<?php if(!empty($this->data)):?>
+<ul>
+    <?php foreach($this->data as $d):?>
+    <?php $url = $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'mp','id' => $d->person_id),null,true);?>
+    <li>
+        <a href="<?php echo $url;?>" title="View details for <?php echo $d->name;?>"><?php echo $d->name?></a> - <?php echo $d->party;?> - <?php echo
+        $d->constituency;?>
+    </li>
+    <?php endforeach;?>
+</ul>
+<?php echo $this->paginationControl($this->data, 'Sliding', 'structure/pagination.phtml'); ?>
+<?php else:?>
+<p>
+    No objects have been recorded in this bounding box area yet.
+</p>
+<?php endif;?>
