@@ -19,8 +19,6 @@
 <hr />
 <div class="sidebar-nav col-md-3" >
     <ul id="menu2" class="menu nav nav-stacked nav-pills collapsible">
-<!--        <li --><?php //echo $this->currentPage()->active('news','theyworkforyou','index');?><!-->-->
-<!--        	<a href="--><?php //echo $this->url(array('module' => 'news','controller' => 'theyworkforyou','action' => 'index'),'default',true);?><!--" title="Latest news from Parliament"><i class="icon-list-alt"></i>Parliamentary mentions</a></li>-->
         <li <?php echo $this->currentPage()->active('news','guardian','index');?>>
         	<a href="<?php echo $this->url(array('module' => 'news','controller' => 'guardian','action' => 'index'),'default',true);?>" title="Latest news from Parliament"><i class="icon-list-alt"></i>Guardian mentions</a></li>
     </ul>
