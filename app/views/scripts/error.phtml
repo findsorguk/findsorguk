@@ -1,0 +1,12 @@
+<?php
+$this->headTitle($this->message);
+$this->metaBase()->setSubject('Error report')->setDescription('Access denied page')->generate();
+
+?>
+<div class="errorImage" id="error-<?php echo $this->code;?>"></div>
+<div class="jumbotron masthead">
+    <div class="container">
+        <h1><?php echo $this->errorCodeTitle()->setCode($this->code);?>: <?php echo $this->code; ?></h1>
+        <p><?php echo $this->message;?></p>
+    </div>
+</div>
