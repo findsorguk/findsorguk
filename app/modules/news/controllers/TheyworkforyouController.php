@@ -31,10 +31,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function init()
     {
-        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
-        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
-        $this->renderScript('pageGone.phtml');
-//        $this->_helper->_acl->allow(null);
+        $this->_helper->_acl->allow(null);
 //        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
 //        $this->_helper->contextSwitch()
 //            ->setAutoDisableLayout(true)
@@ -54,6 +51,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
         $term = $this->getParam('term');
         $search = $term ? $term : 'portable antiquities scheme';
         $twfy = new Pas_Twfy_Hansard();
@@ -85,6 +85,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function mpAction()
     {
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
         if ($this->getParam('id', false)) {
             $person = new Pas_Twfy_Person();
             $unclean = $person->get($this->getParam('id'));
@@ -117,6 +120,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function findsAction()
     {
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
         if ($this->getParam('constituency', false)) {
             $geo = new Pas_Twfy_Geometry();
             $const = urldecode($this->getParam('constituency'));
@@ -154,6 +160,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function constituenciesAction()
     {
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
         $cons = new Pas_Twfy_Constituencies();
         $data = $cons->get('2015-05-07');
         $clean = array();
@@ -175,6 +184,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function membersAction()
     {
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
         $members = new Pas_Twfy_Mps();
         $data = $members->get();
         $clean = array();
@@ -198,6 +210,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function findmympAction()
     {
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
         $constituency = new Pas_Twfy_FindConstituency();
         $form = new PostcodeForm();
         $form->removeElement('thumbnail');
