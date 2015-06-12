@@ -25,6 +25,7 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
         $this->getResponse()->setRawHeader('HTTP/1.1 410 Gone');
         $this->renderScript('pageGone.phtml');
         $this->getFlash()->addMessage('Due to new charging tiers for MySociety this service has been removed.');
+        Zend_Layout::getMvcInstance()->setLayout("error");
     }
 
     /** Get the index page and results for PAS search of twfy
