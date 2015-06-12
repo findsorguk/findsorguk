@@ -32,10 +32,8 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow(null);
-        $this->view->addScriptPath('/app/modules/database/views/scripts/');
-        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
-        $this->renderScript('pageGone.phtml');
-        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
+        $this->view->addScriptPath('/app/modules/news/views/scripts/');
+
     }
 
     /** Get the index page and results for PAS search of twfy
@@ -44,7 +42,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
     /** Get data for a MP
@@ -55,6 +55,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function mpAction()
     {
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
     /** Get the finds within a consituency
@@ -63,6 +66,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function findsAction()
     {
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
     /** Get a list of constituencies
@@ -72,6 +78,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function constituenciesAction()
     {
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
     /** get a list of members of parliament
@@ -79,6 +88,9 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
      */
     public function membersAction()
     {
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 Gone');
+        $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('Due to MySociety API charges, this service is no longer available.');
     }
 
     /** Get an MP based on a postcode
