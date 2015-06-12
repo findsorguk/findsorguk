@@ -32,6 +32,8 @@ class News_TheyworkforyouController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow(null);
+        $this->view->addScriptPath('/app/modules/database/views/scripts/');
+
 //        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
 //        $this->_helper->contextSwitch()
 //            ->setAutoDisableLayout(true)
