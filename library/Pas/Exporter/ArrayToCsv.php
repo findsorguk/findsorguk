@@ -126,7 +126,7 @@ class Pas_Exporter_ArrayToCsv
                     }
                 }
             }
-            $record['uri'] = $this->createUri( $record['objectType'], $record['id']);
+            $record['uri'] = $this->createUri( $record['objecttype'], $record['id']);
 
             $cleanSort = $this->sortArrayByArray($record, $this->_fields);
             $finalData[] = $cleanSort;
