@@ -97,12 +97,8 @@ class ErrorController extends Pas_Controller_Action_Admin
     {
         if ($this->getEmail()) {
             $to[] = array(
-                'name' => 'Daniel Pett',
-                'email' => 'danielpett@gmail.com'
-            );
-            $cc[] = array(
-                'name' => 'Mary Chester-Kadwell',
-                'email' => 'mchester-kadwell@britishmuseum.org'
+                'name' => 'The Portable Antiquities Scheme',
+                'email' => 'info@finds.org.uk'
             );
             $from[] = array(
                 'name' => 'The Portable Antiquities Server',
