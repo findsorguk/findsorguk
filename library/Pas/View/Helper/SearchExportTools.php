@@ -1,4 +1,5 @@
 <?php
+
 /** View helper for generating the links for exporting data
  *
  * An example of use:
@@ -101,19 +102,21 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
             $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme ' . $classDisabled . '" href="#"><i class="icon-download-alt"></i> CSV disabled</a> ';
         }
 
-        if(array_key_exists('objectType', $params)) {
-            if($params['objectType'] == 'HOARD'){
+        if (array_key_exists('objectType', $params)) {
+            if ($params['objectType'] == 'HOARD') {
                 $html .= '<a class="' . $class . '" href="';
                 $html .= $this->view->url($hoardRoute, null, false);
                 $html .= '"><i class="icon-download-alt"></i> Export Hoard specific CSV</a> ';
             }
         }
         if ($quantity < 12000) {
-            $html .= '<a class="' . $class . '" href="';
-            $html .= $this->view->url($herRoute, null, false);
-            $html .= '"><i class="icon-download-alt"></i> Export for HER import</a>';
+            if (in_array($this->_user->role, array('flos', 'admin', 'fa', 'hero', 'treasure', 'hoard'))) {
+                $html .= '<a class="' . $class . '" href="';
+                $html .= $this->view->url($herRoute, null, false);
+                $html .= '"><i class="icon-download-alt"></i> Export for HER import</a>';
+            }
         } else {
-            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme '. $classDisabled . '" href="#"><i class="icon-download-alt"></i> HERO disabled</a> ';
+            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme ' . $classDisabled . '" href="#"><i class="icon-download-alt"></i> HERO disabled</a> ';
         }
         if ($quantity < 200) {
             if (in_array($this->_user->role, array('flos', 'admin', 'fa'))) {
@@ -128,7 +131,7 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
             $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'add'),
                     null, false);
             $html .= '" class="btn btn-small btn-primary"><i class="icon-white icon-plus"></i> Add artefact</a>';
-            if(in_array($this->_user->role, array('admin', 'fa', 'hoard'))) {
+            if (in_array($this->_user->role, array('admin', 'fa', 'hoard'))) {
                 $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'hoards', 'action' => 'add'),
                         null, false);
                 $html .= '" class="btn btn-small btn-primary"><i class="icon-white icon-plus"></i> Add hoard</a>';
