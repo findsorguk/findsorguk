@@ -120,7 +120,7 @@ class Pas_Exporter_ArrayToCsv
                     $record['northing'] = null;
                     $record['latitude'] = null;
                     $record['longitude'] = null;
-                    if (!is_null($record['knownas'])) {
+                    if (array_key_exists('knownas', $record)){
                         $record['parish'] = 'Restricted access';
                         $record['fourFigure'] = 'Restricted access';
                     }
