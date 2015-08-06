@@ -66,24 +66,6 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
         }
     }
 
-    /** Get the query for sparql magic
-     * @access public
-     * @return string
-     */
-    public function getSparqlQuery()
-    {
-        $query = 'SELECT * WHERE {'.
-            '  ?type ?role nm:' . $this->getUri() . ' ;'.
-            '   a nmo:TypeSeriesItem ;' .
-            '  skos:prefLabel ?label' .
-            '  OPTIONAL {?type nmo:hasStartDate ?startDate}'.
-            '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
-            '  FILTER(langMatches(lang(?label), "en"))' .
-            ' } ORDER BY ?label';
-        return  $query;
-    }
-
-
     /** Get the data for rendering
      * @access public
      * @return
@@ -98,9 +80,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
             $sparql = new EasyRdf_Sparql_Client(self::NOMISMA);
-            $data = $sparql->query(
-                $this->getSparqlQuery()
-            );
+            $data = $sparql->query($this->getSparqlQuery());
             $this->getCache()->save($data);
         } else {
             $data = $this->getCache()->load($key);
@@ -115,6 +95,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
     {
         return $this->_uri;
     }
+
 
     /** Set the uri
      * @access public
@@ -140,6 +121,23 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
         return $this->_cache;
     }
 
+    /** Get the query for sparql magic
+     * @access public
+     * @return string
+     */
+    public function getSparqlQuery()
+    {
+        $query = 'SELECT * WHERE {' .
+            '  ?type ?role nm:' . $this->getUri() . ' ;' .
+            '   a nmo:TypeSeriesItem ;' .
+            '  skos:prefLabel ?label' .
+            '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
+            '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
+            '  FILTER(langMatches(lang(?label), "en"))' .
+            ' } ORDER BY ?label';
+        return $query;
+    }
+
     /** Render the data
      * @access protected
      * @param  EasyRdf_Graph $data
@@ -147,10 +145,8 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
     protected function _render(EasyRdf_Graph $data)
     {
         $html = '';
-        Zend_Debug::dump($data);
-        exit;
         $types = array();
-        foreach($data as $rrc){
+        foreach ($data as $rrc) {
             $types[] = array(
                 'type' => $rrc->type,
                 'label' => $rrc->label,
@@ -158,7 +154,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
                 'endDate' => $rrc->endDate
             );
         }
-        if(!empty($types)){
+        if (!empty($types)) {
             $html .= '<h3 class="lead">Types issued</h3>';
             $html .= '<ul>';
             $html .= $this->partialLoop('partials/numismatics/roman/rrcTypes.phtml', $types);
