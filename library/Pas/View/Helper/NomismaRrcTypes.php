@@ -30,7 +30,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
     const LANGUAGE = 'en';
 
     /** The nomisma endpoint */
-    const NOMISMA = 'http://nomisma.org/sparql';
+    const NOMISMA = 'http://nomisma.org/query';
 
     /**  The cache object
      * @returns \Zend_Cache
@@ -131,9 +131,9 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
 
     /** Render the data
      * @access protected
-     * @param  EasyRdf_Resource $data
+     * @param  EasyRdf_Graph $data
      */
-    protected function _render($data)
+    protected function _render(EasyRdf_Graph $data)
     {
         $html = '';
         Zend_Debug::dump($data);
