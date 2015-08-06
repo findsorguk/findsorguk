@@ -44,7 +44,7 @@ $this->metaBase()->setDescription('Details for the Republican Moneyer ' . $this-
                 title="British Museum page for this moneyer"><?php echo $this->bmID; ?></a>
         <?php endif; ?>
 
-        <?php echo $this->nomismaRrcTypes()->setUri($this->nomismaID); ?>
+        <?php echo $this->nomismaRrcTypes()->setUri($this->nomismaID)->getSparqlQuery(); ?>
 
         <?php echo $this->searchLink()->setField('moneyer')->setId($this->id); ?>
     </p>

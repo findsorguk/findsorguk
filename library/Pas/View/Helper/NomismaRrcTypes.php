@@ -66,6 +66,24 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
         }
     }
 
+    /** Get the query for sparql magic
+     * @access public
+     * @return string
+     */
+    public function getSparqlQuery()
+    {
+        $query = 'SELECT * WHERE {'.
+            '  ?type ?role nm:' . $this->getUri() . ' ;'.
+            '   a nmo:TypeSeriesItem ;' .
+            '  skos:prefLabel ?label' .
+            '  OPTIONAL {?type nmo:hasStartDate ?startDate}'.
+            '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
+            '  FILTER(langMatches(lang(?label), "en"))' .
+            ' } ORDER BY ?label';
+        return  $query;
+    }
+
+
     /** Get the data for rendering
      * @access public
      * @return
@@ -81,14 +99,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
             $sparql = new EasyRdf_Sparql_Client(self::NOMISMA);
             $data = $sparql->query(
-                'SELECT * WHERE {'.
-                '  ?type ?role nm:' . $this->getUri() . ' ;'.
-                '   a nmo:TypeSeriesItem ;' .
-                '  skos:prefLabel ?label' .
-                '  OPTIONAL {?type nmo:hasStartDate ?startDate}'.
-                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
-                '  FILTER(langMatches(lang(?label), "en"))' .
-                ' } ORDER BY ?label'
+                $this->getSparqlQuery()
             );
             $this->getCache()->save($data);
         } else {
@@ -137,6 +148,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
     {
         $html = '';
         Zend_Debug::dump($data);
+        exit;
         $types = array();
         foreach($data as $rrc){
             $types[] = array(
