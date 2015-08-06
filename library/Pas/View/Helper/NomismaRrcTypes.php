@@ -52,6 +52,8 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
         return $this;
     }
 
+    protected $_query;
+
     /** Render the html
      * @return string
      * @access public
@@ -72,7 +74,6 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
      * */
     public function getData()
     {
-
         $key = md5($this->getUri() . 'rrcTypes');
         if (!($this->getCache()->test($key))) {
             EasyRdf_Namespace::set('nm', '<http://nomisma.org/id/');
@@ -80,7 +81,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
             $sparql = new EasyRdf_Sparql_Client(self::NOMISMA);
-            $data = $sparql->query($this->getSparqlQuery());
+            $data = $sparql->query($this->getQuery());
             $this->getCache()->save($data);
         } else {
             $data = $this->getCache()->load($key);
@@ -125,9 +126,9 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getSparqlQuery()
+    public function getQuery()
     {
-        $query = 'SELECT * WHERE {' .
+        $this->_query = 'SELECT * WHERE {' .
             '  ?type ?role nm:' . $this->getUri() . ' ;' .
             '   a nmo:TypeSeriesItem ;' .
             '  skos:prefLabel ?label' .
@@ -135,7 +136,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
             '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
             '  FILTER(langMatches(lang(?label), "en"))' .
             ' } ORDER BY ?label';
-        return $query;
+        return $this;
     }
 
     /** Render the data
