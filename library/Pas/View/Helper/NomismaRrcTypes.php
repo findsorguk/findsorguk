@@ -143,7 +143,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
      * @access protected
      * @param  EasyRdf_Graph $data
      */
-    protected function _render(EasyRdf_Graph $data)
+    protected function _render($data)
     {
         $html = '';
         $types = array();
