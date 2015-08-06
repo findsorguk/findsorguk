@@ -15,6 +15,10 @@
  */
 class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
 {
+    /** The language to parse
+     *
+     */
+    const LANGUAGE = 'en';
     /**  The cache object
      * @returns \Zend_Cache
      * @var $_cache
@@ -26,21 +30,6 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
      */
     protected $_uri;
 
-    /** The language to parse
-     *
-     */
-    const LANGUAGE = 'en';
-
-    /**
-     * @return mixed
-     */
-    public function getCache()
-    {
-        $this->_cache = Zend_Registry::get('cache');
-        return $this->_cache;
-    }
-
-
     /** The main class
      * @access public
      */
@@ -49,27 +38,17 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
         return $this;
     }
 
-    /** Set the uri
+    /** Render the html
      * @access public
-     * @param string $uri
-     * @todo add in validation of uri
+     * @return string
      */
-    public function setUri($uri)
+    public function __toString()
     {
-        if (!is_null($uri)) {
-            $this->_uri = $uri;
+        if ($this->getData()) {
+            return $this->_render($this->getData());
         } else {
-            return false;
+            return 'Nothing returned from Nomisma at this time';
         }
-        return $this;
-    }
-
-    /** Get the uri
-     * @access public
-     * */
-    public function getUri()
-    {
-        return $this->_uri;
     }
 
     /** Get the data for rendering
@@ -98,9 +77,41 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
         return $data;
     }
 
+    /** Get the uri
+     * @access public
+     * */
+    public function getUri()
+    {
+        return $this->_uri;
+    }
+
+    /** Set the uri
+     * @access public
+     * @param string $uri
+     * @todo add in validation of uri
+     */
+    public function setUri($uri)
+    {
+        if (!is_null($uri)) {
+            $this->_uri = $uri;
+        } else {
+            return false;
+        }
+        return $this;
+    }
+
+    /** Get the cache object
+     * @return mixed
+     */
+    public function getCache()
+    {
+        $this->_cache = Zend_Registry::get('cache');
+        return $this->_cache;
+    }
+
     /** Render the data
      * @access protected
-     * @param  EasyRdf_Resource $dat
+     * @param  EasyRdf_Resource $data
      */
     protected function _render(EasyRdf_Resource $data)
     {
@@ -121,15 +132,5 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
             $html .= '</li></ul>';
         }
         return $html;
-    }
-
-    /** Rebder tge html */
-    public function __toString()
-    {
-        if($this->getData()){
-            return $this->_render($this->getData());
-        } else {
-            return 'Nothing returned from Nomisma at this time';
-        }
     }
 }
