@@ -44,6 +44,10 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
      */
     protected $_uri;
 
+
+    protected $_data;
+
+
     /** The main class
      * @access public
      */
@@ -86,7 +90,8 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
         } else {
             $data = $this->getCache()->load($key);
         }
-        return $data;
+        $this->_data = $data;
+        return $this;
     }
 
     /** Get the uri
