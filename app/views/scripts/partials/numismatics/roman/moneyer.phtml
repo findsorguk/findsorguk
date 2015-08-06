@@ -34,8 +34,13 @@ $this->metaBase()->setDescription('Details for the Republican Moneyer ' . $this-
         <?php endif; ?>
 
         <?php if (!is_null($this->nomismaID)): ?>
-            Nomisma ID: <?php echo $this->nomismaID; ?><br/>
+            Nomisma ID: <a href="http://nomisma.org/id/<?php echo $this->nomismaID; ?>" title="Nomisma page for this moneyer"><?php echo $this->nomismaID; ?></a><br/>
         <?php endif; ?>
+
+        <?php if (!is_null($this->bmID)): ?>
+            British Museum Identifier: <a href="http://collection.britishmuseum.org/id/person-institution/<?php echo $this->bmID; ?>" title="British Museum page for this moneyer"><?php echo $this->bmID; ?></a>
+        <?php endif; ?>
+
 
         <?php echo $this->searchLink()->setField('moneyer')->setId($this->id); ?>
     </p>
