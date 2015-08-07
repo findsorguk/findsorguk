@@ -80,7 +80,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
     {
         $key = md5($this->getUri() . 'rrcTypes');
         if (!($this->getCache()->test($key))) {
-            EasyRdf_Namespace::set('nm', '<http://nomisma.org/id/');
+            EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
             EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
