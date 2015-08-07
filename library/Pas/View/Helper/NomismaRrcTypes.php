@@ -140,7 +140,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
             '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
             '  FILTER(langMatches(lang(?label), "en"))' .
             ' } ORDER BY ?label';
-        return $this;
+        return $this->_query;
     }
 
     /** Render the data
