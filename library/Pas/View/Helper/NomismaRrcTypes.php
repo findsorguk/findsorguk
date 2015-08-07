@@ -46,7 +46,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
 
 
     protected $_data;
-
+    protected $_query;
 
     /** The main class
      * @access public
@@ -55,8 +55,6 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
     {
         return $this;
     }
-
-    protected $_query;
 
     /** Render the html
      * @return string
@@ -80,13 +78,23 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
     {
         $key = md5($this->getUri() . 'rrcTypes');
 //        if (!($this->getCache()->test($key))) {
-            EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
-            EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
-            EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
-            EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new EasyRdf_Sparql_Client(self::NOMISMA);
+        $client = new Zend_Http_Client(
+            null,
+            array(
+                'adapter' => 'Zend_Http_Client_Adapter_Curl',
+                'keepalive' => true,
+                'useragent' => "EasyRdf/zendtest"
+            )
+        );
+        EasyRdf_Http::setDefaultHttpClient($client);
+        
+        EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
+        EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
+        EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
+        EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+        $sparql = new EasyRdf_Sparql_Client(self::NOMISMA);
         Zend_Debug::dump($this->getQuery());
-            $data = $sparql->query($this->getQuery());
+        $data = $sparql->query($this->getQuery());
 //            $this->getCache()->save($data);
 //        } else {
 //            $data = $this->getCache()->load($key);
@@ -116,16 +124,6 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
             return false;
         }
         return $this;
-    }
-
-    /** Get the cache object
-     * @return mixed
-     * @access public
-     */
-    public function getCache()
-    {
-        $this->_cache = Zend_Registry::get('cache');
-        return $this->_cache;
     }
 
     /** Get the query for sparql magic
@@ -172,5 +170,15 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
         }
 
         return $html;
+    }
+
+    /** Get the cache object
+     * @return mixed
+     * @access public
+     */
+    public function getCache()
+    {
+        $this->_cache = Zend_Registry::get('cache');
+        return $this->_cache;
     }
 }
