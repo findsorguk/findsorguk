@@ -90,6 +90,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
         } else {
             $data = $this->getCache()->load($key);
         }
+        echo $sparql->getQueryUri();
         return $data;
     }
 
@@ -159,6 +160,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
                 'endDate' => $rrc->endDate
             );
         }
+        Zend_Debug::dump($types);
         if (!empty($types)) {
             $html .= '<h3 class="lead">Types issued</h3>';
             $html .= '<ul>';
