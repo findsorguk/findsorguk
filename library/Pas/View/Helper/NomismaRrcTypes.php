@@ -149,7 +149,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
      * @access protected
      * @param  array $data
      */
-    protected function _render($data)
+    public function _render($data)
     {
         $html = '';
         $types = array();
