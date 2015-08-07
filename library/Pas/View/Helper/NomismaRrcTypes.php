@@ -58,19 +58,19 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
 
     protected $_query;
 
-    /** Render the html
-     * @return string
-     * @access public
-     */
-
-    public function __toString()
-    {
-        if ($this->getData()) {
-            return $this->_render($this->getData());
-        } else {
-            return 'No RRC types available';
-        }
-    }
+//    /** Render the html
+//     * @return string
+//     * @access public
+//     */
+//
+//    public function __toString()
+//    {
+//        if ($this->getData()) {
+//            return $this->_render($this->getData());
+//        } else {
+//            return 'No RRC types available';
+//        }
+//    }
 
     /** Get the data for rendering
      * @access public
@@ -90,8 +90,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
         } else {
             $data = $this->getCache()->load($key);
         }
-        $this->_data = $data;
-        return $this;
+        return $data;
     }
 
     /** Get the uri
@@ -146,7 +145,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
 
     /** Render the data
      * @access protected
-     * @param  EasyRdf_Graph $data
+     * @param  array $data
      */
     protected function _render($data)
     {
