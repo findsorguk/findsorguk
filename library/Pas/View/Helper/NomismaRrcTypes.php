@@ -151,6 +151,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
     public function _render($data)
     {
         $html = '';
+        Zend_Debug::dump($data);
         $types = array();
         foreach ($data as $rrc) {
             $types[] = array(
