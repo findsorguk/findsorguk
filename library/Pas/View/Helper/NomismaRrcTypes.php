@@ -106,7 +106,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
 //            $data = $this->getCache()->load($key);
 //        }
 
-        return $data;
+        return $sparql->dump();
     }
 
     /** Get the uri
