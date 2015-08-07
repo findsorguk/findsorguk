@@ -58,19 +58,19 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
 
     protected $_query;
 
-//    /** Render the html
-//     * @return string
-//     * @access public
-//     */
-//
-//    public function __toString()
-//    {
-//        if ($this->getData()) {
-//            return $this->_render($this->getData());
-//        } else {
-//            return 'No RRC types available';
-//        }
-//    }
+    /** Render the html
+     * @return string
+     * @access public
+     */
+
+    public function __toString()
+    {
+        if ($this->getData()) {
+            return $this->_render($this->getData());
+        } else {
+            return 'No RRC types available';
+        }
+    }
 
     /** Get the data for rendering
      * @access public
