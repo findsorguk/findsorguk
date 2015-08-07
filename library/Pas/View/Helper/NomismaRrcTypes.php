@@ -85,7 +85,6 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
             $sparql = new EasyRdf_Sparql_Client(self::NOMISMA);
-            echo $sparql->getQueryUri();
             $data = $sparql->query($this->getQuery());
             $this->getCache()->save($data);
         } else {
@@ -162,6 +161,7 @@ class Pas_View_Helper_NomismaRrcTypes extends Zend_View_Helper_Abstract
             );
         }
         Zend_Debug::dump($types);
+        exit;
         if (!empty($types)) {
             $html .= '<h3 class="lead">Types issued</h3>';
             $html .= '<ul>';
