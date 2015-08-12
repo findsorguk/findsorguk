@@ -160,16 +160,17 @@ class RomanCoinForm extends Pas_Form
 
         $rrcID = new Zend_Form_Element_Select('rrcID');
         $rrcID->setLabel('Roman Republican Coinage ID number: ')
-            ->addFilters(array('StripTags', 'StringTrim'));
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+            ->addValidator('Republican')
+            ->addMultiOptions(array(null => 'Choose RRC type from Nomisma'))
+            ->setRegisterInArrayValidator(false);
 
 
         $revtypeID = new Zend_Form_Element_Select('revtypeID');
         $revtypeID->setLabel('Reverse type: ')
             ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
-            ->addMultiOptions(array(
-                null => 'Choose a reverse type',
-                'Valid reverses' => $reverses
-            ))
+            ->addMultiOptions(array(null => 'Choose a reverse type', 'Valid reverses' => $reverses))
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addValidator('InArray', false, array(array_keys($reverses)));
 
