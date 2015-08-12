@@ -81,7 +81,8 @@ class AjaxController extends Pas_Controller_Action_Ajax
     }
 
     /** Get an ajax list of available counties
-     *
+     * @access public
+     * @return mixed
      */
     public function countiesAction()
     {
@@ -201,6 +202,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($pubjson);
     }
 
+    /** Get json encoded other references
+     * @access public
+     */
     public function otherrefsAction()
     {
         $otherrefs = new Finds();
@@ -208,6 +212,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($otherrefsjson);
     }
 
+    /** Get treasure IDs
+     * @access public
+     */
     public function treasureidsAction()
     {
         $treasureids = new Finds();
@@ -215,6 +222,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($treasureidsjson);
     }
 
+    /** Get people in json format
+     * @access public
+     */
     public function peopleAction()
     {
         $peoples = new People();
@@ -222,6 +232,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($people_options);
     }
 
+    /** People searching json
+     * @access public
+     */
     public function peoplesearchAction()
     {
         $peoples = new People();
@@ -229,6 +242,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($people_options);
     }
 
+    /** Rulers to denominations json
+     * @access public
+     */
     public function rulerdenomAction()
     {
         if ($this->getParam('term', false)) {
@@ -246,6 +262,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::prettyPrint($data, array("indent" => " ", 'format' => 'html'));
     }
 
+    /** Ruler to early medieval denominations
+     * @access public
+     */
     public function rulerdenomearlymedAction()
     {
         if ($this->getParam('term', false)) {
@@ -263,6 +282,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get denomination to roman ruler
+     * @access public
+     * @return mixed
+     */
     public function romandenomrulerAction()
     {
         if ($this->getParam('term', false)) {
@@ -280,6 +303,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get roman mints to rulers
+     * @access public
+     * @return mixed
+     */
     public function romanmintrulerAction()
     {
         if ($this->getParam('term', false)) {
@@ -297,6 +324,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get early medieval mints to rulers
+     * @access public
+     * @return mixed
+     */
     public function earlymedmintrulerAction()
     {
         $mints = new Mints();
@@ -313,6 +344,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get medieval mints to rulers
+     * @access public
+     * @return mixed
+     */
     public function medmintrulerAction()
     {
         if ($this->getParam('term', false)) {
@@ -334,6 +369,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get early medieval categories
+     * @access public
+     * @return mixed
+     */
     public function earlymedtypecatAction()
     {
         if ($this->getParam('term', false)) {
@@ -351,6 +390,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get early medieval types to rulers
+     * @access public
+     * @return mixed
+     */
     public function earlymedtyperulerAction()
     {
         if ($this->getParam('term', false)) {
@@ -368,7 +411,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
-
+    /** Get Reece periods
+     * @access public
+     * @return mixed
+     */
     public function reeceAction()
     {
         if ($this->getParam('term', false)) {
@@ -386,6 +432,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get Iron Age geography
+     * @access public
+     * @return mixed
+     */
     public function iageographyAction()
     {
         if ($this->getParam('term', false)) {
@@ -397,6 +447,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
+    /** Get iron age rulers to regions
+     * @access public
+     * @return mixed
+     */
     public function iarulerregionAction()
     {
         if ($this->getParam('term', false)) {
@@ -408,7 +462,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
-
+    /** Get categories to a period
+     * @access public
+     * @return mixed
+     */
     public function catsperiodAction()
     {
         if ($this->getParam('term', false)) {
@@ -420,6 +477,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
+    /** Get the rulers as json to period
+     * @access public
+     * @return mixed
+     */
     public function rulersperiodAction()
     {
         if ($this->getParam('term', false)) {
@@ -431,7 +492,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
-
+    /** Iron age tribe to region json
+     * @access public
+     * @return mixed
+     */
     public function iatriberegionAction()
     {
         if ($this->getParam('term', false)) {
@@ -443,6 +507,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
+    /** Get reverse types
+     * @access public
+     * @return mixed
+     */
     public function revtypesAction()
     {
         if ($this->getParam('term', false)) {
@@ -459,6 +527,33 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
+    /** A function to get RRC types for moneyers as json
+     * @access public
+     * @return mixed
+     */
+    public function rrctypesAction()
+    {
+        if ($this->getParam('term', false)) {
+            $moneyer = new Moneyers();
+            $nomismaID = $moneyer->fetchRow($moneyer->select()->where('id = ?', $this->getParam('term')))->nomismaID;
+            $nomisma = new Nomisma();
+            $types = $nomisma->getRRCDropdowns($nomismaID);
+
+            if ($types) {
+                $response = $types;
+            } else {
+                $response = array(array('id' => null, 'term' => 'No options available'));
+            }
+        } else {
+            $response = array(array('id' => null, 'term' => 'No moneyer specified'));
+        }
+        echo Zend_Json::encode($response);
+    }
+
+    /** Get early medieval category to ruler
+     * @access public
+     * @return mixed
+     */
     public function earlymedcatrulerAction()
     {
         if ($this->getParam('term', false)) {
@@ -475,6 +570,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
+    /** Post medieval category to ruler
+     * @access public
+     * @return mixed
+     */
     public function postmedcatrulerAction()
     {
         if ($this->getParam('term', false)) {
@@ -491,6 +590,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
+    /** Medieval category to ruler
+     * @access public
+     * @return mixed
+     */
     public function medcatrulerAction()
     {
         if ($this->getParam('term', false)) {
@@ -507,7 +610,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
-
+    /** Get moneyers as json
+     * @return mixed
+     */
     public function moneyersAction()
     {
         if ($this->getParam('term', false)) {
@@ -525,6 +630,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
+    /** Get related finds as json
+     * @access public
+     * @return mixed
+     */
     public function relatedfindAction()
     {
         $finds = new Finds;
@@ -532,7 +641,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($findsjson);
     }
 
-
+    /** Get old find ID as json
+     * @access public
+     * @return mixed
+     */
     public function oldfindidAction()
     {
         $finds = new Finds;
@@ -540,6 +652,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($findsjson);
     }
 
+    /** Get organisations as json
+     * @access public
+     * @return mixed
+     */
     public function organisationAction()
     {
         $orgs = new Organisations;
@@ -547,6 +663,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($orgsjson);
     }
 
+    /** Get usernames as json
+     * @access public
+     * @return mixed
+     */
     public function usernameAction()
     {
         $users = new Users;
@@ -554,7 +674,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($usersjson);
     }
 
-
+    /** Delete image link
+     * @access public
+     * @return mixed
+     */
     public function deleteimagelinkAction()
     {
         if ($this->getParam('id', false)) {
@@ -566,6 +689,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get  staff data as json
+     * @access public
+     * @return mixed
+     */
     public function staffdataAction()
     {
         $this->_helper->viewRenderer->setNoRender(false);
@@ -573,7 +700,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $this->view->contacts = $contacts->getContactsForMap();
     }
 
-
+    /** Delete a project
+     * @access public
+     * @return mixed
+     * @throws Pas_Exception_Param
+     */
     public function deleteprojectAction()
     {
         if ($this->getParam('id', false)) {
@@ -581,10 +712,14 @@ class AjaxController extends Pas_Controller_Action_Ajax
             $where = $projects->getAdapter()->quoteInto('id = ?', (int)$this->getParam('id'));
             $projects->delete($where);
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter, 500);
+            throw new Pas_Exception_Param($this->_missingParameter, 404);
         }
     }
 
+    /** Delete an image by ruler
+     * @access public
+     * @return mixed
+     */
     public function deleteimagerulerAction()
     {
         $images = new RulerImages();
@@ -598,6 +733,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     }
 
+    /** Delete a profile image
+     * @access public
+     * @return mixed
+     */
     public function deleteprofileimageAction()
     {
         $staff = new Contacts();
@@ -621,6 +760,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         unlink('./assets/staffphotos/thumbnails/' . $converted);
     }
 
+    /** Delete a mint and ruler
+     * @access public
+     * @return mixed
+     */
     public function deletemintrulerAction()
     {
         $mints = new MintsRulers();
@@ -628,6 +771,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $mints->delete($where);
     }
 
+    /** Delete a denom by ruler id
+     * @access public
+     * @return mixed
+     */
     public function deletedenomrulerAction()
     {
         $denoms = new DenomRulers();
@@ -635,6 +782,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $denoms->delete($where);
     }
 
+    /** Delete a reverse type by ruler id
+     * @access public
+     */
     public function deletereverserulerAction()
     {
         $reverses = new RulerRevType();
@@ -642,7 +792,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $reverses->delete($where);
     }
 
-
+    /** Link an image
+     * @access public
+     * @return mixed
+     * @throws Pas_Exception_Param
+     */
     public function linkimageAction()
     {
         if ($this->getParam('secuid', false)) {
@@ -656,6 +810,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Scheduled ancient monument action
+     * @access public
+     * @return mixed
+     */
     public function samsAction()
     {
         $monuments = new ScheduledMonuments();
@@ -663,6 +821,11 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($monjson);
     }
 
+    /** Delete a comment ajax action
+     * @access public
+     * @return mixed
+     * @throws Pas_Exception_Param
+     */
     public function deletecommentAction()
     {
         if ($this->getParam('id', false)) {
@@ -674,12 +837,18 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Emperors action
+     * @access public
+     */
     public function emperorsAction()
     {
         $emps = new Emperors();
         $this->view->emperors = $emps->getEmperorsTimeline();
     }
 
+    /** List message replies
+     * @access public
+     */
     public function messagereplyAction()
     {
         $replies = new Replies();
@@ -687,6 +856,10 @@ class AjaxController extends Pas_Controller_Action_Ajax
         $this->_helper->viewRenderer->setNoRender(false);
     }
 
+    /** Get the OS parishes by county
+     * @access public
+     * @return mixed
+     */
     public function osparishesbycountyAction()
     {
         if ($this->getParam('term', false)) {
@@ -698,7 +871,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($json);
     }
 
-
+    /** Get the os districts by county json
+     * @access public
+     */
     public function osdistrictsbycountyAction()
     {
         if ($this->getParam('term', false)) {
@@ -710,6 +885,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($json);
     }
 
+    /** Get the OS regions by county as json
+     * @access public
+     */
     public function osregionsbycountyAction()
     {
         if ($this->getParam('term', false)) {
@@ -723,7 +901,6 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     /** Get os parishes by district
      * @access public
-     *
      */
     public function osparishesbydistrictAction()
     {
@@ -813,7 +990,6 @@ class AjaxController extends Pas_Controller_Action_Ajax
 
     /** Action to generate the last ruler based off broadperiod
      * @access public
-     *
      */
     public function lastrulerAction()
     {
