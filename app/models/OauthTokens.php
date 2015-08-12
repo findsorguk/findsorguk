@@ -8,8 +8,7 @@
  * <code>
  * <?php
  * $tokens = new OauthTokens();
- * $tokenexists = $tokens->fetchRow($tokens->select()
- * ->where('service = ?', 'twitterAccess'));
+ * $tokenexists = $tokens->fetchRow($tokens->select()->where('service = ?', 'twitterAccess'));
  * ?>
  * </code>
  * @author Daniel Pett <dpett at britishmuseum.org>
