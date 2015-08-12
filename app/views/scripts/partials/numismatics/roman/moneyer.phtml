@@ -21,10 +21,6 @@ $this->metaBase()->setDescription('Details for the Republican Moneyer ' . $this-
 
 
     <p>
-        <?php if (!is_null($this->RRC)): ?>
-            <abbr title="Roman Republican Coinage number">RRC number</abbr>: <?php echo $this->RRC; ?><br/>
-        <?php endif; ?>
-
         <?php if (!is_null($this->appear)): ?>
             Appearance: <?php echo $this->appear; ?><br/>
         <?php endif; ?>
@@ -44,9 +40,50 @@ $this->metaBase()->setDescription('Details for the Republican Moneyer ' . $this-
                 title="British Museum page for this moneyer"><?php echo $this->bmID; ?></a>
         <?php endif; ?>
 
-        <?php echo $this->nomismaRrcTypes()->setUri($this->nomismaID); ?>
 
         <?php echo $this->searchLink()->setField('moneyer')->setId($this->id); ?>
     </p>
+<?php echo $this->nomismaRrcTypes()->setUri($this->nomismaID); ?>
+
 
 <?php echo $this->latestRecords()->setQuery('moneyer:' . $this->id); ?>
+
+<?php
+
+//$config = array(
+//    'adapter' => 'Zend_Http_Client_Adapter_Curl',
+//    'keepalive' => true,
+//    'useragent' => "finds.org.uk",
+//);
+//$uri = 'http://nomisma.org/query?query=PREFIX+rdf%3A%09%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dcmitype%3A%09%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fdcmitype%2F%3E%0D%0APREFIX+dcterms%3A%09%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E%0D%0APREFIX+foaf%3A%09%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+geo%3A%09%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E%0D%0APREFIX+nm%3A%09%3Chttp%3A%2F%2Fnomisma.org%2Fid%2F%3E%0D%0APREFIX+nmo%3A%09%3Chttp%3A%2F%2Fnomisma.org%2Fontology%23%3E%0D%0APREFIX+org%3A%09%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Forg%23%3E%0D%0APREFIX+osgeo%3A%09%3Chttp%3A%2F%2Fdata.ordnancesurvey.co.uk%2Fontology%2Fgeometry%2F%3E%0D%0APREFIX+rdac%3A%09%3Chttp%3A%2F%2Fwww.rdaregistry.info%2FElements%2Fc%2F%3E%0D%0APREFIX+skos%3A%09%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0APREFIX+spatial%3A+%3Chttp%3A%2F%2Fjena.apache.org%2Fspatial%23%3E%0D%0APREFIX+un%3A%09%3Chttp%3A%2F%2Fwww.owl-ontologies.com%2FOntology1181490123.owl%23%3E%0D%0APREFIX+xsd%3A%09%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+*+WHERE+%7B%0D%0A%3Fs+%3Fp+%3Fo%0D%0A%7D+LIMIT+100';
+//$client = new Zend_Http_Client($uri, $config);
+//
+//$client = new Zend_Http_Client(
+//    null,
+//    array(
+//        'adapter' => 'Zend_Http_Client_Adapter_Curl',
+//        'keepalive' => true,
+//        'useragent' => "findsorguk/zendtest"
+//    )
+//);
+//
+//EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
+//EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
+//EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
+//EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+//$sparql = new EasyRdf_Sparql_Client('http://nomisma.org/query');
+//EasyRdf_Http::setDefaultHttpClient($client);
+//$client->setHeaders(array('accept' => 'application/sparql-results+xml'));
+//
+//Zend_Debug::dump($client);
+////Zend_Debug::dump($client->request()->getBody());
+//
+////Zend_Debug::dump($sparql->getUri());
+//Zend_Debug::dump($sparql->query('SELECT * WHERE {' .
+//    '  ?type ?role nm:' . $this->nomismaID . ' ;' .
+//    '   a nmo:TypeSeriesItem ;' .
+//    '  skos:prefLabel ?label' .
+//    '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
+//    '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
+//    '  FILTER(langMatches(lang(?label), "en"))' .
+//    ' } ORDER BY ?label'));
