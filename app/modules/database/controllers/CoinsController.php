@@ -24,6 +24,10 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      */
     protected $_coins;
 
+    /** Get the coins model
+     * @access public
+     * @return \Coins
+     */
     public function getCoins()
     {
         $this->_coins = new Coins();
