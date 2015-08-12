@@ -5,20 +5,9 @@ $this->metaBase()->setDescription('Details for the Republican Moneyer ' . $this-
     ->generate();
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
-    <p>
-        <?php
-        $dates = array($this->date_1, $this->date_2);
-        if (is_null($dates[1])) {
-            $dates = array_slice($dates, 0, 1);
-        }
-        ?>
-        Issued: <?php echo implode(' to ', $dates); ?>
-    </p>
-
 <?php if (!is_null($this->bio)): ?>
     <p><?php echo $this->bio; ?></p>
 <?php endif; ?>
-
 
     <p>
         <?php if (!is_null($this->appear)): ?>
