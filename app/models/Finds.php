@@ -406,7 +406,9 @@ class Finds extends Pas_Db_Table_Abstract
                     'statusQualifier' => 'status_qualifier',
                     'ruler1' => 'ruler_id',
                     'ruler2' => 'ruler2_id',
-                    'mintID' => 'mint_id'
+                    'mintID' => 'mint_id',
+                    'rrcID',
+                    'ricID'
                 ))
             ->joinLeft('ironagetribes', 'coins.tribe = ironagetribes.id', array('tribe'))
             ->joinLeft('geographyironage', 'geographyironage.id = coins.geographyID', array('ironAgeRegion' => 'region',
@@ -2131,7 +2133,9 @@ class Finds extends Pas_Db_Table_Abstract
                     'abcType' => 'rudd_type',
                     'vaType' => 'va_type',
                     'moneyer',
-                    'axis' => 'die_axis_measurement'
+                    'axis' => 'die_axis_measurement',
+                    'rrcID',
+                    'ricID'
                 ))
             ->joinLeft('mints', 'mints.id = coins.mint_ID',
                 array(

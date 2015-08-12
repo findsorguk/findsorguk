@@ -116,4 +116,5 @@ class Moneyers extends Pas_Db_Table_Abstract {
             ->order('name ASC');
         return $moneyers->fetchAll($select);
     }
+
 }
