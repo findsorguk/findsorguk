@@ -7,9 +7,13 @@
  */
 ?>
 <?php
-$dates = array($this->startDate, $this->endDate); ?>
+$dates = array(
+    $this->adBc()->setDate($this->startDate->__toString()),
+    $this->adBc()->setDate($this->endDate->__toString())
+);
 ?>
 <li>
-    <a href="<?php echo $this->type; ?>"><?php echo $this->label; ?> <i class="fa fa-external-link"></i></a>
-    Issued <?php echo implode($dates, ' - '); ?>
+    <a href="<?php echo $this->type; ?>"><?php echo $this->label; ?> <i
+            class="fa fa-external-link"></i></a> Issued: <?php echo implode(' - ', $dates); ?>
+
 </li>
