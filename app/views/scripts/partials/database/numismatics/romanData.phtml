@@ -122,7 +122,10 @@
 
         <?php if (!is_null($this->rrcID)): ?>
             <br/>
-            RRC Identifier: <?php echo $this->crroData()->setUri($this->rrcID);?> <a
+            RRC Identifier: <?php echo $this->crroData()->setUri($this->rrcID); ?> <a
+                href="http://numismatics.org/crro/id/<?php echo $this->rrcID; ?>"
+                title="Read scope note for<?php echo $this->crroData()->setUri($this->rrcID); ?>"><i
+                    class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search',
                     'action' => 'results', 'rrcID' => $this->rrcID), null, true); ?>"
                 title="view all records assigned to this identifier"><i class="icon-search"></i></a>
