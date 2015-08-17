@@ -134,7 +134,9 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         'legacyID' => 'Legacy hoard database ID number',
         'lastRulerID' => 'Last ruler present in hoard',
         '3D' => '3D content ready',
-        'denominationName' => 'Denomination'
+        'denominationName' => 'Denomination',
+        'rrcID' => 'RRC identifier',
+        'ricID' => 'RIC identifier'
 
     );
 

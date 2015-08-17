@@ -32,6 +32,29 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
      * @var \Zend_View
      */
     protected $_view;
+    /** The filter class
+     * @access protected
+     * @var \Zend_Filter_StringToUpper
+     */
+    protected $_filter;
+    /** The array of coin periods
+     * @access protected
+     * @var array
+     */
+    protected $_periods = array(
+        'ROMAN', 'IRON AGE', 'EARLY MEDIEVAL',
+        'POST MEDIEVAL', 'MEDIEVAL', 'BYZANTINE',
+        'GREEK AND ROMAN PROVINCIAL'
+    );
+
+    /** The constructor function
+     * @access public
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->_filter = new Zend_Filter_StringToUpper();
+    }
 
     /** The predispatch call
      * @access public
@@ -53,31 +76,6 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
         $broadperiod = $this->_filter->filter($broadperiod);
         return $this->optionsAddClone($broadperiod, $coinDataFlat);
     }
-
-    /** The filter class
-     * @access protected
-     * @var \Zend_Filter_StringToUpper
-     */
-    protected $_filter;
-
-    /** The constructor function
-     * @access public
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->_filter = new Zend_Filter_StringToUpper();
-    }
-
-    /** The array of coin periods
-     * @access protected
-     * @var array
-     */
-    protected $_periods = array(
-        'ROMAN', 'IRON AGE', 'EARLY MEDIEVAL',
-        'POST MEDIEVAL', 'MEDIEVAL', 'BYZANTINE',
-        'GREEK AND ROMAN PROVINCIAL'
-    );
 
     /** add and clone last record
      * @access public
@@ -122,13 +120,21 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                         null => 'No options available'));
                     $this->_view->form->revtypeID->setRegisterInArrayValidator(false);
                 }
-                if (array_key_exists('ruler_id', $coinDataFlat) && ($coinDataFlat['ruler_id'] == 242)) {
+                if (array_key_exists('ruler_id', $coinDataFlat) && ($coinDataFlat['ruler_id'] == '242')) {
                     $moneyers = new Moneyers();
                     $moneyer_options = $moneyers->getRepublicMoneyers();
                     $this->_view->form->moneyer->addMultiOptions(array(
                         null => 'Choose moneyer',
                         'Available moneyers' => $moneyer_options
                     ));
+                    if (array_key_exists('moneyer', $coinDataFlat)) {
+                        $identifier = $moneyers->fetchRow($moneyers->select()->where('id = ?', $coinDataFlat['moneyer']))->nomismaID;
+                        $rrcTypes = new Nomisma();
+                        $this->_view->form->rrcID->addMultiOptions(array(
+                            null => 'Choose RRC type',
+                            'Available moneyers' => $rrcTypes->getRRCDropdownsFlat($identifier)
+                        ));
+                    }
                 } else {
                     $this->_view->form->moneyer->addMultiOptions(array(
                         null => 'No options available'

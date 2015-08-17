@@ -110,15 +110,25 @@
                 title="view all records assigned to <?php echo $this->wear; ?>"><i class="icon-search"></i></a>
 
         <?php endif; ?>
+
         <?php if (!is_null($this->moneyer)) : ?>
             <br/>
             Republican moneyer: <?php echo $this->escape($this->moneyer); ?> <a
-                href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'moneyers',
-                    'action' => 'called', 'by' => $this->moneyer), null, true); ?>"
-                title="Read scope note for <?php echo $this->name; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search',
-                    'action' => 'results', 'moneyer' => $this->moneyer), null, true); ?>"
+                    'action' => 'results', 'moneyer' => $this->moneyerID), null, true); ?>"
                 title="view all records assigned to <?php echo $this->moneyer; ?>"><i class="icon-search"></i></a>
+
+        <?php endif; ?>
+
+        <?php if (!is_null($this->rrcID)): ?>
+            <br/>
+            RRC Identifier: <?php echo $this->crroData()->setUri($this->rrcID); ?> <a
+                href="http://numismatics.org/crro/id/<?php echo $this->rrcID; ?>"
+                title="Read scope note for<?php echo $this->crroData()->setUri($this->rrcID); ?>"><i
+                    class="icon-info-sign"></i></a> <a
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search',
+                    'action' => 'results', 'rrcID' => $this->rrcID), null, true); ?>"
+                title="view all records assigned to this identifier"><i class="icon-search"></i></a>
 
         <?php endif; ?>
 

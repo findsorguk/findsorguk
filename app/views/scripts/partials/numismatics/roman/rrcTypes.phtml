@@ -1,0 +1,19 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 06/08/15
+ * Time: 15:55
+ */
+?>
+<?php
+$dates = array(
+    $this->adBc()->setDate($this->startDate->__toString()),
+    $this->adBc()->setDate($this->endDate->__toString())
+);
+?>
+<li>
+    <a href="<?php echo $this->type; ?>"><?php echo $this->label; ?> <i
+            class="fa fa-external-link"></i></a> Issued: <?php echo implode(' - ', $dates); ?>
+
+</li>

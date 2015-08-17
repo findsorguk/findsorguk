@@ -13,7 +13,7 @@
  * @uses EasyRdfGraph
  * @uses Zend_Cache
  */
-class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
+class Pas_View_Helper_CrroData extends Zend_View_Helper_Abstract
 {
     /** The language to parse
      *
@@ -33,7 +33,7 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
     /** The main class
      * @access public
      */
-    public function nomismaRdf()
+    public function crroData()
     {
         return $this;
     }
@@ -57,24 +57,8 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
      * */
     public function getData()
     {
-
-        $key = md5($this->getUri());
-        if (!($this->getCache()->test($key))) {
-            $request = new EasyRdf_Http_Client();
-            $request->setUri($this->getUri());
-            $response = $request->request()->getStatus();
-            if ($response == 200) {
-                $graph = new EasyRdf_Graph($this->_uri);
-                $graph->load();
-                $data = $graph->resource($this->_uri);
-            } else {
-                $data = NULL;
-            }
-            $this->getCache()->save($data);
-        } else {
-            $data = $this->getCache()->load($key);
-        }
-        return $data;
+        $crro = new Crro();
+        return $crro->getInfo($this->getUri());
     }
 
     /** Get the uri
@@ -117,19 +101,9 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
     {
         $html = '';
         if (is_object($data)) {
-            $html .= '<img src="https://maps.google.com/maps/api/staticmap?center=' . $data->get('geo:lat')
-                . ',' . $data->get('geo:long') . '&zoom=5&size=200x200&maptype=hybrid&markers=color:green|label:G|'
-                . $data->get('geo:lat') . ',' . $data->get('geo:long') . '&sensor=false" class="stelae"/>';
-            $html .= '<ul>';
             foreach ($data->all('skos:prefLabel') as $labels) {
-                $html .= '<li>Preferred label: ' . $labels->getValue() . ' (' . $labels->getLang() . ')</li>';
+                $html .= $labels->getValue();
             }
-            $html .= '<li>Geo coords: ' . $data->get('geo:lat');
-            $html .= ',';
-            $html .= $data->get('geo:long');
-            $html .= '</li>';
-            $html .= '<li>Definition: ' . $data->get('skos:definition');
-            $html .= '</li></ul>';
         }
         return $html;
     }

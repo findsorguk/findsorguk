@@ -5,26 +5,11 @@ $this->metaBase()->setDescription('Details for the Republican Moneyer ' . $this-
     ->generate();
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
-    <p>
-        <?php
-        $dates = array($this->date_1, $this->date_2);
-        if (is_null($dates[1])) {
-            $dates = array_slice($dates, 0, 1);
-        }
-        ?>
-        Issued: <?php echo implode(' to ', $dates); ?>
-    </p>
-
 <?php if (!is_null($this->bio)): ?>
     <p><?php echo $this->bio; ?></p>
 <?php endif; ?>
 
-
     <p>
-        <?php if (!is_null($this->RRC)): ?>
-            <abbr title="Roman Republican Coinage number">RRC number</abbr>: <?php echo $this->RRC; ?><br/>
-        <?php endif; ?>
-
         <?php if (!is_null($this->appear)): ?>
             Appearance: <?php echo $this->appear; ?><br/>
         <?php endif; ?>
@@ -34,10 +19,19 @@ $this->metaBase()->setDescription('Details for the Republican Moneyer ' . $this-
         <?php endif; ?>
 
         <?php if (!is_null($this->nomismaID)): ?>
-            Nomisma ID: <?php echo $this->nomismaID; ?><br/>
+            Nomisma ID: <a href="http://nomisma.org/id/<?php echo $this->nomismaID; ?>"
+                           title="Nomisma page for this moneyer"><?php echo $this->nomismaID; ?></a><br/>
         <?php endif; ?>
+
+        <?php if (!is_null($this->bmID)): ?>
+            British Museum Identifier: <a
+                href="http://collection.britishmuseum.org/id/person-institution/<?php echo $this->bmID; ?>"
+                title="British Museum page for this moneyer"><?php echo $this->bmID; ?></a>
+        <?php endif; ?>
+
 
         <?php echo $this->searchLink()->setField('moneyer')->setId($this->id); ?>
     </p>
+<?php echo $this->nomismaRrcTypes()->setUri($this->nomismaID); ?>
 
 <?php echo $this->latestRecords()->setQuery('moneyer:' . $this->id); ?>

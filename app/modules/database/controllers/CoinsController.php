@@ -18,17 +18,15 @@
 class Database_CoinsController extends Pas_Controller_Action_Admin
 {
 
+    /** The base redirect
+     *
+     */
+    const REDIRECT = '/database/artefacts/';
     /** The coins model
      * @access protected
      * @var \Coins
      */
     protected $_coins;
-
-    public function getCoins()
-    {
-        $this->_coins = new Coins();
-        return $this->_coins;
-    }
 
     /** Setup the contexts by action and the ACL.
      * @access public
@@ -42,11 +40,6 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
         ));
         $this->_helper->_acl->allow('flos', null);
     }
-
-    /** The base redirect
-     *
-     */
-    const REDIRECT = '/database/artefacts/';
 
     /** Redirect as no direct access to the coins index page
      * @access public
@@ -100,6 +93,16 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
+    }
+
+    /** Get the coins model
+     * @access public
+     * @return \Coins
+     */
+    public function getCoins()
+    {
+        $this->_coins = new Coins();
+        return $this->_coins;
     }
 
     /** Edit coin data

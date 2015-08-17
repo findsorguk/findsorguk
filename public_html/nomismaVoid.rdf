@@ -1,0 +1,12 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:void="http://rdfs.org/ns/void#">
+	<void:Dataset rdf:about="https://finds.org.uk">
+		<dcterms:title>Republican coins from the Portable Antiquities Scheme</dcterms:title>
+		<dcterms:description>Coins in the PAS dataset that have an RRC number attributed to them.</dcterms:description>
+		<dcterms:publisher>The Trustees of the British Museum</dcterms:publisher>
+		<dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+		<void:uriSpace>https://finds.org.uk/database/artefacts/record/id/</void:uriSpace>
+		<void:dataDump rdf:resource="https://finds.org.uk/rdf/republicanCoins.rdf"/>
+	</void:Dataset>
+</rdf:RDF>

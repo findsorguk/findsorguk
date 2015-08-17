@@ -1,4 +1,5 @@
 <?php
+
 /** A class for setting up the rdf client
  *
  * Example of use:
@@ -8,7 +9,7 @@
  * $client = new Pas_RDF_Client();
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @version 1
@@ -21,17 +22,21 @@
  * @uses Easy_Rdf_Http
  *
  */
-class Pas_RDF_Client {
-
-    public function __construct(){
+class Pas_RDF_Client
+{
+    /** Construct the function
+     * @access public
+     */
+    public function __construct()
+    {
         $client = new Zend_Http_Client(
-                null, array(
-                    'adapter' => 'Zend_Http_Client_Adapter_Curl',
-                    'keepalive' => true,
-                    'useragent' => "findsorguk",
-                    'timeout' => 30
-                    )
-                );
+            null, array(
+                'adapter' => 'Zend_Http_Client_Adapter_Curl',
+                'keepalive' => true,
+                'useragent' => "findsorguk",
+                'timeout' => 30
+            )
+        );
         EasyRdf_Http::setDefaultHttpClient($client);
-	}
+    }
 }
