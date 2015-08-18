@@ -128,12 +128,14 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                         'Available moneyers' => $moneyer_options
                     ));
                     if (array_key_exists('moneyer', $coinDataFlat)) {
-                        $identifier = $moneyers->fetchRow($moneyers->select()->where('id = ?', $coinDataFlat['moneyer']))->nomismaID;
-                        $rrcTypes = new Nomisma();
-                        $this->_view->form->rrcID->addMultiOptions(array(
-                            null => 'Choose RRC type',
-                            'Available moneyers' => $rrcTypes->getRRCDropdownsFlat($identifier)
-                        ));
+                        if (!is_null($coinDataFlat['moneyer'])) {
+                            $identifier = $moneyers->fetchRow($moneyers->select()->where('id = ?', $coinDataFlat['moneyer']))->nomismaID;
+                            $rrcTypes = new Nomisma();
+                            $this->_view->form->rrcID->addMultiOptions(array(
+                                null => 'Choose RRC type',
+                                'Available moneyers' => $rrcTypes->getRRCDropdownsFlat($identifier)
+                            ));
+                        }
                     }
                 } else {
                     $this->_view->form->moneyer->addMultiOptions(array(
