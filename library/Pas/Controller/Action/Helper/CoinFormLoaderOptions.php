@@ -129,12 +129,15 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                     ));
                     if (array_key_exists('moneyer', $coinDataFlat)) {
                         if (!is_null($coinDataFlat['moneyer'])) {
-                            $identifier = $moneyers->fetchRow($moneyers->select()->where('id = ?', $coinDataFlat['moneyer']))->nomismaID;
-                            $rrcTypes = new Nomisma();
-                            $this->_view->form->rrcID->addMultiOptions(array(
-                                null => 'Choose RRC type',
-                                'Available moneyers' => $rrcTypes->getRRCDropdownsFlat($identifier)
-                            ));
+                            $identifier = $moneyers->fetchRow($moneyers->select()->where('id = ?', $coinDataFlat['moneyer']));
+                            if ($identifier) {
+                                $nomisma = $identifier->nomismaID;
+                                $rrcTypes = new Nomisma();
+                                $this->_view->form->rrcID->addMultiOptions(array(
+                                    null => 'Choose RRC type',
+                                    'Available moneyers' => $rrcTypes->getRRCDropdownsFlat($nomisma)
+                                ));
+                            }
                         }
                     }
                 } else {
