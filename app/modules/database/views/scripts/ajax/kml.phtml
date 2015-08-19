@@ -13,7 +13,7 @@ $documentName = $dom->createElement('name', 'search.kml');
 $documentNode->appendChild($documentName);
 
 foreach ($this->results as $result) {
-    if (!is_null($result['longitude'])) {
+    if (array_key_exists('longitude', $result)) {
 
         if (isset($result['thumbnail'])) {
             $url = '/images/thumbnails/';
