@@ -101,6 +101,20 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                 break;
             case 'ROMAN':
                 if (array_key_exists('ruler_id', $coinDataFlat)) {
+
+                    if (!is_null($coinDataFlat['ruler_id'])) {
+                        $rulers = new Rulers();
+                        $identifier = $rulers->fetchRow($rulers->select()->where('id = ?', $coinDataFlat['ruler_id']));
+                        if ($identifier) {
+                            $nomisma = $identifier->nomismaID;
+                            $rrcTypes = new Nomisma();
+                            $this->_view->form->ricID->addMultiOptions(array(
+                                null => 'Choose RIC type',
+                                'Available RIC types' => $rrcTypes->getRICDropdownsFlat($nomisma)
+                            ));
+                        }
+                    }
+
                     $reverses = new RevTypes();
                     $reverse_options = $reverses->getRevTypesForm($coinDataFlat['ruler_id']);
                     if ($reverse_options) {
@@ -135,7 +149,7 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                                 $rrcTypes = new Nomisma();
                                 $this->_view->form->rrcID->addMultiOptions(array(
                                     null => 'Choose RRC type',
-                                    'Available moneyers' => $rrcTypes->getRRCDropdownsFlat($nomisma)
+                                    'Available RRC types' => $rrcTypes->getRRCDropdownsFlat($nomisma)
                                 ));
                             }
                         }

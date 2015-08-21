@@ -108,6 +108,14 @@ class RomanCoinForm extends Pas_Form
             ->addFilters(array('StripTags', 'StringTrim'))
             ->setOptions(array('separator' => ''));
 
+        $ricID = new Zend_Form_Element_Select('ricID');
+        $ricID->setLabel('Roman Imperial Coinage ID number: ')
+            ->addFilters(array('StripTags', 'StringTrim'))
+            ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
+            ->addValidator('Imperial')
+            ->addMultiOptions(array(null => 'Choose RIC type from Nomisma'))
+            ->setRegisterInArrayValidator(false);
+
         $mint_id = new Zend_Form_Element_Select('mint_id');
         $mint_id->setLabel('Issuing mint: ')
             ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
@@ -273,17 +281,18 @@ class RomanCoinForm extends Pas_Form
             $obverse_inscription, $reverse_description, $reverse_inscription,
             $die_axis_measurement, $die_axis_certainty, $mint_qualifier,
             $ruler_qualifier, $denomination_qualifier, $status_qualifier,
-            $revTypeID_qualifier, $reverse_mintmark, $rrcID,
-            $submit));
+            $revTypeID_qualifier, $reverse_mintmark,
+            $rrcID, $ricID, $submit));
 
         $this->addDisplayGroup(array(
             'denomination', 'denomination_qualifier', 'ruler_id',
-            'ruler_qualifier', 'mint_id', 'mint_qualifier',
-            'reeceID', 'revtypeID', 'revTypeID_qualifier',
-            'moneyer', 'rrcID', 'status',
-            'status_qualifier', 'degree_of_wear', 'obverse_description',
-            'obverse_inscription', 'reverse_description', 'reverse_inscription',
-            'reverse_mintmark', 'die_axis_measurement', 'die_axis_certainty'
+            'ruler_qualifier', 'ricID', 'mint_id',
+            'mint_qualifier', 'reeceID', 'revtypeID',
+            'revTypeID_qualifier', 'moneyer', 'rrcID',
+            'status', 'status_qualifier', 'degree_of_wear',
+            'obverse_description', 'obverse_inscription', 'reverse_description',
+            'reverse_inscription', 'reverse_mintmark', 'die_axis_measurement',
+            'die_axis_certainty'
         ),
             'details');
         $this->addDisplayGroup(array('submit'), 'buttons');

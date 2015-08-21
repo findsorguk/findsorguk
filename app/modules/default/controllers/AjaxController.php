@@ -550,6 +550,28 @@ class AjaxController extends Pas_Controller_Action_Ajax
         echo Zend_Json::encode($response);
     }
 
+    /** A function to get RRC types for moneyers as json
+     * @access public
+     * @return mixed
+     */
+    public function rictypesAction()
+    {
+        if ($this->getParam('term', false)) {
+            $rulers = new Rulers();
+            $nomismaID = $rulers->fetchRow($rulers->select()->where('id = ?', $this->getParam('term')))->nomismaID;
+            $nomisma = new Nomisma();
+            $types = $nomisma->getRICDropdowns($nomismaID);
+            if ($types) {
+                $response = $types;
+            } else {
+                $response = array(array('id' => null, 'term' => 'No options available'));
+            }
+        } else {
+            $response = array(array('id' => null, 'term' => 'No ruler specified'));
+        }
+        echo Zend_Json::encode($response);
+    }
+
     /** Get early medieval category to ruler
      * @access public
      * @return mixed
