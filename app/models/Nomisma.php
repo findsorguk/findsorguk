@@ -1,4 +1,5 @@
 <?php
+
 /** A class for interacting with the Nomisma remote triple store (http://nomisma.org)
  *
  * An example of use:
@@ -38,6 +39,24 @@ class Nomisma
         foreach ($rrcTypes as $rrcType) {
             $dropDown[] = array(
                 'id' => str_replace('http://numismatics.org/crro/id/', '', $rrcType->type->__toString()),
+                'term' => $rrcType->label->__toString()
+            );
+        }
+        return $dropDown;
+    }
+
+
+    /** A method to turn RRC rdf into dropdowns in the format of id and term pairs
+     * @access public
+     * @return array $dropdown
+     */
+    public function getRICDropdowns($identifier)
+    {
+        $rrcTypes = $this->getRRCTypes($identifier);
+        $dropDown = array();
+        foreach ($rrcTypes as $rrcType) {
+            $dropDown[] = array(
+                'id' => str_replace('http://numismatics.org/ocre/id/', '', $rrcType->type->__toString()),
                 'term' => $rrcType->label->__toString()
             );
         }
@@ -92,6 +111,60 @@ class Nomisma
     {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
+    }
+
+    /** A function for flattened RIC dropdowns
+     * @access public
+     * @return array $dropDown
+     */
+    public function getRICDropdownsFlat($identifier)
+    {
+        $ricTypes = $this->getRICTypes($identifier);
+        $dropDown = array();
+        foreach ($ricTypes as $ricType) {
+            $dropDown[str_replace('http://numismatics.org/ocre/id/', '', $ricType->type->__toString())] = $ricType->label->__toString();
+        }
+        return $dropDown;
+    }
+
+    /** Get the data for reuse based off sparql endpoint
+     * @access public
+     * @return array $data
+     * */
+    public function getRICTypes($identifier)
+    {
+        $key = md5($identifier . 'ricTypes');
+        if (!($this->getCache()->test($key))) {
+            $client = new Zend_Http_Client(
+                null,
+                array(
+                    'adapter' => 'Zend_Http_Client_Adapter_Curl',
+                    'keepalive' => true,
+                    'useragent' => "finds.org.uk/easyrdf"
+                )
+            );
+            $client->setHeaders(array('accept' => 'application/sparql-results+xml'));
+            EasyRdf_Http::setDefaultHttpClient($client);
+            //Add the namespaces needed to parse the query
+            EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
+            EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
+            EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
+            EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+            $sparql = new EasyRdf_Sparql_Client('http://nomisma.org/query');
+            $data = $sparql->query(
+                'SELECT * WHERE {' .
+                '  ?type ?role nm:' . $identifier . ' ;' .
+                '   a nmo:TypeSeriesItem ;' .
+                '  skos:prefLabel ?label' .
+                '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
+                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
+                '  FILTER(langMatches(lang(?label), "en"))' .
+                ' } ORDER BY ?label');
+            $this->getCache()->save($data);
+        } else {
+            $data = $this->getCache()->load($key);
+        }
+        return $data;
     }
 
     /** A function for flattened RRC dropdowns

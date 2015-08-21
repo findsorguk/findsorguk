@@ -9,8 +9,14 @@ jQuery(document).ready(function ($) {
         firstOption: 'Please select a mint',
         loadingText: 'Loading Please Wait...'
     });
+
     $('#ruler_id').linkedSelect('/ajax/romanmintruler/', '#mint_id', {
         firstOption: 'Please select a mint',
+        loadingText: 'Loading Please Wait...'
+    });
+
+    $('#ruler_id').linkedSelect('/ajax/rictypes/', '#ricID', {
+        firstOption: 'Please select a RIC ID',
         loadingText: 'Loading Please Wait...'
     });
 

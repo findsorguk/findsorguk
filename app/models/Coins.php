@@ -56,7 +56,7 @@ class Coins extends Pas_Db_Table_Abstract
                 'moneyer', 'revtypeID', 'categoryID',
                 'typeID', 'tribeID' => 'tribe', 'createdBy',
                 'reverse_mintmark', 'initial_mark', 'bmc_type',
-                'rudd_type', 'rrcID'
+                'rudd_type', 'rrcID', 'ricID'
             ))
             ->joinLeft('finds', 'finds.secuid = coins.findID',
                 array('broadperiod', 'returnID' => 'id', 'old_findID'))
@@ -156,7 +156,8 @@ class Coins extends Pas_Db_Table_Abstract
                 'phase_date_2', 'context', 'depositionDate',
                 'numChiab', 'categoryID', 'typeID',
                 'type', 'initial_mark', 'greekstateID',
-                'createdBy', 'institution', 'rrcID'
+                'createdBy', 'institution', 'rrcID',
+                'ricID'
             ))
             ->where('coins.id = ?', (int)$id);
         return $coins->fetchAll($select);
