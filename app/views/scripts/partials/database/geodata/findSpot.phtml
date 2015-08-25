@@ -148,6 +148,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
 
     map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->regionID; ?>.geojson');
+    map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->countyID; ?>.geojson');
     map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->districtID; ?>.geojson');
     map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->parishID; ?>.geojson');
 
