@@ -1,6 +1,6 @@
 SetEnv APPLICATION_ENV production
 RewriteEngine on
-RewriteRule !\.(htm|html|txt|mpg|swf|js|ico|gif|JPG|zip|jpg|png|css|php|xml|mp3|kml|pdf|tif|pptx|ppt|doc|docx|mp4|mov|rdf)$ index.php
+RewriteRule !\.(htm|html|txt|mpg|swf|js|ico|gif|JPG|zip|jpg|png|css|php|xml|mp3|kml|pdf|tif|pptx|ppt|doc|docx|mp4|mov|rdf|geojson)$ index.php
 RewriteCond %{HTTP_HOST} ^www\.(.+)
 RewriteCond %{HTTPS}s/%1 ^(on(s)|offs)/(.+)
 RewriteRule ^ http%2://%3%{REQUEST_URI} [L,R=301]
