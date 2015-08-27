@@ -147,16 +147,29 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
 
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
 
-    map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->regionID; ?>.geojson');
-    map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->countyID; ?>.geojson');
-    map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->districtID; ?>.geojson');
-    map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->parishID; ?>.geojson');
+    <?php if(!is_null($this->regionID)):?>
+        mapdata.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->regionID; ?>.geojson');
+    <?php endif;?>
+
+    <?php if(!is_null($this->countyID)):?>
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->countyID; ?>.geojson');
+    <?php endif;?>
+
+    <?php if(!is_null($this->districtID)):?>
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->districtID; ?>.geojson');
+    <?php endif;?>
+
+    <?php if(!is_null($this->parishID)):?>
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->parishID; ?>.geojson');
+    <?php endif;?>
+
     map.data.setStyle({
-    fillColor: 'red',
-    fill-opacity: 0.1,
-    stroke-weight: 1,
-    stroke-width: 3
+    fillColor: 'white',
+    fillOpacity: 0.0,
+    strokeOpacity: 0.1,
+    strokeColor: 'red'
     });
+
 
     <?php
     $bbox = new Pas_Geo_BoundBox();
