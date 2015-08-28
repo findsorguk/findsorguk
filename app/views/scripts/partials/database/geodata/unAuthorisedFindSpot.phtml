@@ -90,15 +90,28 @@
 
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
 
-    var parish = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>/kml/parishes/<?php echo strtoupper(str_replace(array(' ', "'"), '', $this->parish)); ?>.kml',
-    {preserveViewport: true, suppressInfoWindows: false });
-    parish.setMap(map);
-    var county = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>/kml/counties/<?php echo strtoupper(str_replace(array(' ', "'"), '', $this->county)); ?>.kml',
-    {preserveViewport: true, suppressInfoWindows: false });
-    county.setMap(map);
-    var district = new google.maps.KmlLayer('<?php echo $this->serverUrl(); ?>/kml/districts/<?php echo strtoupper(str_replace(array(' ', "'"), '', $this->district)); ?>.kml',
-    {preserveViewport: true, suppressInfoWindows: false });
-    district.setMap(map);
+    <?php if(!is_null($this->regionID)):?>
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->regionID; ?>.geojson');
+    <?php endif;?>
+
+    <?php if(!is_null($this->countyID)):?>
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->countyID; ?>.geojson');
+    <?php endif;?>
+
+    <?php if(!is_null($this->districtID)):?>
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->districtID; ?>.geojson');
+    <?php endif;?>
+
+    <?php if(!is_null($this->parishID)):?>
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->parishID; ?>.geojson');
+    <?php endif;?>
+
+    map.data.setStyle({
+    fillColor: 'white',
+    fillOpacity: 0.0,
+    strokeColor: 'black',
+    strokeWeight: 0.9
+    });
 
     <?php
     $bbox = new Pas_Geo_BoundBox();
