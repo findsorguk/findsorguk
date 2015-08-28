@@ -1,0 +1,13 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:void="http://rdfs.org/ns/void#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:oac="http://www.openannotation.org/ns/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:nm="http://nomisma.org/id/" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:foaf="http://xmlns.com/foaf/0.1/">
+<void:Dataset rdf:about="https://finds.org.uk">
+<dcterms:title>finds.org.uk</dcterms:title>
+<dcterms:description>
+Pleiades annotations for data contained within the Portable Antiquities Scheme (mostly numismatic material).
+</dcterms:description>
+<dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+<dcterms:subject rdf:resource="http://dbpedia.org/resource/Annotation"/>
+<dcterms:publisher>The Trustees of the British Museum</dcterms:publisher>
+<foaf:homepage resource="https://finds.org.uk/"/>
+<void:dataDump rdf:resource="http://finds.org.uk/rdf/pelagios.rdf"/>
+</void:Dataset>
+</rdf:RDF>
