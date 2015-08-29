@@ -366,10 +366,18 @@ class Findspots extends Pas_Db_Table_Abstract {
             $data['fourFigureLon'] = $fourFigureData['decimalLatLon']['decimalLongitude'];
             $yahoo = $place->reverseGeoCode($results['decimalLatLon']['decimalLatitude'],
             $results['decimalLatLon']['decimalLongitude']);
+
             $data['woeid'] = $yahoo['woeid'];
             $elevate = new Pas_Service_Geo_Elevation($this->_gmaps);
             $data['elevation'] = $elevate->getElevation($data['declong'], $data['declat']);
-    
+
+            $words = new Pas_Service_What3words();
+            Zend_Debug::dump($this->_config->webservice->what3words->apikey);
+            $words->setApiKey($this->_config->webservice->what3words->apikey);
+            $threewords = $words->positionToWords(array($data['fourFigureLat'], $data['fourFigureLon']));
+            Zend_Debug::dump($threewords);
+            exit;
+
         }  else {
             throw new Zend_Exception('Data is not an array', 500);
         }
