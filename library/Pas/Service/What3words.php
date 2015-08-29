@@ -47,12 +47,12 @@ class Pas_Service_What3words
 
     }
 
-    public function requestWords($data)
+    public function requestWords($method, $data)
     {
         $data['key'] = $this->getApiKey();
         $data['lang'] = $this->getLanguage();
         $curl = new Pas_Curl();
-        $curl->setUri(self::WHAT3WORDS_URI . http_build_query($data));
+        $curl->setUri(self::WHAT3WORDS_URI . $method . '?' . http_build_query($data));
         Zend_Debug::dump($curl->getRequest());
         $curl->getRequest();
         if($curl->getResponseCode() == 200){
