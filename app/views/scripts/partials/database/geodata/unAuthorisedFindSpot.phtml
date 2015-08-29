@@ -217,6 +217,10 @@
                     <br/>
                     WOEID: <a href="http://woe.spum.org/id/<?php echo $this->woeid; ?>"><?php echo $this->woeid; ?></a>
                 <?php endif; ?>
+                <?php if(!is_null($this->what3words)):?>
+                    <br />
+                    What3Words identifier: <?php echo $this->what3words;?>
+                <?php endif;?>
             <?php endif; ?>
 
             <?php if ($this->source): ?>
@@ -226,9 +230,9 @@
             <?php endif; ?>
 
             <?php if (!is_null($this->gridref)): ?>
-
                 Unmasked grid reference accurate to a <?php echo $this->getAccuracy()->setGridRef($this->gridref); ?> metre square.
             <?php endif; ?>
+
 
         </p>
 
