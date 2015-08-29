@@ -114,6 +114,8 @@ class RomanCoinForm extends Pas_Form
             ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
             ->addValidator('Imperial')
             ->addMultiOptions(array(null => 'Choose RIC type from Nomisma'))
+            ->setDescription('These identifiers are dynamically drawn from Nomisma.org. They have not parsed all
+            volumes of RIC yet and it may take a short while to load.')
             ->setRegisterInArrayValidator(false);
 
         $mint_id = new Zend_Form_Element_Select('mint_id');
@@ -172,6 +174,8 @@ class RomanCoinForm extends Pas_Form
             ->setAttrib('class', 'input-xxlarge selectpicker show-menu-arrow')
             ->addValidator('Republican')
             ->addMultiOptions(array(null => 'Choose RRC type from Nomisma'))
+            ->setDescription('These identifiers are dynamically drawn from Nomisma.org and there maybe a short delay
+            loading them.')
             ->setRegisterInArrayValidator(false);
 
 
