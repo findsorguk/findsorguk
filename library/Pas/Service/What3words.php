@@ -51,7 +51,6 @@ class Pas_Service_What3words
     {
         $data['key'] = $this->getApiKey();
         $data['lang'] = $this->getLanguage();
-        Zend_Debug::dump($data);
         $curl = new Pas_Curl();
         $curl->setUri(self::WHAT3WORDS_URI . $url);
         $curl->setConfig(array(
@@ -66,6 +65,7 @@ class Pas_Service_What3words
                 CURLOPT_POSTFIELDS => http_build_query($data)
             ),
         ));
+        Zend_Debug::dump($curl->getRequest());
         $curl->getRequest();
         if($curl->getResponseCode() == 200){
             return $curl->getJson();
