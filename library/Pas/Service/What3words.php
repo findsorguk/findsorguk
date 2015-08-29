@@ -52,19 +52,7 @@ class Pas_Service_What3words
         $data['key'] = $this->getApiKey();
         $data['lang'] = $this->getLanguage();
         $curl = new Pas_Curl();
-        $curl->setUri(self::WHAT3WORDS_URI . $url);
-        $curl->setConfig(array(
-            'adapter' => 'Zend_Http_Client_Adapter_Curl',
-            'curloptions' => array(
-                CURLOPT_POST => true,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HEADER => false,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_LOW_SPEED_TIME => 1,
-                CURLOPT_POST => count($data),
-                CURLOPT_POSTFIELDS => http_build_query($data)
-            ),
-        ));
+        $curl->setUri(self::WHAT3WORDS_URI . $url . http_build_query($data));
         Zend_Debug::dump($curl->getRequest());
         $curl->getRequest();
         if($curl->getResponseCode() == 200){
