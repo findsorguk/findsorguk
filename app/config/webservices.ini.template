@@ -76,3 +76,5 @@ webservice.ydnkeys.placemakerkey =
 webservice.wordpress.username = 
 webservice.wordpress.password = 
 webservice.wordpress.xmlrpc   = 
+
+webservice.what3words.apikey =

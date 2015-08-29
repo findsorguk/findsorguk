@@ -247,6 +247,10 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
                 Centre of parish as LatLon pair: <?php echo $this->centreLat; ?>,<?php echo $this->centreLon; ?>
                 <br/>
                 Centre of parish <?php echo $this->gridRef($this->centreLat, $this->centreLon); ?>
+                <?php if(!is_null($this->what3words)):?>
+                    <br />
+                    What3Words identifier: <?php echo $this->what3words;?>
+                <?php endif;?>
             <?php endif; ?>
         </p>
 

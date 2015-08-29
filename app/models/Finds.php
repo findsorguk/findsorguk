@@ -370,6 +370,7 @@ class Finds extends Pas_Db_Table_Abstract
                     'gridlen',
                     'geonamesID',
                     'accuracy',
+                    'what3words'
                 ))
             ->joinLeft('gridrefsources',
                 'gridrefsources.ID = findspots.gridrefsrc',
@@ -2104,6 +2105,7 @@ class Finds extends Pas_Db_Table_Abstract
                     'fourFigureLon',
                     'geonamesID',
                     'elevation',
+                    'what3words',
                     'woeid',
                     'easting',
                     'northing',
