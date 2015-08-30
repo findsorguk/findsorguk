@@ -219,17 +219,17 @@
                 <?php endif; ?>
                 <?php if(!is_null($this->what3words)):?>
                     <br />
-                    What3Words identifier: <?php echo $this->what3words;?>
+                    <a href="https://what3words.com"> What3Words</a>: <a href="https://map.what3words.com/<?php echo $this->what3words;?>"><?php echo $this->what3words;?></a> <i class="icon-external-link"></i>
                 <?php endif;?>
             <?php endif; ?>
 
             <?php if ($this->source): ?>
                 <br/>
                 Grid reference source: <?php echo $this->escape($this->source); ?>
-                <br/>
             <?php endif; ?>
 
             <?php if (!is_null($this->gridref)): ?>
+                <br/>
                 Unmasked grid reference accurate to a <?php echo $this->getAccuracy()->setGridRef($this->gridref); ?> metre square.
             <?php endif; ?>
 
