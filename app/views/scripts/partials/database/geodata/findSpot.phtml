@@ -249,7 +249,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
                 Centre of parish <?php echo $this->gridRef($this->centreLat, $this->centreLon); ?>
                 <?php if(!is_null($this->what3words)):?>
                     <br />
-                    What3Words identifier: <?php echo $this->what3words;?>
+                    <a href="https://what3words.com"> What3Words</a>: <a href="https://map.what3words.com/<?php echo $this->what3words;?>"><?php echo $this->what3words;?></a> <i class="icon-external-link"></i>
                 <?php endif;?>
             <?php endif; ?>
         </p>
