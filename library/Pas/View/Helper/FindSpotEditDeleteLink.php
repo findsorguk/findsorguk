@@ -309,7 +309,7 @@ class Pas_View_Helper_FindSpotEditDeleteLink extends Zend_View_Helper_Abstract
         $editurl = $this->view->url(array('module' => 'database', 'controller' => 'findspots', 'action' => 'edit',
             'id' => $this->getRecordID(), 'recordtype' => $this->getController()), null, true);
         $deleteurl = $this->view->url(array('module' => 'database', 'controller' => 'findspots', 'action' => 'delete',
-            'id' => $this->getRecordID(), 'recordtype' => $this->getController()), null, true);
+            'id' => $this->getRecordID(), 'recordtype' => $this->getController(), 'recordID' => $this->getFindID()), null, true);
         $html = '<div class="btn-group"><a class="' . $editClass . '" href="' . $editurl
             . '" title="Edit spatial data for this record">Edit findspot <i class="icon-edit icon-white"></i></a> <a class="' . $deleteClass . '" href="' . $deleteurl
             . '" title="Delete spatial data">Delete findspot <i class="icon-trash icon-white"></i></a></div>';
