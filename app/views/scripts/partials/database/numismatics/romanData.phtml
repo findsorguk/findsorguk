@@ -114,6 +114,9 @@
         <?php if (!is_null($this->moneyer)) : ?>
             <br/>
             Republican moneyer: <?php echo $this->escape($this->moneyer); ?> <a
+                href="http://nomisma.org/id/<?php echo $this->nomismaMoneyer; ?>"
+                title="Read scope note for <?php echo $this->moneyer; ?>"><i
+                    class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search',
                     'action' => 'results', 'moneyer' => $this->moneyerID), null, true); ?>"
                 title="view all records assigned to <?php echo $this->moneyer; ?>"><i class="icon-search"></i></a>

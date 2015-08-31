@@ -452,7 +452,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('medievaltypes', 'medievaltypes.id = coins.typeID',
                 array('type'))
             ->joinLeft('moneyers', 'moneyers.id = coins.moneyer',
-                array('moneyer' => 'name', 'moneyerID' => 'id'))
+                array('moneyer' => 'name', 'moneyerID' => 'id', 'nomismaMoneyer' => 'nomismaID'))
             ->joinLeft('emperors', 'emperors.pasID = rulers.id',
                 array('emperorID' => 'id'))
             ->joinLeft('romanmints', 'romanmints.pasID = mints.id',
