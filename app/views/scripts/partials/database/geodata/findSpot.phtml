@@ -8,7 +8,9 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 echo $this->findSpotEditDeleteLink()->setController($controller)
     ->setCreatedBy($this->createdBy)
     ->setInstitution($this->institution)
-    ->setRecordID($this->findSpotID); ?>
+    ->setRecordID($this->findSpotID)
+    ->setFindID($this->id);
+?>
 
 <?php if (!is_null($this->lon) && !is_null($this->lat)) : ?>
 
