@@ -223,13 +223,14 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
                 $recordID = (int)$this->_request->getPost('recordID');
+                $type = $this->getParam('recordtype');
                 $this->setController($this->_request->getPost('controller'));
                 $this->setRedirect($this->getController());
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = 'id = ' . $id;
                     $this->_findspots->delete($where);
-                    $this->_helper->solrUpdater->update('objects', $recordID, $this->getParam('recordtype'));
+                    $this->_helper->solrUpdater->update('objects', $recordID, $type);
                     $this->getFlash()->addMessage('Findspot deleted.');
                 }
                 $this->redirect($this->getRedirect() . 'record/id/' . $recordID);
