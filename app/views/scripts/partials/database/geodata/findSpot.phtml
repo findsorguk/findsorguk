@@ -314,7 +314,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
                 <h3 class="lead">Discovery metadata</h3>
 
                 <p>
-                    <?php if (!is_null($this->discoveryMethod)) : ?>
+                    <?php if (!is_null($this->discmethod)) : ?>
                         Method of discovery: <?php echo $this->escape($this->discmethod); ?>
                         <a href="<?php echo $this->url(array(
                             'module' => 'datalabs',
@@ -329,9 +329,6 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
                         Discovery circumstances:  <?php echo $this->escape($this->disccircum); ?> <br/>
                     <?php endif; ?>
 
-                    <?php if (!is_null($this->curr_loc)) : ?>
-                        Current location: <?php echo $this->escape($this->curr_loc); ?> <br/>
-                    <?php endif; ?>
 
                     <?php if (!is_null($this->landvalue)) : ?>
                         General land use: <?php echo $this->landvalue; ?>
