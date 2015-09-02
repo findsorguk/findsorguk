@@ -92,8 +92,8 @@ class Nomisma
                 '  ?type ?role nm:' . $identifier . ' ;' .
                 '   a nmo:TypeSeriesItem ;' .
                 '  skos:prefLabel ?label' .
-                '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
-                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
+//                '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
+//                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
                 '  FILTER(langMatches(lang(?label), "en"))' .
                 ' } ORDER BY ?label');
             $this->getCache()->save($data);
@@ -156,8 +156,8 @@ class Nomisma
                 '  ?type ?role nm:' . $identifier . ' ;' .
                 '   a nmo:TypeSeriesItem ;' .
                 '  skos:prefLabel ?label' .
-                '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
-                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
+//                '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
+//                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
                 '  FILTER(langMatches(lang(?label), "en"))' .
                 ' } ORDER BY ?label');
             $this->getCache()->save($data);
