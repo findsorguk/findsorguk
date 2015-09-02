@@ -249,14 +249,15 @@
         <h3 class="lead">Discovery metadata</h3>
 
         <p>
-            <?php if (!is_null($this->method)) : ?>
-                Method of discovery: <?php echo $this->method; ?>
+            <?php if (!is_null($this->discmethod)) : ?>
+                Method of discovery: <?php echo $this->escape($this->discmethod); ?>
                 <a href="<?php echo $this->url(array(
-                        'module' => 'datalabs',
-                        'controller' => 'terminology',
-                        'action' => 'method',
-                        'id' => $this->discmethod), null, true);?>"
-                                        title="Read scope note for <?php echo $this->method; ?>"><i class="icon-info-sign"></i></a><br/>
+                    'module' => 'datalabs',
+                    'controller' => 'terminology',
+                    'action' => 'method',
+                    'id' => $this->discoveryMethod), null, true); ?>"
+                   title="Read scope note for <?php echo $this->discmethod; ?>"><i class="icon-search"></i></a>
+                <br/>
             <?php endif; ?>
 
             <?php if (!is_null($this->disccircum)) : ?>
