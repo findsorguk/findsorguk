@@ -6,14 +6,16 @@
  * Time: 23:08
  */
 ?>
-<?php
-$this->headLink()->appendStylesheet('https://s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/css/timeline.css');
-$this->jQuery()->addJavascriptFile('https://s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/js/timeline-min.js');
-$this->jQuery()->addJavascriptFile('https://s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js');
-?>
+<?php $dates = array($this->numdate1, $this->numdate2); ?>
+<?php if (array_filter($dates)): ?>
+    <?php
+    $this->headLink()->appendStylesheet('https://s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/css/timeline.css');
+    $this->jQuery()->addJavascriptFile('https://s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/js/timeline-min.js');
+    $this->jQuery()->addJavascriptFile('https://s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js');
+    ?>
     <h4 class="lead">Timeline of associated dates</h4>
     <div id="objectTimeline"></div>
-<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    <?php $this->jQuery()->javascriptCaptureStart(); ?>
     $(document).ready(function() {
     createStoryJS({
     type:       'timeline',
@@ -25,4 +27,5 @@ $this->jQuery()->addJavascriptFile('https://s3.amazonaws.com/cdn.knightlab.com/l
     debug: true
     });
     });
-<?php $this->jQuery()->javascriptCaptureEnd(); ?>
+    <?php $this->jQuery()->javascriptCaptureEnd(); ?>
+<?php endif; ?>
