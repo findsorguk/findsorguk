@@ -307,7 +307,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
             <?php echo $this->yahooGeoAdjacent()->setWoeid($this->woeid); ?>
         </div>
         <?php
-        $discovery = array($this->method, $this->disccircum, $this->curr_loc, $this->landvalue, $this->landuse);
+        $discovery = array($this->discmethod, $this->disccircum, $this->curr_loc, $this->landvalue, $this->landuse);
         if (array_filter($discovery)):
             ?>
             <div class="span4">
