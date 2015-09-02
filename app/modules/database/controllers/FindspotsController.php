@@ -220,28 +220,31 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
     public function deleteAction()
     {
         if ($this->getParam('id', false)) {
+            $type = $this->getParam('recordtype');
+            $recordID = $this->getParam('recordID');
             if ($this->_request->isPost()) {
                 $id = (int)$this->_request->getPost('id');
-                $recordID = (int)$this->_request->getPost('recordID');
-                $type = $this->getParam('recordtype');
-                $this->setController($this->_request->getPost('controller'));
+                $this->view->recordID = (int)$this->_request->getPost('recordID');
+                $this->view->type = $type;
+                $this->setController($this->_request->getPost('type'));
                 $this->setRedirect($this->getController());
                 $del = $this->_request->getPost('del');
                 if ($del == 'Yes' && $id > 0) {
                     $where = 'id = ' . $id;
                     $this->_findspots->delete($where);
-                    $this->_helper->solrUpdater->update('objects', $recordID, $type);
+                    $this->_helper->solrUpdater->update('objects', $recordID, $this->_request->getPost('type'));
                     $this->getFlash()->addMessage('Findspot deleted.');
                 }
                 $this->redirect($this->getRedirect() . 'record/id/' . $recordID);
             } else {
                 $id = (int)$this->_request->getParam('id');
+                $type = $this->getParam('recordtype');
                 if ($id > 0) {
                     $this->view->findspot = $this->_findspots->getFindtoFindspotDelete($this->getParam('id'), $this->getController());
                 }
             }
         } else {
-            throw new Pas_Exception_Param($this->_missingParameter, 500);
+            throw new Pas_Exception_Param($this->_missingParameter, 404);
         }
     }
 
