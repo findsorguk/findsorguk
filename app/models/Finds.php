@@ -244,6 +244,7 @@ class Finds extends Pas_Db_Table_Abstract
                 'quantity',
                 'otherRef' => 'other_ref',
                 'curr_loc',
+                'discoveryMethod' => 'discmethod',
                 'treasureID',
                 'broadperiod',
                 'numdate1',
