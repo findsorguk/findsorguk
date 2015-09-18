@@ -66,6 +66,10 @@ class Pas_View_Helper_Acronyms extends Zend_View_Helper_Abstract
     {
         $text = $this->getString();
         $abbrev = $this->getAcronyms();
+
+        // Ensure that text is always returned even if there are no acronyms.
+        $newText = trim($text);
+
         foreach ($abbrev as $acronym => $expanded) {
             $text = preg_replace("|(?!<[^<>]*?)(?<![?.&])\b$acronym\b(?!:)(?![^<>]*?>)|msU",
                 "<abbr title=\"$expanded\">$acronym</abbr>", $text);
