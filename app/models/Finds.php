@@ -305,9 +305,9 @@ class Finds extends Pas_Db_Table_Abstract
                     'fullnameUpdate' => 'fullname'
                 ))
             ->joinLeft(array('mat' => 'materials'), 'finds.material1 = mat.id',
-                array('primaryMaterial' => 'term'))
+                array('primaryMaterial' => 'term', 'primaryBMmaterial' => 'bmID'))
             ->joinLeft(array('mat2' => 'materials'), 'finds.material2 = mat2.id',
-                array('secondaryMaterial' => 'term'))
+                array('secondaryMaterial' => 'term', 'secondaryBMmaterial' => 'bmID'))
             ->joinLeft('decmethods', 'finds.decmethod = decmethods.id',
                 array('decoration' => 'term'))
             ->joinLeft('decstyles', 'finds.decstyle = decstyles.id',
@@ -323,7 +323,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('certaintytypes', 'certaintytypes.id = finds.objecttypecert',
                 array('objectCertainty' => 'term'))
             ->joinLeft('periods', 'finds.objdate1period = periods.id',
-                array('periodFrom' => 'term'))
+                array('periodFrom' => 'term', 'senechalPeriodFrom' => 'ehTerm', 'bmPeriodFrom' => 'bmID'))
             ->joinLeft(array('p' => 'periods'), 'finds.objdate2period = p.id',
                 array('periodTo' => 'term'))
             ->joinLeft(array('p2' => 'periods'), 'finds.reuse_period = p2.id',
@@ -502,6 +502,7 @@ class Finds extends Pas_Db_Table_Abstract
                 ))
             ->joinLeft(array('landowners' => 'people'), 'findspots.landowner = landowners.secuid', array('landOwnerName' => 'fullname', 'landOwnerID' => 'id'))
             ->joinLeft('subsequentActions', 'finds.subs_action = subsequentActions.id', array('subsequentActionTerm' => 'action'))
+            ->joinLeft('objectTerms', 'finds.objecttype = objectTerms.term', array('bmThesObject' => 'bmID', 'seneschalObject' => 'ehID'))
             ->where('finds.id = ?', (int)$findID)
             ->group('finds.id')
             ->limit(1);
