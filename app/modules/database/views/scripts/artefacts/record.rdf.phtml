@@ -235,6 +235,9 @@ if($data['objecttype'] == 'COIN'){
         $discovery->addType('bmo:EX_Discovery');
         $discovery->addType('crm:E10_Transfer_of_Custody');
         $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/find/E');
+        $type->addType('crm:E55_Type');
+        $type->addType('skos:Concept');
+        $type->addLiteral('skos:prefLabel', 'Excavated, discovered at, or find spot of object');
         $discovery->add('crm:P2_has_type', $type);
         $discovery->add('crm:P7_took_place_at', $findspotNM);
         $record->add('crm:P12i_was_present_at', $discovery);
@@ -242,13 +245,14 @@ if($data['objecttype'] == 'COIN'){
 
     // Die axis
     if(!is_null($data['dieAxis'])){
-        $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/oclock');
+        $units = $graph->resource('http://collection.britishmuseum.org/resource/thesUnit/oclock');
+        $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/die-axis');
+
         $crmAxis = $graph->resource($record . '#axis');
         $crmAxis->addType('crm:E54_Dimension');
         $crmAxis->addLiteral('crm:P90_has_value', (int) $data['dieAxis']);
         $crmAxis->add('crm:P2_has_type', $type);
-        $mm = $graph->resource('units:Hours');
-        $crmAxis->add('crm:P91_has_unit', $mm);
+        $crmAxis->add('crm:P91_has_unit', $units);
         $record->add('crm:P43_has_dimension', $crmAxis);
     }
 }
@@ -369,7 +373,7 @@ if(!is_null($data['primaryMaterial'])){
 
 // Secondary material of object
 if(!is_null($data['secondaryMaterial'])){
-    $material = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['primaryBMmaterial']);
+    $material = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['secondaryBMmaterial']);
     $material->addType('crm:E57_Material');
     $material->addType('skos:Concept');
     $material->addLiteral('skos:prefLabel', $data['secondaryMaterial']);
@@ -433,6 +437,7 @@ $record->add('crm:P108i_was_produced_by', $production);
         $minted->addType('crm:E12_Production');
         $minted->add('crm:P2_has_type', 'http://collection.britishmuseum.org/id/thesauri/production/T');
         $minted->add('crm:P7_took_place_at', $gn);
+        $minted->addLiteral('rdfs:label', 'The mint of the coin');
         $production->add('crm:P9_consists_of', $minted);
     }
     // CRM issuer
@@ -441,7 +446,48 @@ $record->add('crm:P108i_was_produced_by', $production);
         $ruler = $graph->resource('https://finds.org.uk/datalabs/rulers/ruler/id/' . $data['ruler1']);
         $issuer->addType('crm:E12_Production');
         $issuer->add('crm:P17_was_motivated_by', $ruler);
+        $issuer->addLiteral('rdfs:label', 'The issuer of the coin');
         $production->add('crm:P9_consists_of', $issuer);
+    }
+
+    // CRM manufacture
+    if(!is_null($data['manufacture'])){
+        $manufacture = $graph->resource($record . '#manufacture');
+        $tech = $graph->resource('http://finds.org.uk/datalabs/manufactures/id/');
+        $manufacture->addType('crm:E12_Production');
+        $manufacture->add('crm:P32_used_general_technique', $tech);
+        $manufacture->addLiteral('rdfs:label', 'Method of manufacture');
+        $production->add('crm:P9_consists_of', $manufacture);
+    }
+
+    // Classification
+    if(!is_null($data['classification'])){
+        $class = $graph->resource($record . '#classification');
+        $classification = $graph->resource('http://finds.org.uk/datalabs/manufactures/id/');
+        $class->addType('crm:E12_Production');
+        $class->add('crm:P14_carried_out_by', $classification);
+        $class->addLiteral('rdfs:label', 'Classification of object');
+        $production->add('crm:P9_consists_of', $class);
+    }
+
+    // Ascribed culture
+    if(!is_null($data['ascribedCulture'])){
+        $culture = $graph->resource($record . '#cultural');
+        $ascribed = $graph->resource('http://finds.org.uk/datalabs/cultures/id/');
+        $culture->addType('crm:E12_Production');
+        $culture->add('crm:P14_carried_out_by', $ascribed);
+        $culture->addLiteral('rdfs:label', 'Ascribed culture');
+        $production->add('crm:P9_consists_of', $culture);
+    }
+
+    // Surface
+    if(!is_null($data['surfaceTreatment'])){
+        $surface = $graph->resource($record . '#surface');
+        $treatment = $graph->resource('http://finds.org.uk/datalabs/surfaces/id/');
+        $surface->addType('crm:E12_Production');
+        $surface->add('crm:P32_used_general_technique', $treatment);
+        $surface->addLiteral('rdfs:label', 'The surface treatment of the object');
+        $production->add('crm:P9_consists_of', $surface);
     }
 
 $record->add('crm:E12_Production', $production);
@@ -517,4 +563,4 @@ if(!is_null($data['weight'])){
 }
 
 // Serialisation method
-echo $graph->serialise('ttl');
+echo $graph->serialise('rdfxml');
