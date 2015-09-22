@@ -1,9 +1,566 @@
 <?php
-$doc = new DOMDocument(); 
-$doc->load(str_replace('format/rdf','format/xml', $this->curUrl()),LIBXML_NOBLANKS);
-$xslDoc = new DOMDocument();
-$xslDoc->load($this->serverUrl() . '/xsl/cidocCrmObjects.xsl');
+// Add namespaces for the foaf file. These will only appear if used
+EasyRdf_Namespace::set('geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
+EasyRdf_Namespace::set('admin', 'http://webns.net/mvcb');
+EasyRdf_Namespace::set('rdfs', 'http://www.w3.org/2000/01/rdf-schema#');
+EasyRdf_Namespace::set('xsd', 'http://www.w3.org/2001/XMLSchema#');
+EasyRdf_Namespace::set('owl', 'http://www.w3.org/2002/07/owl#');
+EasyRdf_Namespace::set('crm', 'http://erlangen-crm.org/current/');
+EasyRdf_Namespace::set('crmeh', 'http://purl.org/crmeh#');
+EasyRdf_Namespace::set('crmbm', 'http://collection.britishmuseum.org/id/crm/bm-extensions/');
+EasyRdf_Namespace::set('claros', 'http://purl.org/NET/Claros/vocab#');
+EasyRdf_Namespace::set('dc', 'http://purl.org/dc/elements/1.1/');
+EasyRdf_Namespace::set('oac', 'http://www.openannotation.org/ns/');
+EasyRdf_Namespace::set('dcterms', 'http://purl.org/dc/terms/');
+EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
+EasyRdf_Namespace::set('google', 'http://rdf.data-vocabulary.org/#');
+EasyRdf_Namespace::set('units', 'http://qudt.org/vocab/unit#');
+EasyRdf_Namespace::set('og', 'http://ogp.me/ns#');
+EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
+EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
+EasyRdf_Namespace::set('foaf', 'http://xmlns.com/foaf/0.1/');
+EasyRdf_Namespace::set('cc', 'http://creativecommons.org/ns#');
+EasyRdf_Namespace::set('gn', 'http://www.geonames.org/ontology#');
+EasyRdf_Namespace::set('osAdminGeo', 'http://data.ordnancesurvey.co.uk/ontology/admingeo/');
+EasyRdf_Namespace::set('osSpatialRel', 'http://data.ordnancesurvey.co.uk/ontology/spatialrelations/');
+EasyRdf_Namespace::set('j.0', 'http://purl.org/net/provenance/types#');
+EasyRdf_Namespace::set('lawd', 'http://lawd.info/ontology/1.0/');
+EasyRdf_Namespace::set('db', 'http://dbpedia.org/id/');
+EasyRdf_Namespace::set('bmt', 'http://collection.britishmuseum.org/id/thesauri/');
+EasyRdf_Namespace::set('bmo', 'http://collection.britishmuseum.org/id/ontology/');
+// Create the graph
+$data = $this->finds[0];
+$graph = new EasyRdf_Graph();
+$record = $graph->resource($this->serverUrl() . '/database/artefacts/record/id/' . $data['id'], 'foaf:Document');
+$creator = $graph->resource('https://finds.org.uk');
+$record->add('foaf:maker', $creator);
 
-$proc = new XSLTProcessor();
-$proc->importStylesheet($xslDoc);
-echo $proc->transformToXML($doc);
+if(!is_null($data['description'])){
+    $record->addLiteral('skos:definition', strip_tags($data['description']), 'en');
+    $record->addLiteral('crmbm:PX_curatorial_comment', strip_tags($data['description']), 'en');
+}
+if(!is_null($data['notes'])){
+    $record->addLiteral('skos:note', strip_tags($data['notes']), 'en');
+}
+$record->addLiteral('rdfs:label', 'A RDF representation of ' . $data['old_findID']);
+
+$admin = $graph->resource($this->serverUrl());
+$record->add('admin:generatorAgent', $admin);
+$emailError = $graph->resource('mailto:info@finds.org.uk');
+$record->add('admin:errorReportsTo', $emailError);
+$record->addLiteral('dcterms:created', EasyRdf_Literal::create(date(DATE_W3C,strtotime($data['created'])), 'en', 'xsd:datetime'));
+$record->addLiteral('dcterms:identifier', $data['old_findID']);
+$nomismaType = $graph->resource('nmo:NumismaticObject');
+$objectType = $graph->resource('crm:E22_Man-Made_Object');
+$partof = $graph->resource('https://finds.org.uk/database');
+
+$prn = $graph->resource($record . '#identifier');
+$prn->addType('crm:E42_Identifier');
+$prn->addLiteral('rdfs:label', $data['old_findID']);
+$record->add('crm:P48_has_preferred_identifier', $prn);
+
+if($data['objecttype'] == 'COIN'){
+    $record->add('rdf:type', $nomismaType);
+    // Die Axis
+    if(!is_null($data['dieAxis'])){
+        $record->addLiteral('nmo:hasAxis', (int)$data['dieAxis']);
+    }
+    // Date from
+    if(!is_null($data['numdate1'])){
+        $record->addLiteral('nmo:hasStartDate', EasyRdf_Literal::create(str_pad($data['numdate1'], 4, '0', STR_PAD_LEFT), 'en', 'xsd:gYear'));
+    }
+
+    //Date to
+    if(!is_null($data['numdate2'])){
+        $record->addLiteral('nmo:hasEndDate', EasyRdf_Literal::create(str_pad($data['numdate2'], 4, '0', STR_PAD_LEFT), 'en', 'xsd:gYear'));
+    }
+
+    // RRC ID
+    if(!is_null($data['rrcID'])){
+        $rrc = $graph->resource('http://numismatics.org/crro/id/' . $data['rrcID']);
+        $record->add('nmo:hasTypeSeriesItem', $rrc);
+    }
+
+    // RIC ID
+    if(!is_null($data['ricID'])){
+        $ric = $graph->resource('http://numismatics.org/ocre/id/' . $data['ricID']);
+        $record->add('nmo:hasTypeSeriesItem', $ric);
+    }
+
+    // Reece ID
+    if(!is_null($data['reeceID'])){
+        $reece = $graph->resource($this->serverUrl() . '/romancoins/reeceperiods/period/id/'. $data['reeceID']);
+        $reece->addType('skos:Concept');
+        $reece->addLiteral('skos:prefLabel', $data['periodName'] . ': ' . $data['dateRange']);
+        $record->add('nmo:hasTypeSeriesItem', $reece);
+    }
+
+    // Diameter
+    if(!is_null($data['diameter'])){
+        $record->addLiteral('nmo:hasDiameter', $data['diameter']);
+    }
+
+    // Weight
+    if(!is_null($data['weight'])){
+        $record->addLiteral('nmo:hasWeight', $data['weight']);
+    }
+    // Mint
+    if(!is_null($data['nomismaMintID'])){
+        $nomMint = $graph->resource('http://nomisma.org/id/' . $data['nomismaMintID']);
+        $nomMint->addType('skos:Concept');
+        $nomMint->addType('crm:E53_Place');
+        if(!is_null($data['pleiadesID'])){
+            $pleiades = $graph->resource('http://pleiades.stoa.org/places/' . $data['pleiadesID']);
+            $nomMint->add('skos:exactMatch', $pleiades);
+        }
+        $nomMint->addLiteral('rdfs:label', $data['mintName']);
+        $record->add('nmo:hasMint', $nomMint);
+        $record->add('crmbm:PX_minted_in', $nomMint);
+    } elseif(!is_null($data['mintGeonamesID'])) {
+        $nomMint = $graph->resource('http://geonames.org/id/' . $data['mintGeonamesID']);
+        $nomMint->addLiteral('rdfs:label', $data['mintName']);
+        $record->add('nmo:hasMint', $nomMint);
+        $record->add('crmbm:PX_minted_in', $nomMint);
+    }
+
+    // Nomisma ruler
+    if(!is_null($data['nomismaRulerID']) || $data['ruler1'] == '242'){
+        $authority = $graph->resource('http://nomisma.org/id/' . $data['nomismaRulerID']);
+        $authority->addType('skos:Concept');
+        $authority->addType('crm:E21_Person');
+        //Dbpedia match
+        if(!is_null($data['rulerDbpedia'])){
+            $issuerDbPedia = $graph->resource('db:' . $data['rulerDbpedia']);
+            $authority->add('skos:exactMatch', $issuerDbPedia);
+        }
+        //Viaf match
+        if(!is_null($data['viaf'])){
+            $issuerViaf = $graph->resource('http://viaf.org/viaf/' . $data['viaf']);
+            $authority->add('skos:exactMatch', $issuerViaf);
+        }
+        $authority->addLiteral('skos:prefLabel', $data['primaryRuler']);
+        $record->add('nmo:hasAuthority', $authority);
+        $record->add('crm:P62_depicts', $authority);
+    }
+
+    // Denomination
+    if(!is_null($data['nomismaDenomination'])) {
+        $denomination = $graph->resource('http://nomisma.org/id/' . $data['nomismaDenomination']);
+        $record->add('nmo:hasDenomination', $denomination);
+    }
+    // CRM Denomination
+    if(!is_null($data['denominationID'])){
+        $width = $graph->resource($record . '#denomination');
+        $width->addType('crm:E54_Dimension');
+        $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/currency');
+        $width->add('crm:P2_has_type', $type);
+        $mm = $graph->resource('http://finds.org.uk/datalabs/terminology/denominations/id/' . $data['denominationID']);
+        $width->add('crm:P91_has_unit', $mm);
+        $width->addLiteral('skos:prefLabel', $data['denomination']);
+        $width->addLiteral('rdfs:label', 'Denomination');
+        $record->add('crm:P43_has_dimension', $width);
+    }
+    // Obverse of coin
+    if(array_filter(array($data['obverseDescription'], $data['obverseInscription']))){
+        $obverse = $graph->resource($record . '#obverse');
+        $record->add('crm:P56_bears_feature', $obverse);
+        $obverse->addType('crm:E25_Man-Made_Feature');
+        $obvAspect = $graph->resource('http://collection.britishmuseum.org/id/thesauri/aspect/obverse');
+        $obverse->add('crm:P2_has_type', $obvAspect);
+        if(!is_null($data['obverseDescription'])){
+            $obverse->addLiteral('bmo:PX_physical_description', $data['obverseDescription']);
+            $obverse->addLiteral('nmo:obverseDescription', $data['obverseDescription']);
+        }
+        if(!is_null($data['obverseInscription'])){
+            $obverse->addLiteral('nmo:obverseLegend', $data['obverseInscription']);
+            $obverseIns = $graph->resource($record . '#obverseInscription');
+            $insType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/inscription/inscription');
+            $obverseIns->addType('crm:E34_Inscription');
+            $obverseIns->addLiteral('bmo:PX_inscription_position', 'obverse');
+            $obverseIns->addLiteral('rdfs:label', $data['obverseInscription']);
+            $obverseIns->add('bmo:PX_inscription_type', $insType);
+            $record->add('crm:P65_shows_visual_item', $obverseIns);
+            $obverse->addLiteral('rdfs:label', 'Obverse of coin');
+        }
+        $record->add('nmo:hasObverse', $obverse);
+    }
+
+    // Reverse of coin
+    if(array_filter(array($data['reverseDescription'], $data['reverseInscription']))){
+        $reverse = $graph->resource($record . '#reverse');
+        $record->add('crm:P56_bears_feature', $reverse);
+        $reverse->addType('crm:E25_Man-Made_Feature');
+        $revAspect = $graph->resource('http://collection.britishmuseum.org/id/thesauri/aspect/reverse');
+        $reverse->add('crm:P2_has_type', $revAspect);
+        if(!is_null($data['reverseDescription'])){
+            $reverse->addLiteral('bmo:PX_physical_description', $data['reverseDescription']);
+            $reverse->addLiteral('nmo:reverseDescription', $data['reverseDescription']);
+        }
+        $reverse->addLiteral('rdfs:label', 'reverse');
+        if(!is_null($data['reverseInscription'])){
+            $reverse->addLiteral('nmo:reverseLegend',$data['reverseInscription']);
+            $reverseIns = $graph->resource($record . '#reverseInscription');
+            $reverseIns->addType('crm:E34_Inscription');
+            $reverseIns->addLiteral('bmo:PX_inscription_position', 'reverse');
+            $reverseIns->addLiteral('rdfs:label', $data['reverseInscription']);
+            $insType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/inscription/inscription');
+            $reverseIns->add('bmo:PX_inscription_type', $insType);
+            $record->add('crm:P65_shows_visual_item', $reverseIns);
+        }
+        $record->add('nmo:hasReverse', $reverse);
+    }
+    // Find spot of coin
+    if(!is_null($data['parishID'])){
+        $findspotNM = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. $data['parishID']);
+        $findspotNM->addType('crm:E53_Place');
+        $findspotNM->addType('skos:Concept');
+        $placeType = $graph->resource('http://collection.britishmuseum.org/id/place/type/Q');
+        $findspotNM->add('crm:P2_has_type', $placeType);
+        $findspotNM->addLiteral('foaf:name', $data['parish']);
+
+        $findspotNM->addLiteral('skos:prefLabel', $data['parish']);
+        $findspotNM->addLiteral('geo:lat', (double)$data['fourFigureLat']);
+        $findspotNM->addLiteral('crmeh:EXP5_spatial_x', (double)$data['fourFigureLat']);
+
+        $findspotNM->addLiteral('geo:long', (double)$data['fourFigureLon']);
+        $findspotNM->addLiteral('crmeh:EXP5_spatial_y', (double)$data['fourFigureLon']);
+        $parentDistrict = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. $data['districtID'] );
+        $findspotNM->add('osAdminGeo:inDistrict', $parentDistrict);
+        $parentCounty = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. $data['countyID'] );
+        $findspotNM->add('osSpatialRel:within', $parentCounty);
+        $findspotNM->add('osAdminGeo:county', $parentCounty);
+        $record->add('nmo:hasFindspot', $findspotNM);
+
+        $discovery = $graph->resource($record . '#discovery');
+        $discovery->addType('bmo:EX_Discovery');
+        $discovery->addType('crm:E10_Transfer_of_Custody');
+        $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/find/E');
+        $type->addType('crm:E55_Type');
+        $type->addType('skos:Concept');
+        $type->addLiteral('skos:prefLabel', 'Excavated, discovered at, or find spot of object');
+        $discovery->add('crm:P2_has_type', $type);
+        $discovery->add('crm:P7_took_place_at', $findspotNM);
+        $record->add('crm:P12i_was_present_at', $discovery);
+    }
+
+    // Die axis
+    if(!is_null($data['dieAxis'])){
+        $units = $graph->resource('http://collection.britishmuseum.org/resource/thesUnit/oclock');
+        $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/die-axis');
+
+        $crmAxis = $graph->resource($record . '#axis');
+        $crmAxis->addType('crm:E54_Dimension');
+        $crmAxis->addLiteral('crm:P90_has_value', (int) $data['dieAxis']);
+        $crmAxis->add('crm:P2_has_type', $type);
+        $crmAxis->add('crm:P91_has_unit', $units);
+        $record->add('crm:P43_has_dimension', $crmAxis);
+    }
+}
+
+$record->add('rdf:type', $objectType);
+$record->add('dcterms:isPartOf', $partof);
+
+$license = $graph->resource('http://creativecommons.org/licenses/by/3.0/');
+$record->add('dcterms:license', $license);
+$attributionUrl = $graph->resource('https://finds.org.uk');
+$record->add('cc:attributionURL', $attributionUrl);
+$parent = $graph->resource('http://www.geonames.org/2635167');
+$record->add('gn:parentCountry', $parent);
+$record->addLiteral('gn:countryCode', 'GB');
+$england = $graph->resource('http://data.ordnancesurvey.co.uk/doc/country/england');
+$record->add('dcterms:coverage', $england);
+$wales = $graph->resource('http://data.ordnancesurvey.co.uk/doc/country/wales');
+$record->add('dcterms:coverage', $wales);
+
+
+// License stuff
+$cc = $graph->resource('http://creativecommons.org/licenses/by/3.0/');
+$permitsOne = $graph->resource('http://web.resource.org/cc/Reproduction');
+$permitsTwo = $graph->resource('http://web.resource.org/cc/Distribution');
+$permitsThree = $graph->resource('http://web.resource.org/cc/DerivativeWork');
+$permitsFour = $graph->resource('http://web.resource.org/cc/CommercialUse');
+$cc->add('cc:permits', $permitsOne);
+$cc->add('cc:permits', $permitsTwo);
+$cc->add('cc:permits', $permitsThree);
+$cc->add('cc:permits', $permitsFour);
+$requiresOne = $graph->resource('http://web.resource.org/cc/Attribution');
+$requiresTwo = $graph->resource('http://web.resource.org/cc/Notice');
+$cc->add('cc:requires', $requiresOne);
+$cc->add('cc:requires', $requiresTwo);
+
+$cc->addLiteral('rdfs:label', 'By Attribution 3.0');
+$record->add('cc:license', $cc);
+
+$record->addLiteral('dcterms:language','en-GB');
+$record->addLiteral('cc:attributionName', 'The Trustees of the British Museum', 'en');
+$record->addLiteral('dcterms:publisher', 'The Trustees of the British Museum', 'en');
+$record->addLiteral('crm:P57_has_number_of_parts', 1);
+
+
+$periodFrom = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/concepts/' . $data['senechalPeriodFrom']);
+$bmPeriodFrom = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['bmPeriodFrom']);
+$periodFrom->addType('skos:Concept');
+$periodFrom->add('owl:sameAs', $bmPeriodFrom);
+$periodFrom->addLiteral('rdfs:label', 'The period from for the object');
+$record->add('crm:E4_Period', $periodFrom);
+
+if(!is_null($data['thumbnail'])){
+    $depiction = $graph->resource('https://finds.org.uk/' . $data['imagedir'] .  $data['filename']);
+    $depiction->addType('crm:E38_Image');
+    $depiction->add('crm:E30_Right', $cc);
+    $depiction->addLiteral('crm:P3_has_note', 'Attribute as courtesy of the British Museum');
+    $depiction->addLiteral('rdfs:label', 'A full resolution image of ' . $data['old_findID']);
+    $record->add('foaf:depiction', $depiction);
+    $record->add('crmbm:PX_has_main_representation', $depiction);
+    $record->add('crm:P138i_has_representation', $depiction);
+    $thumbnail = $graph->resource('https://finds.org.uk/images/thumbnails/' . $data['thumbnail'] . '.jpg');
+    $thumbnail->addType('crm:E38_Image');
+    $thumbnail->add('crm:P2_has_type', 'http://purl.org/NET/Claros/vocab#Thumbnail');
+    $thumbnail->add('crm:E30_Right', $cc);
+    $thumbnail->addLiteral('crm:P3_has_note', 'Attribute as courtesy of the British Museum');
+    $thumbnail->addLiteral('rdfs:label', 'A thumbnail image of ' . $data['old_findID']);
+    $record->add('foaf:thumbnail', $thumbnail);
+}
+
+// Current location of object
+if(!is_null($data['curr_loc'])){
+    $location = $graph->resource($record . '#currentLocation');
+    $location->addType('crm:E53_Place');
+    $location->addLiteral('rdfs:label', $data['curr_loc']);
+    $record->add('crm:P55_has_current_location', $location);
+
+}
+// Recording person
+if(!is_null($data['recorderID'])){
+    $author = $graph->resource($record . '#recorder');
+    $record->add('dcterms:contributor', $author);
+    $author->addType('crm:E21_Person');
+    $author->addType('skos:Concept');
+    $author->addLiteral('foaf:name', $data['fullname']);
+    $author->addLiteral('rdfs:label', 'Created by ' . $data['fullname']);
+}
+
+// Identifier of object
+if(!is_null($data['identifier'])){
+    $author = $graph->resource($record . '#identifer');
+    $author->addType('crm:E21_Person');
+    $author->addType('skos:Concept');
+    $record->add('dcterms:contributor', $author);
+    $author->addLiteral('foaf:name', $data['identifier']);
+    $author->addLiteral('skos:prefLabel', $data['identifier']);
+    $author->addLiteral('rdfs:label', 'Identified by ' . $data['identifier']);
+}
+
+// Secondary identifier
+if(!is_null($data['secondaryIdentifier'])){
+    $author = $graph->resource($record . '#secondaryIdentifier');
+    $author->addType('crm:E21_Person');
+    $author->addType('skos:Concept');
+    $record->add('dcterms:contributor', $author);
+    $author->addLiteral('foaf:name', $data['secondaryIdentifier']);
+    $author->addLiteral('rdfs:label', 'Identified by ' . $data['secondaryIdentifier']);
+}
+
+// Primary material of object
+if(!is_null($data['primaryMaterial'])){
+    $material = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['primaryBMmaterial']);
+    $material->addType('crm:E57_Material');
+    $material->addType('skos:Concept');
+    $material->addLiteral('skos:prefLabel', $data['primaryMaterial']);
+    $material->addLiteral('rdfs:label', 'Primary material of object');
+    $record->add('crm:P45_consists_of', $material);
+}
+
+// Secondary material of object
+if(!is_null($data['secondaryMaterial'])){
+    $material = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['secondaryBMmaterial']);
+    $material->addType('crm:E57_Material');
+    $material->addType('skos:Concept');
+    $material->addLiteral('skos:prefLabel', $data['secondaryMaterial']);
+    $material->addLiteral('rdfs:label', 'Secondary material of object');
+    $record->add('crm:P45_consists_of', $material);
+}
+
+// Object type
+$objecttype = $graph->resource('http://heritagedata.org/live/schemes/mda_obj/concepts/' . $data['seneschalObject']);
+$objecttype->addType('skos:Concept');
+if(!is_null($data['bmThesObject'])){
+    $objecttypeBM = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['bmThesObject']);
+    $objecttype->add('owl:sameAs', $objecttypeBM);
+}
+$record->add('crmbm:PX_object_type', $objecttype);
+
+// Production segment
+$production = $graph->resource($record . '#production');
+$production->addType('crm:E12_production');
+
+$record->add('crm:P108i_was_produced_by', $production);
+
+// Nomisma Moneyer in crm
+    if(!is_null($data['nomismaMoneyer'])){
+        $moneyerCrm = $graph->resource($record . '#moneyer');
+        $moneyerCrm->addType('crm:E12_Production');
+        $moneyerCrm->add('crm:P2_has_type','http://collection.britishmuseum.org/id/thesauri/production/mo');
+        $moneyer = $graph->resource('nm:' . $data['nomismaMoneyer']);
+        $moneyerCrm->add('crm:P14_carried_out_by', $moneyer);
+        $production->add('crm:P9_consists_of', $moneyerCrm);
+    }
+    // Time spans
+    if(array_filter(array($data['numdate1'], $data['numdate2']))){
+        $dating = $graph->resource($record . '#dating');
+        $dating->addType('crm:E12_Production');
+        $span = $graph->resource($record . '#timespan');
+        $span->addType('crm:E52_Time-Span');
+        if(!is_null($data['numdate1'])){
+            $span->addLiteral('crm:P82a_begin_of_the_begin', EasyRdf_Literal::create(str_pad($data['numdate1'], 4, '0', STR_PAD_LEFT), 'en', 'xsd:gYear'));
+        }
+        if(!is_null($data['numdate2'])){
+            $span->addLiteral('crm:P82b_end_of_the_end', EasyRdf_Literal::create(str_pad($data['numdate2'], 4, '0', STR_PAD_LEFT), 'en', 'xsd:gYear'));
+        }
+        $dating->add('crm:P4_has_time-span', $span);
+        $production->add('crm:P9_consists_of', $dating);
+    }
+    // CRM politics
+    if($data['broadperiod'] == 'ROMAN') {
+        $political = $graph->resource($record . '#political');
+        $political->addType('crm:E12_Production');
+        $fallsWithin = $graph->resource('http://collection.britishmuseum.org/id/thesauri/political-state/');
+        $fallsWithinNumber = $graph->resource('http://collection.britishmuseum.org/id/thesauri/x14451');
+        $political->add('crm:P10_falls_within', $fallsWithinNumber);
+        $political->add('crm:P10_falls_within', $fallsWithin);
+        $production->add('crm:P9_consists_of', $political);
+    }
+    //CRM minting
+    if(!is_null($data['mintID'])){
+        $minted = $graph->resource($record . '#minted');
+        $gn = $graph->resource('http://geonames.org/id/' . $data['mintGeonamesID']);
+        $minted->addType('crm:E12_Production');
+        $minted->add('crm:P2_has_type', 'http://collection.britishmuseum.org/id/thesauri/production/T');
+        $minted->add('crm:P7_took_place_at', $gn);
+        $minted->addLiteral('rdfs:label', 'The mint of the coin');
+        $production->add('crm:P9_consists_of', $minted);
+    }
+    // CRM issuer
+    if(!is_null($data['ruler1'])){
+        $issuer = $graph->resource($record . '#issuer');
+        $ruler = $graph->resource('https://finds.org.uk/datalabs/terminology/rulers/id/' . $data['ruler1']);
+        $issuer->addType('crm:E12_Production');
+        $issuer->add('crm:P17_was_motivated_by', $ruler);
+        $issuer->addLiteral('rdfs:label', 'The issuer of the coin');
+        $production->add('crm:P9_consists_of', $issuer);
+    }
+
+    // CRM manufacture
+    if(!is_null($data['manufacture'])){
+        $manufacture = $graph->resource($record . '#manufacture');
+        $tech = $graph->resource('http://finds.org.uk/datalabs/terminology/manufactures/id/' . $data['manufactureID']);
+        $manufacture->addType('crm:E12_Production');
+        $manufacture->add('crm:P32_used_general_technique', $tech);
+        $manufacture->addLiteral('rdfs:label', 'Method of manufacture');
+        $production->add('crm:P9_consists_of', $manufacture);
+    }
+
+    // Classification
+    if(!is_null($data['classification'])){
+        $class = $graph->resource($record . '#classification');
+        $classification = $graph->resource('http://finds.org.uk/datalabs/classifications/id/' . $data['classification']);
+        $class->addType('crm:E12_Production');
+        $class->add('crm:P14_carried_out_by', $classification);
+        $class->addLiteral('rdfs:label', 'Classification of object');
+        $production->add('crm:P9_consists_of', $class);
+    }
+
+    // Ascribed culture
+    if(!is_null($data['ascribedCulture'])){
+        $culture = $graph->resource($record . '#cultural');
+        $ascribed = $graph->resource('http://finds.org.uk/datalabs/terminology/cultures/id/' . $data['culture']);
+        $culture->addType('crm:E12_Production');
+        $culture->add('crm:P14_carried_out_by', $ascribed);
+        $culture->addLiteral('rdfs:label', 'Ascribed culture');
+        $production->add('crm:P9_consists_of', $culture);
+    }
+
+    // Surface
+    if(!is_null($data['surfaceTreatment'])){
+        $surface = $graph->resource($record . '#surface');
+        $treatment = $graph->resource('http://finds.org.uk/datalabs/terminology/surface/id/' . $data['surface']);
+        $surface->addType('crm:E12_Production');
+        $surface->add('crm:P32_used_general_technique', $treatment);
+        $surface->addLiteral('rdfs:label', 'The surface treatment of the object');
+        $production->add('crm:P9_consists_of', $surface);
+    }
+
+$record->add('crm:E12_Production', $production);
+//Completeness
+if(!is_null($data['completeness'])){
+    $record->addLiteral('bmo:PX_condition', $data['completeness']);
+}
+
+// CRM Width
+if(!is_null($data['width'])){
+    $width = $graph->resource($record . '#width');
+    $width->addType('crm:E54_Dimension');
+    $width->addLiteral('crm:P90_has_value', (int) $data['width']);
+    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/width');
+    $width->add('crm:P2_has_type', $type);
+    $mm = $graph->resource('units:Millimeter');
+    $width->add('crm:P91_has_unit', $mm);
+    $width->addLiteral('rdfs:label', 'Width');
+    $record->add('crm:P43_has_dimension', $width);
+}
+
+//CRM diameter
+if(!is_null($data['diameter'])){
+    $width = $graph->resource($record . '#diameter');
+    $width->addType('crm:E54_Dimension');
+    $width->addLiteral('crm:P90_has_value', (int) $data['diameter']);
+    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/diameter');
+    $width->add('crm:P2_has_type', $type);
+    $mm = $graph->resource('units:Millimeter');
+    $width->add('crm:P91_has_unit', $mm);
+    $width->addLiteral('rdfs:label', 'Diameter');
+    $record->add('crm:P43_has_dimension', $width);
+}
+
+// CRM thickness
+if(!is_null($data['thickness'])){
+    $width = $graph->resource($record . '#thickness');
+    $width->addType('crm:E54_Dimension');
+    $width->addLiteral('crm:P90_has_value', (int) $data['thickness']);
+    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/thickness');
+    $width->add('crm:P2_has_type', $type);
+    $mm = $graph->resource('units:Millimeter');
+    $width->add('crm:P91_has_unit', $mm);
+    $width->addLiteral('rdfs:label', 'Thickness');
+    $record->add('crm:P43_has_dimension', $width);
+}
+
+// CRM height
+if(!is_null($data['height'])){
+    $width = $graph->resource($record . '#diameter');
+    $width->addType('crm:E54_Dimension');
+    $width->addLiteral('crm:P90_has_value', (int) $data['diameter']);
+    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/height');
+    $width->add('crm:P2_has_type', $type);
+    $mm = $graph->resource('units:Millimeter');
+    $width->add('crm:P91_has_unit', $mm);
+    $width->addLiteral('rdfs:label', 'Height');
+    $record->add('crm:P43_has_dimension', $width);
+}
+
+
+// CRM weight
+if(!is_null($data['weight'])){
+    $width = $graph->resource($record . '#weight');
+    $width->addType('crm:E54_Dimension');
+    $width->addLiteral('crm:P90_has_value', (int) $data['weight']);
+    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/weight');
+    $width->add('crm:P2_has_type', $type);
+    $mm = $graph->resource('units:Grams');
+    $width->add('crm:P91_has_unit', $mm);
+    $width->addLiteral('rdfs:label', 'Weight');
+    $record->add('crm:P43_has_dimension', $width);
+}
+
+// Serialisation method
+echo $graph->serialise('rdfxml');
