@@ -503,7 +503,7 @@ class Finds extends Pas_Db_Table_Abstract
                 ))
             ->joinLeft(array('landowners' => 'people'), 'findspots.landowner = landowners.secuid', array('landOwnerName' => 'fullname', 'landOwnerID' => 'id'))
             ->joinLeft('subsequentActions', 'finds.subs_action = subsequentActions.id', array('subsequentActionTerm' => 'action'))
-            ->joinLeft('objectTerms', 'finds.objecttype = objectTerms.term', array('bmThesObject' => 'bmID', 'seneschalObject' => 'ehID'))
+            ->joinLeft('objectterms', 'finds.objecttype = objectterms.term', array('bmThesObject' => 'bmID', 'seneschalObject' => 'ehID'))
             ->where('finds.id = ?', (int)$findID)
             ->group('finds.id')
             ->limit(1);
