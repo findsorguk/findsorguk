@@ -443,7 +443,7 @@ $record->add('crm:P108i_was_produced_by', $production);
     // CRM issuer
     if(!is_null($data['ruler1'])){
         $issuer = $graph->resource($record . '#issuer');
-        $ruler = $graph->resource('https://finds.org.uk/datalabs/rulers/ruler/id/' . $data['ruler1']);
+        $ruler = $graph->resource('https://finds.org.uk/datalabs/terminology/rulers/id/' . $data['ruler1']);
         $issuer->addType('crm:E12_Production');
         $issuer->add('crm:P17_was_motivated_by', $ruler);
         $issuer->addLiteral('rdfs:label', 'The issuer of the coin');
@@ -453,7 +453,7 @@ $record->add('crm:P108i_was_produced_by', $production);
     // CRM manufacture
     if(!is_null($data['manufacture'])){
         $manufacture = $graph->resource($record . '#manufacture');
-        $tech = $graph->resource('http://finds.org.uk/datalabs/manufactures/id/');
+        $tech = $graph->resource('http://finds.org.uk/datalabs/terminology/manufactures/id/' . $data['manufactureID']);
         $manufacture->addType('crm:E12_Production');
         $manufacture->add('crm:P32_used_general_technique', $tech);
         $manufacture->addLiteral('rdfs:label', 'Method of manufacture');
@@ -463,7 +463,7 @@ $record->add('crm:P108i_was_produced_by', $production);
     // Classification
     if(!is_null($data['classification'])){
         $class = $graph->resource($record . '#classification');
-        $classification = $graph->resource('http://finds.org.uk/datalabs/manufactures/id/');
+        $classification = $graph->resource('http://finds.org.uk/datalabs/classifications/id/' . $data['classification']);
         $class->addType('crm:E12_Production');
         $class->add('crm:P14_carried_out_by', $classification);
         $class->addLiteral('rdfs:label', 'Classification of object');
@@ -473,7 +473,7 @@ $record->add('crm:P108i_was_produced_by', $production);
     // Ascribed culture
     if(!is_null($data['ascribedCulture'])){
         $culture = $graph->resource($record . '#cultural');
-        $ascribed = $graph->resource('http://finds.org.uk/datalabs/cultures/id/');
+        $ascribed = $graph->resource('http://finds.org.uk/datalabs/terminology/cultures/id/' . $data['culture']);
         $culture->addType('crm:E12_Production');
         $culture->add('crm:P14_carried_out_by', $ascribed);
         $culture->addLiteral('rdfs:label', 'Ascribed culture');
@@ -483,7 +483,7 @@ $record->add('crm:P108i_was_produced_by', $production);
     // Surface
     if(!is_null($data['surfaceTreatment'])){
         $surface = $graph->resource($record . '#surface');
-        $treatment = $graph->resource('http://finds.org.uk/datalabs/surfaces/id/');
+        $treatment = $graph->resource('http://finds.org.uk/datalabs/terminology/surface/id/' . $data['surface']);
         $surface->addType('crm:E12_Production');
         $surface->add('crm:P32_used_general_technique', $treatment);
         $surface->addLiteral('rdfs:label', 'The surface treatment of the object');

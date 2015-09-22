@@ -283,6 +283,7 @@ class Finds extends Pas_Db_Table_Abstract
                 'decstyle',
                 'complete' => 'completeness',
                 'surface' => 'surftreat',
+                'manufactureID' => 'manmethod',
                 'culture',
                 'finderID',
                 'recorderID',
