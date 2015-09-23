@@ -117,7 +117,7 @@ if($data['objecttype'] == 'COIN'){
         $record->add('nmo:hasMint', $nomMint);
         $record->add('crmbm:PX_minted_in', $nomMint);
     } elseif(!is_null($data['mintGeonamesID'])) {
-        $nomMint = $graph->resource('http://geonames.org/id/' . $data['mintGeonamesID']);
+        $nomMint = $graph->resource('http://geonames.org/' . $data['mintGeonamesID']);
         $nomMint->addLiteral('rdfs:label', $data['mintName']);
         $record->add('nmo:hasMint', $nomMint);
         $record->add('crmbm:PX_minted_in', $nomMint);
@@ -433,7 +433,7 @@ $record->add('crm:P108i_was_produced_by', $production);
     //CRM minting
     if(!is_null($data['mintID'])){
         $minted = $graph->resource($record . '#minted');
-        $gn = $graph->resource('http://geonames.org/id/' . $data['mintGeonamesID']);
+        $gn = $graph->resource('http://geonames.org/' . $data['mintGeonamesID']);
         $minted->addType('crm:E12_Production');
         $minted->add('crm:P2_has_type', 'http://collection.britishmuseum.org/id/thesauri/production/T');
         $minted->add('crm:P7_took_place_at', $gn);
