@@ -1,6 +1,6 @@
 <?php
 
-/**A service class for shortening and expanding links with goo.gl
+/**A service class for assigning what 3 words identifiers 
  *
  * An example of use:
  *
