@@ -477,7 +477,7 @@ $record->add('crm:P108i_was_produced_by', $production);
         $production->add('crm:P9_consists_of', $political);
     }
     //CRM minting
-    if(!is_null($data['mintID'] && !is_null($data['mintGeonamesID']))){
+    if(!is_null($data['mintGeonamesID'])){
         $minted = $graph->resource($record . '#minted');
         $gn = $graph->resource('http://finds.org.uk/datalabs/mints/id/' . $data['mintID']);
         if(!is_null($data['mintGeonamesID'])){
