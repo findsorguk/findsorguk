@@ -23,7 +23,6 @@ EasyRdf_Namespace::set('cc', 'http://creativecommons.org/ns#');
 EasyRdf_Namespace::set('gn', 'http://www.geonames.org/ontology#');
 EasyRdf_Namespace::set('osAdminGeo', 'http://data.ordnancesurvey.co.uk/ontology/admingeo/');
 EasyRdf_Namespace::set('osSpatialRel', 'http://data.ordnancesurvey.co.uk/ontology/spatialrelations/');
-EasyRdf_Namespace::set('j.0', 'http://purl.org/net/provenance/types#');
 EasyRdf_Namespace::set('lawd', 'http://lawd.info/ontology/1.0/');
 EasyRdf_Namespace::set('db', 'http://dbpedia.org/id/');
 EasyRdf_Namespace::set('bmt', 'http://collection.britishmuseum.org/id/thesauri/');
@@ -310,7 +309,7 @@ $record->addLiteral('crm:P57_has_number_of_parts', 1);
 $periodFrom = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/concepts/' . $data['seneschalPeriodFrom']);
 $bmPeriodFrom = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['bmPeriodFrom']);
 $periodFrom->addType('skos:Concept');
-$periodFrom->add('owl:sameAs', $bmPeriodFrom);
+$periodFrom->add('skos:exactMatch', $bmPeriodFrom);
 $periodFrom->addLiteral('rdfs:label', 'The period from for the object');
 $record->add('crm:E4_Period', $periodFrom);
 
@@ -478,7 +477,7 @@ $record->add('crm:P108i_was_produced_by', $production);
         $production->add('crm:P9_consists_of', $political);
     }
     //CRM minting
-    if(!is_null($data['mintID'])){
+    if(!is_null($data['mintGeonamesID'])){
         $minted = $graph->resource($record . '#minted');
         $gn = $graph->resource('http://finds.org.uk/datalabs/mints/id/' . $data['mintID']);
         if(!is_null($data['mintGeonamesID'])){
@@ -490,7 +489,7 @@ $record->add('crm:P108i_was_produced_by', $production);
             $gn->add('owl:sameAs', $nom);
         }
         $minted->addType('crm:E12_Production');
-        $minted->add('crm:P2_has_type', 'http://collection.britishmuseum.org/id/thesauri/production/T');
+        $minted->add('crm:P2_has_type', 'http://collection.britishmuseum.org/id/thesauri/production/I');
         $minted->add('crm:P7_took_place_at', $gn);
         $minted->addLiteral('rdfs:label', 'The mint of the coin');
         $production->add('crm:P9_consists_of', $minted);
@@ -560,7 +559,7 @@ if(!is_null($data['width'])){
     $width = $graph->resource($record . '#width');
     $width->addType('crm:E54_Dimension');
     $width->addLiteral('crm:P90_has_value', (int) $data['width']);
-    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/width');
+    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/width');
     $width->add('crm:P2_has_type', $type);
     $mm = $graph->resource('units:Millimeter');
     $width->add('crm:P91_has_unit', $mm);
@@ -573,7 +572,7 @@ if(!is_null($data['diameter'])){
     $width = $graph->resource($record . '#diameter');
     $width->addType('crm:E54_Dimension');
     $width->addLiteral('crm:P90_has_value', (int) $data['diameter']);
-    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/diameter');
+    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/diameter');
     $width->add('crm:P2_has_type', $type);
     $mm = $graph->resource('units:Millimeter');
     $width->add('crm:P91_has_unit', $mm);
@@ -586,7 +585,7 @@ if(!is_null($data['thickness'])){
     $width = $graph->resource($record . '#thickness');
     $width->addType('crm:E54_Dimension');
     $width->addLiteral('crm:P90_has_value', (int) $data['thickness']);
-    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/thickness');
+    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/thickness');
     $width->add('crm:P2_has_type', $type);
     $mm = $graph->resource('units:Millimeter');
     $width->add('crm:P91_has_unit', $mm);
@@ -599,7 +598,7 @@ if(!is_null($data['height'])){
     $width = $graph->resource($record . '#diameter');
     $width->addType('crm:E54_Dimension');
     $width->addLiteral('crm:P90_has_value', (int) $data['diameter']);
-    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/height');
+    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/height');
     $width->add('crm:P2_has_type', $type);
     $mm = $graph->resource('units:Millimeter');
     $width->add('crm:P91_has_unit', $mm);
@@ -613,7 +612,7 @@ if(!is_null($data['weight'])){
     $width = $graph->resource($record . '#weight');
     $width->addType('crm:E54_Dimension');
     $width->addLiteral('crm:P90_has_value', (int) $data['weight']);
-    $type = $graph->resource('http://collection.britishmuseum.org/resource/thesDimension/weight');
+    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/weight');
     $width->add('crm:P2_has_type', $type);
     $mm = $graph->resource('units:Grams');
     $width->add('crm:P91_has_unit', $mm);
