@@ -324,13 +324,13 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('certaintytypes', 'certaintytypes.id = finds.objecttypecert',
                 array('objectCertainty' => 'term'))
             ->joinLeft('periods', 'finds.objdate1period = periods.id',
-                array('periodFrom' => 'term', 'senechalPeriodFrom' => 'ehTerm', 'bmPeriodFrom' => 'bmID'))
+                array('periodFrom' => 'term', 'seneschalPeriodFrom' => 'ehTerm', 'bmPeriodFrom' => 'bmID', 'periodoPeriodFrom' => 'periodo'))
             ->joinLeft(array('p' => 'periods'), 'finds.objdate2period = p.id',
-                array('periodTo' => 'term'))
+                array('periodTo' => 'term', 'seneschalPeriodTo' => 'ehTerm', 'bmPeriodTo' => 'bmID', 'periodoPeriodTo' => 'periodo'))
             ->joinLeft(array('p2' => 'periods'), 'finds.reuse_period = p2.id',
                 array('reusePeriod' => 'term'))
             ->joinLeft('cultures', 'finds.culture = cultures.id',
-                array('ascribedCulture' => 'term'))
+                array('ascribedCulture' => 'term', 'culturePeriodo' => 'periodo', 'cultureBM' => 'bmCultureID'))
             ->joinLeft('discmethods', 'discmethods.id = finds.discmethod',
                 array('discmethod' => 'method'))
             ->joinLeft('people', 'finds.finderID = people.secuid',

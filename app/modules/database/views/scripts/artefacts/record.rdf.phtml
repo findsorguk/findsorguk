@@ -210,8 +210,8 @@ if($data['objecttype'] == 'COIN'){
         $record->add('nmo:hasReverse', $reverse);
     }
     // Find spot of coin
-    if(!is_null($data['parishID'])){
-        $findspotNM = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. $data['parishID']);
+    if(!is_null($data['parishID'] && is_null($data['knownas']))){
+        $findspotNM = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. str_pad($data['parishID'], 6, '0', STR_PAD_LEFT));
         $findspotNM->addType('crm:E53_Place');
         $findspotNM->addType('skos:Concept');
         $placeType = $graph->resource('http://collection.britishmuseum.org/id/place/type/Q');
@@ -224,13 +224,20 @@ if($data['objecttype'] == 'COIN'){
 
         $findspotNM->addLiteral('geo:long', (double)$data['fourFigureLon']);
         $findspotNM->addLiteral('crmeh:EXP5_spatial_y', (double)$data['fourFigureLon']);
-        $parentDistrict = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. $data['districtID'] );
+        $parentDistrict = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. str_pad($data['districtID'], 6, '0', STR_PAD_LEFT));
+        $parentDistrict->addLiteral('rdfs:label', $data['district']);
+
         $findspotNM->add('osAdminGeo:inDistrict', $parentDistrict);
-        $parentCounty = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. $data['countyID'] );
+        $parentCounty = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. str_pad($data['countyID'], 6, '0', STR_PAD_LEFT));
+        $parentCounty->addLiteral('rdfs:label', $data['county']);
+
         $findspotNM->add('osSpatialRel:within', $parentCounty);
         $findspotNM->add('osAdminGeo:county', $parentCounty);
-        $record->add('nmo:hasFindspot', $findspotNM);
+        $parentRegion = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. str_pad($data['regionID'], 6, '0', STR_PAD_LEFT));
+        $parentRegion->addLiteral('rdfs:label', $data['region']);
 
+        $record->add('osAdminGeo:inEuropeanRegion', $parentRegion);
+        $record->add('nmo:hasFindspot', $findspotNM);
         $discovery = $graph->resource($record . '#discovery');
         $discovery->addType('bmo:EX_Discovery');
         $discovery->addType('crm:E10_Transfer_of_Custody');
@@ -297,7 +304,7 @@ $record->addLiteral('dcterms:publisher', 'The Trustees of the British Museum', '
 $record->addLiteral('crm:P57_has_number_of_parts', 1);
 
 
-$periodFrom = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/concepts/' . $data['senechalPeriodFrom']);
+$periodFrom = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/concepts/' . $data['seneschalPeriodFrom']);
 $bmPeriodFrom = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['bmPeriodFrom']);
 $periodFrom->addType('skos:Concept');
 $periodFrom->add('owl:sameAs', $bmPeriodFrom);
@@ -417,15 +424,52 @@ $record->add('crm:P108i_was_produced_by', $production);
         if(!is_null($data['numdate2'])){
             $span->addLiteral('crm:P82b_end_of_the_end', EasyRdf_Literal::create(str_pad($data['numdate2'], 4, '0', STR_PAD_LEFT), 'en', 'xsd:gYear'));
         }
+        //Period from and to
+        if(!is_null($data['periodFrom'])){
+            $senPeriodFrom = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/' . $data['seneschalPeriodFrom']);
+            $senPeriodFrom->addType('crm:E4_Period');
+            $senPeriodFrom->addType('skos:Concept');
+            $dating->add('crm:P10_falls_within', $senPeriodFrom);
+            if(!is_null($data['periodoPeriodFrom'])){
+                $periodoFrom = $graph->resource('http://n2t.net/ark:/99152/' . $data['periodoPeriodFrom']);
+                $senPeriodFrom->add('skos:exactMatch', $periodoFrom);
+            }
+            if(!is_null($data['bmPeriodFrom'])){
+                $bmPeriodFrom = $graph->resource('http://collection.britishmuseum.org/thesauri/id/' . $data['bmPeriodFrom']);
+                $senPeriodFrom->add('skos:exactMatch',$bmPeriodFrom);
+            }
+        }
+        if(!is_null($data['periodTo']) && $data['bmPeriodTo'] != $data['bmPeriodFrom']){
+            $senPeriodTo = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/' . $data['seneschalPeriodTo']);
+            $senPeriodTo->addType('crm:E4_Period');
+            $senPeriodTo->addType('skos:Concept');
+            $dating->add('crm:P10_falls_within', $senPeriodTo);
+            if(!is_null($data['periodoPeriodFrom'])){
+                $periodoTo = $graph->resource('http://n2t.net/ark:/99152/' . $data['periodoPeriodTo']);
+                $senPeriodTo->add('skos:exactMatch', $periodoTo);
+            }
+            if(!is_null($data['bmPeriodTo']) ){
+                $bmPeriodTo = $graph->resource('http://collection.britishmuseum.org/thesauri/id/' . $data['bmPeriodTo']);
+                $senPeriodTo->add($data['bmPeriodTo']);
+            }
+        }
         $dating->add('crm:P4_has_time-span', $span);
         $production->add('crm:P9_consists_of', $dating);
     }
     // CRM politics
-    if($data['broadperiod'] == 'ROMAN') {
+    if($data['broadperiod'] == 'ROMAN' && $data['ruler1'] != '242') {
         $political = $graph->resource($record . '#political');
         $political->addType('crm:E12_Production');
         $fallsWithin = $graph->resource('http://collection.britishmuseum.org/id/thesauri/political-state/');
         $fallsWithinNumber = $graph->resource('http://collection.britishmuseum.org/id/thesauri/x14451');
+        $political->add('crm:P10_falls_within', $fallsWithinNumber);
+        $political->add('crm:P10_falls_within', $fallsWithin);
+        $production->add('crm:P9_consists_of', $political);
+    } else if ($data['broadperiod'] == 'ROMAN' && $data['ruler1'] != '242'){
+        $political = $graph->resource($record . '#political');
+        $political->addType('crm:E12_Production');
+        $fallsWithin = $graph->resource('http://collection.britishmuseum.org/id/thesauri/political-state/');
+        $fallsWithinNumber = $graph->resource('http://collection.britishmuseum.org/id/thesauri/x14453');
         $political->add('crm:P10_falls_within', $fallsWithinNumber);
         $political->add('crm:P10_falls_within', $fallsWithin);
         $production->add('crm:P9_consists_of', $political);
@@ -478,6 +522,14 @@ $record->add('crm:P108i_was_produced_by', $production);
     if(!is_null($data['ascribedCulture'])){
         $culture = $graph->resource($record . '#cultural');
         $ascribed = $graph->resource('http://finds.org.uk/datalabs/terminology/cultures/id/' . $data['culture']);
+        if(!is_null($data['cultureBM'])){
+            $cultureBM = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['cultureBM']);
+            $culture->add('skos:exactMatch', $cultureBM);
+        }
+        if(!is_null($data['culturePeriodo'])){
+            $culturePeriodo = $graph->resource('http://n2t.net/ark:/99152/' . $data['culturePeriodo']);
+            $culture->add('skos:exactMatch', $culturePeriodo);
+        }
         $culture->addType('crm:E12_Production');
         $culture->add('crm:P14_carried_out_by', $ascribed);
         $culture->addLiteral('rdfs:label', 'Ascribed culture');
@@ -567,4 +619,4 @@ if(!is_null($data['weight'])){
 }
 
 // Serialisation method
-echo $graph->serialise('rdfxml');
+echo $graph->serialise('ttl');
