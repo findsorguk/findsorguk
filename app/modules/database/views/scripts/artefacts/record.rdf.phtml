@@ -524,11 +524,11 @@ $record->add('crm:P108i_was_produced_by', $production);
         $ascribed = $graph->resource('http://finds.org.uk/datalabs/terminology/cultures/id/' . $data['culture']);
         if(!is_null($data['cultureBM'])){
             $cultureBM = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['cultureBM']);
-            $culture->add('skos:exactMatch', $cultureBM);
+            $ascribed->add('skos:exactMatch', $cultureBM);
         }
         if(!is_null($data['culturePeriodo'])){
             $culturePeriodo = $graph->resource('http://n2t.net/ark:/99152/' . $data['culturePeriodo']);
-            $culture->add('skos:exactMatch', $culturePeriodo);
+            $ascribed->add('skos:exactMatch', $culturePeriodo);
         }
         $culture->addType('crm:E12_Production');
         $culture->add('crm:P14_carried_out_by', $ascribed);
