@@ -49,6 +49,9 @@ $record->add('admin:generatorAgent', $admin);
 $emailError = $graph->resource('mailto:info@finds.org.uk');
 $record->add('admin:errorReportsTo', $emailError);
 $record->addLiteral('dcterms:created', EasyRdf_Literal::create(date(DATE_W3C,strtotime($data['created'])), 'en', 'xsd:datetime'));
+if(!is_null($data['updated'])) {
+    $record->addLiteral('dcterms:modified', EasyRdf_Literal::create(date(DATE_W3C,strtotime($data['updated'])), 'en', 'xsd:datetime'));
+}
 $record->addLiteral('dcterms:identifier', $data['old_findID']);
 $nomismaType = $graph->resource('nmo:NumismaticObject');
 $objectType = $graph->resource('crm:E22_Man-Made_Object');
@@ -407,7 +410,7 @@ $record->add('crm:P108i_was_produced_by', $production);
     if(!is_null($data['nomismaMoneyer'])){
         $moneyerCrm = $graph->resource($record . '#moneyer');
         $moneyerCrm->addType('crm:E12_Production');
-        $moneyerCrm->add('crm:P2_has_type','http://collection.britishmuseum.org/id/thesauri/production/mo');
+        $moneyerCrm->add('crm:P2_has_type','http://collection.britishmuseum.org/id/thesauri/production/MO');
         $moneyer = $graph->resource('nm:' . $data['nomismaMoneyer']);
         $moneyerCrm->add('crm:P14_carried_out_by', $moneyer);
         $production->add('crm:P9_consists_of', $moneyerCrm);
@@ -426,7 +429,7 @@ $record->add('crm:P108i_was_produced_by', $production);
         }
         //Period from and to
         if(!is_null($data['periodFrom'])){
-            $senPeriodFrom = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/' . $data['seneschalPeriodFrom']);
+            $senPeriodFrom = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/concepts/' . $data['seneschalPeriodFrom']);
             $senPeriodFrom->addType('crm:E4_Period');
             $senPeriodFrom->addType('skos:Concept');
             $dating->add('crm:P10_falls_within', $senPeriodFrom);
@@ -440,7 +443,7 @@ $record->add('crm:P108i_was_produced_by', $production);
             }
         }
         if(!is_null($data['periodTo']) && $data['bmPeriodTo'] != $data['bmPeriodFrom']){
-            $senPeriodTo = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/' . $data['seneschalPeriodTo']);
+            $senPeriodTo = $graph->resource('http://purl.org/heritagedata/schemes/eh_period/concepts/' . $data['seneschalPeriodTo']);
             $senPeriodTo->addType('crm:E4_Period');
             $senPeriodTo->addType('skos:Concept');
             $dating->add('crm:P10_falls_within', $senPeriodTo);
@@ -477,10 +480,14 @@ $record->add('crm:P108i_was_produced_by', $production);
     //CRM minting
     if(!is_null($data['mintID'])){
         $minted = $graph->resource($record . '#minted');
-        if(is_null($data['nomismaMintID'])){
-            $gn = $graph->resource('http://geonames.org/' . $data['mintGeonamesID']);
-        } else {
-            $gn = $graph->resource('http://nomisma.org/id/' . $data['nomismaMintID']);
+        $gn = $graph->resource('http://finds.org.uk/datalabs/mints/id/' . $data['mintID']);
+        if(!is_null($data['mintGeonamesID'])){
+            $geo = $graph->resource('http://geonames.org/' . $data['mintGeonamesID']);
+            $gn->add('owl:sameAs', $geo);
+        }
+        if(!is_null($data['nomismaMintID'])) {
+            $nom = $graph->resource('http://nomisma.org/id/' . $data['nomismaMintID']);
+            $gn->add('owl:sameAs', $nom);
         }
         $minted->addType('crm:E12_Production');
         $minted->add('crm:P2_has_type', 'http://collection.britishmuseum.org/id/thesauri/production/T');
@@ -519,13 +526,9 @@ $record->add('crm:P108i_was_produced_by', $production);
     }
 
     // Ascribed culture
-    if(!is_null($data['ascribedCulture'])){
+    if(!is_null($data['ascribedCulture']) && !is_null($data['cultureBM'])){
         $culture = $graph->resource($record . '#cultural');
-        $ascribed = $graph->resource('http://finds.org.uk/datalabs/terminology/cultures/id/' . $data['culture']);
-        if(!is_null($data['cultureBM'])){
-            $cultureBM = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['cultureBM']);
-            $ascribed->add('skos:exactMatch', $cultureBM);
-        }
+        $ascribed = $graph->resource('http://collection.britishmuseum.org/id/thesauri/' . $data['cultureBM']);
         if(!is_null($data['culturePeriodo'])){
             $culturePeriodo = $graph->resource('http://n2t.net/ark:/99152/' . $data['culturePeriodo']);
             $ascribed->add('skos:exactMatch', $culturePeriodo);
