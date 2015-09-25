@@ -453,7 +453,7 @@ $record->add('crm:P108i_was_produced_by', $production);
             }
             if(!is_null($data['bmPeriodTo']) ){
                 $bmPeriodTo = $graph->resource('http://collection.britishmuseum.org/thesauri/id/' . $data['bmPeriodTo']);
-                $senPeriodTo->add($data['bmPeriodTo']);
+                $senPeriodTo->add('skos:exactMatch', $data['bmPeriodTo']);
             }
         }
         $dating->add('crm:P4_has_time-span', $span);
