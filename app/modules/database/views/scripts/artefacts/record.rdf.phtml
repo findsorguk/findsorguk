@@ -409,7 +409,7 @@ $record->add('crm:P108i_was_produced_by', $production);
     if(!is_null($data['nomismaMoneyer'])){
         $moneyerCrm = $graph->resource($record . '#moneyer');
         $moneyerCrm->addType('crm:E12_Production');
-        $moneyerType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/production/MO')
+        $moneyerType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/production/MO');
         $moneyerCrm->add('crm:P2_has_type',$moneyerType);
         $moneyer = $graph->resource('nm:' . $data['nomismaMoneyer']);
         $moneyerCrm->add('crm:P14_carried_out_by', $moneyer);
