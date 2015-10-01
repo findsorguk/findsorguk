@@ -21,7 +21,7 @@
  * @version 1
  * @since   31 October 2015
  */
-class Pas_View_Helper_GYear extends Zend_View_Helper_Abstract
+class Pas_View_Helper_Gyear extends Zend_View_Helper_Abstract
 {
     /** The date to check
      * @access protected
@@ -33,7 +33,7 @@ class Pas_View_Helper_GYear extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_AdBc
      */
-    public function gYear()
+    public function gyear()
     {
         return $this;
     }

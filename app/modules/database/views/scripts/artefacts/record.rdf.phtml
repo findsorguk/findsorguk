@@ -421,10 +421,10 @@ $record->add('crm:P108i_was_produced_by', $production);
         $span = $graph->resource($record . '#timespan');
         $span->addType('crm:E52_Time-Span');
         if(!is_null($data['numdate1'])){
-            $span->addLiteral('crm:P82a_begin_of_the_begin', EasyRdf_Literal::create($this->gYear()->setDate($data['numdate1']), 'en', 'xsd:gYear'));
+            $span->addLiteral('crm:P82a_begin_of_the_begin', EasyRdf_Literal::create($this->gyear()->setDate($data['numdate1']), 'en', 'xsd:gYear'));
         }
         if(!is_null($data['numdate2'])){
-            $span->addLiteral('crm:P82b_end_of_the_end', EasyRdf_Literal::create($this->gYear()->setDate($data['numdate2']), 'en', 'xsd:gYear'));
+            $span->addLiteral('crm:P82b_end_of_the_end', EasyRdf_Literal::create($this->gyear()->setDate($data['numdate2']), 'en', 'xsd:gYear'));
         }
         //Period from and to
         if(!is_null($data['periodFrom'])){
