@@ -69,12 +69,12 @@ if($data['objecttype'] == 'COIN'){
     }
     // Date from
     if(!is_null($data['numdate1'])){
-        $record->addLiteral('nmo:hasStartDate', EasyRdf_Literal::create($this->gyear()->setDate($data['numdate1'], 'en', 'xsd:gYear'));
+        $record->addLiteral('nmo:hasStartDate', EasyRdf_Literal::create($this->gyear()->setDate($data['numdate1']), 'en', 'xsd:gYear'));
     }
 
     //Date to
     if(!is_null($data['numdate2'])){
-        $record->addLiteral('nmo:hasEndDate', EasyRdf_Literal::create($this->gyear()->setDate($data['numdate2'], 'en', 'xsd:gYear'));
+        $record->addLiteral('nmo:hasEndDate', EasyRdf_Literal::create($this->gyear()->setDate($data['numdate2']), 'en', 'xsd:gYear'));
     }
 
     // RRC ID
