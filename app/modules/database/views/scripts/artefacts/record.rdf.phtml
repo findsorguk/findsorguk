@@ -409,7 +409,8 @@ $record->add('crm:P108i_was_produced_by', $production);
     if(!is_null($data['nomismaMoneyer'])){
         $moneyerCrm = $graph->resource($record . '#moneyer');
         $moneyerCrm->addType('crm:E12_Production');
-        $moneyerCrm->add('crm:P2_has_type','http://collection.britishmuseum.org/id/thesauri/production/MO');
+        $moneyerType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/production/MO')
+        $moneyerCrm->add('crm:P2_has_type',$moneyerType);
         $moneyer = $graph->resource('nm:' . $data['nomismaMoneyer']);
         $moneyerCrm->add('crm:P14_carried_out_by', $moneyer);
         $production->add('crm:P9_consists_of', $moneyerCrm);
@@ -489,7 +490,8 @@ $record->add('crm:P108i_was_produced_by', $production);
             $gn->add('owl:sameAs', $nom);
         }
         $minted->addType('crm:E12_Production');
-        $minted->add('crm:P2_has_type', 'http://collection.britishmuseum.org/id/thesauri/production/I');
+        $prodType = 'http://collection.britishmuseum.org/id/thesauri/production/I');
+        $minted->add('crm:P2_has_type', $prodType);
         $minted->add('crm:P7_took_place_at', $gn);
         $minted->addLiteral('rdfs:label', 'The mint of the coin');
         $production->add('crm:P9_consists_of', $minted);
