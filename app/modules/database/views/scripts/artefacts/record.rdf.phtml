@@ -490,7 +490,7 @@ $record->add('crm:P108i_was_produced_by', $production);
             $gn->add('owl:sameAs', $nom);
         }
         $minted->addType('crm:E12_Production');
-        $prodType = 'http://collection.britishmuseum.org/id/thesauri/production/I');
+        $prodType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/production/I');
         $minted->add('crm:P2_has_type', $prodType);
         $minted->add('crm:P7_took_place_at', $gn);
         $minted->addLiteral('rdfs:label', 'The mint of the coin');
