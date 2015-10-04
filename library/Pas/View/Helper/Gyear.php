@@ -67,7 +67,7 @@ class Pas_View_Helper_Gyear extends Zend_View_Helper_Abstract
                 $html .= '-' . $year;
             }
         } elseif ($date > 0) {
-            $html .= abs($date);
+            $html .= str_pad($date, 4, '0', STR_PAD_LEFT);
         } elseif ($date == 0) {
             $html .= '';
         }
