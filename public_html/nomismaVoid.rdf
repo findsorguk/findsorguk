@@ -9,6 +9,6 @@
 		<dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
 		<void:uriSpace>https://finds.org.uk/database/artefacts/record/id/</void:uriSpace>
 		<void:dataDump rdf:resource="https://finds.org.uk/rdf/republicanCoins.rdf"/>
-		<foaf:thumbnail>https://avatars3.githubusercontent.com/u/4288770?v=3&s=200</foaf:thumbnail>
+		<foaf:thumbnail>https://avatars3.githubusercontent.com/u/4288770?v=3&amp;s=200</foaf:thumbnail>
 	</void:Dataset>
 </rdf:RDF>
