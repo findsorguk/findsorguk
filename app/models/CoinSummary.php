@@ -106,10 +106,10 @@ class CoinSummary extends Pas_Db_Table_Abstract {
      */
     public function getSolrData( $id )
     {
-        $slides = $this->getAdapter();
-        $select = $slides->select()
+        $summary = $this->getAdapter();
+        $select = $summary->select()
             ->from($this->_name,array(
-                'summaryIdentifier' => new Zend_Db_Expr("CONCAT('coinsummary-',coinsummary.id)"),
+                'summaryIdentifier' => new Zend_Db_Expr("CONCAT('coinsummary-',coinsummary.secuid)"),
                 'id' => 'coinsummary.id',
                 'broadperiod',
                 'fromDate' => 'numdate1',
@@ -133,6 +133,6 @@ class CoinSummary extends Pas_Db_Table_Abstract {
             ->joinLeft('users', 'coinsummary.createdBy = users.id', array('creator' => 'fullname'))
             ->joinLeft(array('users2' => 'users'), 'coinsummary.updatedBy = users2.id', array('updater' => 'fullname'))
             ->where('coinsummary.id = ?',(int)$id);
-        return $slides->fetchAll($select);
+        return $summary->fetchAll($select);
     }
 }
