@@ -81,8 +81,8 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 $data = $form->getValues();
                 $data['hoardID'] = $this->getParam('secUID');
-                $this->getModel()->add($data);
-                $this->_helper->solrUpdater->update('coinsummary', $this->getParam('id'));
+                $insert = $this->getModel()->add($data);
+                $this->_helper->solrUpdater->update('coinsummary', $insert, 'hoards');
                 $this->getFlash()->addMessage('You have added a summary record');
                 $this->redirect('/database/hoards/record/id/' . $this->getParam('id'));
             } else {
@@ -118,7 +118,7 @@ class Database_SummaryController extends Pas_Controller_Action_Admin
                     $this->getModel()->update($form->getValues(), $where);
                     // Audit the data being entered
                     $this->_helper->audit( $form->getValues(), $oldData, 'SummaryAudit', $this->getParam('hoardID'), $this->getParam('hoardID'));
-                    $this->_helper->solrUpdater->update('coinsummary', $this->getParam('id'));
+                    $this->_helper->solrUpdater->update('coinsummary', $this->getParam('id'), 'hoards');
                     // Add flash message
                     $this->getFlash()->addMessage('You have edited data successfully');
                     // Redirect back to record
