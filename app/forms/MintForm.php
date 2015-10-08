@@ -32,7 +32,7 @@ class MintForm extends Pas_Form {
 
 	parent::__construct($options);
 
-	$this->setName('people');
+	$this->setName('mint');
 
 	$mint_name = new Zend_Form_Element_Text('mint_name');
 	$mint_name->setLabel('Mint name: ')
