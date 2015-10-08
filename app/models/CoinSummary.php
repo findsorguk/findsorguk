@@ -109,7 +109,7 @@ class CoinSummary extends Pas_Db_Table_Abstract {
         $summary = $this->getAdapter();
         $select = $summary->select()
             ->from($this->_name,array(
-                'summaryIdentifier' => new Zend_Db_Expr("CONCAT('coinsummary-',coinsummary.secuid)"),
+                'summaryIdentifier' => new Zend_Db_Expr("CONCAT('coinsummary-',coinsummary.id)"),
                 'id' => 'coinsummary.id',
                 'broadperiod',
                 'fromDate' => 'numdate1',
