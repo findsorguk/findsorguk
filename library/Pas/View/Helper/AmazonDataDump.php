@@ -1,6 +1,6 @@
 <?php
 /**
- * AmazonDataDump helper for redisplaying downloadable data from AWS S3
+ * AmazonDataDump helper for re-displaying downloadable data from AWS S3
  *
  *
  * @author Daniel Pett <dpett @britishmuseum.org>
@@ -70,7 +70,7 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract
 
     /** Set a different bucket to the default
      * @access public
-     * @param  type                            $bucket
+     * @param  string $bucket
      * @return \Pas_View_Helper_AmazonDataDump
      */
     public function setBucket($bucket)
@@ -91,13 +91,12 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract
 
     /** Set a different cache key
      * @access public
-     * @param  type                            $cacheKey
+     * @param string $cacheKey
      * @return \Pas_View_Helper_AmazonDataDump
      */
     public function setCacheKey($cacheKey)
     {
         $this->_cacheKey = $cacheKey;
-
         return $this;
     }
 
@@ -148,7 +147,7 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract
 
     /** Set a new AWS key
      * @access public
-     * @param  string                          $awsKey
+     * @param  string $awsKey
      * @return \Pas_View_Helper_AmazonDataDump
      */
     public function setAwsKey($awsKey)
@@ -160,7 +159,7 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract
 
     /** Set a different AWS secret
      * @access public
-     * @param  type                            $awsSecret
+     * @param  string $awsSecret
      * @return \Pas_View_Helper_AmazonDataDump
      */
     public function setAwsSecret($awsSecret)
@@ -197,7 +196,7 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract
      */
     protected function _buildHtml()
     {
-        $key = md5($this->getKey());
+        $key = md5($this->getAwsKey());
         if (!($this->getCache()->test($key))) {
             $list = $this->getS3()->getObjectsByBucket( $this->getBucket() );
             $data = array();
@@ -215,6 +214,9 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract
         return $this->view->partialLoop( 'partials/admin/fileList.phtml', $data );
     }
 
+    /** Render the code
+     * 
+     */
     public function __toString()
     {
         return $this->_buildHtml();
