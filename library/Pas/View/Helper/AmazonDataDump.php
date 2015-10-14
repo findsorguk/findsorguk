@@ -215,7 +215,7 @@ class Pas_View_Helper_AmazonDataDump extends Zend_View_Helper_Abstract
     }
 
     /** Render the code
-     * 
+     *
      */
     public function __toString()
     {
