@@ -1,18 +1,18 @@
 [submodule "library/Zend"]
 	path = library/Zend
-	url = git://github.com/zendframework/zf1.git
+	url = https://github.com/zendframework/zf1.git
 [submodule "library/HTMLPurifier"]
 	path = library/HTMLPurifier
-	url = git://github.com/ezyang/htmlpurifier.git
+	url = https://github.com/ezyang/htmlpurifier.git
 [submodule "library/EasyBib"]
 	path = library/EasyBib
 	url = https://github.com/easybib/EasyBib_Form_Decorator.git
 [submodule "library/easyrdf"]
 	path = library/easyrdf
-	url = https://github.com/njh/easyrdf
+	url = https://github.com/njh/easyrdf.git
 [submodule "library/imagecow"]
 	path = library/imagecow
-	url = https://github.com/oscarotero/imagecow
+	url = https://github.com/oscarotero/imagecow.git
 [submodule "library/mpdf"]
 	path = library/mpdf
-	url = https://github.com/finwe/mpdf
+	url = https://github.com/finwe/mpdf.git
