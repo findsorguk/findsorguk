@@ -141,9 +141,10 @@ class HelpForm extends Pas_Form
             'title', 'menuTitle', 'author',
             'body', 'section', 'publishState',
             'excerpt', 'metaKeywords', 'metaDescription',
-            'slug', 'frontPage'), 'details')
+            'slug', 'frontPage', 'submit'),
+            'details')
             ->removeDecorator('HtmlTag');
-        
+
         $this->details->setLegend('Add new site content');
 
         parent::init();
