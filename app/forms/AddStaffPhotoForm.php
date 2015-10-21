@@ -27,7 +27,7 @@ class AddStaffPhotoForm extends Pas_Form
         $avatar = new Zend_Form_Element_File('image');
         $avatar->setLabel('Upload staff photo: ')
             ->setRequired(true)
-            ->setDestination(ASSETS_PATH . 'staffphotos/')
+            ->setDestination(ASSETS_PATH . '/staffphotos/')
             ->addValidator('NotEmpty')
             ->addValidator('Size', false, 2097152)
             ->addValidator('Extension', false, 'jpeg,tif,jpg,png,gif')
@@ -44,8 +44,7 @@ class AddStaffPhotoForm extends Pas_Form
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Upload a photo');
 
-        $this->addElements(array($avatar, $submit, $hash))
-            ->setLegend('Add an active denomination');
+        $this->addElements(array($avatar, $submit, $hash))->setLegend('Add an avatar');
 
         $this->addDisplayGroup(array('image'), 'details');
 
