@@ -120,7 +120,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin
      */
     public function imageAction()
     {
-        $people = $this->_contacts->fetchRow($contacts->select()->where('dbaseID = ' . $this->getIdentityForForms()));
+        $people = $this->_contacts->fetchRow($this->_contacts->select()->where('dbaseID = ' . $this->getIdentityForForms()));
         if (is_null($people)) {
             throw new Pas_Exception_Param('Admin has not yet set up a profile for you');
         }
