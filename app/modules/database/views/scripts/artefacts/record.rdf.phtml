@@ -113,7 +113,27 @@ if($data['objecttype'] == 'COIN'){
         $nomMint->addType('crm:E53_Place');
         if(!is_null($data['pleiadesID'])){
             $pleiades = $graph->resource('http://pleiades.stoa.org/places/' . $data['pleiadesID']);
-            $nomMint->add('skos:exactMatch', $pleiades);
+            $nomMint->add('skos:closeMatch', $pleiades);
+        }
+        if(!is_null($data['mintBritMuseumID'])){
+            $bmMintID = $graph->resource('http://collection.britishmuseum.org/id/place/' . $data['mintBritMuseumID']);
+            $nomMint->add('skos:closeMatch', $bmMintID);
+        }
+        if(!is_null($data['mintGettyID'])){
+            $gettyMintID = $graph->resource('http://vocab.getty.edu/tgn/' . $data['mintGettyID']);
+            $nomMint->add('skos:closeMatch', $gettyMintID);
+        }
+        if(!is_null($data['mintGeonamesID'])){
+            $geonamesMint = $graph->resource('http://geonames.org/' . $data['mintGeonamesID']);
+            $nomMint->add('skos:closeMatch', $geonamesMint);
+        }
+        if(!is_null($data['mintOsID'])){
+            $osMint = $graph->resource('http://data.ordnancesurvey.co.uk/id/' . $data['mintOsID']);
+            $nomMint->add('skos:closeMatch', $osMint);
+        }
+        if(!is_null($data['mintDbPediaID'])){
+            $dbpMint = $graph->resource('http://dbpedia.org/resource/' . $data['mintDbPediaID']);
+            $nomMint->add('skos:closeMatch', $dbpMint);
         }
         $nomMint->addLiteral('rdfs:label', $data['mintName']);
         $record->add('nmo:hasMint', $nomMint);
@@ -132,7 +152,7 @@ if($data['objecttype'] == 'COIN'){
         $authority->addType('crm:E21_Person');
         //Dbpedia match
         if(!is_null($data['rulerDbpedia'])){
-            $issuerDbPedia = $graph->resource('db:' . $data['rulerDbpedia']);
+            $issuerDbPedia = $graph->resource('http://dbpedia.org/resource/' . $data['rulerDbpedia']);
             $authority->add('skos:exactMatch', $issuerDbPedia);
         }
         //Viaf match
@@ -478,22 +498,13 @@ $record->add('crm:P108i_was_produced_by', $production);
         $production->add('crm:P9_consists_of', $political);
     }
     //CRM minting
-    if(!is_null($data['mintGeonamesID'])){
+    if(!is_null($data['nomismaMintID'])){
         $minted = $graph->resource($record . '#minted');
-        $gn = $graph->resource('http://finds.org.uk/datalabs/mints/id/' . $data['mintID']);
-        if(!is_null($data['mintGeonamesID'])){
-            $geo = $graph->resource('http://geonames.org/' . $data['mintGeonamesID']);
-            $gn->add('owl:sameAs', $geo);
-        }
-        if(!is_null($data['nomismaMintID'])) {
-            $nom = $graph->resource('http://nomisma.org/id/' . $data['nomismaMintID']);
-            $gn->add('owl:sameAs', $nom);
-        }
+        $gn = $graph->resource('http://nomisma.org/id/' . $data['nomismaMintID']);
         $minted->addType('crm:E12_Production');
         $prodType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/production/I');
         $minted->add('crm:P2_has_type', $prodType);
         $minted->add('crm:P7_took_place_at', $gn);
-        $minted->addLiteral('rdfs:label', 'The mint of the coin');
         $production->add('crm:P9_consists_of', $minted);
     }
     // CRM issuer

@@ -240,7 +240,9 @@ class Mints extends Pas_Db_Table_Abstract
         $select = $this->select()
             ->from($this->_name, array(
                 'pasID' => 'id', 'name' => 'mint_name', 'updated',
-                'created', 'nomismaID'
+                'created', 'nomismaID', 'osID',
+                'gettyID', 'what3words', 'bmID',
+                'woeid', 'geonamesID'
             ))
             ->joinLeft('periods', 'periods.id = mints.period',
                 array('period' => 'term', 'periodID' => 'id'))
