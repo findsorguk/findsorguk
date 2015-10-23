@@ -437,13 +437,19 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('reeceperiods', 'coins.reeceID = reeceperiods.id',
                 array('periodName' => 'period_name', 'dateRange' => 'date_range'))
             ->joinLeft('mints', 'mints.id = coins.mint_ID',
-                array(
+                [
                     'mintName' => 'mint_name',
                     'nomismaMintID' => 'nomismaID',
                     'pleiadesID',
                     'mintGeonamesID' => 'geonamesID',
-                    'mintWoeid' => 'woeid'
-                ))
+                    'mintWoeid' => 'woeid',
+                    'mintOsID' => 'osID',
+                    'mintGettyID' => 'gettyID',
+                    'mintWoeID' => 'woeid',
+                    'mintDbPediaID' => 'dbpediaID',
+                    'mintWhat3Words' => 'what3words',
+                    'mintBritMuseumID' => 'bmID'
+                ])
             ->joinLeft('weartypes',
                 'coins.degree_of_wear = weartypes.id',
                 array('wear' => 'term'))
