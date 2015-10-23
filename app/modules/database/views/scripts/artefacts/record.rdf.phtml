@@ -232,7 +232,8 @@ if($data['objecttype'] == 'COIN'){
         $record->add('nmo:hasReverse', $reverse);
     }
     // Find spot of coin
-    if(!is_null($data['parishID'] && is_null($data['knownas']))){
+    if(!is_null($data['parishID'])){
+        if(is_null($data['knownas'])) {
         $findspotNM = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. str_pad($data['parishID'], 6, '0', STR_PAD_LEFT));
         $findspotNM->addType('crm:E53_Place');
         $findspotNM->addType('skos:Concept');
@@ -270,6 +271,7 @@ if($data['objecttype'] == 'COIN'){
         $discovery->add('crm:P2_has_type', $type);
         $discovery->add('crm:P7_took_place_at', $findspotNM);
         $record->add('crm:P12i_was_present_at', $discovery);
+        }
     }
 
     // Die axis
