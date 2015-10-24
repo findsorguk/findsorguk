@@ -574,65 +574,79 @@ if(!is_null($data['width'])){
     $width = $graph->resource($record . '#width');
     $width->addType('crm:E54_Dimension');
     $width->addLiteral('crm:P90_has_value', (int) $data['width']);
-    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/width');
-    $width->add('crm:P2_has_type', $type);
+    $widthType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/width');
+    $width->add('crm:P2_has_type', $widthType);
     $mm = $graph->resource('units:Millimeter');
     $width->add('crm:P91_has_unit', $mm);
     $width->addLiteral('rdfs:label', 'Width');
     $record->add('crm:P43_has_dimension', $width);
 }
 
+// CRM Length
+if(!is_null($data['length'])){
+    $length = $graph->resource($record . '#length');
+    $length->addType('crm:E54_Dimension');
+    $length->addLiteral('crm:P90_has_value', (int) $data['length']);
+    $lengthType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/length');
+    $length->add('crm:P2_has_type', $lengthType);
+    $mm = $graph->resource('units:Millimeter');
+    $length->add('crm:P91_has_unit', $mm);
+    $length->addLiteral('rdfs:label', 'Width');
+    $record->add('crm:P43_has_dimension', $length);
+}
+
+
 //CRM diameter
 if(!is_null($data['diameter'])){
-    $width = $graph->resource($record . '#diameter');
-    $width->addType('crm:E54_Dimension');
-    $width->addLiteral('crm:P90_has_value', (int) $data['diameter']);
-    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/diameter');
-    $width->add('crm:P2_has_type', $type);
+    $diameter = $graph->resource($record . '#diameter');
+    $diameter->addType('crm:E54_Dimension');
+    $diameter->addLiteral('crm:P90_has_value', (int) $data['diameter']);
+    $diameterType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/diameter');
+    $diameter->add('crm:P2_has_type', $diameterType);
     $mm = $graph->resource('units:Millimeter');
-    $width->add('crm:P91_has_unit', $mm);
-    $width->addLiteral('rdfs:label', 'Diameter');
-    $record->add('crm:P43_has_dimension', $width);
+    $diameter->add('crm:P91_has_unit', $mm);
+    $diameter->addLiteral('rdfs:label', 'Diameter');
+    $record->add('crm:P43_has_dimension', $diameter);
 }
 
 // CRM thickness
 if(!is_null($data['thickness'])){
-    $width = $graph->resource($record . '#thickness');
-    $width->addType('crm:E54_Dimension');
-    $width->addLiteral('crm:P90_has_value', (int) $data['thickness']);
-    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/thickness');
-    $width->add('crm:P2_has_type', $type);
+    $thickness = $graph->resource($record . '#thickness');
+    $thickness->addType('crm:E54_Dimension');
+    $thickness->addLiteral('crm:P90_has_value', (int) $data['thickness']);
+    $thicknessType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/thickness');
+    $thickness->add('crm:P2_has_type', $thicknessType);
     $mm = $graph->resource('units:Millimeter');
-    $width->add('crm:P91_has_unit', $mm);
-    $width->addLiteral('rdfs:label', 'Thickness');
-    $record->add('crm:P43_has_dimension', $width);
+    $thickness->add('crm:P91_has_unit', $mm);
+    $thickness->addLiteral('rdfs:label', 'Thickness');
+    $record->add('crm:P43_has_dimension', $thickness);
 }
 
 // CRM height
 if(!is_null($data['height'])){
-    $width = $graph->resource($record . '#diameter');
-    $width->addType('crm:E54_Dimension');
-    $width->addLiteral('crm:P90_has_value', (int) $data['diameter']);
-    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/height');
-    $width->add('crm:P2_has_type', $type);
+    $height = $graph->resource($record . '#diameter');
+    $height->addType('crm:E54_Dimension');
+    $height->addLiteral('crm:P90_has_value', (int) $data['diameter']);
+    $heightType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/height');
+    $height->add('crm:P2_has_type', $heightType);
     $mm = $graph->resource('units:Millimeter');
-    $width->add('crm:P91_has_unit', $mm);
-    $width->addLiteral('rdfs:label', 'Height');
-    $record->add('crm:P43_has_dimension', $width);
+    $height->add('crm:P91_has_unit', $mm);
+    $height->addLiteral('rdfs:label', 'Height');
+    $record->add('crm:P43_has_dimension', $height);
 }
 
 
 // CRM weight
 if(!is_null($data['weight'])){
-    $width = $graph->resource($record . '#weight');
-    $width->addType('crm:E54_Dimension');
-    $width->addLiteral('crm:P90_has_value', (int) $data['weight']);
-    $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/weight');
-    $width->add('crm:P2_has_type', $type);
+    $weight = $graph->resource($record . '#weight');
+    $weight->addType('crm:E54_Dimension');
+    $weight->addLiteral('crm:P90_has_value', (int) $data['weight']);
+    $weightType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/weight');
+    $weight->add('crm:P2_has_type', $weightType);
     $mm = $graph->resource('units:Grams');
-    $width->add('crm:P91_has_unit', $mm);
-    $width->addLiteral('rdfs:label', 'Weight');
-    $record->add('crm:P43_has_dimension', $width);
+    $weight->add('crm:P91_has_unit', $mm);
+    $weight->addLiteral('rdfs:label', 'Weight');
+    $record->add('crm:P43_has_dimension', $weight);
 }
 
 // Serialisation method
