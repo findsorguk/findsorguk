@@ -624,7 +624,7 @@ if(!is_null($data['thickness'])){
 
 // CRM height
 if(!is_null($data['height'])){
-    $height = $graph->resource($record . '#diameter');
+    $height = $graph->resource($record . '#height');
     $height->addType('crm:E54_Dimension');
     $height->addLiteral('crm:P90_has_value', (int) $data['diameter']);
     $heightType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/height');
