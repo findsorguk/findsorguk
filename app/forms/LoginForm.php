@@ -35,6 +35,7 @@ class LoginForm extends Pas_Form {
                 ->setRequired(true)
                 ->addFilters(array('StringTrim', 'StripTags'))
                 ->addValidator('Authorise')
+                ->setAttrib('autofocus','autofocus')
                 ->setAttrib('size','20');
 
 	$password = $this->addElement('password', 'password',array('label' => 'Password: '));
