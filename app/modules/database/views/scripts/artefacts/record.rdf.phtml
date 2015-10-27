@@ -27,12 +27,15 @@ EasyRdf_Namespace::set('lawd', 'http://lawd.info/ontology/1.0/');
 EasyRdf_Namespace::set('db', 'http://dbpedia.org/id/');
 EasyRdf_Namespace::set('bmt', 'http://collection.britishmuseum.org/id/thesauri/');
 EasyRdf_Namespace::set('bmo', 'http://collection.britishmuseum.org/id/ontology/');
+EasyRdf_Namespace::set('void', 'http://rdfs.org/ns/void#');
+EasyRdf_Namespace::set('un', 'http://www.owl-ontologies.com/Ontology1181490123.owl#');
 // Create the graph
 $data = $this->finds[0];
 $graph = new EasyRdf_Graph();
 $record = $graph->resource($this->serverUrl() . '/database/artefacts/record/id/' . $data['id'], 'foaf:Document');
 $creator = $graph->resource('https://finds.org.uk');
 $record->add('foaf:maker', $creator);
+$record->add('void:inDataset', $creator);
 
 if(!is_null($data['description'])){
     $record->addLiteral('skos:definition', strip_tags($data['description']), 'en');
@@ -61,8 +64,74 @@ $prn->addType('crm:E42_Identifier');
 $prn->addLiteral('rdfs:label', $data['old_findID']);
 $record->add('crm:P48_has_preferred_identifier', $prn);
 
+if($data['objecttype'] == 'COIN HOARD'){
+    $record->add('nmo:FindType', $graph->resource('nm:hoard'));
+}
+
 if($data['objecttype'] == 'COIN'){
+
+    if(!is_null($data['broadperiod'])) {
+        switch($data['broadperiod']){
+            case 'ROMAN':
+                $bp = 'roman_numismatics';
+                break;
+            case 'BYZANTINE':
+                $bp = 'byzantine_numismatics';
+                break;
+            case 'MEDIEVAL':
+                $bp = 'medieval_european_numismatics';
+                break;
+            case 'EARLY MEDIEVAL':
+                $bp = 'medieval_european_numismatics';
+                break;
+            case 'POST MEDIEVAL':
+                $bp = 'medieval_european_numismatics';
+                break;
+            default:
+                $bp = NULL;
+                break;
+        }
+        if(!is_null($bp)){
+            $record->add('nmo:FieldOfNumismatics', $graph->resource('nm:' . $bp));
+        }
+    }
     $record->add('rdf:type', $nomismaType);
+    $record->add('nmo:representsObjectType', $graph->resource('nm:coin'));
+
+
+    if(!is_null($data['reverseMintMark'])){
+        $record->addLiteral('nmo:hasMintmark', $data['reverseMintMark']);
+    }
+    if(!is_null($data['degreeOfWear'])){
+        $record->add('nmo:CoinWear', $graph->resource('nm:' . $data['nomismaWear']));
+    }
+
+
+    if(!is_null($data['primaryMaterial'])){
+        switch($data['primaryMaterial']){
+            case 'Gold':
+                $id = 'av';
+            break;
+            case 'Silver':
+                $id = 'ar';
+            break;
+            case 'Base silver':
+                $id = 'ar';
+                break;
+            case 'Copper alloy':
+                $id = 'ae';
+                break;
+            default:
+                $id = 'ae';
+            break;
+        }
+        $nmoMaterial = $graph->resource('nm:' . $id);
+        $nmoMaterial->addLiteral('rdfs:label', $data['primaryMaterial'], 'en');
+        $record->add('nmo:hasMaterial', $nmoMaterial);
+    }
+    if(!is_null($data['manufactureID']) && $data['manufactureID'] == '2' ){
+        $record->add('nmo:hasManufacture', $graph->resource('nm:struck'));
+    }
     // Die Axis
     if(!is_null($data['dieAxis'])){
         $record->addLiteral('nmo:hasAxis', (int)$data['dieAxis']);
@@ -92,25 +161,24 @@ if($data['objecttype'] == 'COIN'){
     // Reece ID
     if(!is_null($data['reeceID'])){
         $reece = $graph->resource($this->serverUrl() . '/romancoins/reeceperiods/period/id/'. $data['reeceID']);
-        $reece->addType('skos:Concept');
-        $reece->addLiteral('skos:prefLabel', $data['periodName'] . ': ' . $data['dateRange']);
-        $record->add('nmo:hasTypeSeriesItem', $reece);
+        $reece->addLiteral('skos:prefLabel', $data['periodName'] . ': ' . $data['dateRange'], 'en');
+        $record->add('crm:E4_Period', $reece);
     }
 
     // Diameter
     if(!is_null($data['diameter'])){
-        $record->addLiteral('nmo:hasDiameter', $data['diameter']);
+        $record->addLiteral('nmo:hasDiameter', (double)$data['diameter']);
     }
 
     // Weight
     if(!is_null($data['weight'])){
-        $record->addLiteral('nmo:hasWeight', $data['weight']);
+        $record->addLiteral('nmo:hasWeight', (double)$data['weight']);
     }
     // Mint
     if(!is_null($data['nomismaMintID'])){
         $nomMint = $graph->resource('http://nomisma.org/id/' . $data['nomismaMintID']);
-        $nomMint->addType('skos:Concept');
         $nomMint->addType('crm:E53_Place');
+        $nomMint->addType('skos:Concept');
         if(!is_null($data['pleiadesID'])){
             $pleiades = $graph->resource('http://pleiades.stoa.org/places/' . $data['pleiadesID']);
             $nomMint->add('skos:closeMatch', $pleiades);
@@ -135,12 +203,12 @@ if($data['objecttype'] == 'COIN'){
             $dbpMint = $graph->resource('http://dbpedia.org/resource/' . $data['mintDbPediaID']);
             $nomMint->add('skos:closeMatch', $dbpMint);
         }
-        $nomMint->addLiteral('rdfs:label', $data['mintName']);
+        $nomMint->addLiteral('rdfs:label', $data['mintName'], 'en');
         $record->add('nmo:hasMint', $nomMint);
         $record->add('crmbm:PX_minted_in', $nomMint);
     } elseif(!is_null($data['mintGeonamesID'])) {
         $nomMint = $graph->resource('http://geonames.org/' . $data['mintGeonamesID']);
-        $nomMint->addLiteral('rdfs:label', $data['mintName']);
+        $nomMint->addLiteral('rdfs:label', $data['mintName'], 'en');
         $record->add('nmo:hasMint', $nomMint);
         $record->add('crmbm:PX_minted_in', $nomMint);
     }
@@ -178,8 +246,8 @@ if($data['objecttype'] == 'COIN'){
         $width->add('crm:P2_has_type', $type);
         $mm = $graph->resource('http://finds.org.uk/datalabs/terminology/denominations/id/' . $data['denominationID']);
         $width->add('crm:P91_has_unit', $mm);
-        $width->addLiteral('skos:prefLabel', $data['denomination']);
-        $width->addLiteral('rdfs:label', 'Denomination');
+        $width->addLiteral('skos:prefLabel', $data['denomination'], 'en');
+        $width->addLiteral('rdfs:label', 'Denomination', 'en');
         $record->add('crm:P43_has_dimension', $width);
     }
     // Obverse of coin
@@ -190,19 +258,19 @@ if($data['objecttype'] == 'COIN'){
         $obvAspect = $graph->resource('http://collection.britishmuseum.org/id/thesauri/aspect/obverse');
         $obverse->add('crm:P2_has_type', $obvAspect);
         if(!is_null($data['obverseDescription'])){
-            $obverse->addLiteral('bmo:PX_physical_description', $data['obverseDescription']);
-            $obverse->addLiteral('nmo:obverseDescription', $data['obverseDescription']);
+            $obverse->addLiteral('bmo:PX_physical_description', $data['obverseDescription'], 'en');
+            $obverse->addLiteral('dcterms:description', $data['obverseDescription'], 'en');
         }
         if(!is_null($data['obverseInscription'])){
-            $obverse->addLiteral('nmo:obverseLegend', $data['obverseInscription']);
+            $obverse->addLiteral('nmo:hasLegend', $data['obverseInscription']);
             $obverseIns = $graph->resource($record . '#obverseInscription');
             $insType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/inscription/inscription');
             $obverseIns->addType('crm:E34_Inscription');
-            $obverseIns->addLiteral('bmo:PX_inscription_position', 'obverse');
-            $obverseIns->addLiteral('rdfs:label', $data['obverseInscription']);
+            $obverseIns->addLiteral('bmo:PX_inscription_position', 'obverse', 'en');
+            $obverseIns->addLiteral('rdfs:label', $data['obverseInscription'],'en');
             $obverseIns->add('bmo:PX_inscription_type', $insType);
             $record->add('crm:P65_shows_visual_item', $obverseIns);
-            $obverse->addLiteral('rdfs:label', 'Obverse of coin');
+            $obverse->addLiteral('rdfs:label', 'Obverse of coin', 'en');
         }
         $record->add('nmo:hasObverse', $obverse);
     }
@@ -215,16 +283,16 @@ if($data['objecttype'] == 'COIN'){
         $revAspect = $graph->resource('http://collection.britishmuseum.org/id/thesauri/aspect/reverse');
         $reverse->add('crm:P2_has_type', $revAspect);
         if(!is_null($data['reverseDescription'])){
-            $reverse->addLiteral('bmo:PX_physical_description', $data['reverseDescription']);
-            $reverse->addLiteral('nmo:reverseDescription', $data['reverseDescription']);
+            $reverse->addLiteral('bmo:PX_physical_description', $data['reverseDescription'], 'en');
+            $reverse->addLiteral('dcterms:description', $data['reverseDescription'], 'en');
         }
-        $reverse->addLiteral('rdfs:label', 'reverse');
+        $reverse->addLiteral('rdfs:label', 'Reverse','en');
         if(!is_null($data['reverseInscription'])){
-            $reverse->addLiteral('nmo:reverseLegend',$data['reverseInscription']);
+            $reverse->addLiteral('nmo:hasLegend',$data['reverseInscription']);
             $reverseIns = $graph->resource($record . '#reverseInscription');
             $reverseIns->addType('crm:E34_Inscription');
-            $reverseIns->addLiteral('bmo:PX_inscription_position', 'reverse');
-            $reverseIns->addLiteral('rdfs:label', $data['reverseInscription']);
+            $reverseIns->addLiteral('bmo:PX_inscription_position', 'reverse', 'en');
+            $reverseIns->addLiteral('rdfs:label', $data['reverseInscription'], 'en');
             $insType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/inscription/inscription');
             $reverseIns->add('bmo:PX_inscription_type', $insType);
             $record->add('crm:P65_shows_visual_item', $reverseIns);
@@ -239,25 +307,25 @@ if($data['objecttype'] == 'COIN'){
         $findspotNM->addType('skos:Concept');
         $placeType = $graph->resource('http://collection.britishmuseum.org/id/place/type/Q');
         $findspotNM->add('crm:P2_has_type', $placeType);
-        $findspotNM->addLiteral('foaf:name', $data['parish']);
+        $findspotNM->addLiteral('foaf:name', $data['parish'], 'en');
 
-        $findspotNM->addLiteral('skos:prefLabel', $data['parish']);
+        $findspotNM->addLiteral('skos:prefLabel', $data['parish'], 'en');
         $findspotNM->addLiteral('geo:lat', (double)$data['fourFigureLat']);
         $findspotNM->addLiteral('crmeh:EXP5_spatial_x', (double)$data['fourFigureLat']);
 
         $findspotNM->addLiteral('geo:long', (double)$data['fourFigureLon']);
         $findspotNM->addLiteral('crmeh:EXP5_spatial_y', (double)$data['fourFigureLon']);
         $parentDistrict = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. str_pad($data['districtID'], 6, '0', STR_PAD_LEFT));
-        $parentDistrict->addLiteral('rdfs:label', $data['district']);
+        $parentDistrict->addLiteral('rdfs:label', $data['district'], 'en');
 
         $findspotNM->add('osAdminGeo:inDistrict', $parentDistrict);
         $parentCounty = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. str_pad($data['countyID'], 6, '0', STR_PAD_LEFT));
-        $parentCounty->addLiteral('rdfs:label', $data['county']);
+        $parentCounty->addLiteral('rdfs:label', $data['county'], 'en');
 
         $findspotNM->add('osSpatialRel:within', $parentCounty);
         $findspotNM->add('osAdminGeo:county', $parentCounty);
         $parentRegion = $graph->resource('http://data.ordnancesurvey.co.uk/doc/7000000000'. str_pad($data['regionID'], 6, '0', STR_PAD_LEFT));
-        $parentRegion->addLiteral('rdfs:label', $data['region']);
+        $parentRegion->addLiteral('rdfs:label', $data['region'], 'en');
 
         $record->add('osAdminGeo:inEuropeanRegion', $parentRegion);
         $record->add('nmo:hasFindspot', $findspotNM);
@@ -267,7 +335,7 @@ if($data['objecttype'] == 'COIN'){
         $type = $graph->resource('http://collection.britishmuseum.org/id/thesauri/find/E');
         $type->addType('crm:E55_Type');
         $type->addType('skos:Concept');
-        $type->addLiteral('skos:prefLabel', 'Excavated, discovered at, or find spot of object');
+        $type->addLiteral('skos:prefLabel', 'Excavated, discovered at, or find spot of object', 'en');
         $discovery->add('crm:P2_has_type', $type);
         $discovery->add('crm:P7_took_place_at', $findspotNM);
         $record->add('crm:P12i_was_present_at', $discovery);
@@ -564,16 +632,16 @@ $record->add('crm:P108i_was_produced_by', $production);
     }
 
 $record->add('crm:E12_Production', $production);
-//Completeness
+// Completeness
 if(!is_null($data['completeness'])){
-    $record->addLiteral('bmo:PX_condition', $data['completeness']);
+    $record->addLiteral('bmo:PX_condition', $data['completeness'], 'en');
 }
 
 // CRM Width
 if(!is_null($data['width'])){
     $width = $graph->resource($record . '#width');
     $width->addType('crm:E54_Dimension');
-    $width->addLiteral('crm:P90_has_value', (int) $data['width']);
+    $width->addLiteral('crm:P90_has_value', (double) $data['width']);
     $widthType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/width');
     $width->add('crm:P2_has_type', $widthType);
     $mm = $graph->resource('units:Millimeter');
@@ -586,12 +654,12 @@ if(!is_null($data['width'])){
 if(!is_null($data['length'])){
     $length = $graph->resource($record . '#length');
     $length->addType('crm:E54_Dimension');
-    $length->addLiteral('crm:P90_has_value', (int) $data['length']);
+    $length->addLiteral('crm:P90_has_value', (double) $data['length']);
     $lengthType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/length');
     $length->add('crm:P2_has_type', $lengthType);
     $mm = $graph->resource('units:Millimeter');
     $length->add('crm:P91_has_unit', $mm);
-    $length->addLiteral('rdfs:label', 'Width');
+    $length->addLiteral('rdfs:label', 'Length');
     $record->add('crm:P43_has_dimension', $length);
 }
 
@@ -600,7 +668,7 @@ if(!is_null($data['length'])){
 if(!is_null($data['diameter'])){
     $diameter = $graph->resource($record . '#diameter');
     $diameter->addType('crm:E54_Dimension');
-    $diameter->addLiteral('crm:P90_has_value', (int) $data['diameter']);
+    $diameter->addLiteral('crm:P90_has_value', (double) $data['diameter']);
     $diameterType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/diameter');
     $diameter->add('crm:P2_has_type', $diameterType);
     $mm = $graph->resource('units:Millimeter');
@@ -613,7 +681,7 @@ if(!is_null($data['diameter'])){
 if(!is_null($data['thickness'])){
     $thickness = $graph->resource($record . '#thickness');
     $thickness->addType('crm:E54_Dimension');
-    $thickness->addLiteral('crm:P90_has_value', (int) $data['thickness']);
+    $thickness->addLiteral('crm:P90_has_value', (double) $data['thickness']);
     $thicknessType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/thickness');
     $thickness->add('crm:P2_has_type', $thicknessType);
     $mm = $graph->resource('units:Millimeter');
@@ -626,7 +694,7 @@ if(!is_null($data['thickness'])){
 if(!is_null($data['height'])){
     $height = $graph->resource($record . '#height');
     $height->addType('crm:E54_Dimension');
-    $height->addLiteral('crm:P90_has_value', (int) $data['diameter']);
+    $height->addLiteral('crm:P90_has_value', (double) $data['diameter']);
     $heightType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/height');
     $height->add('crm:P2_has_type', $heightType);
     $mm = $graph->resource('units:Millimeter');
@@ -640,7 +708,7 @@ if(!is_null($data['height'])){
 if(!is_null($data['weight'])){
     $weight = $graph->resource($record . '#weight');
     $weight->addType('crm:E54_Dimension');
-    $weight->addLiteral('crm:P90_has_value', (int) $data['weight']);
+    $weight->addLiteral('crm:P90_has_value', (double) $data['weight']);
     $weightType = $graph->resource('http://collection.britishmuseum.org/id/thesauri/dimension/weight');
     $weight->add('crm:P2_has_type', $weightType);
     $mm = $graph->resource('units:Grams');

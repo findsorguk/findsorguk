@@ -450,9 +450,8 @@ class Finds extends Pas_Db_Table_Abstract
                     'mintWhat3Words' => 'what3words',
                     'mintBritMuseumID' => 'bmID'
                 ])
-            ->joinLeft('weartypes',
-                'coins.degree_of_wear = weartypes.id',
-                array('wear' => 'term'))
+            ->joinLeft('weartypes', 'coins.degree_of_wear = weartypes.id', array('wear' => 'term',
+                'nomismaWear' => 'nomismaID'))
             ->joinLeft('dieaxes', 'coins.die_axis_measurement = dieaxes.id',
                 array('dieAxisName' => 'die_axis_name'))
             ->joinLeft('medievalcategories',
