@@ -31,9 +31,10 @@ class RomanCoins_ReeceperiodsController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow(null);
-        $contexts = array('xml', 'json');
+        $contexts = array('xml', 'json', 'rdf');
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
         $this->_helper->contextSwitch()->setAutoDisableLayout(true)
+            ->addContext('rdf', array('suffix' => 'rdf', 'headers' => array('Content-Type' => 'application/xml')))
             ->addActionContext('index', $contexts)
             ->addActionContext('period', $contexts)
             ->initContext();
