@@ -39,3 +39,5 @@ License
 =======
 
 The codebase is released under GPL.
+
+[![DOI](https://zenodo.org/badge/19055/findsorguk/findsorguk.svg)](https://zenodo.org/badge/latestdoi/19055/findsorguk/findsorguk)
