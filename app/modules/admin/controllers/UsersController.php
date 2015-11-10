@@ -116,7 +116,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
     {
         if ($this->getParam('id', false)) {
             $form = new EditAccountForm();
-            $form->submit->setLabel('Edit account details');
+            $form->submit->setLabel('Save details');
             $form->removeElement('password');
             $this->view->form = $form;
             if ($this->_request->isPost()) {
