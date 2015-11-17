@@ -26,6 +26,7 @@ PHP libraries
 * HTMLPurifier
 * EasyBib
 * Tcpdf
+ 
 Development team
 ================
 * [Daniel Pett](https://github.com/portableant)
