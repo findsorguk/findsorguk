@@ -14,7 +14,6 @@ $mpdf->SetDisplayMode('fullpage');
 $mpdf->WriteHTML('<h1 style="font-size: 14px;">Export of search results from finds.org.uk</h1>');
 //?>
 <?php foreach ($this->data as $data): ?>
-<!--    --><?php //echo $this->purify()->setValue($this->partial('partials/database/pdf/results.phtml', $data));?>
 <?php $mpdf->WriteHTML(utf8_encode($this->partial('partials/database/pdf/results.phtml', $data))); ?>
 <?php endforeach; ?>
 <?php $mpdf->WriteHTML($tableEnd); ?>
