@@ -118,14 +118,14 @@ class Pas_View_Helper_SearchExportTools extends Zend_View_Helper_Abstract
         } else {
             $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 12000 records" class="tipme ' . $classDisabled . '" href="#"><i class="icon-download-alt"></i> HERO disabled</a> ';
         }
-        if ($quantity < 200) {
+        if ($quantity < 1000) {
             if (in_array($this->_user->role, array('flos', 'admin', 'fa'))) {
                 $html .= ' <a class="' . $class . '" href="';
                 $html .= $this->view->url($pdfRoute, null, false);
                 $html .= '"><i class="icon-download-alt"></i> PDF report format</a>';
             }
         } else {
-            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 200 records" class="tipme ' . $classDisabled . '" href="#"><i class="icon-download-alt"></i> PDF disabled</a> ';
+            $html .= ' <a data-toggle="tooltip" title="Only available if fewer than 1000 records" class="tipme ' . $classDisabled . '" href="#"><i class="icon-download-alt"></i> PDF disabled</a> ';
         }
         if ($this->_user->canRecord === '1') {
             $html .= ' <a href="' . $this->view->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'add'),
