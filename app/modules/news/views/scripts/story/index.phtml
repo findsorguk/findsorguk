@@ -1,6 +1,6 @@
 <?php echo $this->partial('partials/news/story.phtml', $this->news['0']); ?>
-    <h3 class="lead">Comments <i class="icon-comment"></i></h3>
 <?php if (!empty($this->comments)) : ?>
+    <h3 class="lead">Comments <i class="icon-comment"></i></h3>
     <p>There are <?php echo count($this->comments); ?> comments on this story.</p>
     <div id="comm">
         <ul><?php echo $this->partialLoop('partials/database/structural/comments.phtml', $this->comments); ?></ul>
