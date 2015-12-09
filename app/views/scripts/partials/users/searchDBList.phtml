@@ -1,9 +1,12 @@
 <?php
 $params = unserialize($this->searchString);
-if ($params == NULL) {
+if (is_null($params)) {
     $params = array('module' => 'database', 'controller' => 'search', 'action' => 'results');
 }
+Zend_Debug::dump($params);
 $url = $this->url($params, null, true);
+Zend_Debug::dump($url);
+
 ?>
 <div class="row-fluid">
     <?php
