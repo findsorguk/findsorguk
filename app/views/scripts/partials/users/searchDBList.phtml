@@ -1,6 +1,6 @@
 <?php
 $params = unserialize($this->searchString);
-$query = array('module' => 'database', 'controller' => 'search', 'action' => 'results', $params);
+$query = array('module' => 'database', 'controller' => 'search', 'action' => 'results', $params[0]);
 $url = $this->url($query, null, true);
 Zend_Debug::dump($query);
 ?>
