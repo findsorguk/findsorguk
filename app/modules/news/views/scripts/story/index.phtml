@@ -5,7 +5,4 @@
     <div id="comm">
         <ul><?php echo $this->partialLoop('partials/database/structural/comments.phtml', $this->comments); ?></ul>
     </div>
-<?php else: ?>
-    <p>Be the first to comment on this news story.</p>
 <?php endif; ?>
-<?php echo $this->form; ?>
