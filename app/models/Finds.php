@@ -28,60 +28,35 @@
 class Finds extends Pas_Db_Table_Abstract
 {
 
+    /** The duplicate value error code
+     *
+     */
+    const DUPLICATE_UNIQUE_VALUE_ERROR_CODE = 23000;
     /** The table name
      * @access protected
      * @var string
      */
     protected $_name = 'finds';
-
     /** The primary key
      * @access protected
      * @var integer
      */
     protected $_primary = 'id';
-
     /** The higher level array
      * @access protected
      * @var array
      */
     protected $_higherlevel = array('admin', 'flos', 'fa', 'hero', 'treasure');
-
     /** The parish stop access
      * @access public
      * @var array
      */
     protected $_parishStop = array('admin', 'flos', 'fa', 'hero', 'treasure', 'research');
-
     /** The restricted access array
      * @access protected
      * @var array
      */
     protected $_restricted = array(null, 'public', 'member', 'research');
-
-    /** The duplicate value error code
-     *
-     */
-    const DUPLICATE_UNIQUE_VALUE_ERROR_CODE = 23000;
-
-
-    /** Generates an old_findsID for new find records
-     * @access    public
-     * @return    string $findid The old_findsID
-     * @throws  Pas_Exception_NotAuthorised
-     */
-    public function generateFindId()
-    {
-        $institution = $this->getInstitution();
-        if (!is_null($institution)) {
-            list($usec, $sec) = explode(" ", microtime());
-            $suffix = strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
-            $findid = $institution . '-' . $suffix;
-            return $findid;
-        } else {
-            throw new Pas_Exception_Group('Institution missing', 500);
-        }
-    }
-
 
     /** Add a new find record
      * @param array
@@ -120,6 +95,24 @@ class Finds extends Pas_Db_Table_Abstract
             return $insert;
         } else {
             return 'error';
+        }
+    }
+
+    /** Generates an old_findsID for new find records
+     * @access    public
+     * @return    string $findid The old_findsID
+     * @throws  Pas_Exception_NotAuthorised
+     */
+    public function generateFindId()
+    {
+        $institution = $this->getInstitution();
+        if (!is_null($institution)) {
+            list($usec, $sec) = explode(" ", microtime());
+            $suffix = strtoupper(substr(dechex($sec), 3) . dechex(round($usec * 15)));
+            $findid = $institution . '-' . $suffix;
+            return $findid;
+        } else {
+            throw new Pas_Exception_Group('Institution missing', 500);
         }
     }
 
@@ -436,20 +429,19 @@ class Finds extends Pas_Db_Table_Abstract
                 array('secondaryRuler' => 'issuer'))
             ->joinLeft('reeceperiods', 'coins.reeceID = reeceperiods.id',
                 array('periodName' => 'period_name', 'dateRange' => 'date_range'))
-            ->joinLeft('mints', 'mints.id = coins.mint_ID',
-                [
-                    'mintName' => 'mint_name',
-                    'nomismaMintID' => 'nomismaID',
-                    'pleiadesID',
-                    'mintGeonamesID' => 'geonamesID',
-                    'mintWoeid' => 'woeid',
-                    'mintOsID' => 'osID',
-                    'mintGettyID' => 'gettyID',
-                    'mintWoeID' => 'woeid',
-                    'mintDbPediaID' => 'dbpediaID',
-                    'mintWhat3Words' => 'what3words',
-                    'mintBritMuseumID' => 'bmID'
-                ])
+            ->joinLeft('mints', 'mints.id = coins.mint_ID', array(
+                'mintName' => 'mint_name',
+                'nomismaMintID' => 'nomismaID',
+                'pleiadesID',
+                'mintGeonamesID' => 'geonamesID',
+                'mintWoeid' => 'woeid',
+                'mintOsID' => 'osID',
+                'mintGettyID' => 'gettyID',
+                'mintWoeID' => 'woeid',
+                'mintDbPediaID' => 'dbpediaID',
+                'mintWhat3Words' => 'what3words',
+                'mintBritMuseumID' => 'bmID'
+            ))
             ->joinLeft('weartypes', 'coins.degree_of_wear = weartypes.id', array('wear' => 'term',
                 'nomismaWear' => 'nomismaID'))
             ->joinLeft('dieaxes', 'coins.die_axis_measurement = dieaxes.id',
