@@ -89,22 +89,11 @@ class Pas_View_Helper_NewsCommentCount extends Zend_View_Helper_Abstract
      */
     public function buildHtml($total, $id)
     {
-        $url = $this->view->url(array(
-            'module' => 'news',
-            'controller' => 'story',
-            'action' => 'index',
-            'id' => $id), 'newsstory', true);
         $html = '';
         if ($total > 0) {
             $html .= '<p><strong>Comments: </strong> There are already ';
             $html .= $total;
-            $html .= ' comments, but you could <a href="';
-            $html .= $url;
-            $html .= '" title="Add some commentary">add more</a></p>';
-        } else {
-            $html .= '<p><strong>Comments: </strong> <a href="';
-            $html .= $url;
-            $html .= '" title="Add some commentary">Be the first to comment</a></p>';
+            $html .= ' comments</p>';
         }
         return $html;
     }

@@ -40,24 +40,6 @@ class News_StoryController extends Pas_Controller_Action_Admin
             $this->view->news = $news->getStory($this->getParam('id'));
             $comments = new Comments();
             $this->view->comments = $comments->getCommentsNews($this->getParam('id'));
-            $form = new CommentFindForm();
-            $form->submit->setLabel('Add a new comment');
-            $this->view->form = $form;
-            if ($this->getRequest()->isPost($this->_request->getPost())) {
-                if ($form->isValid($this->_request->getPost())) {
-                    $data = $this->_helper->akismet($form->getValues());
-                    $data['contentID'] = $this->getParam('id');
-                    $data['comment_type'] = 'newsComment';
-                    $data['comment_approved'] = 'moderation';
-                    $comments->add($data);
-                    $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
-                    $this->redirect('/news/story/' . $this->getParam('id'));
-
-                } else {
-                    $this->getFlash()->addMessage('There are problems with your comment submission');
-                    $form->populate($this->_request->getPost());
-                }
-            }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }

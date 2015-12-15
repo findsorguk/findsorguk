@@ -244,24 +244,6 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $this->view->comments = $this->getComments()->getFindComments($id);
             $models = new SketchFab();
             $this->view->sketchfab = $models->getModels($id);
-            $form = new CommentFindForm();
-            $form->submit->setLabel('Add a new comment');
-            $this->view->form = $form;
-            if ($this->getRequest()->isPost()) {
-                if ($form->isValid($this->_request->getPost())) {
-                    $data = $this->_helper->akismet($form->getValues());
-                    $data['contentID'] = $this->getParam('id');
-                    $data['comment_type'] = 'findComment';
-                    $data['comment_approved'] = 'moderation';
-                    $this->getComments()->add($data);
-                    $this->getFlash()->addMessage('Your comment has been entered and will appear shortly!');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('id'));
-                    $this->_request->setMethod('GET');
-                } else {
-                    $this->getFlash()->addMessage('There are problems with your comment submission');
-                    $form->populate($this->_request->getPost());
-                }
-            }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
