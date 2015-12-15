@@ -1,9 +1,11 @@
 <?php
 $params = unserialize($this->searchString);
-if ($params == NULL) {
-    $params = array('module' => 'database', 'controller' => 'search', 'action' => 'results');
+
+$query = array('module' => 'database', 'controller' => 'search', 'action' => 'results');
+foreach($params as $key => $value){
+    $query[$key] = $value;
 }
-$url = $this->url($params, null, true);
+$url = $this->url($query, 'default', true);
 ?>
 <div class="row-fluid">
     <?php
