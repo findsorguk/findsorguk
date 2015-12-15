@@ -50,56 +50,6 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
      */
     protected $_isbn;
 
-    /** Get the ISBN number
-     * @access public
-     * @return string
-     */
-    public function getIsbn()
-    {
-        return $this->_isbn;
-    }
-
-    /** Set the ISBN number
-     * @access public
-     * @param string $isbn
-     * @return \Pas_View_Helper_AmazonDetails
-     */
-    public function setIsbn($isbn)
-    {
-        $this->_isbn = $isbn;
-        return $this;
-    }
-
-    /** Get the cache object
-     * @access public
-     * @return object
-     */
-    public function getCache()
-    {
-        $this->_cache = Zend_Registry::get('cache');
-        return $this->_cache;
-    }
-
-    /** Get the config object
-     * @access public
-     * @return \Zend_Config
-     */
-    public function getConfig()
-    {
-        $this->_config = Zend_Registry::get('config');
-        return $this->_config;
-    }
-
-    /** Get the amazon object for query
-     * @access public
-     * @return array
-     */
-    public function getAmazon()
-    {
-        $this->_amazon = $this->getConfig()->webservice->amazon->toArray();
-        return $this->_amazon;
-    }
-
     /** Generate the amazon data call using ISBN number
      * @access public
      * @return \Pas_View_Helper_AmazonDetails
@@ -153,6 +103,56 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
         }
     }
 
+    /** Get the ISBN number
+     * @access public
+     * @return string
+     */
+    public function getIsbn()
+    {
+        return $this->_isbn;
+    }
+
+    /** Set the ISBN number
+     * @access public
+     * @param string $isbn
+     * @return \Pas_View_Helper_AmazonDetails
+     */
+    public function setIsbn($isbn)
+    {
+        $this->_isbn = $isbn;
+        return $this;
+    }
+
+    /** Get the cache object
+     * @access public
+     * @return object
+     */
+    public function getCache()
+    {
+        $this->_cache = Zend_Registry::get('cache');
+        return $this->_cache;
+    }
+
+    /** Get the amazon object for query
+     * @access public
+     * @return array
+     */
+    public function getAmazon()
+    {
+        $this->_amazon = $this->getConfig()->webservice->amazon->toArray();
+        return $this->_amazon;
+    }
+
+    /** Get the config object
+     * @access public
+     * @return \Zend_Config
+     */
+    public function getConfig()
+    {
+        $this->_config = Zend_Registry::get('config');
+        return $this->_config;
+    }
+
     /** Parse the response
      * @access protected
      * @param  Zend_Service_Amazon_Item $book Amazon response object
@@ -196,8 +196,10 @@ class Pas_View_Helper_AmazonDetails extends Zend_View_Helper_Abstract
             $html .= '" title="View full details at Amazon"> ';
             $html .= $book->Title;
             $html .= '</a></li> ';
-            $html .= '<li>Number of pages: ';
-            $html .= $book->NumberOfPages;
+            if (array_key_exists('NumberOfPages', $book)) {
+                $html .= '<li>Number of pages: ';
+                $html .= $book->NumberOfPages;
+            }
             $html .= '</li><li>Total new copies available: ';
             $html .= $book->Offers->TotalNew;
             $html .= '</li><li>Total used copies available: ';
