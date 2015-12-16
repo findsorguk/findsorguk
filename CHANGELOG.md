@@ -10,11 +10,11 @@
 - [x] Added DOI.
 - [x] Updated License.
 - [x] Added note about out of date data.
-- [x] Merge pull request #997 from findsorguk/accreditedMuseums.
+- [x] Merged pull request #997 from findsorguk/accreditedMuseums.
 - [x] Changed submit button message to -Save details-.
-- [x] Merge pull request #1000 from s-moon/999.  
+- [x] Merged pull request #1000 from s-moon/999.  
 - [x] Changes to readme structure. 
-- [x] Update README.md. 
+- [x] Updated README.md. 
 
 ####Releases
 * 1.01
