@@ -1,12 +1,12 @@
 # Change Log
 
-####1.03 15-DEC-15
+####1.03 : 15th December, 2015
 - [x] Comments form removed.
 - [x] Public search links fixed.
 - [x] Fix to Amazon book references.
 - [x] PDF forms can now be up to 1000 records long. Fix to limit bug.
 
-####1.02 17-NOV-15
+####1.02 : 17th November, 2015
 - [x] Added DOI.
 - [x] Updated License.
 - [x] Added note about out of date data.
