@@ -16,7 +16,7 @@
 <div class="vcard">
     <p>
 <span class="fn n">
-<?php echo $this->escape($this->title); ?> <span class="given-name"><?php echo $this->escape($this->forename); ?></span>
+<?php if (!empty($this->title) && ($this->title != 'Other')) { echo $this->escape($this->title); } ?> <span class="given-name"><?php echo $this->escape($this->forename); ?></span>
 <span class="family-name"><?php echo $this->escape($this->surname); ?></span><br/>
 </span>
 <span class="adr">

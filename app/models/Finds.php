@@ -327,13 +327,13 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('discmethods', 'discmethods.id = finds.discmethod',
                 array('discmethod' => 'method'))
             ->joinLeft('people', 'finds.finderID = people.secuid',
-                array('finder' => new Zend_Db_Expr("CONCAT(people.title,' ',people.forename,' ',people.surname)")))
+                array('finder' => new Zend_Db_Expr("IF(people.title = 'Other', CONCAT(people.forename, ' ', people.surname),CONCAT(people.title, ' ', people.forename, ' ', people.surname))")))
             ->joinLeft(array('ident1' => 'people'), 'finds.identifier1ID = ident1.secuid',
-                array('identifier' => new Zend_Db_Expr("CONCAT(ident1.title,' ',ident1.forename,' ',ident1.surname)")))
+                array('identifier' => new Zend_Db_Expr("IF(ident1.title = 'Other', CONCAT(ident1.forename, ' ', ident1.surname),CONCAT(ident1.title, ' ', ident1.forename, ' ', ident1.surname))")))
             ->joinLeft(array('ident2' => 'people'), 'finds.identifier2ID = ident2.secuid',
-                array('secondaryIdentifier' => new Zend_Db_Expr("CONCAT(ident2.title,' ',ident2.forename,' ',ident2.surname)")))
+                array('secondaryIdentifier' => new Zend_Db_Expr("IF(ident2.title = 'Other', CONCAT(ident2.forename, ' ', ident2.surname), CONCAT(ident2.title, ' ', ident2.forename, ' ', ident2.surname))")))
             ->joinLeft(array('record' => 'people'), 'finds.recorderID = record.secuid',
-                array('recorder' => new Zend_Db_Expr("CONCAT(record.title,' ',record.forename,' ',record.surname)")))
+                array('recorder' => new Zend_Db_Expr("IF(record.title = 'Other', CONCAT(record.forename, ' ', record.surname), CONCAT(record.title,' ', record.forename,' ', record.surname))")))
             ->joinLeft(array('circa1' => 'datequalifiers'), $this->_name . '.numdate1qual = circa1.id',
                 array('fromCirca' => 'term'))
             ->joinLeft(array('circa2' => 'datequalifiers'), $this->_name . '.numdate2qual = circa2.id',
