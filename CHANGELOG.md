@@ -1,5 +1,8 @@
 # Change Log
 
+####1.04 : 17th December, 2015
+- [x] Fix to not show Other as a title.
+
 ####1.03 : 15th December, 2015
 - [x] Comments form removed.
 - [x] Public search links fixed.
