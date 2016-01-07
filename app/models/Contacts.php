@@ -146,7 +146,6 @@ class Contacts extends Pas_Db_Table_Abstract
     /** Get a list of current staff to display on the map of contacts
      * @params array $params
      * @return array
-     * @todo add caching
      */
     public function getContacts(array $params)
     {
@@ -404,9 +403,6 @@ class Contacts extends Pas_Db_Table_Abstract
                     'longitude', 'latitude', 'created',
                     'updated', 'profile'
                 ))
-                ->joinLeft(array('locality' => 'staffregions'),
-                    'locality.regionID = staff.region',
-                    array('staffregions' => 'description'))
                 ->joinLeft(array('position' => 'staffroles'),
                     'staff.role = position.ID',
                     array('staffroles' => 'role'))

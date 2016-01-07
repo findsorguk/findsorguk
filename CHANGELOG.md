@@ -1,6 +1,10 @@
 # Change Log
 
 ####1.05 :
+- [x] Removed staff region from JSON
+- [x] Fixed issue 1020 
+
+####1.05 :
 - [x] Removed spaces from tooltip on names in people list.
 
 ####1.04 : 17th December, 2015
