@@ -459,7 +459,9 @@ abbr {
 
 .btn-group {
     margin-bottom: 10px;
-}.panel {
+    display: inline-block;
+}
+.panel {
      padding: 15px;
      margin-bottom: 20px;
      background-color: #ffffff;
