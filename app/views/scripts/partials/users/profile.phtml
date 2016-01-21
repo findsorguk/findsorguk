@@ -45,9 +45,9 @@ $this->headTitle('User account details for ' . $this->fullname . ' - '
     Your account was created: <?php echo $this->escape($this->timeAgoInWords($this->created)); ?>.<br/ >
     <?php
     if ($this->canRecord === '1'):?>
-        <strong>Your account has permission to record objects</strong>
+        <strong>Your account has permission to record objects.</strong>
     <?php else: ?>
-        <span class="question">Your account does not have permission to record objects, if you want to do so, contact your local FLO.</span>
+        <span class="question">Your account does not have permission to record objects; if you want to do so, contact your local FLO.</span>
     <?php endif; ?>
 
     <?php if (!is_null($this->peopleID)): ?>
@@ -58,6 +58,6 @@ $this->headTitle('User account details for ' . $this->fullname . ' - '
         <?php endif; ?>
         <br/><strong>Your unique identifier is: <?php echo $this->peopleID; ?></strong>
     <?php else: ?>
-        <br/><span class="question">You have not been associated with personal details on our database. Contact your local flo to get this fixed.</span>
+        <br/><span class="question">You have not been associated with personal details on our database. Contact your local FLO to get this fixed.</span>
     <?php endif; ?>
 </p>
