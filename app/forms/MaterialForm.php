@@ -34,7 +34,7 @@ class MaterialForm extends Pas_Form {
 	$term->setLabel('Material type name: ')
                 ->setRequired(true)
                 ->setAttrib('size',60)
-                ->addFilter(array('StripTags', 'StringTrim'))
+                ->addFilters(array('StripTags', 'StringTrim'))
                 ->addErrorMessage('Please enter a title for this material type');
 
 	$termdesc = new Pas_Form_Element_CKEditor('termdesc');
