@@ -1,10 +1,16 @@
 # Change Log
 
-####1.05 :
-- [x] Removed staff region from JSON
-- [x] Fixed issue 1020 
+####1.06 : 28th January, 2016
+- [x] Fix to allow Map Origins to be edited (#1031).
+- [x] Fix to allow Land Use terminology to be edited (#1017).
+- [x] Fix to problem being unable to edit materials (#1030).
+- [x] Small typos fixed on user page.
+- [x] Fix to Add Image button being obscured.
+- [x] Branding removed (#1024).
 
-####1.05 :
+####1.05 : 7th January, 2016
+- [x] Removed staff region from JSON.
+- [x] Fixed Broken link on contactus (#1020).
 - [x] Removed spaces from tooltip on names in people list.
 
 ####1.04 : 17th December, 2015
