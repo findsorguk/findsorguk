@@ -42,7 +42,7 @@ class MapOrigins extends Pas_Db_Table_Abstract {
     public function getOrigins() {
         $origins = $this->getAdapter();
         $select = $origins->select()
-                >from($this->_name)
+                ->from($this->_name)
                 ->joinLeft('users','users.id = ' . $this->_name
                         . '.createdBy', array('fullname'))
                 ->joinLeft('users','users_2.id = ' . $this->_name
