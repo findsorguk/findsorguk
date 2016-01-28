@@ -153,6 +153,10 @@ ul.facetExpand li {
     padding-bottom: 7px;
 }
 
+.btn.btn-navbar .icon-bar{
+    display: block;
+}
+
 #period-object-cloud li {
     display: inline-block;
 }
