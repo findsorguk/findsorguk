@@ -1,5 +1,8 @@
 # Change Log
 
+####1.07 : TBC
+- [x] Fix to hamburger menu bar not showing.
+
 ####1.06 : 28th January, 2016
 - [x] Fix to allow Map Origins to be edited (#1031).
 - [x] Fix to allow Land Use terminology to be edited (#1017).
