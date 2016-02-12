@@ -1,6 +1,6 @@
 # Change Log
 
-####1.07 : TBC
+####1.07 : 12th February, 2016
 - [x] Added hoard group to list of those allowed to zoom the most.
 - [x] Fix to hamburger menu bar not showing.
 
