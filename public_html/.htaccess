@@ -120,7 +120,7 @@ redirect 301 /rallycode /getinvolved/guides/rallycode
 redirect 301 /discoveries/romansindevon /news/stories/article/id/216
 redirect 301 /treasure/advice/forearchaeologists /treasure/advice/forarchaeologists
 redirect 410 /documents/tmp/
-
+redirect 301 /database/terminology /datalabs/terminology
 
 RewriteCond %{QUERY_STRING} emperorID=([^&;]*)
 RewriteRule ^romancoins/obverse.php$ http://%{SERVER_NAME}/romancoins/emperors/emperor/id/%1/ [R]
