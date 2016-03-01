@@ -1,5 +1,12 @@
 # Change Log
 
+###1.09 : 1st March 2016
+- [x] Added redirect for outdated link
+- [x] Fixed index.rdf for Reece periods
+
+###1.08 : 25th February, 2016
+- [x] Merged fix for front page image stretch
+
 ####1.07 : 12th February, 2016
 - [x] Added hoard group to list of those allowed to zoom the most.
 - [x] Fix to hamburger menu bar not showing.
