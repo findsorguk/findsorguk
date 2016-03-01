@@ -1,0 +1,46 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: danielpett
+ * Date: 25/10/2015
+ * Time: 07:46
+ */
+ ?>
+<?php
+// Add namespaces for the foaf file. These will only appear if used
+EasyRdf_Namespace::set('geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
+EasyRdf_Namespace::set('admin', 'http://webns.net/mvcb');
+EasyRdf_Namespace::set('rdfs', 'http://www.w3.org/2000/01/rdf-schema#');
+EasyRdf_Namespace::set('xsd', 'http://www.w3.org/2001/XMLSchema#');
+EasyRdf_Namespace::set('owl', 'http://www.w3.org/2002/07/owl#');
+EasyRdf_Namespace::set('crm', 'http://erlangen-crm.org/current/');
+EasyRdf_Namespace::set('crmeh', 'http://purl.org/crmeh#');
+EasyRdf_Namespace::set('crmbm', 'http://collection.britishmuseum.org/id/crm/bm-extensions/');
+EasyRdf_Namespace::set('claros', 'http://purl.org/NET/Claros/vocab#');
+EasyRdf_Namespace::set('dc', 'http://purl.org/dc/elements/1.1/');
+EasyRdf_Namespace::set('oac', 'http://www.openannotation.org/ns/');
+EasyRdf_Namespace::set('dcterms', 'http://purl.org/dc/terms/');
+EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
+EasyRdf_Namespace::set('google', 'http://rdf.data-vocabulary.org/#');
+EasyRdf_Namespace::set('units', 'http://qudt.org/vocab/unit#');
+EasyRdf_Namespace::set('og', 'http://ogp.me/ns#');
+EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
+EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
+EasyRdf_Namespace::set('foaf', 'http://xmlns.com/foaf/0.1/');
+EasyRdf_Namespace::set('cc', 'http://creativecommons.org/ns#');
+EasyRdf_Namespace::set('gn', 'http://www.geonames.org/ontology#');
+EasyRdf_Namespace::set('osAdminGeo', 'http://data.ordnancesurvey.co.uk/ontology/admingeo/');
+EasyRdf_Namespace::set('osSpatialRel', 'http://data.ordnancesurvey.co.uk/ontology/spatialrelations/');
+EasyRdf_Namespace::set('lawd', 'http://lawd.info/ontology/1.0/');
+EasyRdf_Namespace::set('db', 'http://dbpedia.org/id/');
+EasyRdf_Namespace::set('bmt', 'http://collection.britishmuseum.org/id/thesauri/');
+EasyRdf_Namespace::set('bmo', 'http://collection.britishmuseum.org/id/ontology/');
+EasyRdf_Namespace::set('void', 'http://rdfs.org/ns/void#');
+// Create the graph
+$graph = new EasyRdf_Graph();
+
+foreach($this->reeces as $reece){
+    $reecePeriod = $graph->resource($this->serverUrl() . '/romancoins/reeceperiods/period/id/' . $reece['id']);
+    $reecePeriod->addLiteral('rdfs:label', $reece['period_name']);
+}
+echo $graph->serialise('rdfxml');
