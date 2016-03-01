@@ -40,7 +40,7 @@ EasyRdf_Namespace::set('void', 'http://rdfs.org/ns/void#');
 $graph = new EasyRdf_Graph();
 
 foreach($this->reeces as $reece){
-    $reece = $graph->resource($this->serverUrl() . '/romancoins/reeceperiods/period/id/' . $reece['id']);
-    $reece->addLiteral('rdfs:label', $reece['period_name']);
+    $reecePeriod = $graph->resource($this->serverUrl() . '/romancoins/reeceperiods/period/id/' . $reece['id']);
+    $reecePeriod->addLiteral('rdfs:label', $reece['period_name']);
 }
 echo $graph->serialise('rdfxml');
