@@ -1,5 +1,8 @@
 # Change Log
 
+####1.10 : 4th March, 2016
+- [x] Added tooltip to What 3 Words to explain it's function.
+
 ####1.09 : 1st March 2016
 - [x] Added redirect for outdated link
 - [x] Fixed index.rdf for Reece periods
