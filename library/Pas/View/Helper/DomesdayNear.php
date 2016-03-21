@@ -185,7 +185,11 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
      */
     public function __toString()
     {
-        return $this->getManors();
+        try {
+            return $this->getManors();
+        } catch (Exception $e) {
+            return '<h3 class="lead">Domesday unavailable. Contact IT Support.</h3>';
+        }
     }
 
     /** Get the places near to point
