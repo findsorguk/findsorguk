@@ -1,14 +1,17 @@
 # Change Log
 
+####1.11 : 21st March, 2016
+- [x] Fix to interface with OpenDomesday allowing it to fail gracefully.
+
 ####1.10 : 4th March, 2016
 - [x] Added tooltip to What 3 Words to explain it's function.
 
 ####1.09 : 1st March 2016
-- [x] Added redirect for outdated link
-- [x] Fixed index.rdf for Reece periods
+- [x] Added redirect for outdated link.
+- [x] Fixed index.rdf for Reece periods.
 
 ####1.08 : 25th February, 2016
-- [x] Merged fix for front page image stretch
+- [x] Merged fix for front page image stretch.
 
 ####1.07 : 12th February, 2016
 - [x] Added hoard group to list of those allowed to zoom the most.
