@@ -188,7 +188,7 @@ class Pas_View_Helper_DomesdayNear extends Zend_View_Helper_Abstract
         try {
             return $this->getManors();
         } catch (Exception $e) {
-            return '<h3 class="lead">Domesday unavailable. Contact IT Support.</h3>';
+            return '<h3 class="lead">OpenDomesday results currently unavailable.</h3>';
         }
     }
 
