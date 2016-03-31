@@ -1,5 +1,10 @@
 # Change Log
 
+####1.12 : 31st March, 2016
+- [x] Fix find spot code for newer geoJSON
+- [x] Added new sub module for findsorguk-geodata
+- [x] Rebuilt converted geoJSON as WGS84
+
 ####1.11 : 21st March, 2016
 - [x] Fix to interface with OpenDomesday allowing it to fail gracefully.
 
