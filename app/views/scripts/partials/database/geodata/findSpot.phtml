@@ -150,19 +150,19 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
 
     <?php if(!is_null($this->regionID)):?>
-        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->regionID; ?>.geojson');
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geodata/geoJSON/<?php echo $this->regionID; ?>.geojson');
     <?php endif;?>
 
     <?php if(!is_null($this->countyID)):?>
-        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->countyID; ?>.geojson');
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geodata/geoJSON/<?php echo $this->countyID; ?>.geojson');
     <?php endif;?>
 
     <?php if(!is_null($this->districtID)):?>
-        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->districtID; ?>.geojson');
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geodata/geoJSON/<?php echo $this->districtID; ?>.geojson');
     <?php endif;?>
 
     <?php if(!is_null($this->parishID)):?>
-        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geojson/<?php echo $this->parishID; ?>.geojson');
+        map.data.loadGeoJson('<?php echo $this->serverUrl(); ?>/geodata/geoJSON/<?php echo $this->parishID; ?>.geojson');
     <?php endif;?>
 
     map.data.setStyle({
