@@ -17,5 +17,5 @@
 	path = library/mpdf
 	url = https://github.com/finwe/mpdf.git
 [submodule "public_html/geodata"]
-    path = public_html/geodata
-    url = https://github.com/findsorguk/findsorguk-geodata.git
+	path = public_html/geodata
+	url = https://github.com/findsorguk/findsorguk-geodata.git
