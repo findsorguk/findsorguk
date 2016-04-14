@@ -1,5 +1,8 @@
 # Change Log
 
+####1.13 : 14th April, 2016
+- [x] Delicious API deprecated for vacancies
+
 ####1.12 : 31st March, 2016
 - [x] Fix find spot code for newer geoJSON
 - [x] Added new sub module for findsorguk-geodata
