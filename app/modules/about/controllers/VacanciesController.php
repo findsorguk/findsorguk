@@ -45,7 +45,6 @@ class About_VacanciesController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $this->view->vacs = $this->_vacancies->getLiveJobs($this->getParam('page'));
-        $this->view->delicious = $this->_helper->config()->webservice->delicious;
     }
 
     /** Render the archives section
