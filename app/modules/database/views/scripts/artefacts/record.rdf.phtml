@@ -160,7 +160,7 @@ if($data['objecttype'] == 'COIN'){
 
     // Reece ID
     if(!is_null($data['reeceID'])){
-        $reece = $graph->resource($this->serverUrl() . '/romancoins/reeceperiods/period/id/'. $data['reeceID']);
+        $reece = $graph->resource('http://nomisma.org/id/reece'. $data['reeceID']);
         $reece->addLiteral('skos:prefLabel', $data['periodName'] . ': ' . $data['dateRange'], 'en');
         $record->add('crm:E4_Period', $reece);
     }
