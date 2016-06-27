@@ -3,12 +3,13 @@
 	xmlns:foaf="http://xmlns.com/foaf/0.1/"
 	xmlns:void="http://rdfs.org/ns/void#">
 	<void:Dataset rdf:about="https://finds.org.uk/">
-		<dcterms:title>Republican coins from the Portable Antiquities Scheme</dcterms:title>
-		<dcterms:description>Coins in the PAS dataset that have an RRC number attributed to them.</dcterms:description>
+		<dcterms:title>Roman coins from the Portable Antiquities Scheme</dcterms:title>
+		<dcterms:description>Roman Republican and Imperial coins in the PAS dataset that have an RRC or RIC number attributed to them.</dcterms:description>
 		<dcterms:publisher>The Trustees of the British Museum</dcterms:publisher>
 		<dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
 		<void:uriSpace>https://finds.org.uk/database/artefacts/record/id/</void:uriSpace>
 		<void:dataDump rdf:resource="https://finds.org.uk/rdf/republicanCoins.rdf"/>
+		<void:dataDump rdf:resource="https://finds.org.uk/rdf/imperialCoins.rdf"/>
 		<foaf:thumbnail rdf:resource="https://avatars3.githubusercontent.com/u/4288770?v=3&amp;s=200"/>
 	</void:Dataset>
 </rdf:RDF>
