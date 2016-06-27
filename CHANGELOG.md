@@ -1,5 +1,8 @@
 # Change Log
 
+####1.14 : 27th June, 2016
+- [x] VOID file updated for RIC & RRC by Ethan Gruber
+
 ####1.13 : 14th April, 2016
 - [x] Delicious API deprecated for vacancies
 
