@@ -1,15 +1,18 @@
 # Change Log
 
+####1.15 : 20th July, 2016
+- [x] Removed reference to Amazon on publications page.
+
 ####1.14 : 27th June, 2016
-- [x] VOID file updated for RIC & RRC by Ethan Gruber
+- [x] VOID file updated for RIC & RRC by Ethan Gruber.
 
 ####1.13 : 14th April, 2016
-- [x] Delicious API deprecated for vacancies
+- [x] Delicious API deprecated for vacancies.
 
 ####1.12 : 31st March, 2016
-- [x] Fix find spot code for newer geoJSON
-- [x] Added new sub module for findsorguk-geodata
-- [x] Rebuilt converted geoJSON as WGS84
+- [x] Fix find spot code for newer geoJSON.
+- [x] Added new sub module for findsorguk-geodata.
+- [x] Rebuilt converted geoJSON as WGS84.
 
 ####1.11 : 21st March, 2016
 - [x] Fix to interface with OpenDomesday allowing it to fail gracefully.
