@@ -83,6 +83,9 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
         ) {
 
             if ($form->isValid($form->getValues())) {
+                // ensure that the URL contains the value in the 'q' textbox (it might change) so
+                // that it can be bookmarked etc.
+                $params['q'] = $form->q->getValue();
                 $this->_helper->Redirector->gotoSimple(
                     'index', 'publications', 'database', $params);
             } else {
@@ -91,7 +94,7 @@ class Database_PublicationsController extends Pas_Controller_Action_Admin
             }
         } else {
             $params = $this->getAllParams();
-            $form->populate($this->getAllParams());
+            $form->populate($params);
         }
 
         if (!isset($params['q']) || $params['q'] == '') {
