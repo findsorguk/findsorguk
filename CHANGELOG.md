@@ -1,5 +1,8 @@
 # Change Log
 
+####1.16 : 21st July, 2016
+- [x] Allow publication search term to be changed whilst on the page.
+- 
 ####1.15 : 20th July, 2016
 - [x] Removed reference to Amazon on publications page.
 
