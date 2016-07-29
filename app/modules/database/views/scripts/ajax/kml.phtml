@@ -19,10 +19,16 @@ foreach ($this->results as $result) {
             $url = '/images/thumbnails/';
             $description = '<img src="' . $this->serverUrl() . $url . $result['thumbnail'] . '.jpg" style="float:right;"/>';
         }
-        $description .= htmlspecialchars($result['description']);
-
+        // Append description if it exists
+        if(array_key_exists('description', $result)){
+            $description .= htmlspecialchars($result['description']);
+        } else {
+            $description .= '<p>No description provided.</p>';
+        }
+        
         $description .= '<p>Record Url: <a href="' . $this->serverUrl() . '/database/artefacts/record/id/' . $result['id'] . '">';
         $description .= $this->serverUrl() . '/database/artefacts/record/id/' . $result['id'] . '</a></p>';
+        
         $place = $dom->createElement('Placemark');
         $place->appendChild($dom->createElement('name', $result['old_findID']));
         $place->appendChild($dom->createElement('description', $description));
