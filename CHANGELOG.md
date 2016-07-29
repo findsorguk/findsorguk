@@ -1,8 +1,11 @@
 # Change Log
 
+####1.17 : 29th July, 2016
+- [x] Updated text for Treasure Minutes page.
+
 ####1.16 : 21st July, 2016
 - [x] Allow publication search term to be changed whilst on the page.
-- 
+ 
 ####1.15 : 20th July, 2016
 - [x] Removed reference to Amazon on publications page.
 
