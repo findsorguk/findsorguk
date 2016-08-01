@@ -1,5 +1,8 @@
 # Change Log
 
+####1.18 : XXX
+- [x] Update to 3D model licensing text.
+
 ####1.17 : 29th July, 2016
 - [x] Updated text for Treasure Minutes page.
 
