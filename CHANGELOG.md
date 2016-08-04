@@ -1,6 +1,6 @@
 # Change Log
 
-####1.18 : TBD
+####1.18 : 4th August, 2016
 - [x] Update to 3D model licensing text.
 
 ####1.17 : 29th July, 2016
