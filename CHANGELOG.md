@@ -2,7 +2,7 @@
 
 ####1.19 : 13th September, 2016
 - [x] Added Andrew Brown as FA to Roman Coins.
-- 
+
 ####1.18 : 4th August, 2016
 - [x] Update to 3D model licensing text.
 
