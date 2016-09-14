@@ -1,5 +1,8 @@
 # Change Log
 
+####1.20 : 14th September, 2016
+- [x] Changed welcome message for new registrants.
+
 ####1.19 : 13th September, 2016
 - [x] Added Andrew Brown as FA to Roman Coins.
 
