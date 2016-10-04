@@ -72,7 +72,7 @@ class Findspots extends Pas_Db_Table_Abstract
      */
     public function init()
     {
-        $this->_appid = $this->_config->webservice->ydnkeys->placemakerkey;
+        //$this->_appid = $this->_config->webservice->ydnkeys->placemakerkey;
         $this->_gmaps = $this->_config->webservice->google->apikey;
     }
 
@@ -325,7 +325,7 @@ class Findspots extends Pas_Db_Table_Abstract
             $fourFigure = new Pas_Geo_Gridcalc($results['fourFigureGridRef']);
             $fourFigureData = $fourFigure->convert();
 
-            $place = new Pas_Service_Geo_GeoPlanet($this->_appid);
+            //$place = new Pas_Service_Geo_GeoPlanet($this->_appid);
 
             $geoHash = new Pas_Geo_Hash();
             $hash = $geoHash->encode($results['decimalLatLon']['decimalLatitude'],
@@ -344,9 +344,9 @@ class Findspots extends Pas_Db_Table_Abstract
             $data['fourFigureLat'] = $fourFigureData['decimalLatLon']['decimalLatitude'];
             $data['fourFigureLon'] = $fourFigureData['decimalLatLon']['decimalLongitude'];
 
-            $yahoo = $place->reverseGeoCode($results['decimalLatLon']['decimalLatitude'],
-                $results['decimalLatLon']['decimalLongitude']);
-            $data['woeid'] = $yahoo['woeid'];
+            //$yahoo = $place->reverseGeoCode($results['decimalLatLon']['decimalLatitude'],
+            //    $results['decimalLatLon']['decimalLongitude']);
+            //$data['woeid'] = $yahoo['woeid'];
 
             $elevate = new Pas_Service_Geo_Elevation($this->_gmaps);
             $data['elevation'] = $elevate->getElevation($data['declong'], $data['declat']);
