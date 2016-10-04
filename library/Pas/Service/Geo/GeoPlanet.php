@@ -110,7 +110,6 @@ class Pas_Service_Geo_GeoPlanet
      */
     public function __construct($appid)
     {
-        /*
 	$this->_appID = $appid;
         $this->_cache = Zend_Registry::get('cache');
         $this->_oauth = new Pas_Yql_Oauth();
@@ -125,7 +124,6 @@ class Pas_Service_Geo_GeoPlanet
             $this->_handle = unserialize($validToken->sessionHandle);
         }
         $this->_parser = new Pas_Service_Geo_Parser();
-	*/
     }
 
     /** Get the elevation of a point
@@ -137,9 +135,6 @@ class Pas_Service_Geo_GeoPlanet
      */
     public function getElevation($woeid, $lat, $lon)
     {
-	return false;
-	// ignore remainder for now
-
         if (!is_null($woeid) || $woeid != '') {
             $key = 'elevation' . $woeid;
             if (!$place = $this->_cache->load($key)) {
@@ -191,9 +186,6 @@ class Pas_Service_Geo_GeoPlanet
      */
     public function getPlace($woeid)
     {
-	return false;
-	// ignoring remainder for now
-
         if (!is_null($woeid)) {
             $key = 'geoplaceID' . $woeid;
             if (!($this->_cache->test($key))) {
@@ -216,9 +208,6 @@ class Pas_Service_Geo_GeoPlanet
      */
     public function getPlaceFromText($string)
     {
-	return false;
-	// ignoring remainder for now
-
         if (strlen($string) > 3) {
             $yql = 'select * from geo.places where text="' . $string . '";';
             $place = $this->_oauth->execute($yql, $this->_accessToken,
@@ -419,9 +408,6 @@ class Pas_Service_Geo_GeoPlanet
      */
     public function reverseGeoCode($lat, $lon)
     {
-	return false;
-	// ignoring the remainder for now
-
         if (!is_null($lat) && !is_null($lon)) {
             $key = 'geocode' . md5($lat . $lon);
             if (!$place = $this->_cache->load($key)) {

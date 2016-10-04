@@ -72,10 +72,9 @@ class Findspots extends Pas_Db_Table_Abstract
      */
     public function init()
     {
-        //$this->_appid = $this->_config->webservice->ydnkeys->placemakerkey;
+        $this->_appid = $this->_config->webservice->ydnkeys->placemakerkey;
         $this->_gmaps = $this->_config->webservice->google->apikey;
     }
-
 
     /** Retrieval of findspot row for editing
      * @access public
@@ -330,7 +329,7 @@ class Findspots extends Pas_Db_Table_Abstract
             $geoHash = new Pas_Geo_Hash();
             $hash = $geoHash->encode($results['decimalLatLon']['decimalLatitude'],
 
-                $results['decimalLatLon']['decimalLongitude']);
+            $results['decimalLatLon']['decimalLongitude']);
             $data['declong'] = $results['decimalLatLon']['decimalLongitude'];
             $data['declat'] = $results['decimalLatLon']['decimalLatitude'];
             $data['easting'] = $results['easting'];

@@ -89,7 +89,7 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
         $this->_cache = Zend_Registry::get('cache');
         $this->_config = Zend_Registry::get('config');
         $this->_appid = $this->_config->webservice->ydnkeys->consumerkey;
-        $this->_geoplanet = new Pas_Service_Geo_GeoPlanet($this->_appid);
+        //$this->_geoplanet = new Pas_Service_Geo_GeoPlanet($this->_appid);
     }
     
     /** Call the function to created findspot with geo data
@@ -106,13 +106,14 @@ class Pas_View_Helper_FindspotGeo extends Zend_View_Helper_Abstract {
      * @return string
      */
     public function __toString() {
-        if ($this->getWoeid()) {
-            $place = $this->_geoplanet->reverseGeocode($this->getLat(),$this->getLon());
-            $placeData = $this->_geoplanet->getPlace($place['woeid']);
-        } else {
-            $placeData = $this->_geoplanet->getPlace($this->getWoeid());
-        }
-        return $this->buildHtml($placeData);
+        //if ($this->getWoeid()) {
+        //    $place = $this->_geoplanet->reverseGeocode($this->getLat(),$this->getLon());
+        //    $placeData = $this->_geoplanet->getPlace($place['woeid']);
+        //} else {
+        //    $placeData = $this->_geoplanet->getPlace($this->getWoeid());
+        //}
+        //return $this->buildHtml($placeData);
+        return $this->buildHtml(null);
     }
     /** Function for determining whether elevation is -ve or +ve or =
      * @access public

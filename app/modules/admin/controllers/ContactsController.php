@@ -49,8 +49,8 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
      */
     public function getGeoPlanet()
     {
-        $this->_geoPlanet = new Pas_Service_Geo_GeoPlanet($this->_helper->config()->webservice->ydnkeys->appid);
-        return $this->_geoPlanet;
+        //$this->_geoPlanet = new Pas_Service_Geo_GeoPlanet($this->_helper->config()->webservice->ydnkeys->appid);
+        //return $this->_geoPlanet;
     }
 
     /** Get the geocoder function
@@ -156,8 +156,9 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
                 if ($coords) {
                     $lat = $coords['lat'];
                     $lon = $coords['lon'];
-                    $place = $this->getGeoPlanet()->reverseGeoCode($lat, $lon);
-                    $woeid = $place['woeid'];
+                    //$place = $this->getGeoPlanet()->reverseGeoCode($lat, $lon);
+                    //$woeid = $place['woeid'];
+                    $woeid = null;
                 } else {
                     $lat = null;
                     $lon = null;
@@ -195,8 +196,9 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
                 if ($coords) {
                     $lat = $coords['lat'];
                     $lon = $coords['lon'];
-                    $place = $this->getGeoPlanet()->reverseGeoCode($lat, $lon);
-                    $woeid = $place['woeid'];
+                    //$place = $this->getGeoPlanet()->reverseGeoCode($lat, $lon);
+                    //$woeid = $place['woeid'];
+                    $woeid = null;
                 } else {
                     $lat = null;
                     $lon = null;

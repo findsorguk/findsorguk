@@ -54,8 +54,8 @@ class Coroners extends Pas_Db_Table_Abstract
      */
     public function getGeoPlanet()
     {
-        $this->_geoPlanet = new Pas_Service_Geo_GeoPlanet($this->_config->webservice->ydnkeys->appid);
-        return $this->_geoPlanet;
+        //$this->_geoPlanet = new Pas_Service_Geo_GeoPlanet($this->_config->webservice->ydnkeys->appid);
+        //return $this->_geoPlanet;
     }
 
     /** Get the geocoder class
@@ -142,10 +142,11 @@ class Coroners extends Pas_Db_Table_Abstract
         if ($coords) {
             $data['latitude'] = $coords['lat'];
             $data['longitude'] = $coords['lon'];
-            $place = $this->getGeoPlanet()->reverseGeoCode(
-                $coords['lat'], $coords['lon']
-            );
-            $data['woeid'] = $place['woeid'];
+            //$place = $this->getGeoPlanet()->reverseGeoCode(
+            //    $coords['lat'], $coords['lon']
+            //);
+            //$data['woeid'] = $place['woeid']
+            $data['woeid'] = null;
         } else {
             $data['latitude'] = null;
             $data['longitude'] = null;
