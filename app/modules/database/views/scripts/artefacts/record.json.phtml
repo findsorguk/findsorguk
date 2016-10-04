@@ -31,4 +31,4 @@ foreach ($this->finds as $find) {
     }
     $cleaned[] = $find;
 }
-echo Zend_Json::prettyPrint(Zend_Json::encode((array('record', $cleaned))));
+echo Zend_Json::prettyPrint(Zend_Json::encode((array('record' => $cleaned))));
