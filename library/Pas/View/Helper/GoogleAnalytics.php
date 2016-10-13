@@ -19,46 +19,25 @@ class Pas_View_Helper_GoogleAnalytics extends Zend_View_Helper_Placeholder_Conta
      */
     protected $_regKey = 'Pas_View_Helper_GoogleAnalytics';
 
+    protected $_trackerID = NULL;
+
     /**
-     * Available Trackers options
+     * @return null
      */
-    protected static $_availableOptions = array
-    (
-        // Standard Options
-        'trackPageview',
-        'setVar',
+    public function getTrackerID()
+    {
+        return $this->_trackerID;
+    }
 
-        // ECommerce Options
-        'addItem',
-        'addTrans',
-        'trackTrans',
+    /**
+     * @param null $trackerID
+     */
+    public function setTrackerID($trackerID)
+    {
+        $this->_trackerID = $trackerID;
+    }
 
-        // Tracking Options
-        'setClientInfo',
-        'setAllowHash',
-        'setDetectFlash',
-        'setDetectTitle',
-        'setSessionTimeOut',
-        'setCookieTimeOut',
-        'setDomainName',
-        'setAllowLinker',
-        'setAllowAnchor',
 
-        // Campaign Options
-        'setCampNameKey',
-        'setCampMediumKey',
-        'setCampSourceKey',
-        'setCampTermKey',
-        'setCampContentKey',
-        'setCampIdKey',
-        'setCampNoKey',
-
-        // Other
-        'addOrganic',
-        'addIgnoredOrganic',
-        'addIgnoredRef',
-        'setSampleRate',
-    );
 
     /**
      *
@@ -66,39 +45,17 @@ class Pas_View_Helper_GoogleAnalytics extends Zend_View_Helper_Placeholder_Conta
      * @param  array $options
      * @return App_View_Helper_GoogleAnalytics
      */
-    public function GoogleAnalytics($trackerId = null, array $options = array())
+    public function GoogleAnalytics($trackerId = null)
     {
         if (!is_null($trackerId)) {
 
-            $this->addTracker($trackerId, $options);
+            $this->setTrackerID($trackerId);
         }
 
         return $this;
     }
 
-    /**
-     * Alias to _addTrackerOption
-     *
-     * @param  string $optionsName
-     * @param  array $optionsArgs
-     * @return App_View_Helper_GoogleAnalytics
-     */
-    public function __call($optionsName, $optionsArgs)
-    {
-        if (in_array($optionsName, self::$_availableOptions) === false) {
-            throw new Zend_View_Exception('Unknown "' . $optionFunc . '" GoogleAnalytics options');
-        }
 
-        if (empty($optionsArgs)) {
-            throw new Zend_View_Exception('Missing TrackerId has first Argument on "$this->GoogleAnalytics->' . $optionFunc . '()" function call');
-        }
-
-        $trackerId = array_shift($optionsArgs);
-
-        $this->_addTrackerOption($trackerId, $optionsName, $optionsArgs);
-
-        return $this;
-    }
 
     /**
      * Add tracker
@@ -107,76 +64,15 @@ class Pas_View_Helper_GoogleAnalytics extends Zend_View_Helper_Placeholder_Conta
      * @param  array $options
      * @return App_View_Helper_GoogleAnalytics
      */
-    public function addTracker($id, array $options = array())
+    public function addTracker()
     {
-        if (!empty($options)) {
-            $this->addTrackerOptions($id, $options);
-        }
-
-        $this->trackPageview($id);
 
         return $this;
     }
 
-    /**
-     * Set options
-     *
-     * @param  array $trackers
-     * @return App_View_Helper_GoogleAnalytics
-     */
-    public function setOptions(array $trackers)
-    {
-        foreach ($trackers as $tracker) {
-            if (!$tracker['enabled'])
-                continue;
 
-            $this->addTracker($tracker['id'], isset($tracker['options']) ? $tracker['options'] : array());
-        }
 
-        return $this;
-    }
 
-    /**
-     * Add options from array
-     *
-     * @param  string $trackerId the google analytics tracker id
-     * @param  array $options of array option with first value has option name
-     * @return App_View_Helper_GoogleAnalytics
-     */
-    public function addTrackerOptions($trackerId, array $options)
-    {
-        foreach ($options as $optionsArgs) {
-
-            $optionsName = array_shift($optionsArgs);
-
-            $this->_addTrackerOption($trackerId, $optionsName, $optionsArgs);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Add a tracker option
-     *
-     * @param  string $trackerId the google analytics tracker id
-     * @param  string $optionsName option name
-     * @param  array $optionsArgs option arguments
-     * @return App_View_Helper_GoogleAnalytics
-     */
-    protected function _addTrackerOption($trackerId, $optionsName, array $optionsArgs = array())
-    {
-        $storage = $this->getContainer();
-
-        array_unshift($optionsArgs, $optionsName);
-
-        $options = isset($storage[$trackerId]) ? $storage[$trackerId] : array();
-
-        $options[] = $optionsArgs;
-
-        $storage[$trackerId] = $options;
-
-        return $this;
-    }
 
     /**
      * Cast to string representation
@@ -189,55 +85,23 @@ class Pas_View_Helper_GoogleAnalytics extends Zend_View_Helper_Placeholder_Conta
     }
 
     /**
-     * Rendering Google Anaytics Tracker script
+     * Rendering Google Analytics Tracker script
      *
      * @return string
      */
     public function toString()
     {
-        // no code if there is no trackers
-        if (count($this->getContainer()) == 0)
-            return '';
 
-        $xhtml = array();
-        $xhtml[] = '<script type="text/javascript">';
-        $xhtml[] = 'var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");';
-        $xhtml[] = 'document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));';
-        $xhtml[] = '</script>';
-        $xhtml[] = '<script type="text/javascript">';
-        $xhtml[] = 'try {';
+        $xhtml = '';
+        $xhtml .= "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
+        $xhtml .= "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
+        $xhtml .= "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)";
+        $xhtml .= "})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');\n";
 
-        $i = 0;
-        foreach ($this->getContainer() as $trackerId => $options) {
+        $xhtml .= "ga('create'," . "'" . $this->getTrackerID() ."', 'auto');\n";
+        $xhtml .= "ga('send', 'pageview');\n";
+        $xhtml .= "</script>";
 
-            // build tracker name
-            $trackerInstance = 'pageTracker' . ($i > 0 ? $i : null);
-
-            // init tracker
-            $xhtml[] = 'var ' . $trackerInstance . ' = _gat._getTracker("' . $trackerId . '");';
-
-            // add options
-            foreach ($options as $optionsData) {
-
-                // build tracker func call
-                $optionName = '_' . array_shift($optionsData);
-
-                // escape options arg
-                $optionArgs = array();
-                foreach ($optionsData as $arg) {
-                    $optionArgs[] = (is_numeric($arg) || $arg == 'true' || $arg == 'false') ? $arg : '"' . addslashes($arg) . '"';
-                }
-
-                // add options
-                $xhtml[] = $trackerInstance . '.' . $optionName . '(' . implode(',', $optionArgs) . ');';
-            }
-
-            $i++;
-        }
-
-        $xhtml[] = '} catch (err) {}';
-        $xhtml[] = '</script>';
-
-        return implode("\n", $xhtml);
+        return $xhtml;
     }
 }
