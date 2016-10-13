@@ -119,7 +119,7 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
         if (is_object($data)) {
             $html .= '<img src="https://maps.google.com/maps/api/staticmap?center=' . $data->get('geo:lat')
                 . ',' . $data->get('geo:long') . '&zoom=5&size=200x200&maptype=hybrid&markers=color:green|label:G|'
-                . $data->get('geo:lat') . ',' . $data->get('geo:long') . '&sensor=false" class="stelae"/>';
+                . $data->get('geo:lat') . ',' . $data->get('geo:long') . '" class="stelae"/>';
             $html .= '<ul>';
             foreach ($data->all('skos:prefLabel') as $labels) {
                 $html .= '<li>Preferred label: ' . $labels->getValue() . ' (' . $labels->getLang() . ')</li>';

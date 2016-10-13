@@ -36,7 +36,7 @@ $this->headTitle('Analysis for page titled: "' . $title . '" during time period 
 <h3 class="lead">Visitors to this page came from (sampled data)</h3>
 <div id="map"></div>
 <?php
-echo $this->googleDynamicMap(null,true,false);
+echo $this->googleDynamicMap(true);
 ?>
 
 <?php $this->inlineScript()->captureStart();?>

@@ -1,5 +1,5 @@
 <?php 
-$this->inlineScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false',$type='text/javascript');
+$this->inlineScript()->appendFile('http://maps.google.com/maps/api/js?',$type='text/javascript');
 $this->headTitle('Our geofreferenced photos from Flickr mapped');
 $this->metaBase()->setDescription('A map showing our images from flickr that have geo information and can be plotted')
         ->setSubject('photos')

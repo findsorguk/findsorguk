@@ -1,5 +1,5 @@
 <?php
-$this->googleDynamicMap(null, null, true);
+$this->googleDynamicMap();
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 ?>
 
@@ -17,7 +17,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
     <div id="map">
         <noscript><img src="https://maps.google.com/maps/api/staticmap?center=<?php echo $this->lat; ?>,
 	<?php echo $this->lon; ?>&zoom=14&size=640x300&maptype=terrain&markers=color:green|label:G|
-	<?php echo $this->lat; ?>,<?php echo $this->lon; ?>&sensor=false"/>
+	<?php echo $this->lat; ?>,<?php echo $this->lon; ?>"/>
         </noscript>
     </div>
     <?php
@@ -299,13 +299,7 @@ echo $this->findSpotEditDeleteLink()->setController($controller)
 
     <div class="row-fluid">
 
-        <div class="span4 noprint">
-            <?php echo $this->findspotGeo()->setWoeID($this->woeid)->setLat($this->lat)->setLon($this->lon); ?>
-        </div>
-
-        <div class="span4 noprint">
-            <?php echo $this->yahooGeoAdjacent()->setWoeid($this->woeid); ?>
-        </div>
+       
         <?php
         $discovery = array($this->discmethod, $this->disccircum, $this->curr_loc, $this->landvalue, $this->landuse);
         if (array_filter($discovery)):

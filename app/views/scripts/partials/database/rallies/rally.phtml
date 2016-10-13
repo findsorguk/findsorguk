@@ -61,7 +61,7 @@ if ($auth->hasIdentity()) {
             <?php
             if (!is_null($this->gridref)) : ?>
                 <?php
-                $this->googleDynamicMap(null, null, true);
+                $this->googleDynamicMap();
                 $this->jQuery()->javascriptCaptureStart();
                 ?>
                 $(document).ready(function() {

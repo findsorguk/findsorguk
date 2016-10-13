@@ -1,6 +1,6 @@
 <?php if (!is_null($this->gridref) && is_null($this->knownas)) : ?>
     <?php
-    $this->googleDynamicMap(null, null, true);
+    $this->googleDynamicMap();
     ?>
     <?php $this->inlineScript()->captureStart(); ?>
     $(document).ready(function() {
@@ -135,7 +135,7 @@
         <!-- If no script render a static map -->
         <noscript>
             <img
-                src="https://maps.google.com/maps/api/staticmap?center=<?php echo $this->fourFigureLat; ?>,<?php echo $this->fourFigureLon; ?>&amp;zoom=6&amp;size=640x300&amp;maptype=terrain&amp;markers=color:green|label:G|<?php echo $this->fourFigureLat; ?>,<?php echo $this->fourFigureLon; ?>&amp;sensor=false"
+                src="https://maps.google.com/maps/api/staticmap?center=<?php echo $this->fourFigureLat; ?>,<?php echo $this->fourFigureLon; ?>&amp;zoom=6&amp;size=640x300&amp;maptype=terrain&amp;markers=color:green|label:G|<?php echo $this->fourFigureLat; ?>,<?php echo $this->fourFigureLon; ?>"
                 alt="Findspot map generated via google static maps"/>
         </noscript>
         <!-- render static map finish -->

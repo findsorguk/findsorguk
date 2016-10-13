@@ -1,6 +1,6 @@
 <?php
 $apikey = Zend_Registry::get('config')->webservice->googlemaps->apikey;
-$this->inlineScript()->appendFile('https://maps.googleapis.com/maps/api/js?v=3.8&sensor=true&region=GB&key=' . $apikey, $type = 'text/javascript');
+$this->inlineScript()->appendFile('https://maps.googleapis.com/maps/api/js?v=3.8&region=GB&key=' . $apikey, $type = 'text/javascript');
 $this->inlineScript()->appendFile($this->serverUrl() . '/js/markerclusterer.js', $type = 'text/javascript');
 ?>
 

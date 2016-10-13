@@ -25,7 +25,7 @@ $this->metaBase()->setDescription($this->title())->generate();
     <div class="span3"><?php echo $this->mapFacetCreatorMyFinds(); ?></div>
 
 </div>
-<?php echo $this->googleDynamicMap(null,true,false);?>
+<?php echo $this->googleDynamicMap(true);?>
 
 <?php $this->inlineScript()->captureStart();?>
     $(document).ready(function() {

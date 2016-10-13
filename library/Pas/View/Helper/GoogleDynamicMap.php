@@ -49,11 +49,6 @@ class Pas_View_Helper_GoogleDynamicMap extends Zend_View_Helper_Abstract
      */
     protected $_version;
 
-    /** The sensor value
-     * @var string
-     */
-    protected $_sensor = 'false';
-
     /** String for text type for javascript
      * @var string
      * @access protected
@@ -83,14 +78,10 @@ class Pas_View_Helper_GoogleDynamicMap extends Zend_View_Helper_Abstract
      * @param string $sensor
      * @param string $clusterer
      */
-    public function googleDynamicMap($sensor = null, $clusterer = null)
+    public function googleDynamicMap($clusterer = null)
     {
-        if (!is_null($sensor)) {
-            $this->_sensor = 'true';
-        }
         $url = $this->_dynamicUrl . '?version=' . $this->_version;
         $url .= '&key=' . $this->_key;
-        $url .= '&sensor=' . $this->_sensor;
         $this->view->inlineScript()->appendFile($url, $this->_type);
         if (!is_null($clusterer)) {
             $this->view->inlineScript()->appendFile($this->_clusterUrl, $this->_type);
