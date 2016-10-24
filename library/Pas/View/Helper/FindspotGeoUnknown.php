@@ -8,7 +8,6 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @uses Zend_View_Helper_Abstract
- * @uses Pas_Service_Geo_Geoplanet
  * @uses Pas_View_Helper_YahooGeoAdjacent
  */
 
@@ -32,11 +31,6 @@ class Pas_View_Helper_FindspotGeoUnknown extends Zend_View_Helper_Abstract
     */
     protected $_config = NULL;
 
-    /** The geoplanet class object
-    * @var object $_geoplanet
-    */
-    protected $_geoplanet;
-
     /** The appid object
     * @var object $_appid
     */
@@ -49,24 +43,6 @@ class Pas_View_Helper_FindspotGeoUnknown extends Zend_View_Helper_Abstract
     public function getAuth() {
         $this->_auth = Zend_Registry::get('auth');
         return $this->_auth;
-    }
-
-    /** get the geoplanet service
-     * @access public
-     * @return \Pas_Service_Geo_Geoplanet
-     */
-    public function getGeoplanet() {
-        //$this->_geoplanet = new Pas_Service_Geo_GeoPlanet($this->getAppid());
-        //return $this->_geoplanet;
-    }
-
-    /** Get the yahoo app id
-     * @access public
-     * @return string
-     */
-    public function getAppid() {
-        //$this->_appid = $this->getConfig()->webservice->ydnkeys->consumerkey;
-        //return $this->_appid;
     }
 
     /** Set the app id
@@ -102,24 +78,6 @@ class Pas_View_Helper_FindspotGeoUnknown extends Zend_View_Helper_Abstract
      * @param $string
      */
     public function FindspotGeoUnknown($string) {
-        /*
-        $placeData = $this->_geoplanet->getPlaceFromText($string);
-        if (sizeof($placeData) > 0) {
-        $elevation = $this->_geoplanet->getElevation($placeData['woeid'], $placeData['latitude'], $placeData['longitude']);
-        if (is_array($placeData) && is_array($elevation)) {
-        $placeinfo =  array_merge($placeData, $elevation);
-        $this->view->woeid = $placeData['woeid'];
-        $this->view->latitude = $placeData['latitude'];
-        $this->view->longitude = $placeData['longitude'];
-
-        return $this->buildHtml($placeinfo);
-        } else {
-            return false;
-        }
-        } else {
-            return false;
-        }
-        */
         return $this->buildHtml(null);
     }
 
