@@ -12,8 +12,6 @@ if ($this->f_code == 'R') {
     $code = 'Not provided';
 }
 $config = Zend_Registry::get('config');
-$place = new Pas_Service_Geo_GeoPlanet($config->webservice->ydnkeys->placemakerkey);
-$placedata = $place->reverseGeoCode($this->latitude, $this->longitude);
 
 ?>
 <h2 class="lead">1:50K Gazetteer data for <?php echo $this->name; ?></h2>

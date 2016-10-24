@@ -76,7 +76,6 @@ class Findspots extends Pas_Db_Table_Abstract
         $this->_gmaps = $this->_config->webservice->google->apikey;
     }
 
-
     /** Retrieval of findspot row for editing
      * @access public
      * @param integer $id
@@ -325,12 +324,12 @@ class Findspots extends Pas_Db_Table_Abstract
             $fourFigure = new Pas_Geo_Gridcalc($results['fourFigureGridRef']);
             $fourFigureData = $fourFigure->convert();
 
-            $place = new Pas_Service_Geo_GeoPlanet($this->_appid);
+            //$place = new Pas_Service_Geo_GeoPlanet($this->_appid);
 
             $geoHash = new Pas_Geo_Hash();
             $hash = $geoHash->encode($results['decimalLatLon']['decimalLatitude'],
 
-                $results['decimalLatLon']['decimalLongitude']);
+            $results['decimalLatLon']['decimalLongitude']);
             $data['declong'] = $results['decimalLatLon']['decimalLongitude'];
             $data['declat'] = $results['decimalLatLon']['decimalLatitude'];
             $data['easting'] = $results['easting'];
@@ -344,9 +343,9 @@ class Findspots extends Pas_Db_Table_Abstract
             $data['fourFigureLat'] = $fourFigureData['decimalLatLon']['decimalLatitude'];
             $data['fourFigureLon'] = $fourFigureData['decimalLatLon']['decimalLongitude'];
 
-            $yahoo = $place->reverseGeoCode($results['decimalLatLon']['decimalLatitude'],
-                $results['decimalLatLon']['decimalLongitude']);
-            $data['woeid'] = $yahoo['woeid'];
+            //$yahoo = $place->reverseGeoCode($results['decimalLatLon']['decimalLatitude'],
+            //    $results['decimalLatLon']['decimalLongitude']);
+            //$data['woeid'] = $yahoo['woeid'];
 
             $elevate = new Pas_Service_Geo_Elevation($this->_gmaps);
             $data['elevation'] = $elevate->getElevation($data['declong'], $data['declat']);

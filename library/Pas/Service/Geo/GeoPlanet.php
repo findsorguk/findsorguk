@@ -110,7 +110,7 @@ class Pas_Service_Geo_GeoPlanet
      */
     public function __construct($appid)
     {
-        $this->_appID = $appid;
+	$this->_appID = $appid;
         $this->_cache = Zend_Registry::get('cache');
         $this->_oauth = new Pas_Yql_Oauth();
         $tokens = new OauthTokens();

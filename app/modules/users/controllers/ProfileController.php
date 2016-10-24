@@ -45,7 +45,6 @@ class Users_ProfileController extends Pas_Controller_Action_Admin
         $this->_helper->_acl->allow('fa', null);
         $this->_helper->_acl->allow('admin', null);
         $this->_geocoder = new Pas_Service_Geo_Coder();
-
     }
 
 
@@ -84,9 +83,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin
                 if ($coords) {
                     $lat = $coords['lat'];
                     $lon = $coords['lon'];
-                    $pm = new Pas_Service_Geo_GeoPlanet($this->_helper->config()->webservice->ydnkeys->appid);
-                    $place = $pm->reverseGeoCode($lat, $lon);
-                    $woeid = $place['woeid'];
+                    $woeid = null;
                 } else {
                     $lat = null;
                     $lon = null;
