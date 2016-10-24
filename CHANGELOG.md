@@ -1,5 +1,8 @@
 # Change Log
 
+####1.21 : 24th October, 2016
+- [x] Removed GeoPlanet references
+
 ####1.20 : 14th September, 2016
 - [x] Changed welcome message for new registrants.
 
