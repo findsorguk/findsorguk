@@ -50,7 +50,7 @@ class Pas_Service_What3words
         } elseif (!is_string($words)) {
             throw new Pas_Exception('Invalid words passed', 500);
         }
-        $data = array('string' => $words);
+        $data = array('addr' => $words);
         return self::requestWords('forward', $data);
     }
 
@@ -68,7 +68,7 @@ class Pas_Service_What3words
         } elseif (!is_string($position)) {
             throw new Pas_Exception('Invalid position passed', 500);
         }
-        $data = array('position' => $position);
+        $data = array('coords' => $position);
         return self::requestWords('reverse', $data);
 
     }
