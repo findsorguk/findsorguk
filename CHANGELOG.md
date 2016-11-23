@@ -1,5 +1,8 @@
 # Change Log
 
+####1.22 : 23rd November, 2016
+- [x] Fix to What3Words API update (v1 -> v2)
+
 ####1.21 : 24th October, 2016
 - [x] Removed GeoPlanet references
 

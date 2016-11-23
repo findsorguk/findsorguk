@@ -353,7 +353,7 @@ class Findspots extends Pas_Db_Table_Abstract
             $words = new Pas_Service_What3words();
             $words->setApiKey($this->_config->webservice->what3words->apikey);
             $threewords = $words->positionToWords(array($data['fourFigureLat'], $data['fourFigureLon']));
-            $data['what3words'] = implode('.', $threewords->words);
+            $data['what3words'] = $threewords->words; 
         } else {
             throw new Zend_Exception('Data is not an array', 500);
         }

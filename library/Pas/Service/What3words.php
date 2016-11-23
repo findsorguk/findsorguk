@@ -23,7 +23,7 @@
 class Pas_Service_What3words
 {
     /** Base url to query */
-    const WHAT3WORDS_URI = 'http://api.what3words.com/';
+    const WHAT3WORDS_URI = 'https://api.what3words.com/v2/';
 
     /** The Api key to use
      * @access protected
@@ -50,8 +50,8 @@ class Pas_Service_What3words
         } elseif (!is_string($words)) {
             throw new Pas_Exception('Invalid words passed', 500);
         }
-        $data = array('string' => $words);
-        return self::requestWords('w3w', $data);
+        $data = array('addr' => $words);
+        return self::requestWords('forward', $data);
     }
 
     /**
@@ -68,8 +68,8 @@ class Pas_Service_What3words
         } elseif (!is_string($position)) {
             throw new Pas_Exception('Invalid position passed', 500);
         }
-        $data = array('position' => $position);
-        return self::requestWords('position', $data);
+        $data = array('coords' => $position);
+        return self::requestWords('reverse', $data);
 
     }
 
