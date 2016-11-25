@@ -1,5 +1,8 @@
 # Change Log
 
+####1.23 : 25th November, 2016
+- [x] Add new recording guide into docs and tidy up some guide titles
+
 ####1.22 : 23rd November, 2016
 - [x] Fix to What3Words API update (v1 -> v2)
 
