@@ -13,29 +13,34 @@
         }; ?>>
             <a href="#"><i class="icon-folder-open"></i>Guidance and briefings</a>
             <ul class="nav nav-pills nav-stacked menuindent">
-                <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'ngr'); ?>><a
+		<li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'ngr'); ?>><a
                         href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'ngr'), 'guides', true); ?>"
-                        title="How to take a grid">How to take a Grid reference</a></li>
+                        title="How to Take a Grid">How to Take a Grid Reference</a></li>
                 <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'gps'); ?>><a
                         href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'gps'), 'guides', true); ?>"
-                        title="How to use a GPS">How to use a GPS</a>
+                        title="How to Use a GPS">How to Use a GPS</a>
                 </li>
                 <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'codeofpractice'); ?>><a
                         href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'codeofpractice'), 'guides', true); ?>"
-                        title="Code of practice">Code of practice</a>
+                        title="Code of Practice">Code of Practice</a>
                 </li>
                 <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'rallycode'); ?>><a
                         href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'rallycode'), 'guides', true); ?>"
-                        title="Rally organiser's code of practice">Rally code of practice</a>
+                        title="Rally Organiser's Code of Practice">Rally Code of Practice</a>
                 </li>
                 <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'guidancelandowners'); ?>><a
                         href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'guidancelandowners'), 'guides', true); ?>"
-                        title="guidance for landowners">Guidance for land owners</a>
+                        title="Guidance for Landowners">Guidance for Landowners</a>
+                </li>
+                 <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'recordingguidance'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'recordingguidance'), 'guides', true); ?>"
+                        title="Recording Guidance">Recording Guidance</a>
                 </li>
                 <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'pressures'); ?>><a
                         href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'pressures'), 'guides', true); ?>"
-                        title="Presures for flos">FLO working pressures</a>
+                        title="Presures for FLOs">FLO Working Pressures</a>
                 </li>
+
             </ul>
         </li>
         <li <?php echo $this->currentPage()->active('getinvolved', 'volunteering', 'index'); ?>><a
