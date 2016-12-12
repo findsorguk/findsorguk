@@ -1,13 +1,16 @@
 # Change Log
 
+####1.24 : 12th December, 2016
+- [x] Jpeg handle added to htaccess file.
+
 ####1.23 : 25th November, 2016
-- [x] Add new recording guide into docs and tidy up some guide titles
+- [x] Add new recording guide into docs and tidy up some guide titles.
 
 ####1.22 : 23rd November, 2016
-- [x] Fix to What3Words API update (v1 -> v2)
+- [x] Fix to What3Words API update (v1 -> v2).
 
 ####1.21 : 24th October, 2016
-- [x] Removed GeoPlanet references
+- [x] Removed GeoPlanet references.
 
 ####1.20 : 14th September, 2016
 - [x] Changed welcome message for new registrants.
