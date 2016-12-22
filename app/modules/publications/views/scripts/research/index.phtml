@@ -10,6 +10,27 @@ $this->metaBase()
     ->generate();
 ?>
 
+<?php
+    // Return a sorted list of files in a given directory
+    // Note how .htaccess is ignored - this appears in some of the pdf folders
+    function RetrieveFiles($path) {
+        foreach (new DirectoryIterator($path) as $fileInfo):
+            $filename = $fileInfo->getFilename();
+            if ($fileInfo->isDot() or $filename == '.htaccess') continue;
+                list($root, $ext) = explode('.', $filename);
+                if (!$root) {
+                    $root = $filename;
+                }
+                $filesFound[] = array(
+                    "filename" => $filename,
+                    "root" => $root
+                );
+        endforeach;
+        asort($filesFound);
+        return $filesFound;
+    }
+?>
+
 <h2 class="lead">
     <?php echo $this->title(); ?>
 </h2>
@@ -19,58 +40,47 @@ $this->metaBase()
     of the major research journals.
 </p>
 
-<h3 class="lead">
-    Britannia
-</h3>
-<ul>
-    <?php foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/britannia/') as $fileInfo): ?>
-        <?php if ($fileInfo->isDot()) continue; ?>
-        <li>
-            <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
-            if (!$root) {
-                $root = $filename;
-            } ?>
-            <a href="/documents/britannia/<?php
-            echo $fileInfo->getFilename();
-            ?>"><?php echo $root; ?></a>
-        </li>
-    <?php endforeach; ?>
-
 </ul>
 
-<h3 class="lead">
-    Medieval Archaeology
-</h3>
-<ul>
-    <?php foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/medieval/') as $fileInfo): ?>
-        <?php if ($fileInfo->isDot()) continue; ?>
-        <li>
-            <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
-            if (!$root) {
-                $root = $filename;
-            } ?>
-            <a href="/documents/medieval/<?php echo $fileInfo->getFilename();?>"><?php echo $root; ?></a>
-        </li>
-    <?php endforeach; ?>
+<?php $allFiles = RetrieveFiles(ROOT_PATH . '/public_html/documents/britannia/');
+    if (count($allFiles) > 0) { ?>
+        <h3 class="lead">
+            Britannia
+        </h3>
+        <ul>
+        <?php foreach( $allFiles as $file ): ?>
+            <li>
+                <a href="/documents/britannia/<?php echo $file["filename"] ?>"><?php echo $file["root"]; ?></a>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+<?php } ?>
 
-</ul>
+<?php $allFiles = RetrieveFiles(ROOT_PATH . '/public_html/documents/medieval/');
+    if (count($allFiles) > 0) { ?>
+        <h3 class="lead">
+            Medieval Archaeology
+        </h3>
+        <ul>
+        <?php foreach( $allFiles as $file ): ?>
+            <li>
+                <a href="/documents/medieval/<?php echo $file["filename"] ?>"><?php echo $file["root"]; ?></a>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+<?php } ?>
 
-<h3 class="lead">
-    Post Medieval Archaeology
-</h3>
+<?php $allFiles = RetrieveFiles(ROOT_PATH . '/public_html/documents/postmedieval/'); 
+    if (count($allFiles) > 0) { ?>
+        <h3 class="lead">
+            Post Medieval Archaeology
+        </h3>
+        <ul>
+        <?php foreach( $allFiles as $file ): ?>
+            <li>
+                <a href="/documents/postmedieval/<?php echo $file["filename"] ?>"><?php echo $file["root"]; ?></a>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+<?php } ?>
 
-<ul>
-    <?php
-    foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/postmedieval/') as $fileInfo) {
-        if ($fileInfo->isDot()) continue;
-        ?>
-        <li>
-            <?php list($root, $ext) = explode('.', $fileInfo->getFilename());
-            if (!$root) {
-                $root = $filename;
-            } ?>
-            <a href="/documents/postmedieval/<?php echo $fileInfo->getFilename();?>"><?php echo $root; ?></a>
-        </li>
-    <?php } ?>
-
-</ul>

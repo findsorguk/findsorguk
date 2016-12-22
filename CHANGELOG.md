@@ -1,5 +1,8 @@
 # Change Log
 
+####1.25 : 22 December, 2016
+- [x] Fix to the research pages to sort links and remove any errors.
+
 ####1.24 : 12th December, 2016
 - [x] Jpeg handle added to htaccess file.
 
