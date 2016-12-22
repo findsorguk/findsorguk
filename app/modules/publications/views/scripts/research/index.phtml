@@ -14,6 +14,7 @@ $this->metaBase()
     // Return a sorted list of files in a given directory
     // Note how .htaccess is ignored - this appears in some of the pdf folders
     function RetrieveFiles($path) {
+        $filesFound = array();
         foreach (new DirectoryIterator($path) as $fileInfo):
             $filename = $fileInfo->getFilename();
             if ($fileInfo->isDot() or $filename == '.htaccess') continue;
