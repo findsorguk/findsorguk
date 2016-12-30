@@ -457,8 +457,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->getFindspots()->delete($whereFindspots);
                 $this->getHoardsFinders()->delete($whereHoardsFinders);
-                $this->_helper->solrUpdater->deleteById('objects', $id, 'hoards');
-                $this->redirect('database');
+                $this->_helper->solrUpdater->deleteHoard('objects', $id, 'hoards');
+                $this->redirect('database/hoards/');
             }
             $this->getFlash()->addMessage('No changes made!');
             $this->redirect('database/hoards/record/id/' . $id);
