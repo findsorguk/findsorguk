@@ -16,11 +16,9 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 22 October 2010, 17:12:34
- * @todo integrate with the VanArsdellTypes
- * 
  */
 class VanArsdellTypes extends Pas_Db_Table_Abstract {
 

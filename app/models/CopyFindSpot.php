@@ -14,7 +14,7 @@
  * @category Pas
  * @package Db_Table
  * @subpackage Abstract
- @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 22 September 2011
  * @example /app/modules/users/controllers/ConfigurationController.php
@@ -24,19 +24,19 @@ class CopyFindSpot extends Pas_Db_Table_Abstract {
 
     /** The table name
      * @access protected
-     * @var type
+     * @var string
      */
     protected $_name = 'copyFindSpot';
 
     /** The primary key
      * @access protected
-     * @var type
+     * @var string
      */
     protected $_primary = 'id';
 
     /** The default array
      * @access protected
-     * @var type
+     * @var array
      */
     protected $_default = array(
         'county', 'district', 'parish',
