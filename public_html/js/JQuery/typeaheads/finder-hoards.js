@@ -1,31 +1,32 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     // Add typeahead for every finder field loaded
     $numberOfFinders = ($("#hiddenfield").val()) - 1;
-    for (var i = $numberOfFinders; i > 0 ; i--){
-        finderTypeahead('input#finder'+ i);
-        }
+    for (var i = $numberOfFinders; i > 0; i--) {
+        finderTypeahead('input#finder' + i);
+    }
 
     // Show remove button if there are extra fields
     if ($numberOfFinders > 1) {
         $("#removeFinder").attr('class', "btn btn-warning")
-    };
+    }
+    ;
 
 });
 
-function finderTypeahead(elementId){
+function finderTypeahead(elementId) {
 
     $(elementId).typeahead({
-            source: function(query, process) {
-            var $url = '/ajax/people/?term=' + query ;
+        source: function (query, process) {
+            var $url = '/ajax/people/?term=' + query;
             var $items = new Array;
             $items = [""];
             $.ajax({
                 url: $url,
                 dataType: "json",
                 type: "POST",
-                success: function(data) {
-                    $.map(data, function(data){
+                success: function (data) {
+                    $.map(data, function (data) {
                         var group;
                         group = {
                             id: data.id,
@@ -42,8 +43,8 @@ function finderTypeahead(elementId){
                             },
                             replace: function (string) {
                                 var value = '';
-                                value +=  this.name;
-                                if(typeof(this.level) != 'undefined') {
+                                value += this.name;
+                                if (typeof(this.level) != 'undefined') {
                                     value += ' <span class="pull-right muted">';
                                     value += this.level;
                                     value += '</span>';
@@ -66,7 +67,6 @@ function finderTypeahead(elementId){
             $(elementId + 'ID').val(item.id);
             return item.name;
         }
-        });
+    });
 
-};
-
+}

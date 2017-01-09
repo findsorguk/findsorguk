@@ -1,6 +1,5 @@
 <?php
 $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-$this->headTitle('Database search results');
 $this->metaBase()->setDescription('A completed search on the Scheme database')
     ->setKeywords(implode(',', $params))
     ->generate();
@@ -17,25 +16,25 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
     $url['action'] = 'map';
     ?>
 
-    <div class="btn-group" id="toolBox"><a href="<?php echo $this->url($url, null, true); ?>" data-toggle="tooltip" title="Only maps first 2000 records" class="tipme btn-small btn"><i
+    <div class="btn-group" id="toolBox"><a href="<?php echo $this->url($url, null, true); ?>" data-toggle="tooltip" title="Only maps first 2000 records" class="tipme btn-sm btn"><i
                 class="icon-map-marker"></i> Map results</a> <?php echo $this->searchExportTools($this->paginator->getTotalItemCount()); ?>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <ul>
             <?php echo $this->searchParams()->setParams($params); ?>
         </ul>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
 
         <?php if ($this->results): ?>
 
-            <div class="span9">
+            <div class="col-md-9">
 
                 <?php echo $this->partialLoop('partials/database/structural/findRecordList.phtml', $this->results); ?>
             </div>
-            <div class="span3" id="resultsSidebar">
+            <div class="col-md-3" id="resultsSidebar">
                 <?php echo $this->resultsQuantityChooser()->setResults($this->paginator); ?>
                 <?php echo $this->thumbnailToggler(); ?>
                 <?php echo $this->threeDToggler();?>
@@ -57,7 +56,7 @@ $this->metaBase()->setDescription('A completed search on the Scheme database')
         <?php endif; ?>
 
     </div>
-    <div class="row-fluid">
+    <div class="row">
         <?php echo $this->paginationControl($this->paginator, 'Sliding', 'structure/pagination.phtml'); ?>
     </div>
 

@@ -610,7 +610,7 @@ class HoardForm extends Pas_Form {
                 array('HtmlTag', array('tag' => 'div', 'class' => "controls", 'id' => "$name-controls")),
                 array('Label', array('class' => 'control-label', 'id' => "$name")),
                 array(array('controlGroupWrapper' => 'HtmlTag'),
-                    array('tag' => 'div', 'class' => "control-group", 'id' => "$name-control-group")),
+                    array('tag' => 'div', 'class' => "form-group", 'id' => "$name-form-group")),
             ));
     }
 

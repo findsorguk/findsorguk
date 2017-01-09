@@ -1,58 +1,56 @@
+(function ($) {
 
+    $.fn.linkedSelect = function (url, destination, params) {
 
-(function($){
+        var params = $.extend({
 
-   $.fn.linkedSelect = function(url,destination,params) {
+            firstOption: 'Please Select',
 
-      var params = $.extend({
+            loadingText: 'Loading...'
 
-         firstOption : 'Please Select',
+        }, params);
 
-         loadingText : 'Loading...'
+        var $dest = $(destination);
 
-      },params);
+        return this.each(function () {
 
-      var $dest = $(destination);
+            $(this).bind('change', function () {
 
-      return this.each(function(){
+                var $$ = $(this);
 
-         $(this).bind('change', function() {
+                $dest.attr('disabled', 'false')
+                    .append('<option value="">' + params.loadingText + '</option>')
+                    .ajaxStart(function () {
 
-            var $$ = $(this);
+                        $$.show();
 
-            $dest.attr('disabled','false')
-                 .append('<option value="">' +params.loadingText+ '</option>')
-                 .ajaxStart(function(){
+                    });
 
-                    $$.show();
+                $.getJSON(url, {term: $$.val()}, function (j) {
 
-            });
+                    if (j.length > 0) {
 
-            $.getJSON(url,{term: $$.val() }, function(j){
+                        var options = '<option value="">' + params.firstOption + '</option>';
 
-               if (j.length > 0) {
+                        for (var i = 0; i < j.length; i++) {
 
-                  var options = '<option value="">' +params.firstOption+ '</option>';
+                            options += '<option value="' + j[i].id + '">' + j[i].term + '</option>';
 
-                  for (var i = 0; i < j.length; i++) {
+                        }
 
-                     options += '<option value="' + j[i].id + '">' + j[i].term + '</option>';
+                    }
 
-                  }
+                    $dest.removeAttr('disabled')
+                        .html(options)
+                        .find('option:first')
+                        .attr('selected', 'selected');
 
-               }
+                }); // end getJSON
 
-               $dest.removeAttr('disabled')
-                    .html(options)
-                    .find('option:first')
-                    .attr('selected', 'selected');
+            });  // end change
 
-            }); // end getJSON
+        }); // end return each
 
-         });  // end change
-
-      }); // end return each
-
-   };  // end function
+    };  // end function
 
 })(jQuery);

@@ -40,7 +40,7 @@ function removeField() {
     // Builds the search strings
     // Matches the control group that wraps the last added new finder input
     var uniqueInput = 'finder' + lastId;
-    var searchStringInput = "div#" + uniqueInput + "-control-group";
+    var searchStringInput = "div#" + uniqueInput + "-form-group";
     // Matches the hidden ID field of the last added new finder input
     var uniqueId = 'finder' + lastId + 'ID';
     var searchStringId = "input#" + uniqueId;
