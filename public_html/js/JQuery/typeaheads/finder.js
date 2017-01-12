@@ -1,22 +1,22 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     finderTypeahead('#finder');
 
 });
 
-function finderTypeahead(elementId) {
+function finderTypeahead(elementId){
 
     $(elementId).typeahead({
-        source: function (query, process) {
-            var $url = '/ajax/people/?term=' + query;
+            source: function(query, process) {
+            var $url = '/ajax/people/?term=' + query ;
             var $items = new Array;
             $items = [""];
             $.ajax({
                 url: $url,
                 dataType: "json",
                 type: "POST",
-                success: function (data) {
-                    $.map(data, function (data) {
+                success: function(data) {
+                    $.map(data, function(data){
                         var group;
                         group = {
                             id: data.id,
@@ -33,8 +33,8 @@ function finderTypeahead(elementId) {
                             },
                             replace: function (string) {
                                 var value = '';
-                                value += this.name;
-                                if (typeof(this.level) != 'undefined') {
+                                value +=  this.name;
+                                if(typeof(this.level) != 'undefined') {
                                     value += ' <span class="pull-right muted">';
                                     value += this.level;
                                     value += '</span>';
@@ -57,6 +57,7 @@ function finderTypeahead(elementId) {
             $(elementId + 'ID').val(item.id);
             return item.name;
         }
-    });
+        });
 
-}
+};
+

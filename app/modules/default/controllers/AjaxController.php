@@ -1001,7 +1001,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
                 array('HtmlTag', array('tag' => 'div', 'class' => "controls", 'id' => "$uniqueTextLabel-controls")),
                 array('Label', array('class' => 'control-label', 'id' => "$uniqueTextLabel")),
                 array(array('controlGroupWrapper' => 'HtmlTag'),
-                    array('tag' => 'div', 'class' => "form-group", 'id' => "$uniqueTextLabel-form-group")),
+                    array('tag' => 'div', 'class' => "control-group", 'id' => "$uniqueTextLabel-control-group")),
             ))
             ->addFilters(array('StripTags', 'StringTrim', 'Null'));
 
