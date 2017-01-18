@@ -1,5 +1,8 @@
 # Change Log
 
+####1.26 : 18 January, 2017
+- [x] Fix for the hoards deletion bug where records (not search index) was removed only.
+
 ####1.25 : 22 December, 2016
 - [x] Fix to the research pages to sort links and remove any errors.
 
