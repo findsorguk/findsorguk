@@ -120,10 +120,26 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
         return $this->_solr->update($update);
     }
 
+    /** Delete a hoard by a query
+     * @access public
+     * @param string $core
+     * @param integer $id
+     * @param string $type
+     * @return integer
+     */
+    public function deleteHoard($core, $id, $type)
+    {
+        $this->_solr = $this->getSolrConfig($core);
+        $update = $this->_solr->createUpdate();
+        $update->addDeleteQuery('findIdentifier:' . $this->_getIdentifier($core, $type) . $id);
+        $update->addCommit();
+        return $this->_solr->update($update);
+    }
+
     /** Get the preferred identifier by core
      * @access protected
      * @param string $core
-     * @param string type
+     * @param string $type
      * @return string
      * @throws Exception
      */
