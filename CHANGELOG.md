@@ -1,5 +1,8 @@
 # Change Log
 
+####1.27 : 1 February, 2017
+- [x] Added new Treasure document to menus (Treasure Valuation).
+
 ####1.26 : 18 January, 2017
 - [x] Fix for the hoards deletion bug where records (not search index) was removed only.
 
