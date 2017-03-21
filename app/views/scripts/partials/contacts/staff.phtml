@@ -63,7 +63,7 @@ lat:
         <?php if (!is_null($this->longitude)): ?>
             <img
                 src="https://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&zoom=15&size=200x200&maptype=hybrid&markers=color:green|label:G|
-<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&sensor=false"/>
+<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>"/>
         <?php endif; ?>
         <div class="tel">
             <p>Phone (<span class="type">work</span>): <span class="value" rel="foaf:phone"

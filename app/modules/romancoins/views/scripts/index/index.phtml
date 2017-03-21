@@ -8,7 +8,7 @@
     <div class="span5">
         <h3 class="lead">Latest notable coins</h3>
     <div  id="map">
-        <?php echo $this->googleDynamicMap(null,null,true);?>
+        <?php echo $this->googleDynamicMap();?>
         </div>
     </div>
 </div>
@@ -35,8 +35,7 @@ $(document).ready(function() {
 
     var osmMapType = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
-            return "http://tile.openstreetmap.org/" +
-                zoom + "/" + coord.x + "/" + coord.y + ".png";
+            return "https://a.tile.openstreetmap.org/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
 
         },
         tileSize: new google.maps.Size(256, 256),

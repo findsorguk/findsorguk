@@ -34,7 +34,7 @@ $this->metaBase()->setDescription($this->title())
     </div>
 
 <?php
-echo $this->googleDynamicMap(null, true, false);
+echo $this->googleDynamicMap(true);
 ?>
 
 <?php $this->inlineScript()->captureStart(); ?>
@@ -54,7 +54,7 @@ echo $this->googleDynamicMap(null, true, false);
 
     var osmMapType = new google.maps.ImageMapType({
     getTileUrl: function (coord, zoom) {
-    return "http://tile.openstreetmap.org/" +
+    return "https://a.tile.openstreetmap.org/" +
     zoom + "/" + coord.x + "/" + coord.y + ".png";
 
     },
