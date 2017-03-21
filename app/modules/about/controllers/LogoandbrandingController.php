@@ -29,7 +29,8 @@ class About_LogoAndBrandingController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $content = new Content();
-        $this->view->contents = $content->getFrontContent('logoandbranding');
+        $this->getResponse()->setHttpResponseCode(410)->setRawHeader('HTTP/1.1 410 Gone');
+        $this->renderScript('pageGone.phtml');
+        $this->getFlash()->addMessage('The page requested has permanently gone from our server');
     }
 }
