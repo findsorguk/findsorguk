@@ -62,11 +62,16 @@ class LicenseTypes extends Pas_Db_Table_Abstract
      */
     public function getLicenseText($id)
     {
-        $select = $this->select()
-            ->from($this->_name, array('licenseText' => 'license'))
-            ->where('id LIKE ?', (int)$id . '%')
-            ->limit(1);
-        return $this->getAdapter()->fetchAll($select);
+        $key = md5('cclicenseText');
+        if (!$text = $this->_cache->load($key)) {
+            $select = $this->select()
+                ->from($this->_name, array('licenseText' => 'license'))
+                ->where('id LIKE ?', (int)$id . '%')
+                ->limit(1);
+            $text = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($text, $key);
+        }
+        return $text;
     }
 
 }
