@@ -467,7 +467,13 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('finds_images', 'finds.secuid = finds_images.find_id',
                 array())
             ->joinLeft('slides', 'slides.secuid = finds_images.image_id',
-                array('thumbnail' => 'imageID', 'filename'))
+                array('thumbnail' => 'imageID',
+                    'filename',
+                    'filesize',
+                    'imageLabel' => 'label',
+                    'imageCopyrightHolder' => 'imagerights',
+                    'imageLicense' => 'ccLicense'
+                    ))
             ->joinLeft(array('u' => 'users'), 'slides.createdBy = u.id',
                 array('imagedir')
             )
@@ -2006,6 +2012,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->limit(10);
         return $this->getAdapter()->fetchAll($select);
     }
+
 
     /** Get creator of a record by ID number
      * @access public
