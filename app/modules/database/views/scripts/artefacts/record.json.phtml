@@ -34,10 +34,12 @@ foreach ($this->finds as $find) {
 
 //replace the imageLicense number with corresponding imageLicense text
 $licenseId = $cleaned[0]['imageLicense'];
-$licenseTypes = new LicenseTypes();
-$imageLicense = $licenseTypes->getLicenseText($licenseId);
-if(array_key_exists('imageLicense', $cleaned[0])){
-    $cleaned[0]['imageLicense'] = $imageLicense[0]['licenseText'];
+if (!is_null($licenseId)) {
+    $licenseTypes = new LicenseTypes();
+    $imageLicense = $licenseTypes->getLicenseText($licenseId);
+    if (array_key_exists('imageLicense', $cleaned[0])) {
+        $cleaned[0]['imageLicense'] = $imageLicense[0]['licenseText'];
+    }
 }
 
 echo Zend_Json::prettyPrint(Zend_Json::encode((array('record' => $cleaned))));
