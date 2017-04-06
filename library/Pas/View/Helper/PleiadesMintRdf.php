@@ -42,7 +42,7 @@ class Pas_View_Helper_PleiadesMintRdf extends Zend_View_Helper_Abstract {
     /** The uri for the endpoint
      * 
      */
-    const URI = 'http://pleiades.stoa.org/places/';
+    const URI = 'https://pleiades.stoa.org/places/';
     
     /** The suffix for format
      * 
