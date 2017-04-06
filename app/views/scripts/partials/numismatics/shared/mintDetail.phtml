@@ -29,8 +29,8 @@ $this->metaBase('Full details for issuing  mint at ' . $this->name . ' describin
 
     <ul>
         <?php if (!is_null($this->pleiadesID)): ?>
-            <li><a property="skos:related" resource="http://pleiades.stoa.org/places/<?php echo $this->pleiadesID; ?>"
-                   href="http://pleiades.stoa.org/places/<?php echo $this->pleiadesID; ?>">Pleiades</a></li>
+            <li><a property="skos:related" resource="https://pleiades.stoa.org/places/<?php echo $this->pleiadesID; ?>"
+                   href="https://pleiades.stoa.org/places/<?php echo $this->pleiadesID; ?>">Pleiades</a></li>
         <?php endif; ?>
         <?php if (!is_null($this->nomismaID)): ?>
             <li><a property="skos:related" resource="http://nomisma.org/id/<?php echo $this->nomismaID; ?>"
