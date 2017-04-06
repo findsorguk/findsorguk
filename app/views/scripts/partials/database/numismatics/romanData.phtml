@@ -54,7 +54,7 @@
         <?php if (!is_null($this->mintName)) : ?>
             <br/>
             Mint or issue place: <span property="skos:related"
-                                       resource="http://pleiades.stoa.org/places/<?php echo $this->pleiadesID; ?>"><?php echo $this->escape($this->mintName); ?></span>
+                                       resource="https://pleiades.stoa.org/places/<?php echo $this->pleiadesID; ?>"><?php echo $this->escape($this->mintName); ?></span>
             <a href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'mints', 'action' => 'mint', 'id' => $this->mintID), null, true); ?>"
                title="Read scope note for <?php echo $this->mintName; ?>"><i class="icon-info-sign"></i></a> <a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'mint' => $this->mintID), null, true); ?>"

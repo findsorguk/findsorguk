@@ -180,7 +180,7 @@ if($data['objecttype'] == 'COIN'){
         $nomMint->addType('crm:E53_Place');
         $nomMint->addType('skos:Concept');
         if(!is_null($data['pleiadesID'])){
-            $pleiades = $graph->resource('http://pleiades.stoa.org/places/' . $data['pleiadesID']);
+            $pleiades = $graph->resource('https://pleiades.stoa.org/places/' . $data['pleiadesID']);
             $nomMint->add('skos:closeMatch', $pleiades);
         }
         if(!is_null($data['mintBritMuseumID'])){
