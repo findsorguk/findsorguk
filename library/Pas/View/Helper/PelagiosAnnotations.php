@@ -38,7 +38,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
     /** The pleiades base uri
      *
      */
-    const PLEIADESURI = 'http://pleiades.stoa.org/places/';
+    const PLEIADESURI = 'https://pleiades.stoa.org/places/';
 
     /** The pelagios blog
      *
