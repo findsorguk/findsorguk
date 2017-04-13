@@ -26,6 +26,10 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
                        title="Pierced coins">Pierced coins</a></li>
             </ul>
         </li>
+	<li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'treasure20'); ?>>
+	    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'treasure20'), 'treasure', true); ?>"
+               title="Treasure 20"><i class="icon-info-sign"></i>Treasure 20</a>
+        </li>
         <li <?php
         $process = array(
             'discovery-and-reporting', 'descriptive-report', 'conservation-and-analysis',
