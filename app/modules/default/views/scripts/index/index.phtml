@@ -83,7 +83,7 @@ $this->headMeta($this->serverUrl() . '/assets/logos/axe.jpg', 'twitter:image');
 
             <p>We’re celebrating 20 years since the commencement of the Treasure Act. Visit here to see what’s on show at your local museum!</p>
 
-            <p><a class="btn" href="https://finds.org.uk/treasure/advice/treasure20">Read more &raquo;</a></p>
+            <p><a class="btn" href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'treasure20'), 'treasure', true); ?>">Read more &raquo;</a></p>
         </div>
         <!-- /.span4 -->
 
