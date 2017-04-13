@@ -1,12 +1,15 @@
 # Change Log
 
-####1.27 : 1 February, 2017
+####1.28 : 13th April, 2017
+- [x] Added new Treasure 20 page plus link to it from main page.
+
+####1.27 : 1st February, 2017
 - [x] Added new Treasure document to menus (Treasure Valuation).
 
-####1.26 : 18 January, 2017
+####1.26 : 18th January, 2017
 - [x] Fix for the hoards deletion bug where records (not search index) was removed only.
 
-####1.25 : 22 December, 2016
+####1.25 : 22nd December, 2016
 - [x] Fix to the research pages to sort links and remove any errors.
 
 ####1.24 : 12th December, 2016
