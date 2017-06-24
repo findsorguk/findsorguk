@@ -1,5 +1,5 @@
 # Change Log
-####1.28 : 24th June, 2017
+####1.29 : 24th June, 2017
 - [x] Fix license file for rendering error
 
 ####1.28 : 13th April, 2017
