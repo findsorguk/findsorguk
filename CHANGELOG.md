@@ -1,6 +1,9 @@
 # Change Log
+####1.30 : 27th June, 2017
+- [x] Change to bounding box.
+
 ####1.29 : 24th June, 2017
-- [x] Fix license file for rendering error
+- [x] Fix license file for rendering error.
 
 ####1.28 : 13th April, 2017
 - [x] Added new Treasure 20 page plus link to it from main page.
