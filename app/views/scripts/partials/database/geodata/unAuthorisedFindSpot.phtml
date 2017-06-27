@@ -116,10 +116,10 @@
     <?php
     $bbox = new Pas_Geo_BoundBox();
     $d = 5;  // distance
-    $path_top_right = $bbox->createPoint($this->lat, $this->lon, 45, $d);
-    $path_bottom_right = $bbox->createPoint($this->lat, $this->lon, 135, $d);
-    $path_bottom_left = $bbox->createPoint($this->lat, $this->lon, 225, $d);
-    $path_top_left = $bbox->createPoint($this->lat, $this->lon, 315, $d);
+    $path_top_right = $bbox->createPoint($this->fourFigureLat, $this->fourFigureLon, 45, $d);
+    $path_bottom_right = $bbox->createPoint($this->fourFigureLat, $this->fourFigureLon, 135, $d);
+    $path_bottom_left = $bbox->createPoint($this->fourFigureLat, $this->fourFigureLon, 225, $d);
+    $path_top_left = $bbox->createPoint($this->fourFigureLat, $this->fourFigureLon, 315, $d);
     ?>
 
     var latLngBounds = new google.maps.LatLngBounds(
