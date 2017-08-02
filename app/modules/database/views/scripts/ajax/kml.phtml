@@ -14,13 +14,15 @@ $documentNode->appendChild($documentName);
 
 foreach ($this->results as $result) {
     if (array_key_exists('longitude', $result)) {
-
+        
+        $description = '';
+        
         if (isset($result['thumbnail'])) {
             $url = '/images/thumbnails/';
-            $description = '<img src="' . $this->serverUrl() . $url . $result['thumbnail'] . '.jpg" style="float:right;"/>';
+            $description .= '<img src="' . $this->serverUrl() . $url . $result['thumbnail'] . '.jpg" style="float:right;"/>';
         }
         // Append description if it exists
-        if(array_key_exists('description', $result)){
+        if (array_key_exists('description', $result) && !is_null($result['description'])) {
             $description .= htmlspecialchars($result['description']);
         } else {
             $description .= '<p>No description provided.</p>';
