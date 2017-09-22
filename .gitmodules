@@ -15,7 +15,7 @@
 	url = https://github.com/oscarotero/imagecow.git
 [submodule "library/mpdf"]
 	path = library/mpdf
-	url = https://github.com/finwe/mpdf.git
+	url = https://github.com/mpdf/mpdf.git
 [submodule "public_html/geodata"]
 	path = public_html/geodata
 	url = https://github.com/findsorguk/findsorguk-geodata.git
