@@ -100,6 +100,10 @@ class ErrorController extends Pas_Controller_Action_Admin
                 'name' => 'The Portable Antiquities Scheme',
                 'email' => 'info@finds.org.uk'
             );
+            $cc[] = array(
+                'name' => NULL,
+                'email' => NULL
+            );
             $from[] = array(
                 'name' => 'The Portable Antiquities Server',
                 'email' => 'no-reply@finds.org.uk'
