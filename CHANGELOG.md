@@ -1,4 +1,8 @@
 # Change Log
+
+####1.31 : 22nd September
+-[x] Added new SQL files for correct data structure.
+
 ####1.30 : 27th June, 2017
 - [x] Change to bounding box.
 
