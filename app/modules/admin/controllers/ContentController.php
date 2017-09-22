@@ -26,6 +26,16 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
      */
     protected $_content;
 
+    /** Get the content
+     * @return Content
+     */
+    public function getContent()
+    {
+        $this->_content = new Content();
+        return $this->_content;
+    }
+
+
     /** The cleaning class
      * @access protected
      * @var \Pas_ArrayFunctions
@@ -50,8 +60,6 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->allow('fa', null);
         $this->_helper->_acl->allow('admin', null);
-        $this->_content = new Content();
-
     }
 
     /** Display index page
@@ -134,11 +142,11 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
                 if ($form->isValid($form->getValues())) {
                     $updateData = $form->getValues();
                     $where = array();
-                    $where[] = $this->_content->getAdapter()
+                    $where[] = $this->getContent()->getAdapter()
                         ->quoteInto('id = ?', $this->getParam('id'));
-                    $oldData = $this->_content->fetchRow($this->_content->select()->where('id= ?', (int)$this->getParam('id')))->toArray();
+                    $oldData = $this->getContent()->fetchRow($this->getContent()->select()->where('id= ?', (int)$this->getParam('id')))->toArray();
                     $this->_helper->audit($updateData, $oldData, 'ContentAudit', $this->getParam('id'), $this->getParam('id'));
-                    $this->_content->update($updateData, $where);
+                    $this->getContent()->update($updateData, $where);
                     $this->_helper->solrUpdater->update('content', $this->getParam('id'));
                     $this->getFlash()->addMessage('You updated successfully. It is now available for use.');
                     $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
@@ -150,7 +158,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
                 // find id is expected in $params['id']
                 $id = (int)$this->_request->getParam('id', 0);
                 if ($id > 0) {
-                    $content = $this->_content->fetchRow('id=' . (int)$id)->toArray();
+                    $content = $this->getContent()->fetchRow('id=' . (int)$id)->toArray();
                     if ($content) {
                         $form->populate($content);
                     } else {
@@ -174,7 +182,7 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
-                $this->getContents()->delete($where);
+                $this->getContent()->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
                 $this->_helper->solrUpdater->deleteById('content', $id);
             }
