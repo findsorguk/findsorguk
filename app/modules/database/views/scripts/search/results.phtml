@@ -1,6 +1,5 @@
 <?php
 $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-$this->headTitle('Database search results');
 $this->metaBase()->setDescription('A completed search on the Scheme database')
     ->setKeywords(implode(',', $params))
     ->generate();
