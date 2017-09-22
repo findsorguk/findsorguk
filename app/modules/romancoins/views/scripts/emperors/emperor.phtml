@@ -3,9 +3,6 @@ $config = Zend_Registry::get('config');
 $apikey = $config->webservice->googlemaps->apikey;
 $this->inlineScript()->appendFile('http://maps.googleapis.com/maps/api/js?v=3.8&region=GB&key=' . $apikey, $type = 'text/javascript');
 $this->inlineScript()->appendFile($this->serverUrl() . '/js/markerclusterer.js', $type = 'text/javascript');
-$this->headScript()->appendFile('http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js', $type = 'text/javascript');
-$this->headScript()->appendFile('http://isawnyu.github.com/awld-js/awld.js?autoinit', $type = 'text/javascript');
-
 ?>
 
 <?php $this->inlineScript()->captureStart(); ?>
