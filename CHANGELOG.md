@@ -1,5 +1,9 @@
 # Change Log
 
+####1.32 : 22nd September
+
+-[x] Updated library for mpdf path
+
 ####1.31 : 22nd September
 -[x] Added new SQL files for correct data structure.
 
