@@ -2,10 +2,17 @@
 
 ####1.32 : 22nd September
 
--[x] Updated library for mpdf path
-
-####1.31 : 22nd September
--[x] Added new SQL files for correct data structure.
+- [x] Updated library for mpdf path
+- [x] Added new SQL files for correct data structure.
+- [x] Fixed license rendering
+- [x] Fixed RDF exception error for emperors
+- [x] Fixed duplicated head title
+- [x] Fixed insecure maps on emperors
+- [x] Upgraded zend framework to last supported version
+- [x] Fixed admin for content deletion and editing
+- [x] Removed LAWD.js
+- [x] Fixed missing key in KML file
+- [x] Added ACKNOWLEDGEMENTS.md file
 
 ####1.30 : 27th June, 2017
 - [x] Change to bounding box.
