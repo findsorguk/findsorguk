@@ -87,7 +87,7 @@ class Nomisma
             EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new Pas_Rdf_EasyRdf_Client('http://nomisma.org/query');
+            $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
             $data = $sparql->query(
                 'SELECT * WHERE {' .
                 '  ?type ?role nm:' . $identifier . ' ;' .
@@ -149,7 +149,7 @@ class Nomisma
             EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new Pas_Rdf_EasyRdf_Client('http://nomisma.org/query');
+            $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
             $data = $sparql->query(
                 'SELECT * WHERE {' .
                 '  ?type ?role nm:' . $identifier . ' ;' .
@@ -202,7 +202,7 @@ class Nomisma
             EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new Pas_Rdf_EasyRdf_Client('http://nomisma.org/query');
+            $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
             $data = $sparql->query(
                 'SELECT * WHERE {' .
                 '  ?type ?role nm:' . $identifier . ' ;' .
