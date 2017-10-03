@@ -81,19 +81,18 @@ class Nomisma
             );
             $client->setHeaders(array('accept' => 'application/sparql-results+xml'));
             EasyRdf_Http::setDefaultHttpClient($client);
+
             //Add the namespaces needed to parse the query
             EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
             EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new EasyRdf_Sparql_Client('http://nomisma.org/query');
+            $sparql = new Pas_Rdf_EasyRdf_Client('http://nomisma.org/query');
             $data = $sparql->query(
                 'SELECT * WHERE {' .
                 '  ?type ?role nm:' . $identifier . ' ;' .
                 '   a nmo:TypeSeriesItem ;' .
                 '  skos:prefLabel ?label' .
-//                '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
-//                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
                 '  FILTER(langMatches(lang(?label), "en"))' .
                 ' } ORDER BY ?label');
             $this->getCache()->save($data);
@@ -150,7 +149,7 @@ class Nomisma
             EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new EasyRdf_Sparql_Client('http://nomisma.org/query');
+            $sparql = new Pas_Rdf_EasyRdf_Client('http://nomisma.org/query');
             $data = $sparql->query(
                 'SELECT * WHERE {' .
                 '  ?type ?role nm:' . $identifier . ' ;' .
@@ -203,7 +202,7 @@ class Nomisma
             EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
             EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new EasyRdf_Sparql_Client('http://nomisma.org/query');
+            $sparql = new Pas_Rdf_EasyRdf_Client('http://nomisma.org/query');
             $data = $sparql->query(
                 'SELECT * WHERE {' .
                 '  ?type ?role nm:' . $identifier . ' ;' .

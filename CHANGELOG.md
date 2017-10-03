@@ -1,6 +1,11 @@
 # Change Log
 
-####1.32 : 22nd September
+###1.33 : 3rd October 2017
+
+- [x] Added new class for rendering RDF to /library/Pas/RDF/
+- [x] Amended Nomisma class in models for changes to RDF model
+
+####1.32 : 22nd September 2017
 
 - [x] Updated library for mpdf path
 - [x] Added new SQL files for correct data structure.
