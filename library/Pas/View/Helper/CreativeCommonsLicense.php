@@ -18,7 +18,7 @@
  * @author Daniel Pett <dpett@britishmuseum.org>
  *
  */
-class Pas_View_Helper_FlickrLicense extends Zend_View_Helper_Abstract
+class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
 {
     /**
      * The all rights reserved string
@@ -80,7 +80,7 @@ class Pas_View_Helper_FlickrLicense extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_FlickrLicense
      */
-    public function flickrLicense(){
+    public function creativeCommonsLicense(){
         return $this;
     }
 
@@ -92,24 +92,24 @@ class Pas_View_Helper_FlickrLicense extends Zend_View_Helper_Abstract
     public function getHtmlLicense( $license ){
         if (!($this->getCache()->test('cclicense' . $license))) {
             switch ($license) {
-                case 0:
+                case 1:
                     $licensetype = self::ALLRIGHTS;
                     break;
-                case 1:
+                case 2:
                     $licensetype = '<a href="';
                     $licensetype .= self::BASECREATIVE;
                     $licensetype .= 'by-nc-sa/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
                     $licensetype .= '">Attribution-NonCommercial-ShareAlike License</a>';
                     break;
-                case 2:
+                case 3:
                     $licensetype = '<a href="';
                     $licensetype .= self::BASECREATIVE;
                     $licensetype .= 'by-nc/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
                     $licensetype .= '">Attribution-NonCommercial License</a>';
                     break;
-                case 3:
+                case 6:
                     $licensetype = '<a href="';
                     $licensetype .= self::BASECREATIVE;
                     $licensetype .= 'by-nc-nd/4.0/" title="';
@@ -129,23 +129,6 @@ class Pas_View_Helper_FlickrLicense extends Zend_View_Helper_Abstract
                     $licensetype .= 'by-sa/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
                     $licensetype .= '">Attribution-ShareAlike License</a>';
-                    break;
-                case 6:
-                    $licensetype = '<a href="';
-                    $licensetype .= self::BASECREATIVE;
-                    $licensetype .= 'by-nd/4.0/" title="';
-                    $licensetype .= self::VIEWLIC;
-                    $licensetype .= '">Attribution-NoDerivs License</a>';
-                    break;
-                case 7:
-                    $licensetype =  '<a href="http://www.flickr.com/commons/usage/" title="';
-                    $licensetype .= self::VIEWLIC;
-                    $licensetype .= '">No known copyright restrictions</a>';
-                    break;
-                case 8:
-                    $licensetype =  '<a href="http://www.usa.gov/copyright.shtml" title="';
-                    $licensetype .= self::VIEWLIC;
-                    $licensetype .= '">United States Government Work</a>';
                     break;
                 default:
                     $licensetype = self::ALLRIGHTS;
