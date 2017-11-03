@@ -71,7 +71,9 @@ class Slides extends Pas_Db_Table_Abstract
                     'f' => 'filename',
                     'i' => 'imageID',
                     'label',
-                    'createdBy'
+                    'createdBy',
+                    'ccLicense',
+                    'imagerights'
                 ))
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id', array())
             ->joinLeft($joinTable, $join, $fields)
