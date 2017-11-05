@@ -8,12 +8,16 @@
         <?php $src = array($this->serverUrl(),'images', $this->username, 'medium', $this->filename);?>
         <img src="<?php echo implode('/', $src); ?>"  height="<?php echo $h; ?>" width="<?php echo $w; ?>"
              alt="A resized image of <?php echo $this->label; ?>"/>
-    <div class="btn-group">
-        <a class="btn"
-           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->id), null, true); ?>"
-           title="Download image">Download original</a>
-        <?php echo $this->imageToolBox()->setID($this->id)->setCreatedBy($this->createdBy)->setInstitution($this->institution); ?>
-        <a class="btn btn-default" href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom', 'id' => $this->id), null, true); ?>">Zoom image</a>
+    <div>
+        <div class="btn-group">
+            <a class="btn"
+               href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->id), null, true); ?>"
+               title="Download image">Download original</a>
+            <?php echo $this->imageToolBox()->setID($this->id)->setCreatedBy($this->createdBy)->setInstitution($this->institution); ?>
+            <a class="btn btn-default"
+               href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom', 'id' => $this->id), null, true); ?>">Zoom
+                image</a>
+        </div>
     </div>
 </div>
 
