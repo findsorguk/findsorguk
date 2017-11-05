@@ -1,20 +1,19 @@
 <?php
-/** A view helper for displaying a flickr licence
+/** A view helper for displaying a Creative Commons licence
  *
  * An example of use:
  * <code>
  * <?php
- * echo $this->flickrLicense()->setLicense(2);
+ * echo $this->creativeCommonsLicense()->setLicense(2);
  * ?>
  * </code>
  *
  * @category   Pas
  * @package    View
  * @subpackage Helper
- * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
+ * @copyright  Copyright (c) 2017 dpett @ britishmuseum.org
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
- * @example /app/modules/flickr/views/scripts/photos/details.phtml
  * @author Daniel Pett <dpett@britishmuseum.org>
  *
  */
@@ -54,7 +53,7 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
      * Set the license
      * @access public
      * @param int $license
-     * @return \Pas_View_Helper_FlickrLicense
+     * @return \Pas_View_Helper_CreativeCommonsLicense
      */
     public function setLicense($license) {
         $this->_license = $license;
@@ -87,13 +86,15 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
     /** Build the html to return to string
      * @access public
      * @param int $license
-     * @return type
+     * @return string
      */
     public function getHtmlLicense( $license ){
         if (!($this->getCache()->test('cclicense' . $license))) {
             switch ($license) {
                 case 1:
                     $licensetype = self::ALLRIGHTS;
+                    $licensetype .= '<br /><img src="/assets/ccIcons/by-nc-sa.png" height="15" width="80" />';
+
                     break;
                 case 2:
                     $licensetype = '<a href="';
@@ -101,6 +102,7 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
                     $licensetype .= 'by-nc-sa/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
                     $licensetype .= '">Attribution-NonCommercial-ShareAlike License</a>';
+                    $licensetype .= '<br /><img src="/assets/ccIcons/by-nc-sa.png" height="15" width="80" />';
                     break;
                 case 3:
                     $licensetype = '<a href="';
@@ -108,6 +110,8 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
                     $licensetype .= 'by-nc/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
                     $licensetype .= '">Attribution-NonCommercial License</a>';
+                    $licensetype .= '<br /><img src="/assets/ccIcons/by-nc.png" height="15" width="80" />';
+
                     break;
                 case 6:
                     $licensetype = '<a href="';
@@ -115,6 +119,8 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
                     $licensetype .= 'by-nc-nd/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
                     $licensetype .= '">Attribution-NonCommercial-NoDerivs License</a>';
+                    $licensetype .= '<br /><img src="/assets/ccIcons/by-nc-nd.png" height="15" width="80" />';
+
                     break;
                 case 4:
                     $licensetype = '<a href="';
@@ -122,6 +128,8 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
                     $licensetype .= 'by/2.0/" title="';
                     $licensetype .= self::VIEWLIC;
                     $licensetype .= '">Attribution License</a>';
+                    $licensetype .= '<br /><img src="/assets/ccIcons/by.png" height="15" width="80" />';
+
                     break;
                 case 5:
                     $licensetype = '<a href="';
@@ -129,6 +137,8 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
                     $licensetype .= 'by-sa/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
                     $licensetype .= '">Attribution-ShareAlike License</a>';
+                    $licensetype .= '<br /><img src="/assets/ccIcons/by-sa.png" height="15" width="80" />';
+
                     break;
                 default:
                     $licensetype = self::ALLRIGHTS;
