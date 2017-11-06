@@ -118,7 +118,10 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
             'county', 'licenseAcronym', 'findID',
             'institution'
         ));
-        $search->setFacets(array('licenseAcronym', 'broadperiod', 'county', 'objecttype', 'institution'));
+        $search->setFacets(array(
+            'licenseAcronym', 'broadperiod', 'county',
+            'objecttype', 'institution', 'imageRights'
+        ));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->getParam('submit'))
         ) {

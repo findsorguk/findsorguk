@@ -243,7 +243,8 @@ class Slides extends Pas_Db_Table_Abstract
                 'createdBy',
                 'updated',
                 'created',
-                'license' => 'ccLicense'
+                'license' => 'ccLicense',
+                'imagerights' => 'imageRights'
             ))
             ->joinLeft('periods', $this->_name . '.period = periods.id',
                 array('broadperiod' => 'term'))

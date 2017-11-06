@@ -235,6 +235,9 @@ class Pas_View_Helper_FacetCreatorAjaxImages extends Zend_View_Helper_Abstract
             case 'institution':
                 $clean = 'Institution';
                 break;
+            case 'imageRights':
+                $clean = 'Image rights owner';
+                break;
             default:
                 $clean = ucfirst($name);
                 break;
@@ -245,7 +248,7 @@ class Pas_View_Helper_FacetCreatorAjaxImages extends Zend_View_Helper_Abstract
 
     /** Function for rendering workflow labels
      * @access protected
-     * @param type $key
+     * @param string $key
      * @return string
      * @todo move this to a library function
      */

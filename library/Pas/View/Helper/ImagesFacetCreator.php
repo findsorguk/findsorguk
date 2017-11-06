@@ -29,7 +29,6 @@ class Pas_View_Helper_ImagesFacetCreator extends Zend_View_Helper_Abstract
             foreach ($facets as $facetName => $facet) {
                 $html .= $this->_processFacet($facet, $facetName);
             }
-
             return $html;
         } else {
             throw new Pas_Exception('The facets sent are not an array');
@@ -148,6 +147,9 @@ class Pas_View_Helper_ImagesFacetCreator extends Zend_View_Helper_Abstract
                 break;
             case 'creator':
                 $clean = 'Created by user';
+                break;
+            case 'imageRights':
+                $clean = 'Image rights owner';
                 break;
             default:
                 $clean = ucfirst($name);
