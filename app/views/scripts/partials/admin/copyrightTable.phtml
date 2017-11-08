@@ -1,0 +1,26 @@
+<tr class="valid-">
+    <td><?php echo $this->copyright; ?></td>
+    <td><?php echo $this->timeAgoInWords($this->created); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fullname); ?></td>
+    <td><?php echo $this->timeAgoInWords($this->updated); ?></td>
+    <td><?php echo $this->nameThem()->setName($this->fn); ?></td>
+     <td>
+        <?php
+        $edit = $this->url(array(
+            'module' => 'admin',
+            'controller' => 'copyrights',
+            'action' => 'edit',
+            'id' => $this->id),
+            'default', true);
+        $delete = $this->url(array(
+            'module' => 'admin',
+            'controller' => 'copyrights',
+            'action' => 'delete',
+            'id' => $this->id),
+            'default', true);
+
+        ?>
+        <div class="btn-group"><a href="<?php echo $edit; ?>" class="btn-mini btn btn-info">Edit</a>
+            <a href="<?php echo $delete; ?>" class="btn-mini btn btn-danger">Delete</a></div>
+    </td>
+</tr>
