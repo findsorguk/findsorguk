@@ -11,6 +11,7 @@
 - [x] Added CRUD for copyright management
 - [x] Fix exposure of records in quarantine and review to researchers and heros
 - [x] Merged ImageBot optimised images.
+- [x] Fix erroneous date entry
 
 ###1.34 : 6th November 2017
 

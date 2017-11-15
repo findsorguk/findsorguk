@@ -560,6 +560,7 @@ class FindForm extends Pas_Form
             ->addFilters(array('StripTags', 'StringTrim'));
 
         //Date found from
+
         $datefound1 = new Zend_Form_Element_Text('datefound1');
         $datefound1->setLabel('First discovery date: ')
             ->addValidator('Date', true, (array('format' => 'yyyy-MM-dd')))
