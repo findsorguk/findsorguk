@@ -5,27 +5,34 @@ Twitter: @portableant
 Location: The British Museum, Great Russell Street, WC1B 3DG
 Geo: 51.519222, -0.124285 or thereabouts 9-5 M-F
 Email: dpett at britishmuseum.org
-Tel: +44 207 323 8618
-Site: http://7pillarsofwisdom.co.uk
+Tel: +44 207 323 8952
+Site: http://museologi.st
 
 Developer and ICT Officer: Mary Chester-Kadwell
-Twitter: @omegasquirrel
+Location: Cambridge University Library
+Twitter: @marycktech
+
+Developer: Stephen Moon
 Location: The British Museum, Great Russell Street, WC1B 3DG
 Geo: 51.519222, -0.124285 or thereabouts 9-5 M-F
-E: MChester-Kadwell at britishmuseum.org
+Email: smoon at britishmuseum.org
 
-
+Developer: Adetokunbo Aribilola
+Location: The British Museum, Great Russell Street, WC1B 3DG
+Geo: 51.519222, -0.124285 or thereabouts 9-5 M-F
 
 /* THANKS FROM DAN */
 Tom Elliot, Sean Gillies, Sebastian Heath, Ethan Gruber, Eric Kansa and the original people
-I learnt from Tyler Bell, Vuk Trifkovic, Andrew Larcombe and Yegor Veter. Most importantly 
-@katekelland and @maxtheexplorer
+I learnt from Tyler Bell, Vuk Trifkovic, Andrew Larcombe and Yegor Veter.
 
 /* SITE */
 Last update: Everyday
 Standards: xHTML1, CSS2, PHP5.4, MYSQL5, solr 4.2.1
 Components: jQuery, php, flash, java, solr,
 Software: Zend Studio, netBeans, phpstorm
+
+/* Contributors */
+Ethan Gruber, Richard Wareham, Lesley Arnold
 
 /* COLOPHON */
 Hic sunt dracones - Here be dragons. St George is coming to get them.

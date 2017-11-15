@@ -64,13 +64,7 @@ $this->metaBase('Full details for issuing  mint at ' . $this->name . ' describin
         <h3 class="lead">Data from wikipedia</h3>
         <?php echo $this->dbPediaMintRdf()->setUri("http://dbpedia.org/resource/" . $this->dbpediaID); ?>
     <?php endif; ?>
-    <?php if (!is_null($this->pleiadesID)): ?>
-        <h3 class="lead">Data from Pleiades</h3>
-        <?php //echo $this->pleiadesMintRdf()->setUri($this->pleiadesID); ?>
-        <?php echo $this->pelagiosAnnotations()->setPleiadesPlace($this->pleiadesID); ?>
-        <?php //echo $this->pleiadesFlickrImages($this->pleiadesID); ?>
 
-    <?php endif; ?>
 
     <?php if (!is_null($this->pasID)): ?>
         <?php echo $this->searchLink()->setField('mint')->setId($this->pasID); ?>

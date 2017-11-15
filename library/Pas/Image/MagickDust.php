@@ -72,6 +72,8 @@ class Pas_Image_MagickDust
     /** The default extension */
     const EXT = '.jpg';
 
+    const TIFFEXT  = '.tif';
+
     /** The permissions for a directory */
     const PERMS = 0777;
 
@@ -165,7 +167,7 @@ class Pas_Image_MagickDust
 
     /** Get the basename of the image minus extension
      * @access public
-     * @return strinb
+     * @return string
      */
     public function getBasename()
     {
@@ -213,7 +215,7 @@ class Pas_Image_MagickDust
 
     /** Check directories exist for a user
      * @access public
-     * @return void
+     * @return \Pas_Image_MagickDust
      */
     public function checkDirectories()
     {
@@ -238,7 +240,7 @@ class Pas_Image_MagickDust
 
     /** Check permissions for the user directories
      * @access public
-     * @return void
+     * @return \Pas_Image_MagickDust
      * @throws Pas_Image_Exception
      */
     public function checkPermissions()
@@ -280,6 +282,11 @@ class Pas_Image_MagickDust
         $this->checkDirectories();
         // Make directory check for permissions
 //        $this->checkPermissions();
+        // If the mime type is a tiff do this
+        if (in_array($mime, $this->_tiffMimes)) {
+            //Convert tiff to JPG and repeat above, replace original and save tiff in tiffs folder
+            $this->convertTiff();
+        }
 
         //Loop through each size and create the image
         foreach ($this->getSizes() as $resize) {
@@ -292,7 +299,7 @@ class Pas_Image_MagickDust
                 $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getBasename();
             }
             // Set up the image creation class using imagick
-            $surrogate = Image::create($this->getImage(), 'Imagick');
+            $surrogate = Image::fromFile($this->getImage(), Image::LIB_IMAGICK);
             // Get the mime type
             $mime = $surrogate->getMimeType();
             // Check if mime type is in the accepted array of types
@@ -301,23 +308,20 @@ class Pas_Image_MagickDust
                 $surrogate->format('jpg');
                 $surrogate->save($newImage);
             }
-            // If the mime type is a tiff do this
-            if (in_array($mime, $this->_tiffMimes)) {
-                //Convert tiff to JPG and repeat above, replace original and save tiff in tiffs folder
-                $this->convertTiff($image);
-            }
+
         }
     }
 
 
     /** Convert tiff to jpeg
      * @access public
-     * @param $image
      */
     public function convertTiff()
     {
         //Determine path to Tiff folder
-        $tiffPath = IMAGE_PATH . $this->getUserPath() . self::TIFFS . $this->getBasename() . self::EXT;
+        $tiffPath = IMAGE_PATH . $this->getUserPath() . self::TIFFS . $this->getBasename() . self::TIFFEXT;
+//        print($tiffPath);
+//exit;
         //Where we will be saving the file
         $destination = $this->getUserPath();
 
@@ -327,7 +331,7 @@ class Pas_Image_MagickDust
         }
 
         //Create an instance of the image to save
-        $surrogate = Image::create($tiffPath, 'Imagick');
+        $surrogate = Image::fromFile($tiffPath, Image::LIB_IMAGICK);
         //Set the image to save as jpeg file
         $surrogate->format('jpg');
         //Save to original folder as jpeg

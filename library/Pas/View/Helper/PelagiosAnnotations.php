@@ -103,8 +103,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
                     CURLOPT_RETURNTRANSFER => true,
                 ),
         );
-        $client = new Zend_Http_Client(self::BASEURI . $this->_uri
-                . self::SUFFIX, $config);
+        $client = new Zend_Http_Client(self::BASEURI . $this->_uri . self::SUFFIX, $config);
         $response = $client->request();
         $data = $response->getBody();
         $json = json_decode($data);
@@ -142,7 +141,7 @@ class Pas_View_Helper_PelagiosAnnotations extends Zend_View_Helper_Abstract
 
     /** To string method
      * @access public
-     * @return type
+     * @return string
      */
     public function __toString() {
         return $this->html();

@@ -1,5 +1,22 @@
 # Change Log
 
+###1.35 : 15th November 2017
+
+- [x] Amended view helper for CC license render
+- [x] Removed Pelagios view helper from numismatics
+- [x] Fixed bug with image addition
+- [x] Upgraded Imagick classes for correct method calls for PHP 5.6 +
+
+###1.34 : 6th November 2017
+
+- [x] Added new class for rendering licenses for Creative Commons with logo (view helper)
+- [x] Amended thumbs partial to reflect above
+- [x] Amended humans.txt to reflect contributions and staff changes
+- [x] Amended CC license URL to 4.0 from 2.0
+- [x] Added CONTRIBUTING.MD file to tell people how to add their own code
+- [x] Added Image Rights field to data sent to SOLR (for BMCo to track down usage of their images in PAS dataset)
+- [x] Added code for Image Rights facet to appear on image searches
+
 ###1.33 : 3rd October 2017
 
 - [x] Added new class for rendering RDF to /library/Pas/RDF/

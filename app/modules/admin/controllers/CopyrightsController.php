@@ -1,6 +1,6 @@
 <?php
 
-/** Controller for setting up and manipulating help topics
+/** Controller for setting up and manipulating institutional copyrights
  *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @version 1
@@ -30,11 +30,11 @@ class Admin_CopyrightsController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow('admin', null);
-        $this->_help = new Copyrights();
+        $this->_copyrights = new Copyrights();
 
     }
 
-    /** Set up the index of help topics
+    /** Set up the index of institutional copyrights
      * @access public
      * @return void
      */
@@ -43,28 +43,27 @@ class Admin_CopyrightsController extends Pas_Controller_Action_Admin
         $this->view->copyrights = $this->_copyrights->getCopyrightsAdmin($this->getParam('page'));
     }
 
-    /** Add a new help topic
+    /** Add a new copyright topic
      * @access public
      * @return void
      */
     public function addAction()
     {
         $form = new CopyrightsForm();
-        $form->submit->setLabel('Add new help topic to system');
-        $form->author->setValue($this->getIdentityForForms());
+        $form->submit->setLabel('Add new copyright to system');
         $this->view->form = $form;
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
-                $this->_help->add($form->getValues());
-                $this->getFlash()->addMessage('Help topic has been created!');
-                $this->redirect('/admin/help');
+                $this->_copyrights->add($form->getValues());
+                $this->getFlash()->addMessage('Copyright created');
+                $this->redirect('/admin/copyrights');
             } else {
                 $form->populate($form->getValues());
             }
         }
     }
 
-    /** Edit a help topic
+    /** Edit a copyright
      * @access public
      * @return void
      * @throws Pas_Exception_Param
@@ -72,27 +71,26 @@ class Admin_CopyrightsController extends Pas_Controller_Action_Admin
     public function editAction()
     {
         if ($this->getParam('id', false)) {
-            $form = new HelpForm();
+            $form = new CopyrightsForm();
             $form->submit->setLabel('Submit changes');
-            $form->author->setValue($this->getIdentityForForms());
             $this->view->form = $form;
             if ($this->getRequest()->isPost()
                 && $form->isValid($this->_request->getPost())
             ) {
                 if ($form->isValid($form->getValues())) {
                     $where = array();
-                    $where[] = $this->_help->getAdapter()->quoteInto('id = ?',
+                    $where[] = $this->_copyrights->getAdapter()->quoteInto('id = ?',
                         $this->getParam('id'));
-                    $this->_help->update($form->getValues(), $where);
+                    $this->_copyrights->update($form->getValues(), $where);
                     $this->getFlash()->addMessage('You updated: <em>'
-                        . $form->getValue('title')
+                        . $form->getValue('copyright')
                         . '</em> successfully. It is now available for use.');
-                    $this->redirect('admin/help/');
+                    $this->redirect('admin/copyrights/');
                 } else {
                     $form->populate($form->getValues());
                 }
             } else {
-                $form->populate($this->_help->fetchRow('id= '
+                $form->populate($this->_copyrights->fetchRow('id= '
                     . $this->getParam('id'))->toArray());
             }
         } else {
@@ -100,7 +98,7 @@ class Admin_CopyrightsController extends Pas_Controller_Action_Admin
         }
     }
 
-    /** Delete a help topic
+    /** Delete a copyright
      * @access public
      * @return void
      */
@@ -111,14 +109,14 @@ class Admin_CopyrightsController extends Pas_Controller_Action_Admin
             $del = $this->_request->getPost('del');
             if ($del == 'Yes' && $id > 0) {
                 $where = 'id = ' . $id;
-                $this->_help->delete($where);
-                $this->getFlash()->addMessage('Record deleted!');
+                $this->_copyrights->delete($where);
+                $this->getFlash()->addMessage('Copyright attribution deleted!');
             }
-            $this->redirect('/admin/help/');
+            $this->redirect('/admin/copyrights/');
         } else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
-                $this->view->content = $this->_help->fetchRow('id=' . $id);
+                $this->view->copyright = $this->_copyrights->fetchRow('id=' . $id);
             }
         }
     }

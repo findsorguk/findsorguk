@@ -71,7 +71,9 @@ class Slides extends Pas_Db_Table_Abstract
                     'f' => 'filename',
                     'i' => 'imageID',
                     'label',
-                    'createdBy'
+                    'createdBy',
+                    'ccLicense',
+                    'imagerights'
                 ))
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id', array())
             ->joinLeft($joinTable, $join, $fields)
@@ -241,7 +243,8 @@ class Slides extends Pas_Db_Table_Abstract
                 'createdBy',
                 'updated',
                 'created',
-                'license' => 'ccLicense'
+                'license' => 'ccLicense',
+                'imageRights' => 'imagerights'
             ))
             ->joinLeft('periods', $this->_name . '.period = periods.id',
                 array('broadperiod' => 'term'))

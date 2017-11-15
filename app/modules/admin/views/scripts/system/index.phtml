@@ -14,11 +14,16 @@ $this->metaBase()->setDescription($this->title());
         <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system', 'action' => 'serverconfig'), null, true); ?>"
            title="Manage acronyms">System environment</a></li>
 </ul>
-<h3 class="lead">Roles</h3>
+<h3 class="lead">Roles & copyrights</h3>
 <ul>
     <li>
         <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system', 'action' => 'roles'), null, true); ?>"
-           title="View system roles">System roles</a></li>
+           title="View system roles">System roles</a>
+    </li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'copyrights', 'action' => 'index'), null, true); ?>"
+           title="View copyrights">Copyright institutions</a>
+    </li>
 </ul>
 
 <h3 class="lead">Cache operations</h3>

@@ -15,6 +15,12 @@
              alt="<?php echo $this->old_findID; ?>: <?php echo $this->label; ?>">
     <?php endif; ?>
 
+    <p>
+    Rights Holder: <?php echo $this->imagerights; ?>
+    <br />
+    CC License: <?php echo $this->creativeCommonsLicense()->setLicense($this->ccLicense); ?>
+    </p>
+
     <div class="btn-group">
         <a class="btn btn-mini"
            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->i), null, true); ?>"

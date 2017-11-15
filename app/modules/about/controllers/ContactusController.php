@@ -22,9 +22,7 @@ class About_ContactUsController extends Pas_Controller_Action_Admin
      */
     public function init()
     {
-
         $this->_helper->acl->allow('public', null);
-
     }
 
     /** The action that allows people to send in requests via the contact us
@@ -35,7 +33,6 @@ class About_ContactUsController extends Pas_Controller_Action_Admin
     public function indexAction()
     {
         $form = new ContactUsForm();
-        $form->removeElement('captcha');
         $this->view->form = $form;
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {

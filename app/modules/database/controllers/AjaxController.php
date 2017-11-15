@@ -601,7 +601,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $search->setFields($fields->getFields());
         $search->setFacets(array(
             'licenseAcronym', 'broadperiod', 'county',
-            'objecttype', 'institution'
+            'objecttype', 'institution', 'imageRights'
         ));
         $search->setParams($this->getAllParams());
         $search->execute();
