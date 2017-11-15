@@ -75,6 +75,7 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
                     $dat['longitude'] = $dat['fourFigureLon'];
                 }
             }
+            $record = array();
             foreach ($dat as $k => $v) {
                 $trimmed = trim(strip_tags(str_replace(array('<br />'), array("\n", "\r"), utf8_decode($v))));
                 $record[$k] = preg_replace( "/\r|\n/", "", $trimmed );

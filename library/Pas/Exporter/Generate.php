@@ -169,7 +169,7 @@ class Pas_Exporter_Generate
         return $this;
     }
 
-    /** Clean up the paramters
+    /** Clean up the parameters
      * @access public
      * @param array $params
      * @return array
