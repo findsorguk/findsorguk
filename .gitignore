@@ -164,3 +164,4 @@ nbproject*
 cache/zend_*
 cache/html*
 app/logs/application.log
+public_html/images/*

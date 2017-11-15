@@ -1,5 +1,12 @@
 # Change Log
 
+###1.35 : 15th November 2017
+
+- [x] Amended view helper for CC license render
+- [x] Removed Pelagios view helper from numismatics
+- [x] Fixed bug with image addition
+- [x] Upgraded Imagick classes for correct method calls for PHP 5.6 +
+
 ###1.34 : 6th November 2017
 
 - [x] Added new class for rendering licenses for Creative Commons with logo (view helper)
