@@ -28,7 +28,7 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
         'fourFigure', 'longitude', 'latitude',
         'county', 'woeid', 'district',
         'parish', 'knownas', 'thumbnail',
-        'fourFigureLat', 'fourFigureLon'
+        'fourFigureLat', 'fourFigureLon', 'secwfstage'
     );
 
     /** The array of roles where we need to remove data
@@ -64,10 +64,16 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
      */
     protected function _clean(array $data)
     {
+        $finalData = NULL;
         foreach ($data as $dat) {
             if (in_array($this->getRole(), $this->_remove)) {
-                $dat['latitude'] = $dat['fourFigureLat'];
-                $dat['longitude'] = $dat['fourFigureLon'];
+                unset($dat);
+                if(array_key_exists('fourFigureLat', $dat)) {
+                    $dat['latitude'] = $dat['fourFigureLat'];
+                }
+                if(array_key_exists('fourFigureLon', $dat)) {
+                    $dat['longitude'] = $dat['fourFigureLon'];
+                }
             }
             foreach ($dat as $k => $v) {
                 $trimmed = trim(strip_tags(str_replace(array('<br />'), array("\n", "\r"), utf8_decode($v))));
