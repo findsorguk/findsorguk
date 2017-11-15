@@ -21,6 +21,11 @@ $this->metaBase()->setDescription('This record is unavailable to you at present'
         Institution responsible: <?php echo $this->finds[0]['institution']; ?><br/>
     <?php endif; ?>
 
+     <?php if(array_key_exists('secwfstage', $this->finds[0])):?>
+        Workflow stage: <?php echo $this->workflowStatus()->setWorkflow($this->finds[0]['secwfstage']); ?>
+        <?php echo $this->workflow()->setWorkflow($this->finds[0]['secwfstage']); ?>
+    <?php endif;?>
+
     <?php if(array_key_exists('id', $this->finds[0])):?>
         <h3>Relevant FLOs</h3>
         <?php echo $this->relevantFlo()->setFindID($this->finds[0]['id']); ?>
