@@ -7,6 +7,7 @@
 - [x] Fixed bug with image addition
 - [x] Upgraded Imagick classes for correct method calls for PHP 5.6 +
 - [x] Hide What 3 Words and WOEID from public view
+- [x] Fix exposure of records in quarantine and review in the more like this feature
 
 ###1.34 : 6th November 2017
 

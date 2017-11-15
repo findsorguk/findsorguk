@@ -100,8 +100,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
 
     /** Get the solr config array
      * @access public
-     * @todo might need deprecating as I think this is set elsewhere
-     * @return type
+     * @return array
      */
     public function getSolrConfig()
     {
@@ -111,7 +110,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
 
     /** Get the Solr class to use
      * @access public
-     * @return type
+     * @return \Pas_Solr_MoreLikeThis
      */
     public function getSolr()
     {
@@ -131,6 +130,21 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
             $this->_role = $person->role;
         }
         return $this->_role;
+    }
+
+    /** Set constraints on the return of data
+     * @access public
+     * @return string
+     */
+    public function getConstraints()
+    {
+
+        if(in_array($this->getRole(), array('public', 'hero', 'research', 'member'))){
+            $string = 'workflow:[3 TO 4]';
+        } else {
+            $string = 'workflow:[1 TO 4]';
+        }
+        return $string;
     }
 
     /** Set the base string for the key
@@ -173,7 +187,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
         if (!($this->getCache()->test($this->getKey()))) {
             $mlt = $this->getSolr();
             $mlt->setFields(array('objecttype', 'broadperiod', 'description', 'notes'));
-            $mlt->setQuery($this->getQuery());
+            $mlt->setQuery($this->getQuery() . ' ' . $this->getConstraints());
             $solrResponse = $mlt->executeQuery();
             $this->getCache()->save($solrResponse);
 
@@ -185,7 +199,7 @@ class Pas_View_Helper_MoreLikeThis extends Zend_View_Helper_Abstract
 
     /** magic method to render string
      * @access public
-     * @return type
+     * @return string
      */
     public function __toString()
     {
