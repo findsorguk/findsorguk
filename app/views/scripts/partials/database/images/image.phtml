@@ -40,9 +40,10 @@
                 <li>Broadperiod: <?php echo $this->broadperiod; ?></li>
                 <li>County: <?php echo $this->county; ?></li>
                 <li>Filesize: <?php echo $this->humanReadableFileSize()->setSize($this->filesize); ?></li>
-                <li>Copyright: <?php echo $this->imagerights; ?></li>
-                <li>License: <?php echo $this->license; ?></li>
+                <li>Rights owner: <?php echo $this->imagerights; ?></li>
+                <li>Creative commons license: <?php echo $this->creativeCommonsLicense()->setLicense($this->ccLicense); ?></li>
             </ul>
+
         </div>
 
 

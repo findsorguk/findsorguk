@@ -93,7 +93,7 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
             switch ($license) {
                 case 1:
                     $licensetype = self::ALLRIGHTS;
-                    $licensetype .= '<br /><img src="/assets/ccIcons/by-nc-sa.png" height="15" width="80" />';
+                    $licensetype .= '<img src="/assets/ccIcons/by-nc-sa.png" height="15" width="80" />';
 
                     break;
                 case 2:
@@ -101,16 +101,16 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
                     $licensetype .= self::BASECREATIVE;
                     $licensetype .= 'by-nc-sa/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
-                    $licensetype .= '">Attribution-NonCommercial-ShareAlike License</a>';
-                    $licensetype .= '<br /><img src="/assets/ccIcons/by-nc-sa.png" height="15" width="80" />';
+                    $licensetype .= '">';
+                    $licensetype .= '<img src="/assets/ccIcons/by-nc-sa.png" height="15" width="80" /></a>';
                     break;
                 case 3:
                     $licensetype = '<a href="';
                     $licensetype .= self::BASECREATIVE;
                     $licensetype .= 'by-nc/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
-                    $licensetype .= '">Attribution-NonCommercial License</a>';
-                    $licensetype .= '<br /><img src="/assets/ccIcons/by-nc.png" height="15" width="80" />';
+                    $licensetype .= '">';
+                    $licensetype .= '<img src="/assets/ccIcons/by-nc.png" height="15" width="80" />';
 
                     break;
                 case 6:
@@ -118,8 +118,8 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
                     $licensetype .= self::BASECREATIVE;
                     $licensetype .= 'by-nc-nd/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
-                    $licensetype .= '">Attribution-NonCommercial-NoDerivs License</a>';
-                    $licensetype .= '<br /><img src="/assets/ccIcons/by-nc-nd.png" height="15" width="80" />';
+                    $licensetype .= '">';
+                    $licensetype .= '<img src="/assets/ccIcons/by-nc-nd.png" height="15" width="80" />';
 
                     break;
                 case 4:
@@ -127,8 +127,8 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
                     $licensetype .= self::BASECREATIVE;
                     $licensetype .= 'by/2.0/" title="';
                     $licensetype .= self::VIEWLIC;
-                    $licensetype .= '">Attribution License</a>';
-                    $licensetype .= '<br /><img src="/assets/ccIcons/by.png" height="15" width="80" />';
+                    $licensetype .= '">';
+                    $licensetype .= '<img src="/assets/ccIcons/by.png" height="15" width="80" />';
 
                     break;
                 case 5:
@@ -136,8 +136,8 @@ class Pas_View_Helper_CreativeCommonsLicense extends Zend_View_Helper_Abstract
                     $licensetype .= self::BASECREATIVE;
                     $licensetype .= 'by-sa/4.0/" title="';
                     $licensetype .= self::VIEWLIC;
-                    $licensetype .= '">Attribution-ShareAlike License</a>';
-                    $licensetype .= '<br /><img src="/assets/ccIcons/by-sa.png" height="15" width="80" />';
+                    $licensetype .= '">';
+                    $licensetype .= '<img src="/assets/ccIcons/by-sa.png" height="15" width="80" />';
 
                     break;
                 default:

@@ -14,10 +14,15 @@
     ?>
     <?php if (file_exists($thumbnail) && file_exists($full)): ?>
         <?php list($w, $h) = getimagesize($thumbnail); ?>
+
         <a href="<?php echo $this->serverUrl(); ?>/<?php echo $this->imagedir; ?>medium/<?php echo rawurlencode($this->f); ?>"
            rel="lightbox"><img class="img img-polaroid"
                                src="<?php echo $this->baseUrl(); ?>/images/thumbnails/<?php echo $this->thumbnail; ?>.jpg"
                                width="<?php echo $w; ?>" height="<?php echo $h; ?>"/></a>
+        <br/>
+        Rights Holder: <?php echo $this->imagerights; ?>
+        <br />
+        CC License: <?php echo $this->creativeCommonsLicense()->setLicense($this->ccLicense); ?>
         <br/>
         <div class="btn-group">
         <a class="btn btn-mini" href="<?php echo $this->url(array(
