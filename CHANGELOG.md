@@ -9,6 +9,7 @@
 - [x] Hide What 3 Words and WOEID from public view
 - [x] Fix exposure of records in quarantine and review in the more like this feature
 - [x] Added CRUD for copyright management
+- [x] Fix exposure of records in quarantine and review to researchers and heros
 
 ###1.34 : 6th November 2017
 
