@@ -6,7 +6,7 @@
  *
  * <code>
  * <?php
- * $this->_helper->availableOrNot($finds);
+ * $this->_helper->availableOrNot($finds, TRUE);
  * ?>
  * </code>
  *
@@ -45,6 +45,9 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
      */
     protected $_userID = '3';
 
+    /** Default institution
+     * @var string
+     */
     protected $_institution = 'PUBLIC';
 
     /** Allowed roles
@@ -115,14 +118,11 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
     /** Check if data and access okay
      * @param array $data
      */
-    public function checkAccess(array $data)
+    public function checkAccess(array $data, $debug = FALSE)
     {
-//        Zend_Debug::dump($data[0]['createdBy'], 'get created by');
-//        Zend_Debug::dump($data[0]['institution'], 'get created by inst');
-//        Zend_Debug::dump($this->getRole(), 'get role');
-//        Zend_Debug::dump($this->getUserId(), 'get userid');
-//        Zend_Debug::dump($this->getInstitution(), 'get inst');
-
+        if($debug) {
+            $this->debug($data);
+        }
         if (is_array($data) && !empty($data)) {
             if (array_key_exists('secwfstage', $data[0])) {
                 $workflow = $data[0]['secwfstage'];
@@ -134,6 +134,9 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
                 // Not allowed roles, and not the creator of the record
                 if (in_array($this->getRole(), $this->_notAllowedRoles) && !in_array($workflow, $this->_restricted)) {
                     return false;
+                    //In the restricted roles and created record
+                } else if (in_array($this->getRole(), $this->_notAllowedRoles) && in_array($workflow, $this->_restricted)) {
+                    $this->urlSend($data[0]['id'], $data[0]['objecttype']);
                     //In the restricted roles and created record
                 } else if (in_array($this->getRole(), $this->_veryRestricted) && $this->getUserId() == $data[0]['createdBy'] ||
                     $this->getUserId() == $data[0]['createdBy'] && $this->getInstitution() == $data[0]['institution']
@@ -154,6 +157,11 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
         }
     }
 
+    /** Send user to a redirect
+     * @param string $id
+     * @param string $objectType
+     * @return \Pas_Controller_Action_Helper_AvailableOrNot
+     */
     public function urlSend($id, $objectType)
     {
         if ($objectType == 'HOARD') {
@@ -164,6 +172,19 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
         $this->getResponse()->setHttpResponseCode(401)->setRawHeader('HTTP/1.1 301 Moved Permanently');
         $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
         $redirector->gotoUrl('database/' . $controller . '/unavailable/id/' . $id);
+        return $this;
     }
 
+    /** Debug the function
+     * @param array $data The record's data
+     * @return \Pas_Controller_Action_Helper_AvailableOrNot
+     */
+    public function debug($data){
+        Zend_Debug::dump($data[0]['createdBy'], 'get created by');
+        Zend_Debug::dump($data[0]['institution'], 'get created by inst');
+        Zend_Debug::dump($this->getRole(), 'get role');
+        Zend_Debug::dump($this->getUserId(), 'get userid');
+        Zend_Debug::dump($this->getInstitution(), 'get inst');
+        exit;
+    }
 }
