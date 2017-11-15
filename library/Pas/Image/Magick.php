@@ -160,7 +160,7 @@ class Pas_Image_Magick
 
     /** Get the basename of the image minus extension
      * @access public
-     * @return strinb
+     * @return string
      */
     public function getBasename()
     {
@@ -220,7 +220,7 @@ class Pas_Image_Magick
 
     /** Check directories exist for a user
      * @access public
-     * @return void
+     * @return \Pas_Image_Magick
      */
     public function checkDirectories()
     {
@@ -245,7 +245,7 @@ class Pas_Image_Magick
 
     /** Check permissions for the user directories
      * @access public
-     * @return void
+     * @return \Pas_Image_Magick
      * @throws Pas_Image_Exception
      */
     public function checkPermissions()
@@ -255,11 +255,11 @@ class Pas_Image_Magick
             //Set up each directory path
             $directory = IMAGE_PATH . $this->getUserPath() . $dir['destination'];
             //Check if directory exists and if not create.
-//            if (!is_writable($directory)) {
-//                chmod($directory, self::PERMS);
-//            } else {
-//                throw new Pas_Image_Exception('The directory ' . $directory . ' is not writable', 500);
-//            }
+            if (!is_writable($directory)) {
+                chmod($directory, self::PERMS);
+            } else {
+                throw new Pas_Image_Exception('The directory ' . $directory . ' is not writable', 500);
+            }
         }
         return $this;
     }
@@ -299,7 +299,7 @@ class Pas_Image_Magick
                 $newImage = IMAGE_PATH . $this->getUserPath() . $resize['destination'] . $this->getBasename();
             }
             // Set up the image creation class using imagick
-            $surrogate = Image::create($this->getImage(), 'Imagick');
+            $surrogate = Image::fromFile($this->getImage(), Image::LIB_IMAGICK);
             // Get the mime type
             $mime = $surrogate->getMimeType();
             // Check if mime type is in the accepted array of types
@@ -321,7 +321,7 @@ class Pas_Image_Magick
      * @access public
      * @param $image
      */
-    public function convertTiff()
+    public function convertTiff($image)
     {
         $tiffDir = IMAGE_PATH . $this->getUserPath() . self::TIFFS;
         //Determine path to Tiff folder
@@ -335,7 +335,7 @@ class Pas_Image_Magick
         }
 
         //Create an instance of the image to save
-        $surrogate = Image::create($tiffPath, 'Imagick');
+        $surrogate = Image::fromFile($tiffPath, Image::LIB_IMAGICK);
         //Set the image to save as jpeg file
         $surrogate->format('jpg');
         //Save to original folder as jpeg
