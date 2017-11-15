@@ -212,15 +212,6 @@
                 <br/>
                 1:10K map: <?php echo $this->map10k; ?>
                 <?php endif;?>
-
-                <?php if ((!is_null($this->woeid)) && is_null($this->knownas)): ?>
-                    <br/>
-                    WOEID: <a href="http://woe.spum.org/id/<?php echo $this->woeid; ?>"><?php echo $this->woeid; ?></a>
-                <?php endif; ?>
-                <?php if(!is_null($this->what3words)):?>
-                    <br />
-                    <a href="https://what3words.com">What3Words</a>: <a href="https://map.what3words.com/<?php echo $this->what3words;?>" title="The what3words integration provides a 3m square equivalent to the 1km grid reference that we publish on the PAS database. It does not represent the exact findspot of the object."><?php echo $this->what3words;?> <i class="icon-info-sign"></i></a> <i class="icon-external-link"></i>
-                <?php endif;?>
             <?php endif; ?>
 
             <?php if ($this->source): ?>

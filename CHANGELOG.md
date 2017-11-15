@@ -6,6 +6,7 @@
 - [x] Removed Pelagios view helper from numismatics
 - [x] Fixed bug with image addition
 - [x] Upgraded Imagick classes for correct method calls for PHP 5.6 +
+- [x] Hide What 3 Words and WOEID from public view
 
 ###1.34 : 6th November 2017
 
