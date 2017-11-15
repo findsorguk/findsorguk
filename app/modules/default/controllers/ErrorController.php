@@ -43,7 +43,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     {
         $this->_log = Zend_Registry::get('log');
         $this->_helper->_acl->allow(null);
-        Zend_Layout::getMvcInstance()->setLayout("error");
+        Zend_Layout::getMvcInstance()->setLayout("home");
     }
 
 
