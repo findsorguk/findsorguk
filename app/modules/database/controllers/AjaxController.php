@@ -71,8 +71,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     public function init()
     {
         $this->_helper->_acl->allow('public', null);
-        $this->_helper->_acl->deny('public', array('kml', 'her', 'gis', 'workflow'));
-        $this->_helper->_acl->deny('member', array('kml', 'her', 'gis', 'workflow'));
+        $this->_helper->_acl->deny('public', array('her', 'gis', 'workflow'));
+        $this->_helper->_acl->deny('member', array('her', 'gis', 'workflow'));
         $this->_helper->_acl->allow('flos', null);
         $this->_helper->_acl->allow('hero', null);
         $this->_helper->_acl->allow('research', null);
@@ -372,7 +372,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             'gridref', 'fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
             'district', 'parish', 'knownas',
-            'thumbnail', 'objecttype'
+            'thumbnail', 'objecttype', 'secwfstage'
         ));
         $search->setParams($params);
         $search->execute();

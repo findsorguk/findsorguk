@@ -25,11 +25,11 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
 {
     /** SSL string
      * @access protected
-     * @var type
+     * @var string
      */
     protected $_ssl;
 
-    /** The port numbr
+    /** The port number
      * @access protected
      * @var int
      */
@@ -140,7 +140,12 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @return string
      */
     public function createUrl() {
-        $url = ($this->getSsl() ? 'https://' : 'http://') . $this->getServerName() . $this->getPortNumber() . $this->getUri();
+        if($this->getPortNumber() === 443){
+            $protocol = 'https://';
+        } else {
+            $protocol = 'http://';
+        }
+        $url = $protocol . $this->getServerName()  . $this->getUri();
         return $url;
     }
 }
