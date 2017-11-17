@@ -238,34 +238,23 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        if ($this->_user) {
-            $role = $this->_user->role;
+        $form = new SolrForm();
+        $form->q->setLabel('Search our database: ');
+        $form->setMethod('post');
+        $this->view->form = $form;
+        if ($this->getRequest()->isPost()
+            && $form->isValid($this->_request->getPost())
+        ) {
+            $functions = new Pas_ArrayFunctions();
+            $params = $functions->array_cleanup($form->getValues());
+            $params['objectType'] = 'HOARD';
+            $this->getFlash()->addMessage('Your search is complete');
+            $this->_helper->Redirector->gotoSimple(
+                'results', 'search', 'database', $params);
         } else {
-            $role = NULL;
+            $form->populate($this->_request->getPost());
         }
-        if (!in_array($role, array('admin', 'fa', 'hoard'))) {
-            $this->getFlash()->addMessage('No access to that resource');
-            $this->getResponse()->setHttpResponseCode(301)
-                ->setRawHeader('HTTP/1.1 301 Moved Permanently');
-            $this->redirect('database/search/results/');
-        } else {
-            $form = new SolrForm();
-            $form->q->setLabel('Search our database: ');
-            $form->setMethod('post');
-            $this->view->form = $form;
-            if ($this->getRequest()->isPost()
-                && $form->isValid($this->_request->getPost())
-            ) {
-                $functions = new Pas_ArrayFunctions();
-                $params = $functions->array_cleanup($form->getValues());
-                $params['objectType'] = 'HOARD';
-                $this->getFlash()->addMessage('Your search is complete');
-                $this->_helper->Redirector->gotoSimple(
-                    'results', 'search', 'database', $params);
-            } else {
-                $form->populate($this->_request->getPost());
-            }
-        }
+
     }
 
     /** Display individual hoard record
