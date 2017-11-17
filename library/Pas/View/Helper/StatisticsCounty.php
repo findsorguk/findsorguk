@@ -44,11 +44,8 @@ class Pas_View_Helper_StatisticsCounty extends Zend_View_Helper_Abstract
 
     private function getSolrResults()
     {
-//	if (!($this->_cache->test('stats'))) {
-
         $select = array(
             'query' => '*:*',
-//    'fields'        => array('*'),
             'filterquery' => array(),
         );
 
@@ -80,13 +77,15 @@ class Pas_View_Helper_StatisticsCounty extends Zend_View_Helper_Abstract
         $stats = array();
         // display the stats results
         foreach ($data as $field) {
-            foreach ($field->getFacets() as $field => $facet) {
-                foreach ($facet AS $facetStats) {
-                    $stats[] = array(
-                        'county' => $facetStats->getValue(),
-                        'finds' => $facetStats->getSum(),
-                        'records' => $facetStats->getCount()
-                    );
+            if(is_array($field)) {
+                foreach ($field->getFacets() as $field => $facet) {
+                    foreach ($facet AS $facetStats) {
+                        $stats[] = array(
+                            'county' => $facetStats->getValue(),
+                            'finds' => $facetStats->getSum(),
+                            'records' => $facetStats->getCount()
+                        );
+                    }
                 }
             }
         }
@@ -95,12 +94,9 @@ class Pas_View_Helper_StatisticsCounty extends Zend_View_Helper_Abstract
             $sort['county'][$k] = $v['county'];
             $sort['finds'][$k] = $v['finds'];
         }
-        array_multisort($sort['county'], SORT_ASC, $sort['finds'], SORT_ASC, $stats);
-//	Zend_Debug::dump($stats);
-//	$this->_cache->save($stats);
-//	} else {
-//	$stats = $this->_cache->load('stats');
-//	}
+        if (count($sort) > 1) {
+            array_multisort($sort['county'], SORT_ASC, $sort['finds'], SORT_ASC, $stats);
+        }
         return $stats;
     }
 
