@@ -1,5 +1,10 @@
 # Change Log
 
+### 1.37 : 17th November 2017
+
+- [x] Added session timeout modal and associated functions
+- [x] Fixed view helper in statistics module
+
 ### 1.36 : 16th November 2017
 
 - [x] Added jquery capslock detection for password on login form
