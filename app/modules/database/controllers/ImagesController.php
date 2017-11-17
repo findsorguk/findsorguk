@@ -20,18 +20,44 @@
 class Database_ImagesController extends Pas_Controller_Action_Admin
 {
 
+    /** The redirect
+     *
+     */
+    const REDIRECT = 'database/images/';
+    /** The thumbnail path
+     *
+     */
+    const THUMB = 'thumbnails/';
+    /** The small path
+     *
+     */
+    const SMALL = 'small/';
+    /** The medium path
+     *
+     */
+    const MEDIUM = 'medium/';
+    /** The large path
+     *
+     */
+    const LARGE = 'large/';
+    /** The display path
+     *
+     */
+    const DISPLAY = 'display/';
+    /** The extensions
+     *
+     */
+    const EXT = '.jpg';
     /** The images model
      * @access protected
      * @var \Slides
      */
     protected $_images;
-
     /** The zoomify class
      * @access protected
      * @var \Pas_Zoomify_FileProcessor
      */
     protected $_zoomifyObject;
-
     /** The array tools function class
      * @access protected
      * @var \Pas_ArrayFunctions
@@ -62,42 +88,6 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         $this->_zoomifyObject = new Pas_Zoomify_FileProcessor();
         $this->_arrayTools = new Pas_ArrayFunctions();
     }
-
-    /** The redirect
-     *
-     */
-    const REDIRECT = 'database/images/';
-
-    /** The thumbnail path
-     *
-     */
-    const THUMB = 'thumbnails/';
-
-    /** The small path
-     *
-     */
-    const SMALL = 'small/';
-
-    /** The medium path
-     *
-     */
-    const MEDIUM = 'medium/';
-
-    /** The large path
-     *
-     */
-    const LARGE = 'large/';
-
-    /** The display path
-     *
-     */
-    const DISPLAY = 'display/';
-
-    /** The extensions
-     *
-     */
-    const EXT = '.jpg';
-
 
     /** Display index page of images
      * @access public
@@ -239,17 +229,9 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 $wherelinks[] = $linked->getAdapter()->quoteInto('image_id = ?', $imagedata['0']['secuid']);
                 $linked->delete($wherelinks);
                 $this->getFlash()->addMessage('Image and metadata deleted');
-                unlink($thumb);
-                unlink($display);
-                unlink($small);
-                unlink($original);
-                unlink($medium);
-                unlink(strtolower($thumb));
-                unlink(strtolower($display));
-                unlink(strtolower($small));
-                unlink(strtolower($original));
-                unlink(strtolower($medium));
-                unlink($zoom);
+                $images = array($thumb, $display, $small, $medium, $original, $zoom);
+                $this->unlinker($images);
+                $this->_helper->solrUpdater->update('objects', $imagedata['0']['id'], 'artefacts');
             }
             $this->redirect('/database/myscheme/myimages/');
         } else {
@@ -260,6 +242,19 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         }
     }
 
+    /** Function to unlink images
+     * @access public
+     * @return true
+     */
+    public function unlinker($images)
+    {
+        foreach ($images as $image) {
+            if (file_exists($image)) {
+                unlink($image);
+            }
+        }
+        return $this;
+    }
 
     /** View a zooming image of the file
      * @access public
