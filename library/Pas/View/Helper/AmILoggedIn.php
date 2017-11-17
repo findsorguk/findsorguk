@@ -50,7 +50,7 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract
 
     /** Magic method return html function
      * @access public
-     * @return function
+     * @return \Pas_View_Helper_AmILoggedIn
      */
     public function __toString()
     {
@@ -65,6 +65,10 @@ class Pas_View_Helper_AmILoggedIn extends Zend_View_Helper_Abstract
     public function html()
     {
         if ($this->getAuth()->hasIdentity()) {
+
+            $this->view->jQuery()->addJavascriptFile('/js/bootstrap-session-timeout.min.js');
+            $this->view->jQuery()->addJavascriptFile('/js/session.js');
+
             $logoutUrl = $this->view->url(array(
                     'module' => 'users',
                     'controller' => 'account',

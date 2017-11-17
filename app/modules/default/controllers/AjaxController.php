@@ -1060,4 +1060,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
         }
         echo Zend_Json::encode($data);
     }
+
+    public function keepaliveAction()
+    {
+
+    }
 }
