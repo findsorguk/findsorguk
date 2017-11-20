@@ -273,8 +273,8 @@ class Slides extends Pas_Db_Table_Abstract
             ->joinLeft('finds_images', 'finds_images.image_id = slides.secuid',
                 array())
             ->joinLeft($table, 'finds_images.find_id = ' . $table . '.secuid',
-                array($alias => $recordID, 'findID' => $table . '.id'))
-            ->joinLeft('findspots', 'finds.secuid = findspots.findID',
+                array($alias => $recordID, $table . '.id'))
+            ->joinLeft('findspots', $table . '.secuid = findspots.findID',
                 array(
                     'woeid',
                     'latitude' => 'declat',
