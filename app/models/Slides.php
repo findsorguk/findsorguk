@@ -107,8 +107,7 @@ class Slides extends Pas_Db_Table_Abstract
             ->from($this->_name)
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id',
                 array())
-            ->joinLeft($table, $table . '.secuid = finds_images.find_id',
-                array('old_findID', 'objecttype', 'id', 'secuid'))
+            ->joinLeft($table, $table . '.secuid = finds_images.find_id')
             ->joinLeft('users', 'slides.createdBy = users.id', array('username'))
             ->joinLeft('periods', 'slides.period = periods.id', array('broadperiod' => 'term'))
             ->where($table . '.id = ?', (int)$id)
