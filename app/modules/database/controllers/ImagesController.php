@@ -297,6 +297,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
             $this->view->contents = $help->fetchRow('id = 14')->toArray();
             $images = new Slides();
             $this->view->images = $images->getSlides($this->getParam('id'));
+            $this->view->recordType = $this->getParam('recordtype');
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 404);
         }

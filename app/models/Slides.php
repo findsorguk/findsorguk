@@ -89,18 +89,29 @@ class Slides extends Pas_Db_Table_Abstract
      * @param integer $id
      * @return array
      */
-    public function getSlides($id)
+    public function getSlides($id, $recordType)
     {
+        switch($recordType) {
+            case 'artefacts':
+                $table = 'finds';
+                break;
+            case 'hoards':
+                $table = 'hoards';
+                break;
+            default:
+                throw new Pas_Image_Exception('No type supplied', 500);
+                break;
+        }
         $thumbs = $this->getAdapter();
         $select = $thumbs->select()
             ->from($this->_name)
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id',
                 array())
-            ->joinLeft('finds', 'finds.secuid = finds_images.find_id',
+            ->joinLeft($table, $table . '.secuid = finds_images.find_id',
                 array('old_findID', 'objecttype', 'id', 'secuid'))
             ->joinLeft('users', 'slides.createdBy = users.id', array('username'))
             ->joinLeft('periods', 'slides.period = periods.id', array('broadperiod' => 'term'))
-            ->where('finds.id = ?', (int)$id)
+            ->where($table . '.id = ?', (int)$id)
             ->order('slides.' . $this->_primary . ' ASC');
         return $thumbs->fetchAll($select);
     }
