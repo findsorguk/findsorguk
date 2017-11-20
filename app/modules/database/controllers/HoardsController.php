@@ -247,10 +247,10 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         ) {
             $functions = new Pas_ArrayFunctions();
             $params = $functions->array_cleanup($form->getValues());
+            $params = $this->process($params);
             $params['objectType'] = 'HOARD';
             $this->getFlash()->addMessage('Your search is complete');
-            $this->_helper->Redirector->gotoSimple(
-                'results', 'search', 'database', $params);
+            $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $params);
         } else {
             $form->populate($this->_request->getPost());
         }
@@ -695,5 +695,27 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
+    }
+
+    public function process(array $data)
+    {
+        $params = array_filter($data);
+        $this->_cleaner = new Pas_ArrayFunctions();
+        $cleaned = $this->_cleaner->array_cleanup($params, array(
+            'finder', 'idby', 'recordby',
+            'idBy', 'recordername'
+        ));
+
+        if(array_key_exists('3D', $cleaned)) {
+            if(is_null($cleaned['3D'])){
+                unset($cleaned['3D']);
+            }
+        }
+        if(array_key_exists('thumbnail', $cleaned)) {
+            if(is_null($cleaned['thumbnail'])){
+                unset($cleaned['thumbnail']);
+            }
+        }
+        return $cleaned;
     }
 }

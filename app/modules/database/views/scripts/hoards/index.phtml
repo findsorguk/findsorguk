@@ -12,4 +12,15 @@ $this->metaBase()->setDescription($this->title())->generate();
 
 <?php echo $this->form;?>
 
-<a class="btn btn-success" href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'hoards'),'default',true);?>">Advanced Hoard search</a></p>
+<a class="btn btn-success" href="<?php echo $this->url(array(
+    'module' => 'database',
+    'controller' => 'search',
+    'action' => 'hoards'
+),'default',true);?>">Advanced Hoard search</a>
+
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+$(document).ready(function() {
+// focus on the first text input field in the first field on the page
+$("input[type='text']:first", document.forms[0]).focus();
+});
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>
