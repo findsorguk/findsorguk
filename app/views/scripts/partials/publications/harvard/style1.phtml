@@ -6,9 +6,20 @@
  * Time: 16:47
  */
 ?>
-<li><?php echo $this->authors; ?>, <?php echo $this->publication_year; ?> <em><a
-            href="<?php echo $this->url(array('module' => 'database', 'controller' => 'publications', 'action' => 'publication', 'id' => $this->id), null, true); ?>"
-            title="View reference work's details"><?php echo $this->title; ?></a></em>  <?php echo $this->publication_place; ?>
-    : <?php echo $this->publisher; ?>, <?php echo $this->pp; ?>
-    , <?php echo $this->ref; ?> <?php echo $this->referencesEditDeleteLink()->setRecordID($this->i)->setFindID($this->fID)->setCreatedBy($this->createdBy)->setInstitution($this->institution); ?>
+<li><?php echo $this->authors; ?><?php if(!is_null($this->publication_year)){?>, <?php echo $this->publication_year; ?><?php }?>
+    <em><a
+            href="<?php echo $this->url(array(
+                'module' => 'database',
+                'controller' => 'publications',
+                'action' => 'publication',
+                'id' => $this->id), null, true); ?>"
+            title="View reference work's details"><?php echo $this->title; ?></a></em>
+    <?php if(!is_null($this->publication_place)){?><?php echo $this->publication_place; ?>: <?php }?> <?php if(!is_null($this->publisher)){?><?php echo $this->publisher; ?><?php }?> <?php if(!is_null($this->pp)){?><?php echo $this->pp; ?><?php }?>
+    <?php if(!is_null($this->ref)){?>, <?php echo $this->ref; ?><?php }?>
+    <?php echo $this->referencesEditDeleteLink()
+        ->setRecordID($this->i)
+        ->setFindID($this->fID)
+        ->setCreatedBy($this->createdBy)
+        ->setInstitution($this->institution);
+    ?>
 </li>
