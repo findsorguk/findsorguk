@@ -287,7 +287,7 @@ class Slides extends Pas_Db_Table_Abstract
             ->joinLeft('licenseType', 'slides.ccLicense = licenseType.id',
                 array('licenseAcronym' => 'acronym', 'license' => 'flickrID'))
             ->where('slides.imageID = ?', (int)$id);
-        Zend_Debug::dump($slides->fetchAll($select));
+        Zend_Debug::dump($select);
         exit;
         return $slides->fetchAll($select);
     }
