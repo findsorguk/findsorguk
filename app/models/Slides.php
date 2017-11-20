@@ -266,7 +266,7 @@ class Slides extends Pas_Db_Table_Abstract
                 'updated',
                 'created',
                 'license' => 'ccLicense',
-                'imageRights' => 'imagerights',
+                'imageRights' => 'imageRights',
                 'recordType' => new Zend_Db_Expr($type)
             ))
             ->joinLeft('periods', $this->_name . '.period = periods.id',
