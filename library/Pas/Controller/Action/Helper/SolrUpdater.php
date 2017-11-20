@@ -233,6 +233,9 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                     case 'objects':
                         $model = new Hoards();
                         break;
+                    case 'images':
+                        $model = new Slides();
+                        break;
                 }
             } elseif ($type == 'news') {
                 $model = new News();
@@ -265,7 +268,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                         break;
                 }
             }
-            $data = $model->getSolrData($id);
+            $data = $model->getSolrData($id, $type);
             $cleanData = $this->cleanData($data[0]);
             return $cleanData;
         } else {
