@@ -104,7 +104,7 @@ class CoinSummary extends Pas_Db_Table_Abstract {
      * @param integer $id
      * @return array
      */
-    public function getSolrData( $id )
+    public function getSolrData( $id, $type = NULL )
     {
         $summary = $this->getAdapter();
         $select = $summary->select()
