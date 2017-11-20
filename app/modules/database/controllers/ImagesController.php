@@ -282,7 +282,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         $form = new UploadForm();
         $this->view->form = $form;
         $this->view->findID = $this->getParam('id');
-        $this->view->recordTtype = $this->getParam('recordtype');
+        $this->view->recordType = $this->getParam('recordtype');
     }
 
     /** Show images attached to record
