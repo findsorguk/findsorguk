@@ -2,16 +2,18 @@
 
 ### 1.38 : 20th November 2017
 
-- [x] Added logic for images to be added for hoards and artefacts *Major upgrade* @portableant
+- [x] Added logic for images to be added for hoards and artefacts *Major upgrade*  by @portableant
 
 ### 1.37 : 17th November 2017
 
-- [x] Added session timeout modal and associated functions @portableant
-- [x] Fixed view helper in statistics module @portableant
+All changes by @portableant
+
+- [x] Added session timeout modal and associated functions 
+- [x] Fixed view helper in statistics module 
 
 ### 1.36 : 16th November 2017
 
-- [x] Added jquery capslock detection for password on login form @portableant
+- [x] Added jquery caps lock detection for password on login form by @portableant
 
 ### 1.35 : 15th November 2017
 

@@ -181,7 +181,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                     $this->_images->update($updateData, $where);
                     $this->_helper->solrUpdater->update('images', $this->getParam('id'), $this->getParam('recordtype'));
                     $this->getFlash()->addMessage('Image and metadata updated!');
-                    $this->redirect(self::REDIRECT . 'image/id/' . $this->getParam('id'));
+                    $this->redirect(self::REDIRECT . 'image/id/' . $this->getParam('id') . '/recordtype/' . $this->getParam('recordtype'));
                 } else {
                     $form->populate($this->_request->getPost());
                 }
