@@ -1,15 +1,21 @@
 # Change Log
 
+### 1.38 : 20th November 2017
+
+- [x] Added logic for images to be added for hoards and artefacts *Major upgrade* @portableant
+
 ### 1.37 : 17th November 2017
 
-- [x] Added session timeout modal and associated functions
-- [x] Fixed view helper in statistics module
+- [x] Added session timeout modal and associated functions @portableant
+- [x] Fixed view helper in statistics module @portableant
 
 ### 1.36 : 16th November 2017
 
-- [x] Added jquery capslock detection for password on login form
+- [x] Added jquery capslock detection for password on login form @portableant
 
 ### 1.35 : 15th November 2017
+
+All changes by @portableant
 
 - [x] Amended view helper for CC license render
 - [x] Removed Pelagios view helper from numismatics
@@ -25,6 +31,8 @@
 
 ### 1.34 : 6th November 2017
 
+All changes by @portableant
+
 - [x] Added new class for rendering licenses for Creative Commons with logo (view helper)
 - [x] Amended thumbs partial to reflect above
 - [x] Amended humans.txt to reflect contributions and staff changes
@@ -35,10 +43,14 @@
 
 ### 1.33 : 3rd October 2017
 
+All changes by @portableant
+
 - [x] Added new class for rendering RDF to /library/Pas/RDF/
 - [x] Amended Nomisma class in models for changes to RDF model
 
 ### 1.32 : 22nd September 2017
+
+All changes by @portableant
 
 - [x] Updated library for mpdf path
 - [x] Added new SQL files for correct data structure.
