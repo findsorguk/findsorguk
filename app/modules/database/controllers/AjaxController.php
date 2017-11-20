@@ -768,7 +768,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
 
             // Get images and do the magic
             $adapter = new Zend_File_Transfer_Adapter_Http();
-            $adapter->addFilter('Rename',$imagedir);
+            $adapter->setDestination($imagedir);
             $adapter->setOptions(array('useByteString' => false));
             // Only allow good image files!
             $adapter->addValidator('Extension', false, 'jpg, tiff');
