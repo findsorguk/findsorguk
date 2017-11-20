@@ -20,7 +20,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         <div class="row-fluid fileupload-buttonbar">
             <div class="btn-group">
 
-                <!-- The fileinput-button span is used to style the file input field as button -->
+                <!-- The file input-button span is used to style the file input field as button -->
                 <input type="file" name="files[]" multiple class="btn-info">
                 <button type="submit" class="btn btn-primary start">
                     <i class="icon-white icon-upload"></i>
@@ -31,13 +31,8 @@ $this->metaBase()->setDescription($this->title())->generate();
                     <span>Cancel upload</span>
                 </button>
                 <a class="btn btn-success btn-small"
-           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id')), null, true); ?>"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => $this->recordType, 'action' => 'record', 'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id')), null, true); ?>"
            title="return to the record">Return to record</a>
-<!--                <button type="button" class="btn btn-danger delete">-->
-<!--                    <i class="icon-white icon-trash"></i>-->
-<!--                    <span>Delete</span>-->
-<!--                </button><br/>-->
-<!--                Toggle delete button: <input type="checkbox" class="toggle">-->
                 <!-- The global file processing state -->
                 <span class="fileupload-process"></span>
             </div>
@@ -50,7 +45,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                 <!-- The extended global progress state -->
                 <div class="progress-extended">&nbsp;</div>
             </div>
-            <div class="span6">
+            <div>
                 <?php $url = array('module' => 'database', 'controller' => 'images', 'action' => 'attached', 'id' => $this->findID); ?>
                 <a href="<?php echo $this->url($url);?>" class="btn btn-success">Finished uploads? Add labels and captions to images</a>
             </div>
@@ -67,7 +62,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         </div>
         <div class="panel-body">
             <p>
-                You are adding images for a single record.
+                You are adding images for a <strong>single</strong> record.
             </p>
             <ul>
                 <li>The maximum file size for uploads is <strong>20 MB</strong>.</li>
@@ -77,7 +72,6 @@ $this->metaBase()->setDescription($this->title())->generate();
                 </li>
             </ul>
         </div>
-    </div>
     </div>
     <!-- The template to display files available for upload -->
     <script id="template-upload" type="text/x-tmpl">
@@ -178,11 +172,12 @@ $this->jQuery()->addJavascriptFile('/thirdParty/js/bootstrap.file-input.js', $ty
             url: '<?php echo $this->serverUrl();?>/database/ajax/upload/',
             disableImageResize: true,
             maxFileSize: 200000000,
-            acceptFileTypes: /(\.|\/)(tif|jpe?g)$/i
+            acceptFileTypes: /(\.|\/)(tif|tiff|jpeg|jpg)$/i
 
         }).bind('fileuploadsubmit', function (e, data) {
         data.formData = {
-        'findID': "<?php echo $this->findID;?>"
+        'findID': "<?php echo $this->findID;?>",
+        'recordType': "<?php echo $this->recordType;?>"
         };
         });
     });

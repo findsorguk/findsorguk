@@ -379,7 +379,7 @@ class Pas_View_Helper_ImageLink extends Zend_View_Helper_Abstract
         $html = '';
         $html .= '<a class="btn btn-small btn-primary" href="';
         $html .= $url;
-        $html .= '" title="Add an image to this find">';
+        $html .= '" title="Add an image to this record">';
         $html .= 'Add an image</a>';
         return $html;
     }

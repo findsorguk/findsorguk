@@ -768,7 +768,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
 
             // Get images and do the magic
             $adapter = new Zend_File_Transfer_Adapter_Http();
-            $adapter->setDestination($imagedir);
+            $adapter->addFilter('Rename',$imagedir);
             $adapter->setOptions(array('useByteString' => false));
             // Only allow good image files!
             $adapter->addValidator('Extension', false, 'jpg, tiff');
@@ -780,12 +780,6 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
 
             // Loop through the submitted files
             foreach ($files as $file => $info) {
-
-
-                // file uploaded & is valid
-//                if (!$adapter->isUploaded($file)) continue;
-//                if (!$adapter->isValid($file)) continue;
-
                 // Clean up the image name for crappy characters
                 $filename = pathinfo($adapter->getFileName($file));
                 // Instantiate the renamer
@@ -810,24 +804,29 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     $image->mimetype = $adapter->getMimeType($file);
                     // The secure ID stuff for linking images
                     $image->secuid = $this->_helper->GenerateSecuID();
-                    // Get the image dims
+                    // Get the image dimensions
                     $imagesize = getimagesize($adapter->getFileName($file));
                     $image->width = $imagesize[0];
                     $image->height = $imagesize[1];
+                    //Grab parameters from URL
                     $params = $this->getAllParams();
                     $image->findID = $params['findID'];
+                    $recordType = $params['recordType'];
                     // Create the raw image url
                     $image->url = $this->_createUrl($adapter->getFileName($file, false));
                     $image->deleteType = 'DELETE';
                     $images[] = $image;
+                    //Update the slides table
                     $slides = new Slides();
                     $insert = $slides->addAndResize($images);
                     $this->view->data = $images;
+                    // Update the appropriate cores - images and objects
                     $this->_helper->solrUpdater->update('images', (int)$insert);
-                    $this->_helper->solrUpdater->update('objects', $params['findID'], 'artefacts');
+                    $this->_helper->solrUpdater->update('objects', (int)$params['findID'], $recordType);
                 } else {
                     $image = new stdClass();
                     $image->error = $adapter->getErrors();
+//                    Zend_Debug::dump($adapter->getErrors());
                     $images[] = $image;
                     $this->view->data = $images;
                 }

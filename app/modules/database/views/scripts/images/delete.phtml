@@ -13,6 +13,7 @@ $this->metaBase()->setDescription($this->title())->generate();
             ), null, true); ?>" method="post">
         <div>
             <input type="hidden" name="id" value="<?php echo $this->slide->imageID; ?>"/>
+            <input type="hidden" name="recordType" value="<?php echo $this->recordType; ?>"/>
             <input type="submit" name="del" value="Yes"/>
             <input type="submit" name="del" value="No"/>
         </div>
