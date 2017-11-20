@@ -826,7 +826,6 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                 } else {
                     $image = new stdClass();
                     $image->error = $adapter->getErrors();
-//                    Zend_Debug::dump($adapter->getErrors());
                     $images[] = $image;
                     $this->view->data = $images;
                 }

@@ -242,6 +242,18 @@ class Slides extends Pas_Db_Table_Abstract
      */
     public function getSolrData($id, $type = NULL)
     {
+        switch($type){
+            case 'artefacts':
+                $table = 'finds';
+                $recordID = 'old_findID';
+                $alias = $recordID;
+                break;
+            case 'hoards':
+                $table = 'hoards';
+                $recordID = 'hoardID';
+                $alias = 'old_findID';
+                break;
+        }
         $slides = $this->getAdapter();
         $select = $slides->select()
             ->from($this->_name, array(
@@ -254,14 +266,15 @@ class Slides extends Pas_Db_Table_Abstract
                 'updated',
                 'created',
                 'license' => 'ccLicense',
-                'imageRights' => 'imagerights'
+                'imageRights' => 'imagerights',
+                'recordType' => new Zend_Db_Expr($type)
             ))
             ->joinLeft('periods', $this->_name . '.period = periods.id',
                 array('broadperiod' => 'term'))
             ->joinLeft('finds_images', 'finds_images.image_id = slides.secuid',
                 array())
-            ->joinLeft('finds', 'finds_images.find_id = finds.secuid',
-                array('old_findID', 'findID' => 'finds.id'))
+            ->joinLeft($table, 'finds_images.find_id = ' . $table . '.secuid',
+                array($alias => $recordID, 'findID' => $table . '.id'))
             ->joinLeft('findspots', 'finds.secuid = findspots.findID',
                 array(
                     'woeid',
