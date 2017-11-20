@@ -782,7 +782,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             foreach ($files as $file => $info) {
                 // Clean up the image name for crappy characters
                 $filename = pathinfo($adapter->getFileName($file));
-                // Instantiate the renamer
+                // Instantiate the re-namer
                 $reNamer = new Pas_Image_Rename();
                 // Clean the filename
                 $cleaned = $reNamer->strip($filename['filename'], $filename['extension']);
@@ -811,18 +811,17 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     //Grab parameters from URL
                     $params = $this->getAllParams();
                     $image->findID = $params['findID'];
-                    $recordType = $params['recordType'];
                     // Create the raw image url
                     $image->url = $this->_createUrl($adapter->getFileName($file, false));
                     $image->deleteType = 'DELETE';
                     $images[] = $image;
                     //Update the slides table
                     $slides = new Slides();
-                    $insert = $slides->addAndResize($images);
+                    $insert = $slides->addAndResize($images, $params['recordtype']);
                     $this->view->data = $images;
                     // Update the appropriate cores - images and objects
-                    $this->_helper->solrUpdater->update('images', (int)$insert);
-                    $this->_helper->solrUpdater->update('objects', (int)$params['findID'], $recordType);
+                    $this->_helper->solrUpdater->update('images', (int)$insert, $params['recordtype']);
+                    $this->_helper->solrUpdater->update('objects', (int)$params['findID'], $params['recordtype']);
                 } else {
                     $image = new stdClass();
                     $image->error = $adapter->getErrors();

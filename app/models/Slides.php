@@ -55,14 +55,20 @@ class Slides extends Pas_Db_Table_Abstract
      */
     public function getThumbnails($id, $type)
     {
-        if ($type === 'artefacts') {
-            $joinTable = 'finds';
-            $join = $joinTable . '.secuid = finds_images.find_id';
-            $fields = array('old_findID', 'objecttype', 'id', 'secuid');
-        } else {
-            $joinTable === 'hoards';
-            $join = '.secuid = finds_images.find_id';
-            $fields = array('old_findID' => 'hoardID' , 'HOARD', 'id', 'secuid');
+        switch($type) {
+            case 'artefacts':
+                $joinTable = 'finds';
+                $join = $joinTable . '.secuid = finds_images.find_id';
+                $fields = array('old_findID', 'objecttype', 'id', 'secuid');
+                break;
+            case 'hoards':
+                $joinTable = 'hoards';
+                $join = $joinTable . '.secuid = finds_images.find_id';
+                $fields = array('old_findID' => 'hoardID' , 'id', 'secuid');
+                break;
+            default:
+                throw new Pas_Image_Exception('No type supplied', 500);
+                break;
         }
         $thumbs = $this->getAdapter();
         $select = $thumbs->select()
@@ -78,7 +84,7 @@ class Slides extends Pas_Db_Table_Abstract
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id', array())
             ->joinLeft($joinTable, $join, $fields)
             ->joinLeft('users', 'users.id = slides.createdBy', array('username', 'imagedir'))
-            ->where('finds.id = ?', (int)$id)
+            ->where($joinTable . '.id = ?', (int)$id)
             ->order('slides.' . $this->_primary . ' ASC');
         return $thumbs->fetchAll($select);
     }
@@ -168,18 +174,30 @@ class Slides extends Pas_Db_Table_Abstract
      * @param integer $id
      * @return array
      */
-    public function getLinkedFinds($id)
+    public function getLinkedFinds($id, $type)
     {
+        switch($type){
+            case 'artefacts':
+                $joinTable = 'finds';
+                $alias = 'old_findID';
+                break;
+            case 'hoards':
+                $joinTable = 'hoards';
+                $alias = 'hoardID';
+                break;
+            default:
+                throw new Pas_Image_Exception('No type supplied', 500);
+                break;
+        }
         $thumbs = $this->getAdapter();
         $select = $thumbs->select()
             ->from($this->_name)
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id',
                 array('linkid' => 'id'))
-            ->joinLeft('finds', 'finds.secuid = finds_images.find_id',
+            ->joinLeft($joinTable, $joinTable . '.secuid = finds_images.find_id',
                 array(
-                    'old_findID',
+                    'old_findID' => $alias,
                     'broadperiod',
-                    'objecttype',
                     'findID' => 'id')
             )
             ->joinLeft('users', 'users.id = slides.createdBy',
@@ -207,13 +225,24 @@ class Slides extends Pas_Db_Table_Abstract
      * @param integer $id
      * @return array
      */
-    public function getFileName($id)
+    public function getFileName($id, $type)
     {
         $thumbs = $this->getAdapter();
+        switch($type){
+            case 'artefacts':
+                $joinTable = 'finds';
+                break;
+            case 'hoards':
+                $joinTable = 'hoards';
+                break;
+            default:
+                throw new Pas_Image_Exception('No type supplied', 500);
+                break;
+        }
         $select = $thumbs->select()
             ->from($this->_name, array('f' => 'filename', 'label', 'imageID', 'secuid', 'mimetype', 'filename'))
             ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id', array())
-            ->joinLeft('finds', 'finds_images.find_id = finds.secuid', array('id'))
+            ->joinLeft($joinTable, 'finds_images.find_id = ' . $joinTable . '.secuid', array('id'))
             ->joinLeft('users', 'users.id = slides.createdBy', array('imagedir', 'username'))
             ->where($this->_name . '.imageID = ?', (int)$id);
         return $thumbs->fetchAll($select);
@@ -242,7 +271,6 @@ class Slides extends Pas_Db_Table_Abstract
      */
     public function getSolrData($id, $type = NULL)
     {
-        Zend_Debug::dump($type, 'Type');
         switch($type){
             case 'artefacts':
                 $table = 'finds';
@@ -288,9 +316,6 @@ class Slides extends Pas_Db_Table_Abstract
             ->joinLeft('licenseType', 'slides.ccLicense = licenseType.id',
                 array('licenseAcronym' => 'acronym', 'license' => 'flickrID'))
             ->where('slides.imageID = ?', (int)$id);
-        Zend_Debug::dump($select);
-        Zend_Debug::dump($slides->fetchAll($select));
-        exit;
         return $slides->fetchAll($select);
     }
 
@@ -298,12 +323,21 @@ class Slides extends Pas_Db_Table_Abstract
      * @access public
      * @param array $imageData
      */
-    public function addAndResize($imageData)
+    public function addAndResize($imageData, $type)
     {
+
         // Loop through the array of objects to add
         foreach ($imageData as $data) {
-            $finds = new Finds();
-            $findID = $finds->fetchRow($finds->select()->where('id = ?', $data->findID))->secuid;
+            switch($type){
+                case 'artefacts':
+                    $finds = new Finds();
+                    $findID = $finds->fetchRow($finds->select()->where('id = ?', $data->findID))->secuid;
+                    break;
+                case 'hoards':
+                    $finds = new Hoards();
+                    $findID = $finds->fetchRow($finds->select()->where('id = ?', $data->findID))->secuid;
+                    break;
+            }
             // Create the image data array
             $images = array(
                 'secuid' => $data->secuid,

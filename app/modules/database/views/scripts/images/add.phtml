@@ -31,7 +31,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                     <span>Cancel upload</span>
                 </button>
                 <a class="btn btn-success btn-small"
-           href="<?php echo $this->url(array('module' => 'database', 'controller' => $this->recordType, 'action' => 'record', 'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id')), null, true); ?>"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => $this->recordtype, 'action' => 'record', 'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id')), null, true); ?>"
            title="return to the record">Return to record</a>
                 <!-- The global file processing state -->
                 <span class="fileupload-process"></span>
@@ -177,7 +177,7 @@ $this->jQuery()->addJavascriptFile('/thirdParty/js/bootstrap.file-input.js', $ty
         }).bind('fileuploadsubmit', function (e, data) {
         data.formData = {
         'findID': "<?php echo $this->findID;?>",
-        'recordType': "<?php echo $this->recordType;?>"
+        'recordtype': "<?php echo $this->recordtype;?>"
         };
         });
     });
