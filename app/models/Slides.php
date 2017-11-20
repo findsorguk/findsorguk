@@ -242,6 +242,7 @@ class Slides extends Pas_Db_Table_Abstract
      */
     public function getSolrData($id, $type = NULL)
     {
+        Zend_Debug::dump($type, 'Type');
         switch($type){
             case 'artefacts':
                 $table = 'finds';
