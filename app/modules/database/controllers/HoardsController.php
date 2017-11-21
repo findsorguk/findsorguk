@@ -683,25 +683,41 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
         $this->_helper->mailer($assignData, 'errorHoard', $to, $cc, $from);
     }
 
+    /** Record unavailable for user level
+     * @param int id of record
+     * @return void
+     * @throws \Pas_Exception_Param
+     */
     public function unavailableAction()
     {
         if($this->getParam('id',false))
         {
             $finds = array($this->getHoards()->getAllHoardData($this->getParam('id')));
-            if(!array_key_exists('old_findID', $finds[0])){
-                $finds[0]['old_findID'] = $finds[0]['hoardID'];
+            if(count($finds) > 0) {
+                if (!array_key_exists('old_findID', $finds[0])) {
+                    $finds[0]['old_findID'] = $finds[0]['hoardID'];
+                }
+                $this->view->finds = $finds;
+                $this->getResponse()->setHttpResponseCode(401)->setRawHeader('HTTP/1.1 401 Unauthorized');
+            } else {
+                throw new Pas_Exception_Param('Record not found', 404);
             }
-            $this->view->finds = $finds;
+
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
+    /** Process an array function
+     * This cleans the 3D and images field if not set
+     * @param array $data
+     * @return array
+     */
     public function process(array $data)
     {
         $params = array_filter($data);
-        $this->_cleaner = new Pas_ArrayFunctions();
-        $cleaned = $this->_cleaner->array_cleanup($params, array(
+        $cleaner = new Pas_ArrayFunctions();
+        $cleaned = $cleaner->array_cleanup($params, array(
             'finder', 'idby', 'recordby',
             'idBy', 'recordername'
         ));

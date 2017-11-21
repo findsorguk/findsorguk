@@ -678,6 +678,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         if($this->getParam('id',false))
         {
             $this->view->finds = $this->getFinds()->getAllData($this->getParam('id'));
+            $this->getResponse()->setHttpResponseCode(401)->setRawHeader('HTTP/1.1 401 Unauthorized');
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
