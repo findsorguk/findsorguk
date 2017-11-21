@@ -780,15 +780,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
 
             // Loop through the submitted files
             foreach ($files as $file => $info) {
-
-
-                // file uploaded & is valid
-//                if (!$adapter->isUploaded($file)) continue;
-//                if (!$adapter->isValid($file)) continue;
-
                 // Clean up the image name for crappy characters
                 $filename = pathinfo($adapter->getFileName($file));
-                // Instantiate the renamer
+                // Instantiate the re-namer
                 $reNamer = new Pas_Image_Rename();
                 // Clean the filename
                 $cleaned = $reNamer->strip($filename['filename'], $filename['extension']);
@@ -810,21 +804,24 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     $image->mimetype = $adapter->getMimeType($file);
                     // The secure ID stuff for linking images
                     $image->secuid = $this->_helper->GenerateSecuID();
-                    // Get the image dims
+                    // Get the image dimensions
                     $imagesize = getimagesize($adapter->getFileName($file));
                     $image->width = $imagesize[0];
                     $image->height = $imagesize[1];
+                    //Grab parameters from URL
                     $params = $this->getAllParams();
                     $image->findID = $params['findID'];
                     // Create the raw image url
                     $image->url = $this->_createUrl($adapter->getFileName($file, false));
                     $image->deleteType = 'DELETE';
                     $images[] = $image;
+                    //Update the slides table
                     $slides = new Slides();
-                    $insert = $slides->addAndResize($images);
+                    $insert = $slides->addAndResize($images, $params['recordtype']);
                     $this->view->data = $images;
-                    $this->_helper->solrUpdater->update('images', (int)$insert);
-                    $this->_helper->solrUpdater->update('objects', $params['findID'], 'artefacts');
+                    // Update the appropriate cores - images and objects
+                    $this->_helper->solrUpdater->update('images', (int)$insert, $params['recordtype']);
+                    $this->_helper->solrUpdater->update('objects', (int)$params['findID'], $params['recordtype']);
                 } else {
                     $image = new stdClass();
                     $image->error = $adapter->getErrors();

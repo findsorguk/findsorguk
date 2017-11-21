@@ -163,13 +163,15 @@ class Pas_View_Helper_ImageToolBox extends Zend_View_Helper_Abstract
                 'module' => 'database',
                 'controller' => 'images',
                 'action' => 'edit',
-                'id' => $this->getId()
+                'id' => $this->getId(),
+                'recordtype' => Zend_Controller_Front::getInstance()->getRequest()->getParam('recordtype')
             );
             $paramsDelete = array(
                 'module' => 'database',
                 'controller' => 'images',
                 'action' => 'delete',
-                'id' => $this->getId()
+                'id' => $this->getId(),
+                'recordtype' => Zend_Controller_Front::getInstance()->getRequest()->getParam('recordtype')
             );
             $editurl = $this->view->url($paramsEdit, 'default', TRUE);
             $deleteurl = $this->view->url($paramsDelete, 'default', TRUE);

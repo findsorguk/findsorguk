@@ -200,7 +200,7 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
      * @return array
      * @throws Exception
      */
-    public function getUpdateData($core, $id, $type = null)
+    public function getUpdateData($core, $id, $type)
     {
         if (in_array($core, $this->getCores())) {
             if (in_array($type, array('artefacts'))) {
@@ -228,10 +228,13 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                     default:
                         throw new Exception('Your core does not exist', 500);
                 }
-            } elseif ($type == 'hoards') {
+            } elseif ($type === 'hoards') {
                 switch ($core) {
                     case 'objects':
                         $model = new Hoards();
+                        break;
+                    case 'images':
+                        $model = new Slides();
                         break;
                 }
             } elseif ($type == 'news') {
@@ -265,7 +268,9 @@ class Pas_Controller_Action_Helper_SolrUpdater extends Zend_Controller_Action_He
                         break;
                 }
             }
-            $data = $model->getSolrData($id);
+
+            $data = $model->getSolrData($id, $type);
+
             $cleanData = $this->cleanData($data[0]);
             return $cleanData;
         } else {

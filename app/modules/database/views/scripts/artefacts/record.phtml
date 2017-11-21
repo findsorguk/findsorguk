@@ -34,7 +34,7 @@
 
 
             <!-- Start of image pane -->
-            <div class="pull-right" id="imagepane" style="max-width:400px;">
+            <div class="pull-right" id="imagepane" class="span4">
 
                 <?php if (!empty($this->thumbs)): ?>
 
@@ -71,6 +71,7 @@
                         ->setSecuID($this->finds[0]['secuid'])
                         ->setCreatedBy($this->finds[0]['createdBy'])
                         ->setInstitution($this->finds[0]['institution'])
+                        ->setRecordType(Zend_Controller_Front::getInstance()->getRequest()->getControllerName());
                     ?>
                     <?php
                     echo $this->sketchFabAddLink()

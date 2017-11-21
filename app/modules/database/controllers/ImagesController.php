@@ -156,7 +156,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
     {
         if ($this->getParam('id', false)) {
             $this->view->images = $this->_images->getImage((int)$this->getParam('id'));
-            $this->view->finds = $this->_images->getLinkedFinds((int)$this->getParam('id'));
+            $this->view->finds = $this->_images->getLinkedFinds((int)$this->getParam('id'), $this->getParam('recordtype'));
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
@@ -179,9 +179,9 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                     $updateData = $form->getValues();
                     $where = $this->_images->getAdapter()->quoteInto('imageID = ?', $this->getParam('id'));
                     $this->_images->update($updateData, $where);
-                    $this->_helper->solrUpdater->update('images', $this->getParam('id'));
+                    $this->_helper->solrUpdater->update('images', $this->getParam('id'), $this->getParam('recordtype'));
                     $this->getFlash()->addMessage('Image and metadata updated!');
-                    $this->redirect(self::REDIRECT . 'image/id/' . $this->getParam('id'));
+                    $this->redirect(self::REDIRECT . 'image/id/' . $this->getParam('id') . '/recordtype/' . $this->getParam('recordtype'));
                 } else {
                     $form->populate($this->_request->getPost());
                 }
@@ -205,11 +205,15 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
+        $recordtype = $this->_request->getParam('recordtype');
+        $this->view->recordtype = $recordtype;
+
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
             $del = $this->_request->getPost('del');
+            $type  = $this->_request->getPost('recordtype');
             if ($del == 'Yes' && $id > 0) {
-                $imagedata = $this->_images->getFileName($id);
+                $imagedata = $this->_images->getFileName($id, $type);
                 $filename = $imagedata['0']['f'];
                 $splitf = explode('.', $filename);
                 $spf = $splitf['0'];
@@ -231,7 +235,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 $this->getFlash()->addMessage('Image and metadata deleted');
                 $images = array($thumb, $display, $small, $medium, $original, $zoom);
                 $this->unlinker($images);
-                $this->_helper->solrUpdater->update('objects', $imagedata['0']['id'], 'artefacts');
+                $this->_helper->solrUpdater->update('objects', $imagedata['0']['id'], $recordtype);
             }
             $this->redirect('/database/myscheme/myimages/');
         } else {
@@ -264,7 +268,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
     public function zoomAction()
     {
         if ($this->getParam('id', false)) {
-            $file = $this->_images->getFileName($this->getParam('id'));
+            $file = $this->_images->getFileName($this->getParam('id'), $this->getParam('recordtype'));
             $this->view->data = $file;
             $this->view->path = $file[0]['f'];
         } else {
@@ -282,6 +286,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         $form = new UploadForm();
         $this->view->form = $form;
         $this->view->findID = $this->getParam('id');
+        $this->view->recordtype = $this->getParam('recordtype');
     }
 
     /** Show images attached to record
@@ -295,7 +300,8 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
             $help = new Help();
             $this->view->contents = $help->fetchRow('id = 14')->toArray();
             $images = new Slides();
-            $this->view->images = $images->getSlides($this->getParam('id'));
+            $this->view->images = $images->getSlides($this->getParam('id'), $this->getParam('recordtype'));
+            $this->view->recordType = $this->getParam('recordtype');
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 404);
         }

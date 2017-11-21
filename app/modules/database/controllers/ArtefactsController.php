@@ -238,7 +238,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $coinRefs = new CoinClassifications();
             $this->view->coinrefs = $coinRefs->getAllClasses($id);
             $thumbs = new Slides;
-            $this->view->thumbs = $thumbs->getThumbnails($id, 'artefacts');
+            $this->view->thumbs = $thumbs->getThumbnails($id, $this->_request->getControllerName());
             $refs = new Publications;
             $this->view->refs = $refs->getReferences($id);
             $this->view->comments = $this->getComments()->getFindComments($id);

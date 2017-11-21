@@ -16,21 +16,24 @@
     <?php endif; ?>
 
     <p>
-    Rights Holder: <?php echo $this->imagerights; ?>
-    <br />
-    CC License: <?php echo $this->creativeCommonsLicense()->setLicense($this->ccLicense); ?>
+        Rights Holder: <?php echo $this->imagerights; ?>
+        <br/>
+        CC License: <?php echo $this->creativeCommonsLicense()->setLicense($this->ccLicense); ?>
     </p>
 
     <div class="btn-group">
         <a class="btn btn-mini"
-           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->i), null, true); ?>"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image',
+               'id' => $this->i, 'recordtype' => Zend_Controller_Front::getInstance()->getRequest()->getControllerName()), null, true); ?>"
            title="View and edit image meta data">View <i class="icon-picture"></i></a>
         <a class="btn btn-mini"
-           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom', 'id' => $this->i), null, true); ?>"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom',
+               'id' => $this->i, 'recordtype' => Zend_Controller_Front::getInstance()->getRequest()->getControllerName()), null, true); ?>"
            title="View high resolution zoom">Zoom
             <i class="icon-zoom-in"></i></a>
         <a class="btn btn-mini"
-           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download', 'id' => $this->thumbnail), null, true); ?>"
+           href="<?php echo $this->url(array('module' => 'database', 'controller' => 'ajax', 'action' => 'download',
+               'id' => $this->thumbnail), null, true); ?>"
            title="Download image">Download <i class="icon-download-alt"></i></a>
 
     </div>

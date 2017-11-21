@@ -60,11 +60,32 @@ $file = implode('/', $parts);
         </div>
 
         <div class="btn-group">
-            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'edit', 'id' => $this->imageID), 'default', true); ?>"
+            <?php
+            $type = Zend_Controller_Front::getInstance()->getRequest()->getParam('recordtype');
+            ?>
+            <a href="<?php echo $this->url(array(
+                'module' => 'database',
+                'controller' => 'images',
+                'action' => 'edit',
+                'id' => $this->imageID,
+                'recordtype' => $type
+            ), 'default', true); ?>"
                class="btn-mini btn">Edit</a>
-            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => $this->imageID), 'default', true); ?>"
+            <a href="<?php echo $this->url(array(
+                'module' => 'database',
+                'controller' => 'images',
+                'action' => 'image',
+                'id' => $this->imageID,
+                'recordtype' => $type
+            ), 'default', true); ?>"
                class="btn-mini btn">View</a>
-            <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'delete', 'id' => $this->imageID), 'default', true); ?>"
+            <a href="<?php echo $this->url(array(
+                'module' => 'database',
+                'controller' => 'images',
+                'action' => 'delete',
+                'id' => $this->imageID,
+                'recordtype' => $type
+            ), 'default', true); ?>"
                class="btn-mini btn">Delete</a>
         </div>
     <?php else: ?>

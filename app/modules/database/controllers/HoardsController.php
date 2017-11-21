@@ -294,6 +294,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $this->view->archaeologicalContext = $archaeology->getArchaeologyData($id);
                 $refs = new Publications();
                 $this->view->refs = $refs->getReferences($id, 'hoards');
+                $thumbs = new Slides;
+                $this->view->thumbs = $thumbs->getThumbnails($id, 'hoards');
 
             } else {
                 throw new Pas_Exception_NotAuthorised('You are not authorised to view this record', 401);

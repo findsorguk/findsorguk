@@ -867,7 +867,7 @@ class Hoards extends Pas_Db_Table_Abstract
      * @param integer $findID
      * @return array
      */
-    public function getSolrData($findID)
+    public function getSolrData($findID, $type = NULL)
     {
         $data = $this->getAdapter();
         $select = $data->select()

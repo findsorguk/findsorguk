@@ -15,7 +15,8 @@
                title="Download image">Download original</a>
             <?php echo $this->imageToolBox()->setID($this->id)->setCreatedBy($this->createdBy)->setInstitution($this->institution); ?>
             <a class="btn btn-default"
-               href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom', 'id' => $this->id), null, true); ?>">Zoom
+               href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'zoom', 'id' => $this->id,                 'recordtype' => Zend_Controller_Front::getInstance()->getRequest()->getParam('recordtype')
+               ), null, true); ?>">Zoom
                 image</a>
         </div>
     </div>

@@ -1,5 +1,24 @@
+<?php
+$recordType = Zend_Controller_Front::getInstance()->getRequest()->getParam('recordtype');
+switch($recordType) {
+    case 'artefacts':
+        $objectType = $this->objecttype;
+        break;
+    case 'hoards':
+        $objectType = 'HOARD';
+        break;
+    default:
+        $objectType = $this->objecttype;
+        break;
+}
+?>
+
 <li id="record-<?php echo $this->linkid; ?>" class="record">
-    <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->findID), null, true); ?>"
-       title="View record details"><?php echo $this->old_findID; ?></a> <?php echo $this->objecttype; ?> <?php echo $this->broadperiod; ?>
+    <a href="<?php echo $this->url(array(
+        'module' => 'database',
+        'controller' => $recordType,
+        'action' => 'record',
+        'id' => $this->findID), null, true); ?>"
+       title="View record details"><?php echo $this->old_findID; ?></a> <?php echo $this->broadperiod; ?> <?php echo $objectType; ?>
     : created by <?php echo $this->fullname; ?>
 </li>

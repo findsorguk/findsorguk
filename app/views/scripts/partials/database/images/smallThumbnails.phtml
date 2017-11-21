@@ -29,13 +29,17 @@
             'module' => 'database',
             'controller' => 'images',
             'action' => 'image',
-            'id' => $this->i), null, true); ?>"
+            'id' => $this->i,
+            'recordtype' => Zend_Controller_Front::getInstance()->getRequest()->getControllerName()
+            ), null, true); ?>"
            title="View and edit image meta data">View</i></a>
             <a class="btn btn-mini" href="<?php echo $this->url(array(
                 'module' => 'database',
                 'controller' => 'images',
                 'action' => 'zoom',
-                'id' => $this->i), null, true); ?>"
+                'id' => $this->i,
+                'recordtype' => Zend_Controller_Front::getInstance()->getRequest()->getControllerName()
+            ), null, true); ?>"
                title="Zoom image">Zoom</i></a>
             </div>
     <?php else: ?>
