@@ -54,8 +54,8 @@ class Database_IndexController extends Pas_Controller_Action_Admin {
     public function process(array $data)
     {
         $params = array_filter($data);
-        $this->_cleaner = new Pas_ArrayFunctions();
-        $cleaned = $this->_cleaner->array_cleanup($params, array(
+        $cleaner = new Pas_ArrayFunctions();
+        $cleaned = $cleaner->array_cleanup($params, array(
             'finder', 'idby', 'recordby',
             'idBy', 'recordername'
         ));

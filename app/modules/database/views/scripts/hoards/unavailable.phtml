@@ -1,13 +1,53 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: danielpett
- * Date: 21/01/15
- * Time: 10:05
- */
-$this->headTitle('Unavailable record');
-$this->metaBase()->setDescription('This record is unavailable to you at present')->generate();
-?>
-<h2 class="lead"><?php echo $this->title();?>: <?php echo $this->finds[0]['old_findID'];?></h2>
+<?php if (!empty($this->finds)): ?>
+    <?php
+    /**
+     * Created by PhpStorm.
+     * User: danielpett
+     * Date: 21/01/15
+     * Time: 10:05
+     */
+    $this->headTitle('Unavailable record');
+    $this->metaBase()->setDescription('This record is unavailable to you at present')->generate();
+    ?>
+    <h2 class="lead"><?php echo $this->title(); ?>: <?php echo $this->finds[0]['old_findID']; ?></h2>
+    <p>
+        Object type: Hoard<br/>
 
-<p>This record is currently unavailable to view for your access levels. Please contact the relevant FLO to gain access.</p>
+        <?php if (array_key_exists('broadperiod', $this->finds[0])): ?>
+            Broad period: <?php echo $this->finds[0]['broadperiod']; ?><br/>
+        <?php endif; ?>
+
+        <?php if (array_key_exists('institution', $this->finds[0])): ?>
+            Institution responsible: <?php echo $this->finds[0]['institution']; ?><br/>
+        <?php endif; ?>
+
+        <?php if (array_key_exists('secwfstage', $this->finds[0])): ?>
+            Workflow stage: <?php echo $this->workflowStatus()->setWorkflow($this->finds[0]['secwfstage']); ?>
+            <?php echo $this->workflow()->setWorkflow($this->finds[0]['secwfstage']); ?>
+        <?php endif; ?>
+    </p>
+    <?php if (array_key_exists('id', $this->finds[0])): ?>
+        <h3>Relevant staff</h3>
+        <p>
+            Please contact Sam Moorhead or Eleanor Ghey at the British Museum
+        </p>
+    <?php endif; ?>
+    <p>
+        <?php if (array_key_exists('created', $this->finds[0])): ?>
+            Created: <?php echo $this->timeAgoInWords($this->finds[0]['created']); ?><br/>
+        <?php endif; ?>
+
+        <?php if (array_key_exists('updated', $this->finds[0])): ?>
+            Last updated: <?php echo $this->timeAgoInWords($this->finds[0]['updated']); ?>
+        <?php endif; ?>
+    </p>
+    <p>
+        This record is currently unavailable to view for your access levels. Please contact the relevant FLO to gain
+        access.
+    </p>
+<?php else: ?>
+    <h2 class="lead">No record found</h2>
+    <p>
+        No record can be found with that ID. Please contact us if you believe this is an error.
+    </p>
+<?php endif; ?>
