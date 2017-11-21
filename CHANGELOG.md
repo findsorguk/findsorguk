@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.39 : 21st November 2017
+
+-[x] Added better version of time ago in words view helper by @portableant
+
 ### 1.38 : 20th November 2017
 
 - [x] Added logic for images to be added for hoards and artefacts *Major upgrade*  by @portableant
