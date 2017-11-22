@@ -106,7 +106,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
             'title', 'broadperiod', 'imagedir',
             'filename', 'thumbnail', 'old_findID',
             'county', 'licenseAcronym', 'findID',
-            'institution'
+            'institution', 'recordtype'
         ));
         $search->setFacets(array(
             'licenseAcronym', 'broadperiod', 'county',

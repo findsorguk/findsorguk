@@ -25,7 +25,7 @@
 
             <?php if (!is_null($this->old_findID)): ?>
                 <br/>
-                <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $this->findID), null, true); ?>"
+                <a href="<?php echo $this->url(array('module' => 'database', 'controller' => $this->recordtype, 'action' => 'record', 'id' => $this->findID), null, true); ?>"
                    title="View this image's record"><?php echo $this->old_findID; ?></a><br/>
             <?php endif; ?>
 
@@ -52,9 +52,14 @@
                         'module' => 'database',
                         'controller' => 'images',
                         'action' => 'image',
-                        'id' => $this->id), null, true); ?>"
+                        'id' => $this->id,
+                        'recordtype' => $this->recordtype), null, true); ?>"
                        title="View image and meta data" class="btn-mini btn">View</a>
-                <?php echo $this->editDeleteImagesAll()->setId($this->id)->setInstitution($this->institution); ?>
+                <?php echo $this->editDeleteImagesAll()
+                    ->setId($this->id)
+                    ->setInstitution($this->institution)
+                    ->setRecordType($this->recordtype);
+                ?>
             <?php endif; ?>
         </div>
     </div>
