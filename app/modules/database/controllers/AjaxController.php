@@ -119,7 +119,6 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      * @access public
      * @return void
      * @throws Pas_Exception_Param
-     * @todo add Hoard Images or use Solr method when ready
      */
     public function embedAction()
     {
@@ -132,6 +131,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                 $this->view->thumbs = $thumbs->getThumbnails($id, 'artefacts');
             } else {
                 $this->view->finds = $this->getHoards()->getEmbedHoard($id);
+                $thumbs = new Slides;
+                $this->view->thumbs = $thumbs->getThumbnails($id, 'hoards');
             }
 
         } else {
@@ -142,13 +143,13 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     /** Download a file
      * @access public
      * @return void
-     * @throws Pas_Exception_Param
+     * @throws \Pas_Exception_Param
      */
     public function downloadAction()
     {
         if ($this->getParam('id', false)) {
             $images = new Slides();
-            $download = $images->getFileName($this->getParam('id'));
+            $download = $images->getFileName($this->getParam('id'), 'artefacts');
             foreach ($download as $d) {
                 $filename = $d['f'];
                 $path = $d['imagedir'];
@@ -714,23 +715,38 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         $this->view->json = $types->getTypesToGroups($this->getParam('term'));
     }
 
-
+    /** Function to get denoms
+     * @access public
+     * @return void
+     */
     public function getdenominationsAction()
     {
 
     }
 
+    /** Function to get mints
+     * @access public
+     * @return void
+     */
     public function getMintsAction()
     {
 
     }
 
+    /** Function to get geographies
+     * @access public
+     * @return void
+     */
     public function getgeographyAction()
     {
         $geography = new Geography();
         $this->view->json = $geography->getIronAgeGeographyAll();
     }
 
+    /** Action for displaying upload action
+     * @access public
+     * @return \Database_AjaxController
+     */
     public function uploadAction()
     {
         if ($this->_request->isOptions()) {
@@ -747,6 +763,10 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Function for performing upload of files
+     * @access public
+     * @throws \Pas_Exception_NotAuthorised
+     */
     public function upload()
     {
         if ($this->_helper->Identity()) {
@@ -831,22 +851,34 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             }
 
         } else {
-            throw new Pas_Exception_NotAuthorised('Your account does not seem enabled to do this', 500);
+            throw new Pas_Exception_NotAuthorised('Your account does not seem enabled to do this', 401);
         }
     }
 
+    /** Create url for file
+     * @param string $file
+     * @return string
+     */
     public function _createUrl($file)
     {
         $user = $this->_helper->Identity()->username;
         return $this->view->serverUrl() . '/images/' . $user . '/' . $file;
     }
 
+    /** Create a thumbnail
+     * @param string $file
+     * @return string
+     */
     public function createThumbnailUrl($file)
     {
         $user = $this->_helper->Identity()->username;
         return $this->view->serverUrl() . '/images/' . $user . '/medium/' . $file;
     }
 
+    /** Functuon for deleting files
+     * @param array files
+     * @return string
+     */
     public function delete()
     {
         $file_name = $this->_request->getParam('files');
@@ -856,6 +888,11 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         echo json_encode($success);
     }
 
+    /** Function for displaying a timeline
+     * @access public
+     * @param int $id
+     * @return array
+     */
     public function timelineAction()
     {
         $this->_helper->layout->disableLayout();
