@@ -23,6 +23,29 @@ class Pas_View_Helper_EditDeleteImagesAll extends Zend_View_Helper_Abstract {
      */
     protected $_hoardID;
 
+    /** The default record type
+     * @var string
+     */
+    protected $_recordType = 'artefacts';
+
+    /** Get the record type for reuse
+     * @return mixed
+     */
+    public function getRecordType()
+    {
+        return $this->_recordType;
+    }
+
+    /** Set the record type
+     * @param mixed $recordType
+     * @return \Pas_View_Helper_EditDeleteImagesAll
+     */
+    public function setRecordType($recordType)
+    {
+        $this->_recordType = $recordType;
+        return $this;
+    }
+
     /** The role of the user
      * @var $_role */
     protected $_role;
@@ -201,7 +224,10 @@ class Pas_View_Helper_EditDeleteImagesAll extends Zend_View_Helper_Abstract {
     public function buildHtml()
     {
         $html = '';
-        $html .= $this->view->partial('partials/database/images/editOrDeleteImages.phtml', array('id' => $this->getID()));
+        $html .= $this->view->partial('partials/database/images/editOrDeleteImages.phtml', array(
+            'id' => $this->getID(),
+            'recordtype' => $this->getRecordType()
+            ));
         return $html;
     }
 
