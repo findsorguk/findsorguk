@@ -8,6 +8,9 @@
         <li <?php echo $this->currentPage()->active('database', 'search', 'results'); ?>><a
                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results'), NULL, true); ?>"
                 title="All finds recorded on the database"><i class="icon-list"></i>All artefacts &amp; coins</a></li>
+        <li <?php echo $this->currentPage()->active('database', 'hoards', 'index'); ?>><a
+                href="<?php echo $this->url(array('module' => 'database', 'controller' => 'hoards', 'action' => 'index'), NULL, true); ?>"
+                title="All finds recorded on the database"><i class="icon-list"></i>Hoard search</a></li>
         <?php
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
