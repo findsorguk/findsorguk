@@ -69,13 +69,13 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
 
     /** The key for the cache
      * @access protected
-     * @var type
+     * @var string
      */
     protected $_key = 'twitterfindsorguk';
 
     /** Get the cache
      * @access public
-     * @return type
+     * @return \Zend_Cache
      */
     public function getCache() {
         $this->_cache = Zend_Registry::get('cache');
@@ -100,7 +100,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
     }
 
     /** Call Twitter service
-     *
+     * @access public
      * @return array
      */
     private function _callTwitter() {
@@ -140,12 +140,11 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
         $html = '';
         $html .= '<ul>';
         foreach ($tweets as $post) {
-            $html .= '<li><strong>'. $this->view->timeAgoInWords($post->created_at);
-            $html .= '</strong>';
-            $html .= '<strong><a href="http://www.twitter.com/';
-            $html .= $post->user->screen_name	. '">';
-            $html .= $post->user->screen_name . '</a></strong> said: ';
-            $html .= $this->view->autoLink()->setText($post->text)	. '</li>';
+            $html .= '<li><strong><a href="http://www.twitter.com/findsorguk/status/'. $post->id;
+            $html .=  '">' . $this->view->timeAgoInWords($post->created_at);
+            $html .= '</a></strong>';
+            $html .= '</strong> ';
+            $html .= $this->view->autoLink()->setText($post->text) . '</li>';
         }
         $html .= '</ul>';
 
@@ -153,7 +152,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
     }
 
     /** Get the tweets
-     *
+     * @access public
      * @return \Pas_View_Helper_LatestTweets
      */
     public function latestTweets() {
@@ -162,7 +161,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
     }
 
     /** Magic method
-     *
+     * @access public
      * @return string
      */
     public function __toString() {

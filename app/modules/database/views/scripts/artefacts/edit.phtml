@@ -30,5 +30,8 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you
     $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
     $("input[type='text']:first", document.forms[0]).focus();
     $('form').areYouSure();
+    $("form").submit(function() {
+    $(":submit", this).attr("disabled", "disabled");
+    });
     });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
