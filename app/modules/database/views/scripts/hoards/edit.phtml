@@ -19,7 +19,12 @@ $this->metaBase()
 ?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
 $(document).ready(function() {
+
     $('form').areYouSure();
+    $("form").submit(function() {
+    $(":submit", this).attr("disabled", "disabled");
+    });
+
     var nonRulers = ['BRONZE AGE', 'MESOLITHIC', 'NEOLITHIC', 'PALAEOLITHIC', 'UNKNOWN', 'MODERN'];
     var rulerPeriods = ['IRON AGE', 'EARLY MEDIEVAL', 'MEDIEVAL', 'POST MEDIEVAL', 'BYZANTINE',
     'GREEK AND ROMAN PROVINCIAL'];

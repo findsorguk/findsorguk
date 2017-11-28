@@ -38,5 +38,8 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you
     // focus on the first text input field in the first field on the page
     $("input[type='select']:first", document.forms[0]).focus();
     $('form').areYouSure();
+    $("form").submit(function() {
+    $(":submit", this).attr("disabled", "disabled");
+    });
     });
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>

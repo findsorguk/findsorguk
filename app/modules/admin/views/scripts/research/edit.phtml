@@ -17,6 +17,9 @@ $(document).ready(function() {
 $("#startDate").datepicker({ maxDate: '+6y'});
 $("#endDate").datepicker({ maxDate: '+6y' });
 $('form').areYouSure();
+$("form").submit(function() {
+$(":submit", this).attr("disabled", "disabled");
+});
 });
 
 <?php $this->jQuery()->javascriptCaptureEnd() ?>

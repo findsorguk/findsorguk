@@ -7,6 +7,9 @@ $this->metaBase()->setDescription($this->title())->generate();
 <?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you-sure.js', $type = 'text/javascript');?>
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
     $(document).ready(function() {
-    $('form').areYouSure();
+        $('form').areYouSure();
+        $("form").submit(function() {
+            $(":submit", this).attr("disabled", "disabled");
+        });
     });
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>
