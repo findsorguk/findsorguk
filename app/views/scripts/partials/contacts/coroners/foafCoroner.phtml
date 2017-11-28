@@ -1,6 +1,6 @@
 <?php
-$graph = new EasyRdf_Graph();
-EasyRdf_Namespace::set('con', 'http://www.w3.org/2000/10/swap/pim/contact#');
+$graph = new \EasyRdf\Graph();
+\EasyRdf\RdfNamespace::set('con', 'http://www.w3.org/2000/10/swap/pim/contact#');
 $me = $graph->resource($this->serverUrl() . '/coroners/profile/id/' . $this->number, 'foaf:Person');
 $me->set('foaf:name', $this->firstname . ' ' . $this->lastname);
 $me->set('foaf:givenName', $this->firstname);

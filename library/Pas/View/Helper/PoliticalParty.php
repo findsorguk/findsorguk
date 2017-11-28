@@ -25,14 +25,16 @@ class Pas_View_Helper_PoliticalParty extends Zend_View_Helper_Abstract
      * @var string
      */
     protected $_conservatives = '/political/conservatives.png';
+
     /** The labour logo image url
      * @access protected
      * @var string
      */
     protected $_labour = '/political/labour.jpg';
+
     /** The lib dem logo image url
      * @access protected
-     * @var type
+     * @var string
      */
     protected $_libdem = '/political/libdem.jpg';
 
