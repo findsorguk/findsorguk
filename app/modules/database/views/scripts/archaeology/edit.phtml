@@ -22,6 +22,9 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you
 ?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
     $(document).ready(function() {
-    $('form').areYouSure();
+        $('form').areYouSure();
+        $("form").submit(function() {
+            $(":submit", this).attr("disabled", "disabled");
+        });
     });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>

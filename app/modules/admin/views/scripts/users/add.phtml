@@ -6,3 +6,11 @@ $this->metaBase()->setDescription($this->title())->generate();
     <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users'), 'default', true); ?>"
        class="btn btn-small btn-success">Return to users list</a>
 <?php echo $this->form; ?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+$(document).ready(function() {
+$('form').areYouSure();
+$("form").submit(function() {
+$(":submit", this).attr("disabled", "disabled");
+});
+});
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

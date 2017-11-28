@@ -9,3 +9,11 @@ $this->metaBase()->setDescription('Approve an account for higher level access')-
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
 $this->headLink()->appendStylesheet($this->baseUrl() . '/css/autocomplete.css');
 ?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+$(document).ready(function() {
+$('form').areYouSure();
+$("form").submit(function() {
+$(":submit", this).attr("disabled", "disabled");
+});
+});
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

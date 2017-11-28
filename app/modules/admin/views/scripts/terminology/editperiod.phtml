@@ -5,3 +5,11 @@ $this->metaBase()->setDescription($this->title())->generate();
     <h2 class="lead">Edit <?php echo strtolower($this->form->getValue('term')); ?>'s details</h2>
 
 <?php echo $this->form; ?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+$(document).ready(function() {
+$('form').areYouSure();
+$("form").submit(function() {
+$(":submit", this).attr("disabled", "disabled");
+});
+});
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

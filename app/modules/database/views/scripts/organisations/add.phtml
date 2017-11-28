@@ -9,5 +9,8 @@ $this->metaBase()->setDescription($this->title())->generate();
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
     $(document).ready(function() {
     $('form').areYouSure();
+    $("form").submit(function() {
+    $(":submit", this).attr("disabled", "disabled");
+    });
     });
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>
