@@ -132,7 +132,7 @@ class Pas_View_Helper_LatestTweets extends Zend_View_Helper_Abstract
     }
 
     /** Build html string
-     *
+     * @access public
      * @param  array  $tweets
      * @return string
      */
