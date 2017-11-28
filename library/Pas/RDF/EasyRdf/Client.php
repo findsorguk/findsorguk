@@ -231,18 +231,18 @@ class Pas_RDF_EasyRdf_Client
     {
         // Check for undefined prefixes
         $prefixes = '';
-        foreach (EasyRdf_Namespace::namespaces() as $prefix => $uri) {
+        foreach (\EasyRdf\RdfNamespace::Namespace::namespaces() as $prefix => $uri) {
             if (strpos($query, "$prefix:") !== false and
                 strpos($query, "PREFIX $prefix:") === false) {
                 $prefixes .=  "PREFIX $prefix: <$uri>\n";
             }
         }
 
-        $client = EasyRdf_Http::getDefaultHttpClient();
+        $client = \EasyRdf\Http::getDefaultHttpClient();
         $client->resetParameters();
 
         // Tell the server which response formats we can parse
-        $accept = EasyRdf_Format::getHttpAcceptHeader(
+        $accept = \EasyRdf\Format::getHttpAcceptHeader(
             array(
                 'application/sparql-results+json' => 0.8,
                 'application/sparql-results+xml' => 1.0
@@ -278,17 +278,17 @@ class Pas_RDF_EasyRdf_Client
             // No content
             return $response;
         } elseif ($response->isSuccessful()) {
-            list($type, $params) = EasyRdf_Utils::parseMimeType(
+            list($type, $params) = \EasyRdf\Utils::parseMimeType(
                 $response->getHeader('Content-Type')
             );
             if (strpos($type, 'application/sparql-results') === 0) {
-                return new EasyRdf_Sparql_Result($response->getBody(), $type);
+                return new \EasyRdf\Sparql\Result($response->getBody(), $type);
             } else {
-                return new EasyRdf_Graph($this->queryUri, $response->getBody(), $type);
+                return new \EasyRdf\Graph($this->queryUri, $response->getBody(), $type);
             }
         } else {
-            throw new EasyRdf_Exception(
-                "HTTP request for SPARQL query failed: ".$response->getBody()
+            throw new \EasyRdf\Exception(
+                "HTTP request for SPARQL query failed: " . $response->getBody()
             );
         }
     }
@@ -297,12 +297,12 @@ class Pas_RDF_EasyRdf_Client
     {
         if (is_string($data)) {
             return $data;
-        } elseif (is_object($data) and $data instanceof EasyRdf_Graph) {
+        } elseif (is_object($data) and $data instanceof \EasyRdf\Graph) {
             # FIXME: insert Turtle when there is a way of seperateing out the prefixes
             return $data->serialise('ntriples');
         } else {
-            throw new EasyRdf_Exception(
-                "Don't know how to convert to triples for SPARQL query: ".$response->getBody()
+            throw new \EasyRdf\Exception(
+                "Don't know how to convert to triples for SPARQL query: " . $response->getBody()
             );
         }
     }

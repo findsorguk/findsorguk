@@ -123,7 +123,7 @@ class Nomisma
     {
         $key = md5($identifier . 'ricTypes');
         if (!($this->getCache()->test($key))) {
-            
+
             //Add the namespaces needed to parse the query
             \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
             \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
