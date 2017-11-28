@@ -11,3 +11,11 @@ $this->metaBase()->setDescription($this->title())->generate();
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/userAccount.js', $type = 'text/javascript');
 ?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+$(document).ready(function() {
+$('form').areYouSure();
+$("form").submit(function() {
+$(":submit", this).attr("disabled", "disabled");
+});
+});
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

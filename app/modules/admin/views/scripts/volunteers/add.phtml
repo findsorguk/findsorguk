@@ -15,3 +15,11 @@ $this->metaBase()->setDescription($this->title())->generate();
     $("#expire").datepicker({ maxDate: '+1y' });
     });
 <?php $this->headScript()->captureEnd() ?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+$(document).ready(function() {
+$('form').areYouSure();
+$("form").submit(function() {
+$(":submit", this).attr("disabled", "disabled");
+});
+});
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>
