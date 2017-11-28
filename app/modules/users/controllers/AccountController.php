@@ -48,7 +48,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             'index', 'logout', 'edit',
             'forgotusername', 'success', 'resetpassword'
         ));
-        $this->_helper->_acl->allow('member', array('forgotusername','resetpassword','forgotten'));
+        $this->_helper->_acl->allow('member', null);
         $this->_auth = Zend_Registry::get('auth');
         $this->_users = new Users();
     }
