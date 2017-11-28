@@ -71,7 +71,7 @@ class Nomisma
     {
         $key = md5($identifier . 'rrcTypes');
         if (!($this->getCache()->test($key))) {
-            $client = new Zend_Http_Client(
+            $client = new \Zend\Http\Client(
                 null,
                 array(
                     'adapter' => 'Zend_Http_Client_Adapter_Curl',
@@ -134,7 +134,7 @@ class Nomisma
     {
         $key = md5($identifier . 'ricTypes');
         if (!($this->getCache()->test($key))) {
-            $client = new Zend_Http_Client(
+            $client = new \EasyRdf\Http\Client(
                 null,
                 array(
                     'adapter' => 'Zend_Http_Client_Adapter_Curl',
@@ -188,7 +188,7 @@ class Nomisma
     {
         $key = md5($identifier . 'CheckRrcTypes');
         if (!($this->getCache()->test($key))) {
-            $client = new Zend_Http_Client(
+            $client = new \EasyRdf\Http\Client (
                 null,
                 array(
                     'adapter' => 'Zend_Http_Client_Adapter_Curl',
