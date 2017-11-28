@@ -48,7 +48,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             'index', 'logout', 'edit',
             'forgotusername', 'success', 'resetpassword'
         ));
-        $this->_helper->_acl->allow('member', null);
+        $this->_helper->_acl->allow('member', array('forgotusername','resetpassword','forgotten'));
         $this->_auth = Zend_Registry::get('auth');
         $this->_users = new Users();
     }
@@ -98,7 +98,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                 $where[] = $this->_users->getAdapter()->quoteInto('id = ?', $this->getIdentityForForms());
                 $this->_users->update($form->getValues(), $where);
                 $this->getFlash()->addMessage('You updated your profile successfully.');
-                $this->_redirect('/users/account/');
+                $this->redirect('/users/account/');
             } else {
                 $form->populate($form->getValues());
                 $this->getFlash()->addMessage('You have some errors with your submission.');
