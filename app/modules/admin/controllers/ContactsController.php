@@ -186,10 +186,14 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
                 $updateData['latitude'] = $lat;
                 $updateData['longitude'] = $lon;
                 $updateData['woeid'] = $woeid;
+                if($updateData['alumni'] == '0'){
+                    $updateData['alumni'] = NULL;
+                }
                 $where = array();
                 $where[] = $this->getContacts()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                 $this->getContacts()->update($updateData, $where);
                 $this->getFlash()->addMessage('Contact information updated!');
+                $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
                 $this->redirect($this->_redirectUrl . 'contact/id/' . $this->getParam('id'));
             } else {
                 $form->populate($this->_request->getPost());
