@@ -876,6 +876,7 @@ class Hoards extends Pas_Db_Table_Abstract
                     'findIdentifier' => 'CONCAT("hoards-",hoards.id)',
                     'id',
                     'old_findID' => 'hoardID',
+                    'hoardID',
                     'objecttype' => 'CONCAT("HOARD")',
                     'broadperiod',
                     'description',

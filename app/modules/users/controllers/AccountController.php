@@ -78,7 +78,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     {
         $this->_auth->clearIdentity();
         $this->getFlash()->addMessage('You have now logged out');
-        return $this->redirect('/users/');
+        $this->redirect('/users/');
     }
 
     /** Edit the user details
@@ -124,7 +124,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     {
         if ($this->_auth->getIdentity()) {
             $this->getFlash()->addMessage('You are already logged in!');
-            $this->_redirect('/users');
+            $this->redirect('/users');
         } else {
             $form = new ForgotUsernameForm();
             $this->view->form = $form;
@@ -137,7 +137,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     );
                     $this->_helper->mailer($userData[0], 'forgottenUsername', $to);
                     $this->getFlash()->addMessage('Account reminder sent to your email address');
-                    $this->_redirect('/users/');
+                    $this->redirect('/users/');
                 } else {
                     $this->getFlash()->addMessage('Problems have been found with your submission');
                     $form->populate($form->getValues());
@@ -154,7 +154,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     {
         if ($this->_auth->getIdentity()) {
             $this->getFlash()->addMessage('You are already logged in.');
-            $this->_redirect('/users');
+            $this->redirect('/users');
         }
         $form = new ForgotPasswordForm();
         $this->view->form = $form;
@@ -198,7 +198,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     $this->_users->update($updatesdata, $where);
                     $assignData = array_merge($updatesdata, $form->getValues());
                     $this->getFlash()->addMessage('Please check your email');
-                    $this->_redirect('/users/account/resetpassword');
+                    $this->redirect('/users/account/resetpassword');
                 } else {
                     $this->getFlash()->addMessage('Either your email address/or username is incorrect.');
                 }
@@ -216,7 +216,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     {
         if ($this->_auth->hasIdentity()) {
             $this->getFlash()->addMessage('You are already logged in and registered.');
-            $this->_redirect('/users/account');
+            $this->redirect('/users/account');
         } else {
             $salt = $this->_helper->config()->auth->salt;
             $form = new RegisterForm();
