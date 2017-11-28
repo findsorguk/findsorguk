@@ -36,7 +36,7 @@ footer {
 }
 
 #error-401 {
-    background-image: url('../assets/accessdenied.png');
+    background-image: url('../assets/errors/accessdenied.png');
     background-repeat: repeat-x;
 }
 #error- {
@@ -46,17 +46,17 @@ footer {
     background-image: url('https://farm9.staticflickr.com/8103/8552248001_ef4a73ad6a_k.jpg');
 }
 #error-404 {
-    background-image: url('../assets/museumDuck.jpg');
+    background-image: url('../assets/errors/museumDuck.jpg');
 }
 #error-410 {
-    background-image: url('../assets/museumDuck.jpg');
+    background-image: url('../assets/errors/museumDuck.jpg');
 }
 #error-500 {
     background-image: url('https://farm9.staticflickr.com/8103/8552248001_ef4a73ad6a_k.jpg');
 }
 #error-503 {
-    background-image: url('../assets/museumDuck.jpg');
+    background-image: url('../assets/errors/museumDuck.jpg');
 }
 #error-412 {
-    background-image: url('../assets/museumDuck.jpg');
+    background-image: url('../assets/errors/museumDuck.jpg');
 }
