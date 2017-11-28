@@ -231,7 +231,7 @@ class Pas_RDF_EasyRdf_Client
     {
         // Check for undefined prefixes
         $prefixes = '';
-        foreach (\EasyRdf\RdfNamespace::Namespace::namespaces() as $prefix => $uri) {
+        foreach (\EasyRdf\RdfNamespace::namespaces() as $prefix => $uri) {
             if (strpos($query, "$prefix:") !== false and
                 strpos($query, "PREFIX $prefix:") === false) {
                 $prefixes .=  "PREFIX $prefix: <$uri>\n";
@@ -298,7 +298,6 @@ class Pas_RDF_EasyRdf_Client
         if (is_string($data)) {
             return $data;
         } elseif (is_object($data) and $data instanceof \EasyRdf\Graph) {
-            # FIXME: insert Turtle when there is a way of seperateing out the prefixes
             return $data->serialise('ntriples');
         } else {
             throw new \EasyRdf\Exception(
