@@ -75,13 +75,14 @@ $loader = new ZendX_Loader_StandardAutoloader(array(
         'Pas' => '../library/Pas/',
         'ZendX' => '../library/ZendX/',
         'Imagecow' => '../library/imagecow/src/',
-        'easyRDF' => '../library/easyrdf/lib/',
+        'EasyRDF' => '../library/easyrdf/lib/',
         'mPDF' => '../library/mpdf/',
         'Solarium' => '../library/Solarium/'
     ),
     'namespaces' => array(
         'Imagecow' => '../library/imagecow/src/',
-        'mPDF' => '../library/mPDF/'
+        'mPDF' => '../library/mPDF/',
+        'EasyRdf' => '../library/easyrdf/lib/',
     ),
     'fallback_autoloader' => true,
 ));

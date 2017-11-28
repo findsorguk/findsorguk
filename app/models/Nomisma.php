@@ -80,13 +80,13 @@ class Nomisma
                 )
             );
             $client->setHeaders(array('accept' => 'application/sparql-results+xml'));
-            EasyRdf_Http::setDefaultHttpClient($client);
+            \EasyRdf\Http::setDefaultHttpClient($client);
 
             //Add the namespaces needed to parse the query
-            EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
-            EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
-            EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
-            EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+            \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
+            \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
+            \EasyRdf\RdfNamespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
+            \EasyRdf\RdfNamespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
             $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
             $data = $sparql->query(
                 'SELECT * WHERE {' .
@@ -143,12 +143,12 @@ class Nomisma
                 )
             );
             $client->setHeaders(array('accept' => 'application/sparql-results+xml'));
-            EasyRdf_Http::setDefaultHttpClient($client);
+            \EasyRdf\Http::setDefaultHttpClient($client);
             //Add the namespaces needed to parse the query
-            EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
-            EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
-            EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
-            EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+            \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
+            \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
+            \EasyRdf\RdfNamespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
+            \EasyRdf\RdfNamespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
             $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
             $data = $sparql->query(
                 'SELECT * WHERE {' .
@@ -197,11 +197,11 @@ class Nomisma
                 )
             );
             $client->setHeaders(array('accept' => 'application/sparql-results+xml'));
-            EasyRdf_Http::setDefaultHttpClient($client);
-            EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
-            EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
-            EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
-            EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+            \EasyRdf\Http::setDefaultHttpClient($client);
+            \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
+            \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
+            \EasyRdf\RdfNamespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
+            \EasyRdf\RdfNamespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
             $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
             $data = $sparql->query(
                 'SELECT * WHERE {' .

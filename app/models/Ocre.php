@@ -37,15 +37,15 @@ class Ocre
         $key = md5($identifier . 'ocre');
         $uri = self::CRRO . $identifier;
         if (!($this->getCache()->test($key))) {
-            EasyRdf_Namespace::set('nm', 'http://nomisma.org/id/');
-            EasyRdf_Namespace::set('nmo', 'http://nomisma.org/ontology#');
-            EasyRdf_Namespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
-            EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $request = new EasyRdf_Http_Client();
+            \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
+            \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
+            \EasyRdf\RdfNamespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
+            \EasyRdf\RdfNamespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+            $request = new \EasyRdf\Http\Client();
             $request->setUri($uri);
             $response = $request->request()->getStatus();
             if ($response == 200) {
-                $graph = new EasyRdf_Graph($uri);
+                $graph = new \EasyRdf\Graph($uri);
                 $graph->load();
                 $data = $graph->resource($uri);
                 $this->getCache()->save($data);

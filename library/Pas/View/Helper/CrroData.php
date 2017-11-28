@@ -72,7 +72,6 @@ class Pas_View_Helper_CrroData extends Zend_View_Helper_Abstract
     /** Set the uri
      * @access public
      * @param string $uri
-     * @todo add in validation of uri
      */
     public function setUri($uri)
     {
@@ -95,9 +94,9 @@ class Pas_View_Helper_CrroData extends Zend_View_Helper_Abstract
 
     /** Render the data
      * @access protected
-     * @param  EasyRdf_Resource $data
+     * @param  \EasyRdf\Resource $data
      */
-    protected function _render(EasyRdf_Resource $data)
+    protected function _render( \EasyRdf\Resource $data)
     {
         $html = '';
         if (is_object($data)) {

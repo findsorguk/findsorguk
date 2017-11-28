@@ -1,10 +1,10 @@
 <?php
 // Add namespaces for the foaf file. These will only appear if used
-EasyRdf_Namespace::set('con', 'http://www.w3.org/2000/10/swap/pim/contact#');
-EasyRdf_Namespace::set('geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
-EasyRdf_Namespace::set('admin', 'http://webns.net/mvcb');
+\EasyRdf\RdfNamespace::set('con', 'http://www.w3.org/2000/10/swap/pim/contact#');
+\EasyRdf\RdfNamespace::set('geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
+\EasyRdf\RdfNamespace::set('admin', 'http://webns.net/mvcb');
 // Create the graph
-$graph = new EasyRdf_Graph();
+$graph = new \EasyRdf\Graph();
 // Set up the profiledocument element
 $profile = $graph->resource($this->serverUrl() . '/contacts/staff/profile/id/' . $this->number, 'foaf:PersonalProfileDocument');
 $creator = $graph->resource('#me');
