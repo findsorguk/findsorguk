@@ -332,7 +332,7 @@ class ErrorController extends Pas_Controller_Action_Admin
         $this->getResponse()->setHttpResponseCode(503);
         $this->view->message = 'The system is currently offline';
         $this->view->code = 503;
-        $this->renderScript('error/error.phtml');
+        $this->renderScript('error/databasedown.phtml');
     }
 
     /** Account connection problem
