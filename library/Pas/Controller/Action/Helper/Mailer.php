@@ -190,14 +190,14 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
 
     /** Send the email using Zend Mail
      * @access protected
-     * @return void
+     * @return \Pas_Controller_Action_Helper_Mailer
      */
     protected function _sendIt()
     {
         return $this->_mail->send();
     }
 
-    /** Determine the tempate to use
+    /** Determine the template to use
      * @access protected
      * @param string $type
      * @return string
