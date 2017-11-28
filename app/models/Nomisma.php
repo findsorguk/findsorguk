@@ -71,17 +71,6 @@ class Nomisma
     {
         $key = md5($identifier . 'rrcTypes');
         if (!($this->getCache()->test($key))) {
-            $client = new \Zend\Http\Client(
-                null,
-                array(
-                    'adapter' => 'Zend_Http_Client_Adapter_Curl',
-                    'keepalive' => true,
-                    'useragent' => "finds.org.uk/easyrdf"
-                )
-            );
-            $client->setHeaders(array('accept' => 'application/sparql-results+xml'));
-            \EasyRdf\Http::setDefaultHttpClient($client);
-
             //Add the namespaces needed to parse the query
             \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
             \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
@@ -134,16 +123,7 @@ class Nomisma
     {
         $key = md5($identifier . 'ricTypes');
         if (!($this->getCache()->test($key))) {
-            $client = new \Zend\Http\Client(
-                null,
-                array(
-                    'adapter' => 'Zend_Http_Client_Adapter_Curl',
-                    'keepalive' => true,
-                    'useragent' => "finds.org.uk/easyrdf"
-                )
-            );
-            $client->setHeaders(array('accept' => 'application/sparql-results+xml'));
-            \EasyRdf\Http::setDefaultHttpClient($client);
+            
             //Add the namespaces needed to parse the query
             \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
             \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
