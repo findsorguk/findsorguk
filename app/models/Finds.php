@@ -78,6 +78,10 @@ class Finds extends Pas_Db_Table_Abstract
         while ($i > 0) {
             try {
                 $insert = $this->add($insertData);
+                $writer = new Zend_Log_Writer_Stream('../app/logs/recordCreation.log');
+                $logger = new Zend_Log($writer);
+                $message = 'UserID: ' . $this->getUserNumber() . ' created this record ' . $insertData['old_findID'];
+                $logger->info($message);
                 break;
             } catch (Zend_Db_Exception $e) {
                 $code = $e->getCode();
@@ -85,6 +89,11 @@ class Finds extends Pas_Db_Table_Abstract
                 if ($code == self::DUPLICATE_UNIQUE_VALUE_ERROR_CODE) {
                     usleep(100000); // Delays generation of new old_findsID to prevent further duplicate generation
                     $insertData['old_findID'] = $this->generateFindId();
+                    $writer = new Zend_Log_Writer_Stream('../app/logs/recordErrors.log');
+                    $logger = new Zend_Log($writer);
+                    $message = 'A problem was found ' . $code . ' was thrown';
+                    $message .= 'UserID: ' . $this->getUserNumber() . ' created this record ' . $insertData['old_findID'];
+                    $logger->err($message);
                     $i--;
                 } else { // Any other Zend_Db_Exception
                     break;
