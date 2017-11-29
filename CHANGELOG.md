@@ -1,5 +1,19 @@
 # Change Log
 
+### 1.42 : 28th November 2017
+
+- Updated sub modules
+- Fixed easyrdf classes for name spaces
+
+### 1.41 : 27th November 2017
+
+- Fixed latest tweets helper
+
+### 1.40 : 23rd November 2017
+
+- Added hoard search
+- Added code of conduct
+
 ### 1.39 : 21st November 2017
 
 -[x] Added better version of time ago in words view helper by @portableant
