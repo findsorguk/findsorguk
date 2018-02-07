@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.43 : 7th February 2017
+- [x] Updated AWS links for data downloads
+
 ### 1.42 : 28th November 2017
 
 - [x] Updated sub modules
