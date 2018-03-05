@@ -39,7 +39,8 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
      * @return string
      */
     public function editID(){
-        return md5($this->getTimeForForms());
+        // take first 25 characters of id created
+        return substr(md5($this->getTimeForForms(), 0, 25);
     }
 
     /** The direct action to run the helper.
