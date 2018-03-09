@@ -4,7 +4,11 @@ $this->metaBase()->setDescription($this->title())->generate();
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
     <a class="btn btn-success btn-small"
-       href="<?php echo $this->url(array('module' => 'database', 'controller' => 'images', 'action' => 'image', 'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id')), null, true); ?>"
+       href="<?php echo $this->url(array('module' => 'database', 
+                                         'controller' => 'images', 
+                                         'action' => 'image', 
+                                         'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id'),
+            'recordtype' => Zend_Controller_Front::getInstance()->getRequest()->getParam('recordtype')), null, true); ?>"
        title="return to the record">Return to record</a>
 <?php echo $this->form; ?>
 <?php echo $this->partial('partials/content/article.phtml', $this->contents);?>
