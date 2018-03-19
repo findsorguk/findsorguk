@@ -1,17 +1,33 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: danielpett
- * Date: 10/12/14
- * Time: 16:55
- */
-?>
 <li>
-    <?php echo $this->authors; ?><?php if(!is_null($this->publication_year)){?>}, <?php echo $this->publication_year; ?><?php }?>
-    <em><?php echo $this->title; ?></em> <?php if(!is_null($this->medium)){?>[<?php echo $this->medium; ?>]<?php}?>
-    Available at: <a href="<?php echo $this->url; ?>" title="View webpage referenced">
-        <?php echo $this->url; ?></a> <?php if(!is_null($this->accessedDate)){?>[Accessed <?php echo $this->accessedDate; ?><?php }?>
-    ].
+    <?php
+        echo $this->authors;
+        if(!is_null($this->publication_year)){
+            echo ' ' . $this->publication_year;
+        }
+    ?>
+    <em>
+        <?php echo $this->title; ?>
+    </em>
+    <?php
+        if(!is_null($this->medium)) {
+            echo '[' . $this->medium . ']';
+        }
+
+        if(!is_null($this->url)) {
+            echo 'Available at: ';
+    ?>
+            <a href="<?php echo $this->url; ?>" title="View webpage referenced">
+                <?php echo $this->url; ?>
+            </a>
+    <?php
+        }
+
+        if(!is_null($this->accessedDate)){
+            echo '[Accessed: ' . $this->accessedDate . '].';
+        }
+
+    ?>
     <?php echo $this->referencesEditDeleteLink()
         ->setRecordID($this->i)
         ->setFindID($this->fID)
