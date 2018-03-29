@@ -28,11 +28,11 @@ class Messages extends Pas_Db_Table_Abstract {
      * @var string
      */
     protected $_name = 'messages';
-
-    /** 
-     * Set replied field with a default value of 0
-     */
-    const REPLIED_DEFAULT_VALUE = 0;
+	
+    /**
+     * Default value for replied field
+     */
+    const REPLIED_DEFAULT_VALUE = 0;
 
     /** The primary key
      * @access protected
