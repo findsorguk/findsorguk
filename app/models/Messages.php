@@ -149,7 +149,7 @@ class Messages extends Pas_Db_Table_Abstract {
             unset($data['csrf']);
         }
         if(empty($data['replied'])){
-            $data['replied'] = REPLIED_DEFAULT_VALUE;
+            $data['replied'] = self::REPLIED_DEFAULT_VALUE;
         }
         if(empty($data['comment_date'])){
             $data['comment_date'] = $this->timeCreation();
