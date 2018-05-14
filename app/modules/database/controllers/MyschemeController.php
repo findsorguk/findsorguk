@@ -268,8 +268,8 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             'title', 'broadperiod', 'imagedir',
             'filename', 'thumbnail', 'old_findID',
             'county', 'licenseAcronym', 'findID',
-            'objecttype', 'institution', 'updated',
-            'created', 'findIdentifier'
+            'institution', 'updated',
+            'created', 'findIdentifier', 'recordtype'
         ));
         $search->setFacets(array('broadperiod', 'county', 'objecttype', 'institution'));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())

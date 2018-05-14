@@ -110,7 +110,7 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
             <ul class="nav nav-pills nav-stacked menuindent">
                 <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'museums'); ?>>
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'museums'), 'treasure', true); ?>"
-                       title="Advcie for museums">Advice for museums</a>
+                       title="Advice for museums">Advice for museums</a>
                 </li>
                 <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'museumacquistionfunding'); ?>>
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'museumacquistionfunding'), 'treasure', true); ?>"

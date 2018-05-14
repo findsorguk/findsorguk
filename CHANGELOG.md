@@ -1,22 +1,25 @@
 # Change Log
 
+### 1.43 : 7th February 2017
+- [x] Updated AWS links for data downloads
+
 ### 1.42 : 28th November 2017
 
-- Updated sub modules
-- Fixed easyrdf classes for name spaces
+- [x] Updated sub modules
+- [x] Fixed easyrdf classes for name spaces
 
 ### 1.41 : 27th November 2017
 
-- Fixed latest tweets helper
+- [x] Fixed latest tweets helper
 
 ### 1.40 : 23rd November 2017
 
-- Added hoard search
-- Added code of conduct
+- [x] Added hoard search
+- [x] Added code of conduct
 
 ### 1.39 : 21st November 2017
 
--[x] Added better version of time ago in words view helper by @portableant
+- [x] Added better version of time ago in words view helper by @portableant
 
 ### 1.38 : 20th November 2017
 

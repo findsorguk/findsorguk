@@ -28,6 +28,11 @@ class Messages extends Pas_Db_Table_Abstract {
      * @var string
      */
     protected $_name = 'messages';
+	
+    /**
+     * Default value for replied field
+     */
+    const REPLIED_DEFAULT_VALUE = 0;
 
     /** The primary key
      * @access protected
@@ -143,9 +148,13 @@ class Messages extends Pas_Db_Table_Abstract {
         if(!empty($data['csrf'])){
             unset($data['csrf']);
         }
+        if(empty($data['replied'])){
+            $data['replied'] = self::REPLIED_DEFAULT_VALUE;
+        }
         if(empty($data['comment_date'])){
             $data['comment_date'] = $this->timeCreation();
             $data['created'] = $this->timeCreation();
+            $data['updated'] = $this->timeCreation();   
         }
         if(empty($data['createdBy'])){
             $data['createdBy'] = $this->getUserNumber();

@@ -28,7 +28,9 @@
 .btn,
 #slider,
 .sidebar-nav,
-#footer
+#footer,
+#session-timeout-dialog-logout,
+#session-timeout-dialog
 {
 	display:none;
 }
