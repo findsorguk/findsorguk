@@ -36,6 +36,10 @@ class About_ContactUsController extends Pas_Controller_Action_Admin
         $this->view->form = $form;
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
+                $recap = $form->getvalue('g-recaptcha-response');
+                $captcha = $form->getvalue('captcha');
+                unset($recap);
+                unset($captcha);
                 $messages = new Messages();
                 $messages->addComplaint($form->getValues());
                 $cc = array();

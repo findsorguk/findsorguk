@@ -293,6 +293,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontController->registerPlugin( new Pas_Controller_Plugin_Ssl());
     }
 
+
+    public function _initRecaptcha()
+    {
+
+        $params['messageTemplates'] = [
+            Pas_Validate_Recaptcha::INVALID_CAPTCHA => 'The captcha was invalid', // set custom/translated message
+            Pas_Validate_Recaptcha::CAPTCHA_EMPTY => 'The captcha must be completed'
+        ];
+
+    }
 //    public function __construct($application)
 //    {
 //        parent::__construct($application);
