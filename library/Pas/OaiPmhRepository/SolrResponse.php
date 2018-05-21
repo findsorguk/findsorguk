@@ -107,7 +107,6 @@ class Pas_OaiPmhRepository_SolrResponse
             }
             $data['finds'][] = $fields;
         }
-
         return $data;
     }
 

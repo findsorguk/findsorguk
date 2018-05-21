@@ -16,7 +16,7 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
     /** The base url for requests
      *
      */
-    const OAI_PMH_BASE_URL = '/datalabs/oai/request/';
+    const OAI_PMH_BASE_URL = '/datalabs/oai/request';
 
     /**
      * HTTP query string or POST vars formatted as an associative array.
@@ -124,7 +124,7 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
         }
         $this->checkArguments($requiredArgs, $optionalArgs);
         if (!$this->_error) {
-            foreach ($this->query as $key => $value) {
+            foreach (array_slice($this->query,0,1,true) as $key => $value) {
                 $request->setAttribute($key, $value);
                 if (isset($this->query['resumptionToken'])) {
                     $this->resumeListResponse($resumptionToken);
@@ -243,7 +243,7 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
      * Outputs the header and metadata in the specified format for the specified
      * identifier.
      */
-    private function getRecord()
+    public function getRecord()
     {
         $identifier = $this->query['identifier'];
         $metadataPrefix = $this->query['metadataPrefix'];
@@ -257,7 +257,6 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
         $solr = new Pas_OaiPmhRepository_SolrResponse();
         $item = $solr->getRecord($itemId);
         $single = $item['finds'];
-
         if (!$single) {
             $this->throwError(self::OAI_ERR_ID_DOES_NOT_EXIST);
         }
@@ -267,6 +266,7 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
             $this->document->documentElement->appendChild($getRecord);
             $record = new $this->metadataFormats[$metadataPrefix]($single['0'], $getRecord);
             $record->appendRecord();
+
         }
     }
 
@@ -276,7 +276,6 @@ class Pas_OaiPmhRepository_ResponseGenerator extends Pas_OaiPmhRepository_OaiXml
      * Outputs records for all of the items in the database in the specified
      * metadata format.
      *
-     * @todo extend for additional metadata formats
      */
     private function listMetadataFormats()
     {

@@ -77,6 +77,7 @@ class Pas_OaiPmhRepository_OaiIdentifier
         foreach ($elements as $tag => $value) {
             $oaiIdentifier->appendChild($parentElement->ownerDocument->createElement($tag, $value));
         }
+
         $parentElement->appendChild($oaiIdentifier);
 
         //must set xmlns attribute manually to avoid DOM extension appending
