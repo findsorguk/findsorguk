@@ -136,7 +136,12 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         '3D' => '3D content ready',
         'denominationName' => 'Denomination',
         'rrcID' => 'RRC identifier',
-        'ricID' => 'RIC identifier'
+        'ricID' => 'RIC identifier',
+	'regionID' => 'European Region',
+        'countyID' => 'County',
+        'parishID' => 'Parish',
+        'districtID' => 'District'
+
 
     );
 
@@ -302,9 +307,6 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
         unset($params['format']);
         foreach ($params as $key => $value) {
             switch ($key) {
-                case 'regionID':
-                    $params[$key] = $this->getData('Regions', 'region', $value);
-                    break;
                 case 'denomination':
                     $params[$key] = $this->getData('Denominations', 'denomination', $value);
                     break;
@@ -409,9 +411,6 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
                     break;
                 case 'reeceID':
                     $params[$key] = 'Period ' . $value . ': ' . $this->getData('Reeces', 'description', $value);
-                    break;
-                case 'regionID':
-                    $params[$key] = $this->getData('OsRegions', 'label', $value, 'osID');
                     break;
                 case 'reverse':
                     $params[$key] = $this->getData('RevTypes', 'type', $value);
