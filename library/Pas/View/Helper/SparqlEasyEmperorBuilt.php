@@ -101,7 +101,7 @@ class Pas_View_Helper_SparqlEasyEmperorBuilt extends Zend_View_Helper_Abstract
      */
     public function getEndpoint()
     {
-        $this->_endpoint = new EasyRdf_Sparql_Client($this->getEndpointUri());
+        $this->_endpoint = new \EasyRdf\Sparql\Client($this->getEndpointUri());
         return $this->_endpoint;
     }
 
@@ -153,7 +153,7 @@ class Pas_View_Helper_SparqlEasyEmperorBuilt extends Zend_View_Helper_Abstract
     public function registerNameSpaces()
     {
         foreach ($this->getNameSpaces() as $k => $v) {
-            EasyRdf_Namespace::set($k, $v);
+            \EasyRdf\RdfNamespace::set($k, $v);
         }
         return $this;
     }

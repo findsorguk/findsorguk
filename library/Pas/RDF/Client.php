@@ -37,6 +37,6 @@ class Pas_RDF_Client
                 'timeout' => 30
             )
         );
-        EasyRdf_Http::setDefaultHttpClient($client);
+        \EasyRdf\Http::setDefaultHttpClient($client);
     }
 }

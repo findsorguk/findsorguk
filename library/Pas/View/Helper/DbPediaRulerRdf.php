@@ -18,7 +18,7 @@
  * @package View
  * @subpackage Helper
  * @uses Zend_Cache
- * @uses EasyRdf_Grap
+ * @uses EasyRdf_Graph
  * @version 1
  * @since 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
@@ -69,7 +69,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
     public function registerNameSpaces()
     {
         foreach ($this->getNameSpaces() as $k => $v) {
-            EasyRdf_Namespace::set($k, $v);
+            \EasyRdf\RdfNamespace::set($k, $v);
         }
         return $this;
     }
@@ -140,7 +140,7 @@ class Pas_View_Helper_DbPediaRulerRdf extends Zend_View_Helper_Abstract
         $uri = $this->getUri();
         $key = md5($uri);
         if (!($this->getCache()->test($key))) {
-            $graph = new EasyRdf_Graph($uri);
+            $graph = new \EasyRdf\Graph($uri);
             $graph->load();
 
             $data = $graph->resource($uri);

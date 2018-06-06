@@ -21,7 +21,7 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Pas_Rdf_Client
  * @uses viewHelper Pas_View_Helper
- * @uses EasyRdfGraph
+ * @uses EasyRdf\Graph
  * @uses Zend_Cache
  */
 class Pas_View_Helper_NomismaRicTypes extends Zend_View_Helper_Abstract
@@ -111,8 +111,8 @@ class Pas_View_Helper_NomismaRicTypes extends Zend_View_Helper_Abstract
             $types[] = array(
                 'type' => $rrc->type,
                 'label' => $rrc->label,
-                'startDate' => $rrc->startDate,
-                'endDate' => $rrc->endDate
+//                'startDate' => $rrc->startDate,
+//                'endDate' => $rrc->endDate
             );
         }
         if (!empty($types)) {

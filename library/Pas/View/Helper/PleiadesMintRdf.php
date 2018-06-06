@@ -81,15 +81,15 @@ class Pas_View_Helper_PleiadesMintRdf extends Zend_View_Helper_Abstract {
     protected function getData() {
         $key = md5($this->_uri);
         if (!($this->_cache->test($key))) {
-            $graph = new EasyRdf_Graph( self::URI . $this->_uri . self::SUFFIX );
+            $graph = new \EasyRdf\Graph( self::URI . $this->_uri . self::SUFFIX );
             $graph->load();
             $data = $graph->resource( self::URI . $this->_uri );
             $this->_cache->save($data);
         } else {
             $data = $this->_cache->load($key);
         }
-        EasyRdf_Namespace::set('dcterms', 'http://purl.org/dc/terms/');
-        EasyRdf_Namespace::set('pleiades', 'http://pleiades.stoa.org/places/vocab#');
+        \EasyRdf\RdfNamespace::set('dcterms', 'http://purl.org/dc/terms/');
+        \EasyRdf\RdfNamespace::set('pleiades', 'http://pleiades.stoa.org/places/vocab#');
         return $data;
     }
 

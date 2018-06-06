@@ -18,7 +18,7 @@
  * @package View
  * @subpackage Helper
  * @uses Zend_Cache
- * @uses EasyRdf_Grap
+ * @uses EasyRdf\Graph
  * @version 1
  * @since 1
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
@@ -78,16 +78,16 @@ class Pas_View_Helper_DbPediaMintRdf extends Zend_View_Helper_Abstract
     {
         $key = md5($this->_uri);
         if (!($this->_cache->test($key))) {
-            $graph = new EasyRdf_Graph($this->_uri);
+            $graph = new EasyRdf\Graph($this->_uri);
             $graph->load();
             $data = $graph->resource($this->_uri);
             $this->_cache->save($data);
         } else {
             $data = $this->_cache->load($key);
         }
-        EasyRdf_Namespace::set('dbpediaowl', 'http://dbpedia.org/ontology/');
-        EasyRdf_Namespace::set('dbpprop', 'http://dbpedia.org/property/');
-        EasyRdf_Namespace::set('dbpedia', 'http://dbpedia.org/resource/');
+        EasyRdf\RdfNamespace::set('dbpediaowl', 'http://dbpedia.org/ontology/');
+        EasyRdf\RdfNamespace::set('dbpprop', 'http://dbpedia.org/property/');
+        EasyRdf\RdfNamespace::set('dbpedia', 'http://dbpedia.org/resource/');
 
         return $data;
     }
