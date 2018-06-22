@@ -1,87 +1,79 @@
-<?php
-$this->inlineScript()->appendFile('https://maps.google.com/maps/api/js?', $type = 'text/javascript');
+<?php echo "<br> This is in test <br>";
 $this->headTitle('Location map showing Scheme staff');
 $this->metaBase()
     ->setDescription('A map of the locations of our staff who work for the Portable Antiquities Scheme')
-    ->setSubject('contacts map')
+    ->setSubject('Contacts map')
     ->setKeywords('map,google,contacts,scheme,head office,archaeology')
     ->generate();
+$this->googleDynamicMap();
 ?>
-    <h2 class="lead"><?php echo $this->title(); ?></h2>
-    <div id="map">
-        <div id="loading"></div>
-    </div>
-<?php $this->inlineScript()->captureStart(); ?>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<div id="map">
+    <div id="loading"></div>
+</div>
 
-    //<![CDATA[
+<?php $this->inlineScript()->captureStart() ?>
+$(document).ready(function() {
+var center = new google.maps.LatLng(54.70235509327093, -3.2080078125);
+var myOptions = {
+zoom: 6,
+center: center,
+mapTypeId: google.maps.MapTypeId.SATELLITE
+}
 
-    function load() {
-    var map = new google.maps.Map(document.getElementById("map"), {
-    center: new google.maps.LatLng(52.6557, -1.188),
-    zoom: 7,
-    scrollwheel:false,
-    mapTypeId: 'terrain'
-    });
-    var infoWindow = new google.maps.InfoWindow;
+var map = new google.maps.Map(document.getElementById("map"), myOptions);
 
-    // Change this depending on the name of your PHP file
-    downloadUrl("<?php echo $this->url(array('module' => 'default', 'controller' => 'ajax', 'action' => 'staffdata'), null, true); ?>", function(data) {
-    var xml = parseXml(data);
-    var markers = xml.documentElement.getElementsByTagName("marker");
-    for (var i = 0; i < markers.length; i++) {
-    var name = markers[i].getAttribute("name");
-    var url = markers[i].getAttribute("url");
-    var address = markers[i].getAttribute("address");
-    var point = new google.maps.LatLng(
-    parseFloat(markers[i].getAttribute("lat")),
-    parseFloat(markers[i].getAttribute("lng")));
-    var html = "<a href='"+ url + "'>" + name + "</a>" + "<br/>"  + address;
-    var marker = new google.maps.Marker({
-    map: map,
-    position: point,
-    icon: 'http://labs.google.com/ridefinder/images/mm_20_blue.png',
-    shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
-    });
-    bindInfoWindow(marker, map, infoWindow, html);
-    }
-    });
-    }
+var markers = new Array();
 
-    function bindInfoWindow(marker, map, infoWindow, html) {
-    google.maps.event.addListener(marker, 'click', function() {
-    infoWindow.setContent(html);
-    infoWindow.open(map, marker);
-    });
-    }
+var infowindow = new google.maps.InfoWindow();
+jQuery.get("<?php echo $this->serverUrl() . $this->url(array(
+        'module' => 'default',
+        'controller' => 'ajax',
+        'action' => 'staffdata'), 'default', true);?>", {}, function(data) {
 
-    function downloadUrl(url, callback) {
-    var request = window.ActiveXObject ?
-    new ActiveXObject('Microsoft.XMLHTTP') :
-    new XMLHttpRequest;
+jQuery(data).find("marker").each(function() {
+var markerXML = jQuery(this);
+var latlng = new google.maps.LatLng(
+parseFloat(markerXML.attr("lat")),
+parseFloat(markerXML.attr("lng"))
+);
+var title = markerXML.attr("title");
+// console.log(title);
+//alert(title);
 
-    request.onreadystatechange = function() {
-    if (request.readyState == 4) {
-    request.onreadystatechange = doNothing;
-    callback(request.responseText, request.status);
-    }
-    };
+var marker = new google.maps.Marker({
+position: latlng,
+map: map,
+title: title,
+icon: "<?php echo $this->serverUrl() . $this->baseUrl(); ?>/assets/mapIcons/museumArcheological.png" });
 
-    request.open('GET', url, true);
-    request.send(null);
-    }
+// now that the marker is placed, assign event listener on the marker
+// and create/assign infowindow to the event trigger.
+markerInfoWindow(marker, markerXML.attr("content"));
+markers.push(marker);
+});
+});
 
-    function parseXml(str) {
-    if (window.ActiveXObject) {
-    var doc = new ActiveXObject('Microsoft.XMLDOM');
-    doc.loadXML(str);
-    return doc;
-    } else if (window.DOMParser) {
-    return (new DOMParser).parseFromString(str, 'text/xml');
-    }
-    }
+function markerInfoWindow(marker, information){
+google.maps.event.addListener(marker, 'click',
+function() {
+infowindow.close();
+infowindow.setContent(information);
+infowindow.setPosition(marker.getPosition());
+infowindow.open(map, marker);
+});
+}
+var center;
 
-    function doNothing() {}
+function calculateCenter() {
+center = map.getCenter();
+}
+google.maps.event.addDomListener(map, 'idle', function() {
+calculateCenter();
+});
+google.maps.event.addDomListener(window, 'resize', function() {
+map.setCenter(center);
+});
 
-    //]]>
-    window.onload = load;
-<?php $this->inlineScript()->captureEnd(); ?>
+});
+<?php $this->inlineScript()->captureEnd() ?>
