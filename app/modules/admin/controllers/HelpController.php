@@ -9,19 +9,19 @@
  * @subpackage Admin
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @uses Copyrights
- * @uses CopyrightForm
+ * @uses Help
+ * @uses HelpForm
  * @uses Pas_Exception_Param
  *
  */
-class Admin_CopyrightsController extends Pas_Controller_Action_Admin
+class Admin_HelpController extends Pas_Controller_Action_Admin
 {
 
     /** The copyrights model
      * @access protected
      * @var \Copyrights
      */
-    protected $_copyrights;
+    protected $_help;
 
     /** Set up the ACL and contexts
      * @access public
@@ -30,7 +30,7 @@ class Admin_CopyrightsController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->allow('admin', null);
-        $this->_help = new Copyrights();
+        $this->_help = new Help();
 
     }
 
@@ -40,7 +40,7 @@ class Admin_CopyrightsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->view->copyrights = $this->_copyrights->getCopyrightsAdmin($this->getParam('page'));
+        $this->view->contents = $this->_help->getContentAdmin($this->getParam('page'));
     }
 
     /** Add a new help topic
@@ -49,7 +49,7 @@ class Admin_CopyrightsController extends Pas_Controller_Action_Admin
      */
     public function addAction()
     {
-        $form = new CopyrightsForm();
+        $form = new HelpForm();
         $form->submit->setLabel('Add new help topic to system');
         $form->author->setValue($this->getIdentityForForms());
         $this->view->form = $form;
