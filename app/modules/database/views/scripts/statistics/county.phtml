@@ -16,7 +16,7 @@ $this->metaBase()->setDescription($this->title())->generate();
         properly.</p>
 <?php echo $this->form; ?>
 
-<?php if (!empty($this->county)) : ?>
+<?php if (!empty($this->counties)) : ?>
     <h3 class="lead">Finds per county</h3>
     <table class="table-striped table">
         <tr>
@@ -24,7 +24,7 @@ $this->metaBase()->setDescription($this->title())->generate();
             <th>Objects</th>
             <th>Records</th>
         </tr>
-        <?php echo $this->statisticsCounty(); ?>
+	<?php echo $this->partialLoop('partials/annual/countiesStatistics.phtml', $this->counties); ?>
     </table>
 <?php else : ?>
     <h3 class="lead">Finds recorded for this period</h3>
@@ -34,7 +34,7 @@ $this->metaBase()->setDescription($this->title())->generate();
             <th>Objects</th>
             <th>Records</th>
         </tr>
-        <?php echo $this->statisticsCounty(); ?>
+        <?php echo $this->partialLoop('partials/annual/regionalStatisticsCounty.phtml', $this->countyTotal); ?>
     </table>
 
     <?php if (!empty($this->creators)): ?>
@@ -81,7 +81,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                 <th>Objects</th>
                 <th>Records</th>
             </tr>
-            <?php echo $this->statisticsCountyBroadPeriod(); ?>
+            <?php echo $this->partialLoop('partials/annual/objectPeriodsBreakdown.phtml', $this->periods); ?>
             <tr>
                 <?php
                 $finds_period = array();
@@ -167,7 +167,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                 <th>Objects</th>
                 <th>Records</th>
             </tr>
-            <?php echo $this->statisticsCountyYearDiscovery(); ?>
+            <?php echo $this->partialLoop('partials/annual/year.phtml', $this->year); ?>
             <tr>
                 <?php
                 $finds_disco = array();
@@ -258,7 +258,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                 <th>Objects</th>
                 <th>Records</th>
             </tr>
-            <?php echo $this->statisticsCountyPrecision(); ?>
+            <?php echo $this->partialLoop('partials/annual/precision.phtml', $this->precision); ?>
             <tr>
                 <?php
                 $finds = array();
