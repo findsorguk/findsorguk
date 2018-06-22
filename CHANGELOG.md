@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.44 : 22nd June 2018
+- [x] Lots of small changes but mainly (recently) a fix to county statistics
+
 ### 1.43 : 7th February 2017
 - [x] Updated AWS links for data downloads
 
