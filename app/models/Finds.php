@@ -1290,8 +1290,8 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('users', $this->_name
                 . '.createdBy = users.id',
                 array('fullname', 'username', 'institution', 'id'))
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) >= ?', (string)$datefrom)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('users.institution = ?', (string)$institution)
             ->order('institution')
             ->group('fullname');
