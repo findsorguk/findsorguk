@@ -7,7 +7,7 @@
  * @category   Pas
  * @package Pas_Controller_Action
  * @subpackage Admin
- * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
+ * @help  Help (c) 2011 DEJ Pett dpett @ britishmuseum . org
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @uses Help
  * @uses HelpForm
@@ -17,9 +17,9 @@
 class Admin_HelpController extends Pas_Controller_Action_Admin
 {
 
-    /** The copyrights model
+    /** The help model
      * @access protected
-     * @var \Copyrights
+     * @var \Help
      */
     protected $_help;
 
