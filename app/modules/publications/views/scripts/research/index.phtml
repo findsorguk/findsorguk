@@ -14,7 +14,11 @@ $this->metaBase()
     // Return a sorted list of files in a given directory
     // Note how .htaccess is ignored - this appears in some of the pdf folders
     function RetrieveFiles($path) {
-        $filesFound = array();
+        $filesFound = [];
+	if (!file_exists($path)) 
+	{
+		return [];
+	}
         foreach (new DirectoryIterator($path) as $fileInfo):
             $filename = $fileInfo->getFilename();
             if ($fileInfo->isDot() or $filename == '.htaccess') continue;
@@ -32,22 +36,12 @@ $this->metaBase()
     }
 ?>
 
-<h2 class="lead">
-    <?php echo $this->title(); ?>
-</h2>
-
-<p>
-    The Portable Antiquities Scheme produces period round-ups for the majority
-    of the major research journals.
-</p>
-
-</ul>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<p>The Portable Antiquities Scheme produces period round-ups for the majority of the major research journals.</p>
 
 <?php $allFiles = RetrieveFiles(ROOT_PATH . '/public_html/documents/britannia/');
     if (count($allFiles) > 0) { ?>
-        <h3 class="lead">
-            Britannia
-        </h3>
+        <h3 class="lead">Britannia</h3>
         <ul>
         <?php foreach( $allFiles as $file ): ?>
             <li>
@@ -59,9 +53,7 @@ $this->metaBase()
 
 <?php $allFiles = RetrieveFiles(ROOT_PATH . '/public_html/documents/medieval/');
     if (count($allFiles) > 0) { ?>
-        <h3 class="lead">
-            Medieval Archaeology
-        </h3>
+        <h3 class="lead">Medieval Archaeology</h3>
         <ul>
         <?php foreach( $allFiles as $file ): ?>
             <li>
@@ -73,9 +65,7 @@ $this->metaBase()
 
 <?php $allFiles = RetrieveFiles(ROOT_PATH . '/public_html/documents/postmedieval/'); 
     if (count($allFiles) > 0) { ?>
-        <h3 class="lead">
-            Post Medieval Archaeology
-        </h3>
+        <h3 class="lead">Post Medieval Archaeology</h3>
         <ul>
         <?php foreach( $allFiles as $file ): ?>
             <li>
@@ -85,3 +75,14 @@ $this->metaBase()
         </ul>
 <?php } ?>
 
+<?php $allFiles = RetrieveFiles(ROOT_PATH . '/public_html/documents/coinhoard/');
+    if (count($allFiles) > 0) { ?>
+        <h3 class="lead">Roman and Iron Age Coin Hoard Catalogues</h3>
+        <ul>
+        <?php foreach($allFiles as $file): ?>
+            <li>
+                <a href="/documents/coinhoard/<?php echo $file["filename"] ?>"><?php echo $file["root"]; ?></a>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+<?php } ?>
