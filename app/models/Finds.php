@@ -1340,7 +1340,7 @@ class Finds extends Pas_Db_Table_Abstract
                 array('finders' => 'COUNT(DISTINCT(finderID))'))
             ->joinLeft('users', 'users.id = finds.createdBy', array('institution'))
             ->where($this->_name . '.created >= ?', $datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', $dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('users.institution = ?', (string)$institution)
             ->order('institution')
             ->group('institution');
@@ -1640,7 +1640,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('findspots', $this->_name . '.secuid = findspots.findID', array('county'))
             ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID', array('region' => 'label', 'id' => 'osID'))
             ->where($this->_name . '.created >= ?', $datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', $dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('osRegions.osID = ?', (integer)$regionID)
             ->order('year ASC')
             ->group('year');
@@ -1662,7 +1662,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('findspots', $this->_name . '.secuid = findspots.findID', array('county'))
             ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID', array('region' => 'label'))
             ->where($this->_name . '.created >= ?', $datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', $dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('osRegions.osID = ?', (integer)$regionID)
             ->order('discmethod')
             ->group('discmethod');
