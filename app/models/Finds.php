@@ -746,7 +746,7 @@ class Finds extends Pas_Db_Table_Abstract
                 'finds' => 'SUM(quantity)'
             ))
             ->where('created >= ?', (string)$datefrom)
-            ->where('created <= ?', (string)$dateto);
+            ->where('date(created) <= ?', (string)$dateto);
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
     }
@@ -767,7 +767,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('users', 'users.id = finds.createdBy',
                 array('fullname', 'institution', 'id'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('institution', 'fullname')
             ->group('fullname', 'institution');
         $select->setIntegrityCheck(false);
@@ -790,7 +790,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('users', 'users.id = finds.createdBy',
                 array('institution'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('institution')
             ->group('institution');
         $select->setIntegrityCheck(false);
@@ -812,7 +812,7 @@ class Finds extends Pas_Db_Table_Abstract
                 'broadperiod'
             ))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->group('broadperiod');
         $select->setIntegrityCheck(false);
         return $this->getAdapter()->fetchAll($select);
@@ -834,7 +834,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('users', 'users.id = finds.createdBy',
                 array('institution'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('institution')
             ->group('institution');
         $select->setIntegrityCheck(false);
@@ -853,7 +853,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->from($this->_name, array('records' => 'COUNT(finds.id)', 'finds' => 'SUM(quantity)', 'broadperiod',
                 'month' => 'EXTRACT(MONTH FROM created)'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('month ASC')
             ->group('month');
         $select->setIntegrityCheck(false);
@@ -876,7 +876,7 @@ class Finds extends Pas_Db_Table_Abstract
                 'year' => 'EXTRACT(YEAR FROM datefound1)'
             ))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('year ASC')
             ->group('year');
         $select->setIntegrityCheck(false);
@@ -899,7 +899,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('discmethods', 'discmethods.id = finds.discmethod',
                 array('discmethod' => 'method', 'id'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('discmethod')
             ->group('discmethod');
         $select->setIntegrityCheck(false);
@@ -924,7 +924,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('landuses', 'landuses.id = findspots.landusevalue',
                 array('landuse' => 'term'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('landuse')
             ->group('landuse');
         $select->setIntegrityCheck(false);
@@ -948,7 +948,7 @@ class Finds extends Pas_Db_Table_Abstract
                 . '.secuid = findspots.findID',
                 array('precision' => 'gridlen'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('precision')
             ->group('precision');
         $select->setIntegrityCheck(false);
@@ -971,7 +971,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('findspots', $this->_name
                 . '.secuid = findspots.findID', array('county'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('county')
             ->group('county');
         $select->setIntegrityCheck(false);
@@ -995,7 +995,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('findspots', $this->_name
                 . '.secuid = findspots.findID', array('county'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('findspots.county = ?', (string)$county)
             ->order('county')
             ->group('county');
@@ -1025,7 +1025,7 @@ class Finds extends Pas_Db_Table_Abstract
                 . '.createdBy = users.id',
                 array('fullname', 'username', 'institution', 'id'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('findspots.county = ?', (string)$county)
             ->order('institution')
             ->group('fullname');
@@ -1051,7 +1051,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('findspots', $this->_name
                 . '.secuid = findspots.findID', array())
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('findspots.county = ?', (string)$county)
             ->group('broadperiod');
         $select->setIntegrityCheck(false);
@@ -1078,7 +1078,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('findspots', $this->_name
                 . '.secuid = findspots.findID', array())
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('findspots.county = ?', (string)$county)
             ->order('institution')
             ->group('institution');
@@ -1106,7 +1106,7 @@ class Finds extends Pas_Db_Table_Abstract
                 . '.secuid = findspots.findID',
                 array())
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('findspots.county = ?', (string)$county)
             ->order('month ASC')
             ->group('month');
@@ -1133,7 +1133,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('findspots', $this->_name
                 . '.secuid = findspots.findID', array())
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('findspots.county = ?', (string)$county)
             ->order('year ASC')
             ->group('year');
@@ -1160,7 +1160,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('discmethods', 'discmethods.id = finds.discmethod',
                 array('discmethod' => 'method', 'id'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('findspots.county = ?', (string)$county)
             ->order('discmethod')
             ->group('discmethod');
@@ -1188,7 +1188,7 @@ class Finds extends Pas_Db_Table_Abstract
                 array('landuse' => 'term', 'id'))
             ->where('findspots.county = ?', (string)$county)
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('landuse')
             ->group('landuse');
         $select->setIntegrityCheck(false);
@@ -1214,7 +1214,7 @@ class Finds extends Pas_Db_Table_Abstract
                 array('precision' => 'gridlen'))
             ->where('findspots.county = ?', (string)$county)
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('precision')
             ->group('precision');
         $select->setIntegrityCheck(false);
@@ -1239,7 +1239,7 @@ class Finds extends Pas_Db_Table_Abstract
                 . '.createdBy = users.id',
                 array('institution'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('institution')
             ->group('institution');
         $select->setIntegrityCheck(false);
@@ -1264,7 +1264,7 @@ class Finds extends Pas_Db_Table_Abstract
                 . '.createdBy = users.id',
                 array('institution'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('users.institution = ?', (string)$institution)
             ->order('institution')
             ->group('institution');
@@ -1317,7 +1317,7 @@ class Finds extends Pas_Db_Table_Abstract
                 . '.createdBy = users.id',
                 array('fullname', 'username', 'institution', 'id'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('users.institution = ?', (string)$institution)
             ->order('broadperiod')
             ->group('broadperiod');
@@ -1340,7 +1340,7 @@ class Finds extends Pas_Db_Table_Abstract
                 array('finders' => 'COUNT(DISTINCT(finderID))'))
             ->joinLeft('users', 'users.id = finds.createdBy', array('institution'))
             ->where($this->_name . '.created >= ?', $datefrom)
-            ->where($this->_name . '.created <= ?', $dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', $dateto)
             ->where('users.institution = ?', (string)$institution)
             ->order('institution')
             ->group('institution');
@@ -1367,7 +1367,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('users', 'users.id = finds.createdBy',
                 array('institution'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('users.institution = ?', (string)$institution)
             ->order('year ASC')
             ->group('year');
@@ -1394,7 +1394,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('users', 'users.id = finds.createdBy',
                 array('institution'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('users.institution = ?', (string)$institution)
             ->order('discmethod')
             ->group('discmethod');
@@ -1425,7 +1425,7 @@ class Finds extends Pas_Db_Table_Abstract
                 array('landuse' => 'term', 'id'))
             ->where('users.institution = ?', (string)$institution)
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('landuse')
             ->group('landuse');
         $select->setIntegrityCheck(false);
@@ -1453,7 +1453,7 @@ class Finds extends Pas_Db_Table_Abstract
                 array('institution'))
             ->where('users.institution = ?', (string)$institution)
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('precision')
             ->group('precision');
         $select->setIntegrityCheck(false);
@@ -1479,7 +1479,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('users', 'finds.createdBy = users.id',
                 array('fullname'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('users.institution = ?', (string)$institution)
             ->order('month')
             ->group('month');
@@ -1506,7 +1506,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID',
                 array('region' => 'label', 'id' => 'osID'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('region')
             ->group('region');
         $select->setIntegrityCheck(false);
@@ -1533,7 +1533,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID',
                 array('region' => 'label', 'id' => 'osID'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('osRegions.osID= ?', (int)$regionID)
             ->order('county')
             ->group('county');
@@ -1562,7 +1562,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('users', $this->_name . '.createdBy = users.id',
                 array('fullname', 'username', 'institution', 'id'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('osRegions.osID = ?', (integer)$regionID)
             ->order('institution')
             ->group('fullname');
@@ -1589,7 +1589,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID',
                 array('region' => 'label', 'id' => 'osID'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('osRegions.osID = ?', (integer)$regionID)
             ->order('broadperiod')
             ->group('broadperiod');
@@ -1618,7 +1618,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('users', $this->_name . '.createdBy = users.id',
                 array('fullname', 'username', 'institution', 'id'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('osRegions.osID = ?', (string)$regionID)
             ->order('institution')
             ->group('institution');
@@ -1640,7 +1640,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('findspots', $this->_name . '.secuid = findspots.findID', array('county'))
             ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID', array('region' => 'label', 'id' => 'osID'))
             ->where($this->_name . '.created >= ?', $datefrom)
-            ->where($this->_name . '.created <= ?', $dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', $dateto)
             ->where('osRegions.osID = ?', (integer)$regionID)
             ->order('year ASC')
             ->group('year');
@@ -1662,7 +1662,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('findspots', $this->_name . '.secuid = findspots.findID', array('county'))
             ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID', array('region' => 'label'))
             ->where($this->_name . '.created >= ?', $datefrom)
-            ->where($this->_name . '.created <= ?', $dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', $dateto)
             ->where('osRegions.osID = ?', (integer)$regionID)
             ->order('discmethod')
             ->group('discmethod');
@@ -1691,7 +1691,7 @@ class Finds extends Pas_Db_Table_Abstract
                 array('landuse' => 'term'))
             ->where('osRegions.osID = ?', (integer)$regionID)
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('landuse')
             ->group('landuse');
         $select->setIntegrityCheck(false);
@@ -1718,7 +1718,7 @@ class Finds extends Pas_Db_Table_Abstract
                 array('region' => 'label'))
             ->where('osRegions.osID = ?', (integer)$regionID)
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->order('precision')
             ->group('precision');
         $select->setIntegrityCheck(false);
@@ -1746,7 +1746,7 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID',
                 array('region' => 'label'))
             ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where($this->_name . '.created <= ?', (string)$dateto)
+            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
             ->where('osRegions.osID = ?', (integer)$regionID)
             ->order('month')
             ->group('month');
