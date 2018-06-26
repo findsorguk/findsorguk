@@ -1,8 +1,8 @@
 # Change Log
 
-### 1.45 : 26th June 2018
 - [x] Added hoards publication lists.
 - [x] Fixed help controller @ /admin/help.
+- [x] Fixed institutional stats to include final day in period.
 
 ### 1.44 : 22nd June 2018
 - [x] Lots of small changes but mainly (recently) a fix to county statistics.
@@ -41,7 +41,7 @@ All changes by @portableant
 
 ### 1.36 : 16th November 2017
 
-- [x] Added jquery caps lock detection for password on login form by @portableant.
+- [x] Added jQuery caps lock detection for password on login form by @portableant.
 
 ### 1.35 : 15th November 2017
 
