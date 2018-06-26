@@ -1,94 +1,98 @@
 # Change Log
 
+### 1.45 : 26th June 2018
+- [x] Added hoards publication lists.
+- [x] Fixed help controller @ /admin/help.
+
 ### 1.44 : 22nd June 2018
-- [x] Lots of small changes but mainly (recently) a fix to county statistics
+- [x] Lots of small changes but mainly (recently) a fix to county statistics.
 
 ### 1.43 : 7th February 2017
-- [x] Updated AWS links for data downloads
+- [x] Updated AWS links for data downloads.
 
 ### 1.42 : 28th November 2017
 
-- [x] Updated sub modules
-- [x] Fixed easyrdf classes for name spaces
+- [x] Updated sub modules.
+- [x] Fixed easyrdf classes for name spaces.
 
 ### 1.41 : 27th November 2017
 
-- [x] Fixed latest tweets helper
+- [x] Fixed latest tweets helper.
 
 ### 1.40 : 23rd November 2017
 
-- [x] Added hoard search
-- [x] Added code of conduct
+- [x] Added hoard search.
+- [x] Added code of conduct.
 
 ### 1.39 : 21st November 2017
 
-- [x] Added better version of time ago in words view helper by @portableant
+- [x] Added better version of time ago in words view helper by @portableant.
 
 ### 1.38 : 20th November 2017
 
-- [x] Added logic for images to be added for hoards and artefacts *Major upgrade*  by @portableant
+- [x] Added logic for images to be added for hoards and artefacts *Major upgrade*  by @portableant.
 
 ### 1.37 : 17th November 2017
 
 All changes by @portableant
 
-- [x] Added session timeout modal and associated functions 
-- [x] Fixed view helper in statistics module 
+- [x] Added session timeout modal and associated functions.
+- [x] Fixed view helper in statistics module.
 
 ### 1.36 : 16th November 2017
 
-- [x] Added jquery caps lock detection for password on login form by @portableant
+- [x] Added jquery caps lock detection for password on login form by @portableant.
 
 ### 1.35 : 15th November 2017
 
 All changes by @portableant
 
-- [x] Amended view helper for CC license render
-- [x] Removed Pelagios view helper from numismatics
-- [x] Fixed bug with image addition
-- [x] Upgraded Imagick classes for correct method calls for PHP 5.6 +
-- [x] Hide What 3 Words and WOEID from public view
-- [x] Fix exposure of records in quarantine and review in the more like this feature
-- [x] Added CRUD for copyright management
-- [x] Fix exposure of records in quarantine and review to researchers and heros
-- [x] Fix access to KML files for public
+- [x] Amended view helper for CC license render.
+- [x] Removed Pelagios view helper from numismatics.
+- [x] Fixed bug with image addition.
+- [x] Upgraded Imagick classes for correct method calls for PHP 5.6 +.
+- [x] Hide What 3 Words and WOEID from public view.
+- [x] Fix exposure of records in quarantine and review in the more like this feature.
+- [x] Added CRUD for copyright management.
+- [x] Fix exposure of records in quarantine and review to researchers and heros.
+- [x] Fix access to KML files for public.
 - [x] Merged ImageBot optimised images.
-- [x] Fix erroneous date entry
+- [x] Fix erroneous date entry.
 
 ### 1.34 : 6th November 2017
 
 All changes by @portableant
 
-- [x] Added new class for rendering licenses for Creative Commons with logo (view helper)
-- [x] Amended thumbs partial to reflect above
-- [x] Amended humans.txt to reflect contributions and staff changes
-- [x] Amended CC license URL to 4.0 from 2.0
-- [x] Added CONTRIBUTING.MD file to tell people how to add their own code
-- [x] Added Image Rights field to data sent to SOLR (for BMCo to track down usage of their images in PAS dataset)
-- [x] Added code for Image Rights facet to appear on image searches
+- [x] Added new class for rendering licenses for Creative Commons with logo (view helper).
+- [x] Amended thumbs partial to reflect above.
+- [x] Amended humans.txt to reflect contributions and staff changes.
+- [x] Amended CC license URL to 4.0 from 2.0.
+- [x] Added CONTRIBUTING.MD file to tell people how to add their own code.
+- [x] Added Image Rights field to data sent to SOLR (for BMCo to track down usage of their images in PAS dataset).
+- [x] Added code for Image Rights facet to appear on image searches.
 
 ### 1.33 : 3rd October 2017
 
 All changes by @portableant
 
-- [x] Added new class for rendering RDF to /library/Pas/RDF/
-- [x] Amended Nomisma class in models for changes to RDF model
+- [x] Added new class for rendering RDF to /library/Pas/RDF/.
+- [x] Amended Nomisma class in models for changes to RDF model.
 
 ### 1.32 : 22nd September 2017
 
 All changes by @portableant
 
-- [x] Updated library for mpdf path
+- [x] Updated library for mpdf path.
 - [x] Added new SQL files for correct data structure.
-- [x] Fixed license rendering
-- [x] Fixed RDF exception error for emperors
-- [x] Fixed duplicated head title
-- [x] Fixed insecure maps on emperors
-- [x] Upgraded zend framework to last supported version
-- [x] Fixed admin for content deletion and editing
-- [x] Removed LAWD.js
-- [x] Fixed missing key in KML file
-- [x] Added ACKNOWLEDGEMENTS.md file
+- [x] Fixed license rendering.
+- [x] Fixed RDF exception error for emperors.
+- [x] Fixed duplicated head title.
+- [x] Fixed insecure maps on emperors.
+- [x] Upgraded zend framework to last supported version.
+- [x] Fixed admin for content deletion and editing.
+- [x] Removed LAWD.js.
+- [x] Fixed missing key in KML file.
+- [x] Added ACKNOWLEDGEMENTS.md file.
 
 ### 1.30 : 27th June, 2017
 - [x] Change to bounding box.
