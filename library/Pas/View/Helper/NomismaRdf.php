@@ -60,11 +60,11 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
 
         $key = md5($this->getUri());
         if (!($this->getCache()->test($key))) {
-            $request = new EasyRdf_Http_Client();
+            $request = new \EasyRdf\Http\Client();
             $request->setUri($this->getUri());
             $response = $request->request()->getStatus();
             if ($response == 200) {
-                $graph = new EasyRdf_Graph($this->_uri);
+                $graph = new EasyRdf\Graph($this->_uri);
                 $graph->load();
                 $data = $graph->resource($this->_uri);
             } else {
@@ -111,9 +111,9 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
 
     /** Render the data
      * @access protected
-     * @param  EasyRdf_Resource $data
+     * @param  \EasyRdf\Resource $data
      */
-    protected function _render(EasyRdf_Resource $data)
+    protected function _render(\EasyRdf\Resource $data)
     {
         $html = '';
         if (is_object($data)) {

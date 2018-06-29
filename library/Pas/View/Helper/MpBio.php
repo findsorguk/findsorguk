@@ -94,7 +94,7 @@ class Pas_View_Helper_MpBio extends Zend_View_Helper_Abstract
 
     public function getData()
     {
-        $graph = new EasyRdf_Graph( $this->getUri());
+        $graph = new \EasyRdf\Graph( $this->getUri());
         $graph->load();
     }
 
