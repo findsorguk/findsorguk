@@ -460,8 +460,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
      */
     public function notifyfloAction()
     {
-	$testUser = new Pas_User_Details();
-	$this->_user = $testUser->getPerson();
+	$user = new Pas_User_Details();
+	$this->_user = $user->getPerson();
 
         if ($this->getParam('id', false)) {
             $form = new NotifyFloForm();
