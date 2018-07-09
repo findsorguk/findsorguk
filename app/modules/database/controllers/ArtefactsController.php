@@ -460,10 +460,13 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
      */
     public function notifyfloAction()
     {
-	$user = new Pas_User_Details();
-	$this->_user = $user->getPerson();
-
         if ($this->getParam('id', false)) {
+
+	    $this->_user = (new Pas_User_Details())->getPerson();
+
+            // Sends email from info@ on behalf of user that clicked Notify FLO. FLO receives
+            // email, FA and end-user are CCd.
+
             $form = new NotifyFloForm();
             $this->view->form = $form;
             $find = $this->getFinds()->fetchRow($this->getFinds()->select()->where('id = ?', $this->getParam('id')));
@@ -473,8 +476,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                     $contacts = new Contacts();
                     $to = $contacts->getNameEmail($form->getValue('flo'));
                     $cc = $this->_getAdviser($find->objecttype, $find->broadperiod);
-                    $from[] = array('email' => $this->_user->email, 'name' => $this->_user->fullname);
-                    $cc = array_merge($cc, $from);
+                    $from[] = array('email' => 'info@finds.org.uk', 'name' => 'Central Unit on behalf of ' . $this->_user->fullname);
+                    $otherCC[] = array('email' => $this->_user->email, 'name' => $this->_user->fullname);
+                    $cc = array_merge($cc, $otherCC);
                     $assignData = array_merge($find->toArray(), $form->getValues(), $to['0']);
                     $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc, $from);
                     $this->getFlash()->addMessage('Your message has been sent');
