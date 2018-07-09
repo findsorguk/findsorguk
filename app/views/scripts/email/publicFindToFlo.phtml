@@ -8,11 +8,8 @@
 
     <p><strong>Request type: </strong> <?php echo $this->escape($this->type); ?></p>
 
-<?php echo $this->purify($this->content); ?>
+<?php echo $this->purify()->setValue($this->content); ?>
 
-<p><strong>For reference:</strong> You can find my record at: <a
-        href="<?php echo $this->serverUrl(); ?>/database/artefacts/record/id/<?php echo $this->id; ?>"><?php echo $this->serverUrl(); ?>
-        /database/artefacts/record/id/<?php echo $this->id; ?></a>
-
+<p><strong>For reference:</strong> You can find my record at: <a href="<?php echo $this->serverUrl(); ?>/database/artefacts/record/id/<?php echo $this->id; ?>"><?php echo $this->serverUrl(); ?>/database/artefacts/record/id/<?php echo $this->id; ?></a>
 
 <?php echo $this->emailSignature(); ?>
