@@ -40,7 +40,6 @@ All changes by @portableant
 - [x] Fixed view helper in statistics module.
 
 ### 1.36 : 16th November 2017
-
 - [x] Added jQuery caps lock detection for password on login form by @portableant.
 
 ### 1.35 : 15th November 2017
