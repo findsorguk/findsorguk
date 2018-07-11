@@ -91,6 +91,7 @@ class Pas_OaiPmhRepository_Metadata_OaiDc extends Pas_OaiPmhRepository_Metadata_
             $data['coverage'] = $this->item['broadperiod'];
             $data['rights'] = self::LICENSE;
             unset($data['id']);
+
             foreach ($data as $k => $v) {
                 $this->appendNewElement($oai_dc, 'dc:' . $k, $v);
             }
