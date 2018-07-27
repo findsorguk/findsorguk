@@ -66,11 +66,11 @@ class CommentOnErrorFindForm extends Pas_Form {
                         'More info' => 'I have further information',
                         'Incorrect image' => 'Incorrect image',
                         'Incorrect parish' => 'Incorrect parish',
-                        'Grid reference issues' => 'Grid reference wrong',
+                        'Grid reference issue' => 'Grid reference wrong',
                         'Date found wrong' => 'Date of discovery wrong',
                         'Spelling errors' => 'Spelling errors',
                         'Duplicated record' => 'Duplicated record',
-                        'Data problems apparent' => 'Data problems',
+                        'Data problems' => 'Data problems',
                         'Other' => 'Other reason')
                     ))
 		->addErrorMessage('You must enter an error report type')
