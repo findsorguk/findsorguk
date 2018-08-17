@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.46 17th August 2018
+- [x] Fix to Nomisma reference.
+
+### 1.45 9th July 2018
 - [x] Added hoards publication lists.
 - [x] Fixed help controller @ /admin/help.
 - [x] Fixed institutional stats to include final day in period.

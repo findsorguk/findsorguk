@@ -46,10 +46,17 @@ class Crro
             $response = $request->request()->getStatus();
 
             if ($response == 200) {
-                $graph = new \EasyRdf\Graph($uri);
-                $graph->load();
-                $data = $graph->resource($uri);
-                $this->getCache()->save($data);
+                $graph = new \EasyRdf\Graph($uri . '.rdf');
+                try {
+                    $graph->load();
+                    $data = $graph->resource($uri);
+                    $this->getCache()->save($data);
+                }
+                catch (\EasyRdf\Exception $e)
+                {
+                    echo 'Problem accessing Nomisma: ' . $e->getMessage() . ' - ';
+                    $data = NULL;
+                }
             } else {
                 $data = NULL;
             }
