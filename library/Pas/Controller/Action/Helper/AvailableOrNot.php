@@ -137,7 +137,6 @@ class Pas_Controller_Action_Helper_AvailableOrNot extends Zend_Controller_Action
                     $data[0]['objecttype'] = 'UNIDENTIFIED OBJECT';
                 }
                 // Not allowed roles, and not the creator of the record
-                //if (in_array($this->getRole(), $this->_notAllowedRoles) && !in_array($workflow, $this->_restricted)) {
                 if (in_array($this->getRole(), $this->_notAllowedRoles) && $this->getUserId() == $data[0]['createdBy']) {
                     return false;
                     //In the restricted roles and created record
