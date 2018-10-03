@@ -28,7 +28,11 @@ $this->metaBase()
 <?php echo $this->form;?>
 
 <?php
-$this->inlineScript()->appendFile('https://maps.googleapis.com/maps/api/js?libraries=geometry&libraries=drawing');
+//assign value to API key for google map
+$config = Zend_Registry::get('config');
+$apikey = $config->webservice->googlemaps->apikey;
+
+$this->inlineScript()->appendFile('https://maps.googleapis.com/maps/api/js?libraries=geometry&libraries=drawing&key=' . $apikey);
 ?>
 
 <?php $this->inlineScript()->captureStart();?>
