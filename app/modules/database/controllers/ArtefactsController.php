@@ -534,8 +534,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                         $updateData,
                         $findStatus->toArray(),
                         'FindsAudit',
-                        $this->getParam('findID'),
-                        $this->getParam('findID'));
+                        $this->getParam('id'),
+                        $this->getParam('id'));
                     $this->_helper->solrUpdater->update('objects', $this->getParam('id'), 'artefacts');
                     $this->getFlash()->addMessage('Workflow status changed');
                     $this->redirect('database/artefacts/record/id/' . $this->getParam('id'));
