@@ -56,12 +56,12 @@ class ReferenceFindForm extends Pas_Form {
 	$pages = new Zend_Form_Element_Text('pages_plates');
 	$pages->setLabel('Pages or plate number: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('size', 9);
+		->setAttribs(array('size' => 9, 'maxlength' => 50));
 
 	$reference = new Zend_Form_Element_Text('reference');
 	$reference->setLabel('Reference number: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttrib('size', 15);
+                ->setAttribs(array('size' => 15, 'maxlength' => 100));
 
 	//Submit button
 	$submit = new Zend_Form_Element_Submit('submit');
