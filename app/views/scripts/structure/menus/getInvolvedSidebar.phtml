@@ -40,7 +40,10 @@
                         href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'pressures'), 'guides', true); ?>"
                         title="Presures for FLOs">FLO Working Pressures</a>
                 </li>
-
+                <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'helpusrecordthepast'); ?>><a
+                        href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'helpusrecordthepast'), 'guides', true); ?>"
+                        title="Help Us Record the Past">Help Us Record the Past</a>
+                </li>
             </ul>
         </li>
         <li <?php echo $this->currentPage()->active('getinvolved', 'volunteering', 'index'); ?>><a
