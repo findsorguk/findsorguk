@@ -101,7 +101,7 @@ class SurfaceTreatments extends Pas_Db_Table_Abstract {
     public function getSurfaceTreatmentDetails($id) {
         $surfs = $this->getAdapter();
         $select = $surfs->select()
-                ->from($this->_name, array('id','term'))
+                ->from($this->_name, array('id','term','termdesc'))
                 ->where($this->_name . '.id = ?', (int)$id)
                 ->where('valid = ?', (int)1);
         return $surfs->fetchAll($select);
