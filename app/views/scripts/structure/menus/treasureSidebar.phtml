@@ -86,12 +86,12 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
                        title="When your finds are declared Treasure">When your finds are declared Treasure</a>
                 </li>
                 <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'people'); ?>>
-                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'people'), 'default', true); ?>"
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'people'), 'treasure', true); ?>"
                        title="TVC committee and valuers">Treasure Valuation Committee and valuers</a>
                 </li>
 		<li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'people'); ?>>
-                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'definition-of-value'), 'default', true); ?>"
-                       title="Advice on Valuations">Advice on Valuations</a>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'definition-of-value'), 'treasure', true); ?>"
+                       title="Value Definition">Value Definition</a>
                 </li>
                 <li <?php echo $this->currentPage()->active('treasure', 'minutes', 'index'); ?>>
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'minutes'), 'default', true); ?>"
@@ -113,7 +113,7 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
                        title="Advice for museums">Advice for museums</a>
                 </li>
                 <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'museumacquistionfunding'); ?>>
-                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'museumacquistionfunding'), 'default', true); ?>"
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'museumacquistionfunding'), 'treasure', true); ?>"
                        title="Funding bodies">National funding bodies</a>
                 </li>
             </ul>
