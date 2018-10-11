@@ -101,7 +101,7 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
             </ul>
         </li>
 
-        <?php $acquisition = array('museums', 'museumacquistionfunding'); ?>
+        <?php $acquisition = array('museums', 'museumacquistionfunding', 'donations'); ?>
 
         <li <?php if (in_array($slug, $acquisition)) {
             echo 'class="expandfirst"';
@@ -115,6 +115,10 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
                 <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'museumacquistionfunding'); ?>>
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'museumacquistionfunding'), 'treasure', true); ?>"
                        title="Funding bodies">National funding bodies</a>
+                </li>
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'donations'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'donations'), 'treasure', true); ?>"
+                       title="Donations">Donations</a>
                 </li>
             </ul>
         </li>
