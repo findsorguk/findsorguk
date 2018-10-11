@@ -83,6 +83,8 @@ class Nomisma
                 '   a nmo:TypeSeriesItem ;' .
                 '  skos:prefLabel ?label' .
                 '  FILTER(langMatches(lang(?label), "en"))' .
+                '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
+                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
                 ' } ORDER BY ?label');
             $this->getCache()->save($data);
         } else {
