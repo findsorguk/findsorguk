@@ -108,11 +108,14 @@ class Pas_View_Helper_NomismaRicTypes extends Zend_View_Helper_Abstract
         $html = '';
         $types = array();
         foreach ($data as $rrc) {
+	    $startdate = array_key_exists('startDate', $rrc) ? $rrc->startDate : '';
+            $enddate = array_key_exists('endDate', $rrc) ? $rrc->endDate : '';
+
             $types[] = array(
                 'type' => $rrc->type,
                 'label' => $rrc->label,
-                'startDate' => $rrc->startDate,
-                'endDate' => $rrc->endDate
+                'startDate' => $startdate,
+                'endDate' => $enddate 
             );
         }
         if (!empty($types)) {
