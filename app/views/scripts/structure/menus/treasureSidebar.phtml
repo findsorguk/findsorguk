@@ -89,7 +89,7 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'people'), 'treasure', true); ?>"
                        title="TVC committee and valuers">Treasure Valuation Committee and valuers</a>
                 </li>
-		<li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'people'); ?>>
+		<li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'definition-of-value'); ?>>
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'definition-of-value'), 'treasure', true); ?>"
                        title="Value Definition">Value Definition</a>
                 </li>
@@ -97,7 +97,10 @@ $slug = Zend_Controller_Front::getInstance()->getRequest()->getParam('slug');
                     <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'minutes'), 'default', true); ?>"
                        title="TVC minutes">Committee minutes</a>
                 </li>
-
+                <li <?php echo $this->currentPage()->active('treasure', 'advice', 'index', 'abatement'); ?>>
+                    <a href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'abatement'), 'treasure', true); ?>"
+                       title="Abatement of Rewards">Abatement</a>
+                </li>
             </ul>
         </li>
 
