@@ -1,4 +1,8 @@
 <?php
+//assign value to API key for google map
+$config = Zend_Registry::get('config');
+$apikey = $config->webservice->googlemaps->apikey;
+
 $this->headTitle('Coroner\'s Profile for ' . $this->escape($this->firstname) . ' ' . $this->escape($this->lastname));
 $this->headLink()->appendAlternate(
     $this->url(array(
@@ -59,4 +63,4 @@ lat:
 <h3 class="lead">Location map</h3>
 <img
     src="https://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&zoom=14&size=300x300&maptype=terrain&markers=color:green|label:G|
-<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>"/>
+<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&key=<?php echo $apikey; ?>" />
