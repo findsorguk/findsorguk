@@ -6,25 +6,25 @@
  * Time: 15:55
  */
 ?>
-<?php
-$startDateIsEmpty = empty($this->startDate);
-
-if (!$startDateIsEmpty){
-   $dates = array(
-	$this->adBc()->setDate($this->startDate->__toString())->__toString(), 
-	$this->adBc()->setDate($this->endDate->__toString())->__toString()
-   );
- }
-?>
-
-<?php if (!$startDateIsEmpty):  ?>
-  <li>
-     <a href="<?php echo $this->type; ?>"><?php echo $this->label; ?> <i
-            class="fa fa-external-link"></i></a> Issued: <?php echo implode(' - ', $dates); ?>
-  </li>
-<?php else : ?>
-  <li>
-     <a href="<?php echo $this->type; ?>"><?php echo $this->label; ?> <i
-            class="fa fa-external-link"></i></a>
-  </li>
+<?php if (!empty($this->startDate)): ?>
+    <li>
+        <a href="<?= $this->type ?>">
+            <?= $this->label ?>
+            <i class="fa fa-external-link"></i>
+        </a>
+        Issued: 
+        <?= implode(' - ', array(
+                    $this->adBc()->setDate($this->startDate->__toString())->__toString(),
+                    $this->adBc()->setDate($this->endDate->__toString())->__toString()
+                )
+            ) 
+        ?>
+    </li>   
+<?php else: ?>
+    <li>
+        <a href="<?= $this->type ?>">
+            <?= $this->label ?>
+            <i class="fa fa-external-link"></i>
+        </a>
+    </li>
 <?php endif; ?>
