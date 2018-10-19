@@ -34,6 +34,9 @@ class SocialAccountsForm extends Pas_Form {
 
 	$this->setName('socialweb');
 
+	$userID = new Zend_Form_Element_Hidden('userID');
+        $userID->addFilters(array('StripTags', 'StringTrim'));
+
 	$username = new Zend_Form_Element_Text('account');
 	$username->setLabel('Account username: ')
 	->setRequired(true)
@@ -62,7 +65,7 @@ class SocialAccountsForm extends Pas_Form {
 	$hash->setValue($this->_salt)
 		->setTimeout(4800);
 
-	$this->addElements(array( $service,$hash, $username, $public, $submit));
+	$this->addElements(array($userID, $service, $hash, $username, $public, $submit));
 
 	$this->addDisplayGroup(array('accountName','account','public'), 'details');
 

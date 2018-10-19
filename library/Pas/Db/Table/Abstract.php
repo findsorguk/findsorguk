@@ -174,6 +174,12 @@ class Pas_Db_Table_Abstract extends Zend_Db_Table_Abstract
         if (empty($data['createdBy'])) {
             $data['createdBy'] = $this->getUserNumber();
         }
+        if (empty($data['updated'])) {
+            $data['updated'] = $this->timeCreation();
+        }
+        if (empty($data['updatedBy'])) {
+            $data['updatedBy'] = $this->getUserNumber();
+        }
         foreach ($data as $k => $v) {
             if ($v == "") {
                 $data[$k] = NULL;
