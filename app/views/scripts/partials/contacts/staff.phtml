@@ -1,7 +1,7 @@
 <?php
 //assign value to API key for google map
 $config = Zend_Registry::get('config');
-$apikey = $config->webservice->googlemaps->apikey;
+$apiKey = $config->webservice->googlemaps->apikey;
 
 $this->headTitle('Profile for ' . $this->escape($this->firstname) . ' ' . $this->escape($this->lastname));
 $this->metaBase()
@@ -17,70 +17,70 @@ $this->headLink()->appendAlternate($this->baseUrl() . '/database/search/results/
 ?>
 <div id="person" class="hresume" typeof="google:Person foaf:Person dc:Agent"
      property="dc:title"
-     content="FOAF data about the real person called <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>">
+     content="FOAF data about the real person called <?= $this->escape($this->firstname) ?> <?= $this->escape($this->lastname) ?>">
     <div class="contact vcard">
         <h2 class="fn n" property="foaf:name">
-            <span class="given-name"><?php echo $this->escape($this->firstname); ?></span>
-            <span class="family-name"><?php echo $this->escape($this->lastname); ?></span>
+            <span class="given-name"><?= $this->escape($this->firstname) ?></span>
+            <span class="family-name"><?= $this->escape($this->lastname) ?></span>
         </h2>
-        <?php echo $this->instLogos()->setInst($this->identifier); ?>
+        <?= $this->instLogos()->setInst($this->identifier) ?>
 
 
         <p>
-            Role: <span class="title"><?php echo $this->staffroles; ?></span>
+            Role: <span class="title"><?= $this->staffroles ?></span>
             <br/>
-            Database records prefix: <strong><?php echo $this->identifier; ?></strong>
+            Database records prefix: <strong><?= $this->identifier ?></strong>
         </p>
 
         <p class="adr work">
-            Address: <span property="con:address_1"><?php echo $this->escape($this->address_1); ?></span>
+            Address: <span property="con:address_1"><?= $this->escape($this->address_1) ?></span>
             <br/>
             <span class="org organization-name"></span>
-            <span class="street-address" property="con:address_2"><?php echo $this->escape($this->address_2); ?></span>
-            <span property="con:city google:locality" class="locality"><?php echo $this->escape($this->town); ?></span>
-            <span class="region"><?php echo $this->escape($this->county); ?></span>
-            <span class="postal-code" property="con:postalCode"><?php echo $this->escape($this->postcode); ?></span>
+            <span class="street-address" property="con:address_2"><?= $this->escape($this->address_2) ?></span>
+            <span property="con:city google:locality" class="locality"><?= $this->escape($this->town) ?></span>
+            <span class="region"><?= $this->escape($this->county) ?></span>
+            <span class="postal-code" property="con:postalCode"><?= $this->escape($this->postcode) ?></span>
         </p>
 <span rel="foaf:based_near" class="forRDFOnly">
 <span typeof="geo:Point">
 lat:
-<span property="geo:lat"><?php echo $this->latitude; ?></span>
+<span property="geo:lat"><?= $this->latitude ?></span>
 , long:
-<span property="geo:long"><?php echo $this->longitude; ?></span>
+<span property="geo:long"><?= $this->longitude ?></span>
 </span>
 </span>
         <?php if (!is_null($this->image)): ?>
             <?php if (file_exists(ASSETS_PATH . '/staffphotos/resized/' . $this->image)): ?>
                 <img property="foaf:img google:photo"
-                     src="<?php echo $this->baseUrl(); ?>/assets/staffphotos/resized/<?php echo $this->image; ?>"
-                     title="Image of <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"
+                     src="<?= $this->baseUrl() ?>/assets/staffphotos/resized/<?= $this->image ?>"
+                     title="Image of <?= $this->escape($this->firstname) ?> <?= $this->escape($this->lastname) ?>"
                      class="staffimage pull-right" width="200"
-                     alt="A profile picture chosen by <?php echo $this->escape($this->firstname); ?> <?php echo $this->escape($this->lastname); ?>"/>
+                     alt="A profile picture chosen by <?= $this->escape($this->firstname) ?> <?= $this->escape($this->lastname) ?>"/>
             <?php endif; ?>
         <?php endif; ?>
 
         <?php if (!is_null($this->profile)): ?>
             <p>Short profile:</p>
 
-            <div class="summary" property="foaf:plan"><?php echo $this->profile; ?></div>
+            <div class="summary" property="foaf:plan"><?= $this->profile ?></div>
         <?php endif; ?>
         <?php if (!is_null($this->longitude)): ?>
             <img
-                src="https://maps.google.com/maps/api/staticmap?center=<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&zoom=15&size=200x200&maptype=hybrid&markers=color:green|label:G|
-<?php echo $this->latitude; ?>,<?php echo $this->longitude; ?>&key=<?php echo $apikey; ?>" />
+                src="https://maps.google.com/maps/api/staticmap?center=<?= $this->latitude ?>,<?= $this->longitude ?>&zoom=15&size=200x200&maptype=hybrid&markers=color:green|label:G|
+<?= $this->latitude ?>,<?= $this->longitude ?>&key=<?= $apiKey ?>" />
         <?php endif; ?>
         <div class="tel">
             <p>Phone (<span class="type">work</span>): <span class="value" rel="foaf:phone"
-                                                             resource="tel:<?php echo $this->escape($this->telephone); ?>"><?php echo $this->escape($this->telephone); ?></span><br/>
+                                                             resource="tel:<?= $this->escape($this->telephone) ?>"><?= $this->escape($this->telephone) ?></span><br/>
                 Phone (<span class="type">fax</span>): <span class="value" rel="foaf:fax"
-                                                             resource="tel:<?php echo $this->escape($this->fax); ?>"><?php echo $this->escape($this->fax); ?></span>
+                                                             resource="tel:<?= $this->escape($this->fax) ?>"><?= $this->escape($this->fax) ?></span>
             </p>
         </div>
 
-        <p>Email address: <a rel="foaf:mbox" href="mailto:<?php echo $this->escape($this->email_one); ?>"
-                             class="email"><?php echo $this->escape($this->email_one); ?></a></p>
+        <p>Email address: <a rel="foaf:mbox" href="mailto:<?= $this->escape($this->email_one) ?>"
+                             class="email"><?= $this->escape($this->email_one) ?></a></p>
 
 
     </div>
-    <?php echo $this->onlineAccountHtml()->setId($this->number); ?>
+    <?= $this->onlineAccountHtml()->setId($this->number) ?>
 </div>
