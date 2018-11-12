@@ -101,7 +101,7 @@ class Pas_Validate_Authorise extends Zend_Validate_Abstract
         //Update login table needs moving to the login model
         $logins = new Logins();
         $data['loginDate'] = Zend_Date::now()->toString('yyyy-MM-dd HH:mm');
-        $data['userAgent'] = substr($_SERVER['HTTP_USER_AGENT'],0,254);
+        $data['userAgent'] = substr($_SERVER['HTTP_USER_AGENT'],0,255);
         $data['ipAddress'] = $_SERVER['REMOTE_ADDR'];
         $data['username'] = $value;
         return $logins->insert($data);
