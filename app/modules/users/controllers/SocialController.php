@@ -51,6 +51,7 @@ class Users_SocialController extends Pas_Controller_Action_Admin
         $this->view->form = $form;
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
+	        $form->userID->setValue($this->getIdentityForForms());
                 $this->_accounts->add($form->getValues());
                 $this->getFlash()->addMessage('A new account has been added to your profile.');
                 $this->redirect('/users/social');
