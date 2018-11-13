@@ -166,7 +166,8 @@ class FindForm extends Pas_Form
             ->setAttribs(array(
                 'class' => 'span6',
                 'placeholder' => 'Do not put numismatic information here '
-                    . '(such as penny), it is the wrong place for it.'))
+                    . '(such as penny), it is the wrong place for it.',
+	              'maxlength' => 250))
             ->addFilters(array('StripTags', 'StringTrim', 'Purifier'));
 
         //Find subclassification
@@ -176,7 +177,8 @@ class FindForm extends Pas_Form
             ->setAttribs(array(
                 'class' => 'span6',
                 'placeholder' => 'Do not put numismatic information here '
-                    . '(such as penny), it is the wrong place for it.'))
+                    . '(such as penny), it is the wrong place for it.',
+                      'maxlength' => 250))
             ->addFilters(array('StripTags', 'StringTrim', 'Purifier'));
 
         //Inscription: Only available if !=coin
@@ -184,7 +186,7 @@ class FindForm extends Pas_Form
         $inscription->setLabel('Inscription: ')
             ->setRequired(false)
             ->setAttribs(array(
-                'class' => 'span6',
+                'class' => 'span6', 'maxlength' => 255,
                 'placeholder' => 'This is for the inscription on objects, not coins'))
             ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
             ->setAttrib('size', 60);
@@ -201,7 +203,7 @@ class FindForm extends Pas_Form
         $treasureID = new Zend_Form_Element_Text('treasureID');
         $treasureID->setLabel('Treasure number: ')
             ->setRequired(false)
-            ->setAttribs(array('placeholder' => 'T numbers are in the format of YYYYT1234', 'class' => 'span6'))
+            ->setAttribs(array('placeholder' => 'T numbers are in the format of YYYYT1234', 'class' => 'span6', 'maxlength' => 15))
             ->addValidator('Alnum', false, array('allowWhiteSpace' => false))
             ->addFilters(array('StripTags', 'StringTrim', 'StringToUpper'));
 
@@ -297,7 +299,7 @@ class FindForm extends Pas_Form
         $numdate1 = new Zend_Form_Element_Text('numdate1');
         $numdate1->setLabel('Date from: ')
             ->setAttrib('size', 10)
-            ->setAttribs(array('placeholder' => 'Year in format YYYY'))
+            ->setAttribs(array('placeholder' => 'Year in format YYYY', 'maxlength' => 11))
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addValidator('Int');
 
@@ -313,7 +315,7 @@ class FindForm extends Pas_Form
         $numdate2 = new Zend_Form_Element_Text('numdate2');
         $numdate2->setLabel('Date to: ')
             ->setAttrib('size', 10)
-            ->setAttribs(array('placeholder' => 'Year in format YYYY'))
+            ->setAttribs(array('placeholder' => 'Year in format YYYY', 'maxlength' => 11))
             ->addFilters(array('StripTags', 'StringTrim'))
             ->addValidator('Int');
 
@@ -341,6 +343,7 @@ class FindForm extends Pas_Form
         $reuse = new Zend_Form_Element_Text('reuse');
         $reuse->setLabel('Evidence of reuse: ')
             ->setAttrib('size', 60)
+	    ->setAttribs(array('maxlength' => 255))
             ->addFilters(array('StripTags', 'StringTrim'));
 
         //METRICS SECTION//
@@ -556,7 +559,7 @@ class FindForm extends Pas_Form
         $disccircum = new Zend_Form_Element_Text('disccircum');
         $disccircum->setLabel('Discovery circumstances: ')
             ->setAttrib('size', 50)
-            ->setAttrib('class', 'span6')
+            ->setAttribs(array('class' => 'span6', 'maxlength' => 250))
             ->addFilters(array('StripTags', 'StringTrim'));
 
         //Date found from
@@ -578,25 +581,25 @@ class FindForm extends Pas_Form
         //Other reference number
         $other_ref = new Zend_Form_Element_Text('other_ref');
         $other_ref->setLabel('Other reference: ')
-            ->setAttrib('size', 50)
+            ->setAttribs(array('size'=> 50, 'maxlength' => 250))
             ->addFilters(array('StripTags', 'StringTrim'));
 
         //SMR reference number
         $smrrefno = new Zend_Form_Element_Text('smr_ref');
         $smrrefno->setLabel('Sites and Monuments record number: ')
-            ->setAttrib('size', 30)
+            ->setAttribs(array('size'=> 30, 'maxlength' => 250))
             ->addFilters(array('StripTags', 'StringTrim'));
 
         //Museum accession number
         $musaccno = new Zend_Form_Element_Text('musaccno');
         $musaccno->setLabel('Museum accession number: ')
-            ->setAttrib('size', 50)
+            ->setAttribs(array('size'=> 50, 'maxlength' => 250))
             ->addFilters(array('StripTags', 'StringTrim'));
 
         //Current location of object
         $curr_loc = new Zend_Form_Element_Text('curr_loc');
         $curr_loc->setLabel('Current location: ')
-            ->setAttrib('class', 'span6')
+            ->setAttribs(array('class' => 'span6', 'maxlength' => 250))
             ->addFilters(array('StripTags', 'StringTrim'));
 
         //Current location of object
