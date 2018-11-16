@@ -1,7 +1,8 @@
 $.sessionTimeout({
+    keepAliveInterval: 600000, 
     keepAliveUrl: '/ajax/keepalive',
     logoutUrl: '/users/account/logout',
-    redirUrl: '/users',
+    redirUrl: '#',
     warnAfter: 1.2e+6,
     redirAfter: 1.8e+6,
     countdownBar: true,
