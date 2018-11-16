@@ -76,17 +76,41 @@ class Pas_Solr_MoreLikeThis {
         $loadbalancer->setFailoverEnabled(true);
     }
 
+    /** Get the User Deatils
+     * @return mixed|null
+     */
+    public function getUserDetails()
+    {
+       $user = new Pas_User_Details();
+       $person = $user->getPerson();
+       return $person;
+    }
+
     /** Get the role of the user
      * @access public
      * @return string
      */
-    public function getRole(){
-	$user = new Pas_User_Details();
-        $person = $user->getPerson();
+    public function getRole()
+    {
+	$person = $this->getUserDetails();
         if($person){
             return $person->role;
         } else {
             return 'public';
+        }
+    }
+
+    /** Get the id of the user
+     * @access public
+     * @return int
+     */
+    public function getUserID()
+    {
+       $person = $this->getUserDetails();
+        if($person){
+            return $person->id;
+        } else {
+            return null;
         }
     }
 
@@ -132,7 +156,7 @@ class Pas_Solr_MoreLikeThis {
      * @param integer $count
      * @return array
      */
-    public function executeQuery( $minDocFreq = 1, $minTermFreq = 1, $count = 3){
+    public function executeQuery( $minDocFreq = 1, $minTermFreq = 1, $count = 9){
         $client = $this->_solr;
         $query = $client->createSelect();
         $query->setQuery($this->_query)
@@ -141,23 +165,45 @@ class Pas_Solr_MoreLikeThis {
                 ->setMinimumDocumentFrequency($minDocFreq)
                 ->setMinimumTermFrequency($minTermFreq)
                 ->setCount($count);
-        if(!in_array($this->getRole(),$this->_allowed) || is_null($this->getRole())) {
-            $query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
-        }
+
         $resultset = $client->select($query);
         $mlt = $resultset->getMoreLikeThis();
         $mltArray = array();
 
-        foreach($resultset as $result){
-            $mltResult = $mlt->getResult($result->findIdentifier);
-            if($mltResult){
-                $mltArray['maxScore'] = $mltResult->getMaximumScore();
-                $mltArray['numFound'] = $mltResult->getNumFound();
-                $mltArray['numFetched'] = count($mltResult);
-                foreach($mltResult AS $k => $v) {
-                   $mltArray['results'][$k] = $v;
+        $restrictedWorkflows = Array(1, 2);
+        $maxMLTRecordsToShow = 3;
+        $validMLTResults = array();
+        $validRecordsFound = 0;
+
+        $userCanSeeRedRecords = in_array($this->getRole(), $this->_allowed);
+
+        foreach ($mlt as $allMLTkeys => $allMLTResults) {
+               if (!is_object($allMLTResults)) {
+                      break;
+               }
+               foreach ($allMLTResults as $oneMLTRecord) {
+                       if (count($validMLTResults) === $maxMLTRecordsToShow) {
+                               break;
+                       }
+
+                       $recordCreatedBy = $oneMLTRecord->createdBy;
+                        if ((in_array($oneMLTRecord->workflow, $restrictedWorkflows)
+                         && !($recordCreatedBy == $this->getUserID()))
+                          && !$userCanSeeRedRecords) {
+                               continue;
+                        }
+
+                       $validMLTResults[$validRecordsFound++] = $oneMLTRecord;
+               }
+       }
+
+        if ($validMLTResults) {
+                $mltArray['maxScore'] = $allMLTResults->getMaximumScore();
+                $mltArray['numFound'] = $allMLTResults->getNumFound();
+                $mltArray['numFetched'] = $validRecordsFound;
+                foreach ($validMLTResults AS $k => $v) {
+                       $mltArray['results'][$k] = $v;
                 }
-            }
         }
         return $mltArray;
     }
