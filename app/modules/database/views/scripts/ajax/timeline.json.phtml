@@ -62,7 +62,7 @@ $start = array(
     'headline' => 'Associated dates for ' . $record['old_findID'],
     'type' => 'default',
     'text' => 'Dates mentioned in this record',
-    'startDate' => $record['numdate1'],
+    'startDate' => (is_null($record['numdate1']) ? $record['numdate2'] : $record['numdate1']),
     'date' => $data
 );
 echo Zend_Json::prettyPrint(Zend_Json::encode(array('timeline' => $start)));
