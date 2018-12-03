@@ -28,12 +28,20 @@ $this->metaBase()
         $minutes[$fileInfo->getFilename()] = $root;
     }
     $minutes = array_flip($minutes);
-    ksort($minutes, SORT_NUMERIC);
+    ksort($minutes);
     ?>
+
     <?php foreach ($minutes as $k => $v): ?>
+
+    <?php $provisionalMeeting = "";
+    if (strlen($k) > 10) {
+        $provisionalMeeting = substr($k, 10);
+        $k = substr($k, 1, 10);
+    }
+    ?>
         <li>
             <a href="<?php echo $this->serverUrl(); ?>/documents/treasureMinutes/<?php
             echo $v;
-            ?>"><?php echo $this->niceShortDate()->setDate($k); ?></a></li>
+            ?>"><?php echo $this->niceShortDate()->setDate($k) . $provisionalMeeting; ?></a></li>
     <?php endforeach; ?>
 </ul>
