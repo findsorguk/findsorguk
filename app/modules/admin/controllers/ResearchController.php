@@ -106,6 +106,29 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
         }
     }
 
+	/** Delete a research topic
+     * @access public
+     * @return void
+     */
+    public function deleteAction()
+    {
+        if ($this->_request->isPost()) {
+            $id = (int)$this->_request->getPost('id');
+            $del = $this->_request->getPost('del');
+            if ($del == 'Yes' && $id > 0) {
+                $where = $this->_research->getAdapter()->quoteInto('id = ?', $id);
+                $this->_research->delete($where);
+                $this->getFlash()->addMessage('Record deleted!');
+                $this->redirect(self::REDIRECT);
+            }
+        } else {
+            $id = (int)$this->_request->getParam('id');
+            if ($id > 0) {
+                $this->view->research = $this->_research->fetchRow('id=' . $id);
+            }
+        }
+    }
+
     /** Add a suggested research topic
      * @access public
      * @return void
