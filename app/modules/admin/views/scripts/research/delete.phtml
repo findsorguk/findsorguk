@@ -5,13 +5,11 @@ $this->metaBase()->setDescription($this->title())->generate();
 <?php if (!empty($this->research)) : ?>
     <h2 class="lead"><?= $this->title() ?></h2>
     <p>Are you sure that you want to delete <b><em><?= $this->research->title ?></em><b></p>
-    <form
-        action="<?= $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'delete'), null, true) ?>"
-        method="post">
-        <div>
+    <form action="<?= $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'delete'), null, true) ?>" method="post">
+        <div class="btn-toolbar">
             <input type="hidden" name="id" value="<?= $this->research->id ?>"/>
-            <input type="submit" name="del" value="Yes"/>
-            <input type="submit" name="del" value="No"/>
+            <input type="submit" class="btn btn-danger" name="confirmDelete" value="Yes"/>
+            <input type="submit" class="btn btn-default" name="confirmDelete" value="No"/>
         </div>
     </form>
 <?php else: ?>
