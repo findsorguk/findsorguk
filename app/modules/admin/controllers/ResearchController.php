@@ -39,7 +39,6 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
         $this->_suggested = new SuggestedResearch();
         $this->_helper->_acl->allow('fa', null);
         $this->_helper->_acl->allow('admin', null);
-
     }
 
     /** Set up the redirect baseurl
@@ -106,7 +105,7 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
         }
     }
 
-	/** Delete a research topic
+     /** Delete a research topic
      * @access public
      * @return void
      */
@@ -114,14 +113,18 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
     {
         if ($this->_request->isPost()) {
             $id = (int)$this->_request->getPost('id');
-            $del = $this->_request->getPost('del');
-            if ($del == 'Yes' && $id > 0) {
+            $confirmDelete = $this->_request->getPost('confirmDelete');
+            if ('Yes' === $confirmDelete && $id > 0) {
                 $where = $this->_research->getAdapter()->quoteInto('id = ?', $id);
                 $this->_research->delete($where);
                 $this->getFlash()->addMessage('Record deleted!');
-                $this->redirect(self::REDIRECT);
             }
-        } else {
+            else {
+                $this->getFlash()->addMessage('Record NOT deleted!');
+            }
+            $this->redirect(self::REDIRECT);
+        }
+        else {
             $id = (int)$this->_request->getParam('id');
             if ($id > 0) {
                 $this->view->research = $this->_research->fetchRow('id=' . $id);
