@@ -1,12 +1,16 @@
 <tr id="project-<? $this->id ?>">
-    <td width="20%"><a
-            href="<?= $this->url(array('module' => 'research', 'controller' => 'projects', 'action' => 'project', 'id' => $this->id), null, true) ?>"
-            title="View this project's full details"><?= $this->title ?></a></td>
-    <td><?=  $this->investigator ?></td>
-    <td><?=  $this->type ?></td>
+    <td width="20%">
+        <a href="<?= $this->url(array('module' => 'research', 'controller' => 'projects', 'action' => 'project', 'id' => $this->id), null, true) ?>" title="View this project's full details"><?= $this->title ?></a>
+    </td>
+    <td>
+        <?= $this->investigator ?>
+    </td>
+    <td>
+        <?= $this->type ?>
+    </td>
     <td>
         <?php if (!is_null($this->start)): ?>
-            <?=  $this->start ?>
+            <?= $this->start ?>
         <?php else: ?>
             N/A
         <?php endif; ?>
@@ -19,12 +23,9 @@
         <?php endif; ?>
     </td>
     <td>
-        <div class="btn-group"><a class="btn btn-mini btn-default"
-                                  href="<?= $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'edit', 'id' => $this->id), null, true) ?>"
-                                  title="Edit details for <?= $this->title ?>">Edit</a>
-			       <a class="btn btn-mini btn-warning" 
-				  href="<?= $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'delete', 'id' => $this->id), null, true) ?>"
-				  title="Delete project: <?= $this->title ?>">Delete</a>
+        <div class="btn-group">
+            <a class="btn btn-mini btn-default" href="<?= $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'edit', 'id' => $this->id), null, true) ?>" title="Edit details for <?= $this->title ?>">Edit</a>
+            <a class="btn btn-mini btn-warning" href="<?= $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'delete', 'id' => $this->id), null, true) ?>" title="Delete project: <?= $this->title ?>">Delete</a>
+        </div>
     </td>
-    </div>
 </tr>
