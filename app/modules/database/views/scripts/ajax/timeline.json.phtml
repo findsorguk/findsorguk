@@ -7,13 +7,9 @@
  */
 $data = array();
 foreach($this->data as $record) {
-    if(array_key_exists('numdate1', $record)) {
-            $dateEvent['startDate'] = $record['numdate1'];
-            if(!is_null($record['numdate2'])) {
-                $dateEvent['endDate'] = $record['numdate2'];
-            } else {
-                $dateEvent['endDate'] = $record['numdate1'];
-            }
+    if(array_key_exists('numdate1', $record) || array_key_exists('numdate2', $record)) {
+        $dateEvent['startDate'] = (is_null($record['numdate1']) ? $record['numdate2'] : $record['numdate1']);
+        $dateEvent['endDate']  = (is_null($record['numdate2']) ? $record['numdate1'] : $record['numdate2']);
         $dateEvent['headline'] = 'Date range for object';
         $data[] = $dateEvent;
     }
@@ -62,7 +58,7 @@ $start = array(
     'headline' => 'Associated dates for ' . $record['old_findID'],
     'type' => 'default',
     'text' => 'Dates mentioned in this record',
-    'startDate' => $record['numdate1'],
+    'startDate' => (is_null($record['numdate1']) ? $record['numdate2'] : $record['numdate1']),
     'date' => $data
 );
 echo Zend_Json::prettyPrint(Zend_Json::encode(array('timeline' => $start)));
