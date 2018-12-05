@@ -39,7 +39,6 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
         $this->_suggested = new SuggestedResearch();
         $this->_helper->_acl->allow('fa', null);
         $this->_helper->_acl->allow('admin', null);
-
     }
 
     /** Set up the redirect baseurl
@@ -103,6 +102,33 @@ class Admin_ResearchController extends Pas_Controller_Action_Admin
             }
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+    }
+
+     /** Delete a research topic
+     * @access public
+     * @return void
+     */
+    public function deleteAction()
+    {
+        if ($this->_request->isPost()) {
+            $id = (int)$this->_request->getPost('id');
+            $confirmDelete = $this->_request->getPost('confirmDelete');
+            if ('Yes' === $confirmDelete && $id > 0) {
+                $where = $this->_research->getAdapter()->quoteInto('id = ?', $id);
+                $this->_research->delete($where);
+                $this->getFlash()->addMessage('Record deleted!');
+            }
+            else {
+                $this->getFlash()->addMessage('Record NOT deleted!');
+            }
+            $this->redirect(self::REDIRECT);
+        }
+        else {
+            $id = (int)$this->_request->getParam('id');
+            if ($id > 0) {
+                $this->view->research = $this->_research->fetchRow('id=' . $id);
+            }
         }
     }
 

@@ -1,0 +1,17 @@
+<?php
+$this->headTitle('Delete research project');
+$this->metaBase()->setDescription($this->title())->generate();
+?>
+<?php if (!empty($this->research)) : ?>
+    <h2 class="lead"><?= $this->title() ?></h2>
+    <p>Are you sure that you want to delete <b><em><?= $this->research->title ?></em><b></p>
+    <form action="<?= $this->url(array('module' => 'admin', 'controller' => 'research', 'action' => 'delete'), null, true) ?>" method="post">
+        <div class="btn-toolbar">
+            <input type="hidden" name="id" value="<?= $this->research->id ?>"/>
+            <input type="submit" class="btn btn-danger" name="confirmDelete" value="Yes"/>
+            <input type="submit" class="btn btn-default" name="confirmDelete" value="No"/>
+        </div>
+    </form>
+<?php else: ?>
+    <p>Cannot find the item requested.</p>
+<?php endif; ?>
