@@ -7,12 +7,12 @@
  */
 $data = array();
 foreach($this->data as $record) {
-//    if(array_key_exists('numdate1', $record) || array_key_exists('numdate2', $record)) {
-        $dateEvent['startDate'] = (is_null($record['numdate1']) ? $record['numdate2'] : $record['nuumdate1']);
+    if(array_key_exists('numdate1', $record) || array_key_exists('numdate2', $record)) {
+        $dateEvent['startDate'] = (is_null($record['numdate1']) ? $record['numdate2'] : $record['numdate1']);
         $dateEvent['endDate']  = (is_null($record['numdate2']) ? $record['numdate1'] : $record['numdate2']);
         $dateEvent['headline'] = 'Date range for object';
         $data[] = $dateEvent;
-//    }
+    }
     if(array_key_exists('datefound1', $record)){
         $date1 = explode('-', $record['datefound1']);
         $discoveryEvent['startDate'] = implode(',', $date1);
