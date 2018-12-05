@@ -7,7 +7,7 @@ $this->metaBase()
     ->generate();
 ?>
 <h2 class="lead">
-    <?php echo $this->title(); ?>
+    <?= $this->title() ?>
 </h2>
 
 <p>
@@ -21,19 +21,41 @@ $this->metaBase()
     <?php
     $minutes = array();
     foreach (new DirectoryIterator(ROOT_PATH . '/public_html/documents/treasureMinutes/') as $fileInfo) {
+        // Skip any special folders - we won't be showing them
         if ($fileInfo->isDot()) {
             continue;
         }
-        list($root, $ext) = explode('.', $fileInfo->getFilename());
-        $minutes[$fileInfo->getFilename()] = $root;
+        $numberOfPeriods = substr_count($fileInfo->getFilename(), ".");
+        // Bad (unexpected) format - skip
+        if (0 === $numberOfPeriods) {
+            continue ;
+        }
+        // Expected file. Split on period.
+        elseif (1 === $numberOfPeriods) {
+            list($root, $ext) = explode('.', $fileInfo->getFilename());
+            $minutes[$root] = $fileInfo->getFilename();
+        }
+        // More than one period - take last one
+        else {
+            $components = explode('.', $fileInfo->getFilename());
+            $ext = array_pop($components);
+            $joinedRoot = join('.', $components); 
+            $minutes[$joinedRoot] = $fileInfo->getFilename();
+        }
     }
-    $minutes = array_flip($minutes);
-    ksort($minutes, SORT_NUMERIC);
+    ksort($minutes);
+
+    foreach ($minutes as $pathWithNoExtension => $fullPath):
+        $provisionalMeeting = "";
+        $datePortionOfPath = substr($pathWithNoExtension, 1, 10);
+
+        // If filename is more than just 2018-10-12, then:
+        if (strlen($pathWithNoExtension) > 10) {
+            $provisionalMeeting = substr($pathWithNoExtension, 10);
+        }
     ?>
-    <?php foreach ($minutes as $k => $v): ?>
         <li>
-            <a href="<?php echo $this->serverUrl(); ?>/documents/treasureMinutes/<?php
-            echo $v;
-            ?>"><?php echo $this->niceShortDate()->setDate($k); ?></a></li>
+            <a href="<?= $this->serverUrl() ?>/documents/treasureMinutes/<?= $fullPath ?>"><?= $this->niceShortDate()->setDate($datePortionOfPath) . $provisionalMeeting ?></a>
+        </li>
     <?php endforeach; ?>
 </ul>
