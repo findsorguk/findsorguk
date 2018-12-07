@@ -31,6 +31,9 @@ CKEDITOR.editorConfig = function( config ) {
 	//Enable SpellCheck
 	config.scayt_autoStartup = true;
 
+        //Set Default language as English for spell checker
+        config.scayt_sLang = 'en_GB';
+
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
 	config.removeButtons = 'Underline,Subscript,Superscript';
