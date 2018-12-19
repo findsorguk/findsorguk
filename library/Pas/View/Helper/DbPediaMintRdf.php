@@ -51,7 +51,6 @@ class Pas_View_Helper_DbPediaMintRdf extends Zend_View_Helper_Abstract
      */
     public function DbPediaMintRdf()
     {
-        $this->_client = new Pas_RDF_Client();
         $this->_cache = Zend_Registry::get('cache');
         return $this;
     }
@@ -78,16 +77,13 @@ class Pas_View_Helper_DbPediaMintRdf extends Zend_View_Helper_Abstract
     {
         $key = md5($this->_uri);
         if (!($this->_cache->test($key))) {
-            $graph = new EasyRdf_Graph($this->_uri);
+            $graph = new \EasyRdf\Graph($this->_uri);
             $graph->load();
             $data = $graph->resource($this->_uri);
             $this->_cache->save($data);
         } else {
             $data = $this->_cache->load($key);
         }
-        EasyRdf_Namespace::set('dbpediaowl', 'http://dbpedia.org/ontology/');
-        EasyRdf_Namespace::set('dbpprop', 'http://dbpedia.org/property/');
-        EasyRdf_Namespace::set('dbpedia', 'http://dbpedia.org/resource/');
 
         return $data;
     }
@@ -105,13 +101,19 @@ class Pas_View_Helper_DbPediaMintRdf extends Zend_View_Helper_Abstract
             $html .= $d->get('dbpediaowl:thumbnail');
             $html .= '" class="pull-right"/></a>';
         }
+
         $html .= '<ul>';
         $html .= '<li>Preferred label: ' . $d->label(self::LANGUAGE) . '</li>';
-        $html .= '<li>Geo coords: ' . $d->get('geo:lat') . ',' . $d->get('geo:long') . '</li>';
-        $html .= '<li>Definition: ' . $d->get('dbpediaowl:abstract', 'literal', self::LANGUAGE) . '</li>';
+
+	if (!empty($d->get('geo:lat')))
+	{
+	   $html .= '<li>Geo coords: ' . $d->get('geo:lat') . ',' . $d->get('geo:long') . '</li>';
+	}
+
         if ($d->get('dbpediaowl:elevation')) {
             $html .= '<li>Elevation: ' . $d->get('dbpediaowl:elevation') . ' (Max: ' . $d->get('dbpediaowl:maximumElevation') . ' Min: ' . $d->get('dbpediaowl:minimumElevation') . ')</li>';
         }
+
         $html .= '</ul>';
 
         return $html;

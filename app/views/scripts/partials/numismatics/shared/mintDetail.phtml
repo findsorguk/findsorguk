@@ -1,74 +1,64 @@
 <?php
-$this->headTitle('Details for issuing mint located at ' . $this->name);
-$this->metaBase('Full details for issuing  mint at ' . $this->name . ' describing location and recent examples.')
-    ->setKeywords('mint,details,pleiades,nomisma')
-    ->setSubject('numismatics')
-    ->generate();
+   $this->headTitle('Details for issuing mint located at ' . $this->name);
+   $this->metaBase('Full details for issuing  mint at ' . $this->name . ' describing location and recent examples.')
+        ->setKeywords('mint,details,pleiades,nomisma')
+        ->setSubject('numismatics')
+        ->generate();
 ?>
 
-    <h2 class="lead"><?php echo $this->title(); ?></h2>
-    <p>
-        <?php if (!is_null($this->name)): ?>
-            Mint: <span property="skos:prefLabel"><?php echo $this->escape($this->name); ?></span> <br/>
-        <?php endif; ?>
+<h2 class="lead"><?= $this->title() ?></h2>
+<p>
+   <?php if (!is_null($this->name)): ?>
+      Mint: <span property="skos:prefLabel"><?= $this->escape($this->name) ?></span> <br/>
+   <?php endif; ?>
 
-        <?php if (!is_null($this->abbrev)): ?>
-            Abbreviation: <?php echo $this->abbrev; ?>
-        <?php endif; ?>
-
-    </p>
+   <?php if (!empty($this->abbrev)): ?>
+      Abbreviation: <?= $this->abbrev ?>
+   <?php endif; ?>
+ </p>
 
 <?php if (!is_null($this->description)): ?>
-    <span property="skos:definition"><?php echo $this->description; ?></span>
+    <span property="skos:definition"><?= $this->description ?></span>
 <?php endif; ?>
 
-<?php if (!is_null($this->pleiadesID) || !is_null($this->nomismaID) || !is_null($this->bmID)
-    || !is_null($this->dbpediaID) || !is_null($this->geonamesID)
-): ?>
+<?php if (!is_null($this->pleiadesID) || !is_null($this->nomismaID) || !is_null($this->bmID) || !is_null($this->dbpediaID) || !is_null($this->geonamesID)): ?>
     <h3 class="lead">Related resources</h3>
 
     <ul>
         <?php if (!is_null($this->pleiadesID)): ?>
-            <li><a property="skos:related" resource="https://pleiades.stoa.org/places/<?php echo $this->pleiadesID; ?>"
-                   href="https://pleiades.stoa.org/places/<?php echo $this->pleiadesID; ?>">Pleiades</a></li>
+            <li><a property="skos:related" resource="https://pleiades.stoa.org/places/<?= $this->pleiadesID ?>"href="https://pleiades.stoa.org/places/<?= $this->pleiadesID ?>">Pleiades</a></li>
         <?php endif; ?>
         <?php if (!is_null($this->nomismaID)): ?>
-            <li><a property="skos:related" resource="http://nomisma.org/id/<?php echo $this->nomismaID; ?>"
-                   href="http://nomisma.org/id/<?php echo $this->nomismaID; ?>">Nomisma</a></li>
+            <li><a property="skos:related" resource="http://nomisma.org/id/<?= $this->nomismaID ?>"href="http://nomisma.org/id/<?= $this->nomismaID ?>">Nomisma</a></li>
         <?php endif; ?>
 
         <?php if (!is_null($this->bmID)): ?>
-            <li><a property="skos:related"
-                   resource="http://collection.britishmuseum.org/id/place/x<?php echo $this->bmID; ?>"
-                   href="http://collection.britishmuseum.org/id/place/x<?php echo $this->bmID; ?>">British Museum</a>
-            </li>
+            <li><a property="skos:related" resource="http://collection.britishmuseum.org/id/place/x<?= $this->bmID ?>"href="http://collection.britishmuseum.org/id/place/x<?= $this->bmID ?>">British Museum</a></li>
         <?php endif; ?>
 
         <?php if (!is_null($this->dbpediaID)): ?>
-            <li><a property="skos:related" resource="http://wikipedia.org/wiki/<?php echo $this->dbpediaID; ?>"
-                   href="http://wikipedia.org/wiki/<?php echo $this->dbpediaID; ?>">Wikipedia</a></li>
+            <li><a property="skos:related" resource="http://wikipedia.org/wiki/<?= $this->dbpediaID ?>"href="http://wikipedia.org/wiki/<?= $this->dbpediaID ?>">Wikipedia</a></li>
         <?php endif; ?>
 
         <?php if (!is_null($this->geonamesID)): ?>
-            <li><a property="skos:related" resource="http://www.geonames.org/<?php echo $this->geonamesID; ?>"
-                   href="http://www.geonames.org/<?php echo $this->geonamesID; ?>">Geonames</a></li>
+            <li><a property="skos:related" resource="http://www.geonames.org/<?= $this->geonamesID ?>"href="http://www.geonames.org/<?= $this->geonamesID ?>">Geonames</a></li>
         <?php endif; ?>
     </ul>
 
     <?php if (!is_null($this->nomismaID)): ?>
         <h3 class="lead">Data from Nomisma</h3>
-        <?php echo $this->nomismaRdf()->setUri("http://nomisma.org/id/" . $this->nomismaID); ?>
+        <?= $this->nomismaRdf()->setUri("http://nomisma.org/id/" . $this->nomismaID) ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->dbpediaID)): ?>
-        <h3 class="lead">Data from wikipedia</h3>
-        <?php echo $this->dbPediaMintRdf()->setUri("http://dbpedia.org/resource/" . $this->dbpediaID); ?>
+        <h3 class="lead">Data from DBpedia</h3>
+        <?= $this->dbPediaMintRdf()->setUri("http://dbpedia.org/resource/" . $this->dbpediaID) ?>
     <?php endif; ?>
 
 
     <?php if (!is_null($this->pasID)): ?>
-        <?php echo $this->searchLink()->setField('mint')->setId($this->pasID); ?>
+        <?= $this->searchLink()->setField('mint')->setId($this->pasID) ?>
     <?php endif; ?>
 <?php endif; ?>
 
-<?php echo $this->latestRecords()->setQuery('mint:' . $this->pasID); ?>
+<?= $this->latestRecords()->setQuery('mint:' . $this->pasID) ?>
