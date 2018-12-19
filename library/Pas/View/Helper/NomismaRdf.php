@@ -57,14 +57,13 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
      * */
     public function getData()
     {
-
         $key = md5($this->getUri());
         if (!($this->getCache()->test($key))) {
-            $request = new EasyRdf_Http_Client();
+            $request = new \EasyRdf\Http\Client();
             $request->setUri($this->getUri());
             $response = $request->request()->getStatus();
             if ($response == 200) {
-                $graph = new EasyRdf_Graph($this->_uri);
+                $graph = new \EasyRdf\Graph($this->_uri);
                 $graph->load();
                 $data = $graph->resource($this->_uri);
             } else {
@@ -113,20 +112,31 @@ class Pas_View_Helper_NomismaRdf extends Zend_View_Helper_Abstract
      * @access protected
      * @param  EasyRdf_Resource $data
      */
-    protected function _render(EasyRdf_Resource $data)
+    protected function _render(\EasyRdf\Resource $data)
     {
+	//Get geo coordinates
+	$kml = new SimpleXMLElement(file_get_contents($this->_uri . '.kml'));
+	$getCoordinates = (string)$kml->Document->Placemark->Point->coordinates;
+	$geoCoords  = explode(",", $getCoordinates);
+
+	//Get API key for google map
+	$config = Zend_Registry::get('config');
+	$apiKey = $config->webservice->googlemaps->apikey;
+
         $html = '';
         if (is_object($data)) {
-            $html .= '<img src="https://maps.google.com/maps/api/staticmap?center=' . $data->get('geo:lat')
-                . ',' . $data->get('geo:long') . '&zoom=5&size=200x200&maptype=hybrid&markers=color:green|label:G|'
-                . $data->get('geo:lat') . ',' . $data->get('geo:long') . '" class="stelae"/>';
+            $html .= '<img src="https://maps.google.com/maps/api/staticmap?key=' . $apiKey  . '&center=' . $geoCoords[1]
+                . ',' . $geoCoords[0] . '&zoom=6&size=400x200&maptype=hybrid&markers=color:green|label:G|'
+                . $geoCoords[1] . ',' . $geoCoords[0] . '" class="stelae"/>';
             $html .= '<ul>';
+
             foreach ($data->all('skos:prefLabel') as $labels) {
                 $html .= '<li>Preferred label: ' . $labels->getValue() . ' (' . $labels->getLang() . ')</li>';
             }
-            $html .= '<li>Geo coords: ' . $data->get('geo:lat');
+
+            $html .= '<li>Geo coords: ' . $geoCoords[1];
             $html .= ',';
-            $html .= $data->get('geo:long');
+            $html .= $geoCoords[0];
             $html .= '</li>';
             $html .= '<li>Definition: ' . $data->get('skos:definition');
             $html .= '</li></ul>';
