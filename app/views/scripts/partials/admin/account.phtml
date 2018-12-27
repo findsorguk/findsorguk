@@ -1,107 +1,105 @@
 <?php
-$this->headTitle('Account profile for ' . $this->fullname);
-$this->metaBase()->setDescription($this->title())->generate();
+   $this->headTitle('Account profile for ' . $this->fullname);
+   $this->metaBase()->setDescription($this->title())->generate();
 ?>
-    <h2 class="lead"><?php echo $this->title(); ?></h2>
-<?php
-echo $this->Href(array(
-    'module' => 'admin', 'controller' => 'users',
-    'action' => 'edit',
-    'checkAcl' => true, 'acl' => 'Zend_Acl',
-    'params' => array(
-        'id' => $this->id),
-    'content' => 'Edit account',
-    'attribs' => array(
-        'title' => 'Edit account',
-        'class' => 'btn btn-warning'),
-    'wrapper' => array(
-        'tag' => 'div',
-        'id' => 'action')
-));
-?>
+<div>
+   <h2 class="lead"><?= $this->title() ?></h2>
+   <?php
+      echo $this->Href(array(
+         'module' => 'admin', 
+	 'controller' => 'users',
+         'action' => 'edit',
+         'checkAcl' => true, 
+	 'acl' => 'Zend_Acl',
+         'params' => array('id' => $this->id),
+         'content' => 'Edit account',
+         'attribs' => array('title' => 'Edit account', 'class' => 'btn btn-warning'),
+         'wrapper' => array('tag' => 'div', 'id' => 'action')
+      ));
+   ?>
 
-    <h3 class="lead">
-        Personal data
-    </h3>
+   <h3 class="lead">Personal data</h3>
 
-    <div id="personal-images">
-        <div id="gravatar">
-            <?php
-            echo $this->gravatar($this->email, array(
-                'imgSize' => 80,
-                'defaultImg' => $this->serverUrl() . $this->baseUrl()
-                    . '/assets/gravatar.png',
-                'secure' => true),
-                array(
-                    'class' => 'avatar pull-left stelae img-circle',
-                    'title' => $this->fullname . '\'s gravatar representation',
-                    'rating' => 'G',
-                    'width' => 80,
-                    'height' => 80)
-            );
-            ?>
-        </div>
+   <div id="personal-images">
+      <div id="gravatar">
+         <?php
+            echo $this->gravatar($this->email, array('imgSize' => 80, 'defaultImg' => $this->serverUrl() . $this->baseUrl() . '/assets/gravatar.png', 'secure' => true),
+            array('class' => 'avatar pull-left stelae img-circle', 'title' => $this->fullname . '\'s gravatar representation', 'rating' => 'G', 'width' => 80, 'height' => 80));
+         ?>
+      </div>
+   </div>
+   <p>
+      <?php if (isset($this->username)): ?>
+         Username: <strong><?= $this->username ?></strong><br/>
+      <?php endif; ?>
+      <?php if (isset($this->fullname)): ?>
+         Fullname: <strong><?= $this->fullname ?></strong><br/>
+      <?php endif; ?>
+      <?php if (isset($this->first_name)): ?>
+         Firstname: <strong><?= $this->first_name ?></strong><br/>
+      <?php endif; ?>
+      <?php if (isset($this->last_name)): ?>
+         Lastname: <strong><?= $this->last_name ?></strong><br/>
+      <?php endif; ?>
+      <?php if (!empty($this->email)): ?>
+         Email address: <a href="mailto:<?= $this->email ?>"><strong><?= $this->email ?></strong></a>
+      <?php endif; ?>
+   </p>
+</div>
 
-    </div>
-    <p>
-        <?php if (isset($this->username)): ?>
-            Username: <?php echo $this->username; ?><br/>
-        <?php endif; ?>
-        <?php if (isset($this->fullname)): ?>
-            Fullname: <?php echo $this->fullname; ?><br/>
-        <?php endif; ?>
-        <?php if (isset($this->first_name)): ?>
-            Firstname: <?php echo $this->first_name; ?><br/>
-        <?php endif; ?>
-        <?php if (isset($this->last_name)): ?>
-            Lastname: <?php echo $this->last_name; ?><br/>
-        <?php endif; ?>
-        <?php if (isset($this->email)): ?>
-            Email address: <a href="mailto:<?php echo $this->email; ?>"><?php echo $this->email; ?></a>
-        <?php endif; ?>
-    </p>
+<div>
+   <h3 class="lead">System data</h3>
+   <p>
+      Assigned role: <strong><?= $this->role ?></strong><br/>
+      Recording institution prefix: <strong><?= $this->institution ?></strong><br/>
 
-    <h3 class="lead">
-        System data
-    </h3>
+      <?php if (!is_null($this->peopleID)): ?>
+         Attached to people profile id: <strong><?= $this->personLookup()->setPerson($this->peopleID) ?></strong><br/>
+      <?php endif; ?>
 
-    <p>
-        Assigned role: <?php echo $this->role; ?><br/>
-        Recording institution prefix: <?php echo $this->institution; ?><br/>
-        <?php if (!is_null($this->peopleID)): ?>
-            Attached to people profile id: <?php echo $this->personLookup()->setPerson($this->peopleID); ?><br/>
-        <?php endif; ?>
-        Last login to the database:
-        <?php echo $this->timeAgoInWords($this->escape($this->lastLogin)); ?><br/>
-        Number of visits: <?php echo $this->visits; ?><br/>
-        <?php if ($this->canRecord === '1'): ?>
-            Copyright: <?php echo $this->copyright; ?>
-            <br/>
-            Allowed to record: Yes.
-        <?php else: ?>
-            <strong>They are not set up for recording</strong>
-        <?php endif; ?>
-    </p>
+      Last login to the database: <strong><?= $this->timeAgoInWords($this->escape($this->lastLogin)) ?></strong><br/>
+      Number of visits: <strong><?= $this->visits ?></strong><br/>
 
-<?php if (isset($this->researchOutline)) { ?>
-    <h3 class="lead">Research data</h3>
+      <?php if (!empty($this->copyright)): ?>
+         Copyright: <strong><?= $this->copyright ?></strong><br/>
+      <?php endif; ?>
 
-    <p>Research outline: <?php echo $this->researchOutline; ?></p>
-<?php
-}
-?>
-    <h3 class="lead">
-        Audit data
-    </h3>
-    <p>
-        Created by: <?php if (!is_null($this->creator)): ?>
-            <?php echo $this->creator; ?>
-        <?php else: ?>
-            Themselves
-        <?php endif; ?>
-        <?php if (!is_null($this->updater)): ?>
-            <br/>
-            Last updated by: <?php echo $this->updater; ?>
-        <?php endif; ?>
-    </p>
-<?php echo $this->searchLink()->setField('createdBy')->setId($this->id); ?>
+      <?php if ($this->canRecord === '1'): ?>
+         Allowed to record: <strong>Yes</strong>
+      <?php else: ?>
+         Allowed to record: <strong>No</strong>
+      <?php endif; ?>
+      <br/>
+      <?php if ($this->valid === '1'): ?>
+         Valid record: <strong>Yes</strong>
+      <?php else: ?>
+         Valid record: <strong>No</strong>
+      <?php endif; ?>
+      <br/>
+      <?php if (!empty($this->activationKey)): ?>
+         Activation key: <strong><?= $this->activationKey ?></strong>
+      <?php else: ?>
+         Activation key: 
+      <?php endif; ?>
+   </p>
+
+   <?php if (isset($this->researchOutline)) { ?>
+   <h3 class="lead">Research data</h3>
+
+   <p>Research outline: <strong><?= $this->researchOutline ?></strong></p>
+   <?php
+      }
+   ?>
+</div>
+<h3 class="lead">Audit data</h3>
+<p>
+   <?php if (!is_null($this->creator)): ?>
+      Created by: <strong><?= $this->creator ?></strong>
+   <?php else: ?>
+      Themselves
+   <?php endif; ?>
+   <?php if (!is_null($this->updater)): ?><br/>
+      Last updated by: <strong><?= $this->updater ?></strong>
+   <?php endif; ?>
+ </p>
+<?= $this->searchLink()->setField('createdBy')->setId($this->id) ?>
