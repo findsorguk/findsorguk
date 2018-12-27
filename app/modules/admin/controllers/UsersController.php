@@ -366,4 +366,75 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
+
+    /** Activate a user's account
+     * @access public
+     * @return void
+    */
+    public function activateAction()
+    {
+        if ($this->getParam('id', false)) 
+	{
+           $id = $this->getParam('id');
+	   $activateData = array(
+  	      'canRecord' => 1,
+	      'valid' => 1,
+	      'activationKey' => NULL
+	   );
+
+	   $where = array();
+	   $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $id);
+	   $oldData = $this->getUsers()->fetchRow('id=' . $this->getParam('id'))->toArray();
+	   unset($activateData['person']);
+	   $this->getUsers()->update($activateData, $where);
+	   $this->_helper->audit(
+                       $activateData,
+                       $oldData,
+                       'UsersAudit',
+                       $this->getParam('id'),
+                       $this->getParam('id')
+           );
+
+	   $this->getFlash()->addMessage('User (' .  $oldData['fullname'] . ') account activated successfully.');
+		   $this->redirect('admin/users/index');
+        } else {
+           throw new Pas_Exception_Param('No user account found with that id');
+        }
+    }
+
+    /** Deactivate a user's account
+     * @access public
+     * @return void
+    */
+    public function deactivateAction()
+    {
+        if ($this->getParam('id', false))
+        {
+           $id = $this->getParam('id');
+           $deactivateData = array(
+              'canRecord' => '0',
+              'valid' => '0',
+              'activationKey' => 'activateMe'
+           );
+
+           $where = array();
+           $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $id);
+           $oldData = $this->getUsers()->fetchRow('id=' . $this->getParam('id'))->toArray();
+           unset($deactivateData['person']);
+
+           $this->getUsers()->update($deactivateData, $where);
+           $this->_helper->audit(
+                       $deactivateData,
+                       $oldData,
+                       'UsersAudit',
+                       $this->getParam('id'),
+                       $this->getParam('id')
+           );
+
+           $this->getFlash()->addMessage('User (' .  $oldData['fullname'] . ') account deactivated successfully.');
+                   $this->redirect('admin/users/index');
+        } else {
+           throw new Pas_Exception_Param('No user account found with that id');
+        }
+    }
 }
