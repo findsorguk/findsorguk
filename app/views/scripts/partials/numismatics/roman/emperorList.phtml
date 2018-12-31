@@ -1,5 +1,15 @@
 <li>
-    <a href="<?php echo $this->url(array('module' => 'romancoins', 'controller' => 'emperors', 'action' => 'emperor', 'id' => $this->id), null, true); ?>"><?php echo $this->issuer; ?></a>
-    [<?php echo $this->adBc()->setDate($this->date_from); ?> - <?php echo $this->adBc()->setDate($this->date_to); ?>] -
-    <a href="<?php echo $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->dbaseID,), null, true); ?>"
-       title="View all records on the database"><i class="icon-search"></i></a></li>
+    <a href="<?= $this->url(array('module' => 'romancoins', 'controller' => 'emperors', 'action' => 'emperor', 'id' => $this->id), null, true) ?>">
+       <?= $this->issuer ?>
+    </a>
+
+    <?php if ((!empty($this->adBc())) && (strlen($this->adBc()->setDate($this->date_to)) > 0)) : ?>
+       [<?= $this->adBc()->setDate($this->date_from) ?> - <?= $this->adBc()->setDate($this->date_to) ?>]
+    <?php else: ?>
+       [<?= $this->adBc()->setDate($this->date_from) ?>]
+    <?php endif; ?>
+
+    <a href="<?= $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->dbaseID,), null, true) ?>" title="View all records on the database">
+	<i class="icon-search"></i>
+    </a>
+</li>
