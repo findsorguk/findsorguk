@@ -65,7 +65,13 @@ class SocialAccountsForm extends Pas_Form {
 	$hash->setValue($this->_salt)
 		->setTimeout(4800);
 
-	$this->addElements(array($userID, $service, $hash, $username, $public, $submit));
+	$updated = new Zend_Form_Element_Hidden('updated');
+        $updated->addFilters(array('StripTags', 'StringTrim'));
+
+	$updatedBy = new Zend_Form_Element_Hidden('updatedBy');
+        $updatedBy->addFilters(array('StripTags', 'StringTrim'));
+
+	$this->addElements(array($userID, $service, $hash, $username, $public,  $updated, $updatedBy, $submit));
 
 	$this->addDisplayGroup(array('accountName','account','public'), 'details');
 
