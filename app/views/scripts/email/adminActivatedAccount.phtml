@@ -1,0 +1,22 @@
+<?php $this->mail->setSubject('Your account is activated on finds.org.uk'); ?>
+<p>
+    Dear <?= $this->escape($this->fullname) ?>,
+</p>
+
+<p>
+    This mail is sent to inform you that, your account (username: <b><?= $this->escape($this->username) ?></b>) is activated.
+</p>
+
+<p>
+    If you have any problems, please do contact us at the Central Unit
+    <a href="mailto:info@finds.org.uk">by email</a>.
+</p>
+
+<p>
+    Yours sincerely,
+</p>
+
+<p>
+    The Portable Antiquities Scheme.
+</p>
+
