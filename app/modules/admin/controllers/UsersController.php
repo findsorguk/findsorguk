@@ -394,9 +394,14 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                        $this->getParam('id'),
                        $this->getParam('id')
            );
-
+           $to = array(array(
+                        'email' => $oldData['email'],
+                        'name' => $oldData['fullname']
+                    ));
+	   $this->_helper->mailer($oldData, 'adminActivatedAccount', $to);
 	   $this->getFlash()->addMessage('User (' .  $oldData['fullname'] . ') account activated successfully.');
-		   $this->redirect('admin/users/index');
+           $this->redirect('admin/users/index');
+
         } else {
            throw new Pas_Exception_Param('No user account found with that id');
         }
@@ -430,9 +435,9 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                        $this->getParam('id'),
                        $this->getParam('id')
            );
-
            $this->getFlash()->addMessage('User (' .  $oldData['fullname'] . ') account deactivated successfully.');
-                   $this->redirect('admin/users/index');
+           $this->redirect('admin/users/index');
+
         } else {
            throw new Pas_Exception_Param('No user account found with that id');
         }
