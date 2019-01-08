@@ -119,6 +119,12 @@ class EditAccountForm extends Pas_Form
             array('label' => 'Personal details attached: '))->person;
         $peopleID = $this->addElement('hidden', 'peopleID', array())->peopleID;
 
+        $valid = $this->addElement('checkbox', 'valid',
+            array('label' => 'Valid record: '))->valid;
+
+	$activationKey = $this->addElement('text', 'activationKey',
+            array('label' => 'Activation Key: '))->activationKey;
+
         $submit = new Zend_Form_Element_Submit('submit');
         $this->addElement($submit);
 
@@ -126,7 +132,8 @@ class EditAccountForm extends Pas_Form
             'username', 'first_name', 'last_name',
             'fullname', 'preferred_name', 'email',
             'institution', 'role', 'password',
-            'person', 'peopleID', 'canRecord'),
+            'person', 'peopleID', 'activationKey', 
+	    'canRecord', 'valid'),
             'userdetails');
 
         $this->addDisplayGroup(array('submit'), 'buttons');

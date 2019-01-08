@@ -1,14 +1,19 @@
 <tr>
+    <td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'account', 'username' => $this->username), null, true) ?>" title="View user account details"><?= $this->username ?></a></td>
+    <td><?= $this->fullname ?></td>
+    <td><?= $this->role ?></td>
+    <td><?= $this->timeAgoInWords($this->lastLogin) ?></td>
+    <td><?= $this->visits ?></td>
+    <td><a class="btn btn-mini btn-success" href="<?= $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'edit', 'id' => $this->id), null, true) ?>" title="Edit user profile for <?= $this->fullname ?>">Edit</a></td>
     <td>
-        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'account', 'username' => $this->username), null, true); ?>"
-           title="View user account details"><?php echo $this->username; ?></a></td>
-    <td><?php echo $this->fullname; ?></td>
-    <td><?php echo $this->role; ?></td>
-    <td><?php echo $this->timeAgoInWords($this->lastLogin); ?></td>
-    <td><?php echo $this->visits; ?></td>
-    <td>
-        <a class="btn btn-mini btn-success"
-           href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'edit', 'id' => $this->id), null, true); ?>"
-           title="Edit user profile for <?php echo $this->fullname; ?>">Edit</a>
+	<?php if (!empty($this->activationKey) || empty($this->valid) || (0 == ($this->valid))): ?>
+	   <a class="btn btn-mini btn-success" href="<?= $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'activate', 'id' => $this->id), null, true) ?>" title="Activate user profile for <?= $this->fullname ?>">
+	      Activate
+	   </a>
+        <?php else: ?>
+	   <a class="btn btn-mini btn-warning" href="<?= $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'deactivate', 'id' => $this->id), null, true) ?>" title="Deactivate user profile for <?= $this->fullname ?>">
+              Deactivate
+	   </a>
+        <?php endif; ?>
     </td>
 </tr>

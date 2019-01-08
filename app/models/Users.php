@@ -237,7 +237,6 @@ class Users extends Pas_Db_Table_Abstract
     {
         $select = $this->select()
             ->from($this->_name)
-            ->where('valid = ?', 1)
             ->order('lastlogin DESC');
         if (isset($params['username']) && ($params['username'] != "")) {
             $un = strip_tags($params['username']);
@@ -260,7 +259,6 @@ class Users extends Pas_Db_Table_Abstract
             $select->where('lastLogin >= ?', $ll . ' 00:00:00');
         }
         $paginator = Zend_Paginator::factory($select);
-        Zend_Paginator::setCache($this->_cache);
         $paginator->setItemCountPerPage(20)->setPageRange(10);
         if (isset($params['page']) && ($params['page'] != "")) {
             $paginator->setCurrentPageNumber($params['page']);

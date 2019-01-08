@@ -62,7 +62,6 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
     {
         $this->_helper->_acl->allow('fa', null);
         $this->_helper->_acl->allow('admin', null);
-
     }
 
     /** Display a list of users in paginated format
@@ -365,5 +364,104 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
+    }
+
+    /** Activate a user's account
+     * @access public
+     * @return void
+    */
+    public function activateAction()
+    {
+        $id = $this->getParam('id', 0);
+        $noUserAccountMessage = 'No user account found with the id: ' . $id;
+        if (ctype_digit($id) && ($id > 0))
+	{
+           $currentUserDetails = $this->getUserDetailsFromID($id, $noUserAccountMessage);
+
+           // update account
+           $activatedUserDetails = array(
+              'canRecord' => 1,
+              'valid' => 1,
+              'activationKey' => NULL
+           );
+           $where = array($this->getUsers()->getAdapter()->quoteInto('id = ?', $id));
+           $this->getUsers()->update($activatedUserDetails, $where);
+	   
+           // audit change
+           $this->_helper->audit(
+               $activatedUserDetails,
+               $currentUserDetails,
+               'UsersAudit',
+               $id,
+               $id
+           );
+
+           $this->notifyUserOfActionWithEmail($currentUserDetails, 'adminActivatedAccount');
+	   $this->getFlash()->addMessage('User (' . $currentUserDetails['fullname'] . ') account activated successfully.');
+
+           // back to user list
+           $this->redirect('admin/users/index');
+        } else {
+           throw new Pas_Exception_Param($noUserAccountMessage);
+        }
+    }
+
+    /** Deactivate a user's account
+     * @access public
+     * @return void
+    */
+    public function deactivateAction()
+    {
+        $id = $this->getParam('id', 0);
+        $noUserAccountMessage = 'No user account found with the id: ' . $id;
+        if (ctype_digit($id) && ($id > 0))
+        {
+           $currentUserDetails = $this->getUserDetailsFromID($id, $noUserAccountMessage);
+
+	   // update account
+           $deactivatedUserDetails = array(
+              'canRecord' => '0',
+              'valid' => '0',
+              'activationKey' => 'activateMe'
+           );
+           $where = array($this->getUsers()->getAdapter()->quoteInto('id = ?', $id));
+           $this->getUsers()->update($deactivatedUserDetails, $where);
+
+	   // audit changes
+	   $this->_helper->audit(
+              $deactivatedUserDetails,
+              $currentUserDetails,
+              'UsersAudit',
+              $id,
+	      $id
+           );
+           $this->getFlash()->addMessage('User (' . $currentUserDetails['fullname'] . ') account de-activated successfully.');
+
+	   // back to user list
+           $this->redirect('admin/users/index');
+        } else {
+           throw new Pas_Exception_Param($noUserAccountMessage);
+        }
+    }
+
+    // notify user via email of account activation
+    private function notifyUserOfActionWithEmail($currentUserDetails, $template)
+    {
+        $to = array(array(
+            'email' => $currentUserDetails['email'],
+            'name' => $currentUserDetails['fullname']
+        ));
+        $this->_helper->mailer($currentUserDetails, $template, $to);
+    }
+
+    // return user details based on ID number. Show $message if not found
+    private function getUserDetailsFromID($id, $message)
+    {
+       $currentUserDetails = $this->getUsers()->fetchRow('id = ' . $id);
+       if (is_null($currentUserDetails))
+       {
+          throw new Pas_Exception_Param($message);
+       }
+       return $currentUserDetails->toArray();
     }
 }
