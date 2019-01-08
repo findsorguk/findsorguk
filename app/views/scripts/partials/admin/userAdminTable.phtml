@@ -1,14 +1,10 @@
 <tr>
-    <td>
-        <a href="<?= $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'account', 'username' => $this->username), null, true) ?>"
-           title="View user account details"><?= $this->username ?></a></td>
+    <td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'account', 'username' => $this->username), null, true) ?>" title="View user account details"><?= $this->username ?></a></td>
     <td><?= $this->fullname ?></td>
     <td><?= $this->role ?></td>
     <td><?= $this->timeAgoInWords($this->lastLogin) ?></td>
     <td><?= $this->visits ?></td>
-    <td>
-        <a class="btn btn-mini btn-success" href="<?= $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'edit', 'id' => $this->id), null, true) ?>" title="Edit user profile for <?= $this->fullname ?>">Edit</a>
-    </td>
+    <td><a class="btn btn-mini btn-success" href="<?= $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'edit', 'id' => $this->id), null, true) ?>" title="Edit user profile for <?= $this->fullname ?>">Edit</a></td>
     <td>
 	<?php if (!empty($this->activationKey) || empty($this->valid) || (0 == ($this->valid))): ?>
 	   <a class="btn btn-mini btn-success" href="<?= $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'activate', 'id' => $this->id), null, true) ?>" title="Activate user profile for <?= $this->fullname ?>">

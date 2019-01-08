@@ -1,13 +1,12 @@
 <?php
-$this->headTitle('User administration section');
-$this->metaBase()->setDescription($this->title())->generate();
+   $this->headTitle('User administration section');
+   $this->metaBase()->setDescription($this->title())->generate();
 ?>
 
-    <h2 class="lead"><?php echo $this->title(); ?></h2>
-    <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'add'), 'default', true); ?>"
-       class="btn btn-small btn-info">Add a new user</a>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users', 'action' => 'add'), 'default', true); ?>" class="btn btn-small btn-info">Add a new user</a>
 
-<?php echo $this->form; ?>
+<?= $this->form ?>
     <div id="findsList">
         <?php if ($this->paginator): ?>
             <table class="table table-striped " summary="List of users registered on the database">
@@ -24,10 +23,10 @@ $this->metaBase()->setDescription($this->title())->generate();
                 </tr>
                 </thead>
                 <tbody>
-                <?php echo $this->partialLoop('partials/admin/userAdminTable.phtml', $this->paginator); ?>
+	           <?= $this->partialLoop('partials/admin/userAdminTable.phtml', $this->paginator) ?>
                 </tbody>
             </table>
-            <?php echo $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml'); ?>
+            <?= $this->paginationControl($this->paginator, 'Elastic', 'structure/pagination.phtml') ?>
         <?php else: ?>
             <p>There are no users available with those criteria.</p>
         <?php endif; ?>
