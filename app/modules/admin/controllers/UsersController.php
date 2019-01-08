@@ -380,7 +380,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
 
            // update account
            $activatedUserDetails = array(
-              'canRecord' => 1,
+              'canRecord' => 0,
               'valid' => 1,
               'activationKey' => NULL
            );
