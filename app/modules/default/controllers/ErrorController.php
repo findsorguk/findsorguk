@@ -215,7 +215,7 @@ class ErrorController extends Pas_Controller_Action_Admin
                             break;
                         case 'Pas_Exception_Param':
                             $this->getResponse()->setHttpResponseCode(500);
-                            $this->view->message = 'The url you used is missing a parameter';
+                            $this->view->message = 'The url you used is missing a parameter ' . '(' . $errors->exception->getMessage() . ')';
                             $this->view->code = 500;
                             break;
                         case 'Zend_Db_Statement_Exception' :
