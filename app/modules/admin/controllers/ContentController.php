@@ -177,23 +177,31 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-        if ($this->_request->isPost()) {
-            $id = (int)$this->_request->getPost('id');
+        $id = $this->getParam('id', 0);
+        if ((ctype_digit($id) && ($id > 0)) && ($this->_request->isPost()))
+        {
             $confirmDelete = $this->_request->getPost('confirmDelete');
-            if ('Yes' == $confirmDelete && $id > 0) {
+
+	    // if Yes, delete the record
+            if ('Yes' == $confirmDelete) 
+	    {
                 $where = 'id = ' . $id;
                 $this->getContent()->delete($where);
+
                 $this->getFlash()->addMessage('Record deleted!');
+
+		//Update Solr
                 $this->_helper->solrUpdater->deleteById('content', $id);
             }
             else {
                 $this->getFlash()->addMessage('Record NOT deleted!');
             }
+
             $this->redirect('/admin/content/');
         }
 	else {
-            $id = (int)$this->_request->getParam('id');
-            if ($id > 0) {
+            if ($id > 0)
+            {
                 $this->view->content = $this->getContent()->fetchRow('id=' . $id);
             }
         }
