@@ -105,20 +105,25 @@ class Admin_RolesController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-        if ($this->_request->isPost()) {
-            $id = (int)$this->_request->getPost('id');
+	$id = $this->getParam('id', 0);
+        if (($this->_request->isPost()) && (ctype_digit($id) && ($id > 0))) 
+	{
             $confirmDelete = $this->_request->getPost('confirmDelete');
-            if ('Yes' == $confirmDelete && $id > 0) {
+
+            if ('Yes' == $confirmDelete) 
+	    {
                 $where = 'id = ' . $id;
                 $this->_staffroles->delete($where);
+
                 $this->getFlash()->addMessage('Role information deleted! This cannot be undone.');
 	    }
             else {
                 $this->getFlash()->addMessage('Role NOT deleted!');
             }
+
             $this->redirect($this->_redirectUrl);
         } else {
-            $this->view->role = $this->_staffroles->fetchRow('id =' . $this->_request->getParam('id'));
+            $this->view->role = $this->_staffroles->fetchRow('id = ' . $id);
         }
     }
 }
