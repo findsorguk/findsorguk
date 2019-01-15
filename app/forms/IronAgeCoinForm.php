@@ -236,12 +236,12 @@ class IronAgeCoinForm extends Pas_Form {
 	$obverse_inscription = new Zend_Form_Element_Text('obverse_inscription');
 	$obverse_inscription->setLabel('Obverse inscription: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttribs(array('rows' => 8, 'cols' => 80, 'class' => 'span6'));
+		->setAttribs(array('rows' => 8, 'cols' => 80, 'maxlength' => 255, 'class' => 'span6'));
 
 	$reverse_inscription = new Zend_Form_Element_Text('reverse_inscription');
 	$reverse_inscription->setLabel('Reverse inscription: ')
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttribs(array('rows' => 8, 'cols' => 80, 'class' => 'span6'));
+		->setAttribs(array('rows' => 8, 'cols' => 80, 'maxlength' => 255, 'class' => 'span6'));
 
 	$obverse_description = new Zend_Form_Element_Textarea('obverse_description');
 	$obverse_description->setLabel('Obverse description: ')
@@ -285,6 +285,7 @@ class IronAgeCoinForm extends Pas_Form {
 
 	$bmc_type = new Zend_Form_Element_Text('bmc_type');
 	$bmc_type->setLabel('British Museum catalogue number: ')
+		->setAttribs(array('rows' => 3, 'cols' => 80, 'maxlength' => 100, 'class' => 'span6'))
 		->addFilters(array('StripTags', 'StringTrim', 'Purifier'));
 
 	$allen_type = new Zend_Form_Element_Select('allen_type');
@@ -310,6 +311,7 @@ class IronAgeCoinForm extends Pas_Form {
 
 	$cciNumber  = new Zend_Form_Element_Text('cciNumber');
 	$cciNumber->setLabel('Celtic Coin Index Number: ')
+                ->setAttribs(array('cols' => 80, 'maxlength' => 25))
 		->setAttrib('size',12)
 		->addFilters(array('StripTags', 'StringTrim'))
 		->setDescription('This is the coin\'s unique CCI number, not a '
@@ -327,10 +329,12 @@ class IronAgeCoinForm extends Pas_Form {
 
 	$phase_date_1 = new Zend_Form_Element_Text('phase_date_1');
 	$phase_date_1->setLabel('Phase date 1: ')
+                ->setAttribs(array('cols' => 32, 'maxlength' => 200))
 		->addFilters(array('StripTags', 'StringTrim', 'Purifier'));
 
 	$phase_date_2 = new Zend_Form_Element_Text('phase_date_2');
 	$phase_date_2->setLabel('Phase date 2: ')
+                ->setAttribs(array('cols' => 32, 'maxlength' => 200))
 		->addFilters(array('StripTags', 'StringTrim', 'Purifier'));
 
 	$context = new Zend_Form_Element_Text('context');
@@ -339,10 +343,12 @@ class IronAgeCoinForm extends Pas_Form {
 
 	$depositionDate = new Zend_Form_Element_Text('depositionDate');
 	$depositionDate->setLabel('Date of deposition: ')
+                ->setAttribs(array('cols' => 32, 'maxlength' => 255))
 		->addFilters(array('StripTags', 'StringTrim','Purifier'));
 
 	$numChiab = new Zend_Form_Element_Text('numChiab');
 	$numChiab->setLabel('Coin hoards of Iron Age Britain number: ')
+                ->setAttribs(array('rows' => 3, 'cols' => 80, 'maxlength' => 100, 'class' => 'span6'))
 		->addFilters(array('StripTags', 'StringTrim','Purifier'));
 
 	$submit = new Zend_Form_Element_Submit('submit');
