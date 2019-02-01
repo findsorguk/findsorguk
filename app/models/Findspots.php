@@ -159,7 +159,7 @@ class Findspots extends Pas_Db_Table_Abstract
             ->joinLeft('people', $this->_name . '.landowner = people.secuid',
                 array('landownername' => 'fullname'))
             ->joinLeft('discmethods', 'recordtable.discmethod = discmethods.id',
-                array('discmethod' => 'method'))
+                array('discmethod' => 'method', 'discoveryMethod' => 'recordtable.discmethod'))
             ->where('recordtable.id = ?', (int)$id)
             ->group('recordtable.id')
             ->limit('1');
