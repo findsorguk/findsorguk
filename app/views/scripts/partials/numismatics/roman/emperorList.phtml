@@ -3,10 +3,14 @@
        <?= $this->issuer ?>
     </a>
 
-    <?php if ((!empty($this->adBc())) && (strlen($this->adBc()->setDate($this->date_to)) > 0)) : ?>
-       [<?= $this->adBc()->setDate($this->date_from) ?> - <?= $this->adBc()->setDate($this->date_to) ?>]
+    <?php
+        $printableYearFrom = $this->adBc()->setDate($this->date_from)->html();
+        $printableYearTo = $this->adBc()->setDate($this->date_to)->html();
+    ?>
+    <?php if (empty($printableYearTo)) : ?>
+        [<?= $printableYearFrom ?>]
     <?php else: ?>
-       [<?= $this->adBc()->setDate($this->date_from) ?>]
+        [<?= $printableYearFrom ?> - <?= $printableYearTo ?>]
     <?php endif; ?>
 
     <a href="<?= $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'ruler' => $this->dbaseID,), null, true) ?>" title="View all records on the database">
