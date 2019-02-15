@@ -377,11 +377,11 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
         if (ctype_digit($id) && ($id > 0))
 	{
            $currentUserDetails = $this->getUserDetailsFromID($id, $noUserAccountMessage);
-	   $canRecord = $this->getCanRecordValue($currentUserDetails['canRecord']);
 
            // update account
+           // set canRecord to 0 if it is NULL, leave otherwise
            $activatedUserDetails = array(
-              'canRecord' => $canRecord,
+              'canRecord' => !$currentUserDetails['canRecord'] ? '0' : '1',
               'valid' => '1',
               'activationKey' => NULL
            );
@@ -464,13 +464,5 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
           throw new Pas_Exception_Param($message);
        }
        return $currentUserDetails->toArray();
-    }
-
-    private function getCanRecordValue($canRecordValue)
-    {
-       if (!$canRecordValue)
-          $canRecordValue = '0';
-
-       return $canRecordValue;
     }
 }
