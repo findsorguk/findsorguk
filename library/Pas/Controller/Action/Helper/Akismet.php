@@ -107,7 +107,7 @@ class Pas_Controller_Action_Helper_Akismet extends Zend_Controller_Action_Helper
         }
         if(!array_key_exists('user_agent', $data)){
             $useragent = new Zend_Http_UserAgent();
-            $data['user_agent'] = $useragent->getUserAgent();
+            $data['user_agent'] = substr($useragent->getUserAgent(), 0, 255);
         }
         foreach ($data as $k => $v){
             if(!in_array($k, $this->_additionalFields)){
