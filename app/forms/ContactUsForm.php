@@ -64,7 +64,7 @@ class ContactUsForm extends Pas_Form {
                 ->addErrorMessage('Please enter something in the comments box!');
 
 
-	$captcha = new Zend_Form_Element_Captcha('captcha', 
+	/*$captcha = new Zend_Form_Element_Captcha('captcha', 
                 array(
                     'captcha' => 'ReCaptcha',
                     'label' => 'Please fill in this reCaptcha to prove human life exists at your end!',
@@ -75,6 +75,9 @@ class ContactUsForm extends Pas_Form {
                         'theme'=> 'clean',
                         'ssl' => true)
                     ));
+	*/
+	$captcha = new Pas_Form_Element_Recaptcha('captcha');
+	$captcha->setLabel('Please complete the Captcha field to prove you exist');
 
 	$hash = new Zend_Form_Element_Hash('csrf');
 	$hash->setValue($this->_salt)->setTimeout(4800);
@@ -124,6 +127,9 @@ class ContactUsForm extends Pas_Form {
             $this->details->setLegend('Enter your comments: ');
 	}
 	$this->addDisplayGroup(array('submit'), 'buttons');
+
+        $this->addPrefixPath('Pas\Form\Element', APPLICATION_PATH . '/../Pas/Form/Element', Zend_Form::ELEMENT);
+        $this->addElementPrefixPath('Pas\Validate', APPLICATION_PATH . '/../Pas/Validate/', Zend_Form_Element::VALIDATE);
 
 	parent::init();
 	}

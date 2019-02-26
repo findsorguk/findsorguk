@@ -5,6 +5,7 @@ $this->metaBase()
     ->setSubject('Contact details')
     ->setKeywords('contacts,details,phone numbers,emails')
     ->generate();
+$this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
 ?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 <p>The British Museum cannot provide valuations for any objects; if this is what you require we suggest that you contact
