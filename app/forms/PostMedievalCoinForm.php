@@ -155,12 +155,12 @@ class PostMedievalCoinForm extends Pas_Form {
 	$obverse_inscription = new Zend_Form_Element_Text('obverse_inscription');
 	$obverse_inscription->setLabel('Obverse inscription: ')
 		->addFilters(array('StripTags','StringTrim','EmptyParagraph'))
-		->setAttrib('class','span6');
+		->setAttribs(array('rows' => 5, 'cols' => 40, 'maxlength' => 255, 'class' => 'span6'));
 	
 	$reverse_inscription = new Zend_Form_Element_Text('reverse_inscription');
 	$reverse_inscription->setLabel('Reverse inscription: ')
 		->addFilters(array('StripTags','StringTrim','EmptyParagraph'))
-		->setAttribs(array('class' => 'span6'));
+		->setAttribs(array('rows' => 5, 'cols' => 40, 'maxlength' => 255, 'class' => 'span6'));
 	
 	$obverse_description = new Zend_Form_Element_Textarea('obverse_description');
 	$obverse_description->setLabel('Obverse description: ')
@@ -202,12 +202,12 @@ class PostMedievalCoinForm extends Pas_Form {
 	
 	$rev_mm = new Zend_Form_Element_Textarea('reverse_mintmark');
 	$rev_mm->setLabel('Reverse mint mark: ')
-		->setAttribs(array('rows' => 5, 'cols' => 40, 'class' => 'span6'))
+		->setAttribs(array('rows' => 5, 'cols' => 40, 'maxlength' => 255, 'class' => 'span6'))
 		->addFilters(array('StripTags','StringTrim','BasicHtml','EmptyParagraph'));;
 	
 	$initial = new Zend_Form_Element_Textarea('initial_mark');
 	$initial->setLabel('Initial mark: ')
-		->setAttribs(array('rows' => 5, 'cols' => 40, 'class' => 'span6'))
+		->setAttribs(array('rows' => 5, 'cols' => 40, 'maxlength' => 50, 'class' => 'span6'))
 		->addFilters(array('StripTags','StringTrim'));
 	
 	

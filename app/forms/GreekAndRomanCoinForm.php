@@ -133,12 +133,12 @@ class GreekAndRomanCoinForm extends Pas_Form {
 
 	$obverse_inscription = new Zend_Form_Element_Text('obverse_inscription');
 	$obverse_inscription->setLabel('Obverse inscription: ')
-                ->setAttrib('class', 'span6')
+                ->setAttribs(array('rows' => 5, 'cols' => 80, 'maxlength' => 255, 'class' => 'span6'))
                 ->addFilters(array('StringTrim','StripTags','BasicHtml','EmptyParagraph'));
 
 	$reverse_inscription = new Zend_Form_Element_Text('reverse_inscription');
 	$reverse_inscription->setLabel('Reverse inscription: ')
-                ->setAttrib('class','span6')
+                ->setAttribs(array('rows' => 5, 'cols' => 80, 'maxlength' => 255, 'class' => 'span6'))
                 ->addFilters(array('StringTrim','StripTags','BasicHtml','EmptyParagraph'));
 
 	$obverse_description = new Zend_Form_Element_Textarea('obverse_description');
