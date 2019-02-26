@@ -148,6 +148,9 @@ class Messages extends Pas_Db_Table_Abstract {
         if(!empty($data['csrf'])){
             unset($data['csrf']);
         }
+
+	unset($data['captcha']);
+
         if(empty($data['replied'])){
             $data['replied'] = self::REPLIED_DEFAULT_VALUE;
         }
