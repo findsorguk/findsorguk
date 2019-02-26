@@ -177,21 +177,39 @@ class Admin_ContentController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
-        if ($this->_request->isPost()) {
-            $id = (int)$this->_request->getPost('id');
-            $del = $this->_request->getPost('del');
-            if ($del == 'Yes' && $id > 0) {
+        $id = $this->getParam('id', 0);
+
+        if (!(ctype_digit($id) && ($id > 0)))
+        {
+            $this->redirect('/admin/content/');
+        }
+
+        if ($this->_request->isPost())
+        {
+            $postVariable = $this->_request->getPost('confirmDelete');
+            $confirmDelete = isset($postVariable) ? strtoupper($postVariable) : "NO";
+
+	    // if Yes, delete the record
+            if ('YES' === $confirmDelete) 
+	    {
                 $where = 'id = ' . $id;
                 $this->getContent()->delete($where);
-                $this->getFlash()->addMessage('Record deleted!');
+
+                $this->getFlash()->addMessage('Record deleted');
+
+		// Update SOLR
                 $this->_helper->solrUpdater->deleteById('content', $id);
             }
-            $this->redirect('/admin/content/');
-        } else {
-            $id = (int)$this->_request->getParam('id');
-            if ($id > 0) {
-                $this->view->content = $this->getContents()->fetchRow('id=' . $id);
+            else 
+	    {
+                $this->getFlash()->addMessage('Record NOT deleted!');
             }
+
+            $this->redirect('/admin/content/');
+        }
+	else 
+	{
+            $this->view->content = $this->getContent()->fetchRow('id = ' . $id);
         }
     }
 }
