@@ -379,14 +379,15 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
            $currentUserDetails = $this->getUserDetailsFromID($id, $noUserAccountMessage);
 
            // update account
+           // set canRecord to 0 if it is NULL, leave otherwise
            $activatedUserDetails = array(
-              'canRecord' => 0,
-              'valid' => 1,
+              'canRecord' => !$currentUserDetails['canRecord'] ? '0' : '1',
+              'valid' => '1',
               'activationKey' => NULL
            );
            $where = array($this->getUsers()->getAdapter()->quoteInto('id = ?', $id));
            $this->getUsers()->update($activatedUserDetails, $where);
-	   
+
            // audit change
            $this->_helper->audit(
                $activatedUserDetails,
