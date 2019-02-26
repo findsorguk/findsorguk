@@ -37,7 +37,7 @@ class StaffRoleForm extends Pas_Form {
 		->addErrorMessage('Choose title for the role.')
 		->addValidator('Alnum',true, array('allowWhiteSpace' => true));
 	
-	$description = new Zend_Form_Element_Textarea('description');
+	$description = new Pas_Form_Element_CKEditor('description');
 	$description->setLabel('Role description: ')
                 ->setRequired(true)
                 ->setAttribs(array('rows' => 10, 'cols' => 80))
