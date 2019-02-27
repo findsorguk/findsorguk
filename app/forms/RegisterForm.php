@@ -99,7 +99,7 @@ class RegisterForm extends Pas_Form
         $this->addElement($hash);
 
         $captcha = new Pas_Form_Element_Recaptcha('captcha');
-        $captcha->setLabel('You have not solved the captcha');
+        $captcha->setLabel('Please complete the Captcha field to prove you exist');
 
         //Submit button
         $submit = new Zend_Form_Element_Submit('submit');
