@@ -98,36 +98,24 @@ class RegisterForm extends Pas_Form
             ->setTimeout(4800);
         $this->addElement($hash);
 
-        $recaptcha = new Zend_Service_ReCaptcha($this->_pubKey, $this->_privateKey);
-        $captcha = new Zend_Form_Element_Captcha('captcha',
-            array(
-                'captcha' => 'ReCaptcha',
-                'label' => 'Prove you are not a robot/spammer',
-                'captchaOptions' => array(
-                    'captcha' => 'ReCaptcha',
-                    'service' => $recaptcha,
-                    'theme' => 'clean',
-                    'ssl' => true
-                )
-            ));
-        $captcha->setDescription('Due to the surge in robotic activity, we 
-            have had to introduce this software. However, by filling in this 
-            captcha, you help Carnegie Mellon University digitise old books.');
-        $captcha->setDecorators(array(array('Description',
-            array('placement' => 'append', 'class' => 'info')),
-            array('Errors', array(
-                'placement' => 'append',
-                'class' => 'error',
-                'tag' => 'li'))
-        ));
-        $captcha->addErrorMessage('You have not solved the captcha');
-        $this->addElement($captcha);
+        $captcha = new Pas_Form_Element_Recaptcha('captcha');
+        $captcha->setLabel('You have not solved the captcha');
 
         //Submit button
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Register!');
 
-        $this->addElement($submit);
+        //$this->addElement($submit);
+        $this->addElements(array(
+	   $username,
+	   $password,
+	   $firstName,
+	   $lastName,
+	   $preferredName,
+	   $email,
+           $captcha,
+           $submit, 
+           $hash));
 
         $this->addDisplayGroup(array(
             'username', 'password', 'first_name',
@@ -137,6 +125,9 @@ class RegisterForm extends Pas_Form
 
         $this->details->setLegend('Register with the Scheme: ');
         $this->addDisplayGroup(array('submit'), 'buttons');
+
+        $this->addPrefixPath('Pas\Form\Element', APPLICATION_PATH . '/../Pas/Form/Element', Zend_Form::ELEMENT);
+        $this->addElementPrefixPath('Pas\Validate', APPLICATION_PATH . '/../Pas/Validate/', Zend_Form_Element::VALIDATE);
 
         parent::init();
 
