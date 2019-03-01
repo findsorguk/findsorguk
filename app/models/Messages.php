@@ -170,7 +170,7 @@ class Messages extends Pas_Db_Table_Abstract {
         }
         if(empty($data['user_agent'])){
             $useragent = new Zend_Http_UserAgent();
-            $data['user_agent'] = $useragent->getUserAgent();
+            $data['user_agent'] = substr($useragent->getUserAgent(), 0, 255);
         }
         if ($this->_akismet->isSpam($data)) {
             $data['comment_approved'] = self::SPAM;
