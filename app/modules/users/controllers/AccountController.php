@@ -222,6 +222,12 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             $form = new RegisterForm();
             $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+
+		$recap = $form->getvalue('g-recaptcha-response');
+                $captcha = $form->getvalue('captcha');
+                unset($recap);
+                unset($captcha);
+
                 $to = array(array(
                     'email' => $form->getValue('email'),
                     'name' => $form->getValue('first_name') . ' ' . $form->getValue('last_name'))
@@ -231,6 +237,12 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     'name' => $form->getValue('first_name') . ' ' . $form->getValue('last_name'),
                     'activationKey' => md5($form->getValue('username') . $form->getValue('first_name'))
                 );
+
+	        /*$recap = $form->getvalue('g-recaptcha-response');
+                $captcha = $form->getvalue('captcha');
+                unset($recap);
+                unset($captcha);*/
+
                 $this->_users->register($form->getValues());
                 $this->_helper->mailer($emailData, 'activateAccount', $to);
                 $this->getFlash()->addMessage('Your account has been created. Please check your email.');
