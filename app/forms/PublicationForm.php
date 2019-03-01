@@ -40,27 +40,27 @@ class PublicationForm extends Pas_Form {
 	$title->setLabel('Publication title: ')
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size',50)
+                ->setAttribs(array('size' => 50, 'maxlength' => 255))
 		->addErrorMessage('Please enter a publication title.');
 
 	$authors = new Zend_Form_Element_Text('authors');
 	$authors->setLabel('Author names: ')
 		->setRequired(true)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size',50)
+                ->setAttribs(array('size' => 50, 'maxlength' => 255))
 		->addErrorMessage('You must enter either an author\'s or an editor\'s name.');
 
 	$editors = new Zend_Form_Element_Text('editors');
 	$editors->setLabel('Editor names: ')
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size',50);
+                ->setAttribs(array('size' => 50, 'maxlength' => 255));
 
 	$publisher = new Zend_Form_Element_Text('publisher');
 	$publisher->setLabel('Publisher: ')
 		->addFilters(array('StripTags','StringTrim'))
 		->setRequired(true)
-		->setAttrib('size',50)
+                ->setAttribs(array('size' => 50, 'maxlength' => 150))
 		->addErrorMessage('You must enter a publisher.');
 
 	$publication_place = new Zend_Form_Element_Text('publication_place');
@@ -68,7 +68,7 @@ class PublicationForm extends Pas_Form {
 		->addFilters(array('StripTags','StringTrim'))
 		->setRequired(true)
 		->addValidator('Alnum',false,array('allowWhiteSpace' => true))
-		->setAttrib('size',70)
+                ->setAttribs(array('size' => 70, 'maxlength' => 20))
 		->addErrorMessage('You must enter place of publication.');
 
 	$publication_year = new Zend_Form_Element_Text('publication_year');
@@ -76,14 +76,14 @@ class PublicationForm extends Pas_Form {
 		->setRequired(true)
 		->addValidator('Digits')
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size',20)
+                ->setAttribs(array('size' => 20, 'maxlength' => 5))
 		->addErrorMessage('You must enter year of publication.');
 
 	$vol_no = new Zend_Form_Element_Text('vol_no');
 	$vol_no->setLabel('Volume number: ')
 		->setRequired(false)
 		->addValidator('Alnum',false,array('allowWhiteSpace' => true))
-		->setAttrib('size',20)
+                ->setAttribs(array('size' => 20, 'maxlength' => 30))
 		->addFilters(array('StripTags','StringTrim'));
 
 	$edition = new Zend_Form_Element_Text('edition');
@@ -91,13 +91,13 @@ class PublicationForm extends Pas_Form {
 		->setRequired(false)
 		->addValidator('Alnum',false,array('allowWhiteSpace' => true))
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size',20);
+                ->setAttribs(array('size' => 20, 'maxlength' => 50));
 
 	$in_publication = new Zend_Form_Element_Text('in_publication');
 	$in_publication->setLabel('In publication: ')
 		->addFilters(array('StripTags','StringTrim'))
 		->setRequired(false)
-		->setAttrib('size',50);
+                ->setAttribs(array('size' => 50, 'maxlength' => 255));
 
 	$publication_type = new Zend_Form_Element_Select('publication_type');
 	$publication_type->setLabel('Publication type: ')
@@ -114,20 +114,20 @@ class PublicationForm extends Pas_Form {
 	$ISBN->setLabel('ISBN (allows people to look it up on Amazon): ')
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size',40)
+                ->setAttribs(array('size' => 40, 'maxlength' => 20))
 		->addValidator('Isbn');
 
         $BIAB = new Zend_Form_Element_Text('biab');
 	$BIAB->setLabel('British and Irish Archaeological Bibliography number:')
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size',40);
+                ->setAttribs(array('size' => 40, 'maxlength' => 10));
 
         $DOI = new Zend_Form_Element_Text('doi');
 	$DOI->setLabel('DOI (Digital Object Identifier): ')
 		->setRequired(false)
 		->addFilters(array('StripTags','StringTrim'))
-		->setAttrib('size',40);
+                ->setAttribs(array('size' => 40, 'maxlength' => 255));
 
 	//Submit button
 	$submit = new Zend_Form_Element_Submit('submit');
