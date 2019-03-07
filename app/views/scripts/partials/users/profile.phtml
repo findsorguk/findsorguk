@@ -3,13 +3,13 @@ $this->headTitle('User account details for ' . $this->fullname . ' - '
     . $this->visits . ' visits.');
 ?>
 
-<h2 class="lead"><?php echo $this->title(); ?></h2>
+<h2 class="lead"><?= $this->title() ?></h2>
 
 <p>
     <?php
     echo $this->gravatar($this->email, array(
         'imgSize' => 80,
-        'defaultImg' => $this->baseUrl() . '/assets/gravatar.png',
+        'defaultImg' => $this->serverUrl() . '/assets/gravatar.png',
         'secure' => true),
         array(
             'class' => 'avatar img-circle pull-left stelae',
@@ -28,7 +28,7 @@ $this->headTitle('User account details for ' . $this->fullname . ' - '
         echo 'Your username is currently ' . $this->username;
     }
     ?>
-    You have logged in: <?php echo $this->visits; ?> times.
+    You have logged in: <?= $this->visits ?> times.
     <?php
     $more = $this->moreVisitsThanMe()->setVisits($this->visits)->getData();
     if ((int)$more != 0) {
@@ -37,12 +37,11 @@ $this->headTitle('User account details for ' . $this->fullname . ' - '
         echo '<br />You are the most frequent visitor!';
     } ?>
     <br/>
-    Last visit registered at: <?php echo $this->escape($this->timeAgoInWords($this->lastLogin)); ?><br/>
-    Your specified role on the site is: <?php echo ucfirst($this->role); ?><br/>
-    Your account was last updated by <?php echo $this->updater; ?>
-    , <?php echo $this->escape($this->timeAgoInWords($this->updated)); ?>.<br/>Your account was created
-    by: <?php echo $this->creator; ?>.<br/ >
-    Your account was created: <?php echo $this->escape($this->timeAgoInWords($this->created)); ?>.<br/ >
+    Last visit registered at: <?= $this->escape($this->timeAgoInWords($this->lastLogin)) ?><br/>
+    Your specified role on the site is: <?= ucfirst($this->role) ?><br/>
+    Your account was last updated by <?= $this->updater ?>, <?= $this->escape($this->timeAgoInWords($this->updated)) ?>.<br/>
+    Your account was created by: <?= $this->creator ?>.<br/ >
+    Your account was created: <?= $this->escape($this->timeAgoInWords($this->created)) ?>.<br/ >
     <?php
     if ($this->canRecord === '1'):?>
         <strong>Your account has permission to record objects.</strong>
@@ -53,10 +52,12 @@ $this->headTitle('User account details for ' . $this->fullname . ' - '
     <?php if (!is_null($this->peopleID)): ?>
         <br/><strong>Your account is attached to personal details on the database.</strong>
         <?php if ($this->institution === 'PUBLIC'): ?>
-            <br/>This url will take you to all publicly available finds you have recorded: <a
-                href="<?php echo $this->serverUrl() . $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'finderID' => $this->peopleID), null, true); ?>"><?php echo $this->serverUrl() . $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'finderID' => $this->peopleID), null, true); ?></a>
+            <br/>This url will take you to all publicly available finds you have recorded: 
+		<a href="<?php echo $this->serverUrl() . $this->url(array('module' => 'database', 'controller' => 'search', 'action' => 'results', 'finderID' => $this->peopleID), null, true); ?>">
+		    <?= 'Finds' ?>
+		</a>
         <?php endif; ?>
-        <br/><strong>Your unique identifier is: <?php echo $this->peopleID; ?></strong>
+        <br/><strong>Your unique identifier is: <?= $this->peopleID ?></strong>
     <?php else: ?>
         <br/><span class="question">You have not been associated with personal details on our database. Contact your local FLO to get this fixed.</span>
     <?php endif; ?>
