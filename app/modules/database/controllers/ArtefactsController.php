@@ -333,9 +333,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                 $form->finderID->setValue($user->peopleID);
                 $form->recordername->setAttrib('disabled', true);
 
-                $removeDisplayGroups = array('discoverers');
-                $removeElements = array('finder', 'secondfinder', 'idBy', 'id2by');
-                $form = $this->removeFields($form, $removeElements, $removeDisplayGroups);
+                $displayGroupsToRemove = array('discoverers');
+                $elementFieldsToRemove = array('finder', 'secondfinder', 'idBy', 'id2by');
+                $this->removeElementFields($form, $elementFieldsToRemove);
+		$this->removeDisplayGroups($form, $displayGroupsToRemove);
             }
 
 	    $currentFindDetails = $this->getFinds()->fetchRow('id = ' . $id);
@@ -350,12 +351,15 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         	    {
                        $personalDetails = array('finder' => 'finderID', 'recordername' => 'recorderID', 'idBy' => 'identifier1ID',
                                                 'id2by' => 'identifier2ID', 'secondfinder' => 'finder2ID');
-                       $updatedFindDetails = $this->updatePersonalDetails($updatedFindDetails, $personalDetails);
+                       $updatedFindDetails = $this->nullifyEmptyFields($updatedFindDetails, $personalDetails);
 		    }
 
-                    // Unset the fields which do not exist in the finds table
-                    $unsetFields = array('recordername', 'finder', 'idBy', 'id2by', 'secondfinder');
-                    $updatedFindDetails = $this->unsetFieldsNotinTable($updatedFindDetails, $unsetFields);
+                    // remove unwanted fields
+		    unset($updatedFindDetails['recordername'],
+                        $updatedFindDetails['finder'],
+                        $updatedFindDetails['idBy'],
+                        $updatedFindDetails['id2by'],
+                        $updatedFindDetails['secondfinder']);
 
                     $where = array();
                     $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $id);
@@ -698,44 +702,34 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         }
     }
 
-   // remove the fields/groups from form as per user access level
-   private function removeFields($form, $removeElements, $removeDisplayGroups)
-   {
-      foreach ($removeElements as $removeElement)
-      {
-        $form->removeElement($removeElement);
-      }
+    private function removeElementFields($form, $fields)
+    {
+        foreach ($fields as $elementToRemove)
+        {
+            $form->removeElement($elementToRemove);
+        }
+    }
 
-      foreach ($removeDisplayGroups as $removeDisplayGroup)
-      {
-         $form->removeDisplayGroup($removeDisplayGroup);
-      }
+    private function removeDisplayGroups($form, $groups)
+    {
+        foreach ($groups as $groupToRemove)
+        {
+            $form->removeDisplayGroup($groupToRemove);
+        }
+    }
 
-     return $form;
-   }
+    // recordername, finder, idBy, id2by and secondfinder not given value, then respective fields will also updated accordingly
+    // Check source labels in the target. If empty, set source field name's in target to null
+    private function nullifyEmptyFields($target, $source)
+    {
+        foreach ($source as $label => $fieldName)
+        {
+            if (empty($target[$label]))
+            {
+                $target[$fieldName] = null;
+            }
+        }
 
-   // recordername, finder, idBy, id2by and secondfinder not given value, then respective fields will also updated accordingly
-   private function updatePersonalDetails($updatedFindDetails, $personalDetails)
-   {
-      foreach ($personalDetails as $label => $fieldName)
-      {
-         if (empty($updatedFindDetails[$label]))
-         {
-            $updatedFindDetails[$fieldName] = null;
-         }
-      }
-
-     return $updatedFindDetails;
-   }
-
-   // Unset the fields which do not exist in the finds table
-   private function unsetFieldsNotinTable($updatedFindDetails, $unsetFields)
-   {
-      foreach ($unsetFields as $unsetField)
-      {
-         unset($updatedFindDetails[$unsetField]);
-      }
-
-     return $updatedFindDetails;
-   }
+        return $target;
+    }
 }
