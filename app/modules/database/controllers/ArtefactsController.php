@@ -320,60 +320,71 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
      */
     public function editAction()
     {
-        if ($this->getParam('id', false)) {
+        $id = (int)$this->_request->getParam('id', 0);
+
+        if ((ctype_digit($id) && ($id > 0))) {
             $user = $this->getAccount();
             $form = $this->getFindForm();
             $form->submit->setLabel('Update record');
             $this->view->form = $form;
-            if (in_array($this->getRole(), $this->_restricted)) {
-                $form->removeDisplayGroup('discoverers');
-                $form->removeElement('finder');
+
+            if (in_array($this->getRole(), $this->_restricted))
+            {
                 $form->finderID->setValue($user->peopleID);
-                $form->removeElement('secondfinder');
-                $form->removeElement('idBy');
                 $form->recordername->setAttrib('disabled', true);
-                $form->removeElement('id2by');
+
+                $displayGroupsToRemove = array('discoverers');
+                $elementFieldsToRemove = array('finder', 'secondfinder', 'idBy', 'id2by');
+                $this->removeElementFields($form, $elementFieldsToRemove);
+		$this->removeDisplayGroups($form, $displayGroupsToRemove);
             }
-            if ($this->getRequest()->isPost()) {
-                if ($form->isValid($this->_request->getPost())) {
-                    $updateData = $form->getValues();
-                    $id2by = $form->getValue('id2by');
-                    if ($id2by === "" || is_null($id2by)) {
-                        $updateData['identifier2ID'] = null;
-                    }
-                    unset($updateData['recordername']);
-                    unset($updateData['finder']);
-                    unset($updateData['idBy']);
-                    unset($updateData['id2by']);
-                    unset($updateData['secondfinder']);
-                    $oldData = $this->getFinds()->fetchRow('id=' . $this->getParam('id'))->toArray();
+
+	    $currentFindDetails = $this->getFinds()->fetchRow('id = ' . $id);
+            if ($this->getRequest()->isPost())
+	    {
+                if ($form->isValid($this->_request->getPost()))
+		{
+                    $updatedFindDetails = $form->getValues();
+
+                    // recordername, finder, idBy, id2by and secondfinder not given value, then respective fields will also updated accordingly
+	            if (in_array($this->getRole(), $this->_higherLevel))
+        	    {
+                       $personalDetails = array('finder' => 'finderID', 'recordername' => 'recorderID', 'idBy' => 'identifier1ID',
+                                                'id2by' => 'identifier2ID', 'secondfinder' => 'finder2ID');
+                       $updatedFindDetails = $this->nullifyEmptyFields($updatedFindDetails, $personalDetails);
+		    }
+
+                    // remove unwanted fields
+		    unset($updatedFindDetails['recordername'],
+                        $updatedFindDetails['finder'],
+                        $updatedFindDetails['idBy'],
+                        $updatedFindDetails['id2by'],
+                        $updatedFindDetails['secondfinder']);
+
                     $where = array();
-                    $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
-                    $this->getFinds()->update($updateData, $where);
+                    $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $id);
+                    $this->getFinds()->update($updatedFindDetails, $where);
                     $this->_helper->audit(
-                        $updateData,
-                        $oldData,
+                        $updatedFindDetails,
+                        $currentFindDetails->toArray(),
                         'FindsAudit',
-                        $this->getParam('id'),
-                        $this->getParam('id')
+                        $id,
+                        $id
                     );
-                    $this->_helper->solrUpdater->update('objects', $this->getParam('id'), 'artefacts');
+
+		    // Update SOLR
+                    $this->_helper->solrUpdater->update('objects', $id, 'artefacts');
                     $this->getFlash()->addMessage('Artefact information updated and audited!');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('id'));
-                } else {
-                    $this->view->find = $this->getFinds()->fetchRow('id=' . $this->getParam('id'));
-                    $form->populate($this->_request->getPost());
+                    $this->redirect(self::REDIRECT . 'record/id/' . $id);
                 }
             } else {
-                $id = (int)$this->_request->getParam('id', 0);
-                if ($id > 0) {
-                    $formData = $this->getFinds()->getEditData($id);
-                    if (count($formData)) {
-                        $form->populate($formData['0']);
-                        $this->view->find = $this->getFinds()->fetchRow('id=' . $id);
-                    } else {
-                        throw new Pas_Exception_Param($this->_nothingFound, 404);
-                    }
+                $formData = $this->getFinds()->getEditData($id);
+                if (count($formData))
+		{
+                    $form->populate($formData['0']);
+                    $this->view->find = $currentFindDetails;
+                } else {
+                    throw new Pas_Exception_Param($this->_nothingFound, 404);
                 }
             }
         } else {
@@ -689,5 +700,36 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         } else {
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
+    }
+
+    private function removeElementFields($form, $fields)
+    {
+        foreach ($fields as $elementToRemove)
+        {
+            $form->removeElement($elementToRemove);
+        }
+    }
+
+    private function removeDisplayGroups($form, $groups)
+    {
+        foreach ($groups as $groupToRemove)
+        {
+            $form->removeDisplayGroup($groupToRemove);
+        }
+    }
+
+    // recordername, finder, idBy, id2by and secondfinder not given value, then respective fields will also updated accordingly
+    // Check source labels in the target. If empty, set source field name's in target to null
+    private function nullifyEmptyFields($target, $source)
+    {
+        foreach ($source as $label => $fieldName)
+        {
+            if (empty($target[$label]))
+            {
+                $target[$fieldName] = null;
+            }
+        }
+
+        return $target;
     }
 }
