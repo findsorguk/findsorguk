@@ -1,15 +1,15 @@
 <?php
 /** Data model for accessing searches from database
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $search = new Searches();
  * $searches = $search->getAllSearchesAdmin($page);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -31,7 +31,7 @@ class Searches extends Pas_Db_Table_Abstract {
 
     /** The primary key
      * @access protected
-     * @var type 
+     * @var type
      */
     protected $_primary = 'id';
 
@@ -40,7 +40,9 @@ class Searches extends Pas_Db_Table_Abstract {
      * @param string $searchstring
      * @return array
      */
-    public function insertResults($searchstring) {
+    public function insertResults($searchstring)
+    {
+	$useragent = new Zend_Http_UserAgent();
         $table = $this->_name;
         $searches = $this->getAdapter();
         if(isset($searchstring)) {
@@ -48,8 +50,8 @@ class Searches extends Pas_Db_Table_Abstract {
                 'searchString' => $searchstring,
                 'date' => $this->timeCreation(),
                 'userid' => $this->getUserNumber(),
-                'ipaddress' => $_SERVER['REMOTE_ADDR'],
-                'useragent' => $_SERVER['HTTP_USER_AGENT']
+		'ipaddress' => Zend_Controller_Front::getInstance()->getRequest()->getClientIp(),
+                'useragent' => substr($useragent->getUserAgent(), 0, 255)
                 );
             return $searches->insert($table, $updatesdata);
         }
