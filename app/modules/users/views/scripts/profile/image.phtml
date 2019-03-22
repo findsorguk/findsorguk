@@ -1,62 +1,17 @@
-<h2 class="lead">Add a photo to profile</h2>
 <?php 
-	$this->headTitle('Change your contact profile image');
-	if(count($this->errors))
-{
-echo '<ul>';
-foreach($this->errors as $key => $value)
-{
-echo '<li>';
-echo $value;
-echo '</li>';
-}
-echo '</ul>';
-}
+   $this->headTitle('Contact Profile Image');
 ?>
-<?php if(!is_null($this->contacts['image'])) {?>
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/confirm.js',$type = 'javascript');?>
-<?php $this->jQuery()->javascriptCaptureStart();?>
-$(document).ready(function(){
-$('a.deleteimage').click(function(e) {
-		e.preventDefault();
-		var parent = $(this).parents("div:first");
-		$.ajax({
-			type: 'get',
-			url: '<?php echo $this->url(array('module' => 'default','controller' => 'ajax','action' => 'deleteprofileimage'),null,true);?>',
-			data: 'id=' + parent.attr('id').replace('image-',''),
-			beforeSend: function() {
-				parent.animate({'backgroundColor':'#fb6c6c'},300);
-			},
-			success: function() {
-				parent.slideUp(300,function() {
-					parent.remove();
-				});
-			}
-		});
-	});
- });
-
-<?php $this->jQuery()->javascriptCaptureEnd();?>
-<?php $this->jQuery()->javascriptCaptureStart();?>
-$(document).ready(function(){
-
-$('a[class^=delete]').confirm({
-   dialogShow:'fadeIn',
-    dialogSpeed:'slow',
-    buttons: {
-      wrapper:'<button></button>',
-      separator:'  '
-    }  
-  });
- });
-
-
-<?php $this->jQuery()->javascriptCaptureEnd();?>
- <div id="image-<?php echo $this->contacts['id'];?>">
-<h3 class="lead">Your current image!</h3>
-
-<p><img property="foaf:img google:photo" src="<?php echo $this->baseUrl(); ?>/assets/staffphotos/thumbnails/<?php echo $this->contacts['image'];?>" title="Image of <?php echo $this->escape($this->contacts['firstname']);?> <?php echo $this->escape($this->contacts['lastname']);?>"> <br />
-<a href="#" class="deleteimage" title="Delete this image">Delete this image</a></p> 
+<h2 class="lead">Contact Profile Image</h2>
+<div id="image-<?php echo $this->contacts['id'];?>">
+   <?php if (!empty($this->contacts['image'])): ?>
+      <h3 class="lead">Your current image:</h3>
+      <p>
+         <img property="foaf:img google:photo" src="<?= $this->baseUrl() ?>/assets/staffphotos/thumbnails/<?= $this->contacts['image'] ?>" 
+            title="Image of <?= $this->escape($this->contacts['firstname']) ?> <?= $this->escape($this->contacts['lastname']) ?>"> <br />
+            <a href="<?= $this->url(array('module' => 'users','controller' => 'profile','action' => 'deleteprofileimage'),null,true) ?>" class="deleteimage" title="Delete this image">
+               Delete this image
+            </a>
+      </p> 
+   <?php endif; ?>
 </div>       
-<?php }?>
 <?php echo $this->form;?>
