@@ -154,7 +154,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin
                 if ($upload->isValid()) 
 		{
 		    // Check if any image arleady exists
-		    $this->existImage($dbaseID);
+		    $this->findExistingStaffImages($dbaseID);
 
                     $renamedImage = $this->renameImageUsingId(self::PROFILEPATH, $form->getValue('image'), $dbaseID);
 
@@ -282,7 +282,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin
 	       $this->storeStaffImageName(null, $dbaseID);
 
 	       // Delete images from the staffphotos, thumbnails and resized folders
-               $this->existImage($dbaseID);
+               $this->findExistingStaffImages($dbaseID);
 
 	       $this->getFlash()->addMessage('Image deleted!');
             }
@@ -337,7 +337,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin
     }
 
     // Check images exists in the staffphotos, thumbnails and resized folders
-    private function existImage($id)
+    private function findExistingStaffImages($id)
     {
         $userImages = '*_' . $id . '.*';
 	$pattern = "/" . $id . "\.(jpg|jpeg|JPG|JPEG|png|PNG)$/";
