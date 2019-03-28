@@ -37,7 +37,13 @@ class AddMintToRulerForm extends Pas_Form {
 
 	$submit = new Zend_Form_Element_Submit('submit');
 
-	$this->addElements(array($mint, $ruler_id, $submit));
+	$updated = new Zend_Form_Element_Hidden('updated');
+        $updated->addFilters(array('StripTags', 'StringTrim'));
+
+	$updatedBy = new Zend_Form_Element_Hidden('updatedBy');
+        $updatedBy->addFilters(array('StripTags', 'StringTrim'));
+
+	$this->addElements(array($mint, $ruler_id,  $updated, $updatedBy, $submit));
 
 	$this->addDisplayGroup(array('mint_id'), 'details');
 
