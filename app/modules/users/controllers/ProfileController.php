@@ -337,20 +337,21 @@ class Users_ProfileController extends Pas_Controller_Action_Admin
     }
 
     // Check images exists in the staffphotos, thumbnails and resized folders
-    private  function existImage($id)
+    private function existImage($id)
     {
-        $userImages = '*' . $id . '*';
-	$this->deleteExistingImages(glob(self::PROFILEPATH . $userImages));
-	$this->deleteExistingImages(glob(self::RESIZE['destination'] . $userImages));
-	$this->deleteExistingImages(glob(self::THUMB['destination'] . $userImages));
+        $userImages = '*_' . $id . '.*';
+	$pattern = "/" . $id . "\.(jpg|jpeg|JPG|JPEG|png|PNG)$/";
+	$this->deleteExistingImages(glob(self::PROFILEPATH . $userImages), $pattern);
+	$this->deleteExistingImages(glob(self::RESIZE['destination'] . $userImages), $pattern);
+	$this->deleteExistingImages(glob(self::THUMB['destination'] . $userImages), $pattern);
     }
 
     // Delete images from the staffphotos, thumbnails and resized folders
-    private function deleteExistingImages($images)
+    private function deleteExistingImages($images, $pattern)
     {
 	foreach ($images as $image)
 	{
-	    if (file_exists($image))
+	    if (file_exists($image) && preg_match($pattern, $image))
 	    {
 	        unlink($image);
    	    }

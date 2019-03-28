@@ -30,7 +30,7 @@ class AddStaffPhotoForm extends Pas_Form
             ->setDestination(ASSETS_PATH . '/staffphotos/')
             ->addValidator('NotEmpty')
             ->addValidator('Size', false, 2097152)
-	    ->addValidator('Extension', false, array('jpeg,jpg,png', 'messages'=>array('fileExtensionFalse'=>'Please upload an image with extension either jpg/png')))
+	    ->addValidator('Extension', false, array('jpeg,jpg,png', 'messages'=>array('fileExtensionFalse'=>'Please upload an image with an extension of jpg or png')))
             ->setMaxFileSize(2097152)
             ->setAttribs(array('class' => 'textInput', 'accept' => '.jpeg,.jpg,.png'))
             ->addValidator('Count', false, array('min' => 1, 'max' => 1))
