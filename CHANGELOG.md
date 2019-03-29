@@ -1,5 +1,53 @@
 # Change Log
 
+### 1.54 29th March 2019
+- [x] Staff user can upload thier profile pictures.
+- [x] Fix to insert record into mints_rulers table.
+- [x] Fix for the default image on the user's profile.
+- [x] Fix for userAgent of the search table.
+
+### 1.53 7th March 2019
+- [x] Users can strip off the finder, secondary finder, recorder, identifier and second identifier, if those were added.
+- [x] Fix for reCaptcha used for Contact Us, register, reset password forms.
+
+### 1.52 26th February 2019
+- [x] Fix to Delete Button of Role and Content.
+- [x] Replaced texarea with CKEditor for Description of Role form.
+- [x] Fix to display issuer reece period.
+- [x] User can add their social account.
+- [x] Added max length attribute to all the coin forms.
+- [x] Fix to canRecord of Activate Button.
+- [x] Fix to display Discovery Metadata as string for Hoard records.
+
+### 1.51 8th January 2019
+- [x] Added Activate/Deactivate button.
+
+### 1.50 19th December 2018
+- [x] Amended CKEditor to make default language as British English.
+- [x] Fix to CKEditor to count html elements/tags.
+- [x] Fix to Roman Mints page.
+
+### 1.49 05th December 2018
+- [x] CKEditor is upgraded (4.2 -> 4.11).
+- [x] Fix to view Treasure minutes in chronological order with expected names.
+- [x] Fix to Timeline of associated dates.
+- [x] Fix to Delete button of Research Project.
+- [x] Latitude and longitude details are removed from the geojson format.
+
+### 1.48 12th November 2018
+- [x] Fix to Obverse-Inscription.
+- [x] Fix to login without issue of userAgent length.
+- [x] Timeout has now been changed to NOT go to the user login page.
+- [x] Updated not to show Red and Quarantine records as part of Similar objects to Public.
+
+### 1.47 19th October 2018
+- [x] Fix to Republic Moneyer, Emperor page.
+- [x] Fix to truncation error for Reference.
+- [x] Donation page added to the Treasure.
+- [x] Fix to Staff and Coroners map.
+- [x] Fix to view users social account.
+- [x] Abatement page added to the Treasure.
+
 ### 1.46 17th August 2018
 - [x] Fix to Nomisma reference.
 
