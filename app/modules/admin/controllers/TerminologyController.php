@@ -256,7 +256,7 @@ class Admin_TerminologyController extends Pas_Controller_Action_Admin
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $methods = new DiscoMethods();
-                $methods->insert($form->getValues());
+                $methods->add($form->getValues());
                 $this->redirect($this->_redirectUrl . 'methods');
                 $this->getFlash()->addMessage('Method of discovery created!');
             } else {
