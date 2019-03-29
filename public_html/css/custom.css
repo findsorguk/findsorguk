@@ -1,0 +1,9 @@
+/*
+        Ensures any errors which result from uploading a staff image are shown on
+        the next line.
+
+        See: finds.org.uk/users/profile/image
+*/
+.help-block {
+    display: block;
+}

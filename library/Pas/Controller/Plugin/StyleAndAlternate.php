@@ -36,8 +36,8 @@ class Pas_Controller_Plugin_StyleAndAlternate extends Zend_Controller_Plugin_Abs
         '/css/lightbox.css' => 'screen',
         '/css/jquery.reject.css' => 'screen',
         '/css/bootstrap-responsive.min.css' => 'screen',
-        '/css/print.css' => 'print'
-
+        '/css/print.css' => 'print',
+        '/css/custom.css' => 'screen'
     );
 
     /** Head meta stuff

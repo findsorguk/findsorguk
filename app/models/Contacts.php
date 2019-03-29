@@ -82,7 +82,8 @@ class Contacts extends Pas_Db_Table_Abstract
         $persons = $this->getAdapter();
         $select = $persons->select()
             ->from($this->_name, array('image'))
-            ->where('staff.id= ?', (int)$id);
+            ->where('dbaseID = ?', (int)$id)
+	    ->where('alumni = ?', (int)1);
         return $persons->fetchAll($select);
     }
 

@@ -30,12 +30,11 @@ class AddStaffPhotoForm extends Pas_Form
             ->setDestination(ASSETS_PATH . '/staffphotos/')
             ->addValidator('NotEmpty')
             ->addValidator('Size', false, 2097152)
-            ->addValidator('Extension', false, 'jpeg,tif,jpg,png,gif')
+	    ->addValidator('Extension', false, array('jpeg,jpg,png', 'messages'=>array('fileExtensionFalse'=>'Please upload an image with an extension of jpg or png')))
             ->setMaxFileSize(2097152)
-            ->setAttribs(array('class' => 'textInput'))
+            ->setAttribs(array('class' => 'textInput', 'accept' => '.jpeg,.jpg,.png'))
             ->addValidator('Count', false, array('min' => 1, 'max' => 1))
-            ->setDescription('We only accept JPG, TIFF, PNG or GIF files of
-                    2MB or less');
+            ->setDescription('We only accept jpg or png files of 2MB or less');
 
         $hash = new Zend_Form_Element_Hash('csrf');
         $hash->setValue($this->_salt)->setTimeout(60);
