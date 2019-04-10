@@ -1,1 +1,5 @@
-<?php echo $this->partial('partials/getinvolved/volunteerOpportunity.phtml', $this->vols['0']); ?>
+<?php if (count($this->vols) > 0): ?>
+    <?= $this->partial('partials/getinvolved/volunteerOpportunity.phtml', $this->vols['0']) ?>
+<?php else: ?>
+    <?= $this->partial('partials/getinvolved/volunteerOpportunity.phtml', null) ?>
+<?php endif; ?>

@@ -51,7 +51,6 @@ class Volunteers extends Pas_Db_Table_Abstract {
                 ->from($this->_name)
                 ->joinLeft('projecttypes',$this->_name
                         . '.suitableFor = projecttypes.id', array('type' => 'title'))
-    //          ->joinLeft('people',$this->_name . '.managedBy = people.secuid', array('fullname'))
                 ->joinLeft('users', $this->_name .  '.managedBy = users.id',
                         array('fullname'))
                 ->where($this->_name . '.status = ?', (int)1)
@@ -66,7 +65,7 @@ class Volunteers extends Pas_Db_Table_Abstract {
         return $paginator;
     }
 
-    /** Get vacancy details
+    /** Get volunteer details
     * @param integer $id the opportunity ID
     * @return array
     */
@@ -74,13 +73,8 @@ class Volunteers extends Pas_Db_Table_Abstract {
         $vols = $this->getAdapter();
         $select = $vols->select()
                 ->from($this->_name)
-                ->joinLeft('projecttypes',$this->_name
-                        . '.suitableFor = projecttypes.id', array('type' => 'title'))
-                ->joinLeft('people',$this->_name
-                        . '.managedBy = people.secuid',
-                        array('fullname'))
-                ->where($this->_name . '.status = ?', (int)1)
                 ->where($this->_name . '.id = ?', (int)$id)
+                ->where($this->_name . '.status = ?', (int)1)
                 ->order(array($this->_name . '.created'));
         return $vols->fetchAll($select);
     }

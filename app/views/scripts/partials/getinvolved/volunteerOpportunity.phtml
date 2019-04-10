@@ -1,13 +1,15 @@
-<?php
-$this->headTitle('Volunteers opportunity: ' . $this->title);
-$this->metaBase()->setSubject('Job and volunteer opportunities')
-    ->setDescription('A page detailing all current volunteering opportunities with the Scheme')
-    ->setKeywords('volunteer,volunteering')
-    ->generate();
+<?php $this->headTitle('Volunteers opportunity: ' . $this->title);
+      $this->metaBase()->setSubject('Job and volunteer opportunities')
+	 ->setDescription('A page detailing all current volunteering opportunities with the Scheme')
+         ->setKeywords('volunteer,volunteering')
+         ->generate();
 ?>
-    <h2 class="lead"><?php echo $this->title; ?></h2>
-<?php if (!is_null($this->description)): ?>
-    <?php echo $this->description; ?>
+<h2 class="lead"><?php echo $this->title; ?></h2>
+
+<?php if (is_null($this->status) || $this->status === "0"): ?>
+    <p>Sorry. This is not a current role.</p>
+<?php elseif (!is_null($this->description)): ?>
+    <?= $this->description ?>
 <?php else: ?>
     <p>No description entered.</p>
 <?php endif; ?>
