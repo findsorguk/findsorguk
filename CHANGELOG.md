@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.55 2nd April 2019
+- [x] Fix to add discovery method.
+
 ### 1.54 29th March 2019
 - [x] Staff user can upload thier profile pictures.
 - [x] Fix to insert record into mints_rulers table.
