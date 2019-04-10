@@ -67,7 +67,6 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
         $finalData = NULL;
         foreach ($data as $dat) {
             if (in_array($this->getRole(), $this->_remove)) {
-                unset($dat);
                 if(array_key_exists('fourFigureLat', $dat)) {
                     $dat['latitude'] = $dat['fourFigureLat'];
                 }
