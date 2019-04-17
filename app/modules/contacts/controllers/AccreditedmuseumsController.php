@@ -20,19 +20,14 @@ class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin
      */
     protected $_accredited;
 
-    /** Initialise the ACL and contexts
+    /** Initialise the ACL
      * @access public
      * @return void
      */
     public function init()
     {
         $this->_helper->_acl->allow('public', null);
-        $contexts = array('xml', 'json');
-        $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
-        $this->_helper->contextSwitch()->setAutoDisableLayout(true)
-            ->addActionContext('index', $contexts)
-            ->initContext();
-        $this->_accredited = new AccreditedMuseums();
+        $this->_accredited =  new AccreditedMuseums();
     }
 
     /** Set up data for museums index page
@@ -41,24 +36,6 @@ class Contacts_AccreditedMuseumsController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $this->view->museums = $this->_accredited->listMuseums($this->getAllParams());
-    }
-
-    /** Get individual museum data
-     * @access public
-     * @return void
-     */
-    public function museumAction()
-    {
-        $this->view->museum = $this->_accredited->fetchRow('id = ' . $this->getParam('id'));
-    }
-
-    /** Map the museums
-     * @access public
-     * @return void
-     */
-    public function mapAction()
-    {
-        //All magic in view
+        //$this->view->museums = $this->_accredited->listMuseums($this->getAllParams());
     }
 }
