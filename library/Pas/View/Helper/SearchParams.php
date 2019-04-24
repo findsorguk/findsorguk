@@ -225,7 +225,7 @@ class Pas_View_Helper_SearchParams extends Zend_View_Helper_Abstract
                         $html .= '<li>' . $this->cleanKey($k) . ': ' . $this->view->adBc()->setDate($v) . '</li>';
                         break;
                     default:
-                        $html .= '<li>' . $this->cleanKey($k) . ': ' . $v . '</li>';
+                        $html .= '<li>' . $this->cleanKey($k) . ': ' . Zend_Filter::filterStatic($v, 'HtmlEntities') . '</li>';
                         break;
                 }
                 $searches[] = $this->cleanKey($k) . ' ' . $v;
