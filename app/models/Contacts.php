@@ -38,6 +38,12 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     protected $_primary = 'id';
 
+    /** The string used to generate cache id
+     * for the function getPersonDetails()
+     */
+    const PERSON_CACHE_ID = 'currentstaffmember';
+
+
     /** Get person's details
      * @access public
      * @param int $id
@@ -45,7 +51,8 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     public function getPersonDetails($id)
     {
-        $key = md5('currentstaffmember' . $id);
+        $key = $this->generateCacheKey(self::PERSON_CACHE_ID, $id);
+
         if (!$data = $this->_cache->load($key)) {
             $persons = $this->getAdapter();
             $select = $persons->select()
@@ -56,9 +63,9 @@ class Contacts extends Pas_Db_Table_Abstract
                     'county', 'postcode', 'country',
                     'profile', 'telephone', 'fax',
                     'dbaseID', 'longitude', 'latitude',
-                    'image', 'created', 'updated', 
+                    'image', 'created', 'updated',
                     'createdBy', 'updatedBy'))
-                ->joinLeft(array('locality' => 'staffregions'), 'locality.ID = staff.region', 
+                ->joinLeft(array('locality' => 'staffregions'), 'locality.ID = staff.region',
                 array('description'))
                 ->joinLeft('instLogos', $this->_name . '.identifier = instID',
                     array('host' => 'image'))
@@ -551,5 +558,15 @@ class Contacts extends Pas_Db_Table_Abstract
             $this->_cache->save($data, $key);
         }
         return $data;
+    }
+
+    private function generateCacheKey($cacheId, $id)
+    {
+	return md5($cacheId . $id);
+    }
+
+    public function clearCacheEntry($cacheId, $id)
+    {
+	$this->_cache->remove($this->generateCacheKey($cacheId, $id));
     }
 }

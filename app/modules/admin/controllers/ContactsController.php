@@ -30,11 +30,17 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
     /** The path for staff photos
      *
      */
-    const STAFFPATH = 'staffphotos/';
+    const STAFFPATH = './assets/staffphotos/';
 
-    const SMALL = 'thumbnails/';
+   /** The profile image path for thumbnail
+     *
+     */
+    const THUMB = array('destination' => self::STAFFPATH . 'thumbnails/' , 'width' => 100, 'height' => 100);
 
-    const RESIZED = 'resized/';
+    /** The profile image path for resized
+     *
+     */
+    const RESIZE = array('destination' => self::STAFFPATH . 'resized/' , 'width' => 400, 'height' => 0);
 
     /** Get the geocoder function
      * @access public
@@ -231,42 +237,26 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
         }
     }
 
-    /** provide an avatar for a contact
+    /**
+     * Provide an avatar for a contact
+     *
      * @access public
      * @return void
      */
     public function avatarAction()
     {
+        $form = $this->view->form = new AddStaffPhotoForm();
+	$postData = $this->_request->getPost();
 
-        $form = new AddStaffPhotoForm();
-        $this->view->form = $form;
-
-        if ($this->_request->isPost()) {
-            if ($form->isValid($this->_request->getPost())) {
-
-                $upload = new Zend_File_Transfer_Adapter_Http();
-                $upload->addValidator('NotExists', true, array(self::STAFFPATH));
-                if ($upload->isValid()) {
-                    $filename = $form->getValue('image');
-                    $upload->receive();
-                    $where = array();
-
-                    $where[] = $this->getContacts()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
-                    $this->getContacts()->update($form->getValues, $where);
-                    $imageProcess = new Pas_Image_MagickGeneral();
-                    $imageProcess->setDirectoryPath(ASSETS_PATH . '');
-                    $imageProcess->setImage($filename);
-                    $this->getFlash()->addMessage('The image has been resized and zoomified!');
-                    $this->redirect('/admin/contacts/contact/id/' . $this->getParam('id'));
-                } else {
-                    $this->getFlash()->addMessage('There is a problem with your upload. Probably that image exists.');
-                    $this->view->errors = $upload->getMessages();
-                }
-            } else {
-                $form->populate($this->_request->getPost());
-                $this->getFlash()->addMessage('Check your form for errors');
-            }
+        if ($this->_request->isPost() && $form->isValid($postData))
+	{
+            $this->uploadStaffPhoto($form, $this->getParam('id'));
         }
+	else
+	{
+	    $form->populate($postData);
+            $this->getFlash()->addMessage('Check your form for errors');
+	}
     }
 
     /** Give them a logo
@@ -307,5 +297,142 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
                 $this->getFlash()->addMessage('Check your form for errors');
             }
         }
+    }
+
+    public function deleteavatarAction()
+    {
+        $id = $this->getParam('id');
+
+        if (!(ctype_digit($id) && ($id > 0)))
+        {
+            $this->redirect($this->_redirectUrl);
+        }
+
+        if ($this->_request->isPost())
+	{
+            $postVariable = $this->_request->getPost('confirmDelete');
+            $confirmDelete = isset($postVariable) ? strtoupper($postVariable) : "NO";
+
+	    $this->deleteStaffPhoto($confirmDelete, $id);
+        } else {
+            $this->view->contact = $this->getContacts()->fetchRow('id =' . $id);
+        }
+    }
+
+    private function deleteStaffPhoto($confirmDelete, $id)
+    {
+	if ('YES' === $confirmDelete)
+	{
+	    $this->removeStaffImage($id);
+        } else {
+	    $this->getFlash()->addMessage('Image NOT deleted!');
+	}
+
+        $this->redirect('/admin/contacts/contact/id/' . $id);
+    }
+
+    // Upload staff photo
+    private function uploadStaffPhoto($form, $id)
+    {
+        $upload = new Zend_File_Transfer_Adapter_Http();
+
+        if ($upload->isValid())
+	{
+  	    // Check staff photo exists, if yes then delete
+	    $this->removeExistingStaffPhotoIfPresent($id);
+
+	    // Rename the image name with user id, resize image and update the database
+	    $this->processStaffImage($form, $id, $upload);
+        } else {
+            $this->getFlash()->addMessage('There is a problem with your upload.');
+            $this->view->errors = $upload->getMessages();
+        }
+
+        $this->redirect('/admin/contacts/contact/id/' . $id);
+    }
+
+    // Upload staff Image
+    private function processStaffImage($form, $id, $upload)
+    {
+	$pathOfRenamedImage = $this->renameStaffPhotoToID(self::STAFFPATH, $form->getValue('image'), $id);
+        $imageName = pathinfo($pathOfRenamedImage)["basename"];
+
+	// Resize the image
+        $this->resizeAndSaveImages($pathOfRenamedImage, $upload);
+
+        // Update staff table for image name
+        $this->updateStaffTableWithImageName($imageName, $id);
+
+	// Clear the cache as image is uploaded
+        $this->getContacts()->clearCacheEntry(Contacts::PERSON_CACHE_ID, $id);
+
+        $this->getFlash()->addMessage('The image is added!');
+    }
+
+    // Resize and save the images
+    private function resizeAndSaveImages($pathOfImage, $upload)
+    {
+        $PHPMagick = new PHPMagick();
+        $PHPMagick->resize($pathOfImage, self::THUMB);
+        $PHPMagick->resize($pathOfImage, self::RESIZE);
+
+        $upload->receive();
+    }
+
+    // Update staff table for image
+    private function updateStaffTableWithImageName($imageName = null, $id)
+    {
+        $updateStaffData = array();
+        $updateStaffData['image'] = $imageName;
+        $updateStaffData['updated'] = $this->getTimeForForms();
+        $updateStaffData['updatedBy'] = $this->getIdentityForForms();
+
+        $staff = new Contacts();
+        $where = $staff->getAdapter()->quoteInto('id = ?', $id);
+
+        $staff->update($updateStaffData, $where);
+    }
+
+    // Rename the image to the user id
+    private function renameStaffPhotoToID($sourceDirectory, $imageName, $id)
+    {
+        $originalPath = $sourceDirectory . $imageName;
+
+        if(file_exists($originalPath))
+        {
+	    $imagePath = pathinfo($originalPath);
+	    $newImageName = $id . "." . $imagePath["extension"];
+	    $newPath = $sourceDirectory. $newImageName;
+
+	    if (rename($originalPath, $newPath))
+	    {
+		return $newPath;
+	    }
+	}
+
+	return $originalPath;
+    }
+
+    // Delete image process
+    private function removeStaffImage($id)
+    {
+        // Update staff table for image deletion
+        $this->updateStaffTableWithImageName(null, $id);
+
+        // Delete images from the staffphotos, thumbnails and resized folders
+        $this->removeExistingStaffPhotoIfPresent($id);
+
+        // Clear the cache for image deletion
+	$this->getContacts()->clearCacheEntry(Contacts::PERSON_CACHE_ID, $id);
+
+        $this->getFlash()->addMessage('Image deleted!');
+    }
+
+    // Check images exists in the staffphotos, thumbnails and resized folders
+    private function removeExistingStaffPhotoIfPresent($id)
+    {
+	array_map('unlink', glob(self::STAFFPATH . $id . '*'));
+	array_map('unlink', glob(self::RESIZE['destination'] . $id . '*'));
+	array_map('unlink', glob(self::THUMB['destination'] . $id . '*'));
     }
 }

@@ -6,146 +6,108 @@ $this->metaBase()->setDescription($this->title())->generate();
 <div id="person" class="hresume">
     <div class="contact vcard">
         <h2 class="fn n">
-            <span class="given-name"><?php echo $this->firstname; ?></span>
-            <span class="family-name"><?php echo $this->lastname; ?></span>
+            <span class="given-name"><?= $this->firstname ?></span>
+            <span class="family-name"><?= $this->lastname ?></span>
         </h2>
 
         <div class="btn-group">
-            <a class="btn btn-default" href="<?php echo $this->url(
+            <a class="btn btn-default" href="<?= $this->url(
                 array(
                     'module' => 'admin',
                     'controller' => 'contacts',
                     'action' => 'edit',
                     'id' => $this->number
-                ), 'default', true); ?>">Edit</a>
-            <a class="btn btn-danger" href="<?php echo $this->url(
+                ), 'default', true) ?>">Edit</a>
+            <a class="btn btn-danger" href="<?= $this->url(
                 array(
                     'module' => 'admin',
                     'controller' => 'contacts',
                     'action' => 'delete',
                     'id' => $this->number
-                ), 'default', true); ?>">Delete</a>
+                ), 'default', true) ?>">Delete</a>
         </div>
 
-        <div id="image-<?php echo $this->number; ?>" class="pull-right">
+        <div id="image-<?= $this->number ?>" class="pull-right">
             <?php if (!is_null($this->image)): ?>
                 <?php if (file_exists(ASSETS_PATH . '/staffphotos/thumbnails/' . $this->image)): ?>
-                    <img class="img-circle"
+                    <img class="img-circle" width="140" height="140"
                          src="<?php echo $this->baseUrl() . '/assets/staffphotos/thumbnails/' . $this->image; ?>"/>
-                    <p><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'contacts', 'action' => 'deleteavatar', 'id' => $this->number),'default', true);?>" class="deleteavatar btn-danger btn">Delete this image</a></p>
+                    <p>
+			<a class="btn-danger btn" href="<?= $this->url(
+		            array(
+                                'module' => 'admin', 
+				'controller' => 'contacts', 
+				'action' => 'deleteavatar',
+				'id' => $this->number), 'default', true);?>">Delete this image
+			</a>
+		    </p>
                 <?php else: ?>
-                    <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
+                    <img src="<?= $this->baseUrl() ?>/assets/gravatar.png" width="80" height="80"
                          class="img-circle"/>
                     <p>Image unavailable<br/>Error: 404</p>
                 <?php endif; ?>
             <?php else: ?>
                 <p>
-                    <a class="btn btn-success" href="<?php echo $this->url(
+                    <a class="btn btn-success" href="<?= $this->url(
                         array(
                             'module' => 'admin',
                             'controller' => 'contacts',
                             'action' => 'avatar',
-                            'id' => $this->number
-                        ), 'default', true); ?>"
-                       title="Add a new image">Add a photo
-                        for <?php echo $this->firstname; ?> <?php echo $this->lastname; ?></a>
+			    'id' => $this->number
+                        ), null, true) ?>"
+                       title="Add a new image">Add a photo</a>
                 </p>
             <?php endif; ?>
         </div>
-        <p>Role: <span class="title"><?php echo $this->staffroles; ?></span> <br/>
-            Database records prefix: <strong><?php echo $this->identifier; ?></strong></p>
+        <p><strong>Role</strong>: <span class="title"><?= $this->staffroles ?></span> <br/>
+            <strong>Database records prefix</strong>: <?= $this->identifier ?></p>
         <?php if (isset($this->host)): ?>
-            <h3 class="lead">Host logo</h3>
+            <h3 class="lead"><strong>Host logo</strong></h3>
             <?php if (file_exists(ASSETS_PATH . '/logos/' . $this->host)): ?>
-                <img src="<?php echo $this->baseUrl(); ?>/asset/logos/<?php echo $this->escape($this->host); ?>"
-                     alt="<?php echo $this->escape($this->description); ?>'s logo"/>
+                <img src="<?= $this->baseUrl() ?>/assets/logos/resized/<?= $this->escape($this->host) ?>"
+                     alt="<?= $this->escape($this->description) ?>'s logo"/>
             <?php else: ?>
-                <img src="<?php echo $this->baseUrl(); ?>/assets/gravatar.png" width="80" height="80"
+                <img src="<?= $this->serverUrl() ?>/assets/gravatar.png" width="80" height="80"
                      class="img-circle"/>
                 <p>Image unavailable<br/>Error: 404</p>
             <?php endif; ?>
         <?php endif; ?>
 
-        <p class="adr work">Address: <?php echo $this->escape($this->address_1); ?><br/>
-            <span class="org organization-name"><?php echo $this->escape($this->description); ?></span>
-            <span class="street-address"><?php echo $this->escape($this->address_2); ?></span>
-            <span class="locality"><?php echo $this->escape($this->town); ?></span>
-            <span class="region"><?php echo $this->escape($this->county); ?></span>
-            <span class="postal-code"><?php echo $this->escape($this->postcode); ?></span>
-        </p>
+	<address>
+	    <strong>Address</strong>:<br/>
+	    <span class="postal-code"><?= $this->escape($this->address_1) ?></span><br/>
+	    <span class="org organization-name"><?= $this->escape($this->description) ?></span><br/>
+            <span class="street-address"><?= $this->escape($this->address_2) ?></span><br/>
+            <span class="locality"><?= $this->escape($this->town) ?></span><br/>
+            <span class="region"><?= $this->escape($this->county) ?></span><br/>
+            <span class="postal-code"><?= $this->escape($this->postcode) ?></span>
+	</address>
 
-        <div class="geo"><p>Geo:
-                <span class="latitude"><?php echo $this->latitude; ?></span>,
-                <span class="longitude"><?php echo $this->longitude; ?></span></p>
+        <div class="geo"><p><strong>Geo</strong>:
+                <span class="latitude"><?= $this->latitude ?></span>,
+                <span class="longitude"><?= $this->longitude ?></span></p>
         </div>
 
-        <p>Short profile:</p>
+        <p><strong>Short profile</strong>:</p>
         <?php if (!is_null($this->profile)): ?>
-            <span class="summary"><?php echo $this->profile; ?></span>
+            <span class="summary"><?= $this->profile ?></span>
         <?php else: ?>
             <p>No profile added.</p>
         <?php endif; ?>
+	<p> </p>
 
         <?php if (!is_null($this->telephone)): ?>
-            <div class="tel">
-                <dl>
-                    <dt>Phone (<span class="type">work</span>)</dt>
-                    <dd><span class="value"><?php echo $this->escape($this->telephone); ?></span></dd>
-                </dl>
-            </div>
+	    <p><strong>Phone (<span class="type">work</span>)</strong>: <span class="value"><?= $this->escape($this->telephone) ?></span>
         <?php endif; ?>
 
         <?php if (!is_null($this->fax)): ?>
-            <div class="tel">
-                <dl>
-                    <dt>Phone (<span class="type">fax</span>)</dt>
-                    <dd><span class="value"><?php echo $this->escape($this->fax); ?></span></dd>
-                </dl>
-            </div>
+	    <p><strong>Phone (<span class="type">fax</span>)</strong>: <span class="value"><?= $this->escape($this->fax) ?></span>
         <?php endif; ?>
 
         <?php if (!is_null($this->email_one)): ?>
-            <p>Email address: <a href="mailto:<?php echo $this->escape($this->email_one); ?>"
-                                 class="email"><?php echo $this->escape($this->email_one); ?></a></p>
+            <p><strong>Email address:</strong> <a href="mailto:<?= $this->escape($this->email_one) ?>"
+                                 class="email"><?= $this->escape($this->email_one) ?></a></p>
         <?php endif; ?>
 
     </div>
 </div>
-
-<?php $this->jQuery()->javascriptCaptureStart(); ?>
-$(document).ready(function(){
-$('a.deleteimage').click(function(e) {
-e.preventDefault();
-var parent = $(this).parents("div:first");
-$.ajax({
-type: 'get',
-url: '<?php echo $this->url(array('module' => 'default', 'controller' => 'ajax', 'action' => 'deleteprofileimage'), null, true); ?>',
-data: 'id=' + parent.attr('id').replace('image-',''),
-beforeSend: function() {
-parent.animate({'backgroundColor':'#fb6c6c'},300);
-},
-success: function() {
-parent.slideUp(300,function() {
-parent.remove();
-});
-}
-});
-});
-});
-
-<?php $this->jQuery()->javascriptCaptureEnd(); ?>
-<?php $this->jQuery()->javascriptCaptureStart(); ?>
-$(document).ready(function(){
-
-$('a[class^=delete]').confirm({
-dialogShow:'fadeIn',
-dialogSpeed:'slow',
-buttons: {
-wrapper:'
-<button></button>', separator:'  '
-}
-});
-});
-
-
-<?php $this->jQuery()->javascriptCaptureEnd(); ?>
