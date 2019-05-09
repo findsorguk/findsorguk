@@ -262,7 +262,7 @@ class Contacts extends Pas_Db_Table_Abstract
                     array('staffroles' => 'role'))
                 ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
 
-                ->where('staff.role IN (7,10) AND alumni =1')
+                ->where('staff.role IN (7,10,32) AND alumni =1')
                 ->order('locality.description');
             $data = $persons->fetchAll($select);
             $this->_cache->save($data, $key);
