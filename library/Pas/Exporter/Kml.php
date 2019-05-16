@@ -95,10 +95,10 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
         {
             // Research users can only see their own co-ordinates if review/quarantine records and they created them.
             // Remove member and public access to detailed co-ordinates.
-	    if (   (in_array($this->getRole(), $this->_restricted)
-                    && (in_array($artefact['workflow'], $this->_restrictedWorkflowForResearch))
-                    && ($this->getUserID() != $artefact['createdBy']) )
-		|| (in_array($this->getRole(), $this->_remove)))
+	    if ((in_array($this->getRole(), $this->_restricted)
+                   && (in_array($artefact['workflow'], $this->_restrictedWorkflowForResearch))
+                   && ($this->getUserID() != $artefact['createdBy']))
+	        || (in_array($this->getRole(), $this->_remove)))
 	    {
                 unset($artefact['latitude'], $artefact['longitude']);
 	    }
