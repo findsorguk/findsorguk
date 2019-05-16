@@ -28,7 +28,8 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
         'fourFigure', 'longitude', 'latitude',
         'county', 'woeid', 'district',
         'parish', 'knownas', 'thumbnail',
-        'fourFigureLat', 'fourFigureLon', 'secwfstage'
+        'fourFigureLat', 'fourFigureLon',
+	'workflow', 'createdBy'
     );
 
     /** The array of roles where we need to remove data
@@ -36,6 +37,30 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
      * @var array
      */
     protected $_remove = array('public', 'member', null);
+
+    /** The array of roles where we need to sometimes restrict data
+     * @access protected
+     * @var array
+     */
+    protected $_restricted = array('research');
+
+    /** The array of workflow with where research user has created the record then only add to the KML file
+     * @access protected
+     * @var array
+     */
+    protected $_restrictedWorkflowForResearch = array('1', '2');
+
+    /** Get the id of the user
+     * @access public
+     * @return int
+     */
+    public function getUserID()
+    {
+        $user = new Pas_User_Details();
+        $this->_user = $user->getPerson();
+
+	return $this->_user->id;
+    }
 
     /** Constructor
      * This uses the parent class
@@ -54,33 +79,61 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
         $this->_search->setFields($this->_kmlFields);
         $this->_search->setParams($this->_params);
         $this->_search->execute();
-        return $this->_clean($this->_search->processResults());
+	$artefacts = $this->removeCoordinatesIfNecessary($this->_search->processResults());
+        return $this->_clean($artefacts);
     }
+
+    /** Remove coordinates if required
+     * @access protected
+     * @param array $data
+     * @return array
+     */
+     private function removeCoordinatesIfNecessary($results)
+     {
+	$filteredData = NULL;
+        foreach ($results as $artefact)
+        {
+            // Research users can only see their own co-ordinates if review/quarantine records and they created them.
+            // Remove member and public access to detailed co-ordinates.
+	    if ((in_array($this->getRole(), $this->_restricted)
+                   && (in_array($artefact['workflow'], $this->_restrictedWorkflowForResearch))
+                   && ($this->getUserID() != $artefact['createdBy']))
+	        || (in_array($this->getRole(), $this->_remove)))
+	    {
+                unset($artefact['latitude'], $artefact['longitude']);
+	    }
+
+            if (in_array($this->getRole(), $this->_remove)
+		&& !array_key_exists('knownas', $artefact)
+		&& array_key_exists('fourFigureLat', $artefact))
+	    {
+		$artefact['latitude'] = $artefact['fourFigureLat'];
+		$artefact['longitude'] = $artefact['fourFigureLon'];
+	    }
+	    $filteredData[] = $artefact;
+	}
+	return $filteredData;
+     }
 
     /** Clean the results
      * @access protected
      * @param array $data
      * @return array
      */
-    protected function _clean(array $data)
+    protected function _clean(array $results)
     {
-        $finalData = NULL;
-        foreach ($data as $dat) {
-            if (in_array($this->getRole(), $this->_remove)) {
-                if(array_key_exists('fourFigureLat', $dat)) {
-                    $dat['latitude'] = $dat['fourFigureLat'];
-                }
-                if(array_key_exists('fourFigureLon', $dat)) {
-                    $dat['longitude'] = $dat['fourFigureLon'];
-                }
-            }
+        $cleanedData = NULL;
+        foreach ($results as $artefact)
+	{
             $record = array();
-            foreach ($dat as $k => $v) {
+            foreach ($artefact as $k => $v)
+	    {
                 $trimmed = trim(strip_tags(str_replace(array('<br />'), array("\n", "\r"), utf8_decode($v))));
                 $record[$k] = preg_replace( "/\r|\n/", "", $trimmed );
             }
-            $finalData[] = $record;
+            $cleanedData[] = $record;
         }
-        return $finalData;
+        return $cleanedData;
     }
 }
+
