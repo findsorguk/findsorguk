@@ -6,47 +6,14 @@ $this->metaBase()
     ->setKeywords('museums,accredited,treasure')
     ->generate();
 ?>
-<h2 class="lead"><?php echo $this->title(); ?></h2>
-<p>This list has been generated and enhanced from the <a
-        href="http://www.artscouncil.org.uk/what-we-do/supporting-museums/accreditation-scheme/accreditation-statistics/">Arts
-        Council England curated list</a>. <strong>The data imported for this map is probably now out of date.</strong>
-    This will be used within the forthcoming Treasure administration module, and each museum page will list the objects
-    they have acquired. This will only be applicable to England and Wales.</p>
-<?php if (count($this->museums)): ?>
-    <a class="btn" href="<?php echo $this->url(array(
-        'module' => 'contacts',
-        'controller' => 'accreditedmuseums',
-        'action' => 'map'), 'default', true);?>">View museums on a map <i class="icon-map-marker"></i></a>
-    <table class="table table-striped">
-        <caption>A list of accredited museums</caption>
-        <thead>
-        <tr>
-            <th>Museum Name</th>
-            <th>Accredited Status</th>
-            <th>Accreditation number</th>
-            <th>Region</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach ($this->museums as $museum):
-            $museum = (object)$museum;
-            $url = $this->url(array(
-                'module' => 'contacts',
-                'controller' => 'accreditedmuseums',
-                'action' => 'museum',
-                'id' => $museum->id), 'default', true);
-            ?>
+<h2 class="lead">
+   A list of Arts Council England accredited museums
+</h2>
 
-            <tr>
-                <td><a href="<?php echo $url; ?>"><?php echo $museum->museumName; ?></a></td>
-                <td><?php echo $museum->status; ?></td>
-                <td><?php echo $museum->accreditedNumber; ?></td>
-                <td><?php echo $museum->regionName; ?></td>
-            </tr>
-        <?php endforeach; ?>
-        <tr>
-        </tbody>
-    </table>
-<?php endif; ?>
-<?php echo $this->paginationControl($this->museums, 'Sliding', 'structure/pagination.phtml'); ?>
+<p>
+   A list of Arts Council England accredited museums can be found <a href="https://www.artscouncil.org.uk/accreditation-scheme/about-accreditation#section-4">here</a>.
+</p>
+
+<p>
+   Further information on the museum accreditation scheme can be found <a href="https://www.artscouncil.org.uk/supporting-arts-museums-and-libraries/museums-accreditation-scheme"/>here</a>.
+</p>
