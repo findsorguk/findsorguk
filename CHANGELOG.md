@@ -1,5 +1,16 @@
 # Change Log
 
+### 1.58 16th May 2019
+- [x] Fix to KML file for public/member user.
+- [x] Changed accredited museums page.
+
+### 1.57 9th May 2019
+- [x] Fix to add FLO with 'Historic Environment' to Contacts Page.
+- [x] Fix to search URL bug bounty.
+
+### 1.56 10th April 2019
+- [x] Fix to handle if volunteer role does not exist.
+
 ### 1.55 2nd April 2019
 - [x] Fix to add discovery method.
 
