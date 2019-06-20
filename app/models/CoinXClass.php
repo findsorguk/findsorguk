@@ -1,16 +1,16 @@
-<?php 
-/** 
+<?php
+/**
  * Link table for linking coins to class
- * 
+ *
  * An example of use:
- * 
+ *
  * <code>
  * <?php
  * $coins = new CoinXClass();
  * $coins->insert($insertData);
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
  * @category Pas
@@ -19,7 +19,7 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @version 1
  * @since 22 September 2011
- * @example /app/modules/database/controllers/CoinsController.php 
+ * @example /app/modules/database/controllers/CoinsController.php
 */
 
 class CoinXClass extends Pas_Db_Table_Abstract {
@@ -35,5 +35,17 @@ class CoinXClass extends Pas_Db_Table_Abstract {
      * @var string
      */
     protected $_name = 'coinxclass';
+
+    // Get the data using finds id
+    public function getCoinReferenceByfindID($findID)
+    {
+        $coinRefs = $this->getAdapter();
+        $select = $coinRefs->select()
+                ->from($this->_name, array(
+                    'id', 'findID', 'classID', 'vol_no', 'reference',
+		    'created', 'updated', 'createdBy', 'updatedBy'))
+                ->where('findID = ?', (string)$findID);
+        return $coinRefs->fetchAll($select);
+    }
 }
 

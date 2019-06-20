@@ -180,6 +180,56 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         return $this->_finds;
     }
 
+    /** Get the coins model
+     * @access public
+     * @return \Coins
+     */
+    public function getCoins()
+    {
+        $this->_coins = new Coins();
+        return $this->_coins;
+    }
+
+    /** Get the bibliography model
+     * @access public
+     * @return \Bibliography
+     */
+    public function getReference()
+    {
+        $this->_bibliography = new Bibliography();
+        return $this->_bibliography;
+    }
+
+    /** Get the coinxclass model
+     * @access public
+     * @return \Coinxclass
+     */
+    public function getCoinReference()
+    {
+        $this->_coinxclass = new CoinXClass();
+        return $this->_coinxclass;
+    }
+
+    /** Get the slides model
+     * @access public
+     * @return \Slides
+     */
+    public function getSlides()
+    {
+        $this->_slide = new Slides();
+        return $this->_slide;
+    }
+
+    /** Get the findsImages model
+     * @access public
+     * @return \FindsImages
+     */
+    public function getfindsImages()
+    {
+        $this->_findsImages = new FindsImages();
+        return $this->_findsImages;
+    }
+
     /** Setup the contexts by action and the ACL.
      * @access public
      * @return void
@@ -398,24 +448,35 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
      */
     public function deleteAction()
     {
+        $id = $this->getParam('id', 0);
+        if (!(ctype_digit($id) && ($id > 0)))
+        {
+            $this->redirect(self::REDIRECT);
+        }
+
         if ($this->_request->isPost()) {
-            $id = (int)$this->_request->getPost('id');
-            $del = $this->_request->getPost('del');
-            if ($del == 'Yes' && $id > 0) {
-                $where = $this->getFinds()->getAdapter()->quoteInto('id = ?', $id);
-                $this->getFinds()->delete($where);
-                $findID = $this->_request->getPost('findID');
-                $whereFindspots = array();
-                $whereFindspots[] = $this->getFindspots()->getAdapter()->quoteInto('findID  = ?', $findID);
-                $this->getFlash()->addMessage('Record deleted!');
-                $this->getFindspots()->delete($whereFindspots);
-                $this->_helper->solrUpdater->deleteById('objects', $id);
-                $this->redirect(self::REDIRECT);
+            $postVariable = $this->_request->getPost('confirmDelete');
+            $confirmDelete = isset($postVariable) ? strtoupper($postVariable) : "NO";
+
+            if ('YES' === $confirmDelete)
+	    {
+		$findID = $this->_request->getPost('findID');
+		$objectType = $this->_request->getPost('objectType');
+
+		// remove object
+		$this->processRecordDeletion($id, $findID, $objectType);
+
+		// update SOLR for deletion of the finds record
+        	$this->_helper->solrUpdater->deleteById('objects', $id);
+
+		$this->getFlash()->addMessage('Record deleted!');
+	        $this->redirect('database/search/results/');
             }
+
             $this->getFlash()->addMessage('No changes made!');
             $this->redirect('database/artefacts/record/id/' . $id);
         } else {
-            $this->view->find = $this->getFinds()->fetchRow('id=' . $this->_request->getParam('id'));
+            $this->view->find = $this->getFinds()->fetchRow('id=' . $id);
         }
     }
 
@@ -731,5 +792,105 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         }
 
         return $target;
+    }
+
+    // Delete Image if exists
+    private function removeAnyImages($findID)
+    {
+        foreach ($this->getSlides()->getSlideByRecordID($findID, 'artefacts') as $slide)
+        {
+           $this->deleteImage($slide);
+        }
+    }
+
+    // Delete bibliography if exists
+    private function removeAnyBibliography($findID)
+    {
+        foreach ($this->getReference()->getReferenceByfindID($findID) as $bibliography)
+        {
+	   $this->deleteRecord($bibliography['id'], $this->getReference(), 'id  = ?');
+        }
+    }
+
+    // Delete findsSpot if exists
+    private function removeAnyFindspot($findID, $recordID)
+    {
+	$findSpotId = $this->getFindspots()->getFindspotByfindID($findID)['id'];
+
+        $this->deleteRecord($findSpotId, $this->getFindspots(), 'id  = ?');
+	$this->auditForDeletion('FindspotsAudit', $findSpotId, $recordID);
+    }
+
+    // Delete coin if exists
+    private function removeAnyCoin($findID, $recordID)
+    {
+        $coinID = $this->getCoins()->getCoinByfindID($findID)['id'];
+
+        $this->deleteRecord($coinID, $this->getCoins(), 'id  = ?');
+        $this->auditForDeletion('CoinsAudit', $coinID, $recordID);
+    }
+
+    // Delete coinReference if exists
+    private function removeAnyCoinRefs($recordID)
+    {
+        foreach ($this->getCoinReference()->getCoinReferenceByfindID($recordID) as $coinRef)
+        {
+            $this->deleteRecord($coinRef['id'], $this->getCoinReference(), 'id  = ?');
+        }
+    }
+
+    // Delete find
+    private function removeFind($recordID)
+    {
+       	$this->deleteRecord($recordID, $this->getFinds(), 'id  = ?');
+        $this->auditForDeletion('FindsAudit', $recordID, $recordID);
+    }
+
+    // Delete the record from finds, for the find if coin, findSpot, reference and image exist, delete the record/s from respective tables
+    private function processRecordDeletion($recordID, $findID, $objectType)
+    {
+	$this->removeAnyImages($recordID);
+	$this->removeAnyFindspot($findID, $recordID);
+	$this->removeAnyBibliography($findID);
+
+	// If the object type is a coin, delete the record from coins table
+        if ('COIN' === strtoupper($objectType))
+        {
+	    $this->removeAnyCoin($findID, $recordID);
+	    $this->removeAnyCoinRefs($recordID);
+        }
+
+	$this->removeFind($recordID);
+    }
+
+    // Delete image added to the find
+    private function deleteImage($imageData)
+    {
+        $this->deleteRecord($imageData['imageID'], $this->getSlides(), 'imageID  = ?');
+        $this->deleteRecord($imageData['finds_images_id'], $this->getfindsImages(), 'id  = ?');
+	array_map('unlink', glob($imageData['imagedir'] . '*/' .  $imageData['filename']));
+	array_map('unlink', glob($imageData['imagedir'] . $imageData['filename']));
+	array_map('unlink', glob('images/thumbnails/'. $imageData['imageID'] . '*'));
+    }
+
+    // Delete record
+    // E.g. deleteRecord(1, *obj*, "id = ?")
+    private function deleteRecord($id, $obj, $clause)
+    {
+        $where = array();
+        $where = $obj->getAdapter()->quoteInto($clause, $id);
+        $obj->delete($where);
+    }
+
+    // Audit deletion of record
+    private function auditForDeletion($model, $recordID, $entityID)
+    {
+	$this->_helper->audit(
+            ['DELETED' => ''],
+            ['DELETED' => $recordID],
+            $model,
+            $recordID,
+            $entityID
+        );
     }
 }

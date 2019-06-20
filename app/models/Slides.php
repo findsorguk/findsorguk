@@ -380,4 +380,38 @@ class Slides extends Pas_Db_Table_Abstract
             return $slideID;
         }
     }
+
+
+    /** Get image details using finds id
+     * @access public
+     * @param integer $id
+     * @return array
+     */
+    public function getSlideByRecordID($id, $type)
+    {
+        switch($type) {
+            case 'artefacts':
+                $joinTable = 'finds';
+                $fields = array('old_findID', 'objecttype', 'id', 'secuid');
+                break;
+            case 'hoards':
+                $joinTable = 'hoards';
+                $fields = array('old_findID' => 'hoardID' , 'id', 'secuid');
+                break;
+            default:
+                throw new Pas_Image_Exception('No type supplied', 500);
+                break;
+        }
+
+        $join = $joinTable . '.secuid = finds_images.find_id';
+        $images = $this->getAdapter();
+        $select = $images->select()
+            ->from($this->_name)
+            ->joinLeft('finds_images', 'slides.secuid = finds_images.image_id', array('finds_images_id' => 'id'))
+            ->joinLeft($joinTable, $join, $fields)
+            ->joinLeft('users', 'users.id = slides.createdBy', array('username', 'imagedir'))
+            ->where($joinTable . '.id = ?', (int)$id)
+            ->order('slides.' . $this->_primary . ' ASC');
+        return $images->fetchAll($select);
+    }
 }
