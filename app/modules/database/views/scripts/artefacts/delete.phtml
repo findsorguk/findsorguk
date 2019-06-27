@@ -9,17 +9,18 @@ $this->headTitle('Delete find');
         ->canThey();
     ?>
     <h2 class="lead">
-        Delete <?php echo $this->escape($this->find->old_findID) . ' - ' . $this->escape($this->find->objecttype); ?></h2>
+        Delete <?= $this->escape($this->find->old_findID) . ' - ' . $this->escape($this->find->objecttype) ?></h2>
     <p>Are you sure that you want to delete
-        '<?php echo $this->escape($this->find->objecttype); ?>'
+        <strong><?=  $this->escape($this->find->objecttype) ?></strong>
     </p>
-    <form action="<?php echo $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'delete'), null, true); ?>" method="post">
-        <div>
-            <input type="hidden" name="id" value="<?php echo $this->find->id; ?>"/>
-            <input type="hidden" name="findID" value="<?php echo $this->find->old_findID; ?>"/>
+    <form action="<?= $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'delete'), null, true) ?>" method="post">
+        <div class="btn-toolbar">
+            <input type="hidden" name="id" value="<?= $this->find->id ?>"/>
+            <input type="hidden" name="findID" value="<?= $this->find->secuid ?>"/>
+            <input type="hidden" name="objectType" value="<?= $this->find->objecttype ?>"/>
 
-            <input type="submit" name="del" value="Yes"/>
-            <input type="submit" name="del" value="No"/>
+            <input type="submit" class="btn btn-danger" name="confirmDelete" value="Yes"/>
+            <input type="submit" class="btn btn-default" name="confirmDelete" value="No"/>
         </div>
     </form>
 <?php else: ?>

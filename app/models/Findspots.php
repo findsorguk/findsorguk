@@ -526,4 +526,15 @@ class Findspots extends Pas_Db_Table_Abstract
             ->limit('1000');
         return $findspotdata->fetchAll($select);
     }
+
+    /** A function to findSpot record with findID
+     * @access public
+     * @param integer $limit
+     * @return array
+     */
+    public function getFindspotByfindID($findID)
+    {
+	$select = $this->select()->where('findID = ?', (string)$findID);
+	return $this->fetchRow($select);
+    }
 }

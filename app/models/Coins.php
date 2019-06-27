@@ -182,4 +182,13 @@ class Coins extends Pas_Db_Table_Abstract
             ->limit(1);
         return $finds->fetchAll($select);
     }
+
+    /** Retrieve coin record with findID
+     * @access public
+     */
+    public function getCoinByfindID($findID)
+    {
+        $select = $this->select()->where('findID = ?', (string)$findID);
+        return $this->fetchRow($select);
+    }
 }

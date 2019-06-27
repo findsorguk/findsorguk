@@ -62,4 +62,16 @@ class Bibliography extends Pas_Db_Table_Abstract {
     	}
         return $rows;
     }
+
+    public function getReferenceByfindID($findID)
+    {
+	$refs = $this->getAdapter();
+        $select = $refs->select()
+                ->from($this->_name, array(
+		    'id', 'old_publicationID', 'findID', 'pages_plates',
+		    'reference','pubID', 'vol_no', 'created', 'updated',
+		    'createdBy', 'updatedBy', 'secuid'))
+		->where('findID = ?', (string)$findID);
+        return $refs->fetchAll($select);
+    }
 }
