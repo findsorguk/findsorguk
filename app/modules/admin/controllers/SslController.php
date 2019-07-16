@@ -19,7 +19,8 @@ class Admin_SslController extends Pas_Controller_Action_Admin
     {
 	header("Content-Type: text/plain");
 
-	echo file_get_contents(self::PATH . $this->getRequest()->getParam('slug'));
+	$filename = self::PATH . $this->getRequest()->getParam('slug');
+	echo (file_exists($filename)) ? file_get_contents($filename) : "Sorry!";
 	exit;
     }
 }
