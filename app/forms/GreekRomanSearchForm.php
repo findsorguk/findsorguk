@@ -26,7 +26,6 @@
  * @uses OsRegions
  */
 class GreekRomanSearchForm extends Pas_Form {
-    
     /** The higher level array
      * @access protected
      * @var array
@@ -59,7 +58,7 @@ class GreekRomanSearchForm extends Pas_Form {
 	$county_options = $counties->getCountiesID();
 
 	$rulers = new Rulers();
-	$ruler_options = $rulers->getRulersByzantine();
+	$ruler_options = $rulers->getRulersGreek();
 
 	$denominations = new Denominations();
 	$denomination_options = $denominations->getDenomsGreek();
@@ -72,7 +71,7 @@ class GreekRomanSearchForm extends Pas_Form {
 
 	$regions = new OsRegions();
 	$region_options = $regions->getRegionsID();
-	
+
 	parent::__construct($options);
 
 	$this->setName('greek-search');
@@ -258,7 +257,7 @@ class GreekRomanSearchForm extends Pas_Form {
 
 	//Submit button
 	$submit = new Zend_Form_Element_Submit('submit');
-	$submit->setLabel('Search..');
+	$submit->setLabel('Search');
 
 	$this->addElements(array(
         $old_findID, $description, $workflow,
@@ -273,7 +272,7 @@ class GreekRomanSearchForm extends Pas_Form {
 	$this->addDisplayGroup(array(
             'denomination','ruler','mint',
             'moneyer','axis','obverseLegend',
-            'obverseDescription','reverseLegend','reverseDescription'), 
+            'obverseDescription','reverseLegend','reverseDescription'),
                 'numismatics');
 
 	$this->addDisplayGroup(array(
@@ -289,6 +288,5 @@ class GreekRomanSearchForm extends Pas_Form {
 	$this->spatial->setLegend('Spatial details');
 	$this->addDisplayGroup(array('submit'), 'buttons');
 	parent::init();
-        
     }
 }

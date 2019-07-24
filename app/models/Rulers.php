@@ -69,8 +69,7 @@ class Rulers extends Pas_Db_Table_Abstract {
         $select = $this->select()
                 ->from($this->_name, array('id','term' => 'issuer'))
                 ->where('period = ?', (int)66)
-                ->order('date1')
-                ->order('date2')
+                ->order('term')
                 ->where('valid = ?', (int)1);
         return $this->getAdapter()->fetchPairs($select);
     }
