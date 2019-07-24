@@ -1,18 +1,28 @@
 # Change Log
 
+### 1.61 24th July 2019
+- [x] Fix for the Greek and Roman Provincial search.
+
+### 1.60 17th July 2019
+- [x] Route added to open the SSL certification URL.
+
+### 1.59 27th June 2019
+- [x] Audit the deletion of the record.
+- [x] Fix to add the staff profile image.
+
 ### 1.58 16th May 2019
-- [x] Fix to KML file for public/member user.
-- [x] Changed accredited museums page.
+- [x] Fix to the KML file for public/member user.
+- [x] Changed the accredited museums page.
 
 ### 1.57 9th May 2019
-- [x] Fix to add FLO with 'Historic Environment' to Contacts Page.
-- [x] Fix to search URL bug bounty.
+- [x] Fix to add the FLO with 'Historic Environment' to Contacts Page.
+- [x] Fix to search the URL bug bounty.
 
 ### 1.56 10th April 2019
-- [x] Fix to handle if volunteer role does not exist.
+- [x] Fix to handle if the volunteer role does not exist.
 
 ### 1.55 2nd April 2019
-- [x] Fix to add discovery method.
+- [x] Fix to add the discovery method.
 
 ### 1.54 29th March 2019
 - [x] Staff user can upload thier profile pictures.
