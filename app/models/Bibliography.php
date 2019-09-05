@@ -87,7 +87,6 @@ class Bibliography extends Pas_Db_Table_Abstract {
      */
     public function getLastReference($userid)
     {
-	$refs = $this->getAdapter();
         $refs = $this->getAdapter();
         $select = $refs->select()
                 ->from($this->_name, array('pages_plates','reference','pubID','createdBy'))

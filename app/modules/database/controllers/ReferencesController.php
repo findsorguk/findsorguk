@@ -258,12 +258,12 @@ class Database_ReferencesController extends Pas_Controller_Action_Admin
 	}
     }
 
-    private function checkIfReferenceExists($getParamCopy, $form)
+    private function checkIfReferenceExists($referenceCommand, $form)
     {
 	$reference = $this->getBibliography()->getLastReference($this->_helper->identity->getPerson()->id);
 	$this->view->reference = $reference;
 
-        if ('lastReference' === $getParamCopy)
+        if ('lastReference' === $referenceCommand)
 	{
 	    $this->_helper->copyLastReference($form, (!empty($reference)) ? $reference[0] : null);
         }
