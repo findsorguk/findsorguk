@@ -1,24 +1,25 @@
 <?php if ($this->bib) :?>
-<?php $this->headTitle('Delete reference: '.$this->escape($this->bib['0']['publicationtitle']));?>
-<h2 class="lead">Delete reference to find</h2>
     <?php $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();?>
-    <a href="<?php echo $this->url(array('module' => 'database', 'controller' => $params['recordtype'], 'action' => 'record', 'id' => $params['findID']), 'default', true); ?>"
-       class="btn btn-small btn-success">Return to record</a>
-<p>Are you sure that you want to delete
-'<?php echo $this->escape($this->bib['0']['publicationtitle']); ?>' 
-</p>
-<form action="<?php echo $this->url(array('module' => 'database','controller' => 'references','action'=>'delete','id'  =>$this->bib['0']['id']),null,true); ?>"
-method="post">
-<div>
-<input type="hidden" name="id" value="<?php echo $this->id; ?>" />
-<input type="hidden" name="findID" value="<?php echo $this->bib['0']['id']; ?>" />
-    <input type="hidden" name="controller" value="<?php echo $this->bib['0']['controller'];?>"/>
-<input type="submit" name="del" value="Yes" class="large"/>
-<input type="submit" name="del" value="No" class="large"/>
-</div>
-</form>
+    <a href="<?= $this->url(array('module' => 'database', 'controller' => $params['recordtype'], 'action' => 'record', 'id' => $params['findID']), 'default', true) ?>"
+            class="btn btn-small btn-success">Return to record
+    </a>
+
+    <h2 class="lead">Delete reference</h2>
+    <?php $this->headTitle('Delete reference: '.$this->escape($this->bib['0']['publicationtitle']));?>
+    <p>
+	Are you sure that you want to delete '<strong><?= $this->escape($this->bib['0']['publicationtitle']) ?></strong>'
+    </p>
+    <form action="<?= $this->url(array('module' => 'database', 'controller' => 'references', 'action'=>'delete', 'id'  => $this->bib['0']['id']),null,true) ?>" method="post">
+	<div class="btn-toolbar" id="reference">
+	    <input type="hidden" name="id" value="<?= $this->id ?>" />
+	    <input type="hidden" name="findID" value="<?= $this->bib['0']['id'] ?>" />
+	    <input type="hidden" name="controller" value="<?= $this->bib['0']['controller'] ?>"/>
+	    <input type="submit" class="btn btn-danger" name="confirmDelete" value="Yes"/>
+	    <input type="submit"  class="btn btn-default" name="confirmDelete" value="No"/>
+	</div>
+    </form>
 <?php else: ?>
-<?php $this->headTitle('Error deleting reference');?>
-<h2 class="lead">There has been an error</h2>
-<p>Cannot find the publication that you requested.</p>
+    <?php $this->headTitle('Error deleting reference');?>
+    <h2 class="lead">There has been an error</h2>
+    <p>Cannot find the publication that you requested.</p>
 <?php endif;?>

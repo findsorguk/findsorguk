@@ -1,0 +1,22 @@
+<tr>
+    <td><?= $this->authors ?></td>
+    <td><?php if(!is_null($this->publication_year)){?><?= $this->publication_year ?><?php }?></td>
+    <td><em><a href="<?php echo $this->url(array(
+                'module' => 'database',
+                'controller' => 'publications',
+                'action' => 'publication',
+                'id' => $this->id), null, true); ?>"
+            title="View reference work's details"><?= $this->title ?></a></em></td>
+    <td><?php if(!is_null($this->publication_place)){?><?= $this->publication_place ?> <?php }?></td>
+    <td> <?php if(!is_null($this->publisher)){?><?= $this->publisher ?><?php }?></td> 
+    <td><?php if(!is_null($this->pp)){?><?= $this->pp ?><?php }?></td>
+    <td><?php if(!is_null($this->ref)){?><?= $this->ref ?><?php }?></td>
+<td width="10%">
+    <?php echo $this->referencesEditDeleteLink()
+        ->setRecordID($this->i)
+        ->setFindID($this->fID)
+        ->setCreatedBy($this->createdBy)
+        ->setInstitution($this->institution);
+    ?>
+</td>
+</tr>
