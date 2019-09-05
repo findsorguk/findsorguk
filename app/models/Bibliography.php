@@ -36,6 +36,11 @@ class Bibliography extends Pas_Db_Table_Abstract {
      */
     protected $_primary = 'id';
 
+    /** The string used to generate cache id
+     * for the function getPersonDetails()
+     */
+    const CACHE_ID = 'bibliobook';
+
     /** Get cached data for a book
      * @access public
      * @param integer $id
@@ -63,15 +68,27 @@ class Bibliography extends Pas_Db_Table_Abstract {
         return $rows;
     }
 
-    public function getReferenceByfindID($findID)
+    /** Get the last reference created by the user
+     * @access public
+     * @param integer $userid
+     * @return array
+     */
+    public function getLastReference($userid)
     {
-	$refs = $this->getAdapter();
+        $refs = $this->getAdapter();
         $select = $refs->select()
-                ->from($this->_name, array(
-		    'id', 'old_publicationID', 'findID', 'pages_plates',
-		    'reference','pubID', 'vol_no', 'created', 'updated',
-		    'createdBy', 'updatedBy', 'secuid'))
-		->where('findID = ?', (string)$findID);
+                ->from($this->_name, array('pages_plates','reference','pubID','createdBy'))
+                ->joinLeft('publications','publications.secuid = bibliography.pubID',
+ 	                array('authors','title','publication_place','publisher'))
+                ->where($this->_name . '.createdBy = ?', $userid)
+                ->order('bibliography.created DESC')
+                ->limit(1);
+
         return $refs->fetchAll($select);
+    }
+
+    public function clearCacheEntry($id, $table)
+    {
+	$this->_cache->remove(self::CACHE_ID . (int)$id . $table);
     }
 }

@@ -5,8 +5,18 @@ $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/findSpotLinkedSe
 $this->jQuery()->addJavascriptFile($this->baseUrl().'/js/JQuery/publicationLinkedQuery.js',$type='text/javascript');
 ?>
 
-<h2 class="lead">Add a new reference</h2>
-<?php $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();?>
-<a href="<?php echo $this->url(array('module' => 'database', 'controller' => $params['recordtype'], 'action' => 'record', 'id' => $params['findID']), 'default', true); ?>"
-   class="btn btn-small btn-success">Return to record</a>
-<?php echo $this->form;?>
+<h2 class="lead">Add a new reference</h2> 
+<?php $id = Zend_Controller_Front::getInstance()->getRequest()->getParam('findID'); ?>
+<a class="btn btn-success btn-small"
+   href="<?= $this->url(array('module' => 'database', 'controller' => 'artefacts', 'action' => 'record', 'id' => $id), null, false) ?>"
+   title="return to the record">Return to record</a>
+
+<?php if (count($this->reference) > 0): ?>
+    <a class="btn btn-success btn-small"
+       href="<?= $this->url(array('module' => 'database', 'controller' => 'references', 'action' => 'add', 'copy' => 'lastReference'), null, false) ?>"
+       title="Autofill form fields from last record you created" id="populate" accesskey="c">Copy last reference</a>
+<?php else: ?>
+    <a class="btn btn-success btn-small" disabled
+       title="Disabled as there is no reference created by you to copy">Copy last reference</a>
+<?php endif; ?>
+<?= $this->form ?>

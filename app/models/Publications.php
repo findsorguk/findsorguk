@@ -104,14 +104,16 @@ class Publications extends Pas_Db_Table_Abstract {
                     'in_publication'
                     ))
                 ->joinLeft('bibliography','publications.secuid = bibliography.pubID',
-                        array('pp' => 'pages_plates','i' => 'id', 'ref' => 'reference'))
+                     array('pp' => 'pages_plates','i' => 'id', 'ref' => 'reference'))
                 ->joinLeft(array('recordtable' => $table),'recordtable.secuid = bibliography.findID',
-                        array('fID' => 'id','createdBy', 'institution'))
+                     array('fID' => 'id','createdBy', 'institution'))
                 ->joinLeft('publicationtypes',
-                        'publicationtypes.id = publications.publication_type',
-                        array('term'))
+                           'publicationtypes.id = publications.publication_type',
+                     array('term'))
                 ->where('recordtable.id = ?', (int)$id)
-                ->group('publications.secuid');
+		->order(['authors ASC', 'publication_year ASC', 'title ASC', 'publication_place ASC',
+		         'publisher ASC', 'pp ASC', 'ref ASC']);
+
         return $refs->fetchAll($select);
     }
 
