@@ -303,7 +303,7 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
     {
         $id = $this->getParam('id');
 
-        if (!(ctype_digit($id) && ($id > 0)))
+        if (!(is_numeric($id) && ($id > 0)))
         {
             $this->redirect($this->_redirectUrl);
         }
