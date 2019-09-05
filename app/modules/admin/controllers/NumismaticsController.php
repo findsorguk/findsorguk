@@ -1217,9 +1217,9 @@ class Admin_NumismaticsController extends Pas_Controller_Action_Admin
                 $denoms->add($form->getValues());
                 $this->getFlash()->addMessage('A new denomination has been added.');
                 if ($period == 21) {
-                    $this->redirect($this->redirectUrl . 'romanruler/id/' . $rulerid);
+                    $this->redirect($this->_redirectUrl . 'romanruler/id/' . $rulerid);
                 } else {
-                    $this->redirect($this->redirectUrl . 'medruler/id/' . $rulerid);
+                    $this->redirect($this->_redirectUrl . 'medruler/id/' . $rulerid);
                 }
             } else {
                 $this->getFlash()->addMessage($this->_formErrors);
