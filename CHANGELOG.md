@@ -1,5 +1,11 @@
 # Change Log
 
+### 1.62 5th September 2019
+- [x] Fix replace the ctype_digit with the is_numeric.
+- [x] Fix for the redirect URL for the denomination page.
+- [x] Set the institution in the bold on the account page.
+- [x] New Button to copy the last reference.
+
 ### 1.61 24th July 2019
 - [x] Fix for the Greek and Roman Provincial search.
 
@@ -25,7 +31,7 @@
 - [x] Fix to add the discovery method.
 
 ### 1.54 29th March 2019
-- [x] Staff user can upload thier profile pictures.
+- [x] Staff user can upload their profile pictures.
 - [x] Fix to insert record into mints_rulers table.
 - [x] Fix for the default image on the user's profile.
 - [x] Fix for userAgent of the search table.
