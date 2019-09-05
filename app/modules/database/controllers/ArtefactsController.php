@@ -372,7 +372,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     {
         $id = (int)$this->_request->getParam('id', 0);
 
-        if ((ctype_digit($id) && ($id > 0))) {
+        if ((is_numeric($id) && ($id > 0))) {
             $user = $this->getAccount();
             $form = $this->getFindForm();
             $form->submit->setLabel('Update record');
@@ -449,7 +449,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     public function deleteAction()
     {
         $id = $this->getParam('id', 0);
-        if (!(ctype_digit($id) && ($id > 0)))
+        if (!(is_numeric($id) && ($id > 0)))
         {
             $this->redirect(self::REDIRECT);
         }

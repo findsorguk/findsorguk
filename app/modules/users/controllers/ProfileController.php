@@ -264,7 +264,7 @@ class Users_ProfileController extends Pas_Controller_Action_Admin
     {
 	$dbaseID = $this->getIdentityForForms();
 
-        if (!(ctype_digit($dbaseID) && ($dbaseID > 0)))
+        if (!(is_numeric($dbaseID) && ($dbaseID > 0)))
 	{
 	    $this->redirect($this->_redirectUrl);
 	}
