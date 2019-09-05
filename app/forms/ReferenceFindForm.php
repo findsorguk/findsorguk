@@ -1,14 +1,14 @@
 <?php
 /** Form for linking references to finds.
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $form = new ReferenceFindForm();
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_Form
@@ -31,24 +31,26 @@ class ReferenceFindForm extends Pas_Form {
 
 	$authors = new Publications();
 	$authorList = $authors->getAuthors();
-	
+
 	$this->setName('addreference');
-	
+
 	$author = new Zend_Form_Element_Select('authors');
 	$author->setRequired(true)
+		->addValidator('NotEmpty', false, array('messages' => 'Please select the value for the Author' ))
 		->setLabel('Principal authors: ')
 		->addFilters(array('StripTags', 'StringTrim'))
                 ->setRegisterInArrayValidator(false)
-		->setAttribs(array('class' => 'span8 selectpicker show-menu-arrow'))
+		->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'))
 		->addMultiOptions(array(
-                    null => 'Choose an author or authors', 
+                    null => 'Choose an author or authors',
                     'Available authors' => $authorList));
 
 	$title = new Zend_Form_Element_Select('pubID');
 	$title->setLabel('Publication title: ')
 		->setRequired(true)
+		->addValidator('NotEmpty', false, array('messages' => 'Please select the value for the Publication Title' ))
 		->addFilters(array('StripTags', 'StringTrim'))
-		->setAttribs(array('class' => 'span8 selectpicker show-menu-arrow'))
+		->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'))
 		->addMultiOptions(array(
                     null => 'Choose a title once you have chosen an author or authors'))
 		->setRegisterInArrayValidator(false);
@@ -65,14 +67,14 @@ class ReferenceFindForm extends Pas_Form {
 
 	//Submit button
 	$submit = new Zend_Form_Element_Submit('submit');
+	$submit->setLabel('Submit');
 
 	$this->addElements(array(
 	$title, $author, $pages,
 	$reference, $submit));
 
-
 	$this->addDisplayGroup(array('authors', 'pubID', 'pages_plates', 'reference'), 'details');
-	
+
 	$this->details->setLegend('Reference details: ');
 	$this->addDisplayGroup(array('submit'),'buttons');
 	parent::init();
