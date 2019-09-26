@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.63 26th Sept 2019
+- [x] Fix to add the role 'Senior Treasure Registrar' to Contacts Page.
+
 ### 1.62 5th September 2019
 - [x] Fix replace the ctype_digit with the is_numeric.
 - [x] Fix for the redirect URL for the denomination page.
