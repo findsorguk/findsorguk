@@ -298,7 +298,7 @@ class Contacts extends Pas_Db_Table_Abstract
                     'staff.role = position.ID',
                     array('staffroles' => 'role'
                     ))
-                ->where('staff.role IN (6,8)')
+                ->where('staff.role IN (6,8,33)')
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
             $data = $persons->fetchAll($select);
