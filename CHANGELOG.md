@@ -1,6 +1,6 @@
 # Change Log
 
-### 1.64 27th Sept 2019
+### 1.64 30th Sept 2019
 - [x] Removed the reference to the Lost Change Website from the home page.
 
 ### 1.63 26th Sept 2019
