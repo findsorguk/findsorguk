@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.65 14th Oct 2019
+- [x] Fix to search on parish for the public user for the map.
+
 ### 1.64 30th Sept 2019
 - [x] Removed the reference to the Lost Change Website from the home page.
 
