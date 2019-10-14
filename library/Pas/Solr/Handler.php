@@ -183,6 +183,12 @@ class Pas_Solr_Handler
 
     protected $_myfinds = false;
 
+    /** Boolean field for processing knownas
+     * @access protected
+     * @var boolean
+     */
+    protected $_haveUsedKnownAsFilter = false;
+
     /**
      * @return null
      */
@@ -762,8 +768,8 @@ class Pas_Solr_Handler
             if (($map === true) && !in_array($this->getRole(),
                     $this->getAllowed()) && ($this->getCore() === 'objects')
             ) {
-                $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
                 $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
+		$this->setKnownAsFilterOnce();
             } elseif ($map === true && ($this->getCore() === 'objects')) {
                 $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
             }
@@ -1038,11 +1044,11 @@ class Pas_Solr_Handler
                     || array_key_exists('fourFigure', $params) || array_key_exists('parishID', $params))
                 && ($this->getCore() === 'objects')
             ) {
-                $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
+		$this->setKnownAsFilterOnce();
             }
             if ($this->getFormat() === 'kml' && ($this->getCore() === 'objects')) {
-                $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
                 $this->_query->createFilterQuery('geopresent')->setQuery('gridref:[* TO *]');
+		$this->setKnownAsFilterOnce();
             }
         }
         if (!is_null($this->getFacets())) {
@@ -1117,12 +1123,19 @@ class Pas_Solr_Handler
     }
 
     /**
-     * Return the loadbalancer key
-     * @return string
-     * @access public
+     * Check if the data is filtered for the KnownAs, if not then filter it
      */
     public function getLoadBalancerKey()
     {
         return $this->getLoadbalancer()->getLastServerKey();
+    }
+
+    public function setKnownAsFilterOnce()
+    {
+	if (!($this->_haveUsedKnownAsFilter))
+        {
+             $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
+	     $this->_haveUsedKnownAsFilter = true;
+        }
     }
 }
