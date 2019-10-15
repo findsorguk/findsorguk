@@ -373,7 +373,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             'gridref', 'fourFigure', 'longitude',
             'latitude', 'county', 'woeid',
             'district', 'parish', 'knownas',
-            'thumbnail', 'objecttype', 'secwfstage'
+            'thumbnail', 'objecttype', 'secwfstage',
+	    'findIdentifier'
         ));
         $search->setParams($params);
         $search->execute();
