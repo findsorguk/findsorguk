@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.66 15th Oct 2019
+- [x] Fix for the broken URL on the search map for the object type as a Hoard.
+
 ### 1.65 14th Oct 2019
 - [x] Fix to search on parish for the public user for the map.
 

@@ -18,14 +18,16 @@ foreach ($this->results as $result) {
         if (array_key_exists('description', $result)) {
             $description .= $this->ellipsisString()->setString($this->purify($result['description']));
         }
-        switch($result['objecttype']){
-            case 'HOARD':
+
+        switch(substr($result['findIdentifier'], 0, 6)){
+            case 'hoards' :
                 $type = 'hoards';
                 break;
             default:
                 $type = 'artefacts';
                 break;
         }
+
         $description .= '<p>Record Url: <a href="' . $this->serverUrl() . '/database/' . $type . '/record/id/' . $result['id'] . '">';
         $description .= $this->serverUrl() . '/database/' . $type . '/record/id/' . $result['id'] . '</a></p>';
         $marker = $dom->createElement('marker');
