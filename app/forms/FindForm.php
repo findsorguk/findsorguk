@@ -129,13 +129,13 @@ class FindForm extends Pas_Form
         $description = new Pas_Form_Element_CKEditor('description');
         $description->setLabel('Object description: ')
             ->setRequired(false)
-            ->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
+            ->addFilters(array('StringTrim', 'EmptyParagraph', 'WordChars'));
 
         //Object notes
         $notes = new Pas_Form_Element_CKEditor('notes');
         $notes->setLabel('Notes: ')
             ->setRequired(false)
-            ->addFilters(array('StringTrim', 'BasicHtml', 'EmptyParagraph', 'WordChars'));
+            ->addFilters(array('StringTrim', 'EmptyParagraph', 'WordChars'));
 
         //Find of note
         $findofnote = new Zend_Form_Element_Checkbox('findofnote');
