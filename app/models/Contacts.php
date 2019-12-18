@@ -473,6 +473,7 @@ class Contacts extends Pas_Db_Table_Abstract
         $persons = $this->getAdapter();
         $select = $persons->select()
             ->from($this->_name, array('dbaseID', 'term' => new Zend_Db_Expr("CONCAT(firstname,' ',lastname)")))
+	    ->where('dbaseID IS NOT NULL')
             ->order($this->_name . '.firstname');
         return $persons->fetchPairs($select);
     }
