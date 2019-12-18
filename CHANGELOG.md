@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.67 18th Dec 2019
+- [x] CKEditor upgraded (4.11 -> 4.13).
+- [x] Fix to allow the addition of FLOs to the rallies.
+
 ### 1.66 15th Oct 2019
 - [x] Fix for the broken URL on the search map for the object type as a Hoard.
 
