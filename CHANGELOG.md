@@ -1,6 +1,7 @@
 # Change Log
 
-### 1.67 18th Dec 2019
+### 1.67 7th Jan 2020
+- [x] Text amended for the page: Volunteering with the Portable Antiquities Scheme.
 - [x] CKEditor upgraded (4.11 -> 4.13).
 - [x] Fix to allow the addition of FLOs to the rallies.
 

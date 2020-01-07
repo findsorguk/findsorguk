@@ -1,11 +1,11 @@
 <?php
-$this->headTitle('Volunteering opportunities with the Portable Antiquities Scheme');
+$this->headTitle('Volunteering with the Portable Antiquities Scheme');
 $this->metaBase()->setDescription('A list of volunteering opportunities currently available with the
 Portable Antiquities Scheme')
     ->setKeywords('portable,antiquities,scheme,volunteer,volunteering')
     ->generate();
 ?>
-<h2 class="lead"><?php echo $this->title(); ?></h2>
+<h2 class="lead"><?= $this->title() ?></h2>
 
 
 <?php
@@ -22,13 +22,17 @@ if (count($this->vols)): ?>
         </tr>
         </thead>
         <tbody>
-        <?php echo $this->partialLoop('partials/getinvolved/volunteerList.phtml', $this->vols); ?>
+        <?= $this->partialLoop('partials/getinvolved/volunteerList.phtml', $this->vols) ?>
         </tbody>
     </table>
-    <?php echo $this->paginationControl($this->vols, 'Sliding', 'structure/pagination.phtml'); ?>
+    <?= $this->paginationControl($this->vols, 'Sliding', 'structure/pagination.phtml') ?>
 
 <?php else: ?>
-    <p>We don't have any volunteer opportunities available at present. You can contact us with your CV to be kept on
-        file at <a href="mailto:info@finds.org.uk">info@finds.org.uk</a> or we suggest approaching the volunteers
-        department of the British Museum directly.</p>
+    <p>
+	The Portable Antiquities Scheme supports a network of volunteers across the country. Volunteering for the Scheme is a great way to get involved with your local heritage. Our volunteer roles are varied and flexible, and include finds identification and recording, finds photography, and public engagement and outreach.
+    </p>
+
+    <p>
+	Volunteering usually takes place alongside your local Finds Liaison Officer. If you are interested in volunteering for the Scheme, please email us at <a href="mailto:info@finds.org.uk">info@finds.org.uk</a> and let us know where you are based so that we can contact the relevant Finds Liaison Officer.
+    </p>
 <?php endif; ?>
