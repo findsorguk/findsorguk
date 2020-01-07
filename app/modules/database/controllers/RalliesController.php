@@ -283,30 +283,27 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
      */
     public function addfloAction()
     {
-        if ($this->getParam('id', false)) {
-            $form = new AddFloRallyForm();
-            $this->view->form = $form;
-            if ($this->_request->isPost()) {
-                if ($form->isValid($this->_request->getPost())) {
-                    $rallies = new RallyXFlo();
-                    $rallyID = $this->getParam('id');
-                    $insertData = array(
-                        'rallyID' => $rallyID,
-                        'staffID' => $form->getValue('staffID'),
-                        'dateFrom' => $form->getValue('dateFrom'),
-                        'dateTo' => $form->getValue('dateTo'),
-                        'created' => $this->getTimeForForms(),
-                        'createdBy' => $this->getIdentityForForms()
-                    );
-                    $rallies->insert($insertData);
-                    $this->redirect(self::URL . 'rally/id/' . $rallyID);
-                    $this->getFlash()->addMessage('Finds Liaison Officer added to a rally');
-                } else {
-                    $form->populate($this->_request->getPost());
-                }
+	$id = $this->getParam('id', 0);
+
+        if (!(is_numeric($id) && ($id > 0)))
+        {
+	    throw new Pas_Exception_Param($this->_missingParameter, 500);
+        }
+
+        $form = new AddFloRallyForm();
+        $this->view->form = $form;
+
+        if ($this->_request->isPost())
+	{
+            if ($form->isValid($this->_request->getPost()))
+            {
+	        $this->saveRallyXFloData($form, $id);
+                $this->redirect(self::URL . 'rally/id/' . $id);
+                $this->getFlash()->addMessage('Finds Liaison Officer added to a rally');
+            } else
+	    {
+                $form->populate($this->_request->getPost());
             }
-        } else {
-            throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
 
@@ -347,4 +344,19 @@ class Database_RalliesController extends Pas_Controller_Action_Admin
         //Magic in view
     }
 
+    /**
+     *  Record FLO attendance at a rally
+     */
+    public function saveRallyXFloData($form, $rallyID)
+    {
+	$rallies = new RallyXFlo();
+	$rallies->add(array(
+            'rallyID' => $rallyID,
+            'staffID' => $form->getValue('staffID'),
+            'dateFrom' => $form->getValue('dateFrom'),
+            'dateTo' => $form->getValue('dateTo'),
+            'updated' => $this->getTimeForForms(),
+            'updatedBy' => $this->getIdentityForForms()
+        ));
+    }
 }

@@ -22,7 +22,6 @@ class AddFloRallyForm extends Pas_Form{
 	$flos = $staff->getAttending();
 
 	parent::__construct($options);
-
 	ZendX_JQuery::enableForm($this);
 
 	$this->setName('addFlo');
@@ -30,28 +29,29 @@ class AddFloRallyForm extends Pas_Form{
 	$flo->setLabel('Finds officer present: ')
                 ->setRequired(true)
                 ->addFilters(array('StringTrim','StripTags'))
-                ->addValidator('Int')
-                ->addMultiOptions(array(null => 'Choose attending officer',
-                    'Our staff members' => $flos))
+		->addMultiOptions(array(
+                   null => 'Choose attending officer',
+		  'Our staff members' => $flos
+		))
+		->addValidator('InArray', false, array(array_keys($flos)))
                 ->setAttribs(array(
                     'class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 	$dateFrom = new ZendX_JQuery_Form_Element_DatePicker('dateFrom');
 	$dateFrom->setLabel('Attended from: ')
                 ->setRequired(true)
-                ->setJQueryParam('dateFormat', 'yy-mm-dd')
                 ->addFilters(array('StripTags', 'StringTrim'))
-                ->addValidator('NotEmpty')
+		->addValidator('Date', true, (array('format' => 'yyyy-MM-dd')))
                 ->setAttrib('size', 20);
 
 	$dateTo = new ZendX_JQuery_Form_Element_DatePicker('dateTo');
 	$dateTo->setLabel('Attended to: ')
-                ->setRequired(false)
-                ->setJQueryParam('dateFormat', 'yy-mm-dd')
+                ->setRequired(true)
                 ->addFilters(array('StripTags', 'StringTrim'))
+		->addValidator('Date', true, (array('format' => 'yyyy-MM-dd')))
                 ->setAttrib('size', 20);
 
-	$submit = new Zend_Form_Element_Submit('submit');
+	$submit = (new Zend_Form_Element_Submit('submit'))->setLabel('Submit');
 
 	$this->addElements(array($flo, $dateFrom, $dateTo, $submit));
 
