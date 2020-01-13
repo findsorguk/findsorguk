@@ -237,6 +237,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->deny('public', array('add', 'edit'));
+        $this->_helper->_acl->deny(array('member', 'research', 'hero'), array('workflow'));
+        $this->_helper->_acl->allow(array('admin', 'flos', 'fa', 'treasure', 'hoard'), array('workflow'));
         $this->_helper->_acl->allow('public', array(
             'index', 'record', 'errorreport', 'notifyflo', 'unavailable'
         ));
