@@ -1,63 +1,66 @@
-<?php $auth = Zend_Registry::get('auth'); ?>
-<?php if ($auth->hasIdentity()): ?>
-    <?php $user = $auth->getIdentity(); ?>
-    <?php if ($user->canRecord): ?>
-	<?php $people = array($this->finder, $this->recorder, $this->identifier, $this->secondaryIdentifier); ?>
-	<?php if (array_filter($people)):?>
-	    <h4 class="lead">Personal details</h4>
-	    <p>
-	        <?php if (!is_null($this->finder)): ?>
-		    <?php $allowed = array('fa', 'admin', 'flos', 'hero', 'treasure'); ?>
+<h4 class="lead">Personal details</h4>
 
-		    <?php if (in_array($user->role, $allowed)): ?>
-		        Found by: <span property="pas:finder foaf:name" instanceof="foaf:person"><?= $this->finder ?></span> 
-			<a href="<?= $this->url(array(
-			    'module' => 'database',
-			    'controller' => 'search',
-			    'action' => 'results',
-			    'finderID' => $this->finderID), null, true) ?>"
-                            title="View other discoveries">
-			    <i class="icon-search"></i>
-			</a><br/>
-		    <?php endif; ?>
-		<?php endif;?>
+<?php
+    // Create the controller details for the searchable users
+    function BuildSearchParameters($keyValuePair)
+    {
+	return 
+	    array_merge(
+	      array('module' => 'database',
+                    'controller' => 'search',
+                    'action' => 'results'), 
+	      $keyValuePair);
+    }
 
-		<?php if (!is_null($this->recorderID)) : ?>
-		    Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?= $this->recorder ?></span>
-		    <a href="<?= $this->url(array(
-		        'module' => 'database',
-		        'controller' => 'search',
-		        'action' => 'results',
-		        'recorderID' => $this->recorderID), null, true) ?>"
-		        title="Search database for all records recorded by <?= $this->recorder ?>">
-			<i class="icon-search"></i>
-		    </a><br />
-		<?php endif; ?>
+    $auth = Zend_Registry::get('auth');
+    $restrictedMessage = "This information is restricted for your access level."; 
+    if (! $auth->hasIdentity()):
+        echo('<p>' . $restrictedMessage . '</p>');
+        return;
+    else:
+        $user = $auth->getIdentity();
+        if (! $user->canRecord):
+	    echo ('<p>' . $restrictedMessage . '</p>');
+            return;
+        endif;
+    endif;
+?>
 
-		<?php if (!is_null($this->identifier1ID)) : ?>
-		    Identified by: <span property="pas:identifier foaf:name" instanceof="foaf:person"><?= $this->identifier ?></span>
-		    <a href="<?= $this->url(array(
-		        'module' => 'database',
-		        'controller' => 'search',
-		        'action' => 'results',
-		        'identifierID' => $this->identifier1ID), null, true) ?>"
-		        title="Search database for all records identified by <?= $this->identifier ?>">
-			<i class="icon-search"></i>
-		    </a><br />
-		<?php endif; ?>
-
-		<?php if (!is_null($this->identifier2ID)) : ?>
-		    Secondary identifier: <span property="pas:identifierSecondary foaf:name" instanceof="foaf:person"><?= $this->secondaryIdentifier ?></span> 
-		    <a href="<?= $this->url(array(
-		        'module' => 'database',
-		        'controller' => 'search',
-		        'action' => 'results',
-		        'identifier2ID' => $this->identifier2ID), null, true) ?>"
-		        title="Search database for all records identifed by <?= $this->secondaryIdentifier ?>">
-		        <i class="icon-search"></i>
-		    </a>
-		<?php endif; ?>
-	    </p>
-	<?php endif; ?>
+<p>
+    <?php if (! is_null($this->finder)): ?>
+	Found by:
+	<?php if (in_array($user->role, array('fa', 'admin', 'flos', 'hero', 'treasure'))): ?>
+            <span property="pas:finder foaf:name" instanceof="foaf:person"><?= $this->finder ?></span> 
+	    <a href="<?= $this->url(BuildSearchParameters(array('finderID' => $this->finderID)), null, true) ?>"
+                title="Search database for all records found by <?= $this->finder ?>">
+	        <i class="icon-search"></i>
+	    </a>
+	<?php else: ?>
+	    <?= $restrictedMessage ?>
+        <?php endif;?><br/>
     <?php endif;?>
-<?php endif;?>
+
+    <?php if (!is_null($this->recorderID)) : ?>
+        Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?= $this->recorder ?></span>
+	<a href="<?= $this->url(BuildSearchParameters(array('recorderID' => $this->recorderID)), null, true) ?>"
+	    title="Search database for all records recorded by <?= $this->recorder ?>">
+	    <i class="icon-search"></i>
+	</a><br />
+    <?php endif; ?>
+
+    <?php if (!is_null($this->identifier1ID)) : ?>
+        Identified by: <span property="pas:identifier foaf:name" instanceof="foaf:person"><?= $this->identifier ?></span>
+	<a href="<?= $this->url(BuildSearchParameters(array('identifierID' => $this->identifier1ID)), null, true) ?>"
+	    title="Search database for all records identified by <?= $this->identifier ?>">
+	    <i class="icon-search"></i>
+	</a><br />
+    <?php endif; ?>
+
+    <?php if (!is_null($this->identifier2ID)) : ?>
+        Secondary identifier: <span property="pas:identifierSecondary foaf:name" instanceof="foaf:person"><?= $this->secondaryIdentifier ?></span>
+	<a href="<?= $this->url(BuildSearchParameters(array('identifier2ID' => $this->identifier2ID)), null, true) ?>"
+	    title="Search database for all records identifed by <?= $this->secondaryIdentifier ?>">
+	    <i class="icon-search"></i>
+	</a>
+    <?php endif; ?>
+</p>
