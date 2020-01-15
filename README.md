@@ -1,8 +1,6 @@
 # The Portable Antiquities Scheme's Database source code
 
-
 [![DOI](https://zenodo.org/badge/19055/findsorguk/findsorguk.svg)](https://zenodo.org/badge/latestdoi/19055/findsorguk/findsorguk) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
 
 ![Scheme logo](https://avatars3.githubusercontent.com/u/4288770?v=3&s=200)
 
@@ -70,6 +68,7 @@ A [change log](CHANGELOG.md) is now maintained by the project developers to try 
 * [Mary Chester-Kadwell](https://github.com/mchesterkadwell)
 * [Stephen Moon](https://github.com/s-moon)
 * [Adetokunbo Aribilola](https://github.com/adetoks) 
+* [Minakshi Chidrawar](https://github.com/minakshi-chidrawar)
 
 The Scheme is also grateful for the contributions of Richard Wareham (Cambridge University) and Ethan Gruber (ANS). Full [acknowledgements](ACKNOWLEDGEMENTS.md) are recorded within this repo. 
 
