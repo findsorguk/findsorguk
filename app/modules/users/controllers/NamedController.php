@@ -50,14 +50,6 @@ class Users_NamedController extends Pas_Controller_Action_Admin {
 
     }
 
-    /** Set up the index page
-     * @access public
-     * @return void
-     */
-    public function indexAction(){
-        $this->view->users = $this->getUsers()->getUsersAdmin($this->getAllParams());
-    }
-    
     /** View the individual person's account
      * @access public
      * @return void
