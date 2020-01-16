@@ -4,7 +4,7 @@
 
 ![Scheme logo](https://avatars3.githubusercontent.com/u/4288770?v=3&s=200)
 
-A repository for the current generation of the Portable Antiquities Scheme Website. A British Museum project that 
+A repository for the current generation of the Portable Antiquities Scheme website. A British Museum project that 
 encourages the voluntary recording of archaeological artefacts found by the public in England and Wales. A working 
 version of this software can be seen at [https://finds.org.uk](https://finds.org.uk) or at [https://marinefinds.org.uk](https://marinefinds.org.uk) 
 and comprehensive instructions about how to install a copy can be found in the [wiki](https://github.com/findsorguk/findsorguk/wiki).
@@ -81,4 +81,4 @@ The codebase is released under [GPL V3](LICENSE.md).
 * [Heritage Lottery Fund](https://www.hlf.org.uk/) 
 * [DCMS](https://www.gov.uk/government/organisations/department-for-digital-culture-media-sport)
 * [Arts and Humanities Research Council](http://www.ahrc.ac.uk/)
-* [The British Museum](http://britishmuseum.org)
+* [The British Museum](https://britishmuseum.org)
