@@ -41,7 +41,6 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract
         return $this;
     }
 
-
     /** The allowed roles for access
      * @access protected
      * @var array
@@ -71,6 +70,28 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract
             $this->_role = 'public';
         }
         return $this->_role;
+    }
+
+    /** The user's institution
+     * @access protected
+     * @var string
+     */
+    protected $_userInstitution;
+
+    /** Get the user's institution
+     * @access public
+     * @return string
+     */
+    public function getUserInstitution()
+    {
+        $user = new Pas_User_Details();
+        $person = $user->getPerson();
+        if ($person) {
+            $this->_userInstitution = $person->institution;
+        } else {
+            $this->_userInstitution = 'PUBLIC';
+        }
+        return $this->_userInstitution;
     }
 
     /** The record ID
@@ -245,15 +266,24 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract
                 'class' => 'btn btn-small btn-primary')
         ));
 
-
         if (in_array($this->getRole(), $this->_allowed)) {
-            $html .= ' <a class="btn btn-small btn-danger" href="';
+	    // If user's role is flo, they can change any workflow (inc public) except another institution's
+	    $disabled = '';
+            if (("flos" === $this->getRole())
+		&& ($this->getInstitution() !== $this->getUserInstitution())
+		&& ('PUBLIC' !== $this->getInstitution()))
+	    {
+		$disabled = 'disabled';
+	    }
+	    $html .= ' <a class="btn btn-small btn-danger " ' . $disabled . ' href="';
             $html .= $this->view->url(array(
                 'module' => 'database',
                 'controller' => $this->getController(),
                 'action' => 'workflow',
                 'id' => $this->getId()), null, true);
+
             $html .= '">Change workflow</a>';
+
             $html .= ' <a data-toggle="tooltip" title="This forces the search index to update for this record only" class="tipme overlay ' . $class . '"  href="';
             $html .= $this->view->url(array(
                 'module' => 'database',
