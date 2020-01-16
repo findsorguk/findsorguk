@@ -1,12 +1,10 @@
 # The Portable Antiquities Scheme's Database source code
 
-
 [![DOI](https://zenodo.org/badge/19055/findsorguk/findsorguk.svg)](https://zenodo.org/badge/latestdoi/19055/findsorguk/findsorguk) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
 
 ![Scheme logo](https://avatars3.githubusercontent.com/u/4288770?v=3&s=200)
 
-A repository for the current generation of the Portable Antiquities Scheme Website. A British Museum project that 
+A repository for the current generation of the Portable Antiquities Scheme website. A British Museum project that 
 encourages the voluntary recording of archaeological artefacts found by the public in England and Wales. A working 
 version of this software can be seen at [https://finds.org.uk](https://finds.org.uk) or at [https://marinefinds.org.uk](https://marinefinds.org.uk) 
 and comprehensive instructions about how to install a copy can be found in the [wiki](https://github.com/findsorguk/findsorguk/wiki).
@@ -70,6 +68,7 @@ A [change log](CHANGELOG.md) is now maintained by the project developers to try 
 * [Mary Chester-Kadwell](https://github.com/mchesterkadwell)
 * [Stephen Moon](https://github.com/s-moon)
 * [Adetokunbo Aribilola](https://github.com/adetoks) 
+* [Minakshi Chidrawar](https://github.com/minakshi-chidrawar)
 
 The Scheme is also grateful for the contributions of Richard Wareham (Cambridge University) and Ethan Gruber (ANS). Full [acknowledgements](ACKNOWLEDGEMENTS.md) are recorded within this repo. 
 
@@ -82,4 +81,4 @@ The codebase is released under [GPL V3](LICENSE.md).
 * [Heritage Lottery Fund](https://www.hlf.org.uk/) 
 * [DCMS](https://www.gov.uk/government/organisations/department-for-digital-culture-media-sport)
 * [Arts and Humanities Research Council](http://www.ahrc.ac.uk/)
-* [The British Museum](http://britishmuseum.org)
+* [The British Museum](https://britishmuseum.org)
