@@ -268,20 +268,18 @@ class Pas_View_Helper_Toolbox extends Zend_View_Helper_Abstract
 
         if (in_array($this->getRole(), $this->_allowed)) {
 	    // If user's role is flo, they can change any workflow (inc public) except another institution's
-	    $disabled = '';
             if (("flos" === $this->getRole())
 		&& ($this->getInstitution() !== $this->getUserInstitution())
-		&& ('PUBLIC' !== $this->getInstitution()))
-	    {
-		$disabled = 'disabled';
+		&& ('PUBLIC' !== $this->getInstitution())) {
+	        $html .= ' <a class="btn btn-small btn-danger" disabled href="';
+	    } else {
+	        $html .= ' <a class="btn btn-small btn-danger " href="';
+                $html .= $this->view->url(array(
+                   'module' => 'database',
+                   'controller' => $this->getController(),
+                   'action' => 'workflow',
+                   'id' => $this->getId()), null, true);
 	    }
-	    $html .= ' <a class="btn btn-small btn-danger " ' . $disabled . ' href="';
-            $html .= $this->view->url(array(
-                'module' => 'database',
-                'controller' => $this->getController(),
-                'action' => 'workflow',
-                'id' => $this->getId()), null, true);
-
             $html .= '">Change workflow</a>';
 
             $html .= ' <a data-toggle="tooltip" title="This forces the search index to update for this record only" class="tipme overlay ' . $class . '"  href="';
