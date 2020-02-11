@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// For complete reference see:
 	// https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
 
-	 config.extraPlugins = 'wordcount,notification,htmlwriter,colorbutton,colordialog';
+	 config.extraPlugins = 'wordcount, notification, htmlwriter, colorbutton, colordialog';
 
 	 config.removePlugins = 'iframe, forms, flash, div';
 
@@ -37,8 +37,6 @@ CKEDITOR.editorConfig = function( config ) {
 	//Enable SpellCheck
 	config.scayt_autoStartup = true;
 
-	config.allowedContent = true
-
 	config.colorButton_backStyle = {
 	    element: 'span',
 	    styles: { 'background-color': '#(color)' }
@@ -48,10 +46,6 @@ CKEDITOR.editorConfig = function( config ) {
 	    element: 'span',
 	    styles: { color: '#(color)' }
 	};
-
-	// Remove some buttons provided by the standard plugins, which are
-	// not needed in the Standard(s) toolbar.
-	config.removeButtons = 'Underline,Subscript,Superscript';
 
 	// Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
