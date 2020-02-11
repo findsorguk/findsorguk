@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.68 11th Feb 2020
+- [x] When finds record is updated, do not add abbr tag each time.
+
 ### 1.67 7th Jan 2020
 - [x] Text amended for the page: Volunteering with the Portable Antiquities Scheme.
 - [x] CKEditor upgraded (4.11 -> 4.13).
