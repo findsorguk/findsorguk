@@ -33,7 +33,7 @@ class Pas_View_Helper_EmailSaveSearch extends Zend_View_Helper_Abstract
     protected $_allowed = array(
         'member', 'flos', 'admin',
         'treasure', 'hero', 'fa',
-        'hoard'
+        'hoard', 'research'
     );
 
     public function getTheParameters()
