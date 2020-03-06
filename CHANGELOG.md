@@ -1,5 +1,10 @@
 # Change Log
 
+### 1.69 5th Mar 2020
+- [x] Finder details are now hidden for people not logged in and members which cannot record.
+- [x] PDF export is hidden from the Research user as they are not allowed to export that.
+- [x] Send this search to someone and Save this search option can be seen by the research user.
+
 ### 1.68 11th Feb 2020
 - [x] When finds record is updated, do not add abbr tag each time.
 
