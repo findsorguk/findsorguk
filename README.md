@@ -66,9 +66,9 @@ A [change log](CHANGELOG.md) is now maintained by the project developers to try 
 
 * [Daniel Pett](https://github.com/portableant)
 * [Mary Chester-Kadwell](https://github.com/mchesterkadwell)
+* [Minakshi Chidrawar](https://github.com/minakshi-chidrawar)
 * [Stephen Moon](https://github.com/s-moon)
 * [Adetokunbo Aribilola](https://github.com/adetoks) 
-* [Minakshi Chidrawar](https://github.com/minakshi-chidrawar)
 
 The Scheme is also grateful for the contributions of Richard Wareham (Cambridge University) and Ethan Gruber (ANS). Full [acknowledgements](ACKNOWLEDGEMENTS.md) are recorded within this repo. 
 
