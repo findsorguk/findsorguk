@@ -2,31 +2,33 @@
 
 /**
  * A view helper for displaying the online accounts in html format
- *
  * Example of use:
  * <code>
  * <?php
  * echo $this->onlineAccountHtml()->setId($id);
  * ?>
  * </code>
- * @author Daniel Pett <dpett at britishmuseum.org>
+ *
+ * @author     Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    View
  * @subpackage Helper
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @see Zend_View_Helper_Abstract
+ * @license    http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @see        Zend_View_Helper_Abstract
  */
 class Pas_View_Helper_OnlineAccountHtml extends Zend_View_Helper_Abstract
 {
 
     /** The id number to query
+     *
      * @access public
      * @var int
      */
     protected $_id;
 
     /** Get the ID number
+     *
      * @access public
      * @return int
      */
@@ -36,6 +38,7 @@ class Pas_View_Helper_OnlineAccountHtml extends Zend_View_Helper_Abstract
     }
 
     /** Set the ID number
+     *
      * @access public
      * @param int $id
      * @return \Pas_View_Helper_OnlineAccountHtml
@@ -47,6 +50,7 @@ class Pas_View_Helper_OnlineAccountHtml extends Zend_View_Helper_Abstract
     }
 
     /** Retrieve a person's online accounts
+     *
      * @access public
      * @return \Pas_View_Helper_OnlineAccountHtml
      */
@@ -56,6 +60,7 @@ class Pas_View_Helper_OnlineAccountHtml extends Zend_View_Helper_Abstract
     }
 
     /** Get the data from the model
+     *
      * @access public
      * @param int $id
      * @return array
@@ -67,6 +72,7 @@ class Pas_View_Helper_OnlineAccountHtml extends Zend_View_Helper_Abstract
     }
 
     /** To string function
+     *
      * @access public
      * @return string
      */
@@ -79,8 +85,9 @@ class Pas_View_Helper_OnlineAccountHtml extends Zend_View_Helper_Abstract
     }
 
     /** Build HTML response
+     *
      * @access public
-     * @param  array $data
+     * @param array $data
      * @return string $html
      */
     public function buildHtml($data)
@@ -89,6 +96,7 @@ class Pas_View_Helper_OnlineAccountHtml extends Zend_View_Helper_Abstract
         if ($data) {
             $html .= '<h4 class="lead">Social profiles</h4>';
             $html .= '<div class="btn-group">';
+            $html .= '<br />';
             $html .= $this->view->partialLoop('partials/contacts/foafAccts.phtml', $data);
             $html .= '</div>';
         }
