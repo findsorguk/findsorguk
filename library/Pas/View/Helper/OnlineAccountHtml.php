@@ -94,9 +94,9 @@ class Pas_View_Helper_OnlineAccountHtml extends Zend_View_Helper_Abstract
     {
         $html = '';
         if ($data) {
-            $html .= '<h4 class="lead">Social profiles</h4>';
-            $html .= '<div class="btn-group">';
             $html .= '<br />';
+            $html .= '<p><strong>Social profiles:</strong></p>';
+            $html .= '<div class="btn-group">';
             $html .= $this->view->partialLoop('partials/contacts/foafAccts.phtml', $data);
             $html .= '</div>';
         }
