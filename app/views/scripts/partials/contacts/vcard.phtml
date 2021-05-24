@@ -87,8 +87,9 @@
         <span class="longitude" property="geo:lon"><?php echo $this->longitude; ?></span>
     </div>
     <?php echo $this->onlineAccountHtml()->setId($this->id); ?>
+    <br />
+    <p><strong>Other formats:</strong></p>
     <div class="btn-group">
-        Other formats: <br/>
         <a class="btn-mini btn"
            href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'staff', 'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>">Vcard</a>
         <a class="btn-mini btn"

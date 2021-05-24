@@ -38,8 +38,9 @@
         <span class="latitude" property="geo:lat"><?php echo $this->latitude; ?></span>,
         <span class="longitude" property="geo:lon"><?php echo $this->longitude; ?></span>
     </div>
+    <br />
+    <p><strong>Other formats:</strong></p>
     <div class="btn-group">
-        Other formats:<br/>
         <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners',
             'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>"
            title="Get a vcard for outlook" class="btn btn-mini">vcard</a>
