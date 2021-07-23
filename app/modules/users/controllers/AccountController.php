@@ -420,4 +420,16 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             $this->getFlash()->addMessage('Please review and correct problems');
         }
     }
+
+
+    public function exploreAction()
+    {
+        $user = $this->getAccount();
+
+        if (!null == $user) {
+            $this->view->user = $user;
+        }
+
+        Zend_Layout::getMvcInstance()->setLayout("error");
+    }
 }

@@ -172,7 +172,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             $this->view->facets = $search->processFacets();
             $this->view->stats = $search->processStats();
         } else {
-            $this->redirect('/error/accountproblem');
+            $this->redirect('/users/account/explore');
         }
     }
 
