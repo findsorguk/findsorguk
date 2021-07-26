@@ -36,7 +36,7 @@ class Pas_Service_SketchFabOembed
 
     public function getUrl()
     {
-        return 'https://sketchfab.com/models/' . $this->_url;
+        return 'https://sketchfab.com/3d-models/' . $this->_url;
     }
 
     /** Get analytics for a URL
