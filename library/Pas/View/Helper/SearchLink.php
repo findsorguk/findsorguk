@@ -29,6 +29,7 @@ class Pas_View_Helper_SearchLink extends Zend_View_Helper_Abstract
     protected $_id;
 
     protected $_field;
+    protected $_username;
 
     /** The page parameter
      * @access public
@@ -81,6 +82,26 @@ class Pas_View_Helper_SearchLink extends Zend_View_Helper_Abstract
         return $this;
     }
 
+    /** Get the username
+     * @access public
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->_username;
+    }
+
+    /** Set the username
+     * @access public
+     * @param string username
+     * @return \Pas_View_Helper_SearchLink
+     */
+    public function setUsername($username)
+    {
+        $this->_username = $username;
+        return $this;
+    }
+
     /** Function to return
      * @access public
      * @return \Pas_View_Helper_SearchLink
@@ -107,7 +128,9 @@ class Pas_View_Helper_SearchLink extends Zend_View_Helper_Abstract
         $string = '<p>Search the database for <a href="';
         $string .= $url;
         $string .= '" title="Search the database for examples">all examples</a>';
-        $string .= ' recorded.</p>';
+        $string .= ' created by ' . $this->getUsername() . '</p>';
+
+
         return $string;
     }
 }

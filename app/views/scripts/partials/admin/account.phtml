@@ -102,4 +102,4 @@
       Last updated by: <strong><?= $this->updater ?></strong>
    <?php endif; ?>
  </p>
-<?= $this->searchLink()->setField('createdBy')->setId($this->id) ?>
+<?= $this->searchLink()->setField('createdBy')->setId($this->id)->setUsername($this->username) ?>
