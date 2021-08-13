@@ -23,7 +23,7 @@
                             href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'myfinds'), null, true); ?>"
                             title="View all finds I have recorded"><i class="icon-list"></i>Finds recorded by me</a>
                     </li>
-                    <?php if ($user->role === 'member'): ?>
+                    <?php if ($user->role != 'admin'): ?>
                         <li <?php echo $this->currentPage()->active('database', 'myscheme', 'recordedbyflos'); ?>><a
                                 href="<?php echo $this->url(array('module' => 'database', 'controller' => 'myscheme', 'action' => 'recordedbyflos'), null, true); ?>"
                                 title="View all finds recorded by PAS staff for me"><i class="icon-list"></i>Finds recorded for me by FLOs</a>
