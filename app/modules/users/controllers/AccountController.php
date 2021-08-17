@@ -2,58 +2,70 @@
 
 /** Controller for accessing user account stuff
  *
- * @author Daniel Pett <dpett at britishmuseum.org>
+ * @author     Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
  * @package    Pas_Controller_Action
  * @subpackage Admin
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @version 1
- * @uses Zend_Registry
- * @uses Users
- * @uses ProfileForm
- * @uses Pas_Exception
- * @uses ForgotUsernameForm
- * @uses ActivateForm
- * @uses LoginForm
- * @uses RegisterForm
- * @uses ChangePasswordForm
- * @uses ResetPasswordKeyForm
- * @uses AccountUpgradeForm
- *
+ * @license    http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version    1
+ * @uses       Zend_Registry
+ * @uses       Users
+ * @uses       ProfileForm
+ * @uses       Pas_Exception
+ * @uses       ForgotUsernameForm
+ * @uses       ActivateForm
+ * @uses       LoginForm
+ * @uses       RegisterForm
+ * @uses       ChangePasswordForm
+ * @uses       ResetPasswordKeyForm
+ * @uses       AccountUpgradeForm
  */
 class Users_AccountController extends Pas_Controller_Action_Admin
 {
 
     /** The auth class
+     *
      * @access protected
      * @var \Zend_Auth
      */
     protected $_auth;
 
     /** The users model
+     *
      * @access protected
      * @var \Users
      */
     protected $_users;
 
     /** Set up the ACL and contexts
+     *
      * @access public
      * @return void
      */
     public function init()
     {
-        $this->_helper->_acl->allow('public', array(
-            'forgotten', 'register', 'activate',
-            'index', 'logout', 'edit',
-            'forgotusername', 'success', 'resetpassword'
-        ));
+        $this->_helper->_acl->allow(
+            'public',
+            array(
+                'forgotten',
+                'register',
+                'activate',
+                'index',
+                'logout',
+                'edit',
+                'forgotusername',
+                'success',
+                'resetpassword'
+            )
+        );
         $this->_helper->_acl->allow('member', null);
         $this->_auth = Zend_Registry::get('auth');
         $this->_users = new Users();
     }
 
     /** Set up index page
+     *
      * @access public
      * @return void
      */
@@ -63,14 +75,17 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         if (is_null($this->_auth->getIdentity())) {
             $this->_helper->redirector->gotoRouteAndExit(
                 array(
-                    'module' => 'users', 'controller' => 'index'
-                ));
+                    'module' => 'users',
+                    'controller' => 'index'
+                )
+            );
         } else {
             $this->view->users = $this->_users->getUserProfile($this->getIdentityForForms());
         }
     }
 
     /** Logout and clear the identity from the storage
+     *
      * @access public
      * @return void
      */
@@ -82,6 +97,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     }
 
     /** Edit the user details
+     *
      * @access public
      * @return void
      * @throws Pas_Exception
@@ -117,6 +133,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     }
 
     /** Retrieve the user's user name
+     *
      * @access public
      * @return void
      */
@@ -131,9 +148,11 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
                 if ($form->isValid($form->getValues())) {
                     $userData = $this->_users->getUserByUsername($form->getValue('email'));
-                    $to = array(array(
-                        'email' => $form->getValue('email'),
-                        'name' => $userData[0]['fullname'])
+                    $to = array(
+                        array(
+                            'email' => $form->getValue('email'),
+                            'name' => $userData[0]['fullname']
+                        )
                     );
                     $this->_helper->mailer($userData[0], 'forgottenUsername', $to);
                     $this->getFlash()->addMessage('Account reminder sent to your email address');
@@ -147,6 +166,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     }
 
     /** Retrieve a password for a user
+     *
      * @access public
      * @return void
      */
@@ -180,14 +200,17 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     $updatesdata = array(
                         'activationKey' => $newKey,
                     );
-                    $to = array(array(
-                        'email' => $form->getValue('email'),
-                        'name' => $results[0]['fullname']
-                    ));
+                    $to = array(
+                        array(
+                            'email' => $form->getValue('email'),
+                            'name' => $results[0]['fullname']
+                        )
+                    );
                     $assignData = array_merge(
                         $results[0],
                         array('activationKey' => $newKey)
-                        , $form->getValues()
+                        ,
+                        $form->getValues()
                     );
                     $this->_helper->mailer($assignData, 'forgottenPassword', $to);
                     $where = array();
@@ -209,6 +232,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     }
 
     /** Register for an account
+     *
      * @access public
      * @return void
      */
@@ -222,15 +246,16 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             $form = new RegisterForm();
             $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-
-		$recap = $form->getvalue('g-recaptcha-response');
+                $recap = $form->getvalue('g-recaptcha-response');
                 $captcha = $form->getvalue('captcha');
                 unset($recap);
                 unset($captcha);
 
-                $to = array(array(
-                    'email' => $form->getValue('email'),
-                    'name' => $form->getValue('first_name') . ' ' . $form->getValue('last_name'))
+                $to = array(
+                    array(
+                        'email' => $form->getValue('email'),
+                        'name' => $form->getValue('first_name') . ' ' . $form->getValue('last_name')
+                    )
                 );
                 $emailData = array(
                     'email' => $form->getValue('email'),
@@ -238,23 +263,26 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     'activationKey' => md5($form->getValue('username') . $form->getValue('first_name'))
                 );
 
-	        /*$recap = $form->getvalue('g-recaptcha-response');
-                $captcha = $form->getvalue('captcha');
-                unset($recap);
-                unset($captcha);*/
+                /*$recap = $form->getvalue('g-recaptcha-response');
+                    $captcha = $form->getvalue('captcha');
+                    unset($recap);
+                    unset($captcha);*/
 
                 $this->_users->register($form->getValues());
                 $this->_helper->mailer($emailData, 'activateAccount', $to);
                 $this->getFlash()->addMessage('Your account has been created. Please check your email.');
                 $this->redirect('/users/account/activate/');
                 $form->populate($form->getValues());
-                $this->getFlash()->addMessage('There are a few problems with your registration<br/>
-        Please review and correct them.');
+                $this->getFlash()->addMessage(
+                    'There are a few problems with your registration<br/>
+        Please review and correct them.'
+                );
             }
         }
     }
 
     /** Activate an account
+     *
      * @access public
      * @return void
      */
@@ -278,6 +306,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     }
 
     /** On success action
+     *
      * @access public
      * @return void
      */
@@ -296,8 +325,10 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     $this->redirect($this->_helper->loginRedirect());
                 } else {
                     $this->_auth->clearIdentity();
-                    $this->getFlash()->addMessage('Sorry, there was a problem with your submission.
-                Please check and try again');
+                    $this->getFlash()->addMessage(
+                        'Sorry, there was a problem with your submission.
+                Please check and try again'
+                    );
                     $form->populate($formData);
                 }
             }
@@ -307,6 +338,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     }
 
     /** List user's logins
+     *
      * @access public
      * @return void
      */
@@ -319,6 +351,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
 
 
     /** Change a password
+     *
      * @access public
      * @return void
      */
@@ -341,6 +374,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     }
 
     /** Upgrade an account
+     *
      * @access public
      * @return void
      */
@@ -366,19 +400,28 @@ class Users_AccountController extends Pas_Controller_Action_Admin
 
                     $attachments = array(ROOT_PATH . '/public_html/documents/tac.pdf');
                     $assignData = array_merge($to[0], $form->getValues());
-                    $toReferee = array(array('email' => $form->getValue('referenceEmail'), 'name' => $form->getValue('reference')));
+                    $toReferee = array(
+                        array(
+                            'email' => $form->getValue('referenceEmail'),
+                            'name' => $form->getValue('reference')
+                        )
+                    );
                     //data, template, to, cc, from, bcc, attachments, subject
-                    $this->sendAdvisers($assignData, $toReferee, $emails,  $attachments );
+                    $this->sendAdvisers($assignData, $toReferee, $emails, $attachments);
                     $this->getFlash()->addMessage('Thank you! We have received your request.');
                     $this->redirect('/users/account/');
                 } else {
                     $form->populate($form->getValues());
-                    $this->getFlash()->addMessage('There are a few problems with your registration<br>
-                    Please review and correct them.');
+                    $this->getFlash()->addMessage(
+                        'There are a few problems with your registration<br>
+                    Please review and correct them.'
+                    );
                 }
             }
         } else {
-            $this->getFlash()->addMessage('You can\'t request an upgrade as you already have ' . $this->getRole() . ' status!');
+            $this->getFlash()->addMessage(
+                'You can\'t request an upgrade as you already have ' . $this->getRole() . ' status!'
+            );
             $this->redirect('/users/account/');
         }
     }
@@ -386,14 +429,23 @@ class Users_AccountController extends Pas_Controller_Action_Admin
 
     public function sendAdvisers($assignData, $toReferee, $emails, $attachments)
     {
-        $this->_helper->mailer($assignData, 'upgradeReferee', $toReferee, $emails , null, null, $attachments,
-            'Reference request for Portable Antiquities Scheme Database Access');
+        $this->_helper->mailer(
+            $assignData,
+            'upgradeReferee',
+            $toReferee,
+            $emails,
+            null,
+            null,
+            $attachments,
+            'Reference request for Portable Antiquities Scheme Database Access'
+        );
     }
 
     /** Configure the copy action
-     * @todo Is this needed?
-     * @access public
+     *
      * @return void
+     * @todo   Is this needed?
+     * @access public
      */
     public function configurecopyAction()
     {
@@ -401,6 +453,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     }
 
     /** Reset a password
+     *
      * @access public
      * @return void
      */
