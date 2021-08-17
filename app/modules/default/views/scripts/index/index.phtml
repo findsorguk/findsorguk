@@ -1,102 +1,126 @@
 <?php
+
 $this->headMeta('noodp', 'robots');
 $this->headMeta('BJ0IxlmtPbri25v9zbMgcOFDOBuZmNacd9-friMs1_E', 'google-site-verification');
 $this->jQuery()->addJavascriptFile('js/bootstrap-carousel.js', $type = 'text/javascript');
 $this->headMeta($this->serverUrl() . '/assets/logos/axe.jpg', 'twitter:image');
 ?>
 
-    <!-- Carousel
-        ================================================== -->
+
+<?php
+/* Carousel
+================================================== */ ?>
     <div id="myCarousel" class="carousel slide">
-        <div class="carousel-inner">
+    <div class="carousel-inner">
 
-            <div class="item active">
-                <img src="assets/carousel/head.jpg" alt="The Roman head from Brackley">
+        <div class="item active">
+            <img src="assets/carousel/head.jpg" alt="The Roman head from Brackley">
 
-                <div class="container">
-                    <div class="carousel-caption">
-                        <?php echo $this->partialLoop('partials/content/articleLead.phtml', $this->contents); ?>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="assets/carousel/coinsHerts.jpg" alt="The gold coin hoard from Hertfordshire">
-
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Amazing discoveries.</h1>
-
-                        <p class="lead">New finds are uncovered and reported daily. It is easy to get involved with the
-                            Scheme and report your discoveries.</p>
-                        <a class="btn btn-small btn-primary" href="/getinvolved">Learn more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <img src="assets/carousel/lucyEllis.jpg" alt="Lucy Ellis with the Holy Island hoard">
-
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>See more about what we do...</h1>
-
-                        <p class="lead">Our images on Flickr are liberally licensed. You might find something that you
-                            can use or learn more about our mission.</p>
-                        <a class="btn btn-small btn-primary" href="https://flickr.com/finds">Browse our flickrstream</a>
-                    </div>
+            <div class="container">
+                <div class="carousel-caption">
+                    <?= $this->partialLoop('partials/content/articleLead.phtml', $this->contents); ?>
                 </div>
             </div>
         </div>
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-    </div><!-- /.carousel -->
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
+        <div class="item">
+            <img src="assets/carousel/coinsHerts.jpg" alt="The gold coin hoard from Hertfordshire">
 
-<div class="container marketing">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Amazing discoveries.</h1>
+
+                    <p class="lead">New finds are uncovered and reported daily. It is easy to get involved with the
+                        Scheme and report your discoveries.</p>
+                    <a class="btn btn-small btn-primary" href="/getinvolved">Learn more</a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="assets/carousel/lucyEllis.jpg" alt="Lucy Ellis with the Holy Island hoard">
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>See more about what we do...</h1>
+
+                    <p class="lead">Our images on Flickr are liberally licensed. You might find something that you
+                        can use or learn more about our mission.</p>
+                    <a class="btn btn-small btn-primary" href="https://flickr.com/finds">Browse our flickrstream</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div><?php
+//.carousel?>
+
+<?php
+/* Marketing messaging and featurettes
+==================================================
+Wrap the rest of the page in another container to center all the content. */ ?>
+    <div class="container marketing">
 
     <div class="row">
         <div class="span12">
-            <h2>For the current government advice on searching for archaeological finds (with a metal-detector, field-walking or mudlarking) in England during COVID-19 please see: <a href="https://www.gov.uk/guidance/guidance-on-searching-for-archaeological-finds-in-england-during-covid-19">https://www.gov.uk/guidance/guidance-on-searching-for-archaeological-finds-in-england-during-covid-19</a></h2>
+            <h2>For the current government advice on searching for archaeological finds (with a metal-detector,
+                field-walking or mudlarking) in England during COVID-19 please see: <a
+                        href="https://www.gov.uk/guidance/guidance-on-searching-for-archaeological-finds-in-england-during-covid-19">https://www.gov.uk/guidance/guidance-on-searching-for-archaeological-finds-in-england-during-covid-19</a>
+            </h2>
         </div>
     </div>
     <br>
-    <!-- Three columns of text below the carousel -->
+
+<?php
+// Three columns of text below the carousel ?>
     <div class="row">
         <div class="span4">
             <img class="img-circle" width=150px height=150px src="assets/logos/treasure20.png">
 
             <h2 class="lead">Treasure 20</h2>
 
-            <p>We’re celebrating 20 years since the commencement of the Treasure Act. Visit here to see what’s on show at your local museum!</p>
+            <p>We’re celebrating 20 years since the commencement of the Treasure Act. Visit here to see what’s on show
+                at your local museum!</p>
 
-            <p><a class="btn" href="<?php echo $this->url(array('module' => 'treasure', 'controller' => 'advice', 'action' => 'index', 'slug' => 'treasure20'), 'treasure', true); ?>">Read more &raquo;</a></p>
+            <p><a class="btn" href="<?php
+                echo $this->url(
+                    array(
+                        'module' => 'treasure',
+                        'controller' => 'advice',
+                        'action' => 'index',
+                        'slug' => 'treasure20'
+                    ),
+                    'treasure',
+                    true
+                ); ?>">Read more &raquo;</a></p>
         </div>
-        <!-- /.span4 -->
 
         <div class="span4">
             <img class="img" src="/assets/logos/pas.jpg" width="213" height="104">
 
             <h2 class="lead">Search our database</h2>
-            <?php echo $this->form; ?>
-
+            <?php
+            echo $this->form; ?>
         </div>
-        <!-- /.span4 -->
 
         <div class="span4">
-            <!--img class="img-circle" src="assets/logos/bird.jpg"-->
-            <!--h2 class="lead">Latest tweets</h2-->
-	    <a class="twitter-timeline" data-height="300" href="https://twitter.com/findsorguk?ref_src=twsrc%5Etfw">Tweets by findsorguk</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+            <?php
+            /*         <!--img class="img-circle" src="assets/logos/bird.jpg"-->
+                       <!--h2 class="lead">Latest tweets</h2--> */
+
+            ?>
+            <a class="twitter-timeline" data-height="300" href="https://twitter.com/findsorguk?ref_src=twsrc%5Etfw">Tweets
+                by findsorguk</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
-        <!-- /.span4 -->
-    </div><!-- /.row -->
+
+    </div>
 
     <hr class="featurette-divider">
 
     <div class="container marketing">
-        <!-- Three columns of text below the carousel -->
+        <?php
+        // Three columns of text below the carousel ?>
         <div class="row">
             <div class="span4">
                 <img class="img-circle" src="assets/logos/penny.jpg">
@@ -104,52 +128,62 @@ $this->headMeta($this->serverUrl() . '/assets/logos/axe.jpg', 'twitter:image');
                 <h2 class="lead">Learn about coins</h2>
 
                 <p>
-                    <a href="<?php echo $this->url(array('module' => 'ironagecoins'), 'default', true); ?>"
+                    <a href="<?php
+                    echo $this->url(array('module' => 'ironagecoins'), 'default', true); ?>"
                        title="Learn about Iron age coins">Iron Age</a><br/>
-                    <a href="<?php echo $this->url(array('module' => 'romancoins'), 'default', true); ?>"
+                    <a href="<?php
+                    echo $this->url(array('module' => 'romancoins'), 'default', true); ?>"
                        title="Learn about Roman coins">Roman</a><br/>
-                    <a href="<?php echo $this->url(array('module' => 'byzantinecoins'), 'default', true); ?>"
+                    <a href="<?php
+                    echo $this->url(array('module' => 'byzantinecoins'), 'default', true); ?>"
                        title="Learn about Byzantine coins">Byzantine</a><br/>
-                    <a href="<?php echo $this->url(array('module' => 'greekromancoins'), 'default', true); ?>"
+                    <a href="<?php
+                    echo $this->url(array('module' => 'greekromancoins'), 'default', true); ?>"
                        title="Learn about Greek and roman provincial coins">Greek &amp; Roman Provincial</a><br/>
-                    <a href="<?php echo $this->url(array('module' => 'earlymedievalcoins'), 'default', true); ?>"
+                    <a href="<?php
+                    echo $this->url(array('module' => 'earlymedievalcoins'), 'default', true); ?>"
                        title="Learn about Early Medieval coins">Early Medieval</a><br/>
-                    <a href="<?php echo $this->url(array('module' => 'medievalcoins'), 'default', true); ?>"
+                    <a href="<?php
+                    echo $this->url(array('module' => 'medievalcoins'), 'default', true); ?>"
                        title="Learn about Medieval coins">Medieval</a><br/>
-                    <a href="<?php echo $this->url(array('module' => 'postmedievalcoins'), 'default', true); ?>"
+                    <a href="<?php
+                    echo $this->url(array('module' => 'postmedievalcoins'), 'default', true); ?>"
                        title="Learn about Post medieval coins">Post Medieval</a><br/>
                 </p>
             </div>
-            <!-- /.span4 -->
+
             <div class="span4">
                 <img class="img-circle" src="assets/logos/hoard.jpg">
-                <?php echo $this->partial('partials/content/staffs.phtml', null); ?>
-
+                <?php
+                echo $this->partial('partials/content/staffs.phtml', null); ?>
             </div>
-            <!-- /.span4 -->
+
             <div class="span4">
                 <img class="img-circle" src="assets/logos/axe.jpg">
-                <?php echo $this->partial('partials/content/bronzeAgeWidget.phtml', null); ?>
+                <?php
+                echo $this->partial('partials/content/bronzeAgeWidget.phtml', null); ?>
             </div>
-            <!-- /.span4 -->
+
         </div>
-        <!-- /.row -->
+
         <hr class="featurette-divider">
-        <!-- Three columns of text below the carousel -->
+        <?php
+        // Three columns of text below the carousel ?>
         <div class="row">
             <div class="span4">
                 <img class="img-circle" src="assets/logos/doa.jpg">
 
                 <h2 class="lead">Day of Archaeology</h2>
 
-                <p>The Day of Archaeology project, documents what 1000s of archaeologists do as a career. Find out more.</p>
+                <p>The Day of Archaeology project, documents what 1000s of archaeologists do as a career. Find out
+                    more.</p>
 
                 <p><a class="btn" href="http://dayofarchaeology.com">Read more &raquo;</a></p>
             </div>
-            <!-- /.span4 -->
 
             <div class="span4">
-		<img class="img-circle" width="185px" src="https://farm2.staticflickr.com/1087/1072822674_225a538fe8.jpg ">
+                <img class="img-circle" width="185px"
+                     src="https://farm2.staticflickr.com/1087/1072822674_225a538fe8.jpg ">
 
                 <h2 class="lead">PASt Explorers</h2>
 
@@ -157,41 +191,49 @@ $this->headMeta($this->serverUrl() . '/assets/logos/axe.jpg', 'twitter:image');
 
                 <p><a class="btn" href="/getinvolved">Read more &raquo;</a></p>
             </div>
-            <!-- /.span4 -->
+
 
             <div class="span4">
                 <img class="img-circle" src="assets/logos/research.jpg">
 
                 <h2 class="lead">Research in progress</h2>
 
-                <p>The Scheme's database provides the basis of hundreds of research projects and has enabled the Scheme to
+                <p>The Scheme's database provides the basis of hundreds of research projects and has enabled the Scheme
+                    to
                     gain funding for several large grants - Leverhulme and AHRC funding for instance.</p>
 
-                <p><a class="btn" href="<?php echo $this->url(array('module' => 'research'), 'default', true); ?>">Read
+                <p><a class="btn" href="<?php
+                    echo $this->url(array('module' => 'research'), 'default', true); ?>">Read
                         more &raquo;</a></p>
             </div>
-            <!-- /.span4 -->
+
         </div>
-        <!-- /.row -->
 
-
-        <!-- START THE FEATURETTES -->
-
-        <!--  <hr class="featurette-divider"> -->
         <?php
-        //        echo $this->partialLoop('partials/index/news.phtml',$this->news);
-        ?>
+        // START THE FEATURETTES ?>
+
+        <?php
+        // <hr class="featurette-divider"> ?>
+
+        <?php
+        // echo $this->partialLoop('partials/index/news.phtml',$this->news); ?>
         <hr class="featurette-divider">
 
-        <!-- /END THE FEATURETTES -->
+        <?php
+        // END THE FEATURETTES ?>
     </div>
 
-<?php $this->jQuery()->javascriptCaptureStart() ?>
+<?php
+$this->jQuery()->javascriptCaptureStart() ?>
     $('.myCarousel').carousel({
     interval: 2000
     });
-<?php $this->jQuery()->javascriptCaptureEnd() ?>
+<?php
+$this->jQuery()->javascriptCaptureEnd() ?>
 
-<?php $this->placeholder('searchForm')->captureStart(); ?>
-<?php echo $this->form; ?>
-<?php $this->placeholder('searchForm')->captureEnd();
+<?php
+$this->placeholder('searchForm')->captureStart(); ?>
+<?php
+echo $this->form; ?>
+<?php
+$this->placeholder('searchForm')->captureEnd();
