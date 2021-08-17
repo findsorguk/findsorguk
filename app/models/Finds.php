@@ -2241,8 +2241,8 @@ class Finds extends Pas_Db_Table_Abstract
                 array('geography' => new Zend_Db_Expr("CONCAT(geographyironage.region,',',area)")))
             ->joinLeft('moneyers', 'coins.moneyer = moneyers.id',
                 array('moneyerName' => 'name', 'moneyerViaf' => 'viaf', 'moneyerBM' => 'bmID'))
-            ->joinLeft('regions', 'findspots.regionID = regions.id',
-                array('regionName' => 'region'))
+            ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID',
+                array('regionName' => 'label'))
             ->joinLeft('people', 'finds.finderID = people.secuid',
                 array('finder' => 'fullname'))
             ->joinLeft('jettonClasses', 'coins.jettonClass = jettonClasses.id', array('jettonClass' => 'className'))
@@ -2252,6 +2252,9 @@ class Finds extends Pas_Db_Table_Abstract
             ->joinLeft(array('recorder' => 'people'),
                 'finds.recorderID =recorder.secuid',
                 array('recorder' => 'fullname'))
+            ->joinLeft('certaintytypes', 'certaintytypes.id = finds.objecttypecert',
+                array('objectCertainty' => 'term',
+                      'objectCertaintyID' => 'id'))
             ->where('finds.id = ?', (int)$findID)
             ->group('finds.id')
             ->limit(1);
