@@ -1,9 +1,7 @@
 <?php
 
 /** A service class for shortening and expanding links with goo.gl
- *
  * An example of use:
- *
  * <code>
  * <?php
  * $shortener = new Pas_Service_GoogleShortUrl($key);
@@ -11,18 +9,18 @@
  * $analytics = $shortener->analytics($url);
  * ?>
  * </code>
- * @author Daniel Pett <dpett@britishmuseum.org>
+ *
+ * @author        Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
- * @category   Pas
- * @package    Pas_Service
- * @version 1
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @category      Pas
+ * @package       Pas_Service
+ * @version       1
+ * @license       http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
 class Pas_Service_SketchFabOembed
 {
 
     /** The Google short url
-     *
      */
     const SFAB = 'https://sketchfab.com/oembed';
 
@@ -40,6 +38,7 @@ class Pas_Service_SketchFabOembed
     }
 
     /** Get analytics for a URL
+     *
      * @access public
      * @param string $shortUrl
      * @return object $response
@@ -59,6 +58,7 @@ class Pas_Service_SketchFabOembed
     }
 
     /** Decode the response from JSON
+     *
      * @access public
      * @param string $response
      * @return object $json
