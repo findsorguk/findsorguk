@@ -20,11 +20,23 @@
 class Pas_Service_SketchFabOembed
 {
 
-    /** The Google short url
-     */
-    const SFAB = 'https://sketchfab.com/oembed';
-
     protected $_url;
+
+    /** Sketchfab base url
+     *
+     * @access protected
+     * @var null
+     */
+    protected $_sketchfabBaseUrl = null;
+
+    /** Constructor
+     *
+     * @access public
+     */
+    function __construct()
+    {
+        $this->_sketchfabBaseUrl = Zend_Registry::get('config')->webservice->sketchfab->toArray();
+    }
 
     public function setUrl($url)
     {
@@ -34,7 +46,7 @@ class Pas_Service_SketchFabOembed
 
     public function getUrl()
     {
-        return 'https://sketchfab.com/3d-models/' . $this->_url;
+        return $this->_sketchfabBaseUrl['baseurl'] . $this->_url;
     }
 
     /** Get analytics for a URL
@@ -46,7 +58,7 @@ class Pas_Service_SketchFabOembed
     public function getOembed()
     {
         $client = new Zend_Http_Client();
-        $client->setUri(self::SFAB);
+        $client->setUri($this->_sketchfabBaseUrl['oembed']);
         $client->setMethod(Zend_Http_Client::GET);
         $client->setParameterGet('url', $this->getUrl());
         $response = $client->request();

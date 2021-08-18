@@ -24,6 +24,12 @@
 
 class Pas_View_Helper_SketchFab extends Zend_View_Helper_Abstract {
 
+    /** Sketchfab base url
+     * @access protected
+     * @var null
+     */
+    protected $_sketchfabBaseUrl = NULL;
+
     /** Set the width
      * @access protected
      * @var null
@@ -41,6 +47,14 @@ class Pas_View_Helper_SketchFab extends Zend_View_Helper_Abstract {
      * @var null
      */
     protected $_modelID = NULL;
+
+
+    /** Constructor
+     * @access public
+     */
+    function __construct() {
+        $this->_sketchfabBaseUrl = Zend_Registry::get('config')->webservice->sketchfab->toArray();
+    }
 
     /** Get the height
      * @return mixed
@@ -126,7 +140,8 @@ class Pas_View_Helper_SketchFab extends Zend_View_Helper_Abstract {
         $options = array(
             'modelID' => $this->getModelID(),
             'width' => $this->getWidth(),
-            'height' => $this->getHeight()
+            'height' => $this->getHeight(),
+            'baseurl' => $this->_sketchfabBaseUrl['baseurl']
         );
         $html = '';
         if(isset($options['modelID'])) {
