@@ -1,4 +1,5 @@
 <?php
+
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 
 <div class="sidebar-nav col-md-3">
@@ -45,25 +46,21 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
                                 ); ?>"
                                 title="View all finds I have recorded"><i class="icon-list"></i>Finds recorded by me</a>
                     </li>
-                    <?php
-                    if ($user->role != 'admin'): ?>
-                        <li <?php
-                        echo $this->currentPage()->active('database', 'myscheme', 'recordedbyflos'); ?>><a
-                                    href="<?php
-                                    echo $this->url(
-                                        array(
-                                            'module' => 'database',
-                                            'controller' => 'myscheme',
-                                            'action' => 'recordedbyflos'
-                                        ),
-                                        null,
-                                        true
-                                    ); ?>"
-                                    title="View all finds recorded by PAS staff for me"><i class="icon-list"></i>Finds
-                                recorded for me by FLOs</a>
-                        </li>
-                    <?php
-                    endif; ?>
+                    <li <?php
+                    echo $this->currentPage()->active('database', 'myscheme', 'recordedbyflos'); ?>><a
+                                href="<?php
+                                echo $this->url(
+                                    array(
+                                        'module' => 'database',
+                                        'controller' => 'myscheme',
+                                        'action' => 'recordedbyflos'
+                                    ),
+                                    null,
+                                    true
+                                ); ?>"
+                                title="View all finds recorded by PAS staff for me"><i class="icon-list"></i>Finds
+                            recorded for me by FLOs</a>
+                    </li>
                     <li <?php
                     echo $this->currentPage()->active('database', 'myscheme', 'myinstitution'); ?>><a
                                 href="<?php
