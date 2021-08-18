@@ -59,7 +59,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                 'resetpassword'
             )
         );
-        $this->_helper->_acl->allow('member', null);
+        $this->_helper->_acl->allow('member', null); //Any role above member can view the pages
         $this->_auth = Zend_Registry::get('auth');
         $this->_users = new Users();
     }
@@ -474,14 +474,14 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         }
     }
 
-
+    /** Return Explore view
+     *
+     * @access member or higher
+     * @return void
+     */
     public function exploreAction()
     {
-        $user = $this->getAccount();
-
-        if (!null == $user) {
-            $this->view->user = $user;
-        }
+        $this->view->user = $this->getAccount();
 
         Zend_Layout::getMvcInstance()->setLayout("error");
     }
