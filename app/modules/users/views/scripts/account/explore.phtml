@@ -1,6 +1,6 @@
 <?php
 
-$this->headTitle("You don't have permission to do that");
+$this->headTitle('Your account is ready!');
 $this->metaBase()->setSubject('Error reports')
     ->setDescription('A page that is displayed when an account is not set up completely')
     ->generate();
@@ -13,8 +13,10 @@ $this->metaBase()->setSubject('Error reports')
         <div class="span8">
             <div class="row">
                 <div class="span8">
-                    <h1 class="lead">Sorry! You don't have permission to do that.</h1>
-                    <p>But please take a look at the links below, and explore the database.</p>
+                    <h1 class="lead">Welcome <?= $this->user->fullname ?>!</h1>
+                    <p>Thank you for registering with the PAS. You are now able to explore the database and see all the
+                        finds
+                        you have recorded.</p>
                     <p>What would you like to do next?</p>
                 </div>
             </div>
