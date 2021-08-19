@@ -1,17 +1,3 @@
-
-
-
-/* CUSTOMIZE SESSION EXPIRE DIALOG
--------------------------------------------------- */
-.modal.fade.in {
-    display: block;
-}
-
-.modal.fade {
-    display: none;
-}
-
-
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
