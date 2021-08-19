@@ -1,5 +1,17 @@
 # Change Log
 
+### 1.70 18th August 2021
+- [x] Fix missing region name and certainty type on CSV export
+- [x] Fix for mobile menu being unclickable
+- [x] Sketch lab 3D model URL
+- [x] Data protection issue – Remove name from save searches
+- [x] Show "Finds recorded for me by FLOs" link to all non-admins
+- [x] Twitter re-added to the home page
+- [x] Home page banner text changes
+- [x] Changed member welcome page URL
+- [x] Contact form presentation improvements
+- [x] Changed wording of "Search database for all examples recorded" on view user page (Admin section)
+
 ### 1.69 5th Mar 2020
 - [x] Finder details are now hidden for people not logged in and members which cannot record.
 - [x] PDF export is hidden from the Research user as they are not allowed to export that.
