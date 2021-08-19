@@ -3,21 +3,21 @@
 /** Controller for displaying individual's finds on the database.
  *
  * @category   Pas
- * @package Pas_Controller_Action
+ * @package    Pas_Controller_Action
  * @subpackage Admin
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @author Daniel Pett <dpett at britishmuseum.org>
- * @version 1
- * @uses SolrForm
- * @uses Pas_Solr_Handler
- * @uses Pas_ArrayFunctions
- *
+ * @license    http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @author     Daniel Pett <dpett at britishmuseum.org>
+ * @version    1
+ * @uses       SolrForm
+ * @uses       Pas_Solr_Handler
+ * @uses       Pas_ArrayFunctions
  */
 class Database_MyschemeController extends Pas_Controller_Action_Admin
 {
 
     /** The init function
+     *
      * @access public
      * @return void
      */
@@ -29,18 +29,21 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     }
 
     /** The array cleaning functions
+     *
      * @access protected
      * @var \Pas_ArrayFunctions
      */
     protected $_cleaner;
 
     /** The solr object
+     *
      * @access protected
      * @var \Pas_Solr_Handler
      */
     protected $_solr;
 
     /** Get the solr object
+     *
      * @access public
      * @return \Pas_Solr_Handler
      */
@@ -51,6 +54,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     }
 
     /** The array cleaner
+     *
      * @access public
      * @return \Pas_ArrayFunctions
      */
@@ -61,11 +65,11 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     }
 
     /** the redirect string
-     *
      */
     const REDIRECT = '/database/myscheme/';
 
     /** Redirect of the user due to no action existing.
+     *
      * @access public
      * @return void
      */
@@ -78,6 +82,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     }
 
     /** List of user's finds that they have entered.
+     *
      * @access public
      * @return void
      */
@@ -91,14 +96,27 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
         $params = $this->getAllParams();
         $search = $this->getSolr();
         $search->setCore('objects');
-        $search->setFields(array(
-            'id', 'identifier', 'objecttype',
-            'title', 'broadperiod', 'imagedir',
-            'filename', 'thumbnail', 'old_findID',
-            'description', 'county', 'workflow',
-            'knownas', 'fourFigure', 'updated',
-            'created', 'findIdentifier'
-        ));
+        $search->setFields(
+            array(
+                'id',
+                'identifier',
+                'objecttype',
+                'title',
+                'broadperiod',
+                'imagedir',
+                'filename',
+                'thumbnail',
+                'old_findID',
+                'description',
+                'county',
+                'workflow',
+                'knownas',
+                'fourFigure',
+                'updated',
+                'created',
+                'findIdentifier'
+            )
+        );
         $search->setFacets(array('objectType', 'county', 'broadperiod', 'institution'));
         $search->setMyfinds(true);
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
@@ -107,8 +125,11 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             $params = $this->getCleaner()->array_cleanup($form->getValues());
             $params['createdBy'] = $this->getIdentityForForms();
             $this->_helper->Redirector->gotoSimple(
-                'myfinds', 'myscheme', 'database',
-                $params);
+                'myfinds',
+                'myscheme',
+                'database',
+                $params
+            );
         } else {
             $form->populate($this->getAllParams());
         }
@@ -126,6 +147,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     }
 
     /** Recorded by flo finds list action
+     *
      * @access public
      * @return void
      */
@@ -140,16 +162,29 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             $params['-createdBy'] = $this->getAccount()->id;
             $search = $this->getSolr();
             $search->setCore('objects');
-            $search->setFields(array(
-                    'id', 'identifier', 'objecttype',
-                    'title', 'broadperiod', 'imagedir',
-                    'filename', 'thumbnail', 'old_findID',
-                    'description', 'county', 'workflow',
-                    'knownas', 'fourFigure', 'updated',
-                    'created', 'findIdentifier'
+            $search->setFields(
+                array(
+                    'id',
+                    'identifier',
+                    'objecttype',
+                    'title',
+                    'broadperiod',
+                    'imagedir',
+                    'filename',
+                    'thumbnail',
+                    'old_findID',
+                    'description',
+                    'county',
+                    'workflow',
+                    'knownas',
+                    'fourFigure',
+                    'updated',
+                    'created',
+                    'findIdentifier'
                 )
             );
-            $this->view->solrParams = 'finderID:' . $this->getAccount()->peopleID . ' -createdBy:' . $this->getAccount()->id;
+            $this->view->solrParams = 'finderID:' . $this->getAccount()->peopleID . ' -createdBy:' . $this->getAccount(
+                )->id;
             $search->setFacets(array('objectType', 'county', 'broadperiod', 'institution'));
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
                 && !is_null($this->getParam('submit'))
@@ -157,8 +192,11 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
                 $params = $this->getCleaner()->array_cleanup($form->getValues());
 
                 $this->_helper->Redirector->gotoSimple(
-                    'recordedbyflos', 'myscheme', 'database',
-                    $params);
+                    'recordedbyflos',
+                    'myscheme',
+                    'database',
+                    $params
+                );
             } else {
                 $form->populate($this->getAllParams());
             }
@@ -172,11 +210,12 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             $this->view->facets = $search->processFacets();
             $this->view->stats = $search->processStats();
         } else {
-            $this->redirect('/error/accountproblem');
+            $this->redirect('/users/account/explore');
         }
     }
 
     /** Map action
+     *
      * @access public
      * @return void
      */
@@ -186,6 +225,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     }
 
     /** the institutional map action
+     *
      * @access public
      * @return void
      */
@@ -195,6 +235,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     }
 
     /** Finds recorded by an institution assigned to the user
+     *
      * @access public
      * @return void
      */
@@ -206,27 +247,46 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
         $params = $this->getAllParams();
         $search = $this->getSolr();
         $search->setCore('objects');
-        $search->setFields(array(
-            'id', 'identifier', 'objecttype',
-            'title', 'broadperiod', 'imagedir',
-            'filename', 'thumbnail', 'old_findID',
-            'description', 'county', 'workflow',
-            'fourFigure', 'knownas', 'updated',
-            'created', 'findIdentifier'
-        ));
-        $search->setFacets(array(
-            'objectType', 'county', 'broadperiod',
-            'institution', 'workflow'
-        ));
+        $search->setFields(
+            array(
+                'id',
+                'identifier',
+                'objecttype',
+                'title',
+                'broadperiod',
+                'imagedir',
+                'filename',
+                'thumbnail',
+                'old_findID',
+                'description',
+                'county',
+                'workflow',
+                'fourFigure',
+                'knownas',
+                'updated',
+                'created',
+                'findIdentifier'
+            )
+        );
+        $search->setFacets(
+            array(
+                'objectType',
+                'county',
+                'broadperiod',
+                'institution',
+                'workflow'
+            )
+        );
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->getParam('submit'))
         ) {
-
             if ($form->isValid($form->getValues())) {
                 $params = $this->getCleaner()->array_cleanup($form->getValues());
 
                 $this->_helper->Redirector->gotoSimple(
-                    'myinstitution', 'myscheme', 'database',
+                    'myinstitution',
+                    'myscheme',
+                    'database',
                     $params
                 );
             } else {
@@ -252,6 +312,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     }
 
     /** Display all images that a user has added.
+     *
      * @access public
      * @return void
      */
@@ -263,14 +324,27 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
         $params = $this->getAllParams();
         $search = $this->getSolr();
         $search->setCore('images');
-        $search->setFields(array(
-            'id', 'identifier', 'objecttype',
-            'title', 'broadperiod', 'imagedir',
-            'filename', 'thumbnail', 'old_findID',
-            'county', 'licenseAcronym', 'findID',
-            'institution', 'updated',
-            'created', 'findIdentifier', 'recordtype'
-        ));
+        $search->setFields(
+            array(
+                'id',
+                'identifier',
+                'objecttype',
+                'title',
+                'broadperiod',
+                'imagedir',
+                'filename',
+                'thumbnail',
+                'old_findID',
+                'county',
+                'licenseAcronym',
+                'findID',
+                'institution',
+                'updated',
+                'created',
+                'findIdentifier',
+                'recordtype'
+            )
+        );
         $search->setFacets(array('broadperiod', 'county', 'objecttype', 'institution'));
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->getParam('submit'))
@@ -278,7 +352,9 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
             if ($form->isValid($form->getValues())) {
                 $params = $this->getCleaner()->array_cleanup($form->getValues());
                 $this->_helper->Redirector->gotoSimple(
-                    'myimages', 'myscheme', 'database',
+                    'myimages',
+                    'myscheme',
+                    'database',
                     $params
                 );
             } else {
@@ -303,6 +379,7 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
     }
 
     /** Get all treasure cases for a user
+     *
      * @access public
      * @return void
      */
@@ -313,26 +390,44 @@ class Database_MyschemeController extends Pas_Controller_Action_Admin
         $params = $this->getAllParams();
         $search = $this->getSolr();
         $search->setCore('objects');
-        $search->setFields(array(
-                'id', 'identifier', 'objecttype',
-                'title', 'broadperiod', 'imagedir',
-                'filename', 'thumbnail', 'old_findID',
-                'description', 'county', 'workflow',
-                'updated', 'created', 'findIdentifier'
+        $search->setFields(
+            array(
+                'id',
+                'identifier',
+                'objecttype',
+                'title',
+                'broadperiod',
+                'imagedir',
+                'filename',
+                'thumbnail',
+                'old_findID',
+                'description',
+                'county',
+                'workflow',
+                'updated',
+                'created',
+                'findIdentifier'
             )
         );
-        $search->setFacets(array(
-            'objectType', 'county', 'broadperiod',
-            'discovered', 'institution', 'workflow'
-        ));
+        $search->setFacets(
+            array(
+                'objectType',
+                'county',
+                'broadperiod',
+                'discovered',
+                'institution',
+                'workflow'
+            )
+        );
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->getParam('submit'))
         ) {
-
             if ($form->isValid($form->getValues())) {
                 $params = $this->getCleaner()->array_cleanup($form->getValues());
                 $this->_helper->Redirector->gotoSimple(
-                    'mytreasurecases', 'myscheme', 'database',
+                    'mytreasurecases',
+                    'myscheme',
+                    'database',
                     $params
                 );
             } else {
