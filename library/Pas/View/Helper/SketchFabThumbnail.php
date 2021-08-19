@@ -28,8 +28,20 @@
  */
 class Pas_View_Helper_SketchFabThumbnail extends Zend_View_Helper_Abstract
 {
+    /** Sketchfab base url
+     * @access protected
+     * @var null
+     */
+    protected $_sketchfabBaseUrl = NULL;
 
     protected $_modelID;
+
+    /** Constructor
+     * @access public
+     */
+    function __construct() {
+        $this->_sketchfabBaseUrl = Zend_Registry::get('config')->webservice->sketchfab->toArray();
+    }
 
     /**
      * @return mixed
@@ -66,7 +78,7 @@ class Pas_View_Helper_SketchFabThumbnail extends Zend_View_Helper_Abstract
     public function render()
     {
         $oembed = get_object_vars($this->getData());
-        $modelID = array('modelID' => $this->getModelID());
+        $modelID = array('modelID' => $this->getModelID(), 'baseurl' => $this->_sketchfabBaseUrl['baseurl']);
         $data = array_merge($oembed, $modelID);
         $html = $this->view->partial('partials/database/3D/small.phtml', $data);
         return $html;
