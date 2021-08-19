@@ -169,6 +169,15 @@ div.carousel-caption h1.lead {
     .container.navbar-wrapper {
         margin-bottom: 0;
         width: auto;
+
+    /* CUSTOMIZE SESSION EXPIRE DIALOG
+    -------------------------------------------------- */
+    .modal.fade.in {
+        display: block;
+    }
+
+    .modal.fade {
+        display: none;
     }
 
     .navbar-inner {
