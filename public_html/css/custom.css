@@ -7,3 +7,13 @@
 .help-block {
     display: block;
 }
+
+/* CUSTOMIZE SESSION EXPIRE DIALOG
+-------------------------------------------------- */
+.modal.fade.in {
+    display: block;
+}
+
+.modal.fade {
+    display: none;
+}
