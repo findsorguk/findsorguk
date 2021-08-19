@@ -78,3 +78,6 @@ webservice.wordpress.password =
 webservice.wordpress.xmlrpc   = 
 
 webservice.what3words.apikey =
+
+webservice.sketchfab.baseurl = 
+webservice.sketchfab.oembed =
