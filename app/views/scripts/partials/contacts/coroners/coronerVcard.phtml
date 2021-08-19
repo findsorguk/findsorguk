@@ -1,12 +1,24 @@
 <div class="vcard" typeof="foaf:Person">
     <h4 class="lead"><span class="fn n" property="foaf:name">
-<a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners', 'action' => 'profile', 'id'
-=> $this->id), null, true); ?>" title="View full profile">
+<a href="<?php
+echo $this->url(
+    array(
+        'module' => 'contacts',
+        'controller' => 'coroners',
+        'action' => 'profile',
+        'id'
+        => $this->id
+    ),
+    null,
+    true
+); ?>" title="View full profile">
 <span class="given-name">
-<?php echo $this->escape($this->firstname); ?>
+<?php
+echo $this->escape($this->firstname); ?>
 </span>
 <span class="family-name">
-<?php echo $this->escape($this->lastname); ?>
+<?php
+echo $this->escape($this->lastname); ?>
 </span></a>
 </span></h4>
     <strong><span class="title"><?php
@@ -19,34 +31,64 @@
 
     <div class="adr">
 <span class="street-address">
-<?php echo $this->escape($this->address_1); ?> <?php echo $this->escape($this->address_2); ?>
-</span> 
-<span class="locality">
-<?php echo $this->escape($this->town); ?>
-</span> 
-<span class="region">
-<?php echo $this->escape($this->county); ?>
-</span> 
-<span class="postal-code">
-<?php echo $this->escape($this->postcode); ?>
+<?php
+echo $this->escape($this->address_1); ?><?php
+echo $this->escape($this->address_2); ?>
+</span>
+        <span class="locality">
+<?php
+echo $this->escape($this->town); ?>
+</span>
+        <span class="region">
+<?php
+echo $this->escape($this->county); ?>
+</span>
+        <span class="postal-code">
+<?php
+echo $this->escape($this->postcode); ?>
 </span></div>
-<span class="tel">
-<span class="type">Work</span> T: <span class="value"><?php echo $this->escape($this->telephone); ?></span></span><br/>
-    <span class="tel"><span class="type">Fax</span>: <span class="value"><?php echo $this->escape($this->fax); ?></span></span><br/>
+    <span class="tel">
+<span class="type">Work</span> T: <span class="value"><?php
+            echo $this->escape($this->telephone); ?></span></span><br/>
+    <span class="tel"><span class="type">Fax</span>: <span class="value"><?php
+            echo $this->escape($this->fax); ?></span></span><br/>
 
     <div class="geo forRDFOnly" rel="foaf:based_near" typeof="geo:Point">Geo:
-        <span class="latitude" property="geo:lat"><?php echo $this->latitude; ?></span>,
-        <span class="longitude" property="geo:lon"><?php echo $this->longitude; ?></span>
+        <span class="latitude" property="geo:lat"><?php
+            echo $this->latitude; ?></span>,
+        <span class="longitude" property="geo:lon"><?php
+            echo $this->longitude; ?></span>
     </div>
+    <br/>
+    <p><strong>Other formats:</strong></p>
     <div class="btn-group">
-        Other formats:<br/>
-        <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners',
-            'action' => 'profile', 'id' => $this->id, 'format' => 'vcf'), null, true); ?>"
+        <a href="<?php
+        echo $this->url(
+            array(
+                'module' => 'contacts',
+                'controller' => 'coroners',
+                'action' => 'profile',
+                'id' => $this->id,
+                'format' => 'vcf'
+            ),
+            null,
+            true
+        ); ?>"
            title="Get a vcard for outlook" class="btn btn-mini">vcard</a>
-        <a href="<?php echo $this->url(array('module' => 'contacts', 'controller' => 'coroners',
-            'action' => 'profile', 'id' => $this->id, 'format' => 'foaf'), null, true); ?>"
+        <a href="<?php
+        echo $this->url(
+            array(
+                'module' => 'contacts',
+                'controller' => 'coroners',
+                'action' => 'profile',
+                'id' => $this->id,
+                'format' => 'foaf'
+            ),
+            null,
+            true
+        ); ?>"
            title="View foaf rdf representation" class="btn btn-mini">foaf</a>
     </div>
 
 </div>
-<hr />
+<hr/>
