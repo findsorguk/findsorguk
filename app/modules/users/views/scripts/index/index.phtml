@@ -35,7 +35,7 @@ echo $this->form;
     <li>Your search history is saved</li>
     <li>You can get higher level access if you are an academic involved in archaeological research</li>
 </ul>
-<?php $this->jQuery()->addJavascriptFile('js/jquery.jccapsalert.js'); ?>
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/jquery.jccapsalert.js', $type='text/javascript'); ?>
 
 <?php $this->jQuery()->onLoadCaptureStart(); ?>
 
