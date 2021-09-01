@@ -107,6 +107,7 @@ class RegisterForm extends Pas_Form
             ->addFilters(array('StringToLower', 'StringTrim', 'StripTags'))
             ->addValidator('Db_NoRecordExists', false, array('table' => 'users',
                 'field' => 'email'));
+        $email->getValidator('Db_NoRecordExists')->setMessage("Sorry, it looks like you've already registered with that email. Did you want to sign in?");
 
         $hash = new Zend_Form_Element_Hash('csrf');
         $hash->setValue($this->_salt)
