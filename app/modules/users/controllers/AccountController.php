@@ -146,7 +146,6 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             $form = new ForgotUsernameForm();
             $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                if ($form->isValid($form->getValues())) {
                     $userData = $this->_users->getUserByUsername($form->getValue('email'));
                     $to = array(
                         array(
@@ -163,7 +162,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                 }
             }
         }
-    }
+
 
     /** Retrieve a password for a user
      *

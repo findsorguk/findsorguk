@@ -18,20 +18,24 @@ class ForgotUsernameForm extends Pas_Form {
      */
     public function init() {
 
-	$email = $this->addElement('Text', 'email', 
-	array('label' => 'Email Address: ', 'size' => '30'))->email;
-	$email->addValidator('emailAddress')
-                ->setRequired(true)
-                ->addErrorMessage('Please enter a valid address!')
-                ->addValidator('Db_RecordExists', false,
-                        array('table' => 'users', 'field' => 'email'))
-                ->addFilters(array('StringTrim','StripTags'));
-	
-	$submit = $this->addElement('submit', 'submit');
-	
-        $this->addDisplayGroup(array('email', 'submit'), 'details');
-	
+        $email = $this->addElement('Text', 'email',
+        array('label' => 'Email Address: ', 'size' => '30'))->email;
+        $email->addValidator('emailAddress')
+              ->setRequired(true)
+              ->addErrorMessage('Please enter a valid address!')
+              ->addValidator('Db_RecordExists', false,
+                           array('table' => 'users', 'field' => 'email'))
+              ->addFilters(array('StringTrim','StripTags'));
+
+        $this->addElement((new Pas_Form_Element_Recaptcha('captcha'))
+                              ->setLabel('Please complete the Captcha field to prove you exist')
+        );
+
+        $submit = $this->addElement('submit', 'submit');
+
+        $this->addDisplayGroup(array('email', 'captcha', 'submit'), 'details');
+
         $this->setLegend('Reset my password: ');
-	parent::init();
+        parent::init();
     }
 }
