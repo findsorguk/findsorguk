@@ -34,7 +34,7 @@ class ChangePasswordForm extends Pas_Form {
      */
     public function init() {
         $oldpassword = new Zend_Form_Element_Password('oldpassword');
-        $oldpassword->setLabel('Your old password:');
+        $oldpassword->setLabel('Your old password: ');
         $oldpassword->setRequired(true)
             ->addValidator('RightPassword')
             ->setAttrib('autocomplete','current-password')
@@ -69,12 +69,16 @@ class ChangePasswordForm extends Pas_Form {
             ->addFilters(array('StripTags','StringTrim'))
             ->setRequired(true);
 
+        $this->addElement((new Pas_Form_Element_Recaptcha('captcha'))
+                ->setLabel('Please complete the Captcha field to prove you exist')
+        );
+
         $submit = new Zend_Form_Element_Submit('submit');
 
         $this->addElement($submit);
         $this->addElements(array( $oldpassword, $password, $password2, $submit, $hash));
 
-        $this->addDisplayGroup(array('oldpassword','password','password2'), 'userdetails');
+        $this->addDisplayGroup(array('oldpassword','password','password2', 'captcha'), 'userdetails');
 
         $this->addDisplayGroup(array('submit'),'buttons');
 

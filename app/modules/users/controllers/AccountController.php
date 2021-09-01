@@ -270,13 +270,11 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                 $this->getFlash()->addMessage('Your account has been created. Please check your email.');
                 $this->redirect('/users/account/activate/');
                 $form->populate($form->getValues());
-            }
-            elseif ($this->getRequest()->isPost()){
+            } elseif ($this->getRequest()->isPost()) {
                 $this->getFlash()->addMessage(
                     'There are a few problems with your registration. Please review and correct them!'
                 );
             }
-
         }
     }
 
@@ -359,16 +357,14 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         $form = new ChangePasswordForm();
         $this->view->form = $form;
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
-                $password = SHA1($this->_helper->config()->auth->salt . $form->getValue('password'));
-                $where = array();
-                $where[] = $this->_users->getAdapter()->quoteInto('id = ?', $this->getIdentityForForms());
-                $this->_users->update(array('password' => $password), $where);
-                $this->getFlash()->addMessage('You have changed your password');
-                $this->redirect('/users/account/');
-            } else {
-                $form->populate($form->getValues());
-            }
+            $password = SHA1($this->_helper->config()->auth->salt . $form->getValue('password'));
+            $where = array();
+            $where[] = $this->_users->getAdapter()->quoteInto('id = ?', $this->getIdentityForForms());
+            $this->_users->update(array('password' => $password), $where);
+            $this->getFlash()->addMessage('You have changed your password');
+            $this->redirect('/users/account/');
+        } else {
+            $form->populate($form->getValues());
         }
     }
 
