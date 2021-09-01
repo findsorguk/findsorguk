@@ -3,6 +3,8 @@ $this->headTitle('Reset your password');
 $this->metaBase()->setDescription('Recover your password for the Scheme\'s website')
     ->setKeywords('password,recovery,reset')
     ->generate();
+$this->headTitle('Reset your password');
+$this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
 ?>
 
     <h2 class="lead"><?php echo $this->title(); ?></h2>

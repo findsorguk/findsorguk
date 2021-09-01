@@ -178,7 +178,6 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         $form = new ForgotPasswordForm();
         $this->view->form = $form;
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
                 $results = $this->_users->findUser($form->getValue('email'), $form->getValue('username'));
                 if ($results) {
                     $length = 6;
@@ -228,7 +227,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                 $this->getFlash()->addMessage('You have not filled in the form correctly');
             }
         }
-    }
+
 
     /** Register for an account
      *

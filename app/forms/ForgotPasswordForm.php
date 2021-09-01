@@ -25,27 +25,34 @@ class ForgotPasswordForm extends Pas_Form {
      * @return void
      */
     public function init() {
-	$username = $this->addElement('Text', 'username',
-            array('label' => 'Username: '));
-	$username = $this->getElement('username')
-                ->setRequired(true)
-                ->addErrorMessage('You must enter a username')
-                ->addFilters(array('StringTrim','StripTags', 'Purifier'));
+        $username = $this->addElement('Text', 'username',
+                array('label' => 'Username: '));
+        $username = $this->getElement('username')
+                    ->setRequired(true)
+                    ->addErrorMessage('You must enter a username')
+                    ->addFilters(array('StringTrim','StripTags', 'Purifier'));
+        
+        $email = $this->addElement('Text', 'email',
+        array('label' => 'Email Address: ', 'size' => '30'))->email;
+        $email->addValidator('EmailAddress')
+                    ->setRequired(true)
+                    ->addFilters(array('StringTrim','StripTags'))
+                    ->addErrorMessage('Please enter a valid address!');
 
+        $this->addElement((new Zend_Form_Element_Hash('csrf'))
+                              ->setValue($this->_salt)->setTimeout(4800)
+        );
 
-	$email = $this->addElement('Text', 'email',
-	array('label' => 'Email Address: ', 'size' => '30'))->email;
-	$email->addValidator('EmailAddress')
-                ->setRequired(true)
-                ->addFilters(array('StringTrim','StripTags'))
-                ->addErrorMessage('Please enter a valid email address');
+        $this->addElement((new Pas_Form_Element_Recaptcha('captcha'))
+                              ->setLabel('Please complete the Captcha field to prove you exist')
+        );
 
-	$submit = $this->addElement('submit', 'submit');
-	$submit = $this->getElement('submit')->setLabel('Retrieve my password');
+        $submit = $this->addElement('submit', 'submit');
+        $submit = $this->getElement('submit')->setLabel('Retrieve my password');
 
-	$this->addDisplayGroup(array('username','email', 'submit'), 'details');
+        $this->addDisplayGroup(array('username', 'email', 'captcha', 'submit'), 'details');
 
-	$this->setLegend('Reset my password: ');
-	parent::init();
+        $this->setLegend('Reset my password: ');
+        parent::init();
     }
 }
