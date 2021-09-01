@@ -30,9 +30,7 @@ class ForgotPasswordForm extends Pas_Form {
 	$username = $this->getElement('username')
                 ->setRequired(true)
                 ->addErrorMessage('You must enter a username')
-                ->addFilters(array('StringTrim','StripTags', 'Purifier'))
-                ->addValidator('Db_RecordExists', false,
-                array('table' => 'users','field' => 'username'));
+                ->addFilters(array('StringTrim','StripTags', 'Purifier'));
 
 
 	$email = $this->addElement('Text', 'email',
@@ -40,9 +38,7 @@ class ForgotPasswordForm extends Pas_Form {
 	$email->addValidator('EmailAddress')
                 ->setRequired(true)
                 ->addFilters(array('StringTrim','StripTags'))
-                ->addErrorMessage('Please enter a valid address!')
-                ->addValidator('Db_RecordExists', false, array('table' => 'users',
-                'field' => 'email'));
+                ->addErrorMessage('Please enter a valid address!');
 
 	$submit = $this->addElement('submit', 'submit');
 	$submit = $this->getElement('submit')->setLabel('Retrieve my password');
