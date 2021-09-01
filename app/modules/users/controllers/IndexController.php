@@ -50,6 +50,11 @@ class Users_IndexController extends Pas_Controller_Action_Admin
             $form = new LoginForm();
             $this->view->form = $form;
             if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+                $recap = $form->getvalue('g-recaptcha-response');
+                $captcha = $form->getvalue('captcha');
+                unset($recap);
+                unset($captcha);
+
                 $authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
                 $data = $authAdapter->getResultRowObject(NULL, 'password');
                 $this->_auth->getStorage()->write($data);

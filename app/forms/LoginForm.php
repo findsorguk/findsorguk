@@ -49,6 +49,11 @@ class LoginForm extends Pas_Form {
         $password->getValidator('StringLength')
             ->setMessage('Your password is too short');
 
+        $this->addElement((new Pas_Form_Element_Recaptcha('captcha'))
+                              ->setLabel('Please complete the Captcha field to prove you exist')
+        );
+
+
         $hash = new Zend_Form_Element_Hash('csrf');
         $hash->setValue($this->_salt)->setTimeout(4800);
 
@@ -56,7 +61,7 @@ class LoginForm extends Pas_Form {
 
         $submit = $this->addElement('submit', 'submit', array('label' => 'Login'));
 
-        $this->addDisplayGroup(array('username', 'password', 'submit'), 'details');
+        $this->addDisplayGroup(array('username', 'password', 'captcha', 'submit'), 'details');
 
         $this->details->setLegend('Login: ');
 
