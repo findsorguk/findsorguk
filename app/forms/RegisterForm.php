@@ -37,10 +37,10 @@ class RegisterForm extends Pas_Form
      */
     public function init()
     {
-        $username = $this->addElement('Text', 'username', array('label' => 'Username'))->username;
+        $username = $this->addElement('Text', 'username', array('label' => 'Username: '))->username;
         $username = $this->getElement('username')
             ->addValidator('UsernameUnique', true,
-                array('id', 'username', 'id', 'Users'))
+                           array('id', 'username', 'id', 'Users'))
             ->addValidator('StringLength', true, array(4))
             ->addValidator('Alnum', false, array('allowWhiteSpace' => false))
             ->setRequired(true)
@@ -51,33 +51,48 @@ class RegisterForm extends Pas_Form
         $username->getValidator('Alnum')
             ->setMessage('Your username must be letters and digits only');
 
-        $password = $this->addElement('Password', 'password', array('label' => 'Password'))->password;
-        $password = $this->getElement('password');
-        $password->setDescription('Password must be longer than 6 characters and must include
-        letters and numbers i.e. p4ssw0rd')
-            ->addValidator('StringLength', true, array(6))
-            ->addValidator('Regex', true, array('/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/'))
+        $password = $this->addElement('password', 'password',
+                                      array('label' => 'New password:'));
+        $password = $this->getElement('password')
             ->setRequired(true)
-            ->addErrorMessage('Please enter a valid password!');
+            ->setDescription('Passwords should be at least 8 characters, contain letters and numbers and not use "<" or ">"')
+            ->addFilters(array('StringTrim', 'StripTags'))
+            ->addValidator('StringLength', true, array(8))
+            ->addValidator('Regex', true, array('/^(?=.*\d)(?=.*[a-zA-Z])(?!.*<)(?!.*>).{8,}$/'))
+            ->setAttrib('pattern', '^(?=.*\d)(?=.*[a-zA-Z])(?!.*<)(?!.*>).{8,}$') //HTML 5 front end validation
+            ->setRequired(true)
+            ->setAttrib('autocomplete','new-password')
+            ->setAttrib('id','new-password');
         $password->getValidator('StringLength')->setMessage('Password is too short');
-        $password->getValidator('Regex')->setMessage('Password does not contain letters and numbers');
+        $password->getValidator('Regex')->setMessage('Password does not contain letters and numbers, or contains "<" or ">"');
+
+        $confirmpassword=$this->addElement('password','confirmpassword',
+                                           array('label'=>'Confirm password: '));
+        $confirmpassword=$this->getElement('confirmpassword')
+            ->setRequired(true)
+            ->setDescription('Please confirm your password')
+            ->addFilters(array('StringTrim'))
+            ->addValidator('Identical',false,array('token'=>'password'))
+            ->setRequired(true)
+            ->setAttrib('autocomplete','new-password');
+        $confirmpassword->getValidator('Identical')->setMessage('Passwords do not match');
 
         $firstName = $this->addElement('Text', 'first_name',
-            array('label' => 'First Name', 'size' => '30'))->first_name;
+            array('label' => 'First Name:', 'size' => '30'))->first_name;
         $firstName = $this->getElement('first_name');
         $firstName->setRequired(true)
             ->addFilters(array('StringTrim', 'StripTags'))
             ->addErrorMessage('You must enter a firstname');
 
         $lastName = $this->addElement('Text', 'last_name',
-            array('label' => 'Last Name', 'size' => '30'))->last_name;
+            array('label' => 'Last Name:', 'size' => '30'))->last_name;
         $lastName = $this->getElement('last_name');
         $lastName->setRequired(true)
             ->addFilters(array('StringTrim', 'StripTags'))
             ->addErrorMessage('You must enter a surname');
 
         $preferredName = $this->addElement('Text', 'preferred_name',
-            array('label' => 'Preferred Name', 'size' => '30'))->preferred_name;
+            array('label' => 'Preferred Name:', 'size' => '30'))->preferred_name;
         $preferredName = $this->getElement('preferred_name');
         $preferredName->setDescription('e.g. Joe Brown rather than Joseph Brown')
             ->setRequired(true)
@@ -85,7 +100,7 @@ class RegisterForm extends Pas_Form
             ->addErrorMessage('You must enter your preferred name');
 
         $email = $this->addElement('Text', 'email',
-            array('label' => 'Email Address', 'size' => '30'))->email;
+            array('label' => 'Email Address:', 'size' => '30'))->email;
         $email = $this->getElement('email');
         $email->addValidator('EmailAddress', false, array('mx' => true))
             ->setRequired(true)
@@ -118,7 +133,7 @@ class RegisterForm extends Pas_Form
            $hash));
 
         $this->addDisplayGroup(array(
-            'username', 'password', 'first_name',
+            'username', 'password', 'confirmpassword', 'first_name',
             'last_name', 'preferred_name', 'email',
             'captcha'),
             'details');

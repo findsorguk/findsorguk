@@ -246,10 +246,13 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             $form = new RegisterForm();
             $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+                
                 $recap = $form->getvalue('g-recaptcha-response');
                 $captcha = $form->getvalue('captcha');
+                $confirmPassword = $form->getvalue('confirmpassword');
                 unset($recap);
                 unset($captcha);
+                unset($confirmPassword);
 
                 $to = array(
                     array(
@@ -465,18 +468,9 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         $form = new ResetPasswordKeyForm();
         $this->view->form = $form;
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            $userDetails = $this->_users->findUser($form->getValue('email'), $form->getValue('username'));
-
-            if(!empty($userDetails)) {
-                echo("Array is NOT empty");
-                $this->_users->resetPassword($form->getValues());
-                $this->getFlash()->addMessage('Your password has been reset.');
-                $this->redirect('users/account/success/');
-            }
-            else {
-                $form->populate($form->getValues());
-                $this->getFlash()->addMessage('Sorry, your username or email is incorrect. Please try again.');
-            }
+            $this->_users->resetPassword($form->getValues());
+            $this->getFlash()->addMessage('If the details entered are correct, your password has been reset.');
+            $this->redirect('users/account/success/');
         } else {
             $form->populate($form->getValues());
             $this->getFlash()->addMessage('Please review and correct problems');
