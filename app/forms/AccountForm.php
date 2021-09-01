@@ -36,16 +36,20 @@ class AccountForm extends Pas_Form {
                 ->setMessage('Username is too long');
 
         $password = $this->addElement('password', 'password',
-            array('label' => 'Password'))->password;
-        $password->addValidator('StringLength', true, array(6))
-                 ->addValidator('Regex', true, 
-                         array('/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/'))
-                 ->setRequired(true)
-                 ->addErrorMessage('Please enter a valid password!');
-        $password->getValidator('StringLength')
-                ->setMessage('Password is too short');
-        $password->getValidator('Regex')
-                ->setMessage('Password does not contain letters and numbers');
+                                      array('label' => 'New password'));
+        $password = $this->getElement('password')
+            ->setRequired(true)
+            ->setDescription('Passwords should be at least 8 characters, contain letters and numbers and not use "<" or ">"')
+            ->addFilters(array('StringTrim', 'StripTags'))
+            ->addValidator('StringLength', true, array(8))
+            ->addValidator('Regex', true, array('/^(?=.*\d)(?=.*[a-zA-Z])(?!.*<)(?!.*>).{8,}$/'))
+            ->setAttrib('pattern', '^(?=.*\d)(?=.*[a-zA-Z])(?!.*<)(?!.*>).{8,}$') //HTML 5 front end validation
+            ->setRequired(true)
+            ->setAttrib('autocomplete','new-password')
+            ->setAttrib('id','new-password')
+            ->addDecorators(array(array('HtmlTag',array('tag' => 'div', 'openOnly' => true ))));
+        $password->getValidator('StringLength')->setMessage('Password is too short');
+        $password->getValidator('Regex')->setMessage('Password does not contain letters and numbers, or contains "<" or ">"');
 
         $firstName = $this->addElement('text', 'first_name',
                 array('label' => 'First Name', 'size' => '30'))->first_name;
@@ -65,14 +69,15 @@ class AccountForm extends Pas_Form {
                 ->addFilters(array('StripTags', 'StringTrim'))
                 ->addErrorMessage('You must enter your preferred name');
 
-       $email = $this->addElement('text', 'email',
-               array('label' => 'Email Address', 'size' => '30'))->email;
-       $email->addValidator('EmailAddress')
-                ->setRequired(true)
-                ->addFilters(array('StringToLower', 'StripTags', 'StringTrim'))
-                ->addErrorMessage('Please enter a valid address!');
+        $email = $this->addElement('Text', 'email',
+                                   array('label' => 'Email Address: ', 'size' => '30'))->email;
+        $email->addValidator('EmailAddress')
+            ->addErrorMessage("Please enter a valid email address")
+            ->setRequired(true)
+            ->addFilters(array('StringTrim', 'StripTags'))
+            ->setAttrib('placeholder','example@domain.co.uk');
 
-       $institution = $this->addElement('text', 'institution', 
+       $institution = $this->addElement('text', 'institution',
                array('label' => 'Recording institution: ', 'size' => '30'))->institution;
 
 
@@ -105,7 +110,7 @@ class AccountForm extends Pas_Form {
                 ->addValidator('EmailAddress');
 
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Set my account up on Beowulf');
+        $submit->setLabel('Set my account up on PAS');
 
         $this->addElements(array($submit));
 

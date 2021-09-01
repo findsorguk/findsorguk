@@ -42,7 +42,7 @@ class ResetPasswordKeyForm extends Pas_Form
         $this->setMethod('post')->setAttrib('id', 'resetpassword');
 
         $username = $this->addElement('Text', 'username',
-            array('label' => 'Username: '));
+            array('label' => 'Username:'));
 
         $username = $this->getElement('username')
             ->setRequired(true)
@@ -50,18 +50,16 @@ class ResetPasswordKeyForm extends Pas_Form
             ->addFilters(array('StringTrim', 'StripTags', 'Purifier'));
 
         $activationKey = $this->addElement('Text', 'activationKey',
-            array('label' => 'Reset password key'));
+            array('label' => 'Reset password key:'));
         $activationKey = $this->getElement('activationKey')
             ->setDescription('The reset key can be found in the email you received when asking for a new password. 
             Please check your spam folder if you are unable to find it.')
             ->setRequired(true)
             ->addValidator('StringLength', true, array('min'=>'2', 'messages'=>'You must enter a reset key'))
-            ->addFilters(array('StringTrim', 'StripTags', 'Purifier'))
-            ->addValidator('Db_RecordExists', false,
-                           array('table' => 'users', 'field' => 'activationKey', 'messages'=>'You must enter a valid reset key'));
+            ->addFilters(array('StringTrim', 'StripTags', 'Purifier'));
 
         $password = $this->addElement('password', 'password',
-            array('label' => 'New password'));
+            array('label' => 'New password:'));
         $password = $this->getElement('password')
             ->setRequired(true)
             ->setDescription('Passwords should be at least 8 characters, contain letters and numbers and not use "<" or ">"')
@@ -71,13 +69,12 @@ class ResetPasswordKeyForm extends Pas_Form
             ->setAttrib('pattern', '^(?=.*\d)(?=.*[a-zA-Z])(?!.*<)(?!.*>).{8,}$') //HTML 5 front end validation
             ->setRequired(true)
             ->setAttrib('autocomplete','new-password')
-            ->setAttrib('id','new-password')
-            ->addDecorators(array(array('HtmlTag',array('tag' => 'div', 'openOnly' => true ))));
+            ->setAttrib('id','new-password');
         $password->getValidator('StringLength')->setMessage('Password is too short');
         $password->getValidator('Regex')->setMessage('Password does not contain letters and numbers, or contains "<" or ">"');
 
         $confirmpassword=$this->addElement('password','confirmpassword',
-                                           array('label'=>'Confirm password: '));
+                                           array('label'=>'Confirm password:'));
         $confirmpassword=$this->getElement('confirmpassword')
             ->setRequired(true)
             ->setDescription('Please confirm your password')
@@ -87,7 +84,7 @@ class ResetPasswordKeyForm extends Pas_Form
             ->setAttrib('autocomplete','new-password');
 
         $email = $this->addElement('Text', 'email',
-                                   array('label' => 'Email Address: ', 'size' => '30'))->email;
+                                   array('label' => 'Email Address:', 'size' => '30'))->email;
         $email->addValidator('EmailAddress')
             ->addErrorMessage("Please enter a valid email address")
             ->setRequired(true)

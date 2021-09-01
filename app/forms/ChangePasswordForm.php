@@ -34,18 +34,28 @@ class ChangePasswordForm extends Pas_Form {
      */
     public function init() {
         $oldpassword = new Zend_Form_Element_Password('oldpassword');
-        $oldpassword->setLabel('Your old password: ');
+        $oldpassword->setLabel('Your old password:');
         $oldpassword->setRequired(true)
-                ->addValidator('RightPassword')
-                ->addFilters(array('StripTags','StringTrim'));
+            ->addValidator('RightPassword')
+            ->setAttrib('autocomplete','current-password')
+            ->setAttrib('id','current-password')
+            ->addFilters(array('StripTags','StringTrim'));
 
-        $password = new Zend_Form_Element_Password('password');
-        $password->setLabel('New password:')
-                ->addValidator('NotEmpty')
-                ->setRequired(true)
-                ->addFilters(array('StripTags','StringTrim'))
-                ->addValidator('IdenticalField', false, 
-                        array('password2', ' confirm password field'));
+        $password = $this->addElement('password', 'password',
+                                      array('label' => 'New password:'));
+        $password = $this->getElement('password')
+            ->setRequired(true)
+            ->setDescription('Passwords should be at least 8 characters, contain letters and numbers and not use "<" or ">"')
+            ->addFilters(array('StringTrim', 'StripTags'))
+            ->addValidator('StringLength', true, array(8))
+            ->addValidator('Regex', true, array('/^(?=.*\d)(?=.*[a-zA-Z])(?!.*<)(?!.*>).{8,}$/'))
+            ->setAttrib('pattern', '^(?=.*\d)(?=.*[a-zA-Z])(?!.*<)(?!.*>).{8,}$') //HTML 5 front end validation
+            ->setRequired(true)
+            ->setAttrib('autocomplete','new-password')
+            ->setAttrib('id','new-password')
+            ->addDecorators(array(array('HtmlTag',array('tag' => 'div', 'openOnly' => true ))));
+        $password->getValidator('StringLength')->setMessage('Password is too short');
+        $password->getValidator('Regex')->setMessage('Password does not contain letters and numbers, or contains "<" or ">"');
 
         // identical field validator with custom messages
         $hash = new Zend_Form_Element_Hash('csrf');
@@ -53,9 +63,11 @@ class ChangePasswordForm extends Pas_Form {
 
         $password2 = new Zend_Form_Element_Password('password2');
         $password2->setLabel('Confirm password:')
-                ->addValidator('NotEmpty')
-                ->addFilters(array('StripTags','StringTrim'))
-                          ->setRequired(true);
+            ->addValidator('NotEmpty')
+            ->setAttrib('autocomplete','new-password')
+            ->setAttrib('id','new-password')
+            ->addFilters(array('StripTags','StringTrim'))
+            ->setRequired(true);
 
         $submit = new Zend_Form_Element_Submit('submit');
 

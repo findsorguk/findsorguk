@@ -37,7 +37,7 @@ class RegisterForm extends Pas_Form
      */
     public function init()
     {
-        $username = $this->addElement('Text', 'username', array('label' => 'Username: '))->username;
+        $username = $this->addElement('Text', 'username', array('label' => 'Username:'))->username;
         $username = $this->getElement('username')
             ->addValidator('UsernameUnique', true,
                            array('id', 'username', 'id', 'Users'))
@@ -67,7 +67,7 @@ class RegisterForm extends Pas_Form
         $password->getValidator('Regex')->setMessage('Password does not contain letters and numbers, or contains "<" or ">"');
 
         $confirmpassword=$this->addElement('password','confirmpassword',
-                                           array('label'=>'Confirm password: '));
+                                           array('label'=>'Confirm password:'));
         $confirmpassword=$this->getElement('confirmpassword')
             ->setRequired(true)
             ->setDescription('Please confirm your password')
