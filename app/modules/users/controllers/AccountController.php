@@ -465,9 +465,18 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         $form = new ResetPasswordKeyForm();
         $this->view->form = $form;
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            $this->_users->resetPassword($form->getValues());
-            $this->getFlash()->addMessage('Your password has been reset.');
-            $this->redirect('users/account/success/');
+            $userDetails = $this->_users->findUser($form->getValue('email'), $form->getValue('username'));
+
+            if(!empty($userDetails)) {
+                echo("Array is NOT empty");
+                $this->_users->resetPassword($form->getValues());
+                $this->getFlash()->addMessage('Your password has been reset.');
+                $this->redirect('users/account/success/');
+            }
+            else {
+                $form->populate($form->getValues());
+                $this->getFlash()->addMessage('Sorry, your username or email is incorrect. Please try again.');
+            }
         } else {
             $form->populate($form->getValues());
             $this->getFlash()->addMessage('Please review and correct problems');

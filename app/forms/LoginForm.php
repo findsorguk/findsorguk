@@ -28,35 +28,37 @@ class LoginForm extends Pas_Form {
 
         parent::__construct($options);
 
-	$this->setName('login');
+        $this->setName('login');
 
-	$username = $this->addElement('text', 'username',array('label' => 'Username: '));
-	$username = $this->getElement('username')
-                ->setRequired(true)
-                ->addFilters(array('StringTrim', 'StripTags'))
-                ->addValidator('Authorise')
-                ->setAttrib('autofocus','autofocus')
-                ->setAttrib('size','20');
+        $username = $this->addElement('text', 'username', array('label' => 'Username: '));
+        $username = $this->getElement('username')
+            ->setRequired(true)
+            ->addFilters(array('StringTrim', 'StripTags'))
+            ->addValidator('Authorise')
+            ->setAttrib('autofocus', 'autofocus')
+            ->setAttrib('size', '20');
 
-	$password = $this->addElement('password', 'password',array('label' => 'Password: '));
-	$password = $this->getElement('password')
-                ->addValidator('StringLength', true, array(3))
-                ->setRequired(true)
-                ->setAttrib('size','20')
-                ->addFilters(array('StringTrim', 'StripTags'));
-                $password->getValidator('StringLength')
-                ->setMessage('Your password is too short');
+        $password = $this->addElement('password', 'password', array('label' => 'Password: '));
+        $password = $this->getElement('password')
+            ->addValidator('StringLength', true, array(3))
+            ->setRequired(true)
+            ->setAttrib('size', '20')
+            ->setAttrib('autocomplete', 'current-password')
+            ->setAttrib('id', 'current-password')
+            ->addFilters(array('StringTrim', 'StripTags'));
+        $password->getValidator('StringLength')
+            ->setMessage('Your password is too short');
 
-	$hash = new Zend_Form_Element_Hash('csrf');
-	$hash->setValue($this->_salt)->setTimeout(4800);
+        $hash = new Zend_Form_Element_Hash('csrf');
+        $hash->setValue($this->_salt)->setTimeout(4800);
 
         $this->addElement($hash);
 
-	$submit = $this->addElement('submit', 'submit' , array('label' => 'Login'));
+        $submit = $this->addElement('submit', 'submit', array('label' => 'Login'));
 
-	$this->addDisplayGroup(array('username','password','submit'), 'details');
+        $this->addDisplayGroup(array('username', 'password', 'submit'), 'details');
 
-	$this->details->setLegend('Login: ');
+        $this->details->setLegend('Login: ');
 
 	parent::init();
     }
