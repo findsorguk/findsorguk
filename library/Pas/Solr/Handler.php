@@ -1034,21 +1034,28 @@ class Pas_Solr_Handler
                 $stats->createField($field);
             }
         }
-        if (!in_array($this->getRole(), $this->getAllowed()) || is_null($this->getRole())) {
-            if($this->getRole() == 'member' && $this->getMyfinds()){
+
+        if (!in_array($this->getRole(), $this->getAllowed()) || $this->getRole() == 'research' ||  is_null($this->getRole())) {
+            if(($this->getRole() == 'member' || $this->getRole() == 'research') && $this->getMyfinds()){
                 $this->_query->createFilterQuery('myfinds')->setQuery('createdBy:' . $params['createdBy']);
             } else if (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
-                $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
+
+                $query = "workflow:[3 TO 4] OR createdBy:" . $this->getUserID();
+                $person=$this->getPerson();
+                if (property_exists($person, 'peopleID') && !is_null($person->peopleID)) {
+                    $query .= " OR recorderID:" . $person->peopleID;
+                }
+                $this->_query->createFilterQuery('workflow')->setQuery($query);
             }
             if ((array_key_exists('parish', $params)
                     || array_key_exists('fourFigure', $params) || array_key_exists('parishID', $params))
                 && ($this->getCore() === 'objects')
             ) {
-		$this->setKnownAsFilterOnce();
+                $this->setKnownAsFilterOnce();
             }
             if ($this->getFormat() === 'kml' && ($this->getCore() === 'objects')) {
                 $this->_query->createFilterQuery('geopresent')->setQuery('gridref:[* TO *]');
-		$this->setKnownAsFilterOnce();
+                $this->setKnownAsFilterOnce();
             }
         }
         if (!is_null($this->getFacets())) {
