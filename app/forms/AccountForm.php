@@ -36,7 +36,7 @@ class AccountForm extends Pas_Form {
                 ->setMessage('Username is too long');
 
         $password = $this->addElement('password', 'password',
-                                      array('label' => 'New password'));
+                                      array('label' => 'New password: '));
         $password = $this->getElement('password')
             ->setRequired(true)
             ->setDescription('Passwords should be at least 8 characters, contain letters and numbers and not use "<" or ">"')
@@ -52,25 +52,25 @@ class AccountForm extends Pas_Form {
         $password->getValidator('Regex')->setMessage('Password does not contain letters and numbers, or contains "<" or ">"');
 
         $firstName = $this->addElement('text', 'first_name',
-                array('label' => 'First Name', 'size' => '30'))->first_name;
+                array('label' => 'First name: ', 'size' => '30'))->first_name;
         $firstName->setRequired(true)
                 ->addFilters(array('StripTags', 'StringTrim'))
                 ->addErrorMessage('You must enter a firstname');
 
         $lastName = $this->addElement('text', 'last_name',
-                array('label' => 'Last Name', 'size' => '30'))->last_name;
+                array('label' => 'Last name: ', 'size' => '30'))->last_name;
         $lastName->setRequired(true)
                 ->addFilters(array('StripTags', 'StringTrim'))
                  ->addErrorMessage('You must enter a surname');
 
        $fullname = $this->addElement('text', 'fullname',
-                array('label' => 'Preferred Name: ', 'size' => '30'))->fullname;
+                array('label' => 'Preferred name: ', 'size' => '30'))->fullname;
        $fullname->setRequired(true)
                 ->addFilters(array('StripTags', 'StringTrim'))
                 ->addErrorMessage('You must enter your preferred name');
 
         $email = $this->addElement('Text', 'email',
-                                   array('label' => 'Email Address: ', 'size' => '30'))->email;
+                                   array('label' => 'Email address: ', 'size' => '30'))->email;
         $email->addValidator('EmailAddress')
             ->addErrorMessage("Please enter a valid email address")
             ->setRequired(true)
@@ -83,7 +83,7 @@ class AccountForm extends Pas_Form {
 
        $researchOutline = $this->addElement('textArea','research_outline',
                                     array(
-                                        'label' => 'Outline your research', 
+                                        'label' => 'Outline your research: ',
                                         'rows' => 10, 'cols' => 40)
                )->research_outline;
 
@@ -93,7 +93,7 @@ class AccountForm extends Pas_Form {
 
         $reference = $this->addElement('text','reference',
                 array(
-                    'label' => 'Please provide a referee:', 
+                    'label' => 'Please provide a referee: ',
                     'size' => '40')
                 )->reference;
 
@@ -102,7 +102,7 @@ class AccountForm extends Pas_Form {
 
         $referenceEmail = $this->addElement('text','reference_email',
                     array(
-                        'label' => 'Please provide an email address for your referee:',
+                        'label' => 'Please provide an email address for your referee: ',
                         'size' => '40')
                 )->reference_email;
         $referenceEmail->setRequired(false)

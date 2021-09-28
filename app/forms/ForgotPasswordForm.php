@@ -38,7 +38,7 @@ class ForgotPasswordForm extends Pas_Form {
 	$email->addValidator('EmailAddress')
                 ->setRequired(true)
                 ->addFilters(array('StringTrim','StripTags'))
-                ->addErrorMessage('Please enter a valid address!');
+                ->addErrorMessage('Please enter a valid email address');
 
 	$submit = $this->addElement('submit', 'submit');
 	$submit = $this->getElement('submit')->setLabel('Retrieve my password');

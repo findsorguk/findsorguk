@@ -60,34 +60,34 @@ class EditAccountForm extends Pas_Form
             ->setRequired(true);
 
         $firstName = $this->addElement('text', 'first_name',
-            array('label' => 'First Name:', 'size' => '30'))->first_name;
+            array('label' => 'First name: ', 'size' => '30'))->first_name;
         $firstName->setRequired(true)
             ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
             ->addErrorMessage('You must enter a firstname');
 
         $lastName = $this->addElement('text', 'last_name',
-            array('label' => 'Last Name:', 'size' => '30'))
+            array('label' => 'Last name: ', 'size' => '30'))
             ->last_name;
         $lastName->setRequired(true)
             ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
             ->addErrorMessage('You must enter a surname');
 
         $preferred_name = $this->addElement('text', 'preferred_name',
-            array('label' => 'Preferred Name:', 'size' => '30'))
+            array('label' => 'Preferred name: ', 'size' => '30'))
             ->preferred_name;
         $preferred_name->setRequired(true)
             ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
             ->addErrorMessage('You must enter your preferred name');
 
         $fullname = $this->addElement('text', 'fullname',
-            array('label' => 'Full name:', 'size' => '30'))
+            array('label' => 'Full name: ', 'size' => '30'))
             ->fullname;
         $fullname->setRequired(true)
             ->addFilters(array('StripTags', 'StringTrim', 'Purifier'))
             ->addErrorMessage('You must enter your preferred name');
 
         $email = $this->addElement('Text', 'email',
-                                   array('label' => 'Email Address: ', 'size' => '30'))->email;
+                                   array('label' => 'Email address: ', 'size' => '30'))->email;
         $email->addValidator('EmailAddress')
             ->addFilters(array('StripTags', 'StringTrim', 'StringToLower'))
             ->addErrorMessage("Please enter a valid email address")
@@ -95,7 +95,7 @@ class EditAccountForm extends Pas_Form
             ->setAttrib('placeholder','example@domain.co.uk');
 
         $password = $this->addElement('password', 'password',
-                                      array('label' => 'Password:'));
+                                      array('label' => 'Password: '));
         $password = $this->getElement('password')
             ->setRequired(true)
             ->setDescription('Passwords should be at least 8 characters, contain letters and numbers and not use "<" or ">"')
@@ -120,21 +120,21 @@ class EditAccountForm extends Pas_Form
             array('label' => 'Allowed to record: '))->canRecord;
 
         $role = $this->addElement('select', 'role',
-            array('label' => 'Site role:'))->role;
+            array('label' => 'Site role: '))->role;
         $role->addMultiOptions(array(
             null => 'Choose a role',
             'Available roles' => $role_options))
             ->setAttrib('class', 'input-medium selectpicker show-menu-arrow');
 
         $person = $this->addElement('text', 'person',
-            array('label' => 'Personal details attached:'))->person;
+            array('label' => 'Personal details attached: '))->person;
         $peopleID = $this->addElement('hidden', 'peopleID', array())->peopleID;
 
         $valid = $this->addElement('checkbox', 'valid',
             array('label' => 'Valid record: '))->valid;
 
 	$activationKey = $this->addElement('text', 'activationKey',
-            array('label' => 'Activation Key:'))->activationKey;
+            array('label' => 'Activation key: '))->activationKey;
 
         $submit = new Zend_Form_Element_Submit('submit');
         $this->addElement($submit);
