@@ -602,6 +602,26 @@ class Pas_Solr_Handler
         return $user->getRole();
     }
 
+    /** Get the user's ID
+     * @access public
+     * @return string
+     */
+    public function getUserID()
+    {
+        $user = new Pas_User_Details();
+        return $user->getIdentityForForms();
+    }
+
+    /** Get the user's ID
+     * @access public
+     * @return string
+     */
+    public function getPerson()
+    {
+        $user = new Pas_User_Details();
+        return $user->getPerson();
+    }
+
     /** Get the list of fields to query
      * @access public
      * @return array
@@ -1042,7 +1062,7 @@ class Pas_Solr_Handler
 
                 $query = "workflow:[3 TO 4] OR createdBy:" . $this->getUserID();
                 $person=$this->getPerson();
-                if (property_exists($person, 'peopleID') && !is_null($person->peopleID)) {
+                if ( $person !== false &&  property_exists($person, 'peopleID') && !is_null($person->peopleID)) {
                     $query .= " OR recorderID:" . $person->peopleID;
                 }
                 $this->_query->createFilterQuery('workflow')->setQuery($query);
