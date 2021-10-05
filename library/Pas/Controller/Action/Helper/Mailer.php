@@ -156,7 +156,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
                 $this->_mail->addTo($addTo['email'], $addTo['name']);
             }
         } else {
-            $this->_mail->addTo('info@finds.org.uk', 'The PAS head office');
+            $this->_mail->addTo('past@britishmuseum.org', 'The PAS head office');
         }
         if (is_array($cc)) {
             foreach ($cc as $addCc) {
@@ -168,7 +168,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
                 $this->_mail->setFrom($addFrom['email'], $addFrom['name']);
             }
         } else {
-            $this->_mail->setFrom('info@finds.org.uk', 'The PAS head office');
+            $this->_mail->setFrom('past@britishmuseum.org', 'The PAS head office');
         }
         if (is_array($bcc)) {
             foreach ($bcc as $addBcc) {
