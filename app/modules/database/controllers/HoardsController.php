@@ -654,7 +654,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 'name' => $responsible->fullname
             );
         } elseif (in_array($institution, array('PAS', 'DCMS', 'RAH'))) {
-            $to = array('email' => 'info@finds.org.uk', 'name' => 'Central Unit');
+            $to = array('email' => 'past@britishmuseum.org', 'name' => 'Central Unit');
         } else {
             $responsible = new Contacts();
             $to = $responsible->getOwnerHoard($data['comment_findID']);

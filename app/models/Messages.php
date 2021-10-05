@@ -132,7 +132,7 @@ class Messages extends Pas_Db_Table_Abstract {
         $mail->setBodyText('You submitted this comment/ query: ' 
                 . strip_tags($data['comment_content']));
         $mail->setFrom($data['comment_author_email'], $data['comment_author']);
-        $mail->addTo('info@finds.org.uk', 'The Portable Antiquities Scheme');
+        $mail->addTo('past@britishmuseum.org', 'The Portable Antiquities Scheme');
         $mail->addCC($data['comment_author_email'], $data['comment_author']);
         $mail->setSubject('Contact us submission');
         $mail->send();
