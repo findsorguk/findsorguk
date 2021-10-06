@@ -2,84 +2,118 @@
 
 /** Controller for manipulating the artefacts data
  *
- * @author Daniel Pett <dpett at britishmuseum.org>
+ * @author     Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
- * @package Pas_Controller_Action
+ * @package    Pas_Controller_Action
  * @subpackage Admin
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @version 2
- * @uses Pas_ArrayFunctions
- * @uses Finds
- * @uses Pas_Exception_NotAuthorised
- * @uses Findspots
- * @uses Coins
- * @uses CoinClassifications
- * @uses Slides
- * @uses Publications
- * @uses Comments
- * @uses Rallies
- * @uses CommentFindForm
- * @uses FindForm
- * @uses Pas_Exception_Param
+ * @license    http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version    2
+ * @uses       Pas_ArrayFunctions
+ * @uses       Finds
+ * @uses       Pas_Exception_NotAuthorised
+ * @uses       Findspots
+ * @uses       Coins
+ * @uses       CoinClassifications
+ * @uses       Slides
+ * @uses       Publications
+ * @uses       Comments
+ * @uses       Rallies
+ * @uses       CommentFindForm
+ * @uses       FindForm
+ * @uses       Pas_Exception_Param
  */
 class Database_ArtefactsController extends Pas_Controller_Action_Admin
 {
 
     /** The redirect uri
-     *
      */
     const REDIRECT = '/database/artefacts/';
 
     /** The array of restricted access
+     *
      * @access protected
      * @var array restricted access roles
      */
     protected $_restricted = array(null, 'member', 'public');
 
     /** the higher level roles
+     *
      * @access protected
      * @var array Higher level groups
      */
     protected $_higherLevel = array('treasure', 'flos', 'admin', 'hero', 'fa');
 
     /** The array of numismatic terms
+     *
      * @var array coins pseudonyms
      */
     protected $_coinarray = array(
-        'Coin', 'COIN', 'coin',
-        'token', 'jetton', 'coin weight',
-        'COIN HOARD', 'TOKEN', 'JETTON'
+        'Coin',
+        'COIN',
+        'coin',
+        'token',
+        'jetton',
+        'coin weight',
+        'COIN HOARD',
+        'TOKEN',
+        'JETTON'
     );
 
     /** An array of Roman and Iron Age periods
      * Used for coins
+     *
      * @access protected
      * @var array Romanic periods
      */
     protected $_periodRomIA = array(
-        'Roman', 'ROMAN', 'roman',
-        'Iron Age', 'Iron age', 'IRON AGE',
-        'Byzantine', 'BYZANTINE', 'Greek and Roman Provincial',
-        'GREEK AND ROMAN PROVINCIAL', 'Unknown',
-        'UNKNOWN');
+        'Roman',
+        'ROMAN',
+        'roman',
+        'Iron Age',
+        'Iron age',
+        'IRON AGE',
+        'Byzantine',
+        'BYZANTINE',
+        'Greek and Roman Provincial',
+        'GREEK AND ROMAN PROVINCIAL',
+        'Unknown',
+        'UNKNOWN'
+    );
 
     /** An array of Roman and Prehistoric periods
      * Used for objects
+     *
      * @var array
      * @access protected
      */
     protected $_periodRomPrehist = array(
-        'Roman', 'ROMAN', 'roman',
-        'Iron Age', 'Iron age', 'IRON AGE',
-        'Byzantine', 'BYZANTINE', 'Greek and Roman Provincial',
-        'GREEK AND ROMAN PROVINCIAL', 'Unknown', 'UNKNOWN',
-        'Mesolithic', 'MESOLITHIC', 'PREHISTORIC',
-        'NEOLITHIC', 'Neolithic', 'Palaeolithic',
-        'PALAEOLITHIC', 'Bronze Age', 'BRONZE AGE');
+        'Roman',
+        'ROMAN',
+        'roman',
+        'Iron Age',
+        'Iron age',
+        'IRON AGE',
+        'Byzantine',
+        'BYZANTINE',
+        'Greek and Roman Provincial',
+        'GREEK AND ROMAN PROVINCIAL',
+        'Unknown',
+        'UNKNOWN',
+        'Mesolithic',
+        'MESOLITHIC',
+        'PREHISTORIC',
+        'NEOLITHIC',
+        'Neolithic',
+        'Palaeolithic',
+        'PALAEOLITHIC',
+        'Bronze Age',
+        'BRONZE AGE'
+    );
 
     /** An array of Early medieval periods
      * Used for objects and coins
+     *
      * @access protected
      * @var array
      */
@@ -87,6 +121,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
 
     /** An array of Medieval periods
      * Used for coins and objects
+     *
      * @access protected
      * @var array
      */
@@ -94,53 +129,70 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
 
     /** An array of Post Medieval periods
      * Used for coins and objects
+     *
      * @access protected
      * @var array
      */
     protected $_postMed = array('Post Medieval', 'POST MEDIEVAL', 'Modern', 'MODERN');
 
     /** Contexts for records
+     *
      * @access protected
      * @var array
      */
     protected $_contexts = array(
-        'xml', 'rss', 'json',
-        'atom', 'kml', 'georss',
-        'ics', 'rdf', 'xcs',
-        'vcf', 'csv', 'pdf',
-        'geojson');
+        'xml',
+        'rss',
+        'json',
+        'atom',
+        'kml',
+        'georss',
+        'ics',
+        'rdf',
+        'xcs',
+        'vcf',
+        'csv',
+        'pdf',
+        'geojson'
+    );
 
     /** The auth object
+     *
      * @access protected
      * @var null
      */
-    protected $_auth = NULL;
+    protected $_auth = null;
 
     /** Comments model
+     *
      * @access protected
      * @var
      */
     protected $_comments;
 
     /** Findspots model
+     *
      * @access protected
      * @var
      */
     protected $_findspots;
 
     /** Finds model
+     *
      * @access protected
      * @var
      */
     protected $_finds;
 
     /** The find form
+     *
      * @access protected
      * @var
      */
     protected $_findForm;
 
     /** Get the find form
+     *
      * @access public
      * @return \FindForm
      */
@@ -151,6 +203,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Get the findspots model
+     *
      * @access public
      * @return \Findspots
      */
@@ -161,6 +214,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Get the comments model
+     *
      * @access public
      * @return \Comments
      */
@@ -171,6 +225,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Get the finds model
+     *
      * @access public
      * @return \Finds
      */
@@ -181,6 +236,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Get the coins model
+     *
      * @access public
      * @return \Coins
      */
@@ -191,6 +247,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Get the bibliography model
+     *
      * @access public
      * @return \Bibliography
      */
@@ -201,6 +258,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Get the coinxclass model
+     *
      * @access public
      * @return \Coinxclass
      */
@@ -211,6 +269,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Get the slides model
+     *
      * @access public
      * @return \Slides
      */
@@ -221,6 +280,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Get the findsImages model
+     *
      * @access public
      * @return \FindsImages
      */
@@ -231,6 +291,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Setup the contexts by action and the ACL.
+     *
      * @access public
      * @return void
      */
@@ -239,9 +300,16 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         $this->_helper->_acl->deny('public', array('add', 'edit'));
         $this->_helper->_acl->deny(array('member', 'research', 'hero'), array('workflow'));
         $this->_helper->_acl->allow(array('admin', 'flos', 'fa', 'treasure', 'hoard'), array('workflow'));
-        $this->_helper->_acl->allow('public', array(
-            'index', 'record', 'errorreport', 'notifyflo', 'unavailable'
-        ));
+        $this->_helper->_acl->allow(
+            'public',
+            array(
+                'index',
+                'record',
+                'errorreport',
+                'notifyflo',
+                'unavailable'
+            )
+        );
         $this->_helper->_acl->allow('member', null);
         $this->_helper->contextSwitch()->setAutoJsonSerialization(false)
             ->setAutoDisableLayout(true)
@@ -253,14 +321,18 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             ->addContext('pdf', array('suffix' => 'pdf'))
             ->addContext('midas', array('suffix' => 'midas', 'headers' => array('Content-Type' => 'application/xml')))
             ->addContext('qrcode', array('suffix' => 'qrcode'))
-            ->addContext('geojson', array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json')))
-            ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'pdf', 'rdf' ))
+            ->addContext(
+                'geojson',
+                array('suffix' => 'geojson', 'headers' => array('Content-Type' => 'application/json'))
+            )
+            ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'pdf', 'rdf'))
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
     }
 
     /** Display a list of objects recorded with pagination
      * This redirects to just the search results as there is nothing else here.
+     *
      * @access public
      * @return void
      */
@@ -273,12 +345,12 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Display individual record
+     *
      * @access public
      * @return void
      */
     public function recordAction()
     {
-
         if ($this->getParam('id', false)) {
             $this->view->recordID = $this->getParam('id');
             $id = $this->getParam('id');
@@ -302,9 +374,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Add an object
+     *
      * @access public
      * @return void
-     * @todo slim down action, move logic for adding to finds.php model
+     * @todo   slim down action, move logic for adding to finds.php model
      */
     public function addAction()
     {
@@ -366,9 +439,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Edit a record
+     *
      * @access public
      * @return void
-     * @todo move update logic to model finds.php
+     * @todo   move update logic to model finds.php
      */
     public function editAction()
     {
@@ -380,38 +454,41 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $form->submit->setLabel('Update record');
             $this->view->form = $form;
 
-            if (in_array($this->getRole(), $this->_restricted))
-            {
+            if (in_array($this->getRole(), $this->_restricted)) {
                 $form->finderID->setValue($user->peopleID);
                 $form->recordername->setAttrib('disabled', true);
 
                 $displayGroupsToRemove = array('discoverers');
                 $elementFieldsToRemove = array('finder', 'secondfinder', 'idBy', 'id2by');
                 $this->removeElementFields($form, $elementFieldsToRemove);
-		$this->removeDisplayGroups($form, $displayGroupsToRemove);
+                $this->removeDisplayGroups($form, $displayGroupsToRemove);
             }
 
-	    $currentFindDetails = $this->getFinds()->fetchRow('id = ' . $id);
-            if ($this->getRequest()->isPost())
-	    {
-                if ($form->isValid($this->_request->getPost()))
-		{
+            $currentFindDetails = $this->getFinds()->fetchRow('id = ' . $id);
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($this->_request->getPost())) {
                     $updatedFindDetails = $form->getValues();
 
                     // recordername, finder, idBy, id2by and secondfinder not given value, then respective fields will also updated accordingly
-	            if (in_array($this->getRole(), $this->_higherLevel))
-        	    {
-                       $personalDetails = array('finder' => 'finderID', 'recordername' => 'recorderID', 'idBy' => 'identifier1ID',
-                                                'id2by' => 'identifier2ID', 'secondfinder' => 'finder2ID');
-                       $updatedFindDetails = $this->nullifyEmptyFields($updatedFindDetails, $personalDetails);
-		    }
+                    if (in_array($this->getRole(), $this->_higherLevel)) {
+                        $personalDetails = array(
+                            'finder' => 'finderID',
+                            'recordername' => 'recorderID',
+                            'idBy' => 'identifier1ID',
+                            'id2by' => 'identifier2ID',
+                            'secondfinder' => 'finder2ID'
+                        );
+                        $updatedFindDetails = $this->nullifyEmptyFields($updatedFindDetails, $personalDetails);
+                    }
 
                     // remove unwanted fields
-		    unset($updatedFindDetails['recordername'],
+                    unset(
+                        $updatedFindDetails['recordername'],
                         $updatedFindDetails['finder'],
                         $updatedFindDetails['idBy'],
                         $updatedFindDetails['id2by'],
-                        $updatedFindDetails['secondfinder']);
+                        $updatedFindDetails['secondfinder']
+                    );
 
                     $where = array();
                     $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $id);
@@ -424,15 +501,14 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                         $id
                     );
 
-		    // Update SOLR
+                    // Update SOLR
                     $this->_helper->solrUpdater->update('objects', $id, 'artefacts');
                     $this->getFlash()->addMessage('Artefact information updated and audited!');
                     $this->redirect(self::REDIRECT . 'record/id/' . $id);
                 }
             } else {
                 $formData = $this->getFinds()->getEditData($id);
-                if (count($formData))
-		{
+                if (count($formData)) {
                     $form->populate($formData['0']);
                     $this->view->find = $currentFindDetails;
                 } else {
@@ -445,14 +521,14 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Delete a record
+     *
      * @access public
      * @return void
      */
     public function deleteAction()
     {
         $id = $this->getParam('id', 0);
-        if (!(is_numeric($id) && ($id > 0)))
-        {
+        if (!(is_numeric($id) && ($id > 0))) {
             $this->redirect(self::REDIRECT);
         }
 
@@ -460,19 +536,18 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $postVariable = $this->_request->getPost('confirmDelete');
             $confirmDelete = isset($postVariable) ? strtoupper($postVariable) : "NO";
 
-            if ('YES' === $confirmDelete)
-	    {
-		$findID = $this->_request->getPost('findID');
-		$objectType = $this->_request->getPost('objectType');
+            if ('YES' === $confirmDelete) {
+                $findID = $this->_request->getPost('findID');
+                $objectType = $this->_request->getPost('objectType');
 
-		// remove object
-		$this->processRecordDeletion($id, $findID, $objectType);
+                // remove object
+                $this->processRecordDeletion($id, $findID, $objectType);
 
-		// update SOLR for deletion of the finds record
-        	$this->_helper->solrUpdater->deleteById('objects', $id);
+                // update SOLR for deletion of the finds record
+                $this->_helper->solrUpdater->deleteById('objects', $id);
 
-		$this->getFlash()->addMessage('Record deleted!');
-	        $this->redirect('database/search/results/');
+                $this->getFlash()->addMessage('Record deleted!');
+                $this->redirect('database/search/results/');
             }
 
             $this->getFlash()->addMessage('No changes made!');
@@ -483,9 +558,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Enter an error report
+     *
      * @access public
      * @return void
-     * @todo move insert logic to model
+     * @todo   move insert logic to model
      */
     public function errorreportAction()
     {
@@ -528,6 +604,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     }
 
     /** Notify an FLO
+     *
      * @access public
      * @return void
      * @throws Pas_Exception_Param
@@ -535,8 +612,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     public function notifyfloAction()
     {
         if ($this->getParam('id', false)) {
-
-	    $this->_user = (new Pas_User_Details())->getPerson();
+            $this->_user = (new Pas_User_Details())->getPerson();
 
             // Sends email from info@ on behalf of user that clicked Notify FLO. FLO receives
             // email, FA and end-user are CCd.
@@ -550,7 +626,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                     $contacts = new Contacts();
                     $to = $contacts->getNameEmail($form->getValue('flo'));
                     $cc = $this->_getAdviser($find->objecttype, $find->broadperiod);
-                    $from[] = array('email' => 'info@finds.org.uk', 'name' => 'Central Unit on behalf of ' . $this->_user->fullname);
+                    $from[] = array(
+                        'email' => 'info@finds.org.uk',
+                        'name' => 'Central Unit on behalf of ' . $this->_user->fullname
+                    );
                     $otherCC[] = array('email' => $this->_user->email, 'name' => $this->_user->fullname);
                     $cc = array_merge($cc, $otherCC);
                     $assignData = array_merge($find->toArray(), $form->getValues(), $to['0']);
@@ -575,12 +654,14 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $from = array('name' => $person->fullname, 'email' => $person->email);
             $this->view->from = $exist;
             $form = new ChangeWorkFlowForm();
-            $findStatus = $this->getFinds()->fetchRow($this->getFinds()->select()->where('id = ?', $this->getParam('id')));
+            $findStatus = $this->getFinds()->fetchRow(
+                $this->getFinds()->select()->where('id = ?', $this->getParam('id'))
+            );
             $this->view->details = $findStatus;
             $this->view->find = $findStatus->old_findID;
             $form->populate($findStatus->toArray());
             $this->view->form = $form;
-            if(!empty($exist)) {
+            if (!empty($exist)) {
                 if (is_null($exist['0']['email'])) {
                     $form->finder->setAttrib('disabled', 'disabled');
                     $form->finder->setDescription('No email associated with finder yet.');
@@ -599,7 +680,15 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                             'workflow' => $form->getValue('secwfstage'),
                             'content' => $form->getValue('content')
                         );
-                        $this->_helper->mailer($assignData, 'informFinderWorkflow', $exist, array($from), array($from), null, null);
+                        $this->_helper->mailer(
+                            $assignData,
+                            'informFinderWorkflow',
+                            $exist,
+                            array($from),
+                            array($from),
+                            null,
+                            null
+                        );
                     }
                     $where = array();
                     $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
@@ -609,7 +698,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                         $findStatus->toArray(),
                         'FindsAudit',
                         $this->getParam('id'),
-                        $this->getParam('id'));
+                        $this->getParam('id')
+                    );
                     $this->_helper->solrUpdater->update('objects', $this->getParam('id'), 'artefacts');
                     $this->getFlash()->addMessage('Workflow status changed');
                     $this->redirect('database/artefacts/record/id/' . $this->getParam('id'));
@@ -631,39 +721,46 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         if ($institution === 'PUBLIC') {
             $users = new Users();
             $responsible = $users->fetchRow('id = ' . $createdBy);
-            $to = array(array(
-                'email' => $responsible->email,
-                'name' => $responsible->fullname
-            ));
+            $to = array(
+                array(
+                    'email' => $responsible->email,
+                    'name' => $responsible->fullname
+                )
+            );
         } elseif (in_array($institution, array('PAS', 'DCMS', 'RAH', 'BM'))) {
             $to = array(array('email' => 'past@britishmuseum.org', 'name' => 'Central Unit'));
         } else {
             $responsible = new Contacts();
             $to = $responsible->getOwner($data['comment_findID']);
-            if(empty($to)){
+            if (empty($to)) {
                 $to = array(array('email' => 'past@britishmuseum.org', 'name' => 'Central Unit'));
             }
         }
         $cc = $this->_getAdviser($objecttype, $broadperiod);
         if ($this->_user) {
-            $from = array(array(
-                'email' => $this->_user->email,
-                'name' => $this->_user->fullname
-            ));
+            $from = array(
+                array(
+                    'email' => $this->_user->email,
+                    'name' => $this->_user->fullname
+                )
+            );
         } else {
-            $from = array(array(
-                'email' => $data['comment_author_email'],
-                'name' => $data['comment_author']
-            ));
+            $from = array(
+                array(
+                    'email' => $data['comment_author_email'],
+                    'name' => $data['comment_author']
+                )
+            );
         }
         $assignData = array_merge($to['0'], $data);
         $this->_helper->mailer($assignData, 'errorSubmission', $to, $cc, $from);
     }
 
     /** Determine adviser to email
+     *
      * @access public
      * @param string $objecttype
-     * @param type $broadperiod
+     * @param type   $broadperiod
      * @return array
      */
     private function _getAdviser($objecttype, $broadperiod)
@@ -691,7 +788,6 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         $this->_catchallemail = $config->findsadviser->def->email;
 
         switch ($objecttype) {
-
             case (in_array($objecttype, $this->_coinarray)
                 && in_array($broadperiod, $this->_periodRomIA)):
                 $adviserdetails = $this->_romancoinsadviser;
@@ -756,8 +852,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
 
     public function unavailableAction()
     {
-        if($this->getParam('id',false))
-        {
+        if ($this->getParam('id', false)) {
             $this->view->finds = $this->getFinds()->getAllData($this->getParam('id'));
             $this->getResponse()->setHttpResponseCode(401)->setRawHeader('HTTP/1.1 401 Unauthorized');
         } else {
@@ -767,16 +862,14 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
 
     private function removeElementFields($form, $fields)
     {
-        foreach ($fields as $elementToRemove)
-        {
+        foreach ($fields as $elementToRemove) {
             $form->removeElement($elementToRemove);
         }
     }
 
     private function removeDisplayGroups($form, $groups)
     {
-        foreach ($groups as $groupToRemove)
-        {
+        foreach ($groups as $groupToRemove) {
             $form->removeDisplayGroup($groupToRemove);
         }
     }
@@ -785,10 +878,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     // Check source labels in the target. If empty, set source field name's in target to null
     private function nullifyEmptyFields($target, $source)
     {
-        foreach ($source as $label => $fieldName)
-        {
-            if (empty($target[$label]))
-            {
+        foreach ($source as $label => $fieldName) {
+            if (empty($target[$label])) {
                 $target[$fieldName] = null;
             }
         }
@@ -799,28 +890,26 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     // Delete Image if exists
     private function removeAnyImages($findID)
     {
-        foreach ($this->getSlides()->getSlideByRecordID($findID, 'artefacts') as $slide)
-        {
-           $this->deleteImage($slide);
+        foreach ($this->getSlides()->getSlideByRecordID($findID, 'artefacts') as $slide) {
+            $this->deleteImage($slide);
         }
     }
 
     // Delete bibliography if exists
     private function removeAnyBibliography($findID)
     {
-        foreach ($this->getReference()->getReferenceByfindID($findID) as $bibliography)
-        {
-	   $this->deleteRecord($bibliography['id'], $this->getReference(), 'id  = ?');
+        foreach ($this->getReference()->getReferenceByfindID($findID) as $bibliography) {
+            $this->deleteRecord($bibliography['id'], $this->getReference(), 'id  = ?');
         }
     }
 
     // Delete findsSpot if exists
     private function removeAnyFindspot($findID, $recordID)
     {
-	$findSpotId = $this->getFindspots()->getFindspotByfindID($findID)['id'];
+        $findSpotId = $this->getFindspots()->getFindspotByfindID($findID)['id'];
 
         $this->deleteRecord($findSpotId, $this->getFindspots(), 'id  = ?');
-	$this->auditForDeletion('FindspotsAudit', $findSpotId, $recordID);
+        $this->auditForDeletion('FindspotsAudit', $findSpotId, $recordID);
     }
 
     // Delete coin if exists
@@ -835,8 +924,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     // Delete coinReference if exists
     private function removeAnyCoinRefs($recordID)
     {
-        foreach ($this->getCoinReference()->getCoinReferenceByfindID($recordID) as $coinRef)
-        {
+        foreach ($this->getCoinReference()->getCoinReferenceByfindID($recordID) as $coinRef) {
             $this->deleteRecord($coinRef['id'], $this->getCoinReference(), 'id  = ?');
         }
     }
@@ -844,25 +932,24 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     // Delete find
     private function removeFind($recordID)
     {
-       	$this->deleteRecord($recordID, $this->getFinds(), 'id  = ?');
+        $this->deleteRecord($recordID, $this->getFinds(), 'id  = ?');
         $this->auditForDeletion('FindsAudit', $recordID, $recordID);
     }
 
     // Delete the record from finds, for the find if coin, findSpot, reference and image exist, delete the record/s from respective tables
     private function processRecordDeletion($recordID, $findID, $objectType)
     {
-	$this->removeAnyImages($recordID);
-	$this->removeAnyFindspot($findID, $recordID);
-	$this->removeAnyBibliography($findID);
+        $this->removeAnyImages($recordID);
+        $this->removeAnyFindspot($findID, $recordID);
+        $this->removeAnyBibliography($findID);
 
-	// If the object type is a coin, delete the record from coins table
-        if ('COIN' === strtoupper($objectType))
-        {
-	    $this->removeAnyCoin($findID, $recordID);
-	    $this->removeAnyCoinRefs($recordID);
+        // If the object type is a coin, delete the record from coins table
+        if ('COIN' === strtoupper($objectType)) {
+            $this->removeAnyCoin($findID, $recordID);
+            $this->removeAnyCoinRefs($recordID);
         }
 
-	$this->removeFind($recordID);
+        $this->removeFind($recordID);
     }
 
     // Delete image added to the find
@@ -870,9 +957,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     {
         $this->deleteRecord($imageData['imageID'], $this->getSlides(), 'imageID  = ?');
         $this->deleteRecord($imageData['finds_images_id'], $this->getfindsImages(), 'id  = ?');
-	array_map('unlink', glob($imageData['imagedir'] . '*/' .  $imageData['filename']));
-	array_map('unlink', glob($imageData['imagedir'] . $imageData['filename']));
-	array_map('unlink', glob('images/thumbnails/'. $imageData['imageID'] . '*'));
+        array_map('unlink', glob($imageData['imagedir'] . '*/' . $imageData['filename']));
+        array_map('unlink', glob($imageData['imagedir'] . $imageData['filename']));
+        array_map('unlink', glob('images/thumbnails/' . $imageData['imageID'] . '*'));
     }
 
     // Delete record
@@ -887,7 +974,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
     // Audit deletion of record
     private function auditForDeletion($model, $recordID, $entityID)
     {
-	$this->_helper->audit(
+        $this->_helper->audit(
             ['DELETED' => ''],
             ['DELETED' => $recordID],
             $model,
