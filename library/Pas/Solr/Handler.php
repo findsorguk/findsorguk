@@ -2,9 +2,7 @@
 
 /**
  * Solr handler class for retrieving data from the solr indexes
- *
  * An example of use:
- *
  * <code>
  * <?php
  * $search = new Pas_Solr_Handler();
@@ -14,168 +12,205 @@
  * $search->execute();
  * </code>
  *
- * @author Daniel Pett <dpett at britishmuseum.org>
+ * @author        Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
- * @category Pas
- * @package Solr
- * @subpackage Handler
- * @uses Pas_Solr_Exception
- * @uses Solarium_Client
- * @uses Pas_Solr_SensitiveFields
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @example /app/modules/database/controllers/SearchController.php
- *
+ * @category      Pas
+ * @package       Solr
+ * @subpackage    Handler
+ * @uses          Pas_Solr_Exception
+ * @uses          Solarium_Client
+ * @uses          Pas_Solr_SensitiveFields
+ * @license       http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example       /app/modules/database/controllers/SearchController.php
  */
 class Pas_Solr_Handler
 {
 
     /** The config
+     *
      * @access protected
      * @var \Zend_Config
      */
     protected $_config;
 
     /** The default location for the schema file
+     *
      * @access protected
      * @var string
      */
     protected $_schemaFile;
 
     /** The schema path
+     *
      * @access protected
      * @var string
      */
     protected $_schemaPath;
 
     /** The cache object
+     *
      * @access protected
      * @var \Zend_Cache
      */
     protected $_cache;
 
     /** The solr config object
+     *
      * @access protected
      * @var type
      */
     protected $_solrConfig;
 
     /** The default core
+     *
      * @access protected
      * @var string
-     * @todo change option when we rename cores
+     * @todo   change option when we rename cores
      */
     protected $_core = 'objects';
 
     /** The solr object
+     *
      * @access protected
      * @var \Solarium_Client
      */
     protected $_solr;
 
     /** The formats available for output
+     *
      * @access protected
      * @var array
      */
     protected $_formats = array(
-        'json', 'csv', 'xml',
-        'midas', 'rdf', 'n3',
-        'rss', 'atom', 'kml',
-        'pdf', 'geojson', 'sitemap', null);
+        'json',
+        'csv',
+        'xml',
+        'midas',
+        'rdf',
+        'n3',
+        'rss',
+        'atom',
+        'kml',
+        'pdf',
+        'geojson',
+        'sitemap',
+        null
+    );
 
     /** The array of allowed higher level access
+     *
      * @access protected
      * @var array
      */
     protected $_allowed = array(
-        'fa', 'flos', 'admin',
-        'treasure', 'research', 'hoard'
+        'fa',
+        'flos',
+        'admin',
+        'treasure',
+        'research',
+        'hoard'
     );
 
     /** The default map option
+     *
      * @access protected
      * @var boolean
      */
     protected $_map = false;
 
     /** The load balancer plugin
+     *
      * @access protected
      * @var object
      */
     protected $_loadbalancer;
 
     /** The default set of fields to query
+     *
      * @access protected
      * @var array
      */
     protected $_fields = array('*');
 
     /** The array of fields in a schema
+     *
      * @access protected
      * @var array
      */
     protected $_schemaFields = array();
 
     /** The array of cores in the system
+     *
      * @access protected
      * @var array
      */
     protected $_cores = array();
 
     /** The array of parameters to query
+     *
      * @access protected
      * @var array
      */
     protected $_params = array();
 
     /** The array of fields to highlight
+     *
      * @access protected
      * @var array
      */
     protected $_highlights = array();
 
     /** The start value for the query to run from
+     *
      * @access protected
      * @var int
      */
     protected $_start = 0;
 
     /** The start page
+     *
      * @access protected
      * @var int
      */
     protected $_page = 1;
 
     /** Set the maximum rows to return
+     *
      * @access protected
      * @var int
      */
     protected $_rows = 20;
 
     /** The format to parse
+     *
      * @access protected
      * @var string
      */
     protected $_format = 'json';
 
     /** Boolean field for processing stats
+     *
      * @access protected
      * @var boolean
      */
     protected $_stats = false;
 
     /** The default field for stats to be produced
+     *
      * @access protected
      * @var array
      */
     protected $_statsFields = array('quantity');
 
     /** The default direction of sort
+     *
      * @access protected
      * @var array
      */
     protected $_sort = array('created' => 'desc');
 
     /** The facets array
+     *
      * @access protected
      * @var array
      */
@@ -184,6 +219,7 @@ class Pas_Solr_Handler
     protected $_myfinds = false;
 
     /** Boolean field for processing knownas
+     *
      * @access protected
      * @var boolean
      */
@@ -207,8 +243,8 @@ class Pas_Solr_Handler
     }
 
 
-
     /** Get the sort array
+     *
      * @access public
      * @return array
      * @throws Pas_Solr_Exception
@@ -237,6 +273,7 @@ class Pas_Solr_Handler
     }
 
     /** The query to send to solr
+     *
      * @access protected
      * @var object
      */
@@ -247,6 +284,7 @@ class Pas_Solr_Handler
     protected $_facetSet;
 
     /** Process format key
+     *
      * @access protected
      * @return boolean
      */
@@ -263,6 +301,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the starting page
+     *
      * @access public
      * @return int
      */
@@ -276,6 +315,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the starting numbef for the query
+     *
      * @access public
      * @return int
      */
@@ -289,6 +329,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the rows
+     *
      * @access public
      * @return int
      */
@@ -320,6 +361,7 @@ class Pas_Solr_Handler
 
 
     /** Get the schema path
+     *
      * @access public
      * @return string
      */
@@ -331,6 +373,7 @@ class Pas_Solr_Handler
 
 
     /** Get the schema file
+     *
      * @access public
      * @return string
      */
@@ -341,6 +384,7 @@ class Pas_Solr_Handler
     }
 
     /** Set the field on which to generate stats
+     *
      * @access public
      * @param string $value
      * @return string
@@ -351,6 +395,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the field on which to generate stats
+     *
      * @access public
      * @return type
      */
@@ -360,6 +405,7 @@ class Pas_Solr_Handler
     }
 
     /** Set whether the function is producing mapping data
+     *
      * @access public
      * @param string $map
      * @return \Pas_Solr_Handler
@@ -371,6 +417,7 @@ class Pas_Solr_Handler
     }
 
     /** Get whether map is true or false
+     *
      * @access public
      * @return boolean
      */
@@ -380,6 +427,7 @@ class Pas_Solr_Handler
     }
 
     /** Set the field on which to get stats
+     *
      * @access public
      * @param array $fields
      * @return \Pas_Solr_Handler
@@ -393,6 +441,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the stats field array
+     *
      * @access public
      * @return array
      */
@@ -402,6 +451,7 @@ class Pas_Solr_Handler
     }
 
     /** Return the formats that can be queried
+     *
      * @access public
      * @return array
      */
@@ -411,6 +461,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the allowed array
+     *
      * @access public
      * @return array
      */
@@ -420,6 +471,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the cache object
+     *
      * @access public
      * @return \Zend_Cache
      */
@@ -430,6 +482,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the config object
+     *
      * @access public
      * @return \Zend_Config
      */
@@ -440,6 +493,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the core to search
+     *
      * @access public
      * @return string
      */
@@ -449,6 +503,7 @@ class Pas_Solr_Handler
     }
 
     /** Set the core to search upon
+     *
      * @access public
      * @param string $core
      * @return \Pas_Solr_Handler
@@ -460,6 +515,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the solr config options
+     *
      * @access public
      * @return array
      */
@@ -471,6 +527,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the solr object for querying cores
+     *
      * @access public
      * @return \Solarium_Client
      */
@@ -493,6 +550,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the load balancer
+     *
      * @access public
      * @return type
      */
@@ -502,6 +560,7 @@ class Pas_Solr_Handler
     }
 
     /** Set the facet fields
+     *
      * @access public
      * @return \Pas_Solr_Handler
      */
@@ -516,6 +575,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the facet fields
+     *
      * @access public
      * @return
      */
@@ -530,6 +590,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the cores available from directory
+     *
      * @access public
      * @return array
      */
@@ -551,6 +612,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the fields in a schema
+     *
      * @access public
      * @return array
      */
@@ -579,6 +641,7 @@ class Pas_Solr_Handler
     }
 
     /** Check if the core exists
+     *
      * @access public
      * @return boolean
      * @throws Pas_Solr_Exception
@@ -593,6 +656,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the user's role
+     *
      * @access public
      * @return string
      */
@@ -602,7 +666,30 @@ class Pas_Solr_Handler
         return $user->getRole();
     }
 
+    /** Get the user's ID
+     *
+     * @access public
+     * @return string
+     */
+    public function getUserID()
+    {
+        $user = new Pas_User_Details();
+        return $user->getIdentityForForms();
+    }
+
+    /** Get the user's ID
+     *
+     * @access public
+     * @return string
+     */
+    public function getPerson()
+    {
+        $user = new Pas_User_Details();
+        return $user->getPerson();
+    }
+
     /** Get the list of fields to query
+     *
      * @access public
      * @return array
      */
@@ -612,6 +699,7 @@ class Pas_Solr_Handler
     }
 
     /** Set the fields to return
+     *
      * @access public
      * @return type
      */
@@ -623,6 +711,7 @@ class Pas_Solr_Handler
     }
 
     /** Set the parameters to use
+     *
      * @access public
      * @param array $params
      * @return array
@@ -636,6 +725,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the parameters to query
+     *
      * @access public
      * @return array
      */
@@ -646,6 +736,7 @@ class Pas_Solr_Handler
 
 
     /** Filter parameters being passed to search
+     *
      * @access public
      * @param array $params
      * @return array
@@ -708,6 +799,7 @@ class Pas_Solr_Handler
     }
 
     /** Set fields to highlight
+     *
      * @access public
      * @param array $highlights
      * @return array
@@ -721,6 +813,7 @@ class Pas_Solr_Handler
     }
 
     /** Create highlighting
+     *
      * @access public
      * @return array
      */
@@ -734,6 +827,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the highlights back
+     *
      * @access public
      * @return type
      */
@@ -745,6 +839,7 @@ class Pas_Solr_Handler
     }
 
     /** Create filters
+     *
      * @access protected
      * @param array $params
      * @throws Pas_Solr_Exception
@@ -752,7 +847,10 @@ class Pas_Solr_Handler
     protected function _createFilters(array $params)
     {
         if (is_array($params)) {
-            if (array_key_exists('d', $params) && array_key_exists('lon', $params) && array_key_exists('lat', $params)) {
+            if (array_key_exists('d', $params) && array_key_exists('lon', $params) && array_key_exists(
+                    'lat',
+                    $params
+                )) {
                 if (!is_null($params['d']) && !is_null($params['lon']) && !is_null($params['lat'])) {
                     $helper = $this->_query->getHelper();
                     $this->_query->createFilterQuery('geo')->setQuery(
@@ -760,16 +858,19 @@ class Pas_Solr_Handler
                             $params['lat'],
                             $params['lon'],
                             'coordinates',
-                            $params['d'])
+                            $params['d']
+                        )
                     );
                 }
             }
             $map = $this->getMap();
-            if (($map === true) && !in_array($this->getRole(),
-                    $this->getAllowed()) && ($this->getCore() === 'objects')
+            if (($map === true) && !in_array(
+                    $this->getRole(),
+                    $this->getAllowed()
+                ) && ($this->getCore() === 'objects')
             ) {
                 $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
-		$this->setKnownAsFilterOnce();
+                $this->setKnownAsFilterOnce();
             } elseif ($map === true && ($this->getCore() === 'objects')) {
                 $this->_query->createFilterQuery('hascoords')->setQuery('gridref:["" TO *]');
             }
@@ -803,6 +904,7 @@ class Pas_Solr_Handler
     }
 
     /** Set the facets array up
+     *
      * @access public
      * @param array $facets
      * @return \Pas_Solr_Handler
@@ -817,6 +919,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the facets that have been sent
+     *
      * @access public
      * @return array
      */
@@ -826,6 +929,7 @@ class Pas_Solr_Handler
     }
 
     /** Get the number of results from a result set
+     *
      * @access public
      * @return int
      */
@@ -835,6 +939,7 @@ class Pas_Solr_Handler
     }
 
     /** Create a pagination object
+     *
      * @access public
      * @return type
      */
@@ -848,6 +953,7 @@ class Pas_Solr_Handler
     }
 
     /** Process the results of the query
+     *
      * @access public
      * @return array $data
      */
@@ -878,6 +984,7 @@ class Pas_Solr_Handler
     }
 
     /** Process stats for a query
+     *
      * @access public
      * @return array
      */
@@ -885,7 +992,7 @@ class Pas_Solr_Handler
     {
         $stats = $this->_resultset->getStats();
 
-        if(is_object($stats)) {
+        if (is_object($stats)) {
             foreach ($stats as $stat) {
                 $data = array(
                     'stdDeviation' => $stat->getStddev(),
@@ -907,6 +1014,7 @@ class Pas_Solr_Handler
     }
 
     /** Process facets for display
+     *
      * @access public
      * @return boolean
      */
@@ -928,10 +1036,10 @@ class Pas_Solr_Handler
         } else {
             return false;
         }
-
     }
 
     /** Check the field list works by core
+     *
      * @access protected
      * @param string $fields
      * @return \Pas_Solr_Handler
@@ -954,6 +1062,7 @@ class Pas_Solr_Handler
     }
 
     /** Execute the query
+     *
      * @access public
      * @return object
      */
@@ -962,10 +1071,9 @@ class Pas_Solr_Handler
         // create a ping query
         $ping = $this->getSolr()->createPing();
 
-        try{
+        try {
             $this->getSolr()->ping($ping);
-        } catch(Solarium_Exception $e){
-
+        } catch (Solarium_Exception $e) {
         }
         $params = $this->getParams();
         $select = array(
@@ -998,12 +1106,14 @@ class Pas_Solr_Handler
         }
         if (array_key_exists('todate', $params) && array_key_exists('fromdate', $params)) {
             $this->_query->createFilterQuery('range')
-                ->setQuery('todate:['
+                ->setQuery(
+                    'todate:['
                     . $params['fromdate']
                     . ' TO ' . $params['todate'] . ']'
                 );
             $this->_query->createFilterQuery('rangedate')
-                ->setQuery('fromdate:['
+                ->setQuery(
+                    'fromdate:['
                     . $params['fromdate']
                     . ' TO '
                     . $params['todate'] . ']'
@@ -1013,7 +1123,8 @@ class Pas_Solr_Handler
         }
         if (array_key_exists('fromdate', $params)) {
             $this->_query->createFilterQuery('datefrom')
-                ->setQuery('fromdate:['
+                ->setQuery(
+                    'fromdate:['
                     . $params['fromdate']
                     . ' TO * ]'
                 );
@@ -1021,7 +1132,8 @@ class Pas_Solr_Handler
         }
         if (array_key_exists('todate', $params)) {
             $this->_query->createFilterQuery('todate')
-                ->setQuery('todate:[* TO '
+                ->setQuery(
+                    'todate:[* TO '
                     . $params['todate']
                     . ']'
                 );
@@ -1034,27 +1146,36 @@ class Pas_Solr_Handler
                 $stats->createField($field);
             }
         }
-        if (!in_array($this->getRole(), $this->getAllowed()) || is_null($this->getRole())) {
-            if($this->getRole() == 'member' && $this->getMyfinds()){
+
+        if (!in_array($this->getRole(), $this->getAllowed()) || $this->getRole() == 'research' || is_null(
+                $this->getRole()
+            )) {
+            if (($this->getRole() == 'member' || $this->getRole() == 'research') && $this->getMyfinds()) {
                 $this->_query->createFilterQuery('myfinds')->setQuery('createdBy:' . $params['createdBy']);
-            } else if (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
-                $this->_query->createFilterQuery('workflow')->setQuery('workflow:[3 TO 4]');
+            } else {
+                if (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
+                    $query = "workflow:[3 TO 4] OR createdBy:" . $this->getUserID();
+                    $person = $this->getPerson();
+                    if ($person !== false && property_exists($person, 'peopleID') && !is_null($person->peopleID)) {
+                        $query .= " OR recorderID:" . $person->peopleID;
+                    }
+                    $this->_query->createFilterQuery('workflow')->setQuery($query);
+                }
             }
             if ((array_key_exists('parish', $params)
                     || array_key_exists('fourFigure', $params) || array_key_exists('parishID', $params))
                 && ($this->getCore() === 'objects')
             ) {
-		$this->setKnownAsFilterOnce();
+                $this->setKnownAsFilterOnce();
             }
             if ($this->getFormat() === 'kml' && ($this->getCore() === 'objects')) {
                 $this->_query->createFilterQuery('geopresent')->setQuery('gridref:[* TO *]');
-		$this->setKnownAsFilterOnce();
+                $this->setKnownAsFilterOnce();
             }
         }
         if (!is_null($this->getFacets())) {
             $this->_createFacets($this->getFacets());
             foreach ($params as $k => $v) {
-
                 if (in_array($k, $this->getFacetFields())) {
                     $this->buildFacetQueries($k, $v);
                     unset($params['k']);
@@ -1067,17 +1188,21 @@ class Pas_Solr_Handler
     }
 
     /** Create a facet query based on the key value pairs of an array
+     *
      * @access public
      * @param string $k
      * @param string $v
      */
     public function buildFacetQueries($k, $v)
     {
-        return $this->_query->createFilterQuery($k)->setQuery(substr($k, 2)
-            . ':"' . $v . '"');
+        return $this->_query->createFilterQuery($k)->setQuery(
+            substr($k, 2)
+            . ':"' . $v . '"'
+        );
     }
 
     /** Debug a query
+     *
      * @access public
      * @return \Pas_Solr_Handler
      */
@@ -1092,6 +1217,7 @@ class Pas_Solr_Handler
     }
 
     /** Debug processing of a query
+     *
      * @access public
      * @return \Pas_Solr_Handler
      */
@@ -1106,6 +1232,7 @@ class Pas_Solr_Handler
     }
 
     /** Create the facets
+     *
      * @access protected
      * @return \Pas_Solr_Handler
      */
@@ -1132,10 +1259,9 @@ class Pas_Solr_Handler
 
     public function setKnownAsFilterOnce()
     {
-	if (!($this->_haveUsedKnownAsFilter))
-        {
-             $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
-	     $this->_haveUsedKnownAsFilter = true;
+        if (!($this->_haveUsedKnownAsFilter)) {
+            $this->_query->createFilterQuery('knownas')->setQuery('-knownas:["" TO *]');
+            $this->_haveUsedKnownAsFilter = true;
         }
     }
 }
