@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.71 6th October 2021
+- [x] Fix issue with red records appearing in searches for non-authorised users
+- [x] Change hardcoded email references from info@finds.org.uk to past@finds.org.uk
+
 ### 1.70 18th August 2021
 - [x] Fix missing region name and certainty type on CSV export
 - [x] Fix for mobile menu being unclickable
