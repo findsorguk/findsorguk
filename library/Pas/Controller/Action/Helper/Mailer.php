@@ -1,63 +1,64 @@
 <?php
 
 /** An action helper for sending mail from a controller.
- *
  * An example of code use:
- *
  * <code>
  * <?php
  *  $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc, $from);
  * ?>
  * </code>
  *
- * @author Daniel Pett <dpett at britishmuseum.org>
+ * @author        Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
- * @category Pas
- * @package Controller_Action
- * @subpackage Helper
- * @uses Zend_Controller_Action_Helper_Abstract
- * @uses Zend_Mail
- * @uses Zend_View
- * @uses Pas_Filter_EmailTextOnly
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @example /app/modules/database/controllers/ArtefactsController.php
- *
+ * @category      Pas
+ * @package       Controller_Action
+ * @subpackage    Helper
+ * @uses          Zend_Controller_Action_Helper_Abstract
+ * @uses          Zend_Mail
+ * @uses          Zend_View
+ * @uses          Pas_Filter_EmailTextOnly
+ * @license       http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @example       /app/modules/database/controllers/ArtefactsController.php
  */
 class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_Abstract
 {
 
     /** The view object
+     *
      * @access protected
      * @var \Zend_View
      */
     protected $_view;
 
     /** The templates
+     *
      * @access protected
      * @var array
      */
     protected $_templates;
 
     /** Mail object
+     *
      * @access protected
      * @var \Zend_Mail
      */
     protected $_mail;
 
     /** The markdown flag
+     *
      * @access protected
      * @var \Pas_Filter_EmailTextOnly
      */
     protected $_markdown;
 
     /** Array of types
+     *
      * @access protected
      * @var array
      */
     protected $_types;
 
     /** Initialise the objects and class
-     *
      */
     public function init()
     {
@@ -90,19 +91,25 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
     }
 
     /** direct method for action controller
+     *
      * @access public
-     * @param array $assignData
+     * @param array  $assignData
      * @param string $type
-     * @param array $to
-     * @param array $cc
-     * @param array $from
-     * @param array $bcc
-     * @param array $attachments
+     * @param array  $to
+     * @param array  $cc
+     * @param array  $from
+     * @param array  $bcc
+     * @param array  $attachments
      */
     public function direct(
-        array $assignData = null, $type, array $to = null, array $cc = null,
-        array $from = null, array $bcc = null, array $attachments = null)
-    {
+        array $assignData = null,
+        $type,
+        array $to = null,
+        array $cc = null,
+        array $from = null,
+        array $bcc = null,
+        array $attachments = null
+    ) {
         $script = $this->_getTemplate($type);
         $message = $this->_view->setScriptPath($this->_templates);
         $this->_view->addHelperPath('Pas/View/Helper/', 'Pas_View_Helper');
@@ -120,10 +127,11 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
     }
 
     /** Add attachments
+     *
      * @access protected
-     * @todo test function
      * @param array $attachments
      * @throws Exception
+     * @todo   test function
      */
     protected function _addAttachments(array $attachments)
     {
@@ -137,12 +145,12 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
                 $addition->filename = $filter->filter($attach);
             }
         } else {
-
             throw new Exception('The attachment list is not an array.');
         }
     }
 
     /** Set up sending to addresses
+     *
      * @access protected
      * @param array $to
      * @param array $cc
@@ -156,7 +164,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
                 $this->_mail->addTo($addTo['email'], $addTo['name']);
             }
         } else {
-            $this->_mail->addTo('info@finds.org.uk', 'The PAS head office');
+            $this->_mail->addTo('past@britishmuseum.org', 'The PAS head office');
         }
         if (is_array($cc)) {
             foreach ($cc as $addCc) {
@@ -168,7 +176,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
                 $this->_mail->setFrom($addFrom['email'], $addFrom['name']);
             }
         } else {
-            $this->_mail->setFrom('info@finds.org.uk', 'The PAS head office');
+            $this->_mail->setFrom('past@britishmuseum.org', 'The PAS head office');
         }
         if (is_array($bcc)) {
             foreach ($bcc as $addBcc) {
@@ -178,6 +186,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
     }
 
     /** Strip out html using html purifier
+     *
      * @access protected
      * @param string $string
      * @return string
@@ -189,6 +198,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
     }
 
     /** Send the email using Zend Mail
+     *
      * @access protected
      * @return \Pas_Controller_Action_Helper_Mailer
      */
@@ -198,6 +208,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
     }
 
     /** Determine the template to use
+     *
      * @access protected
      * @param string $type
      * @return string

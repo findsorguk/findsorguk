@@ -2,28 +2,29 @@
 
 /** A controller for dealing with exceptions and errors
  *
- * @author Daniel Pett <dpett at britishmuseum.org>
+ * @author        Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014, Daniel Pett
- * @version 2
- * @category Pas
- * @package Pas_Controller_Action
- * @subpackage Admin
+ * @version       2
+ * @category      Pas
+ * @package       Pas_Controller_Action
+ * @subpackage    Admin
  */
 class ErrorController extends Pas_Controller_Action_Admin
 {
 
     /** Whether email can be sent - default  true
+     *
      * @access protected
      * @var boolean
      */
     protected $_email = true;
 
     /** The log
-     *
      */
     protected $_log;
 
     /** Get email config entry
+     *
      * @access public
      * @return boolean
      */
@@ -37,6 +38,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     }
 
     /** Set up values
+     *
      * @access public
      */
     public function init()
@@ -48,6 +50,7 @@ class ErrorController extends Pas_Controller_Action_Admin
 
 
     /** Work out who created the error
+     *
      * @access public
      * @return string
      */
@@ -65,6 +68,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     }
 
     /** Set up the mailer data
+     *
      * @return array
      */
     protected function _mailData()
@@ -90,6 +94,7 @@ class ErrorController extends Pas_Controller_Action_Admin
 
 
     /** Send emails
+     *
      * @access public
      * @return \Zend_Mail
      */
@@ -98,11 +103,11 @@ class ErrorController extends Pas_Controller_Action_Admin
         if ($this->getEmail()) {
             $to[] = array(
                 'name' => 'The Portable Antiquities Scheme',
-                'email' => 'info@finds.org.uk'
+                'email' => 'past@britishmuseum.org'
             );
             $cc[] = array(
-                'name' => NULL,
-                'email' => NULL
+                'name' => null,
+                'email' => null
             );
             $from[] = array(
                 'name' => 'The Portable Antiquities Server',
@@ -115,6 +120,7 @@ class ErrorController extends Pas_Controller_Action_Admin
 
 
     /** Get the log
+     *
      * @access public
      * @return boolean
      */
@@ -129,6 +135,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     }
 
     /** The index action
+     *
      * @access public
      */
     public function indexAction()
@@ -139,6 +146,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     }
 
     /** The error action
+     *
      * @access public
      */
     public function errorAction()
@@ -154,7 +162,6 @@ class ErrorController extends Pas_Controller_Action_Admin
                     // 404 error -- controller or action not found
                     $this->getResponse()->setHttpResponseCode(404);
                     if ($errors->type == Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER) {
-
                         $this->view->code = 404;
                         $this->view->message = sprintf(
                             'Unable to find page',
@@ -174,7 +181,6 @@ class ErrorController extends Pas_Controller_Action_Admin
                     // 404 error -- controller or action not found
                     $this->getResponse()->setHttpResponseCode(404);
                     if ($errors->type == Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION) {
-
                         $this->view->code = 404;
                         $this->view->message = sprintf(
                             'Unable to find page',
@@ -215,7 +221,8 @@ class ErrorController extends Pas_Controller_Action_Admin
                             break;
                         case 'Pas_Exception_Param':
                             $this->getResponse()->setHttpResponseCode(500);
-                            $this->view->message = 'The url you used is missing a parameter ' . '(' . $errors->exception->getMessage() . ')';
+                            $this->view->message = 'The url you used is missing a parameter ' . '(' . $errors->exception->getMessage(
+                                ) . ')';
                             $this->view->code = 500;
                             break;
                         case 'Zend_Db_Statement_Exception' :
@@ -280,16 +287,15 @@ class ErrorController extends Pas_Controller_Action_Admin
                             $this->view->message = $errors->exception->getMessage();
                             break;
                     }
-
             }
             if ($errors->exception and $errors->exception instanceof Zend_Db_Exception) {
                 $this->view->message = $errors->exception->getMessage();
                 try {
-                    if ($errors->exception->getPrevious() and $errors->exception->getPrevious() instanceof PDOException) {
+                    if ($errors->exception->getPrevious() and $errors->exception->getPrevious(
+                        ) instanceof PDOException) {
                         $e = $errors->exception->getPrevious();
                     }
                 } catch (PDOException $e) {
-
                 }
             }
             // pass the actual exception object to the view
@@ -303,6 +309,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     }
 
     /** Not authorised action
+     *
      * @access public
      */
     public function notauthorisedAction()
@@ -311,10 +318,10 @@ class ErrorController extends Pas_Controller_Action_Admin
         $this->view->message = 'You are not authorised to view this resource';
         $this->view->code = 401;
         $this->renderScript('error/error.phtml');
-
     }
 
     /** Account problems
+     *
      * @access public
      */
     public function accountproblemAction()
@@ -325,7 +332,6 @@ class ErrorController extends Pas_Controller_Action_Admin
     }
 
     /** Database down action
-     *
      */
     public function databasedownAction()
     {
@@ -336,7 +342,6 @@ class ErrorController extends Pas_Controller_Action_Admin
     }
 
     /** Account connection problem
-     *
      */
     public function accountconnectionAction()
     {
@@ -347,7 +352,6 @@ class ErrorController extends Pas_Controller_Action_Admin
     }
 
     /** Down time action
-     *
      */
     public function downtimeAction()
     {
