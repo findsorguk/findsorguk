@@ -642,7 +642,6 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                             'name' => $exist['0']['name'],
                             'hoardID' => $findStatus->hoardID,
                             'id' => $this->getParam('id'),
-                            git st
                             'from' => $person->fullname,
                             'workflow' => $form->getValue('secwfstage'),
                             'content' => $form->getValue('content')
