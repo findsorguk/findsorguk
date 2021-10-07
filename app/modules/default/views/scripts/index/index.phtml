@@ -75,26 +75,13 @@ Wrap the rest of the page in another container to center all the content. */ ?>
 // Three columns of text below the carousel ?>
     <div class="row">
         <div class="span4">
-            <img class="img-circle" width=150px height=150px src="assets/logos/treasure20.png">
 
-            <h2 class="lead">Treasure 20</h2>
-
-            <p>We’re celebrating 20 years since the commencement of the Treasure Act. Visit here to see what’s on show
-                at your local museum!</p>
-
-            <p><a class="btn" href="<?php
-                echo $this->url(
-                    array(
-                        'module' => 'treasure',
-                        'controller' => 'advice',
-                        'action' => 'index',
-                        'slug' => 'treasure20'
-                    ),
-                    'treasure',
-                    true
-                ); ?>">Read more &raquo;</a></p>
+            <div class="youtube-container">
+                <iframe src="https://www.youtube.com/embed/BGWjUBb7b_k" title="(Video) Code of Practice for Responsible Metal Detecting in England and Wales" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <h2 class="lead">Code of Practice</h2>
+            <a href="https://youtu.be/ApMJuHGPF9M" target="_blank">Video without subtitles</a>
         </div>
-
         <div class="span4">
             <img class="img" src="/assets/logos/pas.jpg" width="213" height="104">
 
