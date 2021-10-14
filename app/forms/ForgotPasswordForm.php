@@ -31,13 +31,14 @@ class ForgotPasswordForm extends Pas_Form {
                     ->setRequired(true)
                     ->addErrorMessage('You must enter a username')
                     ->addFilters(array('StringTrim','StripTags', 'Purifier'));
-        
+
         $email = $this->addElement('Text', 'email',
-        array('label' => 'Email Address: ', 'size' => '30'))->email;
+                                   array('label' => 'Email address: ', 'size' => '30'))->email;
         $email->addValidator('EmailAddress')
-                    ->setRequired(true)
-                    ->addFilters(array('StringTrim','StripTags'))
-                    ->addErrorMessage('Please enter a valid address!');
+            ->addErrorMessage("Please enter a valid email address")
+            ->setRequired(true)
+            ->addFilters(array('StringTrim', 'StripTags'))
+            ->setAttrib('placeholder','example@domain.co.uk');
 
         $this->addElement((new Zend_Form_Element_Hash('csrf'))
                               ->setValue($this->_salt)->setTimeout(4800)
@@ -52,7 +53,7 @@ class ForgotPasswordForm extends Pas_Form {
 
         $this->addDisplayGroup(array('username', 'email', 'captcha', 'submit'), 'details');
 
-        $this->setLegend('Reset my password: ');
+      //  $this->setLegend('Reset my password: ');
         parent::init();
     }
 }
