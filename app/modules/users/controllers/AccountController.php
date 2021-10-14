@@ -288,15 +288,14 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         }
         $form = new ActivateForm();
         $this->view->form = $form;
+
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            if ($form->isValid($form->getValues())) {
-                $this->_users->activate($form->getValues());
-                $this->getFlash()->addMessage('Your account has been activated.');
-                $this->redirect('users/account/success/');
-            } else {
-                $form->populate($form->getValues());
-                $this->getFlash()->addMessage('Please review and correct problems');
-            }
+            $this->_users->activate($form->getValues());
+            $this->getFlash()->addMessage('If the details entered are correct, your account has been activated.');
+            $this->redirect('users/account/success/');
+        } else {
+            $form->populate($form->getValues());
+            $this->getFlash()->addMessage('Please review and correct problems');
         }
     }
 

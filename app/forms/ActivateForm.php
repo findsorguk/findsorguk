@@ -26,7 +26,7 @@ class ActivateForm extends Pas_Form {
     public function init() {
 
     	$username = new Zend_Form_Element_Text('username');
-    	$username->setLabel('Your username');
+    	$username->setLabel('Username: ');
     	$username->setRequired(true)
                 ->addFilters(array('StringTrim', 'StripTags'))
     		->addValidator('Db_RecordExists', false, 
@@ -35,7 +35,7 @@ class ActivateForm extends Pas_Form {
                             'field' => 'username'));
     	
     	$activationKey = new Zend_Form_Element_Text('activationKey');
-        $activationKey->setLabel('Your activation key');
+        $activationKey->setLabel('Activation key: ');
         $activationKey->setDescription('Your key was sent in your activation email')
                 ->setRequired(true)
                 ->addFilters(array('StringTrim', 'StripTags'))
@@ -45,8 +45,9 @@ class ActivateForm extends Pas_Form {
                             'field' => 'activationKey'));
 		
         $email = new Zend_Form_Element_Text('email');
-        $email->setLabel('Your email address');
+        $email->setLabel('Email address: ');
         $email->setRequired(true)
+                ->setAttrib('placeholder','example@domain.co.uk')
                 ->addValidator('Db_RecordExists', false, 
                         array(
                             'table' => 'users',
@@ -54,14 +55,17 @@ class ActivateForm extends Pas_Form {
     		->addValidator('EmailAddress',false, array('mx' => true));
 
         $hash = new Zend_Form_Element_Hash('csrf');
-        $hash->setValue($this->_salt)->setTimeout(480);
+        $hash->setValue($this->_salt)->setTimeout(4800);
+
+        $captcha = new Pas_Form_Element_Recaptcha('captcha');
+        $captcha->setLabel('Please complete the Captcha field to prove you exist');
 
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Activate me!');
 
         $this->addElement($submit);
-        $this->addElements(array( $username, $activationKey, $email,  $hash));
-        $this->addDisplayGroup(array('username','email','activationKey'), 'userdetails');
+        $this->addElements(array( $username, $activationKey, $email,  $hash, $captcha));
+        $this->addDisplayGroup(array('username','email','activationKey', 'captcha'), 'userdetails');
         $this->addDisplayGroup(array('submit'), 'buttons');
         $this->setLegend('Enter details: ');
     	parent::init();
