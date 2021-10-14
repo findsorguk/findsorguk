@@ -308,7 +308,6 @@ class Users_AccountController extends Pas_Controller_Action_Admin
     public function successAction()
     {
         if (null === $this->_auth->getIdentity()) {
-            $this->view->headTitle('Login to the system');
             $form = new LoginForm();
             $this->view->form = $form;
             if ($this->_request->isPost()) {

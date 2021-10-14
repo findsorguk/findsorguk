@@ -2,8 +2,15 @@
 $this->headTitle('Registered user login');
 $this->metaBase()->setDescription('Login to the database after activation')
     ->generate();
+$this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
 ?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
+    <div id="capslock" style="display: none;">
+        <div class="alert alert-danger">
+            <h2>Your caps lock is on</h2>
+            <p>This may affect your password.</p>
+        </div>
+    </div>
 <p>If you have not reset your password since March 21st 2010, then you will need to do so from the forgotten password
     link below. Our security system has been updated.</p>
 <?php
@@ -29,3 +36,10 @@ echo $this->form;
     <li>Your search history is saved</li>
     <li>You can get higher level access if you are an academic involved in archaeological research</li>
 </ul>
+<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/jquery.jccapsalert.js', $type='text/javascript'); ?>
+
+<?php $this->jQuery()->onLoadCaptureStart(); ?>
+
+    jQuery("#current-password").CapsLockAlert();
+
+<?php $this->jQuery()->onLoadCaptureEnd(); ?>
