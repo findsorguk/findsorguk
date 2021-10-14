@@ -5,6 +5,7 @@ $this->metaBase()
     ->setDescription('A function to recover a password for the PAS system')
     ->setKeywords('password,retrieval')
     ->generate();
+$this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
 ?>
     <h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php echo $this->form; ?>

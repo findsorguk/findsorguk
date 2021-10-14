@@ -2,30 +2,32 @@
 
 /** Controller for user module index and login
  *
- * @author Daniel Pett <dpett at britishmuseum.org>
+ * @author     Daniel Pett <dpett at britishmuseum.org>
  * @category   Pas
- * @package Pas_Controller_Action
+ * @package    Pas_Controller_Action
  * @subpackage Admin
  * @copyright  Copyright (c) 2011 DEJ Pett dpett @ britishmuseum . org
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @version 1
- * @uses Zend_Auth
- * @uses Zend_Filter
- * @uses LoginForm
- * @uses Zend_Auth_Adapter_DbTable
- * @uses Zend_Config
- * @uses Zend_Registry
+ * @license    http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version    1
+ * @uses       Zend_Auth
+ * @uses       Zend_Filter
+ * @uses       LoginForm
+ * @uses       Zend_Auth_Adapter_DbTable
+ * @uses       Zend_Config
+ * @uses       Zend_Registry
  */
 class Users_IndexController extends Pas_Controller_Action_Admin
 {
 
     /** The auth instance
+     *
      * @access protected
      * @var \Zend_Auth
      */
     protected $_auth;
 
     /** Set up the ACL and contexts
+     *
      * @access public
      * @return void
      */
@@ -36,11 +38,11 @@ class Users_IndexController extends Pas_Controller_Action_Admin
     }
 
     /** The redirect
-     *
      */
     const REDIRECT = '/users/account/';
 
     /** Creation of the login page
+     *
      * @access public
      * @return void
      */
@@ -50,8 +52,13 @@ class Users_IndexController extends Pas_Controller_Action_Admin
             $form = new LoginForm();
             $this->view->form = $form;
             if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+                $recap = $form->getvalue('g-recaptcha-response');
+                $captcha = $form->getvalue('captcha');
+                unset($recap);
+                unset($captcha);
+
                 $authAdapter = $form->username->getValidator('Authorise')->getAuthAdapter();
-                $data = $authAdapter->getResultRowObject(NULL, 'password');
+                $data = $authAdapter->getResultRowObject(null, 'password');
                 $this->_auth->getStorage()->write($data);
                 $this->redirect($this->_helper->loginRedirect());
             } else {
@@ -73,6 +80,7 @@ class Users_IndexController extends Pas_Controller_Action_Admin
     }
 
     /** Identify the user
+     *
      * @access public
      * @return void
      */
@@ -99,6 +107,7 @@ class Users_IndexController extends Pas_Controller_Action_Admin
 
 
     /** Retrieve the login form data from _POST
+     *
      * @access protected
      * @return array
      */

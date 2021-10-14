@@ -1,5 +1,6 @@
 <?php
-$this->headTitle("Register for a user account");
+
+//$this->headTitle("Register for a user account");
 $this->metaBase()->setDescription('A page that provides user terms and conditions and a form for registration')
     ->setSubject('Registration')
     ->generate();
@@ -7,9 +8,11 @@ $this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
 ?>
 
 
-<h2 class="lead"><?php echo $this->title(); ?></h2>
+<h2 class="lead"><?php
+    echo $this->title(); ?></h2>
 
-<?php echo $this->form; ?>
+<?php
+echo $this->form; ?>
 
 <div>
     <h3 class="lead">Terms and conditions for higher level access</h3>
@@ -57,11 +60,12 @@ $this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
         <li>
             If you want an account for research purposes, then the scheme will need documentation proving your
             accreditation, and a full description of your research agenda.A letter or email from your supervisor or
-            institution will usually suffice.<br />
+            institution will usually suffice.<br/>
             If you are an independent researcher, then a letter or email outlining your research methodology will be
             accepted instead, along with a reference from either your publisher or an academic institution that is
             prepared to guarantee your good character.<br/>
-            If you are unaffiliated, try to find a referee of archaeological standing, or speak to one of our Finds Adviser
+            If you are unaffiliated, try to find a referee of archaeological standing, or speak to one of our Finds
+            Adviser
             team for advice.
         </li>
     </ol>

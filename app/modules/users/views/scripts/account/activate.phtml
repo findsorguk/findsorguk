@@ -1,9 +1,13 @@
 <?php
+
 $this->headTitle('Activate your account');
 $this->metaBase()->setSubject('User accounts')
     ->setDescription('A page for activating your user account')
     ->setKeywords('users,activate,archaeology,account')
     ->generate();
+$this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
 ?>
-    <h2 class="lead"><?php echo $this->title(); ?></h2>
-<?php echo $this->form; ?>
+    <h2 class="lead"><?php
+        echo $this->title(); ?></h2>
+<?php
+echo $this->form; ?>

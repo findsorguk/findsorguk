@@ -1,5 +1,7 @@
 <?php
+
 $this->headTitle('Login to the system');
+$this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
 ?>
 <h2 class="lead">Registered user login</h2>
 <div id="capslock" style="display: none;">
@@ -16,10 +18,16 @@ echo $this->form;
 <p>You can retrieve your user account details using the links below:</p>
 <ul>
     <li>
-        <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'account', 'action' => 'forgotten'), NULL, TRUE); ?>"
+        <a href="<?php
+        echo $this->url(array('module' => 'users', 'controller' => 'account', 'action' => 'forgotten'), null, true); ?>"
            title="Retrieve your password">Forgotten password</a></li>
     <li>
-        <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'account', 'action' => 'forgotusername'), NULL, TRUE); ?>"
+        <a href="<?php
+        echo $this->url(
+            array('module' => 'users', 'controller' => 'account', 'action' => 'forgotusername'),
+            null,
+            true
+        ); ?>"
            title="Retrieve your username">Forgotten username</a></li>
 </ul>
 
@@ -27,7 +35,8 @@ echo $this->form;
 <h3 class="lead">Register for an account</h3>
 
 <p>
-    <a href="<?php echo $this->url(array('module' => 'users', 'controller' => 'account', 'action' => 'register'), NULL, true); ?>"
+    <a href="<?php
+    echo $this->url(array('module' => 'users', 'controller' => 'account', 'action' => 'register'), null, true); ?>"
        title="Register for a database account">Registering for an account</a> to use the Scheme's database is now
     very simple and has the following benefits:</p>
 <ul>
@@ -35,10 +44,13 @@ echo $this->form;
     <li>Your search history is saved</li>
     <li>You can get higher level access if you are an academic involved in archaeological research</li>
 </ul>
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/jquery.jccapsalert.js', $type='text/javascript'); ?>
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/jquery.jccapsalert.js', $type = 'text/javascript'); ?>
 
-<?php $this->jQuery()->onLoadCaptureStart(); ?>
+<?php
+$this->jQuery()->onLoadCaptureStart(); ?>
 
-jQuery("#password").CapsLockAlert();
+jQuery("#current-password").CapsLockAlert();
 
-<?php $this->jQuery()->onLoadCaptureEnd(); ?>
+<?php
+$this->jQuery()->onLoadCaptureEnd(); ?>
