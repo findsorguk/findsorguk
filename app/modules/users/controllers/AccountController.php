@@ -146,22 +146,22 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             $form = new ForgotUsernameForm();
             $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                    $userData = $this->_users->getUserByUsername($form->getValue('email'));
-                    $to = array(
-                        array(
-                            'email' => $form->getValue('email'),
-                            'name' => $userData[0]['fullname']
-                        )
-                    );
-                    $this->_helper->mailer($userData[0], 'forgottenUsername', $to);
-                    $this->getFlash()->addMessage('Account reminder sent to your email address');
-                    $this->redirect('/users/');
-                } else {
-                    $this->getFlash()->addMessage('Problems have been found with your submission');
-                    $form->populate($form->getValues());
-                }
+                $userData = $this->_users->getUserByUsername($form->getValue('email'));
+                $to = array(
+                    array(
+                        'email' => $form->getValue('email'),
+                        'name' => $userData[0]['fullname']
+                    )
+                );
+                $this->_helper->mailer($userData[0], 'forgottenUsername', $to);
+                $this->getFlash()->addMessage('Account reminder sent to your email address');
+                $this->redirect('/users/');
+            } else {
+                $this->getFlash()->addMessage('Problems have been found with your submission');
+                $form->populate($form->getValues());
             }
         }
+    }
 
 
     /** Retrieve a password for a user
@@ -178,55 +178,55 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         $form = new ForgotPasswordForm();
         $this->view->form = $form;
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                $results = $this->_users->findUser($form->getValue('email'), $form->getValue('username'));
-                if ($results) {
-                    $length = 6;
-                    $newKey = "";
-                    // define possible characters
-                    $possible = "0123456789bcdfghjkmnpqrstvwxyz";
-                    $i = 0;
-                    // add random characters to $password until $length is reached
-                    while ($i < $length) {
-                        // pick a random character from the possible ones
-                        $char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
-                        // we don't want this character if it's already in the password
-                        if (!strstr($newKey, $char)) {
-                            $newKey .= $char;
-                            $i++;
-                        }
+            $results = $this->_users->findUser($form->getValue('email'), $form->getValue('username'));
+            if ($results) {
+                $length = 6;
+                $newKey = "";
+                // define possible characters
+                $possible = "0123456789bcdfghjkmnpqrstvwxyz";
+                $i = 0;
+                // add random characters to $password until $length is reached
+                while ($i < $length) {
+                    // pick a random character from the possible ones
+                    $char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+                    // we don't want this character if it's already in the password
+                    if (!strstr($newKey, $char)) {
+                        $newKey .= $char;
+                        $i++;
                     }
-                    $updatesdata = array(
-                        'activationKey' => $newKey,
-                    );
-                    $to = array(
-                        array(
-                            'email' => $form->getValue('email'),
-                            'name' => $results[0]['fullname']
-                        )
-                    );
-                    $assignData = array_merge(
-                        $results[0],
-                        array('activationKey' => $newKey)
-                        ,
-                        $form->getValues()
-                    );
-                    $this->_helper->mailer($assignData, 'forgottenPassword', $to);
-                    $where = array();
-                    $where[] = $this->_users->getAdapter()
-                        ->quoteInto('username = ?', (string)$form->getValue('username'));
-                    $where[] = $this->_users->getAdapter()
-                        ->quoteInto('email = ?', (string)$form->getValue('email'));
-                    $this->_users->update($updatesdata, $where);
-                    $assignData = array_merge($updatesdata, $form->getValues());
-                    $this->getFlash()->addMessage('Please check your email');
-                    $this->redirect('/users/account/resetpassword');
-                } else {
-                    $this->getFlash()->addMessage('Either your email address/or username is incorrect.');
                 }
+                $updatesdata = array(
+                    'activationKey' => $newKey,
+                );
+                $to = array(
+                    array(
+                        'email' => $form->getValue('email'),
+                        'name' => $results[0]['fullname']
+                    )
+                );
+                $assignData = array_merge(
+                    $results[0],
+                    array('activationKey' => $newKey)
+                    ,
+                    $form->getValues()
+                );
+                $this->_helper->mailer($assignData, 'forgottenPassword', $to);
+                $where = array();
+                $where[] = $this->_users->getAdapter()
+                    ->quoteInto('username = ?', (string)$form->getValue('username'));
+                $where[] = $this->_users->getAdapter()
+                    ->quoteInto('email = ?', (string)$form->getValue('email'));
+                $this->_users->update($updatesdata, $where);
+                $assignData = array_merge($updatesdata, $form->getValues());
+                $this->getFlash()->addMessage('Please check your email');
+                $this->redirect('/users/account/resetpassword');
             } else {
-                $this->getFlash()->addMessage('You have not filled in the form correctly');
+                $this->getFlash()->addMessage('Either your email address/or username is incorrect.');
             }
+        } else {
+            $this->getFlash()->addMessage('You have not filled in the form correctly');
         }
+    }
 
 
     /** Register for an account

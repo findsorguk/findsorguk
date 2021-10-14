@@ -1,6 +1,5 @@
 <?php
 /** Form for logging into the system
- *
  * An example of code use:
  * <code>
  * <?php
@@ -8,24 +7,26 @@
  * ?>
  * </code>
  *
- * @author Daniel Pett <dpett@britishmuseum.org>
+ * @author        Daniel Pett <dpett@britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
- * @category   Pas
- * @package    Pas_Form
- * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @version 1
- * @example /app/modules/users/controllers/AccountController.php
-*/
+ * @category      Pas
+ * @package       Pas_Form
+ * @license       http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
+ * @version       1
+ * @example       /app/modules/users/controllers/AccountController.php
+ */
 
-class LoginForm extends Pas_Form {
+class LoginForm extends Pas_Form
+{
 
     /** The constructor
+     *
      * @access public
      * @param array $options
      * @return void
      */
-    public function __construct(array $options = null) {
-
+    public function __construct(array $options = null)
+    {
         parent::__construct($options);
 
         $this->setName('login');
@@ -49,8 +50,9 @@ class LoginForm extends Pas_Form {
         $password->getValidator('StringLength')
             ->setMessage('Your password is too short');
 
-        $this->addElement((new Pas_Form_Element_Recaptcha('captcha'))
-                              ->setLabel('Please complete the Captcha field to prove you exist')
+        $this->addElement(
+            (new Pas_Form_Element_Recaptcha('captcha'))
+                ->setLabel('Please complete the Captcha field to prove you exist')
         );
 
 
@@ -65,6 +67,6 @@ class LoginForm extends Pas_Form {
 
         $this->details->setLegend('Login: ');
 
-	parent::init();
+        parent::init();
     }
 }
