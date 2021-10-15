@@ -1,5 +1,18 @@
 # Change Log
 
+### 1.72 14th October 2021
+- [x] Added captcha to the following pages
+  - Login
+  - Forgot password
+  - Forgot username
+  - Change password
+  - Success page
+- [x] Added password autocomplete attributes
+- [x] Applied caps lock alert PR, and added to success page 
+- [x] Form consistency changes
+- [x] Better password validation 
+- [x] Added confirm password field to missing forms 
+
 ### 1.71 6th October 2021
 - [x] Fix issue with red records appearing in searches for non-authorised users
 - [x] Change hardcoded email references from info@finds.org.uk to past@finds.org.uk
