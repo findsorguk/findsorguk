@@ -8,10 +8,11 @@
   - Change password
   - Success page
 - [x] Added password autocomplete attributes
-- [x] Fixed caps lock alert, and added to success page 
+- [x] Applied caps lock alert PR, and added to success page 
 - [x] Form consistency changes
 - [x] Better password validation 
 - [x] Added confirm password field to missing forms 
+
 ### 1.71 6th October 2021
 - [x] Fix issue with red records appearing in searches for non-authorised users
 - [x] Change hardcoded email references from info@finds.org.uk to past@finds.org.uk
