@@ -17,3 +17,27 @@
 .modal.fade {
     display: none;
 }
+
+@media screen and (max-width: 576px) {
+    .g-recaptcha {
+        width: 100%;
+        display: block;
+        -webkit-transform: scale(0.9);
+        -ms-transform: scale(0.9);
+        -o-transform: scale(0.9);
+        transform: scale(0.9);
+        -webkit-transform-origin: left top;
+        -moz-transform-origin: left top;
+        -ms-transform-origin: left top;
+        -o-transform-origin: left top;
+        transform-origin: left top;
+        overflow: hidden;
+    }
+
+    .form-horizontal .control-group > label
+    {
+        float: none;
+        width: 90%;
+        text-align: left;
+    }
+}
