@@ -799,7 +799,6 @@ class Pas_Solr_Handler
     }
 
     /** Set fields to highlight
-     *
      * @access public
      * @param array $highlights
      * @return array
@@ -1156,7 +1155,9 @@ class Pas_Solr_Handler
                 if (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
                     $query = "workflow:[3 TO 4] OR createdBy:" . $this->getUserID();
                     $person = $this->getPerson();
-                    if ($person !== false && property_exists($person, 'peopleID') && !is_null($person->peopleID)) {
+                    if ($person !== false && property_exists($person, 'peopleID')
+                            && !is_null($person->peopleID)
+                            && $this->getCore() !== 'images') {
                         $query .= " OR recorderID:" . $person->peopleID;
                     }
                     $this->_query->createFilterQuery('workflow')->setQuery($query);
