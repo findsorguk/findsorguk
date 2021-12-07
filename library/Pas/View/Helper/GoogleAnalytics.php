@@ -98,7 +98,10 @@ class Pas_View_Helper_GoogleAnalytics extends Zend_View_Helper_Placeholder_Conta
         $xhtml .= "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)";
         $xhtml .= "})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');\n";
 
-        $xhtml .= "ga('create'," . "'" . $this->getTrackerID() ."', 'auto');\n";
+	$xhtml .= "ga('create'," . "'" . $this->getTrackerID() ."', {
+			 'cookieDomain': 'finds.org.uk',
+			 'cookieFlags': 'SameSite=None; Secure',	 
+		});\n";
         $xhtml .= "ga('send', 'pageview');\n";
         $xhtml .= "</script>";
 
