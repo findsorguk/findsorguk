@@ -1,5 +1,21 @@
 # Change Log
 
+### 1.77 14th December 2021
+- [x] Fix landowner not being able to be removed from a records spatial data
+
+### 1.76 7th December 2021
+- [x] Fix Google Analytics cookies rejected issues
+
+### 1.75 29th November 2021
+- [x] Update code of practice video links
+
+### 1.74 1st November 2021
+- [x] Add code of practice video to PAS homepage, replacing Treasure20
+
+### 1.73 18th October 2021
+- [x] Fix for Captcha overflow on mobile devices
+- [x] Fix images for users with research role
+- 
 ### 1.72 14th October 2021
 - [x] Added captcha to the following pages
   - Login
