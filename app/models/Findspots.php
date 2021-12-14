@@ -121,45 +121,96 @@ class Findspots extends Pas_Db_Table_Abstract
         $findspotdata = $this->getAdapter();
         $select = $findspotdata->select()
             ->from($this->_name, array(
-                'county', 'district', 'parish',
-                'easting', 'northing', 'gridref',
-                'lat' => 'declat', 'lon' => 'declong', 'fourFigure',
-                'knownas', 'smrref', 'map25k',
-                'map10k', 'landusecode', 'landusevalue',
-                'id', 'old_findspotid', 'createdBy',
-                'description', 'comments', 'address',
-                'woeid', 'elevation', 'postcode',
-                'landowner', 'fourFigureLat', 'fourFigureLon',
-                'gridlen', 'woeid', 'geonamesID',
-                'districtID', 'countyID', 'regionID',
-                'parishID', 'findSpotID' => 'id'
+                'county',
+                'district',
+                'parish',
+                'easting',
+                'northing',
+                'gridref',
+                'lat' => 'declat',
+                'lon' => 'declong',
+                'fourFigure',
+                'knownas',
+                'smrref',
+                'map25k',
+                'map10k',
+                'landusecode',
+                'landusevalue',
+                'id',
+                'old_findspotid',
+                'createdBy',
+                'description',
+                'comments',
+                'address',
+                'woeid',
+                'elevation',
+                'postcode',
+                'landowner',
+                'fourFigureLat',
+                'fourFigureLon',
+                'gridlen',
+                'woeid',
+                'geonamesID',
+                'districtID',
+                'countyID',
+                'regionID',
+                'parishID',
+                'findSpotID' => 'id'
             ))
-            ->joinLeft(array('recordtable' => $table), 'recordtable.secuid = findspots.findID',
-                array('discmethod'))
-            ->joinLeft(array('land1' => 'landuses'),
+            ->joinLeft(
+                array('recordtable' => $table),
+                'recordtable.secuid = findspots.findID',
+                array('discmethod')
+            )
+            ->joinLeft(
+                array('land1' => 'landuses'),
                 'land1.id = findspots.landusecode',
-                array('landuse' => 'term'))
-            ->joinLeft(array('land2' => 'landuses'),
+                array('landuse' => 'term')
+            )
+            ->joinLeft(
+                array('land2' => 'landuses'),
                 'land2.id = findspots.landusevalue',
-                array('landvalue' => 'term'))
-            ->joinLeft('maporigins', 'maporigins.id = findspots.gridrefsrc',
-                array('source' => 'term'))
-            ->joinLeft('osRegions', 'findspots.regionID = osRegions.osID',
-                array('region' => 'label', 'regionType' => 'type'))
-            ->joinLeft('osCounties', 'findspots.countyID = osCounties.osID',
-                array('countyType' => 'type'))
-            ->joinLeft('osDistricts', 'findspots.districtID = osDistricts.osID',
-                array('districtType' => 'type'))
-            ->joinLeft('osParishes', 'findspots.parishID = osParishes.osID',
+                array('landvalue' => 'term')
+            )
+            ->joinLeft(
+                'maporigins',
+                'maporigins.id = findspots.gridrefsrc',
+                array('source' => 'term')
+            )
+            ->joinLeft(
+                'osRegions',
+                'findspots.regionID = osRegions.osID',
+                array('region' => 'label', 'regionType' => 'type')
+            )
+            ->joinLeft(
+                'osCounties',
+                'findspots.countyID = osCounties.osID',
+                array('countyType' => 'type')
+            )
+            ->joinLeft(
+                'osDistricts',
+                'findspots.districtID = osDistricts.osID',
+                array('districtType' => 'type')
+            )
+            ->joinLeft(
+                'osParishes',
+                'findspots.parishID = osParishes.osID',
                 array(
                     'parishType' => 'type',
                     'centreLat' => 'lat',
                     'centreLon' => 'lon'
-                ))
-            ->joinLeft('people', $this->_name . '.landowner = people.secuid',
-                array('landownername' => 'fullname'))
-            ->joinLeft('discmethods', 'recordtable.discmethod = discmethods.id',
-                array('discmethod' => 'method', 'discoveryMethod' => 'recordtable.discmethod'))
+                )
+            )
+            ->joinLeft(
+                'people',
+                $this->_name . '.landowner = people.secuid',
+                array('landownername' => 'fullname')
+            )
+            ->joinLeft(
+                'discmethods',
+                'recordtable.discmethod = discmethods.id',
+                array('discmethod' => 'method', 'discoveryMethod' => 'recordtable.discmethod')
+            )
             ->where('recordtable.id = ?', (int)$id)
             ->group('recordtable.id')
             ->limit('1');
@@ -199,7 +250,11 @@ class Findspots extends Pas_Db_Table_Abstract
         $finds = $this->getAdapter();
         $select = $finds->select()
             ->from($this->_name)
-            ->joinLeft(array('recordtable' => $useTable), 'recordtable.secuid = findspots.findID', array('recordID' => 'id'))
+            ->joinLeft(
+                array('recordtable' => $useTable),
+                'recordtable.secuid = findspots.findID',
+                array('recordID' => 'id')
+            )
             ->where('findspots.id = ?', (int)$id);
         $rows = $finds->fetchAll($select);
         $rows[0]['controller'] = $table;
@@ -249,11 +304,10 @@ class Findspots extends Pas_Db_Table_Abstract
      */
     public function addAndProcess(array $data)
     {
-
         if (is_array($data)) {
             foreach ($data as $k => $v) {
                 if ($v == "") {
-                    $data[$k] = NULL;
+                    $data[$k] = null;
                 }
             }
 
@@ -317,7 +371,6 @@ class Findspots extends Pas_Db_Table_Abstract
     protected function _processFindspot(array $data)
     {
         if (is_array($data)) {
-
             $conversion = new Pas_Geo_Gridcalc($data['gridref']);
             $results = $conversion->convert();
 
@@ -327,9 +380,11 @@ class Findspots extends Pas_Db_Table_Abstract
             //$place = new Pas_Service_Geo_GeoPlanet($this->_appid);
 
             $geoHash = new Pas_Geo_Hash();
-            $hash = $geoHash->encode($results['decimalLatLon']['decimalLatitude'],
+            $hash = $geoHash->encode(
+                $results['decimalLatLon']['decimalLatitude'],
 
-            $results['decimalLatLon']['decimalLongitude']);
+                $results['decimalLatLon']['decimalLongitude']
+            );
             $data['declong'] = $results['decimalLatLon']['decimalLongitude'];
             $data['declat'] = $results['decimalLatLon']['decimalLatitude'];
             $data['easting'] = $results['easting'];
@@ -353,7 +408,7 @@ class Findspots extends Pas_Db_Table_Abstract
             $words = new Pas_Service_What3words();
             $words->setApiKey($this->_config->webservice->what3words->apikey);
             $threewords = $words->positionToWords(array($data['fourFigureLat'], $data['fourFigureLon']));
-            $data['what3words'] = $threewords->words; 
+            $data['what3words'] = $threewords->words;
         } else {
             throw new Zend_Exception('Data is not an array', 500);
         }
@@ -370,7 +425,7 @@ class Findspots extends Pas_Db_Table_Abstract
         if (is_array($data)) {
             foreach ($data as $k => $v) {
                 if ($v == "") {
-                    $data[$k] = NULL;
+                    $data[$k] = null;
                 }
             }
             if (!is_null($data['gridref'])) {
@@ -410,7 +465,7 @@ class Findspots extends Pas_Db_Table_Abstract
         if (is_array($data)) {
             foreach ($data as $k => $v) {
                 if ($v == "") {
-                    $data[$k] = NULL;
+                    $data[$k] = null;
                 }
             }
             if (!is_null($data['gridref'])) {
@@ -438,8 +493,11 @@ class Findspots extends Pas_Db_Table_Abstract
         $findspots = $this->getAdapter();
         $select = $findspots->select()
             ->from($this->_name)
-            ->joinLeft('finds', 'finds.secuid = findspots.findID',
-                array('recordID' => 'id'))
+            ->joinLeft(
+                'finds',
+                'finds.secuid = findspots.findID',
+                array('recordID' => 'id')
+            )
             ->where('gridref IS NOT NULL')
             ->where('gridlen IS NULL')
             ->limit($limit);
@@ -456,8 +514,11 @@ class Findspots extends Pas_Db_Table_Abstract
         $findspots = $this->getAdapter();
         $select = $findspots->select()
             ->from($this->_name)
-            ->joinLeft('finds', 'finds.secuid = findspots.findID',
-                array('recordID' => 'id'))
+            ->joinLeft(
+                'finds',
+                'finds.secuid = findspots.findID',
+                array('recordID' => 'id')
+            )
             ->where('fourFigureLat = ?', 0)
             ->where('gridref IS NOT NULL')
             ->limit($limit);
@@ -534,7 +595,7 @@ class Findspots extends Pas_Db_Table_Abstract
      */
     public function getFindspotByfindID($findID)
     {
-	$select = $this->select()->where('findID = ?', (string)$findID);
-	return $this->fetchRow($select);
+        $select = $this->select()->where('findID = ?', (string)$findID);
+        return $this->fetchRow($select);
     }
 }
