@@ -436,6 +436,9 @@ class Findspots extends Pas_Db_Table_Abstract
             unset($data['csrf']);
         }
         if (array_key_exists('landownername', $data)) {
+            if (empty($data['landownername'])) {
+                $data['landowner'] = null;
+            }
             unset($data['landownername']);
         }
         if (array_key_exists('parishID', $data) && !is_null($data['parishID'])) {
