@@ -2,6 +2,38 @@
 echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <?php
 echo $this->docType(); ?>
+<?php
+//Allow non W3C attributes
+$this->headScript()->setAllowArbitraryAttributes(true);
+
+//Config location: app/config/webservices.ini
+$config = Zend_Registry::get('config')->webservice->cookiebot->toArray();
+
+//Cookiebot
+$this->headScript()->prependFile(
+    $config['src'],
+    'text/javascript',
+    array(
+        'data-cbid' => $config['data-cbid'],
+        'data-blockingmode' => $config['data-blockingmode'],
+    )
+);
+
+//Google tag manager
+$this->headScript()->prependFile(
+    $this->baseUrl() . '/js/cookiebot-google-tag-manager.js',
+    'text/javascript',
+    array('data-cookieconsent' => 'ignore')
+);
+
+//Google consent mode
+$this->headScript()->prependFile(
+    $this->baseUrl() . '/js/cookiebot-google-consent-mode.js',
+    'text/javascript',
+    array('data-cookieconsent' => 'ignore')
+);
+
+?>
 <html
 
         xmlns="http://www.w3.org/1999/xhtml"
