@@ -76,12 +76,22 @@ Wrap the rest of the page in another container to center all the content. */ ?>
     <div class="row">
         <div class="span4">
             <div class="youtube-container">
-                <iframe src="https://www.youtube.com/embed/bR4qwpN3TMw"
+                <div class="cookieconsent-optout-marketing"
+                     style="background:black; width:100%; display:block; padding-top: 28.12%; padding-bottom: 28.12%; margin-bottom: 40px">
+                    <div style="color:white; font-family: Arial, sans-serif;">
+                        Please <a href="javascript:Cookiebot.renew()"
+                                  style="color:white !important; text-decoration:underline;">accept
+                            marketing-cookies</a> to watch this video
+                    </div>
+                </div>
+                <iframe data-src="https://www.youtube.com/embed/bR4qwpN3TMw"
+                        data-cookieconsent="marketing"
                         title="(Video) Code of Practice for Responsible Metal Detecting in England and Wales"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
             </div>
+            <br>
             <h2 class="lead">Code of Practice</h2>
             <a href="https://youtu.be/WO3vnD3c7ac" target="_blank">Video without subtitles</a>
         </div>
@@ -101,7 +111,15 @@ Wrap the rest of the page in another container to center all the content. */ ?>
             ?>
             <a class="twitter-timeline" data-height="300" href="https://twitter.com/findsorguk?ref_src=twsrc%5Etfw">Tweets
                 by findsorguk</a>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <div class="cookieconsent-optout-marketing"
+                 style="background:black; width:100%; display:block; padding-top: 28.12%; padding-bottom: 28.12%; margin-bottom: 40px">
+                <div style="color:white; font-family: Arial, sans-serif;">
+                    Please <a href="javascript:Cookiebot.renew()"
+                              style="color:white !important; text-decoration:underline;">accept
+                        marketing-cookies</a> to view these tweets
+                </div>
+            </div>
+            <script type="text/plain" data-cookieconsent="marketing" async src="https://platform.twitter.com/widgets.js" charset="utf-8" ></script>
         </div>
 
     </div>
