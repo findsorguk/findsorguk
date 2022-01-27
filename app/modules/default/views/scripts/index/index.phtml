@@ -70,35 +70,37 @@ Wrap the rest of the page in another container to center all the content. */ ?>
         </div>
     </div>
     <br>
-
-<?php
-// Three columns of text below the carousel ?>
-    <div class="row">
-        <div class="span4">
-            <div class="youtube-container">
-                <div class="cookieconsent-optout-marketing"
-                     style="background:black; width:100%; display:block; padding-top: 28.12%; padding-bottom: 28.12%; margin-bottom: 40px">
-                    <div style="color:white; font-family: Arial, sans-serif;">
-                        Please <a href="javascript:Cookiebot.renew()"
-                                  style="color:white !important; text-decoration:underline;">accept
-                            marketing-cookies</a> to watch this video
+        <?php
+        // Three columns of text below the carousel ?>
+        <div class="row">
+            <div class="span4">
+                <div class="wrapper-relative">
+                    <div class="youtube-container">
+                            <iframe data-src="https://www.youtube.com/embed/bR4qwpN3TMw"
+                                    data-cookieconsent="marketing"
+                                    title="(Video) Code of Practice for Responsible Metal Detecting in England and Wales"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
                     </div>
-                </div>
-                <iframe data-src="https://www.youtube.com/embed/bR4qwpN3TMw"
-                        data-cookieconsent="marketing"
-                        title="(Video) Code of Practice for Responsible Metal Detecting in England and Wales"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-            </div>
-            <br>
-            <h2 class="lead">Code of Practice</h2>
-            <a href="https://youtu.be/WO3vnD3c7ac" target="_blank">Video without subtitles</a>
-        </div>
-        <div class="span4">
-            <img class="img" src="/assets/logos/pas.jpg" width="213" height="104">
+                    <br>
+                    <h2 class="lead">Code of Practice</h2>
+                    <a href="https://youtu.be/WO3vnD3c7ac" target="_blank">Video without subtitles</a>
 
-            <h2 class="lead">Search our database</h2>
+                    <div class="cookieconsent-optout-marketing cookie-placeholder cookie-placeholder--dark">
+                        <div style="color:white; font-family: Arial, sans-serif;">
+                            Please <a href="javascript:Cookiebot.renew()"
+                                      style="color:white !important; text-decoration:underline;">accept
+                                marketing-cookies</a> to watch this video
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="span4">
+                <img class="img" src="/assets/logos/pas.jpg" width="213" height="104">
+
+                <h2 class="lead">Search our database</h2>
             <?php
             echo $this->form; ?>
         </div>
@@ -109,17 +111,24 @@ Wrap the rest of the page in another container to center all the content. */ ?>
                        <!--h2 class="lead">Latest tweets</h2--> */
 
             ?>
-            <a class="twitter-timeline" data-height="300" href="https://twitter.com/findsorguk?ref_src=twsrc%5Etfw">Tweets
-                by findsorguk</a>
-            <div class="cookieconsent-optout-marketing"
-                 style="background:black; width:100%; display:block; padding-top: 28.12%; padding-bottom: 28.12%; margin-bottom: 40px">
-                <div style="color:white; font-family: Arial, sans-serif;">
+            <div class="wrapper-relative" style="height: 300px">
+
+                <div class="cookieconsent-optin-marketing cookie-placeholder">
+                    If you can see this, please <a href="#" onclick="window.location.reload(true)">refresh</a> your page
+                    to view these Tweets.
+                </div>
+                <div class="wrapper-absolute-top-left">
+                    <a class="twitter-timeline" data-height="300" href="https://twitter.com/findsorguk?ref_src=twsrc%5Etfw">Tweets
+                        by findsorguk</a>
+                    <script async type="text/plain" data-cookieconsent="marketing"
+                            src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+                <div class="cookieconsent-optout-marketing cookie-placeholder cookie-placeholder--dark">
                     Please <a href="javascript:Cookiebot.renew()"
                               style="color:white !important; text-decoration:underline;">accept
                         marketing-cookies</a> to view these tweets
                 </div>
             </div>
-            <script type="text/plain" data-cookieconsent="marketing" async src="https://platform.twitter.com/widgets.js" charset="utf-8" ></script>
         </div>
 
     </div>
@@ -244,4 +253,7 @@ $this->placeholder('searchForm')->captureStart(); ?>
 <?php
 echo $this->form; ?>
 <?php
-$this->placeholder('searchForm')->captureEnd();
+$this->placeholder('searchForm')->captureEnd(); ?>
+
+
+

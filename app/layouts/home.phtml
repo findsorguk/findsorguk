@@ -3,6 +3,9 @@ echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 
 <?php
 echo $this->docType(); ?>
+
+<script src="/js/cookiebot-placeholder.js"></script>
+
 <?php
 //Allow non W3C attributes
 $this->headScript()->setAllowArbitraryAttributes(true);
@@ -163,7 +166,6 @@ $this->headScript()->prependFile(
 
 <?php
 echo $this->jQuery(); ?>
-
 <?php
 echo $this->inlineScript(); ?>
 

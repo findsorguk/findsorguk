@@ -18,6 +18,39 @@
     display: none;
 }
 
+/* COOKIEBOT
+-------------------------------------------------- */
+.wrapper-relative {
+    position: relative;
+    width: 100%;
+}
+
+.wrapper-absolute-top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.cookie-placeholder {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 28.12%;
+    padding-bottom: 28.12%;
+}
+
+.cookie-placeholder--dark {
+    background-color: black;
+    color: white;
+}
+
+.cookie-show{
+    visibility: visible !important;
+}
+
 @media screen and (max-width: 576px) {
     .g-recaptcha {
         width: 100%;
