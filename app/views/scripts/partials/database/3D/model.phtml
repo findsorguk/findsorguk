@@ -7,23 +7,18 @@
  */
 
 ?>
-<div class="wrapper-relative" style="width:<?= $this->width; ?>; height: <?= $this->height; ?>px; margin-bottom: 20px">
-    <div class="wrapper-absolute-top-left" >
-        <iframe width="<?= $this->width; ?>" height="<?= $this->height; ?>"
-                frameborder="0" allowfullscreen
-                data-src="<?= $this->baseurl; ?><?= $this->modelID; ?>/embed"
-                data-cookieconsent="statistics"
-                frameborder="0" allowfullscreen
-                mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel="" class="pull-right">
-        </iframe>
-    </div>
-
-    <div class="cookieconsent-optout-statistics cookie-placeholder cookie-placeholder--dark"
-         style="width:<?= $this->width; ?>; height: <?= $this->height; ?>;">
-        <div style="color:white; font-family: Arial, sans-serif; text-align:center">
+<div class="embed-container" style="--aspect-ratio:4/3">
+    <div class="cookieconsent-optout-statistics cookie-placeholder dark ">
+        <div style="color:white; font-family: Arial, sans-serif;">
             Please <a href="javascript:Cookiebot.renew()"
-                      style="color:white !important; text-decoration:underline;">accept statistics-cookies</a> to see this 3d scan
+                      style="color:white !important; text-decoration:underline;">accept
+                statistics-cookies</a> to see this 3d scan
         </div>
     </div>
-
+    <iframe frameborder="0" allowfullscreen
+            data-src="<?= $this->baseurl; ?><?= $this->modelID; ?>/embed"
+            data-cookieconsent="statistics"
+            frameborder="0" allowfullscreen
+            mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel="">
+    </iframe>
 </div>
