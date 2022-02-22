@@ -13,7 +13,9 @@
                 title="Read about our terms and conditions - nothing onerous"><i class="icon-warning-sign"></i>Terms of Use</a></li>
         <li <?php echo $this->currentPage()->active('info', 'advice', 'index', 'privacy'); ?>><a
                 href="<?php echo $this->url(array('module' => 'info', 'controller' => 'advice', 'action' => 'index', 'slug' => 'privacy'), 'information', true); ?>"
-                title="Read about our privacy policy"><i class="icon-warning-sign"></i>Privacy &amp; Cookies</a></li>
+                title="Read about our privacy policy"><i class="icon-warning-sign"></i>Privacy</a></li>
+        <li><a href="https://www.britishmuseum.org/cookies" target="_blank"
+               title="Information about our site's cookies"><i class="icon-warning-sign"></i>Cookie information </a></li>
         <li <?php echo $this->currentPage()->active('info', 'advice', 'index', 'foi'); ?>><a
                 href="<?php echo $this->url(array('module' => 'info', 'controller' => 'advice', 'action' => 'index', 'slug' => 'foi'), 'information', true); ?>"
                 title="Freedom of information requests and how to submit one"><i class="icon-warning-sign"></i>Freedom of Information</a></li>

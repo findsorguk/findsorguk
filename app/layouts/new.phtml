@@ -1,37 +1,80 @@
-<?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
-<?php echo $this->docType(); ?>
+<?php
+echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
+<?php
+echo $this->docType(); ?>
+
+<script src="/js/cookiebot-placeholder.js"></script>
+
+<?php
+//Allow non W3C attributes
+$this->headScript()->setAllowArbitraryAttributes(true);
+
+//Config location: app/config/webservices.ini
+$config = Zend_Registry::get('config')->webservice->cookiebot->toArray();
+
+//Cookiebot
+$this->headScript()->prependFile(
+    $config['src'],
+    'text/javascript',
+    array(
+        'data-cbid' => $config['data-cbid'],
+        'data-blockingmode' => $config['data-blockingmode'],
+    )
+);
+
+//Google tag manager
+$this->headScript()->prependFile(
+    $this->baseUrl() . '/js/cookiebot-google-tag-manager.js',
+    'text/javascript',
+    array('data-cookieconsent' => 'ignore')
+);
+
+//Google consent mode
+$this->headScript()->prependFile(
+    $this->baseUrl() . '/js/cookiebot-google-consent-mode.js',
+    'text/javascript',
+    array('data-cookieconsent' => 'ignore')
+);
+
+?>
 <html
 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:foaf="http://xmlns.com/foaf/0.1/"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:batlas="http://atlantides.org/batlas/"
-    xmlns:gml="http://www.opengis.net/gml/"
-    xmlns:nm="http://nomisma.org/id/"
-    xmlns:ov="http://open.vocab.org/terms/"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:skos="http://www.w3.org/2008/05/skos#"
-    xmlns:pas="<?php echo $this->serverUrl(); ?>/database/"
-    xmlns:google="http://rdf.data-vocabulary.org/#"
-    xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
-    xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
-    xmlns:og="http://ogp.me/ns#"
-    xmlns:fb="http://www.facebook.com/2008/fbml"
-    xml:lang="en"
-    >
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:foaf="http://xmlns.com/foaf/0.1/"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:batlas="http://atlantides.org/batlas/"
+        xmlns:gml="http://www.opengis.net/gml/"
+        xmlns:nm="http://nomisma.org/id/"
+        xmlns:ov="http://open.vocab.org/terms/"
+        xmlns:owl="http://www.w3.org/2002/07/owl#"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+        xmlns:skos="http://www.w3.org/2008/05/skos#"
+        xmlns:pas="<?php
+        echo $this->serverUrl(); ?>/database/"
+        xmlns:google="http://rdf.data-vocabulary.org/#"
+        xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
+        xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+        xmlns:og="http://ogp.me/ns#"
+        xmlns:fb="http://www.facebook.com/2008/fbml"
+        xml:lang="en"
+>
 <head>
 
-    <?php echo $this->headTitle(); ?>
+    <?php
+    echo $this->headTitle(); ?>
 
-    <?php echo $this->headMeta(); ?>
+    <?php
+    echo $this->headMeta(); ?>
 
-    <?php echo $this->headLink(); ?>
+    <?php
+    echo $this->headLink(); ?>
 
-    <?php echo $this->headScript(); ?>
+    <?php
+    echo $this->headScript(); ?>
 
-    <?php echo $this->headLink()->appendStylesheet('css/home-custom.css', $type = 'screen'); ?>
+    <?php
+    echo $this->headLink()->setStylesheet('css/home-custom.css', $type = 'screen'); ?>
 
 </head>
 
@@ -51,19 +94,23 @@
             </a>
 
             <div class="nav-collapse">
-                <?php echo $this->layout()->navigation ?>
+                <?php
+                echo $this->layout()->navigation ?>
             </div>
             <!--/.nav-collapse -->
         </div>
     </div>
 </div>
-<?php echo $this->layout()->messages; ?>
-<?php echo $this->layout()->content; ?>
+<?php
+echo $this->layout()->messages; ?>
+<?php
+echo $this->layout()->content; ?>
 
 
 <!-- FOOTER -->
 <footer>
-    <?php echo $this->layout()->footer; ?>
+    <?php
+    echo $this->layout()->footer; ?>
 </footer>
 
 </div><!-- /.container -->
@@ -73,11 +120,14 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-<?php echo $this->jQuery(); ?>
+<?php
+echo $this->jQuery(); ?>
 <script src="js/bootstrap-transition.js"></script>
-<?php echo $this->inlineScript(); ?>
+<?php
+echo $this->inlineScript(); ?>
 
-<?php echo $this->layout()->analytics; ?>
+<?php
+echo $this->layout()->analytics; ?>
 
 
 </body>
