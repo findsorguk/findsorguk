@@ -18,6 +18,91 @@
     display: none;
 }
 
+/* COOKIEBOT
+-------------------------------------------------- */
+.cookie-placeholder {
+    visibility: hidden;
+    width: 100%;
+}
+
+.cookie-placeholder.dark {
+    background-color: black;
+    color: white;
+    border-radius:3px;
+}
+
+.cookie-show {
+    visibility: visible !important;
+    -webkit-animation: fadeIn ease-in 1s;
+    animation: fadeIn ease-in 1s;
+}
+
+.embed-container {
+    position: relative;
+}
+
+.embed-container::before {
+    content: "";
+    display: block;
+    padding-bottom: calc(100% / (var(--aspect-ratio, 16/9)));
+}
+
+.embed-container div[class*='cookieconsent-'], .embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.embed-container [class*="cookieconsent-"] > div {
+    position: absolute;
+    left:50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+}
+
+.cookie-placeholder--reload {
+    background: white;
+    padding: 5px;
+    top: 50% !important;
+    height: fit-content !important;
+}
+
+@-webkit-keyframes fadeIn {
+    0%{
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+/* CSS for browsers that don't support custom properties */
+@supports not (--custom: property) {
+    .embed-container::before {
+        content: "";
+        display: block;
+        padding-bottom: 56.25%;
+    }
+}
+
+/* END COOKIEBOT 
+-------------------------------------------------- */
+
 @media screen and (max-width: 576px) {
     .g-recaptcha {
         width: 100%;
