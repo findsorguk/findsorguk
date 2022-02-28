@@ -1,4 +1,5 @@
 <?php
+
 $this->headTitle('Contact the Portable Antiquities Scheme');
 $this->metaBase()
     ->setDescription('Details about who to contact at the Scheme or the British Museum')
@@ -7,27 +8,49 @@ $this->metaBase()
     ->generate();
 $this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
 ?>
-<h2 class="lead"><?php echo $this->title(); ?></h2>
+<h2 class="lead"><?php
+    echo $this->title(); ?></h2>
 <p>The British Museum cannot provide valuations for any objects; if this is what you require we suggest that you contact
     a reputable auction house or a numismatic dealer.
 </p>
-<?php echo $this->form; ?>
+<?php
+echo $this->form; ?>
 <p>If your query is related to getting objects found within the boundaries of England and Wales recorded
     with the Scheme then go to our <a
-        href="<?php echo $this->url(array('module' => 'contacts'), 'default', true); ?>">
+            href="<?php
+            echo $this->url(array('module' => 'contacts'), 'default', true); ?>">
         contacts page</a>. </p>
 <p>If your object is from outside England and Wales, then the following might be of more use to you:</p>
 <ul>
-    <li>Ancient Egypt and the Sudan: <a class="email" href="mailto:egyptian@britishmuseum.org">egyptian@britishmuseum.org</a> +44 (0) 207 323 8311</li>
-    <li>Coins and Medals: <a class="email" href="mailto:coins@britishmuseum.org">coins@britishmuseum.org</a> +44 (0) 207 323 8607</li>
-    <li>Middle East: <a class="email" href="mailto:ancientneareast@britishmuseum.org">ancientneareast@britishmuseum.org</a> +44 (0) 207 323 8308</li>
-    <li>Greek and Roman: <a class="email" href="mailto:greekandroman@britishmuseum.org">greekandroman@britishmuseum.org</a> +44 (0) 207 323 8321</li>
+    <li>Ancient Egypt and the Sudan: <a class="email" href="mailto:egyptian@britishmuseum.org">egyptian@britishmuseum.org</a>
+        +44 (0) 207 323 8311
+    </li>
+    <li>Coins and Medals: <a class="email" href="mailto:coins@britishmuseum.org">coins@britishmuseum.org</a> +44 (0) 207
+        323 8607
+    </li>
+    <li>Middle East: <a class="email"
+                        href="mailto:ancientneareast@britishmuseum.org">ancientneareast@britishmuseum.org</a> +44 (0)
+        207 323 8308
+    </li>
+    <li>Greek and Roman: <a class="email"
+                            href="mailto:greekandroman@britishmuseum.org">greekandroman@britishmuseum.org</a> +44 (0)
+        207 323 8321
+    </li>
     <li>Asia: <a class="email" href="mailto:asia@britishmuseum.org">asia@britishmuseum.org</a> +44 (0) 207 323 8416</li>
-    <li>Africa, Oceania and Americas: <a class="email" href="mailto:aoa@britishmuseum.org">aoa@britishmuseum.org</a> +44 (0) 207 323 8041</li>
-    <li>Britain, Europe and Prehistory: <a class="email" href="mailto:prehistoryandeurope@britishmuseum.org">prehistoryandeurope@britishmuseum.org</a> +44 (0) 207 323 8629</li>
-    <li>Prints and drawings: <a class="email" href="mailto:prints@britishmuseum.org">prints@britishmuseum.org</a> +44 (0) 207 323 8408</li>
-    <li>Ancient Near East: <a class="email" href="mailto:ancientneareast@britishmuseum.org">ancientneareast@britishmuseum.org</a> +44 (0) 207 323 8308</li>
+    <li>Africa, Oceania and Americas: <a class="email" href="mailto:aoa@britishmuseum.org">aoa@britishmuseum.org</a> +44
+        (0) 207 323 8041
+    </li>
+    <li>Britain, Europe and Prehistory: <a class="email" href="mailto:prehistoryandeurope@britishmuseum.org">prehistoryandeurope@britishmuseum.org</a>
+        +44 (0) 207 323 8629
+    </li>
+    <li>Prints and drawings: <a class="email" href="mailto:prints@britishmuseum.org">prints@britishmuseum.org</a> +44
+        (0) 207 323 8408
+    </li>
+    <li>Ancient Near East: <a class="email" href="mailto:ancientneareast@britishmuseum.org">ancientneareast@britishmuseum.org</a>
+        +44 (0) 207 323 8308
+    </li>
 </ul>
 <p>If you are enquiring about tickets please contact our box office.</p>
-<p>Freedom of Information requests must be sent to <a class="email" href="mailto:compliance@britishmuseum.org">compliance@britishmuseum.org</a>.</p>
+<p>Freedom of Information requests must be sent to <a class="email" href="mailto:compliance@britishmuseum.org">compliance@britishmuseum.org</a>.
+</p>
  
