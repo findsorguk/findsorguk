@@ -56,7 +56,7 @@ class Pas_Controller_Plugin_StyleAndAlternate extends Zend_Controller_Plugin_Abs
     public function postDispatch(Zend_Controller_Request_Abstract $request)
     {
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
-        $view->headMeta('Daniel Pett: ' . Zend_Version::VERSION, 'generator');
+        $view->headMeta('The British Museum ' . Zend_Version::VERSION, 'generator');
 
         foreach ($this->_javascript as $script) {
             $location = $view->baseUrl() . $script;
