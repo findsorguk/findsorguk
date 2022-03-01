@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.78 28th February 2022
+- [x] Add Cookiebot script to website to provide cookie consent
+- [x] Add placeholders to embedded media to provide visual indication of Cookiebot blocking
+
 ### 1.77 14th December 2021
 - [x] Fix landowner not being able to be removed from a records spatial data
 
