@@ -1061,6 +1061,25 @@ class Pas_Solr_Handler
         return $this;
     }
 
+    /**
+     * @param $userRole
+     * @param ...$roles
+     * @return bool
+     */
+    protected function checkRoleAllowed($userRole, ...$roles): bool
+    {
+        $allowed = $this->getAllowed();
+        if (!empty($roles)) {
+            $allowed = array_merge($allowed, $roles);
+        }
+
+        if (in_array($userRole, $allowed)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /** Execute the query
      *
      * @access public
@@ -1147,9 +1166,7 @@ class Pas_Solr_Handler
             }
         }
 
-        if (
-            !in_array($this->getRole(), $this->getAllowed()) || $this->getRole() == 'research' || is_null($this->getRole())
-        ) {
+        if ($this->checkRoleAllowed($this->getRole(), "research") == false) {
             if (($this->getRole() == 'member' || $this->getRole() == 'research') && $this->getMyfinds()) {
                 $this->_query->createFilterQuery('myfinds')->setQuery('createdBy:' . $params['createdBy']);
             } elseif (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
@@ -1164,6 +1181,9 @@ class Pas_Solr_Handler
                 }
                     $this->_query->createFilterQuery('workflow')->setQuery($query);
             }
+        }
+
+        if ($this->checkRoleAllowed($this->getRole()) == false) {
             if (
                 (array_key_exists('parish', $params)
                     || array_key_exists('fourFigure', $params) || array_key_exists('parishID', $params))
