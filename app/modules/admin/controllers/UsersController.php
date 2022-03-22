@@ -106,6 +106,22 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
         }
     }
 
+    /**
+     * @param string $canRecord
+     * @param string $secuid
+     * @return void
+     * @throws Zend_Db_Adapter_Exception
+     */
+    private function setPeopleCanRecordFlag(string $secuid, string $canRecord)
+    {
+        if (!empty($secuid)) {
+            (new People())->setCanRecord(
+                $secuid,
+                (bool)$canRecord
+            );
+        }
+    }
+
     /** Edit a user's account
      * @access public
      * @return void
@@ -124,6 +140,9 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                     $where = array();
                     $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $oldData = $this->getUsers()->fetchRow('id=' . $this->getParam('id'))->toArray();
+
+                    $this->setPeopleCanRecordFlag($updateData['peopleID'], $updateData['canRecord']);
+
                     unset($updateData['person']);
                     $this->getUsers()->update($updateData, $where);
 

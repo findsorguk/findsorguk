@@ -261,6 +261,19 @@ if (!$data = $this->_cache->load('valuers')) {
         return self::insert($data);
     }
 
+    /**
+     * @param $secuid
+     * @param $canRecord
+     * @return void
+     * @throws Zend_Db_Adapter_Exception
+     */
+    public function setCanRecord(string $secuid, bool $canRecord): int
+    {
+        $where = array(
+            'secuid = ?' => $secuid,
+        );
+        return $this->update(array('canRecord' => $canRecord ? "1" : "0"), $where);
+    }
 
     /** Function for getting the county
      * @access public
