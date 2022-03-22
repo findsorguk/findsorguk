@@ -192,6 +192,22 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
         }
     }
 
+    /**
+     * @param string $canRecord
+     * @param string $dbaseID
+     * @return void
+     * @throws Zend_Db_Adapter_Exception
+     */
+    private function setUserCanRecordFlag(string $dbaseID, string $canRecord)
+    {
+        if (!empty($dbaseID)) {
+            (new Users())->setCanRecord(
+                $dbaseID,
+                (bool)$canRecord
+            );
+        }
+    }
+
     /** Edit person's data
      * @access public
      * @throws Exception
@@ -215,13 +231,12 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
                     $coords = $this->geoCodeAddress($address);
                     $oldData = $this->getPeople()->fetchRow('id='
                         . $this->getParam('id'))->toArray();
+
+                    // Update the canrecord permission on the corresponding people recrod
                     if (array_key_exists('dbaseID', $updateData)) {
-                        $users = new Users();
-                        $userdetails = array('peopleID' => $oldData['secuid']);
-                        $userdetails['canRecord'] = $updateData['canRecord'];
-                        $whereUsers = $users->getAdapter()->quoteInto('id = ?', $updateData['dbaseID']);
-                        $users->update($userdetails, $whereUsers);
+                        $this->setUserCanRecordFlag($updateData['dbaseID'], $updateData['canRecord']);
                     }
+
                     $where = $this->getPeople()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $merged = array_merge($updateData, $coords);
                     //Updated the people db table

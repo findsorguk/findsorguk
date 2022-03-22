@@ -476,4 +476,18 @@ class Users extends Pas_Db_Table_Abstract
             ->where('users.role =?', 'hoard');
         return $this->getAdapter()->fetchAll($select);
     }
+
+    /** set can record in user record
+     * @param string $dbaseID
+     * @param bool $canRecord
+     * @return int
+     * @throws Zend_Db_Adapter_Exception
+     */
+    public function setCanRecord(string $dbaseID, bool $canRecord): int
+    {
+        $where = array(
+            'id = ?' => $dbaseID,
+        );
+        return $this->update(array('canRecord' => $canRecord ? "1" : "0"), $where);
+    }
 }
