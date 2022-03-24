@@ -22,7 +22,6 @@
  */
 class Users extends Pas_Db_Table_Abstract
 {
-
     /** The table name
      * @access protected
      * @var string
@@ -82,7 +81,8 @@ class Users extends Pas_Db_Table_Abstract
     /** Reset a password
      * @access public
      * @param array $data
-     * @return integer
+     * @return int
+     * @throws Zend_Db_Adapter_Exception
      */
     public function resetPassword(array $data)
     {
@@ -105,7 +105,7 @@ class Users extends Pas_Db_Table_Abstract
     /** Register a person
      * @access public
      * @param array $data
-     * @return integer
+     * @return int
      */
     public function register(array $data)
     {
@@ -127,7 +127,8 @@ class Users extends Pas_Db_Table_Abstract
     /** Activate an account
      * @access public
      * @param array $data
-     * @return integer
+     * @return int
+     * @throws Zend_Db_Adapter_Exception
      */
     public function activate(array $data)
     {
@@ -154,7 +155,7 @@ class Users extends Pas_Db_Table_Abstract
      * @access public
      * @param string $key
      * @param string $username
-     * @param integer $valid
+     * @param int $valid
      * @return array
      */
     public function activation($key, $username, $valid = 0)
@@ -197,19 +198,25 @@ class Users extends Pas_Db_Table_Abstract
 
     /** Retrieve a user's profile with additional info, such as creator
      * @access public
-     * @param integer $id
+     * @param int $id
      * @return array
      */
     public function getUserProfile($id)
     {
         $select = $this->select()
             ->from($this->_name)
-            ->joinLeft($this->_name, $this->_name
+            ->joinLeft(
+                $this->_name,
+                $this->_name
                 . '.createdBy = ' . $this->_name . '_2.id',
-                array('creator' => 'fullname'))
-            ->joinLeft($this->_name, $this->_name
+                array('creator' => 'fullname')
+            )
+            ->joinLeft(
+                $this->_name,
+                $this->_name
                 . '.updatedBy = ' . $this->_name . '_3.id',
-                array('updater' => 'fullname'))
+                array('updater' => 'fullname')
+            )
             ->where('users.id = ?', (int)$id);
         return $this->getAdapter()->fetchAll($select);
     }
@@ -233,6 +240,7 @@ class Users extends Pas_Db_Table_Abstract
      * @access public
      * @param type $params
      * @return \Zend_Paginator
+     * @throws Zend_Paginator_Exception
      */
     public function getUsersAdmin(array $params)
     {
@@ -276,19 +284,25 @@ class Users extends Pas_Db_Table_Abstract
     {
         $select = $this->select()
             ->from($this->_name)
-            ->joinLeft($this->_name, $this->_name . '.createdBy = '
+            ->joinLeft(
+                $this->_name,
+                $this->_name . '.createdBy = '
                 . $this->_name . '_2.id',
-                array('creator' => 'fullname'))
-            ->joinLeft($this->_name, $this->_name . '.updatedBy = '
+                array('creator' => 'fullname')
+            )
+            ->joinLeft(
+                $this->_name,
+                $this->_name . '.updatedBy = '
                 . $this->_name . '_3.id',
-                array('updater' => 'fullname'))
+                array('updater' => 'fullname')
+            )
             ->where('users.username = ?', (string)$username);
         return $this->getAdapter()->fetchAll($select);
     }
 
     /** Retrieve a list of members attached to an institution on the system
      * @access public
-     * @param integer $instID
+     * @param int $instID
      * @return array
      */
     public function getMembersInstitution($instID)
@@ -302,7 +316,7 @@ class Users extends Pas_Db_Table_Abstract
     }
 
     /** Retrieve a count of registered users who have been more active than you
-     * @param integer $visits
+     * @param int $visits
      * @return array
      */
     public function getMoreTotals($visits)
@@ -314,17 +328,20 @@ class Users extends Pas_Db_Table_Abstract
     }
 
     /** Retrieve a paginated list of members with certain privilege
-     * @param integer $visits
+     * @param int $visits
      * @return \Zend_Paginator
+     * @throws Zend_Paginator_Exception
      */
     public function getRolesMembers($role, $page)
     {
         $select = $this->select()
-            ->from($this->_name,
+            ->from(
+                $this->_name,
                 array(
                     'username', 'createdBy', 'updatedBy',
                     'id', 'fullname'
-                ))
+                )
+            )
             ->joinLeft('roles', $this->_name . '.role = roles.role', array())
             ->where('roles.id = ?', (int)$role);
         $data = $this->getAdapter()->fetchAll($select);
@@ -378,8 +395,9 @@ class Users extends Pas_Db_Table_Abstract
 
     /** Retrieve a list of requested upgrades paginated
      * @access public
-     * @param integer $page
+     * @param int $page
      * @return \Zend_Paginator
+     * @throws Zend_Paginator_Exception
      */
     public function getUpgrades($page)
     {
@@ -428,7 +446,7 @@ class Users extends Pas_Db_Table_Abstract
         }
         foreach ($data as $k => $v) {
             if ($v == "") {
-                $data[$k] = NULL;
+                $data[$k] = null;
             }
         }
         $tableSpec = ($this->_schema ? $this->_schema . '.' : '') . $this->_name;
