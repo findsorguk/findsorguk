@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Model for interacting with the people table
  *
@@ -22,8 +23,8 @@
  * @example /app/forms/OrganisationForm.php
  *
 */
-class People extends Pas_Db_Table_Abstract {
-
+class People extends Pas_Db_Table_Abstract
+{
     /** The table name
      * @access protected
      * @var string
@@ -40,7 +41,8 @@ class People extends Pas_Db_Table_Abstract {
     * @param string $q
     * @return array
     */
-    public function getNames($q) {
+    public function getNames($q)
+    {
         $select = $this->select()
                 ->from($this->_name, array(
                     'id' => 'secuid',
@@ -56,7 +58,8 @@ class People extends Pas_Db_Table_Abstract {
      * @param string $q
      * @return array
      */
-    public function getNamesSearch($q) {
+    public function getNamesSearch($q)
+    {
         $select = $this->select()
                 ->from($this->_name, array(
                     'id' => 'secuid',
@@ -73,7 +76,8 @@ class People extends Pas_Db_Table_Abstract {
      * @param string $q
      * @return array
      */
-    public function getNames2() {
+    public function getNames2()
+    {
         $select = $this->select()
                 ->from($this->_name, array(
                     'id' => 'secuid',
@@ -85,15 +89,16 @@ class People extends Pas_Db_Table_Abstract {
 
     /** Get personal details to an individual find
      * @access public
-     * @param integer $id
+     * @param int $id
      * @return \Array
      */
-    public function getPerson($id) {
+    public function getPerson($id)
+    {
         $select = $this->select()
                 ->from($this->_name, array(
                     'id' => 'secuid',
                     'term' => 'fullname'))
-                ->joinLeft('finds','finds.finderID = people.secuid', array())
+                ->joinLeft('finds', 'finds.finderID = people.secuid', array())
                 ->where('fullname IS NOT NULL')
                 ->where('finds.id = ?', (int)$id)
                 ->order('secuid');
@@ -105,7 +110,8 @@ class People extends Pas_Db_Table_Abstract {
      * @param string $finder
      * @return array
      */
-    public function getName($finder) {
+    public function getName($finder)
+    {
         $select = $this->select()
                 ->from($this->_name, array(
                     'id' => 'secuid',
@@ -119,19 +125,28 @@ class People extends Pas_Db_Table_Abstract {
 
     /** Get personal details for a finder by id with enhanced information
      * @access public
-     * @param integer $id
+     * @param int $id
      * @return array
      */
-    public function getPersonDetails($id) {
+    public function getPersonDetails($id)
+    {
         $persons = $this->getAdapter();
         $select = $persons->select()
                 ->from($this->_name)
-                ->joinLeft('countries','people.country = countries.iso',
-                        array('abode' => 'printable_name'))
-                ->joinLeft('primaryactivities','people.primary_activity = primaryactivities.id',
-                        array('role' => 'term'))
-                ->joinLeft('organisations', 'people.organisationID = organisations.secuid',
-                        array(
+                ->joinLeft(
+                    'countries',
+                    'people.country = countries.iso',
+                    array('abode' => 'printable_name')
+                )
+                ->joinLeft(
+                    'primaryactivities',
+                    'people.primary_activity = primaryactivities.id',
+                    array('role' => 'term')
+                )
+                ->joinLeft(
+                    'organisations',
+                    'people.organisationID = organisations.secuid',
+                    array(
                             'secid' => 'secuid',
                             'orgaddress' => 'address',
                             'orgcounty' => 'county',
@@ -141,28 +156,39 @@ class People extends Pas_Db_Table_Abstract {
                             'org' => 'name',
                             'i' => 'id',
                             'orgwoeid' => 'woeid',
-                            'orgwebsite' => 'website'))
-                ->joinLeft(array('count' => 'countries'),'organisations.country = count.iso',
-                        array('orgcountry' => 'printable_name'))
-                ->joinLeft('users','users.id = ' . $this->_name . '.createdBy',
-                        array('creator' => 'fullname'))
-                ->joinLeft('users','users_2.id = ' . $this->_name . '.updatedBy',
-                        array('fn' => 'fullname'))
+                    'orgwebsite' => 'website')
+                )
+                ->joinLeft(
+                    array('count' => 'countries'),
+                    'organisations.country = count.iso',
+                    array('orgcountry' => 'printable_name')
+                )
+                ->joinLeft(
+                    'users',
+                    'users.id = ' . $this->_name . '.createdBy',
+                    array('creator' => 'fullname')
+                )
+                ->joinLeft(
+                    'users',
+                    'users_2.id = ' . $this->_name . '.updatedBy',
+                    array('fn' => 'fullname')
+                )
                 ->where('people.id = ?', (int)$id);
         return $persons->fetchAll($select);
     }
 
     /** Get secuid and fullname, isn't this the same as earlier function
      * @access public
-     * @param integer $id
+     * @param int $id
      * @return array
      */
-    public function getSecuids($id){
+    public function getSecuids($id)
+    {
         $persons = $this->getAdapter();
         $select = $persons->select()
                 ->from($this->_name, array('secuid','fullname'))
-                ->joinLeft('users',$this->_name . '.secuid = users.peopleID',array())
-                ->where('users.id = ?',(int)$id);
+                ->joinLeft('users', $this->_name . '.secuid = users.peopleID', array())
+                ->where('users.id = ?', (int)$id);
         return $persons->fetchAll($select);
     }
 
@@ -170,12 +196,13 @@ class People extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function getCurators() {
+    public function getCurators()
+    {
         if (!$data = $this->_cache->load('curators')) {
             $persons = $this->getAdapter();
             $select = $persons->select()
-                    ->from($this->_name,array('secuid','fullname'))
-                    ->where($this->_name . '.primary_activity  = ?',(int)18);
+                    ->from($this->_name, array('secuid','fullname'))
+                    ->where($this->_name . '.primary_activity  = ?', (int)18);
             $data = $persons->fetchPairs($select);
             $this->_cache->save($data, 'curators');
         }
@@ -186,14 +213,16 @@ class People extends Pas_Db_Table_Abstract {
      * @access public
      * @return array
      */
-    public function getValuers() {
-if (!$data = $this->_cache->load('valuers')) {
+    public function getValuers()
+    {
+        if (!$data = $this->_cache->load('valuers')) {
             $persons = $this->getAdapter();
             $select = $persons->select()
-                    ->from($this->_name,array('secuid','fullname'))
-                    ->where($this->_name . '.primary_activity  = ?',(int)19);
+                    ->from($this->_name, array('secuid','fullname'))
+                    ->where($this->_name . '.primary_activity  = ?', (int)19);
             $data = $persons->fetchPairs($select);
-            $this->_cache->save($data, 'valuers'); }
+            $this->_cache->save($data, 'valuers');
+        }
         return $data;
     }
 
@@ -202,10 +231,11 @@ if (!$data = $this->_cache->load('valuers')) {
      * @param int $id
      * @return array
      */
-    public function getSolrData($id){
+    public function getSolrData($id)
+    {
         $persons = $this->getAdapter();
         $select = $persons->select()
-                ->from($this->_name,array(
+                ->from($this->_name, array(
                     'identifier' => new Zend_Db_Expr("CONCAT('people-',people.id)"),
                     'people.id',
                     'fullname',
@@ -221,13 +251,19 @@ if (!$data = $this->_cache->load('valuers')) {
                     'county',
                     'postcode'
                     ))
-                ->joinLeft('primaryactivities',$this->_name
+                ->joinLeft(
+                    'primaryactivities',
+                    $this->_name
                         . '.primary_activity = primaryactivities.id',
-                        array('activity' => 'term'))
-                ->joinLeft('organisations', $this->_name
+                    array('activity' => 'term')
+                )
+                ->joinLeft(
+                    'organisations',
+                    $this->_name
                         . '.organisationID = organisations.secuid',
-                        array('organisation' => 'name'))
-                ->where('people.id = ?',(int)$id);
+                    array('organisation' => 'name')
+                )
+                ->where('people.id = ?', (int)$id);
         return $persons->fetchAll($select);
     }
 
@@ -236,23 +272,26 @@ if (!$data = $this->_cache->load('valuers')) {
      * @param array $data
      * @return int
      */
-    public function add(  $data){
-        if(array_key_exists('csrf', $data)){
+    public function add($data)
+    {
+        if (array_key_exists('csrf', $data)) {
             unset($data['csrf']);
         }
-        if(empty($data['created'])){
+        if (empty($data['created'])) {
             $data['created'] = $this->timeCreation();
-
         }
-        if(empty($data['createdBy'])){
+        if (empty($data['createdBy'])) {
             $data['createdBy'] = $this->getUserNumber();
         }
-        if(array_key_exists('countyID', $data) && !is_null($data['countyID'])){
+        if (array_key_exists('countyID', $data) && !is_null($data['countyID'])) {
             $counties = new OsCounties();
-            $data['county'] = $counties->fetchRow($counties->select()->where('osID = ?',
-                    $data['countyID']))->label; }
-        foreach($data as $k => $v) {
-            if ( $v == "") {
+            $data['county'] = $counties->fetchRow($counties->select()->where(
+                'osID = ?',
+                $data['countyID']
+            ))->label;
+        }
+        foreach ($data as $k => $v) {
+            if ($v == "") {
                 $data[$k] = null;
             }
         }
@@ -262,8 +301,8 @@ if (!$data = $this->_cache->load('valuers')) {
     }
 
     /**
-     * @param $secuid
-     * @param $canRecord
+     * @param string $secuid
+     * @param bool $canRecord
      * @return void
      * @throws Zend_Db_Adapter_Exception
      */
@@ -279,19 +318,20 @@ if (!$data = $this->_cache->load('valuers')) {
      * @access public
      * @param array $data
      */
-    public function updateAndProcess($data){
-        if(is_array($data)){
-            foreach($data as $k => $v) {
-                if ( $v == "") {
+    public function updateAndProcess($data)
+    {
+        if (is_array($data)) {
+            foreach ($data as $k => $v) {
+                if ($v == "") {
                     $data[$k] = null;
                 }
             }
         }
-        if(array_key_exists('csrf', $data)){
+        if (array_key_exists('csrf', $data)) {
             unset($data['csrf']);
         }
 
-        if(array_key_exists('countyID', $data) && !is_null($data['countyID'])){
+        if (array_key_exists('countyID', $data) && !is_null($data['countyID'])) {
             $counties = new OsCounties();
             $data['county'] = $counties->fetchRow($counties->select()
                     ->where('osID = ?', $data['countyID']))->label;
@@ -304,11 +344,12 @@ if (!$data = $this->_cache->load('valuers')) {
      * @param string $findID
      * @return array
      */
-    public function checkEmailOwner($findID){
+    public function checkEmailOwner($findID)
+    {
         $persons = $this->getAdapter();
         $select = $persons->select()
-                ->from($this->_name,array('name' => 'fullname', 'email'))
-                ->joinLeft('finds', 'finds.finderID = people.secuid',array())
+                ->from($this->_name, array('name' => 'fullname', 'email'))
+                ->joinLeft('finds', 'finds.finderID = people.secuid', array())
                 ->where('finds.id = ?', $findID);
         return $persons->fetchAll($select);
     }

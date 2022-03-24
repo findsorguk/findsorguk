@@ -19,7 +19,6 @@
  */
 class Database_PeopleController extends Pas_Controller_Action_Admin
 {
-
     /** The people model
      * @access protected
      * @var \People
@@ -96,6 +95,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
     /** Index page of all people on the database
      * @access public
      * @return void
+     * @throws Zend_Form_Exception
      */
     public function indexAction()
     {
@@ -108,7 +108,8 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
         $search->setCore('people');
         $search->setFields(array('*'));
         $search->setFacets(array('county', 'organisation', 'activity'));
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
+        if (
+            $this->getRequest()->isPost() && $form->isValid($this->_request->getPost())
             && !is_null($this->getParam('submit'))
         ) {
             $cleaner = new Pas_ArrayFunctions();
@@ -133,6 +134,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
     /** Display details of a person
      * @access public
      * @return void
+     * @throws Pas_Exception_Param
      */
     public function personAction()
     {
@@ -232,7 +234,7 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
                     $oldData = $this->getPeople()->fetchRow('id='
                         . $this->getParam('id'))->toArray();
 
-                    // Update the canrecord permission on the corresponding people recrod
+                    // Update the canrecord permission on the corresponding people record
                     if (array_key_exists('dbaseID', $updateData)) {
                         $this->setUserCanRecordFlag($updateData['dbaseID'], $updateData['canRecord']);
                     }
