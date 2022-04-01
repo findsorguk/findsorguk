@@ -63,6 +63,8 @@ class Pas_Solr_SensitiveFields {
                 // State that the grids are restricted.
                     $record['parish'] = 'Restricted Access';
                     $record['fourFigure'] = 'Restricted Access';
+                    $record['gridref'] = 'Restricted Access';
+
 				// Unset the fourfigure lat/lon
                     unset($record['fourFigureLat']);
                     unset($record['fourFigureLon']);
