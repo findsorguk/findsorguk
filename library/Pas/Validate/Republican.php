@@ -12,47 +12,26 @@
  * @use Pas_Curl
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
-class Pas_Validate_Republican extends Zend_Validate_Abstract
+class Pas_Validate_Republican extends Pas_Validate_NumismaticsAbstract
 {
 
-    /** The not valid message container
-     *
+    /** The error message
+     * @access protected
+     * @var string
      */
-    const NOT_VALID = 'notValid';
+     protected $_url = 'http://numismatics.org/crro/id/';
 
     /** Validation failure message template definitions
      * @access protected
      * @var array
      */
-    protected $_messageTemplates = array(self::NOT_VALID => 'That is not a valid RRC ID.',);
+    protected $_messageTemplates = array(self::NOT_VALID => 'That is not a valid RRC ID.',
+        self::HTTP_ERROR => 'Numismatics - the third party data source - is currently unavailable.' .
+            ' Please try again later.');
 
-    /** Check if the value is valid
-     * @access @access public
-     * @param string $value
-     * @return boolean
+    /** The error message email subject
+     * @access protected
+     * @var string
      */
-    public function isValid($value)
-    {
-        $type = $this->getType($value);
-        if (!$type) {
-            $this->_error(self::NOT_VALID);
-            return false;
-        }
-        return true;
-    }
-
-    /** Get whether the rrcID exists in the CORR system
-     * @access public
-     * @param string $value
-     * @return string
-     */
-    public function getType($rrcID)
-    {
-        $curl = new Pas_Curl();
-        $curl->setUri('http://numismatics.org/crro/id/' . $rrcID);
-        $curl->getRequest();
-        if($curl->getResponseCode() == '200') {
-            return true;
-        }
-    }
+    protected $_errorMessageSubject = 'PAS - Error validating rrcID from Numismatics';
 }
