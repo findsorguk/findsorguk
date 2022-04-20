@@ -77,7 +77,8 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
         return $this->optionsAddClone($broadperiod, $coinDataFlat);
     }
 
-    /** add and clone last record
+    /** Add and clone last record
+     * fill options when coin has data
      * @access public
      * @param string $broadperiod
      * @param array $coinDataFlat
@@ -108,10 +109,24 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                         if ($identifier) {
                             $nomisma = $identifier->nomismaID;
                             $rrcTypes = new Nomisma();
-                            $this->_view->form->ricID->addMultiOptions(array(
-                                null => 'Choose RIC type',
-                                'Available RIC types' => $rrcTypes->getRICDropdownsFlat($nomisma)
-                            ));
+                            $ricDropdowns = $rrcTypes->getRICDropdownsFlat($nomisma);
+
+                            if (!empty($ricDropdowns)) {
+                                $this->_view->form->ricID->addMultiOptions(array(
+                                    null => 'Choose RIC type',
+                                    'Available RIC types' => $ricDropdowns
+                                ));
+                            } elseif (!empty($coinDataFlat['ricID'])) {
+                                $this->_view->form->ricID->addMultiOptions(array(
+                                    null => 'Choose RIC type',
+                                    'Available RIC types' => array(
+                                        $coinDataFlat['ricID'] =>
+                                            strtoupper(
+                                                str_replace('-', ' ', str_replace('.', '/', $coinDataFlat['ricID']))
+                                            )
+                                    )
+                                ));
+                            }
                         }
                     }
 
@@ -147,10 +162,24 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                             if ($identifier) {
                                 $nomisma = $identifier->nomismaID;
                                 $rrcTypes = new Nomisma();
-                                $this->_view->form->rrcID->addMultiOptions(array(
-                                    null => 'Choose RRC type',
-                                    'Available RRC types' => $rrcTypes->getRRCDropdownsFlat($nomisma)
-                                ));
+                                $rrcDropdowns = $rrcTypes->getRRCDropdownsFlat($nomisma);
+
+                                if (!empty($rrcDropdowns)) {
+                                    $this->_view->form->rrcID->addMultiOptions(array(
+                                        null => 'Choose RRC type',
+                                        'Available RRC types' => $rrcDropdowns
+                                    ));
+                                } elseif (!empty($coinDataFlat['rrcID'])) {
+                                    $this->_view->form->rrcID->addMultiOptions(array(
+                                        null => 'Choose RRC type',
+                                        'Available RRC types' => array(
+                                            $coinDataFlat['rrcID'] =>
+                                                strtoupper(
+                                                    str_replace('-', ' ', str_replace('.', '/', $coinDataFlat['rrcID']))
+                                                )
+                                        )
+                                    ));
+                                }
                             }
                         }
                     }
