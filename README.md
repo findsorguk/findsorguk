@@ -74,7 +74,17 @@ A [change log](CHANGELOG.md) is now maintained by the project developers to try 
 * [Minakshi Chidrawar](https://github.com/minakshi-chidrawar)
 * [Adetokunbo Aribilola](https://github.com/adetoks) 
 
-The Scheme is also grateful for the contributions of Richard Wareham (Cambridge University) and Ethan Gruber (ANS). Full [acknowledgements](ACKNOWLEDGEMENTS.md) are recorded within this repo. 
+## Acknowledgements
+This software was built on the foundations of Oxford Arch Digital:
+
+* Andrew Larcombe
+* Chad
+* Kos Vankov
+* Tyler Bell
+* Vuk Trifkovic
+* Yegor Veter
+
+The Scheme is also grateful for the contributions of Richard Wareham (Cambridge University) and Ethan Gruber (ANS).
 
 ## License
 
