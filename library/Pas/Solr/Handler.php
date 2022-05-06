@@ -1066,11 +1066,11 @@ class Pas_Solr_Handler
      * @param ...$roles
      * @return bool
      */
-    protected function checkRoleAllowed($userRole, ...$roles): bool
+    protected function checkRoleAllowed($userRole, ...$removedRoles): bool
     {
         $allowed = $this->getAllowed();
-        if (!empty($roles)) {
-            $allowed = array_merge($allowed, $roles);
+        if (!empty($removedRoles)) {
+            $allowed = array_diff($allowed, $removedRoles);
         }
 
         if (in_array($userRole, $allowed)) {
