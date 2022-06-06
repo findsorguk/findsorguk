@@ -130,7 +130,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_CurUrl
      */
-    public function curUrl()
+    public function curUrl(): Pas_View_Helper_CurUrl
     {
         return $this;
     }
@@ -139,7 +139,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->createUrl();
     }
