@@ -92,7 +92,7 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      */
     public function getPortNumber(): int
     {
-        $this->_portNumber = $_SERVER['SERVER_PORT'] != 80 ? "{$_SERVER['SERVER_PORT']}" : '';
+        $this->_portNumber = $_SERVER['SERVER_PORT'] != 80 ? "{$_SERVER['SERVER_PORT']}" : 80;
         return $this->_portNumber;
     }
 
