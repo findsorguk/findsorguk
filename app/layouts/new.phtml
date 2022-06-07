@@ -80,9 +80,7 @@ $this->headScript()->prependFile(
 
 <body>
 
-
-<!-- NAVBAR
-================================================== -->
+<?php /* NAVBAR */ ?>
 <div class="navbar navbar-fixed-top">
 
     <div class="navbar-inner">
@@ -97,7 +95,7 @@ $this->headScript()->prependFile(
                 <?php
                 echo $this->layout()->navigation ?>
             </div>
-            <!--/.nav-collapse -->
+            <?php /* /.nav-collapse */ ?>
         </div>
     </div>
 </div>
@@ -106,21 +104,17 @@ echo $this->layout()->messages; ?>
 <?php
 echo $this->layout()->content; ?>
 
-
-<!-- FOOTER -->
+<?php /* FOOTER */ ?>
 <footer>
     <?php
     echo $this->layout()->footer; ?>
 </footer>
 
-</div><!-- /.container -->
+</div><?php /* /.container */ ?>
 
-
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 
 <?php
+/* Placed at the end of the document so the pages load faster */
 echo $this->jQuery(); ?>
 <script src="js/bootstrap-transition.js"></script>
 <?php
