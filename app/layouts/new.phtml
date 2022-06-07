@@ -84,7 +84,8 @@ $this->headScript()->prependFile(
 
 <body>
 
-<?php /* NAVBAR */ ?>
+<?php
+/* NAVBAR */ ?>
 <div class="navbar navbar-fixed-top">
 
     <div class="navbar-inner">
@@ -100,7 +101,8 @@ $this->headScript()->prependFile(
                 <?php
                 echo $this->layout()->navigation ?>
             </div>
-            <?php /* /.nav-collapse */ ?>
+            <?php
+            /* /.nav-collapse */ ?>
         </div>
     </div>
 </div>
@@ -111,14 +113,15 @@ echo $this->layout()->announcements; ?>
 <?php
 echo $this->layout()->content; ?>
 
-<?php /* FOOTER */ ?>
+<?php
+/* FOOTER */ ?>
 <footer>
     <?php
     echo $this->layout()->footer; ?>
 </footer>
 
-</div><?php /* /.container */ ?>
-
+</div><?php
+/* /.container */ ?>
 
 <?php
 /* Placed at the end of the document so the pages load faster */
@@ -129,7 +132,6 @@ echo $this->inlineScript(); ?>
 
 <?php
 echo $this->layout()->analytics; ?>
-
 
 </body>
 </html>
