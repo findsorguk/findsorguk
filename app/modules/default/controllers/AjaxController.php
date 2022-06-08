@@ -560,12 +560,7 @@ class AjaxController extends Pas_Controller_Action_Ajax
             $rulers = new Rulers();
             $nomismaID = $rulers->fetchRow($rulers->select()->where('id = ?', $this->getParam('term')))->nomismaID;
             $nomisma = new Nomisma();
-            $types = null;
-
-            if (!empty($nomismaID)) {
-                $types = $nomisma->getRICDropdowns($nomismaID);
-            }
-
+            $types = $nomismaID ? $nomisma->getRICDropdowns($nomismaID) : null;
             if ($types) {
                 $response = $types;
             } else {
