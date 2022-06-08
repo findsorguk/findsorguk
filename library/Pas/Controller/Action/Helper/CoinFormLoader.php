@@ -133,7 +133,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
             default:
                 throw new Exception('You cannot have a coin for that period.');
         }
-        $this->initNomsimaDropdowns($form);
+        $this->initNomismaDropdowns($form);
         return $form;
     }
 
@@ -152,7 +152,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
             ));
     }
 
-    private function initNomsimaDropdowns($form)
+    private function initNomismaDropdowns($form)
     {
         $rrcTypes = new Nomisma();
         $errorMessageNomisma = 'Nomisma - the third party data source - is ' .
