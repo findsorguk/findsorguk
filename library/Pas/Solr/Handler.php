@@ -104,10 +104,11 @@ class Pas_Solr_Handler
     protected $_allowed = array(
         'fa',
         'flos',
+        'hero',
+        'hoard',
         'admin',
         'treasure',
-        'research',
-        'hoard'
+        'research'
     );
 
     /** The default map option
