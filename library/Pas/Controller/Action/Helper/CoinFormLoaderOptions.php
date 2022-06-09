@@ -77,6 +77,46 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
         return $this->optionsAddClone($broadperiod, $coinDataFlat);
     }
 
+    /** Make database value for RIC/RRC id into a more human-readable
+     * value that matches the value expected in the dropdown
+     * when nomisma is online.
+     * @param string $coinId
+     * @return string
+     * Example
+     * ric.1(2).gai.35 -> RIC/1(2)/GAI/35
+     */
+    private function convertToHumanReadableCoinId(string $coinId): string
+    {
+        return strtoupper(
+            str_replace('-', ' ', str_replace('.', '/', $coinId))
+        );
+    }
+
+    /** Add array of key/pair values to dropdown, or
+     * use ID from database as value and call convertToHumanReadableCoinId()
+     * for the name
+     * @param Zend_Form_Element_Select $formElement
+     * @param array $dropdownValues
+     * @param string $type
+     * @param string $coinId
+     */
+    private function addDropdown(
+        Zend_Form_Element_Select $formElement,
+        array $dropdownValues,
+        string $type,
+        string $coinId
+    ) {
+        if ($dropdownValues || $coinId) {
+            $formElement->addMultiOptions(
+                array(
+                    null => 'Choose ' . $type . ' type',
+                    'Available ' . $type . ' types' =>
+                        $dropdownValues ?: array($coinId => $this->convertToHumanReadableCoinId($coinId))
+                )
+            );
+        }
+    }
+
     /** Add and clone last record
      * fill options when coin has data
      * @access public
@@ -102,31 +142,17 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                 break;
             case 'ROMAN':
                 if (array_key_exists('ruler_id', $coinDataFlat)) {
-
+                    //Populate RIC dropdown
                     if (!is_null($coinDataFlat['ruler_id'])) {
                         $rulers = new Rulers();
                         $identifier = $rulers->fetchRow($rulers->select()->where('id = ?', $coinDataFlat['ruler_id']));
                         if ($identifier) {
-                            $nomisma = $identifier->nomismaID;
-                            $rrcTypes = new Nomisma();
-                            $ricDropdowns = $rrcTypes->getRICDropdownsFlat($nomisma);
-
-                            if (!empty($ricDropdowns)) {
-                                $this->_view->form->ricID->addMultiOptions(array(
-                                    null => 'Choose RIC type',
-                                    'Available RIC types' => $ricDropdowns
-                                ));
-                            } elseif (!empty($coinDataFlat['ricID'])) {
-                                $this->_view->form->ricID->addMultiOptions(array(
-                                    null => 'Choose RIC type',
-                                    'Available RIC types' => array(
-                                        $coinDataFlat['ricID'] =>
-                                            strtoupper(
-                                                str_replace('-', ' ', str_replace('.', '/', $coinDataFlat['ricID']))
-                                            )
-                                    )
-                                ));
-                            }
+                            $this->addDropdown(
+                                $this->_view->form->ricID,
+                                (new Nomisma())->getRICDropdownsFlat($identifier->nomismaID),
+                                'ric',
+                                $coinDataFlat['ricID']
+                            );
                         }
                     }
 
@@ -156,30 +182,17 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                         null => 'Choose moneyer',
                         'Available moneyers' => $moneyer_options
                     ));
+                    //Populate RRC dropdown
                     if (array_key_exists('moneyer', $coinDataFlat)) {
                         if (!is_null($coinDataFlat['moneyer'])) {
                             $identifier = $moneyers->fetchRow($moneyers->select()->where('id = ?', $coinDataFlat['moneyer']));
                             if ($identifier) {
-                                $nomisma = $identifier->nomismaID;
-                                $rrcTypes = new Nomisma();
-                                $rrcDropdowns = $rrcTypes->getRRCDropdownsFlat($nomisma);
-
-                                if (!empty($rrcDropdowns)) {
-                                    $this->_view->form->rrcID->addMultiOptions(array(
-                                        null => 'Choose RRC type',
-                                        'Available RRC types' => $rrcDropdowns
-                                    ));
-                                } elseif (!empty($coinDataFlat['rrcID'])) {
-                                    $this->_view->form->rrcID->addMultiOptions(array(
-                                        null => 'Choose RRC type',
-                                        'Available RRC types' => array(
-                                            $coinDataFlat['rrcID'] =>
-                                                strtoupper(
-                                                    str_replace('-', ' ', str_replace('.', '/', $coinDataFlat['rrcID']))
-                                                )
-                                        )
-                                    ));
-                                }
+                                $this->addDropdown(
+                                    $this->_view->form->rrcID,
+                                    (new Nomisma())->getRRCDropdownsFlat($identifier->nomismaID),
+                                    'rrc',
+                                    $coinDataFlat['rrcID']
+                                );
                             }
                         }
                     }
