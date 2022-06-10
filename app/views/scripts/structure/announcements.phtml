@@ -5,15 +5,7 @@
     ?>
     <?php
     $this->jQuery()->javascriptCaptureStart(); ?>
-    $(document).ready(function(){
-    if ($.cookie('noShowSurvey')) $('#announcement').hide();
-    else {
-    $("#close-welcome").click(function() {
-    $("#announcement").fadeOut(1000);
-    $.cookie('noShowSurvey', true);
-    });
-    }
-    });
+    initAnnouncement()
     <?php $this->jQuery()->javascriptCaptureEnd(); ?>
     <div class="alert alert-info" id="announcement">
         <?php foreach ($this->announcements as $announce): ?>
@@ -22,8 +14,8 @@
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
-<?php 
-echo $this->serverUrl();
+
+<?php
 if (in_array($this->serverUrl(), array('https://beta.finds.org.uk', 'http://finds.dev'))): ?>
     <div class="alert alert-danger" id="announcement">
         <p>You are on a backup or testing server - there are no images here</p>
