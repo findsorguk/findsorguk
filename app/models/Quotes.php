@@ -90,16 +90,16 @@ class Quotes extends Pas_Db_Table_Abstract {
     */
     public function getAnnouncements(){
         $key = md5('announcementsAndQuotes');
-        if ($data = $this->_cache->load($key)) {
+        $data = $this->_cache->load($key);
+        if (!$data) {
             $quotes = $this->getAdapter();
             $select = $quotes->select()
                     ->from($this->_name,array('quote','quotedBy'))
                     ->where('expire >= ?', $this->getTimeForForms())
                     ->where('status = ?',(int)1)
                     ->where('type = ? ', 'announcement')
-                    ->order('RAND()')
-                    ->limit(1);
-            $data =  $quotes->fetchAll($select);
+                    ->order('expire');
+            $data = $quotes->fetchAll($select);
             $this->_cache->save($data, $key);
         }
         return $data;
