@@ -1,3 +1,22 @@
+/* Announcement styles */
+#announcement {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 98%;
+    display: none;
+    box-sizing: border-box;
+    left: 50%;
+    transform: translate(-50%);
+    cursor: pointer;
+}
+
+#announcement .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
 /*
         Ensures any errors which result from uploading a staff image are shown on
         the next line.
