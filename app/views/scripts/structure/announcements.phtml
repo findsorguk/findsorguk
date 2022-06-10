@@ -10,8 +10,8 @@
     <div class="alert alert-info" id="announcement">
         <?php foreach ($this->announcements as $announce): ?>
             <?php echo $announce['quote']; ?>
-            <p><strong><a id="close-welcome" href="#">Dismiss this announcement</a></strong></p>
         <?php endforeach; ?>
+        <span class="close">X</span>
     </div>
 <?php endif; ?>
 
