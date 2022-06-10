@@ -100,7 +100,7 @@ class Quotes extends Pas_Db_Table_Abstract {
                     ->where('type = ? ', 'announcement')
                     ->order('expire');
             $data = $quotes->fetchAll($select);
-            $this->_cache->save($data, $key);
+            $this->_cache->save($data, $key, array(), 300);
         }
         return $data;
     }
