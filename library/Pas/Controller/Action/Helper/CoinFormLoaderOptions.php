@@ -104,7 +104,7 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
         Zend_Form_Element_Select $formElement,
         array $dropdownValues,
         string $type,
-        string $coinId
+        ?string $coinId
     ) {
         if ($dropdownValues || $coinId) {
             $formElement->addMultiOptions(
