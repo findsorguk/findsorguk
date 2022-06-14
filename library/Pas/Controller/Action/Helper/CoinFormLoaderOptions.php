@@ -146,7 +146,7 @@ class Pas_Controller_Action_Helper_CoinFormLoaderOptions extends Zend_Controller
                     if (!is_null($coinDataFlat['ruler_id'])) {
                         $rulers = new Rulers();
                         $identifier = $rulers->fetchRow($rulers->select()->where('id = ?', $coinDataFlat['ruler_id']));
-                        if ($identifier) {
+                        if ($identifier && $identifier->nomismaID) {
                             $this->addDropdown(
                                 $this->_view->form->ricID,
                                 (new Nomisma())->getRICDropdownsFlat($identifier->nomismaID),
