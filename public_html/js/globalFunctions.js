@@ -117,3 +117,19 @@ $(document).ready(function() {
     
 
 });
+
+function initAnnouncement() {
+	$(document).ready(function () {
+		if ($.cookie('noShowSurvey')) {
+			$('#announcement').hide();
+		} else {
+			var navbarHeight = $(".navbar").height();
+			$('#announcement').css("top", navbarHeight + 10);
+			$('#announcement').fadeIn(500);
+			$("#announcement").click(function () {
+				$("#announcement").fadeOut(1000);
+				$.cookie('noShowSurvey', true);
+			});
+		}
+	});
+}
