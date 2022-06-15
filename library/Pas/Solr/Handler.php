@@ -1074,11 +1074,7 @@ class Pas_Solr_Handler
             $allowed = array_diff($allowed, $removedRoles);
         }
 
-        if (in_array($userRole, $allowed)) {
-            return true;
-        } else {
-            return false;
-        }
+        return in_array($userRole, $allowed);
     }
 
     /** Execute the query
