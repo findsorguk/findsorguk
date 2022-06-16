@@ -405,10 +405,14 @@ class Findspots extends Pas_Db_Table_Abstract
             $elevate = new Pas_Service_Geo_Elevation($this->_gmaps);
             $data['elevation'] = $elevate->getElevation($data['declong'], $data['declat']);
 
-            $words = new Pas_Service_What3words();
-            $words->setApiKey($this->_config->webservice->what3words->apikey);
-            $threewords = $words->positionToWords(array($data['fourFigureLat'], $data['fourFigureLon']));
-            $data['what3words'] = $threewords->words;
+            /*Removed 16/06/2022*/
+            //$words = new Pas_Service_What3words();
+            //$words->setApiKey($this->_config->webservice->what3words->apikey);
+            //$threewords = $words->positionToWords(array($data['fourFigureLat'], $data['fourFigureLon']));
+            //$data['what3words'] = $threewords->words;
+
+            //Set what3words to British Museum
+            $data['what3words'] = 'bands.shops.handy';
         } else {
             throw new Zend_Exception('Data is not an array', 500);
         }
