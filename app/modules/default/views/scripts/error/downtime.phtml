@@ -1,16 +1,46 @@
 <?php
-$this->headTitle('Logged in section unavailable');
+
+$this->headTitle('Database / User Login Section Unavailable');
 $this->metaBase()->setSubject('Error report')
     ->setDescription('A page shown when the database is taken offline')
     ->generate();
 ?>
-<h1 class="lead"><?php echo $this->title(); ?></h1>
 
-<p>Reindexing search engine, back shortly</p>
+<div class="container-fluid" style="margin-top: 60px;">
+    <div class="row">
+        <div style="margin: auto; width: fit-content; text-align: center;">
+            <h1 class="lead"><?php
+                echo $this->title(); ?></h1>
 
-<img src="http://farm9.staticflickr.com/8427/7757131284_a38bd4f9e9_z.jpg" alt="Tour party" class="img img-circle"/>
-<p>The image above is a CC licenced image by <a href="http://www.flickr.com/photos/merryjack/">J.C.Merriman</a> and
-    shows a tour group being shown round the amazing lego colosseum at the Nicholson Museum, Sydney Australia.<br/>This
-    year they have an <a
-        href="http://www.smh.com.au/photogallery/entertainment/art-and-design/lego-model-of-the-acropolis-20130709-2poga.html">Acropolis
-        installation</a>.</p>
+            <p>Apologies for any inconvenience whilst we perform some
+                essential maintenance</p>
+
+            <?php
+            if ($this->announcements) {
+                foreach ($this->announcements as $announce) {
+                    echo "<p>" . strip_tags($announce['quote']) . "</p>";
+                }
+            }
+            ?>
+
+            <div style="max-width: 500px; margin:auto">
+                <img src="https://farm9.staticflickr.com/8427/7757131284_a38bd4f9e9_z.jpg"
+                     alt="Tour party"
+                     class="img" style=" margin: 20px 0 20px 0;"/>
+
+                <figcaption>The image above is a CC licenced image by <a
+                            href="https://www.flickr.com/photos/merryjack/">J.C.Merriman</a>
+                    and
+                    shows a tour group being shown round the amazing lego
+                    colosseum at the Nicholson Museum, Sydney
+                    Australia.<br/>This
+                    year they have an <a
+                            href="https://www.smh.com.au/photogallery/entertainment/art-and-design/lego-model-of-the-acropolis-20130709-2poga.html">Acropolis
+                        installation</a>.
+                </figcaption>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="featurette-divider">

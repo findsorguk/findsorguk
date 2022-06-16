@@ -63,6 +63,43 @@ class Nomisma
         return $dropDown;
     }
 
+    /**Send Nomisma error email
+     * @param $error
+     * @param string $type
+     * @return void
+     * @throws Zend_Mail_Exception|Zend_Exception
+     */
+    public function sendErrorEmail($error, string $type)
+    {
+        $mail = new Zend_Mail();
+        $adminEmails = Zend_Registry::get('config')->admin->email;
+        $mail->setBodyHtml(
+            'The server has encountered an issue with Nomisma. The issue is as follows: </br></br>'
+            . '<table>' . $error . '</table>'
+        )
+            ->setFrom('past@britishmuseum.org', 'The Portable Antiquities Scheme')
+            ->addTo('past@britishmuseum.org', 'The Portable Antiquities Scheme')
+            ->addTo($adminEmails ? $adminEmails->toArray() : null)
+            ->setSubject('PAS - Error retrieving ' . $type . ' from Nomisma')
+            ->send();
+    }
+
+    /**Check Nomisma site status by looking at header values
+     * @return bool
+     * @throws Zend_Mail_Exception
+     */
+    public function getStatusNomisma()
+    {
+        $checkHeaders = get_headers('http://nomisma.org/apis');
+
+        if (preg_match('/(2|3)[0-9][0-9]/', $checkHeaders[0]) == false) {
+            $this->sendErrorEmail('Nomisma did not return status code 200/400', 'HTTP response code');
+            return false;
+        }
+
+        return true;
+    }
+
     /** Get the data for reuse based off sparql endpoint
      * @access public
      * @return array $data
@@ -76,17 +113,21 @@ class Nomisma
             \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
             \EasyRdf\RdfNamespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             \EasyRdf\RdfNamespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
-            $data = $sparql->query(
-                'SELECT * WHERE {' .
-                '  ?type ?role nm:' . $identifier . ' ;' .
-                '   a nmo:TypeSeriesItem ;' .
-                '  skos:prefLabel ?label' .
-                '  FILTER(langMatches(lang(?label), "en"))' .
-                '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
-                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
-                ' } ORDER BY ?label');
-            $this->getCache()->save($data);
+            try {
+                $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
+                $data = $sparql->query(
+                    'SELECT * WHERE {' .
+                    '  ?type ?role nm:' . $identifier . ' ;' .
+                    '   a nmo:TypeSeriesItem ;' .
+                    '  skos:prefLabel ?label' .
+                    '  FILTER(langMatches(lang(?label), "en"))' .
+                    '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
+                    '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
+                    ' } ORDER BY ?label');
+                $this->getCache()->save($data);
+            } catch (Exception $e) {
+                $this->sendErrorEmail($e, 'RRC');
+            }
         } else {
             $data = $this->getCache()->load($key);
         }
@@ -125,23 +166,27 @@ class Nomisma
     {
         $key = md5($identifier . 'ricTypes');
         if (!($this->getCache()->test($key))) {
-
             //Add the namespaces needed to parse the query
             \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
             \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
             \EasyRdf\RdfNamespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
             \EasyRdf\RdfNamespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
-            $data = $sparql->query(
-                'SELECT * WHERE {' .
-                '  ?type ?role nm:' . $identifier . ' ;' .
-                '   a nmo:TypeSeriesItem ;' .
-                '  skos:prefLabel ?label' .
+            try {
+                $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
+                $data = $sparql->query(
+                    'SELECT * WHERE {' .
+                    '  ?type ?role nm:' . $identifier . ' ;' .
+                    '   a nmo:TypeSeriesItem ;' .
+                    '  skos:prefLabel ?label' .
 //                '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
 //                '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
-                '  FILTER(langMatches(lang(?label), "en"))' .
-                ' } ORDER BY ?label');
-            $this->getCache()->save($data);
+                    '  FILTER(langMatches(lang(?label), "en"))' .
+                    ' } ORDER BY ?label'
+                );
+                $this->getCache()->save($data);
+            } catch (Exception $e) {
+                $this->sendErrorEmail($e, 'RIC');
+            }
         } else {
             $data = $this->getCache()->load($key);
         }

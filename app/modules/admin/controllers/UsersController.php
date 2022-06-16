@@ -21,7 +21,6 @@
  */
 class Admin_UsersController extends Pas_Controller_Action_Admin
 {
-
     /** The users model
      * @access protected
      * @var \Users
@@ -106,10 +105,26 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
         }
     }
 
+    /**
+     * @param string $canRecord
+     * @param string $secuid
+     * @return void
+     * @throws Zend_Db_Adapter_Exception
+     */
+    private function setPeopleCanRecordFlag(string $secuid, string $canRecord)
+    {
+        if (!empty($secuid)) {
+            (new People())->setCanRecord(
+                $secuid,
+                (bool)$canRecord
+            );
+        }
+    }
+
     /** Edit a user's account
      * @access public
      * @return void
-     * @throws Pas_Exception_Param
+     * @throws Pas_Exception_Param|Zend_Db_Adapter_Exception
      */
     public function editAction()
     {
@@ -124,6 +139,9 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                     $where = array();
                     $where[] = $this->getUsers()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
                     $oldData = $this->getUsers()->fetchRow('id=' . $this->getParam('id'))->toArray();
+
+                    $this->setPeopleCanRecordFlag($updateData['peopleID'], $updateData['canRecord']);
+
                     unset($updateData['person']);
                     $this->getUsers()->update($updateData, $where);
 
@@ -168,17 +186,21 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
     /** Add a new user
      * @access public
      * @return void
+     * @throws Zend_Form_Exception
      */
     public function addAction()
     {
         $form = new EditAccountForm();
         $form->setLegend('New account: ');
         $form->submit->setLabel('Create account details');
-        $form->username->addValidator('Db_NoRecordExists', false,
+        $form->username->addValidator(
+            'Db_NoRecordExists',
+            false,
             array(
                 'table' => 'users',
                 'field' => 'username'
-            ));
+            )
+        );
         $form->institution->setRequired(true);
         $form->role->setRequired(true);
         $form->institution->setRequired(true);
@@ -235,6 +257,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
     /** Upgrade a user's account to research status
      * @access public
      * @return void
+     * @throws Pas_Exception_Param|Zend_Db_Adapter_Exception
      */
     public function upgradeAction()
     {
@@ -309,6 +332,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
     /** Reject a user's account
      * @access public
      * @return void
+     * @throws Pas_Exception_Param
      */
     public function rejectAction()
     {
@@ -369,83 +393,87 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
     /** Activate a user's account
      * @access public
      * @return void
-    */
+     * @throws Pas_Exception_Param
+     */
     public function activateAction()
     {
         $id = $this->getParam('id', 0);
         $noUserAccountMessage = 'No user account found with the id: ' . $id;
-        if (is_numeric($id) && ($id > 0))
-	{
-           $currentUserDetails = $this->getUserDetailsFromID($id, $noUserAccountMessage);
+        if (is_numeric($id) && ($id > 0)) {
+            $currentUserDetails = $this->getUserDetailsFromID($id, $noUserAccountMessage);
 
            // update account
            // set canRecord to 0 if it is NULL, leave otherwise
-           $activatedUserDetails = array(
+            $activatedUserDetails = array(
               'canRecord' => !$currentUserDetails['canRecord'] ? '0' : '1',
               'valid' => '1',
-              'activationKey' => NULL
-           );
-           $where = array($this->getUsers()->getAdapter()->quoteInto('id = ?', $id));
-           $this->getUsers()->update($activatedUserDetails, $where);
+              'activationKey' => null
+            );
+            $where = array($this->getUsers()->getAdapter()->quoteInto('id = ?', $id));
+            $this->getUsers()->update($activatedUserDetails, $where);
 
            // audit change
-           $this->_helper->audit(
-               $activatedUserDetails,
-               $currentUserDetails,
-               'UsersAudit',
-               $id,
-               $id
-           );
+            $this->_helper->audit(
+                $activatedUserDetails,
+                $currentUserDetails,
+                'UsersAudit',
+                $id,
+                $id
+            );
 
-           $this->notifyUserOfActionWithEmail($currentUserDetails, 'adminActivatedAccount');
-	   $this->getFlash()->addMessage('User (' . $currentUserDetails['fullname'] . ') account activated successfully.');
+            $this->notifyUserOfActionWithEmail($currentUserDetails, 'adminActivatedAccount');
+            $this->getFlash()->addMessage('User (' . $currentUserDetails['fullname'] . ') account activated successfully.');
 
            // back to user list
-           $this->redirect('admin/users/index');
+            $this->redirect('admin/users/index');
         } else {
-           throw new Pas_Exception_Param($noUserAccountMessage);
+            throw new Pas_Exception_Param($noUserAccountMessage);
         }
     }
 
     /** Deactivate a user's account
      * @access public
      * @return void
-    */
+     * @throws Pas_Exception_Param
+     */
     public function deactivateAction()
     {
         $id = $this->getParam('id', 0);
         $noUserAccountMessage = 'No user account found with the id: ' . $id;
-        if (is_numeric($id) && ($id > 0))
-        {
-           $currentUserDetails = $this->getUserDetailsFromID($id, $noUserAccountMessage);
+        if (is_numeric($id) && ($id > 0)) {
+            $currentUserDetails = $this->getUserDetailsFromID($id, $noUserAccountMessage);
 
-	   // update account
-           $deactivatedUserDetails = array(
+       // update account
+            $deactivatedUserDetails = array(
               'canRecord' => '0',
               'valid' => '0',
               'activationKey' => 'activateMe'
-           );
-           $where = array($this->getUsers()->getAdapter()->quoteInto('id = ?', $id));
-           $this->getUsers()->update($deactivatedUserDetails, $where);
+            );
+            $where = array($this->getUsers()->getAdapter()->quoteInto('id = ?', $id));
+            $this->getUsers()->update($deactivatedUserDetails, $where);
 
-	   // audit changes
-	   $this->_helper->audit(
-              $deactivatedUserDetails,
-              $currentUserDetails,
-              'UsersAudit',
-              $id,
-	      $id
-           );
-           $this->getFlash()->addMessage('User (' . $currentUserDetails['fullname'] . ') account de-activated successfully.');
+       // audit changes
+            $this->_helper->audit(
+                $deactivatedUserDetails,
+                $currentUserDetails,
+                'UsersAudit',
+                $id,
+                $id
+            );
+            $this->getFlash()->addMessage('User (' . $currentUserDetails['fullname'] . ') account de-activated successfully.');
 
-	   // back to user list
-           $this->redirect('admin/users/index');
+       // back to user list
+            $this->redirect('admin/users/index');
         } else {
-           throw new Pas_Exception_Param($noUserAccountMessage);
+            throw new Pas_Exception_Param($noUserAccountMessage);
         }
     }
 
-    // notify user via email of account activation
+    /** notify user via email of account activation
+     * @param $currentUserDetails
+     * @param $template
+     * @return void
+     */
     private function notifyUserOfActionWithEmail($currentUserDetails, $template)
     {
         $to = array(array(
@@ -455,14 +483,18 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
         $this->_helper->mailer($currentUserDetails, $template, $to);
     }
 
-    // return user details based on ID number. Show $message if not found
+    /** return user details based on ID number. Show $message if not found
+     * @param $id
+     * @param $message
+     * @return array
+     * @throws Pas_Exception_Param
+     */
     private function getUserDetailsFromID($id, $message)
     {
-       $currentUserDetails = $this->getUsers()->fetchRow('id = ' . $id);
-       if (is_null($currentUserDetails))
-       {
-          throw new Pas_Exception_Param($message);
-       }
-       return $currentUserDetails->toArray();
+        $currentUserDetails = $this->getUsers()->fetchRow('id = ' . $id);
+        if (is_null($currentUserDetails)) {
+            throw new Pas_Exception_Param($message);
+        }
+        return $currentUserDetails->toArray();
     }
 }

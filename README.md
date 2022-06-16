@@ -15,10 +15,10 @@ The database is written with a Linux operating system in mind.
 
 ### Operating system requirements:
 
-* Recommended Ubuntu 16.04 or other LTS 
-* PHP 5.4+
+* Recommended Ubuntu 20.04 or other LTS 
+* PHP 7.4.3+
 * Solr 4.2
-* MySQL 5.7
+* MySQL 8.0.28
 * APC Cache or equivalent
 * Curl
 * ImageMagick
@@ -62,15 +62,29 @@ We welcome code contributions to make this system better. Please refer to our [c
 
 A [change log](CHANGELOG.md) is now maintained by the project developers to try and explain how things are being improved. 
 
-## Development team
+## Current development team
+
+* [Stephen Moon](https://github.com/s-moon)
+* [Liam Rehman](https://github.com/L-Rehman)
+
+## Previous development team
 
 * [Daniel Pett](https://github.com/portableant)
 * [Mary Chester-Kadwell](https://github.com/mchesterkadwell)
 * [Minakshi Chidrawar](https://github.com/minakshi-chidrawar)
-* [Stephen Moon](https://github.com/s-moon)
 * [Adetokunbo Aribilola](https://github.com/adetoks) 
 
-The Scheme is also grateful for the contributions of Richard Wareham (Cambridge University) and Ethan Gruber (ANS). Full [acknowledgements](ACKNOWLEDGEMENTS.md) are recorded within this repo. 
+## Acknowledgements
+This software was built on the foundations of Oxford Arch Digital:
+
+* Andrew Larcombe
+* Chad
+* Kos Vankov
+* Tyler Bell
+* Vuk Trifkovic
+* Yegor Veter
+
+The Scheme is also grateful for the contributions of Richard Wareham (Cambridge University) and Ethan Gruber (ANS).
 
 ## License
 
@@ -80,5 +94,5 @@ The codebase is released under [GPL V3](LICENSE.md).
 
 * [Heritage Lottery Fund](https://www.hlf.org.uk/) 
 * [DCMS](https://www.gov.uk/government/organisations/department-for-digital-culture-media-sport)
-* [Arts and Humanities Research Council](http://www.ahrc.ac.uk/)
+* [Arts and Humanities Research Council](https://ahrc.ukri.org/)
 * [The British Museum](https://britishmuseum.org)

@@ -40,7 +40,7 @@ class CultureForm extends Pas_Form {
                 ->setRequired(true)
                 ->setAttrib('rows',30)
                 ->setAttrib('cols',60)
-                ->addErrorMessage('You must enter a main body of text or David Williams will eat you.')
+                ->addErrorMessage('You must enter a description for the ascribed culture')
                 ->addFilter('HtmlBody')
                 ->setAttrib('Height',400)
                 ->addFilter('EmptyParagraph')

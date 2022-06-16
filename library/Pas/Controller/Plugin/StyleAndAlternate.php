@@ -56,7 +56,7 @@ class Pas_Controller_Plugin_StyleAndAlternate extends Zend_Controller_Plugin_Abs
     public function postDispatch(Zend_Controller_Request_Abstract $request)
     {
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('ViewRenderer')->view;
-        $view->headMeta('Daniel Pett: ' . Zend_Version::VERSION, 'generator');
+        $view->headMeta('The British Museum ' . Zend_Version::VERSION, 'generator');
 
         foreach ($this->_javascript as $script) {
             $location = $view->baseUrl() . $script;
@@ -77,31 +77,45 @@ class Pas_Controller_Plugin_StyleAndAlternate extends Zend_Controller_Plugin_Abs
             ->appendAlternate(
                 $view->serverUrl() . $view->baseUrl()
                 . '/database/search/results/format/atom',
-                'application/rss+xml', 'Latest recorded finds feed')
+                'application/rss+xml',
+                'Latest recorded finds feed'
+            )
             ->appendAlternate(
                 $view->serverUrl() . $view->baseUrl()
                 . '/news/index/format/atom',
-                'application/rss+xml', 'Latest Scheme news feed')
+                'application/rss+xml',
+                'Latest Scheme news feed'
+            )
             ->appendAlternate(
                 $view->serverUrl() . $view->baseUrl()
                 . '/about/vacancies/index/format/atom',
-                'application/atom+xml', 'Latest Scheme vacancies atom Feed')
+                'application/atom+xml',
+                'Latest Scheme vacancies atom Feed'
+            )
             ->appendAlternate(
                 $view->serverUrl() . $view->baseUrl()
                 . '/research/projects/index/format/atom',
-                'application/atom+xml', 'Research projects based on Scheme data')
+                'application/atom+xml',
+                'Research projects based on Scheme data'
+            )
             ->appendAlternate(
                 $view->serverUrl() . $view->baseUrl()
                 . '/blogs/centralunit/feed/',
-                'application/atom+xml', 'Central unit blog posts')
+                'application/atom+xml',
+                'Central unit blog posts'
+            )
             ->appendAlternate(
                 $view->serverUrl() . $view->baseUrl()
                 . '/events/upcoming/index/format/atom',
-                'application/atom+xml', 'Scheme and external events as they are posted')
+                'application/atom+xml',
+                'Scheme and external events as they are posted'
+            )
             ->appendAlternate(
                 $view->serverUrl() . $view->baseUrl()
                 . '/database/search/results/note/1/format/atom',
-                'application/atom+xml', 'Amazing finds recorded on the database')
+                'application/atom+xml',
+                'Amazing finds recorded on the database'
+            )
             ->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css')
             ->appendStylesheet('https://fonts.googleapis.com/css?family=Open+Sans');
         $view->headLink(array(
@@ -109,12 +123,14 @@ class Pas_Controller_Plugin_StyleAndAlternate extends Zend_Controller_Plugin_Abs
             'href' => $view->serverUrl() . $view->baseUrl() . '/OpenSearchDatabase.xml',
             'type' => 'application/opensearchdescription+xml',
             'title' => 'Portable Antiquities database search',
-            'APPEND'));
+            'APPEND'
+        ));
         $view->headLink(array(
             'rel' => 'search',
             'href' => $view->serverUrl() . $view->baseUrl() . '/OpenSearchContent.xml',
             'type' => 'application/opensearchdescription+xml',
             'title' => 'Portable Antiquities content search',
-            'APPEND'));
+            'APPEND'
+        ));
     }
 }
