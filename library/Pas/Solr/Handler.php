@@ -25,7 +25,6 @@
  */
 class Pas_Solr_Handler
 {
-
     /** The config
      *
      * @access protected
@@ -105,10 +104,11 @@ class Pas_Solr_Handler
     protected $_allowed = array(
         'fa',
         'flos',
+        'hero',
+        'hoard',
         'admin',
         'treasure',
-        'research',
-        'hoard'
+        'research'
     );
 
     /** The default map option
@@ -337,8 +337,7 @@ class Pas_Solr_Handler
     {
         $params = $this->getParams();
         $format = $this->getFormat();
-        if (isset($params['show']) && in_array($format, array('json', 'xml', 'geojson', null))
-        ) {
+        if (isset($params['show']) && in_array($format, array('json', 'xml', 'geojson', null))) {
             $show = $params['show'];
             if ($show > 100) {
                 $show = 100;
@@ -846,10 +845,12 @@ class Pas_Solr_Handler
     protected function _createFilters(array $params)
     {
         if (is_array($params)) {
-            if (array_key_exists('d', $params) && array_key_exists('lon', $params) && array_key_exists(
+            if (
+                array_key_exists('d', $params) && array_key_exists('lon', $params) && array_key_exists(
                     'lat',
                     $params
-                )) {
+                )
+            ) {
                 if (!is_null($params['d']) && !is_null($params['lon']) && !is_null($params['lat'])) {
                     $helper = $this->_query->getHelper();
                     $this->_query->createFilterQuery('geo')->setQuery(
@@ -863,7 +864,8 @@ class Pas_Solr_Handler
                 }
             }
             $map = $this->getMap();
-            if (($map === true) && !in_array(
+            if (
+                ($map === true) && !in_array(
                     $this->getRole(),
                     $this->getAllowed()
                 ) && ($this->getCore() === 'objects')
@@ -1060,6 +1062,21 @@ class Pas_Solr_Handler
         return $this;
     }
 
+    /**
+     * @param $userRole
+     * @param ...$roles
+     * @return bool
+     */
+    protected function checkRoleAllowed($userRole, ...$removedRoles): bool
+    {
+        $allowed = $this->getAllowed();
+        if (!empty($removedRoles)) {
+            $allowed = array_diff($allowed, $removedRoles);
+        }
+
+        return in_array($userRole, $allowed);
+    }
+
     /** Execute the query
      *
      * @access public
@@ -1146,24 +1163,26 @@ class Pas_Solr_Handler
             }
         }
 
-        if (!in_array($this->getRole(), $this->getAllowed()) || $this->getRole() == 'research' || is_null(
-                $this->getRole()
-            )) {
+        if ($this->checkRoleAllowed($this->getRole(), "research") == false) {
             if (($this->getRole() == 'member' || $this->getRole() == 'research') && $this->getMyfinds()) {
                 $this->_query->createFilterQuery('myfinds')->setQuery('createdBy:' . $params['createdBy']);
-            } else {
-                if (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
+            } elseif (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
                     $query = "workflow:[3 TO 4] OR createdBy:" . $this->getUserID();
                     $person = $this->getPerson();
-                    if ($person !== false && property_exists($person, 'peopleID')
-                            && !is_null($person->peopleID)
-                            && $this->getCore() !== 'images') {
-                        $query .= " OR recorderID:" . $person->peopleID;
-                    }
-                    $this->_query->createFilterQuery('workflow')->setQuery($query);
+                if (
+                        $person !== false && property_exists($person, 'peopleID')
+                        && !is_null($person->peopleID)
+                        && $this->getCore() !== 'images'
+                ) {
+                    $query .= " OR recorderID:" . $person->peopleID;
                 }
+                    $this->_query->createFilterQuery('workflow')->setQuery($query);
             }
-            if ((array_key_exists('parish', $params)
+        }
+
+        if ($this->checkRoleAllowed($this->getRole()) == false) {
+            if (
+                (array_key_exists('parish', $params)
                     || array_key_exists('fourFigure', $params) || array_key_exists('parishID', $params))
                 && ($this->getCore() === 'objects')
             ) {

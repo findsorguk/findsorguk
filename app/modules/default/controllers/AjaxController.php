@@ -536,14 +536,20 @@ class AjaxController extends Pas_Controller_Action_Ajax
         if ($this->getParam('term', false)) {
             $moneyer = new Moneyers();
             $nomismaID = $moneyer->fetchRow($moneyer->select()->where('id = ?', $this->getParam('term')))->nomismaID;
-            $nomisma = new Nomisma();
-            $types = $nomisma->getRRCDropdowns($nomismaID);
+//            $nomisma = new Nomisma();
+//            $types = $nomisma->getRRCDropdowns($nomismaID);
+//
+//            if ($types) {
+//                $response = $types;
+//            } else {
+//                $response = array(array('id' => null, 'term' => 'No options available'));
+//            }
 
-            if ($types) {
-                $response = $types;
-            } else {
+            $response = $nomismaID ? (new Nomisma())->getRRCDropdowns($nomismaID) : null;
+            if (empty($response)) {
                 $response = array(array('id' => null, 'term' => 'No options available'));
             }
+
         } else {
             $response = array(array('id' => null, 'term' => 'No moneyer specified'));
         }
@@ -558,12 +564,9 @@ class AjaxController extends Pas_Controller_Action_Ajax
     {
         if ($this->getParam('term', false)) {
             $rulers = new Rulers();
-            $nomismaID = $rulers->fetchRow($rulers->select()->where('id = ?', $this->getParam('term')))->nomismaID;
-            $nomisma = new Nomisma();
-            $types = $nomisma->getRICDropdowns($nomismaID);
-            if ($types) {
-                $response = $types;
-            } else {
+            $nomismaID = ($rulers)->fetchRow($rulers->select()->where('id = ?', $this->getParam('term')))->nomismaID;
+            $response = $nomismaID ? (new Nomisma())->getRICDropdowns($nomismaID) : null;
+            if (empty($response)) {
                 $response = array(array('id' => null, 'term' => 'No options available'));
             }
         } else {

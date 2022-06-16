@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A view helper for displaying the current page URL
  *
@@ -16,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2011 dpett @ britishmuseum.org
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
- * @see Zend_View_Helper_Abstract
+ * @see  Zend_View_Helper_Abstract
  * @author Daniel Pett <dpett@britishmuseum.org>
  * @version 1
  * @uses Zend_Controller_Front
@@ -69,7 +70,8 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return object
      */
-    public function getFront() {
+    public function getFront(): object
+    {
         $this->_front = Zend_Controller_Front::getInstance();
         return $this->_front;
     }
@@ -78,7 +80,8 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getHttps()  {
+    public function getHttps(): string
+    {
         $this->_https = $this->getFront()->getRequest('HTTPS');
         return $this->_https;
     }
@@ -87,8 +90,9 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return int
      */
-    public function getPortNumber() {
-        $this->_portNumber =  $_SERVER['SERVER_PORT'] != 80 ? ":{$_SERVER['SERVER_PORT']}" : '';
+    public function getPortNumber(): int
+    {
+        $this->_portNumber = $_SERVER['SERVER_PORT'] != 80 ? "{$_SERVER['SERVER_PORT']}" : 80;
         return $this->_portNumber;
     }
 
@@ -96,7 +100,8 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getUri() {
+    public function getUri(): string
+    {
         $this->_requestUri = $this->getFront()->getRequest()->getRequestUri();
         return $this->_requestUri;
     }
@@ -105,7 +110,8 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function getServerName() {
+    public function getServerName(): string
+    {
         $this->_serverName = $_SERVER['HTTP_HOST'];
         return $this->_serverName;
     }
@@ -114,7 +120,8 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return boolean
      */
-    public function getSsl() {
+    public function getSsl(): bool
+    {
         $this->_ssl = (null !== ($this->getHttps()) && $this->getHttps() == "on");
         return $this->_ssl;
     }
@@ -123,7 +130,8 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return \Pas_View_Helper_CurUrl
      */
-    public function curUrl() {
+    public function curUrl(): Pas_View_Helper_CurUrl
+    {
         return $this;
     }
 
@@ -131,21 +139,22 @@ class Pas_View_Helper_CurUrl extends Zend_View_Helper_Abstract
      * @access public
      * @return string
      */
-    public function __toString() {
-            return $this->createUrl();
+    public function __toString(): string
+    {
+        return $this->createUrl();
     }
 
     /** Create the url
      * @access public
      * @return string
      */
-    public function createUrl() {
-        if($this->getPortNumber() === 443){
+    public function createUrl(): string
+    {
+        if ($this->getPortNumber() === 443) {
             $protocol = 'https://';
         } else {
             $protocol = 'http://';
         }
-        $url = $protocol . $this->getServerName()  . $this->getUri();
-        return $url;
+        return $protocol . $this->getServerName() . $this->getUri();
     }
 }

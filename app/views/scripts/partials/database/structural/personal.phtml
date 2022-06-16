@@ -29,7 +29,7 @@
 <p>
     <?php if (! is_null($this->finder)): ?>
 	Found by:
-	<?php if (in_array($user->role, array('fa', 'admin', 'flos', 'hero', 'treasure'))): ?>
+	<?php if (in_array($user->role, array('fa', 'admin', 'flos', 'treasure'))): ?>
             <span property="pas:finder foaf:name" instanceof="foaf:person"><?= $this->finder ?></span> 
 	    <a href="<?= $this->url(BuildSearchParameters(array('finderID' => $this->finderID)), null, true) ?>"
                 title="Search database for all records found by <?= $this->finder ?>">

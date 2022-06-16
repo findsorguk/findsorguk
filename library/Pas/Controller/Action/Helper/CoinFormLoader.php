@@ -133,7 +133,35 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
             default:
                 throw new Exception('You cannot have a coin for that period.');
         }
+        $this->initNomismaDropdowns($form);
         return $form;
+    }
+
+    private function setFormDisabled($element, $errorMessage){
+        $element->setDescription($errorMessage)
+            ->setAttrib('tabindex', '-1')
+            ->setAttrib('style', 'pointer-events:none; background: #eee;')
+            ->addDecorators(array(
+                array(
+                    'Description',
+                    array(
+                        'tag' => 'p',
+                        'style' => 'color:#e95420; font-weight: bold; margin-top:5px;'
+                    )
+                ),
+            ));
+    }
+
+    private function initNomismaDropdowns($form)
+    {
+        $rrcTypes = new Nomisma();
+        $errorMessageNomisma = 'Nomisma - the third party data source - is ' .
+            'currently unavailable. Please try again later';
+
+        if ($rrcTypes->getStatusNomisma() == false) {
+            $this->setFormDisabled($form->rrcID, $errorMessageNomisma);
+            $this->setFormDisabled($form->ricID, $errorMessageNomisma);
+        }
     }
 
     /** Clone the options

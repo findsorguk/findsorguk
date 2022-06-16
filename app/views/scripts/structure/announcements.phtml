@@ -1,35 +1,44 @@
-<?php if (!empty($this->announcements)): ?>
+<?php
+if (!empty($this->announcements)): ?>
 
     <?php
-    $this->jQuery()->addJavascriptFile('/js/JQuery/jquery.cookie.js', $type = 'text/javascript');
+    $this->jQuery()->addJavascriptFile(
+        '/js/JQuery/jquery.cookie.js',
+        $type = 'text/javascript'
+    );
     ?>
     <?php
     $this->jQuery()->javascriptCaptureStart(); ?>
-    $(document).ready(function(){
-    if ($.cookie('noShowSurvey')) $('#announcement').hide();
-    else {
-    $("#close-welcome").click(function() {
-    $("#announcement").fadeOut(1000);
-    $.cookie('noShowSurvey', true);
-    });
-    }
-    });
-    <?php $this->jQuery()->javascriptCaptureEnd(); ?>
+    initAnnouncement()
+    <?php
+    $this->jQuery()->javascriptCaptureEnd(); ?>
     <div class="alert alert-info" id="announcement">
-        <?php foreach ($this->announcements as $announce): ?>
-            <?php echo $announce['quote']; ?>
-            <p><strong><a id="close-welcome" href="#">Dismiss this announcement</a></strong></p>
-        <?php endforeach; ?>
+        <?php
+        foreach ($this->announcements as $announce): ?>
+            <?php
+            echo $announce['quote']; ?>
+        <?php
+        endforeach; ?>
+        <span class="close">x</span>
     </div>
-<?php endif; ?>
-<?php 
-echo $this->serverUrl();
-if (in_array($this->serverUrl(), array('https://beta.finds.org.uk', 'http://finds.dev'))): ?>
+<?php
+endif; ?>
+
+<?php
+if (in_array(
+    $this->serverUrl(),
+    array('https://beta.finds.org.uk', 'http://finds.dev')
+)
+): ?>
     <div class="alert alert-danger" id="announcement">
         <p>You are on a backup or testing server - there are no images here</p>
     </div>
-    <?php elseif(in_array($this->serverUrl(), array('https://training.finds.org.uk'))):?>
-    <div class="alert alert-danger" >
+<?php
+elseif (in_array($this->serverUrl(), array('https://training.finds.org.uk')
+)
+): ?>
+    <div class="alert alert-danger">
         <p>You are on the training database</p>
     </div>
-<?php endif; ?>
+<?php
+endif; ?>
