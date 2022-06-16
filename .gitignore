@@ -163,5 +163,13 @@ nbproject*
 .idea/*
 cache/zend_*
 cache/html*
+cache/mapit/*
 app/logs/application.log
 public_html/images/*
+app/logs/*
+public_html/documents/*
+public_html/assets/staffphotos/*
+backups/csv/*
+
+#Vim temp files
+*.swo
