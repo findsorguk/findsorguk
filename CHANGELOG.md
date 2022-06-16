@@ -1,6 +1,24 @@
 # Change Log
 
-### 1.78 28th February 2022
+### 1.78 16th June 2022
+- [x] Stop users with hero role incorrectly seeing finder name
+- [x] Fix issue where adding "can record" permissions to a people record would not update the user record
+- [x] Change name of the district Shepway to Folkestone & Hythe
+- [x] Remove Covid advice from front page
+- [x] Update URLs on footer to HTTPs
+- [x] Fix function getPortNumber in CurUrl to return correct port number
+- [x] Sensitive field filtering enhancements
+- [x] Update the contact us message page text
+- [x] Add version number to homepage code and readme
+- [x] Update README file
+- [x] Edit site meta data generator value
+- [x] Amend error message in add culture form
+- [x] Add Nomisma error handling to allow users to edit numismatics data when nomisma.org is down
+- [x] Fix researchers not seeing known as records on map results
+- [x] Fix issue with researchers not seeing known as records when searching for parishes
+- [x] Remove Day of Archaeology and PASt explorers from front page
+
+### 1.77.1 28th February 2022
 - [x] Add Cookiebot script to website to provide cookie consent
 - [x] Add placeholders to embedded media to provide visual indication of Cookiebot blocking
 
