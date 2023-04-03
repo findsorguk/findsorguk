@@ -221,7 +221,9 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                     'institution' => $form->getValue('institution'),
                     'role' => $form->getValue('role'),
                     'password' => $password,
-                    'peopleID' => $form->getValue('peopleID')
+                    'peopleID' => $form->getValue('peopleID'),
+                    'canRecord' => $form->getValue('canRecord'),
+                    'valid' => $form->getValue('valid'),
                 );
                 $username = $form->getValue('username');
                 $this->getUsers()->add($insertData);
