@@ -465,6 +465,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             }
 
             $currentFindDetails = $this->getFinds()->fetchRow('id = ' . $id);
+            $this->view->find = $currentFindDetails;
             if ($this->getRequest()->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
                     $updatedFindDetails = $form->getValues();
