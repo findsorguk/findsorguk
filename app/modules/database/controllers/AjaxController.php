@@ -946,7 +946,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             $adapter->addValidator(
                 'Extension',
                 false,
-                'jpg, tiff'
+                'jpg, jpeg, tiff, tif'
             );
             $adapter->addValidator(
                 'NotExists',
