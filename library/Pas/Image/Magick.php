@@ -204,51 +204,55 @@ class Pas_Image_Magick
      * @access public
      * @return void
      * @throws Pas_Image_Exception
+     * @throws ImagickException
      */
     public function resize()
     {
-        $image = $this->getImage();
-        // If image parameter not set, throw exception
-        if (is_null($image)) {
-            throw new Pas_Image_Exception('You must specify an image', 500);
-        }
-
-        //Check file exists and if not throw exception
-        if (!file_exists($image)) {
-            throw new Pas_Image_Exception('That image does not exist', 500);
-        }
-
-        //Make directory check for existence
-        $this->checkDirectories();
-        // Make directory check for permissions
-        // $this->checkPermissions();
-
-        //Loop through each size and create the image
-        foreach ($this->getSizes() as $resize) {
-            // Set the file name
-            if ($resize['destination'] == self::THUMB) {
-                // Thumbnail sets record number as thumbnail ID
-                $newImage = IMAGE_PATH . $resize['destination']
-                    . $this->getImageNumber() . self::EXT;
-            } else {
-                // Normal base name otherwise
-                $newImage = IMAGE_PATH . $this->getUserPath()
-                    . $resize['destination'] . $this->getBasename();
+        $currentImage = new Imagick($this->getImageName());
+        $mime = $currentImage->getImageMimeType();
+        if (in_array($mime, $this->getMimeTypes())) {
+            $image = $this->getImage();
+            // If image parameter not set, throw exception
+            if (is_null($image)) {
+                throw new Pas_Image_Exception('You must specify an image', 500);
             }
-            // Set up the image creation class using imagick
-            $surrogate = Image::fromFile($this->getImage(), Image::LIB_IMAGICK);
-            // Get the mime type
-            $mime = $surrogate->getMimeType();
-            // Check if mime type is in the accepted array of types
-            if (in_array($mime, $this->getMimeTypes())) {
+
+            //Check file exists and if not throw exception
+            if (!file_exists($image)) {
+                throw new Pas_Image_Exception('That image does not exist', 500);
+            }
+
+            //Make directory check for existence
+            $this->checkDirectories();
+            // Make directory check for permissions
+            // $this->checkPermissions();
+
+            //Loop through each size and create the image
+            foreach ($this->getSizes() as $resize) {
+                // Set the file name
+                if ($resize['destination'] == self::THUMB) {
+                    // Thumbnail sets record number as thumbnail ID
+                    $newImage = IMAGE_PATH . $resize['destination']
+                        . $this->getImageNumber() . self::EXT;
+                } else {
+                    // Normal base name otherwise
+                    $newImage = IMAGE_PATH . $this->getUserPath()
+                        . $resize['destination'] . $this->getBasename();
+                }
+                // Set up the image creation class using imagick
+                $surrogate = Image::fromFile(
+                    $this->getImage(),
+                    Image::LIB_IMAGICK
+                );
                 $surrogate->resize($resize['width'], $resize['height'], 1);
                 $surrogate->format('jpg');
                 $surrogate->save($newImage);
-            }
-            // If the mime type is a tiff do this
-            if (in_array($mime, $this->_tiffMimes)) {
-                //Convert tiff to JPG and repeat above, replace original and save tiff in tiffs folder
-                $this->convertTiff($image);
+
+                // If the mime type is a tiff do this
+                if (in_array($mime, $this->_tiffMimes)) {
+                    //Convert tiff to JPG and repeat above, replace original and save tiff in tiffs folder
+                    $this->convertTiff($image);
+                }
             }
         }
     }
