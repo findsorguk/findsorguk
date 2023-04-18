@@ -55,7 +55,8 @@ class Pas_Image_Magick
             'image/jpeg',
             'image/pjpeg',
             'image/tiff',
-            'image/x-tiff'
+            'image/x-tiff',
+            'image/x-tiff64'
         );
     /** User object */
     protected $_user;
