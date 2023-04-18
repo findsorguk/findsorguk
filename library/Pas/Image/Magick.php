@@ -199,61 +199,74 @@ class Pas_Image_Magick
         return $this->_user;
     }
 
+    /** Basic validation before resizing image
+     * @throws Pas_Image_Exception
+     */
+    public function validateImage(?string $image, string $mime)
+    {
+        // If image parameter not set, throw exception
+        if (is_null($image)) {
+            throw new Pas_Image_Exception(
+                'You must specify an image',
+                500
+            );
+        }
+
+        //Check file exists and if not throw exception
+        if (!file_exists($image)) {
+            throw new Pas_Image_Exception(
+                'That image does not exist',
+                500
+            );
+        }
+
+        //Check image is in accepted mime types
+        if (!in_array($mime, $this->getMimeTypes())) {
+            throw new Pas_Image_Exception(
+                'The mime type ' . $mime . ' is not supported',
+                500
+            );
+        }
+    }
+
     /** Create the different sizes of images
      *
      * @access public
      * @return void
-     * @throws Pas_Image_Exception
-     * @throws ImagickException
+     * @throws Pas_Image_Exception|ImagickException
      */
     public function resize()
     {
-        $currentImage = new Imagick($this->getImageName());
-        $mime = $currentImage->getImageMimeType();
-        if (in_array($mime, $this->getMimeTypes())) {
-            $image = $this->getImage();
-            // If image parameter not set, throw exception
-            if (is_null($image)) {
-                throw new Pas_Image_Exception('You must specify an image', 500);
+        $image = $this->getImageName();
+        $mime = (new Imagick($this->getImageName()))->getImageMimeType();
+        $this->validateImage($image, $mime);
+        //Make directory check for existence
+        $this->checkDirectories();
+
+        // Make directory check for permissions
+        // $this->checkPermissions();
+        //Loop through each size and create the image
+        foreach ($this->getSizes() as $resize) {
+            // Set the file name
+            if ($resize['destination'] == self::THUMB) {
+                // Thumbnail sets record number as thumbnail ID
+                $resizedImagePath = IMAGE_PATH . $resize['destination']
+                    . $this->getImageNumber() . self::EXT;
+            } else {
+                $resizedImagePath = IMAGE_PATH . $this->getUserPath()
+                    . $resize['destination'] .
+                    pathinfo($this->getImageName(), PATHINFO_FILENAME)
+                    . self::EXT;
             }
 
-            //Check file exists and if not throw exception
-            if (!file_exists($image)) {
-                throw new Pas_Image_Exception('That image does not exist', 500);
-            }
-
-            //Make directory check for existence
-            $this->checkDirectories();
-            // Make directory check for permissions
-            // $this->checkPermissions();
-
-            //Loop through each size and create the image
-            foreach ($this->getSizes() as $resize) {
-                // Set the file name
-                if ($resize['destination'] == self::THUMB) {
-                    // Thumbnail sets record number as thumbnail ID
-                    $newImage = IMAGE_PATH . $resize['destination']
-                        . $this->getImageNumber() . self::EXT;
-                } else {
-                    // Normal base name otherwise
-                    $newImage = IMAGE_PATH . $this->getUserPath()
-                        . $resize['destination'] . $this->getBasename();
-                }
-                // Set up the image creation class using imagick
-                $surrogate = Image::fromFile(
-                    $this->getImage(),
-                    Image::LIB_IMAGICK
-                );
-                $surrogate->resize($resize['width'], $resize['height'], 1);
-                $surrogate->format('jpg');
-                $surrogate->save($newImage);
-
-                // If the mime type is a tiff do this
-                if (in_array($mime, $this->_tiffMimes)) {
-                    //Convert tiff to JPG and repeat above, replace original and save tiff in tiffs folder
-                    $this->convertTiff($image);
-                }
-            }
+            // Set up the image creation class using imagick
+            $surrogate = Image::fromFile(
+                $image,
+                Image::LIB_IMAGICK
+            );
+            $surrogate->resize($resize['width'], $resize['height'], 1);
+            $surrogate->format('jpg');
+            $surrogate->save($resizedImagePath);
         }
     }
 
@@ -262,7 +275,7 @@ class Pas_Image_Magick
      * @access public
      * @return string Path to file
      */
-    public function getImage()
+    public function getImageName()
     {
         //Return the original name
         return $this->_original;
