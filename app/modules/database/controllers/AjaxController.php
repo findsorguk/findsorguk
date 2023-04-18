@@ -168,9 +168,19 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                 $filename = $d['f'];
                 $path = $d['imagedir'];
             }
-            $file = './' . $path . $filename;
-            $mime_type = mime_content_type($file);
+
+            //Find original file
+            $listOfImages = glob('./' . $path . pathinfo($filename, PATHINFO_FILENAME) . '.*');
+
+            if (count($listOfImages) > 1) {
+                $listOfImages = preg_grep('/.*jpg/', $listOfImages, PREG_GREP_INVERT);
+                usort($listOfImages, fn ($fileA, $FileB) => filemtime($fileA) - filemtime($FileB));
+            }
+                $file = $listOfImages[0];
+
             if (file_exists($file)) {
+                $mime_type = mime_content_type($file);
+
                 $this->_helper->viewRenderer->setNoRender();
                 $this->_helper->sendFile($file, $mime_type);
             } else {
