@@ -24,6 +24,10 @@
 class Slides extends Pas_Db_Table_Abstract
 {
 
+    protected const EXT_MIME = 'image/jpeg';
+    /** The default extension */
+    protected const EXT = '.jpg';
+
     /** The table name
      *
      * @access protected
@@ -487,8 +491,9 @@ class Slides extends Pas_Db_Table_Abstract
             $images = array(
                 'secuid'      => $data->secuid,
                 'filesize'    => $data->size,
-                'filename'    => $data->name,
-                'mimetype'    => $data->mimetype,
+                'filename'    =>
+                    pathinfo($data->path, PATHINFO_FILENAME) . self::EXT,
+                'mimetype'    => self::EXT_MIME,
                 'filecreated' => $this->timeCreation(),
                 'institution' => $this->getInstitution(),
                 'created'     => $this->timeCreation(),

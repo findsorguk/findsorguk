@@ -229,6 +229,34 @@ class Pas_Image_Magick
         }
     }
 
+    /** If image is not .jpg, convert or rename the image
+     *
+     * @return void
+     * @throws Pas_Image_Exception
+     */
+    protected function convertBaseImage(string $image, string $mime)
+    {
+        $fileNameNoExt = pathinfo($image, PATHINFO_FILENAME);
+        if ($mime != "image/jpeg") {
+            $surrogate = Image::fromFile(
+                $this->getImageName(),
+                Image::LIB_IMAGICK
+            );
+
+            $surrogate->format('jpg');
+            $surrogate->save(
+                IMAGE_PATH . $this->getUserPath() . '/' .
+                $fileNameNoExt . self::EXT
+            );
+        } elseif (pathinfo($this->getImageName(), PATHINFO_EXTENSION) == 'jpeg') {
+            rename(
+                $image,
+                IMAGE_PATH . $this->getUserPath() . '/' .
+                $fileNameNoExt . self::EXT
+            );
+        }
+    }
+
     /** Create the different sizes of images
      *
      * @access public
@@ -245,6 +273,10 @@ class Pas_Image_Magick
 
         // Make directory check for permissions
         // $this->checkPermissions();
+
+        //If the base image isn't a .JPG, we need to convert/rename this
+        $this->convertBaseImage($image, $mime);
+
         //Loop through each size and create the image
         foreach ($this->getSizes() as $resize) {
             // Set the file name
