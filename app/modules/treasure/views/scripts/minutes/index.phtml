@@ -43,7 +43,7 @@ $this->metaBase()
             $minutes[$joinedRoot] = $fileInfo->getFilename();
         }
     }
-    ksort($minutes);
+    krsort($minutes);
 
     foreach ($minutes as $pathWithNoExtension => $fullPath):
         $provisionalMeeting = "";
