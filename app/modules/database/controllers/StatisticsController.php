@@ -109,29 +109,30 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
         //Validate date
         $this->validateDates($datefrom, $dateto, 'annual');
 
-        $this->view->annualsum = $this->_finds->getReportTotals($datefrom, $dateto);
-        $this->view->officers = $this->_finds->getOfficerTotals($datefrom, $dateto);
-        $this->view->institution = $this->_finds->getInstitutionTotals($datefrom, $dateto);
-        $this->view->periods = $this->_finds->getPeriodTotals($datefrom, $dateto);
-        $this->view->finders = $this->_finds->getFindersTotals($datefrom, $dateto);
-        $this->view->averages = $this->_finds->getAverageMonth($datefrom, $dateto);
-        $this->view->year = $this->_finds->getYearFound($datefrom, $dateto);
-        $this->view->discovery = $this->_finds->getDiscoveryMethod($datefrom, $dateto);
-        $this->view->landuse = $this->_finds->getLandUse($datefrom, $dateto);
-        $this->view->precision = $this->_finds->getPrecision($datefrom, $dateto);
-        $this->view->datefrom = $datefrom;
-        $this->view->dateto = $dateto;
         $form = $this->renderForm();
         $this->view->form = $form;
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost()))
+        {
             $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
             $query = '';
             foreach ($params as $key => $value) {
                 $query .= $key . '/' . $value . '/';
             }
             $this->redirect('/database/statistics/annual/' . $query);
-        } else {
-            $form->populate($this->_request->getPost());
+        }
+        else {
+            $this->view->annualsum = $this->_finds->getReportTotals($datefrom, $dateto);
+            $this->view->officers = $this->_finds->getOfficerTotals($datefrom, $dateto);
+            $this->view->institution = $this->_finds->getInstitutionTotals($datefrom, $dateto);
+            $this->view->periods = $this->_finds->getPeriodTotals($datefrom, $dateto);
+            $this->view->finders = $this->_finds->getFindersTotals($datefrom, $dateto);
+            $this->view->averages = $this->_finds->getAverageMonth($datefrom, $dateto);
+            $this->view->year = $this->_finds->getYearFound($datefrom, $dateto);
+            $this->view->discovery = $this->_finds->getDiscoveryMethod($datefrom, $dateto);
+            $this->view->landuse = $this->_finds->getLandUse($datefrom, $dateto);
+            $this->view->precision = $this->_finds->getPrecision($datefrom, $dateto);
+            $this->view->datefrom = $datefrom;
+            $this->view->dateto = $dateto;
         }
     }
 
@@ -148,35 +149,33 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
         //Validate date
         $this->validateDates($datefrom, $dateto, 'county');
 
-        $this->view->county = $county;
-        $this->view->datefrom = $datefrom;
-        $this->view->dateto = $dateto;
-        if (!isset($county)) {
-            $this->view->counties = $this->_finds->getCounties($datefrom, $dateto);
-        } else {
-            $this->view->countyTotal = $this->_finds->getCountyStat($datefrom, $dateto, $county);
-            $this->view->creators = $this->_finds->getUsersStat($datefrom, $dateto, $county);
-            $this->view->periods = $this->_finds->getPeriodTotalsCounty($datefrom, $dateto, $county);
-            $this->view->finders = $this->_finds->getFinderTotalsCounty($datefrom, $dateto, $county);
-            $this->view->averages = $this->_finds->getAverageMonthCounty($datefrom, $dateto, $county);
-            $this->view->year = $this->_finds->getYearFoundCounty($datefrom, $dateto, $county);
-            $this->view->discovery = $this->_finds->getDiscoveryMethodCounty($datefrom, $dateto, $county);
-            $this->view->landuse = $this->_finds->getLandUseCounty($datefrom, $dateto, $county);
-            $this->view->precision = $this->_finds->getPrecisionCounty($datefrom, $dateto, $county);
-        }
         $form = $this->renderForm();
         $this->view->form = $form;
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
-                $query = '';
-                foreach ($params as $key => $value) {
-                    $query .= $key . '/' . $value . '/';
-                }
-                $this->redirect('/database/statistics/county/' . $query);
+
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost()))
+        {
+            $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
+            $query = '';
+            foreach ($params as $key => $value) {
+                $query .= $key . '/' . $value . '/';
+            }
+            $this->redirect('/database/statistics/county/' . $query);
+        } else {
+            $this->view->county = $county;
+            $this->view->datefrom = $datefrom;
+            $this->view->dateto = $dateto;
+            if (!isset($county)) {
+                $this->view->counties = $this->_finds->getCounties($datefrom, $dateto);
             } else {
-                $form->populate($data);
+                $this->view->countyTotal = $this->_finds->getCountyStat($datefrom, $dateto, $county);
+                $this->view->creators = $this->_finds->getUsersStat($datefrom, $dateto, $county);
+                $this->view->periods = $this->_finds->getPeriodTotalsCounty($datefrom, $dateto, $county);
+                $this->view->finders = $this->_finds->getFinderTotalsCounty($datefrom, $dateto, $county);
+                $this->view->averages = $this->_finds->getAverageMonthCounty($datefrom, $dateto, $county);
+                $this->view->year = $this->_finds->getYearFoundCounty($datefrom, $dateto, $county);
+                $this->view->discovery = $this->_finds->getDiscoveryMethodCounty($datefrom, $dateto, $county);
+                $this->view->landuse = $this->_finds->getLandUseCounty($datefrom, $dateto, $county);
+                $this->view->precision = $this->_finds->getPrecisionCounty($datefrom, $dateto, $county);
             }
         }
     }
@@ -196,35 +195,33 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
         //Validate date
         $this->validateDates($datefrom, $dateto, 'regional');
 
-        $this->view->region = $region;
-        $this->view->datefrom = $datefrom;
-        $this->view->dateto = $dateto;
-        if (!isset($region)) {
-            $this->view->regions = $this->_finds->getRegions($datefrom, $dateto);
-        } else {
-            $this->view->regionTotal = $this->_finds->getRegionStat($datefrom, $dateto, $region);
-            $this->view->creators = $this->_finds->getUsersRegionStat($datefrom, $dateto, $region);
-            $this->view->periods = $this->_finds->getPeriodTotalsRegion($datefrom, $dateto, $region);
-            $this->view->finders = $this->_finds->getFinderTotalsRegion($datefrom, $dateto, $region);
-            $this->view->averages = $this->_finds->getAverageMonthRegion($datefrom, $dateto, $region);
-            $this->view->year = $this->_finds->getYearFoundRegion($datefrom, $dateto, $region);
-            $this->view->discovery = $this->_finds->getDiscoveryMethodRegion($datefrom, $dateto, $region);
-            $this->view->landuse = $this->_finds->getLandUseRegion($datefrom, $dateto, $region);
-            $this->view->precision = $this->_finds->getPrecisionRegion($datefrom, $dateto, $region);
-        }
         $form = $this->renderForm();
         $this->view->form = $form;
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
-                $query = '';
-                foreach ($params as $key => $value) {
-                    $query .= $key . '/' . $value . '/';
-                }
-                $this->redirect('database/statistics/regional/' . $query);
+
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost()))
+        {
+            $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
+            $query = '';
+            foreach ($params as $key => $value) {
+                $query .= $key . '/' . $value . '/';
+            }
+            $this->redirect('/database/statistics/regional/' . $query);
+        } else {
+            $this->view->region = $region;
+            $this->view->datefrom = $datefrom;
+            $this->view->dateto = $dateto;
+            if (!isset($region)) {
+                $this->view->regions = $this->_finds->getRegions($datefrom, $dateto);
             } else {
-                $form->populate($data);
+                $this->view->regionTotal = $this->_finds->getRegionStat($datefrom, $dateto, $region);
+                $this->view->creators = $this->_finds->getUsersRegionStat($datefrom, $dateto, $region);
+                $this->view->periods = $this->_finds->getPeriodTotalsRegion($datefrom, $dateto, $region);
+                $this->view->finders = $this->_finds->getFinderTotalsRegion($datefrom, $dateto, $region);
+                $this->view->averages = $this->_finds->getAverageMonthRegion($datefrom, $dateto, $region);
+                $this->view->year = $this->_finds->getYearFoundRegion($datefrom, $dateto, $region);
+                $this->view->discovery = $this->_finds->getDiscoveryMethodRegion($datefrom, $dateto, $region);
+                $this->view->landuse = $this->_finds->getLandUseRegion($datefrom, $dateto, $region);
+                $this->view->precision = $this->_finds->getPrecisionRegion($datefrom, $dateto, $region);
             }
         }
     }
@@ -245,36 +242,34 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
         //Validate date
         $this->validateDates($datefrom, $dateto, 'institution');
 
-        if (!isset($institution)) {
-            $this->view->institutions = $this->_finds->getInstitutions($datefrom, $dateto);
-        } else {
-            $this->view->instTotal = $this->_finds->getInstStat($datefrom, $dateto, $institution);
-            $this->view->creators = $this->_finds->getUsersInstStat($datefrom, $dateto, $institution);
-            $this->view->periods = $this->_finds->getPeriodTotalsInst($datefrom, $dateto, $institution);
-            $this->view->finders = $this->_finds->getFinderTotalsInst($datefrom, $dateto, $institution);
-            $this->view->averages = $this->_finds->getAverageMonthInst($datefrom, $dateto, $institution);
-            $this->view->year = $this->_finds->getYearFoundInst($datefrom, $dateto, $institution);
-            $this->view->discovery = $this->_finds->getDiscoveryMethodInst($datefrom, $dateto, $institution);
-            $this->view->landuse = $this->_finds->getLandUseInst($datefrom, $dateto, $institution);
-            $this->view->precision = $this->_finds->getPrecisionInst($datefrom, $dateto, $institution);
-        }
-        $this->view->datefrom = $datefrom;
-        $this->view->dateto = $dateto;
         $form = $this->renderForm();
         $this->view->form = $form;
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
 
-                $query = '';
-                foreach ($params as $key => $value) {
-                    $query .= $key . '/' . $value . '/';
-                }
-                $this->redirect('/database/statistics/institution/' . $query);
-            } else {
-                $form->populate($data);
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost()))
+        {
+            $params = $this->getCleaner()->array_cleanup($this->_request->getPost());
+
+            $query = '';
+            foreach ($params as $key => $value) {
+                $query .= $key . '/' . $value . '/';
             }
+            $this->redirect('/database/statistics/institution/' . $query);
+        } else {
+            if (!isset($institution)) {
+                $this->view->institutions = $this->_finds->getInstitutions($datefrom, $dateto);
+            } else {
+                $this->view->instTotal = $this->_finds->getInstStat($datefrom, $dateto, $institution);
+                $this->view->creators = $this->_finds->getUsersInstStat($datefrom, $dateto, $institution);
+                $this->view->periods = $this->_finds->getPeriodTotalsInst($datefrom, $dateto, $institution);
+                $this->view->finders = $this->_finds->getFinderTotalsInst($datefrom, $dateto, $institution);
+                $this->view->averages = $this->_finds->getAverageMonthInst($datefrom, $dateto, $institution);
+                $this->view->year = $this->_finds->getYearFoundInst($datefrom, $dateto, $institution);
+                $this->view->discovery = $this->_finds->getDiscoveryMethodInst($datefrom, $dateto, $institution);
+                $this->view->landuse = $this->_finds->getLandUseInst($datefrom, $dateto, $institution);
+                $this->view->precision = $this->_finds->getPrecisionInst($datefrom, $dateto, $institution);
+            }
+            $this->view->datefrom = $datefrom;
+            $this->view->dateto = $dateto;
         }
     }
 
