@@ -75,17 +75,29 @@ class VacancyForm extends Pas_Form {
 	
 	$live = new Zend_Form_Element_Text('live');
 	$live->setLabel('Date for advert to go live: ')
+		->addValidator('Regex', true, array('/^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/'))
+		->setAttrib('pattern', '^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$') //HTML 5 front end validation
+		->addValidator('StringLength', true, array(2))
+		->setAttrib('oninvalid', 'this.setCustomValidity("Date must be in the format YYYY-MM-DD.")')
+		->setAttrib('onchange', 'this.setCustomValidity("")')
 		->setRequired(true)
-		->addFilters(array('StringTrim', 'StripTags'))
-		->addErrorMessage('Please enter date for advert to go live')
-		->setAttrib('size', 20);
+		->addFilters(array('StripTags', 'StringTrim'));
+    $live->getValidator('Regex')->setMessage(
+            'Date must be in the format YYYY-MM-DD.'
+        );
 	
 	$expire = new Zend_Form_Element_Text('expire');
 	$expire->setLabel('Date for advert to expire: ')
+		->addValidator('Regex', true, array('/^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/'))
+		->setAttrib('pattern', '^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$') //HTML 5 front end validation
+		->addValidator('StringLength', true, array(2))
+		->setAttrib('oninvalid', 'this.setCustomValidity("Date must be in the format YYYY-MM-DD.")')
+		->setAttrib('onchange', 'this.setCustomValidity("")')
 		->setRequired(true)
-		->addFilters(array('StringTrim', 'StripTags'))
-		->addErrorMessage('Please enter date for advert to expire')
-		->setAttrib('size', 20);
+		->addFilters(array('StripTags', 'StringTrim'));
+    $expire->getValidator('Regex')->setMessage(
+            'Date must be in the format YYYY-MM-DD.'
+        );
 	
 	$status = new Zend_Form_Element_Select('status');
 	$status->SetLabel('Publish status: ')
