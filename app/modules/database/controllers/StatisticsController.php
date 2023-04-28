@@ -29,6 +29,8 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
      */
     protected $_cleaner;
 
+    protected string $regexPattern = "/^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/";
+
     /** Get the array class
      * @access public
      * @return \Pas_ArrayFunctions
@@ -103,6 +105,10 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
             : Zend_Date::now()->toString('yyyy') . '-01-01';
         $dateto = $this->getParam('dateto') ? $this->getParam('dateto')
             : Zend_Date::now()->toString('yyyy-MM-dd');
+
+        //Validate date
+        $this->validateDates($datefrom, $dateto, 'annual');
+
         $this->view->annualsum = $this->_finds->getReportTotals($datefrom, $dateto);
         $this->view->officers = $this->_finds->getOfficerTotals($datefrom, $dateto);
         $this->view->institution = $this->_finds->getInstitutionTotals($datefrom, $dateto);
@@ -138,6 +144,10 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
         $dateto = $this->getParam('dateto') ? $this->getParam('dateto')
             : Zend_Date::now()->toString('yyyy-MM-dd');
         $county = $this->getParam('county');
+
+        //Validate date
+        $this->validateDates($datefrom, $dateto, 'county');
+
         $this->view->county = $county;
         $this->view->datefrom = $datefrom;
         $this->view->dateto = $dateto;
@@ -182,6 +192,10 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
         $dateto = $this->getParam('dateto') ? $this->getParam('dateto')
             : Zend_Date::now()->toString('yyyy-MM-dd');
         $region = $this->getParam('region');
+
+        //Validate date
+        $this->validateDates($datefrom, $dateto, 'regional');
+
         $this->view->region = $region;
         $this->view->datefrom = $datefrom;
         $this->view->dateto = $dateto;
@@ -227,6 +241,10 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
             : Zend_Date::now()->toString('yyyy-MM-dd');
         $institution = $this->getParam('institution');
         $this->view->institution = $institution;
+
+        //Validate date
+        $this->validateDates($datefrom, $dateto, 'institution');
+
         if (!isset($institution)) {
             $this->view->institutions = $this->_finds->getInstitutions($datefrom, $dateto);
         } else {
@@ -257,6 +275,25 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
             } else {
                 $form->populate($data);
             }
+        }
+    }
+
+    /** Validate date matches regex, else redirect
+     *
+     * @param string $datefrom
+     * @param string $dateto
+     * @param string $action
+     *
+     * @return void
+     */
+    private function validateDates(string $datefrom, string $dateto, string $action)
+    {
+        if (!preg_match($this->regexPattern, $datefrom) || !preg_match($this->regexPattern, $dateto)) {
+            $this->getFlash()->addMessage(
+                "Date must be in the format YYYY-MM-DD.
+                Please try again."
+            );
+            $this->redirect("/database/statistics/$action/");
         }
     }
 }
