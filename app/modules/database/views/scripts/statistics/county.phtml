@@ -280,10 +280,25 @@ $this->metaBase()->setDescription($this->title())->generate();
         </table>
     <?php endif; ?>
 <?php endif; ?>
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
+<?php
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker-v1.9.0.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
+?>
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
     $(document).ready(function(){
-    $("#datefrom").datepicker();
-    $("#dateto").datepicker();
+        var datePickerSettings = {
+            startDate: '1998-01-01',
+            endDate: '0d',
+            format: 'yyyy-mm-dd',
+            assumeNearbyYear: true,
+            zIndexOffset: 9999,
+            maxViewMode: 2
+        };
+
+        $("#datefrom").datepicker(datePickerSettings);
+        $("#dateto").datepicker(datePickerSettings);
     });
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>

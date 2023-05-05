@@ -14,7 +14,11 @@ $this->addCheck()->canThey();
 
 <?php echo $this->form; ?>
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker-v1.9.0.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder.js', $type = 'text/javascript');
@@ -31,12 +35,17 @@ if (!is_null(Zend_Controller_Front::getInstance()->getRequest()->getParam('copy'
 
 <?php $this->jQuery()->javascriptCaptureStart() ?>
     $(document).ready(function() {
-    $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
-    $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
-    $("input[type='select']:first", document.forms[0]).focus();
-    $('form').areYouSure();
-    $("form").submit(function() {
-    $(":submit", this).attr("disabled", "disabled");
-    });
+        $datePickerSettings = {
+            endDate: '0d',
+            format: 'yyyy-mm-dd',
+        };
+
+        $("#datefound1").datepicker($datePickerSettings);
+        $("#datefound2").datepicker($datePickerSettings);
+        $("input[type='select']:first", document.forms[0]).focus();
+        $('form').areYouSure();
+        $("form").submit(function() {
+            $(":submit", this).attr("disabled", "disabled");
+        });
     });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>
