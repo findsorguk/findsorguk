@@ -1,16 +1,22 @@
+<?php
+$config = Zend_Registry::get('config')->webservice->twitter->homepage;
+empty($config) ?: $config = $config->toArray();
+?>
+
+<?php if (!empty($config['url']) && !empty($config['js-src'])) : ?>
+
 <div class="embed-container" style="--aspect-ratio:16/13">
     <div class="cookieconsent-optin-marketing cookie-placeholder cookie-placeholder--reload">
-        if you can see this, please
-        <a href="#" onclick="window.location.reload(true)">refresh</a>
-        your page to view these Tweets.
+        If you can see this, please <a href="#" onclick="window.location.reload(true)">refresh</a>
+        your <br>page to view these Tweets.
     </div>
 
     <div class="cookieconsent-optin-marketing">
         <a class="twitter-timeline" data-height="300"
-           href="https://twitter.com/findsorguk?ref_src=twsrc%5Etfw">Tweets
+           href="<?= $config['url'] ?>">Tweets
             by findsorguk</a>
         <script async type="text/plain" data-cookieconsent="marketing"
-                src="https://platform.twitter.com/widgets.js"
+                src="<?= $config['js-src'] ?>"
                 charset="utf-8"></script>
     </div>
 
@@ -23,5 +29,6 @@
     </div>
 </div>
 
+<?php endif;?>
 
 
