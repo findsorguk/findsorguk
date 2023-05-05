@@ -8,13 +8,13 @@ $this->metaBase()->setDescription($this->title())->generate();
        class="btn btn-small btn-success">Return to volunteers list</a>
 <?php echo $this->form; ?>
 
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
-<?php $this->headScript()->captureStart() ?>
-    $(document).ready(function() {
-    $("#live").datepicker({ maxDate: '+1y'});
-    $("#expire").datepicker({ maxDate: '+1y' });
-    });
-<?php $this->headScript()->captureEnd() ?>
+<?php $this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
+?>
+
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
 $(document).ready(function() {
 $('form').areYouSure();

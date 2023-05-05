@@ -94,18 +94,16 @@ class EventForm extends Pas_Form {
 	->addValidator(new Zend_Validate_Date('H:i:s'))
 	->setDescription('Enter in 24 hour clock format');
 
-	$eventStartDate = new ZendX_JQuery_Form_Element_DatePicker('eventStartDate');
+	$eventStartDate = new Zend_Form_Element_Text('eventStartDate');
 	$eventStartDate->setLabel('Event start date: ')
 	->setRequired(true)
-	->setJQueryParam('dateFormat', 'yy-mm-dd')
 	->addFilters(array('StripTags','StringTrim'))
 	->addErrorMessage('You need a start date')
 	->setAttrib('size', 20);
 
-	$eventEndDate = new ZendX_JQuery_Form_Element_DatePicker('eventEndDate');
+	$eventEndDate = new Zend_Form_Element_Text('eventEndDate');
 	$eventEndDate->setLabel('Event end date: ')
 	->setRequired(false)
-	->setJQueryParam('dateFormat', 'yy-mm-dd')
 	->addFilters(array('StripTags','StringTrim'))
 	->addErrorMessage('You need an end date')
 	->setAttrib('size', 20);

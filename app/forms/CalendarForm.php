@@ -95,19 +95,17 @@ class CalendarForm extends Pas_Form {
                     . 'format eg 11:00 not 1100 or 11.00',
                     'class' => 'span8'));
 
-	$eventStartDate = new ZendX_JQuery_Form_Element_DatePicker('startDate');
+	$eventStartDate = new Zend_Form_Element_Text('startDate');
 	$eventStartDate->setLabel('Event start date: ')
                 ->setRequired(true)
-                ->setJQueryParam('dateFormat', 'yy-mm-dd')
                 ->addFilters(array('StripTags','StringTrim'))
                 ->setAttrib('placeholder','Format of YYYY-mm-dd')
                 ->addErrorMessage('You must enter a date')
                 ->setAttrib('size', 20);
 
-	$eventEndDate = new ZendX_JQuery_Form_Element_DatePicker('endDate');
+	$eventEndDate = new Zend_Form_Element_Text('endDate');
 	$eventEndDate->setLabel('Event end date: ')
                 ->setRequired(true)
-                ->setJQueryParam('dateFormat', 'yy-mm-dd')
                 ->addFilters(array('StripTags','StringTrim'))
                 ->setAttrib('placeholder','Format of YYYY-mm-dd')
                 ->addErrorMessage('You must enter a date')

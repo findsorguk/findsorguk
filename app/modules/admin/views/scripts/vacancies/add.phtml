@@ -7,10 +7,22 @@ $this->metaBase()->setDescription($this->title())->generate();
     <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'users'), 'default', true); ?>"
        class="btn btn-small btn-success">Return to users list</a>
 <?php echo $this->form;?>
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');?>
-<?php $this->headScript()->captureStart() ?>
+<?php
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
+?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
     $(document).ready(function() {
-    $("#live").datepicker({ maxDate: '+1y'});
-    $("#expire").datepicker({ maxDate: '+1y' });
+        var datePickerSettings = {
+            endDate: (new Date((new Date()).getFullYear() + 6, 12, 0)),
+            format: 'yyyy-mm-dd',
+        };
+
+        $("#live").datepicker(datePickerSettings);
+        $("#expire").datepicker(datePickerSettings);
     });
-<?php $this->headScript()->captureEnd() ?>
+<?php $this->jQuery()->javascriptCaptureEnd() ?>

@@ -6,3 +6,13 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.
 ?>
 <h2 class="lead"><?php echo $this->title();?></h2>
 <?php echo $this->form;?>
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+$(document).ready(function(){
+$datePickerSettings = {
+format: 'yyyy-mm-dd',
+};
+
+$("#eventStartDate").datepicker($datePickerSettings);
+$("#eventEndDate").datepicker($datePickerSettings);
+});
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

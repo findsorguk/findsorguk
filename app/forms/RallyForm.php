@@ -98,15 +98,13 @@ class RallyForm extends Pas_Form {
 		->addFilters(array('StripTags', 'BasicHtml','EmptyParagraph','StringTrim'));
 
 	//Date found from
-	$date_from = new ZendX_JQuery_Form_Element_DatePicker('date_from');
+	$date_from = new Zend_Form_Element_Text('date_from');
 	$date_from->setLabel('Start date of rally: ')
-		->setJQueryParam('dateFormat', 'yy-mm-dd')
 		->addFilters(array('StripTags','StringTrim'));
 
 	//Date found to
-	$date_to = new ZendX_JQuery_Form_Element_DatePicker('date_to');
+	$date_to = new Zend_Form_Element_Text('date_to');
 	$date_to->setLabel('End date of rally: ')
-		->setJQueryParam('dateFormat', 'yy-mm-dd')
 		->addFilters(array('StripTags','StringTrim'));
 
 	$submit = new Zend_Form_Element_Submit('submit');

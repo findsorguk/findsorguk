@@ -47,7 +47,12 @@ class VacancyForm extends Pas_Form {
 		->setRequired(true)
 		->addFilters(array('StringTrim', 'StripTags'))
 		->setAttrib('size', 20)
-		->addErrorMessage('You must enter a salary.');
+        ->addValidator('Float')
+        ->addValidator('Between', true, array('min' => 0, 'max' => 999999));
+
+        $salary->getValidator('Between')->setMessage(
+            'Salary must be less than £999,999'
+        );
 	
 	$specification = new Pas_Form_Element_CKEditor('specification');
 	$specification->setLabel('Job specification: ')
@@ -68,22 +73,18 @@ class VacancyForm extends Pas_Form {
                 ))
 		->addErrorMessage('You must choose a region');
 	
-	$live = new ZendX_JQuery_Form_Element_DatePicker('live');
+	$live = new Zend_Form_Element_Text('live');
 	$live->setLabel('Date for advert to go live: ')
 		->setRequired(true)
-		->setJQueryParam('dateFormat', 'yy-mm-dd')
-		->setJQueryParam('maxDate', '+1y')
 		->addFilters(array('StringTrim', 'StripTags'))
-		->addErrorMessage('Come on it\'s not that hard, enter a title!')
+		->addErrorMessage('Please enter date for advert to go live')
 		->setAttrib('size', 20);
 	
-	$expire = new ZendX_JQuery_Form_Element_DatePicker('expire');
+	$expire = new Zend_Form_Element_Text('expire');
 	$expire->setLabel('Date for advert to expire: ')
 		->setRequired(true)
-		->setJQueryParam('dateFormat', 'yy-mm-dd')
-		->setJQueryParam('maxDate', '+1y')
 		->addFilters(array('StringTrim', 'StripTags'))
-		->addErrorMessage('Come on it\'s not that hard, enter a title!')
+		->addErrorMessage('Please enter date for advert to expire')
 		->setAttrib('size', 20);
 	
 	$status = new Zend_Form_Element_Select('status');

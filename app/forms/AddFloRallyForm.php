@@ -37,14 +37,14 @@ class AddFloRallyForm extends Pas_Form{
                 ->setAttribs(array(
                     'class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
-	$dateFrom = new ZendX_JQuery_Form_Element_DatePicker('dateFrom');
+	$dateFrom = new Zend_Form_Element_Text('dateFrom');
 	$dateFrom->setLabel('Attended from: ')
                 ->setRequired(true)
                 ->addFilters(array('StripTags', 'StringTrim'))
 		->addValidator('Date', true, (array('format' => 'yyyy-MM-dd')))
                 ->setAttrib('size', 20);
 
-	$dateTo = new ZendX_JQuery_Form_Element_DatePicker('dateTo');
+	$dateTo = new Zend_Form_Element_Text('dateTo');
 	$dateTo->setLabel('Attended to: ')
                 ->setRequired(true)
                 ->addFilters(array('StripTags', 'StringTrim'))
