@@ -52,8 +52,11 @@
 
 .cookie-show {
     visibility: visible !important;
-    -webkit-animation: fadeIn ease-in 1s;
-    animation: fadeIn ease-in 1s;
+    opacity:0;
+    animation: fadeIn 2s forwards;
+    -webkit-animation: fadeIn 2s forwards;
+    animation-delay: 5s;
+    -webkit-animation-delay: 5s;
 }
 
 .embed-container {
