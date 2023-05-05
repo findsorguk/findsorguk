@@ -6,6 +6,7 @@ empty($config) ?: $config = $config->toArray();
 
 ?>
 
+<?php if (!empty($config['src'])) : ?>
 <div class="embed-container">
     <iframe data-src="<?= $config['src']; ?>"
             data-cookieconsent="marketing"
@@ -21,6 +22,11 @@ empty($config) ?: $config = $config->toArray();
         </div>
     </div>
 </div>
+<?php endif;?>
 <br>
-<h2 class="lead"><?= $config['title']; ?></h2>
-<a href="<?= $config['src-alt']; ?>" target="_blank">Video without subtitles</a>
+
+
+<?php if (!empty($config['src-alt']) && !empty($config['title'])) : ?>
+    <h2 class="lead"><?= $config['title']; ?></h2>
+    <a href="<?= $config['src-alt']; ?>" target="_blank">Video without subtitles</a>
+<?php endif;?>
