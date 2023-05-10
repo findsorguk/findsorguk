@@ -222,6 +222,7 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                     'role' => $form->getValue('role'),
                     'password' => $password,
                     'peopleID' => $form->getValue('peopleID'),
+                    'preferred_name' => $form->getValue('preferred_name'),
                     'canRecord' => $form->getValue('canRecord'),
                     'valid' => $form->getValue('valid'),
                 );
