@@ -60,6 +60,10 @@ class Finds extends Pas_Db_Table_Abstract
      */
     protected $_restricted = array(null, 'public', 'member', 'research');
 
+    protected function generateCacheKey($functionName, ...$params){
+        return md5($functionName . implode("", $params));
+    }
+
     /** Add a new find record
      *
      * @param array
@@ -1055,18 +1059,22 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getReportTotals($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->where('created >= ?', (string)$datefrom)
-            ->where('date(created) <= ?', (string)$dateto);
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->where('created >= ?', (string)$datefrom)
+                ->where('date(created) <= ?', (string)$dateto);
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get finds officer totals by fullname for reports by date
@@ -1078,25 +1086,29 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getOfficerTotals($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'users',
-                'users.id = finds.createdBy',
-                array('fullname', 'institution', 'id')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('institution', 'fullname')
-            ->group('fullname', 'institution');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'users',
+                    'users.id = finds.createdBy',
+                    array('fullname', 'institution', 'id')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('institution', 'fullname')
+                ->group('fullname', 'institution');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get institutional totals for reports by date
@@ -1108,25 +1120,29 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getInstitutionTotals($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'users',
-                'users.id = finds.createdBy',
-                array('institution')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('institution')
-            ->group('institution');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'users',
+                    'users.id = finds.createdBy',
+                    array('institution')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('institution')
+                ->group('institution');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get broadperiod totals for reports by date
@@ -1138,20 +1154,24 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getPeriodTotals($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)',
-                    'broadperiod'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)',
+                        'broadperiod'
+                    )
                 )
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->group('broadperiod');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->group('broadperiod');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get distinct finder totals for reports by date
@@ -1163,26 +1183,30 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getFindersTotals($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from($this->_name, array())
-            ->joinLeft(
-                'people',
-                'people.secuid = finds.finderID',
-                array(
-                    'finders' => 'COUNT(DISTINCT(finderID))'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from($this->_name, array())
+                ->joinLeft(
+                    'people',
+                    'people.secuid = finds.finderID',
+                    array(
+                        'finders' => 'COUNT(DISTINCT(finderID))'
+                    )
                 )
-            )
-            ->joinLeft(
-                'users',
-                'users.id = finds.createdBy',
-                array('institution')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('institution')
-            ->group('institution');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'users',
+                    'users.id = finds.createdBy',
+                    array('institution')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('institution')
+                ->group('institution');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get monthly count of finds found
@@ -1194,22 +1218,26 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getAverageMonth($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)',
-                    'broadperiod',
-                    'month' => 'EXTRACT(MONTH FROM created)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)',
+                        'broadperiod',
+                        'month' => 'EXTRACT(MONTH FROM created)'
+                    )
                 )
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('month ASC')
-            ->group('month');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('month ASC')
+                ->group('month');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get discovery year for finds found between certain dates
@@ -1221,22 +1249,26 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getYearFound($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)',
-                    'broadperiod',
-                    'year' => 'EXTRACT(YEAR FROM datefound1)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)',
+                        'broadperiod',
+                        'year' => 'EXTRACT(YEAR FROM datefound1)'
+                    )
                 )
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('year ASC')
-            ->group('year');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('year ASC')
+                ->group('year');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get discovery method counts for finds found between certain dates
@@ -1248,25 +1280,29 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getDiscoveryMethod($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'discmethods',
-                'discmethods.id = finds.discmethod',
-                array('discmethod' => 'method', 'id')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('discmethod')
-            ->group('discmethod');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'discmethods',
+                    'discmethods.id = finds.discmethod',
+                    array('discmethod' => 'method', 'id')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('discmethod')
+                ->group('discmethod');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get landuse counts for finds found between certain dates
@@ -1278,31 +1314,35 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getLandUse($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array()
-            )
-            ->joinLeft(
-                'landuses',
-                'landuses.id = findspots.landusevalue',
-                array('landuse' => 'term')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('landuse')
-            ->group('landuse');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array()
+                )
+                ->joinLeft(
+                    'landuses',
+                    'landuses.id = findspots.landusevalue',
+                    array('landuse' => 'term')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('landuse')
+                ->group('landuse');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get landuse counts for finds found between certain dates
@@ -1314,26 +1354,30 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getPrecision($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array('precision' => 'gridlen')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('precision')
-            ->group('precision');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array('precision' => 'gridlen')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('precision')
+                ->group('precision');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get landuse counts for finds found between certain dates
@@ -1345,26 +1389,30 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getCounties($datefrom, $dateto)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(*)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(*)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array('county')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('county')
-            ->group('county');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array('county')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('county')
+                ->group('county');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get counts for finds found between certain dates for counties
@@ -1377,27 +1425,31 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getCountyStat($datefrom, $dateto, $county)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(*)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto, $county))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(*)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array('county')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->where('findspots.county = ?', (string)$county)
-            ->order('county')
-            ->group('county');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array('county')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->where('findspots.county = ?', (string)$county)
+                ->order('county')
+                ->group('county');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get counts for finds found between certain dates for counties by
@@ -1411,33 +1463,37 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getUsersStat($datefrom, $dateto, $county)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(*)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto, $county))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(*)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array()
-            )
-            ->joinLeft(
-                'users',
-                $this->_name
-                . '.createdBy = users.id',
-                array('fullname', 'username', 'institution', 'id')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->where('findspots.county = ?', (string)$county)
-            ->order('institution')
-            ->group('fullname');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array()
+                )
+                ->joinLeft(
+                    'users',
+                    $this->_name
+                    . '.createdBy = users.id',
+                    array('fullname', 'username', 'institution', 'id')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->where('findspots.county = ?', (string)$county)
+                ->order('institution')
+                ->group('fullname');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get counts for finds found between certain dates for periods and county
@@ -1450,27 +1506,31 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getPeriodTotalsCounty($datefrom, $dateto, $county)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(*)',
-                    'finds' => 'SUM(quantity)',
-                    'broadperiod'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto, $county))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(*)',
+                        'finds' => 'SUM(quantity)',
+                        'broadperiod'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array()
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->where('findspots.county = ?', (string)$county)
-            ->group('broadperiod');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array()
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->where('findspots.county = ?', (string)$county)
+                ->group('broadperiod');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get counts for finders by county
@@ -1483,33 +1543,37 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getFinderTotalsCounty($datefrom, $dateto, $county)
     {
-        $select = $this->select()
-            ->from($this->_name, array())
-            ->joinLeft(
-                'people',
-                'people.secuid = finds.finderID',
-                array(
-                    'finders' => 'COUNT(DISTINCT(finderID))'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto, $county))) {
+            $select = $this->select()
+                ->from($this->_name, array())
+                ->joinLeft(
+                    'people',
+                    'people.secuid = finds.finderID',
+                    array(
+                        'finders' => 'COUNT(DISTINCT(finderID))'
+                    )
                 )
-            )
-            ->joinLeft(
-                'users',
-                'users.id = finds.createdBy',
-                array('institution')
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array()
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->where('findspots.county = ?', (string)$county)
-            ->order('institution')
-            ->group('institution');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'users',
+                    'users.id = finds.createdBy',
+                    array('institution')
+                )
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array()
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->where('findspots.county = ?', (string)$county)
+                ->order('institution')
+                ->group('institution');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get finds per month by county
@@ -1522,29 +1586,33 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getAverageMonthCounty($datefrom, $dateto, $county)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(*)',
-                    'finds' => 'SUM(quantity)',
-                    'broadperiod',
-                    'month' => 'EXTRACT(MONTH FROM ' . $this->_name . '.created)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto, $county))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(*)',
+                        'finds' => 'SUM(quantity)',
+                        'broadperiod',
+                        'month' => 'EXTRACT(MONTH FROM ' . $this->_name . '.created)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array()
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->where('findspots.county = ?', (string)$county)
-            ->order('month ASC')
-            ->group('month');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array()
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->where('findspots.county = ?', (string)$county)
+                ->order('month ASC')
+                ->group('month');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get finds per year by county
@@ -1557,29 +1625,33 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getYearFoundCounty($datefrom, $dateto, $county)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(*)',
-                    'finds' => 'SUM(quantity)',
-                    'broadperiod',
-                    'year' => 'EXTRACT(YEAR FROM datefound1)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto, $county))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(*)',
+                        'finds' => 'SUM(quantity)',
+                        'broadperiod',
+                        'year' => 'EXTRACT(YEAR FROM datefound1)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array()
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->where('findspots.county = ?', (string)$county)
-            ->order('year ASC')
-            ->group('year');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array()
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->where('findspots.county = ?', (string)$county)
+                ->order('year ASC')
+                ->group('year');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get discovery method totals by county
@@ -1592,32 +1664,36 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getDiscoveryMethodCounty($datefrom, $dateto, $county)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(*)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto, $county))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(*)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array()
-            )
-            ->joinLeft(
-                'discmethods',
-                'discmethods.id = finds.discmethod',
-                array('discmethod' => 'method', 'id')
-            )
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->where('findspots.county = ?', (string)$county)
-            ->order('discmethod')
-            ->group('discmethod');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array()
+                )
+                ->joinLeft(
+                    'discmethods',
+                    'discmethods.id = finds.discmethod',
+                    array('discmethod' => 'method', 'id')
+                )
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->where('findspots.county = ?', (string)$county)
+                ->order('discmethod')
+                ->group('discmethod');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get landuse totals by county
@@ -1630,32 +1706,36 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getLandUseCounty($datefrom, $dateto, $county)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(finds.id)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto, $county))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(finds.id)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array()
-            )
-            ->joinLeft(
-                'landuses',
-                'landuses.id = findspots.landusevalue',
-                array('landuse' => 'term', 'id')
-            )
-            ->where('findspots.county = ?', (string)$county)
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('landuse')
-            ->group('landuse');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array()
+                )
+                ->joinLeft(
+                    'landuses',
+                    'landuses.id = findspots.landusevalue',
+                    array('landuse' => 'term', 'id')
+                )
+                ->where('findspots.county = ?', (string)$county)
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('landuse')
+                ->group('landuse');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get precision of findspot by county
@@ -1668,27 +1748,31 @@ class Finds extends Pas_Db_Table_Abstract
      */
     public function getPrecisionCounty($datefrom, $dateto, $county)
     {
-        $select = $this->select()
-            ->from(
-                $this->_name,
-                array(
-                    'records' => 'COUNT(*)',
-                    'finds' => 'SUM(quantity)'
+        if (!$data = $this->_cache->load($this->generateCacheKey(__function__, $datefrom, $dateto, $county))) {
+            $select = $this->select()
+                ->from(
+                    $this->_name,
+                    array(
+                        'records' => 'COUNT(*)',
+                        'finds' => 'SUM(quantity)'
+                    )
                 )
-            )
-            ->joinLeft(
-                'findspots',
-                $this->_name
-                . '.secuid = findspots.findID',
-                array('precision' => 'gridlen')
-            )
-            ->where('findspots.county = ?', (string)$county)
-            ->where($this->_name . '.created >= ?', (string)$datefrom)
-            ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
-            ->order('precision')
-            ->group('precision');
-        $select->setIntegrityCheck(false);
-        return $this->getAdapter()->fetchAll($select);
+                ->joinLeft(
+                    'findspots',
+                    $this->_name
+                    . '.secuid = findspots.findID',
+                    array('precision' => 'gridlen')
+                )
+                ->where('findspots.county = ?', (string)$county)
+                ->where($this->_name . '.created >= ?', (string)$datefrom)
+                ->where('date(' . $this->_name . '.created) <= ?', (string)$dateto)
+                ->order('precision')
+                ->group('precision');
+            $select->setIntegrityCheck(false);
+            $data = $this->getAdapter()->fetchAll($select);
+            $this->_cache->save($data);
+        }
+        return $data;
     }
 
     /** Get recording institutions between dates
