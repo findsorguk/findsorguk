@@ -8,9 +8,11 @@
             $this->yearList()->setStartYear(1998)->generateArray()); ?>
     </ul>
 
-    <p>You can also choose your own date ranges. You must choose a date from and a date to to interrogate this
-        properly.</p>
-<?php echo $this->form; ?>
+    <?php if (!empty($this->form)) : ?>
+        <p>You can also choose your own date ranges. You must choose a date from and a date to to interrogate this
+            properly.</p>
+        <?php echo $this->form; ?>
+    <?php endif ?>
 
     <h3 class="lead">Quantities of objects and records found</h3>
     <ul>
