@@ -11,9 +11,11 @@ $this->metaBase()->setDescription($this->title())
         <?php echo $this->partialLoop('partials/database/statistics/archiveYearsStats.phtml', $this->yearList()->setStartYear(1998)->generateArray()); ?>
     </ul>
 
-    <p>You can also choose your own date ranges. You must choose a date from and a date to to interrogate this
-        properly.</p>
-<?php echo $this->form; ?>
+    <?php if (!empty($this->form)) : ?>
+        <p>You can also choose your own date ranges. You must choose a date from and a date to, to interrogate this
+            properly.</p>
+        <?php echo $this->form; ?>
+    <?php endif; ?>
 
 <?php if ($this->institution == NULL) : ?>
     <h3 class="lead">Finds per Institution</h3>
