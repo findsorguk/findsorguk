@@ -298,8 +298,8 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
         $this->_user = $this->_helper->identity->getPerson();
-        $this->_transactionEmail = end_Registry::get('config')->transaction->email;
-        $this->_transactionEmailName = end_Registry::get('config')->transaction->name;
+        $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
+        $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
     }
 
     /** Display a list of hoards recorded with pagination

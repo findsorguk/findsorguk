@@ -53,8 +53,8 @@ class ErrorController extends Pas_Controller_Action_Admin
         $this->_log = Zend_Registry::get('log');
         $this->_helper->_acl->allow(null);
         Zend_Layout::getMvcInstance()->setLayout("error");
-        $this->_transactionEmail = end_Registry::get('config')->transaction->email;
-        $this->_transactionEmailName = end_Registry::get('config')->transaction->name;
+        $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
+        $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
     }
 
 

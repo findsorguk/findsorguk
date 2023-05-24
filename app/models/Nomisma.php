@@ -73,8 +73,8 @@ class Nomisma
     {
         $mail = new Zend_Mail();
         $adminEmails = Zend_Registry::get('config')->admin->email;
-        $transactionEmail = end_Registry::get('config')->transaction->email;
-        $transactionEmailName = end_Registry::get('config')->transaction->name;
+        $transactionEmail = Zend_Registry::get('config')->transaction->email;
+        $transactionEmailName = Zend_Registry::get('config')->transaction->name;
         $mail->setBodyHtml(
             'The server has encountered an issue with Nomisma. The issue is as follows: </br></br>'
             . '<table>' . $error . '</table>'

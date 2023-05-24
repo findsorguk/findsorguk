@@ -75,8 +75,8 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
         $this->_templates = APPLICATION_PATH . '/views/scripts/email/';
         $this->_markdown = new Pas_Filter_EmailTextOnly();
         $this->_types = $this->getTypes();
-        $this->_transactionEmail = end_Registry::get('config')->transaction->email;
-        $this->_transactionEmailName = end_Registry::get('config')->transaction->name;
+        $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
+        $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
     }
 
     /** Get the types of template available

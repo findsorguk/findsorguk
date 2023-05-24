@@ -335,8 +335,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'pdf', 'rdf'))
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
-        $this->_transactionEmail = end_Registry::get('config')->transaction->email;
-        $this->_transactionEmailName = end_Registry::get('config')->transaction->name;
+        $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
+        $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
     }
 
     /** Display a list of objects recorded with pagination

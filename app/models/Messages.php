@@ -87,8 +87,8 @@ class Messages extends Pas_Db_Table_Abstract
         $this->_baseUrl = Zend_Registry::get('siteurl');
         $this->_akismetkey = $this->_config->webservice->akismet->apikey;
         $this->_akismet = new Zend_Service_Akismet($this->_akismetkey, $this->_baseUrl);
-        $this->_transactionEmail = end_Registry::get('config')->transaction->email;
-        $this->_transactionEmailName = end_Registry::get('config')->transaction->name;
+        $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
+        $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
     }
 
     /** get a count of messages
