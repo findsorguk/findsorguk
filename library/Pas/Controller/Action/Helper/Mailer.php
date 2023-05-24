@@ -58,6 +58,13 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
      */
     protected $_types;
 
+    /** Transactions email address and name
+     *
+     * @access protected
+     */
+    protected $_transactionsEmail;
+    protected $_transactionsEmailName;
+
     /** Initialise the objects and class
      */
     public function init()
@@ -68,6 +75,8 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
         $this->_templates = APPLICATION_PATH . '/views/scripts/email/';
         $this->_markdown = new Pas_Filter_EmailTextOnly();
         $this->_types = $this->getTypes();
+        $this->_transactionEmail = end_Registry::get('config')->transaction->email;
+        $this->_transactionEmailName = end_Registry::get('config')->transaction->name;
     }
 
     /** Get the types of template available
@@ -164,7 +173,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
                 $this->_mail->addTo($addTo['email'], $addTo['name']);
             }
         } else {
-            $this->_mail->addTo('past@britishmuseum.org', 'The PAS head office');
+            $this->_mail->addTo($this->_transactionEmail, $this->_transactionEmailName);
         }
         if (is_array($cc)) {
             foreach ($cc as $addCc) {
@@ -176,7 +185,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
                 $this->_mail->setFrom($addFrom['email'], $addFrom['name']);
             }
         } else {
-            $this->_mail->setFrom('past@britishmuseum.org', 'The PAS head office');
+            $this->_mail->setFrom($this->_transactionEmail, $this->_transactionEmailName);
         }
         if (is_array($bcc)) {
             foreach ($bcc as $addBcc) {

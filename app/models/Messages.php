@@ -73,6 +73,13 @@ class Messages extends Pas_Db_Table_Abstract
      */
     protected $_akismet;
 
+    /** Transactions email address and name
+     *
+     * @access protected
+     */
+    protected $_transactionEmail;
+    protected $_transactionEmailName;
+
     /** Initialise
      */
     public function init()
@@ -80,6 +87,8 @@ class Messages extends Pas_Db_Table_Abstract
         $this->_baseUrl = Zend_Registry::get('siteurl');
         $this->_akismetkey = $this->_config->webservice->akismet->apikey;
         $this->_akismet = new Zend_Service_Akismet($this->_akismetkey, $this->_baseUrl);
+        $this->_transactionEmail = end_Registry::get('config')->transaction->email;
+        $this->_transactionEmailName = end_Registry::get('config')->transaction->name;
     }
 
     /** get a count of messages
@@ -145,7 +154,7 @@ class Messages extends Pas_Db_Table_Abstract
             . strip_tags($data['comment_content'])
         );
         $mail->setFrom($data['comment_author_email'], $data['comment_author']);
-        $mail->addTo('past@britishmuseum.org', 'The Portable Antiquities Scheme');
+        $mail->addTo($this->_transactionEmail, $this->_transactionEmailName);
         $mail->addCC($data['comment_author_email'], $data['comment_author']);
         $mail->setSubject('Contact us submission');
         $mail->send();

@@ -73,12 +73,14 @@ class Nomisma
     {
         $mail = new Zend_Mail();
         $adminEmails = Zend_Registry::get('config')->admin->email;
+        $transactionEmail = end_Registry::get('config')->transaction->email;
+        $transactionEmailName = end_Registry::get('config')->transaction->name;
         $mail->setBodyHtml(
             'The server has encountered an issue with Nomisma. The issue is as follows: </br></br>'
             . '<table>' . $error . '</table>'
         )
-            ->setFrom('past@britishmuseum.org', 'The Portable Antiquities Scheme')
-            ->addTo('past@britishmuseum.org', 'The Portable Antiquities Scheme')
+            ->setFrom($transactionEmail, $transactionEmailName)
+            ->addTo($transactionEmail, $transactionEmailName)
             ->addTo($adminEmails ? $adminEmails->toArray() : null)
             ->setSubject('PAS - Error retrieving ' . $type . ' from Nomisma')
             ->send();

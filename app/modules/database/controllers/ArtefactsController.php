@@ -191,6 +191,13 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
      */
     protected $_findForm;
 
+    /** Transactions email address and name
+     *
+     * @access protected
+     */
+    protected $_transactionEmail;
+    protected $_transactionEmailName;
+
     /** Get the find form
      *
      * @access public
@@ -328,6 +335,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'pdf', 'rdf'))
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
+        $this->_transactionEmail = end_Registry::get('config')->transaction->email;
+        $this->_transactionEmailName = end_Registry::get('config')->transaction->name;
     }
 
     /** Display a list of objects recorded with pagination
@@ -728,12 +737,12 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                 )
             );
         } elseif (in_array($institution, array('PAS', 'DCMS', 'RAH', 'BM'))) {
-            $to = array(array('email' => 'past@britishmuseum.org', 'name' => 'Central Unit'));
+            $to = array(array('email' => $this->_transactionEmail, 'name' => $this->_transactionEmailName));
         } else {
             $responsible = new Contacts();
             $to = $responsible->getOwner($data['comment_findID']);
             if (empty($to)) {
-                $to = array(array('email' => 'past@britishmuseum.org', 'name' => 'Central Unit'));
+                $to = array(array('email' => $this->_transactionEmail, 'name' => $this->_transactionEmailName));
             }
         }
         $cc = $this->_getAdviser($objecttype, $broadperiod);
