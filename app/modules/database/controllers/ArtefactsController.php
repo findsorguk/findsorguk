@@ -669,7 +669,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                     $updateData = array('secwfstage' => $form->getValue('secwfstage'));
                     if (strlen($form->getValue('finder')) > 0) {
                         $assignData = array(
-                            'name' => $exist['0']['name'],
+                            'name' => !empty($exist) ? $exist['0']['name'] : 'Sir/Madam',
                             'old_findID' => $findStatus->old_findID,
                             'id' => $this->getParam('id'),
                             'from' => $person->fullname,
@@ -679,7 +679,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                         $this->_helper->mailer(
                             $assignData,
                             'informFinderWorkflow',
-                            $exist,
+                            empty($exist) ? null : $exist,
                             array($cc));
                     }
                     $where = array();
