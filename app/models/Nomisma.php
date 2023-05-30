@@ -71,7 +71,7 @@ class Nomisma
      */
     public function sendErrorEmail($error, string $type)
     {
-        $mailer = new Pas_Controller_Action_Helper_Mailer();
+        $mailer = (new Pas_Controller_Action_Helper_Mailer());
         $mailer->init();
         $mailer->direct(compact($error, $type),
             'nomismaError',

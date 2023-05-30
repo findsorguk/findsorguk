@@ -647,7 +647,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $people = new People();
             $exist = $people->checkEmailOwner($this->getParam('id'));
             $person = $this->getAccount();
-            $from = array('name' => $person->fullname, 'email' => $person->email);
+            $cc = array('name' => $person->fullname, 'email' => $person->email);
             $this->view->from = $exist;
             $form = new ChangeWorkFlowForm();
             $findStatus = $this->getFinds()->fetchRow(
@@ -680,11 +680,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                             $assignData,
                             'informFinderWorkflow',
                             $exist,
-                            array($from),
-                            array($from),
-                            null,
-                            null
-                        );
+                            array($cc));
                     }
                     $where = array();
                     $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
@@ -749,7 +745,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             );
         }
         $assignData = array_merge($to['0'], $data);
-        $this->_helper->mailer($assignData, 'errorSubmission', $to, $cc, $from);
+        $cc[] = $from;
+        $this->_helper->mailer($assignData, 'errorSubmission', $to, $cc);
     }
 
     /** Determine adviser to email

@@ -77,6 +77,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
         $this->_types = $this->getTypes();
         $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
         $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
+        return $this;
     }
 
     /** Get the types of template available
