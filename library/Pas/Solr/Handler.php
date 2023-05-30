@@ -1187,29 +1187,12 @@ class Pas_Solr_Handler
                 $this->getRole()
             );
             $query .= " OR createdBy:" . $this->getUserID();
-            $query .= $this->setRecorderIdQuery();
+            $query .= $this->generateRecordIdQueryCondition();
 
             $this->_query->createFilterQuery('workflow')->setQuery(
                 $query
             );
         }
-
-//        if ($this->checkRoleAllowed($this->getRole(), "research","hero") == false) {
-//            if (($this->getRole() == 'member' || $this->getRole() == 'research') && $this->getMyfinds()) {
-//                $this->_query->createFilterQuery('myfinds')->setQuery('createdBy:' . $params['createdBy']);   //ISN'T NEEDED
-//            } elseif (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
-//                    $query = "workflow:[3 TO 4] OR createdBy:" . $this->getUserID();
-//                    $person = $this->getPerson();
-//                if (
-//                        $person !== false && property_exists($person, 'peopleID')
-//                        && !is_null($person->peopleID)
-//                        && $this->getCore() !== 'images'
-//                ) {
-//                    $query .= " OR recorderID:" . $person->peopleID;
-//                }
-//                    $this->_query->createFilterQuery('workflow')->setQuery($query);
-//            }
-//        }
 
         if (!$this->checkRoleAllowed($this->getRole())) {
             if (

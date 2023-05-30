@@ -65,6 +65,7 @@ class Pas_Solr_WorkflowHandler
                 $allowedWorkflows[] = $role['value']; //Add workflow value
             }
         }
+        //Sort the value from lowest to highest for SOLR search parameters
         sort($allowedWorkflows);
 
         return $allowedWorkflows;
