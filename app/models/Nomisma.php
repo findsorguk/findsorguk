@@ -71,19 +71,16 @@ class Nomisma
      */
     public function sendErrorEmail($error, string $type)
     {
-        $mail = new Zend_Mail();
-        $adminEmails = Zend_Registry::get('config')->admin->email;
-        $transactionEmail = Zend_Registry::get('config')->transaction->email;
-        $transactionEmailName = Zend_Registry::get('config')->transaction->name;
-        $mail->setBodyHtml(
-            'The server has encountered an issue with Nomisma. The issue is as follows: </br></br>'
-            . '<table>' . $error . '</table>'
-        )
-            ->setFrom($transactionEmail, $transactionEmailName)
-            ->addTo($transactionEmail, $transactionEmailName)
-            ->addTo($adminEmails ? $adminEmails->toArray() : null)
-            ->setSubject('PAS - Error retrieving ' . $type . ' from Nomisma')
-            ->send();
+        $mailer = new Pas_Controller_Action_Helper_Mailer();
+        $mailer->init();
+        var_dump($type);
+        $mailer->direct(compact($error, $type),
+            'nomismaError',
+            array_map(function ($email, $name) { return ['email' => $email, 'name' => $name]; },
+                Zend_Registry::get('config')->admin->email->toArray(),
+                Zend_Registry::get('config')->admin->name->toArray()
+            )
+        );
     }
 
     /**Check Nomisma site status by looking at header values

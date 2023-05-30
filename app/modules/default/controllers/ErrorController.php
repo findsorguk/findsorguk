@@ -23,13 +23,6 @@ class ErrorController extends Pas_Controller_Action_Admin
      */
     protected $_log;
 
-    /** Transactions email address and name
-     *
-     * @access protected
-     */
-    protected $_transactionsEmail;
-    protected $_transactionsEmailName;
-
     /** Get email config entry
      *
      * @access public
@@ -53,8 +46,6 @@ class ErrorController extends Pas_Controller_Action_Admin
         $this->_log = Zend_Registry::get('log');
         $this->_helper->_acl->allow(null);
         Zend_Layout::getMvcInstance()->setLayout("error");
-        $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
-        $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
     }
 
 
@@ -110,20 +101,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     public function sendEmail()
     {
         if ($this->getEmail()) {
-            $to[] = array(
-                'name' => $this->_transactionEmailName,
-                'email' => $this->_transactionEmail
-            );
-            $cc[] = array(
-                'name' => null,
-                'email' => null
-            );
-            $from[] = array(
-                'name' => $this->_transactionEmailName,
-                'email' => $this->_transactionEmail
-            );
-            $assignData = array_merge($this->_mailData(), $to['0']);
-            return $this->_helper->mailer($assignData, 'serverError', $to, $cc, $from, null, null);
+            return $this->_helper->mailer($this->_mailData(), 'serverError');
         }
     }
 

@@ -73,13 +73,6 @@ class Messages extends Pas_Db_Table_Abstract
      */
     protected $_akismet;
 
-    /** Transactions email address and name
-     *
-     * @access protected
-     */
-    protected $_transactionEmail;
-    protected $_transactionEmailName;
-
     /** Initialise
      */
     public function init()
@@ -87,8 +80,6 @@ class Messages extends Pas_Db_Table_Abstract
         $this->_baseUrl = Zend_Registry::get('siteurl');
         $this->_akismetkey = $this->_config->webservice->akismet->apikey;
         $this->_akismet = new Zend_Service_Akismet($this->_akismetkey, $this->_baseUrl);
-        $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
-        $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
     }
 
     /** get a count of messages
@@ -148,16 +139,17 @@ class Messages extends Pas_Db_Table_Abstract
         } else {
             $data['comment_approved'] = self::NOTSPAM;
         }
-        $mail = new Zend_Mail();
-        $mail->setBodyText(
-            'You submitted this comment/ query: '
-            . strip_tags($data['comment_content'])
+
+        $mailer = new Pas_Controller_Action_Helper_Mailer();
+        $mailer->init();
+        $commentAuthor = array(array('email' => $data['comment_author_email'], 'name' => $data['comment_author']));
+        $mailer->direct(array('comment_contents' => $data['comment_content'], 'comment_author' => $data['comment_author']),
+            'contactUsSubmission',
+            null, // use default transaction 'to' address
+            $commentAuthor,
+            $commentAuthor
         );
-        $mail->setFrom($data['comment_author_email'], $data['comment_author']);
-        $mail->addTo($this->_transactionEmail, $this->_transactionEmailName);
-        $mail->addCC($data['comment_author_email'], $data['comment_author']);
-        $mail->setSubject('Contact us submission');
-        $mail->send();
+
         return parent::insert($data);
     }
 

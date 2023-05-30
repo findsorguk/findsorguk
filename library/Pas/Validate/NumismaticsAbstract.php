@@ -72,19 +72,16 @@ abstract class Pas_Validate_NumismaticsAbstract extends Zend_Validate_Abstract
      */
     public function sendErrorEmail($error)
     {
-        $mail = new Zend_Mail();
-        $adminEmails = Zend_Registry::get('config')->admin->email;
-        $transactionEmail = Zend_Registry::get('config')->transaction->email;
-        $transactionEmailName = Zend_Registry::get('config')->transaction->name;
-        $mail->setBodyHtml(
-            'The server has encountered an issue with the Numismatics site. The issue is as follows: </br></br>'
-            . $error
-        )
-            ->setFrom($transactionEmail, $transactionEmailName)
-            ->addTo($transactionEmail, $transactionEmailName)
-            ->addTo($adminEmails ? $adminEmails->toArray() : null)
-            ->setSubject($this->_errorMessageSubject)
-            ->send();
+        $mailer = new Pas_Controller_Action_Helper_Mailer();
+        $mailer->init();
+        $adminEmail = array_map(function ($email, $name) { return ['email' => $email, 'name' => $name]; },
+            Zend_Registry::get('config')->admin->email->toArray(),
+            Zend_Registry::get('config')->admin->name->toArray()
+        );
+        $mailer->direct(array('error' => $this->_errorMessageSubject),
+            'numismaticsError',
+            $adminEmail
+        );
     }
 
     /** Get whether the ID exists in the CORR system

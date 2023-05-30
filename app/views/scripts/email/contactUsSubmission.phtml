@@ -1,0 +1,6 @@
+<?php $this->mail->setSubject('Contact Us Submission From: ' . $this->escape($this->comment_author)); ?>
+<p>Dear <?=$this->escape($this->comment_author);?>,</p>
+<p>This is a reference email as you submitted this comment/query on the Scheme's website:</p>
+<?=$this->purify()->setValue($this->comment_content);?>
+<p>Yours sincerely,</p>
+<p>The Portable Antiquities Scheme</p>

@@ -191,13 +191,6 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
      */
     protected $_findForm;
 
-    /** Transactions email address and name
-     *
-     * @access protected
-     */
-    protected $_transactionEmail;
-    protected $_transactionEmailName;
-
     /** Get the find form
      *
      * @access public
@@ -335,8 +328,6 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             ->addActionContext('record', array('qrcode', 'json', 'xml', 'geojson', 'pdf', 'rdf'))
             ->initContext();
         $this->_auth = Zend_Registry::get('auth');
-        $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
-        $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
     }
 
     /** Display a list of objects recorded with pagination
@@ -623,7 +614,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         if ($this->getParam('id', false)) {
             $this->_user = (new Pas_User_Details())->getPerson();
 
-            // Sends email from info@ on behalf of user that clicked Notify FLO. FLO receives
+            // Sends email from transaction email on behalf of user that clicked Notify FLO. FLO receives
             // email, FA and end-user are CCd.
 
             $form = new NotifyFloForm();
@@ -635,14 +626,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                     $contacts = new Contacts();
                     $to = $contacts->getNameEmail($form->getValue('flo'));
                     $cc = $this->_getAdviser($find->objecttype, $find->broadperiod);
-                    $from[] = array(
-                        'email' => 'info@finds.org.uk',
-                        'name' => 'Central Unit on behalf of ' . $this->_user->fullname
-                    );
                     $otherCC[] = array('email' => $this->_user->email, 'name' => $this->_user->fullname);
                     $cc = array_merge($cc, $otherCC);
                     $assignData = array_merge($find->toArray(), $form->getValues(), $to['0']);
-                    $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc, $from);
+                    $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc);
                     $this->getFlash()->addMessage('Your message has been sent');
                     $this->redirect('database/artefacts/record/id/' . $find->id);
                 } else {
@@ -737,12 +724,12 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                 )
             );
         } elseif (in_array($institution, array('PAS', 'DCMS', 'RAH', 'BM'))) {
-            $to = array(array('email' => $this->_transactionEmail, 'name' => $this->_transactionEmailName));
+            $to = null; // use default transaction email
         } else {
             $responsible = new Contacts();
             $to = $responsible->getOwner($data['comment_findID']);
             if (empty($to)) {
-                $to = array(array('email' => $this->_transactionEmail, 'name' => $this->_transactionEmailName));
+                $to = null; // use default transaction email
             }
         }
         $cc = $this->_getAdviser($objecttype, $broadperiod);
