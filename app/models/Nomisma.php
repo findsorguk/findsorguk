@@ -69,11 +69,11 @@ class Nomisma
      * @return void
      * @throws Zend_Mail_Exception|Zend_Exception
      */
-    public function sendErrorEmail($error, string $type)
+    public function sendErrorEmail($errorDescription, string $errorType)
     {
         $mailer = (new Pas_Controller_Action_Helper_Mailer());
         $mailer->init();
-        $mailer->direct(compact($error, $type),
+        $mailer->direct(compact('errorType', 'errorDescription'),
             'nomismaError',
             array_map(function ($email, $name) { return ['email' => $email, 'name' => $name]; },
                 Zend_Registry::get('config')->admin->email->toArray(),
@@ -90,7 +90,7 @@ class Nomisma
     {
         $checkHeaders = get_headers('http://nomisma.org/apis');
 
-        if (preg_match('/(2|3)[0-9][0-9]/', $checkHeaders[0]) == false) {
+        if (!preg_match('/(2|3)[0-9][0-9]/', $checkHeaders[0]) == false) {
             $this->sendErrorEmail('Nomisma did not return status code 200/400', 'HTTP response code');
             return false;
         }
