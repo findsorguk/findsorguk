@@ -73,7 +73,6 @@ class Nomisma
     {
         $mailer = new Pas_Controller_Action_Helper_Mailer();
         $mailer->init();
-        var_dump($type);
         $mailer->direct(compact($error, $type),
             'nomismaError',
             array_map(function ($email, $name) { return ['email' => $email, 'name' => $name]; },
