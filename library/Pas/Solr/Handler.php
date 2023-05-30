@@ -1077,17 +1077,22 @@ class Pas_Solr_Handler
         return in_array($userRole, $allowed);
     }
 
-    protected function setRecorderIdQuery(): ?string
+    /** Generate the recorder ID query for SOLR searches
+     *  Return a empty string if the user doesn't have a people record linked
+     *  or the core is images.
+     * @return string
+     */
+    protected function generateRecordIdQueryCondition(): string
     {
         $person = $this->getPerson();
         if (
-            $person !== null && property_exists($person, 'peopleID')
-            && !empty($person->peopleID) //bug, was is_null
+            $person !== false && property_exists($person, 'peopleID')
+            && !empty($person->peopleID)
             && $this->getCore() !== 'images'
         ) {
             return " OR recorderID:" . $person->peopleID;
         }
-        return null;
+        return '';
     }
 
     /** Execute the query
