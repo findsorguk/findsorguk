@@ -212,6 +212,16 @@ class ContactForm extends Pas_Form {
             ->setRequired(true)
             ->addFilters(array('StripTags','StringTrim'));
 
+        $lat = new Zend_Form_Element_Text('latitude');
+        $lat->SetLabel('Public map contact latitude');
+
+        $long = new Zend_Form_Element_Text('longitude');
+        $long->SetLabel('Public map contact longitude');
+
+        $googleMaps = $this->addElement('note', 'googleMaps', array(
+            'value' => '<div id="map"></div>'
+        ));
+
 	$submit = new Zend_Form_Element_Submit('submit');
 
 	$hash = new Zend_Form_Element_Hash('csrf');
@@ -223,7 +233,7 @@ class ContactForm extends Pas_Form {
             $address_1, $address_2, $town,
             $postcode, $county,	$identifier,
             $telephone,	$fax, $region,
-            $profile, $website, $alumni,
+            $profile, $website, $alumni, $lat, $long, $googleMaps,
             $submit, $hash));
 
 
@@ -234,7 +244,7 @@ class ContactForm extends Pas_Form {
             'profile', 'email_one', 'email_two',
             'address_1', 'address_2', 'town',
             'postcode', 'county', 'telephone',
-            'fax', 'website', 'alumni'), 'details');
+            'fax', 'website', 'latitude', 'longitude', 'googleMaps', 'alumni'), 'details');
 
 	$this->addDisplayGroup(array('submit'), 'buttons');
 
