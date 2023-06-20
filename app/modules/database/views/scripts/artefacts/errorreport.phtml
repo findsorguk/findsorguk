@@ -1,4 +1,7 @@
-<?php echo $this->partial('partials/database/structural/relevantAdviser.phtml', $this->finds[0]); ?>
+<?php
+    $this->headScript()->appendFile('//www.google.com/recaptcha/api.js');
+    echo $this->partial('partials/database/structural/relevantAdviser.phtml', $this->finds[0]);
+?>
     <p>You are submitting an error report on: <br/>
         <?php echo $this->partial('partials/database/embeds/embedDataFindError.phtml', $this->finds[0]); ?>
     </p>

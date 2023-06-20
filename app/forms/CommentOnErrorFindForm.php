@@ -92,7 +92,11 @@ class CommentOnErrorFindForm extends Pas_Form {
                 ->addFilters(array('StringTrim','WordChars','HtmlBody','EmptyParagraph'))
                 ->addErrorMessage('Please enter something in the comments box!');
 
-//	
+        $this->addElement(
+            (new Pas_Form_Element_Recaptcha('captcha'))
+                ->setLabel('Please complete the Captcha field to prove you exist')
+        );
+
 	$hash = new Zend_Form_Element_Hash('csrf');
 	$hash->setValue($this->_salt)->setTimeout(6000);
 
@@ -110,7 +114,7 @@ class CommentOnErrorFindForm extends Pas_Form {
 
             $this->addDisplayGroup(array(
                 'comment_author','comment_author_email','comment_author_url',
-                'comment_type','comment_content',
+                'comment_type','comment_content', 'captcha',
                 'submit'), 'details');
 	} else {
             $this->addElements(array(
@@ -121,7 +125,7 @@ class CommentOnErrorFindForm extends Pas_Form {
 
 	$this->addDisplayGroup(array(
             'comment_author', 'comment_author_email', 'comment_author_url',
-            'comment_type', 'comment_content', 'submit'), 'details');
+            'comment_type', 'comment_content','captcha', 'submit'), 'details');
 	}
 
 	$this->details->setLegend('Enter your error report: ');
