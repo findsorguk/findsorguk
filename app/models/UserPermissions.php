@@ -7,70 +7,85 @@
 
 class UserPermissions
 {
+    public const VIEW_GEO_DATA = 'ViewGeoData';
+    public const VIEW_KNOWN_AS_GEO_DATA = 'ViewKnownAsGeoData';
+    public const VIEW_RECORD_IDENTIFIERS = 'ViewRecordIdentifiers';
+    public const VIEW_RECORD_FINDERS = 'ViewRecordFinders';
+    public const VIEW_RECORD_RECORDERS = 'ViewRecordRecorders';
     protected string $userRole;
 
-    /**  The array of roles that can view geodata
-     *
-     * @access public
-     * @var array
-     */
-    protected array $rolesAllowedGeoData
-        = array(
-            'fa',
-            'flos',
-            'admin',
-            'treasure',
-            'research',
-            'hero',
-            'hoard'
-        );
-
-    /** The array of people who can see the personal data set.
-     *
-     * @access public
-     * @var array
-     */
-    protected array $rolesAllowedPersonalData
-        = array(
-            'fa',
-            'flos',
-            'admin',
-            'treasure'
-        );
-
-    /** The array of people who can see the KnownAs data set.
-     *
-     * @access public
-     * @var array
-     */
-    protected array $rolesAllowedKnownAs
-        = array(
-            'research',
-            'hero',
-            'flos',
-            'treasure',
-            'fa',
-            'hoard',
-            'admin'
-        );
+    protected array $permissions = array(
+        'admin' => array(
+            'ViewKnownAsGeoData' => true,
+            'ViewGeoData' => true,
+            'ViewRecordIdentifiers' => true,
+            'ViewRecordFinders' => true,
+            'ViewRecordRecorders' => true
+        ),
+        'hoard' => array(
+            'ViewKnownAsGeoData' => true,
+            'ViewGeoData' => true,
+            'ViewRecordIdentifiers' => true,
+            'ViewRecordFinders' => false,
+            'ViewRecordRecorders' => true
+        ),
+        'fa' => array(
+            'ViewKnownAsGeoData' => true,
+            'ViewGeoData' => true,
+            'ViewRecordIdentifiers' => true,
+            'ViewRecordFinders' => true,
+            'ViewRecordRecorders' => true
+        ),
+        'treasure' => array(
+            'ViewKnownAsGeoData' => true,
+            'ViewGeoData' => true,
+            'ViewRecordIdentifiers' => true,
+            'ViewRecordFinders' => true,
+            'ViewRecordRecorders' => true
+        ),
+        'flos' => array(
+            'ViewKnownAsGeoData' => true,
+            'ViewGeoData' => true,
+            'ViewRecordIdentifiers' => true,
+            'ViewRecordFinders' => true,
+            'ViewRecordRecorders' => true
+        ),
+        'hero' => array(
+            'ViewKnownAsGeoData' => true,
+            'ViewGeoData' => true,
+            'ViewRecordIdentifiers' => true,
+            'ViewRecordFinders' => false,
+            'ViewRecordRecorders' => true
+        ),
+        'research' => array(
+            'ViewKnownAsGeoData' => true,
+            'ViewGeoData' => true,
+            'ViewRecordIdentifiers' => false,
+            'ViewRecordFinders' => false,
+            'ViewRecordRecorders' => false
+        ),
+        'member' => array(
+            'ViewKnownAsGeoData' => false,
+            'ViewGeoData' => false,
+            'ViewRecordIdentifiers' => false,
+            'ViewRecordFinders' => false,
+            'ViewRecordRecorders' => false
+        ),
+    );
 
     public function __construct()
     {
         $this->userRole = (new Pas_User_Details())->getRole();
     }
 
-    public function allowedAccessGeoData(): bool
+    public function canRole(string $permission): bool
     {
-        return in_array($this->userRole, $this->rolesAllowedGeoData);
-    }
-
-    public function allowedAccessKnownAsGeoData()
-    {
-        return in_array($this->userRole, $this->rolesAllowedKnownAs);
-    }
-
-    public function allowedAccessPersonalFinderData(): bool
-    {
-        return in_array($this->userRole, $this->rolesAllowedPersonalData);
+        $role = $this->userRole;
+        if (in_array($permission, (new ReflectionClass($this))->getConstants())) {
+            return $this->permissions[$role][$permission] ?? false;
+        } else {
+            throw new InvalidArgumentException('canRole function will only accept valid permissions,
+            found in the class constants');
+        }
     }
 }
