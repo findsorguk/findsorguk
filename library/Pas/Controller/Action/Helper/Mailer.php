@@ -64,6 +64,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
      */
     protected $_transactionsEmail;
     protected $_transactionsEmailName;
+    private $sendIt;
 
     /** Initialise the objects and class
      */
@@ -77,6 +78,11 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
         $this->_types = $this->getTypes();
         $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
         $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
+
+        if(empty($this->_transactionEmail) || $this->_transactionEmailName) {
+            error_log("Transaction email details are not set in /app/config/emails.ini." . PHP_EOL .
+                "Please set to send email notifications and errors", 0);
+        }
         return $this;
     }
 
@@ -133,7 +139,11 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
         if (!is_null($attachments)) {
             $this->_addAttachments($attachments);
         }
-        $this->_sendIt();
+        try {
+            $this->_sendIt();
+        } catch (Exception $e) {
+            error_log($e, 0);
+        }
     }
 
     /** Add attachments
