@@ -90,7 +90,7 @@ class Nomisma
     {
         $checkHeaders = get_headers('http://nomisma.org/apis');
 
-        if (!preg_match('/(2|3)[0-9][0-9]/', $checkHeaders[0]) == false) {
+        if (preg_match('/(2|3)[0-9][0-9]/', $checkHeaders[0]) == false) {
             $this->sendErrorEmail('Nomisma did not return status code 200/400', 'HTTP response code');
             return false;
         }
