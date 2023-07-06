@@ -975,10 +975,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                 // Instantiate the re-namer
                 $reNamer = new Pas_Image_Rename();
                 // Clean the filename
-                $cleaned = $reNamer->strip(
-                    $filename['filename'],
-                    $filename['extension']
-                );
+                $params = $this->getAllParams();
+                $cleaned = $reNamer->strip(uniqid($params['findID'] . '_', false), $filename['extension']);
                 // Rename the file
                 $adapter->addFilter('rename', $cleaned);
                 // receive the files into the user directory
@@ -1006,7 +1004,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     $image->width = $imagesize[0];
                     $image->height = $imagesize[1];
                     //Grab parameters from URL
-                    $params = $this->getAllParams();
+
                     $image->findID = $params['findID'];
                     // Create the raw image url
                     $image->url = $this->_createUrl(
