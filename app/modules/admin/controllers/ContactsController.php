@@ -137,23 +137,12 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
         if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
             if ($form->isValid($formData)) {
-                $address = $form->getValue('address_1') . ',' . $form->getValue('address_2') . ','
-                    . $form->getValue('town') . ',' . $form->getValue('county') . ','
-                    . $form->getValue('postcode') . ', UK';
-                $coords = $this->getGeocoder()->getCoordinates($address);
-                if ($coords) {
-                    $lat = $coords['lat'];
-                    $lon = $coords['lon'];
-                    $woeid = null;
-                } else {
-                    $lat = null;
-                    $lon = null;
-                    $woeid = null;
-                }
+                $latLong = $this->getLatLongFromAddress($formData);
+
                 $insertData = $form->getValues();
-                $insertData['latitude'] = $lat;
-                $insertData['longitude'] = $lon;
-                $insertData['woeid'] = $woeid;
+                $insertData['latitude'] = $latLong['lat'] ?? $insertData['latitude'];
+                $insertData['longitude'] = $latLong['long'] ?? $insertData['longitude'];
+                $insertData['woeid'] = null;
                 $insert = $this->getContacts()->add($insertData);
                 $this->getFlash()->addMessage('Scheme contact created!');
                 $this->redirect($this->_redirectUrl . 'contact/id/' . $insert);
@@ -161,6 +150,30 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
                 $form->populate($formData);
             }
         }
+    }
+
+    /** Get Lat/Long of staff member via Google GeocoderAPI
+     * @throws Pas_Geo_Exception
+     */
+    private function getLatLongFromAddress($formValues): array
+    {
+        //Try to get lat/long from the address if not supplied
+        if (!empty(Zend_Registry::get('config')->webservice->google->geocoderAPI)
+        ) {
+            $address = $formValues->getValue('address_1') . ','
+                . $formValues->getValue('address_2') . ','
+                . $formValues->getValue('town') . ','
+                . $formValues->getValue('county') . ','
+                . $formValues->getValue('postcode') . ', UK';
+
+            $coords = $this->_geocoder->getCoordinates($address);
+            return array(
+                'lat' => $coords['lat'] ?? null,
+                'long' => $coords['lon'] ?? null
+            );
+
+        }
+        return array();
     }
 
     /** Edit a contact's details
@@ -175,23 +188,12 @@ class Admin_ContactsController extends Pas_Controller_Action_Admin
         if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
             if ($form->isValid($this->_request->getPost())) {
-                $address = $form->getValue('address_1') . ',' . $form->getValue('address_2') . ','
-                    . $form->getValue('town') . ',' . $form->getValue('county') . ','
-                    . $form->getValue('postcode') . ', UK';
-                $coords = $this->getGeoCoder()->getCoordinates($address);
-                if ($coords) {
-                    $lat = $coords['lat'];
-                    $lon = $coords['lon'];
-                    $woeid = null;
-                } else {
-                    $lat = null;
-                    $lon = null;
-                    $woeid = null;
-                }
+                $latLong = $this->getLatLongFromAddress($formData);
+
                 $updateData = $form->getValues();
-                $updateData['latitude'] = $lat;
-                $updateData['longitude'] = $lon;
-                $updateData['woeid'] = $woeid;
+                $updateData['latitude'] = $latLong['lat'] ?? $updateData['latitude'];
+                $updateData['longitude'] = $latLong['long'] ?? $updateData['longitude'];
+                $updateData['woeid'] = null;
                 if($updateData['alumni'] == '0'){
                     $updateData['alumni'] = NULL;
                 }
