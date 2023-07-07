@@ -220,7 +220,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 $imagedir = $imagedata['0']['imagedir'];
                 $imagenumber = $imagedata['0']['imageID'];
                 $zoom = './' . $imagedir . 'zoom/' . $spf . '_zdata';
-                $thumb = IMAGE_PATH . 'thumbnails/' . $imagenumber . '.jpg';
+                $thumb = rtrim(IMAGE_PATH, '/') . '/' . 'thumbnails/' . $imagenumber . '.jpg';
                 $small = './' . $imagedir . 'small/' . $filename;
                 $display = './' . $imagedir . 'display/' . $filename;
                 $medium = './' . $imagedir . 'medium/' . $filename;
