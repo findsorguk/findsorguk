@@ -234,7 +234,11 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 $linked->delete($wherelinks);
                 $this->getFlash()->addMessage('Image and metadata deleted');
                 $images = array($thumb, $display, $small, $medium, $original, $zoom);
+
+                //Delete images from server
                 $this->unlinker($images);
+                $this->deleteImageOriginals($original);
+
                 $this->_helper->solrUpdater->update('objects', $imagedata['0']['id'], $recordtype);
             }
             $this->redirect('/database/myscheme/myimages/');
@@ -258,6 +262,21 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
             }
         }
         return $this;
+    }
+
+    /** Delete any non .jpg original images
+     * @param $originalImage
+     * @return void
+     */
+    private function deleteImageOriginals($originalImage)
+    {
+        $listOfImages = glob(pathinfo($originalImage, PATHINFO_DIRNAME) . '/' . pathinfo($originalImage, PATHINFO_FILENAME) . '.*');
+
+        foreach ($listOfImages as $image) {
+            if (file_exists($image)) {
+                 unlink($image);
+            }
+        }
     }
 
     /** View a zooming image of the file
