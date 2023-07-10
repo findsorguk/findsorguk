@@ -33,6 +33,8 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
 
     protected static string $regexPattern = "/^\d\d\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/";
 
+    protected array $allowedUserRoles = array('hero','flos','treasure','fa','hoard','research');
+
     /** Get the array class
      * @access public
      * @return \Pas_ArrayFunctions
@@ -50,9 +52,31 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
      */
     public function init()
     {
-        $this->_helper->_acl->allow('public', null);
+        $permissionConfig = Zend_Registry::get('config')->controller->permissions->statistics->allowed_users;
+        if (!empty($permissionConfig)) {
+            $this->allowedUserRoles = $permissionConfig->toArray();
+        }
+
+        $statisticsActions = array('index','annual', 'county', 'regional', 'institution');
+        $this->_helper->_acl->allow($this->allowedUserRoles, $statisticsActions);
+        $this->_helper->_acl->allow('admin');
+
+        //Allow all users to view notauthorised page
+        $this->_helper->_acl->allow(null, 'notauthorised');
+
+        $this->_helper->_acl->setErrorModule('database')->setErrorController('statistics')->setErrorAction('notauthorised');
 
         $this->_finds = new Finds();
+    }
+
+    public function notauthorisedAction()
+    {
+        $this->view->message =
+            "<p>Sorry, the statistics page is only available for authorised members of the scheme.</p>" .
+            "<p>We apologise for any inconvenience, however, overuse of this facility has caused a degradation for " .
+            "normal users, so we have decided to restrict it.</p>";
+
+        $this->view->role = $this->getRole();
     }
 
     /** Render a form

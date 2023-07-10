@@ -40,7 +40,41 @@ class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abs
      * @var string
      */
     protected $_controllerName;
-    
+
+    protected string $errorAction = 'notauthorised';
+    protected string $errorController = 'error';
+    protected string $errorModule = 'default';
+
+    /**
+     * @param string $errorAction
+     * @return Pas_Controller_Action_Helper_Acl
+     */
+    public function setErrorAction(string $errorAction): Pas_Controller_Action_Helper_Acl
+    {
+        $this->errorAction = $errorAction;
+        return $this;
+    }
+
+    /**
+     * @param string $errorController
+     * @return Pas_Controller_Action_Helper_Acl
+     */
+    public function setErrorController(string $errorController): Pas_Controller_Action_Helper_Acl
+    {
+        $this->errorController = $errorController;
+        return $this;
+    }
+
+    /**
+     * @param string $errorModule
+     * @return Pas_Controller_Action_Helper_Acl
+     */
+    public function setErrorModule(string $errorModule): Pas_Controller_Action_Helper_Acl
+    {
+        $this->errorModule = $errorModule;
+        return $this;
+    }
+
     /** Get the action
      * @access public
      * @return string
@@ -113,9 +147,9 @@ class Pas_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abs
         }
 
         if (!$this->_acl->isAllowed($role, $resource, $privilege)) {
-            $request->setModuleName('default');
-            $request->setControllerName('error');
-            $request->setActionName('notauthorised');
+            $request->setModuleName($this->errorModule);
+            $request->setControllerName($this->errorController);
+            $request->setActionName($this->errorAction);
             $request->setDispatched(false);
         }
     }

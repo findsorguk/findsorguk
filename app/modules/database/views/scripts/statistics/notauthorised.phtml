@@ -1,0 +1,32 @@
+<?php
+$this->headTitle('Access denied');
+$this->metaBase()->setSubject('Error report')->setDescription('Access denied page')->generate();
+
+?>
+
+
+<h2 class="lead">Access to statistics page denied</h2>
+<p><?php echo $this->message; ?></p>
+
+<p>What would you like to do next?</p>
+
+<ul>
+    <?php if ("member" === $this->role): ?>
+        <li><a href="<?php
+            echo($this->baseUrl() . '/users/account/upgrade'); ?>">Request an account upgrade</a></li>
+    <?php endif; ?>
+    <li><a href="<?php
+        echo($this->baseUrl() . '/database'); ?>">Search the database<br></a></li>
+    <li><a href="<?php
+        echo($this->baseUrl() . '/contacts'); ?>">Find your local FLO</a></li>
+    <li><a href="<?php
+        echo($this->baseUrl() . '/treasure'); ?>">Read about the Treasure Act 1996</a></li>
+    <li><a href="<?php
+        echo($this->baseUrl() . '/guides'); ?>">Read our guides</a></li>
+    <li><a href="<?php
+        echo($this->baseUrl() . '/publications'); ?>">Read our Annual Reports</a></li>
+    <li><a href="<?php
+        echo($this->baseUrl() . '/news'); ?>">Find out our latest news</a></li>
+    <li><a href="<?php
+        echo($this->baseUrl() . '/counties'); ?>">Visit your local County Page</a></li>
+</ul>
