@@ -265,15 +265,18 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
     }
 
     /** Delete any non .jpg original images
-     * @param $originalImage
+     * @param $originalImagePath
      * @return void
      */
-    private function deleteImageOriginals($originalImage)
+    private function deleteImageOriginals($originalImagePath)
     {
-        $listOfImages = glob(pathinfo($originalImage, PATHINFO_DIRNAME) . '/' . pathinfo($originalImage, PATHINFO_FILENAME) . '.*');
+        $listOfImages = glob(
+            pathinfo($originalImagePath, PATHINFO_DIRNAME) . '/' .
+            pathinfo($originalImagePath, PATHINFO_FILENAME) . '.*'
+        );
 
         foreach ($listOfImages as $image) {
-            if (file_exists($image)) {
+            if (file_exists($image) && !is_dir($image)) {
                  unlink($image);
             }
         }
