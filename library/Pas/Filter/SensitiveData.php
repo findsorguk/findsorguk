@@ -36,13 +36,13 @@ class Pas_Filter_SensitiveData
         $identifierFields = array('identifier', 'identifierID', 'secondaryIdentifier', 'identifier1ID', 'identifier2ID');
 
         if (!$this->userPermissions->canRole(UserPermissions::VIEW_RECORD_FINDERS)) {
-            $data = $this->filterFieldsFromData($data, $finderFields);
+            $data = $this->filterFieldsFromMultiDimensionalArray($data, $finderFields);
         }
         if (!$this->userPermissions->canRole(UserPermissions::VIEW_RECORD_RECORDERS)) {
-            $data = $this->filterFieldsFromData($data, $recorderFields);
+            $data = $this->filterFieldsFromMultiDimensionalArray($data, $recorderFields);
         }
         if (!$this->userPermissions->canRole(UserPermissions::VIEW_RECORD_IDENTIFIERS)) {
-            $data = $this->filterFieldsFromData($data, $identifierFields);
+            $data = $this->filterFieldsFromMultiDimensionalArray($data, $identifierFields);
         }
         return $data;
     }
@@ -53,21 +53,28 @@ class Pas_Filter_SensitiveData
      */
     public function filterSensitiveGeoData($data)
     {
+
+        $geoDataFields = array('lat', 'lon', 'latitude', 'longitude', 'geohash', 'coordinates', 'easting', 'northing');
+        $fourFigureFields = array('fourFigureLat', 'fourFigureLon');
+        $discoveryMeta = array('findspotDescription', 'comments', 'landOwnerName', 'address', 'postcode', 'landOwnerID');
+
         $filteredGeoData = array();
-        $canRoleViewGeoData = $this->userPermissions->canRole(UserPermissions::VIEW_KNOWN_AS_GEO_DATA);
         if (is_array($data) && !$this->userPermissions->canRole(UserPermissions::VIEW_GEO_DATA)) {
             foreach ($data as $record) {
                 if (array_key_exists('gridref', $record)) {
                     $record['gridref'] = $record['fourFigure'];
                 }
 
-                //If the knownas key exists and is filled in, then it needs restricting
-                if (!is_null($record['knownas']) && $canRoleViewGeoData) {
-                    $record['parish'] = $record['fourFigure'] = $record['gridref'] = 'Restricted Access';
+                $record = $this->filterFieldsFromData($record, $geoDataFields);
+                $record = $this->filterFieldsFromData($record, $discoveryMeta);
 
-                    // Unset the fourfigure lat/lon
-                    unset($record['fourFigureLat']);
-                    unset($record['fourFigureLon']);
+                //If the knownas key exists and is filled in, then it needs restricting
+                if (
+                    !is_null($record['knownas']) &&
+                    $this->userPermissions->canRole(UserPermissions::VIEW_KNOWN_AS_GEO_DATA)
+                ) {
+                    $record['parish'] = $record['fourFigure'] = $record['gridref'] = 'Restricted Access';
+                    $record = $this->filterFieldsFromData($record, $fourFigureFields);
                 }
                 $filteredGeoData[] = $record;
             }
@@ -77,16 +84,22 @@ class Pas_Filter_SensitiveData
         }
     }
 
-    protected function filterFieldsFromData(array $data, $filterFields): array
+    protected function filterFieldsFromMultiDimensionalArray(array $data, $filterFields): array
     {
         $filteredData = array();
         foreach ($data as $record) {
-            $filteredData[] = array_diff_key(
-                $record,
-                array_flip($filterFields)
-            );
+            $filteredData[] = $this->filterFieldsFromData($record, $filterFields);
         }
+
         return $filteredData;
+    }
+
+    protected function filterFieldsFromData(array $data, $filterFields): array
+    {
+        return  array_diff_key(
+            $data,
+            array_flip($filterFields)
+        );
     }
 
 }
