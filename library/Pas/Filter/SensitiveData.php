@@ -32,8 +32,8 @@ class Pas_Filter_SensitiveData
     public function filterSensitivePersonalData($data)
     {
         $finderFields = array('finder', 'finderID');
-        $recorderFields = array('recorder', 'recorderID', 'createdBy');
-        $identifierFields = array('identifier', 'identifierID', 'secondaryIdentifier', 'identifier2ID');
+        $recorderFields = array('recorder', 'recorderID', 'createdBy', 'updatedBy', 'username', 'fullname', 'usernameUpdate', 'fullnameUpdate', 'creator');
+        $identifierFields = array('identifier', 'identifierID', 'secondaryIdentifier', 'identifier1ID', 'identifier2ID');
 
         if (!$this->userPermissions->canRole(UserPermissions::VIEW_RECORD_FINDERS)) {
             $data = $this->filterFieldsFromData($data, $finderFields);
