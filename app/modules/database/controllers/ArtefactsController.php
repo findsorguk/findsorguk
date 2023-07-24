@@ -357,8 +357,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $finds = $this->getFinds()->getAllData($id);
             $this->_helper->availableOrNot($finds);
 
-            if ($this->getParam('format')) {
-                $finds = (new Pas_Filter_SensitiveData())->cleanData($finds);
+            $format = $this->getParam('format');
+            if ($format) {
+                $finds = (new Pas_Filter_SensitiveData())->cleanData($finds, $format);
             }
 
             $this->view->finds = $finds;

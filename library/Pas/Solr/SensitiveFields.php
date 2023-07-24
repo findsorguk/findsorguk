@@ -25,9 +25,9 @@ class Pas_Solr_SensitiveFields {
      * @param string $role
      * @param string $core
      */
-    public function cleanData($data, $role = null, $core = null){
+    public function cleanData($data, $role = null, $core = null, $format = null){
         $sensitiveData = new Pas_Filter_SensitiveData();
-        return $sensitiveData->cleanData($data);
+        return $sensitiveData->cleanData($data, $format);
     }
 }
 

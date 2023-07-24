@@ -970,7 +970,7 @@ class Pas_Solr_Handler
         }
         if ($this->getFormat() != 'kml') {
             $processor = new Pas_Solr_SensitiveFields();
-            $clean = $processor->cleanData($data, $this->getRole(), $this->_core);
+            $clean = $processor->cleanData($data, $this->getRole(), $this->_core, $this->getFormat());
         } else {
             $clean = $data;
         }

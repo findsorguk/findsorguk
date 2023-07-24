@@ -6,6 +6,7 @@
 class Pas_Filter_SensitiveData
 {
 
+    protected array $data;
     protected UserPermissions $userPermissions;
 
     public function __construct()
@@ -13,45 +14,40 @@ class Pas_Filter_SensitiveData
         $this->userPermissions = new UserPermissions();
     }
 
-    public function cleanData($data)
+    public function cleanData($data, $format = null)
     {
-        return $this->filterSensitivePersonalData(
-            $this->filterSensitiveGeoData($data)
-        );
+        $this->data = $data;
+        $this->filterExport($format)->filterSensitivePersonalData()->filterSensitiveGeoData();
+        return $this->data;
     }
 
     /** Process the data for personal sensitive fields
      *
      * @access protected
-     *
-     * @param array $data
-     * @param string $role
-     *
-     * @return array
      */
-    public function filterSensitivePersonalData($data)
+    public function filterSensitivePersonalData()
     {
         $finderFields = array('finder', 'finderID');
         $recorderFields = array('recorder', 'recorderID', 'createdBy', 'updatedBy', 'username', 'fullname', 'usernameUpdate', 'fullnameUpdate', 'creator');
         $identifierFields = array('identifier', 'identifierID', 'secondaryIdentifier', 'identifier1ID', 'identifier2ID');
 
         if (!$this->userPermissions->canRole(UserPermissions::VIEW_RECORD_FINDERS)) {
-            $data = $this->filterFieldsFromMultiDimensionalArray($data, $finderFields);
+            $this->data = $this->filterFieldsFromMultiDimensionalArray($this->data, $finderFields);
         }
         if (!$this->userPermissions->canRole(UserPermissions::VIEW_RECORD_RECORDERS)) {
-            $data = $this->filterFieldsFromMultiDimensionalArray($data, $recorderFields);
+            $this->data = $this->filterFieldsFromMultiDimensionalArray($this->data, $recorderFields);
         }
         if (!$this->userPermissions->canRole(UserPermissions::VIEW_RECORD_IDENTIFIERS)) {
-            $data = $this->filterFieldsFromMultiDimensionalArray($data, $identifierFields);
+            $this->data = $this->filterFieldsFromMultiDimensionalArray($this->data, $identifierFields);
         }
-        return $data;
+        return $this;
     }
 
     /** Process the data for geo sensitive fields
      * @access public
-     * @param array $data
+     * @return Pas_Filter_SensitiveData
      */
-    public function filterSensitiveGeoData($data)
+    public function filterSensitiveGeoData(): Pas_Filter_SensitiveData
     {
 
         $geoDataFields = array('lat', 'lon', 'latitude', 'longitude', 'geohash', 'coordinates', 'easting', 'northing');
@@ -59,8 +55,8 @@ class Pas_Filter_SensitiveData
         $discoveryMeta = array('findspotDescription', 'comments', 'landOwnerName', 'address', 'postcode', 'landOwnerID');
 
         $filteredGeoData = array();
-        if (is_array($data) && !$this->userPermissions->canRole(UserPermissions::VIEW_GEO_DATA)) {
-            foreach ($data as $record) {
+        if (is_array($this->data) && !$this->userPermissions->canRole(UserPermissions::VIEW_GEO_DATA)) {
+            foreach ($this->data as $record) {
                 if (array_key_exists('gridref', $record)) {
                     $record['gridref'] = $record['fourFigure'];
                 }
@@ -78,10 +74,37 @@ class Pas_Filter_SensitiveData
                 }
                 $filteredGeoData[] = $record;
             }
-            return $filteredGeoData;
-        } else {
-            return $data;
+            $this->data = $filteredGeoData;
         }
+        return $this;
+    }
+
+    /** Call export specific method to filter data if it exists
+     * @param string|null $format
+     * @return $this
+     */
+    public function filterExport(?string $format): Pas_Filter_SensitiveData
+    {
+        $formatMethod = 'filter' . ucfirst($format) . 'Export';
+        if ($format != null && method_exists($this, $formatMethod)) {
+            $this->$formatMethod();
+        }
+        return $this;
+    }
+
+    /** Filter JSON specific fields from all exports, regardless of permissions
+     * @param $data
+     * @return void
+     */
+    private function filterJsonExport()
+    {
+        $jsonFieldsToRemove = array(
+            'address','comments','coordinates','disccircum','easting','elevation','finder','finderID',
+            'findspotDescriptiom','findspotDescription','fullnameUpdate','geohash','gridref','landOwnerID',
+            'landOwnerName','lat','latitude','lon','longitude','northing','postcode','username','usernameUpdate'
+        );
+
+        $this->data = $this->filterFieldsFromMultiDimensionalArray($this->data, $jsonFieldsToRemove);
     }
 
     protected function filterFieldsFromMultiDimensionalArray(array $data, $filterFields): array
