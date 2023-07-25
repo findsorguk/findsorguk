@@ -19,7 +19,7 @@
  * @subpackage    Handler
  * @uses          Pas_Solr_Exception
  * @uses          Solarium_Client
- * @uses          Pas_Solr_SensitiveFields
+ * @uses          Pas_Filter_SensitiveData
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example       /app/modules/database/controllers/SearchController.php
  */
@@ -969,8 +969,7 @@ class Pas_Solr_Handler
             $data[] = $fields;
         }
         if ($this->getFormat() != 'kml') {
-            $processor = new Pas_Solr_SensitiveFields();
-            $clean = $processor->cleanData($data, $this->getRole(), $this->_core, $this->getFormat());
+            $clean = (new Pas_Filter_SensitiveData())->cleanData($data, $this->getFormat(), $this->_core);
         } else {
             $clean = $data;
         }

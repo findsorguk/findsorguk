@@ -14,10 +14,13 @@ class Pas_Filter_SensitiveData
         $this->userPermissions = new UserPermissions();
     }
 
-    public function cleanData($data, $format = null)
+    public function cleanData($data, $format = null, $core = null)
     {
         $this->data = $data;
-        $this->filterExport($format)->filterSensitivePersonalData()->filterSensitiveGeoData();
+        //If core is object, or call from non-solr data source
+        if ($core === 'objects' || is_null($core)) {
+            $this->filterExport($format)->filterSensitivePersonalData()->filterSensitiveGeoData();
+        }
         return $this->data;
     }
 
@@ -25,7 +28,7 @@ class Pas_Filter_SensitiveData
      *
      * @access protected
      */
-    public function filterSensitivePersonalData()
+    public function filterSensitivePersonalData(): Pas_Filter_SensitiveData
     {
         $finderFields = array('finder', 'finderID');
         $recorderFields = array('recorder', 'recorderID', 'createdBy', 'updatedBy', 'username', 'fullname', 'usernameUpdate', 'fullnameUpdate', 'creator');
