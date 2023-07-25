@@ -186,7 +186,7 @@ class Pas_Solr_Handler
      * @access protected
      * @var string
      */
-    protected $_format = 'json';
+    protected $_format = 'search';
 
     /** Boolean field for processing stats
      *
@@ -337,7 +337,7 @@ class Pas_Solr_Handler
     {
         $params = $this->getParams();
         $format = $this->getFormat();
-        if (isset($params['show']) && in_array($format, array('json', 'xml', 'geojson', null))) {
+        if (isset($params['show']) && in_array($format, array('search','json', 'xml', 'geojson', null))) {
             $show = $params['show'];
             if ($show > 100) {
                 $show = 100;
