@@ -19,7 +19,7 @@ class Pas_Filter_SensitiveData
         $this->data = $data;
         //If core is object, or call from non-solr data source
         if ($core === 'objects' || is_null($core)) {
-            $this->filterExport($format)->filterSensitivePersonalData()->filterSensitiveGeoData();
+            $this->filterSensitivePersonalData()->filterSensitiveGeoData()->filterExport($format);
         }
         return $this->data;
     }
