@@ -70,7 +70,7 @@ class Pas_Filter_SensitiveData
                 //If the knownas key exists and is filled in, then it needs restricting
                 if (
                     !is_null($record['knownas']) &&
-                    $this->userPermissions->canRole(UserPermissions::VIEW_KNOWN_AS_GEO_DATA)
+                    !$this->userPermissions->canRole(UserPermissions::VIEW_KNOWN_AS_GEO_DATA)
                 ) {
                     $record['parish'] = $record['fourFigure'] = $record['gridref'] = 'Restricted Access';
                     $record = $this->filterFieldsFromData($record, $fourFigureFields);
