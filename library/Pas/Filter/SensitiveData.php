@@ -5,7 +5,6 @@
  */
 class Pas_Filter_SensitiveData
 {
-
     protected array $data;
     protected UserPermissions $userPermissions;
     protected array $finderFields = array('finder', 'finderID');
@@ -33,10 +32,17 @@ class Pas_Filter_SensitiveData
     public function cleanData($data, $format = null, $core = null)
     {
         $this->data = $data;
-        //If core is object, or call from non-solr data source
-        if ($core === 'objects' || is_null($core)) {
-            $this->filterSensitivePersonalData()->filterSensitiveGeoData()->filterExport($format);
+
+        //Filter GeoData for all data formats
+        $this->filterSensitiveGeoData();
+
+        //Only preform further filtering on exports
+        if (($core !== 'objects' && !is_null($core))  || $format === 'search') {
+            return $this->data;
         }
+
+        $this->filterSensitivePersonalData()->filterExport($format);
+
         return $this->data;
     }
 
@@ -95,7 +101,7 @@ class Pas_Filter_SensitiveData
      */
     public function filterExport(?string $format): Pas_Filter_SensitiveData
     {
-        $formatsToFilter = array('json', 'geojson', 'kml');
+        $formatsToFilter = array('json', 'geojson', 'kml', 'xml');
         $fieldsToFilter = array(
             'address','comments','coordinates','disccircum','easting','elevation','finder','finderID',
             'findspotDescription','fullnameUpdate','geohash','gridref','landOwnerID','landOwnerName','lat','lon',
@@ -126,5 +132,4 @@ class Pas_Filter_SensitiveData
             array_flip($filterFields)
         );
     }
-
 }
