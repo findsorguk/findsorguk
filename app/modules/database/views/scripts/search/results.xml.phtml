@@ -17,10 +17,10 @@ $formats = $dom->createElement('formats');
 $meta->appendChild($formats);
 foreach ($contexts as $k) {
     $formats->appendChild($dom->createElement($k, $site . $this->url(array('module' => $module,
-            'controller' => $controller, 'action' => $action, 'id' => $param, 'format' => $k), NULL, true)));
+            'controller' => $controller, 'action' => $action, 'id' => $param, 'format' => $k), null, true)));
 }
 $formats->appendChild($dom->createElement('html', $site . $this->url(array('module' => $module,
-        'controller' => $controller, 'action' => $action, 'id' => $param), NULL, true)));
+        'controller' => $controller, 'action' => $action, 'id' => $param), null, true)));
 
 $statistics = $dom->createElement('statistics');
 $statistics->appendChild($dom->createElement('totalResults', $this->paginator->getTotalItemCount()));
@@ -30,39 +30,8 @@ $meta->appendChild($statistics);
 
 $artefactsElem = $dom->createElement('results');
 
-$fieldsRemove = array(
-    'finderID', 'finder', 'gridref',
-    'latitude', 'longitude', 'usernameUpdate',
-    'fullnameUpdate', 'geohash', 'elevation',
-    'landOwnerName', 'address', 'postcode',
-    'easting', 'northing', 'findspotDescription',
-    'comments', 'disccircum', 'coordinates',
-    'username'
-
-);
-$knownasRemove = array(
-    'parish', 'parishID', 'centreLat',
-    'centreLon', 'fourFigureLat', 'fourFigureLon',
-    'fourFigure', 'map25k', 'map10k', 'woeid',
-    'geonamesID'
-);
-foreach ($this->results as $find) {
-    foreach ($find as $k => $v) {
-        if (in_array($k, $fieldsRemove)) {
-            unset($find[$k]);
-        }
-    }
-    if(array_key_exists('knownas', $find) && !is_null($find['knownas'])){
-        foreach ($find as $k => $v) {
-            if (in_array($k, $knownasRemove)) {
-                unset($find[$k]);
-            }
-        }
-    }
-    $results[] = $find;
-}
-if(!empty($results)) {
-    foreach ($results as $r) {
+if (!empty($this->results)) {
+    foreach ($this->results as $r) {
         $artefactElem = $dom->createElement('result');
         foreach ($r as $k => $a) {
             $artefactElem->appendChild($dom->createElement($k, htmlspecialchars(strip_tags($a))));

@@ -1,36 +1,7 @@
 <?php $results = array(); ?>
-<?php
-$fieldsRemove = array(
-    'finderID', 'finder', 'gridref',
-    'lat', 'lon', 'usernameUpdate',
-    'fullnameUpdate', 'geohash', 'elevation',
-    'landOwnerName', 'address', 'postcode',
-    'easting', 'northing', 'findspotDescription',
-    'comments', 'disccircum', 'coordinates',
-    'landOwnerID'
-);
-$knownasRemove = array(
-    'parish', 'parishID', 'centreLat',
-    'centreLon', 'fourFigureLat', 'fourFigureLon',
-    'fourFigure', 'map25k', 'map10k', 'woeid',
-    'geonamesID', 'what3words'
-);
-?>
 
 <?php if ($this->finds): ?>
     <?php foreach ($this->finds as $result) {
-        foreach ($result as $k => $v) {
-            if (in_array($k, $fieldsRemove)) {
-                unset($result[$k]);
-            }
-        }
-        if(array_key_exists('knownas', $result) && !is_null($result['knownas'])){
-            foreach ($result as $k => $v) {
-                if (in_array($k, $knownasRemove)) {
-                    unset($result[$k]);
-                }
-            }
-        }
         if (array_key_exists('description', $result)) {
             $description = trim(preg_replace('/\s+/', ' ', $result['description']));
             $result['description'] = $description;
@@ -69,7 +40,6 @@ $knownasRemove = array(
                 )
             );
         }
-
 
         $results[] = array('type' => 'Feature', 'geometry' => $geoJson, 'properties' => $result, 'id' => $result['id']);
 

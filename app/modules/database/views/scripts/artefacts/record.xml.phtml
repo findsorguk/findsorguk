@@ -27,40 +27,7 @@ $formats->appendChild($dom->createElement('html', $site . $this->url(array('modu
 
 $artefactElem = $dom->createElement('artefact');
 
-$fieldsRemove = array(
-    'finderID', 'finder', 'gridref',
-    'lat', 'lon', 'usernameUpdate',
-    'fullnameUpdate', 'geohash', 'elevation',
-    'landOwnerName', 'address', 'postcode',
-    'easting', 'northing', 'findspotDescription',
-    'comments', 'disccircum', 'landOwnerID',
-    'username'
-
-);
-$knownasRemove = array(
-    'parish', 'parishID', 'centreLat',
-    'centreLon', 'fourFigureLat', 'fourFigureLon',
-    'fourFigure', 'map25k', 'map10k', 'woeid',
-    'geonamesID', 'what3words'
-);
-$cleaned = array();
-foreach ($this->finds as $find) {
-    foreach ($find as $k => $v) {
-        if (in_array($k, $fieldsRemove)) {
-            unset($find[$k]);
-        }
-    }
-    if(array_key_exists('knownas', $find) && !is_null($find['knownas'])){
-        foreach ($find as $k => $v) {
-            if (in_array($k, $knownasRemove)) {
-                unset($find[$k]);
-            }
-        }
-    }
-    $cleaned[] = $find;
-}
-
-foreach ($cleaned as $r) {
+foreach ($this->finds as $r) {
     foreach ($r as $k => $a) {
         $artefactElem->appendChild($dom->createElement($k, htmlspecialchars(strip_tags($a))));
     }
