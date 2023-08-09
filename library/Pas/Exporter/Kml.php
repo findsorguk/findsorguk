@@ -79,7 +79,7 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
         $this->_search->setFields($this->_kmlFields);
         $this->_search->setParams($this->_params);
         $this->_search->execute();
-	$artefacts = $this->removeCoordinatesIfNecessary($this->_search->processResults());
+	    $artefacts = $this->removeCoordinatesIfNecessary($this->_search->processResults());
         return $this->_clean($artefacts);
     }
 
@@ -120,7 +120,7 @@ class Pas_Exporter_Kml extends Pas_Exporter_Generate
      * @param array $data
      * @return array
      */
-    protected function _clean(array $results)
+    protected function _clean(?array $results)
     {
         $cleanedData = NULL;
         foreach ($results as $artefact)
