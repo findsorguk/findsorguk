@@ -77,6 +77,7 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
             "normal users, so we have decided to restrict it.</p>";
 
         $this->view->role = $this->getRole();
+        $this->getResponse()->setHttpResponseCode(403);
     }
 
     /** Render a form
