@@ -337,6 +337,7 @@ class Database_SearchController extends Pas_Controller_Action_Admin
         $form = new EmailSearchForm();
         $this->view->form = $form;
         if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
+            unset($params['g-recaptcha-response']);
             $to[] = array(
                 'email' => $form->getValue('email'),
                 'name' => $form->getValue('fullname')
