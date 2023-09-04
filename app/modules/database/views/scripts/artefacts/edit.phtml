@@ -13,7 +13,11 @@ $this->editCheck()
 <?php echo $this->form; ?>
 
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder.js', $type = 'text/javascript');
@@ -26,12 +30,17 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jquery.are-you
 ?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
     $(document).ready(function() {
-    $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
-    $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
-    $("input[type='text']:first", document.forms[0]).focus();
-    $('form').areYouSure();
-    $("form").submit(function() {
-    $(":submit", this).attr("disabled", "disabled");
-    });
+        $datePickerSettings = {
+            endDate: '0d',
+            format: 'yyyy-mm-dd',
+        };
+
+        $("#datefound1").datepicker($datePickerSettings);
+        $("#datefound2").datepicker($datePickerSettings);
+        $("input[type='text']:first", document.forms[0]).focus();
+        $('form').areYouSure();
+        $("form").submit(function() {
+            $(":submit", this).attr("disabled", "disabled");
+        });
     });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>

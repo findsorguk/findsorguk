@@ -30,7 +30,11 @@ $this->metaBase()->setDescription($this->title())->generate();
 echo $this->form;
 ?>
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-typeahead.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/objectType.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/typeaheads/finder-hoards.js', $type = 'text/javascript');
@@ -51,6 +55,12 @@ if (!is_null($copy)) {
 
 <?php $this->jQuery()->javascriptCaptureStart() ?>
     $(document).ready(function() {
+
+    var datePickerSettings = {
+        endDate: '0d',
+        format: 'yyyy-mm-dd',
+    };
+
     $('form').areYouSure();
     $("form").submit(function() {
     $(":submit", this).attr("disabled", "disabled");
@@ -84,8 +94,8 @@ if (!is_null($copy)) {
     }
     });
 
-    $("#datefound1").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
-    $("#datefound2").datepicker({ yearRange:'1900:<?php echo date('Y'); ?>'});
+    $("#datefound1").datepicker(datePickerSettings);
+    $("#datefound2").datepicker(datePickerSettings);
     $("input[type='select']:first", document.forms[0]).focus();
     $('.multiselect').multiselect({
     maxHeight: 200,

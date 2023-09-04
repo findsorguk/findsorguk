@@ -8,6 +8,23 @@ $this->metaBase()->setDescription($this->title())->generate();
        class="btn btn-small btn-success">Return to vacancies list</a>
 <?php echo $this->form; ?>
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
 $this->headLink()->appendStylesheet($this->baseUrl() . '/css/autocomplete.css');
 ?>
+
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+    $(document).ready(function() {
+        var datePickerSettings = {
+            endDate: (new Date((new Date()).getFullYear() + 6, 12, 0)),
+            format: 'yyyy-mm-dd',
+        };
+
+        $("#live").datepicker(datePickerSettings);
+        $("#expire").datepicker(datePickerSettings);
+    });
+<?php $this->jQuery()->javascriptCaptureEnd() ?>

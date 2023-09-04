@@ -6,13 +6,23 @@ $this->metaBase()->setDescription($this->title())->generate();
 
 <?php echo $this->form; ?>
 
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
+<?php
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
+?>
 <?php $this->jQuery()->javascriptCaptureStart() ?>
     $(document).ready(function() {
-    $("#expire").datepicker({ maxDate: '+1y' });
+    var datePickerSettings = {
+        endDate: (new Date((new Date()).getFullYear() + 1, 12, 0)),
+        format: 'yyyy-mm-dd',
+    };
+    $("#expire").datepicker(datePickerSettings);
     $('form').areYouSure();
     $("form").submit(function() {
-    $(":submit", this).attr("disabled", "disabled");
+        $(":submit", this).attr("disabled", "disabled");
     });
     });
 <?php $this->jQuery()->javascriptCaptureEnd() ?>

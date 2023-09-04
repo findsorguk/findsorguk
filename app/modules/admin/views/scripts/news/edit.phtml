@@ -5,5 +5,20 @@ $this->metaBase()->setDescription($this->title())->generate();
     <h2 class="lead"><?php echo $this->title(); ?></h2>
     <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'news'), 'default', true); ?>"
        class="btn btn-small btn-success">Return to news list</a>
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
+<?php
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
+?>
 <?php echo $this->form; ?>
+
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+$(document).ready(function() {
+    var datePickerSettings = {
+        format: 'yyyy-mm-dd',
+    };
+    $("#golive").datepicker(datePickerSettings);
+});
+<?php $this->jQuery()->javascriptCaptureEnd() ?>

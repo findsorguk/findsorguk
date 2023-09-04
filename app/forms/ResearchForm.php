@@ -66,17 +66,15 @@ class ResearchForm extends Pas_Form
             ->setAttribs(array('cols' => 80, 'rows' => 10))
             ->addFilters(array('BasicHtml', 'StringTrim', 'EmptyParagraph'));
 
-        $startDate = new ZendX_JQuery_Form_Element_DatePicker('startDate');
+        $startDate = new Zend_Form_Element_Text('startDate');
         $startDate->setLabel('Start date of project')
             ->setAttrib('size', 20)
-            ->setJQueryParam('dateFormat', 'yy-mm-dd')
             ->setRequired(false)
             ->addErrorMessage('You must enter a start date for this project');
 
-        $endDate = new ZendX_JQuery_Form_Element_DatePicker('endDate');
+        $endDate = new Zend_Form_Element_Text('endDate');
         $endDate->setLabel('End date of project')
             ->setAttrib('size', 20)
-            ->setJQueryParam('dateFormat', 'yy-mm-dd')
             ->setRequired(false)
             ->addErrorMessage('You must enter an end date for this project');
 
