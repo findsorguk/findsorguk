@@ -194,3 +194,6 @@ phpSettings.display_errors         = 0
 ;phpsettings.error_reporting = E_ALL & ~E_NOTICE
 ssl.modules.require_ssl = 'all';
 ssl.controllers.require_ssl = '';
+
+logger.basePath = '../app/logs/'
+logger.enableRequestLogs = 1

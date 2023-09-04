@@ -35,13 +35,30 @@ class DatePickerForm extends Pas_Form {
         
         $datefrom = new Zend_Form_Element_Text('datefrom');
         $datefrom->setLabel('Date from: ')
-                ->setRequired(true)
-                ->addFilters(array('StripTags', 'StringTrim'));
+            ->addValidator('Regex', true, array('/^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/'))
+            ->setAttrib('pattern', '^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$') //HTML 5 front end validation
+            ->addValidator('StringLength', true, array(2))
+            ->setAttrib('oninvalid', 'this.setCustomValidity("Date must be in the format YYYY-MM-DD.")')
+            ->setAttrib('onchange', 'this.setCustomValidity("")')
+            ->setRequired(true)
+            ->addFilters(array('StripTags', 'StringTrim'));
+        $datefrom->getValidator('Regex')->setMessage(
+            'Date must be in the format YYYY-MM-DD.'
+        );
+
 
         $dateto = new Zend_Form_Element_Text('dateto');
         $dateto->setLabel('Date to: ')
-                ->setRequired(true)
-                ->addFilters(array('StripTags', 'StringTrim'));
+            ->addValidator('Regex', true, array('/^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/'))
+            ->setAttrib('pattern', '^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$') //HTML 5 front end validation
+            ->setAttrib('oninvalid', 'this.setCustomValidity("Date must be in the format YYYY-MM-DD.")')
+            ->setAttrib('onchange', 'this.setCustomValidity("")')
+            ->setRequired(true)
+            ->addFilters(array('StripTags', 'StringTrim'));
+        $dateto->getValidator('Regex')->setMessage(
+            'Date must be in the format YYYY-MM-DD.'
+        );
+
 
         $hash = new Zend_Form_Element_Hash('csrf');
         $hash->setValue($this->_salt)->setTimeout(4800);

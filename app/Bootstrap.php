@@ -1,5 +1,7 @@
 <?php
 
+use Logging\Logging;
+
 /** Bootstrap for the website to run
  *
  * @author Daniel Pett <dpett@britishmuseum.org>
@@ -36,7 +38,6 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-
     /** Initialise the config and save to the registry
      * @access protected
      */
@@ -129,6 +130,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ->setHeader('Expires', gmdate('D, d M Y H:i:s', time() + 2 * 3600) . ' GMT', true);
         $frontController = Zend_Controller_Front::getInstance();
         $frontController->setResponse($response);
+
+        (new Logging())->logRequestsToWebsite(LOG_INFO);
     }
 
 
