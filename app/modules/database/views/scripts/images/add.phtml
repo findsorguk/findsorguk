@@ -114,8 +114,9 @@ $this->metaBase()->setDescription($this->title())->generate();
     <tr class="template-download fade">
         <td>
             <span class="preview">
+                {% var filePath=file.thumbnailUrl; %}
                 {% if (file.thumbnailUrl) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%= filePath.substring(0,filePath.lastIndexOf('.')) + '.jpg' %}"></a>
                 {% } %}
             </span>
         </td>

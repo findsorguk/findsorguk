@@ -217,10 +217,10 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 $filename = $imagedata['0']['f'];
                 $splitf = explode('.', $filename);
                 $spf = $splitf['0'];
-                $imagedir = $imagedata['0']['imagedir'];
+                $imagedir = rtrim($imagedata['0']['imagedir'],'/') . '/';
                 $imagenumber = $imagedata['0']['imageID'];
                 $zoom = './' . $imagedir . 'zoom/' . $spf . '_zdata';
-                $thumb = IMAGE_PATH . 'thumbnails/' . $imagenumber . '.jpg';
+                $thumb = rtrim(IMAGE_PATH, '/') . '/' . 'thumbnails/' . $imagenumber . '.jpg';
                 $small = './' . $imagedir . 'small/' . $filename;
                 $display = './' . $imagedir . 'display/' . $filename;
                 $medium = './' . $imagedir . 'medium/' . $filename;
@@ -234,7 +234,11 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 $linked->delete($wherelinks);
                 $this->getFlash()->addMessage('Image and metadata deleted');
                 $images = array($thumb, $display, $small, $medium, $original, $zoom);
+
+                //Delete images from server
                 $this->unlinker($images);
+                $this->deleteImageOriginals($original);
+
                 $this->_helper->solrUpdater->update('objects', $imagedata['0']['id'], $recordtype);
             }
             $this->redirect('/database/myscheme/myimages/');
@@ -258,6 +262,24 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
             }
         }
         return $this;
+    }
+
+    /** Delete any non .jpg original images
+     * @param $originalImagePath
+     * @return void
+     */
+    private function deleteImageOriginals($originalImagePath)
+    {
+        $listOfImages = glob(
+            pathinfo($originalImagePath, PATHINFO_DIRNAME) . '/' .
+            pathinfo($originalImagePath, PATHINFO_FILENAME) . '.*'
+        );
+
+        foreach ($listOfImages as $image) {
+            if (file_exists($image) && !is_dir($image)) {
+                 unlink($image);
+            }
+        }
     }
 
     /** View a zooming image of the file
