@@ -1,0 +1,10 @@
+<h2 class="lead">Edit a contact</h2>
+<?php
+$this->headTitle($this->title);
+$this->googleDynamicMap();
+echo $this->form;
+
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/googleMapLocationPicker.js',
+    $type = 'text/javascript'
+);

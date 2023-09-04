@@ -26,23 +26,32 @@ class Pas_Service_Geo_Coder
 {
 
     /** Geocoder uri
-     * @var unknown_type
+     * @var string
      */
-    const GEOCODEURI = 'https://maps.googleapis.com/maps/api/geocode/json';
+    private const GEOCODEURI = 'https://maps.googleapis.com/maps/api/geocode/json';
+
+    /** Google Geocoder API Key
+     * @var string
+     */
+    private const APIKEY = null; // No API Key Set
 
 
-    /** Get the coordinates from an address string
-     * @access public
-     * @param string $address
+    /** Get the coordinates from an address string via the Google geocoding API
+     * @param $address
+     * @return mixed
+     * @throws Zend_Http_Client_Exception
+     * @throws Zend_Json_Exception
+     * @link https://developers.google.com/maps/documentation/geocoding
      */
-    public function _getGeocodedLatitudeAndLongitude($address)
+    private function getGeocodedLatitudeAndLongitudeFromGoogleGeoAPI($address)
     {
         $client = new Zend_Http_Client();
         $client->setUri(self::GEOCODEURI);
-        $client->setParameterGet('address', $address)->setParameterGet('sensor', 'false');
+        $client->setParameterGet('address', $address)
+            ->setParameterGet('sensor', 'false')
+            ->setParameterGet('key', self::APIKEY);
         $result = $client->request('GET');
-        $response = Zend_Json_Decoder::decode($result->getBody(), Zend_Json::TYPE_OBJECT);
-        return $response;
+        return Zend_Json_Decoder::decode($result->getBody(), Zend_Json::TYPE_OBJECT);
     }
 
     /** Get the coordinates of an address
@@ -51,14 +60,18 @@ class Pas_Service_Geo_Coder
      */
     public function getCoordinates($address)
     {
-        $response = $this->_getGeocodedLatitudeAndLongitude($address);
-        if (isset($response->results[0]->geometry->location)) {
-            return array(
-                'lat' => $response->results[0]->geometry->location->lat,
-                'lon' => $response->results[0]->geometry->location->lng
-            );
+        if (!empty(self::APIKEY)) {
+            $response = $this->getGeocodedLatitudeAndLongitudeFromGoogleGeoAPI($address);
+            if (isset($response->results[0]->geometry->location)) {
+                return array(
+                    'lat' => $response->results[0]->geometry->location->lat,
+                    'lon' => $response->results[0]->geometry->location->lng
+                );
+            } else {
+                return null;
+            }
         } else {
-            return null;
+            return null; //Geo data cannot be found from Address without Google API Key
         }
     }
 }
