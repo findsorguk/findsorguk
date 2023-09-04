@@ -44,6 +44,10 @@
                         href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'helpusrecordthepast'), 'guides', true); ?>"
                         title="Help Us Record the Past">Help Us Record the Past</a>
                 </li>
+                <li <?php echo $this->currentPage()->active('getinvolved', 'guides', 'index', 'Managing/Meeting Finder’s Expectations '); ?>><a
+                            href="<?php echo $this->url(array('module' => 'getinvolved', 'controller' => 'guides', 'action' => 'index', 'slug' => 'expectations'), 'guides', true); ?>"
+                            title="Help Us Record the Past">Managing/Meeting Finder’s Expectations</a>
+                </li>
             </ul>
         </li>
         <li <?php echo $this->currentPage()->active('getinvolved', 'volunteering', 'index'); ?>><a
