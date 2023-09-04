@@ -356,6 +356,12 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $id = $this->getParam('id');
             $finds = $this->getFinds()->getAllData($id);
             $this->_helper->availableOrNot($finds);
+
+            $format = $this->getParam('format');
+            if ($format) {
+                $finds = (new Pas_Filter_SensitiveData())->cleanData($finds, $format);
+            }
+
             $this->view->finds = $finds;
             $coins = new Coins();
             $this->view->coins = $coins->getCoinData($id);

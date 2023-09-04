@@ -1,66 +1,85 @@
 <h4 class="lead">Personal details</h4>
 
 <?php
-    // Create the controller details for the searchable users
-    function BuildSearchParameters($keyValuePair)
-    {
-	return 
-	    array_merge(
-	      array('module' => 'database',
-                    'controller' => 'search',
-                    'action' => 'results'), 
-	      $keyValuePair);
-    }
+// Create the controller details for the searchable users
+function BuildSearchParameters($keyValuePair)
+{
+    return
+        array_merge(
+            array('module' => 'database',
+                'controller' => 'search',
+                'action' => 'results'),
+            $keyValuePair);
+}
 
-    $auth = Zend_Registry::get('auth');
-    $restrictedMessage = "This information is restricted for your access level."; 
-    if (! $auth->hasIdentity()):
-        echo('<p>' . $restrictedMessage . '</p>');
+$auth = Zend_Registry::get('auth');
+$userPermissions = new UserPermissions();
+$restrictedMessage = "This information is restricted for your access level.";
+if (! $auth->hasIdentity()):
+    echo('<p>' . $restrictedMessage . '</p>');
+    return;
+else:
+    $user = $auth->getIdentity();
+    if (! $user->canRecord):
+        echo ('<p>' . $restrictedMessage . '</p>');
         return;
-    else:
-        $user = $auth->getIdentity();
-        if (! $user->canRecord):
-	    echo ('<p>' . $restrictedMessage . '</p>');
-            return;
-        endif;
     endif;
+endif;
 ?>
 
 <p>
-    <?php if (! is_null($this->finder)): ?>
-	Found by:
-	<?php if (in_array($user->role, array('fa', 'admin', 'flos', 'treasure'))): ?>
-            <span property="pas:finder foaf:name" instanceof="foaf:person"><?= $this->finder ?></span> 
-	    <a href="<?= $this->url(BuildSearchParameters(array('finderID' => $this->finderID)), null, true) ?>"
-                title="Search database for all records found by <?= $this->finder ?>">
-	        <i class="icon-search"></i>
-	    </a>
-	<?php else: ?>
-	    <?= $restrictedMessage ?>
-        <?php endif;?><br/>
-    <?php endif;?>
+    <?php if (!is_null($this->finder)): ?>
+        Found by:
+        <?php if ($userPermissions->canRole(userPermissions::VIEW_RECORD_FINDERS)) : ?>
+            <span property="pas:finder foaf:name" instanceof="foaf:person"><?= $this->finder ?></span>
+            <a href="<?= $this->url(BuildSearchParameters(array('finderID' => $this->finderID)), null, true) ?>"
+               title="Search database for all records found by <?= $this->finder ?>">
+                <i class="icon-search"></i>
+            </a>
+        <?php else : ?>
+            <?= $restrictedMessage ?>
+        <?php endif; ?><br/>
+    <?php endif; ?>
 
     <?php if (!is_null($this->recorderID)) : ?>
-        Recorded by: <span property="pas:recorder foaf:name" instanceof="foaf:person"><?= $this->recorder ?></span>
-	<a href="<?= $this->url(BuildSearchParameters(array('recorderID' => $this->recorderID)), null, true) ?>"
-	    title="Search database for all records recorded by <?= $this->recorder ?>">
-	    <i class="icon-search"></i>
-	</a><br />
+        Recorded by:
+        <?php if ($userPermissions->canRole(userPermissions::VIEW_RECORD_RECORDERS)) : ?>
+            <span property="pas:recorder foaf:name" instanceof="foaf:person"><?= $this->recorder ?></span>
+            <a href="<?= $this->url(BuildSearchParameters(array('recorderID' => $this->recorderID)), null, true) ?>"
+               title="Search database for all records recorded by <?= $this->recorder ?>">
+                <i class="icon-search"></i>
+            </a><br/>
+        <?php else : ?>
+            <?= $restrictedMessage ?>
+        <?php endif; ?><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->identifier1ID)) : ?>
-        Identified by: <span property="pas:identifier foaf:name" instanceof="foaf:person"><?= $this->identifier ?></span>
-	<a href="<?= $this->url(BuildSearchParameters(array('identifierID' => $this->identifier1ID)), null, true) ?>"
-	    title="Search database for all records identified by <?= $this->identifier ?>">
-	    <i class="icon-search"></i>
-	</a><br />
+        Identified by:
+        <?php if ($userPermissions->canRole(userPermissions::VIEW_RECORD_IDENTIFIERS)) : ?>
+            <span property="pas:identifier foaf:name"
+                  instanceof="foaf:person"><?= $this->identifier ?></span>
+            <a href="<?= $this->url(BuildSearchParameters(array('identifierID' => $this->identifier1ID)), null, true) ?>"
+               title="Search database for all records identified by <?= $this->identifier ?>">
+                <i class="icon-search"></i>
+            </a><br/>
+        <?php else : ?>
+            <?= $restrictedMessage ?>
+        <?php endif; ?><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->identifier2ID)) : ?>
-        Secondary identifier: <span property="pas:identifierSecondary foaf:name" instanceof="foaf:person"><?= $this->secondaryIdentifier ?></span>
-	<a href="<?= $this->url(BuildSearchParameters(array('identifier2ID' => $this->identifier2ID)), null, true) ?>"
-	    title="Search database for all records identifed by <?= $this->secondaryIdentifier ?>">
-	    <i class="icon-search"></i>
-	</a>
+        Secondary identifier:
+        <?php if ($userPermissions->canRole(userPermissions::VIEW_RECORD_IDENTIFIERS)) : ?>
+            <span property="pas:identifierSecondary foaf:name"
+                  instanceof="foaf:person"><?= $this->secondaryIdentifier ?></span>
+            <a href="<?= $this->url(BuildSearchParameters(array('identifier2ID' => $this->identifier2ID)), null, true) ?>"
+               title="Search database for all records identifed by <?= $this->secondaryIdentifier ?>">
+                <i class="icon-search"></i>
+            </a>
+        <?php else : ?>
+            <?= $restrictedMessage ?>
+        <?php endif; ?><br/>
     <?php endif; ?>
+
 </p>

@@ -267,8 +267,6 @@ class Pas_View_Helper_PreviousFind extends Zend_View_Helper_Abstract
             }
             $data[] = $fields;
         }
-        $processor = new Pas_Solr_SensitiveFields();
-        $clean = $processor->cleanData($data, $this->getRole(), $this->_core);
-        return $clean;
+        return (new Pas_Filter_SensitiveData())->cleanData($data, null, $this->_core);
     }
 }
