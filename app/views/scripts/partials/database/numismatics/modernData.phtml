@@ -33,16 +33,16 @@
                 title="view all records assigned to <?php echo $this->mintName; ?>"><i class="icon-info-sign"></i></a><br/>
     <?php endif; ?>
     <?php if (!is_null($this->obverseDescription)): ?>
-        Obverse description: <?php echo ucfirst($this->obverseDescription); ?><br/>
+        Obverse description: <?php echo $this->escape($this->obverseDescription); ?><br/>
     <?php endif; ?>
     <?php if (!is_null($this->obverseInscription)): ?>
-        Obverse inscription: <?php echo $this->obverseInscription; ?><br/>
+        Obverse inscription: <?php echo $this->escape($this->obverseInscription); ?><br/>
     <?php endif; ?>
     <?php if (!is_null($this->reverseDescription)): ?>
-        Reverse description: <?php echo ucfirst($this->reverseDescription); ?><br/>
+        Reverse description: <?php echo $this->escape($this->reverseDescription); ?><br/>
     <?php endif; ?>
     <?php if (!is_null($this->reverseInscription)): ?>
-        Reverse inscription: <?php echo $this->reverseInscription; ?><br/>
+        Reverse inscription: <?php echo $this->escape($this->reverseInscription); ?><br/>
     <?php endif; ?>
     <?php if (!is_null($this->dieAxisName)): ?>
         Die axis measurement: <?php echo $this->escape($this->dieAxisName); ?><br/>
