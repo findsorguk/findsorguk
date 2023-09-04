@@ -101,20 +101,7 @@ class ErrorController extends Pas_Controller_Action_Admin
     public function sendEmail()
     {
         if ($this->getEmail()) {
-            $to[] = array(
-                'name' => 'The Portable Antiquities Scheme',
-                'email' => 'past@britishmuseum.org'
-            );
-            $cc[] = array(
-                'name' => null,
-                'email' => null
-            );
-            $from[] = array(
-                'name' => 'The Portable Antiquities Server',
-                'email' => 'no-reply@finds.org.uk'
-            );
-            $assignData = array_merge($this->_mailData(), $to['0']);
-            return $this->_helper->mailer($assignData, 'serverError', $to, $cc, $from, null, null);
+            return $this->_helper->mailer($this->_mailData(), 'serverError');
         }
     }
 

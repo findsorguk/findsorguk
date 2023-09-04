@@ -614,7 +614,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         if ($this->getParam('id', false)) {
             $this->_user = (new Pas_User_Details())->getPerson();
 
-            // Sends email from info@ on behalf of user that clicked Notify FLO. FLO receives
+            // Sends email from transaction email on behalf of user that clicked Notify FLO. FLO receives
             // email, FA and end-user are CCd.
 
             $form = new NotifyFloForm();
@@ -626,14 +626,10 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                     $contacts = new Contacts();
                     $to = $contacts->getNameEmail($form->getValue('flo'));
                     $cc = $this->_getAdviser($find->objecttype, $find->broadperiod);
-                    $from[] = array(
-                        'email' => 'info@finds.org.uk',
-                        'name' => 'Central Unit on behalf of ' . $this->_user->fullname
-                    );
                     $otherCC[] = array('email' => $this->_user->email, 'name' => $this->_user->fullname);
                     $cc = array_merge($cc, $otherCC);
                     $assignData = array_merge($find->toArray(), $form->getValues(), $to['0']);
-                    $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc, $from);
+                    $this->_helper->mailer($assignData, 'publicFindToFlo', $to, $cc);
                     $this->getFlash()->addMessage('Your message has been sent');
                     $this->redirect('database/artefacts/record/id/' . $find->id);
                 } else {
@@ -651,7 +647,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             $people = new People();
             $exist = $people->checkEmailOwner($this->getParam('id'));
             $person = $this->getAccount();
-            $from = array('name' => $person->fullname, 'email' => $person->email);
+            $cc = array('name' => $person->fullname, 'email' => $person->email);
             $this->view->from = $exist;
             $form = new ChangeWorkFlowForm();
             $findStatus = $this->getFinds()->fetchRow(
@@ -673,7 +669,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                     $updateData = array('secwfstage' => $form->getValue('secwfstage'));
                     if (strlen($form->getValue('finder')) > 0) {
                         $assignData = array(
-                            'name' => $exist['0']['name'],
+                            'name' => !empty($exist) ? $exist['0']['name'] : 'Sir/Madam',
                             'old_findID' => $findStatus->old_findID,
                             'id' => $this->getParam('id'),
                             'from' => $person->fullname,
@@ -683,12 +679,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                         $this->_helper->mailer(
                             $assignData,
                             'informFinderWorkflow',
-                            $exist,
-                            array($from),
-                            array($from),
-                            null,
-                            null
-                        );
+                            empty($exist) ? null : $exist,
+                            array($cc));
                     }
                     $where = array();
                     $where[] = $this->getFinds()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
@@ -728,12 +720,12 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                 )
             );
         } elseif (in_array($institution, array('PAS', 'DCMS', 'RAH', 'BM'))) {
-            $to = array(array('email' => 'past@britishmuseum.org', 'name' => 'Central Unit'));
+            $to = null; // use default transaction email
         } else {
             $responsible = new Contacts();
             $to = $responsible->getOwner($data['comment_findID']);
             if (empty($to)) {
-                $to = array(array('email' => 'past@britishmuseum.org', 'name' => 'Central Unit'));
+                $to = null; // use default transaction email
             }
         }
         $cc = $this->_getAdviser($objecttype, $broadperiod);
@@ -753,7 +745,8 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
             );
         }
         $assignData = array_merge($to['0'], $data);
-        $this->_helper->mailer($assignData, 'errorSubmission', $to, $cc, $from);
+        $cc[] = $from;
+        $this->_helper->mailer($assignData, 'errorSubmission', $to, $cc);
     }
 
     /** Determine adviser to email

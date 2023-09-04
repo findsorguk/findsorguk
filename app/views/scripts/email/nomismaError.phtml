@@ -1,0 +1,4 @@
+<?php $this->mail->setSubject('Nomisma Error'); ?>
+<h2>A problem has occurred with Nomisma and type: <?=$this->escape($this->errorType)?></h2>
+<h3>Error Details</h3>
+<p><?=$this->escape($this->errorDescription)?></p>

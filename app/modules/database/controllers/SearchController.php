@@ -342,14 +342,14 @@ class Database_SearchController extends Pas_Controller_Action_Admin
                 'email' => $form->getValue('email'),
                 'name' => $form->getValue('fullname')
             );
-            $from[] = array(
+            $cc[] = array(
                 'email' => $user->email,
                 'name' => $user->fullname
             );
             $url = array('url' => $params);
 
-            $assignData = array_merge($form->getValues(), $from[0], $url);
-            $this->_helper->mailer($assignData, 'sendSearch', $to, null, $from);
+            $assignData = array_merge($form->getValues(), $cc[0], $url);
+            $this->_helper->mailer($assignData, 'sendSearch', $to, $cc);
 
             $this->getFlash()->addMessage('Your email has been sent to ' . $form->getValue('fullname'));
             $this->_helper->Redirector->gotoSimple('results', 'search', 'database', $params);

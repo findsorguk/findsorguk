@@ -69,19 +69,17 @@ class Nomisma
      * @return void
      * @throws Zend_Mail_Exception|Zend_Exception
      */
-    public function sendErrorEmail($error, string $type)
+    public function sendErrorEmail($errorDescription, string $errorType)
     {
-        $mail = new Zend_Mail();
-        $adminEmails = Zend_Registry::get('config')->admin->email;
-        $mail->setBodyHtml(
-            'The server has encountered an issue with Nomisma. The issue is as follows: </br></br>'
-            . '<table>' . $error . '</table>'
-        )
-            ->setFrom('past@britishmuseum.org', 'The Portable Antiquities Scheme')
-            ->addTo('past@britishmuseum.org', 'The Portable Antiquities Scheme')
-            ->addTo($adminEmails ? $adminEmails->toArray() : null)
-            ->setSubject('PAS - Error retrieving ' . $type . ' from Nomisma')
-            ->send();
+        $mailer = (new Pas_Controller_Action_Helper_Mailer());
+        $mailer->init();
+        $mailer->direct(compact('errorType', 'errorDescription'),
+            'nomismaError',
+            array_map(function ($email, $name) { return ['email' => $email, 'name' => $name]; },
+                Zend_Registry::get('config')->admin->email->toArray(),
+                Zend_Registry::get('config')->admin->name->toArray()
+            )
+        );
     }
 
     /**Check Nomisma site status by looking at header values
