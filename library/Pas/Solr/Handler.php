@@ -1077,6 +1077,24 @@ class Pas_Solr_Handler
         return in_array($userRole, $allowed);
     }
 
+    /** Generate the recorder ID query for SOLR searches
+     *  Return a empty string if the user doesn't have a people record linked
+     *  or the core is images.
+     * @return string
+     */
+    protected function generateRecordIdQueryCondition(): string
+    {
+        $person = $this->getPerson();
+        if (
+            $person !== false && property_exists($person, 'peopleID')
+            && !empty($person->peopleID)
+            && $this->getCore() !== 'images'
+        ) {
+            return " OR recorderID:" . $person->peopleID;
+        }
+        return '';
+    }
+
     /** Execute the query
      *
      * @access public
@@ -1163,24 +1181,20 @@ class Pas_Solr_Handler
             }
         }
 
-        if ($this->checkRoleAllowed($this->getRole(), "research") == false) {
-            if (($this->getRole() == 'member' || $this->getRole() == 'research') && $this->getMyfinds()) {
-                $this->_query->createFilterQuery('myfinds')->setQuery('createdBy:' . $params['createdBy']);
-            } elseif (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
-                    $query = "workflow:[3 TO 4] OR createdBy:" . $this->getUserID();
-                    $person = $this->getPerson();
-                if (
-                        $person !== false && property_exists($person, 'peopleID')
-                        && !is_null($person->peopleID)
-                        && $this->getCore() !== 'images'
-                ) {
-                    $query .= " OR recorderID:" . $person->peopleID;
-                }
-                    $this->_query->createFilterQuery('workflow')->setQuery($query);
-            }
+        //Ensure that query filters are added only when the fields exist
+        if (array_key_exists('workflow', array_flip($this->getSchemaFields()))){
+            $query = (new Pas_Solr_WorkflowHandler())(
+                $this->getRole()
+            );
+            $query .= " OR createdBy:" . $this->getUserID();
+            $query .= $this->generateRecordIdQueryCondition();
+
+            $this->_query->createFilterQuery('workflow')->setQuery(
+                $query
+            );
         }
 
-        if ($this->checkRoleAllowed($this->getRole()) == false) {
+        if (!$this->checkRoleAllowed($this->getRole())) {
             if (
                 (array_key_exists('parish', $params)
                     || array_key_exists('fourFigure', $params) || array_key_exists('parishID', $params))
@@ -1193,6 +1207,8 @@ class Pas_Solr_Handler
                 $this->setKnownAsFilterOnce();
             }
         }
+
+        //Turn params into Solr queries
         if (!is_null($this->getFacets())) {
             $this->_createFacets($this->getFacets());
             foreach ($params as $k => $v) {
