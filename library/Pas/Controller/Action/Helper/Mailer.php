@@ -79,7 +79,7 @@ class Pas_Controller_Action_Helper_Mailer extends Zend_Controller_Action_Helper_
         $this->_transactionEmail = Zend_Registry::get('config')->transaction->email;
         $this->_transactionEmailName = Zend_Registry::get('config')->transaction->name;
 
-        if(empty($this->_transactionEmail) || $this->_transactionEmailName) {
+        if(empty($this->_transactionEmail) || empty($this->_transactionEmailName)) {
             error_log("Transaction email details are not set in /app/config/emails.ini." . PHP_EOL .
                 "Please set to send email notifications and errors", 0);
         }
