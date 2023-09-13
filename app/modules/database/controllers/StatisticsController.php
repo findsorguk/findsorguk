@@ -71,11 +71,6 @@ class Database_StatisticsController extends Pas_Controller_Action_Admin
 
     public function notauthorisedAction()
     {
-        $this->view->message =
-            "<p>Sorry, the statistics page is only available for authorised members of the scheme.</p>" .
-            "<p>We apologise for any inconvenience, however, overuse of this facility has caused a degradation for " .
-            "normal users, so we have decided to restrict it.</p>";
-
         $this->view->role = $this->getRole();
         $this->getResponse()->setHttpResponseCode(403);
     }
