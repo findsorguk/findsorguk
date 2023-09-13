@@ -976,7 +976,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                 $reNamer = new Pas_Image_Rename();
                 // Clean the filename
                 $params = $this->getAllParams();
-                $cleaned = $reNamer->strip(uniqid($params['findID'] . '_', false), $filename['extension']);
+                $cleaned = $reNamer->strip(uniqid($params['findID'] . '_', false), strtolower($filename['extension']));
                 // Rename the file
                 $adapter->addFilter('rename', $cleaned);
                 // receive the files into the user directory
