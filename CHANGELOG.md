@@ -1,5 +1,16 @@
 # Change Log
 
+### 1.79 4th September 2023
+- [x] Change email provider, and improve deliverability
+- [x] Restrict statistics page for users who are not logged in
+- [x] Allow uploading JPEG and TIF/TIFF images
+- [x] Stop numismatic data being forcibly uppercased
+- [x] Add warnings for mandatory information on records
+- [x] Add functionality for users to add their location to staff records
+- [x] Sort treasure minutes in descending order
+- [x] Add press information info to contact us page
+- [x] Add "managing expectations" to the "get involved" side menu
+
 ### 1.78 16th June 2022
 - [x] Stop users with hero role incorrectly seeing finder name
 - [x] Fix issue where adding "can record" permissions to a people record would not update the user record

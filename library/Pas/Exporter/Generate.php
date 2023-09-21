@@ -22,7 +22,6 @@
  */
 class Pas_Exporter_Generate
 {
-
     /** The user
      * @access protected
      * @var object
@@ -183,7 +182,7 @@ class Pas_Exporter_Generate
                     unset($params[$k]);
                 }
             }
-            $params['format'] = 'json';
+            $params['format'] = ($this->_format ?? "json");
             return $params;
         } else {
             throw new Pas_Exporter_Exception('The parameters must be an array');

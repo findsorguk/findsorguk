@@ -1,15 +1,15 @@
 <?php
 /** Form for searching via email name
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $form = new EmailSearchForm();
  * $this->view->form = $form;
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -24,7 +24,7 @@
 
 class EmailSearchForm extends Pas_Form {
 
-    /** The constructor 
+    /** The constructor
      * @access public
      * @param array $options
      * @return void
@@ -71,17 +71,22 @@ class EmailSearchForm extends Pas_Form {
                 ->setRequired(true)
                 ->addErrorMessage('Please enter a valid address!');
 
+        $this->addElement(
+            (new Pas_Form_Element_Recaptcha('captcha'))
+                ->setLabel('Please complete the Captcha field to prove you exist')
+        );
+
         //Submit button
         $submit = new Zend_Form_Element_Submit('submit');
 
         $hash = new Zend_Form_Element_Hash('csrf');
         $hash->setValue($this->_salt)->setTimeout(60);
-        
+
         $this->addElement($hash);
 
         $this->addElements(array( $fullname, $submit,$message));
 
-        $this->addDisplayGroup(array('fullname','email','messageToUser'), 'details');
+        $this->addDisplayGroup(array('fullname','email','messageToUser', 'captcha'), 'details');
         $this->details->setLegend('Details: ');
         $this->addDisplayGroup(array('submit'), 'buttons');
         parent::init();

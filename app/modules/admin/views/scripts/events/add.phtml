@@ -1,7 +1,25 @@
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
 $this->headTitle('Add a new event');
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
+
+
+
 <?php echo $this->form; ?>
+
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+    $(document).ready(function(){
+        $datePickerSettings = {
+            format: 'yyyy-mm-dd',
+        };
+
+        $("#eventStartDate").datepicker($datePickerSettings);
+        $("#eventEndDate").datepicker($datePickerSettings);
+    });
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>

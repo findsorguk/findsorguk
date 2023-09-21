@@ -139,16 +139,17 @@ class Messages extends Pas_Db_Table_Abstract
         } else {
             $data['comment_approved'] = self::NOTSPAM;
         }
-        $mail = new Zend_Mail();
-        $mail->setBodyText(
-            'You submitted this comment/ query: '
-            . strip_tags($data['comment_content'])
+
+        $mailer = new Pas_Controller_Action_Helper_Mailer();
+        $mailer->init();
+        $commentAuthor = array(array('email' => $data['comment_author_email'], 'name' => $data['comment_author']));
+        $mailer->direct(array('comment_contents' => $data['comment_content'], 'comment_author' => $data['comment_author']),
+            'contactUsSubmission',
+            null, // use default transaction 'to' address
+            $commentAuthor,
+            $commentAuthor
         );
-        $mail->setFrom($data['comment_author_email'], $data['comment_author']);
-        $mail->addTo('past@britishmuseum.org', 'The Portable Antiquities Scheme');
-        $mail->addCC($data['comment_author_email'], $data['comment_author']);
-        $mail->setSubject('Contact us submission');
-        $mail->send();
+
         return parent::insert($data);
     }
 

@@ -98,10 +98,9 @@ class NewsStoryForm extends Pas_Form {
 		->setAttrib('size',50)
 		->addErrorMessage('Please enter a valid tags.');
 			
-	$golive = new ZendX_JQuery_Form_Element_DatePicker('golive');
+	$golive = new Zend_Form_Element_Text('golive');
 	$golive->setLabel('News story to go live: ')
 		->setRequired(true)
-		->setJQueryParam('dateFormat', 'yy-mm-dd')
 		->addFilters(array('StripTags','StringTrim'))
 		->setAttrib('size', 20);
 	

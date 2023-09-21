@@ -1,0 +1,27 @@
+<?php
+$youtubeConfig = Zend_Registry::get('config')->webservice->youtube->homepage;
+?>
+
+<?php if (!empty($youtubeConfig->src)) : ?>
+<div class="embed-container">
+    <iframe data-src="<?= $youtubeConfig->src; ?>"
+            data-cookieconsent="marketing"
+            title="<?= $youtubeConfig->titleAttr ?? 'YouTube video player'; ?>"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    <div class="cookieconsent-optout-marketing cookie-placeholder dark">
+        <div style="color:white; font-family: Arial, sans-serif;">
+            Please <a href="javascript:Cookiebot.renew()"
+                      style="color:white !important; text-decoration:underline;">accept
+                marketing-cookies</a> to watch this video
+        </div>
+    </div>
+</div>
+<?php endif;?>
+<br>
+
+<?php if (!empty($youtubeConfig->srcAlt) && !empty($youtubeConfig->title)) : ?>
+    <h2 class="lead"><?= $youtubeConfig->title; ?></h2>
+    <a href="<?= $youtubeConfig->src_alt; ?>" target="_blank">Video without subtitles</a>
+<?php endif;?>

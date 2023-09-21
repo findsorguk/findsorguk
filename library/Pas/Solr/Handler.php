@@ -19,7 +19,7 @@
  * @subpackage    Handler
  * @uses          Pas_Solr_Exception
  * @uses          Solarium_Client
- * @uses          Pas_Solr_SensitiveFields
+ * @uses          Pas_Filter_SensitiveData
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  * @example       /app/modules/database/controllers/SearchController.php
  */
@@ -186,7 +186,7 @@ class Pas_Solr_Handler
      * @access protected
      * @var string
      */
-    protected $_format = 'json';
+    protected $_format = 'search';
 
     /** Boolean field for processing stats
      *
@@ -337,7 +337,7 @@ class Pas_Solr_Handler
     {
         $params = $this->getParams();
         $format = $this->getFormat();
-        if (isset($params['show']) && in_array($format, array('json', 'xml', 'geojson', null))) {
+        if (isset($params['show']) && in_array($format, array('search','json', 'xml', 'geojson', null))) {
             $show = $params['show'];
             if ($show > 100) {
                 $show = 100;
@@ -969,8 +969,7 @@ class Pas_Solr_Handler
             $data[] = $fields;
         }
         if ($this->getFormat() != 'kml') {
-            $processor = new Pas_Solr_SensitiveFields();
-            $clean = $processor->cleanData($data, $this->getRole(), $this->_core);
+            $clean = (new Pas_Filter_SensitiveData())->cleanData($data, $this->getFormat(), $this->_core);
         } else {
             $clean = $data;
         }
@@ -1077,6 +1076,24 @@ class Pas_Solr_Handler
         return in_array($userRole, $allowed);
     }
 
+    /** Generate the recorder ID query for SOLR searches
+     *  Return a empty string if the user doesn't have a people record linked
+     *  or the core is images.
+     * @return string
+     */
+    protected function generateRecordIdQueryCondition(): string
+    {
+        $person = $this->getPerson();
+        if (
+            $person !== false && property_exists($person, 'peopleID')
+            && !empty($person->peopleID)
+            && $this->getCore() !== 'images'
+        ) {
+            return " OR recorderID:" . $person->peopleID;
+        }
+        return '';
+    }
+
     /** Execute the query
      *
      * @access public
@@ -1163,24 +1180,20 @@ class Pas_Solr_Handler
             }
         }
 
-        if ($this->checkRoleAllowed($this->getRole(), "research") == false) {
-            if (($this->getRole() == 'member' || $this->getRole() == 'research') && $this->getMyfinds()) {
-                $this->_query->createFilterQuery('myfinds')->setQuery('createdBy:' . $params['createdBy']);
-            } elseif (array_key_exists('workflow', array_flip($this->getSchemaFields()))) {
-                    $query = "workflow:[3 TO 4] OR createdBy:" . $this->getUserID();
-                    $person = $this->getPerson();
-                if (
-                        $person !== false && property_exists($person, 'peopleID')
-                        && !is_null($person->peopleID)
-                        && $this->getCore() !== 'images'
-                ) {
-                    $query .= " OR recorderID:" . $person->peopleID;
-                }
-                    $this->_query->createFilterQuery('workflow')->setQuery($query);
-            }
+        //Ensure that query filters are added only when the fields exist
+        if (array_key_exists('workflow', array_flip($this->getSchemaFields()))){
+            $query = (new Pas_Solr_WorkflowHandler())(
+                $this->getRole()
+            );
+            $query .= " OR createdBy:" . $this->getUserID();
+            $query .= $this->generateRecordIdQueryCondition();
+
+            $this->_query->createFilterQuery('workflow')->setQuery(
+                $query
+            );
         }
 
-        if ($this->checkRoleAllowed($this->getRole()) == false) {
+        if (!$this->checkRoleAllowed($this->getRole())) {
             if (
                 (array_key_exists('parish', $params)
                     || array_key_exists('fourFigure', $params) || array_key_exists('parishID', $params))
@@ -1193,6 +1206,8 @@ class Pas_Solr_Handler
                 $this->setKnownAsFilterOnce();
             }
         }
+
+        //Turn params into Solr queries
         if (!is_null($this->getFacets())) {
             $this->_createFacets($this->getFacets());
             foreach ($params as $k => $v) {

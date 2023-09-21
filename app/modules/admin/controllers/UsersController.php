@@ -216,12 +216,15 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                     'first_name' => $form->getValue('first_name'),
                     'last_name' => $form->getValue('last_name'),
                     'fullname' => $form->getValue('fullname'),
-                    'imagedir' => 'images/' . $form->getValue('username'),
+                    'imagedir' => 'images/' . $form->getValue('username') . '/',
                     'email' => $form->getValue('email'),
                     'institution' => $form->getValue('institution'),
                     'role' => $form->getValue('role'),
                     'password' => $password,
-                    'peopleID' => $form->getValue('peopleID')
+                    'peopleID' => $form->getValue('peopleID'),
+                    'preferred_name' => $form->getValue('preferred_name'),
+                    'canRecord' => $form->getValue('canRecord'),
+                    'valid' => $form->getValue('valid'),
                 );
                 $username = $form->getValue('username');
                 $this->getUsers()->add($insertData);

@@ -88,20 +88,20 @@
 
     <?php if (!is_null($this->obverseDescription)) : ?>
         <br />
-        Obverse description: <?php echo ucfirst($this->obverseDescription); ?>
+        Obverse description: <?php echo $this->escape($this->obverseDescription); ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->obverseInscription)) : ?>
         <br />
-        Obverse inscription: <?php echo $this->obverseInscription; ?><br/>
+        Obverse inscription: <?php echo $this->escape($this->obverseInscription); ?><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->reverseDescription)) : ?>
-        Reverse description: <?php echo $this->reverseDescription; ?><br/>
+        Reverse description: <?php echo $this->escape($this->reverseDescription); ?><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->reverseInscription)) : ?>
-        Reverse inscription: <?php echo $this->reverseInscription; ?><br/>
+        Reverse inscription: <?php echo $this->escape($this->reverseInscription); ?><br/>
     <?php endif; ?>
 
     <?php if (!is_null($this->reverseMintmark)) : ?>

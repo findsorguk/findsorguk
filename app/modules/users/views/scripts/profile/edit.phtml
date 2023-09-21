@@ -1,4 +1,8 @@
-<h2 class="lead">Edit a contact</h2>
-<?php 
-$this->headTitle('Edit your staff profile');
-echo $this->form;?>
+<?= $this->partial('partials/users/staffProfile.phtml',
+    array(
+        'form' => $this->form,
+        'title' => 'Edit your staff profile')
+);
+?>
+
+

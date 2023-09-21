@@ -590,3 +590,22 @@ ul.inline > li, ol.inline > li {
     padding-right: 5px;
     padding-left: 5px;
 }
+
+div.datepicker.datepicker-dropdown > .datepicker-days > .table-condensed th.dow{
+    float: none;
+}
+
+
+div.datepicker.datepicker-dropdown span.old,
+div.datepicker.datepicker-dropdown span.new,
+div.datepicker.datepicker-dropdown td.old,
+div.datepicker.datepicker-dropdown td.new
+{
+    color: black
+}
+
+div.datepicker.datepicker-dropdown span.disabled,
+div.datepicker.datepicker-dropdown td.disabled
+{
+    color: gray
+}

@@ -1,12 +1,20 @@
-<?php 
+<?php
 $this->headTitle('Add a new vacancy');
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js',$type='text/javascript');
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
 $this->headLink()->appendStylesheet($this->baseUrl().'/css/ui.datepicker.css');?>
-<?php $this->headScript()->captureStart() ?>
-$(document).ready(function() {
-$("#live").datepicker({ maxDate: '+1y'});
-$("#expire").datepicker({ maxDate: '+1y' });
-});
-<?php $this->headScript()->captureEnd() ?>
+<?php $this->jQuery()->javascriptCaptureStart() ?>
+    $(document).ready(function() {
+    var datePickerSettings = {
+    endDate: (new Date((new Date()).getFullYear() + 1, 12, 0)),
+    format: 'yyyy-mm-dd',
+    };
+    $("#live").datepicker(datePickerSettings);
+    $("#expire").datepicker(datePickerSettings);
+    });
+<?php $this->jQuery()->javascriptCaptureEnd() ?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php echo $this->form; ?>

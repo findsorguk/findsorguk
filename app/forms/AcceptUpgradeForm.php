@@ -116,20 +116,18 @@ class AcceptUpgradeForm extends Pas_Form
         $role->setAttribs(array('class' => 'input-xxlarge selectpicker show-menu-arrow'));
 
 
-        $startDate = new ZendX_JQuery_Form_Element_DatePicker('startDate');
+        $startDate = new Zend_Form_Element_Text('startDate');
         $startDate->setLabel('Start date of project: ')
             ->setAttrib('size', 12)
-            ->setJQueryParam('dateFormat', 'yy-mm-dd')
             ->addFilter('StringTrim')
             ->addFilter('StripTags')
             ->setRequired(false)
             ->addErrorMessage('You must enter a valid start date for this project');
 
-        $endDate = new ZendX_JQuery_Form_Element_DatePicker('endDate');
+        $endDate = new Zend_Form_Element_Text('endDate');
         $endDate->setLabel('End date of project: ')
             ->addFilter('StringTrim')
             ->addFilter('StripTags')
-            ->setJQueryParam('dateFormat', 'yy-mm-dd')
             ->setAttrib('size', 12)
             ->setRequired(false)
             ->addErrorMessage('You must enter a valid end date for this project');

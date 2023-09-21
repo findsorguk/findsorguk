@@ -3,25 +3,33 @@ $this->headTitle('Edit rally details');
 $this->metaBase()->setDescription($this->title())->generate();
 ?>
 
-    <h2 class="lead"><?php echo $this->title(); ?></h2>
+<h2 class="lead"><?php echo $this->title(); ?></h2>
 <?php $url = array(
     'module' => 'database',
     'controller' => 'rallies',
     'action' => 'rally',
     'id' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id'));
 ?>
-    <a href="<?php echo $this->url($url, 'default', true); ?>" class="btn btn-small btn-success"
-       title="Return to record">Return to record</a>
+<a href="<?php echo $this->url($url, 'default', true); ?>" class="btn btn-small btn-success"
+   title="Return to record">Return to record</a>
 <?php echo $this->form; ?>
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
-    $(document).ready(function() {
-    $("#date_from").datepicker({ maxDate: '+1y'});
-    $("#date_to").datepicker({ maxDate: '+1y'});
-    });
+$(document).ready(function() {
+var datePickerSettings = {
+format: 'yyyy-mm-dd',
+endDate: (new Date((new Date()).getFullYear() + 1, 12, 0)),
+};
+$("#date_from").datepicker(datePickerSettings);
+$("#date_to").datepicker(datePickerSettings);
+});
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>
 <?php
 
-$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript');
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/jQueryLinkedSelect.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedSelect.js', $type = 'text/javascript');
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/JQuery/findSpotLinkedQuery.js', $type = 'text/javascript');

@@ -1,5 +1,6 @@
 <?php
 
+
 $this->headMeta('noodp', 'robots');
 $this->headMeta('BJ0IxlmtPbri25v9zbMgcOFDOBuZmNacd9-friMs1_E', 'google-site-verification');
 $this->jQuery()->addJavascriptFile('js/bootstrap-carousel.js', $type = 'text/javascript');
@@ -60,32 +61,14 @@ $this->headMeta($this->serverUrl() . '/assets/logos/axe.jpg', 'twitter:image');
 ==================================================
 Wrap the rest of the page in another container to center all the content. */ ?>
     <div class="container marketing">
-        
-    <br>
+
+        <br>
         <?php
         // Three columns of text below the carousel ?>
         <div class="row">
             <div class="span4">
 
-                <div class="embed-container">
-                    <iframe data-src="https://www.youtube.com/embed/bR4qwpN3TMw"
-                            data-cookieconsent="marketing"
-                            title="(Video) Code of Practice for Responsible Metal Detecting in England and Wales"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    <div class="cookieconsent-optout-marketing cookie-placeholder dark">
-                        <div style="color:white; font-family: Arial, sans-serif;">
-                            Please <a href="javascript:Cookiebot.renew()"
-                                      style="color:white !important; text-decoration:underline;">accept
-                                marketing-cookies</a> to watch this video
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <h2 class="lead">Code of Practice</h2>
-                <a href="https://youtu.be/WO3vnD3c7ac" target="_blank">Video without subtitles</a>
-
+                <?= $this->render('structure/cookiebotYouTubeEmbed.phtml'); ?>
             </div>
             <div class="span4">
                 <img class="img" src="/assets/logos/pas.jpg" width="213" height="104">
@@ -94,38 +77,12 @@ Wrap the rest of the page in another container to center all the content. */ ?>
             <?php
             echo $this->form; ?>
         </div>
-
-        <div class="span4">
-            <?php
-            /*         <!--img class="img-circle" src="assets/logos/bird.jpg"-->
-                       <!--h2 class="lead">Latest tweets</h2--> */
-
-            ?>
-                <div class="embed-container" style="--aspect-ratio:16/13">
-                    <div class="cookieconsent-optin-marketing cookie-placeholder cookie-placeholder--reload">
-                        If you can see this, please <a href="#" onclick="window.location.reload(true)">refresh</a> your
-                        page
-                        to view these Tweets.
-                    </div>
-                    <div class="cookieconsent-optin-marketing">
-                        <a class="twitter-timeline" data-height="300"
-                           href="https://twitter.com/findsorguk?ref_src=twsrc%5Etfw">Tweets
-                            by findsorguk</a>
-                        <script async type="text/plain" data-cookieconsent="marketing"
-                                src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                    </div>
-                    <div class="cookieconsent-optout-marketing cookie-placeholder dark">
-                        <div style="color:white; font-family: Arial, sans-serif;">
-                            Please <a href="javascript:Cookiebot.renew()"
-                                      style="color:white !important; text-decoration:underline;">accept
-                                marketing-cookies</a> to view these tweets
-                        </div>
-                    </div>
-                </div>
-
+            <div class="span4">
+                <?php
+                echo $this->render('structure/cookiebotTwitterEmbed.phtml')
+                ?>
+            </div>
         </div>
-
-    </div>
 
     <hr class="featurette-divider">
 

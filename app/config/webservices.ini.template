@@ -81,3 +81,15 @@ webservice.what3words.apikey =
 
 webservice.sketchfab.baseurl = 
 webservice.sketchfab.oembed =
+
+webservice.cookiebot.src =
+webservice.cookiebot.data-cbid =
+webservice.cookiebot.data-blockingmode =
+
+webservice.youtube.homepage.src =
+webservice.youtube.homepage.srcAlt =
+webservice.youtube.homepage.titleAttr =
+webservice.youtube.homepage.title =
+
+webservice.twitter.homepage.src =
+webservice.twitter.homepage.jsSrc =

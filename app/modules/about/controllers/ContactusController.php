@@ -49,7 +49,7 @@ class About_ContactUsController extends Pas_Controller_Action_Admin
                     'email' => $form->getvalue('comment_author_email'),
                     'name' => $form->getValue('comment_author')
                 );
-                $this->_helper->mailer($form->getValues(), 'contactUs', null, $cc, $cc);
+                $this->_helper->mailer($form->getValues(), 'contactUs', null, $cc);
                 $this->getFlash()->addMessage('Your enquiry has been submitted to the Scheme');
                 $this->redirect('about/contactus/');
             } else {

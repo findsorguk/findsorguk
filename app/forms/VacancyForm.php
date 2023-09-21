@@ -47,7 +47,12 @@ class VacancyForm extends Pas_Form {
 		->setRequired(true)
 		->addFilters(array('StringTrim', 'StripTags'))
 		->setAttrib('size', 20)
-		->addErrorMessage('You must enter a salary.');
+        ->addValidator('Float')
+        ->addValidator('Between', true, array('min' => 0, 'max' => 999999));
+
+        $salary->getValidator('Between')->setMessage(
+            'Salary must be less than £999,999'
+        );
 	
 	$specification = new Pas_Form_Element_CKEditor('specification');
 	$specification->setLabel('Job specification: ')
@@ -68,23 +73,31 @@ class VacancyForm extends Pas_Form {
                 ))
 		->addErrorMessage('You must choose a region');
 	
-	$live = new ZendX_JQuery_Form_Element_DatePicker('live');
+	$live = new Zend_Form_Element_Text('live');
 	$live->setLabel('Date for advert to go live: ')
+		->addValidator('Regex', true, array('/^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/'))
+		->setAttrib('pattern', '^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$') //HTML 5 front end validation
+		->addValidator('StringLength', true, array(2))
+		->setAttrib('oninvalid', 'this.setCustomValidity("Date must be in the format YYYY-MM-DD.")')
+		->setAttrib('onchange', 'this.setCustomValidity("")')
 		->setRequired(true)
-		->setJQueryParam('dateFormat', 'yy-mm-dd')
-		->setJQueryParam('maxDate', '+1y')
-		->addFilters(array('StringTrim', 'StripTags'))
-		->addErrorMessage('Come on it\'s not that hard, enter a title!')
-		->setAttrib('size', 20);
+		->addFilters(array('StripTags', 'StringTrim'));
+    $live->getValidator('Regex')->setMessage(
+            'Date must be in the format YYYY-MM-DD.'
+        );
 	
-	$expire = new ZendX_JQuery_Form_Element_DatePicker('expire');
+	$expire = new Zend_Form_Element_Text('expire');
 	$expire->setLabel('Date for advert to expire: ')
+		->addValidator('Regex', true, array('/^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/'))
+		->setAttrib('pattern', '^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$') //HTML 5 front end validation
+		->addValidator('StringLength', true, array(2))
+		->setAttrib('oninvalid', 'this.setCustomValidity("Date must be in the format YYYY-MM-DD.")')
+		->setAttrib('onchange', 'this.setCustomValidity("")')
 		->setRequired(true)
-		->setJQueryParam('dateFormat', 'yy-mm-dd')
-		->setJQueryParam('maxDate', '+1y')
-		->addFilters(array('StringTrim', 'StripTags'))
-		->addErrorMessage('Come on it\'s not that hard, enter a title!')
-		->setAttrib('size', 20);
+		->addFilters(array('StripTags', 'StringTrim'));
+    $expire->getValidator('Regex')->setMessage(
+            'Date must be in the format YYYY-MM-DD.'
+        );
 	
 	$status = new Zend_Form_Element_Select('status');
 	$status->SetLabel('Publish status: ')

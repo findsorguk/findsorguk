@@ -69,23 +69,23 @@
         <span rel="obverse">
         <?php if (!is_null($this->obverseDescription)) : ?>
             <br/>
-            Obverse description: <span property="description"><?php echo $this->obverseDescription; ?></span>
+            Obverse description: <span property="description"><?php echo $this->escape($this->obverseDescription); ?></span>
         <?php endif; ?>
 
             <?php if (!is_null($this->obverseInscription)) : ?>
                 <br/>
-            Obverse inscription: <span property="legend"><?php echo $this->obverseInscription; ?></span>
+            Obverse inscription: <span property="legend"><?php echo $this->escape($this->obverseInscription); ?></span>
             <?php endif; ?>
     </span>
 
     <span rel="reverse">
         <?php if (!is_null($this->reverseDescription)) : ?>
             <br/>
-            Reverse description: <span property="description"><?php echo $this->reverseDescription; ?></span>
+            Reverse description: <span property="description"><?php echo $this->escape($this->reverseDescription); ?></span>
         <?php endif; ?>
         <?php if (!is_null($this->reverseInscription)) : ?>
             <br/>
-            Reverse inscription: <span property="legend"><?php echo $this->reverseInscription; ?></span>
+            Reverse inscription: <span property="legend"><?php echo $this->escape($this->reverseInscription); ?></span>
         <?php endif; ?>
     </span>
 

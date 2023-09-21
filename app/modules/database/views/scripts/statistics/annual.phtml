@@ -8,9 +8,11 @@
             $this->yearList()->setStartYear(1998)->generateArray()); ?>
     </ul>
 
-    <p>You can also choose your own date ranges. You must choose a date from and a date to to interrogate this
-        properly.</p>
-<?php echo $this->form; ?>
+    <?php if (!empty($this->form)) : ?>
+        <p>You can also choose your own date ranges. You must choose a date from and a date to, to interrogate this
+            properly.</p>
+        <?php echo $this->form; ?>
+    <?php endif ?>
 
     <h3 class="lead">Quantities of objects and records found</h3>
     <ul>
@@ -275,11 +277,25 @@
         </tr>
     </table>
 
-<?php $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/bootstrap-datepicker.js', $type = 'text/javascript'); ?>
-
+<?php
+$this->jQuery()->addJavascriptFile(
+    $this->baseUrl() . '/js/bootstrap-datepicker.js',
+    $type = 'text/javascript'
+);
+$this->headLink()->appendStylesheet('/css/bootstrap-datepicker.css');
+?>
 <?php $this->jQuery()->javascriptCaptureStart(); ?>
     $(document).ready(function(){
-    $("#datefrom").datepicker();
-    $("#dateto").datepicker();
+        var datePickerSettings = {
+            startDate: '1998-01-01',
+            endDate: '0d',
+            format: 'yyyy-mm-dd',
+            assumeNearbyYear: true,
+            zIndexOffset: 9999,
+            maxViewMode: 2
+        };
+
+        $("#datefrom").datepicker(datePickerSettings);
+        $("#dateto").datepicker(datePickerSettings);
     });
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>

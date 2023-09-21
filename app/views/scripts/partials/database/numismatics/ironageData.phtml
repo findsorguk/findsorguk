@@ -102,22 +102,22 @@
 
     <?php if (!is_null($this->obverseDescription)) : ?>
         <br />
-        Obverse description: <?php echo $this->obverseDescription; ?>
+        Obverse description: <?php echo $this->escape($this->obverseDescription); ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->obverseInscription)) : ?>
         <br />
-        Obverse inscription: <?php echo $this->obverseInscription; ?>
+        Obverse inscription: <?php echo $this->escape($this->obverseInscription); ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->reverseDescription)) : ?>
         <br />
-        Reverse description: <?php echo $this->reverseDescription; ?>
+        Reverse description: <?php echo $this->escape($this->reverseDescription); ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->reverseInscription)) : ?>
         <br />
-        Reverse inscription: <?php echo $this->reverseInscription; ?>
+        Reverse inscription: <?php echo $this->escape($this->reverseInscription); ?>
     <?php endif; ?>
 
     <?php if (!is_null($this->dieAxisName)) : ?>
