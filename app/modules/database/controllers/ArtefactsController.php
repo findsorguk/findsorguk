@@ -737,19 +737,17 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         }
         $cc = $this->_getAdviser($objecttype, $broadperiod);
         if ($this->_user) {
-            $from = array(
+            $from =
                 array(
                     'email' => $this->_user->email,
                     'name' => $this->_user->fullname
-                )
-            );
+                );
         } else {
-            $from = array(
+            $from =
                 array(
                     'email' => $data['comment_author_email'],
                     'name' => $data['comment_author']
-                )
-            );
+                );
         }
         $assignData = array_merge($to['0'], $data);
         $cc[] = $from;
