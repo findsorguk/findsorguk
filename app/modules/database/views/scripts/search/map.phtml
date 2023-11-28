@@ -40,15 +40,8 @@ echo $this->googleDynamicMap(true);
     $(document).ready(function() {
 
 <?php
-$user = new Pas_User_Details();
-$person = $user->getPerson();
-if ($person) {
-    $role = $person->role;
-} else {
-    $role = NULL;
-}
-$allowed = array('admin', 'fa', 'flos', 'research', 'treasure', 'hoard');
-if (in_array($role, $allowed)) {
+$userPermissions = new UserPermissions();
+if ($userPermissions->canRole(UserPermissions::VIEW_FULL_MAP_DETAIL)) {
     $maxzoom = 18;
     $minzoom = 1;
 } else {
