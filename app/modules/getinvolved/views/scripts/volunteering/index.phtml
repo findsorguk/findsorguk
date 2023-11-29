@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('Volunteering with the Portable Antiquities Scheme');
+$this->headTitle('Volunteering and self-recording with the Portable Antiquities Scheme');
 $this->metaBase()->setDescription('A list of volunteering opportunities currently available with the
 Portable Antiquities Scheme')
     ->setKeywords('portable,antiquities,scheme,volunteer,volunteering')
@@ -28,11 +28,68 @@ if (count($this->vols)): ?>
     <?= $this->paginationControl($this->vols, 'Sliding', 'structure/pagination.phtml') ?>
 
 <?php else: ?>
-    <p>
-	The Portable Antiquities Scheme supports a network of volunteers across the country. Volunteering for the Scheme is a great way to get involved with your local heritage. Our volunteer roles are varied and flexible, and include finds identification and recording, finds photography, and public engagement and outreach.
-    </p>
+    <h3>Volunteering</h3>
+    <p>The Portable Antiquities Scheme supports a network of volunteers across the country. Volunteering for the Scheme
+        is a great way to get involved with your local heritage. Our volunteer roles are varied and flexible, and
+        include finds identification and recording, finds photography, and public engagement and outreach.</p>
+    <p>Volunteering usually takes place alongside your local Finds Liaison Officer (FLO). If you are interested in
+        volunteering for the Scheme, please contact your local <a href="/contacts" target="_blank">FLO</a>.</p>
 
-    <p>
-	Volunteering usually takes place alongside your local Finds Liaison Officer. If you are interested in volunteering for the Scheme, please email us at <a href="mailto:info@finds.org.uk">info@finds.org.uk</a> and let us know where you are based so that we can contact the relevant Finds Liaison Officer.
+    <h3>Self-recording</h3>
+    <p>In 2010, the Portable Antiquities Scheme (PAS) introduced the function for detectorists and others (known as
+        ‘self-recorders’) who have been trained to use the PAS database to enter details of their own finds. It is a
+        process that takes time and patience, but if you are happy to take on the challenge and would like to begin
+        self-recording we would be happy to hear from you.</p>
+
+    <h3>Before you begin</h3>
+    <p>Please contact your local FLO to discuss getting set up as self-recorder and whether they have the resources in
+        place to support you in this. Please note that the self-recording process involves a lot of PAS staff time and
+        training, so is not always possible. Your local FLO’s contact details can be found <a href="/contacts">here</a>.
     </p>
+    <p>Please read our <a href="/volunteerrecording" target="_blank">database recording guidance</a>, available in
+        chapters in the left-hand menu and attend any training sessions offered by PAS staff.</p>
+    <p>This guide explains how to record suitable finds directly onto the database: even with ‘self-recorders’ there are
+        some finds we would rather FLOs record. It provides information on how to describe objects using the correct
+        terminology and meeting the recording criteria.</p>
+    <p>Further guidance on recording finds including finds guides can be found <a href="/counties/guides/">here</a> and
+        on our <a href="https://www.youtube.com/user/portableantiquities">YouTube channel.</a></p>
+
+    <h3>Creating an account for the PAS database</h3>
+    <p>If your FLO is able to support you in becoming a self-recorder, you may be asked to create an account on the PAS
+        training database first. Your FLO will send you joining details. To create an account on the main database
+        please visit <a href="/users/account/register" target="_blank">here</a>.</p>
+    <p>You will need to activate your account and will receive an automated email with the activation code and
+        instructions.</p>
+    <p>After you have registered on the database, please let your FLO know so that they can give you recording
+        rights.</p>
+
+    <h3>The workflow process</h3>
+    <p>Once you have finished a record it will need to be checked by your FLO.</p>
+    <p>Records will remain red-flagged (on review) and not visible to the public until they have been checked and
+        promoted by your FLO.</p>
+    <p>Yellow-flagged records (awaiting validation) have been promoted and are visible to the public but may need
+        further work in due course; it is important to note the PAS database is an evolving resource so no record is
+        ever really ‘finished’ and so can be updated with new information.</p>
+    <p>Green-flagged records (published) are those that are as finished as they can be.</p>
+    <p>Please do not be offended if we make changes to the records you create, offer you additional advice or training
+        or asks you to bring in some of the objects you record so that they can be examined in more detail by an FLO. In
+        order for database users to maintain confidence in PAS records, it is essential that they are consistent in
+        style and terminology. There are minimum criteria and checks that each record must undertake to reach in order
+        to be published. Creating publishable records often requires a second opinion. Even FLOs’ records are checked by
+        other PAS staff!</p>
+    <p>Please note that the checking process can take some time (even many months) due to the large volumes of material
+        being uploaded onto the database by FLOs, volunteers and members of the public so please bear with us. If you
+        have concerns talk to your FLO in the first place.</p>
+
+    <h3>Self-Recording and Treasure</h3>
+    <p>Please do not record any items of potential Treasure onto the database yourself and instead contact the relevant
+        <a href="/contacts" target="_blank">FLO</a> or the Treasure Team at <a href="mailto:treasure@britishmuseum.org">treasure@britishmuseum.org</a>.
+        For information on Treasure, please read the guidance
+        which can be found <a href="/treasure" target="_blank">here</a>.</p>
+
+    <h3>Need help?</h3>
+    <p>If you have any questions about using the database please do not hesitate to contact your local <a
+                href="/contacts" target="_blank">FLO</a>. If you are having technical problems with the database please
+        contact us at <a href="mailto:info@finds.org.uk">info@finds.org.uk</a>.</p>
+    <p>Thank you for taking an interest in recording with the Portable Antiquities Scheme.</p>
 <?php endif; ?>
