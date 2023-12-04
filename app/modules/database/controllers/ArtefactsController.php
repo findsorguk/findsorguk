@@ -749,7 +749,7 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
                     'name' => $data['comment_author']
                 );
         }
-        $assignData = array_merge($to['0'], $data);
+        $assignData = array_merge((array)$to['0'], $data);
         $cc[] = $from;
         $this->_helper->mailer($assignData, 'errorSubmission', $to, $cc);
     }
