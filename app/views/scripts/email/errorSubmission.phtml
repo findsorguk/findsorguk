@@ -1,5 +1,5 @@
 <?php $this->mail->setSubject('An error report has been entered for ' . $this->old_findID); ?>
-<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name)); ?>,</p>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name ?? 'User')); ?>,</p>
 
 <?php if ($this->institution === 'PUBLIC'): ?>
     <p>As the creator of the record, an error report has been submitted by <?php echo
