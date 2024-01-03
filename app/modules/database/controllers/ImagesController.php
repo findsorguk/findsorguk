@@ -220,14 +220,23 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 if(!(empty($filename))) {
                     $splitf = explode('.', $filename);
                     $spf = $splitf['0'];
-                    $imagedir = rtrim($imagedata['0']['imagedir'],'/') . '/';
+                    $imageLocation = $imagedata['0']['imagedir'];
+
+                    //Get username dir name inside path
+                    if (0 == strrpos($imageLocation, 'images/')) {
+                        $imageLocation = substr($imageLocation, strlen('images/'));
+                    }
+
+                    //Create full image path, ensuring leading slash exists
+                    $userImageDir = (rtrim(IMAGE_PATH,'/') . '/') . (rtrim($imageLocation,'/') . '/');
+
                     $imagenumber = $imagedata['0']['imageID'];
-                    $zoom = './' . $imagedir . 'zoom/' . $spf . '_zdata';
                     $thumb = rtrim(IMAGE_PATH, '/') . '/' . 'thumbnails/' . $imagenumber . '.jpg';
-                    $small = './' . $imagedir . 'small/' . $filename;
-                    $display = './' . $imagedir . 'display/' . $filename;
-                    $medium = './' . $imagedir . 'medium/' . $filename;
-                    $original = './' . $imagedir . $filename;
+                    $zoom = $userImageDir . 'zoom/' . $spf . '_zdata';
+                    $small = $userImageDir . 'small/' . $filename;
+                    $display = $userImageDir . 'display/' . $filename;
+                    $medium = $userImageDir . 'medium/' . $filename;
+                    $original = $userImageDir . $filename;
                     $where = 'imageID = ' . $id;
                     $this->_images->delete($where);
                     $this->_helper->solrUpdater->deleteById('images', $id);
