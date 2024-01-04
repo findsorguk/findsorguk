@@ -228,12 +228,14 @@ class Admin_UsersController extends Pas_Controller_Action_Admin
                 );
                 $username = $form->getValue('username');
                 $this->getUsers()->add($insertData);
+                $imagePath = rtrim(IMAGE_PATH,'/') . '/';
+
                 $directories = array(
-                    IMAGE_PATH . $username,
-                    IMAGE_PATH . $username . '/small/',
-                    IMAGE_PATH . $username . '/medium/',
-                    IMAGE_PATH . $username . '/display/',
-                    IMAGE_PATH . $username . '/zoom/'
+                    $imagePath . $username,
+                    $imagePath . $username . '/small/',
+                    $imagePath . $username . '/medium/',
+                    $imagePath . $username . '/display/',
+                    $imagePath . $username . '/zoom/'
                 );
 
                 foreach ($directories as $dir) {
