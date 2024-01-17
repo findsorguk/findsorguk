@@ -150,6 +150,39 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    /** Get the original image, by looking for oldest file
+     * @param string $imageLocation
+     * @param string $filename
+     * @return mixed
+     * @throws Pas_Exception
+     */
+    protected function getOriginalImage(string $imageLocation, string $filename)
+    {
+        //Get username dir name inside path
+        if (0 == strrpos($imageLocation, 'images/')) {
+            $imageLocation = substr($imageLocation, strlen('images/'));
+        }
+
+        //Create full image path, ensuring leading slash exists
+        $fullImagePath = (rtrim(IMAGE_PATH, '/') . '/') . (rtrim($imageLocation, '/') . '/');
+
+        //Find original file
+        $listOfImages = glob($fullImagePath . pathinfo($filename, PATHINFO_FILENAME) . '.*');
+
+
+        if (count($listOfImages) > 1) {
+            //Get list of non-jpg images
+            $listOfImages = preg_grep('/.*jpg/', $listOfImages, PREG_GREP_INVERT);
+            usort($listOfImages, fn($fileA, $FileB) => filemtime($fileA) - filemtime($FileB));
+        }
+
+        if (file_exists($listOfImages[0])) {
+            return $listOfImages[0];
+        } else {
+            throw new Pas_Exception("File not found");
+        }
+    }
+
     /** Download a file
      *
      * @access public
@@ -170,13 +203,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             }
 
             //Find original file
-            $listOfImages = glob('./' . $path . pathinfo($filename, PATHINFO_FILENAME) . '.*');
-
-            if (count($listOfImages) > 1) {
-                $listOfImages = preg_grep('/.*jpg/', $listOfImages, PREG_GREP_INVERT);
-                usort($listOfImages, fn ($fileA, $FileB) => filemtime($fileA) - filemtime($FileB));
-            }
-                $file = $listOfImages[0];
+            $file = $this->getOriginalImage($path, $filename);
 
             if (file_exists($file)) {
                 $mime_type = mime_content_type($file);
