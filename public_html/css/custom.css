@@ -53,10 +53,10 @@
 .cookie-show {
     visibility: visible !important;
     opacity:0;
-    animation: fadeIn 2s forwards;
-    -webkit-animation: fadeIn 2s forwards;
-    animation-delay: 5s;
-    -webkit-animation-delay: 5s;
+    animation: fadeIn 1s forwards;
+    -webkit-animation: fadeIn 1s forwards;
+    animation-delay: 2s;
+    -webkit-animation-delay: 2s;
 }
 
 .embed-container {
@@ -85,8 +85,11 @@
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     width: 100%;
-    height: 100%;
     text-align: center;
+}
+
+.embed-container [class*="cookieconsent-"] > div[class*="twitter"] {
+    height:100%;
 }
 
 .cookie-placeholder--reload {
@@ -123,7 +126,7 @@
     }
 }
 
-/* END COOKIEBOT 
+/* END COOKIEBOT
 -------------------------------------------------- */
 
 @media screen and (max-width: 576px) {
