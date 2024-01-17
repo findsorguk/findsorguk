@@ -5,21 +5,8 @@
     <?php $this->inlineScript()->captureStart(); ?>
     $(document).ready(function() {
     <?php
-    $user = new Pas_User_Details();
-    $person = $user->getPerson();
-    if ($person) {
-        $role = $person->role;
-    } else {
-        $role = NULL;
-    }
-    $allowed = array('admin', 'fa', 'flos', 'research', 'treasure', 'hoard');
-    if (in_array($role, $allowed)) {
-        $maxzoom = 18;
-        $minzoom = 1;
-    } else {
-        $maxzoom = 11;
-        $minzoom = 1;
-    }
+    $maxzoom = 11;
+    $minzoom = 1;
     ?>
 
     var max = <?php echo $maxzoom; ?>;
