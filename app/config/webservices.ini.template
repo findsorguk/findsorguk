@@ -85,6 +85,8 @@ webservice.sketchfab.oembed =
 webservice.cookiebot.src =
 webservice.cookiebot.data-cbid =
 webservice.cookiebot.data-blockingmode =
+webservice.cookiebot.data-framework =
+webservice.cookiebot.data-consentmode-defaults =
 
 webservice.youtube.homepage.src =
 webservice.youtube.homepage.srcAlt =
