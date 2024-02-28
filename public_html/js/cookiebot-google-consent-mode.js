@@ -15,4 +15,4 @@ gtag("consent", "default", {
     wait_for_update: 2000,
 });
 gtag("set", "ads_data_redaction", true);
-gtag("set", "url_passthrough", true);
+gtag("set", "url_passthrough", false);
