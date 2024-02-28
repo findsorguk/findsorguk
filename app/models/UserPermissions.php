@@ -12,6 +12,7 @@ class UserPermissions
     public const VIEW_RECORD_IDENTIFIERS = 'ViewRecordIdentifiers';
     public const VIEW_RECORD_FINDERS = 'ViewRecordFinders';
     public const VIEW_RECORD_RECORDERS = 'ViewRecordRecorders';
+    public const VIEW_FULL_MAP_DETAIL = 'ViewFullMapDetail';
     protected string $userRole;
 
     protected array $permissions = array(
@@ -20,56 +21,64 @@ class UserPermissions
             'ViewGeoData' => true,
             'ViewRecordIdentifiers' => true,
             'ViewRecordFinders' => true,
-            'ViewRecordRecorders' => true
+            'ViewRecordRecorders' => true,
+            'ViewFullMapDetail' => true
         ),
         'hoard' => array(
             'ViewKnownAsGeoData' => true,
             'ViewGeoData' => true,
             'ViewRecordIdentifiers' => true,
             'ViewRecordFinders' => false,
-            'ViewRecordRecorders' => true
+            'ViewRecordRecorders' => true,
+            'ViewFullMapDetail' => true
         ),
         'fa' => array(
             'ViewKnownAsGeoData' => true,
             'ViewGeoData' => true,
             'ViewRecordIdentifiers' => true,
             'ViewRecordFinders' => true,
-            'ViewRecordRecorders' => true
+            'ViewRecordRecorders' => true,
+            'ViewFullMapDetail' => true
         ),
         'treasure' => array(
             'ViewKnownAsGeoData' => true,
             'ViewGeoData' => true,
             'ViewRecordIdentifiers' => true,
             'ViewRecordFinders' => true,
-            'ViewRecordRecorders' => true
+            'ViewRecordRecorders' => true,
+            'ViewFullMapDetail' => true
         ),
         'flos' => array(
             'ViewKnownAsGeoData' => true,
             'ViewGeoData' => true,
             'ViewRecordIdentifiers' => true,
             'ViewRecordFinders' => true,
-            'ViewRecordRecorders' => true
+            'ViewRecordRecorders' => true,
+            'ViewFullMapDetail' => true
         ),
         'hero' => array(
             'ViewKnownAsGeoData' => true,
             'ViewGeoData' => true,
             'ViewRecordIdentifiers' => true,
             'ViewRecordFinders' => false,
-            'ViewRecordRecorders' => true
+            'ViewRecordRecorders' => true,
+            'ViewFullMapDetail' => true
         ),
         'research' => array(
             'ViewKnownAsGeoData' => true,
             'ViewGeoData' => true,
             'ViewRecordIdentifiers' => false,
             'ViewRecordFinders' => false,
-            'ViewRecordRecorders' => false
+            'ViewRecordRecorders' => false,
+            'ViewFullMapDetail' => true
         ),
         'member' => array(
             'ViewKnownAsGeoData' => false,
             'ViewGeoData' => false,
             'ViewRecordIdentifiers' => false,
             'ViewRecordFinders' => false,
-            'ViewRecordRecorders' => false
+            'ViewRecordRecorders' => false,
+            'ViewFullMapDetail' => false
         ),
     );
 

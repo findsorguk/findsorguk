@@ -25,6 +25,16 @@ $this->metaBase()->setDescription($this->title())
         <div class="span9">
             <div id="map" style="min-height:1000px;">
                 <div id="loading"></div>
+                <!-- If stats cookies are not accepted -->
+                <div class="embed-container" style="--aspect-ratio:4/3">
+                    <div class="cookieconsent-optout-preferences cookie-placeholder dark ">
+                        <div style="color:white; font-family: Arial, sans-serif;">
+                            Please <a href="javascript:Cookiebot.renew()"
+                                      style="color:white !important; text-decoration:underline;">accept
+                                preferences-cookies</a> to see this map
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="span3">
@@ -40,15 +50,8 @@ echo $this->googleDynamicMap(true);
     $(document).ready(function() {
 
 <?php
-$user = new Pas_User_Details();
-$person = $user->getPerson();
-if ($person) {
-    $role = $person->role;
-} else {
-    $role = NULL;
-}
-$allowed = array('admin', 'fa', 'flos', 'research', 'treasure', 'hoard');
-if (in_array($role, $allowed)) {
+$userPermissions = new UserPermissions();
+if ($userPermissions->canRole(UserPermissions::VIEW_FULL_MAP_DETAIL)) {
     $maxzoom = 18;
     $minzoom = 1;
 } else {

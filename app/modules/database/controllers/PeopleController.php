@@ -19,6 +19,11 @@
  */
 class Database_PeopleController extends Pas_Controller_Action_Admin
 {
+    /** Redirect base string
+     *
+     */
+    const REDIRECT = 'database/people/';
+
     /** The people model
      * @access protected
      * @var \People
@@ -86,11 +91,6 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
             ->addActionContext('index', array('xml', 'json'))
             ->initContext();
     }
-
-    /** Redirect base string
-     *
-     */
-    const REDIRECT = 'database/people/';
 
     /** Index page of all people on the database
      * @access public
@@ -194,22 +194,6 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
         }
     }
 
-    /**
-     * @param string $canRecord
-     * @param string $dbaseID
-     * @return void
-     * @throws Zend_Db_Adapter_Exception
-     */
-    private function setUserCanRecordFlag(string $dbaseID, string $canRecord)
-    {
-        if (!empty($dbaseID)) {
-            (new Users())->setCanRecord(
-                $dbaseID,
-                (bool)$canRecord
-            );
-        }
-    }
-
     /** Edit person's data
      * @access public
      * @throws Exception
@@ -234,9 +218,10 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
                     $oldData = $this->getPeople()->fetchRow('id='
                         . $this->getParam('id'))->toArray();
 
-                    // Update the canrecord permission on the corresponding people record
+                    // If we have a linked user account, then update the canrecord flag and people link
                     if (array_key_exists('dbaseID', $updateData)) {
                         $this->setUserCanRecordFlag($updateData['dbaseID'], $updateData['canRecord']);
+                        $this->setPeopleRecordLink($updateData['dbaseID'], $oldData['secuid']);
                     }
 
                     $where = $this->getPeople()->getAdapter()->quoteInto('id = ?', $this->getParam('id'));
@@ -312,5 +297,34 @@ class Database_PeopleController extends Pas_Controller_Action_Admin
             $latlon['lon'] = $coords['lon'];
         }
         return $latlon;
+    }
+
+    /**
+     * @param string $canRecord
+     * @param string $dbaseID
+     * @return void
+     * @throws Zend_Db_Adapter_Exception
+     */
+    private function setUserCanRecordFlag(string $dbaseID, string $canRecord)
+    {
+        if (!empty($dbaseID)) {
+            (new Users())->setCanRecord(
+                $dbaseID,
+                (bool)$canRecord
+            );
+        }
+    }
+
+    /**
+     * Make the link between a people record and a user record, if a user record has been referenced
+     * @param string $dbaseID
+     * @param string $peopleId
+     * @return void
+     */
+    private function setPeopleRecordLink(string $dbaseID, string $peopleId)
+    {
+        if (!empty($dbaseID) && !empty($peopleId)) {
+            (new Users())->setPeopleRecordLink($dbaseID, $peopleId);
+        }
     }
 }

@@ -1,5 +1,5 @@
 <?php $this->mail->setSubject('An error report has been entered for ' . $this->old_findID); ?>
-<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name)); ?>,</p>
+<p>Dear <?php echo $this->escape($this->splitName()->setName($this->name ?? 'User')); ?>,</p>
 
 <?php if ($this->institution === 'PUBLIC'): ?>
     <p>As the creator of the record, an error report has been submitted by <?php echo
@@ -22,6 +22,7 @@
     <li>Find number: <?php echo $this->old_findID; ?></li>
     <li>Originally created by: <?php echo $this->name; ?></li>
     <li>Date created: <?php echo $this->timeAgoInWords($this->created); ?></li>
+    <li>Submitter email address: <?= htmlspecialchars($this->comment_author_email); ?></li>
 </ul>
 <p>Thank you for taking the time to submit an error to us.<br/>
     We appreciate that you have taken the time to improve our database.

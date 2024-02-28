@@ -1,5 +1,21 @@
 # Change Log
 
+### 1.81 27th February 2024
+- [x] Update Cookiebot to TCF 2.2
+- [x] Fix bug with linking people and user accounts
+
+### 1.80 17th January 2024
+- [x] Add missing Cookiebot placeholders on maps
+- [x] Update DCMS logo and URL
+- [x] Update map permissions
+- [x] Fix bug with contact us messages not arriving to PAS mailbox
+- [x] Fix issue with record error report emails not including the email of the reporter
+- [x] Fix issue with admin created accounts being set the wrong file path for images
+- [x] Change name of image to be more human-readable by using oldfindid rather than internal DB id.
+- [x] Update text on volunteer page
+- [x] Update text on treasure minutes page
+- [x] Refactor image upload code
+
 ### 1.79 4th September 2023
 - [x] Change email provider, and improve deliverability
 - [x] Restrict statistics page for users who are not logged in

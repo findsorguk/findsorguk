@@ -495,7 +495,8 @@ class Users extends Pas_Db_Table_Abstract
         return $this->getAdapter()->fetchAll($select);
     }
 
-    /** set can record in user record
+    /**
+     * Set can record in user record
      * @param string $dbaseID
      * @param bool $canRecord
      * @return int
@@ -507,5 +508,20 @@ class Users extends Pas_Db_Table_Abstract
             'id = ?' => $dbaseID,
         );
         return $this->update(array('canRecord' => $canRecord ? "1" : "0"), $where);
+    }
+
+    /**
+     * Set the peopleID record for a given user account linking both user and people records.
+     * Used in conjunction with People editing.
+     * @param string $dbaseID
+     * @param string $peopleId
+     * @return int
+     */
+    public function setPeopleRecordLink(string $dbaseID, string $peopleId): int
+    {
+        $where = array(
+            'id = ?' => $dbaseID,
+        );
+        return $this->update(array('peopleID' => $peopleId), $where);
     }
 }
