@@ -1,4 +1,4 @@
-/* TEAM */
+/* Team */
 Stephen Moon
 Liam Rehman
 
@@ -8,12 +8,9 @@ Mary Chester-Kadwell
 Ade Aribilola
 Minakshi Chidrawar
 
-/* THANKS FROM DAN */
+/* Thanks from Dan Pett */
 Tom Elliot, Sean Gillies, Sebastian Heath, Ethan Gruber, Eric Kansa and the original people
 I learnt from: Tyler Bell, Vuk Trifkovic, Andrew Larcombe and Yegor Veter.
 
 /* Contributors */
 Ethan Gruber, Richard Wareham, Lesley Arnold
-
-/* COLOPHON */
-Hic sunt dracones - Here be dragons. St George is coming to get them.
