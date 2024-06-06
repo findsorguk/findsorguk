@@ -31,7 +31,6 @@
  */
 class Database_AjaxController extends Pas_Controller_Action_Ajax
 {
-
     /** The base redirect
      *
      */
@@ -928,7 +927,6 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
     /** Action for displaying upload action
      *
      * @access public
-     * @return \Database_AjaxController
      */
     public function uploadAction()
     {
@@ -936,7 +934,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             $this->upload();
         }
         if ($this->_request->isPost()) {
-            $this->upload();
+            if ($message = $this->upload()) {
+                echo $message; //Return message to script/client such as error messages
+            }
         }
         if ($this->_request->isGet()) {
             $this->upload();
@@ -1011,6 +1011,24 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     throw new Pas_Exception('Cannot find old Find ID', 500);
                 }
 
+                // Prevent adding the image to the slides table, if ImageMagick will not be able to resize the image
+                $imageModel = new image();
+                $imageDimensions = $imageModel->getImageDimensions($info['tmp_name']);
+
+                if (!$imageModel->checkFileCanBeResizedInCacheLimit($imageDimensions[0], $imageDimensions[1])) {
+                    $maxDimensions = $imageModel->getMaxDimensionsForCacheSize(
+                        $imageDimensions[1], $imageDimensions[0]
+                    );
+
+                    return '{"files": [
+                      {
+                        "error": "File dimensions too large, please lower the width/height to '
+                        . $maxDimensions['height']
+                        . ' x ' . $maxDimensions['width'] . '."
+                      }
+                    ]}';
+                }
+
                 $cleaned = uniqid($oldFindID . '_', false) . '.' . strtolower($filename['extension']);
                 // Rename the file
                 $adapter->addFilter('rename', $cleaned);
@@ -1077,6 +1095,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                 'Your account does not seem enabled to do this', 401
             );
         }
+        return null;
     }
 
     /** Create a thumbnail
