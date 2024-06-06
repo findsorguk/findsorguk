@@ -314,6 +314,41 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         }
     }
 
+    /**
+     * Converts upload_max_filesize in PHP to bytes.
+     *
+     * @return int The size in bytes.
+     * @throws Pas_Exception If the value is empty or not a valid file size.
+     */
+    function maxUploadSizeBytes(): int
+    {
+        $maxUploadSize = ini_get('upload_max_filesize');
+
+        //Get valid file unit letters
+        $file_unit = strtolower(preg_replace("/[^gmkG]+/i", "", $maxUploadSize));
+        $size = (int)filter_var($maxUploadSize, FILTER_SANITIZE_NUMBER_INT);
+
+        if (strlen($file_unit) > 1) {
+            throw new Pas_Exception("Not valid php file unit, more then 1 in length", 500);
+        }
+
+        switch ($file_unit) {
+            case 'g':
+                $size *= 1024;
+            //Fall-through to MB
+            case 'm':
+                $size *= 1024;
+            //Fall-through to KB
+            case 'k':
+                $size *= 1024;
+                break;
+            default:
+                // Invalid input
+                throw new Pas_Exception("Not valid file unit", 500);
+        }
+        return $size;
+    }
+
     /** Upload images
      * Most of the magic happens via ajax calls
      * @access public
@@ -325,7 +360,11 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         $this->view->form = $form;
         $this->view->findID = $this->getParam('id');
         $this->view->recordtype = $this->getParam('recordtype');
+        $maxImageSizeBytes = $this->maxUploadSizeBytes();
+        $this->view->maxImageSizeBytes = $maxImageSizeBytes;
+        $this->view->maxImageSizeMB = $maxImageSizeBytes / 1048576;
     }
+
 
     /** Show images attached to record
      * @access public

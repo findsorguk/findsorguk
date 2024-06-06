@@ -9,6 +9,7 @@
 <?php
 $this->headTitle('Upload images');
 $this->metaBase()->setDescription($this->title())->generate();
+$config = Zend_Registry::get('config')->toArray();
 ?>
 
     <h2 class="lead"><?php echo $this->title(); ?></h2>
@@ -65,7 +66,7 @@ $this->metaBase()->setDescription($this->title())->generate();
                 You are adding images for a <strong>single</strong> record.
             </p>
             <ul>
-                <li>The maximum file size for uploads is <strong>20 MB</strong>.</li>
+                <li>The maximum file size for uploads is <strong><?= $this->maxImageSizeMB ?> MB</strong>.</li>
                 <li>Only high quality image files (<strong>JPG or TIFF</strong>) are allowed.</li>
                 <li>You can <strong>drag &amp; drop</strong> files from your desktop on this web page (see <a
                         href="https://github.com/blueimp/jQuery-File-Upload/wiki/Browser-support">Browser support</a>).
@@ -129,9 +130,7 @@ $this->metaBase()->setDescription($this->title())->generate();
             {% if (file.error) { %}
                 <div><h4 class="lead">An error has occurred with that upload</h4>
                 <ul>
-                    {% if(file.error = 'fileNotExistsDoesExist') { %}
-                    <li>That file already exists</li>
-                    {% } %}
+                    <li> {%=file.error%}</li>
                 </ul>
                 </div>
             {% } %}
@@ -172,9 +171,12 @@ $this->jQuery()->addJavascriptFile('/thirdParty/js/bootstrap.file-input.js', $ty
         $('#fileupload').fileupload({
             url: '<?php echo $this->serverUrl();?>/database/ajax/upload/',
             disableImageResize: true,
-            maxFileSize: 200000000,
-            acceptFileTypes: /(\.|\/)(tif|tiff|jpeg|jpg)$/i
-
+            // The maximum allowed file size in bytes:
+            maxFileSize: <?= $this->maxImageSizeBytes ?>,
+            acceptFileTypes: /(\.|\/)(tif|tiff|jpeg|jpg)$/i,
+            messages: {
+                maxFileSize: 'File is too large. The max size is: <?= $this->maxImageSizeMB ?> MB',
+            }
         }).bind('fileuploadsubmit', function (e, data) {
         data.formData = {
         'findID': "<?php echo $this->findID;?>",
