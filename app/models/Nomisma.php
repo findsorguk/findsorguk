@@ -140,9 +140,10 @@ class Nomisma
 
     /** Get the cache object
      * @access public
-     * @return mixed
+     * @return Zend_Cache_Core
+     * @throws Zend_Exception
      */
-    public function getCache()
+    public function getCache(): Zend_Cache_Core
     {
         $this->_cache = Zend_Registry::get('cache');
         return $this->_cache;
