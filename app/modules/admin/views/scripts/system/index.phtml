@@ -34,6 +34,10 @@ $this->metaBase()->setDescription($this->title());
     <li>
         <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system', 'action' => 'cleanoldcache'), null, true); ?>"
            title="Clean out the old cache">Clean old cache</a></li>
+    <li>
+        <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'system', 'action' => 'cleancoincache'), null, true); ?>"
+           title="Clean coin cache">Clean coin cache</a>
+    </li>
 </ul>
 
 <h3 class="lead">Oauth tokens</h3>

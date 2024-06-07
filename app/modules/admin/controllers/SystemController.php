@@ -280,6 +280,20 @@ class Admin_SystemController extends Pas_Controller_Action_Admin
         $this->redirect('/admin/system/');
     }
 
+    /** Clean the entire cache
+     */
+    public function cleancoincacheAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $this->getCache()->clean(
+            Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG,
+            array('RRC', 'RIC')
+        );
+        $this->getFlash()->addMessage('Coin cache cleaned');
+        $this->redirect('/admin/system/');
+    }
+
     /** Clean just the old cached data
      * @access public
      * @return void
