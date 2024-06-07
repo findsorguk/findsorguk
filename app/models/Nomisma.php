@@ -88,7 +88,13 @@ class Nomisma
      */
     public function getStatusNomisma()
     {
+        stream_context_set_default([
+            'http' => [
+                'timeout' => 3, // seconds
+            ]
+        ]);
         $checkHeaders = get_headers('http://nomisma.org/apis');
+
 
         if (preg_match('/(2|3)[0-9][0-9]/', $checkHeaders[0]) == false) {
             $this->sendErrorEmail('Nomisma did not return status code 200/400', 'HTTP response code');
