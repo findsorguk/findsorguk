@@ -39,6 +39,7 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
             'coinref', 'editcoinref', 'deletecoinref'
         ));
         $this->_helper->_acl->allow('flos', null);
+        $this->_helper->_acl->allow('public', array('nomismarictype', 'nomismarrctype','error'));
     }
 
     /** Redirect as no direct access to the coins index page
@@ -274,5 +275,84 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
                 $this->view->coin = $coins->fetchRow('id=' . $id);
             }
         }
+    }
+
+    /**
+     * @throws Pas_Exception_Param
+     */
+    private function nomismatypeAction(string $type, string $id)
+    {
+        if (!in_array(strtolower($type), ['rrc', 'ric'])) {
+            throw new Pas_Exception_Param('Invalid Nomisma type: ' . $type);
+        }
+        if (empty($id)) {
+            throw new Pas_Exception_Param("Null or empty Nomisma ID");
+        }
+
+        $nomismaConfig = Zend_Registry::get('config')->webservice->numismatics->toArray();
+
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->getResponse()->setHeader('Content-Type', 'application/json');
+
+        $nomisma = new Nomisma();
+
+        try {
+            switch ($type) {
+                case "rrc":
+                    $results = $nomisma->getRRCTypes($id);
+                    $url = $nomismaConfig['src'] . $nomismaConfig['rrc'];
+                    break;
+                case "ric":
+                    $results = $nomisma->getRICTypes($id);
+                    $url = $nomismaConfig['src'] . $nomismaConfig['ric'];
+                    break;
+                default:
+                    throw new Pas_Exception_Param('Invalid Nomisma type: ' . $type);
+            }
+
+            $nomismaTypes = array();
+            foreach ($results as $resultType) {
+                $nomismaTypes[] = array(
+                    'id' => str_replace($url, '', $resultType->type->__toString()),
+                    'term' => $resultType->label->__toString()
+                );
+            }
+            $this->_helper->json($nomismaTypes);
+
+        } catch (Exception $e) {
+            $this->_helper->json("An error occurred: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Action used to update the Nomisma RRC cache via a call to the URL.
+     *
+     * This action is used to update the cache for the RRC (Roman Republican Coinage) types.
+     * It receives a parameter 'rrc' which is used to retrieve the information
+     * from the Nomisma API and then returns the response in JSON format.
+     *
+     * @return void
+     * @throws Pas_Exception_Param
+     */
+    public function nomismarrctypeAction()
+    {
+        $nomismaId = $this->getParam('rrc', false);
+        $this->nomismatypeAction('rrc', $nomismaId);
+    }
+
+    /**
+     * Action used to update the Nomisma RIC cache via a call to the URL.
+     *
+     * This action is used to update the cache for the RIC (Roman Imperial Coins) types.
+     * It receives a parameter 'ric' which is used to retrieve the information
+     * from the Nomisma API and then returns the response in JSON format.
+     *
+     * @return void
+     */
+    public function nomismarictypeAction()
+    {
+        $nomismaId = $this->getParam('ric', false);
+        $this->nomismatypeAction('ric', $nomismaId);
     }
 }

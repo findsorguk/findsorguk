@@ -22,6 +22,8 @@
 class Nomisma
 {
 
+    private const MONTH_IN_SECONDS = 2629800;
+
     /** The cache object
      * @var  $_cache
      * @access protected
@@ -128,7 +130,7 @@ class Nomisma
                     '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
                     '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
                     ' } ORDER BY ?label');
-                $this->getCache()->save($data, $key, array('RRC'), 2629800);
+                $this->getCache()->save($data, $key, array('RRC'), self::MONTH_IN_SECONDS);
             } catch (Exception $e) {
                 $this->sendErrorEmail($e, 'RRC');
             }
@@ -188,7 +190,7 @@ class Nomisma
                     '  FILTER(langMatches(lang(?label), "en"))' .
                     ' } ORDER BY ?label'
                 );
-                $this->getCache()->save($data, $key, array('RIC'), 2629800);
+                $this->getCache()->save($data, $key, array('RIC'), self::MONTH_IN_SECONDS);
             } catch (Exception $e) {
                 $this->sendErrorEmail($e, 'RIC');
             }

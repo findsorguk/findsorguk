@@ -95,3 +95,7 @@ webservice.youtube.homepage.title =
 
 webservice.twitter.homepage.src =
 webservice.twitter.homepage.jsSrc =
+
+webservice.numismatics.src = "http://numismatics.org"
+webservice.numismatics.rrc = "/crro/id/"
+webservice.numismatics.ric = "/ocre/id/"
