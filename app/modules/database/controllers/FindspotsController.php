@@ -166,7 +166,10 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                 if ($form->isValid($this->_request->getPost())) {
                     $updateData = $form->getValues();
                     $updateData['findID'] = $this->getParam('secuid');
-                    $updateData['institution'] = $this->_helper->identity->getPerson()->institution;
+
+                    //Set findspot institution to the same as the record
+                    $updateData['institution'] = $this->getFindInstitution($returnID);
+
                     $this->_findspots->addAndProcess($updateData);
                     $this->_helper->solrUpdater->update('objects', $returnID, $this->getParam('recordtype'));
 
@@ -216,6 +219,10 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                 // Check if valid
                 if ($form->isValid($this->_request->getPost())) {
                     $updateData = $form->getValues();
+
+                    // Update findspot to be the same as record. Fix for pre 1.82 behaviour.
+                    $updateData['institution'] = $findInstitution;
+
                     $oldData = $this->_findspots->fetchRow('id=' . $this->getParam('id'))->toArray();
                     $where = array();
                     $where[] = $this->_findspots->getAdapter()->quoteInto('id = ?',
