@@ -8,7 +8,7 @@ $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 ?>
 <?php
 $this->editCheck()
-    ->setInstitution($this->findspot['institution'])
+    ->setInstitution($this->recordInstitution)
     ->setCreatedBy($this->findspot['createdBy'])
     ->canThey();
 ?>

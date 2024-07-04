@@ -3227,4 +3227,25 @@ class Finds extends Pas_Db_Table_Abstract
             ->where('finds.createdBy = ?', (int)$id);
         return $this->getAdapter()->fetchAll($select);
     }
+
+    /** Get institution for single record
+     *
+     * @access public
+     * @param integer $findID
+     * @return array
+     */
+    public function getInstitutionForRecord(int $findID)
+    {
+        $select = $this->select()
+            ->from(
+                $this->_name,
+                array(
+                    'institution',
+                )
+            )
+            ->where('finds.id = ?', $findID)
+            ->limit(1);
+        $select->setIntegrityCheck(false);
+        return $this->getAdapter()->fetchAll($select);
+    }
 }

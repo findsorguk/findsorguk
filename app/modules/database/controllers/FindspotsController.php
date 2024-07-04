@@ -89,7 +89,7 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
     public function init()
     {
         $this->_helper->_acl->deny('public', null);
-        $this->_helper->_acl->allow('member', array('index', 'add', 'delete', 'edit'));
+        $this->_helper->_acl->allow('member', array('index', 'add', 'delete', 'edit', 'error'));
         $this->_helper->_acl->allow('admin', array('updatehoards'));
         $this->setController($this->getParam('recordtype', 'artefacts'));
         $this->setRedirect($this->getController());
@@ -106,6 +106,30 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
         $this->getResponse()->setHttpResponseCode(301)
             ->setRawHeader('HTTP/1.1 301 Moved Permanently');
         $this->redirect($this->getRedirect());
+    }
+
+    /**
+     * Get the find institution for a given find record ID
+     *
+     * This function is used as part of findspot edit permissions.
+     *
+     * @param int $findID The ID of the find record
+     * @return string The institution of the find record
+     * @throws Pas_Exception If the find record has no institution set
+     */
+    private function getFindInstitution(int $findID){
+        $finds = new Finds();
+        $findInstitution = $finds->getInstitutionForRecord($findID);
+
+        if (empty($findInstitution)) {
+            throw new Pas_Exception("Record $findID has no institution set", 500);
+        }
+
+        if (!isset($findInstitution[0]['institution'])) {
+            throw new Pas_Exception("Record $findID has no institution set", 500);
+        }
+
+        return $findInstitution[0]['institution'];
     }
 
     /** Add a new findspot action
@@ -180,6 +204,12 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
             $form->submit->setLabel('Update find spot');
             $this->view->form = $form;
             $returnID = (int)$this->_findspots->getFindNumber($this->getParam('id'), $this->getParam('recordtype'));
+
+            // Set the findspot institution to that of the record for permission checks.
+            // This resolves pre 1.82 behaviour where findspot institution can differ from the records
+            $findInstitution = $this->getFindInstitution($returnID);
+            $this->view->recordInstitution = $findInstitution;
+
             $this->view->returnID = $returnID;
             //Check if POST
             if ($this->getRequest()->isPost()) {
