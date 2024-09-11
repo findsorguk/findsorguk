@@ -117,13 +117,14 @@ class ContactUsForm extends Pas_Form {
                 $comment_author_email, 
                 $comment_content,
                 $comment_author_url,
+                $captcha,
                 $submit, 
                 $hash
                     ));
 
             $this->addDisplayGroup(array(
                 'comment_author', 'comment_author_email', 'comment_author_url',
-                'comment_content'), 'details');
+                'comment_content','captcha'), 'details');
             $this->details->setLegend('Enter your comments: ');
 	}
 	$this->addDisplayGroup(array('submit'), 'buttons');
