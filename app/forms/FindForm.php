@@ -204,7 +204,7 @@ class FindForm extends Pas_Form
         $treasureID->setLabel('Treasure number: ')
             ->setRequired(false)
             ->setAttribs(array('placeholder' => 'T numbers are in the format of YYYYT1234', 'class' => 'span6', 'maxlength' => 15))
-            ->addValidator('Alnum', false, array('allowWhiteSpace' => false))
+            ->addValidator('Alnum', false, array('allowWhiteSpace' => true))
             ->addFilters(array('StripTags', 'StringTrim', 'StringToUpper'));
 
         //Container for hoard
