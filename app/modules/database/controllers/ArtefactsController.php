@@ -28,7 +28,9 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
 
     /** The redirect uri
      */
-    const REDIRECT = '/database/artefacts/';
+    private const REDIRECT = '/database/artefacts/';
+
+    const FINDSAUDITMODEL = 'FindsAudit';
 
     /** The array of restricted access
      *
@@ -428,10 +430,16 @@ class Database_ArtefactsController extends Pas_Controller_Action_Admin
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $insertData = $form->getValues();
-                $insert = $this->getFinds()->addFind($insertData);
-                if ($insert != 'error') {
-                    $this->_helper->solrUpdater->update('objects', $insert, 'artefacts');
-                    $this->redirect(self::REDIRECT . 'record/id/' . $insert);
+                $result = $this->getFinds()->addFind($insertData);
+                if ($result != 'error') {
+                    $recordId = (int) $result;
+                    $this->_helper->solrUpdater->update('objects', $recordId, 'artefacts');
+
+                    // Add to audit table
+                    $originalRecordData = [];
+                    $this->_helper->audit($insertData, $originalRecordData, self::FINDSAUDITMODEL, $recordId, $recordId);
+
+                    $this->redirect(self::REDIRECT . 'record/id/' . $recordId);
                     $this->getFlash()->addMessage('Record created!');
                 } else { // If there is a database error, repopulate form so users don't lose their work
                     $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');

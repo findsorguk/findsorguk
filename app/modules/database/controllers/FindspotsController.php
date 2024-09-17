@@ -21,6 +21,8 @@
 class Database_FindspotsController extends Pas_Controller_Action_Admin
 {
 
+    private const FINDSPOTAUDITMODEL = 'FindspotsAudit';
+
     /** The findspots model
      * @access protected
      * @var \Findspots
@@ -143,6 +145,17 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
                     $updateData['institution'] = $this->_helper->identity->getPerson()->institution;
                     $this->_findspots->addAndProcess($updateData);
                     $this->_helper->solrUpdater->update('objects', $returnID, $this->getParam('recordtype'));
+
+                    // Add to audit table
+                    $originalRecordData = [];
+                    $this->_helper->audit(
+                        $updateData,
+                        $originalRecordData,
+                        self::FINDSPOTAUDITMODEL,
+                        $returnID,
+                        $returnID
+                    );
+
                     $this->redirect($this->getRedirect() . 'record/id/' . $returnID);
                     $this->getFlash()->addMessage('A new findspot has been created.');
                 } else {

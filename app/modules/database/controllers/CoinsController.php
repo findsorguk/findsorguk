@@ -22,6 +22,8 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
      *
      */
     const REDIRECT = '/database/artefacts/';
+    const COINSAUDITMODEL = 'CoinsAudit';
+
     /** The coins model
      * @access protected
      * @var \Coins
@@ -86,6 +88,11 @@ class Database_CoinsController extends Pas_Controller_Action_Admin
                 $insertData['institution'] = $this->getInstitution();
                 $this->getCoins()->add($insertData);
                 $this->_helper->solrUpdater->update('objects', $this->getParam('returnID'), 'artefacts');
+
+                //Audit the changes
+                $originalRecordData = [];
+                $this->_helper->audit($insertData, $originalRecordData, self::COINSAUDITMODEL , $this->getParam('id'), $this->getParam('returnID'));
+
                 $this->getFlash()->addMessage('Coin data saved.');
                 $this->redirect(self::REDIRECT . 'record/id/' . $this->getParam('returnID'));
             } else {
