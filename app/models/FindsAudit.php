@@ -71,4 +71,14 @@ class FindsAudit extends Pas_Db_Table_Abstract {
                 ->order($this->_name.'.id');
         return $finds->fetchAll($select);
     }
+    public function isRecordCreationAudit(string $id) {
+        $finds = $this->getAdapter();
+        $select = $finds->select()
+            ->from($this->_name,array(
+                'afterValue', 'fieldName', 'beforeValue'))
+            ->where($this->_name . '.editID = ?', $id)
+            ->where('fieldName = ?', 'Secuid')
+            ->where('beforeValue IS NULL', );
+        return (bool)$finds->fetchOne($select);
+    }
 }

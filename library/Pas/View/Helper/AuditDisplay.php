@@ -172,6 +172,16 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract
         return $this->getData($this->getId());
     }
 
+    public function getFirstChangeRecord($id) {
+        $model = $this->getTableName() . 'Audit';
+        $object = new $model();
+
+        if (method_exists($object, 'isRecordCreationAudit')) {
+            return (new $model())->isRecordCreationAudit($id);
+        }
+        return false;
+    }
+
     /** Get the data to return
      * @access public
      * @param int $id
@@ -225,7 +235,11 @@ class Pas_View_Helper_AuditDisplay extends Zend_View_Helper_Abstract
                 $html .= $this->view->timeAgoInWords($audit['created']);
                 $html .= '</a> ';
                 $html .= $audit['fullname'];
-                $html .= ' edited this record.</li>';
+                if ($this->getFirstChangeRecord($audit['editID'])) {
+                    $html .= ' added this record.</li>';
+                } else {
+                    $html .= ' edited this record.</li>';
+                }
             }
             $html .= '</ul>';
         } else {
