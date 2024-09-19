@@ -37,10 +37,11 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
     /** Create an edit ID
      * @access public
      * @return string
+     * @throws \Random\RandomException
      */
     public function editID(){
         // take first 25 characters of id created
-        return substr(md5($this->getTimeForForms()), 0, 25);
+        return substr(md5($this->getTimeForForms() . random_bytes(64)), 0, 25);
     }
 
     /** The direct action to run the helper.
