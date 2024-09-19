@@ -63,6 +63,7 @@ class PeopleForm extends Pas_Form {
                     'Mrs' => 'Mrs', 
                     'Miss' => 'Miss', 
                     'Ms' => 'Ms', 
+                    'Mx' => 'Mx', 
                     'Dr' => 'Dr.', 
                     'Prof' => 'Prof.',
                     'Sir' => 'Sir', 
