@@ -68,6 +68,11 @@ class CoinsAudit extends Pas_Db_Table_Abstract {
         return $finds->fetchAll($select);
     }
 
+
+    /** Return true/false if audit is for the record creation
+     * @param $id
+     * @return bool
+     */
     public function isRecordCreationAudit($id) {
         $finds = $this->getAdapter();
         $select = $finds->select()

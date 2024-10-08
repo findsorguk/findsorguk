@@ -71,6 +71,12 @@ class FindsAudit extends Pas_Db_Table_Abstract {
                 ->order($this->_name.'.id');
         return $finds->fetchAll($select);
     }
+
+
+    /** Return true/false if audit is for the record creation
+     * @param $id
+     * @return bool
+     */
     public function isRecordCreationAudit(string $id) {
         $finds = $this->getAdapter();
         $select = $finds->select()
