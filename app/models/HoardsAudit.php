@@ -71,4 +71,20 @@ class HoardsAudit extends Pas_Db_Table_Abstract {
                 ->order($this->_name.'.id');
         return $finds->fetchAll($select);
     }
+
+    /** Return true/false if audit is for the record creation
+     * @param $id
+     * @return bool
+     */
+    public function isRecordCreationAudit($id) {
+        $finds = $this->getAdapter();
+        $select = $finds->select()
+            ->from($this->_name,array(
+                'afterValue', 'fieldName', 'beforeValue'))
+            ->where('editID = ?', $id)
+            ->where('fieldName = ?', 'recordId')
+            ->where('beforeValue IS NULL', );
+
+        return !($finds->fetchOne($select) == false);
+    }
 }

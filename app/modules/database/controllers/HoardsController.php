@@ -27,6 +27,7 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
     /** The redirect uri
      */
     const REDIRECT = '/database/hoards/';
+    const HOARDSAUDITMODEL = 'HoardsAudit';
 
     /** The array of restricted access
      *
@@ -413,6 +414,17 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
                 $insert = $this->getHoards()->addHoard($insertData);
                 if ($insert != 'error') {
                     $this->_helper->solrUpdater->update('objects', $insert, 'hoards');
+
+                    $recordId = (int) $insert;
+
+
+                    $originalRecordData = [];
+                    // Since secuid is created during insert, use recordID to indicate the new record in the audit
+                    $auditData = array_merge($insertData, ['recordID' => $recordId]);
+
+                    // Add to audit table
+                    $this->_helper->audit($auditData, $originalRecordData, self::HOARDSAUDITMODEL, $recordId, $recordId);
+
                     $this->redirect(self::REDIRECT . 'record/id/' . $insert);
                 } else { // If there is a database error, repopulate form so users don't lose their work
                     $this->getFlash()->addMessage('Database error. Please try submitting again or contact support.');
