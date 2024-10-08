@@ -203,7 +203,7 @@ class FindForm extends Pas_Form
         $treasureID = new Zend_Form_Element_Text('treasureID');
         $treasureID->setLabel('Treasure number: ')
             ->setRequired(false)
-            ->setAttribs(array('placeholder' => 'T numbers are in the format of YYYYT1234', 'class' => 'span6', 'maxlength' => 15))
+            ->setAttribs(array('placeholder' => 'T numbers are in the format of YYYY T1234', 'class' => 'span6', 'maxlength' => 15))
             ->addValidator('Alnum', false, array('allowWhiteSpace' => true))
             ->addFilters(array('StripTags', 'StringTrim', 'StringToUpper'));
 
