@@ -79,7 +79,8 @@ class FindSpotsAudit extends Pas_Db_Table_Abstract {
             ->where($this->_name . '.editID = ?', $id)
             ->where('fieldName = ?', 'FindID')
             ->where('beforeValue IS NULL', );
-        return $finds->fetchAll($select);
+
+        return !($finds->fetchOne($select) == false);
     }
 
 }
