@@ -82,8 +82,8 @@ class FindsAudit extends Pas_Db_Table_Abstract {
         $select = $finds->select()
             ->from($this->_name,array(
                 'afterValue', 'fieldName', 'beforeValue'))
-            ->where($this->_name . '.editID = ?', $id)
-            ->where('fieldName = ?', 'Secuid')
+            ->where('editID = ?', $id)
+            ->where('fieldName = ?', 'secuid')
             ->where('beforeValue IS NULL', );
 
         return !($finds->fetchOne($select) == false);

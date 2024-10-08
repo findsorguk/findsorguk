@@ -78,7 +78,7 @@ class CoinsAudit extends Pas_Db_Table_Abstract {
         $select = $finds->select()
             ->from($this->_name,array(
                 'afterValue', 'fieldName', 'beforeValue'))
-            ->where($this->_name . '.editID = ?', $id)
+            ->where('editID = ?', $id)
             ->where('fieldName = ?', 'FindID')
             ->where('beforeValue IS NULL', );
 
