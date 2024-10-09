@@ -325,7 +325,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         $maxUploadSize = ini_get('upload_max_filesize');
 
         //Get valid file unit letters
-        $file_unit = strtolower(preg_replace("/[^gmkG]+/i", "", $maxUploadSize));
+        $file_unit = strtolower(preg_replace("/[^gmk]+/i", "", $maxUploadSize));
         $size = (int)filter_var($maxUploadSize, FILTER_SANITIZE_NUMBER_INT);
 
         if (strlen($file_unit) > 1) {
