@@ -14,14 +14,20 @@ class image
      */
     public function getImageDimensions(string $filePath): array
     {
-        if (!file_exists($filePath)) {
-            throw new Pas_Exception("The temporary file '{$filePath}' was not found.");
+        if (!is_readable($filePath) || !is_file($filePath)) {
+            throw new Pas_Exception("The temporary file '{$filePath}' was not readable, or is not a file.");
         }
 
         // Get the size of the image
-        $imageInfo = getimagesize($filePath);
+        $imageInfo = @getimagesize($filePath);
         if (!$imageInfo) {
             throw new Pas_Exception("Could not get image size for the file '{$filePath}'.");
+        }
+
+        // As per https://www.php.net/manual/en/function.getimagesize.php, width and height may return 0 in some cases
+        if ($imageInfo[0] == 0 || $imageInfo[1] == 0) {
+            throw new Pas_Exception("Cannot read valid image height and or width for the file '{$filePath}'. 
+        Please ensure file contains a single image.");
         }
 
         return $imageInfo;
@@ -59,6 +65,10 @@ class image
      */
     public function getMaxDimensionsForCacheSize(int $width, int $height): array
     {
+        if ($width === 0 || $height === 0) {
+            throw new Pas_Exception("Invalid image width and or height.");
+        }
+
         $imageSize = $this->getBytesNeededToResizeImage($width, $height);
         $percentBigger = ($this->maxMemory / $imageSize);
 
