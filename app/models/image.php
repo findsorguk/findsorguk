@@ -34,8 +34,8 @@ class image
     }
 
     /** Calculate the number of bytes that the image will take up in memory to resize
-     * @param $width
-     * @param $height
+     * @param int $width
+     * @param int $height
      * @return float|int
      */
     public function getBytesNeededToResizeImage(int $width, int $height)
@@ -61,7 +61,8 @@ class image
      *
      * @param int $width The width of the cache size.
      * @param int $height The height of the cache size.
-     * @return array<int,int> An associative array containing the maximum width and height.
+     * @return array<string, int> An associative array containing the maximum width and height.
+     * @throws Pas_Exception
      */
     public function getMaxDimensionsForCacheSize(int $width, int $height): array
     {
