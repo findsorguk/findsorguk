@@ -1023,8 +1023,8 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     return '{"files": [
                       {
                         "error": "File dimensions too large, please lower the width/height to '
-                        . $maxDimensions['height']
-                        . ' x ' . $maxDimensions['width'] . '."
+                        . $maxDimensions['width']
+                        . ' x ' . $maxDimensions['height'] . '."
                       }
                     ]}';
                 }
