@@ -142,3 +142,43 @@ acl.roles.admin    = fa
 auth.salt = 
 
 email = true
+
+# ID from `staffroles` DB table
+contacts.roles.central[] = 1
+contacts.roles.central[] = 2
+contacts.roles.central[] = 3
+contacts.roles.central[] = 4
+contacts.roles.central[] = 24
+contacts.roles.central[] = 25
+;contacts.roles.central[] =
+
+# Used to exclude members of central team getting upgrade account emails
+contacts.excludeEmail.roles.central[] = 1
+;contacts.roles.central.excludeEmail[] =
+
+contacts.roles.liaisonOfficers[] = 7
+contacts.roles.liaisonOfficers[] = 10
+contacts.roles.liaisonOfficers[] = 32
+;contacts.roles.liaisonOfficers[] =
+
+contacts.roles.advisers[] = 12
+contacts.roles.advisers[] = 16
+contacts.roles.advisers[] = 17
+contacts.roles.advisers[] = 18
+contacts.roles.advisers[] = 19
+contacts.roles.advisers[] = 20
+;contacts.roles.advisers[] =
+
+;contacts.excludeEmail.roles.advisers[] =
+
+contacts.roles.treasure[] = 6
+contacts.roles.treasure[] = 8
+contacts.roles.treasure[] = 33
+;contacts.roles.treasure[] =
+
+contacts.roles.explorers[] = 26
+contacts.roles.explorers[] = 27
+contacts.roles.explorers[] = 28
+contacts.roles.explorers[] = 29
+contacts.roles.explorers[] = 30
+;contacts.roles.explorers[] =
