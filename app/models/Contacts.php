@@ -222,6 +222,9 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     public function getCentralUnit()
     {
+        $roles = Zend_Registry::get('config')->contacts->roles->central->toArray();
+        $rolesList = implode(',', $roles);
+
         $key = md5('centralUnit');
         if (!$data = $this->_cache->load($key)) {
             $persons = $this->getAdapter();
@@ -235,7 +238,7 @@ class Contacts extends Pas_Db_Table_Abstract
                 ))
                 ->joinLeft(array('position' => 'staffroles'), 'staff.role = position.ID', array('staffroles' => 'role'))
                 ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
-                ->where('staff.role IN (1,2,3,4,24,25)')
+                ->where('staff.role IN (?)', new Zend_Db_Expr($rolesList))
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
             $data = $persons->fetchAll($select);
@@ -250,6 +253,9 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     public function getLiaisonOfficers()
     {
+        $roles = Zend_Registry::get('config')->contacts->roles->liaisonOfficers->toArray();
+        $rolesList = implode(',', $roles);
+
         $key = md5('liaisonOfficers');
         if (!$data = $this->_cache->load($key)) {
             $persons = $this->getAdapter();
@@ -268,8 +274,8 @@ class Contacts extends Pas_Db_Table_Abstract
                     'staff.role = position.ID',
                     array('staffroles' => 'role'))
                 ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
-
-                ->where('staff.role IN (7,10,32) AND alumni =1')
+                ->where('staff.role IN (?)', new Zend_Db_Expr($rolesList))
+                ->where('alumni = ?', (int)1)
                 ->order('locality.description');
             $data = $persons->fetchAll($select);
             $this->_cache->save($data, $key);
@@ -283,6 +289,9 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     public function getTreasures()
     {
+        $roles = Zend_Registry::get('config')->contacts->roles->treasure->toArray();
+        $rolesList = implode(',', $roles);
+
         $key = md5('treasureTeam');
         if (!$data = $this->_cache->load($key)) {
             $persons = $this->getAdapter();
@@ -298,7 +307,7 @@ class Contacts extends Pas_Db_Table_Abstract
                     'staff.role = position.ID',
                     array('staffroles' => 'role'
                     ))
-                ->where('staff.role IN (6,8,33)')
+                ->where('staff.role IN (?)', new Zend_Db_Expr($rolesList))
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
             $data = $persons->fetchAll($select);
@@ -313,6 +322,9 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     public function getAdvisers()
     {
+        $roles = Zend_Registry::get('config')->contacts->roles->advisers->toArray();
+        $rolesList = implode(',', $roles);
+
         $key = md5('findsAdvisers');
         if (!$data = $this->_cache->load($key)) {
             $persons = $this->getAdapter();
@@ -327,7 +339,7 @@ class Contacts extends Pas_Db_Table_Abstract
                 ->joinLeft(array('position' => 'staffroles'),
                     'staff.role = position.ID',
                     array('staffroles' => 'role'))
-                ->where('staff.role IN (12,16,17,18,19,20)')
+                ->where('staff.role IN (?)', new Zend_Db_Expr($rolesList))
                 ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
@@ -344,6 +356,14 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     public function getAdvisersEmails()
     {
+        $roles = Zend_Registry::get('config')->contacts->roles->advisers->toArray();
+
+        //If config values for exclude email do not exist, ignore
+        $exclude = (Zend_Registry::get('config')->toArray())['contacts']['excludeEmail']['roles']['advisers'] ?? [];
+        $roles = array_diff($roles, $exclude);
+
+        $rolesList = implode(',', $roles);
+
         $key = md5('findsAdvisersEmails');
         if (!$data = $this->_cache->load($key)) {
             $persons = $this->getAdapter();
@@ -355,7 +375,7 @@ class Contacts extends Pas_Db_Table_Abstract
                 ->joinLeft(array('position' => 'staffroles'),
                     'staff.role = position.ID',
                     array())
-                ->where('staff.role IN (12,16,17,18,19,20)')
+                ->where('staff.role IN (?)', new Zend_Db_Expr($rolesList))
                 ->joinLeft('users', 'users.id = staff.dbaseID', array())
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
@@ -371,6 +391,14 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     public function getCentralEmails()
     {
+        $roles = Zend_Registry::get('config')->contacts->roles->central->toArray();
+
+        //If config values for exclude email do not exist, ignore
+        $exclude = (Zend_Registry::get('config')->toArray())['contacts']['excludeEmail']['roles']['central'] ?? [];
+        $roles = array_diff($roles, $exclude);
+
+        $rolesList = implode(',', $roles);
+
         $key = md5('findsCentralEmails');
         if (!$data = $this->_cache->load($key)) {
             $persons = $this->getAdapter();
@@ -382,7 +410,7 @@ class Contacts extends Pas_Db_Table_Abstract
                 ->joinLeft(array('position' => 'staffroles'),
                     'staff.role = position.ID',
                     array())
-                ->where('staff.role IN (2,4,24,25)')
+                ->where('staff.role IN (?)', new Zend_Db_Expr($rolesList))
                 ->joinLeft('users', 'users.id = staff.dbaseID', array())
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
@@ -428,6 +456,9 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     public function getFloEmailsForForm()
     {
+        $roles = Zend_Registry::get('config')->contacts->roles->liaisonOfficers->toArray();
+        $rolesList = implode(',', $roles);
+
         $key = md5('currentstaffpairs');
         if (!$data = $this->_cache->load($key)) {
             $persons = $this->getAdapter();
@@ -436,7 +467,7 @@ class Contacts extends Pas_Db_Table_Abstract
                     'id' => 'dbaseID', 'name' => new Zend_Db_Expr("CONCAT(firstname,' ',lastname,': ',county)")))
                 ->order($this->_name . '.id')
                 ->where('alumni = ?', (int)1)
-                ->where('role IN (7,10)');
+                ->where('staff.role IN (?)', new Zend_Db_Expr($rolesList));
             $data = $persons->fetchPairs($select);
             $this->_cache->save($data, $key);
         }
@@ -539,6 +570,9 @@ class Contacts extends Pas_Db_Table_Abstract
      */
     public function getPastExplorers()
     {
+        $roles = Zend_Registry::get('config')->contacts->roles->explorers->toArray();
+        $rolesList = implode(',', $roles);
+
         $key = md5('pastexplorersstaff');
         if (!$data = $this->_cache->load($key)) {
             $persons = $this->getAdapter();
@@ -552,7 +586,7 @@ class Contacts extends Pas_Db_Table_Abstract
                 ))
                 ->joinLeft(array('position' => 'staffroles'), 'staff.role = position.ID', array('staffroles' => 'role'))
                 ->joinLeft('users', 'users.id = staff.dbaseID', array('institution'))
-                ->where('staff.role IN (26,27,28,29,30)')
+                ->where('staff.role IN (?)', new Zend_Db_Expr($rolesList))
                 ->where('alumni = ?', (int)1)
                 ->order('lastname');
             $data = $persons->fetchAll($select);
