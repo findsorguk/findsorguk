@@ -343,7 +343,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
                 $size *= 1024;
                 break;
             default:
-                // Invalid input
+                //Invalid input
                 throw new Pas_Exception("Not valid file unit", 500);
         }
         return $size;
