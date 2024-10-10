@@ -174,7 +174,7 @@ contacts.roles.advisers[] = 20
 contacts.roles.treasure[] = 6
 contacts.roles.treasure[] = 8
 contacts.roles.treasure[] = 33
-;contacts.roles.treasure[] =
+contacts.roles.treasure[] = 37
 
 contacts.roles.explorers[] = 26
 contacts.roles.explorers[] = 27
