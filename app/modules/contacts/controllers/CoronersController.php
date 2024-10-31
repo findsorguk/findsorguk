@@ -68,6 +68,7 @@ class Contacts_CoronersController extends Pas_Controller_Action_Admin
      */
     public function mapAction()
     {
-        //Magic in the view
+        //Redirect to index page - Map deprecated (2024)
+        $this->redirect('contacts/coroners/');
     }
 }
