@@ -46,11 +46,6 @@ class Contacts_CoronersController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
-        $coroners = $this->_coroners->getAll($this->getAllParams());
-        if (in_array($this->_helper->contextSwitch()->getCurrentContext(), array('kml'))) {
-            $this->_coroners->setItemCountPerPage(150);
-        }
-        $this->view->coroners = $coroners;
     }
 
     /** Render individual coroner profile

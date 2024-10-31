@@ -8,9 +8,8 @@ $this->metaBase()
 ?>
 <h2 class="lead"><?php echo $this->title(); ?></h2>
 
-<?php if (count($this->coroners)): ?>
-    <p>The Scheme tries to keep this list as current as possible, however we accept there may be errors and
-        omissions.</p>
-    <?php echo $this->partialLoop('partials/contacts/coroners/coronerVcard.phtml', $this->coroners); ?>
-<?php endif; ?>
-<?php echo $this->paginationControl($this->coroners, 'Sliding', 'structure/pagination.phtml'); ?>
+<p>The contact information for specific coroners’ offices can be found on the Courts and Tribunals Judiciary
+    website,
+    <a href="https://www.judiciary.uk/courts-and-tribunals/coroners-courts/coroners-appointments-contacts-and-areas/the-appointment-of-senior-coroners/"
+       target="_blank" title="Coroners: appointments and how to contact their offices - Courts and Tribunals Judiciary">here</a>.
+</p>
