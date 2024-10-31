@@ -71,7 +71,7 @@ class ChangePasswordForm extends Pas_Form
 
         // identical field validator with custom messages
         $hash = new Zend_Form_Element_Hash('csrf');
-        $hash->setValue($this->_salt)->setTimeout(60);
+        $hash->setValue($this->_salt);
 
         $password2 = new Zend_Form_Element_Password('password2');
         $password2->setLabel('Confirm password:')
