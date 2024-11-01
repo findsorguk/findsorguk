@@ -46,6 +46,7 @@ class Contacts_CoronersController extends Pas_Controller_Action_Admin
      */
     public function indexAction()
     {
+        // No longer required. See: ticket #114502
     }
 
     /** Render individual coroner profile
