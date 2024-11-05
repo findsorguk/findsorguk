@@ -417,7 +417,6 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
 
                     $recordId = (int) $insert;
 
-
                     $originalRecordData = [];
                     // Since secuid is created during insert, use recordID to indicate the new record in the audit
                     $auditData = array_merge($insertData, ['recordID' => $recordId]);
@@ -688,7 +687,6 @@ class Database_HoardsController extends Pas_Controller_Action_Admin
             throw new Pas_Exception_Param($this->_missingParameter, 500);
         }
     }
-
 
     /** Enter an error report
      *
