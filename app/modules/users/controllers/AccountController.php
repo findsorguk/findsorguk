@@ -228,6 +228,48 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         }
     }
 
+    private function generateActivationKey()
+    {
+        return bin2hex(random_bytes(8));
+    }
+
+    private function generateUrlActivationKey($email, $activationKey)
+    {
+        return urlencode(base64_encode($email . '-' . $activationKey));
+    }
+
+    private function isBase64(string $activationKey)
+    {
+        if ($decodedActivationKey = base64_decode($activationKey, true) === FALSE) {
+            return FALSE;
+        }
+
+        $encoding = mb_detect_encoding($decodedActivationKey);
+        if ($encoding != 'ASCII') {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    /** If the code is a base64 string, attempt to decode to get email and activation key
+     *
+     * @param string $activationKey
+     * @return array
+     */
+    private function decodeActivationKey(string $activationKey): array
+    {
+        if ($this->isBase64($activationKey)) {
+            $decodedActivationKey = base64_decode($activationKey, true);
+            if (substr_count($decodedActivationKey, '-') === 1) {
+                list($decodedEmail, $decodedKey) = explode('-', $decodedActivationKey);
+            }
+        }
+
+        return [
+            'email' => $decodedEmail ?? null,
+            'activationKey' => $decodedKey ?? null,
+        ];
+    }
 
     /** Register for an account
      *
@@ -244,12 +286,6 @@ class Users_AccountController extends Pas_Controller_Action_Admin
             $form = new RegisterForm();
             $this->view->form = $form;
             if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-                $recap = $form->getvalue('g-recaptcha-response');
-                $captcha = $form->getvalue('captcha');
-                $confirmPassword = $form->getvalue('confirmpassword');
-                unset($recap);
-                unset($captcha);
-                unset($confirmPassword);
 
                 $to = array(
                     array(
@@ -257,10 +293,16 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                         'name' => $form->getValue('first_name') . ' ' . $form->getValue('last_name')
                     )
                 );
+
+                //Generate activation key
+                $activationKey = $this->generateActivationKey();
+                $urlActivationKey = $this->generateUrlActivationKey($form->getValue('email'), $activationKey);
+
                 $emailData = array(
                     'email' => $form->getValue('email'),
                     'name' => $form->getValue('first_name') . ' ' . $form->getValue('last_name'),
-                    'activationKey' => md5($form->getValue('username') . $form->getValue('first_name'))
+                    'activationKey' => $activationKey,
+                    'urlActivationKey' => $urlActivationKey
                 );
 
                 $this->_users->register($form->getValues());
@@ -289,13 +331,35 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         $form = new ActivateForm();
         $this->view->form = $form;
 
-        if ($this->getRequest()->isPost() && $form->isValid($this->_request->getPost())) {
-            $this->_users->activate($form->getValues());
-            $this->getFlash()->addMessage('If the details entered are correct, your account has been activated.');
-            $this->redirect('users/account/success/');
-        } else {
-            $form->populate($form->getValues());
-            $this->getFlash()->addMessage('Please review and correct problems');
+
+        if ($this->getRequest()->isGet()) {
+            if ($activationKey = $this->_request->getParam('activationKey')) {
+                $decodeActivationKey = $this->decodeActivationKey($activationKey);
+            }
+
+            if ($decodeActivationKey['email']) {
+                $userData = $this->_users->getUserByUsername($decodeActivationKey['email']);
+            }
+
+            $userData ??= [];
+            //Pre-fill values if exists
+            $this->view->form->setDefaults(
+                array(
+                    'activationKey' => $decodeActivationKey['activationKey'] ?? null,
+                    'email' => $decodeActivationKey['email'] ?? null,
+                    'username' => $userData[0]['username'] ?? null
+                )
+            );
+
+        } elseif ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
+                $this->_users->activate($form->getValues());
+                $this->getFlash()->addMessage('If the details entered are correct, your account has been activated.');
+                $this->redirect('users/account/success/');
+            } else {
+                $form->populate($form->getValues());
+                $this->getFlash()->addMessage('Please review and correct problems');
+            }
         }
     }
 
