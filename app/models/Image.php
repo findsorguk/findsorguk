@@ -1,6 +1,6 @@
 <?php
 
-class image
+class Image
 {
     // This is Q16 (16 bits per pixel) converted to bytes
     public const IMAGEMAGICKBYTES = 8;

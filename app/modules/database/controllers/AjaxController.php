@@ -1012,7 +1012,7 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                 }
 
                 // Prevent adding the image to the slides table, if ImageMagick will not be able to resize the image
-                $imageModel = new image($info['tmp_name']);
+                $imageModel = new Image($info['tmp_name']);
 
                 if (!$imageModel->canFileBeResizedInCacheLimit()) {
                     $maxDimensions = $imageModel->getMaxDimensionsForCacheSize();
