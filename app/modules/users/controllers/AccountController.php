@@ -233,9 +233,11 @@ class Users_AccountController extends Pas_Controller_Action_Admin
         return bin2hex(random_bytes(8));
     }
 
-    private function generateUrlActivationKey($email, $activationKey)
+    private function generateUrlActivationKey($email, $activationKey, $username)
     {
-        return urlencode(base64_encode($email . '-' . $activationKey));
+        $data = json_encode(['e' => $email, 'a' => $activationKey, 'u' => $username]);
+        $base64Data = base64_encode($data);
+        return urlencode($base64Data);
     }
 
     private function isBase64(string $activationKey)
@@ -256,19 +258,22 @@ class Users_AccountController extends Pas_Controller_Action_Admin
      * @param string $activationKey
      * @return array
      */
-    private function decodeActivationKey(string $activationKey): array
+    private function decodeActivationKey(string $activationKey): ?array
     {
         if ($this->isBase64($activationKey)) {
-            $decodedActivationKey = base64_decode($activationKey, true);
-            if (substr_count($decodedActivationKey, '-') === 1) {
-                list($decodedEmail, $decodedKey) = explode('-', $decodedActivationKey);
+            $decodedData = base64_decode(urldecode($activationKey));
+            $data = json_decode($decodedData, true);
+
+            if (json_last_error() === JSON_ERROR_NONE) {
+                return [
+                    'email' => $data['e'] ?? null,
+                    'activationKey' => $data['a'] ?? null,
+                    'username' => $data['u'] ?? null
+                ];
             }
         }
 
-        return [
-            'email' => $decodedEmail ?? null,
-            'activationKey' => $decodedKey ?? null,
-        ];
+        return null;
     }
 
     /** Register for an account
@@ -296,7 +301,7 @@ class Users_AccountController extends Pas_Controller_Action_Admin
 
                 //Generate activation key
                 $activationKey = $this->generateActivationKey();
-                $urlActivationKey = $this->generateUrlActivationKey($form->getValue('email'), $activationKey);
+                $urlActivationKey = $this->generateUrlActivationKey($form->getValue('email'), $activationKey, $form->getValue('username'));
 
                 $emailData = array(
                     'email' => $form->getValue('email'),
@@ -337,17 +342,12 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                 $decodeActivationKey = $this->decodeActivationKey($activationKey);
             }
 
-            if ($decodeActivationKey['email']) {
-                $userData = $this->_users->getUserByUsername($decodeActivationKey['email']);
-            }
-
-            $userData ??= [];
             //Pre-fill values if exists
             $this->view->form->setDefaults(
                 array(
                     'activationKey' => $decodeActivationKey['activationKey'] ?? null,
                     'email' => $decodeActivationKey['email'] ?? null,
-                    'username' => $userData[0]['username'] ?? null
+                    'username' => $decodeActivationKey['username'] ?? null
                 )
             );
 
