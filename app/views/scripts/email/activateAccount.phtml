@@ -6,24 +6,19 @@ $activationLink = $this->serverUrl() . '/users/account/activate';
 </p>
 
 <p>
-    Thank you for registering with the Scheme. By doing so you will get access to
-    enhanced features and if required higher level access.
+    Thank you for registering with the Scheme. By doing so, you will get access to
+    enhanced features, and if required higher level access.
 </p>
 
 <p>
-    To activate your account please go to this link:
+    To activate your account please go to the link <a
+            href="<?php echo $this->serverUrl(); ?>/users/account/activate?activationKey=<?= $this->urlActivationKey ?? '' ?>">here</a>,
+    complete the captcha, and click <strong>"Submit me"</strong>.
 </p>
 
 <p>
-    <a href="<?php echo $this->serverUrl(); ?>/users/account/activate?activationKey=<?= $this->urlActivationKey ?? '' ?>">
-        Activate me
-    </a>
-</p>
-
-<p>
-    Alternatively, visit the link <a href="<?= $activationLink ?>"><?= $activationLink ?></a> and enter the below
-    activation key,
-    your username and email address
+    Alternatively, visit the link <a href="<?= $activationLink ?>"><?= $activationLink ?></a> and enter
+    your username, email address, and activation key (below).
 </p>
 
 <p>
