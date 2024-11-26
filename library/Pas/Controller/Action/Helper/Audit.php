@@ -80,12 +80,13 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
 
         $fieldarray   = array();
         $ix           = 0;
+        $editId = $this->editID();
 
         foreach ($oldData as $field_id => $old_value) {
             $ix++;
             $fieldarray[$ix]['recordID'] = $recordID;
             $fieldarray[$ix]['entityID'] = $entityID;
-            $fieldarray[$ix]['editID'] = $this->editID();
+            $fieldarray[$ix]['editID'] = $editId;
             $fieldarray[$ix]['fieldName'] = $field_id;
             $fieldarray[$ix]['beforeValue'] = $old_value;
 
@@ -103,7 +104,7 @@ class Pas_Controller_Action_Helper_Audit extends Zend_Controller_Action_Helper_A
             $ix++;
             $fieldarray[$ix]['recordID'] = $recordID;
             $fieldarray[$ix]['entityID'] = $entityID;
-            $fieldarray[$ix]['editID'] = $this->editID();
+            $fieldarray[$ix]['editID'] = $editId;
             $fieldarray[$ix]['fieldName'] = $field_id;
             $fieldarray[$ix]['afterValue'] = $new_value;
         }
