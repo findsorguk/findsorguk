@@ -122,11 +122,11 @@ class Database_FindspotsController extends Pas_Controller_Action_Admin
         $findInstitution = $finds->getInstitutionForRecord($findID);
 
         if (empty($findInstitution)) {
-            throw new Pas_Exception("Record $findID has no institution set", 500);
+            throw new Pas_Exception("Record $findID has no institution set", 404);
         }
 
         if (!isset($findInstitution[0]['institution'])) {
-            throw new Pas_Exception("Record $findID has no institution set", 500);
+            throw new Pas_Exception("Record $findID has no institution set", 404);
         }
 
         return $findInstitution[0]['institution'];
