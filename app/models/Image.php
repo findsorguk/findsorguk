@@ -2,11 +2,14 @@
 
 class Image
 {
-    // This is Q16 (16 bits per pixel) converted to bytes
-    public const IMAGEMAGICKBYTES = 8;
-
+    //Default to max 4 channels
+    private const CHANNELS = 4;
+    // HDRI uses 4 bytes per channel
+    private const HDRI_BYTES = 4;
+    // Bytes used per pixel, default Q16 non HDRI ImageMagick bytes
+    public int $imageMagickBytes = 8;
     // Max size of the ImageMagick Cache, this is the combined size of both the disk cache and the memory
-    private int $maxMemoryImageMagickBytes = 2_147_483_648;
+    private int $maxMemoryImageMagickBytes = 2_000_000_000; //Default to 2GB
     private int $width;
     private int $height;
     private string $filePath;
@@ -22,10 +25,58 @@ class Image
     public function __construct(string $filePath)
     {
         $this->filePath = $filePath;
+
+        // Validate the file path
+        if (!is_readable($this->filePath) || !is_file($this->filePath)) {
+            throw new Pas_Exception("The file '{$this->filePath}' was not readable, or is not a file.");
+        }
+
         $dimensions = $this->getImageDimensions();
         $this->width = $dimensions[0];
         $this->height = $dimensions[1];
         $this->mimeType = $this->getMimeType();
+
+        $imagick = new Imagick();
+        $this->getMaxMemoryImageMagickBytes($imagick);
+        $this->getImageMagickBytesPerPixel($imagick);
+    }
+
+    /** Get max ImageMagick cache in bytes
+     * @return void
+     */
+    private function getMaxMemoryImageMagickBytes(Imagick $imagick) {
+        $this->maxMemoryImageMagickBytes = $imagick->getResourceLimit(imagick::RESOURCETYPE_DISK) +
+            $imagick->getResourceLimit(imagick::RESOURCETYPE_MEMORY);
+    }
+
+    /** Get max ImageMagick bytes per pixel
+     * Assume all 4 channels are used
+     * @return void
+     */
+    private function getImageMagickBytesPerPixel(Imagick $imagick) {
+        $versionInfo = $imagick->getVersion();
+        if (!isset($versionInfo['versionString'])) {
+            throw new Pas_Exception('No version information returned from ImageMagick');
+        }
+
+        $versionString = $versionInfo['versionString'];
+        if (empty($versionString)) {
+            throw new Pas_Exception('No ImageMagick version string returned');
+        }
+
+        $hdriEnabled = strpos($versionString, 'HDRI') !== false;
+
+        if (strpos($versionString, 'Q16') !== false) {
+            $this->imageMagickBits = 16 * self::CHANNELS;
+        } elseif (strpos($versionString, 'Q8') !== false) {
+            $this->imageMagickBits  = 8 * self::CHANNELS;
+        }
+
+        if ($hdriEnabled) {
+            $this->imageMagickBytes = $this->imageMagickBits  / 8 * self::HDRI_BYTES;
+        } else {
+            $this->imageMagickBytes = $this->imageMagickBits  / 8;
+        }
     }
 
     private function getMaxImageDimensions(): int
@@ -48,10 +99,6 @@ class Image
      */
     public function getImageDimensions(): array
     {
-        if (!is_readable($this->filePath) || !is_file($this->filePath)) {
-            throw new Pas_Exception("The temporary file '{$this->filePath}' was not readable, or is not a file.");
-        }
-
         // Get the size of the image
         $imageInfo = @getimagesize($this->filePath);
         if (!$imageInfo) {
@@ -68,7 +115,6 @@ class Image
     }
 
     /** Get mime type from file
-     * @param string $filePath
      * @return string
      */
     public function getMimeType(): string
@@ -77,13 +123,11 @@ class Image
     }
 
     /** Calculate the number of bytes that the image will take up in memory to resize
-     * @param int $width
-     * @param int $height
      * @return float|int
      */
     public function getBytesNeededToResizeImage()
     {
-        return $this->width * $this->height * self::IMAGEMAGICKBYTES;
+        return $this->width * $this->height * $this->imageMagickBytes;
     }
 
     /** Checks if the file can be resized within the cache limit for ImageMagick
