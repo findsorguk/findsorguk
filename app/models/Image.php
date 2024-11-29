@@ -37,25 +37,28 @@ class Image
         $this->mimeType = $this->getMimeType();
 
         $imagick = new Imagick();
-        $this->getMaxMemoryImageMagickBytes($imagick);
-        $this->getImageMagickBytesPerPixel($imagick);
+        $this->maxMemoryImageMagickBytes = $this->getMaxMemoryImageMagickBytes($imagick);
+        $this->imageMagickBytes = $this->getImageMagickBytesPerPixel($imagick);
     }
 
     /** Get max ImageMagick cache in bytes
-     * @return void
+     * @return int
      */
-    private function getMaxMemoryImageMagickBytes(Imagick $imagick) {
-        $this->maxMemoryImageMagickBytes = $imagick->getResourceLimit(imagick::RESOURCETYPE_DISK) +
+    private function getMaxMemoryImageMagickBytes(Imagick $imagick): int
+    {
+        return $imagick->getResourceLimit(imagick::RESOURCETYPE_DISK) +
             $imagick->getResourceLimit(imagick::RESOURCETYPE_MEMORY);
     }
 
     /** Get max ImageMagick bytes per pixel
      * Assume all 4 channels are used
-     * @return void
+     * @return int
+     * @throws Pas_Exception
      */
-    private function getImageMagickBytesPerPixel(Imagick $imagick) {
+    private function getImageMagickBytesPerPixel(Imagick $imagick): int
+    {
         $versionInfo = $imagick->getVersion();
-        if (!isset($versionInfo['versionString'])) {
+        if (empty($versionInfo['versionString'])) {
             throw new Pas_Exception('No version information returned from ImageMagick');
         }
 
@@ -67,15 +70,17 @@ class Image
         $hdriEnabled = strpos($versionString, 'HDRI') !== false;
 
         if (strpos($versionString, 'Q16') !== false) {
-            $this->imageMagickBits = 16 * self::CHANNELS;
+            $imageMagickBits = 16 * self::CHANNELS;
         } elseif (strpos($versionString, 'Q8') !== false) {
-            $this->imageMagickBits  = 8 * self::CHANNELS;
+            $imageMagickBits = 8 * self::CHANNELS;
+        } else {
+            throw new Pas_Exception('Unknown ImageMagick bit depth');
         }
 
         if ($hdriEnabled) {
-            $this->imageMagickBytes = $this->imageMagickBits  / 8 * self::HDRI_BYTES;
+            return $imageMagickBits / 8 * self::HDRI_BYTES;
         } else {
-            $this->imageMagickBytes = $this->imageMagickBits  / 8;
+            return $imageMagickBits / 8;
         }
     }
 
