@@ -101,12 +101,12 @@ class Image
     {
         // Get the size of the image
         $imageInfo = @getimagesize($this->filePath);
-        if (!$imageInfo) {
+        if (!$imageInfo || !is_array($imageInfo)) {
             throw new Pas_Exception("Could not get image size for the file '{$this->filePath}'.");
         }
 
         // As per https://www.php.net/manual/en/function.getimagesize.php, width and height may return 0 in some cases
-        if ($imageInfo[0] == 0 || $imageInfo[1] == 0) {
+        if (!isset($imageInfo[0], $imageInfo[1]) || $imageInfo[0] == 0 || $imageInfo[1] == 0) {
             throw new Pas_Exception("Cannot read valid image height and or width for the file '{$this->filePath}'. 
         Please ensure file contains a single image.");
         }
