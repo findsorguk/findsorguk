@@ -930,21 +930,17 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
      */
     public function uploadAction()
     {
-        if ($this->_request->isOptions()) {
+        if ($this->_request->isOptions() || $this->_request->isGet()) {
             $this->upload();
+            return;
         }
         if ($this->_request->isPost()) {
             if ($message = $this->upload()) {
                 echo $message; //Return message to script/client such as error messages
             }
+            return;
         }
-        if ($this->_request->isGet()) {
-            $this->upload();
-        }
-        if (
-            $this->_request->isDelete()
-            || $_SERVER['REQUEST_METHOD'] == 'DELETE'
-        ) {
+        if ($this->_request->isDelete() || $_SERVER['REQUEST_METHOD'] == 'DELETE') {
             $this->delete();
         }
     }
