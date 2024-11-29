@@ -154,7 +154,7 @@ class Image
         $percentBigger = ($this->getMaxImageDimensions() / $imageSize);
 
         if ($percentBigger <= 1) {
-            # Calculate the new dimensions while maintaining the aspect ratio
+            // Calculate the new dimensions while maintaining the aspect ratio
             $maxWidth = (int)($this->width * $percentBigger);
             $maxHeight = (int)($this->height * $percentBigger);
 
