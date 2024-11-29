@@ -63,10 +63,6 @@ class Image
         }
 
         $versionString = $versionInfo['versionString'];
-        if (empty($versionString)) {
-            throw new Pas_Exception('No ImageMagick version string returned');
-        }
-
         $hdriEnabled = strpos($versionString, 'HDRI') !== false;
 
         if (strpos($versionString, 'Q16') !== false) {
@@ -157,7 +153,7 @@ class Image
         $imageSize = $this->getBytesNeededToResizeImage();
         $percentBigger = ($this->getMaxImageDimensions() / $imageSize);
 
-        if ($percentBigger < 1) {
+        if ($percentBigger <= 1) {
             # Calculate the new dimensions while maintaining the aspect ratio
             $maxWidth = (int)($this->width * $percentBigger);
             $maxHeight = (int)($this->height * $percentBigger);
