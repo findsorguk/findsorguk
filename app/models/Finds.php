@@ -3231,7 +3231,7 @@ class Finds extends Pas_Db_Table_Abstract
     /** Get institution for single record
      *
      * @access public
-     * @param integer $findID
+     * @param integer $findID The ID of the find record
      * @return array
      */
     public function getInstitutionForRecord(int $findID)
