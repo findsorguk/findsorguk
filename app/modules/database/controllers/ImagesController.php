@@ -362,7 +362,7 @@ class Database_ImagesController extends Pas_Controller_Action_Admin
         $this->view->recordtype = $this->getParam('recordtype');
         $maxImageSizeBytes = $this->maxUploadSizeBytes();
         $this->view->maxImageSizeBytes = $maxImageSizeBytes;
-        $this->view->maxImageSizeMB = $maxImageSizeBytes / 1048576;
+        $this->view->maxImageSizeMB = $maxImageSizeBytes / (1024 * 1024); //Bytes to MB
     }
 
 
