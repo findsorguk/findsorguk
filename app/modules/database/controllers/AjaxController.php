@@ -949,6 +949,22 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
         }
     }
 
+    private function getMaxSizeErrorMessage(Image $image)
+    {
+        $maxDimensions = $image->getMaxDimensionsForCacheSize();
+        return json_encode([
+            'files' => [
+                [
+                    'error' => sprintf(
+                        'File dimensions too large, please lower the width/height to %d x %d.',
+                        $maxDimensions['width'],
+                        $maxDimensions['height']
+                    ),
+                ],
+            ],
+        ]);
+    }
+
     /** Function for performing upload of files
      *
      * @access public
@@ -1011,19 +1027,9 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
                     throw new Pas_Exception('Cannot find old Find ID', 500);
                 }
 
-                // Prevent adding the image to the slides table, if ImageMagick will not be able to resize the image
                 $imageModel = new Image($info['tmp_name']);
-
                 if (!$imageModel->canFileBeResizedInCacheLimit()) {
-                    $maxDimensions = $imageModel->getMaxDimensionsForCacheSize();
-
-                    return '{"files": [
-                      {
-                        "error": "File dimensions too large, please lower the width/height to '
-                        . $maxDimensions['width']
-                        . ' x ' . $maxDimensions['height'] . '."
-                      }
-                    ]}';
+                    return $this->getMaxSizeErrorMessage($imageModel);
                 }
 
                 $cleaned = uniqid($oldFindID . '_', false) . '.' . strtolower($filename['extension']);
