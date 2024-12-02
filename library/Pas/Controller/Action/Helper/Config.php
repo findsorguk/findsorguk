@@ -40,4 +40,36 @@ class Pas_Controller_Action_Helper_Config extends Zend_Controller_Action_Helper_
     {
         return $this->_getConfig();
     }
+
+    /** Returns the value of a config key
+     *
+     * @param string ...$keys
+     * @return object The value of the key
+     * @throws Zend_Exception If the key does not exist
+     */
+    public function getValue(string ...$keys): string
+    {
+        $configArray = $this->_getConfig()->toArray();
+
+        foreach ($keys as $key) {
+            if (!array_key_exists($key, $configArray)) {
+                throw new InvalidArgumentException(
+                    "invalid key provided, or key does not exist: $key"
+                );
+            }
+
+            $configArray = $configArray[$key];
+        }
+
+        if (!is_string($configArray)) {
+            throw new Zend_Exception("The value is not a string");
+        }
+
+        return $configArray;
+    }
+
+    public function getWebserviceValue(string ...$keys): string
+    {
+        return $this->getValue('webservice', ...$keys);
+    }
 }

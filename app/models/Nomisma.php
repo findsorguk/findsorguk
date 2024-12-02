@@ -22,13 +22,20 @@
 class Nomisma
 {
 
-    private const MONTH_IN_SECONDS = 2629800;
+    private int $cacheTimeout;
 
     /** The cache object
      * @var  $_cache
      * @access protected
      */
     protected $_cache;
+    private $config;
+
+    public function __construct()
+    {
+        $this->config = $this->_helper->Config;
+        $this->cacheTimeout = $this->_helper->Config->get('settings', 'application', 'nomisma', 'cache');
+    }
 
     /** A method to turn RRC rdf into dropdowns in the format of id and term pairs
      * @access public
@@ -38,9 +45,12 @@ class Nomisma
     {
         $rrcTypes = $this->getRRCTypes($identifier);
         $dropDown = array();
+        $url = $this->config->getWebserviceValue('numismatics', 'src') .
+            $this->config->getWebserviceValue('numismatics', 'rrc');
+
         foreach ($rrcTypes as $rrcType) {
             $dropDown[] = array(
-                'id' => str_replace('http://numismatics.org/crro/id/', '', $rrcType->type->__toString()),
+                'id' => str_replace($url, '', $rrcType->type->__toString()),
                 'term' => $rrcType->label->__toString()
             );
         }
@@ -56,9 +66,12 @@ class Nomisma
     {
         $rrcTypes = $this->getRRCTypes($identifier);
         $dropDown = array();
+        $url = $this->config->getWebserviceValue('numismatics', 'src') .
+            $this->config->getWebserviceValue('numismatics', 'ric');
+
         foreach ($rrcTypes as $rrcType) {
             $dropDown[] = array(
-                'id' => str_replace('http://numismatics.org/ocre/id/', '', $rrcType->type->__toString()),
+                'id' => str_replace($url, '', $rrcType->type->__toString()),
                 'term' => $rrcType->label->__toString()
             );
         }
@@ -95,8 +108,8 @@ class Nomisma
                 'timeout' => 3, // seconds
             ]
         ]);
-        $checkHeaders = get_headers('http://nomisma.org/apis');
-
+        $url = $this->config->getWebserviceValue('nomisma', 'src') . $this->config->getWebserviceValue('nomisma', 'api');
+        $checkHeaders = get_headers($url);
 
         if (preg_match('/(2|3)[0-9][0-9]/', $checkHeaders[0]) == false) {
             $this->sendErrorEmail('Nomisma did not return status code 200/400', 'HTTP response code');
@@ -113,14 +126,17 @@ class Nomisma
     public function getRRCTypes($identifier)
     {
         $key = md5($identifier . 'rrcTypes');
+        $nomismaSrc = $this->config->getWebserviceValue('nomisma', 'src');
+        $w3Src = $this->config->getWebserviceValue('w3', 'src');
         if (!($this->getCache()->test($key))) {
             //Add the namespaces needed to parse the query
-            \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
-            \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
-            \EasyRdf\RdfNamespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
-            \EasyRdf\RdfNamespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+            \EasyRdf\RdfNamespace::set('nm', $nomismaSrc . $this->config->getWebserviceValue('nomisma', 'nm'));
+            \EasyRdf\RdfNamespace::set('nmo', $nomismaSrc . $this->config->getWebserviceValue('nomisma', 'nmo'));
+            \EasyRdf\RdfNamespace::set('skos', $w3Src . $this->config->getWebserviceValue('w3', 'skos'));
+            \EasyRdf\RdfNamespace::set('rdf', $w3Src . $this->config->getWebserviceValue('w3', 'rdf'));
             try {
-                $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
+                $sparqlUri = $nomismaSrc . $this->config->getWebserviceValue('nomisma', 'query');
+                $sparql = new Pas_RDF_EasyRdf_Client($sparqlUri);
                 $data = $sparql->query(
                     'SELECT * WHERE {' .
                     '  ?type ?role nm:' . $identifier . ' ;' .
@@ -130,7 +146,7 @@ class Nomisma
                     '  OPTIONAL {?type nmo:hasStartDate ?startDate}' .
                     '  OPTIONAL {?type nmo:hasEndDate ?endDate}' .
                     ' } ORDER BY ?label');
-                $this->getCache()->save($data, $key, array('RRC'), self::MONTH_IN_SECONDS);
+                $this->getCache()->save($data, $key, array('RRC'), $this->cacheTimeout);
             } catch (Exception $e) {
                 $this->sendErrorEmail($e, 'RRC');
             }
@@ -159,8 +175,10 @@ class Nomisma
     {
         $ricTypes = $this->getRICTypes($identifier);
         $dropDown = array();
+        $url = $this->config->getWebserviceValue('nomisma', 'src') . $this->config->getWebserviceValue('nomisma', 'ric');
         foreach ($ricTypes as $ricType) {
-            $dropDown[str_replace('http://numismatics.org/ocre/id/', '', $ricType->type->__toString())] = $ricType->label->__toString();
+            $dropDown[str_replace($url,
+                '', $ricType->type->__toString())] = $ricType->label->__toString();
         }
         return $dropDown;
     }
@@ -172,14 +190,18 @@ class Nomisma
     public function getRICTypes($identifier)
     {
         $key = md5($identifier . 'ricTypes');
+        $nomismaSrc = $this->config->getWebserviceValue('nomisma', 'src');
+        $w3Src = $this->config->getWebserviceValue('w3', 'src');
+
         if (!($this->getCache()->test($key))) {
             //Add the namespaces needed to parse the query
-            \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
-            \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
-            \EasyRdf\RdfNamespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
-            \EasyRdf\RdfNamespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+            \EasyRdf\RdfNamespace::set('nm', $nomismaSrc . $this->config->getWebserviceValue('nomisma', 'nm'));
+            \EasyRdf\RdfNamespace::set('nmo', $nomismaSrc . $this->config->getWebserviceValue('nomisma', 'nmo'));
+            \EasyRdf\RdfNamespace::set('skos', $w3Src . $this->config->getWebserviceValue('w3', 'skos'));
+            \EasyRdf\RdfNamespace::set('rdf', $w3Src . $this->config->getWebserviceValue('w3', 'rdf'));
             try {
-                $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
+                $sparqlUri = $nomismaSrc . $this->config->getWebserviceValue('nomisma', 'query');
+                $sparql = new Pas_RDF_EasyRdf_Client($sparqlUri);
                 $data = $sparql->query(
                     'SELECT * WHERE {' .
                     '  ?type ?role nm:' . $identifier . ' ;' .
@@ -190,7 +212,7 @@ class Nomisma
                     '  FILTER(langMatches(lang(?label), "en"))' .
                     ' } ORDER BY ?label'
                 );
-                $this->getCache()->save($data, $key, array('RIC'), self::MONTH_IN_SECONDS);
+                $this->getCache()->save($data, $key, array('RIC'), $this->cacheTimeout);
             } catch (Exception $e) {
                 $this->sendErrorEmail($e, 'RIC');
             }
@@ -208,8 +230,10 @@ class Nomisma
     {
         $rrcTypes = $this->getRRCTypes($identifier);
         $dropDown = array();
+        $url = $this->config->getWebserviceValue('numismatics', 'src') .
+            $this->config->getWebserviceValue('numismatics', 'rrc');
         foreach ($rrcTypes as $rrcType) {
-            $dropDown[str_replace('http://numismatics.org/crro/id/', '', $rrcType->type->__toString())] = $rrcType->label->__toString();
+            $dropDown[str_replace($url, '', $rrcType->type->__toString())] = $rrcType->label->__toString();
         }
         return $dropDown;
     }
@@ -221,6 +245,9 @@ class Nomisma
     public function checkType($identifier)
     {
         $key = md5($identifier . 'CheckRrcTypes');
+        $nomismaSrc = $this->config->getWebserviceValue('nomisma', 'src');
+        $w3Src = $this->config->getWebserviceValue('w3', 'src');
+
         if (!($this->getCache()->test($key))) {
             $client = new  \Zend\Http\Client(
                 null,
@@ -232,11 +259,13 @@ class Nomisma
             );
             $client->setHeaders(array('accept' => 'application/sparql-results+xml'));
             \EasyRdf\Http::setDefaultHttpClient($client);
-            \EasyRdf\RdfNamespace::set('nm', 'http://nomisma.org/id/');
-            \EasyRdf\RdfNamespace::set('nmo', 'http://nomisma.org/ontology#');
-            \EasyRdf\RdfNamespace::set('skos', 'http://www.w3.org/2004/02/skos/core#');
-            \EasyRdf\RdfNamespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-            $sparql = new Pas_RDF_EasyRdf_Client('http://nomisma.org/query');
+            \EasyRdf\RdfNamespace::set('nm', $nomismaSrc . $this->config->getWebserviceValue('nomisma', 'nm'));
+            \EasyRdf\RdfNamespace::set('nmo', $nomismaSrc . $this->config->getWebserviceValue('nomisma', 'nmo'));
+            \EasyRdf\RdfNamespace::set('skos', $w3Src . $this->config->getWebserviceValue('w3', 'skos'));
+            \EasyRdf\RdfNamespace::set('rdf', $w3Src . $this->config->getWebserviceValue('w3', 'rdf'));
+
+            $sparqlUri = $nomismaSrc . $this->config->getWebserviceValue('nomisma', 'query');
+            $sparql = new Pas_RDF_EasyRdf_Client($sparqlUri);
             $data = $sparql->query(
                 'SELECT * WHERE {' .
                 '  ?type ?role nm:' . $identifier . ' ;' .
