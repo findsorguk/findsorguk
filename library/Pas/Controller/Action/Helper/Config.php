@@ -1,14 +1,14 @@
 <?php
 /** An action helper for accessing the config object
- * 
+ *
  * An example of code use:
- * 
+ *
  * <code>
  * <?php
  * $this->view->delicious = $this->_helper->Config()->webservice->delicious;
  * ?>
  * </code>
- * 
+ *
  * @author Daniel Pett <dpett at britishmuseum.org>
  * @copyright (c) 2014 Daniel Pett
  * @category Pas
@@ -19,21 +19,25 @@
  * @example /app/modules/about/controllers/VacanciesController.php
  * @license http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero GPL v3.0
  */
-class Pas_Controller_Action_Helper_Config extends Zend_Controller_Action_Helper_Abstract {
-   
+class Pas_Controller_Action_Helper_Config extends Zend_Controller_Action_Helper_Abstract
+{
     /** get the config object
      * @access public
      * @return \Zend_Config
+     * @throws Zend_Exception
      */
-    public function _getConfig(){
+    public function _getConfig()
+    {
         return Zend_Registry::get('config');
     }
-    
+
     /** Proxy method for accessing the config helper
      * @access public
      * @return \Zend_Config
+     * @throws Zend_Exception
      */
-    public function direct(){
-        return $this->_getConfig(); 
+    public function direct()
+    {
+        return $this->_getConfig();
     }
 }
