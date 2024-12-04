@@ -25,7 +25,7 @@ $(document).ready(function() {
 	   getTileUrl: function(tile, zoom) { return NLSTileUrlOS(tile.x, tile.y, zoom); },
 	   tileSize: new google.maps.Size(256, 256),
 	   isPng: false,
-	   maxZoom: 14,
+	   maxZoom: 8,
 	   minZoom: 1,
 	   name: 'Historic',
 	   alt: "NLS Historic Map"
@@ -38,12 +38,15 @@ $(document).ready(function() {
         isPng: true,
         alt: "OpenStreetMap layer",
         name: "OSM",
-        maxZoom: 18
+        maxZoom: 8,
+        minZoom: 1,
     });
 
     var myOptions = {
           center: new google.maps.LatLng( 53.2,-3.1),
           zoom: 6,
+          maxZoom: 8,
+          minZoom: 1,
           mapTypeControlOptions: {
           mapTypeIds: [
 

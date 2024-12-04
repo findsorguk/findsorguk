@@ -42,7 +42,8 @@ $(document).ready(function() {
         isPng: true,
         alt: "OpenStreetMap layer",
         name: "OSM",
-        maxZoom: 8
+        maxZoom: 8,
+        minZoom: 1,
     });
 
 
@@ -50,6 +51,8 @@ $(document).ready(function() {
     var myOptions = {
           center: new google.maps.LatLng( 53.2,-3.1),
           zoom: 6,
+          maxZoom: 8,
+          minZoom: 1,
           mapTypeControlOptions: {
           mapTypeIds: [
 
