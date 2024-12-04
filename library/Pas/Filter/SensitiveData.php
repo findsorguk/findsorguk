@@ -132,4 +132,43 @@ class Pas_Filter_SensitiveData
             array_flip($filterFields)
         );
     }
+
+    /**
+     * Anonymize geo data by setting lat/long to four figure variant
+     *
+     * @return array
+     */
+    public function reduceGeoPrecision(array $data = null): array
+    {
+        if ($data !== null) {
+            $this->data = $data;
+        }
+
+        if ($this->userPermissions->canRole(UserPermissions::VIEW_KNOWN_AS_GEO_DATA)) {
+            // Remove the original four figure coordinates
+            // Loop through each record
+            foreach ($this->data as &$record) {
+                unset($record['fourFigureLat'], $record['fourFigureLon']);
+            }
+            return $this->data;
+        }
+
+        // Loop through each record
+        foreach ($this->data as &$record) {
+            // If fourFigure Lat/Long does not exist, remove lat/long.
+            if (!isset($record['fourFigureLat']) || !isset($record['fourFigureLon'])) {
+                unset($record['latitude'], $record['longitude']);
+                continue;
+            }
+
+            // Set lat/long to fourFigure
+            $record['latitude'] = $record['fourFigureLat'];
+            $record['longitude']  = $record['fourFigureLon'];
+
+            // Remove the original four figure coordinates
+            unset($record['fourFigureLat'], $record['fourFigureLon']);
+        }
+
+        return $this->data;
+    }
 }

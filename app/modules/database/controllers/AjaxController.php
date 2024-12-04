@@ -477,11 +477,15 @@ class Database_AjaxController extends Pas_Controller_Action_Ajax
             'thumbnail',
             'objecttype',
             'secwfstage',
-            'findIdentifier'
+            'findIdentifier',
+            'fourFigureLat',
+            'fourFigureLon'
         ));
         $search->setParams($params);
         $search->execute();
-        $this->view->results = $search->processResults();
+        $data = $search->processResults();
+        $clean = (new Pas_Filter_SensitiveData())->reduceGeoPrecision($data);
+        $this->view->results = $clean;
         $this->getResponse()->setHeader('Content-type', 'text/xml');
     }
 
