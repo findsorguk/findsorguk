@@ -33,8 +33,8 @@ class Nomisma
 
     public function __construct()
     {
-        $this->config = $this->_helper->Config;
-        $this->cacheTimeout = $this->_helper->Config->get('settings', 'application', 'nomisma', 'cache');
+        $this->config = new Pas_Controller_Action_Helper_Config();
+        $this->cacheTimeout = $this->config->getValue('settings', 'application', 'nomisma', 'cache');
     }
 
     /** A method to turn RRC rdf into dropdowns in the format of id and term pairs
@@ -175,7 +175,7 @@ class Nomisma
     {
         $ricTypes = $this->getRICTypes($identifier);
         $dropDown = array();
-        $url = $this->config->getWebserviceValue('nomisma', 'src') . $this->config->getWebserviceValue('nomisma', 'ric');
+        $url = $this->config->getWebserviceValue('numismatics', 'src') . $this->config->getWebserviceValue('numismatics', 'ric');
         foreach ($ricTypes as $ricType) {
             $dropDown[str_replace($url,
                 '', $ricType->type->__toString())] = $ricType->label->__toString();
