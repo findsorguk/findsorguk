@@ -310,7 +310,10 @@ class Users_AccountController extends Pas_Controller_Action_Admin
                     'urlActivationKey' => $urlActivationKey
                 );
 
-                $this->_users->register($form->getValues());
+                $formValues = $form->getValues();
+                $formValues['activationKey'] = $activationKey;
+
+                $this->_users->register($formValues);
                 $this->_helper->mailer($emailData, 'activateAccount', $to);
                 $this->getFlash()->addMessage('Your account has been created. Please check your email.');
                 $this->redirect('/users/account/activate/');
