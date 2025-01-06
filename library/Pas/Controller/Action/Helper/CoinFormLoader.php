@@ -87,6 +87,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
                 $this->_view->headTitle('Add a Roman coin\'s details');
                 $this->_view->jQuery()->addJavascriptFile($this->_view->baseUrl()
                     . '/js/JQuery/coinslinkedinit.js', $type = 'text/javascript');
+                $this->initNomismaDropdowns($form);
                 break;
             case 'IRON AGE':
                 $form = new IronAgeCoinForm();
@@ -133,7 +134,6 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
             default:
                 throw new Exception('You cannot have a coin for that period.');
         }
-        $this->initNomismaDropdowns($form);
         return $form;
     }
 
@@ -158,7 +158,7 @@ class Pas_Controller_Action_Helper_CoinFormLoader extends Zend_Controller_Action
         $errorMessageNomisma = 'Nomisma - the third party data source - is ' .
             'currently unavailable. Please try again later';
 
-        if ($rrcTypes->getStatusNomisma() == false) {
+        if (isset($form->rrcID, $form->ricID) && $rrcTypes->getStatusNomisma() == false) {
             $this->setFormDisabled($form->rrcID, $errorMessageNomisma);
             $this->setFormDisabled($form->ricID, $errorMessageNomisma);
         }
