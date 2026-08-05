@@ -1,5 +1,13 @@
 # The Portable Antiquities Scheme's Database source code
 
+> [!WARNING]  
+> This version of the The Portable Antiquities Software (PAS) is now archived and ceases to be maintained. You are strongly recommended to not use this software or these repositories going forwards.
+>
+> The replacement website is still live and at the same address [address](https://finds.org.uk). 
+>
+> Please do consider registering for the site and record any suitable finds you may discover - they are always very welcome.
+> Thank you!
+
 [![DOI](https://zenodo.org/badge/19055/findsorguk/findsorguk.svg)](https://zenodo.org/badge/latestdoi/19055/findsorguk/findsorguk) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![Scheme logo](https://avatars3.githubusercontent.com/u/4288770?v=3&s=200)
